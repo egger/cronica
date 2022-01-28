@@ -69,8 +69,8 @@
 		B86E586E27A46A5E005DBF38 /* InformationBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationBoxView.swift */; };
 		B86E587027A4842A005DBF38 /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
 		B86E587127A4842A005DBF38 /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
-		B86E587327A48B8B005DBF38 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587227A48B8B005DBF38 /* Key.swift */; };
-		B86E587427A48B8B005DBF38 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587227A48B8B005DBF38 /* Key.swift */; };
+		B86E587927A48E5A005DBF38 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
+		B86E587A27A48E5A005DBF38 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
 		B87B5CBA2798D81C00632648 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87B5CB92798D81C00632648 /* NetworkError.swift */; };
 		B87B5CBB2798D81C00632648 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87B5CB92798D81C00632648 /* NetworkError.swift */; };
 		B87B5CC0279904C600632648 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87B5CBF279904C600632648 /* ItemView.swift */; };
@@ -130,7 +130,7 @@
 		B86E586927A4686E005DBF38 /* MovieImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieImageView.swift; sourceTree = "<group>"; };
 		B86E586C27A46A5E005DBF38 /* InformationBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationBoxView.swift; sourceTree = "<group>"; };
 		B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataFetchPhase.swift; path = Shared/Network/DataFetchPhase.swift; sourceTree = SOURCE_ROOT; };
-		B86E587227A48B8B005DBF38 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		B86E587827A48E5A005DBF38 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		B87B5CB92798D81C00632648 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		B87B5CBF279904C600632648 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemView.swift; path = Shared/View/Watchlist/ItemView.swift; sourceTree = SOURCE_ROOT; };
 		B87B5CC2279998F100632648 /* CastDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsView.swift; sourceTree = "<group>"; };
@@ -301,7 +301,7 @@
 			children = (
 				B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */,
 				B8110F262793439A00844FEB /* ApiConstants.swift */,
-				B86E587227A48B8B005DBF38 /* Key.swift */,
+				B86E587827A48E5A005DBF38 /* Key.swift */,
 				B840D2C1279A29CD00A07C71 /* MovieEndpoints.swift */,
 				B840D2BE279A0C4200A07C71 /* NetworkService.swift */,
 				B840D2DC279BB5A900A07C71 /* ApiService.swift */,
@@ -479,7 +479,7 @@
 				B87B5CC0279904C600632648 /* ItemView.swift in Sources */,
 				B86E586A27A4686E005DBF38 /* MovieImageView.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
-				B86E587327A48B8B005DBF38 /* Key.swift in Sources */,
+				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B82C267A2795E33900259D98 /* PosterView.swift in Sources */,
 				B840D2CB279B248400A07C71 /* Cast.swift in Sources */,
 				B840D2D7279B254000A07C71 /* ProductionCompany.swift in Sources */,
@@ -538,7 +538,7 @@
 				B8110F3D279364C800844FEB /* Util.swift in Sources */,
 				B8110F282793439A00844FEB /* ApiConstants.swift in Sources */,
 				B840D2D5279B24F200A07C71 /* Genre.swift in Sources */,
-				B86E587427A48B8B005DBF38 /* Key.swift in Sources */,
+				B86E587A27A48E5A005DBF38 /* Key.swift in Sources */,
 				B840D2CF279B24C900A07C71 /* Credits.swift in Sources */,
 				B8423E302793B61B0012259B /* CardView.swift in Sources */,
 				B82C26932796452A00259D98 /* MoviesPreview.swift in Sources */,
