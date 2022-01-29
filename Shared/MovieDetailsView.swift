@@ -17,6 +17,7 @@ struct MovieDetailsView: View {
                 DetailsBodyView(movie: movie)
             }
         }
+        .navigationTitle(movieTitle)
         .task {
             load()
         }
@@ -31,8 +32,45 @@ struct MovieDetailsView: View {
     }
 }
 
-//struct MovieDetailsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MovieDetailsView()
-//    }
-//}
+struct MovieDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailsBodyView(movie: Movie.previewMovie)
+    }
+}
+
+
+struct DetailsBodyView: View {
+    let movie: Movie
+    let generator = UIImpactFeedbackGenerator(style: .medium)
+    var body: some View {
+        ScrollView {
+            VStack {
+                DetailsImageView(image: movie.backdropImage,
+                                 placeholderTitle: movie.title)
+                HStack {
+                    Button {
+                        generator.impactOccurred(intensity: 1.0)
+                    } label: {
+                        Label("Add to watchlist", systemImage: "bell.square")
+                            .padding(.horizontal)
+                    }
+                    .foregroundColor(.primary)
+                    .buttonStyle(.bordered)
+                    Button {
+                        generator.impactOccurred(intensity: 1.0)
+                    } label: {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                            .padding(.horizontal)
+                    }
+                    .foregroundColor(.primary)
+                    .buttonStyle(.bordered)
+                }
+                OverviewBoxView(overview: movie.overview)
+                Divider()
+                    .padding(.horizontal)
+                InformationBoxView(movie: movie)
+                    .padding(.top)
+            }
+        }
+    }
+}

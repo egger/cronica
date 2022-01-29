@@ -21,10 +21,10 @@ struct OverlayView<T: EmptyData>: View {
             case .empty:
                 ProgressView(title)
                     .padding()
-//            case .success(let value) where value.isEmpty:
-//                Text("Something went wrong, try again later.")
-//                    .font(.title)
-//                    .padding()
+            case .success(let value) where value.isEmpty:
+                Text("Something went wrong, try again later.")
+                    .font(.title)
+                    .padding()
             case .failure(let error):
                 RetryView(text: error.localizedDescription, retryAction: retry)
             default:

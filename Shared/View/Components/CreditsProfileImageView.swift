@@ -1,18 +1,21 @@
 //
-//  CastOverviewView.swift
+//  CreditsProfileImageView.swift
 //  Story
 //
-//  Created by Alexandre Madeira on 14/01/22.
+//  Created by Alexandre Madeira on 29/01/22.
 //
 
 import SwiftUI
 
-struct CastOverviewView: View {
-    let cast: Cast
+struct CreditsProfileImageView: View {
+    let url: URL
+    let name: String
+    let job: String?
+    let character: String?
     var body: some View {
         VStack {
-            AsyncImage(url: cast.profileImage) { content in
-                content
+            AsyncImage(url: url) { image in
+                image
                     .resizable()
                     .scaledToFill()
                     .frame(width: DrawingConstants.profileWidth,
@@ -24,12 +27,11 @@ struct CastOverviewView: View {
                             radius: DrawingConstants.shadowRadius)
             } placeholder: {
                 ProgressView()
-                    .padding()
             }
-            Text(cast.name)
+            Text(name)
                 .fontWeight(.semibold)
                 .padding(.top, -6)
-            Text(cast.character ?? "")
+            Text((job ?? character) ?? "")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.top, 1)
@@ -37,9 +39,9 @@ struct CastOverviewView: View {
     }
 }
 
-struct CastOverviewView_Previews: PreviewProvider {
+struct CreditsProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CastOverviewView(cast: Movie.previewCast)
+        CreditsProfileImageView(url: Credits.previewCast.profileImage, name: Credits.previewCast.name, job: nil, character: Credits.previewCast.character)
     }
 }
 

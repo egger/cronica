@@ -10,6 +10,7 @@ import SwiftUI
 struct CardView: View {
     let title: String
     let url: URL
+    
     var body: some View {
         ZStack {
             ImageView(url: url, title: title)

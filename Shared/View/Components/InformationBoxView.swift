@@ -11,9 +11,13 @@ struct InformationBoxView: View {
     let movie: Movie
     var body: some View {
         GroupBox {
-            VStack {
-                
+            InformationSectionView(title: "Run Time", content: movie.movieRuntime)
+            if movie.status == "Released" {
+                InformationSectionView(title: "Released", content: movie.releaseYear)
+            } else {
+                InformationSectionView(title: "Release Date", content: "")
             }
+            
         } label: {
             Label("Information", systemImage: "info")
                 .textCase(.uppercase)
@@ -26,5 +30,21 @@ struct InformationBoxView: View {
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
         InformationBoxView(movie: Movie.previewMovie)
+    }
+}
+
+struct InformationSectionView: View {
+    let title: String
+    let content: String
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(title)
+                Text(content)
+                    .foregroundColor(.secondary)
+            }
+            Spacer()
+        }
+        .padding([.horizontal, .top], 2)
     }
 }

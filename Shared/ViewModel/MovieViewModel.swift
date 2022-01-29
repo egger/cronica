@@ -44,7 +44,6 @@ class MovieViewModel: ObservableObject {
             for await result in group {
                 results.append(result)
             }
-            print(results)
             return results
         }
         var movieSections = [MovieSection]()

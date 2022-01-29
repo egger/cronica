@@ -14,7 +14,7 @@ struct MovieResponse: Decodable, Identifiable {
 
 struct MovieSection: Identifiable {
     var id = UUID()
-    let results: [Movie]
+    let results: [Movie] 
     let endpoint: MovieEndpoints
     var title: String {
         endpoint.title
@@ -59,6 +59,18 @@ struct Movie: Decodable, Identifiable, Hashable {
     var movieRuntime: String {
         return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60) ?? "n/a"
     }
+    var releaseYear: String {
+        guard let releaseDate = self.releaseDate, let date = Util.dateFormatter.date(from: releaseDate) else {
+            return "n/a"
+        }
+        return Util.dateFormatter.string(from: date)
+    }
+    private var movieLink: String {
+        return "https://themoviedb.org/movie/\(id)"
+    }
+    var shareText: String {
+        return "\(title) \(movieLink)"
+    }
     let credits: Credits?
-    let inWatchlist: Bool?
+    var inWatchlist: Bool?
 }
