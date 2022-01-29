@@ -1,5 +1,5 @@
 //
-//  TvShow.swift
+//  Series.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 20/01/22.
@@ -7,13 +7,36 @@
 
 import Foundation
 
-struct TvShow {
+struct SeriesResponse: Decodable, Identifiable {
+    var id: String?
+    let results: [Series]
+}
+
+struct SeriesSection: Decodable, Identifiable {
+    var id = UUID()
+    let result: [Series]
+    let endpoint: SeriesEndpoint.RawValue
+    var title: String {
+        ""
+    }
+    var style: String {
+        ""
+    }
+}
+
+struct Series: Decodable, Identifiable, Hashable {
+    static func == (lhs: Series, rhs: Series) -> Bool {
+        lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    let id: Int
     let adult: Bool?
     let episodeRunTime: [Int]
     let firstAirDate: String
     let genres: [Genre]?
     let homepage: String
-    let id: Int
     let inProduction: Bool?
     let languages: [String]?
     let lastAirDate: String?
@@ -36,29 +59,5 @@ struct TvShow {
     var backdropImage: URL {
         return URL(string: "\(ApiConstants.w1066ImageUrl)\(backdropPath)")!
     }
-}
-
-struct Season {
-    let airDate: String
-    let episodeCount, id: Int
-    let name, overview, posterPath: String
-    let seasonNumber: Int
-}
-
-struct TEpisodeToAir {
-    let airDate: String?
-    let episodeNumber, id: Int?
-    let name, overview, productionCode: String?
-    let seasonNumber: Int?
-    let stillPath: String?
-    let voteAverage: Double?
-    let voteCount: Int?
-}
-
-
-struct Network {
-    let name: String
-    let id: Int
-    let logoPath: String?
-    let originCountry: String
+    let inWatchlist: Bool?
 }

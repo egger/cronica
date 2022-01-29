@@ -13,11 +13,11 @@ struct MovieView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVStack {
+                VStack {
                     ForEach(viewModel.sections) {
-                        HorizontalListView(sectionStyle: $0.thumbnailType,
-                                           sectionTitle: $0.title,
-                                           items: $0.movies)
+                        HorizontalMovieListView(style: $0.style,
+                                           title: $0.title,
+                                           movies: $0.results)
                     }
                 }
                 .task {

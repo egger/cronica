@@ -28,7 +28,7 @@ struct CastDetailsView: View {
                         Spacer()
                     }
                 } label: {
-                    Label(content.name!, systemImage: "person")
+                    Label(content.name, systemImage: "person")
                         .foregroundColor(.secondary)
                 }
                 .padding()
@@ -44,10 +44,7 @@ struct CastDetailsView: View {
             }
             Spacer()
         }
-        .navigationTitle(content.name ?? "")
-        .onAppear {
-            
-        }
+        .navigationTitle(content.name)
     }
 }
 

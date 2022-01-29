@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProductionCompany: Decodable {
-    let id: Int?
+struct ProductionCompany: Decodable, Identifiable {
+    let id: Int
     let logoPath, name, originCountry: String?
 }

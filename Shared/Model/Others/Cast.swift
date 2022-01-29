@@ -8,13 +8,14 @@
 import Foundation
 
 struct Cast: Decodable, Identifiable {
+    let id: Int
+    let name: String
     let adult: Bool?
-    let gender, id: Int?
+    let gender: Int?
     let knownForDepartment: Department?
-    let name, originalName: String?
-    let biography, birthday: String?
+    let biography, birthday, originalName: String?
     let popularity: Double?
-    let profilePath: String?
+    private let profilePath: String?
     let castID: Int?
     let character: String?
     let creditID: String?

@@ -24,8 +24,8 @@ struct OverviewBoxView: View {
     }
 }
 
-struct OverviewBox_Previews: PreviewProvider {
+struct OverviewBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewBoxView(overview: Movie.previewMovie.overview!)
+        OverviewBoxView(overview: Movie.previewMovie.overview)
     }
 }

@@ -8,19 +8,32 @@
 import SwiftUI
 
 struct PosterView: View {
-    let content: Movie
+    let title: String
+    let url: URL
     var body: some View {
         VStack {
-            AsyncImage(url: content.w500PosterImage) { content in
+            AsyncImage(url: url) { content in
                 content
                     .resizable()
                     .scaledToFill()
                     .frame(width: DrawingConstants.posterWidth,
                            height: DrawingConstants.posterHeight)
             } placeholder: {
-                ProgressView(content.title)
+                ProgressView(title)
                     .foregroundColor(.secondary)
                     .padding()
+            }
+        }
+        .contextMenu {
+            Button {
+                print("watchlist")
+            } label: {
+                Label("Add to watchlist", systemImage: "bell.square")
+            }
+            Button {
+                print("share")
+            } label: {
+                Label("Share", systemImage: "square.and.arrow.up")
             }
         }
         .frame(width: DrawingConstants.posterWidth,
@@ -29,19 +42,18 @@ struct PosterView: View {
                                     style: .continuous))
         .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                 radius: DrawingConstants.shadowRadius)
-        //.redacted(reason: .placeholder) TODO: look at .redacted later on.
     }
 }
 
 struct PosterView_Previews: PreviewProvider {
     static var previews: some View {
-        PosterView(content: Movie.previewMovie)
+        PosterView(title: Movie.previewMovie.title, url: Movie.previewMovie.w500PosterImage)
     }
 }
 
 private struct DrawingConstants {
-    static let posterWidth: CGFloat = 220
-    static let posterHeight: CGFloat = 360
+    static let posterWidth: CGFloat = 200
+    static let posterHeight: CGFloat = 300
     static let posterRadius: CGFloat = 12
     static let shadowOpacity: Double = 0.5
     static let shadowRadius: CGFloat = 5

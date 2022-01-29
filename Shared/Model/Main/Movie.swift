@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct Response: Decodable, Identifiable {
+struct MovieResponse: Decodable, Identifiable {
     let id: String?
     let results: [Movie]
 }
 
-struct Section: Identifiable {
+struct MovieSection: Identifiable {
     var id = UUID()
-    let movies: [Movie]
+    let results: [Movie]
     let endpoint: MovieEndpoints
     var title: String {
         endpoint.title
     }
-    var thumbnailType: String {
+    var style: String {
         switch endpoint {
         case .upcoming:
             return "card"
@@ -41,14 +41,11 @@ struct Movie: Decodable, Identifiable, Hashable {
         hasher.combine(id)
     }
     let id: Int
-    let title: String
-    let overview: String?
+    let title, overview: String
     private let posterPath, backdropPath: String
-    let homepage: String?
-    let popularity: Double?
     private let releaseDate: String?
     private let runtime: Int?
-    let status, tagline: String?
+    let status, tagline, homepage: String?
     let genres: [Genre]?
     var w500PosterImage: URL {
         return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
@@ -63,4 +60,5 @@ struct Movie: Decodable, Identifiable, Hashable {
         return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60) ?? "n/a"
     }
     let credits: Credits?
+    let inWatchlist: Bool?
 }

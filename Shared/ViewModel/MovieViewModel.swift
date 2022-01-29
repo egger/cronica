@@ -9,9 +9,9 @@ import UIKit
 
 @MainActor
 class MovieViewModel: ObservableObject {
-    @Published private(set) var phase: DataFetchPhase<[Section]> = .empty
+    @Published private(set) var phase: DataFetchPhase<[MovieSection]> = .empty
     private let service: NetworkService = NetworkService.shared
-    var sections: [Section] {
+    var sections: [MovieSection] {
         phase.value ?? []
     }
     
@@ -35,18 +35,19 @@ class MovieViewModel: ObservableObject {
         }
     }
     
-    private func fetchFromEndpoints(_ endpoint: [MovieEndpoints] = MovieEndpoints.allCases) async throws -> [Section] {
-        let results: [Result<Section, Error>] = await withTaskGroup(of: Result<Section, Error>.self) { group in
+    private func fetchFromEndpoints(_ endpoint: [MovieEndpoints] = MovieEndpoints.allCases) async throws -> [MovieSection] {
+        let results: [Result<MovieSection, Error>] = await withTaskGroup(of: Result<MovieSection, Error>.self) { group in
             for endpoint in endpoint {
                 group.addTask { await self.fetchFromEndpoint(endpoint) }
             }
-            var results = [Result<Section, Error>]()
+            var results = [Result<MovieSection, Error>]()
             for await result in group {
                 results.append(result)
             }
+            print(results)
             return results
         }
-        var movieSections = [Section]()
+        var movieSections = [MovieSection]()
         var errors = [Error]()
         
         results.forEach { result in
@@ -65,10 +66,10 @@ class MovieViewModel: ObservableObject {
         return movieSections.sorted { $0.endpoint.sortIndex < $1.endpoint.sortIndex }
     }
     
-    private func fetchFromEndpoint(_ endpoint: MovieEndpoints) async -> Result<Section, Error> {
+    private func fetchFromEndpoint(_ endpoint: MovieEndpoints) async -> Result<MovieSection, Error> {
         do {
             let movies = try await service.fetchMovies(from: endpoint)
-            return .success(.init(movies: movies, endpoint: endpoint))
+            return .success(.init(results: movies, endpoint: endpoint))
         } catch {
             return .failure(error)
         }

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CastOverviewView: View {
-    let cast: Cast?
+    let cast: Cast
     var body: some View {
         VStack {
-            AsyncImage(url: cast?.profileImage) { content in
+            AsyncImage(url: cast.profileImage) { content in
                 content
                     .resizable()
                     .scaledToFill()
@@ -26,10 +26,10 @@ struct CastOverviewView: View {
                 ProgressView()
                     .padding()
             }
-            Text(cast?.name ?? "")
+            Text(cast.name)
                 .fontWeight(.semibold)
                 .padding(.top, -6)
-            Text(cast?.character ?? "")
+            Text(cast.character ?? "")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.top, 1)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Genre: Decodable {
-    let id: Int?
+struct Genre: Decodable, Identifiable {
+    let id: Int
     let name: String?
 }

@@ -9,7 +9,7 @@ import Foundation
 
 extension Movie {
     static var previewMovies: [Movie] {
-        let data: Response? = try? Bundle.main.decode(from: "movies")
+        let data: MovieResponse? = try? Bundle.main.decode(from: "movies")
         return data!.results
     }
     static var previewMovie: Movie {

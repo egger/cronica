@@ -1,5 +1,5 @@
 //
-//  MovieImageView.swift
+//  DetailsImageView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 28/01/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MovieImageView: View {
+struct DetailsImageView: View {
     let image: URL
     let placeholderTitle: String
     var body: some View {
@@ -31,7 +31,7 @@ struct MovieImageView: View {
 
 struct MovieImageView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieImageView(image: Movie.previewMovie.backdropImage,
+        DetailsImageView(image: Movie.previewMovie.backdropImage,
                        placeholderTitle: Movie.previewMovie.title)
     }
 }
