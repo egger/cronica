@@ -12,7 +12,7 @@ struct CastProfileImage: View {
     var body: some View {
         ZStack {
             CastImageView(url: cast.profileImage)
-            CastInfoView(name: cast.name ?? "")
+            CastInfoView(name: cast.name ?? "", character: cast.character ?? "")
         }
         .frame(width: DrawingConstants.profileWidth,
                height: DrawingConstants.profileHeight)
@@ -70,6 +70,7 @@ struct CastImageView: View {
 
 struct CastInfoView: View {
     let name: String
+    let character: String?
     var body: some View {
         VStack {
             Spacer()
@@ -78,8 +79,19 @@ struct CastInfoView: View {
                     .foregroundColor(.white)
                     .lineLimit(DrawingConstants.lineLimit)
                     .padding(.leading, 6)
-                    .padding(.bottom)
+                    .padding(.bottom, 1)
                 Spacer()
+            }
+            if !character.isEmpty {
+                HStack {
+                    Text(character!)
+                        .foregroundColor(.white.opacity(0.8))
+                        .font(.caption)
+                        .lineLimit(1)
+                        .padding(.leading, 6)
+                        .padding(.bottom)
+                    Spacer()
+                }
             }
         }
     }
