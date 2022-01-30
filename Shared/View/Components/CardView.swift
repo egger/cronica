@@ -66,7 +66,7 @@ struct ImageView: View {
             }
             Rectangle()
                 .fill(.black.opacity(0.5))
-                .background(.regularMaterial)
+                .background(.ultraThinMaterial)
             AsyncImage(url: url) { content in
                 content
                     .resizable()

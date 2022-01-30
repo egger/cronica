@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct CastProfileImage: View {
-    let cast: Cast
+struct CreditProfileImage: View {
+    let name: String
+    let characterOrJob: String
+    let imageUrl: URL
     var body: some View {
         ZStack {
-            CastImageView(url: cast.profileImage)
-            CastInfoView(name: cast.name ?? "", character: cast.character ?? nil)
+            CreditImageView(url: imageUrl)
+            CreditInfoView(name: name, characterOrJob: characterOrJob)
         }
         .frame(width: DrawingConstants.profileWidth,
                height: DrawingConstants.profileHeight)
@@ -25,7 +27,7 @@ struct CastProfileImage: View {
 
 struct CreditsProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CastProfileImage(cast: Movie.previewCast)
+        CreditProfileImage(name: Movie.previewCast.name ?? "", characterOrJob: Movie.previewCast.character ?? "", imageUrl: Movie.previewCast.profileImage)
     }
 }
 
@@ -38,7 +40,7 @@ private struct DrawingConstants {
     static let lineLimit: Int = 1
 }
 
-struct CastImageView: View {
+struct CreditImageView: View {
     let url: URL
     var body: some View {
         ZStack {
@@ -47,8 +49,8 @@ struct CastImageView: View {
                     .resizable()
                     .scaledToFill()
                 Rectangle()
-                    .fill(.black.opacity(0.8))
-                    .background(.thinMaterial)
+                    .fill(.black.opacity(0.5))
+                    .background(.ultraThinMaterial)
                 image
                     .resizable()
                     .scaledToFill()
@@ -61,16 +63,16 @@ struct CastImageView: View {
                     }
             } placeholder: {
                 Rectangle()
-                    .fill(.secondary)
+                    .fill(.thickMaterial)
                     .redacted(reason: .placeholder)
             }
         }
     }
 }
 
-struct CastInfoView: View {
+struct CreditInfoView: View {
     let name: String
-    let character: String?
+    let characterOrJob: String?
     var body: some View {
         VStack {
             Spacer()
@@ -82,9 +84,9 @@ struct CastInfoView: View {
                     .padding(.bottom, 1)
                 Spacer()
             }
-            if character != nil && !character.isEmpty {
+            if characterOrJob != nil && !characterOrJob.isEmpty {
                 HStack {
-                    Text(character!)
+                    Text(characterOrJob!)
                         .foregroundColor(.white.opacity(0.8))
                         .font(.caption)
                         .lineLimit(1)

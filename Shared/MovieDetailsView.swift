@@ -71,7 +71,9 @@ struct DetailsBodyView: View {
                     .buttonStyle(.bordered)
                 }
                 OverviewBoxView(overview: movie.overview)
-                HorizontalCreditsView(cast: movie.credits!.cast)
+                Divider()
+                    .padding([.horizontal, .top])
+                HorizontalCreditsView(cast: movie.credits!.cast, crew: movie.credits!.crew)
                 Divider()
                     .padding([.horizontal, .top])
                 InformationBoxView(movie: movie)

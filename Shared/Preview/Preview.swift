@@ -24,6 +24,9 @@ extension Movie {
     static var previewCast: Cast {
         return previewCasts[0]
     }
+    static var previewCrew: [Crew] {
+        return previewMovie.credits!.crew
+    }
 }
 
 extension Credits {
