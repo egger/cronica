@@ -12,7 +12,7 @@ struct CastProfileImage: View {
     var body: some View {
         ZStack {
             CastImageView(url: cast.profileImage)
-            CastInfoView(name: cast.name ?? "", character: cast.character ?? "")
+            CastInfoView(name: cast.name ?? "", character: cast.character ?? nil)
         }
         .frame(width: DrawingConstants.profileWidth,
                height: DrawingConstants.profileHeight)
@@ -82,7 +82,7 @@ struct CastInfoView: View {
                     .padding(.bottom, 1)
                 Spacer()
             }
-            if !character.isEmpty {
+            if character != nil && !character.isEmpty {
                 HStack {
                     Text(character!)
                         .foregroundColor(.white.opacity(0.8))

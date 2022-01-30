@@ -21,7 +21,7 @@ struct HorizontalCreditsView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(cast) { item in
-                        NavigationLink(destination: CastView()) {
+                        NavigationLink(destination: CastView(cast: item)) {
                             CastProfileImage(cast: item)
                         }
                         .padding(.leading, item.id == self.cast.first!.id ? 16 : 0)

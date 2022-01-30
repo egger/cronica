@@ -35,6 +35,8 @@ struct MovieDetailsView: View {
 struct MovieDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         DetailsBodyView(movie: Movie.previewMovie)
+        DetailsBodyView(movie: Movie.previewMovie)
+            .preferredColorScheme(.dark)
     }
 }
 
