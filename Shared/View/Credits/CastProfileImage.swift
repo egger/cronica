@@ -10,34 +10,16 @@ import SwiftUI
 struct CastProfileImage: View {
     let cast: Cast
     var body: some View {
-        VStack {
-            AsyncImage(url: cast.profileImage) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: DrawingConstants.profileWidth,
-                           height: DrawingConstants.profileHeight,
-                           alignment: .center)
-                    .clipShape(Circle())
-                    .padding()
-                    .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                            radius: DrawingConstants.shadowRadius)
-            } placeholder: {
-                Circle()
-                    .fill(.secondary)
-                    .frame(width: DrawingConstants.profileWidth,
-                           height: DrawingConstants.profileHeight)
-                    .padding()
-                    .redacted(reason: .placeholder)
-            }
-            Text(cast.name ?? "")
-                .fontWeight(.semibold)
-                .padding(.top, -6)
-            Text(cast.character ?? "")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .padding(.top, 1)
+        ZStack {
+            CastImageView(url: cast.profileImage)
+            CastInfoView(name: cast.name ?? "")
         }
+        .frame(width: DrawingConstants.profileWidth,
+               height: DrawingConstants.profileHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius, style: .continuous))
+        .padding(2)
+        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                radius: DrawingConstants.shadowRadius)
     }
 }
 
@@ -48,8 +30,57 @@ struct CreditsProfileImageView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let profileWidth: CGFloat = 80
-    static let profileHeight: CGFloat = 80
+    static let profileWidth: CGFloat = 140
+    static let profileHeight: CGFloat = 200
     static let shadowRadius: CGFloat = 5
     static let shadowOpacity: Double = 0.5
+    static let profileRadius: CGFloat = 12
+    static let lineLimit: Int = 1
+}
+
+struct CastImageView: View {
+    let url: URL
+    var body: some View {
+        ZStack {
+            AsyncImage(url: url) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                Rectangle()
+                    .fill(.black.opacity(0.8))
+                    .background(.thinMaterial)
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .mask {
+                        LinearGradient(gradient: Gradient(colors:
+                                                            [.black,
+                                                             .black.opacity(0)]),
+                                       startPoint: .center,
+                                       endPoint: .bottom)
+                    }
+            } placeholder: {
+                Rectangle()
+                    .fill(.secondary)
+                    .redacted(reason: .placeholder)
+            }
+        }
+    }
+}
+
+struct CastInfoView: View {
+    let name: String
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Text(name)
+                    .foregroundColor(.white)
+                    .lineLimit(DrawingConstants.lineLimit)
+                    .padding(.leading, 6)
+                    .padding(.bottom)
+                Spacer()
+            }
+        }
+    }
 }

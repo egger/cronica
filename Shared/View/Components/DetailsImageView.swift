@@ -22,8 +22,14 @@ struct DetailsImageView: View {
                 .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                         radius: DrawingConstants.shadowRadius)
         } placeholder: {
-            ProgressView(placeholderTitle)
-                .padding()
+            Rectangle()
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .background(.secondary)
+                .cornerRadius(DrawingConstants.imageRadius)
+                .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                        radius: DrawingConstants.shadowRadius)
+                .redacted(reason: .placeholder)
         }
         .padding([.top, .bottom])
     }
