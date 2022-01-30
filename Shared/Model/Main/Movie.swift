@@ -47,6 +47,8 @@ struct Movie: Decodable, Identifiable, Hashable {
     private let runtime: Int?
     let status, tagline, homepage: String?
     let genres: [Genre]?
+    let mediaType: MediaType?
+    //let similar: [Movie]?
     var w500PosterImage: URL {
         return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
     }
@@ -65,11 +67,8 @@ struct Movie: Decodable, Identifiable, Hashable {
         }
         return Util.dateFormatter.string(from: date)
     }
-    private var movieLink: String {
-        return "https://themoviedb.org/movie/\(id)"
-    }
-    var shareText: String {
-        return "\(title) \(movieLink)"
+    var shareLink: URL {
+        return URL(string: "https://themoviedb.org/movie/\(id)")!
     }
     let credits: Credits?
     var inWatchlist: Bool?

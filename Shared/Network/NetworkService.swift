@@ -35,12 +35,8 @@ class NetworkService: ApiService {
         }
         return try await self.fetch(url: url,
                                     params: [
-                                        :
+                                        "append_to_response": "credits,release_dates,similar"
                                     ])
-//        return try await self.fetch(url: url,
-//                                    params: [
-//                                        "append_to_response": "credits"
-//                                    ])
     }
     
     func fetchTvShow(id: Int) async throws -> Series {

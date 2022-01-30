@@ -53,24 +53,41 @@ struct DetailsBodyView: View {
                     } label: {
                         Label("Add to watchlist", systemImage: "bell.square")
                             .padding(.horizontal)
+                            .padding([.top, .bottom], 6)
                     }
                     .foregroundColor(.primary)
                     .buttonStyle(.bordered)
                     Button {
                         generator.impactOccurred(intensity: 1.0)
+                        share()
                     } label: {
                         Label("Share", systemImage: "square.and.arrow.up")
                             .padding(.horizontal)
+                            .padding([.top, .bottom], 6)
                     }
                     .foregroundColor(.primary)
                     .buttonStyle(.bordered)
                 }
                 OverviewBoxView(overview: movie.overview)
+                HorizontalCreditsView(cast: movie.credits!.cast)
                 Divider()
-                    .padding(.horizontal)
+                    .padding([.horizontal, .top])
                 InformationBoxView(movie: movie)
                     .padding(.top)
             }
         }
+    }
+    
+    func share() {
+        let shareSheetVC = UIActivityViewController(
+            activityItems: [
+                movie.title as Any,
+                movie.shareLink as Any
+            ],
+            applicationActivities: nil)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        let window = windowScenes?.windows.first
+        window?.rootViewController!.present(shareSheetVC, animated: true)
     }
 }

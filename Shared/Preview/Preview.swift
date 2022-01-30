@@ -15,6 +15,15 @@ extension Movie {
     static var previewMovie: Movie {
         previewMovies[0]
     }
+    static var previewCredits: Credits {
+        return previewMovie.credits!
+    }
+    static var previewCasts: [Cast] {
+        return previewCredits.cast
+    }
+    static var previewCast: Cast {
+        return previewCasts[0]
+    }
 }
 
 extension Credits {
@@ -23,8 +32,8 @@ extension Credits {
         return data!
     }
     static var previewCast: Cast {
-        let data = previewCredits.cast[0]
-        return data
+        return previewCredits.cast[0]
+        
     }
 }
 

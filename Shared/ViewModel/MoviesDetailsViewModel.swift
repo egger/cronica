@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 @MainActor
 class MoviesDetailsViewModel: ObservableObject {
@@ -15,14 +16,30 @@ class MoviesDetailsViewModel: ObservableObject {
         phase.value ?? nil
     }
     
+    func share() {
+        let shareSheetVC = UIActivityViewController(
+            activityItems: [
+                movie?.title as Any,
+                movie?.shareLink as Any
+            ],
+            applicationActivities: nil)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        let window = windowScenes?.windows.first
+        window?.rootViewController!.present(shareSheetVC, animated: true)
+    }
+    
     func loadMovie(id: Int) async {
         if Task.isCancelled { return }
         phase = .empty
         do {
             let movie = try await self.service.fetchMovie(id: id)
+            print(movie)
             phase = .success(movie)
         } catch {
             phase = .failure(error)
         }
     }
+    
+    
 }

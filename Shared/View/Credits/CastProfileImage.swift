@@ -7,14 +7,11 @@
 
 import SwiftUI
 
-struct CreditsProfileImageView: View {
-    let url: URL
-    let name: String
-    let job: String?
-    let character: String?
+struct CastProfileImage: View {
+    let cast: Cast
     var body: some View {
         VStack {
-            AsyncImage(url: url) { image in
+            AsyncImage(url: cast.profileImage) { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -26,12 +23,17 @@ struct CreditsProfileImageView: View {
                     .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                             radius: DrawingConstants.shadowRadius)
             } placeholder: {
-                ProgressView()
+                Circle()
+                    .fill(.secondary)
+                    .frame(width: DrawingConstants.profileWidth,
+                           height: DrawingConstants.profileHeight)
+                    .padding()
+                    .redacted(reason: .placeholder)
             }
-            Text(name)
+            Text(cast.name ?? "")
                 .fontWeight(.semibold)
                 .padding(.top, -6)
-            Text((job ?? character) ?? "")
+            Text(cast.character ?? "")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.top, 1)
@@ -41,7 +43,7 @@ struct CreditsProfileImageView: View {
 
 struct CreditsProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CreditsProfileImageView(url: Credits.previewCast.profileImage, name: Credits.previewCast.name, job: nil, character: Credits.previewCast.character)
+        CastProfileImage(cast: Movie.previewCast)
     }
 }
 
