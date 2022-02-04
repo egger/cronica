@@ -13,33 +13,18 @@ struct CastView: View {
         VStack {
             ScrollView {
                 VStack {
-                    GroupBox {
-                        HStack {
-                            AsyncImage(url: cast.profileImage) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: DrawingConstants.imageWidth,
-                                           height: DrawingConstants.imageHeight)
-                                    .cornerRadius(DrawingConstants.imageRadius)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            VStack {
-//                                InformationSectionView(title: "Know for", content: cast.known_for_department ?? "")
-                                InformationSectionView(title: "Birthday", content: cast.birthday ?? "")
-                                InformationSectionView(title: "Place of birth", content: "")
-                                Spacer()
-                            }
-                        }
-                    } label: {
-                        Label(cast.name , systemImage: "person")
-                            .foregroundColor(.secondary)
+                    AsyncImage(url: cast.profileImage) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: DrawingConstants.imageWidth,
+                                   height: DrawingConstants.imageHeight)
+                            .clipShape(Circle())
+                            .padding([.top, .bottom])
+                    } placeholder: {
+                        ProgressView()
                     }
-                    .padding()
                 }
-                Divider()
-                    .padding()
                 GroupBox {
                     Text(cast.biography ?? "")
                         .padding([.top, .bottom], 4)
@@ -62,7 +47,6 @@ struct CastView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let imageWidth: CGFloat = 140
-    static let imageHeight: CGFloat = 220
-    static let imageRadius: CGFloat = 6
+    static let imageWidth: CGFloat = 150
+    static let imageHeight: CGFloat = 150
 }

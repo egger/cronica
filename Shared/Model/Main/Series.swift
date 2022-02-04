@@ -12,6 +12,40 @@ struct SeriesResponse: Decodable, Identifiable {
     let results: [Series]
 }
 
+struct Series: Decodable, Identifiable {
+    let backdropPath: String?
+    let firstAirDate: String
+    let id: Int
+    private let name: String
+    let originCountry: [String]
+    let originalLanguage, originalName, overview: String
+    let popularity: Double
+    let posterPath: String
+    let voteAverage: Double
+    let voteCount: Int
+    var posterImage: URL {
+        return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
+    }
+    var backdropImage: URL {
+        return URL(string: "\(ApiConstants.w1066ImageUrl)\(String(describing: backdropPath))")!
+    }
+    var title: String {
+        return name
+    }
+    enum CodingKeys: String, CodingKey {
+        case backdropPath = "backdrop_path"
+        case firstAirDate = "first_air_date"
+        case id, name
+        case originCountry = "origin_country"
+        case originalLanguage = "original_language"
+        case originalName = "original_name"
+        case overview, popularity
+        case posterPath = "poster_path"
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+    }
+}
+
 struct SeriesSection: Identifiable {
     var id = UUID()
     let result: [Series]
@@ -47,71 +81,4 @@ struct TEpisodeToAir: Decodable, Identifiable {
     let stillPath: String?
     let voteAverage: Double?
     let voteCount: Int?
-}
-
-
-
-
-
-
-
-
-
-
-
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
-//
-//import Foundation
-//
-//// MARK: - Welcome
-//struct Welcome: Codable {
-//    let page: Int
-//    let results: [Result]
-//    let totalPages, totalResults: Int
-//
-//    enum CodingKeys: String, CodingKey {
-//        case page, results
-//        case totalPages = "total_pages"
-//        case totalResults = "total_results"
-//    }
-//}
-//
-//// MARK: - Result
-struct Series: Decodable, Identifiable {
-    let backdropPath: String?
-    let firstAirDate: String
-    let genreIDS: [Int]
-    let id: Int
-    let name: String
-    let originCountry: [String]
-    let originalLanguage, originalName, overview: String
-    let popularity: Double
-    let posterPath: String
-    let voteAverage: Double
-    let voteCount: Int
-    var posterImage: URL {
-        return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
-    }
-    var backdropImage: URL {
-        return URL(string: "\(ApiConstants.w1066ImageUrl)\(String(describing: backdropPath))")!
-    }
-    var title: String {
-        return name
-    }
-    enum CodingKeys: String, CodingKey {
-        case backdropPath = "backdrop_path"
-        case firstAirDate = "first_air_date"
-        case genreIDS = "genre_ids"
-        case id, name
-        case originCountry = "origin_country"
-        case originalLanguage = "original_language"
-        case originalName = "original_name"
-        case overview, popularity
-        case posterPath = "poster_path"
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
-    }
 }
