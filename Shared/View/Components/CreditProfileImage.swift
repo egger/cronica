@@ -27,7 +27,7 @@ struct CreditProfileImage: View {
 
 struct CreditsProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CreditProfileImage(name: Movie.previewCast.name ?? "", characterOrJob: Movie.previewCast.character ?? "", imageUrl: Movie.previewCast.profileImage)
+        CreditProfileImage(name: Credits.previewCast.name , characterOrJob: Credits.previewCast.role, imageUrl: Credits.previewCast.profileImage)
     }
 }
 

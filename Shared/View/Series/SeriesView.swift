@@ -31,6 +31,7 @@ struct SeriesView: View {
     func load() {
         Task {
             await self.viewModel.loadAllEndpoints()
+            print(viewModel.sections)
         }
     }
 }

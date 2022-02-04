@@ -17,20 +17,33 @@ struct MovieView: View {
                     ForEach(viewModel.sections) {
                         HorizontalMovieListView(style: $0.style,
                                            title: $0.title,
-                                           movies: $0.results)
+                                           movies: $0.results) 
                     }
                 }
                 .task {
-                    loadSections()
+                    load()
                 }
             }
             .navigationTitle("Movies")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "person")
+                            .padding(.horizontal)
+                            
+                    }
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
+                }
+            }
         }
         .navigationViewStyle(.stack)
     }
     
     @Sendable
-    private func loadSections() {
+    private func load() {
         Task {
             await viewModel.loadAllEndpoints()
         }

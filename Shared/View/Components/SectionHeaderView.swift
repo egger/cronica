@@ -32,6 +32,10 @@ struct SectionHeaderView: View {
                 IconView(icon: "tv")
             case "latest":
                 IconView(icon: "flame")
+            case "similarCastMovie":
+                IconView(icon: "person.crop.rectangle.stack.fill")
+            case "similarMovies":
+                IconView(icon: "list.and.film")
             default:
                 EmptyView()
             }

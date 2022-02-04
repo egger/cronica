@@ -8,6 +8,7 @@
 import Foundation
 
 class NetworkService: ApiService {
+
     static let shared = NetworkService()
     
     func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Movie] {
@@ -35,7 +36,7 @@ class NetworkService: ApiService {
         }
         return try await self.fetch(url: url,
                                     params: [
-                                        "append_to_response": "credits,release_dates,similar"
+                                        "append_to_response": "credits"
                                     ])
     }
     

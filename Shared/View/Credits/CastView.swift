@@ -25,23 +25,39 @@ struct CastView: View {
                             } placeholder: {
                                 ProgressView()
                             }
-                            Spacer()
+                            VStack {
+//                                InformationSectionView(title: "Know for", content: cast.known_for_department ?? "")
+                                InformationSectionView(title: "Birthday", content: cast.birthday ?? "")
+                                InformationSectionView(title: "Place of birth", content: "")
+                                Spacer()
+                            }
                         }
                     } label: {
-                        Label(cast.name ?? "", systemImage: "person")
+                        Label(cast.name , systemImage: "person")
                             .foregroundColor(.secondary)
                     }
                     .padding()
                 }
+                Divider()
+                    .padding()
+                GroupBox {
+                    Text(cast.biography ?? "")
+                        .padding([.top, .bottom], 4)
+                } label: {
+                    Label("biography", systemImage: "book")
+                        .textCase(.uppercase)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
             }
         }
-        .navigationTitle(cast.name ?? "")
+        .navigationTitle(cast.name )
     }
 }
 
 struct CastView_Previews: PreviewProvider {
     static var previews: some View {
-        CastView(cast: Movie.previewCast)
+        CastView(cast: Credits.previewCast)
     }
 }
 

@@ -13,7 +13,7 @@ class MovieViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     var sections: [MovieSection] {
         phase.value ?? []
-    }
+    } 
     
     func loadAllEndpoints() async {
         if Task.isCancelled {

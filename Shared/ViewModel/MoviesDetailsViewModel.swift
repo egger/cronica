@@ -15,6 +15,7 @@ class MoviesDetailsViewModel: ObservableObject {
     var movie: Movie? {
         phase.value ?? nil
     }
+    var holdedMovie: Movie?
     
     func share() {
         let shareSheetVC = UIActivityViewController(
@@ -34,7 +35,6 @@ class MoviesDetailsViewModel: ObservableObject {
         phase = .empty
         do {
             let movie = try await self.service.fetchMovie(id: id)
-            print(movie)
             phase = .success(movie)
         } catch {
             phase = .failure(error)

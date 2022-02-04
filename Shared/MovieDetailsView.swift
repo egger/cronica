@@ -20,8 +20,7 @@ struct MovieDetailsView: View {
         .navigationTitle(movieTitle)
         .task {
             load()
-        }
-        .overlay(OverlayView(phase: viewModel.phase, retry: load, title: movieTitle))
+        }        .overlay(OverlayView(phase: viewModel.phase, retry: load, title: movieTitle))
     }
     
     @Sendable
@@ -49,6 +48,7 @@ struct DetailsBodyView: View {
             VStack {
                 DetailsImageView(image: movie.backdropImage,
                                  placeholderTitle: movie.title)
+                    .padding(.horizontal)
                 HStack {
                     Button {
                         generator.impactOccurred(intensity: 1.0)
@@ -61,7 +61,6 @@ struct DetailsBodyView: View {
                     .buttonStyle(.bordered)
                     Button {
                         generator.impactOccurred(intensity: 1.0)
-                        share()
                     } label: {
                         Label("Share", systemImage: "square.and.arrow.up")
                             .padding(.horizontal)
@@ -80,18 +79,5 @@ struct DetailsBodyView: View {
                     .padding(.top)
             }
         }
-    }
-    
-    func share() {
-        let shareSheetVC = UIActivityViewController(
-            activityItems: [
-                movie.title as Any,
-                movie.shareLink as Any
-            ],
-            applicationActivities: nil)
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScenes = scenes.first as? UIWindowScene
-        let window = windowScenes?.windows.first
-        window?.rootViewController!.present(shareSheetVC, animated: true)
     }
 }

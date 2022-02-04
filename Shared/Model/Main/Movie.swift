@@ -22,11 +22,11 @@ struct MovieSection: Identifiable {
     var style: String {
         switch endpoint {
         case .upcoming:
-            return "card"
+            return "poster"
         case .popular:
             return "poster"
         case .nowPlaying:
-            return "poster"
+            return "card"
         case .topRated:
             return "poster"
         }
@@ -47,8 +47,6 @@ struct Movie: Decodable, Identifiable, Hashable {
     private let runtime: Int?
     let status, tagline, homepage: String?
     let genres: [Genre]?
-    let mediaType: MediaType?
-    //let similar: [Movie]?
     var w500PosterImage: URL {
         return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
     }
