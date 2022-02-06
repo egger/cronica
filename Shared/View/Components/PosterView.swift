@@ -24,18 +24,6 @@ struct PosterView: View {
                     .padding()
             }
         }
-        .contextMenu {
-            Button {
-                print("watchlist")
-            } label: {
-                Label("Add to watchlist", systemImage: "bell.square")
-            }
-            Button {
-                print("share")
-            } label: {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-        }
         .frame(width: DrawingConstants.posterWidth,
                height: DrawingConstants.posterHeight)
         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,

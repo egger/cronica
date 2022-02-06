@@ -1,5 +1,5 @@
 //
-//  OverviewBoxView.swift
+//  AboutView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 28/01/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OverviewBoxView: View {
+struct AboutView: View {
     let overview: String
     var body: some View {
         GroupBox {
@@ -16,8 +16,7 @@ struct OverviewBoxView: View {
                 .padding([.top], 2)
                 .textSelection(.enabled)
         } label: {
-            Label("Overview", systemImage: "film")
-                .textCase(.uppercase)
+            Label("About", systemImage: "film")
                 .foregroundColor(.secondary)
         }
         .padding()
@@ -26,6 +25,6 @@ struct OverviewBoxView: View {
 
 struct OverviewBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewBoxView(overview: Movie.previewMovie.overview)
+        AboutView(overview: Movie.previewMovie.overview)
     }
 }

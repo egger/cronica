@@ -16,7 +16,12 @@ class Util {
     }()
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
+        formatter.dateFormat = "yyyy,MM,dd"
+        return formatter
+    }()
+    static let dateString: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
         return formatter
     }()
     static let durationFormatter: DateComponentsFormatter = {

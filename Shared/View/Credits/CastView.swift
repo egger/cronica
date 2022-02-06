@@ -13,7 +13,7 @@ struct CastView: View {
         VStack {
             ScrollView {
                 VStack {
-                    AsyncImage(url: cast.profileImage) { image in
+                    AsyncImage(url: cast.image) { image in
                         image
                             .resizable()
                             .scaledToFill()

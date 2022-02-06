@@ -13,21 +13,24 @@ struct SeriesResponse: Decodable, Identifiable {
 }
 
 struct Series: Decodable, Identifiable {
-    let backdropPath: String?
-    let firstAirDate: String
     let id: Int
     private let name: String
-    let originCountry: [String]
-    let originalLanguage, originalName, overview: String
-    let popularity: Double
-    let posterPath: String
-    let voteAverage: Double
-    let voteCount: Int
-    var posterImage: URL {
-        return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
+    let overview: String
+    private let posterPath, backdropPath: String?
+    let firstAirDate: String?
+    var posterImage: URL? {
+        if posterPath != nil {
+            return URL(string: "\(ApiConstants.originalImageUrl)\(posterPath!)")!
+        } else {
+            return nil
+        }
     }
-    var backdropImage: URL {
-        return URL(string: "\(ApiConstants.w1066ImageUrl)\(String(describing: backdropPath))")!
+    var backdropImage: URL? {
+        if backdropPath != nil {
+            return URL(string: "\(ApiConstants.originalImageUrl)\(backdropPath!)")!
+        } else {
+            return nil
+        }
     }
     var title: String {
         return name
@@ -35,14 +38,8 @@ struct Series: Decodable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
         case firstAirDate = "first_air_date"
-        case id, name
-        case originCountry = "origin_country"
-        case originalLanguage = "original_language"
-        case originalName = "original_name"
-        case overview, popularity
+        case id, name, overview
         case posterPath = "poster_path"
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
     }
 }
 

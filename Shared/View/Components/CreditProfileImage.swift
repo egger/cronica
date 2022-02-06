@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CreditProfileImage: View {
     let name: String
-    let characterOrJob: String
-    let imageUrl: URL
+    let characterOrJob: String?
+    let imageUrl: URL?
     var body: some View {
         ZStack {
             CreditImageView(url: imageUrl)
@@ -27,50 +27,54 @@ struct CreditProfileImage: View {
 
 struct CreditsProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CreditProfileImage(name: Credits.previewCast.name , characterOrJob: Credits.previewCast.role, imageUrl: Credits.previewCast.profileImage)
+        CreditProfileImage(name: Credits.previewCast.name , characterOrJob: Credits.previewCast.role, imageUrl: Credits.previewCast.image)
     }
 }
 
-private struct DrawingConstants {
-    static let profileWidth: CGFloat = 140
-    static let profileHeight: CGFloat = 200
-    static let shadowRadius: CGFloat = 5
-    static let shadowOpacity: Double = 0.5
-    static let profileRadius: CGFloat = 12
-    static let lineLimit: Int = 1
-}
 
-struct CreditImageView: View {
-    let url: URL
+
+private struct CreditImageView: View {
+    let url: URL?
     var body: some View {
         ZStack {
-            AsyncImage(url: url) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                Rectangle()
-                    .fill(.black.opacity(0.5))
-                    .background(.ultraThinMaterial)
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .mask {
-                        LinearGradient(gradient: Gradient(colors:
-                                                            [.black,
-                                                             .black.opacity(0)]),
-                                       startPoint: .center,
-                                       endPoint: .bottom)
-                    }
-            } placeholder: {
-                Rectangle()
-                    .fill(.thickMaterial)
-                    .redacted(reason: .placeholder)
+            if url == nil {
+                ZStack {
+                    Rectangle()
+                        .fill(.gray)
+                    Image(systemName: "person")
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                }
+                
+            } else {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                    Rectangle()
+                        .fill(.black.opacity(0.5))
+                        .background(.ultraThinMaterial)
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .mask {
+                            LinearGradient(gradient: Gradient(colors:
+                                                                [.black,
+                                                                 .black.opacity(0)]),
+                                           startPoint: .center,
+                                           endPoint: .bottom)
+                        }
+                } placeholder: {
+                    Rectangle()
+                        .fill(.thickMaterial)
+                        .redacted(reason: .placeholder)
+                }
             }
         }
     }
 }
 
-struct CreditInfoView: View {
+private struct CreditInfoView: View {
     let name: String
     let characterOrJob: String?
     var body: some View {
@@ -97,4 +101,13 @@ struct CreditInfoView: View {
             }
         }
     }
+}
+
+private struct DrawingConstants {
+    static let profileWidth: CGFloat = 140
+    static let profileHeight: CGFloat = 200
+    static let shadowRadius: CGFloat = 5
+    static let shadowOpacity: Double = 0.5
+    static let profileRadius: CGFloat = 12
+    static let lineLimit: Int = 1
 }

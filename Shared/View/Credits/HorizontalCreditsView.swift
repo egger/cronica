@@ -20,22 +20,36 @@ struct HorizontalCreditsView: View {
                 Spacer()
             }
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack {
-                    ForEach(cast) { item in
-                        NavigationLink(destination: CastView(cast: item)) {
-                            CreditProfileImage(name: item.name , characterOrJob: item.role, imageUrl: item.profileImage)
+                HStack {
+                    if !cast.isEmpty {
+                        ForEach(cast.prefix(10)) { item in
+                            NavigationLink(destination: CastView(cast: item)) {
+                                CreditProfileImage(name: item.name , characterOrJob: item.role, imageUrl: item.image)
+                            }
+                            .padding(.leading, item.id == self.cast.first!.id ? 16 : 0)
+                            .padding(.trailing, item.id == self.cast.last!.id ? 16 : 0)
+                            .padding([.top, .bottom])
                         }
-                        .padding(.leading, item.id == self.cast.first!.id ? 16 : 0)
-                        .padding(.trailing, item.id == self.cast.last!.id ? 16 : 0)
-                        .padding([.top, .bottom])
                     }
-                    Divider()
                     if !crew.isEmpty {
-                        ForEach(crew) { item in
-                            CreditProfileImage(name: item.name, characterOrJob: item.role, imageUrl: item.profileImage)
-                                .padding(.leading, item.id == self.crew.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == self.crew.last!.id ? 16 : 0)
-                                .padding([.top, .bottom])
+//                        ForEach(crew.prefix(5)) { item in
+//                            CreditProfileImage(name: item.name, characterOrJob: item.role, imageUrl: item.image)
+//                                .padding(.trailing, item.id == self.crew.last!.id ? 16 : 0)
+//                                .padding([.top, .bottom])
+//                        }
+                        ForEach(crew) { content in
+                            switch content.role {
+                            case "Director":
+                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
+                            case "Producer":
+                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
+                            case "Screenplay":
+                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
+                            case "Screenstory":
+                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
+                            default:
+                                EmptyView()
+                            }
                         }
                     }
                 }

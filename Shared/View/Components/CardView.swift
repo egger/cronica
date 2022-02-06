@@ -10,29 +10,14 @@ import SwiftUI
 struct CardView: View {
     let title: String
     let url: URL
-    
     var body: some View {
         ZStack {
             ImageView(url: url, title: title)
             TitleView(title: title)
         }
-        .contextMenu {
-            Button {
-                print("watchlist")
-            } label: {
-                Label("Add to watchlist", systemImage: "bell.square")
-            }
-            Button {
-                print("share")
-            } label: {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-        }
-        .frame(width: DrawingConstants.cardWidth,
-               height: DrawingConstants.cardHeight)
+        .frame(width: DrawingConstants.cardWidth, height: DrawingConstants.cardHeight)
         .cornerRadius(DrawingConstants.cardRadius)
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                radius: DrawingConstants.shadowRadius)
+        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity), radius: DrawingConstants.shadowRadius)
     }
 }
 
@@ -65,8 +50,8 @@ struct ImageView: View {
                 EmptyView()
             }
             Rectangle()
-                .fill(.black.opacity(0.5))
-                .background(.ultraThinMaterial)
+                .fill(.ultraThinMaterial)
+                .background(.black.opacity(0.8))
             AsyncImage(url: url) { content in
                 content
                     .resizable()
@@ -88,7 +73,7 @@ struct ImageView: View {
 struct TitleView: View {
     let title: String
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Spacer()
             HStack {
                 Text(title)

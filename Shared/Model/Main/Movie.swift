@@ -59,15 +59,14 @@ struct Movie: Decodable, Identifiable, Hashable {
     var movieRuntime: String {
         return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60) ?? "n/a"
     }
-    var releaseYear: String {
+    var release: String {
         guard let releaseDate = self.releaseDate, let date = Util.dateFormatter.date(from: releaseDate) else {
             return "n/a"
         }
-        return Util.dateFormatter.string(from: date)
+        return Util.dateString.string(from: date)
     }
-    var shareLink: URL {
+    var link: URL {
         return URL(string: "https://themoviedb.org/movie/\(id)")!
     }
     let credits: Credits?
-    var inWatchlist: Bool?
 }

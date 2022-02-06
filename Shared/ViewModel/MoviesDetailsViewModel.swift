@@ -15,20 +15,6 @@ class MoviesDetailsViewModel: ObservableObject {
     var movie: Movie? {
         phase.value ?? nil
     }
-    var holdedMovie: Movie?
-    
-    func share() {
-        let shareSheetVC = UIActivityViewController(
-            activityItems: [
-                movie?.title as Any,
-                movie?.shareLink as Any
-            ],
-            applicationActivities: nil)
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScenes = scenes.first as? UIWindowScene
-        let window = windowScenes?.windows.first
-        window?.rootViewController!.present(shareSheetVC, animated: true)
-    }
     
     func loadMovie(id: Int) async {
         if Task.isCancelled { return }
@@ -40,6 +26,4 @@ class MoviesDetailsViewModel: ObservableObject {
             phase = .failure(error)
         }
     }
-    
-    
 }

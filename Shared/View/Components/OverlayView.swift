@@ -36,36 +36,25 @@ struct OverlayView<T: EmptyData>: View {
 
 extension Array: EmptyData {}
 extension Optional: EmptyData {
-    
     var isEmpty: Bool {
         if case .none = self {
             return true
         }
         return false
     }
-    
 }
 
 struct RetryView: View {
-    
     let text: String
     let retryAction: () -> ()
-    
     var body: some View {
         VStack(spacing: 8) {
             Text(text)
                 .font(.callout)
                 .multilineTextAlignment(.center)
-            
             Button(action: retryAction) {
                 Text("Try Again")
             }
         }
     }
 }
-
-//struct OverlayView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        OverlayView()
-//    }
-//}

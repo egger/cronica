@@ -17,64 +17,58 @@ struct Credits: Decodable {
 }
 
 struct Cast : Decodable, Identifiable {
-    let adult : Bool?
     let id : Int
     let name : String
-    private let profilePath : String?
-    let cast_id : Int?
-    private let character : String?
-    let order : Int?
-    let biography, birthday, knownForDepartment: String?
-    var profileImage: URL {
-        return URL(string: "\(ApiConstants.w500ImageUrl)\(profilePath ?? "")")!
-    }
-    var role: String {
-        if character != nil {
-            return character!
+    private let profilePath, character : String?
+    let cast_id, order : Int?
+    let biography: String?
+    var image: URL? {
+        if profilePath == nil {
+            return nil
         } else {
-            return "n/a"
+            return URL(string: "\(ApiConstants.w500ImageUrl)\(profilePath!)")!
+        }
+    }
+    var role: String? {
+        if character == nil {
+            return nil
+        } else {
+            return character!
         }
     }
     enum CodingKeys: String, CodingKey {
-        case adult = "adult"
         case id = "id"
         case name = "name"
         case profilePath = "profilePath"
         case cast_id = "cast_id"
         case character = "character"
         case order = "order"
-        case biography, birthday
-        case knownForDepartment = "known_for_department"
+        case biography
     }
 }
 
 struct Crew : Decodable, Identifiable {
-    let adult : Bool?
-    let gender : Int?
     let id : Int
     let name : String
-    let original_name : String?
-    let profile_path : String?
-    let department : String?
-    private let job : String?
-    var profileImage: URL {
-        return URL(string: "\(ApiConstants.w500ImageUrl)\(String(describing: profile_path))" )!
-    }
-    var role: String {
-        if job != nil {
-            return job!
+    private let profilePath, job : String?
+    var image: URL? {
+        if profilePath == nil {
+            return nil
         } else {
-            return "n/a"
+            return URL(string: "\(ApiConstants.originalImageUrl)\(profilePath!)")!
+        }
+    }
+    var role: String? {
+        if job == nil {
+            return nil
+        } else {
+            return job!
         }
     }
     enum CodingKeys: String, CodingKey {
-        case adult = "adult"
-        case gender = "gender"
         case id = "id"
         case name = "name"
-        case original_name = "original_name"
-        case profile_path = "profile_path"
-        case department = "department"
+        case profilePath = "profilePath"
         case job = "job"
     }
 }

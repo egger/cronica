@@ -1,5 +1,5 @@
 //
-//  InformationBoxView.swift
+//  InformationView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 28/01/22.
@@ -7,17 +7,14 @@
 
 import SwiftUI
 
-struct InformationBoxView: View {
+struct InformationView: View {
     let movie: Movie
     var body: some View {
         GroupBox {
-            InformationSectionView(title: "Run Time", content: movie.movieRuntime)
-            if movie.status == "Released" {
-                InformationSectionView(title: "Released", content: movie.releaseYear)
-            } else {
-                InformationSectionView(title: "Release Date", content: "")
+            VStack {
+                InformationSectionView(title: "Run Time", content: movie.movieRuntime)
+                InformationSectionView(title: "Release Date:", content: movie.release)
             }
-            
         } label: {
             Label("Information", systemImage: "info")
                 .textCase(.uppercase)
@@ -29,7 +26,7 @@ struct InformationBoxView: View {
 
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationBoxView(movie: Movie.previewMovie)
+        InformationView(movie: Movie.previewMovie)
     }
 }
 

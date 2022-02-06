@@ -10,31 +10,46 @@ import SwiftUI
 struct HorizontalMovieListView: View {
     let style: String
     let title: String
-    let movies: [Movie]
+    let movies: [Movie]?
     var body: some View {
         VStack {
-            SectionHeaderView(title: title)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(movies) { item in
-                        NavigationLink(destination: MovieDetailsView(movieID: item.id,
-                                                                     movieTitle: item.title)) {
-                            switch style {
-                            case "poster":
-                                PosterView(title: item.title,
-                                           url: item.w500PosterImage)
-                                    .padding([.leading, .trailing], 4)
-                            case "card":
-                                CardView(title: item.title,
-                                         url: item.backdropImage)
-                                    .padding([.leading, .trailing], 4)
-                            default:
-                                EmptyView()
+            if !movies.isEmpty {
+                SectionHeaderView(title: title)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(movies!) { movie in
+                            NavigationLink(destination: MovieDetailsView(movieID: movie.id,
+                                                                         movieTitle: movie.title)) {
+                                switch style {
+                                case "poster":
+                                    PosterView(title: movie.title, url: movie.w500PosterImage)
+                                        .contextMenu {
+                                            Button {
+                                                
+                                            } label: {
+                                                Label("Add to watchlist", systemImage: "bell.square")
+                                            }
+                                        }
+                                        .padding([.leading, .trailing], 4)
+                                case "card":
+                                    CardView(title: movie.title, url: movie.backdropImage)
+                                        .contextMenu {
+                                            Button {
+                                                
+                                            } label: {
+                                                Label("Add to watchlist", systemImage: "bell.square")
+                                            }
+                                        }
+                                        .padding([.leading, .trailing], 4)
+                                default:
+                                    EmptyView()
+                                }
                             }
+                                                                         .padding(.leading, movie.id == self.movies!.first!.id ? 16 : 0)
+                                                                         .padding(.trailing, movie.id == self.movies!.last!.id ? 16 : 0)
+                                                                         .padding([.top, .bottom])
                         }
-                        .padding(.leading, item.id == self.movies.first!.id ? 16 : 0)
-                        .padding(.trailing, item.id == self.movies.last!.id ? 16 : 0)
-                        .padding([.top, .bottom])
+                        
                     }
                 }
             }
