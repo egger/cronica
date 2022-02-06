@@ -8,7 +8,6 @@
 import Foundation
 
 class NetworkService: ApiService {
-
     static let shared = NetworkService()
     
     func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Movie] {
@@ -62,6 +61,13 @@ class NetworkService: ApiService {
                                                         "query": query
                                                       ])
         return response.results
+    }
+    
+    func fetchCast(id: Int) async throws -> Cast {
+        guard let url = URL(string: "\(ApiConstants.baseUrl)/person/\(id)") else {
+            throw NetworkError.invalidEndpoint
+        }
+        return try await self.fetch(url: url, params: [:])
     }
     
     private func fetch<T: Decodable>(url: URL, params: [String: String]? = nil) async throws -> T {

@@ -23,7 +23,7 @@ struct HorizontalCreditsView: View {
                 HStack {
                     if !cast.isEmpty {
                         ForEach(cast.prefix(10)) { item in
-                            NavigationLink(destination: CastView(cast: item)) {
+                            NavigationLink(destination: CastView( title: item.name, id: item.id)) {
                                 CreditProfileImage(name: item.name , characterOrJob: item.role, imageUrl: item.image)
                             }
                             .padding(.leading, item.id == self.cast.first!.id ? 16 : 0)

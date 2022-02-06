@@ -13,5 +13,5 @@ protocol ApiService {
     func fetchMovie(id: Int) async throws -> Movie
     func fetchTvShow(id: Int) async throws -> Series
     func fetchMovieSearch(query: String) async throws -> [Movie]
-    //func fetchCast(id: Int) async throws -> Cast
+    func fetchCast(id: Int) async throws -> Cast
 }
