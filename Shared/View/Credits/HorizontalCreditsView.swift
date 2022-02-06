@@ -45,8 +45,6 @@ struct HorizontalCreditsView: View {
                                 CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
                             case "Screenplay":
                                 CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
-                            case "Screenstory":
-                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
                             default:
                                 EmptyView()
                             }

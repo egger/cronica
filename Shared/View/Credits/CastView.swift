@@ -46,27 +46,29 @@ private struct DrawingConstants {
 struct CastViewBody: View {
     let cast: Cast
     var body: some View {
-        VStack {
-            AsyncImage(url: cast.image) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .clipShape(Circle())
-                    .padding([.top, .bottom])
-            } placeholder: {
-                ProgressView()
+        ScrollView {
+            VStack {
+                AsyncImage(url: cast.image) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: DrawingConstants.imageWidth,
+                               height: DrawingConstants.imageHeight)
+                        .clipShape(Circle())
+                        .padding([.top, .bottom])
+                } placeholder: {
+                    ProgressView()
+                }
+                GroupBox {
+                    Text(cast.biography ?? "")
+                        .padding([.top, .bottom], DrawingConstants.biographyPadding)
+                } label: {
+                    Label("biography", systemImage: "book")
+                        .textCase(.uppercase)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
             }
-            GroupBox {
-                Text(cast.biography ?? "")
-                    .padding([.top, .bottom], DrawingConstants.biographyPadding)
-            } label: {
-                Label("biography", systemImage: "book")
-                    .textCase(.uppercase)
-                    .foregroundColor(.secondary)
-            }
-            .padding()
         }
     }
 }
