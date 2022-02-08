@@ -25,6 +25,7 @@ struct MovieView: View {
                 }
             }
             .navigationTitle("Movies")
+            #if os(iOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -38,8 +39,11 @@ struct MovieView: View {
                     .clipShape(Circle())
                 }
             }
+            #endif
         }
+        #if os(iOS)
         .navigationViewStyle(.stack)
+        #endif
     }
     
     @Sendable

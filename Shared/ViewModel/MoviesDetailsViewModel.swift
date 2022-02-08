@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+//import UIKit
 
 @MainActor
 class MoviesDetailsViewModel: ObservableObject {

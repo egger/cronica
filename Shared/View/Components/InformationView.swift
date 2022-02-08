@@ -14,6 +14,7 @@ struct InformationView: View {
             VStack {
                 InformationSectionView(title: "Run Time", content: movie.movieRuntime)
                 InformationSectionView(title: "Release Date:", content: movie.release)
+                InformationSectionView(title: "Status", content: movie.status ?? "")
             }
         } label: {
             Label("Information", systemImage: "info")

@@ -18,7 +18,9 @@ struct SeriesView: View {
             }
             .navigationTitle("TV Shows")
         }
+        #if os(iOS)
         .navigationViewStyle(.stack)
+        #endif
     }
 }
 

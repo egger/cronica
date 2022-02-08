@@ -65,6 +65,7 @@ struct CastViewBody: View {
                         ProgressView()
                     }
                 }
+                #if os(iOS)
                 .fullScreenCover(isPresented: $showingSheet) {
                     NavigationView {
                         AsyncImage(url: cast.image) { image in
@@ -87,15 +88,18 @@ struct CastViewBody: View {
                         }
                     }
                 }
-                GroupBox {
-                    Text(cast.biography ?? "")
-                        .padding([.top, .bottom], DrawingConstants.biographyPadding)
-                } label: {
-                    Label("biography", systemImage: "book")
-                        .textCase(.uppercase)
-                        .foregroundColor(.secondary)
+                #endif
+                if cast.biography != nil {
+                    GroupBox {
+                        Text(cast.biography ?? "")
+                            .padding([.top, .bottom], DrawingConstants.biographyPadding)
+                    } label: {
+                        Label("biography", systemImage: "book")
+                            .textCase(.uppercase)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
                 }
-                .padding()
             }
         }
     }

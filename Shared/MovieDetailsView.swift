@@ -19,6 +19,7 @@ struct MovieDetailsView: View {
             }
         }
         .navigationTitle(movieTitle)
+        #if os(iOS)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -31,6 +32,7 @@ struct MovieDetailsView: View {
                 }
             }
         }
+        #endif
         .task {
             load()
         }
@@ -53,13 +55,15 @@ struct MovieDetailsView_Previews: PreviewProvider {
 
 struct DetailsBodyView: View {
     let movie: Movie
-    let generator = UIImpactFeedbackGenerator(style: .medium)
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \MovieItem.id, ascending: true)],
         animation: .default)
     private var movieItems: FetchedResults<MovieItem>
     @State private var isAdded: Bool = false
+    #if os(iOS)
+    let generator = UIImpactFeedbackGenerator(style: .medium)
+    #endif
     var body: some View {
         ScrollView {
             VStack {
@@ -68,7 +72,9 @@ struct DetailsBodyView: View {
                     .padding(.horizontal)
                 VStack {
                     Button {
+                        #if os(iOS)
                         generator.impactOccurred(intensity: 1.0)
+                        #endif
                         addItem(title: movie.title, id: movie.id, image: movie.backdropImage, notify: false)
                     } label: {
                         Label("Add to watchlist", systemImage: "plus.square")

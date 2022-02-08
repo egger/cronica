@@ -14,11 +14,12 @@ struct WatchlistView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \MovieItem.id, ascending: true)],
         animation: .default)
     private var items: FetchedResults<MovieItem>
+    @State private var searchText = ""
     var body: some View {
         NavigationView {
             if items.isEmpty {
                 VStack {
-                    Image(systemName: "theatermasks.fill")
+                    Image(systemName: "square.stack.fill")
                         .padding()
                     Text("Your list is empty.")
                         .font(.title)
@@ -29,39 +30,37 @@ struct WatchlistView: View {
                 List {
                     ForEach(items) { item in
                         NavigationLink(destination: MovieDetailsView(movieID: Int(item.id), movieTitle: item.title!)) {
-                            HStack {
-                                AsyncImage(url: item.image) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 70, height: 50)
-                                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Text(item.title!)
-                                            .lineLimit(1)
-                                    }
-                                    HStack {
-                                        Text("Movie")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                        Spacer()
-                                    }
-                                }
+                            ItemView(title: item.title!, image: item.image!, type: "Movie")
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                        }
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
                             }
                         }
                     }
                     .onDelete(perform: deleteItems)
                 }
+                .refreshable {
+                    
+                }
                 .navigationTitle("Watchlist")
+                #if os(iOS)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
                     }
                 }
+                #endif
+                .searchable(text: $searchText, prompt: "Search in your watchlist.")
                 
             }
         }
