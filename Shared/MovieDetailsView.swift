@@ -36,7 +36,7 @@ struct MovieDetailsView: View {
         .task {
             load()
         }
-        .overlay(OverlayView(phase: viewModel.phase, retry: load, title: movieTitle))
+        //.overlay(OverlayView(phase: viewModel.phase, retry: load, title: movieTitle))
     }
     
     @Sendable
@@ -75,14 +75,28 @@ struct DetailsBodyView: View {
                         #if os(iOS)
                         generator.impactOccurred(intensity: 1.0)
                         #endif
-                        addItem(title: movie.title, id: movie.id, image: movie.backdropImage, notify: false)
+                        if !isAdded {
+                            withAnimation(.easeInOut) {
+                                isAdded.toggle()
+                            }
+                            addItem(title: movie.title, id: movie.id, image: movie.backdropImage, status: movie.status ?? "" ,notify: false)
+                            
+                        } else {
+                            withAnimation(.easeInOut) {
+                                isAdded.toggle()
+                            }
+                            
+                        }
+                        
                     } label: {
-                        Label("Add to watchlist", systemImage: "plus.square")
-                            .padding(.horizontal)
-                            .padding([.top, .bottom], 6)
+                        withAnimation(.easeInOut) {
+                            Label(!isAdded ? "Add to watchlist" : "Remove from watchlist", systemImage: !isAdded ? "plus.square" : "minus.square")
+                                .padding(.horizontal)
+                                .padding([.top, .bottom], 6)
+                        }
                     }
-                    .foregroundColor(.primary)
                     .buttonStyle(.bordered)
+                    .tint(isAdded ? .red : .blue)
                 }
                 AboutView(overview: movie.overview)
                 Divider()
@@ -92,11 +106,25 @@ struct DetailsBodyView: View {
                     .padding([.horizontal, .top])
                 InformationView(movie: movie)
                     .padding(.top)
+                if movie.similar != nil {
+                    Divider()
+                        .padding([.horizontal, .top])
+                    MovieListView(style: "poster", title: "You may like", movies: movie.similar?.results)
+                        .padding(.bottom)
+                }
+                
+            }
+            .onAppear {
+                for item in movieItems {
+                    if item.id == movie.id {
+                        isAdded.toggle()
+                    }
+                }
             }
         }
     }
     
-    private func addItem(title: String, id: Int, image: URL, notify: Bool = false) {
+    private func addItem(title: String, id: Int, image: URL, status: String, notify: Bool = false) {
         withAnimation {
             var inWatchlist: Bool = false
             for i in movieItems {
@@ -109,6 +137,7 @@ struct DetailsBodyView: View {
                 item.title = title
                 item.id = Int32(id)
                 item.image = image
+                item.status = status
                 item.notify = notify
                 do {
                     try viewContext.save()

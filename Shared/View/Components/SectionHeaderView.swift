@@ -12,29 +12,28 @@ struct SectionHeaderView: View {
     var body: some View {
         HStack {
             Text(title)
-                .textCase(.uppercase)
                 .font(.headline)
                 .foregroundColor(.secondary)
                 .padding([.top, .horizontal])
             Spacer()
             switch title {
-            case "popular":
+            case "Popular":
                 IconView(icon: "crown")
-            case "up coming":
+            case "Up Coming":
                 IconView(icon: "theatermasks")
-            case "now playing": 
+            case "Now Playing":
                 IconView(icon: "play.tv")
-            case "top rated":
+            case "Top Rated":
                 IconView(icon: "star")
-            case "airing today":
+            case "Airing Today":
                 IconView(icon: "calendar.badge.clock")
-            case "on the air":
+            case "On The Air":
                 IconView(icon: "tv")
-            case "latest":
+            case "Latest":
                 IconView(icon: "flame")
             case "similarCastMovie":
                 IconView(icon: "person.crop.rectangle.stack.fill")
-            case "similarMovies":
+            case "You may like":
                 IconView(icon: "list.and.film")
             default:
                 EmptyView()
@@ -45,7 +44,7 @@ struct SectionHeaderView: View {
 
 struct SectionHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SectionHeaderView(title: "popular")
+        SectionHeaderView(title: "Popular")
     }
 }
 

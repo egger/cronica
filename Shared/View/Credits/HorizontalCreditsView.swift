@@ -32,22 +32,10 @@ struct HorizontalCreditsView: View {
                         }
                     }
                     if !crew.isEmpty {
-//                        ForEach(crew.prefix(5)) { item in
-//                            CreditProfileImage(name: item.name, characterOrJob: item.role, imageUrl: item.image)
-//                                .padding(.trailing, item.id == self.crew.last!.id ? 16 : 0)
-//                                .padding([.top, .bottom])
-//                        }
-                        ForEach(crew) { content in
-                            switch content.role {
-                            case "Director":
-                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
-                            case "Producer":
-                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
-                            case "Screenplay":
-                                CreditProfileImage(name: content.name, characterOrJob: content.role, imageUrl: content.image)
-                            default:
-                                EmptyView()
-                            }
+                        ForEach(crew.filter { $0.role == "Director" }) { item in
+                            CreditProfileImage(name: item.name, characterOrJob: item.role, imageUrl: item.image)
+                                .padding(.trailing)
+                                .padding([.top, .bottom])
                         }
                     }
                 }

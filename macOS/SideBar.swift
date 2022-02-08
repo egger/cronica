@@ -10,28 +10,30 @@ import SwiftUI
 struct SideBar: View {
     @SceneStorage("selectedView") var selectedView: String?
     var body: some View {
-        List {
-            NavigationLink(destination: MovieView()) {
-                Label("Movies", systemImage: "film")
+        NavigationView {
+            List {
+                NavigationLink(destination: MovieView()) {
+                    Label("Movies", systemImage: "film")
+                }
+                .tag(MovieView.tag)
+                NavigationLink(destination: SeriesView()) {
+                    Label("TV", systemImage: "play.tv")
+                }
+                .tag(SeriesView.tag)
+                NavigationLink(destination: WatchlistView()) {
+                    Label("Watchlist", systemImage: "square.stack.fill")
+                }
+                .tag(WatchlistView.tag)
+                NavigationLink(destination: SearchView()) {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+                .tag(SearchView.tag)
             }
-            .tag(MovieView.tag)
-            NavigationLink(destination: SeriesView()) {
-                Label("TV", systemImage: "play.tv")
-            }
-            .tag(SeriesView.tag)
-            NavigationLink(destination: WatchlistView()) {
-                Label("Watchlist", systemImage: "square.stack.fill")
-            }
-            .tag(WatchlistView.tag)
-            NavigationLink(destination: SearchView()) {
-                Label("Search", systemImage: "magnifyingglass")
-            }
-            .tag(SearchView.tag)
+            .listStyle(.sidebar)
+            .navigationTitle("Story")
+            MovieView()
         }
-        .listStyle(.sidebar)
-        .navigationTitle("Story")
-        MovieView()
-
+        
     }
 }
 

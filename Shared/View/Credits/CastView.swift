@@ -66,13 +66,15 @@ struct CastViewBody: View {
                     }
                 }
                 #if os(iOS)
-                .fullScreenCover(isPresented: $showingSheet) {
+                .sheet(isPresented: $showingSheet) {
                     NavigationView {
                         AsyncImage(url: cast.image) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                                 .padding()
+                                .padding(.bottom)
                         } placeholder: {
                             ProgressView()
                         }

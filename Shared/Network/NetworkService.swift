@@ -18,11 +18,11 @@ class NetworkService: ApiService {
         return response.results
     }
     
-    func fetchTvShows(from endpoint: SeriesEndpoint) async throws -> [Series] {
+    func fetchTvShows(from endpoint: SeriesEndpoint) async throws -> [TvShow] {
         guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(endpoint.rawValue)") else {
             throw NetworkError.invalidEndpoint
         }
-        let response: SeriesResponse = try await self.fetch(url: url)
+        let response: TvResponse = try await self.fetch(url: url)
         return response.results
     }
     
@@ -35,7 +35,7 @@ class NetworkService: ApiService {
         }
         return try await self.fetch(url: url,
                                     params: [
-                                        "append_to_response": "credits"
+                                        "append_to_response": "credits,similar"
                                     ])
     }
     

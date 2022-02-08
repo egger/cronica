@@ -9,12 +9,14 @@ import SwiftUI
 
 struct SearchView: View {
     static let tag: String? = "Search"
+    @State private var searchString: String = ""
     var body: some View {
         NavigationView {
             VStack {
-                Text("Search")
+                
             }
             .navigationTitle("Search")
+            .searchable(text: $searchString, placement: .navigationBarDrawer)
         }
     }
 }

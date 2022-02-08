@@ -11,9 +11,16 @@ struct ContentView: View {
     @SceneStorage("selectedView") var selectedView: String?
     var body: some View {
 #if os(iOS)
-        TabBar()
-#else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            SideBar()
+        }
+        else {
+            TabBar()
+        }
+        #elseif os(macOS)
         SideBar()
+#else
+        EmptyView()
 #endif
     }
 }

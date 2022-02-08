@@ -12,32 +12,30 @@ struct SeriesResponse: Decodable, Identifiable {
     let results: [Series]
 }
 
-struct Series: Decodable, Identifiable {
+struct Series: Decodable, Identifiable, Hashable {
+    static func == (lhs: Series, rhs: Series) -> Bool {
+        lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     let id: Int
     private let name: String
     let overview: String
-    private let posterPath, backdropPath: String?
-    let firstAirDate: String?
-    var posterImage: URL? {
-        if posterPath != nil {
-            return URL(string: "\(ApiConstants.originalImageUrl)\(posterPath!)")!
-        } else {
-            return nil
-        }
+    private let posterPath, backdropPath: String
+    //let firstAirDate: String?
+    var posterImage: URL {
+        return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
     }
-    var backdropImage: URL? {
-        if backdropPath != nil {
-            return URL(string: "\(ApiConstants.originalImageUrl)\(backdropPath!)")!
-        } else {
-            return nil
-        }
+    var backdropImage: URL {
+        return URL(string: "\(ApiConstants.w1066ImageUrl)\(backdropPath)")!
     }
     var title: String {
         return name
     }
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
-        case firstAirDate = "first_air_date"
+        //case firstAirDate = "first_air_date"
         case id, name, overview
         case posterPath = "poster_path"
     }
@@ -45,7 +43,7 @@ struct Series: Decodable, Identifiable {
 
 struct SeriesSection: Identifiable {
     var id = UUID()
-    let result: [Series]
+    let results: [Series]
     let endpoint: SeriesEndpoint
     var title: String {
         endpoint.title
@@ -57,6 +55,8 @@ struct SeriesSection: Identifiable {
         case .airingToday:
             return "poster"
         case .onTheAir:
+            return "poster"
+        case .popular:
             return "poster"
         }
     }

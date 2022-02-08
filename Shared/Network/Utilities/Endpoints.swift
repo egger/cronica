@@ -26,17 +26,17 @@ enum MovieEndpoints: String, CaseIterable, Identifiable {
     }
     var title: String {
         switch self {
-        case .nowPlaying: return "now playing"
-        case .upcoming: return "up coming"
-        case .topRated: return "top rated"
-        case .popular: return "popular"
+        case .nowPlaying: return "Now Playing"
+        case .upcoming: return "Up Coming"
+        case .topRated: return "Top Rated"
+        case .popular: return "Popular"
         }
     }
 }
 
 enum SeriesEndpoint: String, CaseIterable, Identifiable {
     var id: String { rawValue }
-    case latest
+    case latest, popular
     case airingToday = "airing_today"
     case onTheAir = "on_the_air"
     var sortIndex: Int {
@@ -47,13 +47,16 @@ enum SeriesEndpoint: String, CaseIterable, Identifiable {
             return 1
         case .onTheAir:
             return 2
+        case .popular:
+            return 3
         }
     }
     var title: String {
         switch self {
-        case .latest: return "latest"
-        case .airingToday: return "airing today"
-        case .onTheAir: return "on the air"
+        case .latest: return "Latest"
+        case .airingToday: return "Airing Today"
+        case .onTheAir: return "On The Air"
+        case .popular: return "Popular"
         }
     }
 }

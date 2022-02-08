@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HorizontalMovieListView: View {
+struct MovieListView: View {
     let style: String
     let title: String
     let movies: [Movie]?
@@ -59,8 +59,8 @@ struct HorizontalMovieListView: View {
 
 struct HorizontalMovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalMovieListView(style: "card", title: "popular", movies: Movie.previewMovies)
-        HorizontalMovieListView(style: "poster", title: "popular", movies: Movie.previewMovies)
+        MovieListView(style: "card", title: "popular", movies: Movie.previewMovies)
+        MovieListView(style: "poster", title: "popular", movies: Movie.previewMovies)
             .preferredColorScheme(.dark)
     }
 }

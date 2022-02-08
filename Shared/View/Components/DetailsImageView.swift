@@ -31,6 +31,13 @@ struct DetailsImageView: View {
                         radius: DrawingConstants.shadowRadius)
                 .redacted(reason: .placeholder)
         }
+        .contextMenu {
+            Button {
+                
+            } label: {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+        }
         .padding([.top, .bottom])
     }
 }

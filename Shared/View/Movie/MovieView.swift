@@ -10,12 +10,13 @@ import SwiftUI
 struct MovieView: View {
     @StateObject private var viewModel = MovieViewModel()
     static let tag: String? = "Movie"
+    @State private var showingSheet: Bool = false
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
                     ForEach(viewModel.sections) {
-                        HorizontalMovieListView(style: $0.style,
+                        MovieListView(style: $0.style,
                                            title: $0.title,
                                            movies: $0.results) 
                     }
@@ -29,7 +30,7 @@ struct MovieView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        showingSheet.toggle()
                     } label: {
                         Image(systemName: "person")
                             .padding(.horizontal)
@@ -37,6 +38,26 @@ struct MovieView: View {
                     }
                     .frame(width: 36, height: 36)
                     .clipShape(Circle())
+                }
+            }
+            .sheet(isPresented: $showingSheet) {
+                NavigationView {
+                    List {
+                        NavigationLink(destination: EmptyView()) {
+                            Label("Sign In", systemImage: "person")
+                        }
+                        NavigationLink(destination: EmptyView()) {
+                            Label("Settings", systemImage: "gearshape")
+                        }
+                    }
+                }
+                .navigationTitle("Account")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            showingSheet.toggle()
+                        }
+                    }
                 }
             }
             #endif

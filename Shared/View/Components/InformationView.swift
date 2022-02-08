@@ -11,14 +11,13 @@ struct InformationView: View {
     let movie: Movie
     var body: some View {
         GroupBox {
-            VStack {
+            Section {
                 InformationSectionView(title: "Run Time", content: movie.movieRuntime)
                 InformationSectionView(title: "Release Date:", content: movie.release)
                 InformationSectionView(title: "Status", content: movie.status ?? "")
             }
         } label: {
             Label("Information", systemImage: "info")
-                .textCase(.uppercase)
                 .foregroundColor(.secondary)
         }
         .padding([.horizontal, .bottom])

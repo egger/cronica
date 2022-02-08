@@ -69,4 +69,5 @@ struct Movie: Decodable, Identifiable, Hashable {
         return URL(string: "https://themoviedb.org/movie/\(id)")!
     }
     let credits: Credits?
+    let similar: MovieResponse?
 }

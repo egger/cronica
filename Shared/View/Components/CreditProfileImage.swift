@@ -51,9 +51,10 @@ private struct CreditImageView: View {
                     image
                         .resizable()
                         .scaledToFill()
+                        .overlay(.ultraThinMaterial)
                     Rectangle()
                         .fill(.black.opacity(0.5))
-                        .background(.ultraThinMaterial)
+                        .overlay(.ultraThinMaterial)
                     image
                         .resizable()
                         .scaledToFill()

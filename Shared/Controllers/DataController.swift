@@ -54,6 +54,4 @@ class DataController: ObservableObject {
             }
         }
     }
-    
-    
 }

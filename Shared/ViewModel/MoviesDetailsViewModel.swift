@@ -21,6 +21,7 @@ class MoviesDetailsViewModel: ObservableObject {
         phase = .empty
         do {
             let movie = try await self.service.fetchMovie(id: id)
+            print(movie.similar as Any)
             phase = .success(movie)
         } catch {
             phase = .failure(error)

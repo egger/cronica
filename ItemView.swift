@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  ItemView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 07/02/22.
@@ -17,15 +17,18 @@ struct ItemView: View {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 70, height: 50)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                    .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
             } placeholder: {
-                ProgressView()
+                Rectangle()
+                    .fill(.thickMaterial)
+                    .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
             }
             VStack(alignment: .leading) {
                 HStack {
                     Text(title)
-                        .lineLimit(1)
+                        .lineLimit(DrawingConstants.textLimit)
                 }
                 HStack {
                     Text(type)
@@ -42,4 +45,11 @@ struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
         ItemView(title: Movie.previewMovie.title, image: Movie.previewMovie.backdropImage, type: "Movie")
     }
+}
+
+private struct DrawingConstants {
+    static let imageWidth: CGFloat = 70
+    static let imageHeight: CGFloat = 50
+    static let imageRadius: CGFloat = 4
+    static let textLimit: Int = 1
 }
