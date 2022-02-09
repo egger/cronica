@@ -41,14 +41,15 @@ enum SeriesEndpoint: String, CaseIterable, Identifiable {
     case onTheAir = "on_the_air"
     var sortIndex: Int {
         switch self {
-        case .latest:
-            return 0
-        case .airingToday:
-            return 1
-        case .onTheAir:
-            return 2
         case .popular:
+            return 0
+        case .latest:
+            return 1
+        case .airingToday:
+            return 2
+        case .onTheAir:
             return 3
+        
         }
     }
     var title: String {

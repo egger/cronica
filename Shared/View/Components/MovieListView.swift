@@ -59,8 +59,8 @@ struct MovieListView: View {
 
 struct HorizontalMovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(style: "card", title: "popular", movies: Movie.previewMovies)
-        MovieListView(style: "poster", title: "popular", movies: Movie.previewMovies)
+        MovieListView(style: "card", title: "Popular", movies: Movie.previewMovies)
+        MovieListView(style: "poster", title: "Popular", movies: Movie.previewMovies)
             .preferredColorScheme(.dark)
     }
 }

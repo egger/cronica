@@ -68,7 +68,6 @@ class SeriesViewModel: ObservableObject {
     private func fetchFromEndpoint(_ endpoint: SeriesEndpoint) async -> Result<TvSection, Error> {
         do {
             let series = try await service.fetchTvShows(from: endpoint)
-            print(series)
             return .success(.init(results: series, endpoint: endpoint))
         } catch {
             return .failure(error)

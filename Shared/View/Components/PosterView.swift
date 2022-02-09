@@ -40,8 +40,8 @@ struct PosterView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let posterWidth: CGFloat = 200
-    static let posterHeight: CGFloat = 300
+    static let posterWidth: CGFloat = 180
+    static let posterHeight: CGFloat = 280
     static let posterRadius: CGFloat = 12
     static let shadowOpacity: Double = 0.5
     static let shadowRadius: CGFloat = 5

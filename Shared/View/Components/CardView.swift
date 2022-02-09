@@ -28,8 +28,8 @@ struct BackdropView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let cardWidth: CGFloat = 300
-    static let cardHeight: CGFloat = 200
+    static let cardWidth: CGFloat = 280
+    static let cardHeight: CGFloat = 180
     static let cardRadius: CGFloat = 12
     static let shadowOpacity: Double = 0.5
     static let shadowRadius: CGFloat = 5
@@ -83,7 +83,7 @@ struct TitleView: View {
                     .padding()
                 Spacer()
             }
-            .padding(.horizontal)
+            .padding(.trailing)
         }
         .padding(.horizontal)
     }

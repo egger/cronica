@@ -18,7 +18,7 @@ struct TvListView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(series!) { content in
-                            NavigationLink(destination: EmptyView()) {
+                            NavigationLink(destination: TvDetailsView(tvId: content.id, tvTitle: content.title)) {
                                 switch style {
                                 case "poster":
                                     PosterView(title: content.title, url: content.posterImage)

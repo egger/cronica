@@ -39,13 +39,14 @@ class NetworkService: ApiService {
                                     ])
     }
     
-    func fetchTvShow(id: Int) async throws -> Series {
+    func fetchTvShow(id: Int) async throws -> TvShow {
         guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(id)") else {
             throw NetworkError.invalidEndpoint
         }
         return try await self.fetch(url: url,
                                     params: [
-                                        "append_to_response": "credits"
+                                        :
+//                                        "append_to_response": "credits"
                                     ])
     }
     

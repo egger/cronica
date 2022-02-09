@@ -11,6 +11,7 @@ struct MovieView: View {
     @StateObject private var viewModel = MovieViewModel()
     static let tag: String? = "Movie"
     @State private var showingSheet: Bool = false
+    @State private var queryString: String = ""
     var body: some View {
         NavigationView {
             ScrollView {
@@ -26,6 +27,7 @@ struct MovieView: View {
                 }
             }
             .navigationTitle("Movies")
+            .searchable(text: $queryString)
             #if os(iOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

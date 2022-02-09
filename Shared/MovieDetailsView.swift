@@ -57,9 +57,9 @@ struct DetailsBodyView: View {
     let movie: Movie
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \MovieItem.id, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
         animation: .default)
-    private var movieItems: FetchedResults<MovieItem>
+    private var movieItems: FetchedResults<WatchlistItem>
     @State private var isAdded: Bool = false
     #if os(iOS)
     let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -133,11 +133,12 @@ struct DetailsBodyView: View {
                 }
             }
             if !inWatchlist {
-                let item = MovieItem(context: viewContext)
+                let item = WatchlistItem(context: viewContext)
                 item.title = title
                 item.id = Int32(id)
                 item.image = image
                 item.status = status
+                item.type = "Movie"
                 item.notify = notify
                 do {
                     try viewContext.save()

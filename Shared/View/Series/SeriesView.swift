@@ -10,6 +10,7 @@ import SwiftUI
 struct SeriesView: View {
     static let tag: String? = "Series"
     @StateObject private var viewModel = SeriesViewModel()
+    @State private var queryString: String = ""
     var body: some View {
         NavigationView {
             ScrollView {
@@ -22,6 +23,7 @@ struct SeriesView: View {
                     load()
                 }
             }
+            .searchable(text: $queryString)
             .navigationTitle("TV Shows")
         }
         #if os(iOS)

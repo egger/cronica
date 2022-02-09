@@ -17,11 +17,12 @@ class DataController: ObservableObject {
         let result = DataController(inMemory: true)
         let viewContext = result.container.viewContext
         for item in Movie.previewMovies {
-            let newItem = MovieItem(context: viewContext)
+            let newItem = WatchlistItem(context: viewContext)
             newItem.title = item.title
             newItem.id = Int32(item.id)
             newItem.image = item.backdropImage
             newItem.notify = Bool.random()
+            newItem.type = "Movie"
         }
         do {
             try viewContext.save()

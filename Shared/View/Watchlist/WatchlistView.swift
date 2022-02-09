@@ -11,12 +11,13 @@ struct WatchlistView: View {
     static let tag: String? = "Watchlist"
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \MovieItem.id, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<MovieItem>
+    private var items: FetchedResults<WatchlistItem>
     @State private var queryString = ""
     @State private var multiSelection = Set<Int>()
     enum selectionType: String, CaseIterable, Identifiable {
+        case type
         case title
         case release
         case status
@@ -24,7 +25,7 @@ struct WatchlistView: View {
         var id: String { self.rawValue }
     }
     @State private var selected = selectionType.status
-    var filteredMovieItems: [MovieItem] {
+    var filteredMovieItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(queryString))! as Bool }
     }
     var body: some View {
@@ -43,7 +44,7 @@ struct WatchlistView: View {
                     if !filteredMovieItems.isEmpty {
                         ForEach(filteredMovieItems) { item in
                             NavigationLink(destination: MovieDetailsView(movieID: Int(item.id), movieTitle: item.title!)) {
-                                ItemView(title: item.title!, image: item.image!, type: "Movie")
+                                ItemView(title: item.title!, image: item.image!, type: item.type!)
                             }
                         }
                     } else {
@@ -51,8 +52,10 @@ struct WatchlistView: View {
                         WatchlistSection(movies: items.filter { $0.status == "In Production"}, title: "In Production")
                         WatchlistSection(movies: items.filter { $0.status == "Post Production"}, title: "Post Production")
                         WatchlistSection(movies: items.filter { $0.status == "Planned"}, title: "Planned")
-                        WatchlistSection(movies: items.filter { $0.status == "Canceled"}, title: "Canceled")
-                        WatchlistSection(movies: items.filter { $0.status == "Rumored"}, title: "Rumored")
+                        //WatchlistSection(movies: items.filter { $0.status == "Canceled"}, title: "Canceled")
+                        //WatchlistSection(movies: items.filter { $0.status == "Rumored"}, title: "Rumored")
+                        WatchlistSection(movies: items.filter { $0.status == "Returning Series"}, title: "Returning Series")
+                        WatchlistSection(movies: items.filter { $0.status == "Ended"}, title: "Ended")
                     }
                 }
                 .refreshable {
@@ -91,22 +94,37 @@ struct WatchListView_Previews: PreviewProvider {
 
 struct WatchlistSection: View {
     @Environment(\.managedObjectContext) private var viewContext
-    let movies: [MovieItem]
+    let movies: [WatchlistItem]
     let title: String
     var body: some View {
         Section {
             ForEach(movies) { item in
-                NavigationLink(destination: MovieDetailsView(movieID: Int(item.id), movieTitle: item.title!)) {
-                    ItemView(title: item.title!, image: item.image!, type: "Movie")
-                        .contextMenu {
-                            Button {
-                                
-                            } label: {
-                                Label("Share", systemImage: "square.and.arrow.up")
-                            }
+                if item.type == "Movie" {
+                    NavigationLink(destination: MovieDetailsView(movieID: Int(item.id), movieTitle: item.title!)) {
+                        ItemView(title: item.title!, image: item.image!, type: item.type!)
+                            .contextMenu {
+                                Button {
+                                    
+                                } label: {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                }
 
-                        }
+                            }
+                    }
+                } else {
+                    NavigationLink(destination: TvDetailsView(tvId: Int(item.id), tvTitle: item.title!)) {
+                        ItemView(title: item.title!, image: item.image!, type: item.type!)
+                            .contextMenu {
+                                Button {
+                                    
+                                } label: {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                }
+
+                            }
+                    }
                 }
+                
             }
             .onDelete(perform: deleteItems)
         } header: {
