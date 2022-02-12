@@ -14,7 +14,13 @@ struct MovieListView: View {
     var body: some View {
         VStack {
             if !movies.isEmpty {
-                SectionHeaderView(title: title)
+                HStack {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .padding([.top, .horizontal])
+                    Spacer()
+                }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(movies!) { movie in

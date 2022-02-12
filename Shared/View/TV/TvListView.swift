@@ -14,7 +14,13 @@ struct TvListView: View {
     var body: some View {
         VStack {
             if !series.isEmpty {
-                SectionHeaderView(title: title)
+                HStack {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .padding([.top, .horizontal])
+                    Spacer()
+                }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(series!) { content in

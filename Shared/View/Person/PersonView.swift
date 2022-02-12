@@ -68,8 +68,7 @@ struct PersonView: View {
                                     .padding([.top, .bottom], DrawingConstants.biographyPadding)
                                     .lineLimit(6)
                             } label: {
-                                Label("biography", systemImage: "book")
-                                    .textCase(.uppercase)
+                                Label("Biography", systemImage: "book")
                                     .foregroundColor(.secondary)
                             }
                             .padding()

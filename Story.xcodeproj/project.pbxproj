@@ -48,8 +48,6 @@
 		B85E035427B02D01005C7FDF /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonViewModel.swift */; };
 		B85E035527B02D01005C7FDF /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonViewModel.swift */; };
 		B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E036F27B0371C005C7FDF /* StoryTests.swift */; };
-		B86E586427A34B1E005DBF38 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586327A34B1E005DBF38 /* SectionHeaderView.swift */; };
-		B86E586527A34B1E005DBF38 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586327A34B1E005DBF38 /* SectionHeaderView.swift */; };
 		B86E586727A467F6005DBF38 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586627A467F6005DBF38 /* AboutView.swift */; };
 		B86E586827A467F6005DBF38 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586627A467F6005DBF38 /* AboutView.swift */; };
 		B86E586A27A4686E005DBF38 /* DetailsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586927A4686E005DBF38 /* DetailsImageView.swift */; };
@@ -138,7 +136,6 @@
 		B85E035327B02D01005C7FDF /* PersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewModel.swift; sourceTree = "<group>"; };
 		B85E036D27B0371C005C7FDF /* StoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85E036F27B0371C005C7FDF /* StoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTests.swift; sourceTree = "<group>"; };
-		B86E586327A34B1E005DBF38 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		B86E586627A467F6005DBF38 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B86E586927A4686E005DBF38 /* DetailsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsImageView.swift; sourceTree = "<group>"; };
 		B86E586C27A46A5E005DBF38 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
@@ -208,7 +205,7 @@
 		B8110ED7279245D000844FEB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */,
+				B8E7651927B738D200D9B731 /* Configuration */,
 				B8110EDA279245D100844FEB /* Assets.xcassets */,
 				B87B5CD32799AF3600632648 /* Attribution.xcassets */,
 				B8B271A827A5A19100F6463F /* Controllers */,
@@ -337,7 +334,6 @@
 				B8ED4C2D27B314460045C68F /* OverlayView.swift */,
 				B8423E2E2793B61B0012259B /* CardView.swift */,
 				B82C26792795E33900259D98 /* PosterView.swift */,
-				B86E586327A34B1E005DBF38 /* SectionHeaderView.swift */,
 				B86E586927A4686E005DBF38 /* DetailsImageView.swift */,
 				B86E586627A467F6005DBF38 /* AboutView.swift */,
 				B86E586C27A46A5E005DBF38 /* InformationView.swift */,
@@ -408,6 +404,14 @@
 				B8B271A527A5A18C00F6463F /* DataController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B8E7651927B738D200D9B731 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -582,7 +586,6 @@
 				B8E6D63827B6A472002E7A63 /* WatchlistButtonView.swift in Sources */,
 				B8423E2F2793B61B0012259B /* CardView.swift in Sources */,
 				B82C26922796452A00259D98 /* Preview.swift in Sources */,
-				B86E586427A34B1E005DBF38 /* SectionHeaderView.swift in Sources */,
 				B8B271A627A5A18C00F6463F /* DataController.swift in Sources */,
 				B8ED4C3427B35FC30045C68F /* TvDetailsViewModel.swift in Sources */,
 				B8A3F48627A610AF005F2941 /* PersonListView.swift in Sources */,
@@ -614,7 +617,6 @@
 				B86E587127A4842A005DBF38 /* DataFetchPhase.swift in Sources */,
 				B8110F07279264D100844FEB /* SearchView.swift in Sources */,
 				B8E6D64327B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
-				B86E586527A34B1E005DBF38 /* SectionHeaderView.swift in Sources */,
 				B82C2690279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B82C267B2795E33900259D98 /* PosterView.swift in Sources */,
 				B893F657279C9EDA00F868FE /* MovieViewModel.swift in Sources */,

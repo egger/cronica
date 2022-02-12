@@ -56,6 +56,9 @@ struct MovieDetailsView: View {
                 }
             }
             .navigationTitle(movieTitle)
+            .toolbar {
+                
+            }
             .task {
                 load()
             }
