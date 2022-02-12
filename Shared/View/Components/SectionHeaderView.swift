@@ -48,7 +48,7 @@ struct SectionHeader_Previews: PreviewProvider {
     }
 }
 
-struct IconView: View {
+private struct IconView: View {
     let icon: String
     var body: some View {
         Image(systemName: icon)

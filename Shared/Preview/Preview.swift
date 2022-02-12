@@ -21,10 +21,10 @@ extension Credits {
     static var previewCredits: Credits {
         return Movie.previewMovie.credits!
     }
-    static var previewCast: Cast {
+    static var previewCast: Person {
         return previewCredits.cast[2]
     }
-    static var previewCrew: Crew {
+    static var previewCrew: Person {
         return previewCredits.crew[0]
     }
 }

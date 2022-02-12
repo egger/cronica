@@ -15,7 +15,7 @@ struct AboutView: View {
                 .font(.system(.body, design: .rounded))
                 .padding([.top], 2)
                 .textSelection(.enabled)
-                .lineLimit(6)
+                .lineLimit(4)
         } label: {
             Label("About", systemImage: "film")
                 .foregroundColor(.secondary)

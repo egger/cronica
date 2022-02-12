@@ -27,19 +27,11 @@ struct MovieSection: Identifiable {
             return "poster"
         case .nowPlaying:
             return "card"
-        case .topRated:
-            return "poster"
         }
     }
 }
 
-struct Movie: Decodable, Identifiable, Hashable {
-    static func == (lhs: Movie, rhs: Movie) -> Bool {
-        lhs.id == rhs.id
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+struct Movie: Decodable, Identifiable {
     let id: Int
     let title, overview: String
     private let posterPath, backdropPath: String

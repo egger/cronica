@@ -60,7 +60,7 @@ struct ImageView: View {
                         LinearGradient(gradient: Gradient(colors:
                                                             [.black,
                                                              .black.opacity(0)]),
-                                       startPoint: .center,
+                                       startPoint: .top,
                                        endPoint: .bottom)
                     }
             } placeholder: {

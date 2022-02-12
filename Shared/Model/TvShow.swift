@@ -56,6 +56,9 @@ struct Season: Decodable, Identifiable {
     let airDate: String?
     let episodeCount: Int?
     let name, overview, posterPath: String
+    var posterImage: URL {
+        return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
+    }
     let seasonNumber: Int
 }
 

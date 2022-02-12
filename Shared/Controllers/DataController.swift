@@ -55,4 +55,23 @@ class DataController: ObservableObject {
             }
         }
     }
+    
+//    func fetchAll() -> [Int] {
+//        var results: [Int] = []
+//        @FetchRequest(
+//            sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
+//            animation: .default)
+//        var watchlistItems: FetchedResults<WatchlistItem>
+//        for i in watchlistItems {
+//            results.append(i.id)
+//        }
+////        ForEach(watchlistItems) { item in
+////            results.append(item.id)
+////        }
+////        for item in watchlistItems {
+////            results.append(item.id)
+////        }
+//        results = [1, 2]
+//        return results
+//    }
 }

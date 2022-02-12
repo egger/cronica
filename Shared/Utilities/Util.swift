@@ -21,7 +21,8 @@ class Util {
     }()
     static let dateString: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
         return formatter
     }()
     static let durationFormatter: DateComponentsFormatter = {

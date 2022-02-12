@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CreditProfileImage: View {
+struct PersonRectangularView: View {
     let name: String
     let characterOrJob: String?
     let imageUrl: URL?
@@ -25,11 +25,11 @@ struct CreditProfileImage: View {
     }
 }
 
-struct CreditsProfileImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreditProfileImage(name: Credits.previewCast.name , characterOrJob: Credits.previewCast.role, imageUrl: Credits.previewCast.image)
-    }
-}
+//struct CreditsProfileImageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PersonRectangularView(name: Credits.previewCast.name , characterOrJob: Credits.previewCast.role, imageUrl: Credits.previewCast.image)
+//    }
+//}
 
 
 

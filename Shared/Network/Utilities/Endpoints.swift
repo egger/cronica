@@ -11,7 +11,7 @@ enum MovieEndpoints: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case upcoming, popular
     case nowPlaying = "now_playing"
-    case topRated = "top_rated"
+    //case topRated = "top_rated"
     var sortIndex: Int {
         switch self {
         case .nowPlaying:
@@ -20,15 +20,15 @@ enum MovieEndpoints: String, CaseIterable, Identifiable {
             return 1
         case .popular:
             return 2
-        case .topRated:
-            return 3
+//        case .topRated:
+//            return 3
         }
     }
     var title: String {
         switch self {
         case .nowPlaying: return "Now Playing"
         case .upcoming: return "Up Coming"
-        case .topRated: return "Top Rated"
+        //case .topRated: return "Top Rated"
         case .popular: return "Popular"
         }
     }

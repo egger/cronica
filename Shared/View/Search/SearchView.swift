@@ -13,7 +13,7 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             VStack {
-                
+                Text("Search WIP")
             }
             .navigationTitle("Search")
             .searchable(text: $searchString, placement: .navigationBarDrawer)

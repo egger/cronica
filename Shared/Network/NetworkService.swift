@@ -43,6 +43,8 @@ class NetworkService: ApiService {
         guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(id)") else {
             throw NetworkError.invalidEndpoint
         }
+        
+        //TODO: use langStr to do a if else statement
         return try await self.fetch(url: url,
                                     params: [
                                         :
@@ -64,7 +66,7 @@ class NetworkService: ApiService {
         return response.results
     }
     
-    func fetchCast(id: Int) async throws -> Cast {
+    func fetchCast(id: Int) async throws -> Person {
         guard let url = URL(string: "\(ApiConstants.baseUrl)/person/\(id)") else {
             throw NetworkError.invalidEndpoint
         }

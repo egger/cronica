@@ -18,8 +18,7 @@ struct MovieListView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(movies!) { movie in
-                            NavigationLink(destination: MovieDetailsView(movieID: movie.id,
-                                                                         movieTitle: movie.title)) {
+                            NavigationLink(destination: MovieDetailsView(movieId: movie.id, movieTitle: movie.title)) {
                                 switch style {
                                 case "poster":
                                     PosterView(title: movie.title, url: movie.w500PosterImage)
@@ -45,9 +44,9 @@ struct MovieListView: View {
                                     EmptyView()
                                 }
                             }
-                                                                         .padding(.leading, movie.id == self.movies!.first!.id ? 16 : 0)
-                                                                         .padding(.trailing, movie.id == self.movies!.last!.id ? 16 : 0)
-                                                                         .padding([.top, .bottom])
+                            .padding(.leading, movie.id == self.movies!.first!.id ? 16 : 0)
+                            .padding(.trailing, movie.id == self.movies!.last!.id ? 16 : 0)
+                            .padding([.top, .bottom])
                         }
                         
                     }

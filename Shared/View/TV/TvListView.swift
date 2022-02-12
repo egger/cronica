@@ -27,7 +27,7 @@ struct TvListView: View {
                                     CardView(title: content.title, url: content.backdropImage)
                                         .padding([.leading, .trailing], 4)
                                 default:
-                                    Text("Hum?")
+                                    EmptyView()
                                 }
                             }
                             .padding(.leading, content.id == self.series!.first!.id ? 16 : 0)
