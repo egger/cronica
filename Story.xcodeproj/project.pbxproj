@@ -261,7 +261,6 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B86E588A27A4A2DC005DBF38 /* Components */,
 				B878E83227BC766C0021A981 /* Details */,
 				B878E83727BC949A0021A981 /* Lists */,
@@ -348,6 +347,7 @@
 		B878E83327BC767F0021A981 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
 			);
