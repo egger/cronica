@@ -42,7 +42,6 @@ enum SeriesEndpoint: String, CaseIterable, Identifiable {
             return 1
         case .onTheAir:
             return 2
-        
         }
     }
     var title: String {

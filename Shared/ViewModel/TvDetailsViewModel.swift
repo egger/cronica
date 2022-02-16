@@ -14,7 +14,6 @@ class TVDetailsViewModel: ObservableObject {
     var tvShow: TVShow? {
         phase.value ?? nil
     }
-    
     func load(id: Int) async {
         if Task.isCancelled { return }
         phase = .empty

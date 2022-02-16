@@ -32,7 +32,7 @@ class NetworkService: ApiService {
         guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(endpoint.rawValue)") else {
             throw NetworkError.invalidEndpoint
         }
-        let response: TvResponse = try await self.fetch(url: url)
+        let response: TVResponse = try await self.fetch(url: url)
         return response.results
     }
     

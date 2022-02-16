@@ -24,7 +24,9 @@ struct PersonListView: View {
                     } else {
                         ForEach(credits.cast.prefix(10)) { content in
                             NavigationLink(destination: PersonView(title: content.name, id: content.id)) {
-                                PersonCardView(name: content.name, characterOrJob: content.character, url: content.image)
+                                PersonCardView(name: content.name,
+                                               characterOrJob: content.character,
+                                               url: content.image)
                             }
                             .padding(.leading, content.id == self.credits.cast.first!.id ? 16 : 0)
                         }

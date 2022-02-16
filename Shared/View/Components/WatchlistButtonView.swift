@@ -57,8 +57,8 @@ struct WatchlistButtonView: View {
     private func addItem(title: String, id: Int, image: URL, status: String, notify: Bool = false, type: Int) {
         withAnimation {
             var inWatchlist: Bool = false
-            for i in watchlistItems {
-                if i.id == id {
+            for item in watchlistItems {
+                if item.id == id {
                     inWatchlist = true
                 }
             }

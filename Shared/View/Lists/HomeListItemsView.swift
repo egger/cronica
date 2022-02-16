@@ -24,7 +24,8 @@ struct HomeListItemsView: View {
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(watchlistItems.filter { $0.status == "In Production" || $0.status == "Post Production" || $0.status == "Planned" }) { item in
+                    ForEach(watchlistItems.filter { $0.status == "In Production"
+                        || $0.status == "Post Production" || $0.status == "Planned" }) { item in
                         NavigationLink(destination: MovieDetails(title: item.title!, id: Int(item.id))) {
                             CardView(title: item.title!, url: item.image!)
                                 .padding([.leading, .trailing], 4)

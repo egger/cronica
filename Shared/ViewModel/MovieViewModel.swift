@@ -21,9 +21,7 @@ class MovieViewModel: ObservableObject {
         if case .success = phase {
             return
         }
-
         phase = .empty
-        
         do {
             let sections = try await fetchFromEndpoints()
             if Task.isCancelled { return }
