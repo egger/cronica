@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//import UIKit
 
 @MainActor
 class MoviesDetailsViewModel: ObservableObject {
@@ -16,12 +15,11 @@ class MoviesDetailsViewModel: ObservableObject {
         phase.value ?? nil
     }
     
-    func loadMovie(id: Int) async {
+    func load(id: Int) async {
         if Task.isCancelled { return }
         phase = .empty
         do {
             let movie = try await self.service.fetchMovie(id: id)
-            print(movie.similar as Any)
             phase = .success(movie)
         } catch {
             phase = .failure(error)

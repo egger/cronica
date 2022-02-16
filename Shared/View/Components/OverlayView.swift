@@ -13,7 +13,7 @@ protocol EmptyData {
 
 struct OverlayView<T: EmptyData>: View {
     let phase: DataFetchPhase<T>
-    let retry: () -> ()
+    let retry: () -> Void
     let title: String
     var body: some View {
         VStack {
@@ -46,7 +46,7 @@ extension Optional: EmptyData {
 
 struct RetryView: View {
     let text: String
-    let retryAction: () -> ()
+    let retryAction: () -> Void
     var body: some View {
         VStack(spacing: 8) {
             Text(text)

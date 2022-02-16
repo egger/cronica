@@ -1,5 +1,5 @@
 //
-//  TvShow.swift
+//  TVShow.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 08/02/22.
@@ -9,31 +9,29 @@ import Foundation
 
 struct TvResponse: Decodable, Identifiable {
     let id: String?
-    let results: [TvShow]
+    let results: [TVShow]
 }
 
-struct TvSection: Identifiable {
+struct TVSection: Identifiable {
     var id = UUID()
-    let results: [TvShow]
+    let results: [TVShow]
     let endpoint: SeriesEndpoint
     var title: String {
         endpoint.title
     }
-    var style: String {
+    var style: StyleType {
         switch endpoint {
         case .latest:
-            return "poster"
+            return StyleType.poster
         case .popular:
-            return "card"
+            return StyleType.card
         case .onTheAir:
-            return "poster"
-        case .airingToday:
-            return "poster"
+            return StyleType.poster
         }
     }
 }
 
-struct TvShow: Decodable, Identifiable {
+struct TVShow: Decodable, Identifiable {
     let id: Int
     let name: String
     let posterPath: String
@@ -49,6 +47,8 @@ struct TvShow: Decodable, Identifiable {
     var title: String {
         return name
     }
+    let credits: Credits?
+    let similar: TvResponse?
 }
         
 struct Season: Decodable, Identifiable {

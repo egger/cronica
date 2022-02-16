@@ -1,5 +1,5 @@
 //
-//  TvDetailsViewModel.swift
+//  TVDetailsViewModel.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 08/02/22.
@@ -8,19 +8,18 @@
 import Foundation
 
 @MainActor
-class TvDetailsViewModel: ObservableObject {
+class TVDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
-    @Published private(set) var phase: DataFetchPhase<TvShow?> = .empty
-    var tvShow: TvShow? {
+    @Published private(set) var phase: DataFetchPhase<TVShow?> = .empty
+    var tvShow: TVShow? {
         phase.value ?? nil
     }
     
-    func loadTvShow(id: Int) async {
+    func load(id: Int) async {
         if Task.isCancelled { return }
         phase = .empty
         do {
             let tvShow = try await self.service.fetchTvShow(id: id)
-            print(tvShow)
             phase = .success(tvShow)
         } catch {
             phase = .failure(error)

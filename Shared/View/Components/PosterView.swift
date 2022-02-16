@@ -9,19 +9,19 @@ import SwiftUI
 
 struct PosterView: View {
     let title: String
-    let url: URL
+    let url: URL?
     var body: some View {
         VStack {
-            AsyncImage(url: url) { content in
-                content
+            AsyncImage(url: url) { image in
+                image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: DrawingConstants.posterWidth,
-                           height: DrawingConstants.posterHeight)
             } placeholder: {
-                ProgressView(title)
-                    .foregroundColor(.secondary)
-                    .padding()
+                ZStack {
+                    Rectangle()
+                        .fill(.secondary)
+                    ProgressView(title)
+                }
             }
         }
         .frame(width: DrawingConstants.posterWidth,

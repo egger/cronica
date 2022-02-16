@@ -9,29 +9,30 @@ import SwiftUI
 
 struct ItemView: View {
     let title: String
-    let image: URL
-    let type: String
+    let url: URL?
+    let type: MediaType
     var body: some View {
         HStack {
-            AsyncImage(url: image) { image in
+            AsyncImage(url: url) { image in
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
             } placeholder: {
-                Rectangle()
-                    .fill(.thickMaterial)
-                    .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                ZStack {
+                    Rectangle()
+                        .fill(.secondary)
+                    ProgressView()
+                }
             }
+            .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
             VStack(alignment: .leading) {
                 HStack {
                     Text(title)
                         .lineLimit(DrawingConstants.textLimit)
                 }
                 HStack {
-                    Text(type)
+                    Text(type.title)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Spacer()
@@ -43,7 +44,7 @@ struct ItemView: View {
 
 struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemView(title: Movie.previewMovie.title, image: Movie.previewMovie.backdropImage, type: "Movie")
+        ItemView(title: Movie.previewMovie.title, url: Movie.previewMovie.backdropImage, type: MediaType.movie)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  TvListView.swift
+//  TVListView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 08/02/22.
@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct TvListView: View {
-    let style: String
+struct TVListView: View {
+    let style: StyleType
     let title: String
-    let series: [TvShow]?
+    let series: [TVShow]?
     var body: some View {
-        VStack {
-            if !series.isEmpty {
+        if series.isEmpty {
+            EmptyView()
+        } else {
+            VStack {
                 HStack {
                     Text(title)
                         .font(.headline)
@@ -24,16 +26,14 @@ struct TvListView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(series!) { content in
-                            NavigationLink(destination: TvDetailsView(tvId: content.id, tvTitle: content.title)) {
+                            NavigationLink(destination: TVDetailsView(title: content.title, id: content.id)) {
                                 switch style {
-                                case "poster":
+                                case .poster:
                                     PosterView(title: content.title, url: content.posterImage)
                                         .padding([.leading, .trailing], 4)
-                                case "card":
+                                case .card:
                                     CardView(title: content.title, url: content.backdropImage)
                                         .padding([.leading, .trailing], 4)
-                                default:
-                                    EmptyView()
                                 }
                             }
                             .padding(.leading, content.id == self.series!.first!.id ? 16 : 0)
@@ -47,8 +47,8 @@ struct TvListView: View {
     }
 }
 
-//struct HorizontalSerieListView_Previews: PreviewProvider {
+//struct TVListView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        TvListView()
+//        TVListView()
 //    }
 //}

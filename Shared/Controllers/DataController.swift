@@ -48,30 +48,10 @@ class DataController: ObservableObject {
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
-        
         container.loadPersistentStores {_, error in
             if let error = error {
                 fatalError("Fatal error loading storage, error: \(error.localizedDescription)")
             }
         }
     }
-    
-//    func fetchAll() -> [Int] {
-//        var results: [Int] = []
-//        @FetchRequest(
-//            sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
-//            animation: .default)
-//        var watchlistItems: FetchedResults<WatchlistItem>
-//        for i in watchlistItems {
-//            results.append(i.id)
-//        }
-////        ForEach(watchlistItems) { item in
-////            results.append(item.id)
-////        }
-////        for item in watchlistItems {
-////            results.append(item.id)
-////        }
-//        results = [1, 2]
-//        return results
-//    }
 }

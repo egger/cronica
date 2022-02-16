@@ -19,13 +19,11 @@ struct WatchlistButtonView: View {
     let image: URL
     let status: String
     let notify: Bool
-    let type: String
+    let type: Int
     var body: some View {
         Button {
-#if os(iOS)
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred(intensity: 1.0)
-#endif
             if !inWatchlist {
                 withAnimation(.easeInOut) {
                     inWatchlist.toggle()
@@ -56,7 +54,7 @@ struct WatchlistButtonView: View {
         }
     }
     
-    private func addItem(title: String, id: Int, image: URL, status: String, notify: Bool = false, type: String) {
+    private func addItem(title: String, id: Int, image: URL, status: String, notify: Bool = false, type: Int) {
         withAnimation {
             var inWatchlist: Bool = false
             for i in watchlistItems {
@@ -70,7 +68,7 @@ struct WatchlistButtonView: View {
                 item.id = Int32(id)
                 item.image = image
                 item.status = status
-                item.type = type
+                item.contentType = Int16(type)
                 item.notify = notify
                 do {
                     try viewContext.save()

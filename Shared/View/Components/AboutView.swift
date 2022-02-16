@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct AboutView: View {
-    let overview: String
+    let overview: String?
     var body: some View {
-        GroupBox {
-            Text(overview)
-                .font(.system(.body, design: .rounded))
-                .padding([.top], 2)
-                .textSelection(.enabled)
-                .lineLimit(4)
-        } label: {
-            Label("About", systemImage: "film")
-                .foregroundColor(.secondary)
+        if overview.isEmpty {
+            EmptyView()
+        } else {
+            GroupBox {
+                Text(overview!)
+                    .font(.system(.body, design: .rounded))
+                    .padding([.top], 2)
+                    .textSelection(.enabled)
+                    .lineLimit(4)
+            } label: {
+                Label("About", systemImage: "film")
+                    .foregroundColor(.secondary)
+            }
+            .padding()
         }
-        .padding()
     }
 }
 

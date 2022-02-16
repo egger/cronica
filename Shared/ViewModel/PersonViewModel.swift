@@ -11,7 +11,7 @@ import Foundation
 class PersonViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Person?> = .empty
-    var cast: Person? {
+    var person: Person? {
         phase.value ?? nil
     }
     
@@ -19,8 +19,8 @@ class PersonViewModel: ObservableObject {
         if Task.isCancelled { return }
         phase = .empty
         do {
-            let cast = try await self.service.fetchCast(id: id)
-            phase = .success(cast)
+            let person = try await self.service.fetchPerson(id: id)
+            phase = .success(person)
         } catch {
             phase = .failure(error)
         }

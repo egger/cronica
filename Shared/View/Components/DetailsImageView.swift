@@ -7,45 +7,35 @@
 
 import SwiftUI
 
+// This view handles the hero image for DetailsView.
 struct DetailsImageView: View {
-    let image: URL
-    let placeholderTitle: String
+    let url: URL?
+    let title: String
     var body: some View {
-        AsyncImage(url: image) { content in
-            content
+        AsyncImage(url: url) { image in
+            image
                 .resizable()
                 .scaledToFill()
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight,
-                       alignment: .center)
-                .cornerRadius(DrawingConstants.imageRadius)
-                .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                        radius: DrawingConstants.shadowRadius)
         } placeholder: {
-            Rectangle()
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .background(.secondary)
-                .cornerRadius(DrawingConstants.imageRadius)
-                .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                        radius: DrawingConstants.shadowRadius)
-                .redacted(reason: .placeholder)
-        }
-        .contextMenu {
-            Button {
-                
-            } label: {
-                Label("Share", systemImage: "square.and.arrow.up")
+            ZStack {
+                Rectangle()
+                    .fill(.secondary)
+                ProgressView(title)
             }
         }
+        .frame(width: DrawingConstants.imageWidth,
+               height: DrawingConstants.imageHeight)
+        .cornerRadius(DrawingConstants.imageRadius)
+        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                radius: DrawingConstants.shadowRadius)
         .padding([.top, .bottom])
     }
 }
 
 struct MovieImageView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsImageView(image: Movie.previewMovie.backdropImage,
-                       placeholderTitle: Movie.previewMovie.title)
+        DetailsImageView(url: Movie.previewMovie.backdropImage,
+                       title: Movie.previewMovie.title)
     }
 }
 

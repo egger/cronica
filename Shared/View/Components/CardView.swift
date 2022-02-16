@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     let title: String
-    let url: URL
+    let url: URL?
     var body: some View {
         ZStack {
             ImageView(url: url, title: title)
@@ -27,23 +27,14 @@ struct BackdropView_Previews: PreviewProvider {
     }
 }
 
-private struct DrawingConstants {
-    static let cardWidth: CGFloat = 280
-    static let cardHeight: CGFloat = 180
-    static let cardRadius: CGFloat = 12
-    static let shadowOpacity: Double = 0.5
-    static let shadowRadius: CGFloat = 5
-    static let lineLimits: Int = 1
-    static let gradientColor: Color = Color.black
-}
-
-struct ImageView: View {
-    let url: URL
+// The view that handles the image part of CardView.
+private struct ImageView: View {
+    let url: URL?
     let title: String
     var body: some View {
         ZStack {
-            AsyncImage(url: url) { content in
-                content
+            AsyncImage(url: url) { image in
+                image
                     .resizable()
                     .scaledToFill()
             } placeholder: {
@@ -70,7 +61,8 @@ struct ImageView: View {
     }
 }
 
-struct TitleView: View {
+// The view that handles the title portion of CardView.
+private struct TitleView: View {
     let title: String
     var body: some View {
         VStack(alignment: .leading) {
@@ -87,4 +79,14 @@ struct TitleView: View {
         }
         .padding(.horizontal)
     }
+}
+
+private struct DrawingConstants {
+    static let cardWidth: CGFloat = 280
+    static let cardHeight: CGFloat = 180
+    static let cardRadius: CGFloat = 12
+    static let shadowOpacity: Double = 0.5
+    static let shadowRadius: CGFloat = 5
+    static let lineLimits: Int = 1
+    static let gradientColor: Color = Color.black
 }

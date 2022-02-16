@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieListView: View {
-    let style: String
+    let style: StyleType
     let title: String
     let movies: [Movie]?
     var body: some View {
@@ -24,9 +24,9 @@ struct MovieListView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(movies!) { movie in
-                            NavigationLink(destination: MovieDetailsView(movieId: movie.id, movieTitle: movie.title)) {
+                            NavigationLink(destination: MovieDetails(title: movie.title, id: movie.id)) {
                                 switch style {
-                                case "poster":
+                                case .poster:
                                     PosterView(title: movie.title, url: movie.w500PosterImage)
                                         .contextMenu {
                                             Button {
@@ -36,7 +36,7 @@ struct MovieListView: View {
                                             }
                                         }
                                         .padding([.leading, .trailing], 4)
-                                case "card":
+                                case .card:
                                     CardView(title: movie.title, url: movie.backdropImage)
                                         .contextMenu {
                                             Button {
@@ -46,8 +46,6 @@ struct MovieListView: View {
                                             }
                                         }
                                         .padding([.leading, .trailing], 4)
-                                default:
-                                    EmptyView()
                                 }
                             }
                             .padding(.leading, movie.id == self.movies!.first!.id ? 16 : 0)
@@ -64,8 +62,8 @@ struct MovieListView: View {
 
 struct HorizontalMovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(style: "card", title: "Popular", movies: Movie.previewMovies)
-        MovieListView(style: "poster", title: "Popular", movies: Movie.previewMovies)
+        MovieListView(style: StyleType.card, title: "Popular", movies: Movie.previewMovies)
+        MovieListView(style: StyleType.poster, title: "Popular", movies: Movie.previewMovies)
             .preferredColorScheme(.dark)
     }
 }

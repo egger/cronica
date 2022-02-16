@@ -9,9 +9,8 @@ import Foundation
 
 protocol ApiService {
     func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Movie]
-    func fetchTvShows(from endpoint: SeriesEndpoint) async throws -> [TvShow]
     func fetchMovie(id: Int) async throws -> Movie
-    func fetchTvShow(id: Int) async throws -> TvShow
-    func fetchMovieSearch(query: String) async throws -> [Movie]
-    func fetchCast(id: Int) async throws -> Person
+    func fetchTvShows(from endpoint: SeriesEndpoint) async throws -> [TVShow]
+    func fetchTvShow(id: Int) async throws -> TVShow
+    func fetchPerson(id: Int) async throws -> Person
 }

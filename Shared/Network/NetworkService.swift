@@ -18,17 +18,6 @@ class NetworkService: ApiService {
         return response.results
     }
     
-    func fetchTvShows(from endpoint: SeriesEndpoint) async throws -> [TvShow] {
-        guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(endpoint.rawValue)") else {
-            throw NetworkError.invalidEndpoint
-        }
-        let response: TvResponse = try await self.fetch(url: url)
-        return response.results
-    }
-    
-    ///  Get information about a given title, credits will be send back as well.
-    /// - Parameter id: Id for the given title.
-    /// - Returns: Movie object.
     func fetchMovie(id: Int) async throws -> Movie {
         guard let url = URL(string: "\(ApiConstants.baseUrl)/movie/\(id)") else {
             throw NetworkError.invalidEndpoint
@@ -39,38 +28,32 @@ class NetworkService: ApiService {
                                     ])
     }
     
-    func fetchTvShow(id: Int) async throws -> TvShow {
-        guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(id)") else {
+    func fetchTvShows(from endpoint: SeriesEndpoint) async throws -> [TVShow] {
+        guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(endpoint.rawValue)") else {
             throw NetworkError.invalidEndpoint
         }
-        
-        //TODO: use langStr to do a if else statement
-        return try await self.fetch(url: url,
-                                    params: [
-                                        :
-//                                        "append_to_response": "credits"
-                                    ])
-    }
-    
-    func fetchMovieSearch(query: String) async throws -> [Movie] {
-        guard let url = URL(string: "\(ApiConstants.baseUrl)/search/movie") else {
-            throw NetworkError.invalidEndpoint
-        }
-        let response: MovieResponse = try await fetch(url: url,
-                                                      params: [
-                                                        "language": "en-US",
-                                                        "include_adult": "false",
-                                                        "region": "US",
-                                                        "query": query
-                                                      ])
+        let response: TvResponse = try await self.fetch(url: url)
         return response.results
     }
     
-    func fetchCast(id: Int) async throws -> Person {
+    func fetchTvShow(id: Int) async throws -> TVShow {
+        guard let url = URL(string: "\(ApiConstants.baseUrl)/tv/\(id)") else {
+            throw NetworkError.invalidEndpoint
+        }
+        return try await self.fetch(url: url,
+                                    params: [
+                                        "append_to_response": "credits,similar"
+                                    ])
+    }
+    
+    func fetchPerson(id: Int) async throws -> Person {
         guard let url = URL(string: "\(ApiConstants.baseUrl)/person/\(id)") else {
             throw NetworkError.invalidEndpoint
         }
-        return try await self.fetch(url: url, params: [:])
+        return try await self.fetch(url: url,
+                                    params: [
+                                        "append_to_response": "combined_credits"
+                                    ])
     }
     
     private func fetch<T: Decodable>(url: URL, params: [String: String]? = nil) async throws -> T {

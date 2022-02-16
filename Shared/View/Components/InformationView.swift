@@ -13,7 +13,7 @@ struct InformationView: View {
         GroupBox {
             Section {
                 InformationSectionView(title: "Run Time", content: movie.movieRuntime)
-                InformationSectionView(title: "Release Date:", content: movie.release)
+                InformationSectionView(title: "Release Date:", content: movie.releaseDateString)
                 InformationSectionView(title: "Status", content: movie.status ?? "")
             }
         } label: {

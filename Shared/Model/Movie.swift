@@ -19,14 +19,14 @@ struct MovieSection: Identifiable {
     var title: String {
         endpoint.title
     }
-    var style: String {
+    var style: StyleType {
         switch endpoint {
         case .upcoming:
-            return "poster"
+            return StyleType.poster
         case .popular:
-            return "poster"
+            return StyleType.poster
         case .nowPlaying:
-            return "card"
+            return StyleType.card
         }
     }
 }
@@ -51,11 +51,14 @@ struct Movie: Decodable, Identifiable {
     var movieRuntime: String {
         return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60) ?? "n/a"
     }
-    var release: String {
+    var releaseDateString: String {
         guard let releaseDate = self.releaseDate, let date = Util.dateFormatter.date(from: releaseDate) else {
             return "n/a"
         }
         return Util.dateString.string(from: date)
+    }
+    var release: Date {
+        return Util.dateFormatter.date(from: releaseDateString) ?? Date()
     }
     var link: URL {
         return URL(string: "https://themoviedb.org/movie/\(id)")!
