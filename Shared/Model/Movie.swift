@@ -33,7 +33,7 @@ struct MovieSection: Identifiable {
 
 struct Movie: Decodable, Identifiable {
     let id: Int
-    let title, overview: String
+    let title, overview: String 
     private let posterPath, backdropPath: String
     private let releaseDate: String?
     private let runtime: Int?
