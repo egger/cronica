@@ -23,15 +23,11 @@ struct ContentView: View {
                     Image(systemName: "square.stack.fill")
                     Text("Watchlist")
                 }
-            EmptyView()
+            SearchView()
+                .tag(SearchView.tag)
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
-                }
-            EmptyView()
-                .tabItem {
-                    Image(systemName: "square.and.arrow.up")
-                    Text("Settings")
                 }
         }
     }

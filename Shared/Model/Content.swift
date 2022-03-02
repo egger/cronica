@@ -7,16 +7,23 @@
 
 import Foundation
 
-struct ContentResponse: Decodable, Identifiable {
+struct ContentResponse: Identifiable, Decodable {
     let id: String?
     let results: [Content]
 }
 
+struct ContentSection: Identifiable {
+    var id = UUID()
+}
+
 struct Content: Identifiable, Decodable {
     let id: Int
-    private let title, name, overview, backdropPath, posterPath: String?
-    private let runtime, numberOfEpisodes, numberOfSeasons: Int?
-    private let credits: Credits?
+    private let title, name, overview: String?
+    private let posterPath, backdropPath: String?
+    private let releaseDate: String?
+    private let runtime: Int?
+    let genres: [Genre]?
+    let credits: Credits?
     let similar: ContentResponse?
 }
 
@@ -25,13 +32,20 @@ extension Content {
         title ?? name!
     }
     var itemAbout: String {
-        overview ?? NSLocalizedString("No information available.", comment: "No overview provided.")
+        overview ?? NSLocalizedString("No details available.", comment: "No overview provided by the service.")
     }
-    var movieRuntime: String? {
-        if runtime == nil {
-            return nil
+    var posterImage500: URL? {
+        if posterPath != nil {
+            return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath!)")!
         } else {
-            return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60)
+            return nil
+        }
+    }
+    var cardImage: URL? {
+        if backdropPath != nil {
+            return URL(string: "\(ApiConstants.w1066ImageUrl)\(backdropPath!)")!
+        } else {
+            return nil
         }
     }
 }

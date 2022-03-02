@@ -29,7 +29,7 @@ struct Person: Decodable, Identifiable {
         if profilePath == nil {
             return nil
         } else {
-            return URL(string: "\(ApiConstants.w500ImageUrl)\(profilePath)")!
+            return URL(string: "\(ApiConstants.w500ImageUrl)\(profilePath!)")!
         }
     }
     var role: String? {

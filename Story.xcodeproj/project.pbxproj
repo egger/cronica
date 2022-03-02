@@ -33,8 +33,6 @@
 		B840D2CF279B24C900A07C71 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
 		B840D2D4279B24F200A07C71 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2D3279B24F200A07C71 /* Genre.swift */; };
 		B840D2D5279B24F200A07C71 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2D3279B24F200A07C71 /* Genre.swift */; };
-		B840D2DD279BB5A900A07C71 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2DC279BB5A900A07C71 /* ApiService.swift */; };
-		B840D2DE279BB5A900A07C71 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2DC279BB5A900A07C71 /* ApiService.swift */; };
 		B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2B2793B4C10012259B /* WatchlistView.swift */; };
 		B8423E2D2793B4C10012259B /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2B2793B4C10012259B /* WatchlistView.swift */; };
 		B8423E2F2793B61B0012259B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2E2793B61B0012259B /* CardView.swift */; };
@@ -89,6 +87,10 @@
 		B8B271A727A5A18C00F6463F /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* DataController.swift */; };
 		B8B271AD27A5CC2A00F6463F /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271AC27A5CC2A00F6463F /* PersonCardView.swift */; };
 		B8B271AE27A5CC2A00F6463F /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271AC27A5CC2A00F6463F /* PersonCardView.swift */; };
+		B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952027CFEBEC00B6757C /* SearchView.swift */; };
+		B8CC952227CFEBEC00B6757C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952027CFEBEC00B6757C /* SearchView.swift */; };
+		B8CC952427CFEC2800B6757C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952327CFEC2800B6757C /* SettingsView.swift */; };
+		B8CC952527CFEC2800B6757C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952327CFEC2800B6757C /* SettingsView.swift */; };
 		B8E6D63827B6A472002E7A63 /* WatchlistButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */; };
 		B8E6D63927B6A472002E7A63 /* WatchlistButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */; };
 		B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
@@ -135,7 +137,6 @@
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B840D2D3279B24F200A07C71 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
-		B840D2DC279BB5A900A07C71 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		B8423E2E2793B61B0012259B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		B8423E3127947FDD0012259B /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
@@ -165,6 +166,8 @@
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8B271A527A5A18C00F6463F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		B8B271AC27A5CC2A00F6463F /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
+		B8CC952027CFEBEC00B6757C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B8CC952327CFEC2800B6757C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistButtonView.swift; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
 		B8E7651D27B753AE00D9B731 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
@@ -286,7 +289,6 @@
 		B8423E372794811F0012259B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				B840D2DC279BB5A900A07C71 /* ApiService.swift */,
 				B840D2BE279A0C4200A07C71 /* NetworkService.swift */,
 				B86E589327A4BF2D005DBF38 /* Utilities */,
 			);
@@ -352,6 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				B8110ED9279245D000844FEB /* ContentView.swift */,
+				B8CC952327CFEC2800B6757C /* SettingsView.swift */,
+				B8CC952027CFEBEC00B6757C /* SearchView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
 			);
@@ -558,13 +562,14 @@
 				B8B271AD27A5CC2A00F6463F /* PersonCardView.swift in Sources */,
 				B8ED4C2827B302360045C68F /* TVListView.swift in Sources */,
 				B8423E3227947FDD0012259B /* MovieListView.swift in Sources */,
+				B8CC952427CFEC2800B6757C /* SettingsView.swift in Sources */,
 				B86E588C27A4B786005DBF38 /* MoviesDetailsViewModel.swift in Sources */,
 				B8ED4C2527B2FFA70045C68F /* TVViewModel.swift in Sources */,
+				B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* ItemView.swift in Sources */,
 				B8E7651E27B753AE00D9B731 /* OverlayView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B8ED4C2B27B307B00045C68F /* TVShow.swift in Sources */,
-				B840D2DD279BB5A900A07C71 /* ApiService.swift in Sources */,
 				B86E587027A4842A005DBF38 /* DataFetchPhase.swift in Sources */,
 				B86E586A27A4686E005DBF38 /* DetailsImageView.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
@@ -610,15 +615,16 @@
 				B8110EE9279245D100844FEB /* StoryApp.swift in Sources */,
 				B8ED4C2927B302360045C68F /* TVListView.swift in Sources */,
 				B8B271AE27A5CC2A00F6463F /* PersonCardView.swift in Sources */,
+				B8CC952527CFEC2800B6757C /* SettingsView.swift in Sources */,
 				B8423E3327947FDD0012259B /* MovieListView.swift in Sources */,
 				B8ED4C2627B2FFA70045C68F /* TVViewModel.swift in Sources */,
+				B8CC952227CFEBEC00B6757C /* SearchView.swift in Sources */,
 				B86E586827A467F6005DBF38 /* AboutView.swift in Sources */,
 				B8E7651F27B753AE00D9B731 /* OverlayView.swift in Sources */,
 				B84C53FE27B1F1DD00425524 /* ItemView.swift in Sources */,
 				B8ED4C2C27B307B00045C68F /* TVShow.swift in Sources */,
 				B8423E2D2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B86E588D27A4B786005DBF38 /* MoviesDetailsViewModel.swift in Sources */,
-				B840D2DE279BB5A900A07C71 /* ApiService.swift in Sources */,
 				B86E587127A4842A005DBF38 /* DataFetchPhase.swift in Sources */,
 				B8E6D64327B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B82C2690279644E000259D98 /* Bundle-Decodable.swift in Sources */,

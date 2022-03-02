@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkService: ApiService {
+class NetworkService {
     static let shared = NetworkService()
     
     func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Movie] {
@@ -64,6 +64,11 @@ class NetworkService: ApiService {
         return try Util.jsonDecoder.decode(T.self, from: data)
     }
     
+    /// Build a safe URL for the TMDB API Service.
+    /// - Parameters:
+    ///   - path: Content type and the ID for the content.
+    ///   - params: Additional information to display in the Details' pages.
+    /// - Returns: A safe URL, can be nil.
     private func urlBuilder(path: String, params: [String:String]? = nil) -> URL? {
         var component = URLComponents()
         component.scheme = "https"

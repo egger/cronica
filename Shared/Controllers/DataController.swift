@@ -8,7 +8,7 @@
 import CoreData
 import SwiftUI
 
-/// An environment singleton responsible for managing our Core Data stack, including handling saving,
+/// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// counting fetch request, tracking watchlists, and dealing with sample data.
 class DataController: ObservableObject {
     static let shared = DataController()
