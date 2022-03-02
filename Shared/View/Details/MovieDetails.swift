@@ -15,64 +15,68 @@ struct MovieDetails: View {
     @State private var showBellIcon: Bool = false
     var body: some View {
         ScrollView {
-            VStack {
-                if let movie = viewModel.movie {
-                    DetailsImageView(url: movie.backdropImage, title: movie.title)
-                    HStack {
-                        if !movie.genres.isEmpty {
-                            ForEach((movie.genres?.prefix(3))!) { genre in
-                                Text(genre.name ?? "")
+            ScrollViewReader { value in
+                VStack {
+                    if let movie = viewModel.movie {
+                        DetailsImageView(url: movie.backdropImage, title: movie.title)
+                            .id("cover")
+                        HStack {
+                            if !movie.genres.isEmpty {
+                                ForEach((movie.genres?.prefix(3))!) { genre in
+                                    Text(genre.name ?? "")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            if !movie.releaseDateString.isEmpty {
+                                Text(movie.releaseDateString)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
                         }
-                        if !movie.releaseDateString.isEmpty {
-                            Text(movie.releaseDateString)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    WatchlistButtonView(title: movie.title, id: movie.id, image: movie.backdropImage, status: movie.status ?? "Released", notify: false, type: 0)
-                        .onAppear {
-                            if movie.release > Date.now {
-                                showBellIcon.toggle()
-                            }
-                        }
-                    AboutView(overview: movie.overview)
-                        .onTapGesture {
-                            showingOverview.toggle()
-                        }
-                        .sheet(isPresented: $showingOverview) {
-                            NavigationView {
-                                VStack {
-                                    Text(movie.overview)
-                                        .padding()
+                        WatchlistButtonView(title: movie.title, id: movie.id, image: movie.backdropImage, status: movie.status ?? "Released", notify: false, type: 0)
+                            .onAppear {
+                                if movie.release > Date.now {
+                                    showBellIcon.toggle()
                                 }
-                                .navigationTitle(movie.title)
-                                .navigationBarTitleDisplayMode(.inline)
-                                .toolbar {
-                                    ToolbarItem(placement: .navigationBarTrailing) {
-                                        Button("Done") {
-                                            showingOverview.toggle()
+                            }
+                        AboutView(overview: movie.overview)
+                            .onTapGesture {
+                                showingOverview.toggle()
+                            }
+                            .sheet(isPresented: $showingOverview) {
+                                NavigationView {
+                                    VStack {
+                                        Text(movie.overview)
+                                            .padding()
+                                    }
+                                    .navigationTitle(movie.title)
+                                    .navigationBarTitleDisplayMode(.inline)
+                                    .toolbar {
+                                        ToolbarItem(placement: .navigationBarTrailing) {
+                                            Button("Done") {
+                                                showingOverview.toggle()
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                    Divider()
-                        .padding([.horizontal, .top])
-                    if !movie.credits.isEmpty {
-                        PersonListView(credits: movie.credits!)
-                    }
-                    Divider()
-                        .padding([.horizontal, .top])
-                    InformationView(movie: movie)
-                        .padding(.top)
-                    if movie.similar != nil {
                         Divider()
                             .padding([.horizontal, .top])
-                        MovieListView(style: StyleType.poster, title: "You may like", movies: movie.similar?.results)
-                            .padding(.bottom)
+                        if !movie.credits.isEmpty {
+                            PersonListView(credits: movie.credits!)
+                                .id("cast")
+                        }
+                        Divider()
+                            .padding([.horizontal, .top])
+                        InformationView(movie: movie)
+                            .padding(.top)
+                        if movie.similar != nil {
+                            Divider()
+                                .padding([.horizontal, .top])
+                            MovieListView(style: StyleType.poster, title: "You may like", movies: movie.similar?.results)
+                                .padding(.bottom)
+                        }
                     }
                 }
             }
