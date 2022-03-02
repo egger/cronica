@@ -32,7 +32,8 @@ extension Content {
         title ?? name!
     }
     var itemAbout: String {
-        overview ?? NSLocalizedString("No details available.", comment: "No overview provided by the service.")
+        overview ?? NSLocalizedString("No details available.",
+                                      comment: "No overview provided by the service.")
     }
     var posterImage500: URL? {
         if posterPath != nil {

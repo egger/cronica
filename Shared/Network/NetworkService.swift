@@ -10,6 +10,15 @@ import Foundation
 class NetworkService {
     static let shared = NetworkService()
     
+    func fetchContent(id: Content.ID, type: MediaType) async throws -> Content {
+        guard let url = urlBuilder(path: "\(type.rawValue)/\(id)",
+                                   params: ["append_to_response": "credits,similar"]
+        ) else {
+            throw NetworkError.invalidEndpoint
+        }
+        return try await self.fetch(url: url)
+    }
+    
     func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Movie] {
         guard let url = urlBuilder(path: "movie/\(endpoint.rawValue)") else {
             throw NetworkError.invalidEndpoint

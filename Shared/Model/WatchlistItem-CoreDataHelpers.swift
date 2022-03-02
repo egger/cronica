@@ -29,7 +29,7 @@ extension WatchlistItem {
         case 2:
             return MediaType.person
         default:
-            return MediaType.none
+            return MediaType.movie
         }
     }
     
@@ -50,8 +50,10 @@ enum StyleType: Decodable {
     case card
 }
 
-enum MediaType: Decodable {
-    case movie, tvShow, person, none
+enum MediaType: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    case movie, person
+    case tvShow = "tv"
     var title: String {
         switch self {
         case .movie:
@@ -60,8 +62,6 @@ enum MediaType: Decodable {
             return "TV Show"
         case .person:
             return "People"
-        case .none:
-            return "N/A"
         }
     }
 }

@@ -17,14 +17,8 @@ struct WatchlistSectionView: View {
         } else {
             Section {
                 ForEach(items) { item in
-                    if item.media == MediaType.movie {
-                        NavigationLink(destination: MovieDetails(title: item.itemTitle, id: item.itemId)) {
-                            ItemView(title: item.itemTitle, url: item.image, type: item.media)
-                        }
-                    } else {
-                        NavigationLink(destination: TVDetailsView(title: item.itemTitle, id: item.itemId)) {
-                            ItemView(title: item.itemTitle, url: item.image, type: item.media)
-                        }
+                    NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.media)) {
+                        ItemView(title: item.itemTitle, url: item.image, type: item.media)
                     }
                 }
                 .onDelete(perform: delete)

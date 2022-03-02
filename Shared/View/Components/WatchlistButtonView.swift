@@ -16,7 +16,7 @@ struct WatchlistButtonView: View {
     private var watchlistItems: FetchedResults<WatchlistItem>
     let title: String
     let id: Int
-    let image: URL
+    let image: URL?
     let status: String
     let notify: Bool
     let type: Int
@@ -54,7 +54,7 @@ struct WatchlistButtonView: View {
         }
     }
     
-    private func addItem(title: String, id: Int, image: URL, status: String, notify: Bool = false, type: Int) {
+    private func addItem(title: String, id: Int, image: URL? = nil, status: String, notify: Bool = false, type: Int) {
         withAnimation {
             var inWatchlist: Bool = false
             for item in watchlistItems {
