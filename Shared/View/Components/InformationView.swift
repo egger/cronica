@@ -12,12 +12,15 @@ struct InformationView: View {
     var body: some View {
         GroupBox {
             Section {
-                InformationSectionView(title: "Run Time", content: item.itemRuntime)
-                InformationSectionView(title: "Release Date:", content: item.releaseDateString)
-                InformationSectionView(title: "Status", content: item.itemStatus)
-                InformationSectionView(title: "Genre", content: item.itemGenre)
-                InformationSectionView(title: "Region of Origin", content: item.itemCountry)
-                InformationSectionView(title: "Production Company", content: item.itemProduction)
+                InformationSectionView(title: NSLocalizedString("Run Time", comment: ""),
+                                       content: item.itemRuntime)
+                InformationSectionView(title: NSLocalizedString("Release Date:", comment: ""),
+                                       content: item.releaseDateString)
+                InformationSectionView(title: NSLocalizedString("Status", comment: ""),
+                                       content: item.itemStatus)
+                InformationSectionView(title: NSLocalizedString("Genre", comment: ""), content: item.itemGenre)
+                InformationSectionView(title: NSLocalizedString("Region of Origin", comment: ""), content: item.itemCountry)
+                InformationSectionView(title: NSLocalizedString("Production Company", comment: ""), content: item.itemProduction)
             }
         } label: {
             Label("Information", systemImage: "info")

@@ -155,6 +155,7 @@
 		B8CC953227D05D1000B6757C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Story--iOS--Info.plist"; sourceTree = "<group>"; };
 		B8CC954C27D1310B00B6757C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8CC954F27D132F700B6757C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistButtonView.swift; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
 		B8E7651D27B753AE00D9B731 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
@@ -214,7 +215,7 @@
 				B86E589427A4BF5F005DBF38 /* Utilities */,
 				B8110F0F2792678400844FEB /* View */,
 				B87B5CD22799AB5D00632648 /* ViewModel */,
-				B8CC954D27D1310B00B6757C /* Localizable.strings */,
+				B8CC954E27D132CB00B6757C /* Localization */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -386,6 +387,14 @@
 				B8B271A527A5A18C00F6463F /* DataController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B8CC954E27D132CB00B6757C /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				B8CC954D27D1310B00B6757C /* Localizable.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		B8E7651927B738D200D9B731 /* Configuration */ = {
@@ -646,6 +655,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B8CC954C27D1310B00B6757C /* en */,
+				B8CC954F27D132F700B6757C /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

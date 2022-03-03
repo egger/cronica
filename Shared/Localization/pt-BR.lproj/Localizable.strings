@@ -1,0 +1,43 @@
+/* 
+  Localizable.strings
+  Story
+
+  Created by Alexandre Madeira on 03/03/22.
+  
+*/
+
+//Common
+"Done" = "Concluído";
+"Home" = "Início";
+"Watchlist" = "Lista";
+"Search" = "Busca";
+
+//AboutView.swift
+
+"About" = "Sobre";
+
+//InformationView.swift
+
+"Run Time" = "Duração";
+"Release Date:" = "Data de lançamento:";
+"Status" = "Status";
+"Genre" = "Gênero";
+"Region of Origin" = "País de Origem";
+"Production Company" = "Estúdios";
+"Information" = "Informações";
+
+//WatchlistButtonView.swift
+"Add to watchlist" = "Adicionar na lista";
+"Remove from watchlist" = "Remover da lista";
+
+//PersonView.swift
+"Biography" = "Biografia";
+
+//PersonListView.swift
+"Cast & Crew" = "Elenco";
+
+//FilmographyListView.swift
+"Filmography" = "Filmografia";
+
+//WatchlistSoonItemsView.swift
+"Coming Soon" = "Em Breve";
