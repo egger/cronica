@@ -45,8 +45,8 @@ struct ItemView: View {
 
 struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemView(title: Movie.previewMovie.title,
-                 url: Movie.previewMovie.backdropImage,
+        ItemView(title: Content.previewContent.itemTitle,
+                 url: Content.previewContent.cardImage,
                  type: MediaType.movie)
     }
 }

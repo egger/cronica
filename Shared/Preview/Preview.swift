@@ -7,15 +7,6 @@
 
 import Foundation
 
-extension Movie {
-    static var previewMovies: [Movie] {
-        let data: MovieResponse? = try? Bundle.main.decode(from: "movies")
-        return data!.results
-    }
-    static var previewMovie: Movie {
-        previewMovies[0]
-    }
-}
 extension Content {
     static var previewContents: [Content] {
         let data: ContentResponse? = try? Bundle.main.decode(from: "movies")
@@ -27,7 +18,7 @@ extension Content {
 }
 extension Credits {
     static var previewCredits: Credits {
-        return Movie.previewMovie.credits!
+        return Content.previewContent.credits!
     }
     static var previewCast: Person {
         return previewCredits.cast[2]

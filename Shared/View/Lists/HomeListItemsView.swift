@@ -18,23 +18,22 @@ struct HomeListItemsView: View {
             HStack {
                 Text("Up Next")
                     .font(.headline)
-                    .foregroundColor(.secondary)
                     .padding([.top, .horizontal])
                 Spacer()
             }
             ScrollView(.horizontal, showsIndicators: false) {
-//                HStack {
-//                    ForEach(watchlistItems.filter { $0.status == "In Production"
-//                        || $0.status == "Post Production" || $0.status == "Planned" }) { item in
-//                        NavigationLink(destination: MovieDetails(title: item.title!, id: Int(item.id))) {
-//                            CardView(title: item.title!, url: item.image!)
-//                                .padding([.leading, .trailing], 4)
-//                        }
-//                        .padding(.leading, item.id == self.watchlistItems.first!.id ? 16 : 0)
-//                        .padding(.trailing, item.id == self.watchlistItems.last!.id ? 16 : 0)
-//                        .padding([.top, .bottom])
-//                    }
-//                }
+                HStack {
+                    ForEach(watchlistItems.filter { $0.status == "In Production"
+                        || $0.status == "Post Production" || $0.status == "Planned" }) { item in
+                            NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.media)) {
+                                CardView(title: item.itemTitle, url: item.image!)
+                                    .padding([.leading, .trailing], 4)
+                            }
+                            .padding(.leading, item.id == self.watchlistItems.first!.id ? 16 : 0)
+                            .padding(.trailing, item.id == self.watchlistItems.last!.id ? 16 : 0)
+                            .padding([.top, .bottom])
+                        }
+                }
             }
         }
     }

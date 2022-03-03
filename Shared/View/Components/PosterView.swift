@@ -35,7 +35,8 @@ struct PosterView: View {
 
 struct PosterView_Previews: PreviewProvider {
     static var previews: some View {
-        PosterView(title: Movie.previewMovie.title, url: Movie.previewMovie.w500PosterImage)
+        PosterView(title: Content.previewContent.itemTitle,
+                   url: Content.previewContent.posterImage500)
     }
 }
 

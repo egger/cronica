@@ -16,11 +16,11 @@ class DataController: ObservableObject {
     static var preview: DataController = {
         let result = DataController(inMemory: true)
         let viewContext = result.container.viewContext
-        for item in Movie.previewMovies {
+        for item in Content.previewContents {
             let newItem = WatchlistItem(context: viewContext)
-            newItem.title = item.title
+            newItem.title = item.itemTitle
             newItem.id = Int32(item.id)
-            newItem.image = item.backdropImage
+            newItem.image = item.cardImage
             newItem.notify = Bool.random()
             newItem.type = "Movie"
         }

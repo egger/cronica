@@ -37,9 +37,9 @@ extension WatchlistItem {
         let controller = DataController(inMemory: true)
         let viewContext = controller.container.viewContext
         let item = WatchlistItem(context: viewContext)
-        item.title = Movie.previewMovie.title
-        item.id = Int32(Movie.previewMovie.id)
-        item.image = Movie.previewMovie.backdropImage
+        item.title = Content.previewContent.itemTitle
+        item.id = Int32(Content.previewContent.id)
+        item.image = Content.previewContent.cardImage
         item.contentType = 0
         return item
     }

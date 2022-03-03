@@ -25,8 +25,8 @@ struct CardView: View {
 
 struct BackdropView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(title: Movie.previewMovie.title,
-                 url: Movie.previewMovie.backdropImage)
+        CardView(title: Content.previewContent.itemTitle,
+                 url: Content.previewContent.cardImage)
     }
 }
 
@@ -54,7 +54,7 @@ private struct ImageView: View {
                         LinearGradient(gradient: Gradient(colors:
                                                             [.black,
                                                              .black.opacity(0)]),
-                                       startPoint: .top,
+                                       startPoint: .center,
                                        endPoint: .bottom)
                     }
             } placeholder: {

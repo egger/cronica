@@ -34,8 +34,8 @@ struct DetailsImageView: View {
 
 struct MovieImageView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsImageView(url: Movie.previewMovie.backdropImage,
-                       title: Movie.previewMovie.title)
+        DetailsImageView(url: Content.previewContent.cardImage,
+                         title: Content.previewContent.itemTitle)
     }
 }
 

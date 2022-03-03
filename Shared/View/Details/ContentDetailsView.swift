@@ -18,6 +18,11 @@ struct ContentDetailsView: View {
             VStack {
                 if let item = viewModel.content {
                     DetailsImageView(url: item.cardImage, title: item.itemTitle)
+                    if item.itemGenres != nil {
+                        Text(item.itemGenres!)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                     WatchlistButtonView(title: item.itemTitle,
                                         id: item.id,
                                         image: item.cardImage,

@@ -32,7 +32,7 @@ class MovieViewModel: ObservableObject {
         }
     }
     
-    private func fetchFromEndpoints(_ endpoint: [MovieEndpoints] = MovieEndpoints.allCases) async throws -> [ContentSection] {
+    private func fetchFromEndpoints(_ endpoint: [ContentEndpoints] = ContentEndpoints.allCases) async throws -> [ContentSection] {
         let results: [Result<ContentSection, Error>] = await withTaskGroup(of: Result<ContentSection, Error>.self) { group in
             for endpoint in endpoint {
                 group.addTask { await self.fetchFromEndpoint(endpoint) }
@@ -62,7 +62,7 @@ class MovieViewModel: ObservableObject {
         return movieSections.sorted { $0.endpoint.sortIndex < $1.endpoint.sortIndex }
     }
     
-    private func fetchFromEndpoint(_ endpoint: MovieEndpoints) async -> Result<ContentSection, Error> {
+    private func fetchFromEndpoint(_ endpoint: ContentEndpoints) async -> Result<ContentSection, Error> {
         do {
             let movies = try await service.fetchMovies(from: endpoint)
             return .success(.init(results: movies, endpoint: endpoint))

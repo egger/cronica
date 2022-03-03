@@ -15,8 +15,7 @@ struct ContentResponse: Identifiable, Decodable {
 struct ContentSection: Identifiable {
     var id = UUID()
     let results: [Content]
-    
-    let endpoint: MovieEndpoints
+    let endpoint: ContentEndpoints
     var title: String {
         endpoint.title
     }
@@ -25,9 +24,11 @@ struct ContentSection: Identifiable {
         case .upcoming:
             return StyleType.poster
         case .popular:
+            return StyleType.card
+        case .latest:
             return StyleType.poster
         case .nowPlaying:
-            return StyleType.card
+            return StyleType.poster
         }
     }
 }
@@ -36,7 +37,7 @@ struct Content: Identifiable, Decodable {
     let id: Int
     private let title, name, overview: String?
     private let posterPath, backdropPath: String?
-    private let releaseDate: String?
+    private let releaseDate, status: String?
     private let runtime: Int?
     let genres: [Genre]?
     let credits: Credits?
@@ -67,11 +68,7 @@ extension Content {
     }
     var itemGenres: String? {
         if genres != nil {
-            var genreArray: [String] = [""]
-            for word in genres! {
-                genreArray.append(word.name ?? "")
-            }
-            return genreArray.description
+            return genres?.first?.name!
         } else {
             return nil
         }

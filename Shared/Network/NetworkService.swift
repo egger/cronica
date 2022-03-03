@@ -19,7 +19,7 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
-    func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Content] {
+    func fetchMovies(from endpoint: ContentEndpoints) async throws -> [Content] {
         guard let url = urlBuilder(path: "movie/\(endpoint.rawValue)") else {
             throw NetworkError.invalidEndpoint
         }
