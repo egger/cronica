@@ -8,8 +8,7 @@
 import Foundation
 
 struct Credits: Decodable {
-    let cast : [Person]
-    let crew : [Person]
+    let cast, crew: [Person]
 }
 
 struct Person: Decodable, Identifiable {
@@ -17,7 +16,21 @@ struct Person: Decodable, Identifiable {
     let name: String
     let job, character, biography, birthday: String?
     private let profilePath: String?
-    var combinedCredits: CombinedCredits?
+    let combinedCredits: CombinedCredits?
+}
+
+struct CombinedCredits: Decodable {
+    let cast, crew: [Filmography]?
+}
+
+struct Filmography: Decodable, Identifiable {
+    let id: Int
+    private let title, character: String?
+    let backdropPath, posterPath, releaseDate: String?
+    let overview: String
+}
+
+extension Person {
     var image: URL? {
         if profilePath == nil {
             return nil
@@ -43,28 +56,17 @@ struct Person: Decodable, Identifiable {
             return nil
         }
     }
-    
 }
 
-struct CombinedCredits: Decodable {
-    let cast, crew: [Filmography]?
-}
-
-struct Filmography: Decodable, Identifiable {
-    let id: Int
-    let backdropPath, posterPath, title, releaseDate, character: String?
-    let overview: String
+extension Filmography {
+    var itemTitle: String {
+        title ?? "N/A"
+    }
     var image: URL? {
         if posterPath != nil {
             return URL(string: "\(ApiConstants.originalImageUrl)\(posterPath!)")!
         } else {
             return nil
         }
-    }
-}
-
-extension Filmography {
-    var itemTitle: String {
-        title ?? "N/A"
     }
 }

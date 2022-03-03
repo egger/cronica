@@ -39,6 +39,8 @@ struct Content: Identifiable, Decodable {
     private let posterPath, backdropPath: String?
     private let releaseDate, status: String?
     private let runtime, numberOfEpisodes, numberOfSeasons: Int?
+    let productionCompanies: [ProductionCompany]?
+    let productionCountries: [ProductionCountry]?
     let seasons: [Season]?
     let genres: [Genre]?
     let credits: Credits?
@@ -67,12 +69,30 @@ extension Content {
             return nil
         }
     }
-    var itemGenres: String? {
+    var itemGenre: String {
         if genres != nil {
-            return genres?.first?.name!
+            return genres!.first!.name!
+        } else {
+            return ""
+        }
+    }
+    var itemCountry: String {
+        if productionCountries != nil {
+            return productionCountries!.first!.name!
+        } else {
+            return ""
+        }
+    }
+    var itemInfo: String? {
+        if !itemGenre.isEmpty && !releaseDateString.isEmpty {
+            return "\(itemGenre), \(releaseDateString)"
         } else {
             return nil
         }
+    }
+    var itemStatus: String {
+        status ?? NSLocalizedString("No information available",
+                                    comment: "API didn't provided status information.")
     }
     var itemRuntime: String {
         return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60) ?? "n/a"
@@ -80,7 +100,7 @@ extension Content {
     var releaseDateString: String {
         guard let releaseDate = self.releaseDate,
               let date = Util.dateFormatter.date(from: releaseDate) else {
-            return "n/a"
+            return ""
         }
         return Util.dateString.string(from: date)
     }
@@ -113,11 +133,20 @@ struct LastEpisodeToAir {
     let stillPath: String?
 }
 
+struct ProductionCompany: Decodable {
+    let id: Int
+    let logoPath: String?
+    let name, originCountry: String
+}
+
+struct ProductionCountry: Decodable {
+    let iso3166_1, name: String?
+}
+
 enum StyleType: Decodable {
     case poster
     case card
 }
-
 enum MediaType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case movie, person

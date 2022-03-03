@@ -24,7 +24,7 @@ struct FilmographyListView: View {
                         NavigationLink(destination: ContentDetailsView(title: item.itemTitle,
                                                                        id: item.id,
                                                                        type: MediaType.movie)) {
-                            PosterView(title: item.title ?? "", url: item.image)
+                            PosterView(title: item.itemTitle, url: item.image)
                                 .padding([.leading, .trailing], 4)
                         }
                         .padding(.leading, item.id == self.filmography.first!.id ? 16 : 0)
@@ -36,9 +36,3 @@ struct FilmographyListView: View {
         }
     }
 }
-
-//struct CreditsList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FilmographyListView()
-//    }
-//}

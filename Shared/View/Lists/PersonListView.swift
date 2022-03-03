@@ -13,7 +13,6 @@ struct PersonListView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Cast & Crew")
-                    .foregroundColor(.secondary)
                     .padding([.horizontal, .top])
                 Spacer()
             }

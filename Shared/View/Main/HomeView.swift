@@ -9,40 +9,31 @@ import SwiftUI
 
 struct HomeView: View {
     static let tag: String? = "Home"
-    @StateObject private var movies = MovieViewModel()
-    @StateObject private var tvShows = TVViewModel()
+    @StateObject private var viewModel = HomeViewModel()
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     HomeListItemsView()
-                    ForEach(movies.sections) {
+                    ForEach(viewModel.moviesSections) {
                         ContentListView(style: $0.style, type: MediaType.movie, title: $0.title, items: $0.results)
                     }
-                    ForEach(tvShows.sections) {
+                    ForEach(viewModel.tvSections) {
                         ContentListView(style: $0.style, type: MediaType.tvShow, title: $0.title, items: $0.results)
                     }
                 }
                 .navigationTitle("Home")
                 .task {
-                    loadMovies()
-                    loadTV()
+                    load()
                 }
             }
         }
     }
     
     @Sendable
-    private func loadMovies() {
+    private func load() {
         Task {
-            await movies.loadAllEndpoints()
-        }
-    }
-    
-    @Sendable
-    private func loadTV() {
-        Task {
-            await tvShows.loadAllEndpoints()
+            await viewModel.loadSections()
         }
     }
 }

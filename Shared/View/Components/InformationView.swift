@@ -14,13 +14,15 @@ struct InformationView: View {
             Section {
                 InformationSectionView(title: "Run Time", content: item.itemRuntime)
                 InformationSectionView(title: "Release Date:", content: item.releaseDateString)
-                //InformationSectionView(title: "Status", content: item.status ?? "")
+                InformationSectionView(title: "Status", content: item.itemStatus)
+                InformationSectionView(title: "Genre", content: item.itemGenre)
+                InformationSectionView(title: "Region of Origin", content: item.itemCountry)
             }
         } label: {
             Label("Information", systemImage: "info")
                 .foregroundColor(.secondary)
         }
-        .padding([.horizontal, .bottom])
+        .padding()
     }
 }
 
