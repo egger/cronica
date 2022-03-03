@@ -16,7 +16,15 @@ extension Movie {
         previewMovies[0]
     }
 }
-
+extension Content {
+    static var previewContents: [Content] {
+        let data: ContentResponse? = try? Bundle.main.decode(from: "movies")
+        return data!.results
+    }
+    static var previewContent: Content {
+        previewContents[0]
+    }
+}
 extension Credits {
     static var previewCredits: Credits {
         return Movie.previewMovie.credits!

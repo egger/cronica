@@ -15,15 +15,18 @@ struct CardView: View {
             ImageView(url: url, title: title)
             TitleView(title: title)
         }
-        .frame(width: DrawingConstants.cardWidth, height: DrawingConstants.cardHeight)
+        .frame(width: DrawingConstants.cardWidth,
+               height: DrawingConstants.cardHeight)
         .cornerRadius(DrawingConstants.cardRadius)
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity), radius: DrawingConstants.shadowRadius)
+        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                radius: DrawingConstants.shadowRadius)
     }
 }
 
 struct BackdropView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(title: Movie.previewMovie.title, url: Movie.previewMovie.backdropImage)
+        CardView(title: Movie.previewMovie.title,
+                 url: Movie.previewMovie.backdropImage)
     }
 }
 

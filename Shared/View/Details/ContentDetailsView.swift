@@ -47,7 +47,22 @@ struct ContentDetailsView: View {
                         }
                     Divider()
                         .padding([.horizontal, .top])
-                    
+                    if item.credits != nil {
+                        PersonListView(credits: item.credits!)
+                        Divider()
+                            .padding([.horizontal, .top])
+                    }
+                    if type == MediaType.movie {
+                        InformationView(item: item)
+                        Divider()
+                            .padding([.horizontal, .top])
+                    }
+                    if item.similar != nil {
+                        ContentListView(style: StyleType.poster,
+                                        type: type,
+                                        title: "Similar",
+                                        items: item.similar?.results)
+                    }
                 }
             }
         }

@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct InformationView: View {
-    let movie: Movie
+    let item: Content
     var body: some View {
         GroupBox {
             Section {
-                InformationSectionView(title: "Run Time", content: movie.movieRuntime)
-                InformationSectionView(title: "Release Date:", content: movie.releaseDateString)
-                InformationSectionView(title: "Status", content: movie.status ?? "")
+                InformationSectionView(title: "Run Time", content: item.itemRuntime)
+                InformationSectionView(title: "Release Date:", content: item.releaseDateString)
+                //InformationSectionView(title: "Status", content: item.status ?? "")
             }
         } label: {
             Label("Information", systemImage: "info")
@@ -26,7 +26,7 @@ struct InformationView: View {
 
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationView(movie: Movie.previewMovie)
+        InformationView(item: Content.previewContent)
     }
 }
 

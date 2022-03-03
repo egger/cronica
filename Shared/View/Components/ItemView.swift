@@ -24,7 +24,8 @@ struct ItemView: View {
                     ProgressView()
                 }
             }
-            .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
             VStack(alignment: .leading) {
                 HStack {
@@ -44,7 +45,9 @@ struct ItemView: View {
 
 struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemView(title: Movie.previewMovie.title, url: Movie.previewMovie.backdropImage, type: MediaType.movie)
+        ItemView(title: Movie.previewMovie.title,
+                 url: Movie.previewMovie.backdropImage,
+                 type: MediaType.movie)
     }
 }
 

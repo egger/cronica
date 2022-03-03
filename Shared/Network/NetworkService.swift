@@ -19,21 +19,12 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
-    func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Movie] {
+    func fetchMovies(from endpoint: MovieEndpoints) async throws -> [Content] {
         guard let url = urlBuilder(path: "movie/\(endpoint.rawValue)") else {
             throw NetworkError.invalidEndpoint
         }
-        let response: MovieResponse = try await self.fetch(url: url)
+        let response: ContentResponse = try await self.fetch(url: url)
         return response.results
-    }
-    
-    func fetchMovie(id: Movie.ID) async throws -> Movie {
-        guard let url = urlBuilder(path: "movie/\(id)",
-                                   params: ["append_to_response": "credits,similar"]
-        ) else {
-            throw NetworkError.invalidEndpoint
-        }
-        return try await self.fetch(url: url)
     }
     
     func fetchTvShows(from endpoint: SeriesEndpoint) async throws -> [TVShow] {
