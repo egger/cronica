@@ -38,7 +38,8 @@ struct Content: Identifiable, Decodable {
     private let title, name, overview: String?
     private let posterPath, backdropPath: String?
     private let releaseDate, status: String?
-    private let runtime: Int?
+    private let runtime, numberOfEpisodes, numberOfSeasons: Int?
+    let seasons: [Season]?
     let genres: [Genre]?
     let credits: Credits?
     let similar: ContentResponse?
@@ -73,17 +74,62 @@ extension Content {
             return nil
         }
     }
-    
     var itemRuntime: String {
         return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60) ?? "n/a"
     }
     var releaseDateString: String {
-        guard let releaseDate = self.releaseDate, let date = Util.dateFormatter.date(from: releaseDate) else {
+        guard let releaseDate = self.releaseDate,
+              let date = Util.dateFormatter.date(from: releaseDate) else {
             return "n/a"
         }
         return Util.dateString.string(from: date)
     }
     var release: Date {
         return Util.dateFormatter.date(from: releaseDateString) ?? Date()
+    }
+}
+
+struct Genre: Decodable, Identifiable {
+    let id: Int
+    let name: String?
+}
+
+struct Season: Decodable, Identifiable {
+    let id: Int
+    let airDate: String?
+    let episodeCount: Int?
+    let name, overview, posterPath: String
+    var posterImage: URL {
+        return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
+    }
+    let seasonNumber: Int
+}
+
+struct LastEpisodeToAir {
+    let airDate: String?
+    let episodeNumber, id: Int?
+    let name, overview: String?
+    let seasonNumber: Int?
+    let stillPath: String?
+}
+
+enum StyleType: Decodable {
+    case poster
+    case card
+}
+
+enum MediaType: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    case movie, person
+    case tvShow = "tv"
+    var title: String {
+        switch self {
+        case .movie:
+            return "Movie"
+        case .tvShow:
+            return "TV Show"
+        case .person:
+            return "People"
+        }
     }
 }

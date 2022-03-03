@@ -64,7 +64,7 @@ class MovieViewModel: ObservableObject {
     
     private func fetchFromEndpoint(_ endpoint: ContentEndpoints) async -> Result<ContentSection, Error> {
         do {
-            let movies = try await service.fetchMovies(from: endpoint)
+            let movies = try await service.fetchContents(from: endpoint, type: MediaType.movie)
             return .success(.init(results: movies, endpoint: endpoint))
         } catch {
             return .failure(error)

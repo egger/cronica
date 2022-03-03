@@ -11,15 +11,12 @@ extension WatchlistItem {
     enum SortOrder {
         case status, date
     }
-    
     var itemTitle: String {
         title ?? NSLocalizedString("No title available", comment: "Title couldn't be found.")
     }
-    
     var itemId: Int {
         Int(id)
     }
-    
     var media: MediaType {
         switch contentType {
         case 0:
@@ -32,7 +29,6 @@ extension WatchlistItem {
             return MediaType.movie
         }
     }
-    
     static var example: WatchlistItem {
         let controller = DataController(inMemory: true)
         let viewContext = controller.container.viewContext
@@ -42,26 +38,5 @@ extension WatchlistItem {
         item.image = Content.previewContent.cardImage
         item.contentType = 0
         return item
-    }
-}
-
-enum StyleType: Decodable {
-    case poster
-    case card
-}
-
-enum MediaType: String, CaseIterable, Identifiable {
-    var id: String { rawValue }
-    case movie, person
-    case tvShow = "tv"
-    var title: String {
-        switch self {
-        case .movie:
-            return "Movie"
-        case .tvShow:
-            return "TV Show"
-        case .person:
-            return "People"
-        }
     }
 }

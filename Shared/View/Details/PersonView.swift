@@ -89,7 +89,8 @@ struct PersonView: View {
 
 struct PersonView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonView(title: Credits.previewCast.name, id: Credits.previewCast.id)
+        PersonView(title: Credits.previewCast.name,
+                   id: Credits.previewCast.id)
     }
 }
 

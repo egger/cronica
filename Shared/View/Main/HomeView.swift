@@ -18,10 +18,9 @@ struct HomeView: View {
                     HomeListItemsView()
                     ForEach(movies.sections) {
                         ContentListView(style: $0.style, type: MediaType.movie, title: $0.title, items: $0.results)
-                        //MovieListView(style: $0.style, title: $0.title, movies: $0.results)
                     }
                     ForEach(tvShows.sections) {
-                        TVListView(style: $0.style, title: $0.title, series: $0.results)
+                        ContentListView(style: $0.style, type: MediaType.tvShow, title: $0.title, items: $0.results)
                     }
                 }
                 .navigationTitle("Home")
