@@ -9,7 +9,7 @@ import Foundation
 
 extension Content {
     static var previewContents: [Content] {
-        let data: ContentResponse? = try? Bundle.main.decode(from: "movies")
+        let data: ContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
     }
     static var previewContent: Content {

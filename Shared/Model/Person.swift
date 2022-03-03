@@ -46,7 +46,6 @@ struct Person: Decodable, Identifiable {
     
 }
 
-
 struct CombinedCredits: Decodable {
     let cast, crew: [Filmography]?
 }
@@ -61,5 +60,11 @@ struct Filmography: Decodable, Identifiable {
         } else {
             return nil
         }
+    }
+}
+
+extension Filmography {
+    var itemTitle: String {
+        title ?? "N/A"
     }
 }

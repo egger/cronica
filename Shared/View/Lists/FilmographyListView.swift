@@ -21,7 +21,9 @@ struct FilmographyListView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(filmography.prefix(10)) { item in
-                        NavigationLink(destination: ContentDetailsView(title: item.title ?? "", id: item.id, type: MediaType.movie)) {
+                        NavigationLink(destination: ContentDetailsView(title: item.itemTitle,
+                                                                       id: item.id,
+                                                                       type: MediaType.movie)) {
                             PosterView(title: item.title ?? "", url: item.image)
                                 .padding([.leading, .trailing], 4)
                         }
