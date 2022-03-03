@@ -16,7 +16,7 @@ struct HomeListItemsView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Up Next")
+                Text("Coming Soon")
                     .font(.headline)
                     .padding([.top, .horizontal])
                 Spacer()

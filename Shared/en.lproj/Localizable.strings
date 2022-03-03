@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  Story
+
+  Created by Alexandre Madeira on 03/03/22.
+  
+*/
+
+//Common
+"Done" = "Done";
+
+//AboutView.swift
+
+"About" = "About";
+
+//InformationView.swift
+
+"Run Time" = "Run Time";
+"Release Date:" = "Release Date:";
+"Status" = "Status";
+"Genre" = "Genre";
+"Region of Origin" = "Region of Origin";
+"Production Company" = "Production Company";
+"Information" = "Information";
+
+//WatchlistButtonView.swift
+"Add to watchlist" = "Add to watchlist";
+"Remove from watchlist" = "Remove from watchlist";
+
+//PersonView.swift
+"Biography" = "Biography";
+
+//FilmographyListView.swift
+"Filmography" = "Filmography";

@@ -17,6 +17,7 @@ struct InformationView: View {
                 InformationSectionView(title: "Status", content: item.itemStatus)
                 InformationSectionView(title: "Genre", content: item.itemGenre)
                 InformationSectionView(title: "Region of Origin", content: item.itemCountry)
+                InformationSectionView(title: "Production Company", content: item.itemProduction)
             }
         } label: {
             Label("Information", systemImage: "info")
@@ -39,7 +40,9 @@ struct InformationSectionView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(title)
+                    .font(.caption)
                 Text(content)
+                    .font(.caption2)
                     .foregroundColor(.secondary)
             }
             Spacer()

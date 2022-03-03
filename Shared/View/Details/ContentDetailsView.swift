@@ -51,16 +51,16 @@ struct ContentDetailsView: View {
                             }
                         }
                     Divider()
-                        .padding([.horizontal, .top])
+                        .padding(.horizontal)
                     if item.credits != nil {
                         PersonListView(credits: item.credits!)
                         Divider()
-                            .padding([.horizontal, .top])
+                            .padding(.horizontal)
                     }
                     if type == MediaType.movie {
                         InformationView(item: item)
                         Divider()
-                            .padding([.horizontal, .top])
+                            .padding(.horizontal)
                     }
                     if item.similar != nil {
                         ContentListView(style: StyleType.poster,

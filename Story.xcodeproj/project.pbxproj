@@ -85,6 +85,8 @@
 		B8CC953127D03BBE00B6757C /* ContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952F27D03BBE00B6757C /* ContentListView.swift */; };
 		B8CC953327D05D1000B6757C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
 		B8CC953427D05D1000B6757C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
+		B8CC954A27D1310B00B6757C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
+		B8CC954B27D1310B00B6757C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
 		B8E6D63827B6A472002E7A63 /* WatchlistButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */; };
 		B8E6D63927B6A472002E7A63 /* WatchlistButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */; };
 		B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
@@ -152,6 +154,7 @@
 		B8CC952F27D03BBE00B6757C /* ContentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListView.swift; sourceTree = "<group>"; };
 		B8CC953227D05D1000B6757C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Story--iOS--Info.plist"; sourceTree = "<group>"; };
+		B8CC954C27D1310B00B6757C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistButtonView.swift; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
 		B8E7651D27B753AE00D9B731 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
@@ -211,6 +214,7 @@
 				B86E589427A4BF5F005DBF38 /* Utilities */,
 				B8110F0F2792678400844FEB /* View */,
 				B87B5CD22799AB5D00632648 /* ViewModel */,
+				B8CC954D27D1310B00B6757C /* Localizable.strings */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -478,6 +482,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
@@ -499,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B87B5CD42799AF3600632648 /* Attribution.xcassets in Resources */,
+				B8CC954A27D1310B00B6757C /* Localizable.strings in Resources */,
 				B87B5CCC27999C5700632648 /* content.json in Resources */,
 				B8110EEC279245D100844FEB /* Assets.xcassets in Resources */,
 			);
@@ -509,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B87B5CD52799AF3600632648 /* Attribution.xcassets in Resources */,
+				B8CC954B27D1310B00B6757C /* Localizable.strings in Resources */,
 				B87B5CCD27999C5700632648 /* content.json in Resources */,
 				B8110EED279245D100844FEB /* Assets.xcassets in Resources */,
 			);
@@ -633,6 +640,17 @@
 			targetProxy = B85E037127B0371C005C7FDF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B8CC954D27D1310B00B6757C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8CC954C27D1310B00B6757C /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B8110EEE279245D100844FEB /* Debug */ = {

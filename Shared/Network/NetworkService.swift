@@ -44,7 +44,7 @@ class NetworkService {
                   throw NetworkError.invalidResponse
               }
         
-        return try Util.jsonDecoder.decode(T.self, from: data)
+        return try Util.decoder.decode(T.self, from: data)
     }
     
     /// Build a safe URL for the TMDB API Service.

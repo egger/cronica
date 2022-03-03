@@ -8,7 +8,7 @@
 import Foundation
 
 class Util {
-    static let jsonDecoder: JSONDecoder = {
+    static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .formatted(dateFormatter)

@@ -83,6 +83,17 @@ extension Content {
             return ""
         }
     }
+    var itemProduction: String {
+        if productionCompanies != nil {
+            var companies: [String] = [""]
+            for company in productionCompanies! {
+                companies.append(company.name)
+            }
+            return "\(companies[1]), \(companies[2])"
+        } else {
+            return "N/A"
+        }
+    }
     var itemInfo: String? {
         if !itemGenre.isEmpty && !releaseDateString.isEmpty {
             return "\(itemGenre), \(releaseDateString)"
@@ -140,7 +151,7 @@ struct ProductionCompany: Decodable {
 }
 
 struct ProductionCountry: Decodable {
-    let iso3166_1, name: String?
+    let name: String?
 }
 
 enum StyleType: Decodable {
