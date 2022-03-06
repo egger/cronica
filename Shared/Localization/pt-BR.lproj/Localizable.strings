@@ -11,10 +11,18 @@
 "Home" = "Início";
 "Watchlist" = "Lista";
 "Search" = "Busca";
+"Popular" = "Populares";
+"Movie" = "Filme";
+"TV Show" = "Série";
+"Person" = "Pessoa";
+"Settings" = "Configurações";
 
 //AboutView.swift
 
 "About" = "Sobre";
+
+//ContentDetailsView.swift
+"Recommendations" = "Recomendações";
 
 //InformationView.swift
 
@@ -27,7 +35,7 @@
 "Information" = "Informações";
 
 //WatchlistButtonView.swift
-"Add to watchlist" = "Adicionar na lista";
+"Add to watchlist" = "Adicionar à lista";
 "Remove from watchlist" = "Remover da lista";
 
 //PersonView.swift
@@ -41,3 +49,19 @@
 
 //WatchlistSoonItemsView.swift
 "Coming Soon" = "Em Breve";
+
+//SearchView.swift
+"Movies, Shows, People" = "Filmes, Séries, Pessoas";
+
+//SettingsView.swift
+"Notify All" = "Notificar Todos";
+"Log in with your TMDB Account to sync watchlist, and recommendations." = "Log in with your TMDB Account to sync watchlist, and recommendations.";
+"Send email" = "Enviar email";
+"Privacy Policy" = "Política de Privacidade";
+"Made in Brazil" = "Made in Brazil";
+
+//AttributionView.swift
+"This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API do TMDB, mas não é endossado ou certificado pelo TMDB.";
+
+//WatchlistView.swift
+"Search watchlist" = "Buscar na lista";

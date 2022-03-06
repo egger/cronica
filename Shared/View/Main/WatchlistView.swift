@@ -56,6 +56,8 @@ struct WatchlistView: View {
                     }
                 }
                 .navigationTitle("Watchlist")
+#if os(iOS)
+                .navigationViewStyle(.stack)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu {
@@ -72,7 +74,8 @@ struct WatchlistView: View {
                         EditButton()
                     }
                 }
-                .searchable(text: $queryString, prompt: "Search watchlist.")
+#endif
+                .searchable(text: $queryString, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search watchlist")
             }
         }
     }

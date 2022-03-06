@@ -54,6 +54,7 @@ struct PersonView: View {
                                         .padding()
                                 }
                                 .navigationTitle(title)
+                                #if os(iOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 .toolbar {
                                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -62,6 +63,7 @@ struct PersonView: View {
                                         }
                                     }
                                 }
+                                #endif
                             }
                         }
                     }
@@ -70,6 +72,7 @@ struct PersonView: View {
                     } else {
                         FilmographyListView(filmography: (person.combinedCredits?.cast)!)
                     }
+                    AttributionView().padding(.bottom)
                 }
             }
         }

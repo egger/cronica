@@ -11,6 +11,7 @@ import SwiftUI
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// counting fetch request, tracking watchlists, and dealing with sample data.
 class DataController: ObservableObject {
+    
     static let shared = DataController()
     
     static var preview: DataController = {
@@ -52,6 +53,35 @@ class DataController: ObservableObject {
             if let error = error {
                 fatalError("Fatal error loading storage, error: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    /// Adds a new item to Watchlist Core Data.
+    func saveItem(content: Content, type: Int, notify: Bool) {
+        let viewContext = DataController.shared.container.viewContext
+        let item = WatchlistItem(context: viewContext)
+        item.title = content.itemTitle
+        item.id = Int32(content.id)
+        item.image = content.cardImage
+        item.status = content.itemStatus
+        item.contentType = Int16(type)
+        item.notify = notify
+        do {
+            try viewContext.save()
+        } catch {
+            fatalError("Fatal error on adding a new item, error: \(error.localizedDescription).")
+        }
+    }
+    
+    /// Deletes a WatchlistItem from Core Data.
+    /// - Parameter id: Use a WatchlistItem to search its' existence in Core Data, and then delete it.
+    func removeItem(id: WatchlistItem) throws {
+        let viewContext = DataController.shared.container.viewContext
+        do {
+            let item = try viewContext.existingObject(with: id.objectID)
+            viewContext.delete(item)
+        } catch {
+            fatalError("Fatal error on adding a new item, error: \(error.localizedDescription).")
         }
     }
 }

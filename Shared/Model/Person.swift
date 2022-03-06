@@ -60,7 +60,7 @@ extension Person {
 
 extension Filmography {
     var itemTitle: String {
-        title ?? "N/A"
+        title ?? NSLocalizedString("Title not found", comment: "Missing Title")
     }
     var image: URL? {
         if posterPath != nil {

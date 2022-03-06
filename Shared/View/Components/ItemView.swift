@@ -13,20 +13,15 @@ struct ItemView: View {
     let type: MediaType
     var body: some View {
         HStack {
-            AsyncImage(url: url) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-            } placeholder: {
-                ZStack {
-                    Rectangle()
-                        .fill(.secondary)
-                    ProgressView()
-                }
+            switch type {
+            case .movie:
+                CardImage(url: url)
+            case .person:
+                PersonImage(url: url)
+            case .tvShow:
+                CardImage(url: url)
             }
-            .frame(width: DrawingConstants.imageWidth,
-                   height: DrawingConstants.imageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text(title)
@@ -56,4 +51,45 @@ private struct DrawingConstants {
     static let imageHeight: CGFloat = 50
     static let imageRadius: CGFloat = 4
     static let textLimit: Int = 1
+    static let personImageWidth: CGFloat = 60
+    static let personImageHeight: CGFloat = 60
+}
+
+private struct CardImage: View {
+    let url: URL?
+    var body: some View {
+        AsyncImage(url: url) { image in
+            image
+                .resizable()
+                .scaledToFill()
+        } placeholder: {
+            ZStack {
+                Rectangle()
+                    .fill(.secondary)
+                ProgressView()
+            }
+        }
+        .frame(width: DrawingConstants.imageWidth,
+               height: DrawingConstants.imageHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+    }
+}
+
+private struct PersonImage: View {
+    let url: URL?
+    var body: some View {
+        AsyncImage(url: url) { image in
+            image
+                .resizable()
+                .scaledToFill()
+        } placeholder: {
+            ZStack {
+                Circle()
+                    .fill(.secondary)
+                ProgressView()
+            }
+        }
+        .frame(width: DrawingConstants.personImageWidth,
+               height: DrawingConstants.personImageHeight)
+    }
 }

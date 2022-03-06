@@ -19,12 +19,8 @@ class StoryTests: XCTestCase {
     }
     
     func testAddToWatchlist() {
-        for item in Movie.previewMovies {
-            let newItem = MovieItem(context: managedObjectContext)
-            newItem.title = item.title
-            newItem.id = Int32(item.id)
-            newItem.image = item.backdropImage
-            newItem.notify = Bool.random()
+        for item in Content.previewContents {
+            dataController.saveItem(content: item, type: MediaType.movie.watchlistInt, notify: Bool.random())
         }
         do {
             try managedObjectContext.save()

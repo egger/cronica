@@ -23,7 +23,7 @@ struct WatchlistSectionView: View {
                 }
                 .onDelete(perform: delete)
             } header: {
-                Text(title)
+                Text(NSLocalizedString(title, comment: ""))
             }
         }
     }

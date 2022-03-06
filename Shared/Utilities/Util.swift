@@ -31,4 +31,12 @@ class Util {
         formatter.allowedUnits = [.hour, .minute]
         return formatter
     }()
+    static let userLang: String = {
+        let locale = Locale.current
+        guard let langCode = locale.languageCode,
+              let regionCode = locale.regionCode else {
+                  return "en-US"
+              }
+        return "\(langCode)-\(regionCode)"
+    }()
 }

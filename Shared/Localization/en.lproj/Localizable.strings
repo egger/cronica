@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Story
 
@@ -8,10 +8,21 @@
 
 //Common
 "Done" = "Done";
+"Home" = "Home";
+"Watchlist" = "Watchlist";
+"Search" = "Search";
+"Popular" = "Popular";
+"Movie" = "Movie";
+"TV Show" = "TV Show";
+"Person" = "Person";
+"Settings" = "Settings";
 
 //AboutView.swift
 
 "About" = "About";
+
+//ContentDetailsView.swift
+"Recommendations" = "Recommendations";
 
 //InformationView.swift
 
@@ -27,8 +38,30 @@
 "Add to watchlist" = "Add to watchlist";
 "Remove from watchlist" = "Remove from watchlist";
 
+//WatchlistView.swift
+"Search watchlist" = "Search watchlist";
+
 //PersonView.swift
 "Biography" = "Biography";
 
+//PersonListView.swift
+"Cast & Crew" = "Cast & Crew";
+
 //FilmographyListView.swift
 "Filmography" = "Filmography";
+
+//WatchlistSoonItemsView.swift
+"Coming Soon" = "Coming Soon";
+
+//SearchView.swift
+"Movies, Shows, People" = "Movies, Shows, People";
+
+//SettingsView.swift
+"Notify All" = "Notify All";
+"Log in with your TMDB Account to sync watchlist, and recommendations." = "Log in with your TMDB Account to sync watchlist, and recommendations.";
+"Send email" = "Send email";
+"Privacy Policy" = "Privacy Policy";
+"Made in Brazil" = "Made in Brazil";
+
+//AttributionView.swift
+"This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API do TMDB, mas não é endossado ou certificado pelo TMDB.";

@@ -32,7 +32,7 @@ enum ContentEndpoints: String, CaseIterable, Identifiable {
         case .latest:
             return "Latest"
         case .nowPlaying:
-            return "Now Playing"
+            return NSLocalizedString("Now Playing", comment: "")
         }
     }
 }

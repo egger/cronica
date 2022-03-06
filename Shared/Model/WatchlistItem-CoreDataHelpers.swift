@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension WatchlistItem {
     enum SortOrder {

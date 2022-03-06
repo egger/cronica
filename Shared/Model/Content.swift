@@ -36,7 +36,7 @@ struct ContentSection: Identifiable {
 struct Content: Identifiable, Decodable {
     let id: Int
     private let title, name, overview: String?
-    private let posterPath, backdropPath: String?
+    private let posterPath, backdropPath, profilePath: String?
     private let releaseDate, status: String?
     private let runtime, numberOfEpisodes, numberOfSeasons: Int?
     let productionCompanies: [ProductionCompany]?
@@ -44,7 +44,8 @@ struct Content: Identifiable, Decodable {
     let seasons: [Season]?
     let genres: [Genre]?
     let credits: Credits?
-    let similar: ContentResponse?
+    let recommendations: ContentResponse?
+    private let mediaType: String?
 }
 
 extension Content {
@@ -64,16 +65,43 @@ extension Content {
     }
     var cardImage: URL? {
         if backdropPath != nil {
-            return URL(string: "\(ApiConstants.w1066ImageUrl)\(backdropPath!)")!
+            return URL(string: "\(ApiConstants.w500ImageUrl)\(backdropPath!)")!
         } else {
             return nil
         }
     }
     var itemGenre: String {
         if genres != nil {
-            return genres!.first!.name!
+            if ((genres?.first?.name.isEmpty) != nil) {
+                return ""
+            } else {
+                return genres!.first!.name!
+            }
+            
         } else {
             return ""
+        }
+    }
+    var media: MediaType {
+        switch mediaType {
+        case "tv":
+            return MediaType.tvShow
+        case "movie":
+            return MediaType.movie
+        case "person":
+            return MediaType.person
+        default:
+            return MediaType.movie
+        }
+    }
+    var image: URL? {
+        switch media {
+        case .movie:
+            return URL(string: "\(ApiConstants.w500ImageUrl)\(backdropPath)") ?? URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")
+        case .tvShow:
+            return URL(string: "\(ApiConstants.w500ImageUrl)\(backdropPath)") ?? URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")
+        case .person:
+            return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)") ?? URL(string: "\(ApiConstants.w500ImageUrl)\(profilePath!)")
         }
     }
     var itemCountry: String {
@@ -85,11 +113,7 @@ extension Content {
     }
     var itemProduction: String {
         if productionCompanies != nil {
-            var companies: [String] = [""]
-            for company in productionCompanies! {
-                companies.append(company.name)
-            }
-            return "\(companies[1]), \(companies[2])"
+            return productionCompanies!.first!.name
         } else {
             return "N/A"
         }
@@ -158,6 +182,7 @@ enum StyleType: Decodable {
     case poster
     case card
 }
+
 enum MediaType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case movie, person
@@ -165,11 +190,21 @@ enum MediaType: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .movie:
-            return "Movie"
+            return NSLocalizedString("Movie", comment: "")
         case .tvShow:
-            return "TV Show"
+            return NSLocalizedString("TV Show", comment: "")
         case .person:
-            return "People"
+            return NSLocalizedString("People", comment: "")
+        }
+    }
+    var watchlistInt: Int {
+        switch self {
+        case .movie:
+            return 0
+        case .tvShow:
+            return 1
+        case .person:
+            return 2
         }
     }
 }

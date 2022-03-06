@@ -11,19 +11,19 @@ struct ContentListView: View {
     let style: StyleType
     let type: MediaType
     let title: String
-    let items: [Content]?
+    let items: [Content]
     var body: some View {
         VStack {
-            if !items.isEmpty {
+            if items.isEmpty {
                 HStack {
-                    Text(title)
+                    Text(NSLocalizedString(title, comment: ""))
                         .font(.headline)
                         .padding([.horizontal, .top])
                     Spacer()
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(items!) { item in
+                        ForEach(items) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: type)) {
                                 switch style {
                                 case .poster:
@@ -34,12 +34,14 @@ struct ContentListView: View {
                                         .padding([.leading, .trailing], 4)
                                 }
                             }
-                            .padding(.leading, item.id == self.items!.first!.id ? 16 : 0)
-                            .padding(.trailing, item.id == self.items!.last!.id ? 16 : 0)
+                            .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
+                            .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
                             .padding([.top, .bottom])
                         }
                     }
                 }
+            } else {
+                EmptyView()
             }
         }
     }
