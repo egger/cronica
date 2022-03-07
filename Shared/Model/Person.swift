@@ -14,7 +14,7 @@ struct Credits: Decodable {
 struct Person: Decodable, Identifiable {
     let id: Int
     let name: String
-    let job, character, biography, birthday: String?
+    private let job, character, biography, birthday: String?
     private let profilePath: String?
     let combinedCredits: CombinedCredits?
 }
@@ -25,36 +25,23 @@ struct CombinedCredits: Decodable {
 
 struct Filmography: Decodable, Identifiable {
     let id: Int
-    private let title, character: String?
-    let backdropPath, posterPath, releaseDate: String?
-    let overview: String
+    private let title, character, overview: String?
+    private let backdropPath, posterPath, releaseDate: String?
 }
 
 extension Person {
-    var image: URL? {
-        if profilePath == nil {
-            return nil
+    var mediumImage: URL? {
+        if profilePath != nil {
+            return Utilities.imageUrlBuilder(size: .medium, path: profilePath!)
         } else {
-            return URL(string: "\(ApiConstants.originalImageUrl)\(profilePath!)")!
+            return nil
         }
     }
-    var w500Image: URL? {
-        if profilePath == nil {
-            return nil
-        } else {
-            return URL(string: "\(ApiConstants.w500ImageUrl)\(profilePath!)")!
-        }
+    var personBiography: String {
+        biography ?? ""
     }
     var role: String? {
-        if job != nil {
-            return job!
-        }
-        else if character != nil {
-            return character!
-        }
-        else {
-            return nil
-        }
+        job ?? character
     }
 }
 
@@ -64,7 +51,7 @@ extension Filmography {
     }
     var image: URL? {
         if posterPath != nil {
-            return URL(string: "\(ApiConstants.originalImageUrl)\(posterPath!)")!
+            return Utilities.imageUrlBuilder(size: .medium, path: posterPath!)
         } else {
             return nil
         }

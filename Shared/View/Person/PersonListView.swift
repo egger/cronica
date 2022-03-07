@@ -24,8 +24,8 @@ struct PersonListView: View {
                         ForEach(credits.cast.prefix(10)) { content in
                             NavigationLink(destination: PersonView(title: content.name, id: content.id)) {
                                 PersonCardView(name: content.name,
-                                               characterOrJob: content.character,
-                                               url: content.image)
+                                               characterOrJob: content.role,
+                                               url: content.mediumImage)
                             }
                             .padding(.leading, content.id == self.credits.cast.first!.id ? 16 : 0)
                         }
@@ -35,7 +35,7 @@ struct PersonListView: View {
                     } else {
                         ForEach(credits.crew.filter { $0.role == "Director" }) { content in
                             NavigationLink(destination: PersonView(title: content.name, id: content.id)) {
-                                PersonCardView(name: content.name, characterOrJob: content.job, url: content.image)
+                                PersonCardView(name: content.name, characterOrJob: content.role, url: content.mediumImage)
                             }
                         }
                     }

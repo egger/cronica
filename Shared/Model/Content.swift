@@ -56,31 +56,25 @@ extension Content {
         overview ?? NSLocalizedString("No details available.",
                                       comment: "No overview provided by the service.")
     }
-    var posterImage500: URL? {
-        if posterPath != nil {
-            return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath!)")!
+    var posterImageMedium: URL? {
+        return Utilities.imageUrlBuilder(size: .medium, path: posterPath) ?? nil
+    }
+    var cardImage: URL? {
+        if backdropPath != nil {
+            return Utilities.imageUrlBuilder(size: .medium, path: backdropPath!)
         } else {
             return nil
         }
     }
-    var cardImage: URL? {
-        if backdropPath != nil {
-            return URL(string: "\(ApiConstants.w500ImageUrl)\(backdropPath!)")!
+    var personImage: URL? {
+        if profilePath != nil {
+            return Utilities.imageUrlBuilder(size: .medium, path: profilePath!)
         } else {
             return nil
         }
     }
     var itemGenre: String {
-        if genres != nil {
-            if ((genres?.first?.name.isEmpty) != nil) {
-                return ""
-            } else {
-                return genres!.first!.name!
-            }
-            
-        } else {
-            return ""
-        }
+        genres?.first?.name ?? ""
     }
     var media: MediaType {
         switch mediaType {
@@ -94,35 +88,27 @@ extension Content {
             return MediaType.movie
         }
     }
-    var image: URL? {
+    var itemImage: URL? {
         switch media {
         case .movie:
-            return URL(string: "\(ApiConstants.w500ImageUrl)\(backdropPath)") ?? URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")
-        case .tvShow:
-            return URL(string: "\(ApiConstants.w500ImageUrl)\(backdropPath)") ?? URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")
+            return cardImage ?? nil
         case .person:
-            return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)") ?? URL(string: "\(ApiConstants.w500ImageUrl)\(profilePath!)")
+            return personImage ?? nil
+        case .tvShow:
+            return posterImageMedium ?? nil
         }
     }
     var itemCountry: String {
-        if productionCountries != nil {
-            return productionCountries!.first!.name!
-        } else {
-            return ""
-        }
+        return productionCountries?.first?.name ?? ""
     }
     var itemProduction: String {
-        if productionCompanies != nil {
-            return productionCompanies!.first!.name
-        } else {
-            return "N/A"
-        }
+        return productionCompanies?.first?.name ?? ""
     }
-    var itemInfo: String? {
+    var itemInfo: String {
         if !itemGenre.isEmpty && !releaseDateString.isEmpty {
             return "\(itemGenre), \(releaseDateString)"
         } else {
-            return nil
+            return ""
         }
     }
     var itemStatus: String {
@@ -130,81 +116,26 @@ extension Content {
                                     comment: "API didn't provided status information.")
     }
     var itemRuntime: String {
-        return Util.durationFormatter.string(from: TimeInterval(runtime!) * 60) ?? "n/a"
+        if runtime != nil {
+            return Utilities.durationFormatter.string(from: TimeInterval(runtime!) * 60)!
+        } else {
+            return ""
+        }
     }
     var releaseDateString: String {
         guard let releaseDate = self.releaseDate,
-              let date = Util.dateFormatter.date(from: releaseDate) else {
-            return ""
-        }
-        return Util.dateString.string(from: date)
+              let date = Utilities.dateFormatter.date(from: releaseDate) else {
+                  return ""
+              }
+        return Utilities.dateString.string(from: date)
     }
     var release: Date {
-        return Util.dateFormatter.date(from: releaseDateString) ?? Date()
+        return Utilities.dateFormatter.date(from: releaseDateString) ?? Date()
     }
-}
-
-struct Genre: Decodable, Identifiable {
-    let id: Int
-    let name: String?
-}
-
-struct Season: Decodable, Identifiable {
-    let id: Int
-    let airDate: String?
-    let episodeCount: Int?
-    let name, overview, posterPath: String
-    var posterImage: URL {
-        return URL(string: "\(ApiConstants.w500ImageUrl)\(posterPath)")!
-    }
-    let seasonNumber: Int
-}
-
-struct LastEpisodeToAir {
-    let airDate: String?
-    let episodeNumber, id: Int?
-    let name, overview: String?
-    let seasonNumber: Int?
-    let stillPath: String?
-}
-
-struct ProductionCompany: Decodable {
-    let id: Int
-    let logoPath: String?
-    let name, originCountry: String
-}
-
-struct ProductionCountry: Decodable {
-    let name: String?
-}
-
-enum StyleType: Decodable {
-    case poster
-    case card
-}
-
-enum MediaType: String, CaseIterable, Identifiable {
-    var id: String { rawValue }
-    case movie, person
-    case tvShow = "tv"
-    var title: String {
-        switch self {
-        case .movie:
-            return NSLocalizedString("Movie", comment: "")
-        case .tvShow:
-            return NSLocalizedString("TV Show", comment: "")
-        case .person:
-            return NSLocalizedString("People", comment: "")
+    var isReleased: Bool {
+        if Date() > release {
+            return true
         }
-    }
-    var watchlistInt: Int {
-        switch self {
-        case .movie:
-            return 0
-        case .tvShow:
-            return 1
-        case .person:
-            return 2
-        }
+        return false
     }
 }

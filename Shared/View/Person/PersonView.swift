@@ -16,7 +16,7 @@ struct PersonView: View {
         ScrollView {
             if let person = viewModel.person {
                 VStack {
-                    AsyncImage(url: person.image) { image in
+                    AsyncImage(url: person.mediumImage) { image in
                         image
                             .resizable()
                             .scaledToFill()
@@ -31,11 +31,9 @@ struct PersonView: View {
                            height: DrawingConstants.imageHeight)
                     .clipShape(Circle())
                     .padding([.top, .bottom])
-                    if person.biography.isEmpty {
-                        EmptyView()
-                    } else {
+                    if !person.personBiography.isEmpty {
                         GroupBox {
-                            Text(person.biography ?? "")
+                            Text(person.personBiography)
                                 .padding([.top, .bottom],
                                          DrawingConstants.biographyPadding)
                                 .lineLimit(DrawingConstants.biographyLineLimits)
@@ -50,7 +48,7 @@ struct PersonView: View {
                         .sheet(isPresented: $showingOverview) {
                             NavigationView {
                                 ScrollView {
-                                    Text(person.biography!)
+                                    Text(person.personBiography)
                                         .padding()
                                 }
                                 .navigationTitle(title)
@@ -67,12 +65,10 @@ struct PersonView: View {
                             }
                         }
                     }
-                    if person.combinedCredits == nil {
-                        EmptyView()
-                    } else {
+                    if person.combinedCredits != nil {
                         FilmographyListView(filmography: (person.combinedCredits?.cast)!)
                     }
-                    AttributionView().padding(.bottom)
+                    AttributionView().padding([.top, .bottom])
                 }
             }
         }

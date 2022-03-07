@@ -14,7 +14,7 @@ class NetworkService {
     func fetchContent(id: Content.ID, type: MediaType) async throws -> Content {
         guard let url = urlBuilder(path: "\(type.rawValue)/\(id)",
                                    params: ["append_to_response": "credits,recommendations"],
-                                   langCode: ["language":"\(Util.userLang)"]
+                                   langCode: ["language":"\(Utilities.userLang)"]
         ) else {
             throw NetworkError.invalidEndpoint
         }
@@ -25,9 +25,10 @@ class NetworkService {
     func fetchContents(from endpoint: ContentEndpoints,
                        type: MediaType) async throws -> [Content] {
         guard let url = urlBuilder(path: "\(type.rawValue)/\(endpoint.rawValue)",
-                                   langCode: ["language":"\(Util.userLang)"]) else {
+                                   langCode: ["language":"\(Utilities.userLang)"]) else {
             throw NetworkError.invalidEndpoint
         }
+        print(url)
         let response: ContentResponse = try await self.fetch(url: url)
         return response.results
     }
@@ -35,7 +36,7 @@ class NetworkService {
     func fetchPerson(id: Person.ID) async throws -> Person {
         guard let url = urlBuilder(path: "person/\(id)",
                                    params: ["append_to_response": "combined_credits"],
-                                   langCode: ["language":"\(Util.userLang)"]
+                                   langCode: ["language":"\(Utilities.userLang)"]
         ) else {
             throw NetworkError.invalidEndpoint
         }
@@ -43,8 +44,13 @@ class NetworkService {
     }
     
     func search(query: String) async throws -> [Content] {
-        guard let url = urlBuilder(path: "search/multi", params: ["query":"\(query)"],
-                                   langCode: ["language":"\(Util.userLang)"]
+        guard let url = urlBuilder(path: "search/multi",
+                                   params: [
+                                    "language": "\(Utilities.userLang)",
+                                    "include_adult": "false",
+                                    "query":"\(query)"
+                                   ],
+                                   langCode: ["language":"\(Utilities.userLang)"]
         ) else {
             throw NetworkError.invalidEndpoint
         }
@@ -60,7 +66,7 @@ class NetworkService {
                   throw NetworkError.invalidResponse
               }
         
-        return try Util.decoder.decode(T.self, from: data)
+        return try Utilities.decoder.decode(T.self, from: data)
     }
     
     /// Build a safe URL for the TMDB API Service.
@@ -73,7 +79,7 @@ class NetworkService {
         component.scheme = "https"
         component.host = "api.themoviedb.org"
         component.path = "/3/\(path)"
-        var queryItems = [URLQueryItem(name: "api_key", value: ApiConstants.apiKey3)]
+        var queryItems = [URLQueryItem(name: "api_key", value: Key.keyV3)]
         if let langCode = langCode {
             queryItems.append(contentsOf: langCode.map { URLQueryItem(name: $0.key, value: $0.value) })
         }
@@ -81,7 +87,6 @@ class NetworkService {
             queryItems.append(contentsOf: params.map { URLQueryItem(name: $0.key, value: $0.value) })
         }
         component.queryItems = queryItems
-        print(component.url as Any)
         return component.url
     }
 }

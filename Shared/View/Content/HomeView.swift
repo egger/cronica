@@ -26,7 +26,7 @@ struct HomeView: View {
                 }
                 .navigationTitle("Home")
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem {
                         Button {
                             showAccount.toggle()
                         } label: {
@@ -34,12 +34,18 @@ struct HomeView: View {
                         }
                     }
                 }
+#if os(iOS)
+                .navigationViewStyle(.stack)
+#endif
                 .sheet(isPresented: $showAccount) {
                     NavigationView {
                         AccountFormView()
                             .navigationTitle("Account")
+#if os(iOS)
+                            .navigationBarTitleDisplayMode(.inline)
+#endif
                             .toolbar {
-                                ToolbarItem(placement: .navigationBarTrailing) {
+                                ToolbarItem {
                                     Button("Done") {
                                         showAccount.toggle()
                                     }
@@ -52,6 +58,7 @@ struct HomeView: View {
                 }
             }
         }
+        
     }
     
     @Sendable
@@ -75,8 +82,10 @@ private struct AccountFormView: View {
     var body: some View {
         Form {
             Section(header: Text("Account"), footer: Text("Log in with your TMDB Account to sync watchlist, and recommendations.")) {
-                Button("Log In") {
+                Button {
                     
+                } label: {
+                    Label("Log In", systemImage: "person.crop.circle")
                 }
                 if userAdded {
                     Button("Log off", role: .destructive) {
@@ -88,11 +97,15 @@ private struct AccountFormView: View {
                 Toggle("Notify All", isOn: $automaticallyNotify)
             }
             Section(header: Text("Support"), footer: Text("App Version:")) {
-                Button("Send email") {
+                Button {
                     
+                } label: {
+                    Label("Send email", systemImage: "envelope.badge")
                 }
-                Button("Privacy Policy") {
+                Button {
                     
+                } label: {
+                    Label("Privacy Policy", systemImage: "hand.raised")
                 }
             }
             HStack {

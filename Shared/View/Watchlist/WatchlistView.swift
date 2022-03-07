@@ -43,7 +43,7 @@ struct WatchlistView: View {
                             NavigationLink(destination:
                                             EmptyView()
                             ) {
-                                ItemView(title: item.itemTitle, url: item.image, type: item.media)
+                                ItemView(title: item.itemTitle, url: item.image, type: item.media, inSearch: false)
                             }
                         }
                     } else {
@@ -74,8 +74,8 @@ struct WatchlistView: View {
                         EditButton()
                     }
                 }
-#endif
                 .searchable(text: $queryString, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search watchlist")
+#endif  
             }
         }
     }

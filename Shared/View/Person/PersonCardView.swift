@@ -31,8 +31,7 @@ struct PersonCardView: View {
                     }
             } placeholder: {
                 ZStack {
-                    Rectangle()
-                        .fill(.secondary)
+                    Color.secondary
                     ProgressView()
                 }
             }
@@ -75,7 +74,7 @@ struct PersonCardView_Previews: PreviewProvider {
     static var previews: some View {
         PersonCardView(name: Credits.previewCast.name,
                        characterOrJob: Credits.previewCast.role,
-                       url: Credits.previewCast.image)
+                       url: Credits.previewCast.mediumImage)
     }
 }
 

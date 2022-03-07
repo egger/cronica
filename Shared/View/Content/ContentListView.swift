@@ -14,11 +14,18 @@ struct ContentListView: View {
     let items: [Content]
     var body: some View {
         VStack {
-            if items.isEmpty {
+            if !items.isEmpty {
                 HStack {
                     Text(NSLocalizedString(title, comment: ""))
                         .font(.headline)
                         .padding([.horizontal, .top])
+                    Spacer()
+                }
+                HStack {
+                    Text(NSLocalizedString(type.title, comment: ""))
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                        .padding(.horizontal)
                     Spacer()
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -27,7 +34,7 @@ struct ContentListView: View {
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: type)) {
                                 switch style {
                                 case .poster:
-                                    PosterView(title: item.itemTitle, url: item.posterImage500)
+                                    PosterView(title: item.itemTitle, url: item.posterImageMedium)
                                         .padding([.leading, .trailing], 4)
                                 case .card:
                                     CardView(title: item.itemTitle, url: item.cardImage)

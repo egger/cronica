@@ -13,7 +13,7 @@ extension Bundle {
             fatalError("Failed to locate \(file) from bundle.")
         }
         let data = try Data(contentsOf: url)
-        let result = try Util.decoder.decode(T.self, from: data)
+        let result = try Utilities.decoder.decode(T.self, from: data)
         return result
     }
 }

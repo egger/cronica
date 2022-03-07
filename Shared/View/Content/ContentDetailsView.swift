@@ -9,20 +9,25 @@ import SwiftUI
 
 struct ContentDetailsView: View {
     var title: String
-    var id: Content.ID
+    var id: Int
     var type: MediaType
     @State private var showingAbout: Bool = false
     @State private var inWatchlist: Bool = false
     @State private var reviewScreen: Bool = false
     @State private var reviewText: String = ""
     @State private var reviewBody: String = ""
+    @State private var showNotificationButton: Bool = false
     @StateObject private var viewModel = ContentDetailsViewModel()
     var body: some View {
         ScrollView {
             VStack {
                 if let item = viewModel.content {
                     DetailsImageView(url: item.cardImage, title: item.itemTitle)
-                    
+                    if !item.itemInfo.isEmpty {
+                        Text(item.itemInfo)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                     WatchlistButtonView(content: item, notify: false, type: type.watchlistInt)
                     
                     GroupBox {
@@ -62,15 +67,8 @@ struct ContentDetailsView: View {
                         PersonListView(credits: item.credits!)
                     }
                     
-                    switch type {
-                    case .movie:
-                        Divider().padding(.horizontal)
-                        InformationView(item: item)
-                    case .person:
-                        EmptyView()
-                    case .tvShow:
-                        EmptyView()
-                    }
+                    Divider().padding(.horizontal)
+                    InformationView(item: item)
                     
                     if item.recommendations != nil {
                         Divider().padding(.horizontal)
@@ -80,49 +78,30 @@ struct ContentDetailsView: View {
                                         items: item.recommendations!.results)
                     }
                     
-                    AttributionView().padding(.bottom)
-                    
+                    AttributionView().padding([.top, .bottom])
                 }
             }
-        }
-        .sheet(isPresented: $reviewScreen) {
-            NavigationView {
-                Form {
-                    Section(header: Text("Review Title")) {
-                        TextField("", text: $reviewText)
-                    }
-                    Section(header: Text("Review")) {
-                        TextField("", text: $reviewBody)
-                    }
-                }
-                .navigationTitle("Review")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Cancel", role: .destructive) {
+            .navigationTitle(title)
+            .toolbar {
+                ToolbarItem {
+                    HStack {
+                        Button {
                             
+                        } label: {
+                            Image(systemName: "bell")
                         }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Publish") {
+                        .opacity(showNotificationButton ? 1 : 0)
+                        Button {
                             
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
                         }
                     }
                 }
             }
-            
-        }
-        .navigationTitle(title)
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                }
+            .task {
+                load()
             }
-        }
-        .task {
-            load()
         }
     }
     

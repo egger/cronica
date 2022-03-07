@@ -11,16 +11,22 @@ struct ItemView: View {
     let title: String
     let url: URL?
     let type: MediaType
+    let inSearch: Bool
     var body: some View {
         HStack {
-            switch type {
-            case .movie:
-                CardImage(url: url)
-            case .person:
-                PersonImage(url: url)
-            case .tvShow:
+            if inSearch {
+                switch type {
+                case .movie:
+                    CardImage(url: url)
+                case .person:
+                    PersonImage(url: url)
+                case .tvShow:
+                    PosterImage(url: url)
+                }
+            } else {
                 CardImage(url: url)
             }
+            
             
             VStack(alignment: .leading) {
                 HStack {
@@ -42,7 +48,7 @@ struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
         ItemView(title: Content.previewContent.itemTitle,
                  url: Content.previewContent.cardImage,
-                 type: MediaType.movie)
+                 type: MediaType.movie, inSearch: false)
     }
 }
 
@@ -53,6 +59,8 @@ private struct DrawingConstants {
     static let textLimit: Int = 1
     static let personImageWidth: CGFloat = 60
     static let personImageHeight: CGFloat = 60
+    static let posterImageWidth: CGFloat = 50
+    static let posterImageHeight: CGFloat = 70
 }
 
 private struct CardImage: View {
@@ -64,8 +72,7 @@ private struct CardImage: View {
                 .scaledToFill()
         } placeholder: {
             ZStack {
-                Rectangle()
-                    .fill(.secondary)
+                Color.secondary
                 ProgressView()
             }
         }
@@ -84,12 +91,31 @@ private struct PersonImage: View {
                 .scaledToFill()
         } placeholder: {
             ZStack {
-                Circle()
-                    .fill(.secondary)
+                Color.secondary
                 ProgressView()
             }
         }
         .frame(width: DrawingConstants.personImageWidth,
                height: DrawingConstants.personImageHeight)
+        .clipShape(Circle())
+    }
+}
+
+private struct PosterImage: View {
+    let url: URL?
+    var body: some View {
+        AsyncImage(url: url) { image in
+            image
+                .resizable()
+                .scaledToFill()
+        } placeholder: {
+            ZStack {
+                Color.secondary
+                ProgressView()
+            }
+        }
+        .frame(width: DrawingConstants.posterImageWidth,
+               height: DrawingConstants.posterImageHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
     }
 }
