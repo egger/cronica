@@ -11,9 +11,7 @@ import SwiftUI
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// counting fetch request, tracking watchlists, and dealing with sample data.
 class DataController: ObservableObject {
-    
     static let shared = DataController()
-    
     static var preview: DataController = {
         let result = DataController(inMemory: true)
         let viewContext = result.container.viewContext
@@ -49,6 +47,7 @@ class DataController: ObservableObject {
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
+        container.viewContext.automaticallyMergesChangesFromParent = true
         container.loadPersistentStores {_, error in
             if let error = error {
                 fatalError("Fatal error loading storage, error: \(error.localizedDescription)")
@@ -71,6 +70,10 @@ class DataController: ObservableObject {
         } catch {
             fatalError("Fatal error on adding a new item, error: \(error.localizedDescription).")
         }
+    }
+    
+    func updateItem(content: Content) {
+        
     }
     
     /// Deletes a WatchlistItem from Core Data.

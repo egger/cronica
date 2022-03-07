@@ -255,7 +255,6 @@
 				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
 				B8E7651D27B753AE00D9B731 /* OverlayView.swift */,
-				B86E588A27A4A2DC005DBF38 /* Components */,
 				B8EC45E227D59C14009389FC /* Content */,
 				B8EC45E127D59BD7009389FC /* Person */,
 				B8EC45E027D59BB2009389FC /* Watchlist */,
@@ -291,13 +290,6 @@
 				B85E036F27B0371C005C7FDF /* StoryTests.swift */,
 			);
 			path = StoryTests;
-			sourceTree = "<group>";
-		};
-		B86E588A27A4A2DC005DBF38 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		B87B5CCE27999CCB00632648 /* Preview Data */ = {

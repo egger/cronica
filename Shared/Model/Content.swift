@@ -33,6 +33,7 @@ struct ContentSection: Identifiable {
     }
 }
 
+// MARK: Content model, handles data to Movie, TV Shows, and items on Search.
 struct Content: Identifiable, Decodable {
     let id: Int
     private let title, name, overview: String?
@@ -48,6 +49,7 @@ struct Content: Identifiable, Decodable {
     private let mediaType: String?
 }
 
+// MARK: Extends Content model by handling titles, images, dates, and quick information.
 extension Content {
     var itemTitle: String {
         title ?? name!
@@ -133,9 +135,14 @@ extension Content {
         return Utilities.dateFormatter.date(from: releaseDateString) ?? Date()
     }
     var isReleased: Bool {
-        if Date() > release {
+        let today = Date()
+        if today < release {
             return true
+        } else {
+            return false
         }
-        return false
+    }
+    var itemUrl: URL? {
+        return URL(string: "https://www.themoviedb.org/\(media.rawValue)/\(id)")
     }
 }

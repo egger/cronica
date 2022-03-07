@@ -17,19 +17,23 @@ struct ContentDetailsView: View {
     @State private var reviewText: String = ""
     @State private var reviewBody: String = ""
     @State private var showNotificationButton: Bool = false
+    @State private var showShareSheet: Bool = false
     @StateObject private var viewModel = ContentDetailsViewModel()
     var body: some View {
         ScrollView {
             VStack {
                 if let item = viewModel.content {
                     DetailsImageView(url: item.cardImage, title: item.itemTitle)
+                        .sheet(isPresented: $showShareSheet, content: { ActivityViewController(itemsToShare: [item.itemUrl, title]) })
                     if !item.itemInfo.isEmpty {
                         Text(item.itemInfo)
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
                     WatchlistButtonView(content: item, notify: false, type: type.watchlistInt)
-                    
+                        .onAppear {
+                            print(item.isReleased)
+                        }
                     GroupBox {
                         Text(item.itemAbout)
                             .padding([.top], 2)
@@ -49,7 +53,6 @@ struct ContentDetailsView: View {
                                 Text(item.itemAbout).padding()
                             }
                             .navigationTitle(item.itemTitle)
-#if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -58,26 +61,18 @@ struct ContentDetailsView: View {
                                     }
                                 }
                             }
-#endif
                         }
                     }
-                    
                     if item.credits != nil {
-                        Divider().padding(.horizontal)
                         PersonListView(credits: item.credits!)
                     }
-                    
-                    Divider().padding(.horizontal)
                     InformationView(item: item)
-                    
                     if item.recommendations != nil {
-                        Divider().padding(.horizontal)
                         ContentListView(style: StyleType.poster,
                                         type: type,
                                         title: "Recommendations",
                                         items: item.recommendations!.results)
                     }
-                    
                     AttributionView().padding([.top, .bottom])
                 }
             }
@@ -92,7 +87,7 @@ struct ContentDetailsView: View {
                         }
                         .opacity(showNotificationButton ? 1 : 0)
                         Button {
-                            
+                            showShareSheet.toggle()
                         } label: {
                             Image(systemName: "square.and.arrow.up")
                         }
@@ -119,4 +114,15 @@ struct ContentDetailsView_Previews: PreviewProvider {
                            id: Content.previewContent.id,
                            type: MediaType.movie)
     }
+}
+
+struct ActivityViewController: UIViewControllerRepresentable {
+    var itemsToShare: [Any]
+    var servicesToShareItem: [UIActivity]? = nil
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: itemsToShare, applicationActivities: servicesToShareItem)
+        return controller
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController,
+                                context: UIViewControllerRepresentableContext<ActivityViewController>) {}
 }

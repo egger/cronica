@@ -44,7 +44,6 @@ extension Person {
         job ?? character
     }
 }
-
 extension Filmography {
     var itemTitle: String {
         title ?? NSLocalizedString("Title not found", comment: "Missing Title")

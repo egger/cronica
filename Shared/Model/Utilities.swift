@@ -39,6 +39,11 @@ class Utilities {
               }
         return "\(langCode)-\(regionCode)"
     }()
+    /// Builds a URL for a given image's path.
+    /// - Parameters:
+    ///   - size: Use ImageSize to select the returned image size.
+    ///   - path: The path for the image.
+    /// - Returns: Returns a URL with the image's size, and path.
     static func imageUrlBuilder(size: ImageSize, path: String?) -> URL? {
         let url = URL(string: "https://image.tmdb.org/\(size.rawValue)\(path ?? "")")
         let component = URLComponents(url: url!, resolvingAgainstBaseURL: false)
@@ -50,5 +55,6 @@ enum ImageSize: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case small = "t/p/w154"
     case medium = "t/p/w500"
-    case large = "t/p/original"
+    case large = "t/p/w1066_and_h600_bestv2"
+    case original = "t/p/original"
 }

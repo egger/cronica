@@ -17,11 +17,11 @@ struct WatchlistView: View {
     @State private var queryString = ""
     @State private var multiSelection = Set<Int>()
     enum SelectionType: String, CaseIterable, Identifiable {
+        case release
         case date
-        case status
         var id: String { self.rawValue }
     }
-    @State private var selected = SelectionType.status
+    @State private var selected = SelectionType.release
     private var filteredMovieItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(queryString))! as Bool }
     }
@@ -56,6 +56,9 @@ struct WatchlistView: View {
                     }
                 }
                 .navigationTitle("Watchlist")
+                .refreshable {
+                    viewContext.refreshAllObjects()
+                }
 #if os(iOS)
                 .navigationViewStyle(.stack)
                 .toolbar {

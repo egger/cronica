@@ -9,8 +9,9 @@ import Foundation
 import CoreData
 
 extension WatchlistItem {
-    enum SortOrder {
-        case status, date
+    enum SortOrder: String, CaseIterable, Identifiable {
+        case release, date
+        var id: String { self.rawValue }
     }
     var itemTitle: String {
         title ?? NSLocalizedString("No title available", comment: "Title couldn't be found.")

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Required by TMDB API use.
 struct AttributionView: View {
     var body: some View {
         VStack {
