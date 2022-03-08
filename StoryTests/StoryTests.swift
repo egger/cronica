@@ -28,4 +28,17 @@ class StoryTests: XCTestCase {
             fatalError(error.localizedDescription)
         }
     }
+    
+    func testIsItemInList() {
+        XCTAssert(dataController.isItemInList(id: Content.previewContent.id))
+    }
+    
+    func testRemoveFromWatchlist() {
+        do {
+            let item = try dataController.getItem(id: WatchlistItem.ID(Content.previewContent.id))
+            try dataController.removeItem(id: item)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
 }

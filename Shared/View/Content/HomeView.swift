@@ -78,8 +78,6 @@ struct HomeView_Previews: PreviewProvider {
 
 private struct AccountFormView: View {
     @State private var easterEgg: Bool = false
-    @State private var userAdded: Bool = false
-    @State private var automaticallyNotify = false
     @EnvironmentObject var settings: SettingsStore
     var body: some View {
         Form {
@@ -89,7 +87,7 @@ private struct AccountFormView: View {
                 } label: {
                     Label("Log In", systemImage: "person.crop.circle")
                 }
-                if userAdded {
+                if settings.isUserLogged {
                     Button("Log off", role: .destructive) {
                         
                     }
