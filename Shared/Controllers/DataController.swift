@@ -3,7 +3,7 @@
 //  Story
 //
 //  Created by Alexandre Madeira on 29/01/22.
-//
+//  swiftlint:disable trailing_whitespace
 
 import CoreData
 import SwiftUI
@@ -31,7 +31,7 @@ class DataController: ObservableObject {
         return result
     }()
     
-    /// The lone CloudKit container used to store all our data.
+    /// The lone CloudKit container used to store all  data.
     let container: NSPersistentCloudKitContainer
     
     /// Generate a data controller, in memory (for testing and previewing), or on permanent
@@ -89,6 +89,9 @@ class DataController: ObservableObject {
         }
     }
     
+    /// Search if an item is added to the list.
+    /// - Parameter id: The ID used to fetch Watchlist list.
+    /// - Returns: Returns true if the content is already added to the Watchlist.
     func isItemInList(id: Content.ID) -> Bool {
         let viewContext = DataController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
@@ -105,6 +108,9 @@ class DataController: ObservableObject {
         }
     }
     
+    /// Get an item from the Watchlist.
+    /// - Parameter id: The ID used to fetch the list.
+    /// - Returns: If the item is in the list, it will return it.
     func getItem(id: WatchlistItem.ID) throws -> WatchlistItem {
         let viewContext = DataController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()

@@ -3,7 +3,7 @@
 //  Story
 //
 //  Created by Alexandre Madeira on 02/03/22.
-//
+//  swiftlint:disable trailing_whitespace
 
 import Foundation
 
@@ -32,6 +32,7 @@ class ContentDetailsViewModel: ObservableObject {
         }
     }
     
+    /// Adds the item to Watchlist.
     func add() {
         if !context.isItemInList(id: content!.id) {
             context.saveItem(content: content!, type: content!.media.watchlistInt, notify: false)
@@ -40,6 +41,7 @@ class ContentDetailsViewModel: ObservableObject {
         }
     }
     
+    /// Removes the item from Watchlist.
     func remove() {
         if context.isItemInList(id: content!.id) {
             do {

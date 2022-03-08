@@ -3,7 +3,7 @@
 //  Story
 //
 //  Created by Alexandre Madeira on 15/01/22.
-//
+//  swiftlint:disable trailing_whitespace
 
 import SwiftUI
 

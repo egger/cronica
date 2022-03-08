@@ -3,7 +3,7 @@
 //  Story
 //
 //  Created by Alexandre Madeira on 20/01/22.
-//
+//  swiftlint:disable trailing_whitespace
 
 import Foundation
 
@@ -13,7 +13,7 @@ class NetworkService {
     /// Fetch a single content from a given Id and media type.
     func fetchContent(id: Content.ID, type: MediaType) async throws -> Content {
         guard let url = urlBuilder(path: "\(type.rawValue)/\(id)",
-                                   params: ["append_to_response": "credits,recommendations"],
+                                   params: ["append_to_response":"credits,recommendations"],
                                    langCode: ["language":"\(Utilities.userLang)"]
         ) else {
             throw NetworkError.invalidEndpoint
@@ -35,7 +35,7 @@ class NetworkService {
     
     func fetchPerson(id: Person.ID) async throws -> Person {
         guard let url = urlBuilder(path: "person/\(id)",
-                                   params: ["append_to_response": "combined_credits"],
+                                   params: ["append_to_response":"combined_credits"],
                                    langCode: ["language":"\(Utilities.userLang)"]
         ) else {
             throw NetworkError.invalidEndpoint
@@ -46,8 +46,8 @@ class NetworkService {
     func search(query: String) async throws -> [Content] {
         guard let url = urlBuilder(path: "search/multi",
                                    params: [
-                                    "language": "\(Utilities.userLang)",
-                                    "include_adult": "false",
+                                    "language":"\(Utilities.userLang)",
+                                    "include_adult":"false",
                                     "query":"\(query)"
                                    ],
                                    langCode: ["language":"\(Utilities.userLang)"]

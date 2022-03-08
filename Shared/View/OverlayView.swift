@@ -10,7 +10,6 @@ import SwiftUI
 protocol EmptyData {
     var isEmpty: Bool { get }
 }
-
 struct OverlayView<T: EmptyData>: View {
     let phase: DataFetchPhase<T>
     let retry: () -> Void
@@ -43,7 +42,6 @@ extension Optional: EmptyData {
         return false
     }
 }
-
 struct RetryView: View {
     let text: String
     let retryAction: () -> Void

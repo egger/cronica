@@ -47,7 +47,9 @@ struct WatchlistView: View {
                             }
                         }
                     } else {
-                        WatchlistSectionView(items: items.filter { $0.status == "In Production" || $0.status == "Post Production" || $0.status == "Planned" },
+                        WatchlistSectionView(items: items.filter { $0.status == "In Production"
+                            || $0.status == "Post Production"
+                            || $0.status == "Planned" },
                                              title: "Coming Soon")
                         WatchlistSectionView(items: items.filter { $0.status == "Returning Series"},
                                              title: "Releasing")
@@ -77,7 +79,9 @@ struct WatchlistView: View {
                         EditButton()
                     }
                 }
-                .searchable(text: $queryString, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search watchlist")
+                .searchable(text: $queryString,
+                            placement: .navigationBarDrawer(displayMode: .always),
+                            prompt: "Search watchlist")
 #endif  
             }
         }

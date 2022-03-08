@@ -17,7 +17,6 @@ struct ContentDetailsView: View {
     @State private var isSharePresented: Bool = false
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationEnabled: Bool = false
-    //@State private var inWatchlist: Bool = false
     
     var body: some View {
         ScrollView {
@@ -28,6 +27,9 @@ struct ContentDetailsView: View {
                         Text(content.itemInfo)
                             .font(.caption)
                             .foregroundColor(.secondary)
+                            .onAppear {
+                                if !content.isReleased { isNotificationAvailable.toggle() }
+                            }
                     }
                     Button {
                         let generator = UIImpactFeedbackGenerator(style: .medium)
