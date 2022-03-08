@@ -6,6 +6,21 @@
   
 */
 
+//AccountFormView.swift
+"Account" = "Conta";
+"Log in with your TMDB Account to sync watchlist, and recommendations." = "Faça login com sua Conta TMDB para sincronizar a lista e recomendações.";
+"Log In" = "Entrar";
+"Log off" = "Sair";
+"Settings" = "Configurações";
+"Notify Automatically" = "Notificar Automaticamente";
+"Support" = "Suporte";
+"Send email" = "Enviar email";
+"Privacy Policy" = "Política de Privacidade";
+"Made in Brazil" = "Made in Brazil";
+
+//AboutView.swift
+"About" = "Sobre";
+
 //Common
 "Done" = "Concluído";
 "Home" = "Início";
@@ -15,17 +30,13 @@
 "Movie" = "Filme";
 "TV Show" = "Série";
 "Person" = "Pessoa";
-"Settings" = "Configurações";
-
-//AboutView.swift
-
-"About" = "Sobre";
+"People" = "Pessoa";
+"Released" = "Lançado";
 
 //ContentDetailsView.swift
 "Recommendations" = "Recomendações";
 
 //InformationView.swift
-
 "Run Time" = "Duração";
 "Release Date:" = "Data de lançamento:";
 "Status" = "Status";
@@ -53,15 +64,10 @@
 //SearchView.swift
 "Movies, Shows, People" = "Filmes, Séries, Pessoas";
 
-//SettingsView.swift
-"Notify All" = "Notificar Todos";
-"Log in with your TMDB Account to sync watchlist, and recommendations." = "Log in with your TMDB Account to sync watchlist, and recommendations.";
-"Send email" = "Enviar email";
-"Privacy Policy" = "Política de Privacidade";
-"Made in Brazil" = "Made in Brazil";
-
 //AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API do TMDB, mas não é endossado ou certificado pelo TMDB.";
 
 //WatchlistView.swift
 "Search watchlist" = "Buscar na lista";
+
+

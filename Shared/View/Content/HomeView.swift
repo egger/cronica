@@ -97,7 +97,7 @@ private struct AccountFormView: View {
             }
             Section(header: Text("Settings")) {
                 Toggle(isOn: $settings.isAutomaticallyNotification) {
-                    Label("Notify automatically", systemImage: "bell.square")
+                    Label("Notify Automatically", systemImage: "bell.square")
                 }
             }
             Section(header: Text("Support"), footer: Text("App Version:")) {
