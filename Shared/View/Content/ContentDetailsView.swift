@@ -11,13 +11,12 @@ struct ContentDetailsView: View {
     var title: String
     var id: Int
     var type: MediaType
-    
     @StateObject private var viewModel = ContentDetailsViewModel()
+    @ObservedObject private var settings: SettingsStore = SettingsStore()
     @State private var isAboutPresented: Bool = false
     @State private var isSharePresented: Bool = false
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationEnabled: Bool = false
-    
     var body: some View {
         ScrollView {
             VStack {
@@ -29,12 +28,16 @@ struct ContentDetailsView: View {
                             .foregroundColor(.secondary)
                             .onAppear {
                                 if !content.isReleased { isNotificationAvailable.toggle() }
+                                print("Is \(content.itemTitle) released? \(content.isReleased). \(content.itemReleaseDate)")
                             }
                     }
                     Button {
                         let generator = UIImpactFeedbackGenerator(style: .medium)
                         generator.impactOccurred(intensity: 1.0)
                         if !viewModel.inWatchlist {
+                            if settings.isAutomaticallyNotification {
+                                isNotificationEnabled.toggle()
+                            }
                             viewModel.add()
                         } else {
                             viewModel.remove()

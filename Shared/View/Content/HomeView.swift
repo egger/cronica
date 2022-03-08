@@ -40,6 +40,7 @@ struct HomeView: View {
                 .sheet(isPresented: $showAccount) {
                     NavigationView {
                         AccountFormView()
+                            .environmentObject(SettingsStore())
                             .navigationTitle("Account")
 #if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
@@ -79,6 +80,7 @@ private struct AccountFormView: View {
     @State private var easterEgg: Bool = false
     @State private var userAdded: Bool = false
     @State private var automaticallyNotify = false
+    @EnvironmentObject var settings: SettingsStore
     var body: some View {
         Form {
             Section(header: Text("Account"), footer: Text("Log in with your TMDB Account to sync watchlist, and recommendations.")) {
@@ -94,7 +96,9 @@ private struct AccountFormView: View {
                 }
             }
             Section(header: Text("Settings")) {
-                Toggle("Notify All", isOn: $automaticallyNotify)
+                Toggle(isOn: $settings.isAutomaticallyNotification) {
+                    Label("Notify automatically", systemImage: "bell.square")
+                }
             }
             Section(header: Text("Support"), footer: Text("App Version:")) {
                 Button {
