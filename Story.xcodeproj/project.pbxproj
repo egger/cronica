@@ -42,8 +42,6 @@
 		B85E035427B02D01005C7FDF /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonViewModel.swift */; };
 		B85E035527B02D01005C7FDF /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonViewModel.swift */; };
 		B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E036F27B0371C005C7FDF /* StoryTests.swift */; };
-		B86E586A27A4686E005DBF38 /* DetailsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586927A4686E005DBF38 /* DetailsImageView.swift */; };
-		B86E586B27A4686E005DBF38 /* DetailsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586927A4686E005DBF38 /* DetailsImageView.swift */; };
 		B86E586D27A46A5E005DBF38 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationView.swift */; };
 		B86E586E27A46A5E005DBF38 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationView.swift */; };
 		B86E587027A4842A005DBF38 /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
@@ -85,14 +83,16 @@
 		B8D8AF9027D4D0550042AEB6 /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
 		B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
 		B8D8AF9327D4DB720042AEB6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
-		B8E6D63827B6A472002E7A63 /* WatchlistButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */; };
-		B8E6D63927B6A472002E7A63 /* WatchlistButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */; };
 		B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
 		B8E6D64327B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
 		B8E7651E27B753AE00D9B731 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7651D27B753AE00D9B731 /* OverlayView.swift */; };
 		B8E7651F27B753AE00D9B731 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7651D27B753AE00D9B731 /* OverlayView.swift */; };
 		B8EC45E427D5A010009389FC /* Content-Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* Content-Helpers.swift */; };
 		B8EC45E527D5A010009389FC /* Content-Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* Content-Helpers.swift */; };
+		B8EC462227D69464009389FC /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462127D69464009389FC /* ActivityViewController.swift */; };
+		B8EC462327D69464009389FC /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462127D69464009389FC /* ActivityViewController.swift */; };
+		B8EC462527D697D8009389FC /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462427D697D8009389FC /* HeroImageView.swift */; };
+		B8EC462627D697D8009389FC /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462427D697D8009389FC /* HeroImageView.swift */; };
 		B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 		B8ED4C3E27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 /* End PBXBuildFile section */
@@ -131,7 +131,6 @@
 		B85E035327B02D01005C7FDF /* PersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewModel.swift; sourceTree = "<group>"; };
 		B85E036D27B0371C005C7FDF /* StoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85E036F27B0371C005C7FDF /* StoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTests.swift; sourceTree = "<group>"; };
-		B86E586927A4686E005DBF38 /* DetailsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsImageView.swift; sourceTree = "<group>"; };
 		B86E586C27A46A5E005DBF38 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataFetchPhase.swift; path = Shared/Network/DataFetchPhase.swift; sourceTree = SOURCE_ROOT; };
 		B86E587827A48E5A005DBF38 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Key.swift; path = Utilities/Key.swift; sourceTree = "<group>"; };
@@ -155,10 +154,11 @@
 		B8CC954F27D132F700B6757C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionView.swift; sourceTree = "<group>"; };
 		B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistButtonView.swift; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
 		B8E7651D27B753AE00D9B731 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		B8EC45E327D5A010009389FC /* Content-Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content-Helpers.swift"; sourceTree = "<group>"; };
+		B8EC462127D69464009389FC /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		B8EC462427D697D8009389FC /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -346,7 +346,6 @@
 		B8EC45E027D59BB2009389FC /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
-				B8E6D63727B6A472002E7A63 /* WatchlistButtonView.swift */,
 				B878E82F27BC6CE40021A981 /* WatchlistSectionView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
 			);
@@ -367,10 +366,11 @@
 		B8EC45E227D59C14009389FC /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				B8EC462127D69464009389FC /* ActivityViewController.swift */,
 				B8423E2E2793B61B0012259B /* CardView.swift */,
 				B8CC952927D02C5700B6757C /* ContentDetailsView.swift */,
 				B8CC952F27D03BBE00B6757C /* ContentListView.swift */,
-				B86E586927A4686E005DBF38 /* DetailsImageView.swift */,
+				B8EC462427D697D8009389FC /* HeroImageView.swift */,
 				B84E8D6627BC168B005185D3 /* HomeListItemsView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
 				B86E586C27A46A5E005DBF38 /* InformationView.swift */,
@@ -536,7 +536,6 @@
 				B8E7651E27B753AE00D9B731 /* OverlayView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B86E587027A4842A005DBF38 /* DataFetchPhase.swift in Sources */,
-				B86E586A27A4686E005DBF38 /* DetailsImageView.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
@@ -552,11 +551,12 @@
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ContentDetailsViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
-				B8E6D63827B6A472002E7A63 /* WatchlistButtonView.swift in Sources */,
 				B8423E2F2793B61B0012259B /* CardView.swift in Sources */,
+				B8EC462527D697D8009389FC /* HeroImageView.swift in Sources */,
 				B82C26922796452A00259D98 /* Preview.swift in Sources */,
 				B8B271A627A5A18C00F6463F /* DataController.swift in Sources */,
 				B8A3F48627A610AF005F2941 /* PersonListView.swift in Sources */,
+				B8EC462227D69464009389FC /* ActivityViewController.swift in Sources */,
 				B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */,
 				B87B5CBA2798D81C00632648 /* NetworkError.swift in Sources */,
 			);
@@ -566,7 +566,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B86E586B27A4686E005DBF38 /* DetailsImageView.swift in Sources */,
 				B84E8D6527BBE26E005185D3 /* FilmographyListView.swift in Sources */,
 				B8110EEB279245D100844FEB /* ContentView.swift in Sources */,
 				B85C65AD27A6307C0080121E /* PersonView.swift in Sources */,
@@ -597,12 +596,13 @@
 				B85E035527B02D01005C7FDF /* PersonViewModel.swift in Sources */,
 				B86E587A27A48E5A005DBF38 /* Key.swift in Sources */,
 				B8CC952E27D02D3900B6757C /* ContentDetailsViewModel.swift in Sources */,
-				B8E6D63927B6A472002E7A63 /* WatchlistButtonView.swift in Sources */,
 				B840D2CF279B24C900A07C71 /* Person.swift in Sources */,
 				B8423E302793B61B0012259B /* CardView.swift in Sources */,
+				B8EC462627D697D8009389FC /* HeroImageView.swift in Sources */,
 				B82C26932796452A00259D98 /* Preview.swift in Sources */,
 				B8B271A727A5A18C00F6463F /* DataController.swift in Sources */,
 				B8A3F48727A610AF005F2941 /* PersonListView.swift in Sources */,
+				B8EC462327D69464009389FC /* ActivityViewController.swift in Sources */,
 				B840D2C0279A0C4200A07C71 /* NetworkService.swift in Sources */,
 				B87B5CBB2798D81C00632648 /* NetworkError.swift in Sources */,
 			);

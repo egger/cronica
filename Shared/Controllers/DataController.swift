@@ -83,8 +83,37 @@ class DataController: ObservableObject {
         do {
             let item = try viewContext.existingObject(with: id.objectID)
             viewContext.delete(item)
+            try viewContext.save()
         } catch {
             fatalError("Fatal error on adding a new item, error: \(error.localizedDescription).")
+        }
+    }
+    
+    func isItemInList(id: Content.ID) -> Bool {
+        let viewContext = DataController.shared.container.viewContext
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
+        do {
+            let numberOfObjects = try viewContext.count(for: request)
+            if numberOfObjects > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+    
+    func getItem(id: WatchlistItem.ID) throws -> WatchlistItem {
+        let viewContext = DataController.shared.container.viewContext
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
+        do {
+            let item = try viewContext.fetch(request)
+            return item[0]
+        } catch {
+            fatalError(error.localizedDescription)
         }
     }
 }

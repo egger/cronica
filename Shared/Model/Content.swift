@@ -107,8 +107,8 @@ extension Content {
         return productionCompanies?.first?.name ?? ""
     }
     var itemInfo: String {
-        if !itemGenre.isEmpty && !releaseDateString.isEmpty {
-            return "\(itemGenre), \(releaseDateString)"
+        if !itemGenre.isEmpty && !itemReleaseDate.isEmpty {
+            return "\(itemGenre), \(itemReleaseDate)"
         } else {
             return ""
         }
@@ -124,19 +124,21 @@ extension Content {
             return ""
         }
     }
-    var releaseDateString: String {
+    var itemReleaseDate: String {
         guard let releaseDate = self.releaseDate,
               let date = Utilities.dateFormatter.date(from: releaseDate) else {
                   return ""
               }
         return Utilities.dateString.string(from: date)
     }
-    var release: Date {
-        return Utilities.dateFormatter.date(from: releaseDateString) ?? Date()
+    private var release: Date {
+        if releaseDate != nil && !releaseDate.isEmpty {
+            return Utilities.dateFormatter.date(from: releaseDate!)!
+        }
+        return Date()
     }
     var isReleased: Bool {
-        let today = Date()
-        if today < release {
+        if Date() > release {
             return true
         } else {
             return false

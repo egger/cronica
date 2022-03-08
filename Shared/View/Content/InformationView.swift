@@ -16,9 +16,9 @@ struct InformationView: View {
                     InformationSectionView(title: NSLocalizedString("Run Time", comment: ""),
                                            content: item.itemRuntime)
                 }
-                if !item.releaseDateString.isEmpty {
+                if !item.itemReleaseDate.isEmpty {
                     InformationSectionView(title: NSLocalizedString("Release Date:", comment: ""),
-                                           content: item.releaseDateString)
+                                           content: item.itemReleaseDate)
                 }
                 if !item.itemStatus.isEmpty {
                     InformationSectionView(title: NSLocalizedString("Status", comment: ""),

@@ -11,31 +11,40 @@ struct ContentDetailsView: View {
     var title: String
     var id: Int
     var type: MediaType
-    @State private var showingAbout: Bool = false
-    @State private var inWatchlist: Bool = false
-    @State private var reviewScreen: Bool = false
-    @State private var reviewText: String = ""
-    @State private var reviewBody: String = ""
-    @State private var showNotificationButton: Bool = false
-    @State private var showShareSheet: Bool = false
+    
     @StateObject private var viewModel = ContentDetailsViewModel()
+    @State private var isAboutPresented: Bool = false
+    @State private var isSharePresented: Bool = false
+    @State private var isNotificationAvailable: Bool = false
+    @State private var isNotificationEnabled: Bool = false
+    //@State private var inWatchlist: Bool = false
+    
     var body: some View {
         ScrollView {
             VStack {
-                if let item = viewModel.content {
-                    DetailsImageView(url: item.cardImage, title: item.itemTitle)
-                        .sheet(isPresented: $showShareSheet, content: { ActivityViewController(itemsToShare: [item.itemUrl, title]) })
-                    if !item.itemInfo.isEmpty {
-                        Text(item.itemInfo)
+                if let content = viewModel.content {
+                    HeroImageView(title: content.itemTitle, url: content.cardImage)
+                    if !content.itemInfo.isEmpty {
+                        Text(content.itemInfo)
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
-                    WatchlistButtonView(content: item, notify: false, type: type.watchlistInt)
-                        .onAppear {
-                            print(item.isReleased)
+                    Button {
+                        let generator = UIImpactFeedbackGenerator(style: .medium)
+                        generator.impactOccurred(intensity: 1.0)
+                        if !viewModel.inWatchlist {
+                            viewModel.add()
+                        } else {
+                            viewModel.remove()
                         }
+                    } label: {
+                        Label(!viewModel.inWatchlist ? "Add to watchlist" : "Remove from watchlist", systemImage: !viewModel.inWatchlist ? "plus.square" : "minus.square")
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(viewModel.inWatchlist ? .red : .blue)
+                    .controlSize(.large)
                     GroupBox {
-                        Text(item.itemAbout)
+                        Text(content.itemAbout)
                             .padding([.top], 2)
                             .textSelection(.enabled)
                             .lineLimit(4)
@@ -45,33 +54,33 @@ struct ContentDetailsView: View {
                     }
                     .padding()
                     .onTapGesture {
-                        showingAbout.toggle()
+                        isAboutPresented.toggle()
                     }
-                    .sheet(isPresented: $showingAbout) {
+                    .sheet(isPresented: $isAboutPresented) {
                         NavigationView {
                             ScrollView {
-                                Text(item.itemAbout).padding()
+                                Text(content.itemAbout).padding()
                             }
-                            .navigationTitle(item.itemTitle)
+                            .navigationTitle(content.itemTitle)
                             .navigationBarTitleDisplayMode(.inline)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button("Done") {
-                                        showingAbout.toggle()
+                                        isAboutPresented.toggle()
                                     }
                                 }
                             }
                         }
                     }
-                    if item.credits != nil {
-                        PersonListView(credits: item.credits!)
+                    if content.credits != nil {
+                        PersonListView(credits: content.credits!)
                     }
-                    InformationView(item: item)
-                    if item.recommendations != nil {
+                    InformationView(item: content)
+                    if content.recommendations != nil {
                         ContentListView(style: StyleType.poster,
-                                        type: type,
+                                        type: content.media,
                                         title: "Recommendations",
-                                        items: item.recommendations!.results)
+                                        items: content.recommendations!.results)
                     }
                     AttributionView().padding([.top, .bottom])
                 }
@@ -81,22 +90,25 @@ struct ContentDetailsView: View {
                 ToolbarItem {
                     HStack {
                         Button {
-                            
+                            isNotificationEnabled.toggle()
                         } label: {
-                            Image(systemName: "bell")
+                            withAnimation {
+                                Image(systemName: isNotificationEnabled ? "bell.fill" : "bell")
+                            }
                         }
-                        .opacity(showNotificationButton ? 1 : 0)
+                        .opacity(isNotificationAvailable ? 1 : 0)
                         Button {
-                            showShareSheet.toggle()
+                            isSharePresented.toggle()
                         } label: {
                             Image(systemName: "square.and.arrow.up")
                         }
                     }
                 }
             }
-            .task {
-                load()
-            }
+            .sheet(isPresented: $isSharePresented, content: { ActivityViewController(itemsToShare: [title]) })
+        }
+        .task {
+            load()
         }
     }
     
@@ -114,15 +126,4 @@ struct ContentDetailsView_Previews: PreviewProvider {
                            id: Content.previewContent.id,
                            type: MediaType.movie)
     }
-}
-
-struct ActivityViewController: UIViewControllerRepresentable {
-    var itemsToShare: [Any]
-    var servicesToShareItem: [UIActivity]? = nil
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
-        let controller = UIActivityViewController(activityItems: itemsToShare, applicationActivities: servicesToShareItem)
-        return controller
-    }
-    func updateUIViewController(_ uiViewController: UIActivityViewController,
-                                context: UIViewControllerRepresentableContext<ActivityViewController>) {}
 }

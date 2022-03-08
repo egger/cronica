@@ -1,16 +1,15 @@
 //
-//  DetailsImageView.swift
+//  HeroImageView.swift
 //  Story
 //
-//  Created by Alexandre Madeira on 28/01/22.
+//  Created by Alexandre Madeira on 07/03/22.
 //
 
 import SwiftUI
 
-// This view handles the hero image for DetailsView.
-struct DetailsImageView: View {
-    let url: URL?
+struct HeroImageView: View {
     let title: String
+    let url: URL?
     var body: some View {
         AsyncImage(url: url) { image in
             image
@@ -18,8 +17,7 @@ struct DetailsImageView: View {
                 .scaledToFill()
         } placeholder: {
             ZStack {
-                Rectangle()
-                    .fill(.secondary)
+                Color.secondary
                 ProgressView(title)
             }
         }
@@ -32,10 +30,10 @@ struct DetailsImageView: View {
     }
 }
 
-struct MovieImageView_Previews: PreviewProvider {
+struct HeroImageView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsImageView(url: Content.previewContent.cardImage,
-                         title: Content.previewContent.itemTitle)
+        HeroImageView(title: Content.previewContent.itemTitle,
+                      url: Content.previewContent.cardImage)
     }
 }
 
