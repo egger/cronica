@@ -17,6 +17,10 @@ class ContentDetailsViewModel: ObservableObject {
     let context: DataController = DataController.shared
     @Published var inWatchlist: Bool = false
     
+    /// Loads the content on Content model.
+    /// - Parameters:
+    ///   - id: The ID for the given title.
+    ///   - type: Loads the proper content.
     func load(id: Content.ID, type: MediaType) async {
         if Task.isCancelled { return }
         phase = .empty
@@ -26,16 +30,17 @@ class ContentDetailsViewModel: ObservableObject {
             if context.isItemInList(id: content.id) {
                 inWatchlist.toggle()
             }
-            print("\(content.itemTitle) is added? \(inWatchlist)")
+            print("Is \(content.itemTitle) added? \(inWatchlist)")
         } catch {
             phase = .failure(error)
         }
     }
     
     /// Adds the item to Watchlist.
-    func add() {
+    /// - Parameter notify: Wherever is possible to notify user when a item is released.
+    func add(notify: Bool = false) {
         if !context.isItemInList(id: content!.id) {
-            context.saveItem(content: content!, type: content!.media.watchlistInt, notify: false)
+            context.saveItem(content: content!, type: content!.itemContentMedia.watchlistInt, notify: notify)
             inWatchlist.toggle()
             print("Added \(content!.itemTitle)")
         }

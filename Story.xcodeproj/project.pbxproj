@@ -95,6 +95,14 @@
 		B8EC462627D697D8009389FC /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462427D697D8009389FC /* HeroImageView.swift */; };
 		B8EC462C27D6FE2F009389FC /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462B27D6FE2F009389FC /* SettingsStore.swift */; };
 		B8EC462D27D6FE2F009389FC /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462B27D6FE2F009389FC /* SettingsStore.swift */; };
+		B8EC462F27D7AA99009389FC /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* LocalNotificationManager.swift */; };
+		B8EC463027D7AA99009389FC /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* LocalNotificationManager.swift */; };
+		B8EC463227D7C246009389FC /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463127D7C246009389FC /* SeasonListView.swift */; };
+		B8EC463327D7C246009389FC /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463127D7C246009389FC /* SeasonListView.swift */; };
+		B8EC463527D7E6F4009389FC /* SeasonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */; };
+		B8EC463627D7E6F4009389FC /* SeasonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */; };
+		B8EC463827D7E9D7009389FC /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */; };
+		B8EC463927D7E9D7009389FC /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */; };
 		B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 		B8ED4C3E27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 /* End PBXBuildFile section */
@@ -162,6 +170,10 @@
 		B8EC462127D69464009389FC /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		B8EC462427D697D8009389FC /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		B8EC462B27D6FE2F009389FC /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		B8EC462E27D7AA99009389FC /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		B8EC463127D7C246009389FC /* SeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonListView.swift; sourceTree = "<group>"; };
+		B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonDetailsView.swift; sourceTree = "<group>"; };
+		B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonViewModel.swift; sourceTree = "<group>"; };
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,6 +231,7 @@
 				B8EC462A27D6FE25009389FC /* Stores */,
 				B8110F0F2792678400844FEB /* View */,
 				B87B5CD22799AB5D00632648 /* ViewModel */,
+				B8EC463D27D84C45009389FC /* Manager */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -256,11 +269,13 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
+				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8E7651D27B753AE00D9B731 /* OverlayView.swift */,
+				B8EC463E27D84C62009389FC /* Components */,
 				B8EC45E227D59C14009389FC /* Content */,
 				B8EC45E127D59BD7009389FC /* Person */,
+				B8EC463F27D84C79009389FC /* Search */,
 				B8EC45E027D59BB2009389FC /* Watchlist */,
 			);
 			path = View;
@@ -311,6 +326,7 @@
 				B8CC952C27D02D3900B6757C /* ContentDetailsViewModel.swift */,
 				B85E035327B02D01005C7FDF /* PersonViewModel.swift */,
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
+				B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -370,17 +386,14 @@
 		B8EC45E227D59C14009389FC /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				B8EC462127D69464009389FC /* ActivityViewController.swift */,
-				B8423E2E2793B61B0012259B /* CardView.swift */,
 				B8CC952927D02C5700B6757C /* ContentDetailsView.swift */,
 				B8CC952F27D03BBE00B6757C /* ContentListView.swift */,
 				B8EC462427D697D8009389FC /* HeroImageView.swift */,
 				B84E8D6627BC168B005185D3 /* HomeListItemsView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
 				B86E586C27A46A5E005DBF38 /* InformationView.swift */,
-				B84C53FC27B1F1DD00425524 /* ItemView.swift */,
-				B82C26792795E33900259D98 /* PosterView.swift */,
-				B8CC952027CFEBEC00B6757C /* SearchView.swift */,
+				B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */,
+				B8EC463127D7C246009389FC /* SeasonListView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -391,6 +404,33 @@
 				B8EC462B27D6FE2F009389FC /* SettingsStore.swift */,
 			);
 			path = Stores;
+			sourceTree = "<group>";
+		};
+		B8EC463D27D84C45009389FC /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				B8EC462E27D7AA99009389FC /* LocalNotificationManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		B8EC463E27D84C62009389FC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B8423E2E2793B61B0012259B /* CardView.swift */,
+				B82C26792795E33900259D98 /* PosterView.swift */,
+				B84C53FC27B1F1DD00425524 /* ItemView.swift */,
+				B8EC462127D69464009389FC /* ActivityViewController.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B8EC463F27D84C79009389FC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				B8CC952027CFEBEC00B6757C /* SearchView.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -537,6 +577,7 @@
 				B8110EE8279245D100844FEB /* StoryApp.swift in Sources */,
 				B85C65AC27A6307C0080121E /* PersonView.swift in Sources */,
 				B8EC45E427D5A010009389FC /* Content-Helpers.swift in Sources */,
+				B8EC463227D7C246009389FC /* SeasonListView.swift in Sources */,
 				B878E83027BC6CE40021A981 /* WatchlistSectionView.swift in Sources */,
 				B8CC953027D03BBE00B6757C /* ContentListView.swift in Sources */,
 				B8B271AD27A5CC2A00F6463F /* PersonCardView.swift in Sources */,
@@ -544,6 +585,7 @@
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
 				B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */,
 				B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
+				B8EC463827D7E9D7009389FC /* SeasonViewModel.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* ItemView.swift in Sources */,
 				B8E7651E27B753AE00D9B731 /* OverlayView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
@@ -551,6 +593,7 @@
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
+				B8EC462F27D7AA99009389FC /* LocalNotificationManager.swift in Sources */,
 				B82C267A2795E33900259D98 /* PosterView.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationView.swift in Sources */,
 				B815A15C27BEB7F20062F727 /* Content.swift in Sources */,
@@ -561,6 +604,7 @@
 				B878E83527BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift in Sources */,
 				B85E035427B02D01005C7FDF /* PersonViewModel.swift in Sources */,
 				B8EC462C27D6FE2F009389FC /* SettingsStore.swift in Sources */,
+				B8EC463527D7E6F4009389FC /* SeasonDetailsView.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ContentDetailsViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
@@ -584,6 +628,7 @@
 				B85C65AD27A6307C0080121E /* PersonView.swift in Sources */,
 				B8EC45E527D5A010009389FC /* Content-Helpers.swift in Sources */,
 				B878E83127BC6CE40021A981 /* WatchlistSectionView.swift in Sources */,
+				B8EC463327D7C246009389FC /* SeasonListView.swift in Sources */,
 				B8CC953127D03BBE00B6757C /* ContentListView.swift in Sources */,
 				B8110EE9279245D100844FEB /* StoryApp.swift in Sources */,
 				B8CC952B27D02C5700B6757C /* ContentDetailsView.swift in Sources */,
@@ -591,6 +636,7 @@
 				B8B271AE27A5CC2A00F6463F /* PersonCardView.swift in Sources */,
 				B8D8AF9327D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
 				B8CC952227CFEBEC00B6757C /* SearchView.swift in Sources */,
+				B8EC463927D7E9D7009389FC /* SeasonViewModel.swift in Sources */,
 				B8E7651F27B753AE00D9B731 /* OverlayView.swift in Sources */,
 				B84C53FE27B1F1DD00425524 /* ItemView.swift in Sources */,
 				B8423E2D2793B4C10012259B /* WatchlistView.swift in Sources */,
@@ -598,6 +644,7 @@
 				B8E6D64327B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B82C2690279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B82C267B2795E33900259D98 /* PosterView.swift in Sources */,
+				B8EC463027D7AA99009389FC /* LocalNotificationManager.swift in Sources */,
 				B86E589227A4BE75005DBF38 /* Endpoints.swift in Sources */,
 				B8CC953427D05D1000B6757C /* HomeViewModel.swift in Sources */,
 				B815A15D27BEB7F20062F727 /* Content.swift in Sources */,
@@ -608,6 +655,7 @@
 				B8110F3D279364C800844FEB /* Utilities.swift in Sources */,
 				B85E035527B02D01005C7FDF /* PersonViewModel.swift in Sources */,
 				B8EC462D27D6FE2F009389FC /* SettingsStore.swift in Sources */,
+				B8EC463627D7E6F4009389FC /* SeasonDetailsView.swift in Sources */,
 				B86E587A27A48E5A005DBF38 /* Key.swift in Sources */,
 				B8CC952E27D02D3900B6757C /* ContentDetailsViewModel.swift in Sources */,
 				B840D2CF279B24C900A07C71 /* Person.swift in Sources */,

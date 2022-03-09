@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct ContentResponse: Identifiable, Decodable {
     let id: String?
@@ -58,12 +59,26 @@ extension Content {
         overview ?? NSLocalizedString("No details available.",
                                       comment: "No overview provided by the service.")
     }
+    var seasonsNumber: Int {
+        if numberOfSeasons != nil && numberOfSeasons! > 0 {
+            return numberOfSeasons!
+        } else {
+            return 0
+        }
+    }
     var posterImageMedium: URL? {
         return Utilities.imageUrlBuilder(size: .medium, path: posterPath) ?? nil
     }
-    var cardImage: URL? {
+    var cardImageMedium: URL? {
         if backdropPath != nil {
             return Utilities.imageUrlBuilder(size: .medium, path: backdropPath!)
+        } else {
+            return nil
+        }
+    }
+    var cardImageLarge: URL? {
+        if backdropPath != nil {
+            return Utilities.imageUrlBuilder(size: .large, path: backdropPath!)
         } else {
             return nil
         }
@@ -93,7 +108,7 @@ extension Content {
     var itemImage: URL? {
         switch media {
         case .movie:
-            return cardImage ?? nil
+            return cardImageMedium ?? nil
         case .person:
             return personImage ?? nil
         case .tvShow:
@@ -111,6 +126,13 @@ extension Content {
             return "\(itemGenre), \(itemReleaseDate)"
         } else {
             return ""
+        }
+    }
+    var itemContentMedia: MediaType {
+        if title != nil {
+            return MediaType.movie
+        } else {
+            return MediaType.tvShow
         }
     }
     var itemStatus: String {
@@ -131,7 +153,7 @@ extension Content {
               }
         return Utilities.dateString.string(from: date)
     }
-    private var release: Date {
+    var release: Date {
         if releaseDate != nil && !releaseDate.isEmpty {
             return Utilities.dateFormatter.date(from: releaseDate!)!
         }

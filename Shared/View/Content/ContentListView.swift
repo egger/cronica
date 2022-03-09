@@ -37,7 +37,7 @@ struct ContentListView: View {
                                     PosterView(title: item.itemTitle, url: item.posterImageMedium)
                                         .padding([.leading, .trailing], 4)
                                 case .card:
-                                    CardView(title: item.itemTitle, url: item.cardImage)
+                                    CardView(title: item.itemTitle, url: item.cardImageMedium)
                                         .padding([.leading, .trailing], 4)
                                 }
                             }

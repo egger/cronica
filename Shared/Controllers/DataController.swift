@@ -19,7 +19,7 @@ class DataController: ObservableObject {
             let newItem = WatchlistItem(context: viewContext)
             newItem.title = item.itemTitle
             newItem.id = Int32(item.id)
-            newItem.image = item.cardImage
+            newItem.image = item.cardImageMedium
             newItem.notify = Bool.random()
             newItem.type = "Movie"
         }
@@ -61,7 +61,7 @@ class DataController: ObservableObject {
         let item = WatchlistItem(context: viewContext)
         item.title = content.itemTitle
         item.id = Int32(content.id)
-        item.image = content.cardImage
+        item.image = content.cardImageMedium
         item.status = content.itemStatus
         item.contentType = Int16(type)
         item.notify = notify

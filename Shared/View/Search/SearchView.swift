@@ -27,12 +27,9 @@ struct SearchView: View {
                 }
                 
             }
-#if os(macOS)
-            .searchable(text: $query, prompt: Text("Movies, Shows, People"))
-#else
             .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Movies, Shows, People") )
             .navigationTitle("Search")
-#endif
+            .navigationBarTitleDisplayMode(.large)
             .overlay(overlayView)
             .onAppear { viewModel.observe() }
             
@@ -42,7 +39,6 @@ struct SearchView: View {
     @ViewBuilder
     private var overlayView: some View {
         switch viewModel.phase {
-            
         case .empty:
             if viewModel.trimmedQuery.isEmpty {
                 VStack {
@@ -52,17 +48,14 @@ struct SearchView: View {
             } else {
                 ProgressView()
             }
-            
         case .success(let values) where values.isEmpty:
             Text("No Results")
-            
         case .failure(let error):
             RetryView(text: error.localizedDescription, retryAction: {
                 Task {
                     await viewModel.search(query: viewModel.query)
                 }
             })
-            
         default: EmptyView()
         }
     }

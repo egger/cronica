@@ -21,7 +21,7 @@ struct ContentDetailsView: View {
         ScrollView {
             VStack {
                 if let content = viewModel.content {
-                    HeroImageView(title: content.itemTitle, url: content.cardImage)
+                    HeroImageView(title: content.itemTitle, url: content.cardImageLarge)
                     if !content.itemInfo.isEmpty {
                         Text(content.itemInfo)
                             .font(.caption)
@@ -38,12 +38,14 @@ struct ContentDetailsView: View {
                             if settings.isAutomaticallyNotification {
                                 isNotificationEnabled.toggle()
                             }
-                            viewModel.add()
+                            viewModel.add(notify: settings.isAutomaticallyNotification)
                         } else {
                             viewModel.remove()
                         }
                     } label: {
-                        Label(!viewModel.inWatchlist ? "Add to watchlist" : "Remove from watchlist", systemImage: !viewModel.inWatchlist ? "plus.square" : "minus.square")
+                        withAnimation {
+                            Label(!viewModel.inWatchlist ? "Add to watchlist" : "Remove from watchlist", systemImage: !viewModel.inWatchlist ? "plus.square" : "minus.square")
+                        }
                     }
                     .buttonStyle(.bordered)
                     .tint(viewModel.inWatchlist ? .red : .blue)
@@ -77,13 +79,16 @@ struct ContentDetailsView: View {
                             }
                         }
                     }
+                    if content.seasonsNumber > 0 {
+                        SeasonListView(title: "Seasons", id: id, items: content.seasons!)
+                    }
                     if content.credits != nil {
                         PersonListView(credits: content.credits!)
                     }
                     InformationView(item: content)
                     if content.recommendations != nil {
                         ContentListView(style: StyleType.poster,
-                                        type: content.media,
+                                        type: content.itemContentMedia,
                                         title: "Recommendations",
                                         items: content.recommendations!.results)
                     }
@@ -91,6 +96,7 @@ struct ContentDetailsView: View {
                 }
             }
             .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem {
                     HStack {

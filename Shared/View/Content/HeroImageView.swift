@@ -33,12 +33,12 @@ struct HeroImageView: View {
 struct HeroImageView_Previews: PreviewProvider {
     static var previews: some View {
         HeroImageView(title: Content.previewContent.itemTitle,
-                      url: Content.previewContent.cardImage)
+                      url: Content.previewContent.cardImageMedium)
     }
 }
 
 private struct DrawingConstants {
-    static let shadowOpacity: Double = 0.5
+    static let shadowOpacity: Double = 0.2
     static let shadowRadius: CGFloat = 5
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 220

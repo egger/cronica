@@ -18,6 +18,17 @@ class NetworkService {
         ) else {
             throw NetworkError.invalidEndpoint
         }
+        print(url)
+        return try await self.fetch(url: url)
+    }
+    
+    func fetchSeason(id: Int, season: Int) async throws -> Season {
+        guard let url = urlBuilder(path: "\(MediaType.tvShow.rawValue)/\(id)/season/\(season)",
+                                   langCode: ["language":"en-US"]
+        ) else {
+            throw NetworkError.invalidEndpoint
+        }
+        print(url)
         return try await self.fetch(url: url)
     }
     

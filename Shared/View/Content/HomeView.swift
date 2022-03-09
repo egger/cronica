@@ -34,17 +34,12 @@ struct HomeView: View {
                         }
                     }
                 }
-#if os(iOS)
-                .navigationViewStyle(.stack)
-#endif
                 .sheet(isPresented: $showAccount) {
                     NavigationView {
                         AccountFormView()
                             .environmentObject(SettingsStore())
                             .navigationTitle("Account")
-#if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
-#endif
                             .toolbar {
                                 ToolbarItem {
                                     Button("Done") {
@@ -95,10 +90,16 @@ private struct AccountFormView: View {
             }
             Section(header: Text("Settings")) {
                 Toggle(isOn: $settings.isAutomaticallyNotification) {
-                    Label("Notify Automatically", systemImage: "bell.square")
+                    Text("Notify Automatically")
+                }
+                Picker(selection: $settings.contentRegion, label: Text("Content Region")) {
+                    ForEach(SettingsStore.ContentRegion.allCases, id: \.self) {
+                        Text($0.title).tag($0)
+                    }
+                    .listStyle(.grouped)
                 }
             }
-            Section(header: Text("Support"), footer: Text("App Version:")) {
+            Section(header: Text("Support")) {
                 Button {
                     
                 } label: {

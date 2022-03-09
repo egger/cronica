@@ -32,6 +32,7 @@
 "Person" = "Pessoa";
 "People" = "Pessoa";
 "Released" = "Lançado";
+"Seasons" = "Temporadas";
 
 //ContentDetailsView.swift
 "Recommendations" = "Recomendações";
@@ -69,5 +70,3 @@
 
 //WatchlistView.swift
 "Search watchlist" = "Buscar na lista";
-
-

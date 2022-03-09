@@ -26,7 +26,7 @@ struct CardView: View {
 struct BackdropView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(title: Content.previewContent.itemTitle,
-                 url: Content.previewContent.cardImage)
+                 url: Content.previewContent.cardImageMedium)
     }
 }
 
@@ -43,9 +43,9 @@ private struct ImageView: View {
             } placeholder: {
                 EmptyView()
             }
-            Rectangle()
-                .fill(.ultraThinMaterial)
-                .background(.black.opacity(0.8))
+            Rectangle().fill(.ultraThinMaterial)
+            Color.black.opacity(0.8)
+            
             AsyncImage(url: url) { content in
                 content
                     .resizable()
@@ -85,8 +85,8 @@ private struct TitleView: View {
 }
 
 private struct DrawingConstants {
-    static let cardWidth: CGFloat = 280
-    static let cardHeight: CGFloat = 180
+    static let cardWidth: CGFloat = 240
+    static let cardHeight: CGFloat = 140
     static let cardRadius: CGFloat = 12
     static let shadowOpacity: Double = 0.5
     static let shadowRadius: CGFloat = 5

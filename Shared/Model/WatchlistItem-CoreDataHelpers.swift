@@ -37,7 +37,7 @@ extension WatchlistItem {
         let item = WatchlistItem(context: viewContext)
         item.title = Content.previewContent.itemTitle
         item.id = Int32(Content.previewContent.id)
-        item.image = Content.previewContent.cardImage
+        item.image = Content.previewContent.cardImageMedium
         item.contentType = 0
         return item
     }

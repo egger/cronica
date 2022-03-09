@@ -32,8 +32,7 @@ struct HomeListItemsView: View {
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(watchlistItems.filter { $0.status == "In Production"
-                        || $0.status == "Post Production" || $0.status == "Planned" }) { item in
+                    ForEach(watchlistItems.filter { $0.status == "Post Production"}) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.media)) {
                                 CardView(title: item.itemTitle, url: item.image)
                                     .padding([.leading, .trailing], 4)
