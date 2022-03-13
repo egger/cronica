@@ -120,9 +120,12 @@ private struct AccountFormView: View {
                 Text(easterEgg ? "🇧🇷" : "Made in Brazil")
                     .font(.caption)
                     .foregroundColor(.secondary)
+                #if os(tvOS)
+                #else
                     .onTapGesture {
                         easterEgg.toggle()
                     }
+                #endif
                 Spacer()
             }
         }

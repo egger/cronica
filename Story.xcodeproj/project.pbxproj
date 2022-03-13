@@ -24,6 +24,55 @@
 		B82C26922796452A00259D98 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26912796452A00259D98 /* Preview.swift */; };
 		B82C26932796452A00259D98 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26912796452A00259D98 /* Preview.swift */; };
 		B830FDF927DD994900450FD4 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B830FDF827DD994900450FD4 /* Sidebar.swift */; };
+		B830FE0527DD9CE200450FD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B830FE0427DD9CE200450FD4 /* Assets.xcassets */; };
+		B830FE0827DD9CE200450FD4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B830FE0727DD9CE200450FD4 /* Preview Assets.xcassets */; };
+		B830FE0C27DD9D0E00450FD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8110EDA279245D100844FEB /* Assets.xcassets */; };
+		B830FE0D27DD9D1100450FD4 /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
+		B830FE0E27DD9D1700450FD4 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
+		B830FE0F27DD9D1A00450FD4 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* DataController.swift */; };
+		B830FE1027DD9D2500450FD4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
+		B830FE1127DD9D2A00450FD4 /* Content-Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* Content-Helpers.swift */; };
+		B830FE1227DD9D2D00450FD4 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* Content.swift */; };
+		B830FE1327DD9D3000450FD4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
+		B830FE1427DD9D3500450FD4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
+		B830FE1527DD9D3800450FD4 /* WatchlistItem-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */; };
+		B830FE1627DD9D4B00450FD4 /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
+		B830FE1727DD9D4E00450FD4 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E589027A4BE75005DBF38 /* Endpoints.swift */; };
+		B830FE1827DD9D5100450FD4 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
+		B830FE1927DD9D5500450FD4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87B5CB92798D81C00632648 /* NetworkError.swift */; };
+		B830FE1A27DD9D5700450FD4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
+		B830FE1B27DD9D5C00450FD4 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CCB27999C5700632648 /* content.json */; };
+		B830FE1C27DD9D5E00450FD4 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
+		B830FE1D27DD9D6100450FD4 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26912796452A00259D98 /* Preview.swift */; };
+		B830FE1E27DD9D6900450FD4 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462B27D6FE2F009389FC /* SettingsStore.swift */; };
+		B830FE1F27DD9D6D00450FD4 /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
+		B830FE2027DD9D7600450FD4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2E2793B61B0012259B /* CardView.swift */; };
+		B830FE2127DD9D7800450FD4 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* ItemView.swift */; };
+		B830FE2227DD9D7B00450FD4 /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* PosterView.swift */; };
+		B830FE2327DD9D7F00450FD4 /* ContentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952927D02C5700B6757C /* ContentDetailsView.swift */; };
+		B830FE2427DD9D8200450FD4 /* ContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952F27D03BBE00B6757C /* ContentListView.swift */; };
+		B830FE2527DD9D8500450FD4 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462427D697D8009389FC /* HeroImageView.swift */; };
+		B830FE2627DD9D8700450FD4 /* HomeListItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84E8D6627BC168B005185D3 /* HomeListItemsView.swift */; };
+		B830FE2727DD9D8900450FD4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
+		B830FE2827DD9D8D00450FD4 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationView.swift */; };
+		B830FE2927DD9D9100450FD4 /* SeasonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */; };
+		B830FE2A27DD9D9400450FD4 /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463127D7C246009389FC /* SeasonListView.swift */; };
+		B830FE2B27DD9D9700450FD4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED9279245D000844FEB /* ContentView.swift */; };
+		B830FE2C27DD9D9A00450FD4 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7651D27B753AE00D9B731 /* OverlayView.swift */; };
+		B830FE2D27DD9DA100450FD4 /* FilmographyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC464027D9A364009389FC /* FilmographyDetailsView.swift */; };
+		B830FE2E27DD9DA100450FD4 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271AC27A5CC2A00F6463F /* PersonCardView.swift */; };
+		B830FE2F27DD9DA100450FD4 /* FilmographyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84E8D6327BBE26E005185D3 /* FilmographyListView.swift */; };
+		B830FE3027DD9DA100450FD4 /* PersonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* PersonListView.swift */; };
+		B830FE3127DD9DA100450FD4 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonView.swift */; };
+		B830FE3227DD9DA500450FD4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952027CFEBEC00B6757C /* SearchView.swift */; };
+		B830FE3327DD9DB300450FD4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
+		B830FE3427DD9DB300450FD4 /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonViewModel.swift */; };
+		B830FE3527DD9DB300450FD4 /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2B2793B4C10012259B /* WatchlistView.swift */; };
+		B830FE3627DD9DB300450FD4 /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
+		B830FE3727DD9DB300450FD4 /* ContentDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ContentDetailsViewModel.swift */; };
+		B830FE3827DD9DB300450FD4 /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */; };
+		B830FE3927DD9DB300450FD4 /* WatchlistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B878E82F27BC6CE40021A981 /* WatchlistSectionView.swift */; };
+		B830FE3A27DD9DB300450FD4 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
 		B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
 		B840D2C0279A0C4200A07C71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
 		B840D2CE279B24C900A07C71 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
@@ -132,6 +181,9 @@
 		B82C268E279644E000259D98 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		B82C26912796452A00259D98 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		B830FDF827DD994900450FD4 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		B830FDFE27DD9CE100450FD4 /* Story (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Story (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B830FE0427DD9CE200450FD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B830FE0727DD9CE200450FD4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
@@ -196,6 +248,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B830FDFB27DD9CE100450FD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B85E036A27B0371C005C7FDF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -209,6 +268,7 @@
 		B8110ED2279245D000844FEB = {
 			isa = PBXGroup;
 			children = (
+				B830FDFF27DD9CE100450FD4 /* Story (tvOS) */,
 				B8B271A227A59EF400F6463F /* Frameworks */,
 				B8110EE6279245D100844FEB /* macOS */,
 				B8110EE0279245D100844FEB /* Products */,
@@ -245,6 +305,7 @@
 				B8110EDF279245D100844FEB /* Story.app */,
 				B8110EE5279245D100844FEB /* Story.app */,
 				B85E036D27B0371C005C7FDF /* StoryTests.xctest */,
+				B830FDFE27DD9CE100450FD4 /* Story (tvOS).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -293,6 +354,23 @@
 				B82C26912796452A00259D98 /* Preview.swift */,
 			);
 			path = Preview;
+			sourceTree = "<group>";
+		};
+		B830FDFF27DD9CE100450FD4 /* Story (tvOS) */ = {
+			isa = PBXGroup;
+			children = (
+				B830FE0427DD9CE200450FD4 /* Assets.xcassets */,
+				B830FE0627DD9CE200450FD4 /* Preview Content */,
+			);
+			path = "Story (tvOS)";
+			sourceTree = "<group>";
+		};
+		B830FE0627DD9CE200450FD4 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B830FE0727DD9CE200450FD4 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		B8423E372794811F0012259B /* Network */ = {
@@ -477,6 +555,23 @@
 			productReference = B8110EE5279245D100844FEB /* Story.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B830FDFD27DD9CE100450FD4 /* Story (tvOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B830FE0927DD9CE200450FD4 /* Build configuration list for PBXNativeTarget "Story (tvOS)" */;
+			buildPhases = (
+				B830FDFA27DD9CE100450FD4 /* Sources */,
+				B830FDFB27DD9CE100450FD4 /* Frameworks */,
+				B830FDFC27DD9CE100450FD4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Story (tvOS)";
+			productName = "Story (tvOS)";
+			productReference = B830FDFE27DD9CE100450FD4 /* Story (tvOS).app */;
+			productType = "com.apple.product-type.application";
+		};
 		B85E036C27B0371C005C7FDF /* StoryTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B85E037327B0371C005C7FDF /* Build configuration list for PBXNativeTarget "StoryTests" */;
@@ -511,6 +606,9 @@
 					B8110EE4279245D100844FEB = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					B830FDFD27DD9CE100450FD4 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					B85E036C27B0371C005C7FDF = {
 						CreatedOnToolsVersion = 13.2.1;
 						TestTargetID = B8110EDE279245D100844FEB;
@@ -536,6 +634,7 @@
 				B8110EDE279245D100844FEB /* Story (iOS) */,
 				B8110EE4279245D100844FEB /* Story (macOS) */,
 				B85E036C27B0371C005C7FDF /* StoryTests */,
+				B830FDFD27DD9CE100450FD4 /* Story (tvOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -560,6 +659,19 @@
 				B8CC954B27D1310B00B6757C /* Localizable.strings in Resources */,
 				B87B5CCD27999C5700632648 /* content.json in Resources */,
 				B8110EED279245D100844FEB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B830FDFC27DD9CE100450FD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B830FE1027DD9D2500450FD4 /* Localizable.strings in Resources */,
+				B830FE0827DD9CE200450FD4 /* Preview Assets.xcassets in Resources */,
+				B830FE0D27DD9D1100450FD4 /* Attribution.xcassets in Resources */,
+				B830FE0C27DD9D0E00450FD4 /* Assets.xcassets in Resources */,
+				B830FE0527DD9CE200450FD4 /* Assets.xcassets in Resources */,
+				B830FE1B27DD9D5C00450FD4 /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +785,56 @@
 				B8A3F48727A610AF005F2941 /* PersonListView.swift in Sources */,
 				B840D2C0279A0C4200A07C71 /* NetworkService.swift in Sources */,
 				B87B5CBB2798D81C00632648 /* NetworkError.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B830FDFA27DD9CE100450FD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B830FE3627DD9DB300450FD4 /* StoryApp.swift in Sources */,
+				B830FE2927DD9D9100450FD4 /* SeasonDetailsView.swift in Sources */,
+				B830FE1F27DD9D6D00450FD4 /* AttributionView.swift in Sources */,
+				B830FE2B27DD9D9700450FD4 /* ContentView.swift in Sources */,
+				B830FE1127DD9D2A00450FD4 /* Content-Helpers.swift in Sources */,
+				B830FE1827DD9D5100450FD4 /* Key.swift in Sources */,
+				B830FE2C27DD9D9A00450FD4 /* OverlayView.swift in Sources */,
+				B830FE2627DD9D8700450FD4 /* HomeListItemsView.swift in Sources */,
+				B830FE3927DD9DB300450FD4 /* WatchlistSectionView.swift in Sources */,
+				B830FE0E27DD9D1700450FD4 /* Watchlist.xcdatamodeld in Sources */,
+				B830FE0F27DD9D1A00450FD4 /* DataController.swift in Sources */,
+				B830FE2427DD9D8200450FD4 /* ContentListView.swift in Sources */,
+				B830FE3227DD9DA500450FD4 /* SearchView.swift in Sources */,
+				B830FE2A27DD9D9400450FD4 /* SeasonListView.swift in Sources */,
+				B830FE3827DD9DB300450FD4 /* SeasonViewModel.swift in Sources */,
+				B830FE1D27DD9D6100450FD4 /* Preview.swift in Sources */,
+				B830FE1C27DD9D5E00450FD4 /* Bundle-Decodable.swift in Sources */,
+				B830FE2F27DD9DA100450FD4 /* FilmographyListView.swift in Sources */,
+				B830FE2E27DD9DA100450FD4 /* PersonCardView.swift in Sources */,
+				B830FE1527DD9D3800450FD4 /* WatchlistItem-CoreDataHelpers.swift in Sources */,
+				B830FE1627DD9D4B00450FD4 /* DataFetchPhase.swift in Sources */,
+				B830FE1327DD9D3000450FD4 /* Person.swift in Sources */,
+				B830FE3327DD9DB300450FD4 /* HomeViewModel.swift in Sources */,
+				B830FE1427DD9D3500450FD4 /* Utilities.swift in Sources */,
+				B830FE1727DD9D4E00450FD4 /* Endpoints.swift in Sources */,
+				B830FE3027DD9DA100450FD4 /* PersonListView.swift in Sources */,
+				B830FE1927DD9D5500450FD4 /* NetworkError.swift in Sources */,
+				B830FE2527DD9D8500450FD4 /* HeroImageView.swift in Sources */,
+				B830FE3127DD9DA100450FD4 /* PersonView.swift in Sources */,
+				B830FE2D27DD9DA100450FD4 /* FilmographyDetailsView.swift in Sources */,
+				B830FE2127DD9D7800450FD4 /* ItemView.swift in Sources */,
+				B830FE3A27DD9DB300450FD4 /* SearchViewModel.swift in Sources */,
+				B830FE1A27DD9D5700450FD4 /* NetworkService.swift in Sources */,
+				B830FE2327DD9D7F00450FD4 /* ContentDetailsView.swift in Sources */,
+				B830FE1E27DD9D6900450FD4 /* SettingsStore.swift in Sources */,
+				B830FE3427DD9DB300450FD4 /* PersonViewModel.swift in Sources */,
+				B830FE3527DD9DB300450FD4 /* WatchlistView.swift in Sources */,
+				B830FE2827DD9D8D00450FD4 /* InformationView.swift in Sources */,
+				B830FE2027DD9D7600450FD4 /* CardView.swift in Sources */,
+				B830FE2727DD9D8900450FD4 /* HomeView.swift in Sources */,
+				B830FE3727DD9DB300450FD4 /* ContentDetailsViewModel.swift in Sources */,
+				B830FE1227DD9D2D00450FD4 /* Content.swift in Sources */,
+				B830FE2227DD9D7B00450FD4 /* PosterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,6 +1109,63 @@
 			};
 			name = Release;
 		};
+		B830FE0A27DD9CE200450FD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Story (tvOS)/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.alexandremadeira.Story--tvOS-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 15.2;
+			};
+			name = Debug;
+		};
+		B830FE0B27DD9CE200450FD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Story (tvOS)/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.alexandremadeira.Story--tvOS-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 15.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		B85E037427B0371C005C7FDF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1014,6 +1233,15 @@
 			buildConfigurations = (
 				B8110EF4279245D100844FEB /* Debug */,
 				B8110EF5279245D100844FEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B830FE0927DD9CE200450FD4 /* Build configuration list for PBXNativeTarget "Story (tvOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B830FE0A27DD9CE200450FD4 /* Debug */,
+				B830FE0B27DD9CE200450FD4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

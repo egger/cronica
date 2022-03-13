@@ -31,6 +31,8 @@ struct PersonView: View {
                            height: DrawingConstants.imageHeight)
                     .clipShape(Circle())
                     .padding([.top, .bottom])
+#if os(tvOS)
+#else
                     if !person.personBiography.isEmpty {
                         GroupBox {
                             Text(person.personBiography)
@@ -52,7 +54,7 @@ struct PersonView: View {
                                         .padding()
                                 }
                                 .navigationTitle(title)
-                                #if os(iOS)
+#if os(iOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 .toolbar {
                                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -61,10 +63,11 @@ struct PersonView: View {
                                         }
                                     }
                                 }
-                                #endif
+#endif
                             }
                         }
                     }
+#endif
                     if person.combinedCredits != nil {
                         FilmographyListView(filmography: (person.combinedCredits?.cast)!)
                     }

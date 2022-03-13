@@ -10,6 +10,9 @@ import SwiftUI
 struct InformationView: View {
     let item: Content
     var body: some View {
+        #if os(tvOS)
+        EmptyView()
+        #else
         GroupBox {
             Section {
                 if !item.itemRuntime.isEmpty {
@@ -39,6 +42,7 @@ struct InformationView: View {
                 .foregroundColor(.secondary)
         }
         .padding()
+        #endif
     }
 }
 
