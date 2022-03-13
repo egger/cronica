@@ -10,6 +10,9 @@ import SwiftUI
 struct ContentView: View {
     @SceneStorage("selectedView") var selectedView: String?
     var body: some View {
+        #if os(OSX)
+        Sidebar()
+        #endif
         TabView(selection: $selectedView) {
             HomeView()
                 .tag(HomeView.tag)

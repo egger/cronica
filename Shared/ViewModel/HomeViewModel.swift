@@ -27,7 +27,6 @@ class HomeViewModel: ObservableObject {
         trendingTv.value ?? []
     }
     
-    
     func loadSections() async {
         Task {
             await loadMovies()

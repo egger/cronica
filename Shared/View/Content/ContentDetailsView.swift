@@ -54,7 +54,7 @@ struct ContentDetailsView: View {
                     .tint(viewModel.inWatchlist ? .red : .blue)
 #if os(tvOS)
 #else
-                    .controlSize(.large)
+                    //.controlSize(.large)
 #endif
                     //MARK: About view
 #if os(tvOS)

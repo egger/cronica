@@ -73,6 +73,7 @@
 		B830FE3827DD9DB300450FD4 /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */; };
 		B830FE3927DD9DB300450FD4 /* WatchlistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B878E82F27BC6CE40021A981 /* WatchlistSectionView.swift */; };
 		B830FE3A27DD9DB300450FD4 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
+		B830FE3B27DDA31A00450FD4 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B830FDF827DD994900450FD4 /* Sidebar.swift */; };
 		B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
 		B840D2C0279A0C4200A07C71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
 		B840D2CE279B24C900A07C71 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
@@ -268,14 +269,14 @@
 		B8110ED2279245D000844FEB = {
 			isa = PBXGroup;
 			children = (
-				B830FDFF27DD9CE100450FD4 /* Story (tvOS) */,
 				B8B271A227A59EF400F6463F /* Frameworks */,
-				B8110EE6279245D100844FEB /* macOS */,
 				B8110EE0279245D100844FEB /* Products */,
 				B8110ED7279245D000844FEB /* Shared */,
 				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
 				B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */,
 				B8110ED8279245D000844FEB /* StoryApp.swift */,
+				B8110EE6279245D100844FEB /* macOS */,
+				B830FDFF27DD9CE100450FD4 /* tvOS */,
 				B85E036E27B0371C005C7FDF /* StoryTests */,
 			);
 			sourceTree = "<group>";
@@ -356,13 +357,13 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
-		B830FDFF27DD9CE100450FD4 /* Story (tvOS) */ = {
+		B830FDFF27DD9CE100450FD4 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
 				B830FE0427DD9CE200450FD4 /* Assets.xcassets */,
 				B830FE0627DD9CE200450FD4 /* Preview Content */,
 			);
-			path = "Story (tvOS)";
+			path = tvOS;
 			sourceTree = "<group>";
 		};
 		B830FE0627DD9CE200450FD4 /* Preview Content */ = {
@@ -709,6 +710,7 @@
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B86E587027A4842A005DBF38 /* DataFetchPhase.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
+				B830FE3B27DDA31A00450FD4 /* Sidebar.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* LocalNotificationManager.swift in Sources */,
@@ -1008,10 +1010,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -1043,10 +1045,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1116,7 +1118,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Story (tvOS)/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"tvOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1144,7 +1146,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Story (tvOS)/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"tvOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
