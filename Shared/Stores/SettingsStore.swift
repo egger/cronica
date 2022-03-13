@@ -56,6 +56,14 @@ final class SettingsStore: ObservableObject {
                 return "Portuguese (Brazil)"
             }
         }
+        var region: String {
+            switch self {
+            case .enUS:
+               return "us"
+            case .ptBR:
+               return "br"
+            }
+        }
     }
     var contentRegion: ContentRegion {
             get {

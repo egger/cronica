@@ -39,7 +39,9 @@ struct HomeView: View {
                         AccountFormView()
                             .environmentObject(SettingsStore())
                             .navigationTitle("Account")
+                        #if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
+                        #endif
                             .toolbar {
                                 ToolbarItem {
                                     Button("Done") {
@@ -96,7 +98,9 @@ private struct AccountFormView: View {
                     ForEach(SettingsStore.ContentRegion.allCases, id: \.self) {
                         Text($0.title).tag($0)
                     }
+                    #if os(iOS)
                     .listStyle(.grouped)
+                    #endif
                 }
             }
             Section(header: Text("Support")) {

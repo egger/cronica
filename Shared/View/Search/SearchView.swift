@@ -27,9 +27,13 @@ struct SearchView: View {
                 }
                 
             }
+#if os(iOS)
             .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Movies, Shows, People") )
-            .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.large)
+#elseif os(macOS)
+            .searchable(text: $viewModel.query, prompt: Text("Movies, Shows, People"))
+#endif
+            .navigationTitle("Search")
             .overlay(overlayView)
             .onAppear { viewModel.observe() }
             

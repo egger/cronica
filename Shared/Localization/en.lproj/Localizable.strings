@@ -33,6 +33,10 @@
 "People" = "People";
 "Released" = "Released";
 "Seasons" = "Seasons";
+"Trending" = "Trending";
+"This week" = "This week";
+"In Theaters" = "In Theaters";
+"From Watchlist" = "From Watchlist";
 
 //ContentDetailsView.swift
 "Recommendations" = "Recommendations";

@@ -30,6 +30,8 @@ struct ContentSection: Identifiable {
             return StyleType.poster
         case .nowPlaying:
             return StyleType.poster
+        case .topRated:
+            return StyleType.poster
         }
     }
 }

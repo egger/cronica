@@ -58,10 +58,11 @@ struct WatchlistView: View {
                     }
                 }
                 .navigationTitle("Watchlist")
-                .navigationBarTitleDisplayMode(.large)
                 .refreshable {
                     viewContext.refreshAllObjects()
                 }
+                #if os(iOS)
+                .navigationBarTitleDisplayMode(.large)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu {
@@ -81,6 +82,9 @@ struct WatchlistView: View {
                 .searchable(text: $queryString,
                             placement: .navigationBarDrawer(displayMode: .always),
                             prompt: "Search watchlist")
+#elseif os(macOS)
+                .searchable(text: $queryString, prompt: Text("Search watchlist"))
+#endif
             }
         }
     }

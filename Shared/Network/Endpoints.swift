@@ -11,6 +11,7 @@ enum ContentEndpoints: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case upcoming, popular, latest
     case nowPlaying = "now_playing"
+    case topRated = "top_rated"
     var sortIndex: Int {
         switch self {
         case .upcoming:
@@ -21,6 +22,8 @@ enum ContentEndpoints: String, CaseIterable, Identifiable {
             return 2
         case .nowPlaying:
             return 3
+        case .topRated:
+            return 4
         }
     }
     var title: String {
@@ -32,7 +35,9 @@ enum ContentEndpoints: String, CaseIterable, Identifiable {
         case .latest:
             return "Latest"
         case .nowPlaying:
-            return NSLocalizedString("Now Playing", comment: "")
+            return "In Theaters"
+        case .topRated:
+            return "Top Rated"
         }
     }
 }

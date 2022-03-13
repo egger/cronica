@@ -33,6 +33,10 @@
 "People" = "Pessoa";
 "Released" = "Lançado";
 "Seasons" = "Temporadas";
+"Trending" = "Em Alta";
+"This week" = "This week";
+"In Theaters" = "Nos Cinemas";
+"Top Rated" = "Mais Votados";
 
 //ContentDetailsView.swift
 "Recommendations" = "Recomendações";

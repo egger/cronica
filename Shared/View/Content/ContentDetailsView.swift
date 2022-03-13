@@ -31,9 +31,12 @@ struct ContentDetailsView: View {
                                 print("Is \(content.itemTitle) released? \(content.isReleased). \(content.itemReleaseDate)")
                             }
                     }
+                    //MARK: Watchlist button
                     Button {
+                        #if os(iOS)
                         let generator = UIImpactFeedbackGenerator(style: .medium)
                         generator.impactOccurred(intensity: 1.0)
+                        #endif
                         if !viewModel.inWatchlist {
                             if settings.isAutomaticallyNotification {
                                 isNotificationEnabled.toggle()
@@ -50,6 +53,7 @@ struct ContentDetailsView: View {
                     .buttonStyle(.bordered)
                     .tint(viewModel.inWatchlist ? .red : .blue)
                     .controlSize(.large)
+                    //MARK: About view
                     GroupBox {
                         Text(content.itemAbout)
                             .padding([.top], 2)
@@ -69,6 +73,7 @@ struct ContentDetailsView: View {
                                 Text(content.itemAbout).padding()
                             }
                             .navigationTitle(content.itemTitle)
+                            #if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -77,6 +82,7 @@ struct ContentDetailsView: View {
                                     }
                                 }
                             }
+                            #endif
                         }
                     }
                     if content.seasonsNumber > 0 {
@@ -96,7 +102,9 @@ struct ContentDetailsView: View {
                 }
             }
             .navigationTitle(title)
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.large)
+            #endif
             .toolbar {
                 ToolbarItem {
                     HStack {
@@ -107,6 +115,7 @@ struct ContentDetailsView: View {
                                 Image(systemName: isNotificationEnabled ? "bell.fill" : "bell")
                             }
                         }
+                        .help("Notify when released.")
                         .opacity(isNotificationAvailable ? 1 : 0)
                         Button {
                             isSharePresented.toggle()
@@ -116,7 +125,9 @@ struct ContentDetailsView: View {
                     }
                 }
             }
+            #if os(iOS)
             .sheet(isPresented: $isSharePresented, content: { ActivityViewController(itemsToShare: [title]) })
+            #endif
         }
         .task {
             load()

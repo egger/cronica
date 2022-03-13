@@ -36,6 +36,7 @@ class NetworkService {
     func fetchContents(from endpoint: ContentEndpoints,
                        type: MediaType) async throws -> [Content] {
         guard let url = urlBuilder(path: "\(type.rawValue)/\(endpoint.rawValue)",
+                                   params: ["region":"\(Utilities.userRegion)"],
                                    langCode: ["language":"\(Utilities.userLang)"]) else {
             throw NetworkError.invalidEndpoint
         }

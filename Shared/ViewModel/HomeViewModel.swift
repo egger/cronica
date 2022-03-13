@@ -11,6 +11,8 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published private(set) var moviePhase: DataFetchPhase<[ContentSection]> = .empty
     @Published private(set) var tvPhase: DataFetchPhase<[ContentSection]> = .empty
+    @Published private(set) var trendingMovies: DataFetchPhase<[ContentResponse]> = .empty
+    @Published private(set) var trendingTv: DataFetchPhase<[ContentResponse]> = .empty
     private let service: NetworkService = NetworkService.shared
     var moviesSections: [ContentSection] {
         moviePhase.value ?? []
@@ -18,6 +20,13 @@ class HomeViewModel: ObservableObject {
     var tvSections: [ContentSection] {
         tvPhase.value ?? []
     }
+    var trendingMoviesSection: [ContentResponse] {
+        trendingMovies.value ?? []
+    }
+    var trendingTvSection: [ContentResponse] {
+        trendingTv.value ?? []
+    }
+    
     
     func loadSections() async {
         Task {
@@ -59,6 +68,19 @@ class HomeViewModel: ObservableObject {
         } catch {
             if Task.isCancelled { return }
             tvPhase = .failure(error)
+        }
+    }
+    
+    private func loadTrendingMovies() async {
+        if Task.isCancelled {
+            return
+        }
+        if case .success = trendingMovies {
+            return
+        }
+        trendingMovies = .empty
+        do {
+            //let trending = try await service.fetchContents(from: <#T##ContentEndpoints#>, type: <#T##MediaType#>)
         }
     }
     

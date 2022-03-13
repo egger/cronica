@@ -73,6 +73,7 @@ private struct TitleView: View {
             HStack {
                 Text(title)
                     .fontWeight(.semibold)
+                    .font(.callout)
                     .foregroundColor(.white)
                     .lineLimit(DrawingConstants.lineLimits)
                     .padding()
@@ -80,7 +81,7 @@ private struct TitleView: View {
             }
             .padding(.trailing)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 2)
     }
 }
 
