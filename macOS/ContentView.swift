@@ -1,5 +1,5 @@
 //
-//  Sidebar.swift
+//  ContentView.swift
 //  Story (macOS)
 //
 //  Created by Alexandre Madeira on 13/03/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Sidebar: View {
+struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
@@ -22,12 +22,13 @@ struct Sidebar: View {
                 }
             }
             .navigationTitle("Cronica")
+            HomeView()
         }
     }
 }
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        Sidebar()
+        ContentView()
     }
 }

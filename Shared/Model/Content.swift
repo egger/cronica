@@ -85,6 +85,13 @@ extension Content {
             return nil
         }
     }
+    var cardImageOriginal: URL? {
+        if backdropPath != nil {
+            return Utilities.imageUrlBuilder(size: .original, path: backdropPath!)
+        } else {
+            return nil
+        }
+    }
     var personImage: URL? {
         if profilePath != nil {
             return Utilities.imageUrlBuilder(size: .medium, path: profilePath!)

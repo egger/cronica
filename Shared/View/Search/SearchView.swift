@@ -30,7 +30,7 @@ struct SearchView: View {
 #if os(iOS)
             .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Movies, Shows, People") )
             .navigationBarTitleDisplayMode(.large)
-#elseif os(macOS)
+#else
             .searchable(text: $viewModel.query, prompt: Text("Movies, Shows, People"))
 #endif
             .navigationTitle("Search")
