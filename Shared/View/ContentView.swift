@@ -13,22 +13,13 @@ struct ContentView: View {
         TabView(selection: $selectedView) {
             HomeView()
                 .tag(HomeView.tag)
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
-                }
+                .tabItem { Label("Home", systemImage: "house") }
             WatchlistView()
                 .tag(WatchlistView.tag)
-                .tabItem {
-                    Image(systemName: "square.stack.fill")
-                    Text("Watchlist")
-                }
+                .tabItem { Label("Watchlist", systemImage: "square.stack.fill") }
             SearchView()
                 .tag(SearchView.tag)
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Search")
-                }
+                .tabItem { Label("Search", systemImage: "magnifyingglass") }
         }
     }
 }

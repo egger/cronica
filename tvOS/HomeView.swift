@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var viewModel: HomeViewModel
+    init() {
+        _viewModel = StateObject(wrappedValue: HomeViewModel())
+    }
     var body: some View {
         ScrollView {
             ForEach(viewModel.moviesSections) {

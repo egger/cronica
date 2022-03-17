@@ -100,6 +100,22 @@ struct ContentDetailsView: View {
                     if content.seasonsNumber > 0 {
                         SeasonListView(title: "Seasons", id: id, items: content.seasons!)
                     }
+                    Section(header: Text("Review"), footer: Text("This helps fine tune your recommendations.")) {
+                        HStack {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "hand.thumbsdown")
+                            }
+                            .tint(Color.red)
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "hand.thumbsup")
+                            }
+                            .tint(Color.green)
+                        }
+                    }
                     if content.credits != nil {
                         PersonListView(credits: content.credits!)
                     }

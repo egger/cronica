@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-class PersonViewModel: ObservableObject {
+@MainActor class PersonViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Person?> = .empty
     var person: Person? {

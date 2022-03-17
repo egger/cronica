@@ -9,8 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-@MainActor
-class SearchViewModel: ObservableObject {
+@MainActor class SearchViewModel: ObservableObject {
     @Published var query: String = ""
     @Published private(set) var phase: DataFetchPhase<[Content]> = .empty
     private var cancellable = Set<AnyCancellable>()

@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-class SeasonViewModel: ObservableObject {
+@MainActor class SeasonViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Season?> = .empty
     var season: Season? {

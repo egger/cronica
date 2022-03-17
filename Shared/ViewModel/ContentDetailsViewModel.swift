@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-class ContentDetailsViewModel: ObservableObject {
+@MainActor class ContentDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Content?> = .empty
     var content: Content? {

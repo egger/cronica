@@ -7,8 +7,7 @@
 
 import Foundation
 
-@MainActor
-class HomeViewModel: ObservableObject {
+@MainActor class HomeViewModel: ObservableObject {
     @Published private(set) var moviePhase: DataFetchPhase<[ContentSection]> = .empty
     @Published private(set) var tvPhase: DataFetchPhase<[ContentSection]> = .empty
     @Published private(set) var trendingMovies: DataFetchPhase<[ContentResponse]> = .empty

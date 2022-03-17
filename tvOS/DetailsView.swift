@@ -11,7 +11,13 @@ struct DetailsView: View {
     var title: String
     var id: Int
     var type: MediaType
-    @StateObject private var viewModel = ContentDetailsViewModel()
+    @StateObject private var viewModel: ContentDetailsViewModel
+    init(title: String, id: Int, type: MediaType) {
+        _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
+        self.title = title
+        self.id = id
+        self.type = type
+    }
     var body: some View {
         NavigationView {
             if let content = viewModel.content {

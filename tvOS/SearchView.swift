@@ -16,18 +16,19 @@ struct SearchView: View {
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
-                List {
-                    ForEach(viewModel.searchItems) { item in
-                        if item.media == MediaType.person {
-                            NavigationLink(destination: PersonView(title: item.itemTitle, id: item.id)) {
-                                ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
-                            }
-                        } else {
-                            NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
-                                ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
+                HStack {
+                    List {
+                        ForEach(viewModel.searchItems) { item in
+                            if item.media == MediaType.person {
+                                NavigationLink(destination: PersonView(title: item.itemTitle, id: item.id)) {
+                                    ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
+                                }
+                            } else {
+                                NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
+                                    ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
+                                }
                             }
                         }
-                    }
                 }
             }
         }

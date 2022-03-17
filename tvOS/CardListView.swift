@@ -25,14 +25,13 @@ struct CardListView: View {
                                     AsyncImage(url: item.cardImageLarge) { image in
                                         image
                                             .resizable()
-                                            .scaledToFill()
+                                            .aspectRatio(contentMode: .fill)
                                     } placeholder: {
                                         ProgressView(item.itemTitle)
                                     }
                                 }
                                 .buttonStyle(CardButtonStyle())
                                 .frame(width: 400, height: 320)
-
                             }
                         }
                     }

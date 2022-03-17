@@ -61,26 +61,31 @@
       "size" : "20x20"
     },
     {
+      "filename" : "ipad-20x20@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
+      "filename" : "ipad-29x29-1.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
+      "filename" : "ipad-29x29@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
+      "filename" : "ipad-40x40.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
+      "filename" : "ipad-40x40@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
@@ -116,50 +121,55 @@
       "size" : "16x16"
     },
     {
-      "filename" : "mac-32x32-1.png",
+      "filename" : "mac-32x32.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "mac-32x32.png",
+      "filename" : "mac-32x32-1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
+      "filename" : "mac-32x32@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
+      "filename" : "mac-128x128.png",
       "idiom" : "mac",
       "scale" : "1x",
+      "size" : "128x128"
+    },
+    {
+      "filename" : "mac-256x256-1.png",
+      "idiom" : "mac",
+      "scale" : "2x",
       "size" : "128x128"
     },
     {
       "filename" : "mac-256x256.png",
       "idiom" : "mac",
-      "scale" : "2x",
-      "size" : "128x128"
-    },
-    {
-      "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
+      "filename" : "mac-512x512.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
+      "filename" : "mac-512x512-1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "ios-marketing-1024x1024.png",
+      "filename" : "mac-512x512@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"
