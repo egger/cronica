@@ -14,7 +14,7 @@ struct CardView: View {
         AsyncImage(url: url) { image in
             image
                 .resizable()
-                .scaledToFill()
+                .aspectRatio(contentMode: .fill)
         } placeholder: {
             Color.secondary
         }

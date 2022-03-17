@@ -15,55 +15,74 @@ struct DetailsView: View {
     var body: some View {
         NavigationView {
             if let content = viewModel.content {
-                HStack {
-                    VStack {
+                VStack {
+                    HStack {
                         Text(content.itemTitle)
-                            .font(.headline)
-                            .fontWeight(.semibold)
+                            .font(.title)
                             .padding()
-                        if !content.itemInfo.isEmpty {
-                            Text(content.itemInfo)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                        Spacer()
+                    }
+                    Spacer()
+                    HStack {
+                        VStack {
+                            Text(content.itemTitle)
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .padding()
+                            if !content.itemInfo.isEmpty {
+                                Text(content.itemInfo)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Divider().padding()
+                            Button {
+                                if !viewModel.inWatchlist {
+                                    viewModel.add(notify: true)
+                                } else {
+                                    viewModel.remove()
+                                }
+                            } label: {
+                                Text(!viewModel.inWatchlist ? "Add to watchlist" : "Remove from watchlist")
+                            }
+                            .buttonStyle(.bordered)
+                            .padding()
                         }
-                        Divider().padding()
-                        ScrollView {
+                        VStack {
                             Text(content.itemAbout)
-                                .lineLimit(3)
                                 .padding([.top], 2)
                                 .padding()
                         }
-                        Button {
-                            if !viewModel.inWatchlist {
-                                viewModel.add(notify: true)
-                            } else {
-                                viewModel.remove()
-                            }
-                        } label: {
-                            Label(!viewModel.inWatchlist ? "Add to watchlist" : "Remove", systemImage: !viewModel.inWatchlist ? "plus.square" : "minus.square")
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(viewModel.inWatchlist ? .red : .blue)
-                        .padding()
                     }
-                    .background(.regularMaterial)
-                    .frame(width: 400,  height: 500)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .padding()
-                    Spacer()
-                    Spacer()
+                    .background {
+                        ZStack {
+                            Rectangle()
+                                .padding(0)
+                                .background(.ultraThinMaterial)
+                            Rectangle()
+                                .padding(0)
+                                .background(.ultraThinMaterial)
+                                .mask {
+                                    LinearGradient(gradient: Gradient(colors:
+                                                                        [.black,
+                                                                         .black.opacity(0)]),
+                                                   startPoint: .center,
+                                                   endPoint: .top)
+                                }
+                        }
+                        .padding(0)
+                    }
                 }
                 .background {
-                    AsyncImage(url: content.cardImageOriginal) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        VStack {
+                    ZStack {
+                        AsyncImage(url: content.cardImageOriginal) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
                             ProgressView(title)
-                        }.background(Color.secondary)
+                        }
+                        .ignoresSafeArea(.all)
                     }
-                    .ignoresSafeArea(.all)
                 }
             }
         }
@@ -80,8 +99,17 @@ struct DetailsView: View {
     }
 }
 
-//struct DetailsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DetailsView()
-//    }
-//}
+struct DetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailsView(title: Content.previewContent.itemTitle,
+                    id: Content.previewContent.id,
+                    type: MediaType.movie)
+    }
+}
+
+private struct DrawingConstants {
+    static let panelWidth: CGFloat = 500
+    static let panelHeight: CGFloat = 640
+    static let shadowRadius: CGFloat = 5
+    static let shadowOpacity: Double = 0.5
+}

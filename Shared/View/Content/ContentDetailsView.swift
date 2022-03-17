@@ -11,12 +11,18 @@ struct ContentDetailsView: View {
     var title: String
     var id: Int
     var type: MediaType
-    @StateObject private var viewModel = ContentDetailsViewModel()
+    @StateObject private var viewModel: ContentDetailsViewModel
     @ObservedObject private var settings: SettingsStore = SettingsStore()
     @State private var isAboutPresented: Bool = false
     @State private var isSharePresented: Bool = false
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationEnabled: Bool = false
+    init(title: String, id: Int, type: MediaType) {
+        _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
+        self.title = title
+        self.id = id
+        self.type = type
+    }
     var body: some View {
         ScrollView {
             VStack {

@@ -11,7 +11,13 @@ struct SeasonDetailsView: View {
     var id: Int
     var seasonNumber: Int
     var title: String
-    @StateObject private var viewModel = SeasonViewModel()
+    @StateObject private var viewModel: SeasonViewModel
+    init(id: Int, seasonNumber: Int, title: String) {
+        _viewModel = StateObject(wrappedValue: SeasonViewModel())
+        self.id = id
+        self.seasonNumber = seasonNumber
+        self.title = title
+    }
     var body: some View {
         ScrollView {
             if let season = viewModel.season {

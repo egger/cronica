@@ -13,19 +13,15 @@ struct ContentView: View {
             TabView {
                 HomeView()
                     .tabItem {
-                        Image(systemName: "house")
-                        Text("Home")
+                        Label("Home", systemImage: "house")
                     }
                 WatchlistView()
                     .tabItem {
-                        Image(systemName: "square.stack.fill")
-                        Text("Watchlist")
+                        Label("Watchlist", systemImage: "square.stack.fill")
                     }
                 SearchView()
-                    .tag(SearchView.tag)
                     .tabItem {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
+                        Label("Search", systemImage: "magnifyingglass")
                     }
             }
         }

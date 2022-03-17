@@ -9,8 +9,11 @@ import SwiftUI
 
 struct HomeView: View {
     static let tag: String? = "Home"
-    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var viewModel: HomeViewModel
     @State private var showAccount: Bool = false
+    init() {
+        _viewModel = StateObject(wrappedValue: HomeViewModel())
+    }
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {

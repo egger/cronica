@@ -10,7 +10,10 @@ import SwiftUI
 struct SearchView: View {
     static let tag: String? = "Search"
     @State private var query: String = ""
-    @StateObject private var viewModel = SearchViewModel()
+    @StateObject private var viewModel: SearchViewModel
+    init() {
+        _viewModel = StateObject(wrappedValue: SearchViewModel())
+    }
     var body: some View {
         NavigationView {
             List {

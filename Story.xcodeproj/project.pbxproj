@@ -60,14 +60,12 @@
 		B830FE2F27DD9DA100450FD4 /* FilmographyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84E8D6327BBE26E005185D3 /* FilmographyListView.swift */; };
 		B830FE3027DD9DA100450FD4 /* PersonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* PersonListView.swift */; };
 		B830FE3127DD9DA100450FD4 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonView.swift */; };
-		B830FE3227DD9DA500450FD4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952027CFEBEC00B6757C /* SearchView.swift */; };
 		B830FE3327DD9DB300450FD4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
 		B830FE3427DD9DB300450FD4 /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonViewModel.swift */; };
 		B830FE3627DD9DB300450FD4 /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
 		B830FE3727DD9DB300450FD4 /* ContentDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ContentDetailsViewModel.swift */; };
 		B830FE3827DD9DB300450FD4 /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */; };
 		B830FE3A27DD9DB300450FD4 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
-		B830FE3B27DDA31A00450FD4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B830FDF827DD994900450FD4 /* ContentView.swift */; };
 		B830FE7B27DE218E00450FD4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B830FE7A27DE218E00450FD4 /* ContentView.swift */; };
 		B830FE7D27DE224E00450FD4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B830FE7C27DE224E00450FD4 /* CardView.swift */; };
 		B830FE7F27DE240A00450FD4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B830FE7E27DE240A00450FD4 /* HomeView.swift */; };
@@ -131,6 +129,7 @@
 		B8CC953427D05D1000B6757C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
 		B8CC954A27D1310B00B6757C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
 		B8CC954B27D1310B00B6757C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
+		B8CCA11527E297C400C63FDF /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CCA11427E297C400C63FDF /* SearchView.swift */; };
 		B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
 		B8D8AF9027D4D0550042AEB6 /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
 		B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
@@ -183,7 +182,7 @@
 		B82C268E279644E000259D98 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		B82C26912796452A00259D98 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		B830FDF827DD994900450FD4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B830FDFE27DD9CE100450FD4 /* Story (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Story (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B830FDFE27DD9CE100450FD4 /* Cronica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cronica.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B830FE0427DD9CE200450FD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B830FE0727DD9CE200450FD4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B830FE7A27DE218E00450FD4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -225,6 +224,7 @@
 		B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Story--iOS--Info.plist"; sourceTree = "<group>"; };
 		B8CC954C27D1310B00B6757C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B8CC954F27D132F700B6757C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B8CCA11427E297C400C63FDF /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionView.swift; sourceTree = "<group>"; };
 		B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
@@ -278,14 +278,14 @@
 			isa = PBXGroup;
 			children = (
 				B8B271A227A59EF400F6463F /* Frameworks */,
+				B8110EE6279245D100844FEB /* macOS */,
 				B8110EE0279245D100844FEB /* Products */,
 				B8110ED7279245D000844FEB /* Shared */,
 				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
 				B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */,
 				B8110ED8279245D000844FEB /* StoryApp.swift */,
-				B8110EE6279245D100844FEB /* macOS */,
-				B830FDFF27DD9CE100450FD4 /* tvOS */,
 				B85E036E27B0371C005C7FDF /* StoryTests */,
+				B830FDFF27DD9CE100450FD4 /* tvOS */,
 			);
 			sourceTree = "<group>";
 		};
@@ -314,7 +314,7 @@
 				B8110EDF279245D100844FEB /* Story.app */,
 				B8110EE5279245D100844FEB /* Story.app */,
 				B85E036D27B0371C005C7FDF /* StoryTests.xctest */,
-				B830FDFE27DD9CE100450FD4 /* Story (tvOS).app */,
+				B830FDFE27DD9CE100450FD4 /* Cronica.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -322,8 +322,8 @@
 		B8110EE6279245D100844FEB /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				B8110EE7279245D100844FEB /* macOS.entitlements */,
 				B830FDF827DD994900450FD4 /* ContentView.swift */,
+				B8110EE7279245D100844FEB /* macOS.entitlements */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -369,14 +369,15 @@
 			isa = PBXGroup;
 			children = (
 				B830FE0427DD9CE200450FD4 /* Assets.xcassets */,
-				B830FE0627DD9CE200450FD4 /* Preview Content */,
-				B830FE7A27DE218E00450FD4 /* ContentView.swift */,
-				B830FE7C27DE224E00450FD4 /* CardView.swift */,
-				B830FE7E27DE240A00450FD4 /* HomeView.swift */,
 				B830FE8027DE265100450FD4 /* CardListView.swift */,
+				B830FE7C27DE224E00450FD4 /* CardView.swift */,
+				B830FE7A27DE218E00450FD4 /* ContentView.swift */,
 				B830FE8227DE7F9000450FD4 /* DetailsView.swift */,
-				B830FE8427DEC00400450FD4 /* WatchlistView.swift */,
+				B830FE7E27DE240A00450FD4 /* HomeView.swift */,
+				B830FE0627DD9CE200450FD4 /* Preview Content */,
 				B830FE8627DEC0AD00450FD4 /* WatchlistSectionView.swift */,
+				B830FE8427DEC00400450FD4 /* WatchlistView.swift */,
+				B8CCA11427E297C400C63FDF /* SearchView.swift */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
@@ -585,7 +586,7 @@
 			);
 			name = "Story (tvOS)";
 			productName = "Story (tvOS)";
-			productReference = B830FDFE27DD9CE100450FD4 /* Story (tvOS).app */;
+			productReference = B830FDFE27DD9CE100450FD4 /* Cronica.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B85E036C27B0371C005C7FDF /* StoryTests */ = {
@@ -614,7 +615,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					B8110EDE279245D100844FEB = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -725,7 +726,6 @@
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B86E587027A4842A005DBF38 /* DataFetchPhase.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
-				B830FE3B27DDA31A00450FD4 /* ContentView.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* LocalNotificationManager.swift in Sources */,
@@ -818,9 +818,9 @@
 				B830FE2627DD9D8700450FD4 /* HomeListItemsView.swift in Sources */,
 				B830FE0E27DD9D1700450FD4 /* Watchlist.xcdatamodeld in Sources */,
 				B830FE0F27DD9D1A00450FD4 /* DataController.swift in Sources */,
+				B8CCA11527E297C400C63FDF /* SearchView.swift in Sources */,
 				B830FE8327DE7F9000450FD4 /* DetailsView.swift in Sources */,
 				B830FE2427DD9D8200450FD4 /* ContentListView.swift in Sources */,
-				B830FE3227DD9DA500450FD4 /* SearchView.swift in Sources */,
 				B830FE8527DEC00400450FD4 /* WatchlistView.swift in Sources */,
 				B830FE2A27DD9D9400450FD4 /* SeasonListView.swift in Sources */,
 				B830FE3827DD9DB300450FD4 /* SeasonViewModel.swift in Sources */,
@@ -891,6 +891,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -950,6 +951,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1075,6 +1077,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1104,6 +1107,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1146,7 +1150,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "dev.alexandremadeira.Story--tvOS-";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Cronica;
 				SDKROOT = appletvos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1174,7 +1178,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "dev.alexandremadeira.Story--tvOS-";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Cronica;
 				SDKROOT = appletvos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

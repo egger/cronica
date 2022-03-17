@@ -23,16 +23,17 @@ struct WatchlistSectionView: View {
                                 Button {
                                      
                                 } label: {
-                                    AsyncImage(url: item.image).scaledToFill()
+                                    AsyncImage(url: item.image) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        ProgressView(item.itemTitle)
+                                    }
                                 }
                                 .frame(width: 400, height: 320)
                                 .buttonStyle(CardButtonStyle())
                             }
-//                            Button(action: {}) {
-//                                AsyncImage(url: item.image)
-//                                    .frame(width: 400, height: 320)
-//                            }
-//                            .buttonStyle(CardButtonStyle())
                         }
                     }
                 }

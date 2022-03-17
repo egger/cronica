@@ -11,7 +11,12 @@ struct PersonView: View {
     let title: String
     let id: Int
     @State private var showingOverview: Bool = false
-    @StateObject private var viewModel = PersonViewModel()
+    @StateObject private var viewModel: PersonViewModel
+    init(title: String, id: Int) {
+        _viewModel = StateObject(wrappedValue: PersonViewModel())
+        self.title = title
+        self.id = id
+    }
     var body: some View {
         ScrollView {
             if let person = viewModel.person {
