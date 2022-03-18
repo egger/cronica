@@ -6,3 +6,4 @@
 
 Cronica is an app to remind you about your new movies, and tv shows.
 
+<img src="https://github.com/MadeiraAlexandre/Story/blob/main/Screenshots/Watchlist.png?raw=true" alt="Cronica Screenshot" width="260" height="500">
