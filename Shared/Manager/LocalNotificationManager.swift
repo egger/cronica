@@ -6,17 +6,24 @@
 //
 
 import Foundation
+import UserNotifications
 import SwiftUI
 
-class LocalNotificationManager: ObservableObject {
-    var notifications = [Notification]()
+class NotificationManager: ObservableObject {
+    static let shared = NotificationManager()
+    @Published var settings: UNNotificationSettings?
     
-    init() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            if granted == true && error == nil {
-                print("Notifications permitted")
-            } else {
-                print("Notifications not permitted")
+    func requestAuthorization(completion: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+            self.fetchNotificationSettings()
+            completion(granted)
+        }
+    }
+    
+    func fetchNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                self.settings = settings
             }
         }
     }

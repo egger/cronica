@@ -11,15 +11,17 @@ struct PosterView: View {
     let title: String
     let url: URL?
     var body: some View {
-        VStack {
-            AsyncImage(url: url) { image in
+        AsyncImage(url: url) { phase in
+            if let image = phase.image {
                 image
                     .resizable()
-                    .scaledToFill()
-            } placeholder: {
+                    .aspectRatio(contentMode: .fill)
+            } else if phase.error != nil {
+                Text(title)
+                    .foregroundColor(.secondary)
+            } else {
                 ZStack {
-                    Rectangle()
-                        .fill(.secondary)
+                    Rectangle().fill(.thickMaterial)
                     ProgressView(title)
                 }
             }

@@ -17,18 +17,18 @@ struct PersonCardView: View {
                 image
                     .resizable()
                     .scaledToFill()
-                Rectangle()
-                    .fill(.black.opacity(0.5))
-                    .overlay(.ultraThinMaterial)
+                Rectangle().fill(.ultraThickMaterial)
+                Color.black.opacity(0.6)
                 image
                     .resizable()
                     .scaledToFill()
-                    .mask {
-                        LinearGradient(gradient:
-                                        Gradient(colors: [.black, .black.opacity(0)]),
-                                       startPoint: .center,
-                                       endPoint: .bottom)
-                    }
+                    .mask(
+                        LinearGradient(gradient: Gradient(stops: [
+                            .init(color: .black, location: 0),
+                            .init(color: .black, location: 0.1),
+                            .init(color: .black.opacity(0), location: 1)
+                        ]), startPoint: .center, endPoint: .bottom)
+                    )
             } placeholder: {
                 ZStack {
                     Color.secondary

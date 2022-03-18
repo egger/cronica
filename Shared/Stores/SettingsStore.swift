@@ -13,7 +13,7 @@ final class SettingsStore: ObservableObject {
         static let notificationEnabled = "notifications_enabled"
         static let automaticallyNotifications = "automatically_notifications"
         static let userLoggedIn = "user_logged"
-        static let contentRegion = "content_region"
+        static let welcomeScreenDisplayed = "welcome_screen_displayed"
     }
     private let cancellable: Cancellable
     private let defaults: UserDefaults
@@ -25,7 +25,7 @@ final class SettingsStore: ObservableObject {
             Keys.notificationEnabled: true,
             Keys.automaticallyNotifications: true,
             Keys.userLoggedIn: false,
-            Keys.contentRegion: ContentRegion.enUS.rawValue
+            Keys.welcomeScreenDisplayed: false
         ])
         cancellable = NotificationCenter.default
             .publisher(for: UserDefaults.didChangeNotification)
@@ -45,33 +45,8 @@ final class SettingsStore: ObservableObject {
         set { defaults.set(newValue, forKey: Keys.userLoggedIn) }
         get { defaults.bool(forKey: Keys.userLoggedIn) }
     }
-    enum ContentRegion: String, CaseIterable {
-        case enUS = "en-US"
-        case ptBR = "pt-BR"
-        var title: String {
-            switch self {
-            case .enUS:
-                return "English (United States)"
-            case .ptBR:
-                return "Portuguese (Brazil)"
-            }
-        }
-        var region: String {
-            switch self {
-            case .enUS:
-               return "us"
-            case .ptBR:
-               return "br"
-            }
-        }
+    var isWelcomeScreenDisplayed: Bool {
+        set { defaults.set(newValue, forKey: Keys.welcomeScreenDisplayed) }
+        get { defaults.bool(forKey: Keys.welcomeScreenDisplayed) }
     }
-    var contentRegion: ContentRegion {
-            get {
-                return defaults.string(forKey: Keys.contentRegion)
-                    .flatMap { ContentRegion(rawValue: $0) } ?? .enUS
-            }
-            set {
-                defaults.set(newValue.rawValue, forKey: Keys.contentRegion)
-            }
-        }
 }

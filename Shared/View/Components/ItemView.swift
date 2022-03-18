@@ -27,7 +27,6 @@ struct ItemView: View {
                 CardImage(url: url)
             }
             
-            
             VStack(alignment: .leading) {
                 HStack {
                     Text(title)
@@ -72,7 +71,7 @@ private struct CardImage: View {
                 .scaledToFill()
         } placeholder: {
             ZStack {
-                Color.secondary
+                Rectangle().fill(.thickMaterial)
                 ProgressView()
             }
         }

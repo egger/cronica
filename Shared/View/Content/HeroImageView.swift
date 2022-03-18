@@ -17,7 +17,7 @@ struct HeroImageView: View {
                 .scaledToFill()
         } placeholder: {
             ZStack {
-                Color.secondary
+                Rectangle().fill(.thickMaterial)
                 ProgressView(title)
             }
         }
@@ -27,6 +27,7 @@ struct HeroImageView: View {
         .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                 radius: DrawingConstants.shadowRadius)
         .padding([.top, .bottom])
+        .accessibilityLabel("Hero image of \(title).")
     }
 }
 

@@ -26,7 +26,7 @@ struct CombinedCredits: Decodable {
 struct Filmography: Decodable, Identifiable {
     let id: Int
     private let title, character, overview: String?
-    private let backdropPath, posterPath, releaseDate: String?
+    private let backdropPath, posterPath, releaseDate, media_type: String?
 }
 
 extension Person {
@@ -53,6 +53,16 @@ extension Filmography {
             return Utilities.imageUrlBuilder(size: .medium, path: posterPath!)
         } else {
             return nil
+        }
+    }
+    var media: MediaType {
+        switch media_type {
+        case "movie":
+            return MediaType.movie
+        case "tv":
+            return MediaType.tvShow
+        default:
+            return MediaType.movie
         }
     }
 }

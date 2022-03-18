@@ -32,7 +32,7 @@ struct Episode: Identifiable, Decodable {
     let id: Int
     let airDate: String
     let episodeNumber: Int
-    //let crew, guestStars: [Person]
+    let crew, guestStars: [Person]?
     private let name, overview, stillPath: String?
     let seasonNumber: Int
 }
@@ -91,6 +91,16 @@ enum MediaType: String, CaseIterable, Identifiable {
             return 1
         case .person:
             return 2
+        }
+    }
+    var headline: String {
+        switch self {
+        case .movie:
+            return "Movies"
+        case .person:
+            return "Person"
+        case .tvShow:
+            return "Shows"
         }
     }
 }

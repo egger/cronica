@@ -23,15 +23,21 @@ struct ContentSection: Identifiable {
     var style: StyleType {
         switch endpoint {
         case .upcoming:
-            return StyleType.poster
-        case .popular:
             return StyleType.card
         case .latest:
             return StyleType.poster
         case .nowPlaying:
             return StyleType.poster
-        case .topRated:
-            return StyleType.poster
+        }
+    }
+    var headline: String {
+        switch endpoint {
+        case .upcoming:
+            return "Movies"
+        case .latest:
+            return "Movies"
+        case .nowPlaying:
+            return "Movies"
         }
     }
 }

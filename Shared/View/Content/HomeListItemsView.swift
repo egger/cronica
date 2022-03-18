@@ -15,24 +15,25 @@ struct HomeListItemsView: View {
     private var watchlistItems: FetchedResults<WatchlistItem>
     var body: some View {
         VStack {
-            VStack {
-                HStack {
-                    Text("Coming Soon")
-                        .font(.headline)
-                        .padding([.top, .horizontal])
-                    Spacer()
+            if !watchlistItems.isEmpty {
+                VStack {
+                    HStack {
+                        Text("Coming Soon")
+                            .font(.headline)
+                            .padding([.top, .horizontal])
+                        Spacer()
+                    }
+                    HStack {
+                        Text("From Watchlist")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal)
+                        Spacer()
+                    }
                 }
-                HStack {
-                    Text("From Watchlist")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal)
-                    Spacer()
-                }
-            }
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(watchlistItems.filter { $0.status == "Post Production"}) { item in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(watchlistItems.filter { $0.status == "Post Production"}) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.media)) {
                                 CardView(title: item.itemTitle, url: item.image)
                                     .padding([.leading, .trailing], 4)
@@ -41,8 +42,12 @@ struct HomeListItemsView: View {
                             .padding(.trailing, item.id == self.watchlistItems.last!.id ? 16 : 0)
                             .padding([.top, .bottom])
                         }
+                    }
                 }
+            } else {
+                EmptyView()
             }
+            
         }
     }
 }

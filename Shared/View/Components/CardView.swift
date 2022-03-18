@@ -39,26 +39,25 @@ private struct ImageView: View {
             AsyncImage(url: url) { image in
                 image
                     .resizable()
-                    .scaledToFill()
+                    .aspectRatio(contentMode: .fill)
             } placeholder: {
-                EmptyView()
+                Color.clear
             }
-            Rectangle().fill(.ultraThinMaterial)
-            Color.black.opacity(0.8)
-            
+            Rectangle().fill(.ultraThickMaterial)
+            Color.black.opacity(0.6)
             AsyncImage(url: url) { content in
                 content
                     .resizable()
-                    .scaledToFill()
-                    .mask {
-                        LinearGradient(gradient: Gradient(colors:
-                                                            [.black,
-                                                             .black.opacity(0)]),
-                                       startPoint: .center,
-                                       endPoint: .bottom)
-                    }
+                    .aspectRatio(contentMode: .fill)
+                    .mask(
+                        LinearGradient(gradient: Gradient(stops: [
+                            .init(color: .black, location: 0),
+                            .init(color: .black, location: 0.1),
+                            .init(color: .black.opacity(0), location: 1)
+                        ]), startPoint: .center, endPoint: .bottom)
+                    )
             } placeholder: {
-                ProgressView(title)
+                Rectangle().fill(.thickMaterial)
             }
         }
     }

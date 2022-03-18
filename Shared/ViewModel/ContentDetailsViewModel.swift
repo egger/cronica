@@ -26,20 +26,26 @@ import Foundation
         do {
             let content = try await self.service.fetchContent(id: id, type: type)
             phase = .success(content)
-            if context.isItemInList(id: content.id) {
-                inWatchlist.toggle()
-            }
+            inWatchlist = inList(id: content.id)
             print("Is \(content.itemTitle) added? \(inWatchlist)")
         } catch {
             phase = .failure(error)
         }
     }
     
+    func inList(id: Int) -> Bool {
+        if context.isItemInList(id: id) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     /// Adds the item to Watchlist.
-    /// - Parameter notify: Wherever is possible to notify user when a item is released.
-    func add(notify: Bool = false) {
+    /// - Parameter notify: Wherever is possible to notify user when an item is released.
+    func add() {
         if !context.isItemInList(id: content!.id) {
-            context.saveItem(content: content!, type: content!.itemContentMedia.watchlistInt, notify: notify)
+            context.saveItem(content: content!, type: content!.itemContentMedia.watchlistInt)
             inWatchlist.toggle()
             print("Added \(content!.itemTitle)")
         }

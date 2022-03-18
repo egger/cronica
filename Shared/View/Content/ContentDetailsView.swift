@@ -17,6 +17,7 @@ struct ContentDetailsView: View {
     @State private var isSharePresented: Bool = false
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationEnabled: Bool = false
+    @State private var isAdded: Bool = false
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
         self.title = title
@@ -47,24 +48,25 @@ struct ContentDetailsView: View {
                             if settings.isAutomaticallyNotification {
                                 isNotificationEnabled.toggle()
                             }
-                            viewModel.add(notify: settings.isAutomaticallyNotification)
+                            viewModel.add()
+                            withAnimation {
+                                isAdded.toggle()
+                            }
                         } else {
                             viewModel.remove()
+                            withAnimation {
+                                isAdded.toggle()
+                            }
                         }
                     } label: {
                         withAnimation {
-                            Label(!viewModel.inWatchlist ? "Add to watchlist" : "Remove from watchlist", systemImage: !viewModel.inWatchlist ? "plus.square" : "minus.square")
+                            Label(!isAdded ? "Add to watchlist" : "Remove from watchlist", systemImage: !isAdded ? "plus.square" : "minus.square")
                         }
                     }
                     .buttonStyle(.bordered)
-                    .tint(viewModel.inWatchlist ? .red : .blue)
-#if os(tvOS)
-#else
-                    //.controlSize(.large)
-#endif
+                    .tint(!isAdded ? .blue : .red)
+                    .controlSize(.large)
                     //MARK: About view
-#if os(tvOS)
-                    #else
                     GroupBox {
                         Text(content.itemAbout)
                             .padding([.top], 2)
@@ -72,7 +74,6 @@ struct ContentDetailsView: View {
                             .lineLimit(4)
                     } label: {
                         Label("About", systemImage: "film")
-                            .foregroundColor(.secondary)
                     }
                     .padding()
                     .onTapGesture {
@@ -84,7 +85,6 @@ struct ContentDetailsView: View {
                                 Text(content.itemAbout).padding()
                             }
                             .navigationTitle(content.itemTitle)
-#if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -93,28 +93,10 @@ struct ContentDetailsView: View {
                                     }
                                 }
                             }
-#endif
                         }
                     }
-#endif
                     if content.seasonsNumber > 0 {
                         SeasonListView(title: "Seasons", id: id, items: content.seasons!)
-                    }
-                    Section(header: Text("Review"), footer: Text("This helps fine tune your recommendations.")) {
-                        HStack {
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "hand.thumbsdown")
-                            }
-                            .tint(Color.red)
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "hand.thumbsup")
-                            }
-                            .tint(Color.green)
-                        }
                     }
                     if content.credits != nil {
                         PersonListView(credits: content.credits!)
@@ -130,32 +112,33 @@ struct ContentDetailsView: View {
                 }
             }
             .navigationTitle(title)
-#if os(iOS)
             .navigationBarTitleDisplayMode(.large)
-#endif
             .toolbar {
                 ToolbarItem {
                     HStack {
-                        Button {
+                        Button( action: {
+                            NotificationManager.shared.requestAuthorization { granted in
+                                if granted {
+                                    
+                                }
+                            }
                             isNotificationEnabled.toggle()
-                        } label: {
+                        }, label: {
                             withAnimation {
                                 Image(systemName: isNotificationEnabled ? "bell.fill" : "bell")
                             }
-                        }
+                        })
                         .help("Notify when released.")
                         .opacity(isNotificationAvailable ? 1 : 0)
-                        Button {
+                        Button(action: {
                             isSharePresented.toggle()
-                        } label: {
+                        }, label: {
                             Image(systemName: "square.and.arrow.up")
-                        }
+                        })
                     }
                 }
             }
-#if os(iOS)
             .sheet(isPresented: $isSharePresented, content: { ActivityViewController(itemsToShare: [title]) })
-#endif
         }
         .task {
             load()
@@ -166,6 +149,7 @@ struct ContentDetailsView: View {
     private func load() {
         Task {
             await self.viewModel.load(id: self.id, type: self.type)
+            isAdded = viewModel.inWatchlist
         }
     }
 }

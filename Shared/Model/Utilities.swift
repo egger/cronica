@@ -39,13 +39,6 @@ class Utilities {
               }
         return "\(langCode)-\(regionCode)"
     }()
-    static let userRegion: String = {
-        let locale = Locale.current
-        guard let regionCode = locale.regionCode else {
-            return "us"
-        }
-        return "\(regionCode)"
-    }()
     /// Builds a URL for a given image's path.
     /// - Parameters:
     ///   - size: Use ImageSize to select the returned image size.

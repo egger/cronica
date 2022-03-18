@@ -14,16 +14,15 @@ struct FilmographyListView: View {
             HStack {
                 Text("Filmography")
                     .font(.headline)
-                    .foregroundColor(.secondary)
                     .padding([.top, .horizontal])
                 Spacer()
             }
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
+                LazyHStack {
                     ForEach(filmography.prefix(10)) { item in
                         NavigationLink(destination: ContentDetailsView(title: item.itemTitle,
                                                                        id: item.id,
-                                                                       type: MediaType.movie)) {
+                                                                       type: item.media)) {
                             PosterView(title: item.itemTitle, url: item.image)
                                 .padding([.leading, .trailing], 4)
                         }

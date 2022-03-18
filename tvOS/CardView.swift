@@ -18,7 +18,6 @@ struct CardView: View {
         } placeholder: {
             Color.secondary
         }
-        .ignoresSafeArea(.all)
         .frame(width: DrawingConstants.cardWidth,
                height: DrawingConstants.cardHeight)
         .cornerRadius(DrawingConstants.cardRadius)

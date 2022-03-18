@@ -29,10 +29,8 @@ struct WatchlistView: View {
         NavigationView {
             if items.isEmpty {
                 VStack {
-                    Image(systemName: "square.stack.fill")
-                        .padding()
                     Text("Your list is empty.")
-                        .font(.title)
+                        .font(.headline)
                         .foregroundColor(.secondary)
                         .padding()
                 }
@@ -64,17 +62,17 @@ struct WatchlistView: View {
                 #if os(iOS)
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Menu {
-                            Picker("Sort Watchlist", selection: $selected) {
-                                ForEach(SelectionType.allCases) { selection in
-                                    Text(selection.rawValue.capitalized)
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
-                        }
-                    }
+//                    ToolbarItem(placement: .navigationBarLeading) {
+//                        Menu {
+//                            Picker("Sort Watchlist", selection: $selected) {
+//                                ForEach(SelectionType.allCases) { selection in
+//                                    Text(selection.rawValue.capitalized)
+//                                }
+//                            }
+//                        } label: {
+//                            Image(systemName: "line.3.horizontal.decrease.circle")
+//                        }
+//                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
                     }

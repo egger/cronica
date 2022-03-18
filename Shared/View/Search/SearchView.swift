@@ -53,7 +53,7 @@ struct SearchView: View {
                     AttributionView()
                 }
             } else {
-                ProgressView()
+                ProgressView("Searching")
             }
         case .success(let values) where values.isEmpty:
             Text("No Results")

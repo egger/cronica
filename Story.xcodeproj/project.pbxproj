@@ -55,7 +55,6 @@
 		B830FE2927DD9D9100450FD4 /* SeasonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */; };
 		B830FE2A27DD9D9400450FD4 /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463127D7C246009389FC /* SeasonListView.swift */; };
 		B830FE2C27DD9D9A00450FD4 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7651D27B753AE00D9B731 /* OverlayView.swift */; };
-		B830FE2D27DD9DA100450FD4 /* FilmographyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC464027D9A364009389FC /* FilmographyDetailsView.swift */; };
 		B830FE2E27DD9DA100450FD4 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271AC27A5CC2A00F6463F /* PersonCardView.swift */; };
 		B830FE2F27DD9DA100450FD4 /* FilmographyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84E8D6327BBE26E005185D3 /* FilmographyListView.swift */; };
 		B830FE3027DD9DA100450FD4 /* PersonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* PersonListView.swift */; };
@@ -110,6 +109,7 @@
 		B87B5CCD27999C5700632648 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CCB27999C5700632648 /* content.json */; };
 		B87B5CD42799AF3600632648 /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
 		B87B5CD52799AF3600632648 /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
+		B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8991C7C27E4B5D2001055CB /* WelcomeView.swift */; };
 		B8A3F48627A610AF005F2941 /* PersonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* PersonListView.swift */; };
 		B8A3F48727A610AF005F2941 /* PersonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* PersonListView.swift */; };
 		B8B271A427A59EF400F6463F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
@@ -152,8 +152,6 @@
 		B8EC463627D7E6F4009389FC /* SeasonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */; };
 		B8EC463827D7E9D7009389FC /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */; };
 		B8EC463927D7E9D7009389FC /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */; };
-		B8EC464127D9A364009389FC /* FilmographyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC464027D9A364009389FC /* FilmographyDetailsView.swift */; };
-		B8EC464227D9A364009389FC /* FilmographyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC464027D9A364009389FC /* FilmographyDetailsView.swift */; };
 		B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 		B8ED4C3E27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 /* End PBXBuildFile section */
@@ -212,6 +210,7 @@
 		B87B5CB92798D81C00632648 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		B87B5CCB27999C5700632648 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		B87B5CD32799AF3600632648 /* Attribution.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Attribution.xcassets; sourceTree = "<group>"; };
+		B8991C7C27E4B5D2001055CB /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* PersonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonListView.swift; sourceTree = "<group>"; };
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8B271A527A5A18C00F6463F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -237,7 +236,6 @@
 		B8EC463127D7C246009389FC /* SeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonListView.swift; sourceTree = "<group>"; };
 		B8EC463427D7E6F4009389FC /* SeasonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonDetailsView.swift; sourceTree = "<group>"; };
 		B8EC463727D7E9D7009389FC /* SeasonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonViewModel.swift; sourceTree = "<group>"; };
-		B8EC464027D9A364009389FC /* FilmographyDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyDetailsView.swift; sourceTree = "<group>"; };
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -343,6 +341,7 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
 				B8EC463E27D84C62009389FC /* Components */,
 				B8EC45E227D59C14009389FC /* Content */,
@@ -474,7 +473,6 @@
 		B8EC45E127D59BD7009389FC /* Person */ = {
 			isa = PBXGroup;
 			children = (
-				B8EC464027D9A364009389FC /* FilmographyDetailsView.swift */,
 				B84E8D6327BBE26E005185D3 /* FilmographyListView.swift */,
 				B8B271AC27A5CC2A00F6463F /* PersonCardView.swift */,
 				B8A3F48527A610AF005F2941 /* PersonListView.swift */,
@@ -716,7 +714,6 @@
 				B8CC953027D03BBE00B6757C /* ContentListView.swift in Sources */,
 				B8B271AD27A5CC2A00F6463F /* PersonCardView.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ContentDetailsView.swift in Sources */,
-				B8EC464127D9A364009389FC /* FilmographyDetailsView.swift in Sources */,
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
 				B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */,
 				B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
@@ -747,6 +744,7 @@
 				B8EC462527D697D8009389FC /* HeroImageView.swift in Sources */,
 				B82C26922796452A00259D98 /* Preview.swift in Sources */,
 				B8B271A627A5A18C00F6463F /* DataController.swift in Sources */,
+				B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */,
 				B8A3F48627A610AF005F2941 /* PersonListView.swift in Sources */,
 				B8EC462227D69464009389FC /* ActivityViewController.swift in Sources */,
 				B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */,
@@ -767,7 +765,6 @@
 				B8110EE9279245D100844FEB /* StoryApp.swift in Sources */,
 				B8CC952B27D02C5700B6757C /* ContentDetailsView.swift in Sources */,
 				B8D8AF9027D4D0550042AEB6 /* AttributionView.swift in Sources */,
-				B8EC464227D9A364009389FC /* FilmographyDetailsView.swift in Sources */,
 				B8B271AE27A5CC2A00F6463F /* PersonCardView.swift in Sources */,
 				B8D8AF9327D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
 				B8CC952227CFEBEC00B6757C /* SearchView.swift in Sources */,
@@ -841,7 +838,6 @@
 				B830FE2527DD9D8500450FD4 /* HeroImageView.swift in Sources */,
 				B830FE7B27DE218E00450FD4 /* ContentView.swift in Sources */,
 				B830FE3127DD9DA100450FD4 /* PersonView.swift in Sources */,
-				B830FE2D27DD9DA100450FD4 /* FilmographyDetailsView.swift in Sources */,
 				B830FE2127DD9D7800450FD4 /* ItemView.swift in Sources */,
 				B830FE3A27DD9DB300450FD4 /* SearchViewModel.swift in Sources */,
 				B830FE1A27DD9D5700450FD4 /* NetworkService.swift in Sources */,
@@ -1016,22 +1012,22 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1051,22 +1047,22 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

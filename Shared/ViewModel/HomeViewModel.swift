@@ -10,8 +10,7 @@ import Foundation
 @MainActor class HomeViewModel: ObservableObject {
     @Published private(set) var moviePhase: DataFetchPhase<[ContentSection]> = .empty
     @Published private(set) var tvPhase: DataFetchPhase<[ContentSection]> = .empty
-    @Published private(set) var trendingMovies: DataFetchPhase<[ContentResponse]> = .empty
-    @Published private(set) var trendingTv: DataFetchPhase<[ContentResponse]> = .empty
+    @Published private(set) var trendingPhase: DataFetchPhase<[Content]> = .empty
     private let service: NetworkService = NetworkService.shared
     var moviesSections: [ContentSection] {
         moviePhase.value ?? []
@@ -19,17 +18,15 @@ import Foundation
     var tvSections: [ContentSection] {
         tvPhase.value ?? []
     }
-    var trendingMoviesSection: [ContentResponse] {
-        trendingMovies.value ?? []
-    }
-    var trendingTvSection: [ContentResponse] {
-        trendingTv.value ?? []
+    var trendingSection: [Content] {
+        trendingPhase.value ?? []
     }
     
     func loadSections() async {
         Task {
             await loadMovies()
             await loadTv()
+            await loadTrending()
         }
     }
     
@@ -69,16 +66,21 @@ import Foundation
         }
     }
     
-    private func loadTrendingMovies() async {
-        if Task.isCancelled {
-            return
-        }
-        if case .success = trendingMovies {
-            return
-        }
-        trendingMovies = .empty
+    func loadTrending() async {
+        if Task.isCancelled { return }
+        if case .success = trendingPhase { return }
+        trendingPhase = .empty
         do {
-            //let trending = try await service.fetchContents(from: <#T##ContentEndpoints#>, type: <#T##MediaType#>)
+            let trending = try await self.service.fetchContents(from: "trending/all/week")
+            if Task.isCancelled { return }
+            let trendings = trending.filter { $0.itemContentMedia != .movie || $0.itemContentMedia != .tvShow}
+//            try {
+//                var trendings = trending.filter { $0.itemContentMedia != .movie || $0.itemContentMedia != .tvShow}
+//            }
+            trendingPhase = .success(trendings)
+        } catch {
+            if Task.isCancelled { return }
+            trendingPhase = .failure(error)
         }
     }
     
@@ -114,7 +116,10 @@ import Foundation
     
     private func fetchFrom(_ endpoint: ContentEndpoints, type: MediaType) async -> Result<ContentSection, Error> {
         do {
-            let section = try await service.fetchContents(from: endpoint, type: type)
+            //"\(type)/\(path)"
+            let section = try await service.fetchContents(from: "\(type.rawValue)/\(endpoint.rawValue)")
+            //let section = try await service.fetchContents(from: "\(endpoint.rawValue), type: type.rawValue)
+            //let section = try await service.fetchContents(from: endpoint.rawValue, type: type.rawValue)
             return .success(.init(results: section, endpoint: endpoint))
         } catch {
             return .failure(error)

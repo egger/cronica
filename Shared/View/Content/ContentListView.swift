@@ -22,7 +22,7 @@ struct ContentListView: View {
                     Spacer()
                 }
                 HStack {
-                    Text(NSLocalizedString(type.title, comment: ""))
+                    Text(NSLocalizedString(type.headline, comment: ""))
                         .foregroundColor(.secondary)
                         .font(.caption)
                         .padding(.horizontal)

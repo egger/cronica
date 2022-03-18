@@ -19,6 +19,36 @@ struct HomeView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     HomeListItemsView()
+                    if !viewModel.trendingSection.isEmpty {
+                        VStack {
+                            HStack {
+                                Text(NSLocalizedString("Trending", comment: ""))
+                                    .font(.headline)
+                                    .padding([.horizontal, .top])
+                                Spacer()
+                            }
+                            HStack {
+                                Text(NSLocalizedString("This week", comment: ""))
+                                    .foregroundColor(.secondary)
+                                    .font(.caption)
+                                    .padding(.horizontal)
+                                Spacer()
+                            }
+                        }
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(viewModel.trendingSection) { item in
+                                    NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
+                                        PosterView(title: item.itemTitle, url: item.posterImageMedium)
+                                            .padding([.leading, .trailing], 4)
+                                    }
+                                    .padding(.leading, item.id == viewModel.trendingSection.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == viewModel.trendingSection.last!.id ? 16 : 0)
+                                    .padding([.top, .bottom])
+                                }
+                            }
+                        }
+                    }
                     ForEach(viewModel.moviesSections) {
                         ContentListView(style: $0.style, type: MediaType.movie, title: $0.title, items: $0.results)
                     }
@@ -81,29 +111,21 @@ private struct AccountFormView: View {
     @EnvironmentObject var settings: SettingsStore
     var body: some View {
         Form {
-            Section(header: Text("Account"), footer: Text("Log in with your TMDB Account to sync watchlist, and recommendations.")) {
-                Button {
-                    
-                } label: {
-                    Label("Log In", systemImage: "person.crop.circle")
-                }
-                if settings.isUserLogged {
-                    Button("Log off", role: .destructive) {
-                        
-                    }
-                }
-            }
+//            Section(header: Text("Account"), footer: Text("Log in with your TMDB Account to sync watchlist, and recommendations.")) {
+//                Button {
+//
+//                } label: {
+//                    Label("Log In", systemImage: "person.crop.circle")
+//                }
+//                if settings.isUserLogged {
+//                    Button("Log off", role: .destructive) {
+//
+//                    }
+//                }
+//            }
             Section(header: Text("Settings")) {
                 Toggle(isOn: $settings.isAutomaticallyNotification) {
                     Text("Notify Automatically")
-                }
-                Picker(selection: $settings.contentRegion, label: Text("Content Region")) {
-                    ForEach(SettingsStore.ContentRegion.allCases, id: \.self) {
-                        Text($0.title).tag($0)
-                    }
-                    #if os(iOS)
-                    .listStyle(.grouped)
-                    #endif
                 }
             }
             Section(header: Text("Support")) {

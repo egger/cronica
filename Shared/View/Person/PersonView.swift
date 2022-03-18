@@ -26,11 +26,7 @@ struct PersonView: View {
                             .resizable()
                             .scaledToFill()
                     } placeholder: {
-                        ZStack {
-                            Rectangle()
-                                .fill(.secondary)
-                            ProgressView()
-                        }
+                        ProgressView(title)
                     }
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
@@ -46,7 +42,6 @@ struct PersonView: View {
                                 .lineLimit(DrawingConstants.biographyLineLimits)
                         } label: {
                             Label("Biography", systemImage: "book")
-                                .foregroundColor(.secondary)
                         }
                         .onTapGesture {
                             showingOverview.toggle()

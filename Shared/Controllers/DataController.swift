@@ -20,7 +20,6 @@ class DataController: ObservableObject {
             newItem.title = item.itemTitle
             newItem.id = Int32(item.id)
             newItem.image = item.cardImageMedium
-            newItem.notify = Bool.random()
             newItem.type = "Movie"
         }
         do {
@@ -56,7 +55,7 @@ class DataController: ObservableObject {
     }
     
     /// Adds a new item to Watchlist Core Data.
-    func saveItem(content: Content, type: Int, notify: Bool) {
+    func saveItem(content: Content, type: Int) {
         let viewContext = DataController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.title = content.itemTitle
@@ -64,7 +63,6 @@ class DataController: ObservableObject {
         item.image = content.cardImageMedium
         item.status = content.itemStatus
         item.contentType = Int16(type)
-        item.notify = notify
         do {
             try viewContext.save()
         } catch {
