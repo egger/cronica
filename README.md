@@ -9,5 +9,5 @@
 </p>
 
 <p align="center">
-    <img src="https://github.com/MadeiraAlexandre/Story/blob/main/Screenshots/Screen.png?raw=true" alt="Cronica Screenshot" minWidth="560" height="500">
+    <img src="https://github.com/MadeiraAlexandre/Story/blob/main/Screenshots/Screen.png?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
 </p>
