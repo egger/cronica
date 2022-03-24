@@ -9,17 +9,14 @@ import Foundation
 import CoreData
 
 extension WatchlistItem {
-    enum SortOrder: String, CaseIterable, Identifiable {
-        case release, date
-        var id: String { self.rawValue }
-    }
     var itemTitle: String {
-        title ?? NSLocalizedString("No title available", comment: "Title couldn't be found.")
+        title ?? NSLocalizedString("No title available",
+                                   comment: "Title couldn't be found.")
     }
     var itemId: Int {
         Int(id)
     }
-    var media: MediaType {
+    var itemMedia: MediaType {
         switch contentType {
         case 0:
             return MediaType.movie

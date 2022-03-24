@@ -12,6 +12,16 @@ struct WelcomeView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Spacer()
+                HStack {
+                    Spacer()
+                    Image("Icon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .padding()
+                    Spacer()
+                }
+                .padding(.top)
                 VStack(alignment: .center) {
                     HStack {
                         Spacer()
@@ -32,15 +42,16 @@ struct WelcomeView: View {
                 Spacer(minLength: 30)
                 HStack {
                     Spacer()
-                    Button(action: {
-                        let generator = UINotificationFeedbackGenerator()
-                        generator.notificationOccurred(.success)
-                    }) {
-                        Text("Continue")
+                    NavigationLink(destination: ContentView()) {
+                        Button {
+                            
+                        } label: {
+                            Text("Continue")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
+                        .padding()
                     }
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
-                    .padding(.horizontal)
                     Spacer()
                 }
                 .padding()
@@ -64,7 +75,7 @@ private struct InformationContainerView: View {
             
             InformationDetailView(title: "Never miss out", subTitle: "Get notifications about the newest releases.", imageName: "bell.circle.fill")
             
-            InformationDetailView(title: "Organize", subTitle: "Keep every item organized inside the Watchlist.", imageName: "folder.circle.fill")
+            InformationDetailView(title: "Organize", subTitle: "Keep everything organized inside the Watchlist.", imageName: "folder.circle.fill")
         }
         .padding(.horizontal)
     }
@@ -78,8 +89,6 @@ private struct InformationDetailView: View {
         HStack(alignment: .center) {
             Image(systemName: imageName)
                 .font(.largeTitle)
-                .foregroundColor(.blue)
-//                .foregroundColor(Color(red: 0.929, green: 0.706, blue: 0.698, opacity: 1.000))
                 .padding()
                 .accessibility(hidden: true)
             
@@ -88,7 +97,6 @@ private struct InformationDetailView: View {
                     .font(.headline)
                     .foregroundColor(.primary)
                     .accessibility(addTraits: .isHeader)
-                //.padding(.bottom, 2)
                 
                 Text(subTitle)
                     .font(.body)

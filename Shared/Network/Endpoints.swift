@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ContentEndpoints: String, CaseIterable, Identifiable {
+enum Endpoints: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case upcoming, latest
     case nowPlaying = "now_playing"

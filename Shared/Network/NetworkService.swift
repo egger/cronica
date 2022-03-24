@@ -10,58 +10,38 @@ import Foundation
 class NetworkService {
     static let shared = NetworkService()
     
-    /// Fetch a single content from a given Id and media type.
     func fetchContent(id: Content.ID, type: MediaType) async throws -> Content {
-        guard let url = urlBuilder(path: "\(type.rawValue)/\(id)",
-                                   params: ["append_to_response":"credits,recommendations"],
-                                   langCode: ["language":"\(Utilities.userLang)"]
-        ) else {
+        guard let url = urlBuilder(path: "\(type.rawValue)/\(id)", append: type.append) else {
             throw NetworkError.invalidEndpoint
         }
-        print(url)
         return try await self.fetch(url: url)
     }
     
     func fetchSeason(id: Int, season: Int) async throws -> Season {
-        guard let url = urlBuilder(path: "\(MediaType.tvShow.rawValue)/\(id)/season/\(season)",
-                                   langCode: ["language":"en-US"]
-        ) else {
+        guard let url = urlBuilder(path: "\(MediaType.tvShow.rawValue)/\(id)/season/\(season)") else {
             throw NetworkError.invalidEndpoint
         }
-        print(url)
         return try await self.fetch(url: url)
     }
     
-    /// Fetch a list of content from a given endpoint.
     func fetchContents(from path: String) async throws -> [Content] {
-        guard let url = urlBuilder(path: "\(path)",
-                                   langCode: ["language":"\(Utilities.userLang)"]) else {
+        guard let url = urlBuilder(path: path) else {
             throw NetworkError.invalidEndpoint
         }
-        print(url)
         let response: ContentResponse = try await self.fetch(url: url)
         return response.results
     }
     
     func fetchPerson(id: Person.ID) async throws -> Person {
-        guard let url = urlBuilder(path: "person/\(id)",
-                                   params: ["append_to_response":"combined_credits"],
-                                   langCode: ["language":"\(Utilities.userLang)"]
-        ) else {
+        guard let url = urlBuilder(path: "person/\(id)", append: "combined_credits")
+        else {
             throw NetworkError.invalidEndpoint
         }
         return try await self.fetch(url: url)
     }
     
     func search(query: String) async throws -> [Content] {
-        guard let url = urlBuilder(path: "search/multi",
-                                   params: [
-                                    "language":"\(Utilities.userLang)",
-                                    "include_adult":"false",
-                                    "query":"\(query)"
-                                   ],
-                                   langCode: ["language":"\(Utilities.userLang)"]
-        ) else {
+        guard let url = urlBuilder(path: "search/multi", query: query) else {
             throw NetworkError.invalidEndpoint
         }
         let results: ContentResponse = try await self.fetch(url: url)
@@ -70,7 +50,6 @@ class NetworkService {
     
     private func fetch<T: Decodable>(url: URL) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: url)
-        
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
                   throw NetworkError.invalidResponse
@@ -82,21 +61,41 @@ class NetworkService {
     /// Build a safe URL for the TMDB API Service.
     /// - Parameters:
     ///   - path: Content type and the ID for the content.
-    ///   - params: Additional information to display in the Details' pages.
+    ///   - append: Additional information to display in the Details' pages.
+    ///   - query: The query for the search functionality.
     /// - Returns: A safe URL, can be nil.
-    private func urlBuilder(path: String, params: [String:String]? = nil, langCode: [String:String]? = nil) -> URL? {
+    private func urlBuilder(path: String, append: String? = nil, query: String? = nil) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"
         component.path = "/3/\(path)"
-        var queryItems = [URLQueryItem(name: "api_key", value: Key.keyV3)]
-        if let langCode = langCode {
-            queryItems.append(contentsOf: langCode.map { URLQueryItem(name: $0.key, value: $0.value) })
+        if let append = append {
+            component.queryItems = [
+                .init(name: "api_key", value: Key.keyV3),
+                .init(name: "language", value: Utilities.userLang),
+                .init(name: "append_to_response", value: append)
+            ]
         }
-        if let params = params {
-            queryItems.append(contentsOf: params.map { URLQueryItem(name: $0.key, value: $0.value) })
+        else {
+            component.queryItems = [
+                .init(name: "api_key", value: Key.keyV3),
+                .init(name: "language", value: Utilities.userLang)
+            ]
         }
-        component.queryItems = queryItems
+        if let query = query {
+            component.queryItems = [
+                .init(name: "api_key", value: Key.keyV3),
+                .init(name: "language", value: Utilities.userLang),
+                .init(name: "query", value: query),
+                .init(name: "include_adult", value: "false"),
+                .init(name: "region", value: Utilities.userRegion)
+            ]
+        }
+        print(component.url as Any)
         return component.url
     }
+}
+
+enum NetworkError: Error, CustomNSError {
+    case invalidResponse, invalidRequest, invalidEndpoint, decodingError
 }

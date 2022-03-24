@@ -11,6 +11,12 @@ struct HomeView: View {
     static let tag: String? = "Home"
     @StateObject private var viewModel: HomeViewModel
     @State private var showAccount: Bool = false
+    @State private var showWelcomeScreen: Bool = true
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
+        animation: .default)
+    private var watchlistItems: FetchedResults<WatchlistItem>
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
     }
@@ -18,7 +24,36 @@ struct HomeView: View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    HomeListItemsView()
+                    if !watchlistItems.isEmpty {
+                        VStack {
+                            HStack {
+                                Text("Coming Soon")
+                                    .font(.headline)
+                                    .padding([.top, .horizontal])
+                                Spacer()
+                            }
+                            HStack {
+                                Text("From Watchlist")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal)
+                                Spacer()
+                            }
+                        }
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(watchlistItems.filter { $0.status == "Post Production"}) { item in
+                                    NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
+                                        PosterView(title: item.itemTitle, url: item.poster)
+                                            .padding([.leading, .trailing], 4)
+                                    }
+                                    .padding(.leading, item.id == self.watchlistItems.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == self.watchlistItems.last!.id ? 16 : 0)
+                                    .padding([.top, .bottom])
+                                }
+                            }
+                        }
+                    }
                     if !viewModel.trendingSection.isEmpty {
                         VStack {
                             HStack {
@@ -38,7 +73,7 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(viewModel.trendingSection) { item in
-                                    NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
+                                    NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
                                         PosterView(title: item.itemTitle, url: item.posterImageMedium)
                                             .padding([.leading, .trailing], 4)
                                     }
@@ -64,17 +99,19 @@ struct HomeView: View {
                             showAccount.toggle()
                         } label: {
                             Label("Account", systemImage: "person.crop.circle")
+                                
                         }
                     }
                 }
+                .sheet(isPresented: $showWelcomeScreen) {
+                    WelcomeView()
+                }
                 .sheet(isPresented: $showAccount) {
                     NavigationView {
-                        AccountFormView()
+                        AccountView()
                             .environmentObject(SettingsStore())
                             .navigationTitle("Account")
-                        #if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
-                        #endif
                             .toolbar {
                                 ToolbarItem {
                                     Button("Done") {
@@ -84,9 +121,7 @@ struct HomeView: View {
                             }
                     }
                 }
-                .task {
-                    load()
-                }
+                .task { load() }
             }
         }
         
@@ -95,7 +130,7 @@ struct HomeView: View {
     @Sendable
     private func load() {
         Task {
-            await viewModel.loadSections()
+            await viewModel.load()
         }
     }
 }
@@ -103,55 +138,5 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-    }
-}
-
-private struct AccountFormView: View {
-    @State private var easterEgg: Bool = false
-    @EnvironmentObject var settings: SettingsStore
-    var body: some View {
-        Form {
-//            Section(header: Text("Account"), footer: Text("Log in with your TMDB Account to sync watchlist, and recommendations.")) {
-//                Button {
-//
-//                } label: {
-//                    Label("Log In", systemImage: "person.crop.circle")
-//                }
-//                if settings.isUserLogged {
-//                    Button("Log off", role: .destructive) {
-//
-//                    }
-//                }
-//            }
-            Section(header: Text("Settings")) {
-                Toggle(isOn: $settings.isAutomaticallyNotification) {
-                    Text("Notify Automatically")
-                }
-            }
-            Section(header: Text("Support")) {
-                Button {
-                    
-                } label: {
-                    Label("Send email", systemImage: "envelope.badge")
-                }
-                Button {
-                    
-                } label: {
-                    Label("Privacy Policy", systemImage: "hand.raised")
-                }
-            }
-            HStack {
-                Spacer()
-                Text(easterEgg ? "🇧🇷" : "Made in Brazil")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                #if os(iOS)
-                    .onTapGesture {
-                        easterEgg.toggle()
-                    }
-                #endif
-                Spacer()
-            }
-        }
     }
 }

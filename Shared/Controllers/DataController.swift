@@ -20,7 +20,9 @@ class DataController: ObservableObject {
             newItem.title = item.itemTitle
             newItem.id = Int32(item.id)
             newItem.image = item.cardImageMedium
+            newItem.poster = item.posterImageMedium
             newItem.type = "Movie"
+            newItem.notify = Bool.random()
         }
         do {
             try viewContext.save()
@@ -55,13 +57,15 @@ class DataController: ObservableObject {
     }
     
     /// Adds a new item to Watchlist Core Data.
-    func saveItem(content: Content, type: Int) {
+    func saveItem(content: Content, type: Int, notify: Bool = false) {
         let viewContext = DataController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.title = content.itemTitle
         item.id = Int32(content.id)
         item.image = content.cardImageMedium
+        item.poster = content.posterImageMedium
         item.status = content.itemStatus
+        item.notify = notify
         item.contentType = Int16(type)
         do {
             try viewContext.save()
@@ -70,9 +74,18 @@ class DataController: ObservableObject {
         }
     }
     
-    func updateItem(content: Content) {
-        
-    }
+//    func updateItem(content: Content, notify: Bool = false) {
+//        do {
+//            let item = try self.getItem(id: WatchlistItem.ID(content.id))
+//            item.image = content.cardImageMedium
+//            item.poster = content.posterImageMedium
+//            item.status = content.itemStatus
+//            item.notify = notify
+//            try DataController.shared.container.viewContext.save()
+//        } catch {
+//            fatalError("Fatal error on updating a new item, error: \(error.localizedDescription).")
+//        }
+//    }
     
     /// Deletes a WatchlistItem from Core Data.
     /// - Parameter id: Use a WatchlistItem to search its' existence in Core Data, and then delete it.

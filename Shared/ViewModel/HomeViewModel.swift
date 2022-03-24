@@ -22,69 +22,51 @@ import Foundation
         trendingPhase.value ?? []
     }
     
-    func loadSections() async {
+    func load() async {
         Task {
-            await loadMovies()
-            await loadTv()
-            await loadTrending()
+            if Task.isCancelled { return }
+            if case .success = moviePhase { return }
+            moviePhase = .empty
+            do {
+                let movieSections = try await fetchEndpoints(type: MediaType.movie)
+                if Task.isCancelled { return }
+                moviePhase = .success(movieSections)
+            } catch {
+                if Task.isCancelled { return }
+                moviePhase = .failure(error)
+            }
+        }
+        Task {
+            if Task.isCancelled { return }
+            if case .success = tvPhase { return }
+            tvPhase = .empty
+            do {
+                let tvSections = try await fetchEndpoints(type: MediaType.tvShow)
+                if Task.isCancelled { return }
+                tvPhase = .success(tvSections)
+            } catch {
+                if Task.isCancelled { return }
+                tvPhase = .failure(error)
+            }
+        }
+        Task {
+            if Task.isCancelled { return }
+            if case .success = trendingPhase { return }
+            trendingPhase = .empty
+            do {
+                let trending = try await self.service.fetchContents(from: "trending/all/week")
+                if Task.isCancelled { return }
+                let trendings = trending.filter { $0.itemContentMedia != .movie || $0.itemContentMedia != .tvShow}
+                trendingPhase = .success(trendings)
+            } catch {
+                if Task.isCancelled { return }
+                trendingPhase = .failure(error)
+            }
         }
     }
     
-    private func loadMovies() async {
-        if Task.isCancelled {
-            return
-        }
-        if case .success = moviePhase {
-            return
-        }
-        moviePhase = .empty
-        do {
-            let movieSections = try await fetchEndpoints(type: MediaType.movie)
-            if Task.isCancelled { return }
-            moviePhase = .success(movieSections)
-        } catch {
-            if Task.isCancelled { return }
-            moviePhase = .failure(error)
-        }
-    }
-    
-    private func loadTv() async {
-        if Task.isCancelled {
-            return
-        }
-        if case .success = tvPhase {
-            return
-        }
-        tvPhase = .empty
-        do {
-            let tvSections = try await fetchEndpoints(type: MediaType.tvShow)
-            if Task.isCancelled { return }
-            tvPhase = .success(tvSections)
-        } catch {
-            if Task.isCancelled { return }
-            tvPhase = .failure(error)
-        }
-    }
-    
-    func loadTrending() async {
-        if Task.isCancelled { return }
-        if case .success = trendingPhase { return }
-        trendingPhase = .empty
-        do {
-            let trending = try await self.service.fetchContents(from: "trending/all/week")
-            if Task.isCancelled { return }
-            let trendings = trending.filter { $0.itemContentMedia != .movie || $0.itemContentMedia != .tvShow}
-//            try {
-//                var trendings = trending.filter { $0.itemContentMedia != .movie || $0.itemContentMedia != .tvShow}
-//            }
-            trendingPhase = .success(trendings)
-        } catch {
-            if Task.isCancelled { return }
-            trendingPhase = .failure(error)
-        }
-    }
-    
-    private func fetchEndpoints(_ endpoint: [ContentEndpoints] = ContentEndpoints.allCases, type: MediaType) async throws -> [ContentSection] {
+    private func fetchEndpoints(_ endpoint: [Endpoints] = Endpoints.allCases,
+                                type: MediaType) async throws -> [ContentSection] {
         let results: [Result<ContentSection, Error>] = await withTaskGroup(of: Result<ContentSection, Error>.self) { group in
             for endpoint in endpoint {
                 group.addTask { await self.fetchFrom(endpoint, type: type) }
@@ -114,12 +96,9 @@ import Foundation
         return sections.sorted { $0.endpoint.sortIndex < $1.endpoint.sortIndex }
     }
     
-    private func fetchFrom(_ endpoint: ContentEndpoints, type: MediaType) async -> Result<ContentSection, Error> {
+    private func fetchFrom(_ endpoint: Endpoints, type: MediaType) async -> Result<ContentSection, Error> {
         do {
-            //"\(type)/\(path)"
             let section = try await service.fetchContents(from: "\(type.rawValue)/\(endpoint.rawValue)")
-            //let section = try await service.fetchContents(from: "\(endpoint.rawValue), type: type.rawValue)
-            //let section = try await service.fetchContents(from: endpoint.rawValue, type: type.rawValue)
             return .success(.init(results: section, endpoint: endpoint))
         } catch {
             return .failure(error)

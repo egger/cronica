@@ -12,27 +12,24 @@ struct InformationView: View {
     var body: some View {
         GroupBox {
             Section {
-                if !item.itemRuntime.isEmpty {
-                    InformationSectionView(title: NSLocalizedString("Run Time", comment: ""),
-                                           content: item.itemRuntime)
-                }
-                if !item.itemReleaseDate.isEmpty {
-                    InformationSectionView(title: NSLocalizedString("Release Date:", comment: ""),
-                                           content: item.itemReleaseDate)
-                }
-                if !item.itemStatus.isEmpty {
-                    InformationSectionView(title: NSLocalizedString("Status", comment: ""),
-                                           content: item.itemStatus)
-                }
-                if !item.itemGenre.isEmpty {
-                    InformationSectionView(title: NSLocalizedString("Genre", comment: ""), content: item.itemGenre)
-                }
-                if !item.itemCountry.isEmpty {
-                    InformationSectionView(title: NSLocalizedString("Region of Origin", comment: ""), content: item.itemCountry)
-                }
-                if !item.itemProduction.isEmpty {
-                    InformationSectionView(title: NSLocalizedString("Production Company", comment: ""), content: item.itemProduction)
-                }
+                SectionView(title: NSLocalizedString("Run Time",
+                                                     comment: ""),
+                                       content: item.itemRuntime)
+                SectionView(title: NSLocalizedString("Release Date:",
+                                                     comment: ""),
+                                       content: item.itemReleaseDate)
+                SectionView(title: NSLocalizedString("Status",
+                                                     comment: ""),
+                                       content: item.itemStatus)
+                SectionView(title: NSLocalizedString("Genre",
+                                                     comment: ""),
+                            content: item.itemGenre)
+                SectionView(title: NSLocalizedString("Region of Origin",
+                                                     comment: ""),
+                            content: item.itemCountry)
+                SectionView(title: NSLocalizedString("Production Company",
+                                                     comment: ""),
+                            content: item.itemCompany)
             }
         } label: {
             Label("Information", systemImage: "info")
@@ -47,7 +44,7 @@ struct InformationBoxView_Previews: PreviewProvider {
     }
 }
 
-struct InformationSectionView: View {
+private struct SectionView: View {
     let title: String
     let content: String
     var body: some View {

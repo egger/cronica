@@ -11,6 +11,7 @@ struct ItemView: View {
     let title: String
     let url: URL?
     let type: MediaType
+    let subtitle: String = ""
     let inSearch: Bool
     var body: some View {
         HStack {
@@ -38,6 +39,7 @@ struct ItemView: View {
                         .foregroundColor(.secondary)
                     Spacer()
                 }
+                
             }
         }
     }

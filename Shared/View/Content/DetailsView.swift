@@ -1,5 +1,5 @@
 //
-//  ContentDetailsView.swift
+//  DetailsView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 02/03/22.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct ContentDetailsView: View {
+struct DetailsView: View {
     var title: String
     var id: Int
     var type: MediaType
-    @StateObject private var viewModel: ContentDetailsViewModel
+    @StateObject private var viewModel: DetailsViewModel
     @ObservedObject private var settings: SettingsStore = SettingsStore()
     @State private var isAboutPresented: Bool = false
     @State private var isSharePresented: Bool = false
     @State private var isNotificationAvailable: Bool = false
-    @State private var isNotificationEnabled: Bool = false
-    @State private var isAdded: Bool = false
+    @State private var isNotificationScheduled: Bool = false
+    @State private var isInWatchlist: Bool = false
     init(title: String, id: Int, type: MediaType) {
-        _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
+        _viewModel = StateObject(wrappedValue: DetailsViewModel())
         self.title = title
         self.id = id
         self.type = type
@@ -28,7 +28,33 @@ struct ContentDetailsView: View {
         ScrollView {
             VStack {
                 if let content = viewModel.content {
-                    HeroImageView(title: content.itemTitle, url: content.cardImageLarge)
+                    //MARK: Hero Image
+                    AsyncImage(url: content.cardImageLarge) { phase in
+                        if let image = phase.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } else if phase.error != nil {
+                            ZStack {
+                                Rectangle().fill(.secondary)
+                                Text(content.itemTitle)
+                                    .foregroundColor(.secondary)
+                            }
+                        } else {
+                            ZStack {
+                                Rectangle().fill(.thickMaterial)
+                                ProgressView(content.itemTitle)
+                            }
+                        }
+                    }
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                    .cornerRadius(DrawingConstants.imageRadius)
+                    .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                            radius: DrawingConstants.shadowRadius)
+                    .padding([.top, .bottom])
+                    .accessibilityLabel("Hero image of \(content.itemTitle).")
+                    //MARK: Quick glance info
                     if !content.itemInfo.isEmpty {
                         Text(content.itemInfo)
                             .font(.caption)
@@ -45,26 +71,29 @@ struct ContentDetailsView: View {
                         generator.impactOccurred(intensity: 1.0)
 #endif
                         if !viewModel.inWatchlist {
-                            if settings.isAutomaticallyNotification {
-                                isNotificationEnabled.toggle()
+                            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                                if settings.authorizationStatus == .authorized {
+                                    isNotificationScheduled = true
+                                    viewModel.scheduleNotification()
+                                }
                             }
-                            viewModel.add()
+                            viewModel.addToList(notify: content.itemCanNotify)
                             withAnimation {
-                                isAdded.toggle()
+                                isInWatchlist.toggle()
                             }
                         } else {
-                            viewModel.remove()
+                            viewModel.removeFromList()
                             withAnimation {
-                                isAdded.toggle()
+                                isInWatchlist.toggle()
                             }
                         }
                     } label: {
                         withAnimation {
-                            Label(!isAdded ? "Add to watchlist" : "Remove from watchlist", systemImage: !isAdded ? "plus.square" : "minus.square")
+                            Label(!isInWatchlist ? "Add to watchlist" : "Remove from watchlist", systemImage: !isInWatchlist ? "plus.square" : "minus.square")
                         }
                     }
                     .buttonStyle(.bordered)
-                    .tint(!isAdded ? .blue : .red)
+                    .tint(!isInWatchlist ? .blue : .red)
                     .controlSize(.large)
                     //MARK: About view
                     GroupBox {
@@ -95,13 +124,17 @@ struct ContentDetailsView: View {
                             }
                         }
                     }
-                    if content.seasonsNumber > 0 {
-                        SeasonListView(title: "Seasons", id: id, items: content.seasons!)
-                    }
+                    //MARK: Season view
+//                    if content.seasonsNumber > 0 {
+//                        SeasonListView(title: "Seasons", id: id, items: content.seasons!)
+//                    }
+                    //MARK: Cast view
                     if content.credits != nil {
-                        PersonListView(credits: content.credits!)
+                        CastListView(credits: content.credits!)
                     }
+                    //MARK: Information view
                     InformationView(item: content)
+                    //MARK: Recommendation view
                     if content.recommendations != nil {
                         ContentListView(style: StyleType.poster,
                                         type: content.itemContentMedia,
@@ -118,14 +151,17 @@ struct ContentDetailsView: View {
                     HStack {
                         Button( action: {
                             NotificationManager.shared.requestAuthorization { granted in
-                                if granted {
-                                    
+                                
+                            }
+                            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                                if settings.authorizationStatus == .authorized {
+                                    isNotificationScheduled = true
+                                    viewModel.scheduleNotification()
                                 }
                             }
-                            isNotificationEnabled.toggle()
                         }, label: {
                             withAnimation {
-                                Image(systemName: isNotificationEnabled ? "bell.fill" : "bell")
+                                Image(systemName: isNotificationScheduled ? "bell.fill" : "bell")
                             }
                         })
                         .help("Notify when released.")
@@ -145,19 +181,44 @@ struct ContentDetailsView: View {
         }
     }
     
+    @ViewBuilder
+    private var overlayView: some View {
+        switch viewModel.phase {
+        case .empty:
+            ProgressView(title)
+        case .failure(let error):
+            RetryView(text: error.localizedDescription, retryAction: {
+                Task {
+                    await viewModel.load(id: self.id, type: self.type)
+                }
+            })
+        default:
+            EmptyView()
+        }
+    }
+    
     @Sendable
     private func load() {
         Task {
             await self.viewModel.load(id: self.id, type: self.type)
-            isAdded = viewModel.inWatchlist
+            isInWatchlist = viewModel.inWatchlist
+            isNotificationScheduled = viewModel.notificationScheduled
         }
     }
 }
 
 struct ContentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentDetailsView(title: Content.previewContent.itemTitle,
-                           id: Content.previewContent.id,
-                           type: MediaType.movie)
+        DetailsView(title: Content.previewContent.itemTitle,
+                    id: Content.previewContent.id,
+                    type: MediaType.movie)
     }
+}
+
+private struct DrawingConstants {
+    static let shadowOpacity: Double = 0.2
+    static let shadowRadius: CGFloat = 5
+    static let imageWidth: CGFloat = 360
+    static let imageHeight: CGFloat = 210
+    static let imageRadius: CGFloat = 8
 }

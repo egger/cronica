@@ -32,7 +32,6 @@ struct OverlayView<T: EmptyData>: View {
         }
     }
 }
-
 extension Array: EmptyData {}
 extension Optional: EmptyData {
     var isEmpty: Bool {

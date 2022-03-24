@@ -17,14 +17,10 @@ import Combine
     var trimmedQuery: String {
         query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    var searchItems: [Content] {
-        phase.value ?? []
-    }
+    var searchItems: [Content] { phase.value ?? [] }
     
     func observe() {
-        guard cancellable.isEmpty else {
-            return
-        }
+        guard cancellable.isEmpty else { return }
         $query
             .filter { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             .sink { [weak self] _ in

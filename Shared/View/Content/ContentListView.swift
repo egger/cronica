@@ -21,17 +21,10 @@ struct ContentListView: View {
                         .padding([.horizontal, .top])
                     Spacer()
                 }
-                HStack {
-                    Text(NSLocalizedString(type.headline, comment: ""))
-                        .foregroundColor(.secondary)
-                        .font(.caption)
-                        .padding(.horizontal)
-                    Spacer()
-                }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(items) { item in
-                            NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: type)) {
+                            NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.id, type: type)) {
                                 switch style {
                                 case .poster:
                                     PosterView(title: item.itemTitle, url: item.posterImageMedium)

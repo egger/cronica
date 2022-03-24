@@ -36,29 +36,32 @@ private struct ImageView: View {
     let title: String
     var body: some View {
         ZStack {
-            AsyncImage(url: url) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Color.clear
+            AsyncImage(url: url) { phase in
+                if let image = phase.image {
+                    ZStack {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                        Rectangle().fill(.ultraThickMaterial)
+                        Color.black.opacity(0.6)
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .mask(
+                                LinearGradient(gradient: Gradient(stops: [
+                                    .init(color: .black, location: 0),
+                                    .init(color: .black, location: 0.1),
+                                    .init(color: .black.opacity(0), location: 1)
+                                ]), startPoint: .center, endPoint: .bottom)
+                            )
+                    }
+                } else if phase.error != nil {
+                    Rectangle().fill(.secondary)
+                } else {
+                    Rectangle().fill(.thickMaterial)
+                }
             }
-            Rectangle().fill(.ultraThickMaterial)
-            Color.black.opacity(0.6)
-            AsyncImage(url: url) { content in
-                content
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .mask(
-                        LinearGradient(gradient: Gradient(stops: [
-                            .init(color: .black, location: 0),
-                            .init(color: .black, location: 0.1),
-                            .init(color: .black.opacity(0), location: 1)
-                        ]), startPoint: .center, endPoint: .bottom)
-                    )
-            } placeholder: {
-                Rectangle().fill(.thickMaterial)
-            }
+            
         }
     }
 }

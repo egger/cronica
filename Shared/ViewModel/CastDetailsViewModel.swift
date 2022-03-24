@@ -1,5 +1,5 @@
 //
-//  PersonViewModel.swift
+//  CastDetailsViewModel.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 06/02/22.
@@ -7,12 +7,10 @@
 
 import Foundation
 
-@MainActor class PersonViewModel: ObservableObject {
+@MainActor class CastDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Person?> = .empty
-    var person: Person? {
-        phase.value ?? nil
-    }
+    var person: Person? { phase.value ?? nil }
     
     func load(id: Int) async {
         if Task.isCancelled { return }

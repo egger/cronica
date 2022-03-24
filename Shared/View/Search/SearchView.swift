@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchView: View {
     static let tag: String? = "Search"
-    @State private var query: String = ""
     @StateObject private var viewModel: SearchViewModel
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
@@ -19,23 +18,19 @@ struct SearchView: View {
             List {
                 ForEach(viewModel.searchItems) { item in
                     if item.media == MediaType.person {
-                        NavigationLink(destination: PersonView(title: item.itemTitle, id: item.id)) {
+                        NavigationLink(destination: CastDetailsView(title: item.itemTitle, id: item.id)) {
                             ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
                         }
                     } else {
-                        NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
+                        NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
                             ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
                         }
                     }
                 }
-                
             }
-#if os(iOS)
             .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Movies, Shows, People") )
             .navigationBarTitleDisplayMode(.large)
-#else
-            .searchable(text: $viewModel.query, prompt: Text("Movies, Shows, People"))
-#endif
+            .disableAutocorrection(true)
             .navigationTitle("Search")
             .overlay(overlayView)
             .onAppear { viewModel.observe() }
@@ -54,9 +49,12 @@ struct SearchView: View {
                 }
             } else {
                 ProgressView("Searching")
+                    .foregroundColor(.secondary)
             }
         case .success(let values) where values.isEmpty:
-            Text("No Results")
+            Label("No Results", systemImage: "minus.magnifyingglass")
+                .font(.title)
+                .foregroundColor(.secondary)
         case .failure(let error):
             RetryView(text: error.localizedDescription, retryAction: {
                 Task {

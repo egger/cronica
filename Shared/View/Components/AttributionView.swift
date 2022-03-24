@@ -10,7 +10,7 @@ import SwiftUI
 /// Required by TMDB API use.
 struct AttributionView: View {
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             Text("This product uses the TMDB API but is not endorsed or certified by TMDB.")
                 .frame(alignment: .center)
                 .font(.caption)
@@ -34,6 +34,6 @@ struct AttributionView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let imageWidth: CGFloat = 140
+    static let imageWidth: CGFloat = 120
     static let imageHeight: CGFloat = 40
 }

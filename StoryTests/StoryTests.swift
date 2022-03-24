@@ -20,7 +20,7 @@ class StoryTests: XCTestCase {
     
     func testAddToWatchlist() {
         for item in Content.previewContents {
-            dataController.saveItem(content: item, type: MediaType.movie.watchlistInt, notify: Bool.random())
+            dataController.saveItem(content: item, type: MediaType.movie.watchlistInt)
         }
         do {
             try managedObjectContext.save()
