@@ -9,14 +9,18 @@ import SwiftUI
 
 struct HomeView: View {
     static let tag: String? = "Home"
+    @AppStorage("showOnboarding") var displayOnboard = true
     @StateObject private var viewModel: HomeViewModel
     @State private var showAccount: Bool = false
-    @State private var showWelcomeScreen: Bool = true
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
-        animation: .default)
-    private var watchlistItems: FetchedResults<WatchlistItem>
+        entity: WatchlistItem.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \WatchlistItem.status, ascending: true),
+        ],
+        predicate: NSPredicate(format: "status == %@", "Post Production")
+    )
+    var items: FetchedResults<WatchlistItem>
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
     }
@@ -24,51 +28,63 @@ struct HomeView: View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    if !watchlistItems.isEmpty {
-                        VStack {
-                            HStack {
-                                Text("Coming Soon")
-                                    .font(.headline)
-                                    .padding([.top, .horizontal])
-                                Spacer()
+                    if !items.isEmpty {
+                        HStack {
+                            VStack {
+                                HStack {
+                                    Text("Coming Soon")
+                                        .font(.headline)
+                                        .padding([.top, .horizontal])
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("From Watchlist")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                        .padding(.horizontal)
+                                    Spacer()
+                                }
                             }
-                            HStack {
-                                Text("From Watchlist")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                    .padding(.horizontal)
-                                Spacer()
-                            }
+                            Spacer()
+                            Image(systemName: "rectangle.stack")
+                                .foregroundColor(.secondary)
+                                .padding()
                         }
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(watchlistItems.filter { $0.status == "Post Production"}) { item in
+                                ForEach(items) { item in
                                     NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
                                         PosterView(title: item.itemTitle, url: item.poster)
                                             .padding([.leading, .trailing], 4)
                                     }
-                                    .padding(.leading, item.id == self.watchlistItems.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == self.watchlistItems.last!.id ? 16 : 0)
+                                    .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
                                     .padding([.top, .bottom])
                                 }
                             }
                         }
                     }
                     if !viewModel.trendingSection.isEmpty {
-                        VStack {
-                            HStack {
-                                Text(NSLocalizedString("Trending", comment: ""))
-                                    .font(.headline)
-                                    .padding([.horizontal, .top])
-                                Spacer()
+                        HStack {
+                            VStack {
+                                HStack {
+                                    Text(NSLocalizedString("Trending", comment: ""))
+                                        .font(.headline)
+                                        .padding([.horizontal, .top])
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text(NSLocalizedString("This week", comment: ""))
+                                        .foregroundColor(.secondary)
+                                        .font(.caption)
+                                        .padding(.horizontal)
+                                    Spacer()
+                                }
                             }
-                            HStack {
-                                Text(NSLocalizedString("This week", comment: ""))
-                                    .foregroundColor(.secondary)
-                                    .font(.caption)
-                                    .padding(.horizontal)
-                                Spacer()
-                            }
+                            Spacer()
+                            Image(systemName: "crown")
+                                .foregroundColor(.secondary)
+                                .padding()
                         }
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -99,13 +115,13 @@ struct HomeView: View {
                             showAccount.toggle()
                         } label: {
                             Label("Account", systemImage: "person.crop.circle")
-                                
+                            
                         }
                     }
                 }
-                .sheet(isPresented: $showWelcomeScreen) {
+                .fullScreenCover(isPresented: $displayOnboard, content: {
                     WelcomeView()
-                }
+                })
                 .sheet(isPresented: $showAccount) {
                     NavigationView {
                         AccountView()

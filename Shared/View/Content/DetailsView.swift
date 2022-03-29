@@ -18,6 +18,7 @@ struct DetailsView: View {
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationScheduled: Bool = false
     @State private var isInWatchlist: Bool = false
+    @State private var seasonSelection: String = ""
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: DetailsViewModel())
         self.title = title
@@ -125,9 +126,9 @@ struct DetailsView: View {
                         }
                     }
                     //MARK: Season view
-//                    if content.seasonsNumber > 0 {
-//                        SeasonListView(title: "Seasons", id: id, items: content.seasons!)
-//                    }
+                    if content.seasonsNumber > 0 {
+                        
+                    }
                     //MARK: Cast view
                     if content.credits != nil {
                         CastListView(credits: content.credits!)
@@ -144,6 +145,7 @@ struct DetailsView: View {
                     AttributionView().padding([.top, .bottom])
                 }
             }
+            .overlay(overlayView)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -185,7 +187,7 @@ struct DetailsView: View {
     private var overlayView: some View {
         switch viewModel.phase {
         case .empty:
-            ProgressView(title)
+            ProgressView()
         case .failure(let error):
             RetryView(text: error.localizedDescription, retryAction: {
                 Task {

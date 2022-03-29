@@ -45,17 +45,6 @@ class Utilities {
         }
         return regionCode
     }()
-    static func imageUrlBuilder(size: ImageSize, path: String? = nil) -> URL? {
-        if let path = path {
-            var components = URLComponents()
-            components.scheme = "https"
-            components.host = "image.tmdb.org"
-            components.path = "/\(size.rawValue)\(path)"
-            return components.url
-        } else {
-            return nil
-        }
-    }
     static func getReleaseDate(results: [ReleaseDatesResult]) -> Date? {
         for result in results {
             if result.iso31661 == Utilities.userRegion {

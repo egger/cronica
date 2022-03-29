@@ -59,6 +59,8 @@ class NetworkService {
     }
     
     /// Build a safe URL for the TMDB API Service.
+    ///
+    /// Use it to load lists, details, search.
     /// - Parameters:
     ///   - path: Content type and the ID for the content.
     ///   - append: Additional information to display in the Details' pages.
@@ -91,8 +93,28 @@ class NetworkService {
                 .init(name: "region", value: Utilities.userRegion)
             ]
         }
-        print(component.url as Any)
+        print("URL Builder: \(component.url as Any)")
         return component.url
+    }
+    
+    /// Build a safe URL for the images used on TMDB API.
+    ///
+    /// Use it build only the urls responsible to the images.
+    /// - Parameters:
+    ///   - size: The image size returned in the url.
+    ///   - path: The path for the given image.
+    /// - Returns: A safe URL, can be nil.
+    static func urlBuilder(size: ImageSize, path: String? = nil) -> URL? {
+        if let path = path {
+            var component = URLComponents()
+            component.scheme = "https"
+            component.host = "image.tmdb.org"
+            component.path = "/\(size.rawValue)\(path)"
+            print("Image URL: \(component.url as Any)")
+            return component.url
+        } else {
+            return nil
+        }
     }
 }
 

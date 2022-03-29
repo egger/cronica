@@ -11,7 +11,6 @@ struct ItemView: View {
     let title: String
     let url: URL?
     let type: MediaType
-    let subtitle: String = ""
     let inSearch: Bool
     var body: some View {
         HStack {
@@ -67,14 +66,17 @@ private struct DrawingConstants {
 private struct CardImage: View {
     let url: URL?
     var body: some View {
-        AsyncImage(url: url) { image in
-            image
-                .resizable()
-                .scaledToFill()
-        } placeholder: {
-            ZStack {
-                Rectangle().fill(.thickMaterial)
-                ProgressView()
+        AsyncImage(url: url) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else if phase.error != nil {
+                ZStack {
+                    ProgressView()
+                }.background(.secondary)
+            } else {
+                Rectangle().fill(.secondary)
             }
         }
         .frame(width: DrawingConstants.imageWidth,
@@ -86,14 +88,17 @@ private struct CardImage: View {
 private struct PersonImage: View {
     let url: URL?
     var body: some View {
-        AsyncImage(url: url) { image in
-            image
-                .resizable()
-                .scaledToFill()
-        } placeholder: {
-            ZStack {
-                Color.secondary
-                ProgressView()
+        AsyncImage(url: url) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else if phase.error != nil {
+                ZStack {
+                    ProgressView()
+                }.background(.secondary)
+            } else {
+                Rectangle().fill(.secondary)
             }
         }
         .frame(width: DrawingConstants.personImageWidth,
@@ -105,14 +110,17 @@ private struct PersonImage: View {
 private struct PosterImage: View {
     let url: URL?
     var body: some View {
-        AsyncImage(url: url) { image in
-            image
-                .resizable()
-                .scaledToFill()
-        } placeholder: {
-            ZStack {
-                Color.secondary
-                ProgressView()
+        AsyncImage(url: url) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else if phase.error != nil {
+                ZStack {
+                    ProgressView()
+                }.background(.secondary)
+            } else {
+                Rectangle().fill(.secondary)
             }
         }
         .frame(width: DrawingConstants.posterImageWidth,

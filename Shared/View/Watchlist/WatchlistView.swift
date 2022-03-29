@@ -15,13 +15,6 @@ struct WatchlistView: View {
         animation: .default)
     private var items: FetchedResults<WatchlistItem>
     @State private var query = ""
-    @State private var multiSelection = Set<Int>()
-    enum SelectionType: String, CaseIterable, Identifiable {
-        case release
-        case date
-        var id: String { self.rawValue }
-    }
-    @State private var selected: SelectionType = .release
     private var filteredMovieItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
@@ -45,37 +38,20 @@ struct WatchlistView: View {
                             }
                         }
                     } else {
-                        switch selected {
-                        case .release:
-                            WatchlistSectionView(items: items.filter { $0.status == "In Production"
-                                || $0.status == "Post Production"
-                                || $0.status == "Planned" },
-                                                 title: "Coming Soon")
-                            WatchlistSectionView(items: items.filter { $0.status == "Returning Series"},
-                                                 title: "Releasing")
-                            WatchlistSectionView(items: items.filter { $0.status == "Released" || $0.status == "Ended"},
-                                                 title: "Released")
-                        case .date:
-                            Text("Hum")
-                        }
-                        
+                        WatchlistSectionView(items: items.filter { $0.status == "In Production"
+                            || $0.status == "Post Production"
+                            || $0.status == "Planned" },
+                                             title: "Coming Soon")
+                        WatchlistSectionView(items: items.filter { $0.status == "Returning Series"},
+                                             title: "Releasing")
+                        WatchlistSectionView(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
+                                             title: "Released")
                     }
                 }
                 .navigationTitle("Watchlist")
                 .refreshable { viewContext.refreshAllObjects() }
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Menu {
-                            Picker("Sort Watchlist", selection: $selected) {
-                                ForEach(SelectionType.allCases) { selection in
-                                    Text(selection.rawValue.capitalized)
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
-                        }
-                    }
                     ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
                 }
                 .searchable(text: $query,
@@ -109,7 +85,7 @@ private struct WatchlistSectionView: View {
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
             }
-        } else { EmptyView() }
+        }
     }
     
     private func delete(offsets: IndexSet) {

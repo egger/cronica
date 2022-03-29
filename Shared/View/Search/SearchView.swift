@@ -28,13 +28,12 @@ struct SearchView: View {
                     }
                 }
             }
-            .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Movies, Shows, People") )
-            .navigationBarTitleDisplayMode(.large)
-            .disableAutocorrection(true)
             .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.large)
+            .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Movies, Shows, People") )
+            .disableAutocorrection(true)
             .overlay(overlayView)
             .onAppear { viewModel.observe() }
-            
         }
     }
     

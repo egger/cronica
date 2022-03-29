@@ -10,7 +10,7 @@ import SwiftUI
 struct CastDetailsView: View {
     let title: String
     let id: Int
-    @State private var showingOverview: Bool = false
+    @State private var showBiography: Bool = false
     @StateObject private var viewModel: CastDetailsViewModel
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: CastDetailsViewModel())
@@ -21,7 +21,7 @@ struct CastDetailsView: View {
         ScrollView {
             if let person = viewModel.person {
                 VStack {
-                    //MARK: Profile image
+                    //MARK: Person image
                     AsyncImage(url: person.itemImage) { phase in
                         if let image = phase.image {
                             image
@@ -40,7 +40,7 @@ struct CastDetailsView: View {
                            height: DrawingConstants.imageHeight)
                     .clipShape(Circle())
                     .padding([.top, .bottom])
-                    //MARK: Biography
+                    //MARK: Biography box
                     if !person.itemBiography.isEmpty {
                         GroupBox {
                             Text(person.itemBiography)
@@ -51,10 +51,10 @@ struct CastDetailsView: View {
                             Label("Biography", systemImage: "book")
                         }
                         .onTapGesture {
-                            showingOverview.toggle()
+                            showBiography.toggle()
                         }
                         .padding()
-                        .sheet(isPresented: $showingOverview) {
+                        .sheet(isPresented: $showBiography) {
                             NavigationView {
                                 ScrollView {
                                     Text(person.itemBiography)
@@ -65,13 +65,14 @@ struct CastDetailsView: View {
                                 .toolbar {
                                     ToolbarItem(placement: .navigationBarTrailing) {
                                         Button("Done") {
-                                            showingOverview.toggle()
+                                            showBiography.toggle()
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                    //MARK: Filmography list
                     if person.combinedCredits != nil {
                         if let filmography = person.combinedCredits!.cast  {
                             VStack {
@@ -83,7 +84,7 @@ struct CastDetailsView: View {
                                 }
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHStack {
-                                        ForEach(filmography.prefix(10)) { item in
+                                        ForEach(filmography) { item in
                                             NavigationLink(destination: DetailsView(title: item.itemTitle,
                                                                                            id: item.id,
                                                                                            type: item.itemMedia)) {
@@ -99,6 +100,7 @@ struct CastDetailsView: View {
                             }
                         }
                     }
+                    //MARK: Attribution
                     AttributionView().padding([.top, .bottom])
                 }
             }

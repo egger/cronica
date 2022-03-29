@@ -23,9 +23,7 @@ struct CastListView: View {
                     } else {
                         ForEach(credits.cast.prefix(10)) { content in
                             NavigationLink(destination: CastDetailsView(title: content.name, id: content.id)) {
-                                ImageView(name: content.name,
-                                               characterOrJob: content.itemRole,
-                                               url: content.itemImage)
+                                ImageView(person: content)
                             }
                             .padding(.leading, content.id == self.credits.cast.first!.id ? 16 : 0)
                         }
@@ -35,7 +33,7 @@ struct CastListView: View {
                     } else {
                         ForEach(credits.crew.filter { $0.itemRole == "Director" }) { content in
                             NavigationLink(destination: CastDetailsView(title: content.name, id: content.id)) {
-                                ImageView(name: content.name, characterOrJob: content.itemRole, url: content.itemImage)
+                                ImageView(person: content)
                             }
                         }
                     }
@@ -54,12 +52,10 @@ struct PersonListView_Previews: PreviewProvider {
 }
 
 private struct ImageView: View {
-    let name: String
-    let characterOrJob: String?
-    let url: URL?
+    let person: Person
     var body: some View {
         ZStack {
-            AsyncImage(url: url) { phase in
+            AsyncImage(url: person.itemImage) { phase in
                 if let image = phase.image {
                     image
                         .resizable()
@@ -88,16 +84,16 @@ private struct ImageView: View {
             VStack {
                 Spacer()
                 HStack {
-                    Text(name)
+                    Text(person.name)
                         .foregroundColor(.white)
                         .lineLimit(DrawingConstants.lineLimit)
                         .padding(.leading, 6)
                         .padding(.bottom, 1)
                     Spacer()
                 }
-                if !characterOrJob.isEmpty {
+                if !person.itemRole.isEmpty {
                     HStack {
-                        Text(characterOrJob!)
+                        Text(person.itemRole!)
                             .foregroundColor(.white.opacity(0.8))
                             .font(.caption)
                             .lineLimit(1)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @AppStorage("showOnboarding") var displayOnboard = true
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -18,6 +19,7 @@ struct WelcomeView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 120, height: 120, alignment: .center)
+                        .shadow(color: .black.opacity(0.8), radius: 2.5)
                         .padding()
                     Spacer()
                 }
@@ -44,7 +46,9 @@ struct WelcomeView: View {
                     Spacer()
                     NavigationLink(destination: ContentView()) {
                         Button {
-                            
+                            withAnimation {
+                                displayOnboard.toggle()
+                            }
                         } label: {
                             Text("Continue")
                         }

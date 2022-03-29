@@ -9,7 +9,7 @@ import Foundation
 
 extension Person {
     var itemImage: URL? {
-        return Utilities.imageUrlBuilder(size: .medium, path: profilePath)
+        return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
     var itemBiography: String {
         biography ?? NSLocalizedString("Not Available",
@@ -25,7 +25,7 @@ extension Filmography {
                                    comment: "Missing Title")
     }
     var itemImage: URL? {
-        return Utilities.imageUrlBuilder(size: .medium, path: posterPath)
+        return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
     var itemMedia: MediaType {
         switch media_type {

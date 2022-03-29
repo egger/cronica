@@ -31,21 +31,6 @@ extension Content {
         status ?? NSLocalizedString("No information available",
                                     comment: "API didn't provided status information.")
     }
-    var posterImageMedium: URL? {
-        return Utilities.imageUrlBuilder(size: .medium, path: posterPath)
-    }
-    var cardImageMedium: URL? {
-        return Utilities.imageUrlBuilder(size: .medium, path: backdropPath)
-    }
-    var cardImageLarge: URL? {
-        return Utilities.imageUrlBuilder(size: .large, path: backdropPath)
-    }
-    var cardImageOriginal: URL? {
-        return Utilities.imageUrlBuilder(size: .original, path: backdropPath)
-    }
-    var castImage: URL? {
-        return Utilities.imageUrlBuilder(size: .medium, path: profilePath)
-    }
     var media: MediaType {
         switch mediaType {
         case "tv":
@@ -57,6 +42,21 @@ extension Content {
         default:
             return MediaType.movie
         }
+    }
+    var posterImageMedium: URL? {
+        return NetworkService.urlBuilder(size: .medium, path: posterPath)
+    }
+    var cardImageMedium: URL? {
+        return NetworkService.urlBuilder(size: .medium, path: backdropPath)
+    }
+    var cardImageLarge: URL? {
+        return NetworkService.urlBuilder(size: .large, path: backdropPath)
+    }
+    var cardImageOriginal: URL? {
+        return NetworkService.urlBuilder(size: .original, path: backdropPath)
+    }
+    var castImage: URL? {
+        return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
     var itemImage: URL? {
         switch media {
@@ -83,11 +83,6 @@ extension Content {
         }
     }
     var itemRuntime: String {
-//        guard let runtime = self.runtime,
-//              let time = Utilities.durationFormatter.string(from: TimeInterval(runtime) * 60)
-//
-//        }
-//
         if runtime != nil {
             return Utilities.durationFormatter.string(from: TimeInterval(runtime!) * 60)!
         } else { return "" }
@@ -147,7 +142,7 @@ extension Season {
                                       comment: "")
     }
     var posterImage: URL? {
-        return Utilities.imageUrlBuilder(size: .medium, path: posterPath)
+        return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
 }
 extension Episode {
@@ -160,9 +155,9 @@ extension Episode {
                                       comment: "")
     }
     var itemImageMedium: URL? {
-        return Utilities.imageUrlBuilder(size: .medium, path: stillPath)
+        return NetworkService.urlBuilder(size: .medium, path: stillPath)
     }
     var itemImageLarge: URL? {
-        return Utilities.imageUrlBuilder(size: .large, path: stillPath)
+        return NetworkService.urlBuilder(size: .large, path: stillPath)
     }
 }

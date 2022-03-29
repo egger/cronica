@@ -12,30 +12,6 @@ struct CardView: View {
     let url: URL?
     var body: some View {
         ZStack {
-            ImageView(url: url, title: title)
-            TitleView(title: title)
-        }
-        .frame(width: DrawingConstants.cardWidth,
-               height: DrawingConstants.cardHeight)
-        .cornerRadius(DrawingConstants.cardRadius)
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                radius: DrawingConstants.shadowRadius)
-    }
-}
-
-struct BackdropView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView(title: Content.previewContent.itemTitle,
-                 url: Content.previewContent.cardImageMedium)
-    }
-}
-
-// The view that handles the image part of CardView.
-private struct ImageView: View {
-    let url: URL?
-    let title: String
-    var body: some View {
-        ZStack {
             AsyncImage(url: url) { phase in
                 if let image = phase.image {
                     ZStack {
@@ -61,29 +37,33 @@ private struct ImageView: View {
                     Rectangle().fill(.thickMaterial)
                 }
             }
-            
+            VStack(alignment: .leading) {
+                Spacer()
+                HStack {
+                    Text(title)
+                        .fontWeight(.semibold)
+                        .font(.callout)
+                        .foregroundColor(.white)
+                        .lineLimit(DrawingConstants.lineLimits)
+                        .padding()
+                    Spacer()
+                }
+                .padding(.trailing)
+            }
+            .padding(.horizontal, 2)
         }
+        .frame(width: DrawingConstants.cardWidth,
+               height: DrawingConstants.cardHeight)
+        .cornerRadius(DrawingConstants.cardRadius)
+        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                radius: DrawingConstants.shadowRadius)
     }
 }
 
-// The view that handles the title portion of CardView.
-private struct TitleView: View {
-    let title: String
-    var body: some View {
-        VStack(alignment: .leading) {
-            Spacer()
-            HStack {
-                Text(title)
-                    .fontWeight(.semibold)
-                    .font(.callout)
-                    .foregroundColor(.white)
-                    .lineLimit(DrawingConstants.lineLimits)
-                    .padding()
-                Spacer()
-            }
-            .padding(.trailing)
-        }
-        .padding(.horizontal, 2)
+struct BackdropView_Previews: PreviewProvider {
+    static var previews: some View {
+        CardView(title: Content.previewContent.itemTitle,
+                 url: Content.previewContent.cardImageMedium)
     }
 }
 
@@ -94,5 +74,4 @@ private struct DrawingConstants {
     static let shadowOpacity: Double = 0.5
     static let shadowRadius: CGFloat = 5
     static let lineLimits: Int = 1
-    static let gradientColor: Color = Color.black
 }

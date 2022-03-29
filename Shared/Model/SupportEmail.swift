@@ -9,11 +9,10 @@ import UIKit
 import SwiftUI
 
 struct SupportEmail {
-    let toAddress: String
-    let subject: String
-    let messageHeader: String
+    let toAddress: String = "contact@alexandremadeira.dev"
+    let subject: String = "Support Email (Cronica App)"
+    let messageHeader: String = "Please describe your issue below"
     var body: String {"""
-        Application Name: \(Bundle.main.displayName)
         iOS: \(UIDevice.current.systemVersion)
         Device Model: \(UIDevice.current.modelName)
         App Version: \(Bundle.main.appVersion)

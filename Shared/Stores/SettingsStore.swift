@@ -11,7 +11,6 @@ import Combine
 final class SettingsStore: ObservableObject {
     private enum Keys {
         static let userLoggedIn = "user_logged"
-        static let welcomeScreenDisplayed = "welcome_screen_displayed"
     }
     private let cancellable: Cancellable
     private let defaults: UserDefaults
@@ -20,8 +19,7 @@ final class SettingsStore: ObservableObject {
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         defaults.register(defaults: [
-            Keys.userLoggedIn: false,
-            Keys.welcomeScreenDisplayed: false
+            Keys.userLoggedIn: false
         ])
         cancellable = NotificationCenter.default
             .publisher(for: UserDefaults.didChangeNotification)
@@ -31,9 +29,5 @@ final class SettingsStore: ObservableObject {
     var isUserLogged: Bool {
         set { defaults.set(newValue, forKey: Keys.userLoggedIn) }
         get { defaults.bool(forKey: Keys.userLoggedIn) }
-    }
-    var isWelcomeScreenDisplayed: Bool {
-        set { defaults.set(newValue, forKey: Keys.welcomeScreenDisplayed) }
-        get { defaults.bool(forKey: Keys.welcomeScreenDisplayed) }
     }
 }
