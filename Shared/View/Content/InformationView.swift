@@ -17,7 +17,7 @@ struct InformationView: View {
                                        content: item.itemRuntime)
                 SectionView(title: NSLocalizedString("Release Date:",
                                                      comment: ""),
-                                       content: item.itemReleaseDate)
+                                       content: item.theatricalReleaseDate)
                 SectionView(title: NSLocalizedString("Status",
                                                      comment: ""),
                                        content: item.itemStatus)

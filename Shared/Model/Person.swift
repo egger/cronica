@@ -22,6 +22,6 @@ struct CombinedCredits: Decodable {
 }
 struct Filmography: Decodable, Identifiable {
     let id: Int
-    let title, character, overview: String?
-    let backdropPath, posterPath, releaseDate, media_type: String?
+    let title, name, character, overview: String?
+    let backdropPath, posterPath, releaseDate, mediaType: String?
 }

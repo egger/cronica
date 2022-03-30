@@ -18,12 +18,11 @@ struct WelcomeView: View {
                     Image("Icon")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 120, height: 120, alignment: .center)
+                        .frame(width: 100, height: 100, alignment: .center)
                         .shadow(color: .black.opacity(0.8), radius: 2.5)
                         .padding()
                     Spacer()
                 }
-                .padding(.top)
                 VStack(alignment: .center) {
                     HStack {
                         Spacer()
@@ -38,10 +37,8 @@ struct WelcomeView: View {
                         .padding(.horizontal)
                         Spacer()
                     }
-                    
                 }
                 InformationContainerView()
-                Spacer(minLength: 30)
                 HStack {
                     Spacer()
                     NavigationLink(destination: ContentView()) {

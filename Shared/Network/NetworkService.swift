@@ -54,7 +54,6 @@ class NetworkService {
               httpResponse.statusCode == 200 else {
                   throw NetworkError.invalidResponse
               }
-        
         return try Utilities.decoder.decode(T.self, from: data)
     }
     
@@ -110,7 +109,6 @@ class NetworkService {
             component.scheme = "https"
             component.host = "image.tmdb.org"
             component.path = "/\(size.rawValue)\(path)"
-            print("Image URL: \(component.url as Any)")
             return component.url
         } else {
             return nil

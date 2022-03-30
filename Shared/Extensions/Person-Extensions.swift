@@ -21,14 +21,13 @@ extension Person {
 }
 extension Filmography {
     var itemTitle: String {
-        title ?? NSLocalizedString("Title not found",
-                                   comment: "Missing Title")
+        title ?? name!
     }
     var itemImage: URL? {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
     var itemMedia: MediaType {
-        switch media_type {
+        switch mediaType {
         case "movie":
             return MediaType.movie
         case "tv":

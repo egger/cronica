@@ -39,7 +39,7 @@ struct AccountView: View {
                 Button( action: {
                     email.send(openURL: openURL)
                 }, label: { Text("Send email") })
-                Link("Privacy Policy", destination: URL(string: "https://alexandremadeira.dev")!)
+                Link("Privacy Policy", destination: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
             }
             HStack {
                 Spacer()
@@ -61,16 +61,27 @@ struct AccountView_Previews: PreviewProvider {
 private struct UpcomingNotificationsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
-        animation: .default)
-    private var notificationItems: FetchedResults<WatchlistItem>
+        entity: WatchlistItem.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true),
+        ],
+        predicate: NSPredicate(format: "notify == %d", true)
+    )
+    var items: FetchedResults<WatchlistItem>
     var body: some View {
         ScrollView {
-            ForEach(notificationItems.filter { $0.notify == true }) { item in
-                Text(item.itemTitle)
+            Section {
+                ForEach(items.filter { $0.notify == true }) { item in
+                    ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false)
+                        .padding(.horizontal)
+                }
+                List {
+                    ForEach(items) {
+                        ItemView(title: $0.itemTitle, url: $0.image, type: $0.itemMedia, inSearch: false)
+                    }
+                }
             }
             .navigationTitle("Upcoming Notifications")
         }
     }
 }
-

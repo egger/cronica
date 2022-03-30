@@ -86,14 +86,14 @@ struct CastDetailsView: View {
                                     LazyHStack {
                                         ForEach(filmography) { item in
                                             NavigationLink(destination: DetailsView(title: item.itemTitle,
-                                                                                           id: item.id,
-                                                                                           type: item.itemMedia)) {
+                                                                                    id: item.id,
+                                                                                    type: item.itemMedia)) {
                                                 PosterView(title: item.itemTitle, url: item.itemImage)
                                                     .padding([.leading, .trailing], 4)
                                             }
-                                            .padding(.leading, item.id == filmography.first!.id ? 16 : 0)
-                                            .padding(.trailing, item.id == filmography.last!.id ? 16 : 0)
-                                            .padding([.top, .bottom])
+                                                                                    .padding(.leading, item.id == filmography.first!.id ? 16 : 0)
+                                                                                    .padding(.trailing, item.id == filmography.last!.id ? 16 : 0)
+                                                                                    .padding([.top, .bottom])
                                         }
                                     }
                                 }
@@ -120,7 +120,7 @@ struct CastDetailsView: View {
 struct CastDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         CastDetailsView(title: Credits.previewCast.name,
-                   id: Credits.previewCast.id)
+                        id: Credits.previewCast.id)
     }
 }
 

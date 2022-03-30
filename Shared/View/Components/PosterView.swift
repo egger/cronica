@@ -11,11 +11,13 @@ struct PosterView: View {
     let title: String
     let url: URL?
     var body: some View {
-        AsyncImage(url: url) { phase in
+        AsyncImage(url: url,
+                   transaction: Transaction(animation: .easeInOut)) { phase in
             if let image = phase.image {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
             } else if phase.error != nil {
                 Text(title)
                     .foregroundColor(.secondary)

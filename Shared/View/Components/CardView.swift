@@ -12,7 +12,8 @@ struct CardView: View {
     let url: URL?
     var body: some View {
         ZStack {
-            AsyncImage(url: url) { phase in
+            AsyncImage(url: url,
+                       transaction: Transaction(animation: .easeInOut)) { phase in
                 if let image = phase.image {
                     ZStack {
                         image
@@ -30,6 +31,7 @@ struct CardView: View {
                                     .init(color: .black.opacity(0), location: 1)
                                 ]), startPoint: .center, endPoint: .bottom)
                             )
+                            .transition(.opacity)
                     }
                 } else if phase.error != nil {
                     Rectangle().fill(.secondary)

@@ -55,7 +55,8 @@ private struct ImageView: View {
     let person: Person
     var body: some View {
         ZStack {
-            AsyncImage(url: person.itemImage) { phase in
+            AsyncImage(url: person.itemImage,
+                       transaction: Transaction(animation: .easeInOut)) { phase in
                 if let image = phase.image {
                     image
                         .resizable()
@@ -72,8 +73,13 @@ private struct ImageView: View {
                                 .init(color: .black.opacity(0), location: 1)
                             ]), startPoint: .center, endPoint: .bottom)
                         )
+                        .transition(.opacity)
                 } else if phase.error != nil {
-                    Rectangle().fill(.secondary)
+                    ZStack {
+                        Image(systemName: "person")
+                                       .imageScale(.large)
+                                       .foregroundColor(.gray)
+                    }.background(.thinMaterial)
                 } else {
                     ZStack {
                         Rectangle().fill(.thickMaterial)

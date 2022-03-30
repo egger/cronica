@@ -30,11 +30,13 @@ struct DetailsView: View {
             VStack {
                 if let content = viewModel.content {
                     //MARK: Hero Image
-                    AsyncImage(url: content.cardImageLarge) { phase in
+                    AsyncImage(url: content.cardImageLarge,
+                               transaction: Transaction(animation: .easeInOut)) { phase in
                         if let image = phase.image {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
+                                .transition(.opacity)
                         } else if phase.error != nil {
                             ZStack {
                                 Rectangle().fill(.secondary)
@@ -62,35 +64,38 @@ struct DetailsView: View {
                             .foregroundColor(.secondary)
                             .onAppear {
                                 if !content.isReleased { isNotificationAvailable.toggle() }
-                                print("Is \(content.itemTitle) released? \(content.isReleased). \(content.itemReleaseDate)")
                             }
                     }
                     //MARK: Watchlist button
                     Button {
-#if os(iOS)
                         let generator = UIImpactFeedbackGenerator(style: .medium)
                         generator.impactOccurred(intensity: 1.0)
-#endif
-                        if !viewModel.inWatchlist {
-                            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-                                if settings.authorizationStatus == .authorized {
-                                    isNotificationScheduled = true
-                                    viewModel.scheduleNotification()
+                        if !isInWatchlist {
+                            if content.itemCanNotify {
+                                UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                                    if settings.authorizationStatus == .denied {
+                                        viewModel.addItem(notify: false)
+                                    } else {
+                                        scheduleNotification()
+                                        viewModel.addItem(notify: true)
+                                    }
                                 }
+                            } else {
+                                viewModel.addItem(notify: false)
                             }
-                            viewModel.addToList(notify: content.itemCanNotify)
                             withAnimation {
                                 isInWatchlist.toggle()
                             }
                         } else {
-                            viewModel.removeFromList()
+                            viewModel.removeItem()
                             withAnimation {
                                 isInWatchlist.toggle()
                             }
                         }
                     } label: {
                         withAnimation {
-                            Label(!isInWatchlist ? "Add to watchlist" : "Remove from watchlist", systemImage: !isInWatchlist ? "plus.square" : "minus.square")
+                            Label(!isInWatchlist ? "Add to watchlist" : "Remove from watchlist",
+                                  systemImage: !isInWatchlist ? "plus.square" : "minus.square")
                         }
                     }
                     .buttonStyle(.bordered)
@@ -145,6 +150,7 @@ struct DetailsView: View {
                     AttributionView().padding([.top, .bottom])
                 }
             }
+            .sheet(isPresented: $isSharePresented, content: { ActivityViewController(itemsToShare: [title]) })
             .overlay(overlayView)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.large)
@@ -152,15 +158,7 @@ struct DetailsView: View {
                 ToolbarItem {
                     HStack {
                         Button( action: {
-                            NotificationManager.shared.requestAuthorization { granted in
-                                
-                            }
-                            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-                                if settings.authorizationStatus == .authorized {
-                                    isNotificationScheduled = true
-                                    viewModel.scheduleNotification()
-                                }
-                            }
+                            scheduleNotification()
                         }, label: {
                             withAnimation {
                                 Image(systemName: isNotificationScheduled ? "bell.fill" : "bell")
@@ -176,7 +174,7 @@ struct DetailsView: View {
                     }
                 }
             }
-            .sheet(isPresented: $isSharePresented, content: { ActivityViewController(itemsToShare: [title]) })
+            
         }
         .task {
             load()
@@ -199,12 +197,34 @@ struct DetailsView: View {
         }
     }
     
+    private func scheduleNotification() { 
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .authorized {
+                withAnimation {
+                    isNotificationScheduled = true
+                }
+                viewModel.scheduleNotification()
+            }
+            if settings.authorizationStatus == .notDetermined {
+                NotificationManager.shared.requestAuthorization { granted in
+                    if granted == true {
+                        withAnimation {
+                            isNotificationScheduled = true
+                        }
+                        viewModel.scheduleNotification()
+                    }
+                }
+            }
+        }
+    }
     @Sendable
     private func load() {
         Task {
             await self.viewModel.load(id: self.id, type: self.type)
-            isInWatchlist = viewModel.inWatchlist
-            isNotificationScheduled = viewModel.notificationScheduled
+            isInWatchlist = viewModel.context.isItemInList(id: self.id)
+            if isInWatchlist {
+                isNotificationScheduled = viewModel.context.isNotificationScheduled(id: self.id)
+            }
         }
     }
 }

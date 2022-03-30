@@ -36,6 +36,7 @@ extension WatchlistItem {
         item.id = Int32(Content.previewContent.id)
         item.image = Content.previewContent.cardImageMedium
         item.contentType = 0
+        item.notify = false
         return item
     }
 }

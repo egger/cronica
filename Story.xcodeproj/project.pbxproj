@@ -314,10 +314,10 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B8110ED9279245D000844FEB /* ContentView.swift */,
-				B845132827EA513900F0D4A4 /* Home */,
 				B8EC463E27D84C62009389FC /* Components */,
 				B8EC45E227D59C14009389FC /* Content */,
+				B8110ED9279245D000844FEB /* ContentView.swift */,
+				B845132827EA513900F0D4A4 /* Home */,
 				B8EC45E127D59BD7009389FC /* Person */,
 				B8EC463F27D84C79009389FC /* Search */,
 				B8EC45E027D59BB2009389FC /* Watchlist */,
@@ -376,8 +376,8 @@
 				B8EC45E327D5A010009389FC /* Content-Extensions.swift */,
 				B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */,
 				B82C26912796452A00259D98 /* Preview.swift */,
-				B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
+				B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -472,8 +472,8 @@
 			isa = PBXGroup;
 			children = (
 				B8EC462127D69464009389FC /* ActivityViewController.swift */,
-				B8CC952927D02C5700B6757C /* DetailsView.swift */,
 				B8CC952F27D03BBE00B6757C /* ContentListView.swift */,
+				B8CC952927D02C5700B6757C /* DetailsView.swift */,
 				B86E586C27A46A5E005DBF38 /* InformationView.swift */,
 			);
 			path = Content;
@@ -498,10 +498,10 @@
 		B8EC463E27D84C62009389FC /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B8E7651D27B753AE00D9B731 /* OverlayView.swift */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
 				B8423E2E2793B61B0012259B /* CardView.swift */,
 				B84C53FC27B1F1DD00425524 /* ItemView.swift */,
+				B8E7651D27B753AE00D9B731 /* OverlayView.swift */,
 				B82C26792795E33900259D98 /* PosterView.swift */,
 			);
 			path = Components;

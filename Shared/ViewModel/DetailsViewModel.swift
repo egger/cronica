@@ -16,8 +16,7 @@ import UserNotifications
     var content: Content? { phase.value ?? nil }
     var season: Season? { seasonPhase.value ?? nil }
     let context: DataController = DataController.shared
-    @Published var inWatchlist: Bool = false
-    @Published var notificationScheduled: Bool = false
+    //@Published var notificationScheduled: Bool = false
    
     func load(id: Content.ID, type: MediaType) async {
         if Task.isCancelled { return }
@@ -25,13 +24,6 @@ import UserNotifications
         do {
             let content = try await self.service.fetchContent(id: id, type: type)
             phase = .success(content)
-            print(content.releaseDates as Any)
-            inWatchlist = inList(id: content.id)
-//            if inWatchlist {
-//                let item = try context.getItem(id: WatchlistItem.ID(id))
-//                notificationScheduled = item.notify
-//            }
-            print("Is \(content.itemTitle) added? \(inWatchlist)")
         } catch {
             phase = .failure(error)
         }
@@ -48,39 +40,28 @@ import UserNotifications
         }
     }
     
-    func inList(id: Int) -> Bool {
-        if context.isItemInList(id: id) {
-            //context.updateItem(content: self.content!)
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func addToList(notify: Bool = false) {
-        if !context.isItemInList(id: content!.id) {
-            context.saveItem(content: content!, type: content!.itemContentMedia.watchlistInt, notify: notify)
-            inWatchlist.toggle()
-            print("Added \(content!.itemTitle)")
-        }
-    }
-    
-    func removeFromList() {
-        if context.isItemInList(id: content!.id) {
-            do {
-                let item = try context.getItem(id: WatchlistItem.ID(content!.id))
-                try context.removeItem(id: item)
-                inWatchlist.toggle()
-                print("Removed \(content!.itemTitle)")
-            } catch {
-                fatalError(error.localizedDescription)
+    func addItem(notify: Bool = false) {
+        if let content = content {
+            if !context.isItemInList(id: content.id) {
+                context.saveItem(content: content, type: content.itemContentMedia.watchlistInt, notify: notify)
             }
-            
+        }
+    }
+    
+    func removeItem() {
+        if let content = content {
+            if context.isItemInList(id: content.id) {
+                let item = try? context.getItem(id: WatchlistItem.ID(content.id))
+                if let item = item {
+                    try? context.removeItem(id: item)
+                }
+            }
         }
     }
     
     func scheduleNotification() {
-        self.notification.scheduleNotification(content: self.content!)
-        //context.updateItem(content: self.content!, notify: true)
+        if let content = content {
+            self.notification.scheduleNotification(content: content)
+        }
     }
 }

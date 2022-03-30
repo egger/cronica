@@ -83,16 +83,27 @@ extension Content {
         }
     }
     var itemRuntime: String {
-        if runtime != nil {
+        if runtime != nil && runtime! > 0 {
             return Utilities.durationFormatter.string(from: TimeInterval(runtime!) * 60)!
-        } else { return "" }
+        } else {
+            return NSLocalizedString("No information available",
+                                     comment: "API didn't provided status information.")
+        }
     }
-    var itemReleaseDate: String {
-        guard let releaseDate = self.releaseDate,
-              let date = Utilities.dateFormatter.date(from: releaseDate) else {
-                  return ""
-              }
-        return Utilities.dateString.string(from: date)
+    var theatricalReleaseDate: String {
+        if let dates = releaseDates {
+            let date = Utilities.getReleaseDate(results: dates.results)
+            return date ?? NSLocalizedString("",
+                                             comment: "API didn't provided status information.")
+        } else {
+            return NSLocalizedString("",
+                                     comment: "API didn't provided status information.")
+        }
+    }
+    var itemReleaseDate: Date {
+        let date = Utilities.dateFormatter.date(from: theatricalReleaseDate)
+        print("itemReleaseDate: \(date as Any)")
+        return date ?? Date()
     }
     var release: Date {
         if releaseDate != nil && !releaseDate.isEmpty {
@@ -107,15 +118,9 @@ extension Content {
             return false
         }
     }
-    var theatricalReleaseDate: Date? {
-        if releaseDates != nil {
-            return Utilities.getReleaseDate(results: releaseDates!.results)
-        }
-        return nil
-    }
     var itemInfo: String {
-        if !itemGenre.isEmpty && theatricalReleaseDate != nil {
-            return "\(itemGenre), \(theatricalReleaseDate!)"
+        if !itemGenre.isEmpty && !theatricalReleaseDate.isEmpty {
+            return "\(itemGenre), \(theatricalReleaseDate)"
         }
         else if !itemGenre.isEmpty {
             return "\(itemGenre)"

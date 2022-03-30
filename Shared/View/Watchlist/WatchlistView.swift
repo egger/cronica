@@ -43,7 +43,7 @@ struct WatchlistView: View {
                             || $0.status == "Planned" },
                                              title: "Coming Soon")
                         WatchlistSectionView(items: items.filter { $0.status == "Returning Series"},
-                                             title: "Releasing")
+                                             title: "Now Available")
                         WatchlistSectionView(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
                                              title: "Released")
                     }

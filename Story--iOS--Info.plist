@@ -4,6 +4,11 @@
 <dict>
 	<key>UILaunchScreen</key>
 	<dict>
+		<key>UINavigationBar</key>
+		<dict>
+			<key>UIImageName</key>
+			<string></string>
+		</dict>
 		<key>UIToolbar</key>
 		<dict>
 			<key>UIImageName</key>
@@ -14,13 +19,6 @@
 			<key>UIImageName</key>
 			<string></string>
 		</dict>
-		<key>UINavigationBar</key>
-		<dict>
-			<key>UIImageName</key>
-			<string></string>
-		</dict>
-		<key>UIImageName</key>
-		<string></string>
 	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

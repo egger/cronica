@@ -66,11 +66,13 @@ private struct DrawingConstants {
 private struct CardImage: View {
     let url: URL?
     var body: some View {
-        AsyncImage(url: url) { phase in
+        AsyncImage(url: url,
+                   transaction: Transaction(animation: .easeInOut)) { phase in
             if let image = phase.image {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
             } else if phase.error != nil {
                 ZStack {
                     ProgressView()
@@ -88,11 +90,13 @@ private struct CardImage: View {
 private struct PersonImage: View {
     let url: URL?
     var body: some View {
-        AsyncImage(url: url) { phase in
+        AsyncImage(url: url,
+                   transaction: Transaction(animation: .easeInOut)) { phase in
             if let image = phase.image {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
             } else if phase.error != nil {
                 ZStack {
                     ProgressView()
@@ -110,11 +114,13 @@ private struct PersonImage: View {
 private struct PosterImage: View {
     let url: URL?
     var body: some View {
-        AsyncImage(url: url) { phase in
+        AsyncImage(url: url,
+                   transaction: Transaction(animation: .easeInOut)) { phase in
             if let image = phase.image {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
             } else if phase.error != nil {
                 ZStack {
                     ProgressView()

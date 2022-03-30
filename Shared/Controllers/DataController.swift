@@ -74,18 +74,18 @@ class DataController: ObservableObject {
         }
     }
     
-//    func updateItem(content: Content, notify: Bool = false) {
-//        do {
-//            let item = try self.getItem(id: WatchlistItem.ID(content.id))
-//            item.image = content.cardImageMedium
-//            item.poster = content.posterImageMedium
-//            item.status = content.itemStatus
-//            item.notify = notify
-//            try DataController.shared.container.viewContext.save()
-//        } catch {
-//            fatalError("Fatal error on updating a new item, error: \(error.localizedDescription).")
-//        }
-//    }
+    func updateItem(content: Content, notify: Bool = false) {
+        do {
+            let item = try self.getItem(id: WatchlistItem.ID(content.id))
+            item.image = content.cardImageMedium
+            item.poster = content.posterImageMedium
+            item.status = content.itemStatus
+            item.notify = notify
+            try DataController.shared.container.viewContext.save()
+        } catch {
+            fatalError("Fatal error on updating a new item, error: \(error.localizedDescription).")
+        }
+    }
     
     /// Deletes a WatchlistItem from Core Data.
     /// - Parameter id: Use a WatchlistItem to search its' existence in Core Data, and then delete it.
@@ -117,6 +117,20 @@ class DataController: ObservableObject {
         } catch {
             fatalError(error.localizedDescription)
         }
+    }
+    
+    func isNotificationScheduled(id: Content.ID) -> Bool {
+        do {
+            let item = try getItem(id: WatchlistItem.ID(id))
+            if item.notify {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            
+        }
+        return false
     }
     
     /// Get an item from the Watchlist.
