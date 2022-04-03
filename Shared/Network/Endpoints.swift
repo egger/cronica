@@ -9,15 +9,16 @@ import Foundation
 
 enum Endpoints: String, CaseIterable, Identifiable {
     var id: String { rawValue }
-    case upcoming, latest
+    case upcoming
     case nowPlaying = "now_playing"
+    case onTheAir = "on_the_air"
     var sortIndex: Int {
         switch self {
         case .upcoming:
             return 0
-        case .latest:
-            return 1
         case .nowPlaying:
+            return 1
+        case .onTheAir:
             return 2
         }
     }
@@ -25,10 +26,30 @@ enum Endpoints: String, CaseIterable, Identifiable {
         switch self {
         case .upcoming:
             return "Up Coming"
-        case .latest:
-            return "Latest"
         case .nowPlaying:
             return "Latest Releases"
+        case .onTheAir:
+            return "Latest Shows"
+        }
+    }
+    var subtitle: String {
+        switch self {
+        case .upcoming:
+            return "Upcoming Movies"
+        case .nowPlaying:
+            return ""
+        case .onTheAir:
+            return ""
+        }
+    }
+    var image: String {
+        switch self {
+        case .upcoming:
+            return "theatermasks"
+        case .nowPlaying:
+            return "list.and.film"
+        case .onTheAir:
+            return "tv"
         }
     }
 }

@@ -16,6 +16,7 @@ struct CastListView: View {
                     .padding([.horizontal, .top])
                 Spacer()
             }
+            .unredacted()
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     if credits.cast.isEmpty {

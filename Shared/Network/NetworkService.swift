@@ -80,7 +80,8 @@ class NetworkService {
         else {
             component.queryItems = [
                 .init(name: "api_key", value: Key.keyV3),
-                .init(name: "language", value: Utilities.userLang)
+                .init(name: "language", value: Utilities.userLang),
+                .init(name: "region", value: Utilities.userRegion)
             ]
         }
         if let query = query {

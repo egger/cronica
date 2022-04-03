@@ -52,17 +52,6 @@ struct ItemView_Previews: PreviewProvider {
     }
 }
 
-private struct DrawingConstants {
-    static let imageWidth: CGFloat = 70
-    static let imageHeight: CGFloat = 50
-    static let imageRadius: CGFloat = 4
-    static let textLimit: Int = 1
-    static let personImageWidth: CGFloat = 60
-    static let personImageHeight: CGFloat = 60
-    static let posterImageWidth: CGFloat = 50
-    static let posterImageHeight: CGFloat = 70
-}
-
 private struct CardImage: View {
     let url: URL?
     var body: some View {
@@ -75,10 +64,14 @@ private struct CardImage: View {
                     .transition(.opacity)
             } else if phase.error != nil {
                 ZStack {
+                    Color.secondary
                     ProgressView()
-                }.background(.secondary)
+                }
             } else {
-                Rectangle().fill(.secondary)
+                ZStack {
+                    Color.secondary
+                    Image(systemName: "film")
+                }
             }
         }
         .frame(width: DrawingConstants.imageWidth,
@@ -102,7 +95,10 @@ private struct PersonImage: View {
                     ProgressView()
                 }.background(.secondary)
             } else {
-                Rectangle().fill(.secondary)
+                ZStack {
+                    Color.secondary
+                    Image(systemName: "person")
+                }
             }
         }
         .frame(width: DrawingConstants.personImageWidth,
@@ -123,14 +119,29 @@ private struct PosterImage: View {
                     .transition(.opacity)
             } else if phase.error != nil {
                 ZStack {
+                    Rectangle().fill(.secondary)
                     ProgressView()
-                }.background(.secondary)
+                }
             } else {
-                Rectangle().fill(.secondary)
+                ZStack {
+                    Color.secondary
+                    Image(systemName: "film")
+                }
             }
         }
         .frame(width: DrawingConstants.posterImageWidth,
                height: DrawingConstants.posterImageHeight)
         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
     }
+}
+
+private struct DrawingConstants {
+    static let imageWidth: CGFloat = 70
+    static let imageHeight: CGFloat = 50
+    static let imageRadius: CGFloat = 4
+    static let textLimit: Int = 1
+    static let personImageWidth: CGFloat = 60
+    static let personImageHeight: CGFloat = 60
+    static let posterImageWidth: CGFloat = 50
+    static let posterImageHeight: CGFloat = 70
 }

@@ -34,7 +34,7 @@ class NotificationManager: ObservableObject {
         notificationContent.body = "\(content.itemTitle) is out now!"
         notificationContent.sound = UNNotificationSound.default
         
-        let dateComponent = Calendar.current.dateComponents([], from: content.release)
+        let dateComponent = Calendar.current.dateComponents([], from: content.release!)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
         let request = UNNotificationRequest(identifier: content.itemTitle,
                                             content: notificationContent,

@@ -11,15 +11,19 @@ import Foundation
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Person?> = .empty
     var person: Person? { phase.value ?? nil }
+    var isLoaded: Bool = false
     
     func load(id: Int) async {
         if Task.isCancelled { return }
-        phase = .empty
-        do {
-            let person = try await self.service.fetchPerson(id: id)
-            phase = .success(person)
-        } catch {
-            phase = .failure(error)
+        if isLoaded != true {
+            phase = .empty
+            do {
+                let person = try await self.service.fetchPerson(id: id)
+                phase = .success(person)
+                isLoaded = true
+            } catch {
+                phase = .failure(error)
+            }
         }
     }
 }

@@ -73,13 +73,19 @@ struct ContentSection: Identifiable {
     var title: String {
         endpoint.title
     }
+    var subtitle: String {
+        endpoint.subtitle
+    }
+    var image: String {
+        endpoint.image
+    }
     var style: StyleType {
         switch endpoint {
         case .upcoming:
-            return StyleType.card
-        case .latest:
             return StyleType.poster
         case .nowPlaying:
+            return StyleType.poster
+        case .onTheAir:
             return StyleType.poster
         }
     }

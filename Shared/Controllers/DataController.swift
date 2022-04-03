@@ -74,12 +74,12 @@ class DataController: ObservableObject {
         }
     }
     
-    func updateItem(content: Content, notify: Bool = false) {
+    func updateItem(item: WatchlistItem, update: Content, notify: Bool) {
         do {
-            let item = try self.getItem(id: WatchlistItem.ID(content.id))
-            item.image = content.cardImageMedium
-            item.poster = content.posterImageMedium
-            item.status = content.itemStatus
+            let item = try self.getItem(id: WatchlistItem.ID(update.id))
+            item.image = update.cardImageMedium
+            item.poster = update.posterImageMedium
+            item.status = update.itemStatus
             item.notify = notify
             try DataController.shared.container.viewContext.save()
         } catch {

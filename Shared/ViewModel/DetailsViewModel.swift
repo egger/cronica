@@ -12,32 +12,34 @@ import UserNotifications
     private let service: NetworkService = NetworkService.shared
     private let notification: NotificationManager = NotificationManager()
     @Published private(set) var phase: DataFetchPhase<Content?> = .empty
-    @Published private(set) var seasonPhase: DataFetchPhase<Season?> = .empty
     var content: Content? { phase.value ?? nil }
-    var season: Season? { seasonPhase.value ?? nil }
     let context: DataController = DataController.shared
-    //@Published var notificationScheduled: Bool = false
+    var isLoaded = false
+    var isNotificationEnabled: Bool = false
    
     func load(id: Content.ID, type: MediaType) async {
         if Task.isCancelled { return }
-        phase = .empty
-        do {
-            let content = try await self.service.fetchContent(id: id, type: type)
-            phase = .success(content)
-        } catch {
-            phase = .failure(error)
+        if phase.value == nil {
+            phase = .empty
+            do {
+                let content = try await self.service.fetchContent(id: id, type: type)
+                phase = .success(content)
+                isLoaded = true
+            } catch {
+                phase = .failure(error)
+            }
+
         }
-    }
-    
-    func loadSeason(id: Int, seasonNumber: Int) async {
-        if Task.isCancelled { return }
-        seasonPhase = .empty
-        do {
-            let season = try await self.service.fetchSeason(id: id, season: seasonNumber)
-            seasonPhase = .success(season)
-        } catch {
-            seasonPhase = .failure(error)
-        }
+//        if isLoaded != true {
+//            phase = .empty
+//            do {
+//                let content = try await self.service.fetchContent(id: id, type: type)
+//                phase = .success(content)
+//                isLoaded = true
+//            } catch {
+//                phase = .failure(error)
+//            }
+//        }
     }
     
     func addItem(notify: Bool = false) {
@@ -60,8 +62,27 @@ import UserNotifications
     }
     
     func scheduleNotification() {
-        if let content = content {
-            self.notification.scheduleNotification(content: content)
+        do {
+            let item = try? context.getItem(id: WatchlistItem.ID(self.content!.id))
+            if let item = item {
+                if item.notify == true {
+                    if let content = content {
+                        self.notification.removeNotification(content: content)
+                        context.updateItem(item: item, update: content, notify: false)
+                        isNotificationEnabled = false
+                    }
+                } else {
+                    if let content = content {
+                        self.notification.scheduleNotification(content: content)
+                        isNotificationEnabled = true
+                    }
+                }
+            } else {
+                if let content = content {
+                    self.notification.scheduleNotification(content: content)
+                    isNotificationEnabled = true
+                }
+            }
         }
     }
 }

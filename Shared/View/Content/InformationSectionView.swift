@@ -1,5 +1,5 @@
 //
-//  InformationView.swift
+//  InformationSectionView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 28/01/22.
@@ -7,32 +7,33 @@
 
 import SwiftUI
 
-struct InformationView: View {
+struct InformationSectionView: View {
     let item: Content
     var body: some View {
         GroupBox {
             Section {
-                SectionView(title: NSLocalizedString("Run Time",
+                InfoView(title: NSLocalizedString("Run Time",
                                                      comment: ""),
                                        content: item.itemRuntime)
-                SectionView(title: NSLocalizedString("Release Date:",
+                InfoView(title: NSLocalizedString("Release Date:",
                                                      comment: ""),
                                        content: item.theatricalReleaseDate)
-                SectionView(title: NSLocalizedString("Status",
+                InfoView(title: NSLocalizedString("Status",
                                                      comment: ""),
                                        content: item.itemStatus)
-                SectionView(title: NSLocalizedString("Genre",
+                InfoView(title: NSLocalizedString("Genre",
                                                      comment: ""),
                             content: item.itemGenre)
-                SectionView(title: NSLocalizedString("Region of Origin",
+                InfoView(title: NSLocalizedString("Region of Origin",
                                                      comment: ""),
                             content: item.itemCountry)
-                SectionView(title: NSLocalizedString("Production Company",
+                InfoView(title: NSLocalizedString("Production Company",
                                                      comment: ""),
                             content: item.itemCompany)
             }
         } label: {
             Label("Information", systemImage: "info")
+                .unredacted()
         }
         .padding()
     }
@@ -40,11 +41,11 @@ struct InformationView: View {
 
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationView(item: Content.previewContent)
+        InformationSectionView(item: Content.previewContent)
     }
 }
 
-private struct SectionView: View {
+private struct InfoView: View {
     let title: String
     let content: String
     var body: some View {

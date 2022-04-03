@@ -11,6 +11,7 @@ struct CastDetailsView: View {
     let title: String
     let id: Int
     @State private var showBiography: Bool = false
+    @State private var isLoading: Bool = true
     @StateObject private var viewModel: CastDetailsViewModel
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: CastDetailsViewModel())
@@ -49,6 +50,7 @@ struct CastDetailsView: View {
                                 .lineLimit(DrawingConstants.biographyLineLimits)
                         } label: {
                             Label("Biography", systemImage: "book")
+                                .unredacted()
                         }
                         .onTapGesture {
                             showBiography.toggle()
@@ -74,25 +76,32 @@ struct CastDetailsView: View {
                     }
                     //MARK: Filmography list
                     if person.combinedCredits != nil {
-                        if let filmography = person.combinedCredits!.cast  {
+                        if let cast = person.combinedCredits?.cast,
+                           let crew = person.combinedCredits?.crew {
                             VStack {
-                                HStack {
-                                    Text("Filmography")
-                                        .font(.headline)
-                                        .padding([.top, .horizontal])
-                                    Spacer()
-                                }
+                                TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHStack {
-                                        ForEach(filmography) { item in
+                                        ForEach(cast) { item in
                                             NavigationLink(destination: DetailsView(title: item.itemTitle,
                                                                                     id: item.id,
                                                                                     type: item.itemMedia)) {
                                                 PosterView(title: item.itemTitle, url: item.itemImage)
                                                     .padding([.leading, .trailing], 4)
                                             }
-                                                                                    .padding(.leading, item.id == filmography.first!.id ? 16 : 0)
-                                                                                    .padding(.trailing, item.id == filmography.last!.id ? 16 : 0)
+                                                                                    .padding(.leading, item.id == cast.first!.id ? 16 : 0)
+                                                                                    .padding(.trailing, item.id == cast.last!.id ? 16 : 0)
+                                                                                    .padding([.top, .bottom])
+                                        }
+                                        ForEach(crew) { item in
+                                            NavigationLink(destination: DetailsView(title: item.itemTitle,
+                                                                                    id: item.id,
+                                                                                    type: item.itemMedia)) {
+                                                PosterView(title: item.itemTitle, url: item.itemImage)
+                                                    .padding([.leading, .trailing], 4)
+                                            }
+                                                                                    .padding(.leading, item.id == crew.first!.id ? 16 : 0)
+                                                                                    .padding(.trailing, item.id == crew.last!.id ? 16 : 0)
                                                                                     .padding([.top, .bottom])
                                         }
                                     }
@@ -102,7 +111,9 @@ struct CastDetailsView: View {
                     }
                     //MARK: Attribution
                     AttributionView().padding([.top, .bottom])
+                        .unredacted()
                 }
+                .redacted(reason: isLoading ? .placeholder : [])
             }
         }
         .navigationTitle(title)
@@ -113,6 +124,9 @@ struct CastDetailsView: View {
     private func load() {
         Task {
             await self.viewModel.load(id: self.id)
+            if viewModel.isLoaded {
+                isLoading = false
+            }
         }
     }
 }

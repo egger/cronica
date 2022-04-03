@@ -11,16 +11,13 @@ struct ContentListView: View {
     let style: StyleType
     let type: MediaType
     let title: String
+    let subtitle: String
+    let image: String
     let items: [Content]
     var body: some View {
         VStack {
             if !items.isEmpty {
-                HStack {
-                    Text(NSLocalizedString(title, comment: ""))
-                        .font(.headline)
-                        .padding([.horizontal, .top])
-                    Spacer()
-                }
+                TitleView(title: title, subtitle: subtitle, image: image)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(items) { item in
@@ -47,11 +44,11 @@ struct ContentListView: View {
     }
 }
 
-struct ContentListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentListView(style: StyleType.poster,
-                        type: MediaType.movie,
-                        title: "Popular",
-                        items: Content.previewContents)
-    }
-}
+//struct ContentListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentListView(style: StyleType.poster,
+//                        type: MediaType.movie,
+//                        title: "Popular",
+//                        items: Content.previewContents)
+//    }
+//}

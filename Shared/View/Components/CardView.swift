@@ -36,7 +36,10 @@ struct CardView: View {
                 } else if phase.error != nil {
                     Rectangle().fill(.secondary)
                 } else {
-                    Rectangle().fill(.thickMaterial)
+                    ZStack {
+                        Rectangle().fill(.thickMaterial)
+                        Image(systemName: "film")
+                    }
                 }
             }
             VStack(alignment: .leading) {

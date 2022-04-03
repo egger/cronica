@@ -101,22 +101,44 @@ extension Content {
         }
     }
     var itemReleaseDate: Date {
-        let date = Utilities.dateFormatter.date(from: theatricalReleaseDate)
-        print("itemReleaseDate: \(date as Any)")
-        return date ?? Date()
-    }
-    var release: Date {
-        if releaseDate != nil && !releaseDate.isEmpty {
-            return Utilities.dateFormatter.date(from: releaseDate!)!
+        if !theatricalReleaseDate.isEmpty {
+            return Utilities.dateFormatter.date(from: theatricalReleaseDate)!
+        } else {
+            return Date()
         }
-        return Date()
+    }
+    var release: Date? {
+        if !theatricalReleaseDate.isEmpty {
+            return Utilities.dateFormatter.date(from: theatricalReleaseDate) ?? Utilities.dateFormatter.date(from: releaseDate!)
+        } else {
+            return nil
+        }
+//        if releaseDate != nil && !releaseDate.isEmpty {
+//            print(releaseDate as Any)
+//            return Utilities.dateFormatter.date(from: releaseDate!)!
+//        }
+//        return Date()
     }
     var isReleased: Bool {
-        if Date() > release {
-            return true
+        if let release = release {
+            if release < Date() {
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }
+//        if release != nil {
+//            if Date() > release {
+//                return true
+//            } else {
+//                return false
+//            }
+//        } else {
+//            return false
+//        }
+        
     }
     var itemInfo: String {
         if !itemGenre.isEmpty && !theatricalReleaseDate.isEmpty {
