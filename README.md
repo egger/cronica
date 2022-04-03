@@ -13,3 +13,7 @@
 <p align="center">
     <img src="https://github.com/MadeiraAlexandre/Story/blob/main/Screenshots/Screen.png?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
 </p>
+
+## Instalation
+
+Currently, you can build Cronica using its source-code, or join the public [TestFlight](https://testflight.apple.com/join/axzCv925) beta.
