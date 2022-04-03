@@ -8,8 +8,17 @@
     Cronica is an app to remind you about your new movies, and tv shows.
 </p>
 
-[![Build status](https://build.appcenter.ms/v0.1/apps/afb3f82b-2845-4d8d-bd0c-6ec139d67c88/branches/main/badge)](https://appcenter.ms)
+<p align="center">
+    <img src="https://build.appcenter.ms/v0.1/apps/afb3f82b-2845-4d8d-bd0c-6ec139d67c88/branches/main/badge" alt="Build badge" />
+    <a href="https://twitter.com/_alexMadeira">
+        <img src="https://img.shields.io/badge/Twitter-@_alexMadeira-lightgrey.svg?style=flat" alt="Twitter: @_alexMadeira" />
+    </a>
+</p>
 
 <p align="center">
     <img src="https://github.com/MadeiraAlexandre/Story/blob/main/Screenshots/Screen.png?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
 </p>
+
+## Instalation
+
+Currently, you can build Cronica using its source-code, or join the public [TestFlight](https://testflight.apple.com/join/axzCv925) beta.
