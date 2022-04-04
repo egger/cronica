@@ -9,21 +9,16 @@
 			<key>UIImageName</key>
 			<string></string>
 		</dict>
-		<key>UIToolbar</key>
-		<dict>
-			<key>UIImageName</key>
-			<string></string>
-		</dict>
 		<key>UITabBar</key>
 		<dict>
 			<key>UIImageName</key>
 			<string></string>
 		</dict>
-	</dict>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
+		<key>UIToolbar</key>
+		<dict>
+			<key>UIImageName</key>
+			<string></string>
+		</dict>
 	</dict>
 </dict>
 </plist>

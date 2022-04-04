@@ -9,6 +9,9 @@ import SwiftUI
 
 struct WatchlistView: View {
     static let tag: String? = "Watchlist"
+#if os(iOS)
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+#endif
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
@@ -18,47 +21,62 @@ struct WatchlistView: View {
     private var filteredMovieItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
+    @ViewBuilder
     var body: some View {
-        NavigationView {
-            if items.isEmpty {
-                VStack {
-                    Text("Your list is empty.")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
-            } else {
-                List {
-                    if !filteredMovieItems.isEmpty {
-                        ForEach(filteredMovieItems) { item in
-                            NavigationLink(destination:
-                                            DetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
-                            ) {
-                                ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false)
-                            }
-                        }
-                    } else {
-                        WatchlistSectionView(items: items.filter { $0.status == "In Production"
-                            || $0.status == "Post Production"
-                            || $0.status == "Planned" },
-                                             title: "Coming Soon")
-                        WatchlistSectionView(items: items.filter { $0.status == "Returning Series"},
-                                             title: "Now Available")
-                        WatchlistSectionView(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
-                                             title: "Released")
-                    }
-                }
-                .navigationTitle("Watchlist")
-                .refreshable { viewContext.refreshAllObjects() }
-                .navigationBarTitleDisplayMode(.large)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
-                }
-                .searchable(text: $query,
-                            placement: .navigationBarDrawer(displayMode: .always),
-                            prompt: "Search watchlist")
-                .disableAutocorrection(true)
+#if os(iOS)
+        if horizontalSizeClass == .compact {
+            NavigationView {
+                details
             }
+            .navigationViewStyle(.stack)
+        } else {
+           details
+        }
+#else
+        details
+#endif
+    }
+    
+    @ViewBuilder
+    var details: some View {
+        if items.isEmpty {
+            VStack {
+                Text("Your list is empty.")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
+        } else {
+            List {
+                if !filteredMovieItems.isEmpty {
+                    ForEach(filteredMovieItems) { item in
+                        NavigationLink(destination:
+                                        DetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                        ) {
+                            ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false)
+                        }
+                    }
+                } else {
+                    WatchlistSectionView(items: items.filter { $0.status == "In Production"
+                        || $0.status == "Post Production"
+                        || $0.status == "Planned" },
+                                         title: "Coming Soon")
+                    WatchlistSectionView(items: items.filter { $0.status == "Returning Series"},
+                                         title: "Now Available")
+                    WatchlistSectionView(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
+                                         title: "Released")
+                }
+            }
+            .navigationTitle("Watchlist")
+            .refreshable { viewContext.refreshAllObjects() }
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
+            }
+            .searchable(text: $query,
+                        placement: .navigationBarDrawer(displayMode: .always),
+                        prompt: "Search watchlist")
+            .disableAutocorrection(true)
         }
     }
 }
