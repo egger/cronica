@@ -19,8 +19,8 @@ struct CardView: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                        Rectangle().fill(.ultraThickMaterial)
-                        Color.black.opacity(0.6)
+                        Rectangle().fill(Material.ultraThin)
+                        Color.black.opacity(0.4)
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -39,6 +39,7 @@ struct CardView: View {
                     ZStack {
                         Rectangle().fill(.thickMaterial)
                         Image(systemName: "film")
+                            .foregroundColor(.secondary)
                     }
                 }
             }
@@ -73,10 +74,10 @@ struct BackdropView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let cardWidth: CGFloat = 240
-    static let cardHeight: CGFloat = 140
-    static let cardRadius: CGFloat = 12
+    static let cardWidth: CGFloat = 280
+    static let cardHeight: CGFloat = 160
+    static let cardRadius: CGFloat = 8
     static let shadowOpacity: Double = 0.5
-    static let shadowRadius: CGFloat = 5
+    static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1
 }

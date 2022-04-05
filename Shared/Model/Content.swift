@@ -22,6 +22,8 @@ struct Content: Identifiable, Decodable {
     let recommendations: ContentResponse?
     let releaseDates: ReleaseDates?
     let mediaType: String?
+    let videos: Videos?
+    let nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
 struct Season: Decodable, Identifiable {
     let id: Int
@@ -29,7 +31,7 @@ struct Season: Decodable, Identifiable {
     let episodeCount: Int?
     let episodes: [Episode]?
     let name, overview, posterPath: String?
-    let seasonNumber: Int
+    let seasonNumber: Int 
 }
 struct ReleaseDates: Decodable {
     let results: [ReleaseDatesResult]
@@ -55,12 +57,20 @@ struct Genre: Decodable, Identifiable {
     let name: String?
 }
 struct Episode: Identifiable, Decodable {
-    let id: Int
-    let airDate: String
-    let episodeNumber: Int
+    let id, episodeNumber: Int
     let crew, guestStars: [Person]?
-    let name, overview, stillPath: String?
+    let name, overview, stillPath, airDate: String?
     let seasonNumber: Int
+}
+struct Videos: Decodable {
+    let results: [VideosResult]?
+}
+struct VideosResult: Decodable {
+    let iso639_1, iso3166_1: String?
+    let name, key, site, type: String
+    let size: Int?
+    let official: Bool
+    let publishedAt, id: String?
 }
 struct ContentResponse: Identifiable, Decodable {
     let id: String?

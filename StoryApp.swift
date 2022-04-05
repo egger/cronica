@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct StoryApp: App {
-    @StateObject var dataController = DataController.shared
+    @StateObject var dataController = WatchlistController.shared
     var body: some Scene {
         WindowGroup {
             ContentView()

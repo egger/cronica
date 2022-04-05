@@ -66,10 +66,19 @@ class Utilities {
         }
         return nil
     }
+    static func getTrailer(videos: [VideosResult]? = nil) -> URL? {
+        if let results = videos {
+            for result in results {
+                if result.name.contains("Official Trailer") && result.official {
+                    return NetworkService.urlBuilder(video: result.key)
+                }
+            }
+        }
+        return nil
+    }
 }
 enum StyleType: Decodable {
-    case poster
-    case card
+    case poster, card
 }
 enum MediaType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
@@ -87,32 +96,19 @@ enum MediaType: String, CaseIterable, Identifiable {
     }
     var watchlistInt: Int {
         switch self {
-        case .movie:
-            return 0
-        case .tvShow:
-            return 1
-        case .person:
-            return 2
-        }
-    }
-    var headline: String {
-        switch self {
-        case .movie:
-            return "Movies"
-        case .person:
-            return "Person"
-        case .tvShow:
-            return "Shows"
+        case .movie: return 0
+        case .tvShow: return 1
+        case .person: return 2
         }
     }
     var append: String {
         switch self {
         case .movie:
-            return "credits,recommendations,release_dates"
+            return "credits,recommendations,release_dates,videos"
         case .person:
-            return "combined_credits"
+            return "combined_credits,images"
         case .tvShow:
-            return "credits,recommendations"
+            return "credits,recommendations,videos"
         }
     }
 }

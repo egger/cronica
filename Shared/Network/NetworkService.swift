@@ -33,7 +33,7 @@ class NetworkService {
     }
     
     func fetchPerson(id: Person.ID) async throws -> Person {
-        guard let url = urlBuilder(path: "person/\(id)", append: "combined_credits")
+        guard let url = urlBuilder(path: "person/\(id)", append: "\(MediaType.person.append)")
         else {
             throw NetworkError.invalidEndpoint
         }
@@ -59,12 +59,12 @@ class NetworkService {
     
     /// Build a safe URL for the TMDB API Service.
     ///
-    /// Use it to load lists, details, search.
+    /// Only use it to generate the URL responsible for fetching content, such as details, lists, and search.
     /// - Parameters:
-    ///   - path: Content type and the ID for the content.
-    ///   - append: Additional information to display in the Details' pages.
-    ///   - query: The query for the search functionality.
-    /// - Returns: A safe URL, can be nil.
+    ///   - path: The path for the fetch request.
+    ///   - append: Additional information to fetch.
+    ///   - query: The query for the search functionality, if in Search.
+    /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
     private func urlBuilder(path: String, append: String? = nil, query: String? = nil) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
@@ -93,17 +93,16 @@ class NetworkService {
                 .init(name: "region", value: Utilities.userRegion)
             ]
         }
-        print("URL Builder: \(component.url as Any)")
         return component.url
     }
     
     /// Build a safe URL for the images used on TMDB API.
     ///
-    /// Use it build only the urls responsible to the images.
+    /// Use it only to build the URLs responsible for the images.
     /// - Parameters:
-    ///   - size: The image size returned in the url.
-    ///   - path: The path for the given image.
-    /// - Returns: A safe URL, can be nil.
+    ///   - size: The image size returned in the URL.
+    ///   - path: The path for the image.
+    /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
     static func urlBuilder(size: ImageSize, path: String? = nil) -> URL? {
         if let path = path {
             var component = URLComponents()
@@ -111,6 +110,21 @@ class NetworkService {
             component.host = "image.tmdb.org"
             component.path = "/\(size.rawValue)\(path)"
             return component.url
+        } else {
+            return nil
+        }
+    }
+    
+    /// Build a URL for the trailer, only generate YouTube links.
+    /// - Parameter path: The 'key' for the trailer.
+    /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
+    static func urlBuilder(video path: String? = nil) -> URL? {
+        if let path = path {
+            var components = URLComponents()
+            components.scheme = "https"
+            components.host = "www.youtube.com"
+            components.path = "/embed/\(path)"
+            return components.url
         } else {
             return nil
         }

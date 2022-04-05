@@ -18,6 +18,9 @@ extension Person {
     var itemRole: String? {
         job ?? character
     }
+    var itemURL: URL {
+        return URL(string: "https://www.themoviedb.org/person/\(id)")!
+    }
 }
 extension Filmography {
     var itemTitle: String {
@@ -28,12 +31,9 @@ extension Filmography {
     }
     var itemMedia: MediaType {
         switch mediaType {
-        case "movie":
-            return MediaType.movie
-        case "tv":
-            return MediaType.tvShow
-        default:
-            return MediaType.movie
+        case "movie": return .movie
+        case "tv": return .tvShow
+        default: return .movie
         }
     }
 }

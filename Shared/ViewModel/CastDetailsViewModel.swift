@@ -10,6 +10,7 @@ import Foundation
 @MainActor class CastDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Person?> = .empty
+    @Published var showImageViewer = false
     var person: Person? { phase.value ?? nil }
     var isLoaded: Bool = false
     

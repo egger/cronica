@@ -12,12 +12,16 @@ struct InformationSectionView: View {
     var body: some View {
         GroupBox {
             Section {
-                InfoView(title: NSLocalizedString("Run Time",
-                                                     comment: ""),
-                                       content: item.itemRuntime)
-                InfoView(title: NSLocalizedString("Release Date:",
-                                                     comment: ""),
-                                       content: item.theatricalReleaseDate)
+                if let runtime = item.itemRuntime {
+                    InfoView(title: NSLocalizedString("Run Time",
+                                                         comment: ""),
+                                           content: runtime)
+                }
+                if let date = item.theatricalDate {
+                    InfoView(title: NSLocalizedString("Release Date:",
+                                                         comment: ""),
+                                           content: date)
+                }
                 InfoView(title: NSLocalizedString("Status",
                                                      comment: ""),
                                        content: item.itemStatus)

@@ -29,7 +29,7 @@ extension WatchlistItem {
         }
     }
     static var example: WatchlistItem {
-        let controller = DataController(inMemory: true)
+        let controller = WatchlistController(inMemory: true)
         let viewContext = controller.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.title = Content.previewContent.itemTitle

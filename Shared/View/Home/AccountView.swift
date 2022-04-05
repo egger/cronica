@@ -30,11 +30,6 @@ struct AccountView: View {
                 }
             }
             .disabled(true)
-            Section(header: Text("Notifications")) {
-                NavigationLink(destination: UpcomingNotificationsView()) {
-                    Text("Upcoming notifications")
-                }
-            }
             Section(header: Text("Support")) {
                 Button( action: {
                     email.send(openURL: openURL)
@@ -55,33 +50,5 @@ struct AccountView: View {
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         AccountView()
-    }
-}
-
-private struct UpcomingNotificationsView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        entity: WatchlistItem.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true),
-        ],
-        predicate: NSPredicate(format: "notify == %d", true)
-    )
-    var items: FetchedResults<WatchlistItem>
-    var body: some View {
-        ScrollView {
-            Section {
-                ForEach(items.filter { $0.notify == true }) { item in
-                    ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false)
-                        .padding(.horizontal)
-                }
-                List {
-                    ForEach(items) {
-                        ItemView(title: $0.itemTitle, url: $0.image, type: $0.itemMedia, inSearch: false)
-                    }
-                }
-            }
-            .navigationTitle("Upcoming Notifications")
-        }
     }
 }

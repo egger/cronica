@@ -14,7 +14,7 @@ struct WatchlistView: View {
 #endif
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.id, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default)
     private var items: FetchedResults<WatchlistItem>
     @State private var query = ""
@@ -26,19 +26,19 @@ struct WatchlistView: View {
 #if os(iOS)
         if horizontalSizeClass == .compact {
             NavigationView {
-                details
+                detailsView
             }
             .navigationViewStyle(.stack)
         } else {
-           details
+           detailsView
         }
 #else
-        details
+        detailsView
 #endif
     }
     
     @ViewBuilder
-    var details: some View {
+    var detailsView: some View {
         if items.isEmpty {
             VStack {
                 Text("Your list is empty.")
@@ -57,13 +57,13 @@ struct WatchlistView: View {
                         }
                     }
                 } else {
-                    WatchlistSectionView(items: items.filter { $0.status == "In Production"
+                    WatchlistSection(items: items.filter { $0.status == "In Production"
                         || $0.status == "Post Production"
                         || $0.status == "Planned" },
                                          title: "Coming Soon")
-                    WatchlistSectionView(items: items.filter { $0.status == "Returning Series"},
+                    WatchlistSection(items: items.filter { $0.status == "Returning Series"},
                                          title: "Now Available")
-                    WatchlistSectionView(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
+                    WatchlistSection(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
                                          title: "Released")
                 }
             }
@@ -83,11 +83,11 @@ struct WatchlistView: View {
 
 struct WatchListView_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistView().environment(\.managedObjectContext, DataController.preview.container.viewContext)
+        WatchlistView().environment(\.managedObjectContext, WatchlistController.preview.container.viewContext)
     }
 }
 
-private struct WatchlistSectionView: View {
+private struct WatchlistSection: View {
     @Environment(\.managedObjectContext) private var viewContext
     let items: [WatchlistItem]
     let title: String

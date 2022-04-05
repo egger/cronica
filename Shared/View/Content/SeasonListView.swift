@@ -43,6 +43,7 @@ private struct SeasonView: View {
     var season: Int
     var title: String
     @StateObject private var viewModel: SeasonViewModel
+    @State private var showDetails: Bool = false
     init(id: Int, season: Int, title: String) {
         _viewModel = StateObject(wrappedValue: SeasonViewModel())
         self.id = id
@@ -57,6 +58,26 @@ private struct SeasonView: View {
                         ForEach(season.episodes!) { item in
                             EpisodeView(item: item)
                                 .padding(4)
+                                .onTapGesture {
+                                    showDetails.toggle()
+                                }
+                                .sheet(isPresented: $showDetails) {
+                                    NavigationView {
+                                        ScrollView {
+                                            
+                                        }
+                                        .navigationTitle(item.itemTitle)
+                                        .navigationBarTitleDisplayMode(.inline)
+                                        .toolbar {
+                                            ToolbarItem(placement: .navigationBarTrailing) {
+                                                Button("Close") {
+                                                    showDetails.toggle()
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
                         }
                     }
                 }
@@ -72,7 +93,6 @@ private struct SeasonView: View {
     private func load() {
         Task {
             await self.viewModel.load(id: self.id, season: self.season)
-            print(self.viewModel.season as Any)
         }
     }
 }

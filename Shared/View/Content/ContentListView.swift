@@ -44,11 +44,13 @@ struct ContentListView: View {
     }
 }
 
-//struct ContentListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentListView(style: StyleType.poster,
-//                        type: MediaType.movie,
-//                        title: "Popular",
-//                        items: Content.previewContents)
-//    }
-//}
+struct ContentListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentListView(style: StyleType.poster,
+                        type: MediaType.movie,
+                        title: "Popular",
+                        subtitle: "Popular Movies",
+                        image: "crow",
+                        items: Content.previewContents)
+    }
+}

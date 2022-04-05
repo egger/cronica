@@ -7,16 +7,15 @@
 
 import Foundation
 import UserNotifications
+import SwiftUI
 
 @MainActor class DetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     private let notification: NotificationManager = NotificationManager()
     @Published private(set) var phase: DataFetchPhase<Content?> = .empty
     var content: Content? { phase.value ?? nil }
-    let context: DataController = DataController.shared
-    var isLoaded = false
-    var isNotificationEnabled: Bool = false
-   
+    let context: WatchlistController = WatchlistController.shared
+    
     func load(id: Content.ID, type: MediaType) async {
         if Task.isCancelled { return }
         if phase.value == nil {
@@ -24,63 +23,40 @@ import UserNotifications
             do {
                 let content = try await self.service.fetchContent(id: id, type: type)
                 phase = .success(content)
-                isLoaded = true
             } catch {
                 phase = .failure(error)
             }
-
-        }
-//        if isLoaded != true {
-//            phase = .empty
-//            do {
-//                let content = try await self.service.fetchContent(id: id, type: type)
-//                phase = .success(content)
-//                isLoaded = true
-//            } catch {
-//                phase = .failure(error)
-//            }
-//        }
-    }
-    
-    func addItem(notify: Bool = false) {
-        if let content = content {
-            if !context.isItemInList(id: content.id) {
-                context.saveItem(content: content, type: content.itemContentMedia.watchlistInt, notify: notify)
-            }
         }
     }
     
-    func removeItem() {
+    func update() {
         if let content = content {
             if context.isItemInList(id: content.id) {
                 let item = try? context.getItem(id: WatchlistItem.ID(content.id))
                 if let item = item {
+                    if context.isNotificationScheduled(id: content.id) {
+                        notification.removeNotification(content: content)
+                    }
                     try? context.removeItem(id: item)
                 }
+            } else {
+                context.saveItem(content: content)
+                if content.itemCanNotify { notificationManager() }
             }
         }
     }
     
-    func scheduleNotification() {
-        do {
-            let item = try? context.getItem(id: WatchlistItem.ID(self.content!.id))
-            if let item = item {
-                if item.notify == true {
-                    if let content = content {
-                        self.notification.removeNotification(content: content)
-                        context.updateItem(item: item, update: content, notify: false)
-                        isNotificationEnabled = false
+    private func notificationManager() {
+        if let content = content {
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                if settings.authorizationStatus == .authorized {
+                    try? self.notification.scheduleNotification(content: content)
+                } else if settings.authorizationStatus == .notDetermined {
+                    self.notification.requestAuthorization { granted in
+                        if granted == true {
+                           try? self.notification.scheduleNotification(content: content)
+                        }
                     }
-                } else {
-                    if let content = content {
-                        self.notification.scheduleNotification(content: content)
-                        isNotificationEnabled = true
-                    }
-                }
-            } else {
-                if let content = content {
-                    self.notification.scheduleNotification(content: content)
-                    isNotificationEnabled = true
                 }
             }
         }

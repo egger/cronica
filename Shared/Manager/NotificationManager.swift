@@ -28,13 +28,30 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func scheduleNotification(content: Content) {
+    func scheduleNotification(content: Content) throws {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = content.itemTitle
-        notificationContent.body = "\(content.itemTitle) is out now!"
+        if content.itemContentMedia == .movie {
+            notificationContent.body = "The movie '\(content.itemTitle)' is out now!"
+        } else {
+            notificationContent.body = "The next episode of '\(content.itemTitle)' is out now!"
+        }
         notificationContent.sound = UNNotificationSound.default
         
-        let dateComponent = Calendar.current.dateComponents([], from: content.release!)
+        var dateComponent: DateComponents
+        if content.itemContentMedia == .movie {
+            if let date = content.itemRelease {
+                dateComponent = Calendar.current.dateComponents([], from: date)
+            } else {
+                fatalError("")
+            }
+        } else {
+            if let date = content.nextEpisodeDate {
+                dateComponent = Calendar.current.dateComponents([], from: date)
+            } else {
+                fatalError("")
+            }
+        }
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
         let request = UNNotificationRequest(identifier: content.itemTitle,
                                             content: notificationContent,
