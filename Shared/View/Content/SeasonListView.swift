@@ -70,7 +70,7 @@ private struct SeasonView: View {
                                         .navigationBarTitleDisplayMode(.inline)
                                         .toolbar {
                                             ToolbarItem(placement: .navigationBarTrailing) {
-                                                Button("Close") {
+                                                Button("Done") {
                                                     showDetails.toggle()
                                                 }
                                             }

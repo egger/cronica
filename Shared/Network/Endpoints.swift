@@ -27,7 +27,7 @@ enum Endpoints: String, CaseIterable, Identifiable {
         case .upcoming:
             return "Up Coming"
         case .nowPlaying:
-            return "Latest Releases"
+            return "Latest Movies"
         case .onTheAir:
             return "Latest Shows"
         }

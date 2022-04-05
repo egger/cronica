@@ -22,7 +22,7 @@ struct CastListView: View {
                     if credits.cast.isEmpty {
                         EmptyView()
                     } else {
-                        ForEach(credits.cast.prefix(10)) { content in
+                        ForEach(credits.cast.prefix(16)) { content in
                             NavigationLink(destination: CastDetailsView(title: content.name, id: content.id)) {
                                 ImageView(person: content)
                             }

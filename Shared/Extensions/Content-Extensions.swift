@@ -41,8 +41,7 @@ extension Content {
     var theatricalDate: String? {
         if let dates = releaseDates {
             let date = Utilities.getReleaseDate(results: dates.results)
-            return date ?? NSLocalizedString("",
-                                             comment: "API didn't provided status information.")
+            return date ?? nil
         }
         return nil
     }

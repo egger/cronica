@@ -15,13 +15,13 @@ struct TitleView: View {
         HStack {
             VStack {
                 HStack {
-                    Text(title)
+                    Text(NSLocalizedString(title, comment: ""))
                         .font(.headline)
                         .padding([.top, .horizontal])
                     Spacer()
                 }
                 HStack {
-                    Text(subtitle)
+                    Text(NSLocalizedString(subtitle, comment: ""))
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .padding(.horizontal)

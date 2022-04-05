@@ -18,7 +18,7 @@ struct InformationSectionView: View {
                                            content: runtime)
                 }
                 if let date = item.theatricalDate {
-                    InfoView(title: NSLocalizedString("Release Date:",
+                    InfoView(title: NSLocalizedString("Release Date",
                                                          comment: ""),
                                            content: date)
                 }

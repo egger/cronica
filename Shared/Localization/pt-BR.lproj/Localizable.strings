@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Story
 
@@ -6,73 +6,98 @@
   
 */
 
-//AccountFormView.swift
-"Account" = "Conta";
-"Log in with your TMDB Account to sync watchlist, and recommendations." = "Faça login com sua Conta TMDB para sincronizar a lista e recomendações.";
-"Log In" = "Entrar";
-"Log off" = "Sair";
-"Settings" = "Configurações";
-"Notify Automatically" = "Notificar Automaticamente";
-"Support" = "Suporte";
-"Send email" = "Enviar email";
-"Privacy Policy" = "Política de Privacidade";
-"Made in Brazil" = "Made in Brazil";
-
-//AboutView.swift
-"About" = "Sobre";
-
 //Common
 "Done" = "Concluído";
-"Home" = "Início";
-"Watchlist" = "Lista";
-"Search" = "Busca";
-"Popular" = "Populares";
-"Movie" = "Filme";
+"No details available." = "Nenhum detalhe disponível.";
+"Not Available" = "Não disponível";
+"No information available" = "Nenhuma informação disponível";
+"No title available" = "Nenhuma informação disponível";
+"Up Coming" = "Próximos Lançamentos";
+"Latest Movies" = "Últimos Filmes";
+"Latest Shows" = "Últimas séries de TV";
+"Upcoming Movies" = "Em Breve";
 "TV Show" = "Série";
-"Person" = "Pessoa";
+"Movie" = "Filme";
 "People" = "Pessoa";
-"Released" = "Lançado";
-"Seasons" = "Temporadas";
-"Trending" = "Em Alta";
-"This week" = "This week";
-"In Theaters" = "Nos Cinemas";
-"Top Rated" = "Mais Votados";
-"Upcoming Notifications" = "Futuras Notificações";
-"Latest Releases" = "Latest Releases";
 
-//ContentDetailsView.swift
-"Recommendations" = "Recomendações";
+//MARK: AttributionView.swift
+"This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
 
-//InformationView.swift
-"Run Time" = "Duração";
-"Release Date:" = "Data de lançamento:";
-"Status" = "Status";
-"Genre" = "Gênero";
-"Region of Origin" = "País de Origem";
-"Production Company" = "Estúdios";
-"Information" = "Informações";
+//MARK: OverlayView.swift
+"Something went wrong, try again later." = "Algo deu errado, tente novamente mais tarde.";
 
-//WatchlistButtonView.swift
+//MARK: DetailsView.swift
 "Add to watchlist" = "Adicionar à lista";
 "Remove from watchlist" = "Remover da lista";
+"About" = "Sobre";
+"Trailer" = "Trailer";
+"Seasons" = "Temporadas";
+"Recommendations" = "Recomendações";
+"You may like" = "Você pode gostar";
 
-//PersonView.swift
-"Biography" = "Biografia";
+//MARK: InformationSectionView.swift
+"Run Time" = "Tempo de Duração";
+"Release Date" = "Data de Lançamento";
+"Status" = "Status";
+"Genre" = "Gênero";
+"Region of Origin" = "Região de Origem";
+"Production Company" = "Empresa de Produção";
+"Information" = "Informações";
 
-//PersonListView.swift
-"Cast & Crew" = "Elenco";
+//MARK: ContentView.swift
+"Home" = "Início";
+"Watchlist" = "Lista";
+"Search" = "Pesquisar";
+"Cronica" = "Cronica";
 
-//FilmographyListView.swift
-"Filmography" = "Filmografia";
+//MARK: AccountView.swift
+"Account (Coming Soon)" = "Conta (Em Breve)";
+"Account" = "Conta";
+"Log in with your TMDB Account to sync watchlist, and recommendations." = "Faça login com sua Conta TMDB para sincronizar a lista e as recomendações.";
+"Log off" = "Desconectar";
+"Log In" = "Entrar";
+"Support" = "Suporte";
+"Send email" = "Enviar Email";
+"Privacy Policy" = "Privacy Policy";
+"Made in Brazil 🇧🇷" = "Feito no Brasil 🇧🇷";
 
-//WatchlistSoonItemsView.swift
+//MARK: HomeView.swift
+"Trending" = "Tendência";
+"This week" = "Esta semana";
+
+//MARK: WatchlistSectionView.swift
 "Coming Soon" = "Em Breve";
+"From Watchlist" = "Da Lista";
 
-//SearchView.swift
-"Movies, Shows, People" = "Filmes, Séries, Pessoas";
+//MARK: WelcomeView.swift
+"Welcome to" = "Bem-vindo a";
+" Cronica" = " Cronica";
+"Continue" = "Continuar";
+"Find" = "Busque";
+"Search for upcoming movies and tv shows." = "Procure seus próximos filmes e programas de TV.";
+"Never miss out" = "Receba as notificações";
+"Get notifications about the newest releases." = "Receba notificações sobre os últimos lançamentos.";
+"Organize" = "Tudo organizado";
+"Keep everything organized inside the Watchlist." = "Mantenha tudo organizado dentro da Lista.";
 
-//AttributionView.swift
-"This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API do TMDB, mas não é endossado ou certificado pelo TMDB.";
+//MARK: CastDetailsView.swift
+"Biography" = "Biografia";
+"Cast & Crew" = "Elenco & Equipe";
 
-//WatchlistView.swift
-"Search watchlist" = "Buscar na lista";
+//MARK: FilmographyView.swift
+"Filmography" = "Filmografia";
+"Know for" = "Conhecido por";
+
+//MARK: SearchView.swift
+"Search" = "Pesquisar";
+"Movies, Shows, People" = "Filmes, TV, Pessoas";
+"Searching" = "Pesquisando";
+"No Results" = "Sem Resultados";
+
+//MARK: WatchlistView.swift
+"Your list is empty." = "Sua lista está vazia.";
+"Coming Soon" = "Em Breve";
+"Now Available" = "Disponível";
+"Released" = "Lançado";
+"Watchlist" = "Lista";
+"Search watchlist" = "Procure na Lista";

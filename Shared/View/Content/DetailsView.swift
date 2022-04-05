@@ -50,7 +50,12 @@ struct DetailsView: View {
                         
                         //MARK: Watchlist button
                         Button(action: {
-                            watchlist()
+                            HapticManager.shared.buttonHaptic()
+                            viewModel.update()
+                            withAnimation {
+                                isInWatchlist.toggle()
+                                isNotificationScheduled.toggle()
+                            }
                         }, label: {
                             Label(!isInWatchlist ? "Add to watchlist" : "Remove from watchlist",
                                   systemImage: !isInWatchlist ? "plus.square" : "minus.square")
@@ -175,14 +180,6 @@ struct DetailsView: View {
         }
     }
     
-    private func watchlist() {
-        HapticManager.shared.buttonHaptic()
-        viewModel.update()
-        withAnimation {
-            isInWatchlist.toggle()
-        }
-    }
-    
     @Sendable
     private func load() {
         Task {
@@ -196,8 +193,6 @@ struct DetailsView: View {
                 }
                 withAnimation {
                     isNotificationAvailable = viewModel.content?.itemCanNotify ?? false
-                }
-                withAnimation {
                     isLoading = false
                 }
             }
@@ -212,6 +207,3 @@ struct ContentDetailsView_Previews: PreviewProvider {
                     type: MediaType.movie)
     }
 }
-
-
-

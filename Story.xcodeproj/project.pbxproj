@@ -239,7 +239,6 @@
 			children = (
 				B845132927EA514C00F0D4A4 /* AccountView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
-				B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */,
 				B890C57C27FCC056006BE5E1 /* WatchlistSectionView.swift */,
 				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,
 			);
@@ -379,6 +378,7 @@
 		B8EC463E27D84C62009389FC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */,
 				B8EC462127D69464009389FC /* ActivityViewController.swift */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
 				B8423E2E2793B61B0012259B /* CardView.swift */,
