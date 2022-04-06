@@ -18,14 +18,10 @@ extension WatchlistItem {
     }
     var itemMedia: MediaType {
         switch contentType {
-        case 0:
-            return MediaType.movie
-        case 1:
-            return MediaType.tvShow
-        case 2:
-            return MediaType.person
-        default:
-            return MediaType.movie
+        case 0: return .movie
+        case 1: return .tvShow
+        case 2: return .person
+        default: return .movie
         }
     }
     static var example: WatchlistItem {

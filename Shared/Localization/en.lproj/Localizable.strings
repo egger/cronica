@@ -19,6 +19,8 @@
 "TV Show" = "TV Show";
 "Movie" = "Movie";
 "People" = "People";
+"Popular Movies" = "Popular Movies";
+
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";

@@ -14,12 +14,14 @@ import Foundation
     
     func load(id: Int, season: Int) async {
         if Task.isCancelled { return }
-        phase = .empty
-        do {
-            let season = try await self.service.fetchSeason(id: id, season: season)
-            phase = .success(season)
-        } catch {
-            phase = .failure(error)
+        if phase.value == nil {
+            phase = .empty
+            do {
+                let season = try await self.service.fetchSeason(id: id, season: season)
+                phase = .success(season)
+            } catch {
+                phase = .failure(error)
+            }
         }
     }
 }

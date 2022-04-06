@@ -13,12 +13,13 @@
 "No information available" = "Nenhuma informação disponível";
 "No title available" = "Nenhuma informação disponível";
 "Up Coming" = "Próximos Lançamentos";
-"Latest Movies" = "Últimos Filmes";
+"Latest Movies" = "Lançamentos Recentes";
 "Latest Shows" = "Últimas séries de TV";
 "Upcoming Movies" = "Em Breve";
 "TV Show" = "Série";
 "Movie" = "Filme";
 "People" = "Pessoa";
+"Popular Movies" = "Filmes Populares";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -62,7 +63,7 @@
 "Made in Brazil 🇧🇷" = "Feito no Brasil 🇧🇷";
 
 //MARK: HomeView.swift
-"Trending" = "Tendência";
+"Trending" = "Em Alta";
 "This week" = "Esta semana";
 
 //MARK: WatchlistSectionView.swift

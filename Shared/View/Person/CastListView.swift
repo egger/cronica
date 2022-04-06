@@ -27,6 +27,7 @@ struct CastListView: View {
                                 ImageView(person: content)
                             }
                             .padding(.leading, content.id == self.credits.cast.first!.id ? 16 : 0)
+                            .buttonStyle(.plain)
                         }
                     }
                     if credits.crew.isEmpty {
@@ -36,6 +37,7 @@ struct CastListView: View {
                             NavigationLink(destination: CastDetailsView(title: content.name, id: content.id)) {
                                 ImageView(person: content)
                             }
+                            .buttonStyle(.plain)
                         }
                     }
                 }
@@ -76,15 +78,13 @@ private struct ImageView: View {
                         )
                         .transition(.opacity)
                 } else if phase.error != nil {
-                    ZStack {
-                        Image(systemName: "person")
-                                       .imageScale(.large)
-                                       .foregroundColor(.gray)
-                    }.background(.thinMaterial)
+                    Rectangle().redacted(reason: .placeholder)
                 } else {
                     ZStack {
-                        Rectangle().fill(.thickMaterial)
-                        ProgressView()
+                        Rectangle().fill(.secondary)
+                        Image(systemName: "person")
+                                       .imageScale(.large)
+                                       .foregroundColor(.secondary)
                     }
                 }
             }

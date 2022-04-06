@@ -12,8 +12,8 @@ extension Person {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
     var itemBiography: String {
-        biography ?? NSLocalizedString("Not Available",
-                                       comment: "Missing Biography")
+        if biography != nil && !biography.isEmpty { return biography! }
+        return "Not Available" 
     }
     var itemRole: String? {
         job ?? character

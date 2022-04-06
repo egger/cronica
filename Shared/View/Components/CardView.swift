@@ -34,7 +34,7 @@ struct CardView: View {
                             .transition(.opacity)
                     }
                 } else if phase.error != nil {
-                    Rectangle().fill(.secondary)
+                    Rectangle().redacted(reason: .placeholder)
                 } else {
                     ZStack {
                         Rectangle().fill(.thickMaterial)

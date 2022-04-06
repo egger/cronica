@@ -33,13 +33,6 @@ struct DetailsView: View {
                         //MARK: Hero Image
                         HeroImage(url: content.cardImageLarge, title: content.itemTitle)
                             .accessibilityLabel("Hero image of \(content.itemTitle).")
-                            .onAppear {
-                                print("""
-\(content.itemTitle) can notify? \(content.itemCanNotify).
-\(content.itemTitle) release date: \(content.itemRelease as Any).
-\(content.itemTitle) next episode: \(content.nextEpisodeDate as Any)
-""")
-                            }
                         
                         //MARK: Quick glance info
                         if !content.itemInfo.isEmpty {
@@ -170,13 +163,8 @@ struct DetailsView: View {
                     await viewModel.load(id: self.id, type: self.type)
                 }
             })
-        case .empty:
-            ProgressView()
-                .onAppear {
-                    isLoading = true
-                }
         default:
-            EmptyView()
+           EmptyView()
         }
     }
     
@@ -192,12 +180,13 @@ struct DetailsView: View {
                     }
                 }
                 withAnimation {
-                    isNotificationAvailable = viewModel.content?.itemCanNotify ?? false
+                    isNotificationAvailable = viewModel.itemCanNotify()
                     isLoading = false
                 }
             }
         }
     }
+    
 }
 
 struct ContentDetailsView_Previews: PreviewProvider {

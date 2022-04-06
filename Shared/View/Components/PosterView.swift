@@ -19,10 +19,7 @@ struct PosterView: View {
                     .aspectRatio(contentMode: .fill)
                     .transition(.opacity)
             } else if phase.error != nil {
-                ZStack {
-                    Rectangle().fill(.thickMaterial)
-                    ProgressView(title)
-                }
+                Rectangle().redacted(reason: .placeholder)
             } else {
                 ZStack {
                     Rectangle().fill(.thickMaterial)

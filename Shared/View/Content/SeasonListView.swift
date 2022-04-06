@@ -54,39 +54,20 @@ private struct SeasonView: View {
         ScrollView {
             if let season = viewModel.season {
                 VStack {
-                    if season.episodes != nil {
-                        ForEach(season.episodes!) { item in
-                            EpisodeView(item: item)
-                                .padding(4)
-                                .onTapGesture {
-                                    showDetails.toggle()
-                                }
-                                .sheet(isPresented: $showDetails) {
-                                    NavigationView {
-                                        ScrollView {
-                                            
-                                        }
-                                        .navigationTitle(item.itemTitle)
-                                        .navigationBarTitleDisplayMode(.inline)
-                                        .toolbar {
-                                            ToolbarItem(placement: .navigationBarTrailing) {
-                                                Button("Done") {
-                                                    showDetails.toggle()
-                                                }
-                                            }
-                                        }
-                                    }
-                                    
-                                }
+                    if let items = season.episodes {
+                        ForEach(items) { item in
+                            NavigationLink(destination: EpisodeDetailsView(item: item)) {
+                                EpisodeItemView(item: item)
+                                    .padding(4)
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
                 .navigationTitle(title)
             }
         }
-        .task {
-            load()
-        }
+        .task { load() }
     }
     
     @Sendable
@@ -104,7 +85,26 @@ private struct DrawingConstants {
     static let textLimit: Int = 1
 }
 
-private struct EpisodeView: View {
+private struct EpisodeDetailsView: View {
+    let item: Episode
+    var body: some View {
+        ScrollView {
+            VStack {
+                HeroImage(url: item.itemImageLarge, title: item.itemTitle)
+                GroupBox {
+                    Text(item.itemAbout)
+                        .padding([.top, .bottom], 4)
+                } label: {
+                    Label("About", systemImage: "tv")
+                }
+                .padding([.horizontal, .bottom])
+            }
+            .navigationTitle(item.itemTitle)
+        }
+    }
+}
+
+private struct EpisodeItemView: View {
     let item: Episode
     var body: some View {
         HStack {
@@ -115,9 +115,15 @@ private struct EpisodeView: View {
                         .aspectRatio(contentMode: .fill)
                 }
                 else if phase.error != nil {
-                    Rectangle().fill(.secondary)
+                    ZStack {
+                        Rectangle().fill(.secondary)
+                        ProgressView()
+                    }
                 } else {
-                    Rectangle().fill(.thickMaterial)
+                    ZStack {
+                        Rectangle().fill(.secondary)
+                        Image(systemName: "tv")
+                    }
                 }
             }
             .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
@@ -127,6 +133,7 @@ private struct EpisodeView: View {
                     .lineLimit(1)
                     .font(.callout)
                     .padding([.top, .bottom], 2)
+                    .foregroundColor(.primary)
                 Text(item.itemAbout)
                     .lineLimit(2)
                     .font(.caption2)

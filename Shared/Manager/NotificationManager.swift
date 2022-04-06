@@ -28,32 +28,19 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func scheduleNotification(content: Content) throws {
+    func scheduleNotification(identifier: String, title: String, body: String, date: Date? = nil) throws {
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = content.itemTitle
-        if content.itemContentMedia == .movie {
-            notificationContent.body = "The movie '\(content.itemTitle)' is out now!"
-        } else {
-            notificationContent.body = "The next episode of '\(content.itemTitle)' is out now!"
-        }
+        notificationContent.title = title
+        notificationContent.body = body
         notificationContent.sound = UNNotificationSound.default
-        
         var dateComponent: DateComponents
-        if content.itemContentMedia == .movie {
-            if let date = content.itemRelease {
-                dateComponent = Calendar.current.dateComponents([], from: date)
-            } else {
-                fatalError("")
-            }
+        if let date = date {
+            dateComponent = Calendar.current.dateComponents([], from: date)
         } else {
-            if let date = content.nextEpisodeDate {
-                dateComponent = Calendar.current.dateComponents([], from: date)
-            } else {
-                fatalError("")
-            }
+            fatalError()
         }
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
-        let request = UNNotificationRequest(identifier: content.itemTitle,
+        let request = UNNotificationRequest(identifier: identifier,
                                             content: notificationContent,
                                             trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
@@ -61,11 +48,11 @@ class NotificationManager: ObservableObject {
                 print(error.localizedDescription)
             }
         }
-        print("Notification request added for \(content.itemTitle).")
+        print("Notification request added for \(identifier).")
     }
     
-    func removeNotification(content: Content) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [content.itemTitle])
-        print("Notification request removed for \(content.itemTitle).")
+    func removeNotification(identifier: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        print("Notification request removed for \(identifier).")
     }
 }

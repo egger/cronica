@@ -28,7 +28,7 @@ struct CastDetailsView: View {
                     
                     //MARK: Biography box
                     GroupBox {
-                        Text(person.itemBiography)
+                        Text(NSLocalizedString(person.itemBiography, comment: ""))
                             .padding([.top, .bottom],
                                      DrawingConstants.biographyPadding)
                             .lineLimit(DrawingConstants.biographyLineLimits)
@@ -43,7 +43,7 @@ struct CastDetailsView: View {
                     .sheet(isPresented: $showBiography) {
                         NavigationView {
                             ScrollView {
-                                Text(person.itemBiography)
+                                Text(NSLocalizedString(person.itemBiography, comment: ""))
                                     .padding()
                                     .textSelection(.enabled)
                             }

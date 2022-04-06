@@ -58,7 +58,7 @@ class WatchlistController: ObservableObject {
     
     /// Adds or update an item to Watchlist Core Data.
     /// - Parameter content: The item to be added, or updated.
-    func saveItem(content: Content) {
+    func saveItem(content: Content, notify: Bool) {
         let viewContext = WatchlistController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.contentType = Int16(content.itemContentMedia.watchlistInt)
@@ -67,7 +67,7 @@ class WatchlistController: ObservableObject {
         item.image = content.cardImageMedium
         item.poster = content.posterImageMedium
         item.status = content.itemStatus
-        item.notify = content.itemCanNotify
+        item.notify = notify
         do {
             try viewContext.save()
         } catch {

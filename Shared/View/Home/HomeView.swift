@@ -39,48 +39,29 @@ struct HomeView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 WatchlistSectionView()
-                if !viewModel.trendingSection.isEmpty {
-                    TitleView(title: "Trending", subtitle: "This week", image: "crown")
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(viewModel.trendingSection) { item in
-                                NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
-                                    PosterView(title: item.itemTitle, url: item.posterImageMedium)
-                                        .padding([.leading, .trailing], 4)
-                                }
-                                .padding(.leading, item.id == viewModel.trendingSection.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == viewModel.trendingSection.last!.id ? 16 : 0)
-                                .padding([.top, .bottom])
-                            }
-                        }
+                if let trending = viewModel.trendingSection {
+                    TrendingView(items: trending)
+                }
+                if let sections = viewModel.sections {
+                    ForEach(sections) {
+                        ContentListView(style: $0.style,
+                                        type: $0.type,
+                                        title: $0.title,
+                                        subtitle: $0.subtitle,
+                                        image: $0.image,
+                                        items: $0.results)
                     }
-                }
-                ForEach(viewModel.moviesSections) {
-                    ContentListView(style: $0.style,
-                                    type: MediaType.movie,
-                                    title: $0.title,
-                                    subtitle: $0.subtitle,
-                                    image: $0.image,
-                                    items: $0.results)
-                }
-                ForEach(viewModel.tvSections) {
-                    ContentListView(style: $0.style,
-                                    type: MediaType.tvShow,
-                                    title: $0.title,
-                                    subtitle: $0.subtitle,
-                                    image: $0.image,
-                                    items: $0.results)
                 }
                 AttributionView()
             }
             .navigationTitle("Home")
             .toolbar {
                 ToolbarItem {
-                    Button {
+                    Button(action: {
                         showAccount.toggle()
-                    } label: {
+                    }, label: {
                         Label("Account", systemImage: "person.crop.circle")
-                    }
+                    })
                 }
             }
             .fullScreenCover(isPresented: $displayOnboard, content: {
@@ -116,5 +97,27 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+    }
+}
+
+private struct TrendingView: View {
+    let items: [Content]
+    var body: some View {
+        VStack {
+            TitleView(title: "Trending", subtitle: "This week", image: "crown")
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(items) { item in
+                        NavigationLink(destination: DetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
+                            PosterView(title: item.itemTitle, url: item.posterImageMedium)
+                                .padding([.leading, .trailing], 4)
+                        }
+                        .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                        .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                        .padding([.top, .bottom])
+                    }
+                }
+            }
+        }
     }
 }

@@ -89,14 +89,18 @@ struct ContentSection: Identifiable {
     var image: String {
         endpoint.image
     }
+    var type: MediaType {
+        switch endpoint {
+        case .upcoming: return .movie
+        case .nowPlaying: return .movie
+        case .onTheAir: return .tvShow
+        }
+    }
     var style: StyleType {
         switch endpoint {
-        case .upcoming:
-            return StyleType.poster
-        case .nowPlaying:
-            return StyleType.poster
-        case .onTheAir:
-            return StyleType.poster
+        case .upcoming: return .poster
+        case .nowPlaying: return .poster
+        case .onTheAir: return .poster
         }
     }
 }

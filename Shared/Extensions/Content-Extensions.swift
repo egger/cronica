@@ -38,15 +38,8 @@ extension Content {
         }
         return nil
     }
-    var theatricalDate: String? {
-        if let dates = releaseDates {
-            let date = Utilities.getReleaseDate(results: dates.results)
-            return date ?? nil
-        }
-        return nil
-    }
     var itemInfo: String {
-        if let date = theatricalDate {
+        if let date = itemTheatricalString {
             return "\(itemGenre), \(date)"
         }
         if let date = nextEpisodeDate {
@@ -90,38 +83,33 @@ extension Content {
         }
         return 0
     }
-    var itemRelease: Date? {
-        if let theatricalDate = theatricalDate {
-            return Utilities.dateFormatter.date(from: theatricalDate)
-        }
-        if let releaseDate = releaseDate {
-            return Utilities.dateFormatter.date(from: releaseDate)
-        }
-        return nil
-    }
     var nextEpisodeDate: Date? {
         if let nextEpisodeDate = nextEpisodeToAir?.airDate {
             return Utilities.dateFormatter.date(from: nextEpisodeDate)
         }
         return nil
     }
-    var itemCanNotify: Bool {
-        if let date = itemRelease {
-            if date > Date() { return true }
+    var itemTheatricalString: String? {
+        if let dates = releaseDates?.results {
+            return Utilities.getReleaseDate(results: dates)
         }
-        if let date = nextEpisodeDate {
-            if date > Date() { return true }
-        }
-        return false
+        return nil
     }
+    var itemTheatricalDate: Date? {
+        if let date = itemTheatricalString {
+            return Utilities.dateString.date(from: date)
+        }
+        return nil
+    }
+    
     /// This MediaType value is only used on regular content, such a trending list, filmography.
     ///
     /// Change to media to search results.
     var itemContentMedia: MediaType {
         if title != nil {
-            return MediaType.movie
+            return .movie
         } else {
-            return MediaType.tvShow
+            return .tvShow
         }
     }
     /// This MediaType value is only used on search results
@@ -129,10 +117,10 @@ extension Content {
     /// Change to itemContentMedia to specify on normal usage.
     var media: MediaType {
         switch mediaType {
-        case "tv": return MediaType.tvShow
-        case "movie": return MediaType.movie
-        case "person": return MediaType.person
-        default: return MediaType.movie
+        case "tv": return .tvShow
+        case "movie": return .movie
+        case "person": return .person
+        default: return .movie
         }
     }
 }

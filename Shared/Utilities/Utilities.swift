@@ -58,7 +58,6 @@ class Utilities {
                         if date.type != nil && date.type == 3 {
                             let release = releaseDateFormatter.date(from: date.releaseDate!)!
                             return dateString.string(from: release)
-                            //return dateFormatter.string(from: release)
                         }
                     }
                 }

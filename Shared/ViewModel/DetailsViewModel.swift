@@ -34,27 +34,64 @@ import SwiftUI
             if context.isItemInList(id: content.id) {
                 let item = try? context.getItem(id: WatchlistItem.ID(content.id))
                 if let item = item {
+                    let identifier: String = "\(content.itemTitle)+\(content.id)"
                     if context.isNotificationScheduled(id: content.id) {
-                        notification.removeNotification(content: content)
+                        notification.removeNotification(identifier: identifier)
                     }
                     try? context.removeItem(id: item)
                 }
             } else {
-                context.saveItem(content: content)
-                if content.itemCanNotify { notificationManager() }
+                let notify = itemCanNotify()
+                context.saveItem(content: content, notify: notify)
+                if notify { notificationManager() }
             }
         }
     }
     
+    func itemCanNotify() -> Bool {
+        if let item = content {
+            if let date = item.itemTheatricalDate {
+                if date > Date() {
+                    return true
+                }
+            }
+            if let date = item.nextEpisodeDate {
+                if date > Date() {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     private func notificationManager() {
         if let content = content {
+            let identifier: String = "\(content.itemTitle)+\(content.id)"
+            var body: String
+            if content.itemContentMedia == .movie {
+                body = "The movie '\(content.itemTitle)' is out now!"
+            } else {
+                body = "The next episode of '\(content.itemTitle)' is out now!"
+            }
+            var date: Date?
+            if content.itemContentMedia == .movie {
+                date = content.itemTheatricalDate
+            } else {
+                date = content.nextEpisodeDate
+            }
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 if settings.authorizationStatus == .authorized {
-                    try? self.notification.scheduleNotification(content: content)
+                    try? self.notification.scheduleNotification(identifier: identifier,
+                                                                title: content.itemTitle,
+                                                                body: body,
+                                                                date: date)
                 } else if settings.authorizationStatus == .notDetermined {
                     self.notification.requestAuthorization { granted in
                         if granted == true {
-                           try? self.notification.scheduleNotification(content: content)
+                            try? self.notification.scheduleNotification(identifier: identifier,
+                                                                        title: content.itemTitle,
+                                                                        body: body,
+                                                                        date: date)
                         }
                     }
                 }
