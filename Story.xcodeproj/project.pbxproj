@@ -40,6 +40,8 @@
 		B890C57F27FCCCA1006BE5E1 /* FilmographyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57E27FCCCA1006BE5E1 /* FilmographyView.swift */; };
 		B890C58127FCCD14006BE5E1 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58027FCCD14006BE5E1 /* ProfileImageView.swift */; };
 		B890C58327FCCE69006BE5E1 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58227FCCE69006BE5E1 /* HapticManager.swift */; };
+		B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
+		B890C58727FE4455006BE5E1 /* Season-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58627FE4455006BE5E1 /* Season-Extension.swift */; };
 		B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8991C7C27E4B5D2001055CB /* WelcomeView.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
 		B8B271A427A59EF400F6463F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
@@ -112,6 +114,8 @@
 		B890C57E27FCCCA1006BE5E1 /* FilmographyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyView.swift; sourceTree = "<group>"; };
 		B890C58027FCCD14006BE5E1 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		B890C58227FCCE69006BE5E1 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		B890C58427FE4442006BE5E1 /* Episode-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Episode-Extension.swift"; sourceTree = "<group>"; };
+		B890C58627FE4455006BE5E1 /* Season-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Season-Extension.swift"; sourceTree = "<group>"; };
 		B8991C7C27E4B5D2001055CB /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -250,8 +254,10 @@
 			children = (
 				B82C268E279644E000259D98 /* Bundle-Decodable.swift */,
 				B8EC45E327D5A010009389FC /* Content-Extensions.swift */,
+				B890C58427FE4442006BE5E1 /* Episode-Extension.swift */,
 				B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */,
 				B82C26912796452A00259D98 /* Preview.swift */,
+				B890C58627FE4455006BE5E1 /* Season-Extension.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
 				B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */,
 			);
@@ -531,6 +537,7 @@
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */,
+				B890C58727FE4455006BE5E1 /* Season-Extension.swift in Sources */,
 				B82C267A2795E33900259D98 /* PosterView.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */,
 				B890C58327FCCE69006BE5E1 /* HapticManager.swift in Sources */,
@@ -543,6 +550,7 @@
 				B878E83527BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift in Sources */,
 				B85E035427B02D01005C7FDF /* CastDetailsViewModel.swift in Sources */,
 				B890C57D27FCC056006BE5E1 /* WatchlistSectionView.swift in Sources */,
+				B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */,
 				B8FF4DC127FB56F500C7DE9F /* SFSafariViewWrapper.swift in Sources */,
 				B8EC462C27D6FE2F009389FC /* SettingsStore.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,

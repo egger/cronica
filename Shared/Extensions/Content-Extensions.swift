@@ -101,7 +101,6 @@ extension Content {
         }
         return nil
     }
-    
     /// This MediaType value is only used on regular content, such a trending list, filmography.
     ///
     /// Change to media to search results.
@@ -122,32 +121,5 @@ extension Content {
         case "person": return .person
         default: return .movie
         }
-    }
-}
-extension Season {
-    var itemTitle: String {
-        name ?? NSLocalizedString("Not Available",
-                                  comment: "")
-    }
-    var itemAbout: String {
-        overview ?? NSLocalizedString("Not Available",
-                                      comment: "")
-    }
-    var posterImage: URL? {
-        return NetworkService.urlBuilder(size: .medium, path: posterPath)
-    }
-}
-extension Episode {
-    var itemTitle: String {
-        name ?? "Not Available"
-    }
-    var itemAbout: String {
-        overview ?? "Not Available"
-    }
-    var itemImageMedium: URL? {
-        return NetworkService.urlBuilder(size: .medium, path: stillPath)
-    }
-    var itemImageLarge: URL? {
-        return NetworkService.urlBuilder(size: .large, path: stillPath)
     }
 }

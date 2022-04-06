@@ -50,27 +50,24 @@ struct ProductionCompany: Decodable {
     let name: String
 }
 struct ProductionCountry: Decodable {
-    let name: String?
+    let name: String
 }
 struct Genre: Decodable, Identifiable {
     let id: Int
     let name: String?
 }
 struct Episode: Identifiable, Decodable {
-    let id, episodeNumber: Int
+    let id, episodeNumber, seasonNumber: Int
     let crew, guestStars: [Person]?
     let name, overview, stillPath, airDate: String?
-    let seasonNumber: Int
 }
 struct Videos: Decodable {
-    let results: [VideosResult]?
+    let results: [VideosResult]
 }
 struct VideosResult: Decodable {
-    let iso639_1, iso3166_1: String?
-    let name, key, site, type: String
-    let size: Int?
+    let iso639_1, iso3166_1, publishedAt, id: String?
+    let name, key, type: String
     let official: Bool
-    let publishedAt, id: String?
 }
 struct ContentResponse: Identifiable, Decodable {
     let id: String?

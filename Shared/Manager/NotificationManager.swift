@@ -28,17 +28,12 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func scheduleNotification(identifier: String, title: String, body: String, date: Date? = nil) throws {
+    func scheduleNotification(identifier: String, title: String, body: String, date: Date) {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
         notificationContent.body = body
         notificationContent.sound = UNNotificationSound.default
-        var dateComponent: DateComponents
-        if let date = date {
-            dateComponent = Calendar.current.dateComponents([], from: date)
-        } else {
-            fatalError()
-        }
+        let dateComponent: DateComponents = Calendar.current.dateComponents([], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
         let request = UNNotificationRequest(identifier: identifier,
                                             content: notificationContent,
@@ -48,11 +43,9 @@ class NotificationManager: ObservableObject {
                 print(error.localizedDescription)
             }
         }
-        print("Notification request added for \(identifier).")
     }
     
     func removeNotification(identifier: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-        print("Notification request removed for \(identifier).")
     }
 }

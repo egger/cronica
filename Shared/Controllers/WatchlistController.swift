@@ -18,7 +18,7 @@ class WatchlistController: ObservableObject {
         for item in Content.previewContents {
             let newItem = WatchlistItem(context: viewContext)
             newItem.title = item.itemTitle
-            newItem.id = Int32(item.id)
+            newItem.id = Int64(item.id)
             newItem.image = item.cardImageMedium
             newItem.poster = item.posterImageMedium
             newItem.type = "Movie"
@@ -61,9 +61,9 @@ class WatchlistController: ObservableObject {
     func saveItem(content: Content, notify: Bool) {
         let viewContext = WatchlistController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
-        item.contentType = Int16(content.itemContentMedia.watchlistInt)
+        item.contentType = Int64(content.itemContentMedia.watchlistInt)
         item.title = content.itemTitle
-        item.id = Int32(content.id)
+        item.id = Int64(content.id)
         item.image = content.cardImageMedium
         item.poster = content.posterImageMedium
         item.status = content.itemStatus
@@ -72,6 +72,22 @@ class WatchlistController: ObservableObject {
             try viewContext.save()
         } catch {
             fatalError("Fatal error on adding a new item, error: \(error.localizedDescription).")
+        }
+    }
+    
+    func updateItem(content: Content) {
+        if isItemInList(id: content.id) {
+            let viewContext = WatchlistController.shared
+            do {
+                let item = try viewContext.getItem(id: WatchlistItem.ID(content.id))
+                item.title = content.itemTitle
+                item.image = content.cardImageMedium
+                item.poster = content.posterImageMedium
+                item.status = content.itemStatus
+                try viewContext.container.viewContext.save()
+            } catch {
+                fatalError("Fatal error on updating an existing item, error: \(error.localizedDescription).")
+            }
         }
     }
     

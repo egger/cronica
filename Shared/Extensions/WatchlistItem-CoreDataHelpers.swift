@@ -29,7 +29,7 @@ extension WatchlistItem {
         let viewContext = controller.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.title = Content.previewContent.itemTitle
-        item.id = Int32(Content.previewContent.id)
+        item.id = Int64(Content.previewContent.id)
         item.image = Content.previewContent.cardImageMedium
         item.contentType = 0
         item.notify = false

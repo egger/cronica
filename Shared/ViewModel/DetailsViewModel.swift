@@ -43,7 +43,7 @@ import SwiftUI
             } else {
                 let notify = itemCanNotify()
                 context.saveItem(content: content, notify: notify)
-                if notify { notificationManager() }
+                if notify { try? notificationManager() }
             }
         }
     }
@@ -64,7 +64,7 @@ import SwiftUI
         return false
     }
     
-    private func notificationManager() {
+    private func notificationManager() throws {
         if let content = content {
             let identifier: String = "\(content.itemTitle)+\(content.id)"
             var body: String
@@ -73,22 +73,24 @@ import SwiftUI
             } else {
                 body = "The next episode of '\(content.itemTitle)' is out now!"
             }
-            var date: Date?
+            var date: Date
             if content.itemContentMedia == .movie {
-                date = content.itemTheatricalDate
+                date = content.itemTheatricalDate!
+            } else if content.itemContentMedia == .tvShow {
+                date = content.nextEpisodeDate!
             } else {
-                date = content.nextEpisodeDate
+                date = Date()
             }
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 if settings.authorizationStatus == .authorized {
-                    try? self.notification.scheduleNotification(identifier: identifier,
+                    self.notification.scheduleNotification(identifier: identifier,
                                                                 title: content.itemTitle,
                                                                 body: body,
                                                                 date: date)
                 } else if settings.authorizationStatus == .notDetermined {
                     self.notification.requestAuthorization { granted in
                         if granted == true {
-                            try? self.notification.scheduleNotification(identifier: identifier,
+                            self.notification.scheduleNotification(identifier: identifier,
                                                                         title: content.itemTitle,
                                                                         body: body,
                                                                         date: date)
