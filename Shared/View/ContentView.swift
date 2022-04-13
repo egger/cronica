@@ -43,16 +43,13 @@ struct SideBarView: View {
             List(selection: $selectedView) {
                 NavigationLink(destination: HomeView()) {
                     Label("Home", systemImage: "house")
-                }
-                .tag(HomeView.tag)
+                }.tag(HomeView.tag)
                 NavigationLink(destination: WatchlistView()) {
                     Label("Watchlist", systemImage: "square.stack.fill")
-                }
-                .tag(WatchlistView.tag)
+                }.tag(WatchlistView.tag)
                 NavigationLink(destination: SearchView()) {
                     Label("Search", systemImage: "magnifyingglass")
-                }
-                .tag(SearchView.tag)
+                }.tag(SearchView.tag)
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")

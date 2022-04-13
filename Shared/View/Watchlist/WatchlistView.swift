@@ -68,8 +68,11 @@ struct WatchlistView: View {
                 }
             }
             .navigationTitle("Watchlist")
-            .refreshable { viewContext.refreshAllObjects() }
-            .navigationBarTitleDisplayMode(.large)
+            .refreshable {
+                Task {
+                    await refresh()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
             }
@@ -77,6 +80,14 @@ struct WatchlistView: View {
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: "Search watchlist")
             .disableAutocorrection(true)
+        }
+    }
+    
+    private func refresh() async {
+        viewContext.refreshAllObjects()
+        DispatchQueue.global(qos: .background).async {
+            let background = BackgroundManager()
+            background.handleAppRefreshContent()
         }
     }
 }

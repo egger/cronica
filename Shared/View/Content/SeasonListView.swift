@@ -28,9 +28,10 @@ struct SeasonListView: View {
                             PosterView(title: item.itemTitle, url: item.posterImage)
                                 .padding([.leading, .trailing], 4)
                         }
-                                                               .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
-                                                               .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
-                                                               .padding([.top, .bottom])
+                        .buttonStyle(.plain)
+                        .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
+                        .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                        .padding([.top, .bottom])
                     }
                 }
             }
@@ -60,7 +61,7 @@ private struct SeasonView: View {
                                 EpisodeItemView(item: item)
                                     .padding(4)
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .buttonStyle(.plain)
                         }
                     }
                 }

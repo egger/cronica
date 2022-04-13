@@ -8,8 +8,14 @@
 import Foundation
 import UserNotifications
 import SwiftUI
+import os
+import TelemetryClient
 
 @MainActor class DetailsViewModel: ObservableObject {
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: DetailsViewModel.self)
+    )
     private let service: NetworkService = NetworkService.shared
     private let notification: NotificationManager = NotificationManager()
     @Published private(set) var phase: DataFetchPhase<Content?> = .empty
@@ -21,10 +27,13 @@ import SwiftUI
         if phase.value == nil {
             phase = .empty
             do {
+                Self.logger.trace("Started fetching content.")
                 let content = try await self.service.fetchContent(id: id, type: type)
                 phase = .success(content)
+                Self.logger.notice("Content fetching is finished.")
             } catch {
                 phase = .failure(error)
+                TelemetryManager.send("DetailsViewModel_LoadError", with: ["ID:":"\(id)"])
             }
         }
     }
@@ -41,9 +50,8 @@ import SwiftUI
                     try? context.removeItem(id: item)
                 }
             } else {
-                let notify = itemCanNotify()
-                context.saveItem(content: content, notify: notify)
-                if notify { try? notificationManager() }
+                context.saveItem(content: content, notify: content.itemCanNotify)
+                if content.itemCanNotify { try? notificationManager() }
             }
         }
     }
@@ -67,10 +75,13 @@ import SwiftUI
     private func notificationManager() throws {
         if let content = content {
             let identifier: String = "\(content.itemTitle)+\(content.id)"
+            var title: String
             var body: String
             if content.itemContentMedia == .movie {
+                title = content.itemTitle
                 body = "The movie '\(content.itemTitle)' is out now!"
             } else {
+                title = "New Episode."
                 body = "The next episode of '\(content.itemTitle)' is out now!"
             }
             var date: Date
@@ -84,14 +95,14 @@ import SwiftUI
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 if settings.authorizationStatus == .authorized {
                     self.notification.scheduleNotification(identifier: identifier,
-                                                                title: content.itemTitle,
+                                                                title: title,
                                                                 body: body,
                                                                 date: date)
                 } else if settings.authorizationStatus == .notDetermined {
                     self.notification.requestAuthorization { granted in
                         if granted == true {
                             self.notification.scheduleNotification(identifier: identifier,
-                                                                        title: content.itemTitle,
+                                                                        title: title,
                                                                         body: body,
                                                                         date: date)
                         }

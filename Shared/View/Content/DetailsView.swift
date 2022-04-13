@@ -57,6 +57,7 @@ struct DetailsView: View {
                         .tint(!isInWatchlist ? .blue : .red)
                         .controlSize(.large)
                         .disabled(isLoading)
+                        .keyboardShortcut("w", modifiers: [.command, .shift])
                         
                         //MARK: About view
                         GroupBox {
@@ -164,7 +165,7 @@ struct DetailsView: View {
                 }
             })
         default:
-           EmptyView()
+            EmptyView()
         }
     }
     
@@ -194,5 +195,24 @@ struct ContentDetailsView_Previews: PreviewProvider {
         DetailsView(title: Content.previewContent.itemTitle,
                     id: Content.previewContent.id,
                     type: MediaType.movie)
+    }
+}
+
+enum OverviewType: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    case content, biography, episode
+    var image: String {
+        switch self {
+        case .content: return "film"
+        case .biography: return "book"
+        case .episode: return "tv"
+        }
+    }
+    var title: String {
+        switch self {
+        case .content: return "About"
+        case .biography: return "Biography"
+        case .episode: return "Overview"
+        }
     }
 }

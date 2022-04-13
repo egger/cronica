@@ -28,7 +28,7 @@ struct CastDetailsView: View {
                     
                     //MARK: Biography box
                     GroupBox {
-                        Text(NSLocalizedString(person.itemBiography, comment: ""))
+                        Text(person.itemBiography)
                             .padding([.top, .bottom],
                                      DrawingConstants.biographyPadding)
                             .lineLimit(DrawingConstants.biographyLineLimits)

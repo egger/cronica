@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 import SwiftUI
+import TelemetryClient
 
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
@@ -40,7 +41,7 @@ class NotificationManager: ObservableObject {
                                             trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print(error.localizedDescription)
+                TelemetryManager.send("scheduleNotificationError", with: ["Error:":"\(error.localizedDescription)"])
             }
         }
     }

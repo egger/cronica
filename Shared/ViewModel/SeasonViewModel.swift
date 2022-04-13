@@ -6,8 +6,14 @@
 //
 
 import Foundation
+import os
+import TelemetryClient
 
 @MainActor class SeasonViewModel: ObservableObject {
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: SeasonViewModel.self)
+    )
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Season?> = .empty
     var season: Season? { phase.value ?? nil }
@@ -21,6 +27,7 @@ import Foundation
                 phase = .success(season)
             } catch {
                 phase = .failure(error)
+                TelemetryManager.send("SeasonViewModel_loadError", with: ["ID/Season:":"\(id)/\(season)"])
             }
         }
     }

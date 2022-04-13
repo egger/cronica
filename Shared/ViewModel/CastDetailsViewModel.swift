@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import TelemetryClient
 
 @MainActor class CastDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
@@ -24,6 +25,7 @@ import Foundation
                 isLoaded = true
             } catch {
                 phase = .failure(error)
+                TelemetryManager.send("CastDetailsViewModel_loadError", with: ["ID:":"\(id)"])
             }
         }
     }

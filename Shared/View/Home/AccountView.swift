@@ -8,33 +8,22 @@
 import SwiftUI
 
 struct AccountView: View {
-    @EnvironmentObject var settings: SettingsStore
     @Environment(\.openURL) var openURL
     @State private var email = SupportEmail()
+    @State private var showPolicy: Bool = false
     var body: some View {
         Form {
-            Section(header: Text("Account (Coming Soon)"), footer: Text("Log in with your TMDB Account to sync watchlist, and recommendations.")) {
-                switch settings.isUserLogged {
-                case true:
-                    VStack {
-                        Button("Log off", role: .destructive) {
-                            
-                        }
-                    }
-                case false:
-                    Button {
-                        
-                    } label: {
-                        Label("Log In", systemImage: "person.crop.circle")
-                    }
-                }
-            }
-            .disabled(true)
             Section(header: Text("Support")) {
                 Button( action: {
                     email.send(openURL: openURL)
-                }, label: { Text("Send email") })
-                Link("Privacy Policy", destination: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+                }, label: {
+                    Label("Send email", systemImage: "envelope")
+                })
+                Button(action: {
+                    showPolicy.toggle()
+                }, label: {
+                    Label("Privacy Policy", systemImage: "hand.raised")
+                })
             }
             HStack {
                 Spacer()
@@ -42,6 +31,9 @@ struct AccountView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Spacer()
+            }
+            .fullScreenCover(isPresented: $showPolicy) {
+                SFSafariViewWrapper(url: URL(string: "https://cronica.alexandremadeira.dev/privacy")!)
             }
         }
     }

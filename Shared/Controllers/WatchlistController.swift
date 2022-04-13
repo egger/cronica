@@ -7,6 +7,7 @@
 
 import CoreData
 import SwiftUI
+import TelemetryClient
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// counting fetch request, tracking watchlists, and dealing with sample data.
@@ -51,7 +52,7 @@ class WatchlistController: ObservableObject {
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.loadPersistentStores {_, error in
             if let error = error {
-                fatalError("Fatal error loading storage, error: \(error.localizedDescription)")
+                TelemetryManager.send("WatchlistController_initError", with: ["Error:":"\(error.localizedDescription)"])
             }
         }
     }
@@ -71,7 +72,7 @@ class WatchlistController: ObservableObject {
         do {
             try viewContext.save()
         } catch {
-            fatalError("Fatal error on adding a new item, error: \(error.localizedDescription).")
+            TelemetryManager.send("WatchlistController_saveItemError", with: ["Error:":"\(error.localizedDescription)"])
         }
     }
     
@@ -84,11 +85,29 @@ class WatchlistController: ObservableObject {
                 item.image = content.cardImageMedium
                 item.poster = content.posterImageMedium
                 item.status = content.itemStatus
+                let notify = WatchlistController.itemCanNotify(item: content)
+                item.notify = notify
                 try viewContext.container.viewContext.save()
+                print("\(content.itemTitle) is up to date.")
+                print("\(item.itemTitle) can still notify: \(notify)")
             } catch {
-                fatalError("Fatal error on updating an existing item, error: \(error.localizedDescription).")
+                TelemetryManager.send("WatchlistController_updateItemError", with: ["Error:":"\(error.localizedDescription)"])
             }
         }
+    }
+    
+    static func itemCanNotify(item: Content) -> Bool {
+        if let date = item.itemTheatricalDate {
+            if date > Date() {
+                return true
+            }
+        }
+        if let date = item.nextEpisodeDate {
+            if date > Date() {
+                return true
+            }
+        }
+        return false
     }
     
     /// Deletes a WatchlistItem from Core Data.
@@ -100,7 +119,7 @@ class WatchlistController: ObservableObject {
             viewContext.delete(item)
             try viewContext.save()
         } catch {
-            fatalError("Fatal error on adding a new item, error: \(error.localizedDescription).")
+            TelemetryManager.send("WatchlistController_removeItemError", with: ["Error:":"\(error.localizedDescription)"])
         }
     }
     
@@ -119,6 +138,7 @@ class WatchlistController: ObservableObject {
                 return false
             }
         } catch {
+            TelemetryManager.send("WatchlistController_isItemInListError", with: ["Error:":"\(error.localizedDescription)"])
             fatalError(error.localizedDescription)
         }
     }
@@ -142,6 +162,7 @@ class WatchlistController: ObservableObject {
             let item = try viewContext.fetch(request)
             return item[0]
         } catch {
+            TelemetryManager.send("WatchlistController_getItemError", with: ["Error:":"\(error.localizedDescription)"])
             fatalError(error.localizedDescription)
         }
     }

@@ -94,12 +94,12 @@ private struct InformationDetailView: View {
                 .accessibility(hidden: true)
             
             VStack(alignment: .leading) {
-                Text(title)
+                Text(NSLocalizedString(title, comment: ""))
                     .font(.headline)
                     .foregroundColor(.primary)
                     .accessibility(addTraits: .isHeader)
                 
-                Text(subTitle)
+                Text(NSLocalizedString(subTitle, comment: ""))
                     .font(.body)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

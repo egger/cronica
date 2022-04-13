@@ -101,6 +101,19 @@ extension Content {
         }
         return nil
     }
+    var itemCanNotify: Bool {
+        if let date = itemTheatricalDate {
+            if date > Date() {
+                return true
+            }
+        }
+        if let date = nextEpisodeDate {
+            if date > Date() {
+                return true
+            }
+        }
+        return false
+    }
     /// This MediaType value is only used on regular content, such a trending list, filmography.
     ///
     /// Change to media to search results.

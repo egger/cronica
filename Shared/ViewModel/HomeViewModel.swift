@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import CoreData
+import TelemetryClient
 
 @MainActor class HomeViewModel: ObservableObject {
     @Published private(set) var trendingPhase: DataFetchPhase<[Content]?> = .empty
@@ -94,6 +96,7 @@ import Foundation
             let section = try await service.fetchContents(from: "\(type.rawValue)/\(endpoint.rawValue)")
             return .success(.init(results: section, endpoint: endpoint))
         } catch {
+            TelemetryManager.send("HomeViewModel_fetchFromError", with: ["Error:":"\(error.localizedDescription)"])
             return .failure(error)
         }
     }

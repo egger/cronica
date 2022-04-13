@@ -60,7 +60,7 @@ struct HomeView: View {
                     Button(action: {
                         showAccount.toggle()
                     }, label: {
-                        Label("Account", systemImage: "person.crop.circle")
+                        Label("Account", systemImage: "info.circle")
                     })
                 }
             }
@@ -70,9 +70,7 @@ struct HomeView: View {
             .sheet(isPresented: $showAccount) {
                 NavigationView {
                     AccountView()
-                        .environmentObject(SettingsStore())
-                        .navigationTitle("Account")
-                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationTitle("About")
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {
@@ -112,6 +110,7 @@ private struct TrendingView: View {
                             PosterView(title: item.itemTitle, url: item.posterImageMedium)
                                 .padding([.leading, .trailing], 4)
                         }
+                        .buttonStyle(.plain)
                         .padding(.leading, item.id == items.first!.id ? 16 : 0)
                         .padding(.trailing, item.id == items.last!.id ? 16 : 0)
                         .padding([.top, .bottom])
