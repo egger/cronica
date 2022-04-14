@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-    <img src="https://build.appcenter.ms/v0.1/apps/afb3f82b-2845-4d8d-bd0c-6ec139d67c88/branches/main/badge" alt="Build badge" />
     <a href="https://twitter.com/_alexMadeira">
         <img src="https://img.shields.io/badge/Twitter-@_alexMadeira-lightgrey.svg?style=flat" alt="Twitter: @_alexMadeira" />
     </a>
