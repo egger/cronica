@@ -197,22 +197,3 @@ struct ContentDetailsView_Previews: PreviewProvider {
                     type: MediaType.movie)
     }
 }
-
-enum OverviewType: String, CaseIterable, Identifiable {
-    var id: String { rawValue }
-    case content, biography, episode
-    var image: String {
-        switch self {
-        case .content: return "film"
-        case .biography: return "book"
-        case .episode: return "tv"
-        }
-    }
-    var title: String {
-        switch self {
-        case .content: return "About"
-        case .biography: return "Biography"
-        case .episode: return "Overview"
-        }
-    }
-}
