@@ -33,8 +33,8 @@ class BackgroundManager {
             let list = try BackgroundManager.context.container.viewContext.fetch(request)
             return list
         } catch {
-            TelemetryManager.send("fetchWatchlistItemsError", with: ["Error:":"\(error.localizedDescription)"])
-            TelemetryManager.send("\(error.localizedDescription).")
+            TelemetryManager.send("fetchWatchlistItemsError",
+                                  with: ["Error:":"\(error.localizedDescription)"])
         }
         return []
     }
@@ -70,7 +70,8 @@ class BackgroundManager {
                     TelemetryManager.send("fetchUpdates")
                 }
             } catch {
-                TelemetryManager.send("fetchUpdatesError", with: ["Error:":"\(error.localizedDescription)"])
+                TelemetryManager.send("fetchUpdatesError",
+                                      with: ["Error:":"\(error.localizedDescription)"])
             }
         }
     }

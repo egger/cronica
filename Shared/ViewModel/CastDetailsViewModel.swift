@@ -25,7 +25,8 @@ import TelemetryClient
                 isLoaded = true
             } catch {
                 phase = .failure(error)
-                TelemetryManager.send("CastDetailsViewModel_loadError", with: ["ID:":"\(id)"])
+                TelemetryManager.send("CastDetailsViewModel_loadError",
+                                      with: ["ID:":"\(id)"])
             }
         }
     }

@@ -35,7 +35,6 @@ struct StoryApp: App {
         }
     }
     
-    
     private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "dev.alexandremadeira.Cronica.refresh")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 1440 * 60)
@@ -43,9 +42,10 @@ struct StoryApp: App {
         request.requiresNetworkConnectivity = true
         do {
             try BGTaskScheduler.shared.submit(request)
-            TelemetryManager.send("scheduleAppRefresh")
+            TelemetryManager.send("scheduleAppRefreshBGTask")
         } catch {
-            TelemetryManager.send("scheduleAppRefresh", with: ["Error:":"\(error.localizedDescription)"])
+            TelemetryManager.send("scheduleAppRefreshBGTaskError",
+                                  with: ["Error:":"\(error.localizedDescription)"])
         }
     }
     
@@ -59,7 +59,7 @@ struct StoryApp: App {
         }
         queue.addOperation {
             background.handleAppRefreshContent()
-            TelemetryManager.send("handleAppRefreshBGProcessingTask")
+            TelemetryManager.send("handleAppRefreshBGTask")
         }
         task.setTaskCompleted(success: true)
     }

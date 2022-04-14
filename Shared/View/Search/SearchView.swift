@@ -48,7 +48,9 @@ struct SearchView: View {
         }
         .navigationTitle("Search")
         .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $viewModel.query, placement: .toolbar, prompt: Text("Movies, Shows, People") )
+        .searchable(text: $viewModel.query,
+                    placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: Text("Movies, Shows, People"))
         .disableAutocorrection(true)
         .overlay(overlayView)
         .onAppear { viewModel.observe() }

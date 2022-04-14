@@ -70,9 +70,8 @@ extension Content {
     var itemTrailer: URL? {
         if let videos = videos {
             return Utilities.getTrailer(videos: videos.results)
-        } else {
-            return nil
         }
+        return nil
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!

@@ -52,12 +52,13 @@ class WatchlistController: ObservableObject {
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.loadPersistentStores {_, error in
             if let error = error {
-                TelemetryManager.send("WatchlistController_initError", with: ["Error:":"\(error.localizedDescription)"])
+                TelemetryManager.send("WatchlistController_initError",
+                                      with: ["Error:":"\(error.localizedDescription)"])
             }
         }
     }
     
-    /// Adds or update an item to Watchlist Core Data.
+    /// Adds an item to Watchlist Core Data.
     /// - Parameter content: The item to be added, or updated.
     func saveItem(content: Content, notify: Bool) {
         let viewContext = WatchlistController.shared.container.viewContext
@@ -72,42 +73,30 @@ class WatchlistController: ObservableObject {
         do {
             try viewContext.save()
         } catch {
-            TelemetryManager.send("WatchlistController_saveItemError", with: ["Error:":"\(error.localizedDescription)"])
+            TelemetryManager.send("WatchlistController_saveItemError",
+                                  with: ["Error:":"\(error.localizedDescription)"])
         }
     }
     
+    // Updates an item on Watchlist Core Data.
     func updateItem(content: Content) {
         if isItemInList(id: content.id) {
-            let viewContext = WatchlistController.shared
+            let viewContext = WatchlistController.shared.container.viewContext
             do {
-                let item = try viewContext.getItem(id: WatchlistItem.ID(content.id))
+                let item = try self.getItem(id: WatchlistItem.ID(content.id))
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
                 item.poster = content.posterImageMedium
                 item.status = content.itemStatus
-                let notify = WatchlistController.itemCanNotify(item: content)
-                item.notify = notify
-                try viewContext.container.viewContext.save()
-                print("\(content.itemTitle) is up to date.")
-                print("\(item.itemTitle) can still notify: \(notify)")
+                item.notify = content.itemCanNotify
+                if viewContext.hasChanges {
+                    try viewContext.save()
+                }
             } catch {
-                TelemetryManager.send("WatchlistController_updateItemError", with: ["Error:":"\(error.localizedDescription)"])
+                TelemetryManager.send("WatchlistController_updateItemError",
+                                      with: ["Error:":"\(error.localizedDescription)"])
             }
         }
-    }
-    
-    static func itemCanNotify(item: Content) -> Bool {
-        if let date = item.itemTheatricalDate {
-            if date > Date() {
-                return true
-            }
-        }
-        if let date = item.nextEpisodeDate {
-            if date > Date() {
-                return true
-            }
-        }
-        return false
     }
     
     /// Deletes a WatchlistItem from Core Data.
@@ -119,7 +108,8 @@ class WatchlistController: ObservableObject {
             viewContext.delete(item)
             try viewContext.save()
         } catch {
-            TelemetryManager.send("WatchlistController_removeItemError", with: ["Error:":"\(error.localizedDescription)"])
+            TelemetryManager.send("WatchlistController_removeItemError",
+                                  with: ["Error:":"\(error.localizedDescription)"])
         }
     }
     
@@ -130,17 +120,13 @@ class WatchlistController: ObservableObject {
         let viewContext = WatchlistController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
-        do {
-            let numberOfObjects = try viewContext.count(for: request)
+        let numberOfObjects = try? viewContext.count(for: request)
+        if let numberOfObjects = numberOfObjects {
             if numberOfObjects > 0 {
                 return true
-            } else {
-                return false
             }
-        } catch {
-            TelemetryManager.send("WatchlistController_isItemInListError", with: ["Error:":"\(error.localizedDescription)"])
-            fatalError(error.localizedDescription)
         }
+        return false
     }
     
     func isNotificationScheduled(id: Content.ID) -> Bool {
@@ -162,7 +148,8 @@ class WatchlistController: ObservableObject {
             let item = try viewContext.fetch(request)
             return item[0]
         } catch {
-            TelemetryManager.send("WatchlistController_getItemError", with: ["Error:":"\(error.localizedDescription)"])
+            TelemetryManager.send("WatchlistController_getItemError",
+                                  with: ["Error:":"\(error.localizedDescription)"])
             fatalError(error.localizedDescription)
         }
     }

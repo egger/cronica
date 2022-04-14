@@ -96,7 +96,8 @@ import TelemetryClient
             let section = try await service.fetchContents(from: "\(type.rawValue)/\(endpoint.rawValue)")
             return .success(.init(results: section, endpoint: endpoint))
         } catch {
-            TelemetryManager.send("HomeViewModel_fetchFromError", with: ["Error:":"\(error.localizedDescription)"])
+            TelemetryManager.send("HomeViewModel_fetchFromError",
+                                  with: ["Error:":"\(error.localizedDescription)"])
             return .failure(error)
         }
     }
