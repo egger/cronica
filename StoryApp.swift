@@ -7,7 +7,6 @@
 
 import SwiftUI
 import BackgroundTasks
-import CoreData
 import TelemetryClient
 
 @main
@@ -28,20 +27,20 @@ struct StoryApp: App {
     }
     
     private func registerRefreshBGTask() {
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "dev.alexandremadeira.Cronica.refresh",
-                                        using: nil) { task in
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "dev.alexandremadeira.cronica.fetch", using: nil) { task in
             self.handleAppRefresh(task: task as! BGProcessingTask)
-            TelemetryManager.send("registerRefreshBGTask")
+            TelemetryManager.send("registerRefreshBGTask", with: ["isBGTaskScheduled":"true"])
         }
     }
     
     private func scheduleAppRefresh() {
-        let request = BGProcessingTaskRequest(identifier: "dev.alexandremadeira.Cronica.refresh")
+        let request = BGProcessingTaskRequest(identifier: "dev.alexandremadeira.cronica.fetch")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 1440 * 60)
         request.requiresExternalPower = true
         request.requiresNetworkConnectivity = true
         do {
             try BGTaskScheduler.shared.submit(request)
+            print("scheduleAppRefreshBGTask")
             TelemetryManager.send("scheduleAppRefreshBGTask")
         } catch {
             TelemetryManager.send("scheduleAppRefreshBGTaskError",
@@ -59,8 +58,9 @@ struct StoryApp: App {
         }
         queue.addOperation {
             background.handleAppRefreshContent()
-            TelemetryManager.send("handleAppRefreshBGTask")
+            TelemetryManager.send("handleAppRefreshBGTask", with: ["isOperationAdded":"true"])
         }
         task.setTaskCompleted(success: true)
+        TelemetryManager.send("handleAppRefreshBGTask", with: ["isFinished":"true"])
     }
 }

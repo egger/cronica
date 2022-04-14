@@ -10,9 +10,9 @@ import CoreData
 import TelemetryClient
 
 class BackgroundManager {
-    private static let context = WatchlistController.shared
-    private static let network = NetworkService.shared
-    private static let notifications = NotificationManager.shared
+    private let context = WatchlistController.shared
+    private let network = NetworkService.shared
+    private let notifications = NotificationManager.shared
     
     func handleAppRefreshContent() {
         let items = self.fetchWatchlistItems()
@@ -30,7 +30,7 @@ class BackgroundManager {
                                               subpredicates: [notifyPredicate, returningPredicate])
         request.predicate = orPredicate
         do {
-            let list = try BackgroundManager.context.container.viewContext.fetch(request)
+            let list = try self.context.container.viewContext.fetch(request)
             return list
         } catch {
             TelemetryManager.send("fetchWatchlistItemsError",
@@ -42,31 +42,10 @@ class BackgroundManager {
     private func fetchUpdates(items: [WatchlistItem]) async {
         for item in items {
             do {
-                let content = try await BackgroundManager.network.fetchContent(id: item.itemId, type: item.itemMedia)
-                BackgroundManager.context.updateItem(content: content)
+                let content = try await self.network.fetchContent(id: item.itemId, type: item.itemMedia)
+                self.context.updateItem(content: content)
                 if content.itemCanNotify {
-                    let identifier: String = "\(content.itemTitle)+\(content.id)"
-                    var title: String
-                    var body: String
-                    if content.itemContentMedia == .movie {
-                        title = content.itemTitle
-                        body = "The movie '\(content.itemTitle)' is out now!"
-                    } else {
-                        title = "New Episode."
-                        body = "The next episode of '\(content.itemTitle)' is out now!"
-                    }
-                    var date: Date
-                    if content.itemContentMedia == .movie {
-                        date = content.itemTheatricalDate!
-                    } else if content.itemContentMedia == .tvShow {
-                        date = content.nextEpisodeDate!
-                    } else {
-                        date = Date()
-                    }
-                    BackgroundManager.notifications.scheduleNotification(identifier: identifier,
-                                                       title: title,
-                                                       body: body,
-                                                       date: date)
+                    self.notifications.schedule(content: content)
                     TelemetryManager.send("fetchUpdates")
                 }
             } catch {

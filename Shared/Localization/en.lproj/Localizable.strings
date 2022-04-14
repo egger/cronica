@@ -20,7 +20,13 @@
 "Movie" = "Movie";
 "People" = "People";
 "Popular Movies" = "Popular Movies";
-
+"Movies" = "Movies";
+"TV Shows" = "TV Shows";
+"The movie will be released today." = "The movie will be released today.";
+"New episode available." = "New episode available.";
+"Sort" = "Sort";
+"Media Type" = "Media Type";
+"Default" = "Default";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";

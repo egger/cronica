@@ -100,6 +100,12 @@ extension Content {
         }
         return nil
     }
+    var itemFallbackDate: Date? {
+        if let releaseDate = releaseDate {
+            return Utilities.dateFormatter.date(from: releaseDate)
+        }
+        return nil
+    }
     var itemCanNotify: Bool {
         if let date = itemTheatricalDate {
             if date > Date() {

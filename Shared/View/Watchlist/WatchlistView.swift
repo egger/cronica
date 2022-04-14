@@ -21,6 +21,7 @@ struct WatchlistView: View {
     private var filteredMovieItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
+    @State var selectedValue = 0
     @ViewBuilder
     var body: some View {
 #if os(iOS)
@@ -57,14 +58,20 @@ struct WatchlistView: View {
                         }
                     }
                 } else {
-                    WatchlistSection(items: items.filter { $0.status == "In Production"
-                        || $0.status == "Post Production"
-                        || $0.status == "Planned" },
-                                         title: "Coming Soon")
-                    WatchlistSection(items: items.filter { $0.status == "Returning Series"},
-                                         title: "Now Available")
-                    WatchlistSection(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
-                                         title: "Released")
+                    switch selectedValue {
+                    case 1:
+                        WatchlistSection(items: items.filter { $0.itemMedia == .movie }, title: "Movies")
+                        WatchlistSection(items: items.filter { $0.itemMedia == .tvShow }, title: "TV Shows")
+                    default:
+                        WatchlistSection(items: items.filter { $0.status == "In Production"
+                            || $0.status == "Post Production"
+                            || $0.status == "Planned" },
+                                             title: "Coming Soon")
+                        WatchlistSection(items: items.filter { $0.status == "Returning Series"},
+                                             title: "Now Available")
+                        WatchlistSection(items: items.filter { $0.status == "Released" || $0.status == "Ended" || $0.status == "Canceled"},
+                                             title: "Released")
+                    }
                 }
             }
             .navigationTitle("Watchlist")
@@ -75,6 +82,16 @@ struct WatchlistView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        Picker(selection: $selectedValue, label: Text("Sort")) {
+                            Text("Default").tag(0)
+                            Text("Media Type").tag(1)
+                        }
+                    } label: {
+                        Label("Sort", systemImage: "arrow.up.arrow.down.circle")
+                    }
+                }
             }
             .searchable(text: $query,
                         placement: .navigationBarDrawer(displayMode: .always),

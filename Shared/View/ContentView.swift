@@ -51,9 +51,14 @@ struct SideBarView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }.tag(SearchView.tag)
             }
-            .listStyle(.sidebar)
+            .listStyle(SidebarListStyle())
             .navigationTitle("Cronica")
-            HomeView()
+            switch selectedView {
+            case "Home": HomeView()
+            case "Watchlist": WatchlistView()
+            case "Search": SearchView()
+            default: HomeView()
+            }
         }
         .navigationViewStyle(.columns)
     }

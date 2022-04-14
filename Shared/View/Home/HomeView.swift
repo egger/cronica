@@ -64,9 +64,9 @@ struct HomeView: View {
                     })
                 }
             }
-            .fullScreenCover(isPresented: $displayOnboard, content: {
+            .sheet(isPresented: $displayOnboard) {
                 WelcomeView()
-            })
+            }
             .sheet(isPresented: $showAccount) {
                 NavigationView {
                     AccountView()

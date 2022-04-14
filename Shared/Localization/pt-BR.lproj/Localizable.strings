@@ -20,6 +20,13 @@
 "Movie" = "Filme";
 "People" = "Pessoa";
 "Popular Movies" = "Filmes Populares";
+"Movies" = "Filmes";
+"TV Shows" = "Séries";
+"The movie will be released today." = "O filme será lançado hoje.";
+"New episode available." = "Novo episódio disponível.";
+"Sort" = "Agrupar";
+"Media Type" = "Tipo";
+"Default" = "Padrão";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -59,7 +66,7 @@
 "Log In" = "Entrar";
 "Support" = "Suporte";
 "Send email" = "Enviar Email";
-"Privacy Policy" = "Privacy Policy";
+"Privacy Policy" = "Política de Privacidade";
 "Made in Brazil 🇧🇷" = "Feito no Brasil 🇧🇷";
 
 //MARK: HomeView.swift

@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>dev.alexandremadeira.Cronica.refresh</string>
+		<string>dev.alexandremadeira.cronica.fetch</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

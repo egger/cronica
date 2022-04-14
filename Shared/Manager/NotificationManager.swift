@@ -29,7 +29,39 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func scheduleNotification(identifier: String, title: String, body: String, date: Date) {
+    func schedule(content: Content) {
+        let identifier: String = "\(content.itemTitle)+\(content.id)"
+        let title = content.itemTitle
+        var body: String
+        if content.itemContentMedia == .movie {
+            body = NSLocalizedString("The movie will be released today.", comment: "")
+        } else {
+            body = NSLocalizedString("New episode available.", comment: "")
+        }
+        var date: Date?
+        if content.itemContentMedia == .movie {
+            date = content.itemTheatricalDate!
+        } else if content.itemContentMedia == .tvShow {
+            date = content.nextEpisodeDate!
+        } else {
+            date = content.itemFallbackDate
+            print("FALLBACK \(content.itemFallbackDate as Any)")
+        }
+        self.requestAuthorization { granted in
+            if !granted {
+                return
+            }
+        }
+        if let date = date {
+            self.scheduleNotification(identifier: identifier,
+                                      title: title,
+                                      body: body,
+                                      date: date)
+            print("Notification for \(identifier)")
+        }
+    }
+    
+    private func scheduleNotification(identifier: String, title: String, body: String, date: Date) {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
         notificationContent.body = body
