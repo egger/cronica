@@ -24,8 +24,20 @@ extension WatchlistItem {
         default: return .movie
         }
     }
+    var itemSchedule: ContentSchedule {
+        switch schedule {
+        case 0: return .soon
+        case 1: return .released
+        case 2: return .production
+        case 3: return .cancelled
+        default: return .unknown
+        }
+    }
+    var itemLink: URL {
+        return URL(string: "https://www.themoviedb.org/\(itemMedia.rawValue)/\(itemId)")!
+    }
     static var example: WatchlistItem {
-        let controller = WatchlistController(inMemory: true)
+        let controller = DataController(inMemory: true)
         let viewContext = controller.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.title = Content.previewContent.itemTitle

@@ -10,11 +10,11 @@ import CoreData
 @testable import Story
 
 class StoryTests: XCTestCase {
-    var dataController: WatchlistController!
+    var dataController: DataController!
     var managedObjectContext: NSManagedObjectContext!
     
     override func setUpWithError() throws {
-        dataController = WatchlistController(inMemory: true)
+        dataController = DataController(inMemory: true)
         managedObjectContext = dataController.container.viewContext
     }
     

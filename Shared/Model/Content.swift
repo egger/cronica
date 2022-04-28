@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct Content: Identifiable, Decodable {
+    let adult: Bool?
     let id: Int
     let title, name, overview: String?
     let posterPath, backdropPath, profilePath: String?
@@ -91,13 +92,6 @@ struct ContentSection: Identifiable {
         case .upcoming: return .movie
         case .nowPlaying: return .movie
         case .onTheAir: return .tvShow
-        }
-    }
-    var style: StyleType {
-        switch endpoint {
-        case .upcoming: return .poster
-        case .nowPlaying: return .poster
-        case .onTheAir: return .poster
         }
     }
 }

@@ -56,7 +56,8 @@ import TelemetryClient
     
     private func fetchEndpoints(_ endpoint: [Endpoints] = Endpoints.allCases,
                                 type: MediaType) async throws -> [ContentSection] {
-        let results: [Result<ContentSection, Error>] = await withTaskGroup(of: Result<ContentSection, Error>.self) { group in
+        let results: [Result<ContentSection, Error>] = await withTaskGroup(of: Result<ContentSection,
+                                                                           Error>.self) { group in
             for endpoint in endpoint {
                 if type == .movie && endpoint != Endpoints.onTheAir {
                     group.addTask { await self.fetchFrom(endpoint, type: type) }

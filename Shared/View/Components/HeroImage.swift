@@ -37,12 +37,6 @@ struct HeroImage: View {
                 }
             }
         }
-        .frame(width: DrawingConstants.imageWidth,
-                          height: DrawingConstants.imageHeight)
-        .cornerRadius(DrawingConstants.imageRadius)
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                           radius: DrawingConstants.shadowRadius)
-        .padding([.top, .bottom])
     }
 }
 

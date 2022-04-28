@@ -11,6 +11,7 @@ struct Credits: Decodable {
     let cast, crew: [Person]
 }
 struct Person: Decodable, Identifiable {
+    let adult: Bool?
     let id: Int
     let name: String
     let job, character, biography, birthday: String?

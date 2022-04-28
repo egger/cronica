@@ -12,19 +12,20 @@ struct ItemView: View {
     let url: URL?
     let type: MediaType
     let inSearch: Bool
+    var watched: Bool = false
     var body: some View {
         HStack {
             if inSearch {
                 switch type {
                 case .movie:
-                    CardImage(url: url)
+                    CardImage(url: url, watched: watched)
                 case .person:
                     PersonImage(url: url)
                 case .tvShow:
                     PosterImage(url: url)
                 }
             } else {
-                CardImage(url: url)
+                CardImage(url: url, watched: watched)
             }
             
             VStack(alignment: .leading) {
@@ -54,14 +55,21 @@ struct ItemView_Previews: PreviewProvider {
 
 private struct CardImage: View {
     let url: URL?
+    var watched: Bool
     var body: some View {
         AsyncImage(url: url,
                    transaction: Transaction(animation: .easeInOut)) { phase in
             if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
+                ZStack {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .transition(.opacity)
+                    if watched {
+                        Color.black.opacity(0.6)
+                        Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
+                    }
+                }
             } else if phase.error != nil {
                 ZStack {
                     Color.secondary

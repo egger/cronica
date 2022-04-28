@@ -28,7 +28,7 @@ import TelemetryClient
             } catch {
                 phase = .failure(error)
                 TelemetryManager.send("SeasonViewModel_loadError",
-                                      with: ["ID/Season:":"\(id)/\(season)"])
+                                      with: ["ID-Season-Error:":"\(id)-\(season)-\(error.localizedDescription)"])
             }
         }
     }

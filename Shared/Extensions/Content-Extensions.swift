@@ -8,7 +8,6 @@
 import Foundation
 
 extension Content {
-    //MARK: String
     var itemTitle: String {
         title ?? name!
     }
@@ -28,9 +27,18 @@ extension Content {
         return productionCompanies?.first?.name ?? NSLocalizedString("Not Available",
                                                                      comment: "")
     }
-    var itemStatus: String {
-        status ?? NSLocalizedString("No information available",
-                                    comment: "API didn't provided status information.")
+    var itemStatus: ContentSchedule {
+        switch status {
+        case "Rumored": return .production
+        case "Planned": return .production
+        case "In Production": return .soon
+        case "Post Production": return .soon
+        case "Returning Series": return .soon
+        case "Released": return .released
+        case "Ended": return .released
+        case "Canceled": return .cancelled
+        default: return .unknown
+        }
     }
     var itemRuntime: String? {
         if runtime != nil && runtime! > 0 {

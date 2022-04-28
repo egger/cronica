@@ -76,9 +76,6 @@ class Utilities {
         return nil
     }
 }
-enum StyleType: Decodable {
-    case poster, card
-}
 enum MediaType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case movie, person
@@ -117,4 +114,22 @@ enum ImageSize: String, CaseIterable, Identifiable {
     case medium = "t/p/w500"
     case large = "t/p/w1066_and_h600_bestv2"
     case original = "t/p/original"
+}
+
+enum ContentSchedule: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    case soon = "Coming Soon"
+    case released = "Released"
+    case production = "Production"
+    case cancelled = "Cancelled"
+    case unknown = "Unknown"
+    var scheduleNumber: Int16 {
+        switch self {
+        case .soon: return 0
+        case .released: return 1
+        case .production: return 2
+        case .cancelled: return 3
+        case .unknown: return 4
+        }
+    }
 }

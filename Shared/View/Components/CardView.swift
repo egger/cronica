@@ -16,20 +16,17 @@ struct CardView: View {
                        transaction: Transaction(animation: .easeInOut)) { phase in
                 if let image = phase.image {
                     ZStack {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                        Rectangle().fill(Material.ultraThin)
-                        Color.black.opacity(0.4)
+                        Rectangle().fill(.ultraThickMaterial)
+                        Color.black.opacity(0.6)
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .mask(
                                 LinearGradient(gradient: Gradient(stops: [
                                     .init(color: .black, location: 0),
-                                    .init(color: .black, location: 0.1),
+                                    .init(color: .black, location: 0.5),
                                     .init(color: .black.opacity(0), location: 1)
-                                ]), startPoint: .center, endPoint: .bottom)
+                                ]), startPoint: .top, endPoint: .bottom)
                             )
                             .transition(.opacity)
                     }
@@ -37,6 +34,7 @@ struct CardView: View {
                     Rectangle().redacted(reason: .placeholder)
                 } else {
                     ZStack {
+                        Color.black.opacity(0.4)
                         Rectangle().fill(.thickMaterial)
                         Image(systemName: "film")
                             .foregroundColor(.secondary)
@@ -54,7 +52,6 @@ struct CardView: View {
                         .padding()
                     Spacer()
                 }
-                .padding(.trailing)
             }
             .padding(.horizontal, 2)
         }
