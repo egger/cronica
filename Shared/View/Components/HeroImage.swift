@@ -10,14 +10,22 @@ import SwiftUI
 struct HeroImage: View {
     let url: URL?
     let title: String
+    var blurImage: Bool = false
     var body: some View {
         AsyncImage(url: url,
                    transaction: Transaction(animation: .easeInOut)) { phase in
             if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
+                ZStack {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .transition(.opacity)
+                    if blurImage {
+                        Rectangle().fill(.ultraThinMaterial)
+                        Image(systemName: "eye.slash.fill")
+                            .foregroundColor(.white)
+                    }
+                }
             } else if phase.error != nil {
                 ZStack {
                     Rectangle().fill(.thickMaterial)

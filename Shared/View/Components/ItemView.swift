@@ -11,7 +11,7 @@ struct ItemView: View {
     let title: String
     let url: URL?
     let type: MediaType
-    let inSearch: Bool
+    var inSearch: Bool = false
     var watched: Bool = false
     var body: some View {
         HStack {

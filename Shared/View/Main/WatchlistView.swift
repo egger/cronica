@@ -23,7 +23,6 @@ struct WatchlistView: View {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
     @State var selectedValue = 0
-    @State private var selection = Set<Int>()
     
     
     @ViewBuilder
@@ -51,20 +50,34 @@ struct WatchlistView: View {
                     .foregroundColor(.secondary)
                     .padding()
             } else {
-                List(selection: $selection) {
+                List {
                     if !filteredMovieItems.isEmpty {
                         ForEach(filteredMovieItems) { item in
                             NavigationLink(destination:
-                                            ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                                            ContentDetailsView(title: item.itemTitle,
+                                                               id: item.itemId,
+                                                               type: item.itemMedia)
                             ) {
-                                ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false)
+                                ItemView(title: item.itemTitle,
+                                         url: item.image,
+                                         type: item.itemMedia)
                             }
                         }
                     } else {
                         switch selectedValue {
                         case 1:
-                            WatchListSection(items: items.filter { $0.itemMedia == .movie }, title: "Movies")
-                            WatchListSection(items: items.filter { $0.itemMedia == .tvShow }, title: "TV Shows")
+                            WatchListSection(items: items.filter { $0.itemMedia == .movie },
+                                             title: "Movies")
+                            WatchListSection(items: items.filter { $0.itemMedia == .tvShow },
+                                             title: "TV Shows")
+                        case 2:
+                            WatchListSection(items: items.filter { $0.watched == false },
+                                             title: "To Watch")
+                            WatchListSection(items: items.filter { $0.watched == true },
+                                             title: "Watched")
+                        case 3:
+                            WatchListSection(items: items.filter { $0.favorite == true },
+                                             title: "Favorites")
                         default:
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false },
                                              title: "Coming Soon")
@@ -78,6 +91,7 @@ struct WatchlistView: View {
             }
         }
         .navigationTitle("Watchlist")
+        .navigationBarTitleDisplayMode(.large)
         .refreshable {
             Task {
                 await refresh()
@@ -90,6 +104,8 @@ struct WatchlistView: View {
                     Picker(selection: $selectedValue, label: Text("Sort")) {
                         Text("Default").tag(0)
                         Text("Media Type").tag(1)
+                        Text("Status").tag(2)
+                        Text("Favorites").tag(3)
                     }
                 } label: {
                     Label("Sort", systemImage: "arrow.up.arrow.down.circle")

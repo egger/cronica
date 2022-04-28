@@ -26,7 +26,7 @@
 "New episode available." = "New episode available.";
 "Sort" = "Sort";
 "Media Type" = "Media Type";
-"Default" = "Default";
+"Default" = "Optimized";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";

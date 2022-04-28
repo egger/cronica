@@ -29,7 +29,9 @@ struct ContentDetailsView: View {
     var body: some View {
         ScrollView {
             VStack {
-                HeroImage(url: viewModel.content?.cardImageLarge, title: title)
+                HeroImage(url: viewModel.content?.cardImageLarge,
+                          title: title,
+                          blurImage: (viewModel.content?.adult ?? false))
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .cornerRadius(DrawingConstants.imageRadius)
