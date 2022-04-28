@@ -50,11 +50,15 @@ struct CastDetailsView: View {
                         }
                     }
                 
-                if let filmography = viewModel.person?.combinedCredits {
-                    if let cast = filmography.cast,
-                       let crew = filmography.crew {
-                        let items: [Filmography] = cast + crew
-                        FilmographyListView(items: items)
+                if let adult = viewModel.person?.adult {
+                    if !adult {
+                        if let filmography = viewModel.person?.combinedCredits {
+                            if let cast = filmography.cast,
+                               let crew = filmography.crew {
+                                let items: [Filmography] = cast + crew
+                                FilmographyListView(items: items)
+                            }
+                        }
                     }
                 }
                 

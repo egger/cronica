@@ -35,7 +35,7 @@ struct WatchlistView: View {
             }
             .navigationViewStyle(.stack)
         } else {
-           detailsView
+            detailsView
         }
 #else
         detailsView
@@ -66,10 +66,12 @@ struct WatchlistView: View {
                             WatchListSection(items: items.filter { $0.itemMedia == .movie }, title: "Movies")
                             WatchListSection(items: items.filter { $0.itemMedia == .tvShow }, title: "TV Shows")
                         default:
-                            WatchListSection(items: items.filter { $0.itemSchedule == .soon},
-                                                 title: "Coming Soon")
-                            WatchListSection(items: items.filter { $0.itemSchedule == .released },
-                                                 title: "Released")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false },
+                                             title: "Coming Soon")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .released && $0.watched == false},
+                                             title: "Released")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .cancelled && $0.watched == false},
+                                             title: "Released")
                         }
                     }
                 }
