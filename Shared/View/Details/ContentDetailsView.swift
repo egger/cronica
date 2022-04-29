@@ -20,6 +20,8 @@ struct ContentDetailsView: View {
     @State private var isInWatchlist: Bool = false
     @State private var isLoading: Bool = true
     @State private var hiddenMenu: Bool = false
+    @State private var isWatched: Bool = false
+    @State private var isFavorite: Bool = false
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
         self.title = title
@@ -42,7 +44,7 @@ struct ContentDetailsView: View {
                 GlanceInfo(info: viewModel.content?.itemInfo)
                 
                 Button(action: {
-                    HapticManager.shared.buttonHaptic()
+                    HapticManager.shared.mediumHaptic()
                     viewModel.update(markAsWatched: nil, markAsFavorite: nil)
                     withAnimation {
                         isInWatchlist.toggle()
@@ -130,7 +132,7 @@ struct ContentDetailsView: View {
                             .opacity(isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
                         Button(action: {
-                            HapticManager.shared.buttonHaptic()
+                            HapticManager.shared.mediumHaptic()
                             isSharePresented.toggle()
                         }, label: {
                             Image(systemName: "square.and.arrow.up")
@@ -140,15 +142,21 @@ struct ContentDetailsView: View {
                         if hiddenMenu {
                             Menu(content: {
                                 Button(action: {
-                                    viewModel.update(markAsWatched: true, markAsFavorite: nil)
+                                    HapticManager.shared.softHaptic()
+                                    isWatched.toggle()
+                                    viewModel.update(markAsWatched: isWatched, markAsFavorite: nil)
                                 }, label: {
-                                    Label("Mark as Watched", systemImage: "checkmark.circle.fill")
+                                    Label(isWatched ? "Removed from Watched" : "Mark as Watched",
+                                          systemImage: isWatched ? "x.circle" : "checkmark.circle")
                                 })
                                 .disabled(isInWatchlist ? false : true)
                                 Button(action: {
-                                    viewModel.update(markAsWatched: nil, markAsFavorite: true)
+                                    HapticManager.shared.softHaptic()
+                                    isFavorite.toggle()
+                                    viewModel.update(markAsWatched: nil, markAsFavorite: isFavorite)
                                 }, label: {
-                                    Label("Mark as Favorite", systemImage: "star.circle.fill")
+                                    Label(isFavorite ? "Removed from Favorites" : "Mark as Favorite",
+                                          systemImage: isFavorite ? "star.slash.fill" : "star.fill")
                                 })
                                 .disabled(isInWatchlist ? false : true)
                             }, label: {
@@ -186,6 +194,8 @@ struct ContentDetailsView: View {
                 if isInWatchlist {
                     withAnimation {
                         isNotificationScheduled = viewModel.context.isNotificationScheduled(id: self.id)
+                        isWatched = viewModel.context.isMarkedAsWatched(id: self.id)
+                        isFavorite = viewModel.context.isMarkedAsFavorite(id: self.id)
                     }
                 }
                 withAnimation {

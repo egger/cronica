@@ -12,7 +12,9 @@ extension Person {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
     var itemBiography: String {
-        if biography != nil && !biography.isEmpty { return biography! }
+        if let biography = biography {
+            return biography
+        }
         return "Not Available" 
     }
     var itemRole: String? {
@@ -20,20 +22,5 @@ extension Person {
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/person/\(id)")!
-    }
-}
-extension Filmography {
-    var itemTitle: String {
-        title ?? name!
-    }
-    var itemImage: URL? {
-        return NetworkService.urlBuilder(size: .medium, path: posterPath)
-    }
-    var itemMedia: MediaType {
-        switch mediaType {
-        case "movie": return .movie
-        case "tv": return .tvShow
-        default: return .movie
-        }
     }
 }

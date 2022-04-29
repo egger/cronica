@@ -72,7 +72,7 @@ struct CastDetailsView: View {
             .toolbar {
                 ToolbarItem {
                     Button(action: {
-                        HapticManager.shared.buttonHaptic()
+                        HapticManager.shared.mediumHaptic()
                         isSharePresented.toggle()
                     }, label: {
                         Image(systemName: "square.and.arrow.up")

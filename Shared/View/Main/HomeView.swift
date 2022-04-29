@@ -53,9 +53,6 @@ struct HomeView: View {
                 }
                 AttributionView()
             }
-            .onAppear {
-                registerBGRefresh()
-            }
             .navigationTitle("Home")
             .toolbar {
                 ToolbarItem {
@@ -91,11 +88,6 @@ struct HomeView: View {
         Task {
             await viewModel.load()
         }
-    }
-    
-    private func registerBGRefresh() {
-        let backgroundTask = BackgroundManager()
-        backgroundTask.registerRefreshBGTask()
     }
 }
 

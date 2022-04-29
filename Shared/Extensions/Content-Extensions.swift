@@ -148,4 +148,12 @@ extension Content {
         default: return .movie
         }
     }
+    //MARK: Sample Data for preview
+    static var previewContents: [Content] {
+        let data: ContentResponse? = try? Bundle.main.decode(from: "content")
+        return data!.results
+    }
+    static var previewContent: Content {
+        previewContents[0]
+    }
 }

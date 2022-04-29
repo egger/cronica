@@ -32,5 +32,7 @@ struct EpisodeDetailsView: View {
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
+    static let padImageWidth: CGFloat = 660
+    static let padImage: CGFloat = 510
     static let imageRadius: CGFloat = 8
 }

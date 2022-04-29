@@ -27,7 +27,7 @@ import TelemetryClient
             } catch {
                 phase = .failure(error)
                 TelemetryManager.send("DetailsViewModel_LoadError",
-                                      with: ["ID/Error:":"\(id)/\(error.localizedDescription)"])
+                                      with: ["ID-Type-Error":"\(id)-\(type.rawValue)-\(error.localizedDescription)"])
             }
         }
     }

@@ -80,6 +80,7 @@ import TelemetryClient
             case .success(let section):
                 sections.append(section)
             case .failure(let error):
+                TelemetryClient.TelemetryManager.send("endpointFailed", with: ["Error":"\(error.localizedDescription)"])
                 errors.append(error)
             }
         }

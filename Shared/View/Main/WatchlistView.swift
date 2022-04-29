@@ -30,19 +30,18 @@ struct WatchlistView: View {
 #if os(iOS)
         if horizontalSizeClass == .compact {
             NavigationView {
-                detailsView
+                details
             }
             .navigationViewStyle(.stack)
         } else {
-            detailsView
+            details
         }
 #else
-        detailsView
+        details
 #endif
     }
     
-    @ViewBuilder
-    var detailsView: some View {
+    var details: some View {
         VStack {
             if items.isEmpty {
                 Text("Your list is empty.")

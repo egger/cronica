@@ -21,9 +21,10 @@ struct HeroImage: View {
                         .aspectRatio(contentMode: .fill)
                         .transition(.opacity)
                     if blurImage {
-                        Rectangle().fill(.ultraThinMaterial)
+                        Rectangle().fill(.ultraThickMaterial)
                         Image(systemName: "eye.slash.fill")
                             .foregroundColor(.white)
+                            .font(.system(size: 30))
                     }
                 }
             } else if phase.error != nil {

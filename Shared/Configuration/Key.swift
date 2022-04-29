@@ -8,6 +8,5 @@
 import Foundation
 
 struct Key {
-    static let keyV3 = "" //TODO: use your own key
-    static let keyV4 = "" //TODO: use your own key
+    static let keyV3 = ""
 }

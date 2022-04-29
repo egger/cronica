@@ -26,25 +26,6 @@ struct Content: Identifiable, Decodable {
     let videos: Videos?
     let nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
-struct Season: Decodable, Identifiable {
-    let id: Int
-    let airDate: String?
-    let episodeCount: Int?
-    let episodes: [Episode]?
-    let name, overview, posterPath: String?
-    let seasonNumber: Int 
-}
-struct ReleaseDates: Decodable {
-    let results: [ReleaseDatesResult]
-}
-struct ReleaseDatesResult: Decodable {
-    let iso31661: String?
-    let releaseDates: [ReleaseDate]?
-}
-struct ReleaseDate: Decodable {
-    let certification, iso6391, releaseDate: String?
-    let type: Int?
-}
 struct ProductionCompany: Decodable {
     let id: Int
     let logoPath: String?
@@ -56,19 +37,6 @@ struct ProductionCountry: Decodable {
 struct Genre: Decodable, Identifiable {
     let id: Int
     let name: String?
-}
-struct Episode: Identifiable, Decodable {
-    let id, episodeNumber, seasonNumber: Int
-    let crew, guestStars: [Person]?
-    let name, overview, stillPath, airDate: String?
-}
-struct Videos: Decodable {
-    let results: [VideosResult]
-}
-struct VideosResult: Decodable {
-    let iso639_1, iso3166_1, publishedAt, id: String?
-    let name, key, type: String
-    let official: Bool
 }
 struct ContentResponse: Identifiable, Decodable {
     let id: String?

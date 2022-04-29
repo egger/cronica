@@ -45,7 +45,6 @@ class NotificationManager: ObservableObject {
             date = content.nextEpisodeDate!
         } else {
             date = content.itemFallbackDate
-            print("FALLBACK \(content.itemFallbackDate as Any)")
         }
         self.requestAuthorization { granted in
             if !granted {
@@ -57,7 +56,6 @@ class NotificationManager: ObservableObject {
                                       title: title,
                                       body: body,
                                       date: date)
-            print("Notification for \(identifier)")
         }
     }
     

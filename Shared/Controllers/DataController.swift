@@ -145,6 +145,22 @@ class DataController: ObservableObject {
         return false
     }
     
+    func isMarkedAsWatched(id: Content.ID) -> Bool {
+        let item = try? getItem(id: WatchlistItem.ID(id))
+        if let item = item {
+            if item.watched { return true }
+        }
+        return false
+    }
+    
+    func isMarkedAsFavorite(id: Content.ID) -> Bool {
+        let item = try? getItem(id: WatchlistItem.ID(id))
+        if let item = item {
+            if item.favorite { return true }
+        }
+        return false
+    }
+    
     /// Get an item from the Watchlist.
     /// - Parameter id: The ID used to fetch the list.
     /// - Returns: If the item is in the list, it will return it.
