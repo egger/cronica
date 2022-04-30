@@ -34,7 +34,7 @@
 //MARK: OverlayView.swift
 "Something went wrong, try again later." = "Algo deu errado, tente novamente mais tarde.";
 
-//MARK: DetailsView.swift
+//MARK: ContentDetailsView.swift
 "Add to watchlist" = "Adicionar à lista";
 "Remove from watchlist" = "Remover da lista";
 "About" = "Sobre";
@@ -42,6 +42,10 @@
 "Seasons" = "Temporadas";
 "Recommendations" = "Recomendações";
 "You may like" = "Você pode gostar";
+"Mark as Watched" = "Marcar como Assistido";
+"Remove from Watched" = "Remover de Assistidos";
+"Mark as Favorite" = "Marcar como Favorito";
+"Remove from Favorites" = "Remover de Favoritos";
 
 //MARK: InformationSectionView.swift
 "Run Time" = "Tempo de Duração";

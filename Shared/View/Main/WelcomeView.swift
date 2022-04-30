@@ -19,7 +19,6 @@ struct WelcomeView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100, alignment: .center)
-                        .shadow(color: .black.opacity(0.8), radius: 2.5)
                         .padding()
                     Spacer()
                 }

@@ -128,14 +128,15 @@ struct ContentDetailsView: View {
             .toolbar {
                 ToolbarItem {
                     HStack {
-                        Image(systemName: isNotificationScheduled ? "bell.fill" : "bell")
+                        Image(systemName: isNotificationScheduled ? "bell.circle.fill" : "bell.circle")
                             .opacity(isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
                         Button(action: {
                             HapticManager.shared.mediumHaptic()
                             isSharePresented.toggle()
                         }, label: {
-                            Image(systemName: "square.and.arrow.up")
+                            Image(systemName: "square.and.arrow.up.circle.fill")
+                                .foregroundColor(.accentColor)
                         })
                         .foregroundColor(.accentColor)
                         .disabled(isLoading ? true : false)
@@ -146,8 +147,8 @@ struct ContentDetailsView: View {
                                     isWatched.toggle()
                                     viewModel.update(markAsWatched: isWatched, markAsFavorite: nil)
                                 }, label: {
-                                    Label(isWatched ? "Removed from Watched" : "Mark as Watched",
-                                          systemImage: isWatched ? "x.circle" : "checkmark.circle")
+                                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
                                 })
                                 .disabled(isInWatchlist ? false : true)
                                 Button(action: {
@@ -155,12 +156,13 @@ struct ContentDetailsView: View {
                                     isFavorite.toggle()
                                     viewModel.update(markAsWatched: nil, markAsFavorite: isFavorite)
                                 }, label: {
-                                    Label(isFavorite ? "Removed from Favorites" : "Mark as Favorite",
-                                          systemImage: isFavorite ? "star.slash.fill" : "star.fill")
+                                    Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                                          systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
                                 })
                                 .disabled(isInWatchlist ? false : true)
                             }, label: {
-                                Label("More", systemImage: "ellipsis")
+                                Label("More", systemImage: "ellipsis.circle.fill")
+                                    .foregroundColor(.accentColor)
                             })
                             .disabled(isLoading ? true : false)
                         }

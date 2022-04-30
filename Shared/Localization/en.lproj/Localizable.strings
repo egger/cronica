@@ -34,7 +34,7 @@
 //MARK: OverlayView.swift
 "Something went wrong, try again later." = "Something went wrong, try again later.";
 
-//MARK: DetailsView.swift
+//MARK: ContentDetailsView.swift
 "Add to watchlist" = "Add to watchlist";
 "Remove from watchlist" = "Remove from watchlist";
 "About" = "About";
@@ -42,6 +42,11 @@
 "Seasons" = "Seasons";
 "Recommendations" = "Recommendations";
 "You may like" = "You may like";
+"Mark as Watched" = "Mark as Watched";
+"Remove from Watched" = "Remove from Watched";
+"Mark as Favorite" = "Mark as Favorite";
+"Remove from Favorites" = "Remove from Favorites";
+
 
 //MARK: InformationSectionView.swift
 "Run Time" = "Run-Time";
