@@ -25,8 +25,9 @@ class BackgroundManager {
     private func fetchWatchlistItems() -> [WatchlistItem] {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let notifyPredicate = NSPredicate(format: "notify == %d", true)
+        let soonPredicate = NSPredicate(format: "schedule == %d", ContentSchedule.soon.scheduleNumber)
         let orPredicate = NSCompoundPredicate(type: .or,
-                                              subpredicates: [notifyPredicate])
+                                              subpredicates: [notifyPredicate, soonPredicate])
         request.predicate = orPredicate
         do {
             let list = try self.context.container.viewContext.fetch(request)

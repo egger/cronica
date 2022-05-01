@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    static let tag: String? = "Home"
+    static let tag: Screens? = .home
 #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 #endif
@@ -35,7 +35,6 @@ struct HomeView: View {
 #endif
     }
     
-    @ViewBuilder
     var detailsView: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {

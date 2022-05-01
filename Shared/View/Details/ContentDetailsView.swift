@@ -128,16 +128,16 @@ struct ContentDetailsView: View {
             .toolbar {
                 ToolbarItem {
                     HStack {
-                        Image(systemName: isNotificationScheduled ? "bell.circle.fill" : "bell.circle")
+                        Image(systemName: isNotificationScheduled ? "bell.fill" : "bell")
                             .opacity(isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
                         Button(action: {
                             HapticManager.shared.mediumHaptic()
                             isSharePresented.toggle()
                         }, label: {
-                            Image(systemName: "square.and.arrow.up.circle.fill")
-                                .foregroundColor(.accentColor)
+                            Image(systemName: "square.and.arrow.up")
                         })
+                        .buttonStyle(.plain)
                         .foregroundColor(.accentColor)
                         .disabled(isLoading ? true : false)
                         if hiddenMenu {
@@ -161,8 +161,7 @@ struct ContentDetailsView: View {
                                 })
                                 .disabled(isInWatchlist ? false : true)
                             }, label: {
-                                Label("More", systemImage: "ellipsis.circle.fill")
-                                    .foregroundColor(.accentColor)
+                                Label("More", systemImage: "ellipsis")
                             })
                             .disabled(isLoading ? true : false)
                         }

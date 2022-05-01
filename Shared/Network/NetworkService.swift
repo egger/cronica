@@ -32,6 +32,14 @@ class NetworkService {
         return response.results
     }
     
+    func fetchDiscover(sort: String, page: Int, genres: String) async throws -> [Content] {
+        guard let url = urlBuilder(sortBy: sort, page: page, genres: genres) else {
+            throw NetworkError.invalidEndpoint
+        }
+        let response: ContentResponse = try await self.fetch(url: url)
+        return response.results
+    }
+    
     func fetchPerson(id: Person.ID) async throws -> Person {
         guard let url = urlBuilder(path: "person/\(id)", append: "\(MediaType.person.append)")
         else {
@@ -93,6 +101,25 @@ class NetworkService {
                 .init(name: "region", value: Utilities.userRegion)
             ]
         }
+        return component.url
+    }
+    
+    private func urlBuilder(sortBy: String, page: Int, genres: String) -> URL? {
+        var component = URLComponents()
+        component.scheme = "https"
+        component.host = "api.themoviedb.org"
+        component.path = "/3/discover/movie"
+        component.queryItems = [
+            .init(name: "api_key", value: Key.keyV3),
+            .init(name: "language", value: Utilities.userLang),
+            .init(name: "region", value: Utilities.userRegion),
+            .init(name: "sort_by", value: "popularity.desc"),
+            .init(name: "include_adult", value: "false"),
+            .init(name: "include_video", value: "false"),
+            .init(name: "page", value: "\(page)"),
+            .init(name: "with_genres", value: genres)
+        ]
+        print("Genre URL is \(component.url as Any)")
         return component.url
     }
     

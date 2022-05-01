@@ -19,11 +19,22 @@ struct PosterView: View {
                     .aspectRatio(contentMode: .fill)
                     .transition(.opacity)
             } else if phase.error != nil {
-                Rectangle().redacted(reason: .placeholder)
+                ZStack {
+                    Rectangle().fill(.thickMaterial)
+                    VStack {
+                        Text(title)
+                            .lineLimit(1)
+                            .padding(.bottom)
+                        Image(systemName: "film")
+                    }
+                    .padding()
+                    .foregroundColor(.secondary)
+                }
             } else {
                 ZStack {
                     Rectangle().fill(.thickMaterial)
                     VStack {
+                        ProgressView()
                         Text(title)
                             .lineLimit(1)
                             .padding(.bottom)

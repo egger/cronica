@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    static let tag: String? = "Search"
+    static let tag: Screens? = .search
 #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 #endif

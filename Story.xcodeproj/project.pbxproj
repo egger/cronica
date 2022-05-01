@@ -26,7 +26,6 @@
 		B85C65AC27A6307C0080121E /* CastDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* CastDetailsView.swift */; };
 		B85E035427B02D01005C7FDF /* CastDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* CastDetailsViewModel.swift */; };
 		B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E036F27B0371C005C7FDF /* StoryTests.swift */; };
-		B8652F44281AE37400ABD004 /* ContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8652F43281AE37400ABD004 /* ContentListView.swift */; };
 		B8652F46281AE91500ABD004 /* EpisodeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8652F45281AE91500ABD004 /* EpisodeItemView.swift */; };
 		B8652F48281AE9E900ABD004 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8652F47281AE9E900ABD004 /* EpisodeDetailsView.swift */; };
 		B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */; };
@@ -46,6 +45,10 @@
 		B876DE64281B36A7005558DD /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE63281B36A7005558DD /* Season.swift */; };
 		B876DE66281B4040005558DD /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
 		B8779371281E02AA00174F32 /* TrendingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8779370281E02AA00174F32 /* TrendingListView.swift */; };
+		B8779375281E2CE700174F32 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8779374281E2CE700174F32 /* ExploreView.swift */; };
+		B8779377281E319D00174F32 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8779376281E319D00174F32 /* TabBarView.swift */; };
+		B8779379281E389A00174F32 /* GenreDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8779378281E389A00174F32 /* GenreDetailsView.swift */; };
+		B877937B281E399600174F32 /* GenreDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877937A281E399600174F32 /* GenreDetailsViewModel.swift */; };
 		B878E83527BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */; };
 		B87B5CCC27999C5700632648 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CCB27999C5700632648 /* content.json */; };
 		B87B5CD42799AF3600632648 /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
@@ -118,7 +121,6 @@
 		B85E035327B02D01005C7FDF /* CastDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsViewModel.swift; sourceTree = "<group>"; };
 		B85E036D27B0371C005C7FDF /* StoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85E036F27B0371C005C7FDF /* StoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTests.swift; sourceTree = "<group>"; };
-		B8652F43281AE37400ABD004 /* ContentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListView.swift; sourceTree = "<group>"; };
 		B8652F45281AE91500ABD004 /* EpisodeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeItemView.swift; sourceTree = "<group>"; };
 		B8652F47281AE9E900ABD004 /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
 		B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSectionView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,10 @@
 		B876DE63281B36A7005558DD /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
 		B876DE65281B4040005558DD /* Videos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Videos.swift; sourceTree = "<group>"; };
 		B8779370281E02AA00174F32 /* TrendingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingListView.swift; sourceTree = "<group>"; };
+		B8779374281E2CE700174F32 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		B8779376281E319D00174F32 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		B8779378281E389A00174F32 /* GenreDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDetailsView.swift; sourceTree = "<group>"; };
+		B877937A281E399600174F32 /* GenreDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDetailsViewModel.swift; sourceTree = "<group>"; };
 		B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistItem-CoreDataHelpers.swift"; sourceTree = "<group>"; };
 		B87B5CCB27999C5700632648 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		B87B5CD32799AF3600632648 /* Attribution.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Attribution.xcassets; sourceTree = "<group>"; };
@@ -328,6 +334,7 @@
 				B8CC953227D05D1000B6757C /* HomeViewModel.swift */,
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
 				B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */,
+				B877937A281E399600174F32 /* GenreDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -354,6 +361,7 @@
 				B85C65AB27A6307C0080121E /* CastDetailsView.swift */,
 				B8CC952927D02C5700B6757C /* ContentDetailsView.swift */,
 				B8652F47281AE9E900ABD004 /* EpisodeDetailsView.swift */,
+				B8779378281E389A00174F32 /* GenreDetailsView.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -366,9 +374,8 @@
 				B8CC952F27D03BBE00B6757C /* ContentListView.swift */,
 				B890C57E27FCCCA1006BE5E1 /* FilmographyListView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
-				B8C335462815ED140055389D /* WatchListSection.swift */,
-				B8652F43281AE37400ABD004 /* ContentListView.swift */,
 				B8779370281E02AA00174F32 /* TrendingListView.swift */,
+				B8C335462815ED140055389D /* WatchListSection.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -383,6 +390,8 @@
 				B876DE55281B2743005558DD /* SideBarView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
 				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,
+				B8779374281E2CE700174F32 /* ExploreView.swift */,
+				B8779376281E319D00174F32 /* TabBarView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -557,9 +566,12 @@
 				B845132A27EA514C00F0D4A4 /* AccountView.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ContentDetailsView.swift in Sources */,
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
+				B8779375281E2CE700174F32 /* ExploreView.swift in Sources */,
+				B8779377281E319D00174F32 /* TabBarView.swift in Sources */,
 				B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */,
 				B845133627ECE3B100F0D4A4 /* SupportEmail.swift in Sources */,
 				B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
+				B8779379281E389A00174F32 /* GenreDetailsView.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* ItemView.swift in Sources */,
 				B8E7651E27B753AE00D9B731 /* OverlayView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
@@ -575,7 +587,6 @@
 				B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */,
 				B890C58727FE4455006BE5E1 /* Season-Extension.swift in Sources */,
-				B8652F44281AE37400ABD004 /* ContentListView.swift in Sources */,
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,
 				B82C267A2795E33900259D98 /* PosterView.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */,
@@ -597,6 +608,7 @@
 				B876DE5E281B2B62005558DD /* Filmography.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
 				B876DE62281B3685005558DD /* Episode.swift in Sources */,
+				B877937B281E399600174F32 /* GenreDetailsViewModel.swift in Sources */,
 				B8652F46281AE91500ABD004 /* EpisodeItemView.swift in Sources */,
 				B876DE52281B1BA5005558DD /* ContentSchedule.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ContentDetailsViewModel.swift in Sources */,
@@ -768,7 +780,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -804,7 +816,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

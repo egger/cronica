@@ -9,7 +9,7 @@ import SwiftUI
 import TelemetryClient
 
 struct WatchlistView: View {
-    static let tag: String? = "Watchlist"
+    static let tag: Screens? = .watchlist
 #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 #endif

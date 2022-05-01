@@ -7,6 +7,7 @@
 
 import Foundation
 
-enum Screens: Hashable {
-    case home, watchlist, search
+enum Screens: String, Hashable, Identifiable {
+    var id: String { rawValue }
+    case home, explore, watchlist, search
 }

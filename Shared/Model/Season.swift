@@ -8,10 +8,8 @@
 import Foundation
 
 struct Season: Decodable, Identifiable {
-    let id: Int
-    let airDate: String?
+    let id, seasonNumber: Int
     let episodeCount: Int?
     let episodes: [Episode]?
-    let name, overview, posterPath: String?
-    let seasonNumber: Int
+    let name, overview, posterPath, airDate: String?
 }

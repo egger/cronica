@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SideBarView: View {
-    @SceneStorage("selectedView") var selectedView: String?
+    @SceneStorage("selectedView") var selectedView: Screens?
     @ViewBuilder
     var body: some View {
         NavigationView {
@@ -16,6 +16,9 @@ struct SideBarView: View {
                 NavigationLink(destination: HomeView()) {
                     Label("Home", systemImage: "house")
                 }.tag(HomeView.tag)
+                NavigationLink(destination: ExploreView()) {
+                    Label("Explore", systemImage: "film")
+                }.tag(ExploreView.tag)
                 NavigationLink(destination: WatchlistView()) {
                     Label("Watchlist", systemImage: "square.stack.fill")
                 }.tag(WatchlistView.tag)
