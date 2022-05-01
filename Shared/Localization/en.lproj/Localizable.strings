@@ -27,6 +27,9 @@
 "Sort" = "Sort";
 "Media Type" = "Media Type";
 "Default" = "Optimized";
+"Favorites" = "Favorites";
+"To Watch" = "To Watch";
+"Watched" = "Watched";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
@@ -47,6 +50,26 @@
 "Mark as Favorite" = "Mark as Favorite";
 "Remove from Favorites" = "Remove from Favorites";
 
+//MARK: ExploreView.swift
+"Explore" = "Explore";
+"Action" = "Action";
+"Adventure" = "Adventure";
+"Animation" = "Animation";
+"Comedy" = "Comedy";
+"Crime" = "Crime";
+"Documentary" = "Documentary";
+"Drama" = "Drama";
+"Family" = "Family";
+"Fantasy" = "Fantasy";
+"History" = "History";
+"Horror" = "Horror";
+"Music" = "Music";
+"Mystery" = "Mystery";
+"Romance" = "Romance";
+"Science Fiction" = "Science Fiction";
+"Thriller" = "Thriller";
+"War" = "War";
+"Genres" = "Genres";
 
 //MARK: InformationSectionView.swift
 "Run Time" = "Run-Time";
@@ -114,3 +137,6 @@
 "Released" = "Released";
 "Watchlist" = "Watchlist";
 "Search watchlist" = "Search watchlist";
+"Production" = "Production";
+"Cancelled" = "Cancelled";
+"Unknown" = "Unknown";

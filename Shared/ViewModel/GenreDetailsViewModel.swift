@@ -11,27 +11,31 @@ import Combine
 @MainActor class GenreDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published var items: [Content]?
+    private var id: Int = 0
     
     // MARK: Pagination Properties
     @Published var currentPage: Int = 0
     @Published var startPagination: Bool = false
     @Published var endPagination: Bool = false
     
-    init(id: Int){updateItems(id: id)}
+    init(id: Int) {
+        self.id = id
+        loadMoreItems()
+    }
     
-    func updateItems(id: Int){
+    func loadMoreItems() {
         currentPage += 1
         Task{
             do{
-                try await fetch(id: id)
+                try await fetch()
             }catch{
                 // HANDLE ERROR
             }
         }
     }
     
-    func fetch(id: Int) async throws {
-        let content = try? await service.fetchDiscover(sort: "popularity.desc", page: currentPage, genres: "\(id)")
+    func fetch() async throws {
+        let content = try? await service.fetchDiscover(sort: "popularity.desc", page: currentPage, genres: "\(self.id)")
         await MainActor.run(body: {
             if items == nil { items = [] }
             items?.append(contentsOf: content ?? [])

@@ -75,10 +75,10 @@ struct GenreDetailsView: View {
                     }
                     if viewModel.startPagination || !viewModel.endPagination {
                         ProgressView()
-                            .offset(y: -15)
+                            .padding()
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                    viewModel.updateItems(id: genreID)
+                                    viewModel.loadMoreItems()
                                 }
                             }
                     }

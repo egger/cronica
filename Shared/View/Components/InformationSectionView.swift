@@ -25,7 +25,7 @@ struct InformationSectionView: View {
                 if let status = item?.itemStatus {
                     InfoView(title: NSLocalizedString("Status",
                                                          comment: ""),
-                             content: status.rawValue)
+                             content: status.scheduleTitle)
                 }
                 if let genre = item?.itemGenre {
                     InfoView(title: NSLocalizedString("Genre",
