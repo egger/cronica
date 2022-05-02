@@ -11,7 +11,7 @@ struct GenreDetailsView: View {
     var genreID: Int
     var genreName: String
     @StateObject private var viewModel: GenreDetailsViewModel
-    @State private var isLoading: Bool = false
+    @State private var isLoading: Bool = true
     init(genreID: Int, genreName: String) {
         self.genreID = genreID
         _viewModel = StateObject(wrappedValue: GenreDetailsViewModel(id: genreID))
@@ -26,51 +26,7 @@ struct GenreDetailsView: View {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(content) { item in
                         NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
-                            VStack {
-                                AsyncImage(url: item.cardImageMedium,
-                                           transaction: Transaction(animation: .easeInOut)) { phase in
-                                    if let image = phase.image {
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .transition(.opacity)
-                                    } else if phase.error != nil {
-                                        ZStack {
-                                            Rectangle().fill(.thickMaterial)
-                                            VStack {
-                                                Text(item.itemTitle)
-                                                    .font(.callout)
-                                                    .lineLimit(1)
-                                                    .padding(.bottom)
-                                                Image(systemName: "film")
-                                            }
-                                            .padding()
-                                            .foregroundColor(.secondary)
-                                        }
-                                    } else {
-                                        ZStack {
-                                            Rectangle().fill(.thickMaterial)
-                                            VStack {
-                                                ProgressView()
-                                                    .padding(.bottom)
-                                                Image(systemName: "film")
-                                            }
-                                            .padding()
-                                            .foregroundColor(.secondary)
-                                        }
-                                    }
-                                }
-                                .frame(width: 160, height: 100)
-                                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                                HStack {
-                                    Text(item.itemTitle)
-                                        .foregroundColor(.secondary)
-                                        .font(.caption)
-                                        .lineLimit(1)
-                                        .padding(.leading)
-                                    Spacer()
-                                }
-                            }
+                            StillFrameView(item: item)
                         }
                     }
                     if viewModel.startPagination || !viewModel.endPagination {
@@ -94,27 +50,15 @@ struct GenreDetailsView: View {
         }
         .redacted(reason: isLoading ? .placeholder : [] )
         .navigationTitle(genreName)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    
-                }, label: {
-                    Label("Order", systemImage: "line.3.horizontal.decrease.circle")
-                })
-            }
-        }
     }
     
     @Sendable
     private func load() {
         Task {
-           // await viewModel.fetch(id: self.genreID)
-//            await self.viewModel.load(id: self.genreID)
-//            if viewModel.content != nil {
-//                withAnimation {
-//                    isLoading = false
-//                }
-//            }
+            viewModel.loadMoreItems()
+            withAnimation {
+                isLoading = false
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EpisodeDetailsView: View {
     let item: Episode
+    @State private var markAsWatched: Bool = false
+    @State private var showOverview: Bool = false
     var body: some View {
         ScrollView {
             VStack {
@@ -16,13 +18,22 @@ struct EpisodeDetailsView: View {
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .cornerRadius(DrawingConstants.imageRadius)
-                GroupBox {
-                    Text(item.itemAbout)
-                        .padding([.top, .bottom], 4)
-                } label: {
-                    Label("About", systemImage: "tv")
-                }
-                .padding([.horizontal, .bottom])
+                Button(action: {
+                    withAnimation {
+                        markAsWatched.toggle()
+                    }
+                }, label: {
+                    Label(markAsWatched ? "Remove from Watched" : "Mark as Watched",
+                          systemImage: markAsWatched ? "minus.circle" : "checkmark.circle")
+                })
+                .buttonStyle(.bordered)
+                .controlSize(.large)
+                .tint(markAsWatched ? .red : .green)
+                OverviewBoxView(overview: item.itemAbout, type: .tvShow)
+                    .onTapGesture {
+                        showOverview.toggle()
+                    }
+                    .padding([.horizontal, .bottom])
             }
             .navigationTitle(item.itemTitle)
         }

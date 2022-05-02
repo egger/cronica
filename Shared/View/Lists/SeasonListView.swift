@@ -45,6 +45,7 @@ private struct SeasonView: View {
     var title: String
     @StateObject private var viewModel: SeasonViewModel
     @State private var showDetails: Bool = false
+    @State private var markAsWatched: Bool = false
     init(id: Int, season: Int, title: String) {
         _viewModel = StateObject(wrappedValue: SeasonViewModel())
         self.id = id
@@ -59,6 +60,14 @@ private struct SeasonView: View {
                         ForEach(items) { item in
                             NavigationLink(destination: EpisodeDetailsView(item: item)) {
                                 EpisodeItemView(item: item)
+                                    .contextMenu {
+                                        Button(action: {
+                                            
+                                        }, label: {
+                                            Label(markAsWatched ? "Remove from Watched" : "Mark as Watched",
+                                                  systemImage: markAsWatched ? "minus.circle" : "checkmark.circle")
+                                        })
+                                    }
                                     .padding(4)
                             }
                             .buttonStyle(.plain)
