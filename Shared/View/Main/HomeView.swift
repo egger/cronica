@@ -39,6 +39,7 @@ struct HomeView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 ComingSoonListView()
+                UpcomingSeasonListView()
                 TrendingListView(items: viewModel.trendingSection)
                 if let sections = viewModel.sections {
                     ForEach(sections) {
@@ -58,7 +59,7 @@ struct HomeView: View {
                     Button(action: {
                         showAccount.toggle()
                     }, label: {
-                        Label("Account", systemImage: "info.circle")
+                        Label("Account", systemImage: "gear.circle")
                     })
                 }
             }
@@ -68,7 +69,7 @@ struct HomeView: View {
             .sheet(isPresented: $showAccount) {
                 NavigationView {
                     AccountView()
-                        .navigationTitle("About")
+                        .navigationTitle("Settings")
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {

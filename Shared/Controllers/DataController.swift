@@ -70,6 +70,10 @@ class DataController: ObservableObject {
         item.poster = content.posterImageMedium
         item.schedule = content.itemStatus.scheduleNumber
         item.notify = notify
+        if content.itemContentMedia == .tvShow {
+            item.upcomingSeason = content.hasUpcomingSeason
+            item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
+        }
         do {
             try viewContext.save()
         } catch {
@@ -91,6 +95,10 @@ class DataController: ObservableObject {
                 item.poster = content.posterImageMedium
                 item.schedule = content.itemStatus.scheduleNumber
                 item.notify = content.itemCanNotify
+                if content.itemContentMedia == .tvShow {
+                    item.upcomingSeason = content.hasUpcomingSeason
+                    item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
+                }
                 if let watched = watched {
                     item.watched = watched
                 }

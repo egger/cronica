@@ -1,38 +1,33 @@
 //
-//  WatchlistSectionView.swift
+//  UpcomingSeasonListView.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 05/04/22.
+//  Created by Alexandre Madeira on 10/05/22.
 //
 
 import SwiftUI
 
-struct ComingSoonListView: View {
+struct UpcomingSeasonListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: false),
         ],
-        predicate: NSCompoundPredicate(type: .and,
-                                       subpredicates: [
-                                        NSPredicate(format: "schedule == %@", "0"),
-                                        NSPredicate(format: "notify == %d", true),
-                                        NSPredicate(format: "contentType == %d", MediaType.movie.watchlistInt)
-                                       ])
+        predicate: NSPredicate(format: "upcomingSeason == %d", true)
     )
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         VStack {
             if !items.isEmpty {
-                TitleView(title: "Upcoming Movies",
-                          subtitle: "Movies from your Watchlist",
+                TitleView(title: "Upcoming Seasons",
+                          subtitle: "From Watchlist",
                           image: "rectangle.stack")
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(items) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
-                                CardView(title: item.itemTitle, url: item.image)
+                                CardView(title: item.itemTitle, url: item.image, subtitle: "Season \(item.nextSeasonNumber)")
                                     .padding([.leading, .trailing], 4)
                             }
                             .buttonStyle(.plain)
@@ -47,8 +42,8 @@ struct ComingSoonListView: View {
     }
 }
 
-struct WatchlistSectionView_Previews: PreviewProvider {
+struct UpcomingSeasonListView_Previews: PreviewProvider {
     static var previews: some View {
-        ComingSoonListView()
+        UpcomingSeasonListView()
     }
 }

@@ -10,6 +10,8 @@ import SwiftUI
 struct CardView: View {
     let title: String
     let url: URL?
+    var info: String?
+    var subtitle: String?
     var body: some View {
         ZStack {
             AsyncImage(url: url,
@@ -30,8 +32,6 @@ struct CardView: View {
                             )
                             .transition(.opacity)
                     }
-                } else if phase.error != nil {
-                    Rectangle().redacted(reason: .placeholder)
                 } else {
                     ZStack {
                         Color.black.opacity(0.4)
@@ -41,19 +41,45 @@ struct CardView: View {
                     }
                 }
             }
-            VStack(alignment: .leading) {
-                Spacer()
-                HStack {
-                    Text(title)
-                        .fontWeight(.semibold)
-                        .font(.callout)
-                        .foregroundColor(.white)
-                        .lineLimit(DrawingConstants.lineLimits)
-                        .padding()
+            if let subtitle = subtitle {
+                VStack(alignment: .leading) {
                     Spacer()
+                    HStack {
+                        Text(title)
+                            .fontWeight(.semibold)
+                            .font(.callout)
+                            .foregroundColor(.white)
+                            .lineLimit(DrawingConstants.lineLimits)
+                            .padding(.leading)
+                        Spacer()
+                    }
+                    HStack {
+                        Text(subtitle)
+                            .font(.caption)
+                            .foregroundColor(.white)
+                            .lineLimit(DrawingConstants.lineLimits)
+                            .padding(.leading)
+                            .padding(.bottom, 4)
+                        Spacer()
+                    }
                 }
+                .padding(.horizontal, 2)
+            } else {
+                VStack(alignment: .leading) {
+                    Spacer()
+                    HStack {
+                        Text(title)
+                            .fontWeight(.semibold)
+                            .font(.callout)
+                            .foregroundColor(.white)
+                            .lineLimit(DrawingConstants.lineLimits)
+                            .padding()
+                        Spacer()
+                    }
+                    
+                }
+                .padding(.horizontal, 2)
             }
-            .padding(.horizontal, 2)
         }
         .frame(width: DrawingConstants.cardWidth,
                height: DrawingConstants.cardHeight)

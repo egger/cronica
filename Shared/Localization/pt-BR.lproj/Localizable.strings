@@ -15,7 +15,7 @@
 "Up Coming" = "Próximos Lançamentos";
 "Latest Movies" = "Lançamentos Recentes";
 "Latest Shows" = "Últimas séries de TV";
-"Upcoming Movies" = "Em Breve";
+"Upcoming Movies" = "Próximos lançamentos";
 "TV Show" = "Série";
 "Movie" = "Filme";
 "People" = "Pessoa";
@@ -30,6 +30,8 @@
 "Favorites" = "Favoritos";
 "To Watch" = "Para Assistir";
 "Watched" = "Assistidos";
+"Upcoming Seasons" = "Próximas Temporadas";
+"Movies from your Watchlist" = "Movies from your Watchlist";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";

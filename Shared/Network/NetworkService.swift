@@ -32,8 +32,8 @@ class NetworkService {
         return response.results
     }
     
-    func fetchDiscover(sort: String, page: Int, genres: String) async throws -> [Content] {
-        guard let url = urlBuilder(sortBy: sort, page: page, genres: genres) else {
+    func fetchDiscover(type: MediaType, sort: String, page: Int, genres: String) async throws -> [Content] {
+        guard let url = urlBuilder(type: type.rawValue, sortBy: sort, page: page, genres: genres) else {
             throw NetworkError.invalidEndpoint
         }
         let response: ContentResponse = try await self.fetch(url: url)
@@ -48,8 +48,8 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
-    func search(query: String) async throws -> [Content] {
-        guard let url = urlBuilder(path: "search/multi", query: query) else {
+    func search(query: String, page: String) async throws -> [Content] {
+        guard let url = urlBuilder(path: "search/multi", query: query, page: page) else {
             throw NetworkError.invalidEndpoint
         }
         let results: ContentResponse = try await self.fetch(url: url)
@@ -73,7 +73,7 @@ class NetworkService {
     ///   - append: Additional information to fetch.
     ///   - query: The query for the search functionality, if in Search.
     /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
-    private func urlBuilder(path: String, append: String? = nil, query: String? = nil) -> URL? {
+    private func urlBuilder(path: String, append: String? = nil, query: String? = nil, page: String = "1") -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"
@@ -82,6 +82,7 @@ class NetworkService {
             component.queryItems = [
                 .init(name: "api_key", value: Key.keyV3),
                 .init(name: "language", value: Utilities.userLang),
+                .init(name: "page", value: page),
                 .init(name: "append_to_response", value: append)
             ]
         }
@@ -97,6 +98,7 @@ class NetworkService {
                 .init(name: "api_key", value: Key.keyV3),
                 .init(name: "language", value: Utilities.userLang),
                 .init(name: "query", value: query),
+                .init(name: "page", value: page),
                 .init(name: "include_adult", value: "false"),
                 .init(name: "region", value: Utilities.userRegion)
             ]
@@ -104,11 +106,11 @@ class NetworkService {
         return component.url
     }
     
-    private func urlBuilder(sortBy: String, page: Int, genres: String) -> URL? {
+    private func urlBuilder(type: String, sortBy: String, page: Int, genres: String) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"
-        component.path = "/3/discover/movie"
+        component.path = "/3/discover/\(type)"
         component.queryItems = [
             .init(name: "api_key", value: Key.keyV3),
             .init(name: "language", value: Utilities.userLang),
@@ -119,7 +121,6 @@ class NetworkService {
             .init(name: "page", value: "\(page)"),
             .init(name: "with_genres", value: genres)
         ]
-        print("Genre URL is \(component.url as Any)")
         return component.url
     }
     
@@ -156,8 +157,4 @@ class NetworkService {
             return nil
         }
     }
-}
-
-enum NetworkError: Error, CustomNSError {
-    case invalidResponse, invalidRequest, invalidEndpoint, decodingError
 }

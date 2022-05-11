@@ -21,4 +21,7 @@ extension Filmography {
         default: return .movie
         }
     }
+    var itemPopularity: Double {
+        popularity ?? 0.0
+    }
 }

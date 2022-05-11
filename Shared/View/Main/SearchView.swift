@@ -46,6 +46,7 @@ struct SearchView: View {
                 }
             }
         }
+        .listStyle(.inset)
         .navigationTitle("Search")
         .navigationBarTitleDisplayMode(.large)
         .searchable(text: $viewModel.query,

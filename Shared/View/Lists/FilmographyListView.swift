@@ -14,7 +14,7 @@ struct FilmographyListView: View {
             TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(items) { item in
+                    ForEach(items.sorted { $0.itemPopularity > $1.itemPopularity }) { item in
                         NavigationLink(destination: ContentDetailsView(title: item.itemTitle,
                                                                 id: item.id,
                                                                 type: item.itemMedia)) {

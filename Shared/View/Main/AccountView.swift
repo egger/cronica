@@ -11,8 +11,16 @@ struct AccountView: View {
     @Environment(\.openURL) var openURL
     @State private var email = SupportEmail()
     @State private var showPolicy: Bool = false
+    @State private var recommendedNotifications: Bool = true
     var body: some View {
         Form {
+            Section {
+                Toggle("Weekly's recommendations", isOn: $recommendedNotifications)
+            } header: {
+                Text("Notification")
+            } footer: {
+                Text("Releases' notification is on by default.")
+            }
             Section(header: Text("Support")) {
                 Button( action: {
                     email.send(openURL: openURL)

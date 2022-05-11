@@ -15,21 +15,18 @@ import TelemetryClient
         category: String(describing: SeasonViewModel.self)
     )
     private let service: NetworkService = NetworkService.shared
-    @Published private(set) var phase: DataFetchPhase<Season?> = .empty
-    var season: Season? { phase.value ?? nil }
+    @Published var season: Season?
+    @Published var isLoading: Bool = true    
     
     func load(id: Int, season: Int) async {
         if Task.isCancelled { return }
-        if phase.value == nil {
-            phase = .empty
-            do {
-                let season = try await self.service.fetchSeason(id: id, season: season)
-                phase = .success(season)
-            } catch {
-                phase = .failure(error)
-                TelemetryManager.send("SeasonViewModel_loadError",
-                                      with: ["ID-Season-Error:":"\(id)-\(season)-\(error.localizedDescription)"])
-            }
+        do {
+            isLoading = true
+            self.season = try await self.service.fetchSeason(id: id, season: season)
+            isLoading = false
+        } catch {
+            TelemetryManager.send("SeasonViewModel_loadError",
+                                  with: ["ID-Season-Error":"ID:\(id)-Season:\(season)-Error:\(error.localizedDescription)."])
         }
     }
 }

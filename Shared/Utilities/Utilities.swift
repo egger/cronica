@@ -50,6 +50,7 @@ class Utilities {
         formatter.formatOptions = .withFullDate
         return formatter
     }
+    // Gets
     static func getReleaseDate(results: [ReleaseDatesResult]) -> String? {
         for result in results {
             if result.iso31661 == Utilities.userRegion {

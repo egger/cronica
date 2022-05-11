@@ -9,6 +9,8 @@ import Foundation
 
 struct Filmography: Decodable, Identifiable {
     let id: Int
+    let adult: Bool?
+    let popularity: Double?
     let title, name, character, overview: String?
     let backdropPath, posterPath, releaseDate, mediaType: String?
 }

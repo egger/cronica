@@ -24,8 +24,6 @@ struct WatchlistView: View {
     }
     @State var selectedValue = 0
     
-    
-    @ViewBuilder
     var body: some View {
 #if os(iOS)
         if horizontalSizeClass == .compact {
@@ -78,15 +76,16 @@ struct WatchlistView: View {
                             WatchListSection(items: items.filter { $0.favorite == true },
                                              title: "Favorites")
                         default:
-                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false },
-                                             title: "Coming Soon")
-                            WatchListSection(items: items.filter { $0.itemSchedule == .released && $0.watched == false},
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false && $0.notify == true },
+                                             title: "Coming Soon", isSoonList: true)
+                            WatchListSection(items: items.filter { $0.itemSchedule == .released && $0.watched == false || $0.itemSchedule == .cancelled && $0.watched == false },
                                              title: "Released")
-                            WatchListSection(items: items.filter { $0.itemSchedule == .cancelled && $0.watched == false},
-                                             title: "Released")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false && $0.notify == false },
+                                             title: "In Production")
                         }
                     }
                 }
+                .listStyle(.inset)
             }
         }
         .navigationTitle("Watchlist")

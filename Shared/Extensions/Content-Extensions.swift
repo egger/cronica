@@ -28,6 +28,7 @@ extension Content {
                                                                      comment: "")
     }
     var itemStatus: ContentSchedule {
+        if status == "Released" && itemCanNotify { return .soon }
         switch status {
         case "Rumored": return .production
         case "Planned": return .production
@@ -56,9 +57,6 @@ extension Content {
         if !itemGenre.isEmpty { return "\(itemGenre)" }
         return ""
     }
-    var posterImageSmall: URL? {
-        return NetworkService.urlBuilder(size: .small, path: posterPath)
-    }
     var posterImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
@@ -76,9 +74,8 @@ extension Content {
     }
     var itemImage: URL? {
         switch media {
-        case .movie: return cardImageMedium
         case .person: return castImage
-        case .tvShow: return posterImageMedium
+        default: return cardImageMedium
         }
     }
     var itemTrailer: URL? {
@@ -128,6 +125,14 @@ extension Content {
         }
         if let date = nextEpisodeDate {
             if date > Date() {
+                return true
+            }
+        }
+        return false
+    }
+    var hasUpcomingSeason: Bool {
+        if let episode = nextEpisodeToAir {
+            if episode.episodeNumber == 1 && itemCanNotify {
                 return true
             }
         }

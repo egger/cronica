@@ -20,6 +20,7 @@ struct EpisodeDetailsView: View {
                     .cornerRadius(DrawingConstants.imageRadius)
                 Button(action: {
                     withAnimation {
+                        HapticManager.shared.mediumHaptic()
                         markAsWatched.toggle()
                     }
                 }, label: {
@@ -28,12 +29,29 @@ struct EpisodeDetailsView: View {
                 })
                 .buttonStyle(.bordered)
                 .controlSize(.large)
-                .tint(markAsWatched ? .red : .green)
+                .tint(markAsWatched ? .red : .mint)
                 OverviewBoxView(overview: item.itemAbout, type: .tvShow)
                     .onTapGesture {
                         showOverview.toggle()
                     }
                     .padding([.horizontal, .bottom])
+            }
+            .sheet(isPresented: $showOverview) {
+                NavigationView {
+                    ScrollView {
+                        Text(item.itemAbout)
+                            .padding()
+                    }
+                    .navigationTitle(item.itemTitle)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem {
+                            Button("Done") {
+                                showOverview.toggle()
+                            }
+                        }
+                    }
+                }
             }
             .navigationTitle(item.itemTitle)
         }

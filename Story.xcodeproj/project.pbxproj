@@ -26,7 +26,6 @@
 		B85C65AC27A6307C0080121E /* CastDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* CastDetailsView.swift */; };
 		B85E035427B02D01005C7FDF /* CastDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* CastDetailsViewModel.swift */; };
 		B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E036F27B0371C005C7FDF /* StoryTests.swift */; };
-		B8652F46281AE91500ABD004 /* EpisodeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8652F45281AE91500ABD004 /* EpisodeItemView.swift */; };
 		B8652F48281AE9E900ABD004 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8652F47281AE9E900ABD004 /* EpisodeDetailsView.swift */; };
 		B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */; };
 		B86E587027A4842A005DBF38 /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
@@ -66,6 +65,11 @@
 		B890C58727FE4455006BE5E1 /* Season-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58627FE4455006BE5E1 /* Season-Extension.swift */; };
 		B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8991C7C27E4B5D2001055CB /* WelcomeView.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
+		B8ADAF642829EC7F001D72EF /* UIDevice-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF632829EC7F001D72EF /* UIDevice-Extensions.swift */; };
+		B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF652829F134001D72EF /* NetworkError.swift */; };
+		B8ADAF68282AE7B0001D72EF /* GenresListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF67282AE7B0001D72EF /* GenresListView.swift */; };
+		B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
+		B8ADAF6C282B463E001D72EF /* UpcomingSeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */; };
 		B8B271A627A5A18C00F6463F /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* DataController.swift */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952027CFEBEC00B6757C /* SearchView.swift */; };
@@ -122,7 +126,6 @@
 		B85E035327B02D01005C7FDF /* CastDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsViewModel.swift; sourceTree = "<group>"; };
 		B85E036D27B0371C005C7FDF /* StoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85E036F27B0371C005C7FDF /* StoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTests.swift; sourceTree = "<group>"; };
-		B8652F45281AE91500ABD004 /* EpisodeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeItemView.swift; sourceTree = "<group>"; };
 		B8652F47281AE9E900ABD004 /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
 		B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSectionView.swift; sourceTree = "<group>"; };
 		B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataFetchPhase.swift; path = Shared/Utilities/DataFetchPhase.swift; sourceTree = SOURCE_ROOT; };
@@ -160,6 +163,11 @@
 		B890C58627FE4455006BE5E1 /* Season-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Season-Extension.swift"; sourceTree = "<group>"; };
 		B8991C7C27E4B5D2001055CB /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
+		B8ADAF632829EC7F001D72EF /* UIDevice-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extensions.swift"; sourceTree = "<group>"; };
+		B8ADAF652829F134001D72EF /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		B8ADAF67282AE7B0001D72EF /* GenresListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListView.swift; sourceTree = "<group>"; };
+		B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeFrameView.swift; sourceTree = "<group>"; };
+		B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonListView.swift; sourceTree = "<group>"; };
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8B271A527A5A18C00F6463F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		B8C335462815ED140055389D /* WatchListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSection.swift; sourceTree = "<group>"; };
@@ -279,6 +287,7 @@
 			children = (
 				B86E589027A4BE75005DBF38 /* Endpoints.swift */,
 				B840D2BE279A0C4200A07C71 /* NetworkService.swift */,
+				B8ADAF652829F134001D72EF /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -295,6 +304,7 @@
 				B890C58627FE4455006BE5E1 /* Season-Extension.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
 				B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */,
+				B8ADAF632829EC7F001D72EF /* UIDevice-Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -373,8 +383,10 @@
 			children = (
 				B8A3F48527A610AF005F2941 /* CastListView.swift */,
 				B890C57C27FCC056006BE5E1 /* ComingSoonListView.swift */,
+				B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */,
 				B8CC952F27D03BBE00B6757C /* ContentListView.swift */,
 				B890C57E27FCCCA1006BE5E1 /* FilmographyListView.swift */,
+				B8ADAF67282AE7B0001D72EF /* GenresListView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 				B8779370281E02AA00174F32 /* TrendingListView.swift */,
 				B8C335462815ED140055389D /* WatchListSection.swift */,
@@ -431,7 +443,7 @@
 				B8EC462127D69464009389FC /* ActivityViewController.swift */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
 				B8423E2E2793B61B0012259B /* CardView.swift */,
-				B8652F45281AE91500ABD004 /* EpisodeItemView.swift */,
+				B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */,
 				B890C57827FC999F006BE5E1 /* HeroImage.swift */,
 				B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */,
 				B84C53FC27B1F1DD00425524 /* ItemView.swift */,
@@ -565,6 +577,7 @@
 				B8779371281E02AA00174F32 /* TrendingListView.swift in Sources */,
 				B8EC45E427D5A010009389FC /* Content-Extensions.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
+				B8ADAF642829EC7F001D72EF /* UIDevice-Extensions.swift in Sources */,
 				B8CC953027D03BBE00B6757C /* ContentListView.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* AccountView.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ContentDetailsView.swift in Sources */,
@@ -594,6 +607,7 @@
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,
 				B82C267A2795E33900259D98 /* PosterView.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */,
+				B8ADAF6C282B463E001D72EF /* UpcomingSeasonListView.swift in Sources */,
 				B890C58327FCCE69006BE5E1 /* HapticManager.swift in Sources */,
 				B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */,
 				B815A15C27BEB7F20062F727 /* Content.swift in Sources */,
@@ -613,7 +627,6 @@
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
 				B876DE62281B3685005558DD /* Episode.swift in Sources */,
 				B877937B281E399600174F32 /* GenreDetailsViewModel.swift in Sources */,
-				B8652F46281AE91500ABD004 /* EpisodeItemView.swift in Sources */,
 				B876DE52281B1BA5005558DD /* ContentSchedule.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ContentDetailsViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
@@ -624,10 +637,13 @@
 				B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */,
 				B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */,
 				B890C57F27FCCCA1006BE5E1 /* FilmographyListView.swift in Sources */,
+				B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */,
+				B8ADAF68282AE7B0001D72EF /* GenresListView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B876DE5A281B283F005558DD /* Credits-Extensions.swift in Sources */,
 				B876DE5C281B2B04005558DD /* Screens.swift in Sources */,
 				B8EC462227D69464009389FC /* ActivityViewController.swift in Sources */,
+				B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */,
 				B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,7 +800,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -800,15 +816,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -820,7 +836,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -836,15 +852,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

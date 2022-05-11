@@ -18,6 +18,10 @@ import Combine
         query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     var searchItems: [Content] { phase.value ?? [] }
+    @Published var currentPage: Int = 1
+    @Published var startPagination: Bool = false
+    @Published var endPagination: Bool = false
+    @Published var items: Content?
     
     func observe() {
         guard cancellable.isEmpty else { return }
@@ -39,7 +43,16 @@ import Combine
             .store(in: &cancellable)
     }
     
+    func loadMoreItems() {
+        currentPage += 1
+        Task {
+            //let items = try? await service.search(query: trimmedQuery, page: "\(currentPage)")
+            //searchItems.append(contentsOf: items ?? [])
+        }
+    }
+    
     func search(query: String) async {
+        currentPage = 1
         if Task.isCancelled { return }
         phase = .empty
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -47,7 +60,7 @@ import Combine
             return
         }
         do {
-            let searchItems = try await service.search(query: trimmedQuery)
+            let searchItems = try await service.search(query: trimmedQuery, page: "\(currentPage)")
             if Task.isCancelled { return }
             guard trimmedQuery == self.trimmedQuery else { return }
             phase = .success(searchItems)

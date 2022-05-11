@@ -17,12 +17,10 @@ struct ItemView: View {
         HStack {
             if inSearch {
                 switch type {
-                case .movie:
-                    CardImage(url: url, watched: watched)
                 case .person:
                     PersonImage(url: url)
-                case .tvShow:
-                    PosterImage(url: url)
+                default:
+                    CardImage(url: url, watched: watched)
                 }
             } else {
                 CardImage(url: url, watched: watched)
