@@ -22,7 +22,7 @@
 
 ## Instalation
 
-Cronica is available in the [App Store](https://apple.co/38SXpVJ), you can also build it using its source-code, or join the public [TestFlight](https://testflight.apple.com/join/axzCv925) beta.
+Cronica is available in the [App Store](https://apple.co/38SXpVJ), you can also build it using its source-code.
 
 <p align="center">
     <a href="https://apple.co/38SXpVJ">
