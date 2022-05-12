@@ -70,6 +70,8 @@
 		B8ADAF68282AE7B0001D72EF /* GenresListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF67282AE7B0001D72EF /* GenresListView.swift */; };
 		B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
 		B8ADAF6C282B463E001D72EF /* UpcomingSeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */; };
+		B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */; };
+		B8ADAF71282C4400001D72EF /* DoubleTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */; };
 		B8B271A627A5A18C00F6463F /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* DataController.swift */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952027CFEBEC00B6757C /* SearchView.swift */; };
@@ -168,6 +170,8 @@
 		B8ADAF67282AE7B0001D72EF /* GenresListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListView.swift; sourceTree = "<group>"; };
 		B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeFrameView.swift; sourceTree = "<group>"; };
 		B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonListView.swift; sourceTree = "<group>"; };
+		B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTapGesture.swift; sourceTree = "<group>"; };
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8B271A527A5A18C00F6463F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		B8C335462815ED140055389D /* WatchListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSection.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				B8110F0E2792677F00844FEB /* Model */,
 				B8423E372794811F0012259B /* Network */,
 				B87B5CCE27999CCB00632648 /* Preview Data */,
+				B8ADAF6D282C42A9001D72EF /* Store */,
 				B845132C27ECB33E00F0D4A4 /* Utilities */,
 				B8110F0F2792678400844FEB /* View */,
 				B87B5CD22799AB5D00632648 /* ViewModel */,
@@ -303,8 +308,8 @@
 				B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */,
 				B890C58627FE4455006BE5E1 /* Season-Extension.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
-				B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */,
 				B8ADAF632829EC7F001D72EF /* UIDevice-Extensions.swift */,
+				B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 			children = (
 				B876DE51281B1BA5005558DD /* ContentSchedule.swift */,
 				B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */,
+				B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */,
 				B876DE53281B1BC0005558DD /* ImageSize.swift */,
 				B876DE4F281B1B81005558DD /* MediaType.swift */,
 				B876DE5B281B2B04005558DD /* Screens.swift */,
@@ -351,6 +357,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		B8ADAF6D282C42A9001D72EF /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		B8B271A227A59EF400F6463F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,12 +397,12 @@
 			children = (
 				B8A3F48527A610AF005F2941 /* CastListView.swift */,
 				B890C57C27FCC056006BE5E1 /* ComingSoonListView.swift */,
-				B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */,
 				B8CC952F27D03BBE00B6757C /* ContentListView.swift */,
 				B890C57E27FCCCA1006BE5E1 /* FilmographyListView.swift */,
 				B8ADAF67282AE7B0001D72EF /* GenresListView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 				B8779370281E02AA00174F32 /* TrendingListView.swift */,
+				B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */,
 				B8C335462815ED140055389D /* WatchListSection.swift */,
 			);
 			path = Lists;
@@ -584,7 +598,9 @@
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
 				B8779375281E2CE700174F32 /* ExploreView.swift in Sources */,
 				B8779377281E319D00174F32 /* TabBarView.swift in Sources */,
+				B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */,
 				B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */,
+				B8ADAF71282C4400001D72EF /* DoubleTapGesture.swift in Sources */,
 				B845133627ECE3B100F0D4A4 /* SupportEmail.swift in Sources */,
 				B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
 				B8779379281E389A00174F32 /* GenreDetailsView.swift in Sources */,
@@ -800,7 +816,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -836,7 +852,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

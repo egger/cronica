@@ -59,7 +59,7 @@ struct CardView: View {
                             .foregroundColor(.white)
                             .lineLimit(DrawingConstants.lineLimits)
                             .padding(.leading)
-                            .padding(.bottom, 4)
+                            .padding(.bottom, 8)
                         Spacer()
                     }
                 }

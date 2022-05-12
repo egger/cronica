@@ -12,6 +12,7 @@ struct ContentDetailsView: View {
     var id: Int
     var type: MediaType
     @StateObject private var viewModel: ContentDetailsViewModel
+    @StateObject private var store: SettingsStore
     @State private var isAboutPresented: Bool = false
     @State private var isSharePresented: Bool = false
     @State private var showSafari: Bool = false
@@ -23,9 +24,10 @@ struct ContentDetailsView: View {
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
     @State private var isPad: Bool = UIDevice.isIPad
-    @State private var animateFavorite: Bool = false
+    @State private var animateGesture: Bool = false
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
+        _store = StateObject(wrappedValue: SettingsStore())
         self.title = title
         self.id = id
         self.type = type
@@ -39,13 +41,22 @@ struct ContentDetailsView: View {
                               blurImage: (viewModel.content?.adult ?? false))
                     ZStack {
                         Rectangle().fill(.ultraThinMaterial)
-                        Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
-                            .symbolRenderingMode(.multicolor)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
+                        if store.gesture == .favorite {
+                            Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
+                                .symbolRenderingMode(.multicolor)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 120, height: 120, alignment: .center)
+                        } else {
+                            Image(systemName: isWatched ? "checkmark.circle" : "minus.circle.fill")
+                                .symbolRenderingMode(.monochrome)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 120, height: 120, alignment: .center)
+                        }
+                        
                     }
-                    .opacity(animateFavorite ? 1 : 0)
+                    .opacity(animateGesture ? 1 : 0)
                 }
                 .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
                        height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
@@ -55,7 +66,7 @@ struct ContentDetailsView: View {
                 .padding([.top, .bottom])
                 .onTapGesture(count: 2) {
                     withAnimation {
-                        animateFavorite.toggle()
+                        animateGesture.toggle()
                     }
                     if !isInWatchlist {
                         viewModel.update(markAsWatched: nil, markAsFavorite: nil)
@@ -64,10 +75,14 @@ struct ContentDetailsView: View {
                             isNotificationScheduled.toggle()
                         }
                     }
-                    updateFavorite()
+                    if store.gesture == .favorite {
+                        updateFavorite()
+                    } else {
+                        updateWatched()
+                    }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                         withAnimation {
-                            animateFavorite = false
+                            animateGesture = false
                         }
                     }
                 }
@@ -202,11 +217,15 @@ struct ContentDetailsView: View {
     private var overlayView: some View {
         switch viewModel.phase {
         case .failure(let error):
-            RetryView(text: error.localizedDescription, retryAction: {
-                Task {
-                    await viewModel.load(id: self.id, type: self.type)
-                }
-            })
+            ZStack {
+                RetryView(text: error.localizedDescription, retryAction: {
+                    Task {
+                        await viewModel.load(id: self.id, type: self.type)
+                    }
+                })
+            }
+            .padding()
+            .background(.secondary)
         default:
             EmptyView()
         }

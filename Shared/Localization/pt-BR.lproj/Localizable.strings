@@ -15,7 +15,6 @@
 "Up Coming" = "Próximos Lançamentos";
 "Latest Movies" = "Lançamentos Recentes";
 "Latest Shows" = "Últimas séries de TV";
-"Upcoming Movies" = "Próximos lançamentos";
 "TV Show" = "Série";
 "Movie" = "Filme";
 "People" = "Pessoa";
@@ -30,8 +29,8 @@
 "Favorites" = "Favoritos";
 "To Watch" = "Para Assistir";
 "Watched" = "Assistidos";
+"Upcoming Movies" = "Próximos Filmes";
 "Upcoming Seasons" = "Próximas Temporadas";
-"Movies from your Watchlist" = "Movies from your Watchlist";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -44,6 +43,7 @@
 "Remove from watchlist" = "Remover da lista";
 "About" = "Sobre";
 "Trailer" = "Trailer";
+"Season" = "Temporada";
 "Seasons" = "Temporadas";
 "Recommendations" = "Recomendações";
 "You may like" = "Você pode gostar";
@@ -98,6 +98,10 @@
 "Send email" = "Enviar Email";
 "Privacy Policy" = "Política de Privacidade";
 "Made in Brazil 🇧🇷" = "Feito no Brasil 🇧🇷";
+"Gesture" = "Gestos";
+"Double Tap Gesture" = "Gesto de Dois Toques";
+"The function is performed when double-tap the cover image." = "A função será executada quando tocar duas vezes na imagem da capa.";
+"Settings" = "Configurações";
 
 //MARK: HomeView.swift
 "Trending" = "Em Alta";

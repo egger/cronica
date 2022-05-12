@@ -4,20 +4,21 @@
         <attribute name="contentType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="formattedDate" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
+        <attribute name="isWatching" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="nextSeasonNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="notify" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="poster" optional="YES" attributeType="URI"/>
         <attribute name="schedule" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="seasons" optional="YES" attributeType="Transformable" customClassName="[String:String]"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="trackedEpisodes" optional="YES" attributeType="Transformable"/>
-        <attribute name="trackedSeasons" optional="YES" attributeType="Transformable"/>
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="upcomingSeason" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="watched" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="WatchlistItem" positionX="-45" positionY="0" width="128" height="254"/>
+        <element name="WatchlistItem" positionX="-45" positionY="0" width="128" height="269"/>
     </elements>
 </model>

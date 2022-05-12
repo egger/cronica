@@ -70,6 +70,7 @@ class DataController: ObservableObject {
         item.poster = content.posterImageMedium
         item.schedule = content.itemStatus.scheduleNumber
         item.notify = notify
+        item.formattedDate = content.itemTheatricalString
         if content.itemContentMedia == .tvShow {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
@@ -95,6 +96,7 @@ class DataController: ObservableObject {
                 item.poster = content.posterImageMedium
                 item.schedule = content.itemStatus.scheduleNumber
                 item.notify = content.itemCanNotify
+                item.formattedDate = content.itemTheatricalString
                 if content.itemContentMedia == .tvShow {
                     item.upcomingSeason = content.hasUpcomingSeason
                     item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)

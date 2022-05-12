@@ -76,8 +76,10 @@ struct WatchlistView: View {
                             WatchListSection(items: items.filter { $0.favorite == true },
                                              title: "Favorites")
                         default:
-                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false && $0.notify == true },
-                                             title: "Coming Soon", isSoonList: true)
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.contentType == MediaType.movie.watchlistInt && $0.notify == true },
+                                             title: "Upcoming Movies")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.upcomingSeason == true && $0.notify == true },
+                                             title: "Upcoming Seasons")
                             WatchListSection(items: items.filter { $0.itemSchedule == .released && $0.watched == false || $0.itemSchedule == .cancelled && $0.watched == false },
                                              title: "Released")
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false && $0.notify == false },

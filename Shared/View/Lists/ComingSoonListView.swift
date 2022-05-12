@@ -32,7 +32,7 @@ struct ComingSoonListView: View {
                     HStack {
                         ForEach(items) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
-                                CardView(title: item.itemTitle, url: item.image)
+                                CardView(title: item.itemTitle, url: item.image, subtitle: item.formattedDate)
                                     .padding([.leading, .trailing], 4)
                             }
                             .buttonStyle(.plain)

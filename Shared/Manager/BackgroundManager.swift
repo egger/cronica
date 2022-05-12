@@ -26,6 +26,7 @@ class BackgroundManager {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let notifyPredicate = NSPredicate(format: "notify == %d", true)
         let soonPredicate = NSPredicate(format: "schedule == %d", ContentSchedule.soon.scheduleNumber)
+        //let tvPredicate = NSPredicate(format: "contentType", MediaType.tvShow.watchlistInt)
         let orPredicate = NSCompoundPredicate(type: .or,
                                               subpredicates: [notifyPredicate, soonPredicate])
         request.predicate = orPredicate

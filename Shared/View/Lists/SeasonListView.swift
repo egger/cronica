@@ -43,11 +43,6 @@ struct HorizontalSeasonView: View {
                             NavigationLink(destination: EpisodeDetailsView(item: item)) {
                                 EpisodeFrameView(episode: item)
                                     .frame(width: 160, height: 200)
-                                    .contextMenu {
-                                        Button("Mark as Watched") {
-                                            
-                                        }
-                                    }
                             }
                             .padding([.leading, .trailing], 4)
                             .padding(.leading, item.id == season.first!.id ? 16 : 0)

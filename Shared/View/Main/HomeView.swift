@@ -14,10 +14,12 @@ struct HomeView: View {
 #endif
     @AppStorage("showOnboarding") var displayOnboard = true
     @StateObject private var viewModel: HomeViewModel
+    @StateObject private var store: SettingsStore
     @State private var showAccount: Bool = false
     @State private var isLoading: Bool = true
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
+        _store = StateObject(wrappedValue: SettingsStore())
     }
     @ViewBuilder
     var body: some View {
@@ -70,6 +72,7 @@ struct HomeView: View {
                 NavigationView {
                     AccountView()
                         .navigationTitle("Settings")
+                        .navigationBarTitleDisplayMode(.inline)
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {
@@ -77,6 +80,7 @@ struct HomeView: View {
                                 }
                             }
                         }
+                        .environmentObject(store)
                 }
             }
             .task { load() }

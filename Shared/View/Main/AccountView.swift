@@ -9,17 +9,23 @@ import SwiftUI
 
 struct AccountView: View {
     @Environment(\.openURL) var openURL
+    @EnvironmentObject var store: SettingsStore
     @State private var email = SupportEmail()
     @State private var showPolicy: Bool = false
-    @State private var recommendedNotifications: Bool = true
     var body: some View {
         Form {
             Section {
-                Toggle("Weekly's recommendations", isOn: $recommendedNotifications)
+                Picker(selection: $store.gesture) {
+                    Text("Mark as Favorite").tag(DoubleTapGesture.favorite)
+                    Text("Mark as Watched").tag(DoubleTapGesture.watched)
+                } label: {
+                    Label("Gesture", systemImage: "hand.tap")
+                }
+                .pickerStyle(.inline)
             } header: {
-                Text("Notification")
+                Text("Double Tap Gesture")
             } footer: {
-                Text("Releases' notification is on by default.")
+                Text("The function is performed when double-tap the cover image.")
             }
             Section(header: Text("Support")) {
                 Button( action: {

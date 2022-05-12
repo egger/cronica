@@ -61,6 +61,7 @@ struct GenresListView: View {
                 }
             }
         }
+        .listStyle(.insetGrouped)
         .navigationTitle("Genres")
     }
 }

@@ -11,25 +11,15 @@ struct WatchListSection: View {
     @Environment(\.managedObjectContext) private var viewContext
     let items: [WatchlistItem]
     let title: String
-    var isSoonList: Bool = false
     var body: some View {
         if !items.isEmpty {
             Section {
-                if isSoonList {
-                    ForEach(items) { item in
-                        NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
-                            ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false, watched: item.watched)
-                        }
+                ForEach(items) { item in
+                    NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
+                        ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false, watched: item.watched)
                     }
-                    .onDelete(perform: delete)
-                } else {
-                    ForEach(items) { item in
-                        NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
-                            ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false, watched: item.watched)
-                        }
-                    }
-                    .onDelete(perform: delete)
                 }
+                .onDelete(perform: delete)
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
             }
