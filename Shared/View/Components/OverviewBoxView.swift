@@ -33,6 +33,6 @@ struct OverviewBoxView: View {
 
 struct OverviewBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewBoxView(overview: Content.previewContent.itemAbout, type: .movie)
+        OverviewBoxView(overview: Content.previewContent.overview, type: .movie)
     }
 }

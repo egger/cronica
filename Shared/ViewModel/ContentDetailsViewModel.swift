@@ -6,7 +6,6 @@
 //  swiftlint:disable trailing_whitespace
 
 import Foundation
-import UserNotifications
 import SwiftUI
 import TelemetryClient
 
@@ -14,16 +13,15 @@ import TelemetryClient
     private let service: NetworkService = NetworkService.shared
     private let notification: NotificationManager = NotificationManager()
     @Published private(set) var phase: DataFetchPhase<Content?> = .empty
-    var content: Content? { phase.value ?? nil }
     let context: DataController = DataController.shared
+    var content: Content?
     
     func load(id: Content.ID, type: MediaType) async {
         if Task.isCancelled { return }
-        if phase.value == nil {
+        if content == nil {
             phase = .empty
             do {
-                let content = try await self.service.fetchContent(id: id, type: type)
-                phase = .success(content)
+                content = try await self.service.fetchContent(id: id, type: type)
             } catch {
                 phase = .failure(error)
                 TelemetryManager.send("ContentDetailsViewModel_load",

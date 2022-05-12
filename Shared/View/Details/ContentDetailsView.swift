@@ -106,7 +106,7 @@ struct ContentDetailsView: View {
                 .disabled(isLoading)
                 .keyboardShortcut("w", modifiers: [.command, .shift])
                 
-                OverviewBoxView(overview: viewModel.content?.itemAbout, type: .movie)
+                OverviewBoxView(overview: viewModel.content?.overview, type: .movie)
                     .padding()
                     .onTapGesture {
                         withAnimation {
@@ -116,7 +116,7 @@ struct ContentDetailsView: View {
                     .sheet(isPresented: $isAboutPresented) {
                         NavigationView {
                             ScrollView {
-                                Text(viewModel.content!.itemAbout)
+                                Text(viewModel.content!.overview ?? "No Information Available.")
                                     .padding()
                                     .textSelection(.enabled)
                             }
@@ -225,7 +225,7 @@ struct ContentDetailsView: View {
                 })
             }
             .padding()
-            .background(.secondary)
+            .background(.thickMaterial)
         default:
             EmptyView()
         }

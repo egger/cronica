@@ -59,7 +59,6 @@ struct ContentSection: Identifiable {
         switch endpoint {
         case .upcoming: return .movie
         case .nowPlaying: return .movie
-        case .onTheAir: return .tvShow
         }
     }
 }

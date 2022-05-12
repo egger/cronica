@@ -11,10 +11,6 @@ extension Content {
     var itemTitle: String {
         title ?? name!
     }
-    var itemAbout: String {
-        overview ?? NSLocalizedString("No details available.",
-                                      comment: "No overview provided by the service.")
-    }
     var itemGenre: String {
         genres?.first?.name ?? NSLocalizedString("Not Available",
                                                  comment: "")

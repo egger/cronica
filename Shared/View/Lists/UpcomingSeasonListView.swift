@@ -12,7 +12,7 @@ struct UpcomingSeasonListView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: false),
+            NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
         ],
         predicate: NSPredicate(format: "upcomingSeason == %d", true)
     )

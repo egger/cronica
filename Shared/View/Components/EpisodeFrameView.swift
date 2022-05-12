@@ -37,7 +37,7 @@ struct EpisodeFrameView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8,
                                         style: .continuous))
             HStack {
-                Text(episode.itemNumber)
+                Text("Episode \(episode.episodeNumber)")
                     .font(.caption2)
                     .lineLimit(1)
                     .foregroundColor(.secondary)
@@ -51,7 +51,7 @@ struct EpisodeFrameView: View {
                 Spacer()
             }
             HStack {
-                Text(episode.itemAbout)
+                Text(episode.overview ?? "Not Available")
                     .font(.caption)
                     .lineLimit(2)
                     .foregroundColor(.secondary)

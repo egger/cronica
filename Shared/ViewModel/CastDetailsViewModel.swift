@@ -11,17 +11,14 @@ import TelemetryClient
 @MainActor class CastDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Person?> = .empty
-    @Published var showImageViewer = false
-    var person: Person? { phase.value ?? nil }
     var isLoaded: Bool = false
+    var person: Person?
     
     func load(id: Int) async {
         if Task.isCancelled { return }
-        if isLoaded != true {
-            phase = .empty
+        if person == nil {
             do {
-                let person = try await self.service.fetchPerson(id: id)
-                phase = .success(person)
+                person = try await self.service.fetchPerson(id: id)
                 isLoaded = true
             } catch {
                 phase = .failure(error)

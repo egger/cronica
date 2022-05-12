@@ -30,6 +30,10 @@
 "Favorites" = "Favorites";
 "To Watch" = "To Watch";
 "Watched" = "Watched";
+"Upcoming Movies" = "Upcoming Movies";
+"Upcoming Seasons" = "Upcoming Seasons";
+"Releasing Soon" = "Releasing Soon";
+"Recently Released" = "Recently Released";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
@@ -69,7 +73,13 @@
 "Science Fiction" = "Science Fiction";
 "Thriller" = "Thriller";
 "War" = "War";
+"Action & Adventure" = "Action & Adventure";
+"Kids" = "Kids";
+"Reality" = "Reality";
+"Sci-Fi & Fantasy" = "Sci-Fi & Fantasy";
 "Genres" = "Genres";
+"Popular Movies by Genre" = "Popular Movies by Genre";
+"Popular TV Shows by Genre" = "Popular TV Series by Genre";
 
 //MARK: InformationSectionView.swift
 "Run Time" = "Run-Time";
@@ -96,6 +106,10 @@
 "Send email" = "Send email";
 "Privacy Policy" = "Privacy Policy";
 "Made in Brazil 🇧🇷" = "Made in Brazil 🇧🇷";
+"Gesture" = "Gesture";
+"Double Tap Gesture" = "Double Tap Gesture";
+"The function is performed when double-tap the cover image." = "The function is performed when double-tap the cover image.";
+"Settings" = "Settings";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";
@@ -120,6 +134,11 @@
 "Biography" = "Biography";
 "Cast & Crew" = "Cast & Crew";
 
+//MARK: SeasonListView.swift
+"Seasons" = "Seasons";
+"Season %lld" = "Season %lld";
+"Episode %lld" = "Episode %lld";
+
 //MARK: FilmographyView.swift
 "Filmography" = "Filmography";
 "Know for" = "Know for";
@@ -137,6 +156,7 @@
 "Released" = "Released";
 "Watchlist" = "Watchlist";
 "Search watchlist" = "Search watchlist";
+"In Production" = "In Production";
 "Production" = "Production";
 "Cancelled" = "Cancelled";
 "Unknown" = "Unknown";

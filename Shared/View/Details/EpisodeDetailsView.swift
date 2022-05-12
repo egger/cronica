@@ -18,19 +18,19 @@ struct EpisodeDetailsView: View {
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .cornerRadius(DrawingConstants.imageRadius)
-                Button(action: {
-                    withAnimation {
-                        HapticManager.shared.mediumHaptic()
-                        markAsWatched.toggle()
-                    }
-                }, label: {
-                    Label(markAsWatched ? "Remove from Watched" : "Mark as Watched",
-                          systemImage: markAsWatched ? "minus.circle" : "checkmark.circle")
-                })
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .tint(markAsWatched ? .red : .mint)
-                OverviewBoxView(overview: item.itemAbout, type: .tvShow)
+//                Button(action: {
+//                    withAnimation {
+//                        HapticManager.shared.mediumHaptic()
+//                        markAsWatched.toggle()
+//                    }
+//                }, label: {
+//                    Label(markAsWatched ? "Remove from Watched" : "Mark as Watched",
+//                          systemImage: markAsWatched ? "minus.circle" : "checkmark.circle")
+//                })
+//                .buttonStyle(.borderedProminent)
+//                .controlSize(.large)
+//                .tint(markAsWatched ? .red : .green)
+                OverviewBoxView(overview: item.overview, type: .tvShow)
                     .onTapGesture {
                         showOverview.toggle()
                     }
@@ -39,7 +39,7 @@ struct EpisodeDetailsView: View {
             .sheet(isPresented: $showOverview) {
                 NavigationView {
                     ScrollView {
-                        Text(item.itemAbout)
+                        Text(item.overview ?? "Not Available")
                             .padding()
                     }
                     .navigationTitle(item.itemTitle)

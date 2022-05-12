@@ -12,7 +12,7 @@ struct ComingSoonListView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: false),
+            NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
         ],
         predicate: NSCompoundPredicate(type: .and,
                                        subpredicates: [
@@ -26,7 +26,7 @@ struct ComingSoonListView: View {
         VStack {
             if !items.isEmpty {
                 TitleView(title: "Upcoming Movies",
-                          subtitle: "Movies from your Watchlist",
+                          subtitle: "From Watchlist",
                           image: "rectangle.stack")
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {

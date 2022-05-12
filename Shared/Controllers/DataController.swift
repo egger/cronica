@@ -22,7 +22,7 @@ class DataController: ObservableObject {
             newItem.id = Int64(item.id)
             newItem.image = item.cardImageMedium
             newItem.poster = item.posterImageMedium
-            newItem.type = "Movie"
+            newItem.contentType = MediaType.movie.watchlistInt
             newItem.notify = Bool.random()
         }
         do {
@@ -63,7 +63,7 @@ class DataController: ObservableObject {
     func saveItem(content: Content, notify: Bool) {
         let viewContext = DataController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
-        item.contentType = Int64(content.itemContentMedia.watchlistInt)
+        item.contentType = content.itemContentMedia.watchlistInt
         item.title = content.itemTitle
         item.id = Int64(content.id)
         item.image = content.cardImageMedium

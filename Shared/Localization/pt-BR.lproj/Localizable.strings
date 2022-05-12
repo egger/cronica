@@ -31,6 +31,8 @@
 "Watched" = "Assistidos";
 "Upcoming Movies" = "Próximos Filmes";
 "Upcoming Seasons" = "Próximas Temporadas";
+"Releasing Soon" = "Lançamento em breve";
+"Recently Released" = "Lançado recentemente";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -71,6 +73,12 @@
 "Science Fiction" = "Ficção científica";
 "Thriller" = "Thriller";
 "War" = "Guerra";
+"Action & Adventure" = "Ação e Aventura";
+"Kids" = "Infantil";
+"Reality" = "Reality";
+"Sci-Fi & Fantasy" = "Ficção Científica e Fantasia";
+"Popular Movies by Genre" = "Filmes populares por gênero";
+"Popular TV Shows by Genre" = "Séries de TV populares por gênero";
 "Genres" = "Gêneros";
 
 //MARK: InformationSectionView.swift
@@ -126,6 +134,11 @@
 "Biography" = "Biografia";
 "Cast & Crew" = "Elenco & Equipe";
 
+//MARK: SeasonListView.swift
+"Seasons" = "Temporadas";
+"Season %lld" = "Temporada %lld";
+"Episode %lld" = "Episódio %lld";
+
 //MARK: FilmographyView.swift
 "Filmography" = "Filmografia";
 "Know for" = "Conhecido por";
@@ -143,6 +156,7 @@
 "Released" = "Lançado";
 "Watchlist" = "Lista";
 "Search watchlist" = "Procure na Lista";
+"In Production" = "Em Produção";
 "Production" = "Em Produção";
 "Cancelled" = "Cancelado";
 "Unknown" = "Desconhecido";

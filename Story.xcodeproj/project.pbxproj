@@ -65,9 +65,8 @@
 		B890C58727FE4455006BE5E1 /* Season-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58627FE4455006BE5E1 /* Season-Extension.swift */; };
 		B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8991C7C27E4B5D2001055CB /* WelcomeView.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
-		B8ADAF642829EC7F001D72EF /* UIDevice-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF632829EC7F001D72EF /* UIDevice-Extensions.swift */; };
+		B8A99FA6282D60AB00E14BA4 /* Array-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A99FA5282D60AB00E14BA4 /* Array-Extensions.swift */; };
 		B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF652829F134001D72EF /* NetworkError.swift */; };
-		B8ADAF68282AE7B0001D72EF /* GenresListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF67282AE7B0001D72EF /* GenresListView.swift */; };
 		B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
 		B8ADAF6C282B463E001D72EF /* UpcomingSeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */; };
 		B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */; };
@@ -165,9 +164,8 @@
 		B890C58627FE4455006BE5E1 /* Season-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Season-Extension.swift"; sourceTree = "<group>"; };
 		B8991C7C27E4B5D2001055CB /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
-		B8ADAF632829EC7F001D72EF /* UIDevice-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extensions.swift"; sourceTree = "<group>"; };
+		B8A99FA5282D60AB00E14BA4 /* Array-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array-Extensions.swift"; sourceTree = "<group>"; };
 		B8ADAF652829F134001D72EF /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		B8ADAF67282AE7B0001D72EF /* GenresListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListView.swift; sourceTree = "<group>"; };
 		B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeFrameView.swift; sourceTree = "<group>"; };
 		B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonListView.swift; sourceTree = "<group>"; };
 		B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
@@ -300,6 +298,7 @@
 		B845132B27EC1B1600F0D4A4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B8A99FA5282D60AB00E14BA4 /* Array-Extensions.swift */,
 				B82C268E279644E000259D98 /* Bundle-Decodable.swift */,
 				B8EC45E327D5A010009389FC /* Content-Extensions.swift */,
 				B876DE59281B283F005558DD /* Credits-Extensions.swift */,
@@ -308,7 +307,6 @@
 				B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */,
 				B890C58627FE4455006BE5E1 /* Season-Extension.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
-				B8ADAF632829EC7F001D72EF /* UIDevice-Extensions.swift */,
 				B878E83427BC85BC0021A981 /* WatchlistItem-CoreDataHelpers.swift */,
 			);
 			path = Extensions;
@@ -399,7 +397,6 @@
 				B890C57C27FCC056006BE5E1 /* ComingSoonListView.swift */,
 				B8CC952F27D03BBE00B6757C /* ContentListView.swift */,
 				B890C57E27FCCCA1006BE5E1 /* FilmographyListView.swift */,
-				B8ADAF67282AE7B0001D72EF /* GenresListView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 				B8779370281E02AA00174F32 /* TrendingListView.swift */,
 				B8ADAF6B282B463E001D72EF /* UpcomingSeasonListView.swift */,
@@ -591,7 +588,6 @@
 				B8779371281E02AA00174F32 /* TrendingListView.swift in Sources */,
 				B8EC45E427D5A010009389FC /* Content-Extensions.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
-				B8ADAF642829EC7F001D72EF /* UIDevice-Extensions.swift in Sources */,
 				B8CC953027D03BBE00B6757C /* ContentListView.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* AccountView.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ContentDetailsView.swift in Sources */,
@@ -651,10 +647,10 @@
 				B876DE50281B1B81005558DD /* MediaType.swift in Sources */,
 				B8B271A627A5A18C00F6463F /* DataController.swift in Sources */,
 				B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */,
+				B8A99FA6282D60AB00E14BA4 /* Array-Extensions.swift in Sources */,
 				B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */,
 				B890C57F27FCCCA1006BE5E1 /* FilmographyListView.swift in Sources */,
 				B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */,
-				B8ADAF68282AE7B0001D72EF /* GenresListView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B876DE5A281B283F005558DD /* Credits-Extensions.swift in Sources */,
 				B876DE5C281B2B04005558DD /* Screens.swift in Sources */,
@@ -816,7 +812,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -852,7 +848,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

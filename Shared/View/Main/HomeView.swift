@@ -30,7 +30,7 @@ struct HomeView: View {
             }
             .navigationViewStyle(.stack)
         } else {
-           detailsView
+            detailsView
         }
 #else
         detailsView

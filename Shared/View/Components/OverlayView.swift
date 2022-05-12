@@ -17,28 +17,12 @@ struct OverlayView<T: EmptyData>: View {
     var body: some View {
         VStack {
             switch phase {
-            case .empty:
-                ProgressView(title)
-                    .padding()
-            case .success(let value) where value.isEmpty:
-                Text("Something went wrong, try again later.")
-                    .font(.title)
-                    .padding()
             case .failure(let error):
                 RetryView(text: error.localizedDescription, retryAction: retry)
             default:
                 EmptyView()
             }
         }
-    }
-}
-extension Array: EmptyData {}
-extension Optional: EmptyData {
-    var isEmpty: Bool {
-        if case .none = self {
-            return true
-        }
-        return false
     }
 }
 struct RetryView: View {
@@ -48,10 +32,16 @@ struct RetryView: View {
         VStack(spacing: 8) {
             Text(text)
                 .font(.callout)
+                .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
             Button(action: retryAction) {
-                Text("Try Again")
+                Label("Try Again", systemImage: "repeat.circle")
             }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .tint(.purple)
         }
+        .cornerRadius(16)
+        .padding()
     }
 }
