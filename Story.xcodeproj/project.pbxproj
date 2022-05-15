@@ -289,8 +289,8 @@
 			isa = PBXGroup;
 			children = (
 				B86E589027A4BE75005DBF38 /* Endpoints.swift */,
-				B840D2BE279A0C4200A07C71 /* NetworkService.swift */,
 				B8ADAF652829F134001D72EF /* NetworkError.swift */,
+				B840D2BE279A0C4200A07C71 /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -812,7 +812,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -828,7 +828,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -848,7 +848,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -864,7 +864,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;

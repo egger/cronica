@@ -80,7 +80,7 @@ struct WatchlistView: View {
                                              title: "Upcoming Movies")
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.upcomingSeason == true && $0.notify == true },
                                              title: "Upcoming Seasons")
-                            WatchListSection(items: items.filter { $0.itemSchedule == .released && $0.watched == false || $0.itemSchedule == .cancelled && $0.watched == false },
+                            WatchListSection(items: items.filter { $0.itemSchedule == .released && $0.watched == false || $0.itemSchedule == .cancelled && $0.watched == false  || $0.itemSchedule == .soon && $0.watched == false },
                                              title: "Released")
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false && $0.notify == false },
                                              title: "In Production")

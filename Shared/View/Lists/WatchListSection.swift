@@ -16,7 +16,7 @@ struct WatchListSection: View {
             Section {
                 ForEach(items) { item in
                     NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
-                        ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false, watched: item.watched)
+                        ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false, watched: item.watched, favorite: item.favorite)
                     }
                 }
                 .onDelete(perform: delete)

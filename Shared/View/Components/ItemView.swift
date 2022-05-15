@@ -13,6 +13,7 @@ struct ItemView: View {
     let type: MediaType
     var inSearch: Bool = false
     var watched: Bool = false
+    var favorite: Bool = false
     var body: some View {
         HStack {
             if inSearch {
@@ -37,7 +38,11 @@ struct ItemView: View {
                         .foregroundColor(.secondary)
                     Spacer()
                 }
-                
+            }
+            if favorite {
+                Spacer()
+                Image(systemName: "heart.fill")
+                    .symbolRenderingMode(.multicolor)
             }
         }
     }
