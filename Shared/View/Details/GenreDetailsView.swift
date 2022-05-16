@@ -30,18 +30,6 @@ struct GenreDetailsView: View {
                         NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
                             StillFrameView(image: item.cardImageMedium,
                                            title: item.itemTitle)
-                            .contextMenu {
-                                Button(action: {
-                                    
-                                }, label: {
-                                    Label("Share", systemImage: "square.and.arrow.up")
-                                })
-                                Button(action: {
-                                    
-                                }, label: {
-                                    Label("Add to watchlist", systemImage: "plus.square" )
-                                })
-                            }
                         }
                         .buttonStyle(.plain)
                     }
@@ -54,7 +42,7 @@ struct GenreDetailsView: View {
                                 }
                             }
                     }
-                }
+                } 
                 .padding()
                 if viewModel.endPagination {
                     HStack {

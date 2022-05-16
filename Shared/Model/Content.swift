@@ -15,6 +15,7 @@ struct Content: Identifiable, Decodable {
     let posterPath, backdropPath, profilePath: String?
     let releaseDate, status: String?
     let runtime, numberOfEpisodes, numberOfSeasons: Int?
+    let popularity: Double?
     let productionCompanies: [ProductionCompany]?
     let productionCountries: [ProductionCountry]?
     let seasons: [Season]?

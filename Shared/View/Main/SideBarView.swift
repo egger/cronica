@@ -28,7 +28,12 @@ struct SideBarView: View {
             }
             .listStyle(SidebarListStyle())
             .navigationTitle("Cronica")
-            HomeView()
+            switch selectedView {
+            case .explore: ExploreView()
+            case .watchlist: WatchlistView()
+            case .search: SearchView()
+            default: HomeView()
+            }
         }
         .navigationViewStyle(.columns)
     }

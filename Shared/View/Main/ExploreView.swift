@@ -40,7 +40,6 @@ struct ExploreView: View {
         Genre(id: 18, name: NSLocalizedString("Drama", comment: "")),
         Genre(id: 10762, name: NSLocalizedString("Kids", comment: "")),
         Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
-        Genre(id: 10764, name: NSLocalizedString("Reality", comment: "")),
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
     @ViewBuilder

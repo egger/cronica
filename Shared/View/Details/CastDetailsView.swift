@@ -34,7 +34,7 @@ struct CastDetailsView: View {
                     .sheet(isPresented: $showBiography) {
                         NavigationView {
                             ScrollView {
-                                Text(viewModel.person?.biography ?? "No Biography.")
+                                Text(viewModel.person?.biography ?? "No information available.")
                                     .padding()
                                     .textSelection(.enabled)
                             }
@@ -56,7 +56,7 @@ struct CastDetailsView: View {
                             if let cast = filmography.cast,
                                let crew = filmography.crew {
                                 let items: [Filmography] = cast + crew
-                                FilmographyListView(items: items)
+                                FilmographyListView(items: items.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
                             }
                         }
                     }

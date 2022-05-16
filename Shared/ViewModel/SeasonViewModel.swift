@@ -26,7 +26,7 @@ import TelemetryClient
             isLoading = false
         } catch {
             TelemetryManager.send("SeasonViewModel_loadError",
-                                  with: ["ID-Season-Error":"ID:\(id)-Season:\(season)-Error:\(error.localizedDescription)."])
+                                  with: ["ID-Season-Error":"ID-\(id)-Season-\(season)-Error-\(error.localizedDescription)."])
         }
     }
 }

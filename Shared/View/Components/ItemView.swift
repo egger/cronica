@@ -43,6 +43,7 @@ struct ItemView: View {
                 Spacer()
                 Image(systemName: "heart.fill")
                     .symbolRenderingMode(.multicolor)
+                    .padding(.trailing)
             }
         }
     }

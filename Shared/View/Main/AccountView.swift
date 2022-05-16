@@ -19,11 +19,11 @@ struct AccountView: View {
                     Text("Mark as Favorite").tag(DoubleTapGesture.favorite)
                     Text("Mark as Watched").tag(DoubleTapGesture.watched)
                 } label: {
-                    Label("Gesture", systemImage: "hand.tap")
+                    Label("Double Tap Gesture", systemImage: "hand.tap")
                 }
                 .pickerStyle(.inline)
             } header: {
-                Text("Double Tap Gesture")
+                Text("Gesture")
             } footer: {
                 Text("The function is performed when double-tap the cover image.")
             }

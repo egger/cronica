@@ -23,6 +23,9 @@ extension Content {
         return productionCompanies?.first?.name ?? NSLocalizedString("Not Available",
                                                                      comment: "")
     }
+    var itemPopularity: Double {
+        popularity ?? 0.0
+    }
     var itemStatus: ContentSchedule {
         if status == "Released" && itemCanNotify { return .soon }
         switch status {
@@ -76,7 +79,7 @@ extension Content {
     }
     var itemTrailer: URL? {
         if let videos = videos {
-            return Utilities.getTrailer(videos: videos.results)
+            return Utilities.buildTrailerUrl(videos: videos.results)
         }
         return nil
     }
@@ -97,7 +100,7 @@ extension Content {
     }
     var itemTheatricalString: String? {
         if let dates = releaseDates?.results {
-            return Utilities.getReleaseDate(results: dates)
+            return Utilities.getReleaseDateFormatted(results: dates)
         }
         return nil
     }

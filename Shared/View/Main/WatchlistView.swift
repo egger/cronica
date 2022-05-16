@@ -76,12 +76,12 @@ struct WatchlistView: View {
                             WatchListSection(items: items.filter { $0.favorite == true },
                                              title: "Favorites")
                         default:
-                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.contentType == MediaType.movie.watchlistInt && $0.notify == true },
+                            WatchListSection(items: items.filter { $0.itemMedia == .movie && $0.itemSchedule == .released && $0.notify == false && $0.watched == false }, title: "Released Movies")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.itemMedia == .tvShow && $0.upcomingSeason == false && $0.notify == true || $0.itemSchedule == .released && $0.itemMedia == .tvShow && $0.watched == false }, title: "Released Shows")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.itemMedia == .movie && $0.notify == true },
                                              title: "Upcoming Movies")
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.upcomingSeason == true && $0.notify == true },
                                              title: "Upcoming Seasons")
-                            WatchListSection(items: items.filter { $0.itemSchedule == .released && $0.watched == false || $0.itemSchedule == .cancelled && $0.watched == false  || $0.itemSchedule == .soon && $0.watched == false },
-                                             title: "Released")
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false && $0.notify == false },
                                              title: "In Production")
                         }
@@ -123,13 +123,16 @@ struct WatchlistView: View {
             let background = BackgroundManager()
             background.handleAppRefreshContent()
         }
-        viewContext.refreshAllObjects()
-        TelemetryManager.send("watchlistView_didRefresh")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            viewContext.refreshAllObjects()
+        }
+        TelemetryManager.send("WatchlistView_refresh")
     }
 }
 
 struct WatchListView_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistView().environment(\.managedObjectContext, DataController.preview.container.viewContext)
+        WatchlistView().environment(\.managedObjectContext,
+                                     DataController.preview.container.viewContext)
     }
 }

@@ -45,13 +45,12 @@ class Utilities {
         }
         return regionCode
     }()
-    static var releaseDateFormatter: ISO8601DateFormatter {
+    private static var releaseDateFormatter: ISO8601DateFormatter {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = .withFullDate
         return formatter
     }
-    // Gets
-    static func getReleaseDate(results: [ReleaseDatesResult]) -> String? {
+    static func getReleaseDateFormatted(results: [ReleaseDatesResult]) -> String? {
         for result in results {
             if result.iso31661 == Utilities.userRegion {
                 if result.releaseDates != nil {
@@ -66,10 +65,10 @@ class Utilities {
         }
         return nil
     }
-    static func getTrailer(videos: [VideosResult]? = nil) -> URL? {
+    static func buildTrailerUrl(videos: [VideosResult]? = nil) -> URL? {
         if let results = videos {
             for result in results {
-                if result.name.contains("Official Trailer") && result.official {
+                if result.official && result.type == "Trailer" {
                     return NetworkService.urlBuilder(video: result.key)
                 }
             }

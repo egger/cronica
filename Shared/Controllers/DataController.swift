@@ -75,6 +75,7 @@ class DataController: ObservableObject {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
+        print(item as Any)
         do {
             try viewContext.save()
         } catch {
@@ -83,6 +84,25 @@ class DataController: ObservableObject {
         }
         
         
+    }
+    
+    func updateMarkAs(Id: Int, watched: Bool?, favorite: Bool?) {
+        let viewContext = DataController.shared.container.viewContext
+        do {
+            let item = try self.getItem(id: WatchlistItem.ID(Id))
+            if let watched = watched {
+                item.watched = watched
+            }
+            if let favorite = favorite {
+                item.favorite = favorite
+            }
+            if viewContext.hasChanges {
+                try viewContext.save()
+            }
+        } catch {
+            TelemetryManager.send("WatchlistController_updateWatchedError",
+                                  with: ["Error":"\(error.localizedDescription)"])
+        }
     }
     
     // Updates an item on Watchlist Core Data.
@@ -112,7 +132,7 @@ class DataController: ObservableObject {
                 }
             } catch {
                 TelemetryManager.send("WatchlistController_updateItemError",
-                                      with: ["Error:":"\(error.localizedDescription)"])
+                                      with: ["Error":"\(error.localizedDescription)"])
             }
         }
     }

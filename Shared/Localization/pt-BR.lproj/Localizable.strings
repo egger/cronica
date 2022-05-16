@@ -145,7 +145,7 @@
 
 //MARK: SearchView.swift
 "Search" = "Pesquisar";
-"Movies, Shows, People" = "Filmes, TV, Pessoas";
+"Movies, Shows, People" = "Filmes, Séries, Pessoas";
 "Searching" = "Pesquisando";
 "No Results" = "Sem Resultados";
 
@@ -160,3 +160,5 @@
 "Production" = "Em Produção";
 "Cancelled" = "Cancelado";
 "Unknown" = "Desconhecido";
+"Released Movies" = "Filmes Lançados";
+"Released Shows" = "Séries Lançadas";
