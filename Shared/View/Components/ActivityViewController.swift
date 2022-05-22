@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActivityViewController: UIViewControllerRepresentable {
-    var itemsToShare: [Any]
+    @Binding var itemsToShare: [Any]
     var servicesToShareItem: [UIActivity]?
     func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: itemsToShare, applicationActivities: servicesToShareItem)

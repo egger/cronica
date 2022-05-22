@@ -17,6 +17,8 @@ struct UpcomingSeasonListView: View {
         predicate: NSPredicate(format: "upcomingSeason == %d", true)
     )
     var items: FetchedResults<WatchlistItem>
+    @State private var isSharePresented: Bool = false
+    @State private var shareItems: [Any] = []
     var body: some View {
         VStack {
             if !items.isEmpty {
@@ -28,7 +30,26 @@ struct UpcomingSeasonListView: View {
                         ForEach(items) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
                                 CardView(title: item.itemTitle, url: item.image, subtitle: "Season \(item.nextSeasonNumber)")
+                                    .contextMenu {
+                                        Button(action: {
+                                            shareItems = [item.itemLink]
+                                            withAnimation {
+                                                isSharePresented.toggle()
+                                            }
+                                        }, label: {
+                                            Label("Share",
+                                                  systemImage: "square.and.arrow.up")
+                                        })
+                                        Divider()
+                                        Button(role: .destructive, action: {
+                                            remove(item: item)
+                                        }, label: {
+                                            Label("Remove from watchlist", systemImage: "trash")
+                                        })
+                                    }
                                     .padding([.leading, .trailing], 4)
+                                    .sheet(isPresented: $isSharePresented,
+                                           content: { ActivityViewController(itemsToShare: $shareItems) })
                             }
                             .buttonStyle(.plain)
                             .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
@@ -38,6 +59,13 @@ struct UpcomingSeasonListView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func remove(item: WatchlistItem) {
+        withAnimation {
+            viewContext.delete(item)
+            try? viewContext.save()
         }
     }
 }

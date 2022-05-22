@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileImageView: View {
     let url: URL?
+    let name: String
     var body: some View {
         AsyncImage(url: url) { phase in
             if let image = phase.image {
@@ -28,6 +29,7 @@ struct ProfileImageView: View {
                height: DrawingConstants.imageHeight)
         .clipShape(Circle())
         .padding([.top, .bottom])
+        .accessibilityLabel("Profile image of \(name).")
     }
 }
 

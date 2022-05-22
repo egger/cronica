@@ -9,6 +9,8 @@ import SwiftUI
 
 struct WatchListSection: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var isSharePresented: Bool = false
+    @State private var shareItems: [Any] = []
     private let context = DataController.shared
     let items: [WatchlistItem]
     let title: String
@@ -18,13 +20,46 @@ struct WatchListSection: View {
                 ForEach(items) { item in
                     NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
                         ItemView(title: item.itemTitle, url: item.image, type: item.itemMedia, inSearch: false, watched: item.watched, favorite: item.favorite)
+                            .contextMenu {
+                                Button(action: {
+                                    withAnimation {
+                                        context.updateMarkAs(Id: item.itemId, watched: !item.watched, favorite: nil)
+                                    }
+                                }, label: {
+                                    Label(item.watched ? "Remove from Watched" : "Mark as Watched",
+                                          systemImage: item.watched ? "minus.circle" : "checkmark.circle")
+                                })
+                                Button(action: {
+                                    shareItems = [item.itemLink]
+                                    withAnimation {
+                                        isSharePresented.toggle()
+                                    }
+                                }, label: {
+                                    Label("Share",
+                                          systemImage: "square.and.arrow.up")
+                                })
+                                Divider()
+                                Button(role: .destructive, action: {
+                                    withAnimation {
+                                        viewContext.delete(item)
+                                        try? viewContext.save()
+                                    }
+                                }, label: {
+                                    Label("Remove", systemImage: "trash")
+                                })
+                            }
+                            .sheet(isPresented: $isSharePresented,
+                                   content: { ActivityViewController(itemsToShare: $shareItems) })
                     }
                     .swipeActions(edge: .leading, allowsFullSwipe: true) {
                         Button(action: {
-                            context.updateMarkAs(Id: item.itemId, watched: !item.watched, favorite: nil)
+                            withAnimation {
+                                context.updateMarkAs(Id: item.itemId, watched: !item.watched, favorite: nil)
+                            }
                         }, label: {
                             Label(item.watched ? "Remove from Watched" : "Mark as Watched",
                                   systemImage: item.watched ? "minus.circle" : "checkmark.circle")
+                            .labelStyle(.titleAndIcon)
                         })
                         .tint(item.watched ? .yellow : .green )
                     }

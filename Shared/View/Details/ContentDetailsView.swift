@@ -25,6 +25,8 @@ struct ContentDetailsView: View {
     @State private var isFavorite: Bool = false
     @State private var isPad: Bool = UIDevice.isIPad
     @State private var animateGesture: Bool = false
+    @State private var showConfirmation: Bool = false
+    @State private var shareItems: [Any] = []
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
         _store = StateObject(wrappedValue: SettingsStore())
@@ -33,139 +35,145 @@ struct ContentDetailsView: View {
         self.type = type
     }
     var body: some View {
-        ScrollView {
-            VStack {
-                ZStack {
-                    HeroImage(url: viewModel.content?.cardImageLarge,
-                              title: title,
-                              blurImage: (viewModel.content?.adult ?? false))
+        ZStack {
+            ScrollView {
+                VStack {
                     ZStack {
-                        Rectangle().fill(.ultraThinMaterial)
-                        if store.gesture == .favorite {
-                            Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
-                                .symbolRenderingMode(.multicolor)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 120, height: 120, alignment: .center)
-                        } else {
-                            Image(systemName: isWatched ? "checkmark.circle" : "minus.circle.fill")
-                                .symbolRenderingMode(.monochrome)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 120, height: 120, alignment: .center)
+                        HeroImage(url: viewModel.content?.cardImageLarge,
+                                  title: title,
+                                  blurImage: (viewModel.content?.adult ?? false))
+                        ZStack {
+                            Rectangle().fill(.ultraThinMaterial)
+                            if store.gesture == .favorite {
+                                Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
+                                    .symbolRenderingMode(.multicolor)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 120, height: 120, alignment: .center)
+                            } else {
+                                Image(systemName: isWatched ? "checkmark.circle" : "minus.circle.fill")
+                                    .symbolRenderingMode(.monochrome)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 120, height: 120, alignment: .center)
+                            }
+                            
                         }
-                        
+                        .opacity(animateGesture ? 1 : 0)
                     }
-                    .opacity(animateGesture ? 1 : 0)
-                }
-                .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-                       height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-                .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
-                .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                        radius: DrawingConstants.shadowRadius)
-                .padding([.top, .bottom])
-                .onTapGesture(count: 2) {
-                    withAnimation {
-                        animateGesture.toggle()
+                    .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+                           height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+                    .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
+                    .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                            radius: DrawingConstants.shadowRadius)
+                    .padding([.top, .bottom])
+                    .onTapGesture(count: 2) {
+                        withAnimation {
+                            animateGesture.toggle()
+                        }
+                        if !isInWatchlist {
+                            viewModel.update(markAsWatched: nil, markAsFavorite: nil)
+                            withAnimation {
+                                isInWatchlist.toggle()
+                                isNotificationScheduled.toggle()
+                            }
+                        }
+                        if store.gesture == .favorite {
+                            updateFavorite()
+                        } else {
+                            updateWatched()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                            withAnimation {
+                                animateGesture = false
+                            }
+                        }
                     }
-                    if !isInWatchlist {
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Hero image of \(title).")
+                    
+                    GlanceInfo(info: viewModel.content?.itemInfo)
+                    
+                    Button(action: {
+                        HapticManager.shared.mediumHaptic()
                         viewModel.update(markAsWatched: nil, markAsFavorite: nil)
                         withAnimation {
                             isInWatchlist.toggle()
                             isNotificationScheduled.toggle()
                         }
-                    }
-                    if store.gesture == .favorite {
-                        updateFavorite()
-                    } else {
-                        updateWatched()
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                        withAnimation {
-                            animateGesture = false
-                        }
-                    }
-                }
-                
-                GlanceInfo(info: viewModel.content?.itemInfo)
-                
-                Button(action: {
-                    HapticManager.shared.mediumHaptic()
-                    viewModel.update(markAsWatched: nil, markAsFavorite: nil)
-                    withAnimation {
-                        isInWatchlist.toggle()
-                        isNotificationScheduled.toggle()
-                    }
-                }, label: {
-                    Label(!isInWatchlist ? "Add to watchlist" : "Remove from watchlist",
-                          systemImage: !isInWatchlist ? "plus.square" : "minus.square")
-                })
-                .buttonStyle(.bordered)
-                .tint(!isInWatchlist ? .blue : .red)
-                .controlSize(.large)
-                .disabled(isLoading)
-                .keyboardShortcut("w", modifiers: [.command, .shift])
-                
-                OverviewBoxView(overview: viewModel.content?.overview, type: .movie)
-                    .padding()
-                    .onTapGesture {
-                        withAnimation {
-                            isAboutPresented.toggle()
-                        }
-                    }
-                    .sheet(isPresented: $isAboutPresented) {
-                        NavigationView {
-                            ScrollView {
-                                Text(viewModel.content!.overview ?? "No Information Available.")
-                                    .padding()
-                                    .textSelection(.enabled)
+                    }, label: {
+                        Label(!isInWatchlist ? "Add to watchlist" : "Remove from watchlist",
+                              systemImage: !isInWatchlist ? "plus.square" : "minus.square")
+                    })
+                    .buttonStyle(.bordered)
+                    .tint(!isInWatchlist ? .blue : .red)
+                    .controlSize(.large)
+                    .disabled(isLoading)
+                    .keyboardShortcut("w", modifiers: [.command, .shift])
+                    
+                    OverviewBoxView(overview: viewModel.content?.itemOverview, type: .movie)
+                        .padding()
+                        .onTapGesture {
+                            withAnimation {
+                                isAboutPresented.toggle()
                             }
-                            .navigationTitle(title)
-                            .navigationBarTitleDisplayMode(.inline)
-                            .toolbar {
-                                ToolbarItem(placement: .navigationBarTrailing) {
-                                    Button(action: { isAboutPresented.toggle() },
-                                           label:{ Text("Done") })
+                        }
+                        .sheet(isPresented: $isAboutPresented) {
+                            NavigationView {
+                                ScrollView {
+                                    Text(viewModel.content!.itemOverview)
+                                        .padding()
+                                        .textSelection(.enabled)
+                                }
+                                .navigationTitle(title)
+                                .navigationBarTitleDisplayMode(.inline)
+                                .toolbar {
+                                    ToolbarItem(placement: .navigationBarTrailing) {
+                                        Button(action: { isAboutPresented.toggle() },
+                                               label:{ Text("Done") })
+                                    }
                                 }
                             }
                         }
+                    
+                    if let trailer = viewModel.content?.itemTrailer {
+                        TrailerSectionView(url: viewModel.content?.cardImageMedium,
+                                           title: "Trailer",
+                                           isPresented: $showSafari)
+                        .sheet(isPresented: $showSafari) {
+                            SFSafariViewWrapper(url: trailer)
+                        }
                     }
-                
-                if let trailer = viewModel.content?.itemTrailer {
-                    TrailerSectionView(url: viewModel.content?.cardImageMedium,
-                                       title: "Trailer",
-                                       isPresented: $showSafari)
-                    .sheet(isPresented: $showSafari) {
-                        SFSafariViewWrapper(url: trailer)
+                    
+                    if let seasons = viewModel.content?.seasonsNumber {
+                        if seasons > 0 {
+                            HorizontalSeasonView(numberOfSeasons: Array(1...seasons), tvId: id)
+                                .padding(0)
+                        }
                     }
-                }
-                
-                if let seasons = viewModel.content?.seasonsNumber {
-                    if seasons > 0 {
-                        HorizontalSeasonView(numberOfSeasons: Array(1...seasons), tvId: id)
-                            .padding(0)
+                    
+                    if let cast = viewModel.content?.credits {
+                        CastListView(credits: cast.cast + cast.crew)
                     }
+                    
+                    InformationSectionView(item: viewModel.content)
+                        .padding()
+                    
+                    if let filmography = viewModel.content?.recommendations {
+                        ContentListView(type: type,
+                                        title: "Recommendations",
+                                        subtitle: "You may like",
+                                        image: "list.and.film",
+                                        items: filmography.results,
+                                        showConfirmation: $showConfirmation)
+                    }
+                    
+                    AttributionView().padding([.top, .bottom])
                 }
-                
-                if let cast = viewModel.content?.credits {
-                    CastListView(credits: cast)
-                }
-                
-                InformationSectionView(item: viewModel.content)
-                    .padding()
-                
-                if let filmography = viewModel.content?.recommendations {
-                    ContentListView(type: type,
-                                    title: "Recommendations",
-                                    subtitle: "You may like",
-                                    image: "list.and.film",
-                                    items: filmography.results)
-                }
-                
-                AttributionView().padding([.top, .bottom])
             }
+            .task { load() }
             .sheet(isPresented: $isSharePresented,
-                   content: { ActivityViewController(itemsToShare: [viewModel.content!.itemURL]) })
+                   content: { ActivityViewController(itemsToShare: $shareItems) })
             .redacted(reason: isLoading ? .placeholder : [])
             .overlay(overlayView)
             .navigationTitle(title)
@@ -176,14 +184,19 @@ struct ContentDetailsView: View {
                         Image(systemName: isNotificationScheduled ? "bell.fill" : "bell")
                             .opacity(isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
+                            .accessibilityLabel(isNotificationScheduled ? "Notification scheduled for \(title)" : "No notification scheduled for \(title)")
                         Button(action: {
                             HapticManager.shared.mediumHaptic()
-                            isSharePresented.toggle()
+                            shareItems = [URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!]
+                            withAnimation {
+                                isSharePresented.toggle()
+                            }
                         }, label: {
                             Image(systemName: "square.and.arrow.up")
                         })
                         .buttonStyle(.plain)
                         .foregroundColor(.accentColor)
+                        .accessibilityLabel("Share")
                         .disabled(isLoading ? true : false)
                         if hiddenMenu {
                             Menu(content: {
@@ -194,6 +207,7 @@ struct ContentDetailsView: View {
                                           systemImage: isWatched ? "minus.circle" : "checkmark.circle")
                                 })
                                 .disabled(isInWatchlist ? false : true)
+                                .keyboardShortcut("m", modifiers: [.command, .shift])
                                 Button(action: {
                                     updateFavorite()
                                 }, label: {
@@ -201,6 +215,7 @@ struct ContentDetailsView: View {
                                           systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
                                 })
                                 .disabled(isInWatchlist ? false : true)
+                                .keyboardShortcut("f", modifiers: [.command, .shift])
                             }, label: {
                                 Label("More", systemImage: "ellipsis")
                             })
@@ -209,8 +224,22 @@ struct ContentDetailsView: View {
                     }
                 }
             }
+            VStack {
+                Spacer()
+                HStack {
+                    Label("Added to watchlist", systemImage: "checkmark.circle")
+                        .tint(.green)
+                        .padding()
+                }
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .padding()
+                .shadow(radius: 6)
+                .opacity(showConfirmation ? 1 : 0)
+                .scaleEffect(showConfirmation ? 1.1 : 1)
+                .animation(.linear, value: showConfirmation)
+            }
         }
-        .task { load() }
     }
     
     @ViewBuilder

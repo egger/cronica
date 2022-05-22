@@ -12,6 +12,7 @@ struct AccountView: View {
     @EnvironmentObject var store: SettingsStore
     @State private var email = SupportEmail()
     @State private var showPolicy: Bool = false
+    @State private var easterEgg: Bool = false
     var body: some View {
         Form {
             Section {
@@ -43,8 +44,13 @@ struct AccountView: View {
                 Spacer()
                 Text("Made in Brazil 🇧🇷")
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(easterEgg ? .green : .secondary)
                 Spacer()
+            }
+            .onTapGesture {
+                withAnimation {
+                    easterEgg.toggle()
+                }
             }
             .fullScreenCover(isPresented: $showPolicy) {
                 SFSafariViewWrapper(url: URL(string: "https://cronica.alexandremadeira.dev/privacy")!)

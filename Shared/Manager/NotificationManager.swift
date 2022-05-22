@@ -83,4 +83,16 @@ class NotificationManager: ObservableObject {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
         TelemetryManager.send("removeNotification")
     }
+    
+    func isNotificationScheduled(identifier: String) -> Bool {
+        var value: Bool = false
+        UNUserNotificationCenter.current().getPendingNotificationRequests { notifications in
+            for notification in notifications {
+                if notification.identifier == identifier {
+                    value = true
+                }
+            }
+        }
+        return value
+    }
 }

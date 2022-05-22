@@ -8,16 +8,13 @@
 import Foundation
 
 extension Person {
-    var itemImage: URL? {
+    var personImage: URL? {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
-    var itemBiography: String {
-        if let biography = biography {
-            return biography
-        }
-        return "Not Available" 
+    var personBiography: String {
+        biography ?? NSLocalizedString("Not available", comment: "")
     }
-    var itemRole: String? {
+    var personRole: String? {
         job ?? character
     }
     var itemURL: URL {

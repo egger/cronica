@@ -13,6 +13,9 @@ struct SearchView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 #endif
     @StateObject private var viewModel: SearchViewModel
+    @State private var isSharePresented: Bool = false
+    @State private var shareItems: [Any] = []
+    private let context = DataController.shared
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
     }
@@ -31,17 +34,50 @@ struct SearchView: View {
         detailsView
 #endif
     }
-    @ViewBuilder
+    
     var detailsView: some View {
         List {
             ForEach(viewModel.searchItems) { item in
                 if item.media == MediaType.person {
                     NavigationLink(destination: CastDetailsView(title: item.itemTitle, id: item.id)) {
                         ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
+                            .contextMenu {
+                                Button(action: {
+                                    shareItems = [item.itemSearchURL]
+                                    withAnimation {
+                                        isSharePresented.toggle()
+                                    }
+                                }, label: {
+                                    Label("Share",
+                                          systemImage: "square.and.arrow.up")
+                                })
+                            }
+                            .sheet(isPresented: $isSharePresented,
+                                   content: { ActivityViewController(itemsToShare: $shareItems) })
                     }
                 } else {
                     NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
                         ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
+                            .contextMenu {
+                                Button(action: {
+                                    shareItems = [item.itemURL]
+                                    withAnimation {
+                                        isSharePresented.toggle()
+                                    }
+                                }, label: {
+                                    Label("Share",
+                                          systemImage: "square.and.arrow.up")
+                                })
+                                Button(action: {
+                                    Task {
+                                        await updateWatchlist(item: item)
+                                    }
+                                }, label: {
+                                    Label("Add to watchlist", systemImage: "plus.circle")
+                                })
+                            }
+                            .sheet(isPresented: $isSharePresented,
+                                   content: { ActivityViewController(itemsToShare: $shareItems) })
                     }
                 }
             }
@@ -83,6 +119,18 @@ struct SearchView: View {
                 }
             })
         default: EmptyView()
+        }
+    }
+    
+    private func updateWatchlist(item: Content) async {
+        HapticManager.shared.softHaptic()
+        if !context.isItemInList(id: item.id) {
+            let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
+            if let content = content {
+                withAnimation {
+                    context.saveItem(content: content, notify: content.itemCanNotify)
+                }
+            }
         }
     }
 }

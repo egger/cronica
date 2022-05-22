@@ -22,6 +22,10 @@ struct AttributionView: View {
                        height: DrawingConstants.imageHeight,
                        alignment: .center)
                 .padding(.bottom)
+                .accessibility(hidden: true)
+        }
+        .onTapGesture {
+            HapticManager.shared.rigidHaptic()
         }
         .unredacted()
     }

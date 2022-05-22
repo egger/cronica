@@ -32,8 +32,10 @@ struct TitleView: View {
             Image(systemName: image)
                 .foregroundColor(.secondary)
                 .padding()
+                .accessibilityHidden(true)
         }
         .unredacted()
+        .accessibilityElement(children: .combine)
     }
 }
 

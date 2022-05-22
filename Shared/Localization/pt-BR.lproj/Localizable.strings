@@ -6,7 +6,7 @@
   
 */
 
-//Common
+//MARK: Common
 "Done" = "Concluído";
 "No details available." = "Nenhum detalhe disponível.";
 "Not Available" = "Não disponível";
@@ -33,6 +33,9 @@
 "Upcoming Seasons" = "Próximas Temporadas";
 "Releasing Soon" = "Lançamento em breve";
 "Recently Released" = "Lançado recentemente";
+"Share" = "Compartilhar";
+"Remove" = "Remover";
+"Added to watchlist" = "Adicionado à lista";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -162,3 +165,4 @@
 "Unknown" = "Desconhecido";
 "Released Movies" = "Filmes Lançados";
 "Released Shows" = "Séries Lançadas";
+"Releases" = "Lançamentos";

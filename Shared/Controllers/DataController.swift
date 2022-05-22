@@ -21,7 +21,6 @@ class DataController: ObservableObject {
             newItem.title = item.itemTitle
             newItem.id = Int64(item.id)
             newItem.image = item.cardImageMedium
-            newItem.poster = item.posterImageMedium
             newItem.contentType = MediaType.movie.watchlistInt
             newItem.notify = Bool.random()
         }
@@ -67,7 +66,6 @@ class DataController: ObservableObject {
         item.title = content.itemTitle
         item.id = Int64(content.id)
         item.image = content.cardImageMedium
-        item.poster = content.posterImageMedium
         item.schedule = content.itemStatus.scheduleNumber
         item.notify = notify
         item.formattedDate = content.itemTheatricalString
@@ -75,7 +73,6 @@ class DataController: ObservableObject {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
-        print(item as Any)
         do {
             try viewContext.save()
         } catch {
@@ -113,7 +110,6 @@ class DataController: ObservableObject {
                 let item = try self.getItem(id: WatchlistItem.ID(content.id))
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
-                item.poster = content.posterImageMedium
                 item.schedule = content.itemStatus.scheduleNumber
                 item.notify = content.itemCanNotify
                 item.formattedDate = content.itemTheatricalString
@@ -167,6 +163,25 @@ class DataController: ObservableObject {
         return false
     }
     
+    func isItemInList(id: Content.ID, type: MediaType) -> Bool {
+        let viewContext = DataController.shared.container.viewContext
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
+        let numberOfObjects = try? viewContext.count(for: request)
+        if let numberOfObjects = numberOfObjects {
+            if numberOfObjects > 0 {
+                let item = try? getItem(id: WatchlistItem.ID(id))
+                if let item = item {
+                    if item.itemMedia != type {
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        return false
+    }
+    
     func isNotificationScheduled(id: Content.ID) -> Bool {
         let item = try? getItem(id: WatchlistItem.ID(id))
         if let item = item {
@@ -206,5 +221,18 @@ class DataController: ObservableObject {
                                   with: ["Error:":"\(error.localizedDescription)"])
             fatalError(error.localizedDescription)
         }
+    }
+    
+    func getItems() throws -> [Int] {
+        var items: [Int] = []
+        let viewContext = DataController.shared.container.viewContext
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let watchlist = try? viewContext.fetch(request)
+        if let watchlist = watchlist {
+            for watchlist in watchlist {
+                items.append(watchlist.itemId)
+            }
+        }
+        return items
     }
 }
