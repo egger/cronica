@@ -59,6 +59,7 @@ struct EpisodeFrameView: View {
             }
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
     }
 }
 

@@ -24,6 +24,7 @@ import TelemetryClient
                 content = try await self.service.fetchContent(id: id, type: type)
             } catch {
                 phase = .failure(error)
+                content = nil
                 TelemetryManager.send("ContentDetailsViewModel_load",
                                       with: ["ID-Type-Error":"ID:\(id)-Type:\(type.rawValue)-Error:\(error.localizedDescription)."])
             }

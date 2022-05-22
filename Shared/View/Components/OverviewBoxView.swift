@@ -12,7 +12,7 @@ struct OverviewBoxView: View {
     let type: MediaType
     var body: some View {
         GroupBox {
-            Text(overview ?? "No Information Available.")
+            Text(overview ?? "Not Available.")
                 .padding([.top], 2)
                 .lineLimit(4)
         } label: {
@@ -28,6 +28,7 @@ struct OverviewBoxView: View {
                     .unredacted()
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

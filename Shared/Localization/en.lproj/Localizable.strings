@@ -6,7 +6,7 @@
   
 */
 
-//Common
+//MARK: Common
 "Done" = "Done";
 "No details available." = "No details available.";
 "Not Available" = "Not Available";
@@ -34,6 +34,9 @@
 "Upcoming Seasons" = "Upcoming Seasons";
 "Releasing Soon" = "Releasing Soon";
 "Recently Released" = "Recently Released";
+"Share" = "Share";
+"Remove" = "Remove";
+"Added to watchlist" = "Added to watchlist";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
@@ -162,3 +165,4 @@
 "Unknown" = "Unknown";
 "Released Movies" = "Released Movies";
 "Released Shows" = "Released Shows";
+"Releases" = "Releases";

@@ -12,7 +12,6 @@ struct ContentView: View {
 #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 #endif
-    
     // MARK: - UI Elements
     @ViewBuilder
     var body: some View {

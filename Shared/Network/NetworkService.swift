@@ -21,6 +21,7 @@ class NetworkService {
         guard let url = urlBuilder(path: "\(MediaType.tvShow.rawValue)/\(id)/season/\(season)") else {
             throw NetworkError.invalidEndpoint
         }
+        print(url as Any)
         return try await self.fetch(url: url)
     }
     

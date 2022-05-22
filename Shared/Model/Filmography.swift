@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Filmography: Decodable, Identifiable {
+struct Filmography: Decodable, Identifiable, Hashable {
     let id: Int
     let adult: Bool?
     let popularity: Double?

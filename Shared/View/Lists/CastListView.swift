@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CastListView: View {
-    let credits: Credits
+    let credits: [Person]?
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -19,23 +19,17 @@ struct CastListView: View {
             .unredacted()
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    if credits.cast.isEmpty {
-                        EmptyView()
-                    } else {
-                        ForEach(credits.cast.prefix(16)) { content in
-                            NavigationLink(destination: CastDetailsView(title: content.name, id: content.id)) {
-                                ImageView(person: content)
+                    if let credits = credits {
+                        ForEach(credits.prefix(10)) { cast in
+                            NavigationLink(destination: CastDetailsView(title: cast.name, id: cast.id)) {
+                                ImageView(person: cast)
+                                    .padding(.leading, cast.id == self.credits!.first!.id ? 16 : 0)
                             }
-                            .padding(.leading, content.id == self.credits.cast.first!.id ? 16 : 0)
                             .buttonStyle(.plain)
                         }
-                    }
-                    if credits.crew.isEmpty {
-                        EmptyView()
-                    } else {
-                        ForEach(credits.crew.filter { $0.itemRole == "Director" }) { content in
-                            NavigationLink(destination: CastDetailsView(title: content.name, id: content.id)) {
-                                ImageView(person: content)
+                        ForEach(credits.filter { $0.personRole == "Director" }) { director in
+                            NavigationLink(destination: CastDetailsView(title: director.name, id: director.id)) {
+                                ImageView(person: director)
                             }
                             .buttonStyle(.plain)
                         }
@@ -50,7 +44,7 @@ struct CastListView: View {
 
 struct PersonListView_Previews: PreviewProvider {
     static var previews: some View {
-        CastListView(credits: Credits.previewCredits)
+        CastListView(credits: nil)
         ImageView(person: Credits.previewCast)
     }
 }
@@ -59,7 +53,7 @@ private struct ImageView: View {
     let person: Person
     var body: some View {
         ZStack {
-            AsyncImage(url: person.itemImage,
+            AsyncImage(url: person.personImage,
                        transaction: Transaction(animation: .easeInOut)) { phase in
                 if let image = phase.image {
                     Rectangle().fill(.ultraThickMaterial)
@@ -96,9 +90,9 @@ private struct ImageView: View {
                         .padding(.bottom, 1)
                     Spacer()
                 }
-                if !person.itemRole.isEmpty {
+                if !person.personRole.isEmpty {
                     HStack {
-                        Text(person.itemRole!)
+                        Text(person.personRole!)
                             .foregroundColor(.white.opacity(0.8))
                             .font(.caption)
                             .lineLimit(1)

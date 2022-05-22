@@ -24,4 +24,7 @@ extension Filmography {
     var itemPopularity: Double {
         popularity ?? 0.0
     }
+    var itemURL: URL {
+        return URL(string: "https://www.themoviedb.org/\(itemMedia.rawValue)/\(id)")!
+    }
 }

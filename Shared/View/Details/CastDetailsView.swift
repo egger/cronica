@@ -14,74 +14,93 @@ struct CastDetailsView: View {
     @State private var isLoading: Bool = true
     @StateObject private var viewModel: CastDetailsViewModel
     @State private var isSharePresented: Bool = false
+    @State private var showConfirmation: Bool = false
+    @State private var shareItems: [Any] = []
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: CastDetailsViewModel())
         self.title = title
         self.id = id
     }
     var body: some View {
-        ScrollView {
+        ZStack {
             VStack {
-                //MARK: Person image
-                ProfileImageView(url: viewModel.person?.itemImage)
-                
-                //MARK: Biography box
-                OverviewBoxView(overview: viewModel.person?.biography, type: .person)
-                    .onTapGesture {
-                        showBiography.toggle()
-                    }
-                    .padding()
-                    .sheet(isPresented: $showBiography) {
-                        NavigationView {
-                            ScrollView {
-                                Text(viewModel.person?.biography ?? "No information available.")
-                                    .padding()
-                                    .textSelection(.enabled)
-                            }
-                            .navigationTitle(title)
-                            .navigationBarTitleDisplayMode(.inline)
-                            .toolbar {
-                                ToolbarItem(placement: .navigationBarTrailing) {
-                                    Button("Done") {
-                                        showBiography.toggle()
+                ScrollView {
+                    //MARK: Person image
+                    ProfileImageView(url: viewModel.person?.personImage, name: viewModel.person?.name ?? "Unnamed Person")
+                    
+                    //MARK: Biography box
+                    OverviewBoxView(overview: viewModel.person?.personBiography, type: .person)
+                        .onTapGesture {
+                            showBiography.toggle()
+                        }
+                        .padding()
+                        .sheet(isPresented: $showBiography) {
+                            NavigationView {
+                                ScrollView {
+                                    Text(viewModel.person!.personBiography)
+                                        .padding()
+                                        .textSelection(.enabled)
+                                }
+                                .navigationTitle(title)
+                                .navigationBarTitleDisplayMode(.inline)
+                                .toolbar {
+                                    ToolbarItem(placement: .navigationBarTrailing) {
+                                        Button("Done") {
+                                            showBiography.toggle()
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                
-                if let adult = viewModel.person?.adult {
-                    if !adult {
-                        if let filmography = viewModel.person?.combinedCredits {
-                            if let cast = filmography.cast,
-                               let crew = filmography.crew {
-                                let items: [Filmography] = cast + crew
-                                FilmographyListView(items: items.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+                    
+                    if let adult = viewModel.person?.adult {
+                        if !adult {
+                            if let cast = viewModel.person?.combinedCredits?.cast {
+                                let uniques = Array(Set(cast))
+                                FilmographyListView(items: uniques, showConfirmation: $showConfirmation)
                             }
                         }
                     }
+                    
+                    AttributionView().padding([.top, .bottom])
+                        .unredacted()
                 }
-                
-                AttributionView().padding([.top, .bottom])
-                    .unredacted()
             }
+            .task { load() }
             .sheet(isPresented: $isSharePresented,
-                   content: { ActivityViewController(itemsToShare: [viewModel.person!.itemURL]) })
+                   content: { ActivityViewController(itemsToShare: $shareItems) })
             .redacted(reason: isLoading ? .placeholder : [])
             .navigationTitle(title)
             .toolbar {
                 ToolbarItem {
                     Button(action: {
                         HapticManager.shared.mediumHaptic()
-                        isSharePresented.toggle()
+                        shareItems = [URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!]
+                        withAnimation {
+                            isSharePresented.toggle()
+                        }
                     }, label: {
                         Image(systemName: "square.and.arrow.up")
                     })
                     .foregroundColor(.accentColor)
                 }
             }
+            VStack {
+                Spacer()
+                HStack {
+                    Label("Added to watchlist", systemImage: "checkmark.circle")
+                        .tint(.green)
+                        .padding()
+                }
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .padding()
+                .shadow(radius: 6)
+                .opacity(showConfirmation ? 1 : 0)
+                .scaleEffect(showConfirmation ? 1.1 : 1)
+                .animation(.linear, value: showConfirmation)
+            }
         }
-        .task { load() }
     }
     
     @Sendable

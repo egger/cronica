@@ -44,8 +44,10 @@ struct ItemView: View {
                 Image(systemName: "heart.fill")
                     .symbolRenderingMode(.multicolor)
                     .padding(.trailing)
+                    .accessibilityLabel("\(title) is favorite.")
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

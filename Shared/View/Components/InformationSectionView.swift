@@ -68,6 +68,7 @@ private struct InfoView: View {
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
+            .accessibilityElement(children: .combine)
             Spacer()
         }
         .padding([.horizontal, .top], 2)

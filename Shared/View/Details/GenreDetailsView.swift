@@ -13,6 +13,9 @@ struct GenreDetailsView: View {
     var genreType: MediaType
     @StateObject private var viewModel: GenreDetailsViewModel
     @State private var isLoading: Bool = true
+    @State private var showConfirmation: Bool = false
+    private let context = DataController.shared
+    @State private var isSharePresented: Bool = false
     init(genreID: Int, genreName: String, genreType: MediaType) {
         self.genreID = genreID
         self.genreName = genreName
@@ -23,47 +26,83 @@ struct GenreDetailsView: View {
         GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))
     ]
     var body: some View {
-        ScrollView {
-            if let content = viewModel.items {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(content) { item in
-                        NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
-                            StillFrameView(image: item.cardImageMedium,
-                                           title: item.itemTitle)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                    if viewModel.startPagination || !viewModel.endPagination {
-                        ProgressView()
-                            .padding()
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                    viewModel.loadMoreItems()
+        ZStack {
+            VStack {
+                ScrollView {
+                    if let content = viewModel.items {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(content) { item in
+                                NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
+                                    StillFrameView(image: item.cardImageMedium,
+                                                   title: item.itemTitle)
+                                    .contextMenu {
+                                        Button(action: {
+                                            isSharePresented.toggle()
+                                        }, label: {
+                                            Label("Share",
+                                                  systemImage: "square.and.arrow.up")
+                                        })
+                                        Button(action: {
+                                            Task {
+                                                await updateWatchlist(item: item)
+                                            }
+                                        }, label: {
+                                            Label("Add to watchlist", systemImage: "plus.circle")
+                                        })
+                                    }
+//                                    .sheet(isPresented: $isSharePresented,
+//                                           content: { ActivityViewController(itemsToShare: [item.itemURL]) })
                                 }
+                                .buttonStyle(.plain)
                             }
-                    }
-                } 
-                .padding()
-                if viewModel.endPagination {
-                    HStack {
-                        Spacer()
-                        Text("This is the end.")
-                            .padding()
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                        Spacer()
+                            if viewModel.startPagination || !viewModel.endPagination {
+                                ProgressView()
+                                    .padding()
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                            viewModel.loadMoreItems()
+                                        }
+                                    }
+                            }
+                        }
+                        .padding()
+                        if viewModel.endPagination {
+                            HStack {
+                                Spacer()
+                                Text("This is the end.")
+                                    .padding()
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                            }
+                        }
+                        AttributionView()
+                    } else {
+                        ProgressView()
                     }
                 }
-                AttributionView()
-            } else {
-                ProgressView()
+                .task {
+                    load()
+                }
+                .redacted(reason: isLoading ? .placeholder : [] )
+                .navigationTitle(genreName)
+            }
+            VStack {
+                Spacer()
+                HStack {
+                    Label("Added to watchlist", systemImage: "checkmark.circle")
+                        .tint(.green)
+                        .padding()
+                }
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .padding()
+                .shadow(radius: 6)
+                .opacity(showConfirmation ? 1 : 0)
+                .scaleEffect(showConfirmation ? 1.1 : 1)
+                .animation(.linear, value: showConfirmation)
             }
         }
-        .task {
-            load()
-        }
-        .redacted(reason: isLoading ? .placeholder : [] )
-        .navigationTitle(genreName)
     }
     
     @Sendable
@@ -72,6 +111,22 @@ struct GenreDetailsView: View {
             viewModel.loadMoreItems()
             withAnimation {
                 isLoading = false
+            }
+        }
+    }
+    
+    private func updateWatchlist(item: Content) async {
+        HapticManager.shared.softHaptic()
+        if !context.isItemInList(id: item.id, type: self.genreType) {
+            let content = try? await NetworkService.shared.fetchContent(id: item.id, type: self.genreType)
+            if let content = content {
+                context.saveItem(content: content, notify: content.itemCanNotify)
+                withAnimation {
+                    showConfirmation.toggle()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        showConfirmation = false
+                    }
+                }
             }
         }
     }

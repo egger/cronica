@@ -11,6 +11,9 @@ extension Content {
     var itemTitle: String {
         title ?? name!
     }
+    var itemOverview: String {
+        overview ?? NSLocalizedString("Not available", comment: "")
+    }
     var itemGenre: String {
         genres?.first?.name ?? NSLocalizedString("Not Available",
                                                  comment: "")
@@ -85,6 +88,9 @@ extension Content {
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!
+    }
+    var itemSearchURL: URL {
+        return URL(string: "https://www.themoviedb.org/\(media.rawValue)/\(id)")!
     }
     var seasonsNumber: Int {
         if numberOfSeasons != nil && numberOfSeasons! > 0 {
