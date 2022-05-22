@@ -14,5 +14,5 @@ struct TrackedSeasons: Identifiable {
 
 struct TrackedSeason: Identifiable {
     var id = UUID()
-    let season: [String: [Int]]
+    let season: [Int: [Int]]
 }

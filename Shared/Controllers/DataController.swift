@@ -73,7 +73,6 @@ class DataController: ObservableObject {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
-        print(item as Any)
         do {
             try viewContext.save()
         } catch {
@@ -237,13 +236,3 @@ class DataController: ObservableObject {
         return items
     }
 }
-//let viewContext = DataController.shared.container.viewContext
-//let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-//request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
-//let numberOfObjects = try? viewContext.count(for: request)
-//if let numberOfObjects = numberOfObjects {
-//    if numberOfObjects > 0 {
-//        return true
-//    }
-//}
-//return false

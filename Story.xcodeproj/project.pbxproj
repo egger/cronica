@@ -271,8 +271,8 @@
 				B876DE5F281B2B9E005558DD /* ReleaseDates.swift */,
 				B876DE63281B36A7005558DD /* Season.swift */,
 				B845133527ECE3B100F0D4A4 /* SupportEmail.swift */,
-				B876DE65281B4040005558DD /* Videos.swift */,
 				B813FEA42839EDF000256FD7 /* TrackedSeasons.swift */,
+				B876DE65281B4040005558DD /* Videos.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

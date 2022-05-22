@@ -25,7 +25,6 @@ import TelemetryClient
             self.season = try await self.service.fetchSeason(id: id, season: season)
             isLoading = false
         } catch {
-            print(error as Any)
             TelemetryManager.send("SeasonViewModel_loadError",
                                   with: ["ID-Season-Error":"ID-\(id)-Season-\(season)-Error-\(error.localizedDescription)."])
         }
