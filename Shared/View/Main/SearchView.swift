@@ -105,7 +105,6 @@ struct SearchView: View {
             } else {
                 ProgressView("Searching")
                     .foregroundColor(.secondary)
-                    .progressViewStyle(.circular)
                     .padding()
             }
         case .success(let values) where values.isEmpty:

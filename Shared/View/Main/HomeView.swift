@@ -42,8 +42,8 @@ struct HomeView: View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    ComingSoonListView()
-                    UpcomingSeasonListView()
+                    WatchListUpcomingMoviesListView()
+                    WatchListUpcomingSeasonsListView()
                     TrendingListView(items: viewModel.trendingSection,
                                      showConfirmation: $showConfirmation)
                     if let sections = viewModel.sections {

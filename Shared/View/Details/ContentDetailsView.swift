@@ -114,7 +114,7 @@ struct ContentDetailsView: View {
                         .padding()
                     
                     if let trailer = viewModel.content?.itemTrailer {
-                        TrailerSectionView(url: viewModel.content?.cardImageMedium,
+                        TrailerView(url: viewModel.content?.cardImageMedium,
                                            title: "Trailer",
                                            isPresented: $showSafari)
                         .sheet(isPresented: $showSafari) {
@@ -205,7 +205,6 @@ struct ContentDetailsView: View {
                 Spacer()
                 HStack {
                     Label("Added to watchlist", systemImage: "checkmark.circle")
-                        .tint(.green)
                         .padding()
                 }
                 .background(.regularMaterial)
@@ -231,7 +230,7 @@ struct ContentDetailsView: View {
                 })
             }
             .padding()
-            .background(.thickMaterial)
+            .background(.regularMaterial)
         default:
             EmptyView()
         }

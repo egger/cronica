@@ -8,60 +8,58 @@
 import SwiftUI
 
 struct ItemView: View {
-    let content: WatchlistItem?
+    let content: WatchlistItem
     var body: some View {
-        if let content = content {
-            HStack {
-                AsyncImage(url: content.image,
-                           transaction: Transaction(animation: .easeInOut)) { phase in
-                    if let image = phase.image {
-                        ZStack {
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .transition(.opacity)
-                            if content.watched {
-                                Color.black.opacity(0.6)
-                                Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
-                            }
-                        }
-                    } else if phase.error != nil {
-                        ZStack {
-                            Color.secondary
-                            ProgressView()
-                        }
-                    } else {
-                        ZStack {
-                            Color.secondary
-                            Image(systemName: "film")
+        HStack {
+            AsyncImage(url: content.image,
+                       transaction: Transaction(animation: .easeInOut)) { phase in
+                if let image = phase.image {
+                    ZStack {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .transition(.opacity)
+                        if content.watched {
+                            Color.black.opacity(0.6)
+                            Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
                         }
                     }
-                }
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(content.itemTitle)
-                            .lineLimit(DrawingConstants.textLimit)
+                } else if phase.error != nil {
+                    ZStack {
+                        Color.secondary
+                        ProgressView()
                     }
-                    HStack {
-                        Text(content.itemMedia.title)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
+                } else {
+                    ZStack {
+                        Color.secondary
+                        Image(systemName: "film")
                     }
-                }
-                if content.favorite {
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .symbolRenderingMode(.multicolor)
-                        .padding(.trailing)
-                        .accessibilityLabel("\(content.itemTitle) is favorite.")
                 }
             }
-            .accessibilityElement(children: .combine)
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(content.itemTitle)
+                        .lineLimit(DrawingConstants.textLimit)
+                }
+                HStack {
+                    Text(content.itemMedia.title)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+            }
+            if content.favorite {
+                Spacer()
+                Image(systemName: "heart.fill")
+                    .symbolRenderingMode(.multicolor)
+                    .padding(.trailing)
+                    .accessibilityLabel("\(content.itemTitle) is favorite.")
+            }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

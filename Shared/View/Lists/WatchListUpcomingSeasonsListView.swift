@@ -1,25 +1,20 @@
 //
-//  WatchlistSectionView.swift
+//  UpcomingSeasonListView.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 05/04/22.
+//  Created by Alexandre Madeira on 10/05/22.
 //
 
 import SwiftUI
 
-struct ComingSoonListView: View {
+struct WatchListUpcomingSeasonsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
         ],
-        predicate: NSCompoundPredicate(type: .and,
-                                       subpredicates: [
-                                        NSPredicate(format: "schedule == %d", ContentSchedule.soon.scheduleNumber),
-                                        NSPredicate(format: "notify == %d", true),
-                                        NSPredicate(format: "contentType == %d", MediaType.movie.watchlistInt)
-                                       ])
+        predicate: NSPredicate(format: "upcomingSeason == %d", true)
     )
     var items: FetchedResults<WatchlistItem>
     @State private var isSharePresented: Bool = false
@@ -27,14 +22,14 @@ struct ComingSoonListView: View {
     var body: some View {
         VStack {
             if !items.isEmpty {
-                TitleView(title: "Upcoming Movies",
+                TitleView(title: "Upcoming Seasons",
                           subtitle: "From Watchlist",
                           image: "rectangle.stack")
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(items) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
-                                CardView(title: item.itemTitle, url: item.image, subtitle: item.formattedDate)
+                                CardView(title: item.itemTitle, url: item.image, subtitle: "Season \(item.nextSeasonNumber)")
                                     .contextMenu {
                                         Button(action: {
                                             shareItems = [item.itemLink]
@@ -68,6 +63,7 @@ struct ComingSoonListView: View {
     }
     
     private func remove(item: WatchlistItem) {
+        HapticManager.shared.mediumHaptic()
         withAnimation {
             viewContext.delete(item)
             try? viewContext.save()
@@ -75,8 +71,8 @@ struct ComingSoonListView: View {
     }
 }
 
-struct WatchlistSectionView_Previews: PreviewProvider {
+struct UpcomingSeasonListView_Previews: PreviewProvider {
     static var previews: some View {
-        ComingSoonListView()
+        WatchListUpcomingSeasonsListView()
     }
 }

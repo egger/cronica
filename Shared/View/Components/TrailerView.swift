@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TrailerSectionView: View {
+struct TrailerView: View {
     let url: URL?
     let title: String
     @Binding var isPresented: Bool

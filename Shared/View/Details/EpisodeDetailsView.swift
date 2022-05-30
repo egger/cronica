@@ -9,8 +9,6 @@ import SwiftUI
 
 struct EpisodeDetailsView: View {
     @Binding var item: Episode?
-    @State private var markAsWatched: Bool = false
-    @State private var showOverview: Bool = false
     var body: some View {
         ScrollView {
             if let item = item {
@@ -23,25 +21,6 @@ struct EpisodeDetailsView: View {
                     OverviewBoxView(overview: item.overview, title: item.itemTitle, type: .tvShow)
                         .padding()
                 }
-                .sheet(isPresented: $showOverview) {
-                    NavigationView {
-                        ScrollView {
-                            Text(item.overview ?? "Not Available")
-                                .padding()
-                        }
-                        .navigationTitle(item.itemTitle)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .navigationViewStyle(.stack)
-                        .toolbar {
-                            ToolbarItem {
-                                Button("Done") {
-                                    showOverview.toggle()
-                                }
-                            }
-                        }
-                    }
-                }
-                .navigationTitle(item.itemTitle)
             }
         }
     }
