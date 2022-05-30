@@ -55,9 +55,7 @@ struct WatchlistView: View {
                                                                id: item.itemId,
                                                                type: item.itemMedia)
                             ) {
-                                ItemView(title: item.itemTitle,
-                                         url: item.image,
-                                         type: item.itemMedia)
+                                ItemView(content: item)
                             }
                         }
                     } else {
@@ -90,7 +88,7 @@ struct WatchlistView: View {
                                              title: "In Production")
                         default:
                             WatchListSection(items: items.filter { $0.itemMedia == .movie && $0.itemSchedule == .released && $0.notify == false && $0.watched == false }, title: "Released Movies")
-                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.itemMedia == .tvShow && $0.upcomingSeason == false && $0.notify == true || $0.itemSchedule == .released && $0.itemMedia == .tvShow && $0.watched == false }, title: "Released Shows")
+                            WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.itemMedia == .tvShow && $0.upcomingSeason == false && $0.notify == true || $0.itemSchedule == .released && $0.itemMedia == .tvShow && $0.watched == false || $0.itemSchedule == .cancelled && !$0.watched }, title: "Released Shows")
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.itemMedia == .movie && $0.notify == true },
                                              title: "Upcoming Movies")
                             WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.upcomingSeason == true && $0.notify == true },
@@ -118,15 +116,11 @@ struct WatchlistView: View {
                         Text("Media Type").tag(1)
                         Text("Status").tag(2)
                         Text("Favorites").tag(3)
-                        Menu("Releases") {
-                            Picker(selection: $selectedValue, label: Text("Sort")) {
-                                Text("Released Movies").tag(4)
-                                Text("Released Shows").tag(5)
-                                Text("Upcoming Movies").tag(6)
-                                Text("Upcoming Seasons").tag(7)
-                                Text("In Production").tag(8)
-                            }
-                        }
+                        Text("Released Movies").tag(4)
+                        Text("Released Shows").tag(5)
+                        Text("Upcoming Movies").tag(6)
+                        Text("Upcoming Seasons").tag(7)
+                        Text("In Production").tag(8)
                     }
                 } label: {
                     Label("Sort", systemImage: "arrow.up.arrow.down.circle")

@@ -50,6 +50,7 @@ struct WelcomeView: View {
                         }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
+                        .shadow(radius: 6)
                         .padding()
                     }
                     Spacer()
@@ -90,7 +91,7 @@ private struct InformationDetailView: View {
         HStack(alignment: .center) {
             Image(systemName: imageName)
                 .font(.largeTitle)
-                .padding()
+                .padding(.leading)
                 .accessibility(hidden: true)
             
             VStack(alignment: .leading) {
@@ -104,8 +105,15 @@ private struct InformationDetailView: View {
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
+            .padding(.leading, 6)
+            .padding([.top, .bottom], 8)
+            
+            Spacer()
         }
-        .padding(.top)
+        .background(.thinMaterial)
+        .cornerRadius(6)
+        .shadow(radius: 2)
+        .padding([.top, .horizontal])
     }
 }
 

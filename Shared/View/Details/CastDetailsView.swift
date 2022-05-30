@@ -10,7 +10,6 @@ import SwiftUI
 struct CastDetailsView: View {
     let title: String
     let id: Int
-    @State private var showBiography: Bool = false
     @State private var isLoading: Bool = true
     @StateObject private var viewModel: CastDetailsViewModel
     @State private var isSharePresented: Bool = false
@@ -27,37 +26,16 @@ struct CastDetailsView: View {
                 ScrollView {
                     //MARK: Person image
                     ProfileImageView(url: viewModel.person?.personImage, name: viewModel.person?.name ?? "Unnamed Person")
+                        .shadow(radius: 6)
                     
                     //MARK: Biography box
-                    OverviewBoxView(overview: viewModel.person?.personBiography, type: .person)
-                        .onTapGesture {
-                            showBiography.toggle()
-                        }
+                    OverviewBoxView(overview: viewModel.person?.biography, title: title, type: .person)
                         .padding()
-                        .sheet(isPresented: $showBiography) {
-                            NavigationView {
-                                ScrollView {
-                                    Text(viewModel.person!.personBiography)
-                                        .padding()
-                                        .textSelection(.enabled)
-                                }
-                                .navigationTitle(title)
-                                .navigationBarTitleDisplayMode(.inline)
-                                .toolbar {
-                                    ToolbarItem(placement: .navigationBarTrailing) {
-                                        Button("Done") {
-                                            showBiography.toggle()
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     
                     if let adult = viewModel.person?.adult {
                         if !adult {
                             if let cast = viewModel.person?.combinedCredits?.cast {
-                                let uniques = Array(Set(cast))
-                                FilmographyListView(items: uniques, showConfirmation: $showConfirmation)
+                                FilmographyListView(items: cast.sorted(by: { $0.itemPopularity > $1.itemPopularity } ), showConfirmation: $showConfirmation)
                             }
                         }
                     }

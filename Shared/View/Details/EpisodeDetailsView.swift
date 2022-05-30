@@ -19,23 +19,9 @@ struct EpisodeDetailsView: View {
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)
                         .cornerRadius(DrawingConstants.imageRadius)
-//                    Button(action: {
-//                        withAnimation {
-//                            HapticManager.shared.mediumHaptic()
-//                            markAsWatched.toggle()
-//                        }
-//                    }, label: {
-//                        Label(markAsWatched ? "Remove from Watched" : "Mark as Watched",
-//                              systemImage: markAsWatched ? "minus.circle" : "checkmark.circle")
-//                    })
-//                    .buttonStyle(.borderedProminent)
-//                    .controlSize(.large)
-//                    .tint(markAsWatched ? .red : .green)
-                    OverviewBoxView(overview: item.overview, type: .tvShow)
-                        .onTapGesture {
-                            showOverview.toggle()
-                        }
-                        .padding([.horizontal, .bottom])
+                    
+                    OverviewBoxView(overview: item.overview, title: item.itemTitle, type: .tvShow)
+                        .padding()
                 }
                 .sheet(isPresented: $showOverview) {
                     NavigationView {
@@ -45,6 +31,7 @@ struct EpisodeDetailsView: View {
                         }
                         .navigationTitle(item.itemTitle)
                         .navigationBarTitleDisplayMode(.inline)
+                        .navigationViewStyle(.stack)
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {

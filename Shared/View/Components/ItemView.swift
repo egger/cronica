@@ -8,154 +8,73 @@
 import SwiftUI
 
 struct ItemView: View {
-    let title: String
-    let url: URL?
-    let type: MediaType
-    var inSearch: Bool = false
-    var watched: Bool = false
-    var favorite: Bool = false
+    let content: WatchlistItem?
     var body: some View {
-        HStack {
-            if inSearch {
-                switch type {
-                case .person:
-                    PersonImage(url: url)
-                default:
-                    CardImage(url: url, watched: watched)
+        if let content = content {
+            HStack {
+                AsyncImage(url: content.image,
+                           transaction: Transaction(animation: .easeInOut)) { phase in
+                    if let image = phase.image {
+                        ZStack {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .transition(.opacity)
+                            if content.watched {
+                                Color.black.opacity(0.6)
+                                Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
+                            }
+                        }
+                    } else if phase.error != nil {
+                        ZStack {
+                            Color.secondary
+                            ProgressView()
+                        }
+                    } else {
+                        ZStack {
+                            Color.secondary
+                            Image(systemName: "film")
+                        }
+                    }
                 }
-            } else {
-                CardImage(url: url, watched: watched)
-            }
-            
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(title)
-                        .lineLimit(DrawingConstants.textLimit)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(content.itemTitle)
+                            .lineLimit(DrawingConstants.textLimit)
+                    }
+                    HStack {
+                        Text(content.itemMedia.title)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
                 }
-                HStack {
-                    Text(type.title)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                if content.favorite {
                     Spacer()
+                    Image(systemName: "heart.fill")
+                        .symbolRenderingMode(.multicolor)
+                        .padding(.trailing)
+                        .accessibilityLabel("\(content.itemTitle) is favorite.")
                 }
             }
-            if favorite {
-                Spacer()
-                Image(systemName: "heart.fill")
-                    .symbolRenderingMode(.multicolor)
-                    .padding(.trailing)
-                    .accessibilityLabel("\(title) is favorite.")
-            }
+            .accessibilityElement(children: .combine)
         }
-        .accessibilityElement(children: .combine)
     }
 }
 
 struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemView(title: Content.previewContent.itemTitle,
-                 url: Content.previewContent.cardImageMedium,
-                 type: MediaType.movie, inSearch: false)
+        ItemView(content: WatchlistItem.example)
     }
 }
 
-private struct CardImage: View {
-    let url: URL?
-    var watched: Bool
-    var body: some View {
-        AsyncImage(url: url,
-                   transaction: Transaction(animation: .easeInOut)) { phase in
-            if let image = phase.image {
-                ZStack {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .transition(.opacity)
-                    if watched {
-                        Color.black.opacity(0.6)
-                        Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
-                    }
-                }
-            } else if phase.error != nil {
-                ZStack {
-                    Color.secondary
-                    ProgressView()
-                }
-            } else {
-                ZStack {
-                    Color.secondary
-                    Image(systemName: "film")
-                }
-            }
-        }
-        .frame(width: DrawingConstants.imageWidth,
-               height: DrawingConstants.imageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-    }
-}
-
-private struct PersonImage: View {
-    let url: URL?
-    var body: some View {
-        AsyncImage(url: url,
-                   transaction: Transaction(animation: .easeInOut)) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-            } else if phase.error != nil {
-                ZStack {
-                    ProgressView()
-                }.background(.secondary)
-            } else {
-                ZStack {
-                    Color.secondary
-                    Image(systemName: "person")
-                }
-            }
-        }
-        .frame(width: DrawingConstants.personImageWidth,
-               height: DrawingConstants.personImageHeight)
-        .clipShape(Circle())
-    }
-}
-
-private struct PosterImage: View {
-    let url: URL?
-    var body: some View {
-        AsyncImage(url: url,
-                   transaction: Transaction(animation: .easeInOut)) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-            } else if phase.error != nil {
-                ZStack {
-                    Rectangle().fill(.secondary)
-                    ProgressView()
-                }
-            } else {
-                ZStack {
-                    Color.secondary
-                    Image(systemName: "film")
-                }
-            }
-        }
-        .frame(width: DrawingConstants.posterImageWidth,
-               height: DrawingConstants.posterImageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-    }
-}
 
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 70
     static let imageHeight: CGFloat = 50
     static let imageRadius: CGFloat = 4
     static let textLimit: Int = 1
-    static let personImageWidth: CGFloat = 60
-    static let personImageHeight: CGFloat = 60
-    static let posterImageWidth: CGFloat = 50
-    static let posterImageHeight: CGFloat = 70
 }

@@ -63,6 +63,7 @@ struct UpcomingSeasonListView: View {
     }
     
     private func remove(item: WatchlistItem) {
+        HapticManager.shared.mediumHaptic()
         withAnimation {
             viewContext.delete(item)
             try? viewContext.save()

@@ -26,7 +26,7 @@ import TelemetryClient
                 phase = .failure(error)
                 content = nil
                 TelemetryManager.send("ContentDetailsViewModel_load",
-                                      with: ["ID-Type-Error":"ID:\(id)-Type:\(type.rawValue)-Error:\(error.localizedDescription)."])
+                                      with: ["Error":"ID=\(id)|Type=\(type.rawValue)|Error=\(error.localizedDescription)"])
             }
         }
     }

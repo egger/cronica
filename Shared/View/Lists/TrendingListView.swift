@@ -74,8 +74,10 @@ struct TrendingListView: View {
     }
 }
 
-//struct TrendingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TrendingListView(items: Content.previewContents)
-//    }
-//}
+struct TrendingView_Previews: PreviewProvider {
+    @State private static var showConfirmation: Bool = false
+    static var previews: some View {
+        TrendingListView(items: Content.previewContents,
+                         showConfirmation: $showConfirmation)
+    }
+}

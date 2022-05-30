@@ -67,12 +67,14 @@ struct ContentListView: View {
     }
 }
 
-//struct ContentListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentListView(type: .movie,
-//                        title: "Popular",
-//                        subtitle: "Popular Movies",
-//                        image: "crow",
-//                        items: Content.previewContents)
-//    }
-//}
+struct ContentListView_Previews: PreviewProvider {
+    @State private static var showConfirmation: Bool = false
+    static var previews: some View {
+        ContentListView(type: .movie,
+                        title: "Popular",
+                        subtitle: "Popular Movies",
+                        image: "crow",
+                        items: Content.previewContents,
+                        showConfirmation: $showConfirmation)
+    }
+}
