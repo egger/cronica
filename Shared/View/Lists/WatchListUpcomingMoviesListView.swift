@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComingSoonListView: View {
+struct WatchListUpcomingMoviesListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         entity: WatchlistItem.entity(),
@@ -77,6 +77,6 @@ struct ComingSoonListView: View {
 
 struct WatchlistSectionView_Previews: PreviewProvider {
     static var previews: some View {
-        ComingSoonListView()
+        WatchListUpcomingMoviesListView()
     }
 }

@@ -100,11 +100,6 @@
 "Cronica" = "Cronica";
 
 //MARK: AccountView.swift
-"Account (Coming Soon)" = "Conta (Em Breve)";
-"Account" = "Conta";
-"Log in with your TMDB Account to sync watchlist, and recommendations." = "Faça login com sua Conta TMDB para sincronizar a lista e as recomendações.";
-"Log off" = "Desconectar";
-"Log In" = "Entrar";
 "Support" = "Suporte";
 "Send email" = "Enviar Email";
 "Privacy Policy" = "Política de Privacidade";

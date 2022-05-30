@@ -9,10 +9,12 @@ import SwiftUI
 
 struct OverviewBoxView: View {
     let overview: String?
+    let title: String
     let type: MediaType
+    @State private var showDetailsSheet: Bool = false
     var body: some View {
         GroupBox {
-            Text(overview ?? "Not Available.")
+            Text(overview ?? "Not Available")
                 .padding([.top], 2)
                 .lineLimit(4)
         } label: {
@@ -28,12 +30,41 @@ struct OverviewBoxView: View {
                     .unredacted()
             }
         }
+        .onTapGesture {
+            HapticManager.shared.lightHaptic()
+            showDetailsSheet.toggle()
+        }
         .accessibilityElement(children: .combine)
+        .sheet(isPresented: $showDetailsSheet, content: {
+            NavigationView {
+                ScrollView {
+                    if let overview = overview {
+                        Text(overview)
+                            .padding()
+                            .textSelection(.enabled)
+                    } else {
+                        Text("Not Available.")
+                            .padding()
+                    }
+                }
+                .navigationTitle(title)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing, content: {
+                        Button("Done") {
+                            showDetailsSheet.toggle()
+                        }
+                    })
+                }
+            }
+        })
     }
 }
 
 struct OverviewBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewBoxView(overview: Content.previewContent.overview, type: .movie)
+        OverviewBoxView(overview: Content.previewContent.overview,
+                        title: Content.previewContent.itemTitle,
+                        type: .movie)
     }
 }

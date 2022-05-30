@@ -48,8 +48,4 @@ import TelemetryClient
             startPagination = false
         })
     }
-    
-    func addItem(id: Int) {
-        
-    }
 }

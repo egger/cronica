@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UpcomingSeasonListView: View {
+struct WatchListUpcomingSeasonsListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         entity: WatchlistItem.entity(),
@@ -63,6 +63,7 @@ struct UpcomingSeasonListView: View {
     }
     
     private func remove(item: WatchlistItem) {
+        HapticManager.shared.mediumHaptic()
         withAnimation {
             viewContext.delete(item)
             try? viewContext.save()
@@ -72,6 +73,6 @@ struct UpcomingSeasonListView: View {
 
 struct UpcomingSeasonListView_Previews: PreviewProvider {
     static var previews: some View {
-        UpcomingSeasonListView()
+        WatchListUpcomingSeasonsListView()
     }
 }

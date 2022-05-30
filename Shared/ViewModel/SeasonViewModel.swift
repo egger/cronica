@@ -6,14 +6,9 @@
 //
 
 import Foundation
-import os
 import TelemetryClient
 
 @MainActor class SeasonViewModel: ObservableObject {
-    private static let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: SeasonViewModel.self)
-    )
     private let service: NetworkService = NetworkService.shared
     @Published var season: Season?
     @Published var isLoading: Bool = true    

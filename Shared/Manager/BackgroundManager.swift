@@ -15,13 +15,10 @@ class BackgroundManager {
     private let network = NetworkService.shared
     private let notifications = NotificationManager.shared
     
-    func handleAppRefreshContent(isBGAppRefresh: Bool = false) {
+    func handleAppRefreshContent() {
         let items = self.fetchWatchlistItems()
         Task {
             await self.fetchUpdates(items: items)
-        }
-        if isBGAppRefresh {
-            TelemetryManager.send("BGAppRefreshTask")
         }
     }
     

@@ -40,7 +40,7 @@ struct SearchView: View {
             ForEach(viewModel.searchItems) { item in
                 if item.media == MediaType.person {
                     NavigationLink(destination: CastDetailsView(title: item.itemTitle, id: item.id)) {
-                        ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
+                        SearchItemView(content: item)
                             .contextMenu {
                                 Button(action: {
                                     shareItems = [item.itemSearchURL]
@@ -57,7 +57,7 @@ struct SearchView: View {
                     }
                 } else {
                     NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
-                        ItemView(title: item.itemTitle, url: item.itemImage, type: item.media, inSearch: true)
+                        SearchItemView(content: item)
                             .contextMenu {
                                 Button(action: {
                                     shareItems = [item.itemURL]
@@ -105,7 +105,6 @@ struct SearchView: View {
             } else {
                 ProgressView("Searching")
                     .foregroundColor(.secondary)
-                    .progressViewStyle(.circular)
                     .padding()
             }
         case .success(let values) where values.isEmpty:

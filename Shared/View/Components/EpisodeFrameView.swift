@@ -37,7 +37,7 @@ struct EpisodeFrameView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8,
                                         style: .continuous))
             HStack {
-                Text("Episode \(episode.episodeNumber)")
+                Text("Episode \(episode.episodeNumber ?? 0)")
                     .font(.caption2)
                     .lineLimit(1)
                     .foregroundColor(.secondary)

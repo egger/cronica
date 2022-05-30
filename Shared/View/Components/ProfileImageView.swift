@@ -29,7 +29,7 @@ struct ProfileImageView: View {
                height: DrawingConstants.imageHeight)
         .clipShape(Circle())
         .padding([.top, .bottom])
-        .accessibilityLabel("Profile image of \(name).")
+        .accessibilityHidden(true)
     }
 }
 

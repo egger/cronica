@@ -16,6 +16,7 @@ struct GenreDetailsView: View {
     @State private var showConfirmation: Bool = false
     private let context = DataController.shared
     @State private var isSharePresented: Bool = false
+    @State private var shareItems: [Any] = []
     init(genreID: Int, genreName: String, genreType: MediaType) {
         self.genreID = genreID
         self.genreName = genreName
@@ -33,25 +34,70 @@ struct GenreDetailsView: View {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(content) { item in
                                 NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
-                                    StillFrameView(image: item.cardImageMedium,
-                                                   title: item.itemTitle)
-                                    .contextMenu {
-                                        Button(action: {
-                                            isSharePresented.toggle()
-                                        }, label: {
-                                            Label("Share",
-                                                  systemImage: "square.and.arrow.up")
-                                        })
-                                        Button(action: {
-                                            Task {
-                                                await updateWatchlist(item: item)
+                                    VStack {
+                                        AsyncImage(url: item.cardImageMedium,
+                                                   transaction: Transaction(animation: .easeInOut)) { phase in
+                                            if let image = phase.image {
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .transition(.opacity)
+                                            } else if phase.error != nil {
+                                                ZStack {
+                                                    Rectangle().fill(.thickMaterial)
+                                                    VStack {
+                                                        Text(item.itemTitle)
+                                                            .font(.callout)
+                                                            .lineLimit(1)
+                                                            .padding(.bottom)
+                                                        Image(systemName: "film")
+                                                    }
+                                                    .padding()
+                                                    .foregroundColor(.secondary)
+                                                }
+                                            } else {
+                                                ZStack {
+                                                    Rectangle().fill(.thickMaterial)
+                                                    VStack {
+                                                        ProgressView()
+                                                            .padding(.bottom)
+                                                        Image(systemName: "film")
+                                                    }
+                                                    .padding()
+                                                    .foregroundColor(.secondary)
+                                                }
                                             }
-                                        }, label: {
-                                            Label("Add to watchlist", systemImage: "plus.circle")
-                                        })
+                                        }
+                                        .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
+                                               height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+                                        .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
+                                                                    style: .continuous))
+                                        .contextMenu {
+                                            Button(action: {
+                                                shareItems = [item.itemURL]
+                                                isSharePresented.toggle()
+                                            }, label: {
+                                                Label("Share",
+                                                      systemImage: "square.and.arrow.up")
+                                            })
+                                            Button(action: {
+                                                Task {
+                                                    await updateWatchlist(item: item)
+                                                }
+                                            }, label: {
+                                                Label("Add to watchlist", systemImage: "plus.circle")
+                                            })
+                                        }
+                                        HStack {
+                                            Text(item.itemTitle)
+                                                .font(.caption)
+                                                .lineLimit(DrawingConstants.titleLineLimit)
+                                            Spacer()
+                                        }
+                                        .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
                                     }
-//                                    .sheet(isPresented: $isSharePresented,
-//                                           content: { ActivityViewController(itemsToShare: [item.itemURL]) })
+                                    .sheet(isPresented: $isSharePresented,
+                                           content: { ActivityViewController(itemsToShare: $shareItems) })
                                 }
                                 .buttonStyle(.plain)
                             }
@@ -136,4 +182,14 @@ struct GenreDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         GenreDetailsView(genreID: 28, genreName: "Action", genreType: .movie)
     }
+}
+
+private struct DrawingConstants {
+    static let imageWidth: CGFloat = 160
+    static let imageHeight: CGFloat = 100
+    static let imageRadius: CGFloat = 8
+    static let padImageWidth: CGFloat = 240
+    static let padImageHeight: CGFloat = 140
+    static let padImageRadius: CGFloat = 12
+    static let titleLineLimit: Int = 1
 }

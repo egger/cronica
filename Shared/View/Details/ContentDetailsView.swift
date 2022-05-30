@@ -13,14 +13,13 @@ struct ContentDetailsView: View {
     var type: MediaType
     @StateObject private var viewModel: ContentDetailsViewModel
     @StateObject private var store: SettingsStore
-    @State private var isAboutPresented: Bool = false
     @State private var isSharePresented: Bool = false
     @State private var showSafari: Bool = false
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationScheduled: Bool = false
     @State private var isInWatchlist: Bool = false
     @State private var isLoading: Bool = true
-    @State private var hiddenMenu: Bool = false
+    @State private var markAsMenuVisibility: Bool = false
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
     @State private var isPad: Bool = UIDevice.isIPad
@@ -90,7 +89,7 @@ struct ContentDetailsView: View {
                         }
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Hero image of \(title).")
+                    .accessibility(hidden: true)
                     
                     GlanceInfo(info: viewModel.content?.itemInfo)
                     
@@ -111,33 +110,11 @@ struct ContentDetailsView: View {
                     .disabled(isLoading)
                     .keyboardShortcut("w", modifiers: [.command, .shift])
                     
-                    OverviewBoxView(overview: viewModel.content?.itemOverview, type: .movie)
+                    OverviewBoxView(overview: viewModel.content?.overview, title: title, type: .movie)
                         .padding()
-                        .onTapGesture {
-                            withAnimation {
-                                isAboutPresented.toggle()
-                            }
-                        }
-                        .sheet(isPresented: $isAboutPresented) {
-                            NavigationView {
-                                ScrollView {
-                                    Text(viewModel.content!.itemOverview)
-                                        .padding()
-                                        .textSelection(.enabled)
-                                }
-                                .navigationTitle(title)
-                                .navigationBarTitleDisplayMode(.inline)
-                                .toolbar {
-                                    ToolbarItem(placement: .navigationBarTrailing) {
-                                        Button(action: { isAboutPresented.toggle() },
-                                               label:{ Text("Done") })
-                                    }
-                                }
-                            }
-                        }
                     
                     if let trailer = viewModel.content?.itemTrailer {
-                        TrailerSectionView(url: viewModel.content?.cardImageMedium,
+                        TrailerView(url: viewModel.content?.cardImageMedium,
                                            title: "Trailer",
                                            isPresented: $showSafari)
                         .sheet(isPresented: $showSafari) {
@@ -184,7 +161,7 @@ struct ContentDetailsView: View {
                         Image(systemName: isNotificationScheduled ? "bell.fill" : "bell")
                             .opacity(isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
-                            .accessibilityLabel(isNotificationScheduled ? "Notification scheduled for \(title)" : "No notification scheduled for \(title)")
+                            .accessibilityHidden(true)
                         Button(action: {
                             HapticManager.shared.mediumHaptic()
                             shareItems = [URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!]
@@ -198,7 +175,7 @@ struct ContentDetailsView: View {
                         .foregroundColor(.accentColor)
                         .accessibilityLabel("Share")
                         .disabled(isLoading ? true : false)
-                        if hiddenMenu {
+                        if markAsMenuVisibility {
                             Menu(content: {
                                 Button(action: {
                                     updateWatched()
@@ -228,7 +205,6 @@ struct ContentDetailsView: View {
                 Spacer()
                 HStack {
                     Label("Added to watchlist", systemImage: "checkmark.circle")
-                        .tint(.green)
                         .padding()
                 }
                 .background(.regularMaterial)
@@ -254,7 +230,7 @@ struct ContentDetailsView: View {
                 })
             }
             .padding()
-            .background(.thickMaterial)
+            .background(.regularMaterial)
         default:
             EmptyView()
         }
@@ -288,7 +264,7 @@ struct ContentDetailsView: View {
                 withAnimation {
                     isNotificationAvailable = viewModel.content?.itemCanNotify ?? false
                     if viewModel.content?.itemStatus == .released {
-                        hiddenMenu = true
+                        markAsMenuVisibility = true
                     }
                     isLoading = false
                 }

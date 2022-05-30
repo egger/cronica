@@ -8,7 +8,7 @@
 import Foundation
 
 struct Episode: Identifiable, Decodable {
-    let id, episodeNumber, seasonNumber: Int
-    let crew, guestStars: [Person]?
+    let id: Int
+    let episodeNumber, seasonNumber: Int?
     let name, overview, stillPath, airDate: String?
 }
