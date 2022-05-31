@@ -37,6 +37,7 @@ struct WatchListUpcomingMoviesListView: View {
                                 CardView(title: item.itemTitle, url: item.image, subtitle: item.formattedDate)
                                     .contextMenu {
                                         Button(action: {
+                                            HapticManager.shared.lightHaptic()
                                             shareItems = [item.itemLink]
                                             withAnimation {
                                                 isSharePresented.toggle()
@@ -55,6 +56,7 @@ struct WatchListUpcomingMoviesListView: View {
                                     .padding([.leading, .trailing], 4)
                                     .sheet(isPresented: $isSharePresented,
                                            content: { ActivityViewController(itemsToShare: $shareItems) })
+                                    .transition(.move(edge: .leading))
                             }
                             .buttonStyle(.plain)
                             .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
@@ -68,7 +70,7 @@ struct WatchListUpcomingMoviesListView: View {
     }
     
     private func remove(item: WatchlistItem) {
-        withAnimation {
+        withAnimation(.spring()) {
             viewContext.delete(item)
             try? viewContext.save()
         }

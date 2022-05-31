@@ -52,18 +52,7 @@ struct HorizontalSeasonView: View {
                                 .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == season.last!.id ? 16 : 0)
                                 .sheet(isPresented: $showEpisodeDetails, content: {
-                                    NavigationView {
-                                        EpisodeDetailsView(item: $selectedEpisode)
-                                            .navigationTitle(selectedEpisode?.itemTitle ?? "")
-                                            .navigationBarTitleDisplayMode(.inline)
-                                            .toolbar {
-                                                ToolbarItem(placement: .navigationBarTrailing, content: {
-                                                    Button(action: { showEpisodeDetails.toggle() }, label: {
-                                                        Text("Done")
-                                                    })
-                                                })
-                                            }
-                                    }
+                                    EpisodeDetailsView(item: $selectedEpisode, dismissView: $showEpisodeDetails)
                                 })
                         }
                         .padding(0)

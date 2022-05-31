@@ -32,6 +32,7 @@ struct WatchListUpcomingSeasonsListView: View {
                                 CardView(title: item.itemTitle, url: item.image, subtitle: "Season \(item.nextSeasonNumber)")
                                     .contextMenu {
                                         Button(action: {
+                                            HapticManager.shared.lightHaptic()
                                             shareItems = [item.itemLink]
                                             withAnimation {
                                                 isSharePresented.toggle()

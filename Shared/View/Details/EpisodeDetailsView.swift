@@ -9,18 +9,32 @@ import SwiftUI
 
 struct EpisodeDetailsView: View {
     @Binding var item: Episode?
+    @Binding var dismissView: Bool
     var body: some View {
-        ScrollView {
-            if let item = item {
-                VStack {
-                    HeroImage(url: item.itemImageLarge, title: item.itemTitle)
-                        .frame(width: DrawingConstants.imageWidth,
-                               height: DrawingConstants.imageHeight)
-                        .cornerRadius(DrawingConstants.imageRadius)
-                    
-                    OverviewBoxView(overview: item.overview, title: item.itemTitle, type: .tvShow)
-                        .padding()
+        NavigationView {
+            ScrollView {
+                if let item = item {
+                    VStack {
+                        HeroImage(url: item.itemImageLarge,
+                                  title: item.itemTitle)
+                            .frame(width: DrawingConstants.imageWidth,
+                                   height: DrawingConstants.imageHeight)
+                            .cornerRadius(DrawingConstants.imageRadius)
+                        
+                        OverviewBoxView(overview: item.overview,
+                                        title: item.itemTitle,
+                                        type: .tvShow)
+                            .padding()
+                    }
                 }
+            }
+            .navigationTitle(item?.itemTitle ?? "")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing, content: {
+                    Button("Done") {
+                        dismissView.toggle()
+                    }
+                })
             }
         }
     }

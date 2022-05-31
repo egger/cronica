@@ -12,7 +12,8 @@ extension Filmography {
         title ?? name!
     }
     var itemImage: URL? {
-        return NetworkService.urlBuilder(size: .medium, path: posterPath)
+        return NetworkService.urlBuilder(size: .medium,
+                                         path: posterPath)
     }
     var itemMedia: MediaType {
         switch mediaType {
