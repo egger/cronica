@@ -74,7 +74,7 @@ struct HomeView: View {
                 }
                 .sheet(isPresented: $showAccount) {
                     NavigationView {
-                        AccountView()
+                        SettingsView()
                             .navigationTitle("Settings")
                             .navigationBarTitleDisplayMode(.inline)
                             .toolbar {

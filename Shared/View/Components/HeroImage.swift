@@ -58,7 +58,7 @@ struct HeroImage_Previews: PreviewProvider {
 
 private struct DrawingConstants {
     static let shadowOpacity: Double = 0.2
-    static let shadowRadius: CGFloat = 5
+    static let shadowRadius: CGFloat = 6
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
     static let imageRadius: CGFloat = 8

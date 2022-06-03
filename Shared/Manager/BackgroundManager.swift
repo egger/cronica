@@ -22,6 +22,8 @@ class BackgroundManager {
         }
     }
     
+    /// Fetch for any Watchlist item that match notify, soon, or tv predicates.
+    /// - Returns: Returns a list of Watchlist items that matched the predicates.
     private func fetchWatchlistItems() -> [WatchlistItem] {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let notifyPredicate = NSPredicate(format: "notify == %d", true)
@@ -40,6 +42,7 @@ class BackgroundManager {
         return []
     }
     
+    /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.
     private func fetchUpdates(items: [WatchlistItem]) async {
         for item in items {
             do {
@@ -50,7 +53,7 @@ class BackgroundManager {
                 }
             } catch {
                 TelemetryManager.send("BackgroundManager_fetchUpdates",
-                                      with: ["Error":"\(error.localizedDescription)."])
+                                      with: ["Error":"\(error.localizedDescription)"])
             }
         }
     }

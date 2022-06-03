@@ -22,8 +22,9 @@ import TelemetryClient
                 isLoaded = true
             } catch {
                 phase = .failure(error)
+                person = nil
                 TelemetryManager.send("CastDetailsViewModel_loadError",
-                                      with: ["ID:":"\(id)"])
+                                      with: ["Error":"ID:\(id)-Error:\(error.localizedDescription)"])
             }
         }
     }

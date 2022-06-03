@@ -12,36 +12,24 @@ struct InformationSectionView: View {
     var body: some View {
         GroupBox {
             Section {
-                if let runtime = item?.itemRuntime {
-                    InfoView(title: NSLocalizedString("Run Time",
-                                                         comment: ""),
-                                           content: runtime)
-                }
-                if let date = item?.itemTheatricalString {
-                    InfoView(title: NSLocalizedString("Release Date",
-                                                         comment: ""),
-                                           content: date)
-                }
-                if let status = item?.itemStatus {
-                    InfoView(title: NSLocalizedString("Status",
-                                                         comment: ""),
-                             content: status.scheduleTitle)
-                }
-                if let genre = item?.itemGenre {
-                    InfoView(title: NSLocalizedString("Genre",
-                                                         comment: ""),
-                                content: genre)
-                }
-                if let country = item?.itemCountry {
-                    InfoView(title: NSLocalizedString("Region of Origin",
-                                                         comment: ""),
-                                content: country)
-                }
-                if let company = item?.itemCompany {
-                    InfoView(title: NSLocalizedString("Production Company",
-                                                         comment: ""),
-                                content: company)
-                }
+                InfoView(title: NSLocalizedString("Run Time",
+                                                     comment: ""),
+                                       content: item?.itemRuntime)
+                InfoView(title: NSLocalizedString("Release Date",
+                                                     comment: ""),
+                                       content: item?.itemTheatricalString)
+                InfoView(title: NSLocalizedString("Status",
+                                                     comment: ""),
+                         content: item?.itemStatus.scheduleTitle)
+                InfoView(title: NSLocalizedString("Genre",
+                                                     comment: ""),
+                            content: item?.itemGenre)
+                InfoView(title: NSLocalizedString("Region of Origin",
+                                                     comment: ""),
+                            content: item?.itemCountry)
+                InfoView(title: NSLocalizedString("Production Company",
+                                                     comment: ""),
+                            content: item?.itemCompany)
             }
         } label: {
             Label("Information", systemImage: "info")
@@ -58,19 +46,21 @@ struct InformationBoxView_Previews: PreviewProvider {
 
 private struct InfoView: View {
     let title: String
-    let content: String
+    let content: String?
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.caption)
-                Text(content)
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
+        if let content = content {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.caption)
+                    Text(content)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                Spacer()
             }
-            .accessibilityElement(children: .combine)
-            Spacer()
+            .padding([.horizontal, .top], 2)
         }
-        .padding([.horizontal, .top], 2)
     }
 }

@@ -52,7 +52,7 @@ class DataController: ObservableObject {
         container.loadPersistentStores {_, error in
             if let error = error {
                 TelemetryManager.send("WatchlistController_initError",
-                                      with: ["Error:":"\(error.localizedDescription)"])
+                                      with: ["Error":"\(error.localizedDescription)"])
             }
         }
     }
@@ -77,7 +77,7 @@ class DataController: ObservableObject {
             try viewContext.save()
         } catch {
             TelemetryManager.send("WatchlistController_saveItemError",
-                                  with: ["Error:":"\(error.localizedDescription)"])
+                                  with: ["Error":"\(error.localizedDescription)"])
         }
         
         
@@ -143,7 +143,7 @@ class DataController: ObservableObject {
             try viewContext.save()
         } catch {
             TelemetryManager.send("WatchlistController_removeItemError",
-                                  with: ["Error:":"\(error.localizedDescription)"])
+                                  with: ["Error":"\(error.localizedDescription)"])
         }
     }
     
@@ -182,6 +182,8 @@ class DataController: ObservableObject {
         return false
     }
     
+    /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
+    /// and might not be an actual representation if the item will notify the user.
     func isNotificationScheduled(id: Content.ID) -> Bool {
         let item = try? getItem(id: WatchlistItem.ID(id))
         if let item = item {
@@ -221,18 +223,5 @@ class DataController: ObservableObject {
                                   with: ["Error:":"\(error.localizedDescription)"])
             fatalError(error.localizedDescription)
         }
-    }
-    
-    func getItems() throws -> [Int] {
-        var items: [Int] = []
-        let viewContext = DataController.shared.container.viewContext
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        let watchlist = try? viewContext.fetch(request)
-        if let watchlist = watchlist {
-            for watchlist in watchlist {
-                items.append(watchlist.itemId)
-            }
-        }
-        return items
     }
 }

@@ -30,6 +30,7 @@ struct WatchListSection: View {
                                           systemImage: item.watched ? "minus.circle" : "checkmark.circle")
                                 })
                                 Button(action: {
+                                    HapticManager.shared.lightHaptic()
                                     shareItems = [item.itemLink]
                                     withAnimation {
                                         isSharePresented.toggle()

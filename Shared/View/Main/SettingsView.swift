@@ -1,5 +1,5 @@
 //
-//  AccountView.swift
+//  SettingsView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 22/03/22.
@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct AccountView: View {
+struct SettingsView: View {
     @Environment(\.openURL) var openURL
     @EnvironmentObject var store: SettingsStore
     @State private var email = SupportEmail()
     @State private var showPolicy: Bool = false
-    @State private var easterEgg: Bool = false
     var body: some View {
         Form {
             Section {
@@ -44,13 +43,7 @@ struct AccountView: View {
                 Spacer()
                 Text("Made in Brazil 🇧🇷")
                     .font(.caption)
-                    .foregroundColor(easterEgg ? .green : .secondary)
                 Spacer()
-            }
-            .onTapGesture {
-                withAnimation {
-                    easterEgg.toggle()
-                }
             }
             .fullScreenCover(isPresented: $showPolicy) {
                 SFSafariViewWrapper(url: URL(string: "https://cronica.alexandremadeira.dev/privacy")!)
@@ -61,6 +54,6 @@ struct AccountView: View {
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView()
+        SettingsView()
     }
 }

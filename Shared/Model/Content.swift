@@ -29,7 +29,6 @@ struct Content: Identifiable, Decodable {
 }
 struct ProductionCompany: Decodable {
     let id: Int
-    let logoPath: String?
     let name: String
 }
 struct ProductionCountry: Decodable {

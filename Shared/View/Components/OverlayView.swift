@@ -34,14 +34,17 @@ struct RetryView: View {
                 .font(.callout)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
+                .padding([.top, .horizontal])
             Button(action: retryAction) {
                 Label("Try Again", systemImage: "repeat.circle")
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .tint(.purple)
+            .padding([.bottom, .horizontal])
         }
-        .cornerRadius(16)
+        .background(.regularMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .padding()
     }
 }
