@@ -12,9 +12,7 @@ struct CastDetailsView: View {
     let id: Int
     @State private var isLoading: Bool = true
     @StateObject private var viewModel: CastDetailsViewModel
-    @State private var isSharePresented: Bool = false
     @State private var showConfirmation: Bool = false
-    @State private var shareItems: [Any] = []
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: CastDetailsViewModel())
         self.title = title
@@ -35,7 +33,11 @@ struct CastDetailsView: View {
                     if let adult = viewModel.person?.isAdult {
                         if !adult {
                             if let cast = viewModel.person?.combinedCredits?.cast {
-                                FilmographyListView(items: cast.sorted(by: { $0.itemPopularity > $1.itemPopularity } ), showConfirmation: $showConfirmation)
+                                ItemContentListView(items: cast.sorted(by: { $0.itemPopularity > $1.itemPopularity }),
+                                                    title: "Filmography",
+                                                    subtitle: "Know for",
+                                                    image: "list.and.film",
+                                                    addedItemConfirmation: $showConfirmation)
                             }
                         }
                     }
@@ -45,22 +47,13 @@ struct CastDetailsView: View {
                 }
             }
             .task { load() }
-            .sheet(isPresented: $isSharePresented,
-                   content: { ActivityViewController(itemsToShare: $shareItems) })
             .redacted(reason: isLoading ? .placeholder : [])
             .navigationTitle(title)
             .toolbar {
                 ToolbarItem {
-                    Button(action: {
-                        HapticManager.shared.mediumHaptic()
-                        shareItems = [URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!]
-                        withAnimation {
-                            isSharePresented.toggle()
-                        }
-                    }, label: {
-                        Image(systemName: "square.and.arrow.up")
-                    })
-                    .foregroundColor(.accentColor)
+                    ShareLink(item: URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!) {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                    }
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)

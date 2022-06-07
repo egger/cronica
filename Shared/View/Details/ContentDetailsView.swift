@@ -13,7 +13,6 @@ struct ContentDetailsView: View {
     var type: MediaType
     @StateObject private var viewModel: ContentDetailsViewModel
     @StateObject private var store: SettingsStore
-    @State private var isSharePresented: Bool = false
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationScheduled: Bool = false
     @State private var isInWatchlist: Bool = false
@@ -24,7 +23,6 @@ struct ContentDetailsView: View {
     @State private var isPad: Bool = UIDevice.isIPad
     @State private var animateGesture: Bool = false
     @State private var showConfirmation: Bool = false
-    @State private var shareItems: [Any] = []
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
         _store = StateObject(wrappedValue: SettingsStore())
@@ -108,12 +106,11 @@ struct ContentDetailsView: View {
                         .padding()
                     
                     if let filmography = viewModel.content?.recommendations {
-                        ContentListView(type: type,
-                                        title: "Recommendations",
-                                        subtitle: "You may like",
-                                        image: "list.and.film",
-                                        items: filmography.results,
-                                        showConfirmation: $showConfirmation)
+                        ItemContentListView(items: filmography.results,
+                                            title: "Recommendations",
+                                            subtitle: "You may like",
+                                            image: "list.and.film",
+                                            addedItemConfirmation: $showConfirmation)
                     }
                     
                     AttributionView()
@@ -121,8 +118,6 @@ struct ContentDetailsView: View {
                 }
             }
             .task { load() }
-            .sheet(isPresented: $isSharePresented,
-                   content: { ActivityViewController(itemsToShare: $shareItems) })
             .redacted(reason: isLoading ? .placeholder : [])
             .overlay(overlayView)
             .navigationTitle(title)
@@ -134,18 +129,9 @@ struct ContentDetailsView: View {
                             .opacity(isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
                             .accessibilityHidden(true)
-                        Button(action: {
-                            HapticManager.shared.mediumHaptic()
-                            shareItems = [URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!]
-                            withAnimation {
-                                isSharePresented.toggle()
-                            }
-                        }, label: {
-                            Image(systemName: "square.and.arrow.up")
-                        })
-                        .buttonStyle(.plain)
-                        .foregroundColor(.accentColor)
-                        .accessibilityLabel("Share")
+                        ShareLink(item: URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!) {
+                            Label("Share", systemImage: "square.and.arrow.up")
+                        }
                         .disabled(isLoading ? true : false)
                         if markAsMenuVisibility {
                             markAsMenu

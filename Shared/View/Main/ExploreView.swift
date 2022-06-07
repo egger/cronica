@@ -46,10 +46,9 @@ struct ExploreView: View {
     var body: some View {
 #if os(iOS)
         if horizontalSizeClass == .compact {
-            NavigationView {
+            NavigationStack {
                 details
             }
-            .navigationViewStyle(.stack)
         } else {
            details
         }
@@ -62,20 +61,14 @@ struct ExploreView: View {
         List {
             Section {
                 ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
-                    NavigationLink(destination: GenreDetailsView(genreID: genre.id,
-                                                                 genreName: genre.name!, genreType: .movie)) {
-                        Text(genre.name!)
-                    }
+                    NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .movie))
                 }
             } header: {
                 Text("Popular Movies by Genre")
             }
             Section {
                 ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
-                    NavigationLink(destination: GenreDetailsView(genreID: genre.id,
-                                                                 genreName: genre.name!, genreType: .tvShow)) {
-                        Text(genre.name!)
-                    }
+                    NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .tvShow))
                 }
             } header: {
                 Text("Popular TV Shows by Genre")
@@ -83,7 +76,6 @@ struct ExploreView: View {
             
         }
         .navigationTitle("Explore")
-        .listStyle(.insetGrouped)
     }
 }
 

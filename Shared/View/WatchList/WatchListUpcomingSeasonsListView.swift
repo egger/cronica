@@ -17,8 +17,6 @@ struct WatchListUpcomingSeasonsListView: View {
         predicate: NSPredicate(format: "upcomingSeason == %d", true)
     )
     var items: FetchedResults<WatchlistItem>
-    @State private var isSharePresented: Bool = false
-    @State private var shareItems: [Any] = []
     var body: some View {
         VStack {
             if !items.isEmpty {
@@ -31,16 +29,10 @@ struct WatchListUpcomingSeasonsListView: View {
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
                                 CardView(title: item.itemTitle, url: item.image, subtitle: NSLocalizedString("Season \(item.nextSeasonNumber)", comment: ""))
                                     .contextMenu {
-                                        Button(action: {
-                                            HapticManager.shared.lightHaptic()
-                                            shareItems = [item.itemLink]
-                                            withAnimation {
-                                                isSharePresented.toggle()
-                                            }
-                                        }, label: {
+                                        ShareLink(item: item.itemLink) {
                                             Label("Share",
                                                   systemImage: "square.and.arrow.up")
-                                        })
+                                        }
                                         Divider()
                                         Button(role: .destructive, action: {
                                             remove(item: item)
@@ -49,8 +41,6 @@ struct WatchListUpcomingSeasonsListView: View {
                                         })
                                     }
                                     .padding([.leading, .trailing], 4)
-                                    .sheet(isPresented: $isSharePresented,
-                                           content: { ActivityViewController(itemsToShare: $shareItems) })
                             }
                             .buttonStyle(.plain)
                             .padding(.leading, item.id == self.items.first!.id ? 16 : 0)

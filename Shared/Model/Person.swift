@@ -18,5 +18,5 @@ struct Person: Decodable, Identifiable {
     let combinedCredits: CombinedCredits?
 }
 struct CombinedCredits: Decodable {
-    let cast, crew: [Filmography]?
+    let cast, crew: [ItemContent]?
 }

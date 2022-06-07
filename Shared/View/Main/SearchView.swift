@@ -13,8 +13,6 @@ struct SearchView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 #endif
     @StateObject private var viewModel: SearchViewModel
-    @State private var isSharePresented: Bool = false
-    @State private var shareItems: [Any] = []
     private let context = DataController.shared
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
@@ -23,10 +21,9 @@ struct SearchView: View {
     var body: some View {
 #if os(iOS)
         if horizontalSizeClass == .compact {
-            NavigationView {
+            NavigationStack {
                 detailsView
             }
-            .navigationViewStyle(.stack)
         } else {
            detailsView
         }
@@ -42,42 +39,25 @@ struct SearchView: View {
                     NavigationLink(destination: CastDetailsView(title: item.itemTitle, id: item.id)) {
                         SearchItemView(content: item)
                             .contextMenu {
-                                Button(action: {
-                                    shareItems = [item.itemSearchURL]
-                                    withAnimation {
-                                        isSharePresented.toggle()
-                                    }
-                                }, label: {
+                                ShareLink(item: item.itemSearchURL) {
                                     Label("Share",
                                           systemImage: "square.and.arrow.up")
-                                })
+                                }
                             }
-                            .sheet(isPresented: $isSharePresented,
-                                   content: { ActivityViewController(itemsToShare: $shareItems) })
                     }
                 } else {
                     NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
                         SearchItemView(content: item)
                             .contextMenu {
+                                ShareLink(item: item.itemURL) {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                }
                                 Button(action: {
-                                    shareItems = [item.itemURL]
-                                    withAnimation {
-                                        isSharePresented.toggle()
-                                    }
-                                }, label: {
-                                    Label("Share",
-                                          systemImage: "square.and.arrow.up")
-                                })
-                                Button(action: {
-                                    Task {
-                                        await updateWatchlist(item: item)
-                                    }
+                                    updateWatchlist(item: item)
                                 }, label: {
                                     Label("Add to watchlist", systemImage: "plus.circle")
                                 })
                             }
-                            .sheet(isPresented: $isSharePresented,
-                                   content: { ActivityViewController(itemsToShare: $shareItems) })
                     }
                 }
             }
@@ -121,13 +101,15 @@ struct SearchView: View {
         }
     }
     
-    private func updateWatchlist(item: ItemContent) async {
+    private func updateWatchlist(item: ItemContent) {
         HapticManager.shared.softHaptic()
         if !context.isItemInList(id: item.id, type: item.media) {
-            let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
-            if let content = content {
-                withAnimation {
-                    context.saveItem(content: content, notify: content.itemCanNotify)
+            Task {
+                let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
+                if let content = content {
+                    withAnimation {
+                        context.saveItem(content: content, notify: content.itemCanNotify)
+                    }
                 }
             }
         }

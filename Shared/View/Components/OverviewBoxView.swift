@@ -36,7 +36,7 @@ struct OverviewBoxView: View {
         }
         .accessibilityElement(children: .combine)
         .sheet(isPresented: $showDetailsSheet, content: {
-            NavigationView {
+            NavigationStack {
                 ScrollView {
                     if let overview {
                         Text(overview)

@@ -14,22 +14,21 @@ struct HomeView: View {
 #endif
     @AppStorage("showOnboarding") var displayOnboard = true
     @StateObject private var viewModel: HomeViewModel
-    @StateObject private var store: SettingsStore
+    @StateObject private var settings: SettingsStore
     @State private var showSettings: Bool = false
     @State private var isLoading: Bool = true
     @State private var showConfirmation: Bool = false
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
-        _store = StateObject(wrappedValue: SettingsStore())
+        _settings = StateObject(wrappedValue: SettingsStore())
     }
     @ViewBuilder
     var body: some View {
 #if os(iOS)
         if horizontalSizeClass == .compact {
-            NavigationView {
+            NavigationStack {
                 detailsView
             }
-            .navigationViewStyle(.stack)
         } else {
             detailsView
         }
@@ -44,16 +43,14 @@ struct HomeView: View {
                 VStack {
                     WatchListUpcomingMoviesListView()
                     WatchListUpcomingSeasonsListView()
-                    TrendingListView(items: viewModel.trendingSection,
-                                     showConfirmation: $showConfirmation)
+                    ItemContentListView(items: viewModel.trendingSection, title: "Trending", subtitle: "This week", image: "crown", addedItemConfirmation: $showConfirmation)
                     if let sections = viewModel.sections {
                         ForEach(sections) {
-                            ContentListView(type: $0.type,
-                                            title: $0.title,
-                                            subtitle: $0.subtitle,
-                                            image: $0.image,
-                                            items: $0.results,
-                                            showConfirmation: $showConfirmation)
+                            ItemContentListView(items: $0.results,
+                                                title: $0.title,
+                                                subtitle: $0.subtitle,
+                                                image: $0.image,
+                                                addedItemConfirmation: $showConfirmation)
                         }
                     }
                     AttributionView()
@@ -75,7 +72,7 @@ struct HomeView: View {
                 }
                 .sheet(isPresented: $showSettings) {
                     SettingsView(showSettings: $showSettings)
-                        .environmentObject(store)
+                        .environmentObject(settings)
                 }
                 .task { load() }
             }

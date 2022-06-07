@@ -22,8 +22,6 @@ struct WatchListUpcomingMoviesListView: View {
                                        ])
     )
     var items: FetchedResults<WatchlistItem>
-    @State private var isSharePresented: Bool = false
-    @State private var shareItems: [Any] = []
     var body: some View {
         VStack {
             if !items.isEmpty {
@@ -36,16 +34,10 @@ struct WatchListUpcomingMoviesListView: View {
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
                                 CardView(title: item.itemTitle, url: item.image, subtitle: item.formattedDate)
                                     .contextMenu {
-                                        Button(action: {
-                                            HapticManager.shared.lightHaptic()
-                                            shareItems = [item.itemLink]
-                                            withAnimation {
-                                                isSharePresented.toggle()
-                                            }
-                                        }, label: {
+                                        ShareLink(item: item.itemLink) {
                                             Label("Share",
                                                   systemImage: "square.and.arrow.up")
-                                        })
+                                        }
                                         Divider()
                                         Button(role: .destructive, action: {
                                             remove(item: item)
@@ -54,8 +46,6 @@ struct WatchListUpcomingMoviesListView: View {
                                         })
                                     }
                                     .padding([.leading, .trailing], 4)
-                                    .sheet(isPresented: $isSharePresented,
-                                           content: { ActivityViewController(itemsToShare: $shareItems) })
                                     .transition(.move(edge: .leading))
                             }
                             .buttonStyle(.plain)

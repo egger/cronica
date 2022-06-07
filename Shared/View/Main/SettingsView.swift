@@ -14,7 +14,7 @@ struct SettingsView: View {
     @State private var showPolicy: Bool = false
     @Binding var showSettings: Bool
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section {
                     Picker(selection: $store.gesture) {

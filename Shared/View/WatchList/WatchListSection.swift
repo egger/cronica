@@ -29,16 +29,10 @@ struct WatchListSection: View {
                                     Label(item.watched ? "Remove from Watched" : "Mark as Watched",
                                           systemImage: item.watched ? "minus.circle" : "checkmark.circle")
                                 })
-                                Button(action: {
-                                    HapticManager.shared.lightHaptic()
-                                    shareItems = [item.itemLink]
-                                    withAnimation {
-                                        isSharePresented.toggle()
-                                    }
-                                }, label: {
+                                ShareLink(item: item.itemLink) {
                                     Label("Share",
                                           systemImage: "square.and.arrow.up")
-                                })
+                                }
                                 Divider()
                                 Button(role: .destructive, action: {
                                     withAnimation {
@@ -49,8 +43,6 @@ struct WatchListSection: View {
                                     Label("Remove", systemImage: "trash")
                                 })
                             }
-                            .sheet(isPresented: $isSharePresented,
-                                   content: { ActivityViewController(itemsToShare: $shareItems) })
                     }
                     .swipeActions(edge: .leading, allowsFullSwipe: true) {
                         Button(action: {

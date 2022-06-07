@@ -16,13 +16,12 @@ struct AttributionView: View {
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight,
                        alignment: .center)
-                .padding(.bottom)
                 .accessibility(hidden: true)
             Text("This product uses the TMDB API but is not endorsed or certified by TMDB.")
                 .frame(alignment: .center)
                 .font(.caption)
                 .foregroundColor(.secondary)
-                .padding(.horizontal)
+                .padding([.horizontal, .bottom])
         }
         .accessibilityElement(children: .combine)
         .onTapGesture {

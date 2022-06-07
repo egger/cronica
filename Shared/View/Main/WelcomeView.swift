@@ -48,6 +48,7 @@ struct WelcomeView: View {
                         Text("Continue")
                     }
                     .buttonStyle(.borderedProminent)
+                    .tint(Color.blue.gradient)
                     .controlSize(.large)
                     .shadow(radius: 6)
                     .padding()
