@@ -33,20 +33,9 @@ struct WatchListUpcomingMoviesListView: View {
                         ForEach(items) { item in
                             NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
                                 CardView(title: item.itemTitle, url: item.image, subtitle: item.formattedDate)
-                                    .contextMenu {
-                                        ShareLink(item: item.itemLink) {
-                                            Label("Share",
-                                                  systemImage: "square.and.arrow.up")
-                                        }
-                                        Divider()
-                                        Button(role: .destructive, action: {
-                                            remove(item: item)
-                                        }, label: {
-                                            Label("Remove from watchlist", systemImage: "trash")
-                                        })
-                                    }
+                                    .modifier(UpcomingWatchlistContextMenu(item: item))
                                     .padding([.leading, .trailing], 4)
-                                    .transition(.move(edge: .leading))
+                                    .transition(.opacity)
                             }
                             .buttonStyle(.plain)
                             .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
@@ -56,13 +45,6 @@ struct WatchListUpcomingMoviesListView: View {
                     }
                 }
             }
-        }
-    }
-    
-    private func remove(item: WatchlistItem) {
-        withAnimation(.spring()) {
-            viewContext.delete(item)
-            try? viewContext.save()
         }
     }
 }
