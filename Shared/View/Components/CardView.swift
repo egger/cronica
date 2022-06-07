@@ -41,7 +41,7 @@ struct CardView: View {
                     }
                 }
             }
-            if let subtitle = subtitle {
+            if let subtitle {
                 VStack(alignment: .leading) {
                     Spacer()
                     HStack {
@@ -91,8 +91,8 @@ struct CardView: View {
 
 struct BackdropView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(title: Content.previewContent.itemTitle,
-                 url: Content.previewContent.cardImageMedium)
+        CardView(title: ItemContent.previewContent.itemTitle,
+                 url: ItemContent.previewContent.cardImageMedium)
     }
 }
 

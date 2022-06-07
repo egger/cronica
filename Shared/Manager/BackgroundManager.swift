@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import TelemetryClient
 import BackgroundTasks
 
 class BackgroundManager {
@@ -27,33 +26,28 @@ class BackgroundManager {
     private func fetchWatchlistItems() -> [WatchlistItem] {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let notifyPredicate = NSPredicate(format: "notify == %d", true)
-        let soonPredicate = NSPredicate(format: "schedule == %d", ContentSchedule.soon.scheduleNumber)
+        let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.scheduleNumber)
         let tvPredicate = NSPredicate(format: "contentType == %d", MediaType.tvShow.watchlistInt)
         let orPredicate = NSCompoundPredicate(type: .or,
                                               subpredicates: [notifyPredicate, soonPredicate, tvPredicate])
         request.predicate = orPredicate
-        do {
-            let list = try self.context.container.viewContext.fetch(request)
+        let list = try? self.context.container.viewContext.fetch(request)
+        if let list {
             return list
-        } catch {
-            TelemetryManager.send("BackgroundManager_fetchWatchlistItems",
-                                  with: ["Error":"\(error.localizedDescription)."])
+        } else {
+            return []
         }
-        return []
     }
     
     /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.
     private func fetchUpdates(items: [WatchlistItem]) async {
         for item in items {
-            do {
-                let content = try await self.network.fetchContent(id: item.itemId, type: item.itemMedia)
+            let content = try? await self.network.fetchContent(id: item.itemId, type: item.itemMedia)
+            if let content {
                 self.context.updateItem(content: content, isWatched: nil, isFavorite: nil)
                 if content.itemCanNotify {
-                    self.notifications.schedule(content: content)
+                    self.notifications.schedule(notificationContent: content)
                 }
-            } catch {
-                TelemetryManager.send("BackgroundManager_fetchUpdates",
-                                      with: ["Error":"\(error.localizedDescription)"])
             }
         }
     }

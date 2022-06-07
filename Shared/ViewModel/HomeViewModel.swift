@@ -10,10 +10,10 @@ import CoreData
 import TelemetryClient
 
 @MainActor class HomeViewModel: ObservableObject {
-    @Published private(set) var trendingPhase: DataFetchPhase<[Content]?> = .empty
+    @Published private(set) var trendingPhase: DataFetchPhase<[ItemContent]?> = .empty
     @Published private(set) var phase: DataFetchPhase<[ContentSection]?> = .empty
     private let service: NetworkService = NetworkService.shared
-    var trendingSection: [Content]? {
+    var trendingSection: [ItemContent]? {
         trendingPhase.value ?? nil
     }
     var sections: [ContentSection]? {

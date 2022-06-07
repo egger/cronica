@@ -3,7 +3,7 @@
 //  Story
 //
 //  Created by Alexandre Madeira on 02/03/22.
-//  swiftlint:disable trailing_whitespace
+//  
 
 import Foundation
 import SwiftUI
@@ -12,11 +12,11 @@ import TelemetryClient
 @MainActor class ContentDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     private let notification: NotificationManager = NotificationManager()
-    @Published private(set) var phase: DataFetchPhase<Content?> = .empty
+    @Published private(set) var phase: DataFetchPhase<ItemContent?> = .empty
     let context: DataController = DataController.shared
-    var content: Content?
+    var content: ItemContent?
     
-    func load(id: Content.ID, type: MediaType) async {
+    func load(id: ItemContent.ID, type: MediaType) async {
         if Task.isCancelled { return }
         if content == nil {
             phase = .empty
@@ -33,26 +33,29 @@ import TelemetryClient
     
     func update(markAsWatched watched: Bool?, markAsFavorite favorite: Bool?) {
         if let content = content {
-            if let favorite = favorite {
+            if let favorite {
+                HapticManager.shared.lightHaptic()
                 context.updateItem(content: content, isWatched: nil, isFavorite: favorite)
             }
-            else if let watched = watched {
+            else if let watched {
+                HapticManager.shared.lightHaptic()
                 context.updateItem(content: content, isWatched: watched, isFavorite: nil)
             }
             else {
-                if context.isItemInList(id: content.id) {
-                    let item = try? context.getItem(id: WatchlistItem.ID(content.id))
-                    if let item = item {
+                if context.isItemInList(id: content.id, type: content.itemContentMedia) {
+                    let item = context.getItem(id: WatchlistItem.ID(content.id))
+                    if let item {
                         let identifier: String = "\(content.itemTitle)+\(content.id)"
                         if context.isNotificationScheduled(id: content.id) {
                             notification.removeNotification(identifier: identifier)
                         }
-                        try? context.removeItem(id: item)
+                        context.removeItem(id: item)
                     }
                 } else {
+                    HapticManager.shared.mediumHaptic()
                     context.saveItem(content: content, notify: content.itemCanNotify)
                     if content.itemCanNotify {
-                        notification.schedule(content: content)
+                        notification.schedule(notificationContent: content)
                     }
                 }
             }

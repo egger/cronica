@@ -8,6 +8,9 @@
 import Foundation
 
 extension Person {
+    var isAdult: Bool {
+        adult ?? true
+    }
     var personImage: URL? {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }

@@ -12,3 +12,8 @@ struct Season: Decodable, Identifiable {
     let episodes: [Episode]?
     let airDate: String?
 }
+struct Episode: Identifiable, Decodable {
+    let id: Int
+    let episodeNumber, seasonNumber: Int?
+    let name, overview, stillPath, airDate: String?
+}

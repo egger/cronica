@@ -24,7 +24,7 @@ extension WatchlistItem {
         default: return .movie
         }
     }
-    var itemSchedule: ContentSchedule {
+    var itemSchedule: ItemSchedule {
         switch schedule {
         case 0: return .soon
         case 1: return .released
@@ -40,9 +40,9 @@ extension WatchlistItem {
         let controller = DataController(inMemory: true)
         let viewContext = controller.container.viewContext
         let item = WatchlistItem(context: viewContext)
-        item.title = Content.previewContent.itemTitle
-        item.id = Int64(Content.previewContent.id)
-        item.image = Content.previewContent.cardImageMedium
+        item.title = ItemContent.previewContent.itemTitle
+        item.id = Int64(ItemContent.previewContent.id)
+        item.image = ItemContent.previewContent.cardImageMedium
         item.contentType = 0
         item.notify = false
         return item

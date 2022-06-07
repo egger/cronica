@@ -121,9 +121,9 @@ struct SearchView: View {
         }
     }
     
-    private func updateWatchlist(item: Content) async {
+    private func updateWatchlist(item: ItemContent) async {
         HapticManager.shared.softHaptic()
-        if !context.isItemInList(id: item.id) {
+        if !context.isItemInList(id: item.id, type: item.media) {
             let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
             if let content = content {
                 withAnimation {

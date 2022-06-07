@@ -12,8 +12,6 @@ struct HorizontalSeasonView: View {
     var tvId: Int
     @State private var selectedSeason: Int = 1
     @StateObject private var viewModel: SeasonViewModel
-    @State private var showEpisodeDetails: Bool = false
-    @State private var selectedEpisode: Episode?
     init(numberOfSeasons: [Int], tvId: Int) {
         _viewModel = StateObject(wrappedValue: SeasonViewModel())
         self.numberOfSeasons = numberOfSeasons
@@ -42,18 +40,12 @@ struct HorizontalSeasonView: View {
                 HStack {
                     if let season = viewModel.season?.episodes {
                         ForEach(season) { item in
-                            EpisodeFrameView(episode: item)
+                            EpisodeView(episode: item)
                                 .frame(width: 160, height: 200)
-                                .onTapGesture {
-                                    selectedEpisode = item
-                                    showEpisodeDetails.toggle()
-                                }
+                                
                                 .padding([.leading, .trailing], 4)
                                 .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == season.last!.id ? 16 : 0)
-                                .sheet(isPresented: $showEpisodeDetails, content: {
-                                    EpisodeDetailsView(item: $selectedEpisode, dismissView: $showEpisodeDetails)
-                                })
                         }
                         .padding(0)
                         .buttonStyle(.plain)
@@ -82,11 +74,4 @@ struct HorizontalSeasonView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalSeasonView(numberOfSeasons: Array(1...8), tvId: 1419)
     }
-}
-
-private struct DrawingConstants {
-    static let imageWidth: CGFloat = 120
-    static let imageHeight: CGFloat = 80
-    static let imageRadius: CGFloat = 4
-    static let textLimit: Int = 1
 }

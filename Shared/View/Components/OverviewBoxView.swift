@@ -38,7 +38,7 @@ struct OverviewBoxView: View {
         .sheet(isPresented: $showDetailsSheet, content: {
             NavigationView {
                 ScrollView {
-                    if let overview = overview {
+                    if let overview {
                         Text(overview)
                             .padding()
                             .textSelection(.enabled)
@@ -63,8 +63,8 @@ struct OverviewBoxView: View {
 
 struct OverviewBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewBoxView(overview: Content.previewContent.overview,
-                        title: Content.previewContent.itemTitle,
+        OverviewBoxView(overview: ItemContent.previewContent.overview,
+                        title: ItemContent.previewContent.itemTitle,
                         type: .movie)
     }
 }

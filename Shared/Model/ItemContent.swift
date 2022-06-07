@@ -1,5 +1,5 @@
 //
-//  Content.swift
+//  ItemContent.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 17/02/22.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Content: Identifiable, Decodable {
+struct ItemContent: Identifiable, Decodable {
     let adult: Bool?
     let id: Int
     let title, name, overview: String?
@@ -28,7 +28,6 @@ struct Content: Identifiable, Decodable {
     let nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
 struct ProductionCompany: Decodable {
-    let id: Int
     let name: String
 }
 struct ProductionCountry: Decodable {
@@ -38,13 +37,24 @@ struct Genre: Decodable, Identifiable {
     let id: Int
     let name: String?
 }
+struct ReleaseDates: Decodable {
+    let results: [ReleaseDatesResult]
+}
+struct ReleaseDatesResult: Decodable {
+    let iso31661: String?
+    let releaseDates: [ReleaseDate]?
+}
+struct ReleaseDate: Decodable {
+    let certification, iso6391, releaseDate: String?
+    let type: Int?
+}
 struct ContentResponse: Identifiable, Decodable {
     let id: String?
-    let results: [Content]
+    let results: [ItemContent]
 }
 struct ContentSection: Identifiable {
     var id = UUID()
-    let results: [Content]
+    let results: [ItemContent]
     let endpoint: Endpoints
     var title: String {
         endpoint.title

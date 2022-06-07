@@ -23,7 +23,7 @@ struct WatchListSection: View {
                             .contextMenu {
                                 Button(action: {
                                     withAnimation {
-                                        context.updateMarkAs(Id: item.itemId, watched: !item.watched, favorite: nil)
+                                        context.updateMarkAs(id: item.itemId, watched: !item.watched, favorite: nil)
                                     }
                                 }, label: {
                                     Label(item.watched ? "Remove from Watched" : "Mark as Watched",
@@ -56,7 +56,7 @@ struct WatchListSection: View {
                         Button(action: {
                             HapticManager.shared.lightHaptic()
                             withAnimation {
-                                context.updateMarkAs(Id: item.itemId, watched: !item.watched, favorite: nil)
+                                context.updateMarkAs(id: item.itemId, watched: !item.watched, favorite: nil)
                             }
                         }, label: {
                             Label(item.watched ? "Remove from Watched" : "Mark as Watched",

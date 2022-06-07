@@ -32,7 +32,7 @@ struct CastDetailsView: View {
                     OverviewBoxView(overview: viewModel.person?.biography, title: title, type: .person)
                         .padding()
                     
-                    if let adult = viewModel.person?.adult {
+                    if let adult = viewModel.person?.isAdult {
                         if !adult {
                             if let cast = viewModel.person?.combinedCredits?.cast {
                                 FilmographyListView(items: cast.sorted(by: { $0.itemPopularity > $1.itemPopularity } ), showConfirmation: $showConfirmation)
@@ -63,21 +63,7 @@ struct CastDetailsView: View {
                     .foregroundColor(.accentColor)
                 }
             }
-            VStack {
-                Spacer()
-                HStack {
-                    Label("Added to watchlist", systemImage: "checkmark.circle")
-                        .tint(.green)
-                        .padding()
-                }
-                .background(.regularMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .padding()
-                .shadow(radius: 6)
-                .opacity(showConfirmation ? 1 : 0)
-                .scaleEffect(showConfirmation ? 1.1 : 1)
-                .animation(.linear, value: showConfirmation)
-            }
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
     

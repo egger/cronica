@@ -10,11 +10,6 @@ import SwiftUI
 struct AttributionView: View {
     var body: some View {
         VStack(alignment: .center) {
-            Text("This product uses the TMDB API but is not endorsed or certified by TMDB.")
-                .frame(alignment: .center)
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .padding(.horizontal)
             Image("PrimaryCompact")
                 .resizable()
                 .scaledToFit()
@@ -23,7 +18,13 @@ struct AttributionView: View {
                        alignment: .center)
                 .padding(.bottom)
                 .accessibility(hidden: true)
+            Text("This product uses the TMDB API but is not endorsed or certified by TMDB.")
+                .frame(alignment: .center)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
         }
+        .accessibilityElement(children: .combine)
         .onTapGesture {
             HapticManager.shared.rigidHaptic()
         }

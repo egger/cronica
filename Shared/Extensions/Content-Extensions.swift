@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Content {
+extension ItemContent {
     var itemTitle: String {
         title ?? name!
     }
@@ -29,7 +29,7 @@ extension Content {
     var itemPopularity: Double {
         popularity ?? 0.0
     }
-    var itemStatus: ContentSchedule {
+    var itemStatus: ItemSchedule {
         if status == "Released" && itemCanNotify { return .soon }
         switch status {
         case "Rumored": return .production
@@ -50,8 +50,8 @@ extension Content {
         return nil
     }
     var itemInfo: String {
-        if let date = itemTheatricalString {
-            return "\(itemGenre), \(date)"
+        if let itemTheatricalString {
+            return "\(itemGenre), \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
             return "\(itemGenre), \(Utilities.dateString.string(from: date))"
@@ -81,8 +81,8 @@ extension Content {
         }
     }
     var itemTrailer: URL? {
-        if let videos = videos {
-            return Utilities.buildTrailerUrl(videos: videos.results)
+        if let videos {
+            return Utilities.generateTrailerUrl(videos: videos.results)
         }
         return nil
     }
@@ -111,8 +111,8 @@ extension Content {
         return nil
     }
     var itemTheatricalDate: Date? {
-        if let date = itemTheatricalString {
-            return Utilities.dateString.date(from: date)
+        if let itemTheatricalString {
+            return Utilities.dateString.date(from: itemTheatricalString)
         }
         return nil
     }
@@ -123,21 +123,21 @@ extension Content {
         return nil
     }
     var itemCanNotify: Bool {
-        if let date = itemTheatricalDate {
-            if date > Date() {
+        if let itemTheatricalDate {
+            if itemTheatricalDate > Date() {
                 return true
             }
         }
-        if let date = nextEpisodeDate {
-            if date > Date() {
+        if let nextEpisodeDate {
+            if nextEpisodeDate > Date() {
                 return true
             }
         }
         return false
     }
     var hasUpcomingSeason: Bool {
-        if let episode = nextEpisodeToAir {
-            if episode.episodeNumber == 1 && itemCanNotify {
+        if let nextEpisodeToAir {
+            if nextEpisodeToAir.episodeNumber == 1 && itemCanNotify {
                 return true
             }
         }
@@ -165,11 +165,11 @@ extension Content {
         }
     }
     //MARK: Sample Data for preview
-    static var previewContents: [Content] {
+    static var previewContents: [ItemContent] {
         let data: ContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
     }
-    static var previewContent: Content {
+    static var previewContent: ItemContent {
         previewContents[0]
     }
 }

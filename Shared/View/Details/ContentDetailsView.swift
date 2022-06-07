@@ -14,7 +14,6 @@ struct ContentDetailsView: View {
     @StateObject private var viewModel: ContentDetailsViewModel
     @StateObject private var store: SettingsStore
     @State private var isSharePresented: Bool = false
-    @State private var showSafari: Bool = false
     @State private var isNotificationAvailable: Bool = false
     @State private var isNotificationScheduled: Bool = false
     @State private var isInWatchlist: Bool = false
@@ -37,95 +36,67 @@ struct ContentDetailsView: View {
         ZStack {
             ScrollView {
                 VStack {
-                    ZStack {
-                        HeroImage(url: viewModel.content?.cardImageLarge,
-                                  title: title,
-                                  blurImage: (viewModel.content?.adult ?? false))
-                        ZStack {
-                            Rectangle().fill(.ultraThinMaterial)
+                    
+                    CoverImageView(isWatched: $isWatched,
+                                   isFavorite: $isFavorite,
+                                   animateGesture: $animateGesture,
+                                   image: viewModel.content?.cardImageMedium,
+                                   title: title,
+                                   isAdult: viewModel.content?.adult ?? false)
+                        .environmentObject(store)
+                        .onTapGesture(count: 2) {
+                            withAnimation {
+                                animateGesture.toggle()
+                            }
+                            if !isInWatchlist {
+                                viewModel.update(markAsWatched: nil, markAsFavorite: nil)
+                                withAnimation {
+                                    isInWatchlist.toggle()
+                                    isNotificationScheduled.toggle()
+                                }
+                            }
                             if store.gesture == .favorite {
-                                Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
-                                    .symbolRenderingMode(.multicolor)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 120, height: 120, alignment: .center)
+                                updateFavorite()
                             } else {
-                                Image(systemName: isWatched ? "checkmark.circle" : "minus.circle.fill")
-                                    .symbolRenderingMode(.monochrome)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 120, height: 120, alignment: .center)
+                                updateWatched()
                             }
-                            
-                        }
-                        .opacity(animateGesture ? 1 : 0)
-                    }
-                    .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-                           height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-                    .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
-                    .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                            radius: DrawingConstants.shadowRadius)
-                    .padding([.top, .bottom])
-                    .onTapGesture(count: 2) {
-                        withAnimation {
-                            animateGesture.toggle()
-                        }
-                        if !isInWatchlist {
-                            viewModel.update(markAsWatched: nil, markAsFavorite: nil)
-                            withAnimation {
-                                isInWatchlist.toggle()
-                                isNotificationScheduled.toggle()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                withAnimation {
+                                    animateGesture = false
+                                }
                             }
                         }
-                        if store.gesture == .favorite {
-                            updateFavorite()
-                        } else {
-                            updateWatched()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                            withAnimation {
-                                animateGesture = false
-                            }
-                        }
-                    }
-                    .accessibilityElement(children: .combine)
-                    .accessibility(hidden: true)
                     
                     GlanceInfo(info: viewModel.content?.itemInfo)
                     
                     Button(action: {
-                        HapticManager.shared.mediumHaptic()
+                        isInWatchlist.toggle()
                         viewModel.update(markAsWatched: nil, markAsFavorite: nil)
-                        withAnimation {
-                            isInWatchlist.toggle()
-                            isNotificationScheduled.toggle()
-                        }
                     }, label: {
-                        Label(!isInWatchlist ? "Add to watchlist" : "Remove from watchlist",
-                              systemImage: !isInWatchlist ? "plus.square" : "minus.square")
+                        Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
+                              systemImage: isInWatchlist ? "minus.square" : "plus.square")
                     })
                     .buttonStyle(.bordered)
-                    .tint(!isInWatchlist ? .blue : .red)
+                    .tint(isInWatchlist ? .red : .blue)
                     .controlSize(.large)
                     .disabled(isLoading)
                     .keyboardShortcut("w", modifiers: [.command, .shift])
                     
-                    OverviewBoxView(overview: viewModel.content?.overview, title: title, type: .movie)
+                    OverviewBoxView(overview: viewModel.content?.overview,
+                                    title: title,
+                                    type: .movie)
                         .padding()
                     
-                    if let trailer = viewModel.content?.itemTrailer {
-                        TrailerView(url: viewModel.content?.cardImageMedium,
-                                           title: "Trailer",
-                                           isPresented: $showSafari)
-                        .sheet(isPresented: $showSafari) {
-                            SFSafariViewWrapper(url: trailer)
-                        }
-                    }
+                    TrailerView(imageUrl: viewModel.content?.cardImageMedium,
+                                title: "Trailer",
+                                trailerUrl: viewModel.content?.itemTrailer)
                     
-                    if let seasons = viewModel.content?.seasonsNumber {
-                        if seasons > 0 {
-                            HorizontalSeasonView(numberOfSeasons: Array(1...seasons), tvId: id)
-                                .padding(0)
+                    if type == .tvShow {
+                        if let seasons = viewModel.content?.seasonsNumber {
+                            if seasons > 0 {
+                                HorizontalSeasonView(numberOfSeasons: Array(1...seasons), tvId: id)
+                                    .padding(0)
+                            }
                         }
                     }
                     
@@ -145,7 +116,8 @@ struct ContentDetailsView: View {
                                         showConfirmation: $showConfirmation)
                     }
                     
-                    AttributionView().padding([.top, .bottom])
+                    AttributionView()
+                        .padding([.top, .bottom])
                 }
             }
             .task { load() }
@@ -176,46 +148,37 @@ struct ContentDetailsView: View {
                         .accessibilityLabel("Share")
                         .disabled(isLoading ? true : false)
                         if markAsMenuVisibility {
-                            Menu(content: {
-                                Button(action: {
-                                    updateWatched()
-                                }, label: {
-                                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-                                })
-                                .disabled(isInWatchlist ? false : true)
-                                .keyboardShortcut("m", modifiers: [.command, .shift])
-                                Button(action: {
-                                    updateFavorite()
-                                }, label: {
-                                    Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                                          systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
-                                })
-                                .disabled(isInWatchlist ? false : true)
-                                .keyboardShortcut("f", modifiers: [.command, .shift])
-                            }, label: {
-                                Label("More", systemImage: "ellipsis")
-                            })
-                            .disabled(isLoading ? true : false)
+                            markAsMenu
                         }
                     }
                 }
             }
-            VStack {
-                Spacer()
-                HStack {
-                    Label("Added to watchlist", systemImage: "checkmark.circle")
-                        .padding()
-                }
-                .background(.regularMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .padding()
-                .shadow(radius: 6)
-                .opacity(showConfirmation ? 1 : 0)
-                .scaleEffect(showConfirmation ? 1.1 : 1)
-                .animation(.linear, value: showConfirmation)
-            }
+             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
+    }
+    
+    private var markAsMenu: some View {
+        Menu(content: {
+            Button(action: {
+                updateWatched()
+            }, label: {
+                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+            })
+            .disabled(isInWatchlist ? false : true)
+            .keyboardShortcut("m", modifiers: [.command, .shift])
+            Button(action: {
+                updateFavorite()
+            }, label: {
+                Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                      systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
+            })
+            .disabled(isInWatchlist ? false : true)
+            .keyboardShortcut("f", modifiers: [.command, .shift])
+        }, label: {
+            Label("More", systemImage: "ellipsis")
+        })
+        .disabled(isLoading ? true : false)
     }
     
     @ViewBuilder
@@ -237,7 +200,6 @@ struct ContentDetailsView: View {
     }
     
     private func updateFavorite() {
-        HapticManager.shared.softHaptic()
         isFavorite.toggle()
         viewModel.update(markAsWatched: nil, markAsFavorite: isFavorite)
     }
@@ -253,7 +215,7 @@ struct ContentDetailsView: View {
         Task {
             await self.viewModel.load(id: self.id, type: self.type)
             if viewModel.content != nil {
-                isInWatchlist = viewModel.context.isItemInList(id: self.id)
+                isInWatchlist = viewModel.context.isItemInList(id: self.id, type: self.type)
                 if isInWatchlist {
                     withAnimation {
                         isNotificationScheduled = viewModel.context.isNotificationScheduled(id: self.id)
@@ -275,8 +237,8 @@ struct ContentDetailsView: View {
 
 struct ContentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentDetailsView(title: Content.previewContent.itemTitle,
-                           id: Content.previewContent.id,
+        ContentDetailsView(title: ItemContent.previewContent.itemTitle,
+                           id: ItemContent.previewContent.id,
                            type: MediaType.movie)
     }
 }
@@ -284,21 +246,10 @@ struct ContentDetailsView_Previews: PreviewProvider {
 private struct GlanceInfo: View {
     let info: String?
     var body: some View {
-        if let info = info {
+        if let info {
             Text(info)
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
     }
-}
-
-private struct DrawingConstants {
-    static let shadowOpacity: Double = 0.2
-    static let shadowRadius: CGFloat = 5
-    static let imageWidth: CGFloat = 360
-    static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 8
-    static let padImageWidth: CGFloat = 500
-    static let padImageHeight: CGFloat = 300
-    static let padImageRadius: CGFloat = 12
 }

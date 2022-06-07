@@ -14,7 +14,7 @@ struct FilmographyListView: View {
     @State private var isSharePresented: Bool = false
     @State private var shareItems: [Any] = []
     var body: some View {
-        if let items = items {
+        if let items {
             VStack {
                 TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -57,7 +57,7 @@ struct FilmographyListView: View {
     
     private func updateWatchlist(item: Filmography) async {
         HapticManager.shared.softHaptic()
-        if !context.isItemInList(id: item.id) {
+        if !context.isItemInList(id: item.id, type: item.itemMedia) {
             let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.itemMedia)
             if let content = content {
                 withAnimation {

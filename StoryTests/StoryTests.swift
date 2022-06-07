@@ -19,17 +19,17 @@ class StoryTests: XCTestCase {
     }
     
     func testAddToWatchlist() {
-        for item in Content.previewContents {
+        for item in ItemContent.previewContents {
             dataController.saveItem(content: item, notify: false)
         }
-        for item in Content.previewContents {
+        for item in ItemContent.previewContents {
             XCTAssertTrue(dataController.isItemInList(id: item.id))
         }
     }
     
     func testRemoveFromWatchlist() {
         XCTAssertNoThrow({
-            let item = try self.dataController.getItem(id: WatchlistItem.ID(Content.previewContent.id))
+            let item = try self.dataController.getItem(id: WatchlistItem.ID(ItemContent.previewContent.id))
             try self.dataController.removeItem(id: item)
         })
     }

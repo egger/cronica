@@ -15,7 +15,7 @@ struct HomeView: View {
     @AppStorage("showOnboarding") var displayOnboard = true
     @StateObject private var viewModel: HomeViewModel
     @StateObject private var store: SettingsStore
-    @State private var showAccount: Bool = false
+    @State private var showSettings: Bool = false
     @State private var isLoading: Bool = true
     @State private var showConfirmation: Bool = false
     init() {
@@ -63,47 +63,23 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem {
                         Button(action: {
-                            showAccount.toggle()
+                            HapticManager.shared.softHaptic()
+                            showSettings.toggle()
                         }, label: {
-                            Label("Account", systemImage: "gear.circle")
+                            Label("Settings", systemImage: "gearshape")
                         })
                     }
                 }
                 .sheet(isPresented: $displayOnboard) {
                     WelcomeView()
                 }
-                .sheet(isPresented: $showAccount) {
-                    NavigationView {
-                        SettingsView()
-                            .navigationTitle("Settings")
-                            .navigationBarTitleDisplayMode(.inline)
-                            .toolbar {
-                                ToolbarItem {
-                                    Button("Done") {
-                                        showAccount.toggle()
-                                    }
-                                }
-                            }
-                            .environmentObject(store)
-                    }
+                .sheet(isPresented: $showSettings) {
+                    SettingsView(showSettings: $showSettings)
+                        .environmentObject(store)
                 }
                 .task { load() }
             }
-            VStack {
-                Spacer()
-                HStack {
-                    Label("Added to watchlist", systemImage: "checkmark.circle")
-                        .tint(.green)
-                        .padding()
-                }
-                .background(.regularMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .padding()
-                .shadow(radius: 6)
-                .opacity(showConfirmation ? 1 : 0)
-                .scaleEffect(showConfirmation ? 1.1 : 1)
-                .animation(.linear, value: showConfirmation)
-            }
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
     

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InformationSectionView: View {
-    let item: Content?
+    let item: ItemContent?
     var body: some View {
         GroupBox {
             Section {
@@ -40,7 +40,7 @@ struct InformationSectionView: View {
 
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationSectionView(item: Content.previewContent)
+        InformationSectionView(item: ItemContent.previewContent)
     }
 }
 
@@ -48,7 +48,7 @@ private struct InfoView: View {
     let title: String
     let content: String?
     var body: some View {
-        if let content = content {
+        if let content {
             HStack {
                 VStack(alignment: .leading) {
                     Text(title)

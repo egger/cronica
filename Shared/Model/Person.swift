@@ -14,8 +14,7 @@ struct Person: Decodable, Identifiable {
     let adult: Bool?
     let id: Int
     let name: String
-    let job, character, biography: String?
-    let profilePath: String?
+    let job, character, biography, profilePath: String?
     let combinedCredits: CombinedCredits?
 }
 struct CombinedCredits: Decodable {

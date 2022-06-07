@@ -11,6 +11,9 @@ extension Episode {
     var itemTitle: String {
         name ?? "Not Available"
     }
+    var itemOverview: String {
+        overview ?? "Not Available"
+    }
     var itemImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: stillPath)
     }

@@ -11,7 +11,7 @@ struct Videos: Decodable {
     let results: [VideosResult]
 }
 struct VideosResult: Decodable {
-    let iso639_1, iso3166_1, publishedAt, id: String?
+    let iso639_1, iso3166_1, id: String?
     let name, key, type: String
     let official: Bool
 }

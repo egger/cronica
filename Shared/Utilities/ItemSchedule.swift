@@ -1,5 +1,5 @@
 //
-//  ContentSchedule.swift
+//  ItemSchedule.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 28/04/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ContentSchedule: String, CaseIterable, Identifiable {
+enum ItemSchedule: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case soon, released, production, cancelled, unknown
     var scheduleNumber: Int16 {

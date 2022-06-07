@@ -133,21 +133,7 @@ struct GenreDetailsView: View {
                 .redacted(reason: isLoading ? .placeholder : [] )
                 .navigationTitle(genreName)
             }
-            VStack {
-                Spacer()
-                HStack {
-                    Label("Added to watchlist", systemImage: "checkmark.circle")
-                        .tint(.green)
-                        .padding()
-                }
-                .background(.regularMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .padding()
-                .shadow(radius: 6)
-                .opacity(showConfirmation ? 1 : 0)
-                .scaleEffect(showConfirmation ? 1.1 : 1)
-                .animation(.linear, value: showConfirmation)
-            }
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
     
@@ -161,7 +147,7 @@ struct GenreDetailsView: View {
         }
     }
     
-    private func updateWatchlist(item: Content) async {
+    private func updateWatchlist(item: ItemContent) async {
         HapticManager.shared.softHaptic()
         if !context.isItemInList(id: item.id, type: self.genreType) {
             let content = try? await NetworkService.shared.fetchContent(id: item.id, type: self.genreType)

@@ -11,7 +11,7 @@ import TelemetryClient
 
 @MainActor class GenreDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
-    @Published var items: [Content]?
+    @Published var items: [ItemContent]?
     private var id: Int = 0
     private var type: MediaType = .movie
     // MARK: Pagination Properties
@@ -27,16 +27,11 @@ import TelemetryClient
     func loadMoreItems() {
         currentPage += 1
         Task {
-            do {
-                try await fetch()
-            } catch {
-                TelemetryManager.send("loadMoreItems_GenreDetailsViewModel",
-                                      with: ["Error":"\(error.localizedDescription)"])
-            }
+            await fetch()
         }
     }
     
-    private func fetch() async throws {
+    private func fetch() async {
         let content = try? await service.fetchDiscover(type: type,
                                                        sort: "popularity.desc",
                                                        page: currentPage,

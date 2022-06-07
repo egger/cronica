@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileImageView: View {
     let url: URL?
     let name: String
+    @State private var isPad: Bool = UIDevice.isIPad
     var body: some View {
         AsyncImage(url: url) { phase in
             if let image = phase.image {
@@ -25,8 +26,8 @@ struct ProfileImageView: View {
                 }
             }
         }
-        .frame(width: DrawingConstants.imageWidth,
-               height: DrawingConstants.imageHeight)
+        .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+               height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
         .clipShape(Circle())
         .padding([.top, .bottom])
         .accessibilityHidden(true)
@@ -36,5 +37,13 @@ struct ProfileImageView: View {
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 150
     static let imageHeight: CGFloat = 150
-    static let imageRadius: CGFloat = 12
+    static let padImageWidth: CGFloat = 250
+    static let padImageHeight: CGFloat = 250
+}
+
+struct Previews_ProfileImageView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileImageView(url: Credits.previewCast.personImage,
+                         name: Credits.previewCast.name)
+    }
 }

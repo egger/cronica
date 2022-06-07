@@ -23,7 +23,6 @@ struct WatchlistView: View {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
     @State var selectedValue = 0
-    
     var body: some View {
 #if os(iOS)
         if horizontalSizeClass == .compact {

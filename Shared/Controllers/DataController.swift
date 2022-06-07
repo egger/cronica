@@ -7,7 +7,6 @@
 
 import CoreData
 import SwiftUI
-import TelemetryClient
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// counting fetch request, tracking watchlists, and dealing with sample data.
@@ -16,7 +15,7 @@ class DataController: ObservableObject {
     static var preview: DataController = {
         let result = DataController(inMemory: true)
         let viewContext = result.container.viewContext
-        for item in Content.previewContents {
+        for item in ItemContent.previewContents {
             let newItem = WatchlistItem(context: viewContext)
             newItem.title = item.itemTitle
             newItem.id = Int64(item.id)
@@ -50,16 +49,15 @@ class DataController: ObservableObject {
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.loadPersistentStores {_, error in
-            if let error = error {
-                TelemetryManager.send("WatchlistController_initError",
-                                      with: ["Error":"\(error.localizedDescription)"])
+            if let error {
+                print(error.localizedDescription)
             }
         }
     }
     
     /// Adds an item to Watchlist Core Data.
     /// - Parameter content: The item to be added, or updated.
-    func saveItem(content: Content, notify: Bool) {
+    func saveItem(content: ItemContent, notify: Bool) {
         let viewContext = DataController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.contentType = content.itemContentMedia.watchlistInt
@@ -73,41 +71,31 @@ class DataController: ObservableObject {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
-        do {
-            try viewContext.save()
-        } catch {
-            TelemetryManager.send("WatchlistController_saveItemError",
-                                  with: ["Error":"\(error.localizedDescription)"])
-        }
-        
-        
+        try? viewContext.save()
     }
     
-    func updateMarkAs(Id: Int, watched: Bool?, favorite: Bool?) {
+    func updateMarkAs(id: Int, watched: Bool?, favorite: Bool?) {
         let viewContext = DataController.shared.container.viewContext
-        do {
-            let item = try self.getItem(id: WatchlistItem.ID(Id))
-            if let watched = watched {
+        let item = self.getItem(id: WatchlistItem.ID(id))
+        if let item {
+            if let watched {
                 item.watched = watched
             }
-            if let favorite = favorite {
+            if let favorite {
                 item.favorite = favorite
             }
             if viewContext.hasChanges {
-                try viewContext.save()
+                try? viewContext.save()
             }
-        } catch {
-            TelemetryManager.send("WatchlistController_updateWatchedError",
-                                  with: ["Error":"\(error.localizedDescription)"])
         }
     }
     
     // Updates an item on Watchlist Core Data.
-    func updateItem(content: Content, isWatched watched: Bool?, isFavorite favorite: Bool?) {
-        if isItemInList(id: content.id) {
+    func updateItem(content: ItemContent, isWatched watched: Bool?, isFavorite favorite: Bool?) {
+        if isItemInList(id: content.id, type: content.itemContentMedia) {
             let viewContext = DataController.shared.container.viewContext
-            do {
-                let item = try self.getItem(id: WatchlistItem.ID(content.id))
+            let item = self.getItem(id: WatchlistItem.ID(content.id))
+            if let item {
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
                 item.schedule = content.itemStatus.scheduleNumber
@@ -117,61 +105,43 @@ class DataController: ObservableObject {
                     item.upcomingSeason = content.hasUpcomingSeason
                     item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                 }
-                if let watched = watched {
+                if let watched {
                     item.watched = watched
                 }
-                if let favorite = favorite {
+                if let favorite {
                     item.favorite = favorite
                 }
                 if viewContext.hasChanges {
-                    try viewContext.save()
+                    try? viewContext.save()
                 }
-            } catch {
-                TelemetryManager.send("WatchlistController_updateItemError",
-                                      with: ["Error":"\(error.localizedDescription)"])
             }
         }
     }
     
     /// Deletes a WatchlistItem from Core Data.
-    /// - Parameter id: Use a WatchlistItem to search its' existence in Core Data, and then delete it.
-    func removeItem(id: WatchlistItem) throws {
+    func removeItem(id: WatchlistItem) {
         let viewContext = DataController.shared.container.viewContext
-        do {
-            let item = try viewContext.existingObject(with: id.objectID)
+        let item = try? viewContext.existingObject(with: id.objectID)
+        if let item {
             viewContext.delete(item)
-            try viewContext.save()
-        } catch {
-            TelemetryManager.send("WatchlistController_removeItemError",
-                                  with: ["Error":"\(error.localizedDescription)"])
+            try? viewContext.save()
         }
     }
     
     /// Search if an item is added to the list.
-    /// - Parameter id: The ID used to fetch Watchlist list.
+    /// - Parameters:
+    ///   - id: The ID used to fetch Watchlist list.
+    ///   - type: The Media Type of the content.
     /// - Returns: Returns true if the content is already added to the Watchlist.
-    func isItemInList(id: Content.ID) -> Bool {
+    func isItemInList(id: ItemContent.ID, type: MediaType) -> Bool {
         let viewContext = DataController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
         let numberOfObjects = try? viewContext.count(for: request)
-        if let numberOfObjects = numberOfObjects {
+        if let numberOfObjects {
             if numberOfObjects > 0 {
-                return true
-            }
-        }
-        return false
-    }
-    
-    func isItemInList(id: Content.ID, type: MediaType) -> Bool {
-        let viewContext = DataController.shared.container.viewContext
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
-        let numberOfObjects = try? viewContext.count(for: request)
-        if let numberOfObjects = numberOfObjects {
-            if numberOfObjects > 0 {
-                let item = try? getItem(id: WatchlistItem.ID(id))
-                if let item = item {
+                let item = getItem(id: WatchlistItem.ID(id))
+                if let item {
                     if item.itemMedia != type {
                         return false
                     }
@@ -184,25 +154,25 @@ class DataController: ObservableObject {
     
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
-    func isNotificationScheduled(id: Content.ID) -> Bool {
-        let item = try? getItem(id: WatchlistItem.ID(id))
-        if let item = item {
+    func isNotificationScheduled(id: ItemContent.ID) -> Bool {
+        let item = getItem(id: WatchlistItem.ID(id))
+        if let item {
             if item.notify { return true }
         }
         return false
     }
     
-    func isMarkedAsWatched(id: Content.ID) -> Bool {
-        let item = try? getItem(id: WatchlistItem.ID(id))
-        if let item = item {
+    func isMarkedAsWatched(id: ItemContent.ID) -> Bool {
+        let item = getItem(id: WatchlistItem.ID(id))
+        if let item {
             if item.watched { return true }
         }
         return false
     }
     
-    func isMarkedAsFavorite(id: Content.ID) -> Bool {
-        let item = try? getItem(id: WatchlistItem.ID(id))
-        if let item = item {
+    func isMarkedAsFavorite(id: ItemContent.ID) -> Bool {
+        let item = getItem(id: WatchlistItem.ID(id))
+        if let item {
             if item.favorite { return true }
         }
         return false
@@ -211,17 +181,15 @@ class DataController: ObservableObject {
     /// Get an item from the Watchlist.
     /// - Parameter id: The ID used to fetch the list.
     /// - Returns: If the item is in the list, it will return it.
-    func getItem(id: WatchlistItem.ID) throws -> WatchlistItem {
+    func getItem(id: WatchlistItem.ID) -> WatchlistItem? {
         let viewContext = DataController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
-        do {
-            let item = try viewContext.fetch(request)
+        let item = try? viewContext.fetch(request)
+        if let item {
             return item[0]
-        } catch {
-            TelemetryManager.send("WatchlistController_getItemError",
-                                  with: ["Error:":"\(error.localizedDescription)"])
-            fatalError(error.localizedDescription)
+        } else {
+            return nil
         }
     }
 }

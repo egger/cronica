@@ -7,10 +7,9 @@
 
 import Foundation
 
-struct Filmography: Decodable, Identifiable, Hashable {
+struct Filmography: Decodable, Identifiable {
     let id: Int
     let adult: Bool?
     let popularity: Double?
-    let title, name: String?
-    let posterPath, mediaType: String?
+    let title, name, posterPath, mediaType: String?
 }

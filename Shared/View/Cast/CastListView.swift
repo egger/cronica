@@ -19,7 +19,7 @@ struct CastListView: View {
             .unredacted()
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    if let credits = credits {
+                    if let credits {
                         ForEach(credits.prefix(10)) { cast in
                             NavigationLink(destination: CastDetailsView(title: cast.name, id: cast.id)) {
                                 ImageView(person: cast)

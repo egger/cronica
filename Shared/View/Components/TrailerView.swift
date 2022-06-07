@@ -1,5 +1,5 @@
 //
-//  TrailerSectionView.swift
+//  TrailerView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 05/04/22.
@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct TrailerView: View {
-    let url: URL?
+    let imageUrl: URL?
     let title: String
-    @Binding var isPresented: Bool
+    let trailerUrl: URL?
+    @State private var showTrailerInSafari: Bool = false
     var body: some View {
-        if let url = url {
+        if let url = trailerUrl {
             VStack {
                 TitleView(title: "Videos", subtitle: "", image: "rectangle.stack.badge.play")
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         VStack {
-                            AsyncImage(url: url,
+                            AsyncImage(url: imageUrl,
                                        transaction: Transaction(animation: .easeInOut)) { phase in
                                 if let image = phase.image {
                                     ZStack {
@@ -28,8 +29,11 @@ struct TrailerView: View {
                                             .transition(.opacity)
                                         Color.black.opacity(0.2)
                                         Image(systemName: "play.fill")
+                                            .resizable()
+                                            .scaledToFit()
                                             .foregroundColor(.white)
-                                            .imageScale(.large)
+                                            .imageScale(.medium)
+                                            .padding()
                                     }
                                 } else if phase.error != nil {
                                     ZStack {
@@ -51,7 +55,7 @@ struct TrailerView: View {
                             .padding(.horizontal)
                             .accessibilityElement(children: .combine)
                             .onTapGesture {
-                                isPresented.toggle()
+                                showTrailerInSafari.toggle()
                             }
                             HStack {
                                 Text(title)
@@ -66,7 +70,9 @@ struct TrailerView: View {
             }
             .buttonStyle(.plain)
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("\(title) trailer.")
+            .sheet(isPresented: $showTrailerInSafari, content: {
+                SFSafariViewWrapper(url: url)
+            })
         } else {
             EmptyView()
         }

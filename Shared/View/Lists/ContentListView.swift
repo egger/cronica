@@ -5,8 +5,7 @@ struct ContentListView: View {
     let title: String
     let subtitle: String
     let image: String
-    let items: [Content]
-    private let context = DataController.shared
+    let items: [ItemContent]
     @State private var isSharePresented: Bool = false
     @Binding var showConfirmation: Bool
     @State private var shareItems: [Any] = []
@@ -20,46 +19,16 @@ struct ContentListView: View {
                                                                        id: item.id,
                                                                        type: type)) {
                             PosterView(title: item.itemTitle, url: item.posterImageMedium)
-                                .contextMenu {
-                                    Button(action: {
-                                        shareItems = [item.itemURL]
-                                        isSharePresented.toggle()
-                                    }, label: {
-                                        Label("Share",
-                                              systemImage: "square.and.arrow.up")
-                                    })
-                                    Button(action: {
-                                        Task {
-                                            await updateWatchlist(item: item)
-                                        }
-                                    }, label: {
-                                        Label("Add to watchlist", systemImage: "plus.circle")
-                                    })
-                                }
+                                .modifier(ItemContentContext(shareItems: $shareItems, item: item, isSharePresented: $isSharePresented, showConfirmation: $showConfirmation))
                                 .padding([.leading, .trailing], 4)
                                 .sheet(isPresented: $isSharePresented,
                                        content: { ActivityViewController(itemsToShare: $shareItems) })
+                                
                         }
                         .buttonStyle(.plain)
                         .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                         .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
                         .padding([.top, .bottom])
-                    }
-                }
-            }
-        }
-    }
-    
-    private func updateWatchlist(item: Content) async {
-        HapticManager.shared.softHaptic()
-        if !context.isItemInList(id: item.id) {
-            let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
-            if let content = content {
-                withAnimation {
-                    context.saveItem(content: content, notify: content.itemCanNotify)
-                    showConfirmation.toggle()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-                        showConfirmation = false
                     }
                 }
             }
@@ -74,7 +43,7 @@ struct ContentListView_Previews: PreviewProvider {
                         title: "Popular",
                         subtitle: "Popular Movies",
                         image: "crow",
-                        items: Content.previewContents,
+                        items: ItemContent.previewContents,
                         showConfirmation: $showConfirmation)
     }
 }
