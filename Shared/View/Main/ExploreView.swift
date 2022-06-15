@@ -44,18 +44,41 @@ struct ExploreView: View {
     ]
     @ViewBuilder
     var body: some View {
-#if os(iOS)
-        if horizontalSizeClass == .compact {
-            NavigationStack {
-                details
+        NavigationSplitView {
+            List {
+                Section {
+                    ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
+                        Text(genre.name!)
+                    }
+                } header: {
+                    Text("Popular Movies by Genre")
+                }
+                Section {
+                    ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
+                        Text(genre.name!)
+                    }
+                } header: {
+                    Text("Popular TV Shows by Genre")
+                }
             }
-        } else {
-           details
+            .navigationTitle("Explore")
+        } detail: {
+            Text("Hum")
         }
-#else
-        details
-#endif
     }
+    
+    
+//#if os(iOS)
+//        if horizontalSizeClass == .compact {
+//            NavigationStack {
+//                details
+//            }
+//        } else {
+//           details
+//        }
+//#else
+//        details
+//#endif
     
     var details: some View {
         List {

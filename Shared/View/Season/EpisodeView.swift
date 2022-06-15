@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A view that displays a frame with an image, episode number, title, and two line overview,
+/// on tap it display a sheet view with more information.
 struct EpisodeView: View {
     let episode: Episode
     @State private var showDetails: Bool = false

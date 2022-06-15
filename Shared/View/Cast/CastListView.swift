@@ -8,40 +8,37 @@
 import SwiftUI
 
 struct CastListView: View {
-    let credits: [Person]?
+    let credits: Credits?
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Cast & Crew")
-                    .padding([.horizontal, .top])
-                Spacer()
-            }
-            .unredacted()
-            ScrollView(.horizontal, showsIndicators: false) {
+        if let credits {
+            VStack(alignment: .leading) {
                 HStack {
-                    if let credits {
-                        ForEach(credits.prefix(10)) { cast in
+                    Text("Cast & Crew")
+                        .padding([.horizontal, .top])
+                    Spacer()
+                }
+                .unredacted()
+                ScrollView(.horizontal, showsIndicators: false, content: {
+                    HStack {
+                        ForEach(credits.cast.prefix(10)) { cast in
                             NavigationLink(destination: CastDetailsView(title: cast.name, id: cast.id)) {
                                 ImageView(person: cast)
-                                    .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                                            radius: DrawingConstants.shadowRadius)
-                                    .padding(.leading, cast.id == self.credits!.first!.id ? 16 : 0)
+                                    .shadow(radius: DrawingConstants.shadowRadius)
+                                    .padding(.leading, cast.id == self.credits?.cast.first!.id ? 16 : 0)
                             }
                             .buttonStyle(.plain)
-                            
                         }
-                        ForEach(credits.filter { $0.personRole == "Director" }) { director in
+                        ForEach(credits.crew.filter { $0.personRole == "Director" }) { director in
                             NavigationLink(destination: CastDetailsView(title: director.name, id: director.id)) {
                                 ImageView(person: director)
-                                    .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                                            radius: DrawingConstants.shadowRadius)
+                                    .shadow(radius: DrawingConstants.shadowRadius)
                             }
                             .buttonStyle(.plain)
                         }
                     }
-                }
-                .padding([.top, .bottom])
-                .padding(.trailing)
+                    .padding([.top, .bottom])
+                    .padding(.trailing)
+                })
             }
         }
     }
@@ -49,8 +46,7 @@ struct CastListView: View {
 
 struct PersonListView_Previews: PreviewProvider {
     static var previews: some View {
-        CastListView(credits: nil)
-        ImageView(person: Credits.previewCast)
+        CastListView(credits: Credits.previewCredits)
     }
 }
 
@@ -61,18 +57,9 @@ private struct ImageView: View {
             AsyncImage(url: person.personImage,
                        transaction: Transaction(animation: .easeInOut)) { phase in
                 if let image = phase.image {
-                    Rectangle().fill(.regularMaterial)
-                    Color.black.opacity(0.8)
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .mask(
-                            LinearGradient(gradient: Gradient(stops: [
-                                .init(color: .black, location: 0),
-                                .init(color: .black, location: 0.2),
-                                .init(color: .black.opacity(0.4), location: 1)
-                            ]), startPoint: .center, endPoint: .bottom)
-                        )
                         .transition(.opacity)
                 } else if phase.error != nil {
                     Rectangle().redacted(reason: .placeholder)
@@ -87,26 +74,31 @@ private struct ImageView: View {
             }
             VStack {
                 Spacer()
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .frame(height: 60)
+                    
+            }
+            VStack {
+                Spacer()
                 HStack {
                     Text(person.name)
-                        .foregroundColor(.white)
+                        .font(.callout)
+                        .foregroundColor(.primary)
                         .lineLimit(DrawingConstants.lineLimit)
                         .padding(.leading, 6)
-                        .padding(.bottom, 1)
                     Spacer()
                 }
-                if !person.personRole.isEmpty {
-                    HStack {
-                        Text(person.personRole!)
-                            .foregroundColor(.white.opacity(0.8))
-                            .font(.caption)
-                            .lineLimit(1)
-                            .padding(.leading, 6)
-                            .padding(.bottom)
-                        Spacer()
-                    }
+                HStack {
+                    Text(person.personRole ?? "")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .padding(.leading, 6)
+                    Spacer()
                 }
             }
+            .padding(.bottom, 2)
         }
         .frame(width: DrawingConstants.profileWidth,
                height: DrawingConstants.profileHeight)
@@ -119,8 +111,7 @@ private struct ImageView: View {
 private struct DrawingConstants {
     static let profileWidth: CGFloat = 140
     static let profileHeight: CGFloat = 200
-    static let shadowRadius: CGFloat = 5
-    static let shadowOpacity: Double = 0.5
+    static let shadowRadius: CGFloat = 2.5
     static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
 }

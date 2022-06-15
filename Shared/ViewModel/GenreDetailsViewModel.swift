@@ -32,13 +32,13 @@ import TelemetryClient
     }
     
     private func fetch() async {
-        let content = try? await service.fetchDiscover(type: type,
+        let result = try? await service.fetchDiscover(type: type,
                                                        sort: "popularity.desc",
                                                        page: currentPage,
                                                        genres: "\(self.id)")
         await MainActor.run(body: {
             if items == nil { items = [] }
-            items?.append(contentsOf: content ?? [])
+            items?.append(contentsOf: result ?? [])
             endPagination = currentPage == 1000
             startPagination = false
         })

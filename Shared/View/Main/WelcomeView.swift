@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Onboard experience.
 struct WelcomeView: View {
     @AppStorage("showOnboarding") var displayOnboard = true
     var body: some View {
@@ -47,10 +48,9 @@ struct WelcomeView: View {
                     } label: {
                         Text("Continue")
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
                     .tint(Color.blue.gradient)
                     .controlSize(.large)
-                    .shadow(radius: 6)
                     .padding()
                     Spacer()
                 }

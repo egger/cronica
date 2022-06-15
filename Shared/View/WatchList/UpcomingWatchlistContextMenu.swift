@@ -13,10 +13,7 @@ struct UpcomingWatchlistContextMenu: ViewModifier {
     func body(content: Content) -> some View  {
         content
             .contextMenu {
-                ShareLink(item: item.itemLink) {
-                    Label("Share",
-                          systemImage: "square.and.arrow.up")
-                }
+                ShareLink(item: item.itemLink)
                 Divider()
                 Button(role: .destructive, action: {
                     remove(item: item)

@@ -12,19 +12,16 @@ extension ItemContent {
         title ?? name!
     }
     var itemOverview: String {
-        overview ?? NSLocalizedString("Not available", comment: "")
+        overview ?? "Not Available"
     }
     var itemGenre: String {
-        genres?.first?.name ?? NSLocalizedString("Not Available",
-                                                 comment: "")
+        genres?.first?.name ?? "Not Available"
     }
-    var itemCountry: String {
-        return productionCountries?.first?.name ?? NSLocalizedString("Not Available",
-                                                                     comment: "")
+    var itemCountry: String? {
+        return productionCountries?.first?.name ?? "Not Available"
     }
     var itemCompany: String {
-        return productionCompanies?.first?.name ?? NSLocalizedString("Not Available",
-                                                                     comment: "")
+        return productionCompanies?.first?.name ?? "Not Available"
     }
     var itemPopularity: Double {
         popularity ?? 0.0
@@ -81,10 +78,7 @@ extension ItemContent {
         }
     }
     var itemTrailer: URL? {
-        if let videos {
-            return Utilities.generateTrailerUrl(videos: videos.results)
-        }
-        return nil
+        return Utilities.generateTrailerUrl(videos: videos?.results)
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!
@@ -92,11 +86,11 @@ extension ItemContent {
     var itemSearchURL: URL {
         return URL(string: "https://www.themoviedb.org/\(media.rawValue)/\(id)")!
     }
-    var seasonsNumber: Int {
-        if numberOfSeasons != nil && numberOfSeasons! > 0 {
-            return numberOfSeasons!
+    var itemSeasons: [Int]? {
+        if let numberOfSeasons {
+            return Array(1...numberOfSeasons)
         }
-        return 0
+        return nil
     }
     var nextEpisodeDate: Date? {
         if let nextEpisodeDate = nextEpisodeToAir?.airDate {

@@ -24,9 +24,6 @@ struct AttributionView: View {
                 .padding([.horizontal, .bottom])
         }
         .accessibilityElement(children: .combine)
-        .onTapGesture {
-            HapticManager.shared.rigidHaptic()
-        }
         .unredacted()
     }
 }

@@ -15,8 +15,8 @@ struct Person: Decodable, Identifiable {
     let id: Int
     let name: String
     let job, character, biography, profilePath: String?
-    let combinedCredits: CombinedCredits?
+    let combinedCredits: Filmography?
 }
-struct CombinedCredits: Decodable {
+struct Filmography: Decodable {
     let cast, crew: [ItemContent]?
 }

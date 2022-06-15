@@ -89,7 +89,7 @@ struct CardView: View {
     }
 }
 
-struct BackdropView_Previews: PreviewProvider {
+struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(title: ItemContent.previewContent.itemTitle,
                  url: ItemContent.previewContent.cardImageMedium)

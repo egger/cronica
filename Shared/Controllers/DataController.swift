@@ -157,7 +157,7 @@ class DataController: ObservableObject {
     func isNotificationScheduled(id: ItemContent.ID) -> Bool {
         let item = getItem(id: WatchlistItem.ID(id))
         if let item {
-            if item.notify { return true }
+            return item.notify
         }
         return false
     }
@@ -165,7 +165,7 @@ class DataController: ObservableObject {
     func isMarkedAsWatched(id: ItemContent.ID) -> Bool {
         let item = getItem(id: WatchlistItem.ID(id))
         if let item {
-            if item.watched { return true }
+            return item.watched
         }
         return false
     }
@@ -173,7 +173,7 @@ class DataController: ObservableObject {
     func isMarkedAsFavorite(id: ItemContent.ID) -> Bool {
         let item = getItem(id: WatchlistItem.ID(id))
         if let item {
-            if item.favorite { return true }
+            return item.favorite
         }
         return false
     }
@@ -188,8 +188,7 @@ class DataController: ObservableObject {
         let item = try? viewContext.fetch(request)
         if let item {
             return item[0]
-        } else {
-            return nil
         }
+        return nil
     }
 }

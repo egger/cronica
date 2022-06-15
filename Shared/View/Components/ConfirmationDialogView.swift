@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A popup view the displays a confirmation if a given
+/// item is saved on Watchlist.
 struct ConfirmationDialogView: View {
     @Binding var showConfirmation: Bool
     var body: some View {

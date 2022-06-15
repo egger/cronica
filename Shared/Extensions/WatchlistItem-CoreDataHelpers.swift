@@ -10,8 +10,7 @@ import CoreData
 
 extension WatchlistItem {
     var itemTitle: String {
-        title ?? NSLocalizedString("No title available",
-                                   comment: "Title couldn't be found.")
+        title ?? "No title available"
     }
     var itemId: Int {
         Int(id)

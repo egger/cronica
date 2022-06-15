@@ -7,32 +7,31 @@
 
 import SwiftUI
 
-struct ItemContentContextMenu: ViewModifier {
+struct ItemContentContextMenu: ViewModifier, Sendable {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     private let context = DataController.shared
     func body(content: Content) -> some View {
         return content
             .contextMenu {
-                ShareLink(item: item.itemURL) {
-                    Label("Share", systemImage: "square.and.arrow.up")
-                }
+                ShareLink(item: item.itemURL)
                 Button(action: {
-                    updateWatchlist(item: item)
+                    updateWatchlist(with: item)
                 }, label: {
                     Label("Add to watchlist", systemImage: "plus.circle")
                 })
             }
     }
     
-    private func updateWatchlist(item: ItemContent) {
+    @Sendable
+    private func updateWatchlist(with item: ItemContent) {
         HapticManager.shared.softHaptic()
         if !context.isItemInList(id: item.id, type: item.itemContentMedia) {
             Task {
                 let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
                 if let content {
                     withAnimation {
-                        context.saveItem(content: content, notify: content.itemCanNotify)
+                        self.context.saveItem(content: content, notify: content.itemCanNotify)
                         showConfirmation.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
                             showConfirmation = false

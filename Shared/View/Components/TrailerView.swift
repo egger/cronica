@@ -29,8 +29,6 @@ struct TrailerView: View {
                                             .transition(.opacity)
                                         Color.black.opacity(0.2)
                                         Image(systemName: "play.fill")
-                                            .resizable()
-                                            .scaledToFit()
                                             .foregroundColor(.white)
                                             .imageScale(.medium)
                                             .padding()

@@ -50,7 +50,7 @@ struct ItemContentFrameView: View {
             .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
                                                    style: .continuous))
             .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
-            .shadow(radius: 4)
+            .shadow(radius: DrawingConstants.imageShadow)
             HStack {
                 Text(item.itemTitle)
                     .font(.caption)
@@ -75,6 +75,7 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 160
     static let imageHeight: CGFloat = 100
     static let imageRadius: CGFloat = 8
+    static let imageShadow: CGFloat = 2.5
     static let padImageWidth: CGFloat = 240
     static let padImageHeight: CGFloat = 140
     static let padImageRadius: CGFloat = 12

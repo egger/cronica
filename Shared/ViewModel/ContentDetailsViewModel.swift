@@ -25,8 +25,7 @@ import TelemetryClient
             } catch {
                 phase = .failure(error)
                 content = nil
-                TelemetryManager.send("ContentDetailsViewModel_load",
-                                      with: ["Error":"ID=\(id)|Type=\(type.rawValue)|Error=\(error.localizedDescription)"])
+                print(error.localizedDescription)
             }
         }
     }
@@ -43,6 +42,7 @@ import TelemetryClient
             }
             else {
                 if context.isItemInList(id: content.id, type: content.itemContentMedia) {
+                    HapticManager.shared.softHaptic()
                     let item = context.getItem(id: WatchlistItem.ID(content.id))
                     if let item {
                         let identifier: String = "\(content.itemTitle)+\(content.id)"

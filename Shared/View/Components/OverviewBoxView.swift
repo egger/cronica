@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Displays the overview of a movie, tv show, or episode.
+/// It can also display biography.
 struct OverviewBoxView: View {
     let overview: String?
     let title: String

@@ -27,7 +27,7 @@ struct StoryApp: App {
                 .onChange(of: scenePhase) { phase in
                     switch phase {
                     case .background:
-                        applicationDidEnterBackground()
+                        scheduleAppRefresh()
                     default:
                         print("Phase: \(phase).")
                     }
@@ -42,19 +42,10 @@ struct StoryApp: App {
         }
     }
     
-    private func applicationDidEnterBackground() {
-        scheduleAppRefresh()
-    }
-    
     private func scheduleAppRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 480 * 60) // Fetch no earlier than 8 hours from now
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            TelemetryManager.send("scheduleAppRefreshBGTaskError",
-                                  with: ["Error:":"\(error.localizedDescription)"])
-        }
+        try? BGTaskScheduler.shared.submit(request)
     }
     
     // Fetch the latest updates from api.
