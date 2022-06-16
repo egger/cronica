@@ -28,10 +28,8 @@ struct GenreDetailsView: View {
                     if let content = viewModel.items {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(content) { item in
-                                NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)) {
-                                    ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
-                                }
-                                .buttonStyle(.plain)
+                                ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
                             }
                             if viewModel.startPagination || !viewModel.endPagination {
                                 ProgressView()
@@ -73,7 +71,7 @@ struct GenreDetailsView: View {
     private func load() {
         Task {
             viewModel.loadMoreItems()
-            withAnimation {
+            if viewModel.currentPage == 1 {
                 isLoading = false
             }
         }

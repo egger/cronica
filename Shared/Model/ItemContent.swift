@@ -21,7 +21,7 @@ struct ItemContent: Identifiable, Decodable {
     let seasons: [Season]?
     let genres: [Genre]?
     let credits: Credits?
-    let recommendations: ContentResponse?
+    let recommendations: ItemContentResponse?
     let releaseDates: ReleaseDates?
     let mediaType: String?
     let videos: Videos?
@@ -48,11 +48,11 @@ struct ReleaseDate: Decodable {
     let certification, iso6391, releaseDate: String?
     let type: Int?
 }
-struct ContentResponse: Identifiable, Decodable {
+struct ItemContentResponse: Identifiable, Decodable {
     let id: String?
     let results: [ItemContent]
 }
-struct ContentSection: Identifiable {
+struct ItemContentSection: Identifiable {
     var id = UUID()
     let results: [ItemContent]
     let endpoint: Endpoints

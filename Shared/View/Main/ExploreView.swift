@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ExploreView: View {
     static let tag: Screens? = .explore
-#if os(iOS)
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-#endif
     private let movieGenres: [Genre] = [
         Genre(id: 28, name: NSLocalizedString("Action", comment: "")),
         Genre(id: 12, name: NSLocalizedString("Adventure", comment: "")),
@@ -42,20 +39,19 @@ struct ExploreView: View {
         Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
-    @ViewBuilder
     var body: some View {
         NavigationSplitView {
             List {
                 Section {
                     ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
-                        Text(genre.name!)
+                        NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .movie))
                     }
                 } header: {
                     Text("Popular Movies by Genre")
                 }
                 Section {
                     ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
-                        Text(genre.name!)
+                        NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .tvShow))
                     }
                 } header: {
                     Text("Popular TV Shows by Genre")
@@ -63,42 +59,8 @@ struct ExploreView: View {
             }
             .navigationTitle("Explore")
         } detail: {
-            Text("Hum")
+            Text("Select a genre.")
         }
-    }
-    
-    
-//#if os(iOS)
-//        if horizontalSizeClass == .compact {
-//            NavigationStack {
-//                details
-//            }
-//        } else {
-//           details
-//        }
-//#else
-//        details
-//#endif
-    
-    var details: some View {
-        List {
-            Section {
-                ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
-                    NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .movie))
-                }
-            } header: {
-                Text("Popular Movies by Genre")
-            }
-            Section {
-                ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
-                    NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .tvShow))
-                }
-            } header: {
-                Text("Popular TV Shows by Genre")
-            }
-            
-        }
-        .navigationTitle("Explore")
     }
 }
 

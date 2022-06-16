@@ -33,7 +33,6 @@ import TelemetryClient
     
     private func fetch() async {
         let result = try? await service.fetchDiscover(type: type,
-                                                       sort: "popularity.desc",
                                                        page: currentPage,
                                                        genres: "\(self.id)")
         await MainActor.run(body: {

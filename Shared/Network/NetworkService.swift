@@ -28,15 +28,15 @@ class NetworkService {
         guard let url = urlBuilder(path: path) else {
             throw NetworkError.invalidEndpoint
         }
-        let response: ContentResponse = try await self.fetch(url: url)
+        let response: ItemContentResponse = try await self.fetch(url: url)
         return response.results
     }
     
-    func fetchDiscover(type: MediaType, sort: String, page: Int, genres: String) async throws -> [ItemContent] {
-        guard let url = urlBuilder(type: type.rawValue, sortBy: sort, page: page, genres: genres) else {
+    func fetchDiscover(type: MediaType, page: Int, genres: String) async throws -> [ItemContent] {
+        guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres) else {
             throw NetworkError.invalidEndpoint
         }
-        let response: ContentResponse = try await self.fetch(url: url)
+        let response: ItemContentResponse = try await self.fetch(url: url)
         return response.results
     }
     
@@ -52,7 +52,7 @@ class NetworkService {
         guard let url = urlBuilder(path: "search/multi", query: query, page: page) else {
             throw NetworkError.invalidEndpoint
         }
-        let results: ContentResponse = try await self.fetch(url: url)
+        let results: ItemContentResponse = try await self.fetch(url: url)
         return results.results
     }
     
@@ -106,7 +106,7 @@ class NetworkService {
         return component.url
     }
     
-    private func urlBuilder(type: String, sortBy: String, page: Int, genres: String) -> URL? {
+    private func urlBuilder(type: String, page: Int, genres: String) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"

@@ -11,54 +11,56 @@ struct ItemContentFrameView: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     var body: some View {
-        VStack {
-            AsyncImage(url: item.cardImageMedium,
-                       transaction: Transaction(animation: .easeInOut)) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .transition(.opacity)
-                } else if phase.error != nil {
-                    ZStack {
-                        Rectangle().fill(.thickMaterial)
-                        VStack {
-                            Text(item.itemTitle)
-                                .font(.callout)
-                                .lineLimit(1)
-                                .padding(.bottom)
-                            Image(systemName: "film")
+        NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia), label: {
+            VStack {
+                AsyncImage(url: item.cardImageMedium,
+                           transaction: Transaction(animation: .easeInOut)) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .transition(.opacity)
+                    } else if phase.error != nil {
+                        ZStack {
+                            Rectangle().fill(.thickMaterial)
+                            VStack {
+                                Text(item.itemTitle)
+                                    .font(.callout)
+                                    .lineLimit(DrawingConstants.titleLineLimit)
+                                    .padding(.bottom)
+                                Image(systemName: "film")
+                            }
+                            .padding()
+                            .foregroundColor(.secondary)
                         }
-                        .padding()
-                        .foregroundColor(.secondary)
-                    }
-                } else {
-                    ZStack {
-                        Rectangle().fill(.thickMaterial)
-                        VStack {
-                            ProgressView()
-                                .padding(.bottom)
-                            Image(systemName: "film")
+                    } else {
+                        ZStack {
+                            Rectangle().fill(.thickMaterial)
+                            VStack {
+                                ProgressView()
+                                    .padding(.bottom)
+                                Image(systemName: "film")
+                            }
+                            .padding()
+                            .foregroundColor(.secondary)
                         }
-                        .padding()
-                        .foregroundColor(.secondary)
                     }
                 }
+                .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
+                        height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
+                                                       style: .continuous))
+                .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
+                .shadow(radius: DrawingConstants.imageShadow)
+                HStack {
+                    Text(item.itemTitle)
+                        .font(.caption)
+                        .lineLimit(DrawingConstants.titleLineLimit)
+                    Spacer()
+                }
+                .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
             }
-            .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
-                    height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
-                                                   style: .continuous))
-            .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
-            .shadow(radius: DrawingConstants.imageShadow)
-            HStack {
-                Text(item.itemTitle)
-                    .font(.caption)
-                    .lineLimit(DrawingConstants.titleLineLimit)
-                Spacer()
-            }
-            .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
-        }
+        })
     }
 }
 

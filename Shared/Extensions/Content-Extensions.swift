@@ -160,7 +160,7 @@ extension ItemContent {
     }
     //MARK: Sample Data for preview
     static var previewContents: [ItemContent] {
-        let data: ContentResponse? = try? Bundle.main.decode(from: "content")
+        let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
     }
     static var previewContent: ItemContent {

@@ -55,6 +55,8 @@ class DataController: ObservableObject {
         }
     }
     
+    //MARK: CRUD operations
+    
     /// Adds an item to Watchlist Core Data.
     /// - Parameter content: The item to be added, or updated.
     func saveItem(content: ItemContent, notify: Bool) {
@@ -72,6 +74,20 @@ class DataController: ObservableObject {
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
         try? viewContext.save()
+    }
+    
+    /// Get an item from the Watchlist.
+    /// - Parameter id: The ID used to fetch the list.
+    /// - Returns: If the item is in the list, it will return it.
+    func getItem(id: WatchlistItem.ID) -> WatchlistItem? {
+        let viewContext = DataController.shared.container.viewContext
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
+        let item = try? viewContext.fetch(request)
+        if let item {
+            return item[0]
+        }
+        return nil
     }
     
     func updateMarkAs(id: Int, watched: Bool?, favorite: Bool?) {
@@ -128,6 +144,8 @@ class DataController: ObservableObject {
         }
     }
     
+    //MARK: Data properties.
+    
     /// Search if an item is added to the list.
     /// - Parameters:
     ///   - id: The ID used to fetch Watchlist list.
@@ -162,6 +180,7 @@ class DataController: ObservableObject {
         return false
     }
     
+    /// Returns a boolean indicating the status of 'watched' on a given item.
     func isMarkedAsWatched(id: ItemContent.ID) -> Bool {
         let item = getItem(id: WatchlistItem.ID(id))
         if let item {
@@ -170,6 +189,7 @@ class DataController: ObservableObject {
         return false
     }
     
+    // Returns a boolean indicating the status of 'favorite' on a given item.
     func isMarkedAsFavorite(id: ItemContent.ID) -> Bool {
         let item = getItem(id: WatchlistItem.ID(id))
         if let item {
@@ -178,17 +198,4 @@ class DataController: ObservableObject {
         return false
     }
     
-    /// Get an item from the Watchlist.
-    /// - Parameter id: The ID used to fetch the list.
-    /// - Returns: If the item is in the list, it will return it.
-    func getItem(id: WatchlistItem.ID) -> WatchlistItem? {
-        let viewContext = DataController.shared.container.viewContext
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
-        let item = try? viewContext.fetch(request)
-        if let item {
-            return item[0]
-        }
-        return nil
-    }
 }

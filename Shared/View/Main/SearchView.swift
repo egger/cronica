@@ -13,6 +13,7 @@ struct SearchView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 #endif
     @StateObject private var viewModel: SearchViewModel
+    @State private var showConfirmation: Bool = false
     private let context = DataController.shared
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
@@ -33,44 +34,27 @@ struct SearchView: View {
     }
     
     var detailsView: some View {
-        List {
-            ForEach(viewModel.searchItems) { item in
-                if item.media == MediaType.person {
-                    NavigationLink(destination: CastDetailsView(title: item.itemTitle, id: item.id)) {
-                        SearchItemView(content: item)
-                            .contextMenu {
-                                ShareLink(item: item.itemSearchURL) {
-                                    Label("Share",
-                                          systemImage: "square.and.arrow.up")
-                                }
-                            }
-                    }
-                } else {
-                    NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.media)) {
-                        SearchItemView(content: item)
-                            .contextMenu {
-                                ShareLink(item: item.itemURL) {
-                                    Label("Share", systemImage: "square.and.arrow.up")
-                                }
-                                Button(action: {
-                                    updateWatchlist(item: item)
-                                }, label: {
-                                    Label("Add to watchlist", systemImage: "plus.circle")
-                                })
-                            }
+        ZStack {
+            List {
+                ForEach(viewModel.searchItems) { item in
+                    if item.media == MediaType.person {
+                        SearchItemView(content: item, showConfirmation: $showConfirmation)
+                    } else {
+                        SearchItemView(content: item, showConfirmation: $showConfirmation)
                     }
                 }
             }
+            .listStyle(.inset)
+            .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.large)
+            .searchable(text: $viewModel.query,
+                        placement: .navigationBarDrawer(displayMode: .always),
+                        prompt: Text("Movies, Shows, People"))
+            .disableAutocorrection(true)
+            .overlay(overlayView)
+            .onAppear { viewModel.observe() }
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
-        .listStyle(.inset)
-        .navigationTitle("Search")
-        .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $viewModel.query,
-                    placement: .navigationBarDrawer(displayMode: .always),
-                    prompt: Text("Movies, Shows, People"))
-        .disableAutocorrection(true)
-        .overlay(overlayView)
-        .onAppear { viewModel.observe() }
     }
     
     @ViewBuilder

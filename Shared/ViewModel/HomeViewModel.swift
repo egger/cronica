@@ -11,12 +11,12 @@ import TelemetryClient
 
 @MainActor class HomeViewModel: ObservableObject {
     @Published private(set) var trendingPhase: DataFetchPhase<[ItemContent]?> = .empty
-    @Published private(set) var phase: DataFetchPhase<[ContentSection]?> = .empty
+    @Published private(set) var phase: DataFetchPhase<[ItemContentSection]?> = .empty
     private let service: NetworkService = NetworkService.shared
     var trendingSection: [ItemContent]? {
         trendingPhase.value ?? nil
     }
-    var sections: [ContentSection]? {
+    var sections: [ItemContentSection]? {
         phase.value ?? nil
     }
     
@@ -26,7 +26,7 @@ import TelemetryClient
             if case .success = phase { return }
             phase = .empty
             do {
-                var items: [ContentSection] = []
+                var items: [ItemContentSection] = []
                 let movies = try await self.fetchEndpoints()
                 if Task.isCancelled { return }
                 for movie in movies {
@@ -50,19 +50,27 @@ import TelemetryClient
         }
     }
     
-    private func fetchEndpoints(_ endpoint: [Endpoints] = Endpoints.allCases) async throws -> [ContentSection] {
-        let results: [Result<ContentSection, Error>] = await withTaskGroup(of: Result<ContentSection,
+    private func fetchTrending() async {
+        let result = try? await self.service.fetchContents(from: "trending/all/week")
+        if let result {
+            let trending = result.filter { $0.itemContentMedia != .person }
+            trendingPhase = .success(trending)
+        }
+    }
+    
+    private func fetchEndpoints(_ endpoint: [Endpoints] = Endpoints.allCases) async throws -> [ItemContentSection] {
+        let results: [Result<ItemContentSection, Error>] = await withTaskGroup(of: Result<ItemContentSection,
                                                                            Error>.self) { group in
             for endpoint in endpoint {
                 group.addTask { await self.fetchFrom(endpoint, type: .movie) }
             }
-            var results = [Result<ContentSection, Error>]()
+            var results = [Result<ItemContentSection, Error>]()
             for await result in group {
                 results.append(result)
             }
             return results
         }
-        var sections = [ContentSection]()
+        var sections = [ItemContentSection]()
         var errors = [Error]()
         
         results.forEach { result in
@@ -83,7 +91,7 @@ import TelemetryClient
         return sections.sorted { $0.endpoint.sortIndex < $1.endpoint.sortIndex }
     }
     
-    private func fetchFrom(_ endpoint: Endpoints, type: MediaType) async -> Result<ContentSection, Error> {
+    private func fetchFrom(_ endpoint: Endpoints, type: MediaType) async -> Result<ItemContentSection, Error> {
         do {
             let section = try await service.fetchContents(from: "\(type.rawValue)/\(endpoint.rawValue)")
             return .success(.init(results: section, endpoint: endpoint))
