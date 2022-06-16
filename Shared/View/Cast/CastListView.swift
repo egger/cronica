@@ -21,18 +21,20 @@ struct CastListView: View {
                 ScrollView(.horizontal, showsIndicators: false, content: {
                     HStack {
                         ForEach(credits.cast.prefix(10)) { cast in
-                            NavigationLink(destination: CastDetailsView(title: cast.name, id: cast.id)) {
+                            NavigationLink(destination: CastDetailsView(title: cast.name, id: cast.id),
+                                           label: {
                                 ImageView(person: cast)
                                     .shadow(radius: DrawingConstants.shadowRadius)
                                     .padding(.leading, cast.id == self.credits?.cast.first!.id ? 16 : 0)
-                            }
+                            })
                             .buttonStyle(.plain)
                         }
                         ForEach(credits.crew.filter { $0.personRole == "Director" }) { director in
-                            NavigationLink(destination: CastDetailsView(title: director.name, id: director.id)) {
+                            NavigationLink(destination: CastDetailsView(title: director.name, id: director.id),
+                                           label: {
                                 ImageView(person: director)
                                     .shadow(radius: DrawingConstants.shadowRadius)
-                            }
+                            })
                             .buttonStyle(.plain)
                         }
                     }

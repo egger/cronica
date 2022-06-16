@@ -20,6 +20,18 @@ import TelemetryClient
         phase.value ?? nil
     }
     
+    @Published var trendingItems: [ItemContent]?
+    @Published var sectionsItems: [ItemContentSection]?
+    
+    func fetchItems() async {
+        Task {
+            let results = try? await self.service.fetchContents(from: "trending/all/week")
+            if let results {
+                trendingItems?.append(contentsOf: results)
+            }
+        }
+    }
+    
     func load() async {
         Task {
             if Task.isCancelled { return }

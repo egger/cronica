@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct SearchItemView: View {
-    let content: ItemContent
+    let item: ItemContent
     @Binding var showConfirmation: Bool
     var body: some View {
-        if content.media == .person {
-            NavigationLink(destination: CastDetailsView(title: content.itemTitle, id: content.id), label: {
-                SearchItem(item: content)
+        if item.media == .person {
+            NavigationLink(destination: CastDetailsView(title: item.itemTitle, id: item.id),
+                           label: {
+                SearchItem(item: item)
                     .contextMenu {
-                        ShareLink(item: content.itemSearchURL)
+                        ShareLink(item: item.itemSearchURL)
                     }
             })
         } else {
-            NavigationLink(destination: ContentDetailsView(title: content.itemTitle, id: content.id, type: content.media), label: {
-                SearchItem(item: content)
-                    .modifier(ItemContentContextMenu(item: content, showConfirmation: $showConfirmation))
+            NavigationLink(destination: ContentDetailsView(title: item.itemTitle,
+                                                           id: item.id,
+                                                           type: item.media),
+                           label: {
+                SearchItem(item: item)
+                    .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
             })
         }
     }
@@ -30,7 +34,7 @@ struct SearchItemView: View {
 struct SearchItemView_Previews: PreviewProvider {
     @State private static var show: Bool = false
     static var previews: some View {
-        SearchItemView(content: ItemContent.previewContent, showConfirmation: $show)
+        SearchItemView(item: ItemContent.previewContent, showConfirmation: $show)
     }
 }
 

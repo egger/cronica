@@ -29,10 +29,7 @@ struct WatchListSection: View {
                                     Label(item.watched ? "Remove from Watched" : "Mark as Watched",
                                           systemImage: item.watched ? "minus.circle" : "checkmark.circle")
                                 })
-                                ShareLink(item: item.itemLink) {
-                                    Label("Share",
-                                          systemImage: "square.and.arrow.up")
-                                }
+                                ShareLink(item: item.itemLink)
                                 Divider()
                                 Button(role: .destructive, action: {
                                     withAnimation {

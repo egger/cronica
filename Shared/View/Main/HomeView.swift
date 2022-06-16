@@ -53,12 +53,18 @@ struct HomeView: View {
                                                 addedItemConfirmation: $showConfirmation)
                         }
                     }
+                    NavigationLink(destination: ExploreView(), label: {
+                        Label("Explore by Genres", systemImage: "film")
+                    })
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .tint(Color.blue.gradient)
                     AttributionView()
                 }
                 .redacted(reason: isLoading ? .placeholder : [] )
                 .navigationTitle("Home")
                 .toolbar {
-                    ToolbarItem {
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             HapticManager.shared.softHaptic()
                             showSettings.toggle()
@@ -84,6 +90,7 @@ struct HomeView: View {
     private func load() {
         Task {
             await viewModel.load()
+            await viewModel.fetchItems()
             withAnimation {
                 isLoading = false
             }

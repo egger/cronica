@@ -34,9 +34,8 @@ class BackgroundManager {
         let list = try? self.context.container.viewContext.fetch(request)
         if let list {
             return list
-        } else {
-            return []
         }
+        return []
     }
     
     /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.

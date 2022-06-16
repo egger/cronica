@@ -29,6 +29,11 @@ class NotificationManager: ObservableObject {
     }
     
     func schedule(notificationContent: ItemContent) {
+        self.requestAuthorization { granted in
+            if !granted {
+                return
+            }
+        }
         let identifier: String = "\(notificationContent.itemTitle)+\(notificationContent.id)"
         let title = notificationContent.itemTitle
         var body: String
@@ -44,11 +49,6 @@ class NotificationManager: ObservableObject {
             date = notificationContent.nextEpisodeDate!
         } else {
             date = notificationContent.itemFallbackDate
-        }
-        self.requestAuthorization { granted in
-            if !granted {
-                return
-            }
         }
         if let date {
             self.scheduleNotification(identifier: identifier,

@@ -75,7 +75,6 @@ struct ContentDetailsView: View {
                         .padding()
                     
                     TrailerView(imageUrl: viewModel.content?.cardImageMedium,
-                                title: "Trailer",
                                 trailerUrl: viewModel.content?.itemTrailer)
                     
                     SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons, tvId: id)

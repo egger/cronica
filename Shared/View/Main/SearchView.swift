@@ -18,7 +18,6 @@ struct SearchView: View {
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
     }
-    @ViewBuilder
     var body: some View {
 #if os(iOS)
         if horizontalSizeClass == .compact {
@@ -37,7 +36,7 @@ struct SearchView: View {
         ZStack {
             List {
                 ForEach(viewModel.searchItems) { item in
-                    SearchItemView(content: item, showConfirmation: $showConfirmation)
+                    SearchItemView(item: item, showConfirmation: $showConfirmation)
                 }
             }
             .listStyle(.inset)
@@ -78,20 +77,6 @@ struct SearchView: View {
                 }
             })
         default: EmptyView()
-        }
-    }
-    
-    private func updateWatchlist(item: ItemContent) {
-        HapticManager.shared.softHaptic()
-        if !context.isItemInList(id: item.id, type: item.media) {
-            Task {
-                let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
-                if let content = content {
-                    withAnimation {
-                        context.saveItem(content: content, notify: content.itemCanNotify)
-                    }
-                }
-            }
         }
     }
 }

@@ -1,15 +1,14 @@
 //
-//  ExploreView.swift
+//  ExploreViewModel.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 30/04/22.
+//  Created by Alexandre Madeira on 16/06/22.
 //
 
-import SwiftUI
+import Foundation
 
-struct ExploreView: View {
-    static let tag: Screens? = .explore
-    private let movieGenres: [Genre] = [
+@MainActor class ExploreViewModel: ObservableObject {
+    let movieGenres: [Genre] = [
         Genre(id: 28, name: NSLocalizedString("Action", comment: "")),
         Genre(id: 12, name: NSLocalizedString("Adventure", comment: "")),
         Genre(id: 16, name: NSLocalizedString("Animation", comment: "")),
@@ -28,7 +27,7 @@ struct ExploreView: View {
         Genre(id: 53, name: NSLocalizedString("Thriller", comment: "")),
         Genre(id: 10752, name: NSLocalizedString("War", comment: ""))
     ]
-    private let tvGenres: [Genre] = [
+    let tvGenres: [Genre] = [
         Genre(id: 10759, name: NSLocalizedString("Action & Adventure", comment: "")),
         Genre(id: 16, name: NSLocalizedString("Animation", comment: "")),
         Genre(id: 35, name: NSLocalizedString("Comedy", comment: "")),
@@ -39,32 +38,4 @@ struct ExploreView: View {
         Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
-    var body: some View {
-        VStack {
-            List {
-                Section {
-                    ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
-                        NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .movie))
-                    }
-                } header: {
-                    Text("Popular Movies by Genre")
-                }
-                Section {
-                    ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
-                        NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .tvShow))
-                    }
-                } header: {
-                    Text("Popular TV Shows by Genre")
-                }
-            }
-            .listStyle(.insetGrouped)
-            .navigationTitle("Explore")
-        }
-    }
-}
-
-struct ExploreView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExploreView()
-    }
 }

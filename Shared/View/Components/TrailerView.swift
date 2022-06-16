@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TrailerView: View {
     let imageUrl: URL?
-    let title: String
     let trailerUrl: URL?
     @State private var showTrailerInSafari: Bool = false
     var body: some View {
@@ -56,7 +55,7 @@ struct TrailerView: View {
                                 showTrailerInSafari.toggle()
                             }
                             HStack {
-                                Text(title)
+                                Text("Trailer")
                                     .padding([.horizontal, .bottom])
                                     .font(.caption)
                                     .foregroundColor(.secondary)
