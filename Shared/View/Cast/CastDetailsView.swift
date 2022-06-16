@@ -51,9 +51,7 @@ struct CastDetailsView: View {
             .navigationTitle(title)
             .toolbar {
                 ToolbarItem {
-                    ShareLink(item: URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!) {
-                        Label("Share", systemImage: "square.and.arrow.up")
-                    }
+                    ShareLink(item: URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!) 
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)

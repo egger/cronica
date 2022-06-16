@@ -37,11 +37,7 @@ struct SearchView: View {
         ZStack {
             List {
                 ForEach(viewModel.searchItems) { item in
-                    if item.media == MediaType.person {
-                        SearchItemView(content: item, showConfirmation: $showConfirmation)
-                    } else {
-                        SearchItemView(content: item, showConfirmation: $showConfirmation)
-                    }
+                    SearchItemView(content: item, showConfirmation: $showConfirmation)
                 }
             }
             .listStyle(.inset)

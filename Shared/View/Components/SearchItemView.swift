@@ -8,78 +8,20 @@
 import SwiftUI
 
 struct SearchItemView: View {
-    let content: ItemContent?
+    let content: ItemContent
     @Binding var showConfirmation: Bool
     var body: some View {
-        if let content {
-            NavigationLink(destination: ContentDetailsView(title: content.itemTitle,
-                                                           id: content.id,
-                                                           type: content.media),
-                           label: {
-                HStack {
-                    if content.media == .person {
-                        AsyncImage(url: content.itemImage,
-                                   transaction: Transaction(animation: .easeInOut)) { phase in
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .transition(.opacity)
-                            } else if phase.error != nil {
-                                ZStack {
-                                    ProgressView()
-                                }.background(.secondary)
-                            } else {
-                                ZStack {
-                                    Color.secondary
-                                    Image(systemName: "person")
-                                }
-                            }
-                        }
-                        .frame(width: DrawingConstants.personImageWidth,
-                               height: DrawingConstants.personImageHeight)
-                        .clipShape(Circle())
-                    } else {
-                        AsyncImage(url: content.itemImage,
-                                   transaction: Transaction(animation: .easeInOut)) { phase in
-                            if let image = phase.image {
-                                ZStack {
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .transition(.opacity)
-                                }
-                            } else if phase.error != nil {
-                                ZStack {
-                                    Color.secondary
-                                    ProgressView()
-                                }
-                            } else {
-                                ZStack {
-                                    Color.secondary
-                                    Image(systemName: "film")
-                                }
-                            }
-                        }
-                        .frame(width: DrawingConstants.imageWidth,
-                               height: DrawingConstants.imageHeight)
-                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+        if content.media == .person {
+            NavigationLink(destination: CastDetailsView(title: content.itemTitle, id: content.id), label: {
+                SearchItem(item: content)
+                    .contextMenu {
+                        ShareLink(item: content.itemSearchURL)
                     }
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(content.itemTitle)
-                                .lineLimit(DrawingConstants.textLimit)
-                        }
-                        HStack {
-                            Text(content.media.title)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                        }
-                    }
-                }
-                .modifier(ItemContentContextMenu(item: content, showConfirmation: $showConfirmation))
-                .accessibilityElement(children: .combine)
+            })
+        } else {
+            NavigationLink(destination: ContentDetailsView(title: content.itemTitle, id: content.id, type: content.media), label: {
+                SearchItem(item: content)
+                    .modifier(ItemContentContextMenu(item: content, showConfirmation: $showConfirmation))
             })
         }
     }
@@ -89,6 +31,75 @@ struct SearchItemView_Previews: PreviewProvider {
     @State private static var show: Bool = false
     static var previews: some View {
         SearchItemView(content: ItemContent.previewContent, showConfirmation: $show)
+    }
+}
+
+private struct SearchItem: View {
+    let item: ItemContent
+    var body: some View {
+        HStack {
+            if item.media == .person {
+                AsyncImage(url: item.itemImage,
+                           transaction: Transaction(animation: .easeInOut)) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .transition(.opacity)
+                    } else if phase.error != nil {
+                        ZStack {
+                            ProgressView()
+                        }.background(.secondary)
+                    } else {
+                        ZStack {
+                            Color.secondary
+                            Image(systemName: "person")
+                        }
+                    }
+                }
+                .frame(width: DrawingConstants.personImageWidth,
+                       height: DrawingConstants.personImageHeight)
+                .clipShape(Circle())
+            } else {
+                AsyncImage(url: item.itemImage,
+                           transaction: Transaction(animation: .easeInOut)) { phase in
+                    if let image = phase.image {
+                        ZStack {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .transition(.opacity)
+                        }
+                    } else if phase.error != nil {
+                        ZStack {
+                            Color.secondary
+                            ProgressView()
+                        }
+                    } else {
+                        ZStack {
+                            Color.secondary
+                            Image(systemName: "film")
+                        }
+                    }
+                }
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+            }
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(item.itemTitle)
+                        .lineLimit(DrawingConstants.textLimit)
+                }
+                HStack {
+                    Text(item.media.title)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+            }
+        }
+        .accessibilityElement(children: .combine)
     }
 }
 
