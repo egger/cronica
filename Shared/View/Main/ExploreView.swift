@@ -40,25 +40,36 @@ struct ExploreView: View {
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
     var body: some View {
-        VStack {
-            List {
-                Section {
-                    ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
-                        NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .movie))
+        NavigationStack {
+            VStack {
+                List {
+                    Section {
+                        ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
+                            NavigationLink(genre.name!, value: genre)
+                        }
+                    } header: {
+                        Text("Popular Movies by Genre")
                     }
-                } header: {
-                    Text("Popular Movies by Genre")
-                }
-                Section {
-                    ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
-                        NavigationLink(genre.name!, destination: GenreDetailsView(genre: genre, media: .tvShow))
+                    Section {
+                        ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
+                            NavigationLink(genre.name!, value: genre)
+                        }
+                    } header: {
+                        Text("Popular TV Shows by Genre")
                     }
-                } header: {
-                    Text("Popular TV Shows by Genre")
                 }
+                .listStyle(.insetGrouped)
             }
-            .listStyle(.insetGrouped)
             .navigationTitle("Explore")
+            .navigationDestination(for: Genre.self) { genre in
+                GenreDetailsView(genre: genre, media: .movie)
+            }
+            .navigationDestination(for: ItemContent.self) { item in
+                ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            }
+            .navigationDestination(for: Person.self) { person in
+                CastDetailsView(title: person.name, id: person.id)
+            }
         }
     }
 }

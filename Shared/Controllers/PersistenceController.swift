@@ -1,5 +1,5 @@
 //
-//  DataController.swift
+//  PersistenceController.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 29/01/22.
@@ -9,11 +9,11 @@ import CoreData
 import SwiftUI
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
-/// counting fetch request, tracking watchlists, and dealing with sample data.
-class DataController: ObservableObject {
-    static let shared = DataController()
-    static var preview: DataController = {
-        let result = DataController(inMemory: true)
+/// tracking watchlists, and dealing with sample data.
+struct PersistenceController {
+    static let shared = PersistenceController()
+    static var preview: PersistenceController = {
+        let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for item in ItemContent.previewContents {
             let newItem = WatchlistItem(context: viewContext)
@@ -47,12 +47,13 @@ class DataController: ObservableObject {
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        container.loadPersistentStores {_, error in
+        container.loadPersistentStores {storeDescription, error in
+            print(storeDescription.url as Any)
             if let error {
                 print(error.localizedDescription)
             }
         }
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
     //MARK: CRUD operations
@@ -60,7 +61,7 @@ class DataController: ObservableObject {
     /// Adds an item to Watchlist Core Data.
     /// - Parameter content: The item to be added, or updated.
     func saveItem(content: ItemContent, notify: Bool) {
-        let viewContext = DataController.shared.container.viewContext
+        let viewContext = PersistenceController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.contentType = content.itemContentMedia.watchlistInt
         item.title = content.itemTitle
@@ -80,7 +81,7 @@ class DataController: ObservableObject {
     /// - Parameter id: The ID used to fetch the list.
     /// - Returns: If the item is in the list, it will return it.
     func getItem(id: WatchlistItem.ID) -> WatchlistItem? {
-        let viewContext = DataController.shared.container.viewContext
+        let viewContext = PersistenceController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
         let item = try? viewContext.fetch(request)
@@ -91,7 +92,7 @@ class DataController: ObservableObject {
     }
     
     func updateMarkAs(id: Int, watched: Bool?, favorite: Bool?) {
-        let viewContext = DataController.shared.container.viewContext
+        let viewContext = PersistenceController.shared.container.viewContext
         let item = self.getItem(id: WatchlistItem.ID(id))
         if let item {
             if let watched {
@@ -109,7 +110,7 @@ class DataController: ObservableObject {
     // Updates an item on Watchlist Core Data.
     func updateItem(content: ItemContent, isWatched watched: Bool?, isFavorite favorite: Bool?) {
         if isItemInList(id: content.id, type: content.itemContentMedia) {
-            let viewContext = DataController.shared.container.viewContext
+            let viewContext = PersistenceController.shared.container.viewContext
             let item = self.getItem(id: WatchlistItem.ID(content.id))
             if let item {
                 item.title = content.itemTitle
@@ -136,7 +137,7 @@ class DataController: ObservableObject {
     
     /// Deletes a WatchlistItem from Core Data.
     func removeItem(id: WatchlistItem) {
-        let viewContext = DataController.shared.container.viewContext
+        let viewContext = PersistenceController.shared.container.viewContext
         let item = try? viewContext.existingObject(with: id.objectID)
         if let item {
             viewContext.delete(item)
@@ -152,7 +153,7 @@ class DataController: ObservableObject {
     ///   - type: The Media Type of the content.
     /// - Returns: Returns true if the content is already added to the Watchlist.
     func isItemInList(id: ItemContent.ID, type: MediaType) -> Bool {
-        let viewContext = DataController.shared.container.viewContext
+        let viewContext = PersistenceController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
         let numberOfObjects = try? viewContext.count(for: request)

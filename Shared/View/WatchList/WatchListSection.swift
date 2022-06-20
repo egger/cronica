@@ -9,9 +9,7 @@ import SwiftUI
 
 struct WatchListSection: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var isSharePresented: Bool = false
-    @State private var shareItems: [Any] = []
-    private let context = DataController.shared
+    private let context = PersistenceController.shared
     let items: [WatchlistItem]
     let title: String
     var body: some View {

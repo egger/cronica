@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ItemContent: Identifiable, Decodable {
+struct ItemContent: Identifiable, Decodable, Hashable {
     let adult: Bool?
     let id: Int
     let title, name, overview: String?
@@ -27,28 +27,28 @@ struct ItemContent: Identifiable, Decodable {
     let videos: Videos?
     let nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
-struct ProductionCompany: Decodable {
+struct ProductionCompany: Decodable, Hashable {
     let name: String
 }
-struct ProductionCountry: Decodable {
+struct ProductionCountry: Decodable, Hashable {
     let name: String
 }
-struct Genre: Decodable, Identifiable {
+struct Genre: Decodable, Identifiable, Hashable {
     let id: Int
     let name: String?
 }
-struct ReleaseDates: Decodable {
+struct ReleaseDates: Decodable, Hashable {
     let results: [ReleaseDatesResult]
 }
-struct ReleaseDatesResult: Decodable {
+struct ReleaseDatesResult: Decodable, Hashable {
     let iso31661: String?
     let releaseDates: [ReleaseDate]?
 }
-struct ReleaseDate: Decodable {
+struct ReleaseDate: Decodable, Hashable {
     let certification, iso6391, releaseDate: String?
     let type: Int?
 }
-struct ItemContentResponse: Identifiable, Decodable {
+struct ItemContentResponse: Identifiable, Decodable, Hashable {
     let id: String?
     let results: [ItemContent]
 }

@@ -36,7 +36,7 @@ extension WatchlistItem {
         return URL(string: "https://www.themoviedb.org/\(itemMedia.rawValue)/\(itemId)")!
     }
     static var example: WatchlistItem {
-        let controller = DataController(inMemory: true)
+        let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.title = ItemContent.previewContent.itemTitle

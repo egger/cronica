@@ -10,7 +10,7 @@ import SwiftUI
 struct ItemContentContextMenu: ViewModifier, Sendable {
     let item: ItemContent
     @Binding var showConfirmation: Bool
-    private let context = DataController.shared
+    private let context = PersistenceController.shared
     func body(content: Content) -> some View {
         return content
             .contextMenu {
@@ -23,7 +23,6 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
             }
     }
     
-    @Sendable
     private func updateWatchlist(with item: ItemContent) {
         HapticManager.shared.softHaptic()
         if !context.isItemInList(id: item.id, type: item.itemContentMedia) {

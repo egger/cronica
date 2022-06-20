@@ -31,7 +31,7 @@ struct WatchListUpcomingMoviesListView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(items) { item in
-                            NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
+                            NavigationLink(value: item) {
                                 CardView(title: item.itemTitle, url: item.image, subtitle: item.formattedDate)
                                     .modifier(UpcomingWatchlistContextMenu(item: item))
                                     .padding([.leading, .trailing], 4)

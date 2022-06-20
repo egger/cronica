@@ -10,7 +10,7 @@ import Foundation
 @MainActor class CastDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published private(set) var phase: DataFetchPhase<Person?> = .empty
-    var isLoaded: Bool = false
+    @Published var isLoaded: Bool = false
     var person: Person?
     
     func load(id: Int) async {
@@ -18,7 +18,7 @@ import Foundation
         if person == nil {
             do {
                 person = try await self.service.fetchPerson(id: id)
-                isLoaded = true
+                isLoaded.toggle()
             } catch {
                 phase = .failure(error)
                 person = nil

@@ -12,21 +12,17 @@ struct SearchItemView: View {
     @Binding var showConfirmation: Bool
     var body: some View {
         if item.media == .person {
-            NavigationLink(destination: CastDetailsView(title: item.itemTitle, id: item.id),
-                           label: {
+            NavigationLink(value: item) {
                 SearchItem(item: item)
                     .contextMenu {
                         ShareLink(item: item.itemSearchURL)
                     }
-            })
+            }
         } else {
-            NavigationLink(destination: ContentDetailsView(title: item.itemTitle,
-                                                           id: item.id,
-                                                           type: item.media),
-                           label: {
+            NavigationLink(value: item) {
                 SearchItem(item: item)
                     .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
-            })
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ struct ItemContentListView: View {
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         HStack {
                             ForEach(items) { item in
-                                NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia), label: {
+                                NavigationLink(value: item) {
                                     PosterView(title: item.itemTitle, url: item.posterImageMedium)
                                         .frame(width: DrawingConstants.posterWidth,
                                                height: DrawingConstants.posterHeight)
@@ -35,7 +35,7 @@ struct ItemContentListView: View {
                                                 radius: DrawingConstants.shadowRadius)
                                         .modifier(ItemContentContextMenu(item: item, showConfirmation: $addedItemConfirmation))
                                         .padding([.leading, .trailing], 4)
-                                })
+                                }
                                 .buttonStyle(.plain)
                                 .padding(.leading, item.id == items.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == items.last!.id ? 16 : 0)
@@ -43,7 +43,11 @@ struct ItemContentListView: View {
                             }
                         }
                     })
+//                    .navigationDestination(for: ItemContent.self) { item in
+//                        ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+//                    }
                 }
+                
             }
         }
     }

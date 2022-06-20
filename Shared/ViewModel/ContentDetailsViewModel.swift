@@ -13,7 +13,7 @@ import TelemetryClient
     private let service: NetworkService = NetworkService.shared
     private let notification: NotificationManager = NotificationManager()
     @Published private(set) var phase: DataFetchPhase<ItemContent?> = .empty
-    let context: DataController = DataController.shared
+    let context: PersistenceController = PersistenceController.shared
     var content: ItemContent?
     
     func load(id: ItemContent.ID, type: MediaType) async {

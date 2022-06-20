@@ -21,12 +21,11 @@ struct CastListView: View {
                 ScrollView(.horizontal, showsIndicators: false, content: {
                     HStack {
                         ForEach(credits.cast.prefix(10)) { cast in
-                            NavigationLink(destination: CastDetailsView(title: cast.name, id: cast.id),
-                                           label: {
+                            NavigationLink(value: cast) {
                                 ImageView(person: cast)
                                     .shadow(radius: DrawingConstants.shadowRadius)
                                     .padding(.leading, cast.id == self.credits?.cast.first!.id ? 16 : 0)
-                            })
+                            }
                             .buttonStyle(.plain)
                         }
                         ForEach(credits.crew.filter { $0.personRole == "Director" }) { director in
@@ -62,6 +61,13 @@ private struct ImageView: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
+                        .mask(
+                            LinearGradient(gradient: Gradient(stops: [
+                                .init(color: .black, location: 0),
+                                .init(color: .black, location: 0.5),
+                                .init(color: .black.opacity(0), location: 1)
+                            ]), startPoint: .top, endPoint: .bottom)
+                        )
                         .transition(.opacity)
                 } else if phase.error != nil {
                     Rectangle().redacted(reason: .placeholder)
@@ -73,13 +79,6 @@ private struct ImageView: View {
                                        .foregroundColor(.secondary)
                     }
                 }
-            }
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .frame(height: 60)
-                    
             }
             VStack {
                 Spacer()
@@ -100,7 +99,7 @@ private struct ImageView: View {
                     Spacer()
                 }
             }
-            .padding(.bottom, 2)
+            .padding(.bottom)
         }
         .frame(width: DrawingConstants.profileWidth,
                height: DrawingConstants.profileHeight)

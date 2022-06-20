@@ -10,7 +10,7 @@ import CoreData
 import BackgroundTasks
 
 class BackgroundManager {
-    private let context = DataController.shared
+    private let context = PersistenceController.shared
     private let network = NetworkService.shared
     private let notifications = NotificationManager.shared
     

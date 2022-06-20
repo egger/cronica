@@ -26,8 +26,10 @@ struct WatchListUpcomingSeasonsListView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(items) { item in
-                            NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
-                                CardView(title: item.itemTitle, url: item.image, subtitle: NSLocalizedString("Season \(item.nextSeasonNumber)", comment: ""))
+                            NavigationLink(value: item) {
+                                CardView(title: item.itemTitle,
+                                         url: item.image,
+                                         subtitle: "Season \(item.nextSeasonNumber)")
                                     .modifier(UpcomingWatchlistContextMenu(item: item))
                                     .padding([.leading, .trailing], 4)
                                     .transition(.opacity)

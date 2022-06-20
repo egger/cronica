@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Videos: Decodable {
+struct Videos: Decodable, Hashable {
     let results: [VideosResult]
 }
-struct VideosResult: Decodable {
+struct VideosResult: Decodable, Hashable {
     let iso639_1, iso3166_1, id: String?
     let name, key, type: String
     let official: Bool

@@ -11,7 +11,7 @@ import TelemetryClient
 
 @main
 struct StoryApp: App {
-    @StateObject var dataController = DataController.shared
+    let dataController = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     @Environment(\.scenePhase) private var scenePhase
     init() {
@@ -23,7 +23,6 @@ struct StoryApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(dataController)
                 .onChange(of: scenePhase) { phase in
                     switch phase {
                     case .background:
