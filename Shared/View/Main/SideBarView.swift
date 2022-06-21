@@ -16,7 +16,7 @@ struct SideBarView: View {
                     Label("Home", systemImage: "house")
                 }
                 .tag(HomeView.tag)
-                NavigationLink(value: Screens.explore) {
+                NavigationLink(value: Screens.discover) {
                     Label("Explore", systemImage: "film")
                 }
                 .tag(DiscoverView.tag)
@@ -32,20 +32,7 @@ struct SideBarView: View {
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
         } detail: {
-            switch selectedView {
-            case .search: SearchView()
-            case .watchlist: WatchlistView()
-            case .explore: DiscoverView()
-            default: HomeView()
-            }
-        }
-        .navigationDestination(for: Screens.self) { screens in
-            switch screens {
-            case .search: SearchView()
-            case .watchlist: WatchlistView()
-            case .explore: DiscoverView()
-            default: HomeView()
-            }
+            
         }
     }
 }

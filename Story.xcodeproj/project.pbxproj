@@ -364,11 +364,11 @@
 			isa = PBXGroup;
 			children = (
 				B84C53FC27B1F1DD00425524 /* ItemView.swift */,
+				B8733CEE284FDD2800346FC0 /* UpcomingWatchlistContextMenu.swift */,
 				B8C335462815ED140055389D /* WatchListSection.swift */,
 				B890C57C27FCC056006BE5E1 /* WatchListUpcomingMoviesListView.swift */,
 				B8ADAF6B282B463E001D72EF /* WatchListUpcomingSeasonsListView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
-				B8733CEE284FDD2800346FC0 /* UpcomingWatchlistContextMenu.swift */,
 			);
 			path = WatchList;
 			sourceTree = "<group>";
@@ -376,9 +376,9 @@
 		B886D234284E482500FFE96A /* Season */ = {
 			isa = PBXGroup;
 			children = (
+				B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */,
 				B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
-				B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */,
 			);
 			path = Season;
 			sourceTree = "<group>";
@@ -440,11 +440,11 @@
 		B8C3354B28170BAC0055389D /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8779374281E2CE700174F32 /* DiscoverView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
 				B8CC952027CFEBEC00B6757C /* SearchView.swift */,
+				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B876DE55281B2743005558DD /* SideBarView.swift */,
 				B8779376281E319D00174F32 /* TabBarView.swift */,
 				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DiscoverView: View {
-    static let tag: Screens? = .explore
+    static let tag: Screens? = .discover
     @State private var showConfirmation: Bool = false
     @State private var selectedMedia: MediaType = .movie
     @State private var selectedGenre: Int = 28
@@ -24,8 +24,8 @@ struct DiscoverView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                VStack {
-                    ScrollView {
+                ScrollView {
+                    VStack {
                         if let content = viewModel.items {
                             LazyVGrid(columns: columns, spacing: 20) {
                                 ForEach(content) { item in
@@ -58,7 +58,14 @@ struct DiscoverView: View {
                             ProgressView()
                         }
                     }
+                    .navigationDestination(for: ItemContent.self) { item in
+                        ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                    }
+                    .navigationDestination(for: Person.self) { person in
+                        CastDetailsView(title: person.name, id: person.id)
+                    }
                 }
+                
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
             .navigationTitle("Explore")
@@ -72,6 +79,7 @@ struct DiscoverView: View {
                         Text(MediaType.movie.title).tag(MediaType.movie)
                         Text(MediaType.tvShow.title).tag(MediaType.tvShow)
                     }
+                    .pickerStyle(.menu)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Picker("Genre", selection: $selectedGenre) {
@@ -85,13 +93,8 @@ struct DiscoverView: View {
                             }
                         }
                     }
+                    .pickerStyle(.menu)
                 }
-            }
-            .navigationDestination(for: ItemContent.self) { item in
-                ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-            }
-            .navigationDestination(for: Person.self) { person in
-                CastDetailsView(title: person.name, id: person.id)
             }
             .onChange(of: selectedMedia) { value in
                 onChanging = true

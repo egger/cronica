@@ -27,7 +27,7 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
         HapticManager.shared.softHaptic()
         if !context.isItemInList(id: item.id, type: item.itemContentMedia) {
             Task {
-                let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.media)
+                let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.itemContentMedia)
                 if let content {
                     withAnimation {
                         self.context.saveItem(content: content, notify: content.itemCanNotify)

@@ -95,6 +95,7 @@ struct WatchlistView: View {
                         Text("Status").tag(2)
                         Text("Favorites").tag(3)
                     }
+                    .pickerStyle(.menu)
                     .labelStyle(.iconOnly)
                 }
             }
