@@ -43,9 +43,6 @@ struct ItemContentListView: View {
                             }
                         }
                     })
-//                    .navigationDestination(for: ItemContent.self) { item in
-//                        ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-//                    }
                 }
                 
             }

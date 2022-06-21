@@ -89,16 +89,13 @@ struct WatchlistView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Menu {
-                        Picker(selection: $selectedValue, label: Text("Sort")) {
-                            Text("Default").tag(0)
-                            Text("Media Type").tag(1)
-                            Text("Status").tag(2)
-                            Text("Favorites").tag(3)
-                        }
-                    } label: {
-                        Label("Sort", systemImage: "arrow.up.arrow.down.circle")
+                    Picker(selection: $selectedValue, label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
+                        Text("Default").tag(0)
+                        Text("Media Type").tag(1)
+                        Text("Status").tag(2)
+                        Text("Favorites").tag(3)
                     }
+                    .labelStyle(.iconOnly)
                 }
             }
             .searchable(text: $query,

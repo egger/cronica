@@ -15,8 +15,8 @@ struct TabBarView: View {
             HomeView()
                 .tag(HomeView.tag)
                 .tabItem { Label("Home", systemImage: "house") }
-            ExploreView()
-                .tag(ExploreView.tag)
+            DiscoverView()
+                .tag(DiscoverView.tag)
                 .tabItem { Label("Explore", systemImage: "film") }
             WatchlistView()
                 .tag(WatchlistView.tag)

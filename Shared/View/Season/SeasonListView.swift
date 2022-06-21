@@ -42,7 +42,7 @@ struct SeasonsView: View {
                     HStack {
                         if let season = viewModel.season?.episodes {
                             ForEach(season) { item in
-                                EpisodeView(episode: item)
+                                EpisodeFrameView(episode: item)
                                     .frame(width: 160, height: 200)
                                     .padding([.leading, .trailing], 4)
                                     .padding(.leading, item.id == season.first!.id ? 16 : 0)

@@ -1,15 +1,68 @@
 //
-//  ExploreView.swift
+//  DiscoverViewModel.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 30/04/22.
+//  Created by Alexandre Madeira on 20/06/22.
 //
 
+import Foundation
 import SwiftUI
 
-struct ExploreView: View {
-    static let tag: Screens? = .explore
-    private let movieGenres: [Genre] = [
+@MainActor class DiscoverViewModel: ObservableObject {
+    private let service: NetworkService = NetworkService.shared
+    @Published var items: [ItemContent]?
+    private var id: Int = 0
+    private var type: MediaType = .movie
+    // MARK: Pagination Properties
+    @Published var currentPage: Int = 0
+    @Published var startPagination: Bool = false
+    @Published var endPagination: Bool = false
+    @Published var restartFetch: Bool = false
+    
+    init(id: Int, type: MediaType) {
+        self.id = id
+        self.type = type
+    }
+    
+    func clearItems() {
+        withAnimation {
+            items?.removeAll()
+        }
+    }
+    
+    func loadMoreItems(genre: Int? = nil, media: MediaType? = nil) {
+        if restartFetch {
+            currentPage = 0
+            startPagination = true
+            clearItems()
+            if let genre {
+                self.id = genre
+            }
+            if let media {
+                self.type = media
+            }
+            restartFetch = false
+        }
+        currentPage += 1
+        Task {
+            await fetch()
+        }
+    }
+    
+    private func fetch() async {
+        let result = try? await service.fetchDiscover(type: type,
+                                                      page: currentPage,
+                                                      genres: "\(self.id)")
+        await MainActor.run(body: {
+            if items == nil { items = [] }
+            items?.append(contentsOf: result ?? [])
+            endPagination = currentPage == 1000
+            startPagination = false
+        })
+    }
+    
+    // MARK: Genres array.
+    let movies: [Genre] = [
         Genre(id: 28, name: NSLocalizedString("Action", comment: "")),
         Genre(id: 12, name: NSLocalizedString("Adventure", comment: "")),
         Genre(id: 16, name: NSLocalizedString("Animation", comment: "")),
@@ -28,7 +81,7 @@ struct ExploreView: View {
         Genre(id: 53, name: NSLocalizedString("Thriller", comment: "")),
         Genre(id: 10752, name: NSLocalizedString("War", comment: ""))
     ]
-    private let tvGenres: [Genre] = [
+    let tvShows: [Genre] = [
         Genre(id: 10759, name: NSLocalizedString("Action & Adventure", comment: "")),
         Genre(id: 16, name: NSLocalizedString("Animation", comment: "")),
         Genre(id: 35, name: NSLocalizedString("Comedy", comment: "")),
@@ -39,43 +92,4 @@ struct ExploreView: View {
         Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
-    var body: some View {
-        NavigationStack {
-            VStack {
-                List {
-                    Section {
-                        ForEach(movieGenres.sorted { $0.name! < $1.name! }) { genre in
-                            NavigationLink(genre.name!, value: genre)
-                        }
-                    } header: {
-                        Text("Popular Movies by Genre")
-                    }
-                    Section {
-                        ForEach(tvGenres.sorted { $0.name! < $1.name! }) { genre in
-                            NavigationLink(genre.name!, value: genre)
-                        }
-                    } header: {
-                        Text("Popular TV Shows by Genre")
-                    }
-                }
-                .listStyle(.insetGrouped)
-            }
-            .navigationTitle("Explore")
-            .navigationDestination(for: Genre.self) { genre in
-                GenreDetailsView(genre: genre, media: .movie)
-            }
-            .navigationDestination(for: ItemContent.self) { item in
-                ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-            }
-            .navigationDestination(for: Person.self) { person in
-                CastDetailsView(title: person.name, id: person.id)
-            }
-        }
-    }
-}
-
-struct ExploreView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExploreView()
-    }
 }

@@ -21,13 +21,13 @@ struct OverviewBoxView: View {
                 .lineLimit(4)
         } label: {
             switch type {
-            case .movie:
-                Label("About", systemImage: "film")
-                    .unredacted()
             case .person:
                 Label("Biography", systemImage: "book")
                     .unredacted()
             case .tvShow:
+                Label("About", systemImage: "film")
+                    .unredacted()
+            default:
                 Label("About", systemImage: "film")
                     .unredacted()
             }

@@ -9,59 +9,44 @@ import SwiftUI
 
 struct SideBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
-    @ViewBuilder
     var body: some View {
-        NavigationSplitView(sidebar: {
+        NavigationSplitView {
             List(selection: $selectedView) {
-                NavigationLink(destination: HomeView()) {
+                NavigationLink(value: Screens.home) {
                     Label("Home", systemImage: "house")
-                }.tag(HomeView.tag)
-                NavigationLink(destination: ExploreView()) {
+                }
+                .tag(HomeView.tag)
+                NavigationLink(value: Screens.explore) {
                     Label("Explore", systemImage: "film")
-                }.tag(ExploreView.tag)
-                NavigationLink(destination: WatchlistView()) {
+                }
+                .tag(DiscoverView.tag)
+                NavigationLink(value: Screens.watchlist) {
                     Label("Watchlist", systemImage: "square.stack.fill")
-                }.tag(WatchlistView.tag)
-                NavigationLink(destination: SearchView()) {
+                }
+                .tag(WatchlistView.tag)
+                NavigationLink(value: Screens.search) {
                     Label("Search", systemImage: "magnifyingglass")
-                }.tag(SearchView.tag)
+                }
+                .tag(SearchView.tag)
             }
+            .listStyle(.sidebar)
             .navigationTitle("Cronica")
-        }, content: {
+        } detail: {
             switch selectedView {
-            case .explore: ExploreView()
-            case .watchlist: WatchlistView()
             case .search: SearchView()
+            case .watchlist: WatchlistView()
+            case .explore: DiscoverView()
             default: HomeView()
             }
-        }, detail: {
-            EmptyView()
-        })
-//        NavigationSplitView {
-//            List(selection: $selectedView) {
-//                NavigationLink(destination: HomeView()) {
-//                    Label("Home", systemImage: "house")
-//                }.tag(HomeView.tag)
-//                NavigationLink(destination: ExploreView()) {
-//                    Label("Explore", systemImage: "film")
-//                }.tag(ExploreView.tag)
-//                NavigationLink(destination: WatchlistView()) {
-//                    Label("Watchlist", systemImage: "square.stack.fill")
-//                }.tag(WatchlistView.tag)
-//                NavigationLink(destination: SearchView()) {
-//                    Label("Search", systemImage: "magnifyingglass")
-//                }.tag(SearchView.tag)
-//            }
-//            .navigationTitle("Cronica")
-//        } detail: {
-//            switch selectedView {
-//            case .explore: ExploreView()
-//            case .watchlist: WatchlistView()
-//            case .search: SearchView()
-//            default: HomeView()
-//            }
-//            
-//        }
+        }
+        .navigationDestination(for: Screens.self) { screens in
+            switch screens {
+            case .search: SearchView()
+            case .watchlist: WatchlistView()
+            case .explore: DiscoverView()
+            default: HomeView()
+            }
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  EpisodeView.swift
+//  EpisodeFrameView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 10/05/22.
@@ -9,7 +9,7 @@ import SwiftUI
 
 /// A view that displays a frame with an image, episode number, title, and two line overview,
 /// on tap it display a sheet view with more information.
-struct EpisodeView: View {
+struct EpisodeFrameView: View {
     let episode: Episode
     @State private var showDetails: Bool = false
     @State private var isPad: Bool = UIDevice.isIPad
@@ -69,44 +69,14 @@ struct EpisodeView: View {
             showDetails.toggle()
         }
         .sheet(isPresented: $showDetails, content: {
-            NavigationView {
-                ScrollView {
-                    VStack {
-                        HeroImage(url: episode.itemImageMedium, title: episode.itemTitle)
-                            .frame(width: isPad ? DrawingConstants.padCoverImageWidth : DrawingConstants.heroImageWidth,
-                                   height: isPad ? DrawingConstants.padCoverImageHeight : DrawingConstants.heroImageHeight)
-                            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                                        style: .continuous))
-                            .shadow(radius: DrawingConstants.coverImageShadow)
-                        OverviewBoxView(overview: episode.overview,
-                                        title: episode.itemTitle,
-                                        type: .tvShow)
-                        .padding()
-                    }
-                }
-                .navigationTitle(episode.itemTitle)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        Button("Done") {
-                            showDetails.toggle()
-                        }
-                    })
-                }
-            }
+            EpisodeDetailsView(episode: episode, showDetails: $showDetails)
         })
     }
 }
-
 
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 160
     static let imageHeight: CGFloat = 100
     static let imageRadius: CGFloat = 8
     static let titleLineLimit: Int = 1
-    static let heroImageWidth: CGFloat = 360
-    static let heroImageHeight: CGFloat = 210
-    static let padCoverImageWidth: CGFloat = 500
-    static let padCoverImageHeight: CGFloat = 300
-    static let coverImageShadow: CGFloat = 6
 }
