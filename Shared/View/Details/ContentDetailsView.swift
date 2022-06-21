@@ -13,15 +13,15 @@ struct ContentDetailsView: View {
     var type: MediaType
     @StateObject private var viewModel: ContentDetailsViewModel
     @StateObject private var store: SettingsStore
-    @State private var isNotificationAvailable: Bool = false
-    @State private var isNotificationScheduled: Bool = false
-    @State private var isInWatchlist: Bool = false
-    @State private var isLoading: Bool = true
-    @State private var markAsMenuVisibility: Bool = false
-    @State private var isWatched: Bool = false
-    @State private var isFavorite: Bool = false
-    @State private var animateGesture: Bool = false
-    @State private var showConfirmation: Bool = false
+    @State private var isNotificationAvailable = false
+    @State private var isNotificationScheduled = false
+    @State private var isInWatchlist = false
+    @State private var isLoading = true
+    @State private var markAsMenuVisibility = false
+    @State private var isWatched = false
+    @State private var isFavorite = false
+    @State private var animateGesture = false
+    @State private var showConfirmation = false
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
         _store = StateObject(wrappedValue: SettingsStore())
@@ -145,21 +145,25 @@ struct ContentDetailsView: View {
         Menu(content: {
             Button(action: {
                 isWatched.toggle()
+                if !isInWatchlist {
+                    isInWatchlist.toggle()
+                }
                 viewModel.update(markAsWatched: isWatched, markAsFavorite: nil)
             }, label: {
                 Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                       systemImage: isWatched ? "minus.circle" : "checkmark.circle")
             })
-            .disabled(isInWatchlist ? false : true)
             .keyboardShortcut("m", modifiers: [.command, .shift])
             Button(action: {
                 isFavorite.toggle()
+                if !isInWatchlist {
+                    isInWatchlist.toggle()
+                }
                 viewModel.update(markAsWatched: nil, markAsFavorite: isFavorite)
             }, label: {
                 Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                       systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
             })
-            .disabled(isInWatchlist ? false : true)
             .keyboardShortcut("f", modifiers: [.command, .shift])
         }, label: {
             Label("More", systemImage: "ellipsis")

@@ -126,10 +126,10 @@ private struct PersonNameCredits: View {
                 Spacer()
             }
             HStack {
-                Text(person.personRole ?? "")
+                Text(person.personRole ?? " ")
                     .foregroundColor(.white)
                     .font(.caption)
-                    .lineLimit(1)
+                    .lineLimit(DrawingConstants.lineLimit)
                     .padding(.leading, 6)
                 Spacer()
             }

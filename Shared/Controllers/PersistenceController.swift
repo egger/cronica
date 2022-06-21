@@ -131,6 +131,8 @@ struct PersistenceController {
                     try? viewContext.save()
                 }
             }
+        } else {
+            self.saveItem(content: content, notify: content.itemCanNotify)
         }
     }
     
