@@ -32,7 +32,24 @@ struct SideBarView: View {
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
         } detail: {
-            
+            NavigationStack {
+                VStack {
+                    switch selectedView {
+                    case .discover: DiscoverView()
+                    case .watchlist: WatchlistView()
+                    case .search: SearchView()
+                    default: HomeView()
+                    }
+                }
+                .navigationDestination(for: Screens.self) { screens in
+                    switch screens {
+                    case .home: HomeView()
+                    case .discover: DiscoverView()
+                    case .watchlist: WatchlistView()
+                    case .search: SearchView()
+                    }
+                }
+            }
         }
     }
 }

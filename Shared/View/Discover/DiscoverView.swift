@@ -22,7 +22,7 @@ struct DiscoverView: View {
         _viewModel = StateObject(wrappedValue: DiscoverViewModel(id: 28, type: .movie))
     }
     var body: some View {
-        NavigationStack {
+        AdaptableNavigationView {
             ZStack {
                 ScrollView {
                     VStack {
@@ -112,7 +112,7 @@ struct DiscoverView: View {
             .onChange(of: selectedGenre) { value in
                 onChanging = true
                 load()
-            }
+        }
         }
     }
     
@@ -137,5 +137,11 @@ struct DiscoverView: View {
                 }
             }
         }
+    }
+}
+
+struct Previews_DiscoverView_Previews: PreviewProvider {
+    static var previews: some View {
+        DiscoverView()
     }
 }

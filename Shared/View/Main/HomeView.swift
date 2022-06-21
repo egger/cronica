@@ -12,16 +12,15 @@ struct HomeView: View {
     @AppStorage("showOnboarding") var displayOnboard = true
     @StateObject private var viewModel: HomeViewModel
     @StateObject private var settings: SettingsStore
-    @State private var showSettings: Bool = false
-    @State private var isLoading: Bool = true
-    @State private var showConfirmation: Bool = false
-    @State private var path: [NavigationPath] = []
+    @State private var showSettings = false
+    @State private var isLoading = true
+    @State private var showConfirmation = false
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
         _settings = StateObject(wrappedValue: SettingsStore())
     }
     var body: some View {
-        NavigationStack {
+        AdaptableNavigationView {
             ZStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
@@ -77,6 +76,7 @@ struct HomeView: View {
             }
         }
     }
+    
     
     @Sendable
     private func load() {

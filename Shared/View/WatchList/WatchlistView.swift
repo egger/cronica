@@ -21,7 +21,7 @@ struct WatchlistView: View {
     }
     @State var selectedValue = 0
     var body: some View {
-        NavigationStack {
+        AdaptableNavigationView {
             VStack {
                 if items.isEmpty {
                     Text("Your list is empty.")
@@ -99,7 +99,7 @@ struct WatchlistView: View {
             .searchable(text: $query,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: "Search watchlist")
-            .disableAutocorrection(true)
+        .disableAutocorrection(true)
         }
     }
     

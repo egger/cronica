@@ -16,7 +16,7 @@ struct SearchView: View {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
     }
     var body: some View {
-        NavigationStack {
+        AdaptableNavigationView {
             ZStack {
                 List {
                     ForEach(viewModel.searchItems) { item in
