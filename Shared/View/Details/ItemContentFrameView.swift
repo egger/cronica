@@ -11,7 +11,7 @@ struct ItemContentFrameView: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     var body: some View {
-        NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia), label: {
+        NavigationLink(value: item) {
             VStack {
                 AsyncImage(url: item.cardImageMedium,
                            transaction: Transaction(animation: .easeInOut)) { phase in
@@ -60,7 +60,7 @@ struct ItemContentFrameView: View {
                 }
                 .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
             }
-        })
+        }
     }
 }
 

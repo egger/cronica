@@ -11,7 +11,7 @@ struct SettingsView: View {
     @Environment(\.openURL) var openURL
     @EnvironmentObject var store: SettingsStore
     @State private var email = SupportEmail()
-    @State private var showPolicy: Bool = false
+    @State private var showPolicy = false
     @Binding var showSettings: Bool
     var body: some View {
         NavigationStack {
@@ -65,10 +65,10 @@ struct SettingsView: View {
 }
 
 struct AccountView_Previews: PreviewProvider {
-    @StateObject private static var store = SettingsStore()
+    @StateObject private static var settings = SettingsStore()
     @State private static var showSettings = false
     static var previews: some View {
         SettingsView(showSettings: $showSettings)
-            .environmentObject(store)
+            .environmentObject(settings)
     }
 }

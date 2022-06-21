@@ -32,11 +32,7 @@ struct WatchlistView: View {
                     List {
                         if !filteredMovieItems.isEmpty {
                             ForEach(filteredMovieItems) { item in
-                                NavigationLink(destination:
-                                                ContentDetailsView(title: item.itemTitle,
-                                                                   id: item.itemId,
-                                                                   type: item.itemMedia)
-                                ) {
+                                NavigationLink(value: item) {
                                     ItemView(content: item)
                                 }
                             }

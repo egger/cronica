@@ -27,7 +27,11 @@ struct HomeView: View {
                     VStack {
                         WatchListUpcomingMoviesListView()
                         WatchListUpcomingSeasonsListView()
-                        ItemContentListView(items: viewModel.trendingSection, title: "Trending", subtitle: "This week", image: "crown", addedItemConfirmation: $showConfirmation)
+                        ItemContentListView(items: viewModel.trendingSection,
+                                            title: "Trending",
+                                            subtitle: "This week",
+                                            image: "crown",
+                                            addedItemConfirmation: $showConfirmation)
                         if let sections = viewModel.sections {
                             ForEach(sections) {
                                 ItemContentListView(items: $0.results,

@@ -10,9 +10,9 @@ import SwiftUI
 struct CastDetailsView: View {
     let title: String
     let id: Int
-    @State private var isLoading: Bool = true
+    @State private var isLoading = true
     @StateObject private var viewModel: CastDetailsViewModel
-    @State private var showConfirmation: Bool = false
+    @State private var showConfirmation = false
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: CastDetailsViewModel())
         self.title = title

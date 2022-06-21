@@ -29,11 +29,10 @@ struct CastListView: View {
                             .buttonStyle(.plain)
                         }
                         ForEach(credits.crew.filter { $0.personRole == "Director" }) { director in
-                            NavigationLink(destination: CastDetailsView(title: director.name, id: director.id),
-                                           label: {
+                            NavigationLink(value: director) {
                                 ImageView(person: director)
                                     .shadow(radius: DrawingConstants.shadowRadius)
-                            })
+                            }
                             .buttonStyle(.plain)
                         }
                     }

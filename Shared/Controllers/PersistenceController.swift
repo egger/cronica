@@ -56,8 +56,7 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
-    //MARK: CRUD operations
-    
+    //MARK: CRUD operations.
     /// Adds an item to Watchlist Core Data.
     /// - Parameter content: The item to be added, or updated.
     func saveItem(content: ItemContent, notify: Bool) {

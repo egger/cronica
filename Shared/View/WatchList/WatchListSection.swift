@@ -16,7 +16,7 @@ struct WatchListSection: View {
         if !items.isEmpty {
             Section {
                 ForEach(items) { item in
-                    NavigationLink(destination: ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)) {
+                    NavigationLink(value: item) {
                         ItemView(content: item)
                             .contextMenu {
                                 Button(action: {
@@ -30,10 +30,7 @@ struct WatchListSection: View {
                                 ShareLink(item: item.itemLink)
                                 Divider()
                                 Button(role: .destructive, action: {
-                                    withAnimation {
-                                        viewContext.delete(item)
-                                        try? viewContext.save()
-                                    }
+                                    deleteItem(item: item)
                                 }, label: {
                                     Label("Remove", systemImage: "trash")
                                 })
@@ -54,9 +51,7 @@ struct WatchListSection: View {
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive, action: {
-                            HapticManager.shared.mediumHaptic()
-                            viewContext.delete(item)
-                            try? viewContext.save()
+                            deleteItem(item: item)
                         }, label: {
                             Label("Remove", systemImage: "trash")
                         })
@@ -67,6 +62,14 @@ struct WatchListSection: View {
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
             }
+        }
+    }
+    
+    private func deleteItem(item: WatchlistItem) {
+        HapticManager.shared.mediumHaptic()
+        withAnimation {
+            viewContext.delete(item)
+            try? viewContext.save()
         }
     }
     
