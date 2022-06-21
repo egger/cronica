@@ -36,6 +36,7 @@
 "Recently Released" = "Recently Released";
 "Remove" = "Remove";
 "Added to watchlist" = "Added to watchlist";
+"Mark as" = "Mark as";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";

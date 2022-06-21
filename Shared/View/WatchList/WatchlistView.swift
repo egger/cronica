@@ -85,7 +85,8 @@ struct WatchlistView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Picker(selection: $selectedValue, label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
+                    Picker(selection: $selectedValue,
+                           label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
                         Text("Default").tag(0)
                         Text("Media Type").tag(1)
                         Text("Status").tag(2)
@@ -103,6 +104,7 @@ struct WatchlistView: View {
     }
     
     private func refresh() async {
+        HapticManager.shared.softHaptic()
         DispatchQueue.global(qos: .background).async {
             let background = BackgroundManager()
             background.handleAppRefreshContent()

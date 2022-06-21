@@ -18,14 +18,14 @@ struct SettingsView: View {
             Form {
                 Section {
                     Picker(selection: $store.gesture) {
-                        Text("Mark as Favorite").tag(DoubleTapGesture.favorite)
-                        Text("Mark as Watched").tag(DoubleTapGesture.watched)
+                        Text("Favorites").tag(DoubleTapGesture.favorite)
+                        Text("Watched").tag(DoubleTapGesture.watched)
                     } label: {
-                        Label("Double Tap Gesture", systemImage: "hand.tap")
+                        Text("Mark as")
                     }
-                    .pickerStyle(.inline)
+                    .pickerStyle(.menu)
                 } header: {
-                    Text("Gesture")
+                    Label("Double Tap Gesture", systemImage: "hand.tap")
                 } footer: {
                     Text("The function is performed when double-tap the cover image.")
                 }

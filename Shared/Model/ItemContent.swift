@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+/// Represents a movie, tv show model, it is also used for people only
+/// on search.
 struct ItemContent: Identifiable, Decodable, Hashable {
     let adult: Bool?
     let id: Int

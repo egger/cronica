@@ -33,7 +33,8 @@ struct ItemContentListView: View {
                                                                     style: .continuous))
                                         .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                                                 radius: DrawingConstants.shadowRadius)
-                                        .modifier(ItemContentContextMenu(item: item, showConfirmation: $addedItemConfirmation))
+                                        .modifier(ItemContentContextMenu(item: item,
+                                                                         showConfirmation: $addedItemConfirmation))
                                         .padding([.leading, .trailing], 4)
                                 }
                                 .buttonStyle(.plain)
