@@ -45,8 +45,9 @@ struct WatchListSection: View {
                         }, label: {
                             Label(item.watched ? "Remove from Watched" : "Mark as Watched",
                                   systemImage: item.watched ? "minus.circle" : "checkmark.circle")
+                            .labelStyle(.titleAndIcon)
                         })
-                        .labelStyle(.titleAndIcon)
+                        .controlSize(.large)
                         .tint(item.watched ? .yellow : .green )
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -54,8 +55,9 @@ struct WatchListSection: View {
                             deleteItem(item: item)
                         }, label: {
                             Label("Remove", systemImage: "trash")
+                                .labelStyle(.titleAndIcon)
                         })
-                        .labelStyle(.titleAndIcon)
+                        .controlSize(.large)
                     }
                 }
                 .onDelete(perform: delete)

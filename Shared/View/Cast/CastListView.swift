@@ -25,6 +25,9 @@ struct CastListView: View {
                                 ImageView(person: cast)
                                     .shadow(radius: DrawingConstants.shadowRadius)
                                     .padding(.leading, cast.id == self.credits?.cast.first!.id ? 16 : 0)
+                                    .contextMenu {
+                                        ShareLink(item: URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(cast.id)")!)
+                                    }
                             }
                             .buttonStyle(.plain)
                         }
@@ -32,6 +35,9 @@ struct CastListView: View {
                             NavigationLink(value: director) {
                                 ImageView(person: director)
                                     .shadow(radius: DrawingConstants.shadowRadius)
+                                    .contextMenu {
+                                        ShareLink(item: URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(director.id)")!)
+                                    }
                             }
                             .buttonStyle(.plain)
                         }
@@ -53,10 +59,15 @@ struct PersonListView_Previews: PreviewProvider {
 private struct ImageView: View {
     let person: Person
     var body: some View {
-        ZStack {
-            AsyncImage(url: person.personImage,
-                       transaction: Transaction(animation: .easeInOut)) { phase in
-                if let image = phase.image {
+        AsyncImage(url: person.personImage,
+                   transaction: Transaction(animation: .easeInOut)) { phase in
+            if let image = phase.image {
+                ZStack {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                    Rectangle().fill(.ultraThinMaterial)
+                    Color.black.opacity(0.4)
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -68,37 +79,21 @@ private struct ImageView: View {
                             ]), startPoint: .top, endPoint: .bottom)
                         )
                         .transition(.opacity)
-                } else if phase.error != nil {
-                    Rectangle().redacted(reason: .placeholder)
-                } else {
-                    ZStack {
-                        Rectangle().fill(.secondary)
-                        Image(systemName: "person")
-                                       .imageScale(.large)
-                                       .foregroundColor(.secondary)
-                    }
+                    PersonNameCredits(person: person)
+                }
+            } else if phase.error != nil {
+                Rectangle().redacted(reason: .placeholder)
+            } else {
+                ZStack {
+                    Rectangle().fill(.secondary)
+                    Image(systemName: "person")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50, alignment: .center)
+                        .foregroundColor(.white)
+                    PersonNameCredits(person: person)
                 }
             }
-            VStack {
-                Spacer()
-                HStack {
-                    Text(person.name)
-                        .font(.callout)
-                        .foregroundColor(.primary)
-                        .lineLimit(DrawingConstants.lineLimit)
-                        .padding(.leading, 6)
-                    Spacer()
-                }
-                HStack {
-                    Text(person.personRole ?? "")
-                        .foregroundColor(.secondary)
-                        .font(.caption)
-                        .lineLimit(1)
-                        .padding(.leading, 6)
-                    Spacer()
-                }
-            }
-            .padding(.bottom)
         }
         .frame(width: DrawingConstants.profileWidth,
                height: DrawingConstants.profileHeight)
@@ -111,7 +106,34 @@ private struct ImageView: View {
 private struct DrawingConstants {
     static let profileWidth: CGFloat = 140
     static let profileHeight: CGFloat = 200
-    static let shadowRadius: CGFloat = 2.5
+    static let shadowRadius: CGFloat = 2
     static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
+}
+
+private struct PersonNameCredits: View {
+    let person: Person
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Text(person.name)
+                    .font(.callout)
+                    .foregroundColor(.white)
+                    .fontWeight(.semibold)
+                    .lineLimit(DrawingConstants.lineLimit)
+                    .padding(.leading, 6)
+                Spacer()
+            }
+            HStack {
+                Text(person.personRole ?? "")
+                    .foregroundColor(.white)
+                    .font(.caption)
+                    .lineLimit(1)
+                    .padding(.leading, 6)
+                Spacer()
+            }
+        }
+        .padding(.bottom)
+    }
 }
