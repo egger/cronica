@@ -1,5 +1,5 @@
 //
-//  CastDetailsViewModel.swift
+//  PersonDetailsViewModel.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 06/02/22.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-@MainActor class CastDetailsViewModel: ObservableObject {
+@MainActor
+class PersonDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     let id: Int
-    @Published private(set) var phase: DataFetchPhase<Person?> = .empty
     @Published var isLoaded: Bool = false
-    var person: Person?
+    @Published var person: Person?
     @Published var credits: [ItemContent]?
     
     init(id: Int) {
@@ -30,7 +30,6 @@ import Foundation
                 }
                 isLoaded.toggle()
             } catch {
-                phase = .failure(error)
                 person = nil
                 print(error.localizedDescription)
             }

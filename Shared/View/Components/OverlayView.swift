@@ -10,40 +10,25 @@ import SwiftUI
 protocol EmptyData {
     var isEmpty: Bool { get }
 }
-struct OverlayView<T: EmptyData>: View {
-    let phase: DataFetchPhase<T>
-    let retry: () -> Void
-    let title: String
-    var body: some View {
-        VStack {
-            switch phase {
-            case .failure(let error):
-                RetryView(text: error.localizedDescription, retryAction: retry)
-            default:
-                EmptyView()
-            }
-        }
-    }
-}
 struct RetryView: View {
-    let text: String
+    let message: String
     let retryAction: () -> Void
     var body: some View {
-        VStack(spacing: 8) {
-            Text(text)
+        VStack {
+            Text(message)
                 .font(.callout)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
-                .padding([.top, .horizontal])
-            Button(action: retryAction) {
-                Label("Try Again", systemImage: "repeat.circle")
+                .padding()
+            Button("Try Again") {
+                retryAction()
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .tint(.purple)
             .padding([.bottom, .horizontal])
         }
-        .background(.regularMaterial)
+        .background(.primary)
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .padding()
     }

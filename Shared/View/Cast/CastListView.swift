@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A horizontal list that displays a limited number of
+///  cast people in an ItemContent.
 struct CastListView: View {
     let credits: Credits?
     var body: some View {
@@ -22,21 +24,21 @@ struct CastListView: View {
                     HStack {
                         ForEach(credits.cast.prefix(10)) { cast in
                             NavigationLink(value: cast) {
-                                ImageView(person: cast)
+                                PersonCardView(person: cast)
                                     .shadow(radius: DrawingConstants.shadowRadius)
                                     .padding(.leading, cast.id == self.credits?.cast.first!.id ? 16 : 0)
                                     .contextMenu {
-                                        ShareLink(item: URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(cast.id)")!)
+                                        ShareLink(item: cast.itemURL)
                                     }
                             }
                             .buttonStyle(.plain)
                         }
                         ForEach(credits.crew.filter { $0.personRole == "Director" }) { director in
                             NavigationLink(value: director) {
-                                ImageView(person: director)
+                                PersonCardView(person: director)
                                     .shadow(radius: DrawingConstants.shadowRadius)
                                     .contextMenu {
-                                        ShareLink(item: URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(director.id)")!)
+                                        ShareLink(item: director.itemURL)
                                     }
                             }
                             .buttonStyle(.plain)
@@ -56,7 +58,9 @@ struct PersonListView_Previews: PreviewProvider {
     }
 }
 
-private struct ImageView: View {
+/// This view is responsible for displaying a given person
+/// in a card view, with its name, role, and image.
+private struct PersonCardView: View {
     let person: Person
     var body: some View {
         AsyncImage(url: person.personImage,

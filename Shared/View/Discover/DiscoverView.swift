@@ -9,11 +9,11 @@ import SwiftUI
 
 struct DiscoverView: View {
     static let tag: Screens? = .discover
-    @State private var showConfirmation: Bool = false
+    @State private var showConfirmation = false
     @State private var selectedMedia: MediaType = .movie
     @State private var selectedGenre: Int = 28
-    @State private var isLoading: Bool = true
-    @State private var onChanging: Bool = false
+    @State private var isLoading = true
+    @State private var onChanging = false
     @StateObject private var viewModel: DiscoverViewModel
     let columns: [GridItem] = [
         GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))
@@ -112,7 +112,7 @@ struct DiscoverView: View {
             .onChange(of: selectedGenre) { value in
                 onChanging = true
                 load()
-        }
+            }
         }
     }
     

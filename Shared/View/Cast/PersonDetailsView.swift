@@ -11,10 +11,10 @@ struct PersonDetailsView: View {
     let name: String
     let personUrl: URL
     @State private var isLoading = true
-    @StateObject private var viewModel: CastDetailsViewModel
+    @StateObject private var viewModel: PersonDetailsViewModel
     @State private var showConfirmation = false
     init(title: String, id: Int) {
-        _viewModel = StateObject(wrappedValue: CastDetailsViewModel(id: id))
+        _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
         self.personUrl = URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!
     }

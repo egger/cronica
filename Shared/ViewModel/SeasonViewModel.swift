@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import TelemetryClient
 
-@MainActor class SeasonViewModel: ObservableObject {
+@MainActor
+class SeasonViewModel: ObservableObject {
     private let service = NetworkService.shared
     @Published var season: Season?
     @Published var isLoading: Bool = true    

@@ -70,8 +70,6 @@ struct TrailerView: View {
             .sheet(isPresented: $showTrailerInSafari, content: {
                 SFSafariViewWrapper(url: url)
             })
-        } else {
-            EmptyView()
         }
     }
 }

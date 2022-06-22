@@ -1,5 +1,5 @@
 //
-//  DetailsViewModel.swift
+//  ItemContentViewModel.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 02/03/22.
@@ -7,23 +7,22 @@
 
 import Foundation
 import SwiftUI
-import TelemetryClient
 
-@MainActor class ContentDetailsViewModel: ObservableObject {
+@MainActor
+class ItemContentViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     private let notification: NotificationManager = NotificationManager()
-    @Published private(set) var phase: DataFetchPhase<ItemContent?> = .empty
     let context: PersistenceController = PersistenceController.shared
-    var content: ItemContent?
+    @Published var content: ItemContent?
+    @Published var errorMessage: String?
     
     func load(id: ItemContent.ID, type: MediaType) async {
         if Task.isCancelled { return }
         if content == nil {
-            phase = .empty
             do {
                 content = try await self.service.fetchContent(id: id, type: type)
             } catch {
-                phase = .failure(error)
+                errorMessage = error.localizedDescription
                 content = nil
                 print(error.localizedDescription)
             }

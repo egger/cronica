@@ -66,7 +66,7 @@ struct SearchView: View {
                 .font(.title)
                 .foregroundColor(.secondary)
         case .failure(let error):
-            RetryView(text: error.localizedDescription, retryAction: {
+            RetryView(message: error.localizedDescription, retryAction: {
                 Task {
                     await viewModel.search(query: viewModel.query)
                 }

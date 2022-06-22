@@ -11,7 +11,8 @@ struct ItemContentView: View {
     var title: String
     var id: Int
     var type: MediaType
-    @StateObject private var viewModel: ContentDetailsViewModel
+    let itemUrl: URL
+    @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store: SettingsStore
     @State private var isNotificationAvailable = false
     @State private var isNotificationScheduled = false
@@ -23,11 +24,12 @@ struct ItemContentView: View {
     @State private var animateGesture = false
     @State private var showConfirmation = false
     init(title: String, id: Int, type: MediaType) {
-        _viewModel = StateObject(wrappedValue: ContentDetailsViewModel())
+        _viewModel = StateObject(wrappedValue: ItemContentViewModel())
         _store = StateObject(wrappedValue: SettingsStore())
         self.title = title
         self.id = id
         self.type = type
+        self.itemUrl = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
     }
     var body: some View {
         ZStack {
@@ -109,7 +111,7 @@ struct ItemContentView: View {
                             .opacity(isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
                             .accessibilityHidden(true)
-                        ShareLink(item: URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!)
+                        ShareLink(item: itemUrl)
                             .disabled(isLoading ? true : false)
                         if markAsMenuVisibility {
                             markAsMenu
@@ -184,10 +186,9 @@ struct ItemContentView: View {
     
     @ViewBuilder
     private var overlayView: some View {
-        switch viewModel.phase {
-        case .failure(let error):
+        if let error = viewModel.errorMessage {
             ZStack {
-                RetryView(text: error.localizedDescription, retryAction: {
+                RetryView(message: error, retryAction: {
                     Task {
                         await viewModel.load(id: self.id, type: self.type)
                     }
@@ -195,8 +196,6 @@ struct ItemContentView: View {
             }
             .padding()
             .background(.regularMaterial)
-        default:
-            EmptyView()
         }
     }
     

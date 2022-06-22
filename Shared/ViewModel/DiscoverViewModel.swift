@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-@MainActor class DiscoverViewModel: ObservableObject {
+@MainActor
+class DiscoverViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published var items: [ItemContent]?
     private var id: Int = 0
