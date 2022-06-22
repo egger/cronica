@@ -53,12 +53,18 @@ import SwiftUI
         let result = try? await service.fetchDiscover(type: type,
                                                       page: currentPage,
                                                       genres: "\(self.id)")
-        await MainActor.run(body: {
+        Task {
             if items == nil { items = [] }
             items?.append(contentsOf: result ?? [])
             endPagination = currentPage == 1000
             startPagination = false
-        })
+        }
+//        await MainActor.run(body: {
+//            if items == nil { items = [] }
+//            items?.append(contentsOf: result ?? [])
+//            endPagination = currentPage == 1000
+//            startPagination = false
+//        })
     }
     
     // MARK: Genres array.

@@ -65,7 +65,7 @@ struct ItemContentFrameView: View {
 }
 
 struct ItemContentFrameView_Previews: PreviewProvider {
-    @State private static var show: Bool = false
+    @State private static var show = false
     static var previews: some View {
         ItemContentFrameView(item: ItemContent.previewContent,
                              showConfirmation: $show)

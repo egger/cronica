@@ -123,12 +123,18 @@ struct ContentDetailsView: View {
     
     var watchlistButton: some View {
         Button(action: {
-            isInWatchlist.toggle()
+            withAnimation {
+                isInWatchlist.toggle()
+            }
             viewModel.update(markAsWatched: nil, markAsFavorite: nil)
             if !isInWatchlist {
-                isNotificationScheduled = viewModel.content?.itemCanNotify ?? false
+                withAnimation {
+                    isNotificationScheduled = viewModel.content?.itemCanNotify ?? false
+                }
             } else {
-                isNotificationScheduled.toggle()
+                withAnimation {
+                    isNotificationScheduled.toggle()
+                }
             }
         }, label: {
             Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
@@ -146,7 +152,10 @@ struct ContentDetailsView: View {
             Button(action: {
                 isWatched.toggle()
                 if !isInWatchlist {
-                    isInWatchlist.toggle()
+                    withAnimation {
+                        isInWatchlist.toggle()
+                        isNotificationScheduled = viewModel.content?.itemCanNotify ?? false
+                    }
                 }
                 viewModel.update(markAsWatched: isWatched, markAsFavorite: nil)
             }, label: {
@@ -157,7 +166,9 @@ struct ContentDetailsView: View {
             Button(action: {
                 isFavorite.toggle()
                 if !isInWatchlist {
-                    isInWatchlist.toggle()
+                    withAnimation {
+                        isInWatchlist.toggle()
+                    }
                 }
                 viewModel.update(markAsWatched: nil, markAsFavorite: isFavorite)
             }, label: {

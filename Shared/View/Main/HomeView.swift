@@ -26,19 +26,17 @@ struct HomeView: View {
                     VStack {
                         WatchListUpcomingMoviesListView()
                         WatchListUpcomingSeasonsListView()
-                        ItemContentListView(items: viewModel.trendingSection,
+                        ItemContentListView(items: viewModel.trendingItems,
                                             title: "Trending",
                                             subtitle: "This week",
                                             image: "crown",
                                             addedItemConfirmation: $showConfirmation)
-                        if let sections = viewModel.sections {
-                            ForEach(sections) {
-                                ItemContentListView(items: $0.results,
-                                                    title: $0.title,
-                                                    subtitle: $0.subtitle,
-                                                    image: $0.image,
-                                                    addedItemConfirmation: $showConfirmation)
-                            }
+                        ForEach(viewModel.sectionsItems) { section in
+                            ItemContentListView(items: section.results,
+                                                title: section.title,
+                                                subtitle: section.subtitle,
+                                                image: section.image,
+                                                addedItemConfirmation: $showConfirmation)
                         }
                         AttributionView()
                     }

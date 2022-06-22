@@ -10,7 +10,7 @@ import SwiftUI
 
 /// Represents a movie, tv show model, it is also used for people only
 /// on search.
-struct ItemContent: Identifiable, Decodable, Hashable {
+struct ItemContent: Identifiable, Decodable, Hashable, Sendable {
     let adult: Bool?
     let id: Int
     let title, name, overview: String?
@@ -54,7 +54,7 @@ struct ItemContentResponse: Identifiable, Decodable, Hashable {
     let id: String?
     let results: [ItemContent]
 }
-struct ItemContentSection: Identifiable {
+struct ItemContentSection: Identifiable, Sendable {
     var id = UUID()
     let results: [ItemContent]
     let endpoint: Endpoints
