@@ -1,7 +1,7 @@
 # Cronica
 
 <p align="center">
-    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Shared/Assets.xcassets/AppIcon.appiconset/mac512.png?raw=true" alt="Cronica Icon" width="200" maxHeight="200" />
+    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Shared/Assets.xcassets/Icon.imageset/Logo.png?raw=true" alt="Cronica Icon" width="200" maxHeight="200" />
 </p>
 
 <p align="center">
