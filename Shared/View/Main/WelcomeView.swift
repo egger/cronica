@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Onboard experience.
 struct WelcomeView: View {
     @AppStorage("showOnboarding") var displayOnboard = true
     var body: some View {
@@ -40,19 +41,17 @@ struct WelcomeView: View {
                 InformationContainerView()
                 HStack {
                     Spacer()
-                    NavigationLink(destination: ContentView()) {
-                        Button {
-                            withAnimation {
-                                displayOnboard.toggle()
-                            }
-                        } label: {
-                            Text("Continue")
+                    Button {
+                        withAnimation {
+                            displayOnboard.toggle()
                         }
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.large)
-                        .shadow(radius: 6)
-                        .padding()
+                    } label: {
+                        Text("Continue")
                     }
+                    .buttonStyle(.bordered)
+                    .tint(Color.blue.gradient)
+                    .controlSize(.large)
+                    .padding()
                     Spacer()
                 }
                 .padding()

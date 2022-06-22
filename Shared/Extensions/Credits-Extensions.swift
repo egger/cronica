@@ -9,7 +9,7 @@ import Foundation
 
 extension Credits {
     static var previewCredits: Credits {
-        return Content.previewContent.credits!
+        return ItemContent.previewContent.credits!
     }
     static var previewCast: Person {
         return previewCredits.cast[2]

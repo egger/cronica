@@ -65,11 +65,11 @@ class Utilities {
         }
         return nil
     }
-    static func buildTrailerUrl(videos: [VideosResult]? = nil) -> URL? {
-        if let results = videos {
-            for result in results {
-                if result.official && result.type == "Trailer" {
-                    return NetworkService.urlBuilder(video: result.key)
+    static func generateTrailerUrl(videos: [VideosResult]? = nil) -> URL? {
+        if let videos {
+            for video in videos {
+                if video.official && video.type == "Trailer" {
+                    return NetworkService.urlBuilder(video: video.key)
                 }
             }
         }

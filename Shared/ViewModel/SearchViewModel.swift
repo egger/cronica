@@ -11,13 +11,13 @@ import Combine
 
 @MainActor class SearchViewModel: ObservableObject {
     @Published var query: String = ""
-    @Published private(set) var phase: DataFetchPhase<[Content]> = .empty
+    @Published private(set) var phase: DataFetchPhase<[ItemContent]> = .empty
     private var cancellable = Set<AnyCancellable>()
     private var service: NetworkService = NetworkService.shared
     var trimmedQuery: String {
         query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    var searchItems: [Content] { phase.value ?? [] }
+    var searchItems: [ItemContent] { phase.value ?? [] }
     
     func observe() {
         guard cancellable.isEmpty else { return }

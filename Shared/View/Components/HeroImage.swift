@@ -46,20 +46,13 @@ struct HeroImage: View {
                 }
             }
         }
+                   
     }
 }
 
 struct HeroImage_Previews: PreviewProvider {
     static var previews: some View {
-        HeroImage(url: Content.previewContent.cardImageLarge,
-                  title: Content.previewContent.itemTitle)
+        HeroImage(url: ItemContent.previewContent.cardImageLarge,
+                  title: ItemContent.previewContent.itemTitle)
     }
-}
-
-private struct DrawingConstants {
-    static let shadowOpacity: Double = 0.2
-    static let shadowRadius: CGFloat = 6
-    static let imageWidth: CGFloat = 360
-    static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 8
 }

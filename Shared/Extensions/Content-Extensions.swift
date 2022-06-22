@@ -7,29 +7,26 @@
 
 import Foundation
 
-extension Content {
+extension ItemContent {
     var itemTitle: String {
         title ?? name!
     }
     var itemOverview: String {
-        overview ?? NSLocalizedString("Not available", comment: "")
+        overview ?? "Not Available"
     }
     var itemGenre: String {
-        genres?.first?.name ?? NSLocalizedString("Not Available",
-                                                 comment: "")
+        genres?.first?.name ?? "Not Available"
     }
-    var itemCountry: String {
-        return productionCountries?.first?.name ?? NSLocalizedString("Not Available",
-                                                                     comment: "")
+    var itemCountry: String? {
+        return productionCountries?.first?.name ?? "Not Available"
     }
     var itemCompany: String {
-        return productionCompanies?.first?.name ?? NSLocalizedString("Not Available",
-                                                                     comment: "")
+        return productionCompanies?.first?.name ?? "Not Available"
     }
     var itemPopularity: Double {
         popularity ?? 0.0
     }
-    var itemStatus: ContentSchedule {
+    var itemStatus: ItemSchedule {
         if status == "Released" && itemCanNotify { return .soon }
         switch status {
         case "Rumored": return .production
@@ -50,8 +47,8 @@ extension Content {
         return nil
     }
     var itemInfo: String {
-        if let date = itemTheatricalString {
-            return "\(itemGenre), \(date)"
+        if let itemTheatricalString {
+            return "\(itemGenre), \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
             return "\(itemGenre), \(Utilities.dateString.string(from: date))"
@@ -81,10 +78,7 @@ extension Content {
         }
     }
     var itemTrailer: URL? {
-        if let videos = videos {
-            return Utilities.buildTrailerUrl(videos: videos.results)
-        }
-        return nil
+        return Utilities.generateTrailerUrl(videos: videos?.results)
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!
@@ -92,11 +86,11 @@ extension Content {
     var itemSearchURL: URL {
         return URL(string: "https://www.themoviedb.org/\(media.rawValue)/\(id)")!
     }
-    var seasonsNumber: Int {
-        if numberOfSeasons != nil && numberOfSeasons! > 0 {
-            return numberOfSeasons!
+    var itemSeasons: [Int]? {
+        if let numberOfSeasons {
+            return Array(1...numberOfSeasons)
         }
-        return 0
+        return nil
     }
     var nextEpisodeDate: Date? {
         if let nextEpisodeDate = nextEpisodeToAir?.airDate {
@@ -111,8 +105,8 @@ extension Content {
         return nil
     }
     var itemTheatricalDate: Date? {
-        if let date = itemTheatricalString {
-            return Utilities.dateString.date(from: date)
+        if let itemTheatricalString {
+            return Utilities.dateString.date(from: itemTheatricalString)
         }
         return nil
     }
@@ -123,25 +117,28 @@ extension Content {
         return nil
     }
     var itemCanNotify: Bool {
-        if let date = itemTheatricalDate {
-            if date > Date() {
+        if let itemTheatricalDate {
+            if itemTheatricalDate > Date() {
                 return true
             }
         }
-        if let date = nextEpisodeDate {
-            if date > Date() {
+        if let nextEpisodeDate {
+            if nextEpisodeDate > Date() {
                 return true
             }
         }
         return false
     }
     var hasUpcomingSeason: Bool {
-        if let episode = nextEpisodeToAir {
-            if episode.episodeNumber == 1 && itemCanNotify {
+        if let nextEpisodeToAir {
+            if nextEpisodeToAir.episodeNumber == 1 && itemCanNotify {
                 return true
             }
         }
         return false
+    }
+    var itemIsAdult: Bool {
+        adult ?? false
     }
     /// This MediaType value is only used on regular content, such a trending list, filmography.
     ///
@@ -165,11 +162,11 @@ extension Content {
         }
     }
     //MARK: Sample Data for preview
-    static var previewContents: [Content] {
-        let data: ContentResponse? = try? Bundle.main.decode(from: "content")
+    static var previewContents: [ItemContent] {
+        let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
     }
-    static var previewContent: Content {
+    static var previewContent: ItemContent {
         previewContents[0]
     }
 }

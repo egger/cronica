@@ -7,17 +7,16 @@
 
 import Foundation
 
-struct Credits: Decodable {
+struct Credits: Decodable, Hashable {
     let cast, crew: [Person]
 }
-struct Person: Decodable, Identifiable {
+struct Person: Decodable, Identifiable, Hashable {
     let adult: Bool?
     let id: Int
     let name: String
-    let job, character, biography: String?
-    let profilePath: String?
-    let combinedCredits: CombinedCredits?
+    let job, character, biography, profilePath: String?
+    let combinedCredits: Filmography?
 }
-struct CombinedCredits: Decodable {
-    let cast, crew: [Filmography]?
+struct Filmography: Decodable, Hashable {
+    let cast, crew: [ItemContent]?
 }

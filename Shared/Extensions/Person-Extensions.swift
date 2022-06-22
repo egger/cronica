@@ -8,11 +8,14 @@
 import Foundation
 
 extension Person {
+    var isAdult: Bool {
+        adult ?? true
+    }
     var personImage: URL? {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
     var personBiography: String {
-        biography ?? NSLocalizedString("Not available", comment: "")
+        biography ?? "Not available"
     }
     var personRole: String? {
         job ?? character

@@ -11,7 +11,7 @@ import TelemetryClient
 
 @main
 struct StoryApp: App {
-    @StateObject var dataController = DataController.shared
+    let persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     @Environment(\.scenePhase) private var scenePhase
     init() {
@@ -22,12 +22,11 @@ struct StoryApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(dataController)
+                .environment(\.managedObjectContext, persistence.container.viewContext)
                 .onChange(of: scenePhase) { phase in
                     switch phase {
                     case .background:
-                        applicationDidEnterBackground()
+                        scheduleAppRefresh()
                     default:
                         print("Phase: \(phase).")
                     }
@@ -42,19 +41,10 @@ struct StoryApp: App {
         }
     }
     
-    private func applicationDidEnterBackground() {
-        scheduleAppRefresh()
-    }
-    
     private func scheduleAppRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 480 * 60) // Fetch no earlier than 8 hours from now
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            TelemetryManager.send("scheduleAppRefreshBGTaskError",
-                                  with: ["Error:":"\(error.localizedDescription)"])
-        }
+        try? BGTaskScheduler.shared.submit(request)
     }
     
     // Fetch the latest updates from api.

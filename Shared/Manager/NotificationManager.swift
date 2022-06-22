@@ -8,7 +8,6 @@
 import Foundation
 import UserNotifications
 import SwiftUI
-import TelemetryClient
 
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
@@ -29,40 +28,40 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func schedule(content: Content) {
-        let identifier: String = "\(content.itemTitle)+\(content.id)"
-        let title = content.itemTitle
-        var body: String
-        if content.itemContentMedia == .movie {
-            body = NSLocalizedString("The movie will be released today.", comment: "")
-        } else {
-            body = NSLocalizedString("New episode available.", comment: "")
-        }
-        var date: Date?
-        if content.itemContentMedia == .movie {
-            date = content.itemTheatricalDate!
-        } else if content.itemContentMedia == .tvShow {
-            date = content.nextEpisodeDate!
-        } else {
-            date = content.itemFallbackDate
-        }
+    func schedule(notificationContent: ItemContent) {
         self.requestAuthorization { granted in
             if !granted {
                 return
             }
         }
-        if let date = date {
+        let identifier: String = "\(notificationContent.itemTitle)+\(notificationContent.id)"
+        let title = notificationContent.itemTitle
+        var body: String
+        if notificationContent.itemContentMedia == .movie {
+            body = NSLocalizedString("The movie will be released today.", comment: "")
+        } else {
+            body = NSLocalizedString("New episode available.", comment: "")
+        }
+        var date: Date?
+        if notificationContent.itemContentMedia == .movie {
+            date = notificationContent.itemTheatricalDate!
+        } else if notificationContent.itemContentMedia == .tvShow {
+            date = notificationContent.nextEpisodeDate!
+        } else {
+            date = notificationContent.itemFallbackDate
+        }
+        if let date {
             self.scheduleNotification(identifier: identifier,
                                       title: title,
-                                      body: body,
+                                      message: body,
                                       date: date)
         }
     }
     
-    private func scheduleNotification(identifier: String, title: String, body: String, date: Date) {
+    private func scheduleNotification(identifier: String, title: String, message: String, date: Date) {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
-        notificationContent.body = body
+        notificationContent.body = message
         notificationContent.sound = UNNotificationSound.default
         let dateComponent: DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
                                                                             from: date)
@@ -71,9 +70,8 @@ class NotificationManager: ObservableObject {
                                             content: notificationContent,
                                             trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                TelemetryManager.send("scheduleNotificationError",
-                                      with: ["Error:":"\(error.localizedDescription)"])
+            if let error {
+                print(error.localizedDescription)
             }
         }
     }

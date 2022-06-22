@@ -6,22 +6,17 @@
 //
 
 import Foundation
-import TelemetryClient
 
-@MainActor class SeasonViewModel: ObservableObject {
-    private let service: NetworkService = NetworkService.shared
+@MainActor
+class SeasonViewModel: ObservableObject {
+    private let service = NetworkService.shared
     @Published var season: Season?
     @Published var isLoading: Bool = true    
     
     func load(id: Int, season: Int) async {
         if Task.isCancelled { return }
-        do {
-            isLoading = true
-            self.season = try await self.service.fetchSeason(id: id, season: season)
-            isLoading = false
-        } catch {
-            TelemetryManager.send("SeasonViewModel_loadError",
-                                  with: ["ID-Season-Error":"ID-\(id)-Season-\(season)-Error-\(error.localizedDescription)."])
-        }
+        isLoading = true
+        self.season = try? await self.service.fetchSeason(id: id, season: season)
+        isLoading = false
     }
 }

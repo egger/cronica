@@ -20,7 +20,14 @@
 
 
 
-## Instalation
+### Build information
+
+This project targets iOS 16, and requires Xcode 14. To get started, create an API Key for TMDB, you can create one at the [TMDB website](https://www.themoviedb.org/documentation/api), after that, go to Shared/Configuration/Key and replace the empty string with your own key.
+
+***To work with iOS 15 and Xcode 13, revert back to [commit '762da5b'](https://github.com/MadeiraAlexandre/Cronica/commit/762da5bad703c5b47437797d3baee27a56324009).***
+
+
+### Instalation
 
 Cronica is available in the [App Store](https://apple.co/38SXpVJ), you can also build it using its source-code.
 
@@ -29,4 +36,3 @@ Cronica is available in the [App Store](https://apple.co/38SXpVJ), you can also 
             <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/d15209c4e281948b35db08fcd41ac5f0/4ab4af64ddd50c272495eae4245f6a8e.png" alt="App Store QR Code" minWidth="250" minHeight="250" width="300" height="300">
     </a>
  </p>
-

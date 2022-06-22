@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Displays the overview of a movie, tv show, or episode.
+/// It can also display biography.
 struct OverviewBoxView: View {
     let overview: String?
     let title: String
@@ -19,13 +21,13 @@ struct OverviewBoxView: View {
                 .lineLimit(4)
         } label: {
             switch type {
-            case .movie:
-                Label("About", systemImage: "film")
-                    .unredacted()
             case .person:
                 Label("Biography", systemImage: "book")
                     .unredacted()
             case .tvShow:
+                Label("About", systemImage: "film")
+                    .unredacted()
+            default:
                 Label("About", systemImage: "film")
                     .unredacted()
             }
@@ -36,9 +38,9 @@ struct OverviewBoxView: View {
         }
         .accessibilityElement(children: .combine)
         .sheet(isPresented: $showDetailsSheet, content: {
-            NavigationView {
+            NavigationStack {
                 ScrollView {
-                    if let overview = overview {
+                    if let overview {
                         Text(overview)
                             .padding()
                             .textSelection(.enabled)
@@ -63,8 +65,8 @@ struct OverviewBoxView: View {
 
 struct OverviewBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewBoxView(overview: Content.previewContent.overview,
-                        title: Content.previewContent.itemTitle,
+        OverviewBoxView(overview: ItemContent.previewContent.overview,
+                        title: ItemContent.previewContent.itemTitle,
                         type: .movie)
     }
 }

@@ -9,103 +9,72 @@ import SwiftUI
 
 struct HomeView: View {
     static let tag: Screens? = .home
-#if os(iOS)
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-#endif
     @AppStorage("showOnboarding") var displayOnboard = true
     @StateObject private var viewModel: HomeViewModel
-    @StateObject private var store: SettingsStore
-    @State private var showAccount: Bool = false
-    @State private var isLoading: Bool = true
-    @State private var showConfirmation: Bool = false
+    @StateObject private var settings: SettingsStore
+    @State private var showSettings = false
+    @State private var isLoading = true
+    @State private var showConfirmation = false
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
-        _store = StateObject(wrappedValue: SettingsStore())
+        _settings = StateObject(wrappedValue: SettingsStore())
     }
-    @ViewBuilder
     var body: some View {
-#if os(iOS)
-        if horizontalSizeClass == .compact {
-            NavigationView {
-                detailsView
-            }
-            .navigationViewStyle(.stack)
-        } else {
-            detailsView
-        }
-#else
-        detailsView
-#endif
-    }
-    
-    var detailsView: some View {
-        ZStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    WatchListUpcomingMoviesListView()
-                    WatchListUpcomingSeasonsListView()
-                    TrendingListView(items: viewModel.trendingSection,
-                                     showConfirmation: $showConfirmation)
-                    if let sections = viewModel.sections {
-                        ForEach(sections) {
-                            ContentListView(type: $0.type,
-                                            title: $0.title,
-                                            subtitle: $0.subtitle,
-                                            image: $0.image,
-                                            items: $0.results,
-                                            showConfirmation: $showConfirmation)
+        AdaptableNavigationView {
+            ZStack {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        WatchListUpcomingMoviesListView()
+                        WatchListUpcomingSeasonsListView()
+                        ItemContentListView(items: viewModel.trendingItems,
+                                            title: "Trending",
+                                            subtitle: "This week",
+                                            image: "crown",
+                                            addedItemConfirmation: $showConfirmation)
+                        ForEach(viewModel.sectionsItems) { section in
+                            ItemContentListView(items: section.results,
+                                                title: section.title,
+                                                subtitle: section.subtitle,
+                                                image: section.image,
+                                                addedItemConfirmation: $showConfirmation)
+                        }
+                        AttributionView()
+                    }
+                    .navigationDestination(for: ItemContent.self) { item in
+                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                    }
+                    .navigationDestination(for: Person.self) { person in
+                        PersonDetailsView(title: person.name, id: person.id)
+                    }
+                    .navigationDestination(for: WatchlistItem.self) { item in
+                        ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                    }
+                    .redacted(reason: isLoading ? .placeholder : [] )
+                    .navigationTitle("Home")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                HapticManager.shared.softHaptic()
+                                showSettings.toggle()
+                            }, label: {
+                                Label("Settings", systemImage: "gearshape")
+                            })
                         }
                     }
-                    AttributionView()
-                }
-                .redacted(reason: isLoading ? .placeholder : [] )
-                .navigationTitle("Home")
-                .toolbar {
-                    ToolbarItem {
-                        Button(action: {
-                            showAccount.toggle()
-                        }, label: {
-                            Label("Account", systemImage: "gear.circle")
-                        })
+                    .sheet(isPresented: $displayOnboard) {
+                        WelcomeView()
                     }
-                }
-                .sheet(isPresented: $displayOnboard) {
-                    WelcomeView()
-                }
-                .sheet(isPresented: $showAccount) {
-                    NavigationView {
-                        SettingsView()
-                            .navigationTitle("Settings")
-                            .navigationBarTitleDisplayMode(.inline)
-                            .toolbar {
-                                ToolbarItem {
-                                    Button("Done") {
-                                        showAccount.toggle()
-                                    }
-                                }
-                            }
-                            .environmentObject(store)
+                    .sheet(isPresented: $showSettings) {
+                        SettingsView(showSettings: $showSettings)
+                            .environmentObject(settings)
                     }
+                    .task { load() }
                 }
-                .task { load() }
-            }
-            VStack {
-                Spacer()
-                HStack {
-                    Label("Added to watchlist", systemImage: "checkmark.circle")
-                        .tint(.green)
-                        .padding()
-                }
-                .background(.regularMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .padding()
-                .shadow(radius: 6)
-                .opacity(showConfirmation ? 1 : 0)
-                .scaleEffect(showConfirmation ? 1.1 : 1)
-                .animation(.linear, value: showConfirmation)
+                ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
         }
     }
+    
     
     @Sendable
     private func load() {

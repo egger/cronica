@@ -10,7 +10,7 @@ import Foundation
 class NetworkService {
     static let shared = NetworkService()
     
-    func fetchContent(id: Content.ID, type: MediaType) async throws -> Content {
+    func fetchContent(id: ItemContent.ID, type: MediaType) async throws -> ItemContent {
         guard let url = urlBuilder(path: "\(type.rawValue)/\(id)", append: type.append) else {
             throw NetworkError.invalidEndpoint
         }
@@ -24,19 +24,19 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
-    func fetchContents(from path: String) async throws -> [Content] {
+    func fetchContents(from path: String) async throws -> [ItemContent] {
         guard let url = urlBuilder(path: path) else {
             throw NetworkError.invalidEndpoint
         }
-        let response: ContentResponse = try await self.fetch(url: url)
+        let response: ItemContentResponse = try await self.fetch(url: url)
         return response.results
     }
     
-    func fetchDiscover(type: MediaType, sort: String, page: Int, genres: String) async throws -> [Content] {
-        guard let url = urlBuilder(type: type.rawValue, sortBy: sort, page: page, genres: genres) else {
+    func fetchDiscover(type: MediaType, page: Int, genres: String) async throws -> [ItemContent] {
+        guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres) else {
             throw NetworkError.invalidEndpoint
         }
-        let response: ContentResponse = try await self.fetch(url: url)
+        let response: ItemContentResponse = try await self.fetch(url: url)
         return response.results
     }
     
@@ -48,11 +48,11 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
-    func search(query: String, page: String) async throws -> [Content] {
+    func search(query: String, page: String) async throws -> [ItemContent] {
         guard let url = urlBuilder(path: "search/multi", query: query, page: page) else {
             throw NetworkError.invalidEndpoint
         }
-        let results: ContentResponse = try await self.fetch(url: url)
+        let results: ItemContentResponse = try await self.fetch(url: url)
         return results.results
     }
     
@@ -78,7 +78,7 @@ class NetworkService {
         component.scheme = "https"
         component.host = "api.themoviedb.org"
         component.path = "/3/\(path)"
-        if let append = append {
+        if let append {
             component.queryItems = [
                 .init(name: "api_key", value: Key.keyV3),
                 .init(name: "language", value: Utilities.userLang),
@@ -93,7 +93,7 @@ class NetworkService {
                 .init(name: "region", value: Utilities.userRegion)
             ]
         }
-        if let query = query {
+        if let query {
             component.queryItems = [
                 .init(name: "api_key", value: Key.keyV3),
                 .init(name: "language", value: Utilities.userLang),
@@ -106,7 +106,7 @@ class NetworkService {
         return component.url
     }
     
-    private func urlBuilder(type: String, sortBy: String, page: Int, genres: String) -> URL? {
+    private func urlBuilder(type: String, page: Int, genres: String) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"
@@ -132,29 +132,27 @@ class NetworkService {
     ///   - path: The path for the image.
     /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
     static func urlBuilder(size: ImageSize, path: String? = nil) -> URL? {
-        if let path = path {
+        if let path {
             var component = URLComponents()
             component.scheme = "https"
             component.host = "image.tmdb.org"
             component.path = "/\(size.rawValue)\(path)"
             return component.url
-        } else {
-            return nil
         }
+        return nil
     }
     
     /// Build a URL for the trailer, only generate YouTube links.
     /// - Parameter path: The 'key' for the trailer.
     /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
     static func urlBuilder(video path: String? = nil) -> URL? {
-        if let path = path {
+        if let path {
             var components = URLComponents()
             components.scheme = "https"
             components.host = "www.youtube.com"
             components.path = "/embed/\(path)"
             return components.url
-        } else {
-            return nil
         }
+        return nil
     }
 }

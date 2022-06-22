@@ -34,9 +34,9 @@
 "Upcoming Seasons" = "Upcoming Seasons";
 "Releasing Soon" = "Releasing Soon";
 "Recently Released" = "Recently Released";
-"Share" = "Share";
 "Remove" = "Remove";
 "Added to watchlist" = "Added to watchlist";
+"Mark as" = "Mark as";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
@@ -101,7 +101,7 @@
 
 //MARK: AccountView.swift
 "Support" = "Support";
-"Send email" = "Send email";
+"Send feedback" = "Send Feedback";
 "Privacy Policy" = "Privacy Policy";
 "Made in Brazil 🇧🇷" = "Made in Brazil 🇧🇷";
 "Gesture" = "Gesture";

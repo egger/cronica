@@ -8,27 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    // MARK: - Properties
-#if os(iOS)
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-#endif
-    // MARK: - UI Elements
-    @ViewBuilder
+    @State private var isPad: Bool = UIDevice.isIPad
     var body: some View {
-#if os(iOS)
-        if horizontalSizeClass == .compact {
-            TabBarView()
-        } else {
+        if isPad {
             SideBarView()
+        } else {
+            TabBarView()
         }
-#else
-        SideBarView()
-#endif
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().preferredColorScheme(.light)
+        ContentView()
     }
 }
