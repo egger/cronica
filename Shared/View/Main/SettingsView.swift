@@ -28,18 +28,21 @@ struct SettingsView: View {
                     Label("Double Tap Gesture", systemImage: "hand.tap")
                 } footer: {
                     Text("The function is performed when double-tap the cover image.")
+                        .padding(.bottom)
                 }
-                Section(header: Text("Support")) {
+                Section {
                     Button( action: {
                         email.send(openURL: openURL)
                     }, label: {
-                        Label("Send email", systemImage: "envelope")
+                        Label("Send feedback", systemImage: "envelope")
                     })
                     Button(action: {
                         showPolicy.toggle()
                     }, label: {
                         Label("Privacy Policy", systemImage: "hand.raised")
                     })
+                } header: {
+                    Label("Support", systemImage: "questionmark.circle")
                 }
                 HStack {
                     Spacer()

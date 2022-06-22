@@ -137,6 +137,9 @@ extension ItemContent {
         }
         return false
     }
+    var itemIsAdult: Bool {
+        adult ?? false
+    }
     /// This MediaType value is only used on regular content, such a trending list, filmography.
     ///
     /// Change to media to search results.

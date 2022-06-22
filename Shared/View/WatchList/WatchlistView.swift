@@ -69,13 +69,13 @@ struct WatchlistView: View {
             .navigationTitle("Watchlist")
             .navigationBarTitleDisplayMode(.large)
             .navigationDestination(for: WatchlistItem.self) { item in
-                ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
             }
             .navigationDestination(for: ItemContent.self) { item in
-                ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }
             .navigationDestination(for: Person.self) { person in
-                CastDetailsView(title: person.name, id: person.id)
+                PersonDetailsView(title: person.name, id: person.id)
             }
             .refreshable {
                 Task {

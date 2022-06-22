@@ -41,13 +41,13 @@ struct HomeView: View {
                         AttributionView()
                     }
                     .navigationDestination(for: ItemContent.self) { item in
-                        ContentDetailsView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     }
                     .navigationDestination(for: Person.self) { person in
-                        CastDetailsView(title: person.name, id: person.id)
+                        PersonDetailsView(title: person.name, id: person.id)
                     }
                     .navigationDestination(for: WatchlistItem.self) { item in
-                        ContentDetailsView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                        ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
                     }
                     .redacted(reason: isLoading ? .placeholder : [] )
                     .navigationTitle("Home")

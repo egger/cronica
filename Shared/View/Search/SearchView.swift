@@ -27,13 +27,13 @@ struct SearchView: View {
                 .navigationTitle("Search")
                 .navigationBarTitleDisplayMode(.large)
                 .navigationDestination(for: Person.self) { person in
-                    CastDetailsView(title: person.name, id: person.id)
+                    PersonDetailsView(title: person.name, id: person.id)
                 }
                 .navigationDestination(for: ItemContent.self) { item in
                     if item.media == .person {
-                        CastDetailsView(title: item.itemTitle, id: item.id)
+                        PersonDetailsView(title: item.itemTitle, id: item.id)
                     } else {
-                        ContentDetailsView(title: item.itemTitle, id: item.id, type: item.media)
+                        ItemContentView(title: item.itemTitle, id: item.id, type: item.media)
                     }
                 }
                 .searchable(text: $viewModel.query,

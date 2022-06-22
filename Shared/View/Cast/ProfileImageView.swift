@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// This view displays a rounded image for the given person.
 struct ProfileImageView: View {
     let url: URL?
     let name: String

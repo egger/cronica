@@ -15,10 +15,6 @@ class HomeViewModel: ObservableObject {
     @Published var sectionsItems: [ItemContentSection] = []
     
     func load() async {
-        await fetch()
-    }
-    
-    func fetch() async {
         Task {
             if trendingItems.isEmpty {
                 let result = try? await service.fetchContents(from: "trending/all/week")

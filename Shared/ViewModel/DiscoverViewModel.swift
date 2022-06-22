@@ -59,12 +59,6 @@ import SwiftUI
             endPagination = currentPage == 1000
             startPagination = false
         }
-//        await MainActor.run(body: {
-//            if items == nil { items = [] }
-//            items?.append(contentsOf: result ?? [])
-//            endPagination = currentPage == 1000
-//            startPagination = false
-//        })
     }
     
     // MARK: Genres array.

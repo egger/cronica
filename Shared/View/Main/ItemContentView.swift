@@ -1,5 +1,5 @@
 //
-//  ContentDetailsView.swift
+//  ItemContentView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 02/03/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentDetailsView: View {
+struct ItemContentView: View {
     var title: String
     var id: Int
     var type: MediaType
@@ -227,7 +227,7 @@ struct ContentDetailsView: View {
 
 struct ContentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentDetailsView(title: ItemContent.previewContent.itemTitle,
+        ItemContentView(title: ItemContent.previewContent.itemTitle,
                            id: ItemContent.previewContent.id,
                            type: MediaType.movie)
     }
