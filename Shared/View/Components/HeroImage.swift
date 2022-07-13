@@ -12,7 +12,7 @@ struct HeroImage: View {
     let url: URL?
     let title: String
     var blurImage: Bool = false
-    @State private var isPad: Bool = UIDevice.isIPad
+    private let isPad: Bool = UIDevice.isIPad
     var body: some View {
         ZStack {
             WebImage(url: url)
@@ -46,6 +46,7 @@ struct HeroImage_Previews: PreviewProvider {
 
 private struct HeroImagePlaceholder: View {
     let title: String
+    private let isPad: Bool = UIDevice.isIPad
     var body: some View {
         ZStack {
             Rectangle().fill(.thickMaterial)
@@ -58,6 +59,11 @@ private struct HeroImagePlaceholder: View {
             .padding()
             .foregroundColor(.secondary)
         }
+        .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+               height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+        .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
+        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                radius: DrawingConstants.shadowRadius)
     }
 }
 

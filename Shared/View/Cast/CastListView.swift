@@ -58,86 +58,10 @@ struct PersonListView_Previews: PreviewProvider {
     }
 }
 
-/// This view is responsible for displaying a given person
-/// in a card view, with its name, role, and image.
-private struct PersonCardView: View {
-    let person: Person
-    var body: some View {
-        AsyncImage(url: person.personImage,
-                   transaction: Transaction(animation: .easeInOut)) { phase in
-            if let image = phase.image {
-                ZStack {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                    Rectangle().fill(.ultraThinMaterial)
-                    Color.black.opacity(0.4)
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .mask(
-                            LinearGradient(gradient: Gradient(stops: [
-                                .init(color: .black, location: 0),
-                                .init(color: .black, location: 0.5),
-                                .init(color: .black.opacity(0), location: 1)
-                            ]), startPoint: .top, endPoint: .bottom)
-                        )
-                        .transition(.opacity)
-                    PersonNameCredits(person: person)
-                }
-            } else if phase.error != nil {
-                Rectangle().redacted(reason: .placeholder)
-            } else {
-                ZStack {
-                    Rectangle().fill(.secondary)
-                    Image(systemName: "person")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .foregroundColor(.white)
-                    PersonNameCredits(person: person)
-                }
-            }
-        }
-        .frame(width: DrawingConstants.profileWidth,
-               height: DrawingConstants.profileHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
-                                    style: .continuous))
-        .padding(2)
-    }
-}
-
 private struct DrawingConstants {
     static let profileWidth: CGFloat = 140
     static let profileHeight: CGFloat = 200
     static let shadowRadius: CGFloat = 2
     static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
-}
-
-private struct PersonNameCredits: View {
-    let person: Person
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Text(person.name)
-                    .font(.callout)
-                    .foregroundColor(.white)
-                    .fontWeight(.semibold)
-                    .lineLimit(DrawingConstants.lineLimit)
-                    .padding(.leading, 6)
-                Spacer()
-            }
-            HStack {
-                Text(person.personRole ?? " ")
-                    .foregroundColor(.white)
-                    .font(.caption)
-                    .lineLimit(DrawingConstants.lineLimit)
-                    .padding(.leading, 6)
-                Spacer()
-            }
-        }
-        .padding(.bottom)
-    }
 }

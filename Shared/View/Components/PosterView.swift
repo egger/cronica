@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct PosterView: View {
     let item: ItemContent
     var body: some View {
-        WebImage(url: item.posterImageMedium)
+        WebImage(url: item.posterImageMedium, options: .highPriority)
             .resizable()
             .placeholder {
                 PosterPlaceholder(title: item.itemTitle)
