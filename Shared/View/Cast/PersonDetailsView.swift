@@ -29,27 +29,14 @@ struct PersonDetailsView: View {
                                      name: name)
                     .shadow(radius: DrawingConstants.imageShadow)
                     
-                    OverviewBoxView(overview: viewModel.person?.biography,
+                    OverviewBoxView(overview: viewModel.person?.personBiography,
                                     title: name,
                                     type: .person)
                     .padding()
                     
-                    if let filmography = viewModel.credits {
-                        VStack {
-                            TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
-                            LazyVGrid(columns: columns, spacing: 20) {
-                                ForEach(filmography) { item in
-                                    NavigationLink(value: item) {
-                                        PosterView(item: item)
-                                            .modifier(
-                                                ItemContentContextMenu(item: item, showConfirmation: $showConfirmation)
-                                            )
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
-                    }
+                    FilmographyListView(filmography: viewModel.credits,
+                                        showConfirmation: $showConfirmation)
+                    .padding(.horizontal)
                     
                     AttributionView()
                         .padding([.top, .bottom])
