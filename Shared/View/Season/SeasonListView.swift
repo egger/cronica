@@ -64,7 +64,6 @@ struct SeasonsView: View {
         }
     }
     
-    @Sendable
     private func load() {
         Task {
             await self.viewModel.load(id: self.tvId, season: self.selectedSeason)

@@ -32,7 +32,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    private func fetchEndpoints(_ endpoints: [Endpoints] = Endpoints.allCases) async -> [ItemContentSection] {
+    private func fetchEndpoints(_ endpoints: [Endpoints] = Endpoints.allCases) async -> [ItemContentSection]? {
         let results: [Result<ItemContentSection, Error>] = await withTaskGroup(of: Result<ItemContentSection, Error>.self) { group in
             for endpoint in endpoints {
                 group.addTask {

@@ -54,7 +54,6 @@ struct PersonDetailsView: View {
         }
     }
     
-    @Sendable
     private func load() {
         Task {
             await self.viewModel.load()

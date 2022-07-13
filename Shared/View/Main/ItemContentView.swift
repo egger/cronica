@@ -199,7 +199,6 @@ struct ItemContentView: View {
         }
     }
     
-    @Sendable
     private func load() {
         Task {
             await self.viewModel.load(id: self.id, type: self.type)

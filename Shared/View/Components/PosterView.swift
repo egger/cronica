@@ -6,51 +6,60 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct PosterView: View {
-    let title: String
-    let url: URL?
+    let item: ItemContent
     var body: some View {
-        AsyncImage(url: url,
-                   transaction: Transaction(animation: .easeInOut)) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-            } else if phase.error != nil {
-                ZStack {
-                    Rectangle().fill(.thickMaterial)
-                    VStack {
-                        Text(title)
-                            .lineLimit(1)
-                            .padding(.bottom)
-                        Image(systemName: "film")
-                    }
-                    .padding()
-                    .foregroundColor(.secondary)
-                }
-            } else {
-                ZStack {
-                    Rectangle().fill(.thickMaterial)
-                    VStack {
-                        ProgressView()
-                        Text(title)
-                            .lineLimit(1)
-                            .padding(.bottom)
-                        Image(systemName: "film")
-                    }
-                    .padding()
-                    .foregroundColor(.secondary)
-                }
+        WebImage(url: item.posterImageMedium)
+            .resizable()
+            .placeholder {
+                PosterPlaceholder(title: item.itemTitle)
             }
-        }
+            .aspectRatio(contentMode: .fill)
+            .transition(.opacity)
+            .frame(width: DrawingConstants.posterWidth,
+                   height: DrawingConstants.posterHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
+                                        style: .continuous))
+            .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                    radius: DrawingConstants.shadowRadius)
     }
 }
 
 struct PosterView_Previews: PreviewProvider {
     static var previews: some View {
-        PosterView(title: ItemContent.previewContent.itemTitle,
-                   url: ItemContent.previewContent.posterImageMedium)
+        PosterView(item: ItemContent.previewContent)
     }
+}
+
+private struct PosterPlaceholder: View {
+    var title: String
+    var body: some View {
+        ZStack {
+            Rectangle().fill(.thickMaterial)
+            VStack {
+                Text(title)
+                    .lineLimit(1)
+                    .padding(.bottom)
+                Image(systemName: "film")
+            }
+            .padding()
+            .foregroundColor(.secondary)
+        }
+        .frame(width: DrawingConstants.posterWidth,
+               height: DrawingConstants.posterHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
+                                    style: .continuous))
+        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                radius: DrawingConstants.shadowRadius)
+    }
+}
+
+private struct DrawingConstants {
+    static let posterWidth: CGFloat = 160
+    static let posterHeight: CGFloat = 240
+    static let posterRadius: CGFloat = 8
+    static let shadowOpacity: Double = 0.5
+    static let shadowRadius: CGFloat = 2.5
 }

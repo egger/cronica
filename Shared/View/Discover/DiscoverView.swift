@@ -116,7 +116,6 @@ struct DiscoverView: View {
         }
     }
     
-    @Sendable
     private func load() {
         Task {
             if onChanging {

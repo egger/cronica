@@ -26,13 +26,7 @@ struct ItemContentListView: View {
                         HStack {
                             ForEach(items) { item in
                                 NavigationLink(value: item) {
-                                    PosterView(title: item.itemTitle, url: item.posterImageMedium)
-                                        .frame(width: DrawingConstants.posterWidth,
-                                               height: DrawingConstants.posterHeight)
-                                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
-                                                                    style: .continuous))
-                                        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                                                radius: DrawingConstants.shadowRadius)
+                                    PosterView(item: item)
                                         .modifier(ItemContentContextMenu(item: item,
                                                                          showConfirmation: $addedItemConfirmation))
                                         .padding([.leading, .trailing], 4)
@@ -60,12 +54,4 @@ struct ItemContentListView_Previews: PreviewProvider {
                             image: "heart",
                             addedItemConfirmation: $show)
     }
-}
-
-private struct DrawingConstants {
-    static let posterWidth: CGFloat = 160
-    static let posterHeight: CGFloat = 240
-    static let posterRadius: CGFloat = 8
-    static let shadowOpacity: Double = 0.5
-    static let shadowRadius: CGFloat = 2.5
 }

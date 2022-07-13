@@ -75,8 +75,6 @@ struct HomeView: View {
         }
     }
     
-    
-    @Sendable
     private func load() {
         Task {
             await viewModel.load()
