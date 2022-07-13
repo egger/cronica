@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ItemContentFrameView: View {
     let item: ItemContent
@@ -13,14 +14,9 @@ struct ItemContentFrameView: View {
     var body: some View {
         NavigationLink(value: item) {
             VStack {
-                AsyncImage(url: item.cardImageMedium,
-                           transaction: Transaction(animation: .easeInOut)) { phase in
-                    if let image = phase.image {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .transition(.opacity)
-                    } else if phase.error != nil {
+                WebImage(url: item.cardImageMedium)
+                    .resizable()
+                    .placeholder {
                         ZStack {
                             Rectangle().fill(.thickMaterial)
                             VStack {
@@ -33,25 +29,18 @@ struct ItemContentFrameView: View {
                             .padding()
                             .foregroundColor(.secondary)
                         }
-                    } else {
-                        ZStack {
-                            Rectangle().fill(.thickMaterial)
-                            VStack {
-                                ProgressView()
-                                    .padding(.bottom)
-                                Image(systemName: "film")
-                            }
-                            .padding()
-                            .foregroundColor(.secondary)
-                        }
+                        .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
+                               height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+                        .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius, style: .continuous))
                     }
-                }
-                .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
-                        height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
-                                                       style: .continuous))
-                .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
-                .shadow(radius: DrawingConstants.imageShadow)
+                    .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
+                    .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
+                           height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
+                                                style: .continuous))
+                    .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
+                    .shadow(radius: DrawingConstants.imageShadow)
                 HStack {
                     Text(item.itemTitle)
                         .font(.caption)

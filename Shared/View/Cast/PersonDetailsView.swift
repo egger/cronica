@@ -13,6 +13,9 @@ struct PersonDetailsView: View {
     @State private var isLoading = true
     @StateObject private var viewModel: PersonDetailsViewModel
     @State private var showConfirmation = false
+    let columns: [GridItem] = [
+        GridItem(.adaptive(minimum: 160 ))
+    ]
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
@@ -31,11 +34,22 @@ struct PersonDetailsView: View {
                                     type: .person)
                     .padding()
                     
-                    ItemContentListView(items: viewModel.credits,
-                                        title: "Filmography",
-                                        subtitle: "Know for",
-                                        image: "list.and.film",
-                                        addedItemConfirmation: $showConfirmation)
+                    if let filmography = viewModel.credits {
+                        VStack {
+                            TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(filmography) { item in
+                                    NavigationLink(value: item) {
+                                        PosterView(item: item)
+                                            .modifier(
+                                                ItemContentContextMenu(item: item, showConfirmation: $showConfirmation)
+                                            )
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
                     
                     AttributionView()
                         .padding([.top, .bottom])
