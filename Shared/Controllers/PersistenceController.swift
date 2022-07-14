@@ -172,30 +172,11 @@ struct PersistenceController {
         return false
     }
     
-    /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
-    /// and might not be an actual representation if the item will notify the user.
-    func isNotificationScheduled(id: ItemContent.ID) -> Bool {
-        let item = getItem(id: WatchlistItem.ID(id))
-        if let item {
-            return item.notify
-        }
-        return false
-    }
-    
     /// Returns a boolean indicating the status of 'watched' on a given item.
     func isMarkedAsWatched(id: ItemContent.ID) -> Bool {
         let item = getItem(id: WatchlistItem.ID(id))
         if let item {
             return item.watched
-        }
-        return false
-    }
-    
-    // Returns a boolean indicating the status of 'favorite' on a given item.
-    func isMarkedAsFavorite(id: ItemContent.ID) -> Bool {
-        let item = getItem(id: WatchlistItem.ID(id))
-        if let item {
-            return item.favorite
         }
         return false
     }

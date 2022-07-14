@@ -39,7 +39,7 @@ struct SeasonsView: View {
                     Spacer()
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
+                    LazyHStack {
                         if let season = viewModel.season?.episodes {
                             ForEach(season) { item in
                                 EpisodeFrameView(episode: item)

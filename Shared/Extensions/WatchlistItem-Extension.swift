@@ -35,6 +35,19 @@ extension WatchlistItem {
     var itemLink: URL {
         return URL(string: "https://www.themoviedb.org/\(itemMedia.rawValue)/\(itemId)")!
     }
+    var itemGlanceInfo: String? {
+        switch itemMedia {
+        case .tvShow:
+            if upcomingSeason {
+                return NSLocalizedString("Season \(nextSeasonNumber)", comment: "")
+            }
+        default:
+            if let formattedDate {
+                return formattedDate
+            }
+        }
+        return nil
+    }
     static var example: WatchlistItem {
         let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext

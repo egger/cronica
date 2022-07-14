@@ -14,6 +14,7 @@ class PersonDetailsViewModel: ObservableObject {
     @Published var isLoaded: Bool = false
     @Published var person: Person?
     @Published var credits: [ItemContent]?
+    @Published var errorMessage: String?
     
     init(id: Int) {
         self.id = id
@@ -26,11 +27,14 @@ class PersonDetailsViewModel: ObservableObject {
                 person = try await self.service.fetchPerson(id: self.id)
                 if let person {
                     let combinedCredits = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false }
-                    credits = combinedCredits?.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+                    if !combinedCredits.isEmpty {
+                        credits = combinedCredits?.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+                    }
                 }
                 isLoaded.toggle()
             } catch {
                 person = nil
+                errorMessage = error.localizedDescription
                 print(error.localizedDescription)
             }
         }

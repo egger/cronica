@@ -14,17 +14,11 @@ struct ItemContentView: View {
     let itemUrl: URL
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store: SettingsStore
-    @State private var isNotificationAvailable = false
-    @State private var isNotificationScheduled = false
-    @State private var isInWatchlist = false
-    @State private var isLoading = true
     @State private var markAsMenuVisibility = false
-    @State private var isWatched = false
-    @State private var isFavorite = false
     @State private var animateGesture = false
     @State private var showConfirmation = false
     init(title: String, id: Int, type: MediaType) {
-        _viewModel = StateObject(wrappedValue: ItemContentViewModel())
+        _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         _store = StateObject(wrappedValue: SettingsStore())
         self.title = title
         self.id = id
@@ -35,8 +29,8 @@ struct ItemContentView: View {
         ZStack {
             ScrollView {
                 VStack {
-                    CoverImageView(isWatched: $isWatched,
-                                   isFavorite: $isFavorite,
+                    CoverImageView(isWatched: $viewModel.isWatched,
+                                   isFavorite: $viewModel.isFavorite,
                                    animateGesture: $animateGesture,
                                    image: viewModel.content?.cardImageMedium,
                                    title: title,
@@ -46,19 +40,19 @@ struct ItemContentView: View {
                             withAnimation {
                                 animateGesture.toggle()
                             }
-                            if !isInWatchlist {
-                                viewModel.update(markAsWatched: nil, markAsFavorite: nil)
+                            if !viewModel.isInWatchlist {
+                                viewModel.update()
                                 withAnimation {
-                                    isInWatchlist.toggle()
-                                    isNotificationScheduled.toggle()
+                                    viewModel.isInWatchlist.toggle()
+                                    viewModel.hasNotificationScheduled.toggle()
                                 }
                             }
                             if store.gesture == .favorite {
-                                isFavorite.toggle()
-                                viewModel.update(markAsWatched: nil, markAsFavorite: isFavorite)
+                                viewModel.isFavorite.toggle()
+                                viewModel.update(markAsFavorite: viewModel.isFavorite)
                             } else {
-                                isWatched.toggle()
-                                viewModel.update(markAsWatched: isWatched, markAsFavorite: nil)
+                                viewModel.isWatched.toggle()
+                                viewModel.update(markAsWatched: viewModel.isWatched)
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                                 withAnimation {
@@ -71,7 +65,7 @@ struct ItemContentView: View {
                     
                     watchlistButton
                     
-                    OverviewBoxView(overview: viewModel.content?.overview,
+                    OverviewBoxView(overview: viewModel.content?.itemOverview,
                                     title: title,
                                     type: .movie)
                         .padding()
@@ -100,19 +94,19 @@ struct ItemContentView: View {
                 }
             }
             .task { load() }
-            .redacted(reason: isLoading ? .placeholder : [])
+            .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .overlay(overlayView)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem {
                     HStack {
-                        Image(systemName: isNotificationScheduled ? "bell.fill" : "bell")
-                            .opacity(isNotificationAvailable ? 1 : 0)
+                        Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
+                            .opacity(viewModel.isNotificationAvailable ? 1 : 0)
                             .foregroundColor(.accentColor)
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
-                            .disabled(isLoading ? true : false)
+                            .disabled(viewModel.isLoading ? true : false)
                         if markAsMenuVisibility {
                             markAsMenu
                         }
@@ -126,62 +120,62 @@ struct ItemContentView: View {
     var watchlistButton: some View {
         Button(action: {
             withAnimation {
-                isInWatchlist.toggle()
+                viewModel.isInWatchlist.toggle()
             }
-            viewModel.update(markAsWatched: nil, markAsFavorite: nil)
-            if !isInWatchlist {
+            viewModel.update()
+            if !viewModel.isInWatchlist {
                 withAnimation {
-                    isNotificationScheduled = viewModel.content?.itemCanNotify ?? false
+                    viewModel.hasNotificationScheduled = viewModel.content?.itemCanNotify ?? false
                 }
             } else {
                 withAnimation {
-                    isNotificationScheduled.toggle()
+                    viewModel.hasNotificationScheduled.toggle()
                 }
             }
         }, label: {
-            Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                  systemImage: isInWatchlist ? "minus.square" : "plus.square")
+            Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
+                  systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
         })
         .buttonStyle(.bordered)
-        .tint(isInWatchlist ? .red : .blue)
+        .tint(viewModel.isInWatchlist ? .red : .blue)
         .controlSize(.large)
-        .disabled(isLoading)
+        .disabled(viewModel.isLoading)
         .keyboardShortcut("w", modifiers: [.command, .shift])
     }
     
     private var markAsMenu: some View {
         Menu(content: {
             Button(action: {
-                isWatched.toggle()
-                if !isInWatchlist {
+                viewModel.isWatched.toggle()
+                if !viewModel.isInWatchlist {
                     withAnimation {
-                        isInWatchlist.toggle()
-                        isNotificationScheduled = viewModel.content?.itemCanNotify ?? false
+                        viewModel.isInWatchlist.toggle()
+                        viewModel.hasNotificationScheduled = viewModel.content?.itemCanNotify ?? false
                     }
                 }
-                viewModel.update(markAsWatched: isWatched, markAsFavorite: nil)
+                viewModel.update(markAsWatched: viewModel.isWatched)
             }, label: {
-                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
             })
             .keyboardShortcut("m", modifiers: [.command, .shift])
             Button(action: {
-                isFavorite.toggle()
-                if !isInWatchlist {
+                viewModel.isFavorite.toggle()
+                if !viewModel.isInWatchlist {
                     withAnimation {
-                        isInWatchlist.toggle()
+                        viewModel.isInWatchlist.toggle()
                     }
                 }
-                viewModel.update(markAsWatched: nil, markAsFavorite: isFavorite)
+                viewModel.update(markAsFavorite: viewModel.isFavorite)
             }, label: {
-                Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                      systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
+                Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                      systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
             })
             .keyboardShortcut("f", modifiers: [.command, .shift])
         }, label: {
             Label("More", systemImage: "ellipsis")
         })
-        .disabled(isLoading ? true : false)
+        .disabled(viewModel.isLoading ? true : false)
     }
     
     @ViewBuilder
@@ -190,7 +184,7 @@ struct ItemContentView: View {
             ZStack {
                 RetryView(message: error, retryAction: {
                     Task {
-                        await viewModel.load(id: self.id, type: self.type)
+                        await viewModel.load()
                     }
                 })
             }
@@ -201,22 +195,12 @@ struct ItemContentView: View {
     
     private func load() {
         Task {
-            await self.viewModel.load(id: self.id, type: self.type)
+            await self.viewModel.load()
             if viewModel.content != nil {
-                isInWatchlist = viewModel.context.isItemInList(id: self.id, type: self.type)
-                if isInWatchlist {
-                    withAnimation {
-                        isNotificationScheduled = viewModel.context.isNotificationScheduled(id: self.id)
-                        isWatched = viewModel.context.isMarkedAsWatched(id: self.id)
-                        isFavorite = viewModel.context.isMarkedAsFavorite(id: self.id)
-                    }
-                }
                 withAnimation {
-                    isNotificationAvailable = viewModel.content?.itemCanNotify ?? false
                     if viewModel.content?.itemStatus == .released {
                         markAsMenuVisibility = true
                     }
-                    isLoading = false
                 }
             }
         }

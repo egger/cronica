@@ -12,7 +12,14 @@ extension ItemContent {
         title ?? name!
     }
     var itemOverview: String {
-        overview ?? "Not Available"
+        if let overview {
+            if overview.isEmpty {
+                return NSLocalizedString("No information available.", comment: "")
+            } else {
+                return overview
+            }
+        }
+        return NSLocalizedString("No information available.", comment: "")
     }
     var itemGenre: String {
         genres?.first?.name ?? "Not Available"

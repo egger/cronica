@@ -27,12 +27,7 @@ struct WatchListUpcomingSeasonsListView: View {
                     HStack {
                         ForEach(items) { item in
                             NavigationLink(value: item) {
-                                CardView(title: item.itemTitle,
-                                         url: item.image,
-                                         subtitle: "Season \(item.nextSeasonNumber)")
-                                    .modifier(UpcomingWatchlistContextMenu(item: item))
-                                    .padding([.leading, .trailing], 4)
-                                    .transition(.opacity)
+                                CardView(item: item)
                             }
                             .buttonStyle(.plain)
                             .padding(.leading, item.id == self.items.first!.id ? 16 : 0)

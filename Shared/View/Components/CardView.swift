@@ -6,33 +6,16 @@
 //  swiftlint:disable trailing_whitespace
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CardView: View {
-    let title: String
-    let url: URL?
-    var info: String?
-    var subtitle: String?
+    let item: WatchlistItem
     var body: some View {
         ZStack {
-            AsyncImage(url: url,
-                       transaction: Transaction(animation: .easeInOut)) { phase in
-                if let image = phase.image {
-                    ZStack {
-                        Rectangle().fill(.ultraThickMaterial)
-                        Color.black.opacity(0.6)
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .mask(
-                                LinearGradient(gradient: Gradient(stops: [
-                                    .init(color: .black, location: 0),
-                                    .init(color: .black, location: 0.5),
-                                    .init(color: .black.opacity(0), location: 1)
-                                ]), startPoint: .top, endPoint: .bottom)
-                            )
-                            .transition(.opacity)
-                    }
-                } else {
+            Rectangle().fill(.ultraThinMaterial)
+            Color.black.opacity(0.6)
+            WebImage(url: item.image, options: .highPriority)
+                .placeholder {
                     ZStack {
                         Color.black.opacity(0.4)
                         Rectangle().fill(.thickMaterial)
@@ -40,12 +23,21 @@ struct CardView: View {
                             .foregroundColor(.secondary)
                     }
                 }
-            }
-            if let subtitle {
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .mask(
+                    LinearGradient(gradient: Gradient(stops: [
+                        .init(color: .black, location: 0),
+                        .init(color: .black, location: 0.5),
+                        .init(color: .black.opacity(0), location: 1)
+                    ]), startPoint: .top, endPoint: .bottom)
+                )
+                .transition(.opacity)
+            if let info = item.itemGlanceInfo {
                 VStack(alignment: .leading) {
                     Spacer()
                     HStack {
-                        Text(title)
+                        Text(item.itemTitle)
                             .fontWeight(.semibold)
                             .font(.callout)
                             .foregroundColor(.white)
@@ -54,7 +46,7 @@ struct CardView: View {
                         Spacer()
                     }
                     HStack {
-                        Text(subtitle)
+                        Text(info)
                             .font(.caption)
                             .foregroundColor(.white)
                             .lineLimit(DrawingConstants.lineLimits)
@@ -68,7 +60,7 @@ struct CardView: View {
                 VStack(alignment: .leading) {
                     Spacer()
                     HStack {
-                        Text(title)
+                        Text(item.itemTitle)
                             .fontWeight(.semibold)
                             .font(.callout)
                             .foregroundColor(.white)
@@ -86,13 +78,15 @@ struct CardView: View {
         .cornerRadius(DrawingConstants.cardRadius)
         .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                 radius: DrawingConstants.shadowRadius)
+        .modifier(UpcomingWatchlistContextMenu(item: item))
+        .padding([.leading, .trailing], 4)
+        .transition(.opacity)
     }
 }
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(title: ItemContent.previewContent.itemTitle,
-                 url: ItemContent.previewContent.cardImageMedium)
+        CardView(item: WatchlistItem.example)
     }
 }
 
