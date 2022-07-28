@@ -57,9 +57,9 @@ struct PersistenceController {
     }
     
     //MARK: CRUD operations.
-    /// Adds an item to Watchlist Core Data.
+    /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
-    func saveItem(content: ItemContent, notify: Bool) {
+    func save(item content: ItemContent) {
         let viewContext = PersistenceController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.contentType = content.itemContentMedia.watchlistInt
@@ -67,7 +67,7 @@ struct PersistenceController {
         item.id = Int64(content.id)
         item.image = content.cardImageMedium
         item.schedule = content.itemStatus.scheduleNumber
-        item.notify = notify
+        item.notify = content.itemCanNotify
         item.formattedDate = content.itemTheatricalString
         if content.itemContentMedia == .tvShow {
             item.upcomingSeason = content.hasUpcomingSeason
@@ -82,7 +82,7 @@ struct PersistenceController {
     func getItem(id: WatchlistItem.ID) -> WatchlistItem? {
         let viewContext = PersistenceController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
+        request.predicate = NSPredicate(format: "id == %d", id)
         let item = try? viewContext.fetch(request)
         if let item {
             return item[0]
@@ -90,7 +90,7 @@ struct PersistenceController {
         return nil
     }
     
-    func updateMarkAs(id: Int, watched: Bool?, favorite: Bool?) {
+    func updateMarkAs(id: Int, watched: Bool? = nil, favorite: Bool? = nil) {
         let viewContext = PersistenceController.shared.container.viewContext
         let item = self.getItem(id: WatchlistItem.ID(id))
         if let item {
@@ -107,7 +107,7 @@ struct PersistenceController {
     }
     
     // Updates an item on Watchlist Core Data.
-    func updateItem(content: ItemContent, isWatched watched: Bool?, isFavorite favorite: Bool?) {
+    func updateItem(content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemInList(id: content.id, type: content.itemContentMedia) {
             let viewContext = PersistenceController.shared.container.viewContext
             let item = self.getItem(id: WatchlistItem.ID(content.id))
@@ -132,14 +132,14 @@ struct PersistenceController {
                 }
             }
         } else {
-            self.saveItem(content: content, notify: content.itemCanNotify)
+            self.save(item: content)
         }
     }
     
     /// Deletes a WatchlistItem from Core Data.
-    func removeItem(id: WatchlistItem) {
+    func delete(_ item: WatchlistItem) {
         let viewContext = PersistenceController.shared.container.viewContext
-        let item = try? viewContext.existingObject(with: id.objectID)
+        let item = try? viewContext.existingObject(with: item.objectID)
         if let item {
             viewContext.delete(item)
             try? viewContext.save()

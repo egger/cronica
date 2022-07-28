@@ -33,14 +33,14 @@ class Utilities {
     }()
     static let userLang: String = {
         let locale = Locale.current
-        guard let langCode = locale.languageCode,
-              let regionCode = locale.regionCode else {
+        guard let langCode = locale.language.languageCode?.identifier,
+              let regionCode = locale.language.region?.identifier else {
             return "en-US"
         }
         return "\(langCode)-\(regionCode)"
     }()
     static let userRegion: String = {
-        guard let regionCode = Locale.current.regionCode else {
+        guard let regionCode = Locale.current.language.region?.identifier else {
             return "US"
         }
         return regionCode

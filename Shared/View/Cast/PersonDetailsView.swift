@@ -25,14 +25,32 @@ struct PersonDetailsView: View {
         ZStack {
             VStack {
                 ScrollView {
-                    ProfileImageView(url: viewModel.person?.personImage,
-                                     name: name)
-                    .shadow(radius: DrawingConstants.imageShadow)
-                    
-                    OverviewBoxView(overview: viewModel.person?.personBiography,
-                                    title: name,
-                                    type: .person)
-                    .padding()
+                    ViewThatFits {
+                        HStack {
+                            ProfileImageView(url: viewModel.person?.personImage,
+                                             name: name)
+                            .shadow(radius: DrawingConstants.imageShadow)
+                            .padding(.horizontal)
+                            
+                            OverviewBoxView(overview: viewModel.person?.personBiography,
+                                            title: name,
+                                            type: .person)
+                            .frame(minWidth: 500)
+                            .padding(.horizontal)
+                        }
+                        
+                        VStack {
+                            ProfileImageView(url: viewModel.person?.personImage,
+                                             name: name)
+                            .shadow(radius: DrawingConstants.imageShadow)
+                            .padding(.horizontal)
+                            
+                            OverviewBoxView(overview: viewModel.person?.personBiography,
+                                            title: name,
+                                            type: .person)
+                            .padding()
+                        }
+                    }
                     
                     FilmographyListView(filmography: viewModel.credits,
                                         showConfirmation: $showConfirmation)

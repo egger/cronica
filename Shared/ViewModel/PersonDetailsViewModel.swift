@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 class PersonDetailsViewModel: ObservableObject {
@@ -27,11 +28,14 @@ class PersonDetailsViewModel: ObservableObject {
                 person = try await self.service.fetchPerson(id: self.id)
                 if let person {
                     let combinedCredits = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false }
-                    if !combinedCredits.isEmpty {
-                        credits = combinedCredits?.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+                    if combinedCredits != nil && !combinedCredits.isEmpty {
+                        let combined: Set = Set(combinedCredits!)
+                        credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
                     }
                 }
-                isLoaded.toggle()
+                withAnimation {
+                    isLoaded.toggle()
+                }
             } catch {
                 person = nil
                 errorMessage = error.localizedDescription

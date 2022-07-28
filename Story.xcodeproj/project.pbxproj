@@ -16,6 +16,7 @@
 		B8110EEC279245D100844FEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8110EDA279245D100844FEB /* Assets.xcassets */; };
 		B8110F3C279364C800844FEB /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
 		B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
+		B8207715289339860097D053 /* WatchListSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8207714289339860097D053 /* WatchListSortOrder.swift */; };
 		B82C267A2795E33900259D98 /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* PosterView.swift */; };
 		B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */; };
@@ -129,6 +130,7 @@
 		B8110F162792764B00844FEB /* Story (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Story (iOS).entitlements"; sourceTree = "<group>"; };
 		B8110F3B279364C800844FEB /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B815A15B27BEB7F20062F727 /* ItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContent.swift; sourceTree = "<group>"; };
+		B8207714289339860097D053 /* WatchListSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSortOrder.swift; sourceTree = "<group>"; };
 		B82C26792795E33900259D98 /* PosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterView.swift; sourceTree = "<group>"; };
 		B82C268E279644E000259D98 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				B876DE4F281B1B81005558DD /* MediaType.swift */,
 				B876DE5B281B2B04005558DD /* Screens.swift */,
 				B8110F3B279364C800844FEB /* Utilities.swift */,
+				B8207714289339860097D053 /* WatchListSortOrder.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				B890C57D27FCC056006BE5E1 /* WatchListUpcomingMoviesListView.swift in Sources */,
 				B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */,
 				B8FF4DC127FB56F500C7DE9F /* SFSafariViewWrapper.swift in Sources */,
+				B8207715289339860097D053 /* WatchListSortOrder.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
 				B804E397284FCBCB00F59855 /* ItemContentFrameView.swift in Sources */,
 				B87F9D89286145600064947A /* DiscoverViewModel.swift in Sources */,

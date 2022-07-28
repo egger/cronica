@@ -4,9 +4,7 @@
 //
 //  Created by Alexandre Madeira on 15/01/22.
 //
-
 import SwiftUI
-import TelemetryClient
 
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
@@ -19,7 +17,9 @@ struct WatchlistView: View {
     private var filteredMovieItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
-    @State var selectedValue = 0
+    @State var selectedOrder: WatchListSortOrder = .optimized
+    @State private var selectedItems = Set<WatchlistItem.ID>()
+    @Environment(\.editMode) private var editMode
     var body: some View {
         AdaptableNavigationView {
             VStack {
@@ -29,36 +29,35 @@ struct WatchlistView: View {
                         .foregroundColor(.secondary)
                         .padding()
                 } else {
-                    List {
+                    List(selection: $selectedItems) {
                         if !filteredMovieItems.isEmpty {
-                            ForEach(filteredMovieItems) { item in
-                                NavigationLink(value: item) {
-                                    ItemView(content: item)
-                                }
-                            }
+                            WatchListSection(items: filteredMovieItems,
+                                             title: "Filtered Items")
                         } else {
-                            switch selectedValue {
-                            case 1:
-                                WatchListSection(items: items.filter { $0.itemMedia == .movie },
+                            switch selectedOrder {
+                            case .type:
+                                WatchListSection(items: items.filter { $0.isMovie },
                                                  title: "Movies")
-                                WatchListSection(items: items.filter { $0.itemMedia == .tvShow },
+                                WatchListSection(items: items.filter { $0.isTvShow },
                                                  title: "TV Shows")
-                            case 2:
-                                WatchListSection(items: items.filter { $0.watched == false },
+                            case .status:
+                                WatchListSection(items: items.filter { !$0.isWatched },
                                                  title: "To Watch")
-                                WatchListSection(items: items.filter { $0.watched == true },
+                                WatchListSection(items: items.filter { $0.isWatched },
                                                  title: "Watched")
-                            case 3:
-                                WatchListSection(items: items.filter { $0.favorite == true },
+                            case .favorites:
+                                WatchListSection(items: items.filter { $0.isFavorite },
                                                  title: "Favorites")
-                            default:
-                                WatchListSection(items: items.filter { $0.itemMedia == .movie && $0.itemSchedule == .released && $0.notify == false && $0.watched == false }, title: "Released Movies")
-                                WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.itemMedia == .tvShow && !$0.upcomingSeason && $0.notify || $0.itemSchedule == .released && $0.itemMedia == .tvShow && !$0.watched || $0.itemSchedule == .cancelled && !$0.watched }, title: "Released Shows")
-                                WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.itemMedia == .movie && $0.notify == true },
+                            case .optimized:
+                                WatchListSection(items: items.filter { $0.isReleasedMovie },
+                                                 title: "Released Movies")
+                                WatchListSection(items: items.filter { $0.isReleasedTvShow },
+                                                 title: "Released Shows")
+                                WatchListSection(items: items.filter { $0.isUpcomingMovie },
                                                  title: "Upcoming Movies")
-                                WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.upcomingSeason == true && $0.notify == true },
+                                WatchListSection(items: items.filter { $0.isUpcomingTvShow },
                                                  title: "Upcoming Seasons")
-                                WatchListSection(items: items.filter { $0.itemSchedule == .soon && $0.watched == false && $0.notify == false || $0.itemSchedule == .production },
+                                WatchListSection(items: items.filter { $0.isInProduction },
                                                  title: "In Production")
                             }
                         }
@@ -82,24 +81,26 @@ struct WatchlistView: View {
                     await refresh()
                 }
             }
+            .animation(nil, value: editMode?.wrappedValue)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Picker(selection: $selectedValue,
-                           label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
-                        Text("Default").tag(0)
-                        Text("Media Type").tag(1)
-                        Text("Status").tag(2)
-                        Text("Favorites").tag(3)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+                        EditButton()
                     }
-                    .pickerStyle(.menu)
-                    .labelStyle(.iconOnly)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Picker(selection: $selectedOrder,
+                           label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
+                        ForEach(WatchListSortOrder.allCases) { sort in
+                            Text(sort.title).tag(sort)
+                        }
+                    }
                 }
             }
             .searchable(text: $query,
-                        placement: .navigationBarDrawer(displayMode: .always),
+                        placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
                         prompt: "Search watchlist")
-        .disableAutocorrection(true)
+            .disableAutocorrection(true)
         }
     }
     

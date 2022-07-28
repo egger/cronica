@@ -15,7 +15,7 @@ struct StoryApp: App {
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     @Environment(\.scenePhase) private var scenePhase
     init() {
-        let configuration = TelemetryManagerConfiguration(appID: "")
+        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey)
         TelemetryManager.initialize(with: configuration)
         registerRefreshBGTask()
     }

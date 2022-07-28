@@ -48,6 +48,55 @@ extension WatchlistItem {
         }
         return nil
     }
+    var isWatched: Bool {
+        return watched
+    }
+    var isFavorite: Bool {
+        return favorite
+    }
+    var isMovie: Bool {
+        if itemMedia == .movie { return true }
+        return false
+    }
+    var isTvShow: Bool {
+        if itemMedia == .tvShow { return true }
+        return false
+    }
+    var isReleasedMovie: Bool {
+        if itemMedia == .movie {
+            if itemSchedule == .released && !notify && !isWatched {
+                return true
+            }
+        }
+        return false
+    }
+    var isReleasedTvShow: Bool {
+        if itemMedia == .movie {
+            return false
+        } else {
+            if itemSchedule == .soon && !upcomingSeason && notify { return true }
+            if itemSchedule == .released && !isWatched { return true }
+            if itemSchedule == .cancelled && !isWatched { return true }
+        }
+        return false
+    }
+    var isUpcomingMovie: Bool {
+        if itemMedia == .movie {
+            if itemSchedule == .soon && notify { return true }
+        }
+        return false
+    }
+    var isUpcomingTvShow: Bool {
+        if itemMedia == .tvShow {
+            if itemSchedule == .soon && upcomingSeason && notify { return true }
+        }
+        return false
+    }
+    var isInProduction: Bool {
+        if itemSchedule == .soon && !isWatched && !notify { return true }
+        if itemSchedule == .production { return true }
+        return false
+    }
     static var example: WatchlistItem {
         let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext
