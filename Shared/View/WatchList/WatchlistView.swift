@@ -33,6 +33,8 @@ struct WatchlistView: View {
                         if !filteredMovieItems.isEmpty {
                             WatchListSection(items: filteredMovieItems,
                                              title: "Filtered Items")
+                        } else if !query.isEmpty && filteredMovieItems.isEmpty {
+                            Text("No results found.")
                         } else {
                             switch selectedOrder {
                             case .type:
