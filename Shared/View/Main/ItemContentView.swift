@@ -68,27 +68,25 @@ struct ItemContentView: View {
                                     title: title,
                                     type: .movie)
                         .padding()
-//
+
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
                     SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons, tvId: id)
                         .padding(0)
                     
-                    CastListView(credits: viewModel.content?.credits)
+                    CastListView(credits: viewModel.credits)
                     
                     InformationSectionView(item: viewModel.content)
                         .padding()
                     
-                    if let filmography = viewModel.content?.recommendations {
-                        ItemContentListView(items: filmography.results,
-                                            title: "Recommendations",
-                                            subtitle: "You may like",
-                                            image: "list.and.film",
-                                            addedItemConfirmation: $showConfirmation)
-                    }
+                    ItemContentListView(items: viewModel.recommendations,
+                                        title: "Recommendations",
+                                        subtitle: "You may like",
+                                        image: "list.and.film",
+                                        addedItemConfirmation: $showConfirmation)
                     
-//                    AttributionView()
-//                        .padding([.top, .bottom])
+                    AttributionView()
+                        .padding([.top, .bottom])
                 }
             }
             .task { load() }

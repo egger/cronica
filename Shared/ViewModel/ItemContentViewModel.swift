@@ -16,6 +16,8 @@ class ItemContentViewModel: ObservableObject {
     private var id: ItemContent.ID
     private var type: MediaType
     @Published var content: ItemContent?
+    @Published var recommendations: [ItemContent]?
+    @Published var credits: [Person] = []
     @Published var errorMessage: String?
     @Published var isInWatchlist = false
     @Published var isNotificationAvailable = false
@@ -36,6 +38,13 @@ class ItemContentViewModel: ObservableObject {
                 content = try await self.service.fetchContent(id: self.id, type: self.type)
                 if content != nil {
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
+                    if recommendations == nil {
+                        recommendations = content?.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity}
+                    }
+                    if credits.isEmpty {
+                        credits.append(contentsOf: content?.credits?.cast ?? [])
+                        credits.append(contentsOf: content?.credits?.crew ?? [])
+                    }
                     if isInWatchlist {
                         withAnimation {
                             hasNotificationScheduled = isNotificationScheduled()

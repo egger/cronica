@@ -63,6 +63,9 @@ struct PersonDetailsView: View {
             }
             .task { load() }
             .redacted(reason: isLoading ? .placeholder : [])
+            .overlay(searchOverlay)
+            .searchable(text: $viewModel.query)
+            .autocorrectionDisabled(true)
             .navigationTitle(name)
             .toolbar {
                 ToolbarItem {
@@ -83,6 +86,20 @@ struct PersonDetailsView: View {
             }
         }
     }
+    
+    @ViewBuilder
+        private var searchOverlay: some View {
+            if viewModel.query != "" {
+                List {
+                    if let credits = viewModel.credits {
+                        ForEach(credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
+                            SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        }
+                    }
+                    
+                }
+            }
+        }
 }
 
 struct CastDetailsView_Previews: PreviewProvider {

@@ -41,15 +41,28 @@ struct SeasonsView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         if let season = viewModel.season?.episodes {
-                            ForEach(season) { item in
-                                EpisodeFrameView(episode: item)
-                                    .frame(width: 160, height: 200)
-                                    .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == season.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                            if !season.isEmpty {
+                                ForEach(season) { item in
+                                    EpisodeFrameView(episode: item)
+                                        .frame(width: 160, height: 200)
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == season.first!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                                }
+                                .padding(0)
+                                .buttonStyle(.plain)
+                            } else {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Image(systemName: "tv.fill")
+                                        Text("No Episode Available")
+                                    }
+                                    Spacer()
+                                }
                             }
-                            .padding(0)
-                            .buttonStyle(.plain)
+                        } else {
+                            Label("No Episode Available", systemImage: "tv.fill")
                         }
                     }
                     .padding(0)

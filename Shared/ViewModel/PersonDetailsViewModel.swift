@@ -16,6 +16,7 @@ class PersonDetailsViewModel: ObservableObject {
     @Published var person: Person?
     @Published var credits: [ItemContent]?
     @Published var errorMessage: String?
+    @Published var query: String = ""
     
     init(id: Int) {
         self.id = id

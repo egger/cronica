@@ -10,9 +10,9 @@ import SwiftUI
 /// A horizontal list that displays a limited number of
 ///  cast people in an ItemContent.
 struct CastListView: View {
-    let credits: Credits?
+    let credits: [Person]
     var body: some View {
-        if let credits {
+        if !credits.isEmpty {
             VStack(alignment: .leading) {
                 HStack {
                     Text("Cast & Crew")
@@ -21,19 +21,19 @@ struct CastListView: View {
                 }
                 .unredacted()
                 ScrollView(.horizontal, showsIndicators: false, content: {
-                    HStack {
-                        ForEach(credits.cast.prefix(10)) { cast in
+                    LazyHStack {
+                        ForEach(credits.prefix(10)) { cast in
                             NavigationLink(value: cast) {
                                 PersonCardView(person: cast)
                                     .shadow(radius: DrawingConstants.shadowRadius)
-                                    .padding(.leading, cast.id == self.credits?.cast.first!.id ? 16 : 0)
+                                    .padding(.leading, cast.id == self.credits.first!.id ? 16 : 0)
                                     .contextMenu {
                                         ShareLink(item: cast.itemURL)
                                     }
                             }
                             .buttonStyle(.plain)
                         }
-                        ForEach(credits.crew.filter { $0.personRole == "Director" }) { director in
+                        ForEach(credits.filter { $0.personRole == "Director" }) { director in
                             NavigationLink(value: director) {
                                 PersonCardView(person: director)
                                     .shadow(radius: DrawingConstants.shadowRadius)
@@ -54,7 +54,7 @@ struct CastListView: View {
 
 struct PersonListView_Previews: PreviewProvider {
     static var previews: some View {
-        CastListView(credits: Credits.previewCredits)
+        CastListView(credits: [Person]())
     }
 }
 

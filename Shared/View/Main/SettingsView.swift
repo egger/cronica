@@ -31,6 +31,17 @@ struct SettingsView: View {
                         .padding(.bottom)
                 }
                 Section {
+                    Picker(selection: $store.openYouTubeIn) {
+                        Text("In Cronica").tag(YouTubeLinksBehavior.inCronica)
+                        Text("In YouTube App").tag(YouTubeLinksBehavior.inYouTubeApp)
+                    } label: {
+                        Text("Open YouTube Links")
+                    }
+                    .pickerStyle(.menu)
+                } header: {
+                    Label("Open Links In", systemImage: "link")
+                }
+                Section {
                     Button( action: {
                         email.send(openURL: openURL)
                     }, label: {
@@ -40,6 +51,11 @@ struct SettingsView: View {
                         showPolicy.toggle()
                     }, label: {
                         Label("Privacy Policy", systemImage: "hand.raised")
+                    })
+                    Button(action: {
+                        
+                    }, label: {
+                        Label("Review Cronica", systemImage: "star")
                     })
                 } header: {
                     Label("Support", systemImage: "questionmark.circle")

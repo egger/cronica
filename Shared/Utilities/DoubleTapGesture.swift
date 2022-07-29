@@ -19,3 +19,14 @@ enum DoubleTapGesture: Int {
         }
     }
 }
+
+enum YouTubeLinksBehavior: Int {
+    case inCronica = 0
+    case inYouTubeApp = 1
+    var title: String {
+        switch self {
+        case .inCronica: return "In App"
+        case .inYouTubeApp: return "In YouTube App"
+        }
+    }
+}
