@@ -10,7 +10,7 @@ import SwiftUI
 struct TitleView: View {
     let title: String
     let subtitle: String
-    let image: String
+    var image: String? = nil
     var body: some View {
         HStack {
             VStack {
@@ -29,10 +29,12 @@ struct TitleView: View {
                 }
             }
             Spacer()
-            Image(systemName: image)
-                .foregroundColor(.secondary)
-                .padding()
-                .accessibilityHidden(true)
+            if let image {
+                Image(systemName: image)
+                    .foregroundColor(.secondary)
+                    .padding()
+                    .accessibilityHidden(true)
+            }
         }
         .unredacted()
         .accessibilityElement(children: .combine)

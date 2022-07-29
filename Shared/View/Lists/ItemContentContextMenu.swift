@@ -25,12 +25,12 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
     
     private func updateWatchlist(with item: ItemContent) {
         HapticManager.shared.softHaptic()
-        if !context.isItemInList(id: item.id, type: item.itemContentMedia) {
+        if !context.isItemSaved(id: item.id, type: item.itemContentMedia) {
             Task {
                 let content = try? await NetworkService.shared.fetchContent(id: item.id, type: item.itemContentMedia)
                 if let content {
                     withAnimation {
-                        self.context.save(item: content)
+                        self.context.save(content)
                         showConfirmation.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
                             showConfirmation = false

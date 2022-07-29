@@ -84,8 +84,8 @@ extension ItemContent {
         default: return cardImageMedium
         }
     }
-    var itemTrailer: URL? {
-        return Utilities.generateTrailerUrl(videos: videos?.results)
+    var itemTrailers: [Trailer]? {
+        return TrailerUtilities.fetch(for: videos?.results)
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!

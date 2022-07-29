@@ -15,9 +15,9 @@ struct ItemContent: Identifiable, Decodable, Hashable, Sendable {
     let id: Int
     let title, name, overview: String?
     let posterPath, backdropPath, profilePath: String?
-    let releaseDate, status: String?
-    let runtime, numberOfEpisodes, numberOfSeasons: Int?
-    let popularity: Double?
+    let releaseDate, status, imdbID: String?
+    let runtime, numberOfEpisodes, numberOfSeasons, voteCount: Int?
+    let popularity, voteAverage: Double?
     let productionCompanies: [ProductionCompany]?
     let productionCountries: [ProductionCountry]?
     let seasons: [Season]?

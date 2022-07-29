@@ -35,7 +35,7 @@ class ItemContentViewModel: ObservableObject {
             do {
                 content = try await self.service.fetchContent(id: self.id, type: self.type)
                 if content != nil {
-                    isInWatchlist = context.isItemInList(id: self.id, type: self.type)
+                    isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
                     if isInWatchlist {
                         withAnimation {
                             hasNotificationScheduled = isNotificationScheduled()
@@ -59,7 +59,7 @@ class ItemContentViewModel: ObservableObject {
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
     private func isNotificationScheduled() -> Bool {
-        let item = context.getItem(id: WatchlistItem.ID(self.id))
+        let item = context.fetch(for: WatchlistItem.ID(self.id))
         if let item {
             return item.notify
         }
@@ -68,7 +68,7 @@ class ItemContentViewModel: ObservableObject {
     
     // Returns a boolean indicating the status of 'favorite' on a given item.
     private func isMarkedAsFavorite() -> Bool {
-        let item = context.getItem(id: WatchlistItem.ID(self.id))
+        let item = context.fetch(for: WatchlistItem.ID(self.id))
         if let item {
             return item.favorite
         }
@@ -79,22 +79,22 @@ class ItemContentViewModel: ObservableObject {
         if let content {
             if let favorite {
                 HapticManager.shared.lightHaptic()
-                if !context.isItemInList(id: content.id, type: content.itemContentMedia) {
-                    context.save(item: content)
+                if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
+                    context.save(content)
                 }
-                context.updateItem(content: content, isWatched: nil, isFavorite: favorite)
+                context.update(item: content, isFavorite: favorite)
             }
             else if let watched {
                 HapticManager.shared.lightHaptic()
-                if !context.isItemInList(id: content.id, type: content.itemContentMedia) {
-                    context.save(item: content)
+                if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
+                    context.save(content)
                 }
-                context.updateItem(content: content, isWatched: watched, isFavorite: nil)
+                context.update(item: content, isWatched: watched)
             }
             else {
-                if context.isItemInList(id: content.id, type: content.itemContentMedia) {
+                if context.isItemSaved(id: content.id, type: content.itemContentMedia) {
                     HapticManager.shared.softHaptic()
-                    let item = context.getItem(id: WatchlistItem.ID(content.id))
+                    let item = context.fetch(for: WatchlistItem.ID(content.id))
                     if let item {
                         let identifier: String = "\(content.itemTitle)+\(content.id)"
                         if isNotificationScheduled() {
@@ -104,7 +104,7 @@ class ItemContentViewModel: ObservableObject {
                     }
                 } else {
                     HapticManager.shared.mediumHaptic()
-                    context.save(item: content)
+                    context.save(content)
                     if content.itemCanNotify {
                         notification.schedule(notificationContent: content)
                     }

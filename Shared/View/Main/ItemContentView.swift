@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ItemContentView: View {
     var title: String
@@ -34,7 +35,7 @@ struct ItemContentView: View {
                                    animateGesture: $animateGesture,
                                    image: viewModel.content?.cardImageMedium,
                                    title: title,
-                                   isAdult: viewModel.content?.adult ?? false)
+                                   isAdult: viewModel.content?.adult ?? false, glanceInfo: viewModel.content?.itemInfo)
                         .environmentObject(store)
                         .onTapGesture(count: 2) {
                             withAnimation {
@@ -61,17 +62,14 @@ struct ItemContentView: View {
                             }
                         }
                     
-                    GlanceInfo(info: viewModel.content?.itemInfo)
-                    
                     watchlistButton
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
                                     title: title,
                                     type: .movie)
                         .padding()
-                    
-                    TrailerView(imageUrl: viewModel.content?.cardImageMedium,
-                                trailerUrl: viewModel.content?.itemTrailer)
+//
+                    TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
                     SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons, tvId: id)
                         .padding(0)
@@ -89,8 +87,8 @@ struct ItemContentView: View {
                                             addedItemConfirmation: $showConfirmation)
                     }
                     
-                    AttributionView()
-                        .padding([.top, .bottom])
+//                    AttributionView()
+//                        .padding([.top, .bottom])
                 }
             }
             .task { load() }
@@ -106,7 +104,7 @@ struct ItemContentView: View {
                             .foregroundColor(.accentColor)
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
-                            .disabled(viewModel.isLoading ? true : false)
+                        .disabled(viewModel.isLoading ? true : false)
                         if markAsMenuVisibility {
                             markAsMenu
                         }
@@ -140,7 +138,18 @@ struct ItemContentView: View {
         .tint(viewModel.isInWatchlist ? .red : .blue)
         .controlSize(.large)
         .disabled(viewModel.isLoading)
-        .keyboardShortcut("w", modifiers: [.command, .shift])
+        .keyboardShortcut("l", modifiers: [.option])
+    }
+    
+    private var TrailerButton: some View {
+        Button(action: {
+            
+        }, label: {
+            Label("Play Trailer", systemImage: "play")
+        })
+        .buttonStyle(.bordered)
+        .tint(.cyan)
+        .controlSize(.large)
     }
     
     private var markAsMenu: some View {
@@ -158,7 +167,7 @@ struct ItemContentView: View {
                 Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                       systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
             })
-            .keyboardShortcut("m", modifiers: [.command, .shift])
+            .keyboardShortcut("w", modifiers: [.option])
             Button(action: {
                 viewModel.isFavorite.toggle()
                 if !viewModel.isInWatchlist {
@@ -171,7 +180,7 @@ struct ItemContentView: View {
                 Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                       systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
             })
-            .keyboardShortcut("f", modifiers: [.command, .shift])
+            .keyboardShortcut("f", modifiers: [.option])
         }, label: {
             Label("More", systemImage: "ellipsis")
         })
@@ -225,3 +234,15 @@ private struct GlanceInfo: View {
         }
     }
 }
+
+private struct ScoreSection: View {
+    var body: some View {
+        Section {
+            
+        } header: {
+            Label("Score", systemImage: "")
+        }
+    }
+}
+
+

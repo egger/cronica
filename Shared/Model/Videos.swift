@@ -15,3 +15,9 @@ struct VideosResult: Decodable, Hashable {
     let name, key, type: String
     let official: Bool
 }
+struct Trailer: Identifiable, Decodable, Hashable {
+    var id = UUID()
+    let url: URL?
+    let thumbnail: URL?
+    let title: String
+}

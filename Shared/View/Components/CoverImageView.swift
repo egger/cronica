@@ -16,35 +16,44 @@ struct CoverImageView: View {
     let image: URL?
     let title: String
     let isAdult: Bool
+    let glanceInfo: String?
     var body: some View {
-        ZStack {
-            HeroImage(url: image, title: title, blurImage: isAdult)
+        VStack {
             ZStack {
-                Rectangle().fill(.ultraThinMaterial)
-                if store.gesture == .favorite {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
-                        .symbolRenderingMode(.multicolor)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 120, height: 120, alignment: .center)
-                } else {
-                    Image(systemName: isWatched ? "checkmark.circle" : "minus.circle.fill")
-                        .symbolRenderingMode(.monochrome)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 120, height: 120, alignment: .center)
+                HeroImage(url: image, title: title, blurImage: isAdult)
+                ZStack {
+                    Rectangle().fill(.ultraThinMaterial)
+                    if store.gesture == .favorite {
+                        Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
+                            .symbolRenderingMode(.multicolor)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 120, height: 120, alignment: .center)
+                    } else {
+                        Image(systemName: isWatched ? "checkmark.circle" : "minus.circle.fill")
+                            .symbolRenderingMode(.monochrome)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 120, height: 120, alignment: .center)
+                    }
                 }
+                .opacity(animateGesture ? 1 : 0)
             }
-            .opacity(animateGesture ? 1 : 0)
+            .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+                   height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+            .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
+            .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
+                    radius: DrawingConstants.shadowRadius)
+            .padding([.top, .bottom])
+            .accessibilityElement(children: .combine)
+            .accessibility(hidden: true)
+            
+            if let glanceInfo {
+                Text(glanceInfo)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
-        .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-               height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-        .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                radius: DrawingConstants.shadowRadius)
-        .padding([.top, .bottom])
-        .accessibilityElement(children: .combine)
-        .accessibility(hidden: true)
     }
 }
 

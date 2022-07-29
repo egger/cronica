@@ -59,7 +59,7 @@ struct PersistenceController {
     //MARK: CRUD operations.
     /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
-    func save(item content: ItemContent) {
+    func save(_ content: ItemContent) {
         let viewContext = PersistenceController.shared.container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.contentType = content.itemContentMedia.watchlistInt
@@ -79,7 +79,7 @@ struct PersistenceController {
     /// Get an item from the Watchlist.
     /// - Parameter id: The ID used to fetch the list.
     /// - Returns: If the item is in the list, it will return it.
-    func getItem(id: WatchlistItem.ID) -> WatchlistItem? {
+    func fetch(for id: WatchlistItem.ID) -> WatchlistItem? {
         let viewContext = PersistenceController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", id)
@@ -92,7 +92,7 @@ struct PersistenceController {
     
     func updateMarkAs(id: Int, watched: Bool? = nil, favorite: Bool? = nil) {
         let viewContext = PersistenceController.shared.container.viewContext
-        let item = self.getItem(id: WatchlistItem.ID(id))
+        let item = self.fetch(for: WatchlistItem.ID(id))
         if let item {
             if let watched {
                 item.watched = watched
@@ -106,11 +106,11 @@ struct PersistenceController {
         }
     }
     
-    // Updates an item on Watchlist Core Data.
-    func updateItem(content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
-        if isItemInList(id: content.id, type: content.itemContentMedia) {
+    // Updates a WatchlistItem on Core Data.
+    func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
+        if isItemSaved(id: content.id, type: content.itemContentMedia) {
             let viewContext = PersistenceController.shared.container.viewContext
-            let item = self.getItem(id: WatchlistItem.ID(content.id))
+            let item = self.fetch(for: WatchlistItem.ID(content.id))
             if let item {
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
@@ -132,7 +132,7 @@ struct PersistenceController {
                 }
             }
         } else {
-            self.save(item: content)
+            self.save(content)
         }
     }
     
@@ -153,14 +153,14 @@ struct PersistenceController {
     ///   - id: The ID used to fetch Watchlist list.
     ///   - type: The Media Type of the content.
     /// - Returns: Returns true if the content is already added to the Watchlist.
-    func isItemInList(id: ItemContent.ID, type: MediaType) -> Bool {
+    func isItemSaved(id: ItemContent.ID, type: MediaType) -> Bool {
         let viewContext = PersistenceController.shared.container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
         let numberOfObjects = try? viewContext.count(for: request)
         if let numberOfObjects {
             if numberOfObjects > 0 {
-                let item = getItem(id: WatchlistItem.ID(id))
+                let item = fetch(for: WatchlistItem.ID(id))
                 if let item {
                     if item.itemMedia != type {
                         return false
@@ -174,7 +174,7 @@ struct PersistenceController {
     
     /// Returns a boolean indicating the status of 'watched' on a given item.
     func isMarkedAsWatched(id: ItemContent.ID) -> Bool {
-        let item = getItem(id: WatchlistItem.ID(id))
+        let item = fetch(for: WatchlistItem.ID(id))
         if let item {
             return item.watched
         }

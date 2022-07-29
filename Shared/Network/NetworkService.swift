@@ -141,18 +141,4 @@ class NetworkService {
         }
         return nil
     }
-    
-    /// Build a URL for the trailer, only generate YouTube links.
-    /// - Parameter path: The 'key' for the trailer.
-    /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
-    static func urlBuilder(video path: String? = nil) -> URL? {
-        if let path {
-            var components = URLComponents()
-            components.scheme = "https"
-            components.host = "www.youtube.com"
-            components.path = "/embed/\(path)"
-            return components.url
-        }
-        return nil
-    }
 }

@@ -43,7 +43,7 @@ class BackgroundManager {
         for item in items {
             let content = try? await self.network.fetchContent(id: item.itemId, type: item.itemMedia)
             if let content {
-                self.context.updateItem(content: content, isWatched: nil, isFavorite: nil)
+                self.context.update(item: content)
                 if content.itemCanNotify {
                     self.notifications.schedule(notificationContent: content)
                 }

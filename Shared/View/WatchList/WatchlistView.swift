@@ -81,7 +81,6 @@ struct WatchlistView: View {
                     await refresh()
                 }
             }
-            .animation(nil, value: editMode?.wrappedValue)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
@@ -89,10 +88,16 @@ struct WatchlistView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Picker(selection: $selectedOrder,
-                           label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
-                        ForEach(WatchListSortOrder.allCases) { sort in
-                            Text(sort.title).tag(sort)
+                    if editMode?.wrappedValue.isEditing == true {
+                        Button("Delete", role: .destructive) {
+                            
+                        }
+                    } else {
+                        Picker(selection: $selectedOrder,
+                               label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
+                            ForEach(WatchListSortOrder.allCases) { sort in
+                                Text(sort.title).tag(sort)
+                            }
                         }
                     }
                 }

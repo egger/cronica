@@ -1,0 +1,98 @@
+//
+//  TrailerListView.swift
+//  Story (iOS)
+//
+//  Created by Alexandre Madeira on 05/04/22.
+//
+
+import SwiftUI
+
+struct TrailerListView: View {
+    var trailers: [Trailer]?
+    @State var selectedItem: Trailer? = nil
+    var body: some View {
+        if let trailers {
+            VStack {
+                TitleView(title: "Videos", subtitle: "Official Trailers", image: "play.tv")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(trailers) { trailer in
+                            VStack {
+                                Button(action: {
+                                    selectedItem = trailer
+                                }, label: {
+                                    AsyncImage(url: trailer.thumbnail, transaction: Transaction(animation: .easeInOut)) { phase in
+                                        if let image = phase.image {
+                                            ZStack {
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .transition(.opacity)
+                                                Color.black.opacity(0.2)
+                                                Image(systemName: "play.circle.fill")
+                                                    .resizable()
+                                                    .frame(width: 40, height: 40, alignment: .center)
+                                                    .symbolRenderingMode(.palette)
+                                                    .foregroundStyle(.white, .secondary)
+                                                    .scaledToFit()
+                                                    .imageScale(.medium)
+                                                    .padding()
+                                            }
+                                        } else if phase.error != nil {
+                                            ZStack {
+                                                Color.secondary
+                                                ProgressView()
+                                            }
+                                        } else {
+                                            ZStack {
+                                                Color.secondary
+                                                Image(systemName: "play.fill")
+                                                    .foregroundColor(.white)
+                                                    .imageScale(.medium)
+                                            }
+                                        }
+                                    }
+                                })
+                                .buttonStyle(.plain)
+                                .frame(width: DrawingConstants.imageWidth,
+                                       height: DrawingConstants.imageHeight)
+                                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                                .contextMenu {
+                                    if let url = trailer.url {
+                                        ShareLink(item: url)
+                                    }
+                                }
+                                .shadow(radius: 2.5)
+                                HStack {
+                                    Text(trailer.title)
+                                        .lineLimit(1)
+                                        .padding([.horizontal, .bottom])
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                }
+                            }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(trailer.title)
+                            .padding(.horizontal, 4)
+                            .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
+                            .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)
+                        }
+                    }
+                    .padding(.top)
+                }
+            }
+            .sheet(item: $selectedItem) { item in
+                if let url = item.url {
+                    SFSafariViewWrapper(url: url)
+                }
+            }
+        }
+    }
+}
+
+private struct DrawingConstants {
+    static let imageRadius: CGFloat = 8
+    static let imageWidth: CGFloat = 220
+    static let imageHeight: CGFloat = 120
+}
