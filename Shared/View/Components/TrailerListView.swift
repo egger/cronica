@@ -19,6 +19,7 @@ struct TrailerListView: View {
                         ForEach(trailers) { trailer in
                             VStack {
                                 Button(action: {
+                                    HapticManager.shared.softHaptic()
                                     selectedItem = trailer
                                 }, label: {
                                     AsyncImage(url: trailer.thumbnail, transaction: Transaction(animation: .easeInOut)) { phase in
@@ -28,7 +29,7 @@ struct TrailerListView: View {
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
                                                     .transition(.opacity)
-                                                Color.black.opacity(0.2)
+                                                Color.black.opacity(0.1)
                                                 Image(systemName: "play.circle.fill")
                                                     .resizable()
                                                     .frame(width: 40, height: 40, alignment: .center)
@@ -74,6 +75,7 @@ struct TrailerListView: View {
                             }
                             .accessibilityElement(children: .combine)
                             .accessibilityLabel(trailer.title)
+                            .frame(width: DrawingConstants.imageWidth)
                             .padding(.horizontal, 4)
                             .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
                             .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)

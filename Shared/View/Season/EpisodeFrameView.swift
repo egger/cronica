@@ -11,7 +11,6 @@ import SwiftUI
 /// on tap it display a sheet view with more information.
 struct EpisodeFrameView: View {
     let episode: Episode
-    @State private var showDetails: Bool = false
     @State private var isPad: Bool = UIDevice.isIPad
     var body: some View {
         VStack {
@@ -65,12 +64,6 @@ struct EpisodeFrameView: View {
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
-        .onTapGesture {
-            showDetails.toggle()
-        }
-        .sheet(isPresented: $showDetails, content: {
-            EpisodeDetailsView(episode: episode, showDetails: $showDetails)
-        })
     }
 }
 

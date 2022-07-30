@@ -52,13 +52,15 @@ struct HomeView: View {
                     .redacted(reason: isLoading ? .placeholder : [] )
                     .navigationTitle("Home")
                     .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button(action: {
-                                HapticManager.shared.softHaptic()
-                                showSettings.toggle()
-                            }, label: {
-                                Label("Settings", systemImage: "gearshape")
-                            })
+                        if UIDevice.isIPhone {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button(action: {
+                                    HapticManager.shared.softHaptic()
+                                    showSettings.toggle()
+                                }, label: {
+                                    Label("Settings", systemImage: "gearshape")
+                                })
+                            }
                         }
                     }
                     .sheet(isPresented: $displayOnboard) {

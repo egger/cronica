@@ -13,6 +13,7 @@ struct SeasonsView: View {
     var numberOfSeasons: [Int]?
     var tvId: Int
     @State private var selectedSeason: Int = 1
+    @State private var selectedEpisode: Episode? = nil
     @StateObject private var viewModel: SeasonViewModel
     init(numberOfSeasons: [Int]?, tvId: Int) {
         _viewModel = StateObject(wrappedValue: SeasonViewModel())
@@ -45,6 +46,9 @@ struct SeasonsView: View {
                                 ForEach(season) { item in
                                     EpisodeFrameView(episode: item)
                                         .frame(width: 160, height: 200)
+                                        .onTapGesture {
+                                            selectedEpisode = item
+                                        }
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                         .padding(.trailing, item.id == season.last!.id ? 16 : 0)
@@ -70,6 +74,18 @@ struct SeasonsView: View {
                 .padding(0)
                 .task {
                     load()
+                }
+            }
+            .sheet(item: $selectedEpisode) { item in
+                NavigationStack {
+                    EpisodeDetailsView(episode: item)
+                        .toolbar {
+                            ToolbarItem {
+                                Button("Done") {
+                                    selectedEpisode = nil
+                                }
+                            }
+                        }
                 }
             }
             .padding(0)

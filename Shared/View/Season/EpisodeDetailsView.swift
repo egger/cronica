@@ -8,34 +8,24 @@
 import SwiftUI
 
 struct EpisodeDetailsView: View {
-    var episode: Episode
-    @Binding var showDetails: Bool
+    let episode: Episode
     @State private var isPad: Bool = UIDevice.isIPad
     var body: some View {
-        NavigationStack {
-            VStack {
-                ScrollView {
-                    HeroImage(url: episode.itemImageMedium, title: episode.itemTitle)
-                        .frame(width: isPad ? DrawingConstants.padCoverImageWidth : DrawingConstants.heroImageWidth,
-                               height: isPad ? DrawingConstants.padCoverImageHeight : DrawingConstants.heroImageHeight)
-                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                                    style: .continuous))
-                        .shadow(radius: DrawingConstants.coverImageShadow)
-                    OverviewBoxView(overview: episode.overview,
-                                    title: episode.itemTitle,
-                                    type: .tvShow)
-                    .padding()
-                }
-                .navigationTitle(episode.itemTitle)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem {
-                        Button("Done") {
-                            showDetails.toggle()
-                        }
-                    }
-                }
+        VStack {
+            ScrollView {
+                HeroImage(url: episode.itemImageMedium, title: episode.itemTitle)
+                    .frame(width: isPad ? DrawingConstants.padCoverImageWidth : DrawingConstants.heroImageWidth,
+                           height: isPad ? DrawingConstants.padCoverImageHeight : DrawingConstants.heroImageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                                style: .continuous))
+                    .shadow(radius: DrawingConstants.coverImageShadow)
+                OverviewBoxView(overview: episode.overview,
+                                title: episode.itemTitle,
+                                type: .tvShow)
+                .padding()
             }
+            .navigationTitle(episode.itemTitle)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

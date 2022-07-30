@@ -34,7 +34,7 @@ struct SearchItemView_Previews: PreviewProvider {
     }
 }
 
-private struct SearchItem: View {
+struct SearchItem: View {
     let item: ItemContent
     var body: some View {
         HStack {
