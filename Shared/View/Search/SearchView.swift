@@ -39,9 +39,19 @@ struct SearchView: View {
                 .searchable(text: $viewModel.query,
                             placement: .navigationBarDrawer(displayMode: .always),
                             prompt: Text("Movies, Shows, People"))
+                .searchSuggestions {
+                    ForEach(viewModel.searchSuggestions) { item in
+                        Text(item.suggestion).searchCompletion(item.suggestion)
+                    }
+                }
                 .disableAutocorrection(true)
                 .overlay(overlayView)
-                .onAppear { viewModel.observe() }
+                .onAppear {
+                    viewModel.observe()
+                    Task {
+                        await viewModel.fetchSuggestions()
+                    }
+                }
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
         }
@@ -51,16 +61,11 @@ struct SearchView: View {
     private var overlayView: some View {
         switch viewModel.phase {
         case .empty:
-            if viewModel.trimmedQuery.isEmpty {
-                VStack {
-                    Spacer()
-                    AttributionView()
-                }
-            } else {
+            if !viewModel.trimmedQuery.isEmpty {
                 ProgressView("Searching")
                     .foregroundColor(.secondary)
                     .padding()
-            }
+            } 
         case .success(let values) where values.isEmpty:
             Label("No Results", systemImage: "minus.magnifyingglass")
                 .font(.title)
@@ -81,3 +86,5 @@ struct SearchView_Previews: PreviewProvider {
         SearchView()
     }
 }
+
+

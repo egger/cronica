@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Season: Decodable, Identifiable, Hashable {
+struct Season: Codable, Identifiable, Hashable {
     let id, seasonNumber: Int
     let episodes: [Episode]?
     let airDate: String?
 }
-struct Episode: Identifiable, Decodable, Hashable {
+struct Episode: Identifiable, Codable, Hashable {
     let id: Int
     let episodeNumber, seasonNumber: Int?
     let name, overview, stillPath, airDate: String?

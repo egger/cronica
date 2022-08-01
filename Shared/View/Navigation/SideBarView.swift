@@ -37,7 +37,17 @@ struct SideBarView: View {
             .navigationTitle("Cronica")
             .searchable(text: $viewModel.query, placement: .sidebar, prompt: "Movies, Shows, People")
             .disableAutocorrection(true)
-            .onAppear { viewModel.observe() }
+            .searchSuggestions {
+                ForEach(viewModel.searchSuggestions) { item in
+                    Text(item.suggestion).searchCompletion(item.suggestion)
+                }
+            }
+            .onAppear {
+                viewModel.observe()
+                Task {
+                    await viewModel.fetchSuggestions()
+                }
+            }
             .overlay(searchOverlay)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

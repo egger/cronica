@@ -10,7 +10,7 @@ import SwiftUI
 
 /// Represents a movie, tv show model, it is also used for people only
 /// on search.
-struct ItemContent: Identifiable, Decodable, Hashable, Sendable {
+struct ItemContent: Identifiable, Codable, Hashable, Sendable {
     let adult: Bool?
     let id: Int
     let title, name, overview: String?
@@ -29,28 +29,28 @@ struct ItemContent: Identifiable, Decodable, Hashable, Sendable {
     let videos: Videos?
     let nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
-struct ProductionCompany: Decodable, Hashable {
+struct ProductionCompany: Codable, Hashable {
     let name: String
 }
-struct ProductionCountry: Decodable, Hashable {
+struct ProductionCountry: Codable, Hashable {
     let name: String
 }
-struct Genre: Decodable, Identifiable, Hashable {
+struct Genre: Codable, Identifiable, Hashable {
     let id: Int
     let name: String?
 }
-struct ReleaseDates: Decodable, Hashable {
+struct ReleaseDates: Codable, Hashable {
     let results: [ReleaseDatesResult]
 }
-struct ReleaseDatesResult: Decodable, Hashable {
+struct ReleaseDatesResult: Codable, Hashable {
     let iso31661: String?
     let releaseDates: [ReleaseDate]?
 }
-struct ReleaseDate: Decodable, Hashable {
+struct ReleaseDate: Codable, Hashable {
     let certification, iso6391, releaseDate: String?
     let type: Int?
 }
-struct ItemContentResponse: Identifiable, Decodable, Hashable {
+struct ItemContentResponse: Identifiable, Codable, Hashable {
     let id: String?
     let results: [ItemContent]
 }

@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Videos: Decodable, Hashable {
+struct Videos: Codable, Hashable {
     let results: [VideosResult]
 }
-struct VideosResult: Decodable, Hashable {
+struct VideosResult: Codable, Hashable {
     let iso639_1, iso3166_1, id: String?
     let name, key, type: String
     let official: Bool
 }
-struct Trailer: Identifiable, Decodable, Hashable {
+struct Trailer: Identifiable, Codable, Hashable {
     var id = UUID()
     let url: URL?
     let thumbnail: URL?

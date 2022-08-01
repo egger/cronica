@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     @Environment(\.openURL) var openURL
+    @Environment(\.requestReview) var requestReview
     @EnvironmentObject var store: SettingsStore
     @State private var email = SupportEmail()
     @State private var showPolicy = false
@@ -53,12 +55,19 @@ struct SettingsView: View {
                         Label("Privacy Policy", systemImage: "hand.raised")
                     })
                     Button(action: {
-                        
+                        requestReview()
                     }, label: {
                         Label("Review Cronica", systemImage: "star")
                     })
                 } header: {
                     Label("Support", systemImage: "questionmark.circle")
+                }
+                Section {
+                    
+                } header: {
+                    Text("Tips")
+                } footer: {
+                    Text("Help support Cronica development with a tip, there's no paid feature to be unlocked.")
                 }
                 HStack {
                     Spacer()

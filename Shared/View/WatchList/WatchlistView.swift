@@ -19,6 +19,7 @@ struct WatchlistView: View {
     }
     @State var selectedOrder: WatchListSortOrder = .optimized
     @State private var selectedItems = Set<WatchlistItem.ID>()
+    @State private var draggedItemContent: [ItemContent]? = nil 
     @Environment(\.editMode) private var editMode
     var body: some View {
         AdaptableNavigationView {
@@ -95,12 +96,17 @@ struct WatchlistView: View {
                             
                         }
                     } else {
-                        Picker(selection: $selectedOrder,
-                               label: Label("Sort", systemImage: "arrow.up.arrow.down.circle")) {
+                        Picker(selection: $selectedOrder, content: {
                             ForEach(WatchListSortOrder.allCases) { sort in
-                                Text(sort.title).tag(sort)
+                                Label(sort.title, systemImage: "arrow.up.arrow.down.circle").tag(sort)
+                                    .labelStyle(.iconOnly)
+                                //Text(sort.title).tag(sort)
                             }
-                        }
+                        }, label: {
+                            Image(systemName: "arrow.up.arrow.down.circle")
+                        })
+                        .pickerStyle(.menu)
+                        .accessibilityLabel("Sort List")
                     }
                 }
             }
