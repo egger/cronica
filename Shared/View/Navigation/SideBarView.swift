@@ -38,8 +38,10 @@ struct SideBarView: View {
             .searchable(text: $viewModel.query, placement: .sidebar, prompt: "Movies, Shows, People")
             .disableAutocorrection(true)
             .searchSuggestions {
-                ForEach(viewModel.searchSuggestions) { item in
-                    Text(item.suggestion).searchCompletion(item.suggestion)
+                if viewModel.query.isEmpty {
+                    ForEach(viewModel.searchSuggestions) { item in
+                        Text(item.suggestion).searchCompletion(item.suggestion)
+                    }
                 }
             }
             .onAppear {
