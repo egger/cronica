@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Videos: Codable, Hashable {
     let results: [VideosResult]

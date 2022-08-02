@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Credits: Codable, Hashable {
     let cast, crew: [Person]

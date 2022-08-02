@@ -79,6 +79,15 @@ struct WatchlistView: View {
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
             }
+            .dropDestination(for: ItemContent.self) { items, location  in
+                let context = PersistenceController.shared
+                for item in items {
+                    context.save(item)
+                }
+                return true
+            } isTargeted: { inDropArea in
+                print(inDropArea)
+            }
             .refreshable {
                 Task {
                     await refresh()
@@ -124,6 +133,8 @@ struct WatchlistView: View {
             background.handleAppRefreshContent()
         }
     }
+    
+    
 }
 
 struct WatchListView_Previews: PreviewProvider {

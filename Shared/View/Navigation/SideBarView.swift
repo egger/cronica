@@ -32,6 +32,15 @@ struct SideBarView: View {
                     Label("Watchlist", systemImage: "square.stack.fill")
                 }
                 .tag(WatchlistView.tag)
+                .dropDestination(for: ItemContent.self) { items, location  in
+                    let context = PersistenceController.shared
+                    for item in items {
+                        context.save(item)
+                    }
+                    return true
+                } isTargeted: { inDropArea in
+                    print(inDropArea)
+                }
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")

@@ -7,10 +7,14 @@
 
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Represents a movie, tv show model, it is also used for people only
 /// on search.
-struct ItemContent: Identifiable, Codable, Hashable, Sendable {
+struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(for: ItemContent.self, contentType: .itemContent)
+    }
     let adult: Bool?
     let id: Int
     let title, name, overview: String?
@@ -73,4 +77,8 @@ struct ItemContentSection: Identifiable, Sendable {
         case .nowPlaying: return .movie
         }
     }
+}
+
+extension UTType {
+    static var itemContent = UTType(exportedAs: "dev.alexandremadeira.Story.itemContent")
 }

@@ -24,6 +24,7 @@ struct PosterView: View {
                                         style: .continuous))
             .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                     radius: DrawingConstants.shadowRadius)
+            .draggable(item)
     }
 }
 

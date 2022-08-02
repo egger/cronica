@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Season: Codable, Identifiable, Hashable {
     let id, seasonNumber: Int
