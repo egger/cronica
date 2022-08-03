@@ -41,6 +41,7 @@ struct ItemContentFrameView: View {
                                                 style: .continuous))
                     .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
                     .shadow(radius: DrawingConstants.imageShadow)
+                    .draggable(item)
                 HStack {
                     Text(item.itemTitle)
                         .font(.caption)

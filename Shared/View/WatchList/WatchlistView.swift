@@ -19,7 +19,6 @@ struct WatchlistView: View {
     }
     @State var selectedOrder: WatchListSortOrder = .optimized
     @State private var selectedItems = Set<WatchlistItem.ID>()
-    @State private var draggedItemContent: [ItemContent]? = nil 
     @Environment(\.editMode) private var editMode
     var body: some View {
         AdaptableNavigationView {

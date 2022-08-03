@@ -23,6 +23,7 @@ struct HeroImage: View {
                 .aspectRatio(contentMode: .fill)
                 .transition(.opacity)
             if blurImage {
+                Rectangle().fill(.secondary)
                 Rectangle().fill(.ultraThinMaterial)
                 Image(systemName: "eye.slash.fill")
                     .foregroundColor(.white)

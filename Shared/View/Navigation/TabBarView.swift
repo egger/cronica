@@ -20,16 +20,19 @@ struct TabBarView: View {
                 .tabItem { Label("Explore", systemImage: "film") }
             WatchlistView()
                 .tag(WatchlistView.tag)
-                .tabItem { Label("Watchlist", systemImage: "square.stack.fill") }
-                .dropDestination(for: ItemContent.self) { items, location  in
-                    let context = PersistenceController.shared
-                    for item in items {
-                        context.save(item)
-                    }
-                    return true
-                } isTargeted: { inDropArea in
-                    print(inDropArea)
+                .tabItem {
+                    Label("Watchlist", systemImage: "square.stack.fill")
+                        .dropDestination(for: ItemContent.self) { items, location  in
+                            let context = PersistenceController.shared
+                            for item in items {
+                                context.save(item)
+                            }
+                            return true
+                        } isTargeted: { inDropArea in
+                            print(inDropArea)
+                        }
                 }
+                
             SearchView()
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }

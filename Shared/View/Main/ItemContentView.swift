@@ -30,12 +30,11 @@ struct ItemContentView: View {
         ZStack {
             ScrollView {
                 VStack {
-                    CoverImageView(isWatched: $viewModel.isWatched,
+                    CoverImageView(item: viewModel.content,
+                                   titlePlaceholder: title,
+                                   isWatched: $viewModel.isWatched,
                                    isFavorite: $viewModel.isFavorite,
-                                   animateGesture: $animateGesture,
-                                   image: viewModel.content?.cardImageMedium,
-                                   title: title,
-                                   isAdult: viewModel.content?.adult ?? false, glanceInfo: viewModel.content?.itemInfo)
+                                   animateGesture: $animateGesture)
                         .environmentObject(store)
                         .onTapGesture(count: 2) {
                             withAnimation {
