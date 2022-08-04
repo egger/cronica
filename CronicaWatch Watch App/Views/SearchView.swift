@@ -30,7 +30,7 @@ struct SearchView: View {
         .searchable(text: $viewModel.query, placement: .navigationBarDrawer, prompt: "Search")
         .navigationDestination(for: ItemContent.self) { item in
             if item.media == .person {
-                EmptyView()
+                PersonView(id: item.id, name: item.itemTitle)
             } else {
                 ItemContentView(id: item.id, title: item.itemTitle, mediaType: item.itemContentMedia)
             }

@@ -49,11 +49,13 @@ struct ContentView: View {
                 ToolbarItem {
                     NavigationLink(value: Screens.search) {
                         HStack {
-                            Label("Search TMDb", systemImage: "magnifyingglass")
-                                .tint(.blue)
+                            Label("Search TMDb", systemImage: "globe")
                             Spacer()
                         }
                     }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.blue)
+                    .padding(.bottom)
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
