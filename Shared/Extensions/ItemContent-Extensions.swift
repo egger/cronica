@@ -177,5 +177,7 @@ extension ItemContent {
         previewContents[0]
     }
     
-    
+    var itemUrlProxy: String {
+        return  "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)"
+    }
 }

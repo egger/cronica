@@ -29,9 +29,11 @@ class PersonDetailsViewModel: ObservableObject {
                 person = try await self.service.fetchPerson(id: self.id)
                 if let person {
                     let combinedCredits = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false }
-                    if combinedCredits != nil && !combinedCredits.isEmpty {
-                        let combined: Set = Set(combinedCredits!)
-                        credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+                    if let combinedCredits {
+                        if !combinedCredits.isEmpty {
+                            let combined: Set = Set(combinedCredits)
+                            credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+                        }
                     }
                 }
                 withAnimation {

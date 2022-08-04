@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct TrailerListView: View {
     var trailers: [Trailer]?
@@ -22,36 +23,34 @@ struct TrailerListView: View {
                                     HapticManager.shared.softHaptic()
                                     selectedItem = trailer
                                 }, label: {
-                                    AsyncImage(url: trailer.thumbnail, transaction: Transaction(animation: .easeInOut)) { phase in
-                                        if let image = phase.image {
-                                            ZStack {
-                                                image
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fill)
-                                                    .transition(.opacity)
-                                                Color.black.opacity(0.1)
-                                                Image(systemName: "play.circle.fill")
-                                                    .resizable()
-                                                    .frame(width: 40, height: 40, alignment: .center)
-                                                    .symbolRenderingMode(.palette)
-                                                    .foregroundStyle(.white, .secondary)
-                                                    .scaledToFit()
-                                                    .imageScale(.medium)
-                                                    .padding()
-                                            }
-                                        } else if phase.error != nil {
-                                            ZStack {
-                                                Color.secondary
-                                                ProgressView()
-                                            }
-                                        } else {
-                                            ZStack {
-                                                Color.secondary
-                                                Image(systemName: "play.fill")
-                                                    .foregroundColor(.white)
-                                                    .imageScale(.medium)
-                                            }
+                                    if let thumbnail = trailer.thumbnail {
+                                        ZStack {
+                                            WebImage(url: thumbnail)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .transition(.opacity)
+                                                .frame(width: DrawingConstants.imageWidth,
+                                                       height: DrawingConstants.imageHeight)
+                                            Color.black.opacity(0.1)
+                                            Image(systemName: "play.circle.fill")
+                                                .resizable()
+                                                .frame(width: 40, height: 40, alignment: .center)
+                                                .symbolRenderingMode(.palette)
+                                                .foregroundStyle(.white, .secondary)
+                                                .scaledToFit()
+                                                .imageScale(.medium)
+                                                .padding()
                                         }
+
+                                    } else {
+                                        ZStack {
+                                            Color.secondary
+                                            Image(systemName: "play.fill")
+                                                .foregroundColor(.white)
+                                                .imageScale(.medium)
+                                        }
+                                        .frame(width: DrawingConstants.imageWidth,
+                                               height: DrawingConstants.imageHeight)
                                     }
                                 })
                                 .buttonStyle(.plain)
@@ -76,6 +75,7 @@ struct TrailerListView: View {
                             .accessibilityElement(children: .combine)
                             .accessibilityLabel(trailer.title)
                             .frame(width: DrawingConstants.imageWidth)
+                            .draggable(trailer)
                             .padding(.horizontal, 4)
                             .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
                             .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)

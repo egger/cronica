@@ -16,9 +16,18 @@ struct VideosResult: Codable, Hashable {
     let name, key, type: String
     let official: Bool
 }
-struct Trailer: Identifiable, Codable, Hashable {
+struct Trailer: Identifiable, Codable, Hashable, Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: \.itemUrlProxy)
+    }
     var id = UUID()
     let url: URL?
     let thumbnail: URL?
     let title: String
+}
+
+extension Trailer {
+    var itemUrlProxy: URL {
+       return url!
+    }
 }

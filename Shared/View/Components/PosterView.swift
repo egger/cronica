@@ -38,7 +38,11 @@ private struct PosterPlaceholder: View {
     var title: String
     var body: some View {
         ZStack {
+            #if os(watchOS)
+            Rectangle().fill(.secondary)
+            #else
             Rectangle().fill(.thickMaterial)
+            #endif
             VStack {
                 Text(title)
                     .lineLimit(1)

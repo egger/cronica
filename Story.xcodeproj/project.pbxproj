@@ -10,6 +10,12 @@
 		B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E392284EC4A500F59855 /* CoverImageView.swift */; };
 		B804E395284EDC2B00F59855 /* ItemContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E394284EDC2B00F59855 /* ItemContentListView.swift */; };
 		B804E397284FCBCB00F59855 /* ItemContentFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E396284FCBCB00F59855 /* ItemContentFrameView.swift */; };
+		B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */; };
+		B806C4E32899BE2800A5330E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4E22899BE2800A5330E /* ContentView.swift */; };
+		B806C4E52899BE2900A5330E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B806C4E42899BE2900A5330E /* Assets.xcassets */; };
+		B806C4E82899BE2900A5330E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B806C4E72899BE2900A5330E /* Preview Assets.xcassets */; };
+		B806C4EB2899BE2900A5330E /* Cronica.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B806C4DE2899BE2800A5330E /* Cronica.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4F0289B139000A5330E /* UTType-Extensions.swift */; };
 		B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B4DA9284537EF008BA43C /* SearchItemView.swift */; };
 		B8110EE8279245D100844FEB /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
 		B8110EEA279245D100844FEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED9279245D000844FEB /* ContentView.swift */; };
@@ -20,6 +26,42 @@
 		B82C267A2795E33900259D98 /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* PosterView.swift */; };
 		B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */; };
+		B84043B0289B187000D5CEBF /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
+		B84043B1289B187400D5CEBF /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
+		B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* PersistenceController.swift */; };
+		B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
+		B84043B5289B188B00D5CEBF /* ItemContent-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* ItemContent-Extensions.swift */; };
+		B84043B7289B18A300D5CEBF /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
+		B84043B8289B18AA00D5CEBF /* WatchlistItem-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B878E83427BC85BC0021A981 /* WatchlistItem-Extension.swift */; };
+		B84043BA289B18B200D5CEBF /* UTType-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4F0289B139000A5330E /* UTType-Extensions.swift */; };
+		B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* NotificationManager.swift */; };
+		B84043BC289B18C200D5CEBF /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
+		B84043BD289B18C500D5CEBF /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
+		B84043BE289B18C700D5CEBF /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE63281B36A7005558DD /* Season.swift */; };
+		B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
+		B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E589027A4BE75005DBF38 /* Endpoints.swift */; };
+		B84043C1289B18D700D5CEBF /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF652829F134001D72EF /* NetworkError.swift */; };
+		B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
+		B84043C3289B18DE00D5CEBF /* ItemSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE51281B1BA5005558DD /* ItemSchedule.swift */; };
+		B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE53281B1BC0005558DD /* ImageSize.swift */; };
+		B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE4F281B1B81005558DD /* MediaType.swift */; };
+		B84043C6289B18E900D5CEBF /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
+		B84043C7289B18EC00D5CEBF /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
+		B84043C8289B18EF00D5CEBF /* WatchListSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8207714289339860097D053 /* WatchListSortOrder.swift */; };
+		B84043C9289B191E00D5CEBF /* TrailerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1B2289468FD00BD666F /* TrailerUtilities.swift */; };
+		B84043CA289B20BC00D5CEBF /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
+		B84043CC289B294600D5CEBF /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CB289B294600D5CEBF /* SearchItem.swift */; };
+		B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CB289B294600D5CEBF /* SearchItem.swift */; };
+		B84043D0289B2A1600D5CEBF /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CF289B2A1600D5CEBF /* SearchView.swift */; };
+		B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */; };
+		B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */; };
+		B84043D9289B327B00D5CEBF /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
+		B84043DB289B35E600D5CEBF /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* ItemView.swift */; };
+		B84043DD289B360B00D5CEBF /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */; };
+		B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
+		B84043E4289B3F3800D5CEBF /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043E3289B3F3800D5CEBF /* PersonView.swift */; };
+		B84043E5289B3F4000D5CEBF /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };
+		B84043E7289B417500D5CEBF /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
 		B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
 		B840D2CE279B24C900A07C71 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
 		B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2B2793B4C10012259B /* WatchlistView.swift */; };
@@ -97,6 +139,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B806C4E92899BE2900A5330E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8110ED3279245D000844FEB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B806C4DD2899BE2800A5330E;
+			remoteInfo = "CronicaWatch Watch App";
+		};
 		B85E037127B0371C005C7FDF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B8110ED3279245D000844FEB /* Project object */;
@@ -107,6 +156,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B806C4EC2899BE2900A5330E /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B806C4EB2899BE2900A5330E /* Cronica.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8AD443D284AD42400778275 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +183,12 @@
 		B804E392284EC4A500F59855 /* CoverImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageView.swift; sourceTree = "<group>"; };
 		B804E394284EDC2B00F59855 /* ItemContentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentListView.swift; sourceTree = "<group>"; };
 		B804E396284FCBCB00F59855 /* ItemContentFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentFrameView.swift; sourceTree = "<group>"; };
+		B806C4DE2899BE2800A5330E /* Cronica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cronica.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaWatchApp.swift; sourceTree = "<group>"; };
+		B806C4E22899BE2800A5330E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B806C4E42899BE2900A5330E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B806C4E72899BE2900A5330E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B806C4F0289B139000A5330E /* UTType-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UTType-Extensions.swift"; sourceTree = "<group>"; };
 		B80B4DA9284537EF008BA43C /* SearchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemView.swift; sourceTree = "<group>"; };
 		B8110ED8279245D000844FEB /* StoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryApp.swift; sourceTree = "<group>"; };
 		B8110ED9279245D000844FEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -135,6 +201,12 @@
 		B82C26792795E33900259D98 /* PosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterView.swift; sourceTree = "<group>"; };
 		B82C268E279644E000259D98 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
+		B84043CB289B294600D5CEBF /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
+		B84043CF289B2A1600D5CEBF /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentView.swift; sourceTree = "<group>"; };
+		B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CronicaWatch Watch App.entitlements"; sourceTree = "<group>"; };
+		B84043DF289B372B00D5CEBF /* CronicaWatch-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "CronicaWatch-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B84043E3289B3F3800D5CEBF /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
@@ -215,6 +287,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B806C4DB2899BE2800A5330E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84043DD289B360B00D5CEBF /* SDWebImageSwiftUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8110EDC279245D100844FEB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,6 +315,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B806C4DF2899BE2800A5330E /* CronicaWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				B84043DF289B372B00D5CEBF /* CronicaWatch-Watch-App-Info.plist */,
+				B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */,
+				B84043CE289B2A0B00D5CEBF /* Views */,
+				B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */,
+				B806C4E22899BE2800A5330E /* ContentView.swift */,
+				B806C4E42899BE2900A5330E /* Assets.xcassets */,
+				B806C4E62899BE2900A5330E /* Preview Content */,
+			);
+			path = "CronicaWatch Watch App";
+			sourceTree = "<group>";
+		};
+		B806C4E62899BE2900A5330E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B806C4E72899BE2900A5330E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		B8110ED2279245D000844FEB = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +345,7 @@
 				B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */,
 				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
 				B85E036E27B0371C005C7FDF /* StoryTests */,
+				B806C4DF2899BE2800A5330E /* CronicaWatch Watch App */,
 				B8B271A227A59EF400F6463F /* Frameworks */,
 				B8110EE0279245D100844FEB /* Products */,
 			);
@@ -274,6 +377,7 @@
 			children = (
 				B8110EDF279245D100844FEB /* Story.app */,
 				B85E036D27B0371C005C7FDF /* StoryTests.xctest */,
+				B806C4DE2899BE2800A5330E /* Cronica.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,6 +410,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B84043CE289B2A0B00D5CEBF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B84043CF289B2A1600D5CEBF /* SearchView.swift */,
+				B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */,
+				B84043E3289B3F3800D5CEBF /* PersonView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B8423E372794811F0012259B /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +441,7 @@
 				B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
 				B878E83427BC85BC0021A981 /* WatchlistItem-Extension.swift */,
+				B806C4F0289B139000A5330E /* UTType-Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -390,6 +505,7 @@
 			children = (
 				B80B4DA9284537EF008BA43C /* SearchItemView.swift */,
 				B8CC952027CFEBEC00B6757C /* SearchView.swift */,
+				B84043CB289B294600D5CEBF /* SearchItem.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -535,6 +651,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B806C4EF2899BE2900A5330E /* Build configuration list for PBXNativeTarget "CronicaWatch Watch App" */;
+			buildPhases = (
+				B806C4DA2899BE2800A5330E /* Sources */,
+				B806C4DB2899BE2800A5330E /* Frameworks */,
+				B806C4DC2899BE2800A5330E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CronicaWatch Watch App";
+			packageProductDependencies = (
+				B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */,
+			);
+			productName = "CronicaWatch Watch App";
+			productReference = B806C4DE2899BE2800A5330E /* Cronica.app */;
+			productType = "com.apple.product-type.application";
+		};
 		B8110EDE279245D100844FEB /* Story (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8110EF0279245D100844FEB /* Build configuration list for PBXNativeTarget "Story (iOS)" */;
@@ -543,10 +679,12 @@
 				B8110EDC279245D100844FEB /* Frameworks */,
 				B8110EDD279245D100844FEB /* Resources */,
 				B8AD443D284AD42400778275 /* Embed Foundation Extensions */,
+				B806C4EC2899BE2900A5330E /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B806C4EA2899BE2900A5330E /* PBXTargetDependency */,
 			);
 			name = "Story (iOS)";
 			packageProductDependencies = (
@@ -582,9 +720,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					B806C4DD2899BE2800A5330E = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					B8110EDE279245D100844FEB = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -614,11 +755,21 @@
 			targets = (
 				B8110EDE279245D100844FEB /* Story (iOS) */,
 				B85E036C27B0371C005C7FDF /* StoryTests */,
+				B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B806C4DC2899BE2800A5330E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B806C4E82899BE2900A5330E /* Preview Assets.xcassets in Resources */,
+				B806C4E52899BE2900A5330E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8110EDD279245D100844FEB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -640,6 +791,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B806C4DA2899BE2800A5330E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */,
+				B84043D9289B327B00D5CEBF /* AttributionView.swift in Sources */,
+				B84043BC289B18C200D5CEBF /* ItemContent.swift in Sources */,
+				B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */,
+				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
+				B84043BA289B18B200D5CEBF /* UTType-Extensions.swift in Sources */,
+				B84043B0289B187000D5CEBF /* Watchlist.xcdatamodeld in Sources */,
+				B84043C8289B18EF00D5CEBF /* WatchListSortOrder.swift in Sources */,
+				B84043B1289B187400D5CEBF /* Key.swift in Sources */,
+				B84043C7289B18EC00D5CEBF /* Utilities.swift in Sources */,
+				B84043BD289B18C500D5CEBF /* Person.swift in Sources */,
+				B84043C9289B191E00D5CEBF /* TrailerUtilities.swift in Sources */,
+				B806C4E32899BE2800A5330E /* ContentView.swift in Sources */,
+				B84043C3289B18DE00D5CEBF /* ItemSchedule.swift in Sources */,
+				B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */,
+				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
+				B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */,
+				B84043DB289B35E600D5CEBF /* ItemView.swift in Sources */,
+				B84043B8289B18AA00D5CEBF /* WatchlistItem-Extension.swift in Sources */,
+				B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */,
+				B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */,
+				B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */,
+				B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */,
+				B84043E7289B417500D5CEBF /* TitleView.swift in Sources */,
+				B84043E5289B3F4000D5CEBF /* PersonDetailsViewModel.swift in Sources */,
+				B84043E4289B3F3800D5CEBF /* PersonView.swift in Sources */,
+				B84043B5289B188B00D5CEBF /* ItemContent-Extensions.swift in Sources */,
+				B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */,
+				B84043C6289B18E900D5CEBF /* Screens.swift in Sources */,
+				B84043C1289B18D700D5CEBF /* NetworkError.swift in Sources */,
+				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
+				B84043CA289B20BC00D5CEBF /* DataFetchPhase.swift in Sources */,
+				B84043D0289B2A1600D5CEBF /* SearchView.swift in Sources */,
+				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
+				B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */,
+				B84043B7289B18A300D5CEBF /* Person-Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8110EDB279245D100844FEB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -656,6 +850,7 @@
 				B8CC952A27D02C5700B6757C /* ItemContentView.swift in Sources */,
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
 				B8779375281E2CE700174F32 /* DiscoverView.swift in Sources */,
+				B84043CC289B294600D5CEBF /* SearchItem.swift in Sources */,
 				B8779377281E319D00174F32 /* TabBarView.swift in Sources */,
 				B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */,
 				B8C781F2287F576100B4C2C2 /* FilmographyListView.swift in Sources */,
@@ -702,6 +897,7 @@
 				B804E397284FCBCB00F59855 /* ItemContentFrameView.swift in Sources */,
 				B87F9D89286145600064947A /* DiscoverViewModel.swift in Sources */,
 				B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */,
+				B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */,
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
@@ -737,6 +933,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B806C4EA2899BE2900A5330E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */;
+			targetProxy = B806C4E92899BE2900A5330E /* PBXContainerItemProxy */;
+		};
 		B85E037227B0371C005C7FDF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B8110EDE279245D100844FEB /* Story (iOS) */;
@@ -757,6 +958,73 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B806C4ED2899BE2900A5330E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "CronicaWatch Watch App/CronicaWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CronicaWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CronicaWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.alexandremadeira.Story;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
+				PRODUCT_NAME = Cronica;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		B806C4EE2899BE2900A5330E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "CronicaWatch Watch App/CronicaWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CronicaWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CronicaWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.alexandremadeira.Story;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
+				PRODUCT_NAME = Cronica;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 		B8110EEE279245D100844FEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -991,6 +1259,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B806C4EF2899BE2900A5330E /* Build configuration list for PBXNativeTarget "CronicaWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B806C4ED2899BE2900A5330E /* Debug */,
+				B806C4EE2899BE2900A5330E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B8110ED6279245D000844FEB /* Build configuration list for PBXProject "Story" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1040,6 +1317,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		B87F745D280605CE00E94126 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
