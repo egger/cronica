@@ -74,8 +74,6 @@ struct ItemContentView: View {
                     SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons, tvId: id)
                         .padding(0)
                     
-                    Text("hey")
-                    
                     CastListView(credits: viewModel.credits)
                     
                     InformationSectionView(item: viewModel.content)
@@ -139,17 +137,6 @@ struct ItemContentView: View {
         .controlSize(.large)
         .disabled(viewModel.isLoading)
         .keyboardShortcut("l", modifiers: [.option])
-    }
-    
-    private var TrailerButton: some View {
-        Button(action: {
-            
-        }, label: {
-            Label("Play Trailer", systemImage: "play")
-        })
-        .buttonStyle(.bordered)
-        .tint(.cyan)
-        .controlSize(.large)
     }
     
     private var markAsMenu: some View {

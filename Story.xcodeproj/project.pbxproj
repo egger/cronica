@@ -117,7 +117,6 @@
 		B8C09BEF289D55340038D18F /* PersonItem-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C09BEE289D55340038D18F /* PersonItem-Extensions.swift */; };
 		B8C09BF0289D55340038D18F /* PersonItem-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C09BEE289D55340038D18F /* PersonItem-Extensions.swift */; };
 		B8C09BF2289D596A0038D18F /* PersonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C09BF1289D596A0038D18F /* PersonItemView.swift */; };
-		B8C09BF3289D596A0038D18F /* PersonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C09BF1289D596A0038D18F /* PersonItemView.swift */; };
 		B8C09BF4289D5DCE0038D18F /* Credits-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE59281B283F005558DD /* Credits-Extensions.swift */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */; };
@@ -833,7 +832,6 @@
 				B84043E5289B3F4000D5CEBF /* PersonDetailsViewModel.swift in Sources */,
 				B84043E4289B3F3800D5CEBF /* PersonView.swift in Sources */,
 				B84043B5289B188B00D5CEBF /* ItemContent-Extensions.swift in Sources */,
-				B8C09BF3289D596A0038D18F /* PersonItemView.swift in Sources */,
 				B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */,
 				B84043C6289B18E900D5CEBF /* Screens.swift in Sources */,
 				B84043C1289B18D700D5CEBF /* NetworkError.swift in Sources */,
@@ -1188,7 +1186,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1224,7 +1222,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

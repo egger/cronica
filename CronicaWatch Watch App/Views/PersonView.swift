@@ -39,24 +39,23 @@ struct PersonView: View {
                 .clipShape(Circle())
                 .padding([.top, .bottom])
                 .accessibilityHidden(true)
+                
+                ShareLink(item: personUrl)
+                    .padding(.bottom)
+                
+                if let credits = viewModel.credits {
+                    Divider()
+                        .padding([.horizontal, .bottom])
+                        .foregroundColor(.secondary)
+                    FilmographyListWatch(items: credits)
+                    Divider()
+                        .padding([.horizontal, .top])
+                        .foregroundColor(.secondary)
+                }
+                
+                AttributionView()
+                    .padding(.bottom)
             }
-            
-            ShareLink(item: personUrl)
-                .padding(.bottom)
-            
-            if let credits = viewModel.credits {
-                Divider()
-                    .padding([.horizontal, .bottom])
-                    .foregroundColor(.secondary)
-                FilmographyListWatch(items: credits)
-                Divider()
-                    .padding([.horizontal, .top])
-                    .foregroundColor(.secondary)
-            }
-            
-            AttributionView()
-                .padding(.bottom)
-            
         }
         .navigationTitle(name)
         .task {

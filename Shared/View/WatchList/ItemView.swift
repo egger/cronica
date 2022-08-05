@@ -47,6 +47,8 @@ struct ItemView: View {
                     Spacer()
                 }
             }
+#if os(watchOS)
+#else
             if content.favorite {
                 Spacer()
                 Image(systemName: "heart.fill")
@@ -54,6 +56,7 @@ struct ItemView: View {
                     .padding(.trailing)
                     .accessibilityLabel("\(content.itemTitle) is favorite.")
             }
+#endif
         }
         .accessibilityElement(children: .combine)
     }

@@ -106,7 +106,9 @@ struct WatchlistView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Picker(selection: $selectedOrder, content: {
                         ForEach(WatchListSortOrder.allCases) { sort in
-                            Text(sort.title).tag(sort)
+                            Label(sort.title, systemImage: "arrow.up.arrow.down.circle.fill").tag(sort)
+                                .labelStyle(.iconOnly)
+                            //Text(sort.title).tag(sort)
                         }
                     }, label: {
                         Label("Sort List", systemImage: "arrow.up.arrow.down.circle")

@@ -16,6 +16,17 @@ struct PersonStruct: View {
         Section {
             ForEach(personItems) { item in
                 PersonItemView(item: item)
+                    .contextMenu {
+                        ShareLink(item: item.itemUrl)
+                        Divider()
+                        Button(role: .destructive, action: {
+                            withAnimation {
+                                context.delete(item)
+                            }
+                        }, label: {
+                            Label("Remove", systemImage: "trash")
+                        })
+                    }
             }
         } header: {
             Text(NSLocalizedString("Favorite People", comment: ""))

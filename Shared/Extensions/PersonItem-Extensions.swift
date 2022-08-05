@@ -14,6 +14,9 @@ extension PersonItem {
     var type: MediaType {
         return .person
     }
+    var itemUrl: URL {
+        return URL(string: "https://www.themoviedb.org/person/\(id)")!
+    }
     var example: PersonItem {
         let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext

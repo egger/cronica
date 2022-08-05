@@ -20,7 +20,6 @@ struct ItemContentView: View {
     var body: some View {
         ScrollView {
             VStack {
-                
                 WebImage(url: viewModel.content?.cardImageMedium)
                     .resizable()
                     .placeholder {
@@ -55,6 +54,18 @@ struct ItemContentView: View {
                 .disabled(viewModel.isLoading)
                 .padding()
                 
+                Button(action: {
+                    viewModel.update(markAsWatched: !viewModel.isWatched)
+                }, label: {
+                    Label(viewModel.isWatched ? "Remove from watched" : "Mark as watched",
+                          systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
+                })
+                .buttonStyle(.bordered)
+                .tint(viewModel.isWatched ? .yellow : .green)
+                .controlSize(.large)
+                .disabled(viewModel.isLoading)
+                .padding([.horizontal, .bottom])
+                
                 ShareLink(item: itemUrl)
                     .padding([.horizontal, .bottom])
                 
@@ -80,6 +91,7 @@ struct ItemContentView: View {
                 await load()
             }
             .navigationTitle(title)
+            .redacted(reason: viewModel.isLoading ? .placeholder : [])
         }
     }
     

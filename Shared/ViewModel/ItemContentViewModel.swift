@@ -105,6 +105,9 @@ class ItemContentViewModel: ObservableObject {
                     context.save(content)
                 }
                 context.update(item: content, isWatched: watched)
+                withAnimation {
+                    isWatched.toggle()
+                }
             }
             else {
                 if context.isItemSaved(id: content.id, type: content.itemContentMedia) {
