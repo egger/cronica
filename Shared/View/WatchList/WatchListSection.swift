@@ -70,16 +70,14 @@ struct WatchListSection: View {
     private func deleteItem(item: WatchlistItem) {
         HapticManager.shared.mediumHaptic()
         withAnimation {
-            viewContext.delete(item)
-            try? viewContext.save()
+            context.delete(item)
         }
     }
     
     private func delete(offsets: IndexSet) {
         HapticManager.shared.mediumHaptic()
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            try? viewContext.save()
+            offsets.map { items[$0] }.forEach(context.delete)
         }
     }
     

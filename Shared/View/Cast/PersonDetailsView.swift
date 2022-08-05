@@ -69,7 +69,15 @@ struct PersonDetailsView: View {
             .navigationTitle(name)
             .toolbar {
                 ToolbarItem {
-                    ShareLink(item: personUrl)
+                    HStack {
+                        Button(action: {
+                            viewModel.updateFavorite()
+                        }, label: {
+                            Label(viewModel.isFavorite ? "Remove from Favorites" : "Add to Favorites",
+                                  systemImage: viewModel.isFavorite ? "star.slash.fill" : "star")
+                        })
+                        ShareLink(item: personUrl)
+                    }
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
@@ -88,18 +96,18 @@ struct PersonDetailsView: View {
     }
     
     @ViewBuilder
-        private var searchOverlay: some View {
-            if viewModel.query != "" {
-                List {
-                    if let credits = viewModel.credits {
-                        ForEach(credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
-                            SearchItemView(item: item, showConfirmation: $showConfirmation)
-                        }
+    private var searchOverlay: some View {
+        if viewModel.query != "" {
+            List {
+                if let credits = viewModel.credits {
+                    ForEach(credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
+                        SearchItemView(item: item, showConfirmation: $showConfirmation)
                     }
-                    
                 }
+                
             }
         }
+    }
 }
 
 struct CastDetailsView_Previews: PreviewProvider {

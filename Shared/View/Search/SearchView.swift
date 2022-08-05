@@ -12,6 +12,7 @@ struct SearchView: View {
     @StateObject private var viewModel: SearchViewModel
     @State private var showConfirmation: Bool = false
     private let context = PersistenceController.shared
+    @State private var scope: SearchItemsScope = .noScope
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
     }
@@ -19,9 +20,25 @@ struct SearchView: View {
         AdaptableNavigationView {
             ZStack {
                 List {
-                    ForEach(viewModel.searchItems) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                    switch scope {
+                    case .noScope:
+                        ForEach(viewModel.searchItems) { item in
+                            SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        }
+                    case .movies:
+                        ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
+                            SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        }
+                    case .shows:
+                        ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
+                            SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        }
+                    case .people:
+                        ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
+                            SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        }
                     }
+                    
                 }
                 .listStyle(.inset)
                 .navigationTitle("Search")
@@ -42,6 +59,11 @@ struct SearchView: View {
                 .searchSuggestions {
                     ForEach(viewModel.searchSuggestions) { item in
                         Text(item.suggestion).searchCompletion(item.suggestion)
+                    }
+                }
+                .searchScopes($scope) {
+                    ForEach(SearchItemsScope.allCases) { scope in
+                        Text(scope.title).tag(scope)
                     }
                 }
                 .disableAutocorrection(true)
@@ -87,4 +109,16 @@ struct SearchView_Previews: PreviewProvider {
     }
 }
 
-
+enum SearchItemsScope: String, Identifiable, Hashable, CaseIterable {
+    var id: String { rawValue }
+    case noScope, movies, shows, people
+    
+    var title: String {
+        switch self {
+        case .noScope: return NSLocalizedString("All", comment: "")
+        case .movies: return NSLocalizedString("Movies", comment: "")
+        case .shows: return NSLocalizedString("Shows", comment: "")
+        case .people: return NSLocalizedString("People", comment: "")
+        }
+    }
+}

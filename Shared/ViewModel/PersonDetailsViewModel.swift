@@ -11,12 +11,14 @@ import SwiftUI
 @MainActor
 class PersonDetailsViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
+    private let persistence: PersistenceController = PersistenceController.shared
     let id: Int
     @Published var isLoaded: Bool = false
     @Published var person: Person?
     @Published var credits: [ItemContent]?
     @Published var errorMessage: String?
     @Published var query: String = ""
+    @Published var isFavorite: Bool = false
     
     init(id: Int) {
         self.id = id
@@ -28,6 +30,7 @@ class PersonDetailsViewModel: ObservableObject {
             do {
                 person = try await self.service.fetchPerson(id: self.id)
                 if let person {
+                    isFavorite = persistence.isPersonSaved(id: person.id)
                     let combinedCredits = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false }
                     if let combinedCredits {
                         if !combinedCredits.isEmpty {
@@ -43,6 +46,26 @@ class PersonDetailsViewModel: ObservableObject {
                 person = nil
                 errorMessage = error.localizedDescription
                 print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func updateFavorite() {
+        if let person {
+            if isFavorite {
+                let item = persistence.fetch(person: PersonItem.ID(person.id))
+                if let item {
+                    persistence.delete(item)
+                }
+            } else {
+                persistence.save(person)
+            }
+            withAnimation {
+#if os(watchOS)
+#else
+                HapticManager.shared.lightHaptic()
+#endif
+                isFavorite.toggle()
             }
         }
     }

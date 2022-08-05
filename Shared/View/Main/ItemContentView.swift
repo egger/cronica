@@ -30,48 +30,51 @@ struct ItemContentView: View {
         ZStack {
             ScrollView {
                 VStack {
-                    CoverImageView(item: viewModel.content,
-                                   titlePlaceholder: title,
-                                   isWatched: $viewModel.isWatched,
+                    CoverImageView(isWatched: $viewModel.isWatched,
                                    isFavorite: $viewModel.isFavorite,
-                                   animateGesture: $animateGesture)
-                        .environmentObject(store)
-                        .onTapGesture(count: 2) {
+                                   animateGesture: $animateGesture,
+                                   image: UIDevice.isIPad ? viewModel.content?.cardImageLarge : viewModel.content?.cardImageMedium,
+                                   title: title,
+                                   isAdult: viewModel.content?.adult ?? false, glanceInfo: viewModel.content?.itemInfo)
+                    .environmentObject(store)
+                    .onTapGesture(count: 2) {
+                        withAnimation {
+                            animateGesture.toggle()
+                        }
+                        if !viewModel.isInWatchlist {
+                            viewModel.update()
                             withAnimation {
-                                animateGesture.toggle()
-                            }
-                            if !viewModel.isInWatchlist {
-                                viewModel.update()
-                                withAnimation {
-                                    viewModel.isInWatchlist.toggle()
-                                    viewModel.hasNotificationScheduled.toggle()
-                                }
-                            }
-                            if store.gesture == .favorite {
-                                viewModel.isFavorite.toggle()
-                                viewModel.update(markAsFavorite: viewModel.isFavorite)
-                            } else {
-                                viewModel.isWatched.toggle()
-                                viewModel.update(markAsWatched: viewModel.isWatched)
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                withAnimation {
-                                    animateGesture = false
-                                }
+                                viewModel.isInWatchlist.toggle()
+                                viewModel.hasNotificationScheduled.toggle()
                             }
                         }
+                        if store.gesture == .favorite {
+                            viewModel.isFavorite.toggle()
+                            viewModel.update(markAsFavorite: viewModel.isFavorite)
+                        } else {
+                            viewModel.isWatched.toggle()
+                            viewModel.update(markAsWatched: viewModel.isWatched)
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                            withAnimation {
+                                animateGesture = false
+                            }
+                        }
+                    }
                     
                     watchlistButton
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
                                     title: title,
                                     type: .movie)
-                        .padding()
-
+                    .padding()
+                    
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
                     SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons, tvId: id)
                         .padding(0)
+                    
+                    Text("hey")
                     
                     CastListView(credits: viewModel.credits)
                     
@@ -101,14 +104,14 @@ struct ItemContentView: View {
                             .foregroundColor(.accentColor)
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
-                        .disabled(viewModel.isLoading ? true : false)
+                            .disabled(viewModel.isLoading ? true : false)
                         if markAsMenuVisibility {
                             markAsMenu
                         }
                     }
                 }
             }
-             ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
     
@@ -216,8 +219,8 @@ struct ItemContentView: View {
 struct ContentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentView(title: ItemContent.previewContent.itemTitle,
-                           id: ItemContent.previewContent.id,
-                           type: MediaType.movie)
+                        id: ItemContent.previewContent.id,
+                        type: MediaType.movie)
     }
 }
 
@@ -243,3 +246,8 @@ private struct ScoreSection: View {
 }
 
 
+private struct HorizontalInformationView: View {
+    var body: some View {
+        EmptyView()
+    }
+}

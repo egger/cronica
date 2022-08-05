@@ -48,12 +48,9 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem {
                     NavigationLink(value: Screens.search) {
-                        HStack {
-                            Label("Search TMDb", systemImage: "globe")
-                            Spacer()
-                        }
+                        Label("Search TMDb", systemImage: "globe")
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
                     .tint(.blue)
                     .padding(.bottom)
                 }

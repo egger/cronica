@@ -8,7 +8,7 @@ import Foundation
 
 enum WatchListSortOrder: String, Identifiable, Hashable, CaseIterable {
     var id: String { rawValue }
-    case optimized, type, status, favorites
+    case optimized, type, status, favorites, people
     
     var title: String {
         switch self {
@@ -16,6 +16,7 @@ enum WatchListSortOrder: String, Identifiable, Hashable, CaseIterable {
         case .type: return NSLocalizedString("Media Type", comment: "")
         case .status: return NSLocalizedString("Status", comment: "")
         case .favorites: return NSLocalizedString("Favorites", comment: "")
+        case .people: return NSLocalizedString("People", comment: "")
         }
     }
 }

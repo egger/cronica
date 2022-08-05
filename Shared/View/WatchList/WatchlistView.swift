@@ -29,7 +29,7 @@ struct WatchlistView: View {
                         .foregroundColor(.secondary)
                         .padding()
                 } else {
-                    List(selection: $selectedItems) {
+                    List {
                         if !filteredMovieItems.isEmpty {
                             WatchListSection(items: filteredMovieItems,
                                              title: "Filtered Items")
@@ -61,10 +61,21 @@ struct WatchlistView: View {
                                                  title: "Upcoming Seasons")
                                 WatchListSection(items: items.filter { $0.isInProduction },
                                                  title: "In Production")
+                            case .people:
+                                PersonStruct()
                             }
                         }
                     }
                     .listStyle(.inset)
+                    .dropDestination(for: ItemContent.self) { items, location  in
+                        let context = PersistenceController.shared
+                        for item in items {
+                            context.save(item)
+                        }
+                        return true
+                    } isTargeted: { inDropArea in
+                        print(inDropArea)
+                    }
                 }
             }
             .navigationTitle("Watchlist")
@@ -72,20 +83,14 @@ struct WatchlistView: View {
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
             }
+            .navigationDestination(for: PersonItem.self) { item in
+                PersonDetailsView(title: item.personName, id: Int(item.id))
+            }
             .navigationDestination(for: ItemContent.self) { item in
                 ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
-            }
-            .dropDestination(for: ItemContent.self) { items, location  in
-                let context = PersistenceController.shared
-                for item in items {
-                    context.save(item)
-                }
-                return true
-            } isTargeted: { inDropArea in
-                print(inDropArea)
             }
             .refreshable {
                 Task {
@@ -99,23 +104,13 @@ struct WatchlistView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    if editMode?.wrappedValue.isEditing == true {
-                        Button("Delete", role: .destructive) {
-                            
+                    Picker(selection: $selectedOrder, content: {
+                        ForEach(WatchListSortOrder.allCases) { sort in
+                            Text(sort.title).tag(sort)
                         }
-                    } else {
-                        Picker(selection: $selectedOrder, content: {
-                            ForEach(WatchListSortOrder.allCases) { sort in
-                                Label(sort.title, systemImage: "arrow.up.arrow.down.circle").tag(sort)
-                                    .labelStyle(.iconOnly)
-                                //Text(sort.title).tag(sort)
-                            }
-                        }, label: {
-                            Image(systemName: "arrow.up.arrow.down.circle")
-                        })
-                        .pickerStyle(.menu)
-                        .accessibilityLabel("Sort List")
-                    }
+                    }, label: {
+                        Label("Sort List", systemImage: "arrow.up.arrow.down.circle")
+                    })
                 }
             }
             .searchable(text: $query,

@@ -49,7 +49,7 @@ struct ItemContentView: View {
                     Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                           systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
                 })
-                .buttonStyle(.bordered)
+                .buttonStyle(.borderedProminent)
                 .tint(viewModel.isInWatchlist ? .red : .blue)
                 .controlSize(.large)
                 .disabled(viewModel.isLoading)
