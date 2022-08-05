@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WatchListSection: View {
-    @Environment(\.managedObjectContext) private var viewContext
     private let context = PersistenceController.shared 
     let items: [WatchlistItem]
     let title: String
@@ -64,22 +63,29 @@ struct WatchListSection: View {
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
             }
+            .dropDestination(for: ItemContent.self) { items, location  in
+                let context = PersistenceController.shared
+                for item in items {
+                    context.save(item)
+                }
+                return true
+            } isTargeted: { inDropArea in
+                print(inDropArea)
+            }
         }
     }
     
     private func deleteItem(item: WatchlistItem) {
         HapticManager.shared.mediumHaptic()
         withAnimation {
-            viewContext.delete(item)
-            try? viewContext.save()
+            context.delete(item)
         }
     }
     
     private func delete(offsets: IndexSet) {
         HapticManager.shared.mediumHaptic()
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            try? viewContext.save()
+            offsets.map { items[$0] }.forEach(context.delete)
         }
     }
     

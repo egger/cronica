@@ -18,6 +18,8 @@ struct InformationSectionView: View {
                 InfoView(title: NSLocalizedString("Release Date",
                                                      comment: ""),
                                        content: item?.itemTheatricalString)
+                InfoView(title: NSLocalizedString("Ratings Score", comment: ""),
+                         content: item?.itemRating)
                 InfoView(title: NSLocalizedString("Status",
                                                      comment: ""),
                          content: item?.itemStatus.scheduleTitle)

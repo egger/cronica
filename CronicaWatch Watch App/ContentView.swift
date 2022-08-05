@@ -35,11 +35,26 @@ struct ContentView: View {
                     } else if !query.isEmpty && filteredMovieItems.isEmpty {
                         Text("No results found.")
                     } else {
-                        List(items) { item in
-                            NavigationLink(value: item) {
-                                WatchlistItemWatch(item: item)
-                            }
+                        List {
+                            WatchlistSectionWatch(items: items.filter { $0.isReleasedMovie },
+                                                  title: "Released Movies")
+                            WatchlistSectionWatch(items: items.filter { $0.isReleasedTvShow },
+                                                  title: "Released Movies")
+                            WatchlistSectionWatch(items: items.filter { $0.isUpcomingMovie },
+                                             title: "Upcoming Movies")
+                            WatchlistSectionWatch(items: items.filter { $0.isUpcomingTvShow },
+                                             title: "Upcoming Seasons")
+                            WatchlistSectionWatch(items: items.filter { $0.isInProduction },
+                                             title: "In Production")
+                            WatchlistSectionWatch(items: items.filter { $0.isWatched },
+                                                  title: "Watched")
+
                         }
+//                        List(items) { item in
+//                            NavigationLink(value: item) {
+//                                WatchlistItemWatch(item: item)
+//                            }
+//                        }
                     }
                 }
             }
@@ -48,12 +63,9 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem {
                     NavigationLink(value: Screens.search) {
-                        HStack {
-                            Label("Search TMDb", systemImage: "globe")
-                            Spacer()
-                        }
+                        Label("Search TMDb", systemImage: "globe")
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
                     .tint(.blue)
                     .padding(.bottom)
                 }
@@ -87,5 +99,24 @@ private struct WatchlistItemWatch: View {
                     context.delete(item)
                 }
             }
+    }
+}
+
+private struct WatchlistSectionWatch: View {
+    let items: [WatchlistItem]
+    let title: String
+    var body: some View {
+        if !items.isEmpty {
+            Section {
+                ForEach(items) { item in
+                    NavigationLink(value: item) {
+                        WatchlistItemWatch(item: item)
+                    }
+                }
+            } header: {
+                Text(NSLocalizedString(title, comment: ""))
+            }
+            .padding(.bottom)
+        }
     }
 }

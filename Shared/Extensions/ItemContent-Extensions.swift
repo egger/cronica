@@ -53,12 +53,24 @@ extension ItemContent {
         }
         return nil
     }
+    var shortItemRuntime: String? {
+        if runtime != nil && runtime! > 0 {
+            return Utilities.shortDurationFormatter.string(from: TimeInterval(runtime!) * 60)
+        }
+        return nil
+    }
     var itemInfo: String {
+        if itemTheatricalString != nil && shortItemRuntime != nil {
+            return "\(itemGenre) • \(itemTheatricalString!) • \(shortItemRuntime!)"
+        }
         if let itemTheatricalString {
-            return "\(itemGenre), \(itemTheatricalString)"
+            return "\(itemGenre) • \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
             return "\(itemGenre), \(Utilities.dateString.string(from: date))"
+        }
+        if let shortItemRuntime {
+            return "\(itemGenre) • \(shortItemRuntime)"
         }
         if !itemGenre.isEmpty { return "\(itemGenre)" }
         return ""
@@ -157,6 +169,7 @@ extension ItemContent {
             return .tvShow
         }
     }
+    
     /// This MediaType value is only used on search results
     ///
     /// Change to itemContentMedia to specify on normal usage.
@@ -179,5 +192,12 @@ extension ItemContent {
     
     var itemUrlProxy: String {
         return  "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)"
+    }
+    
+    var itemRating: String? {
+        if let voteAverage {
+            return "\(voteAverage.rounded()) out of 10"
+        }
+        return nil
     }
 }

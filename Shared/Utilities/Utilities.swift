@@ -31,6 +31,12 @@ class Utilities {
         formatter.allowedUnits = [.hour, .minute]
         return formatter
     }()
+    static let shortDurationFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = [.hour, .minute]
+        return formatter
+    }()
     static let userLang: String = {
         let locale = Locale.current
         guard let langCode = locale.language.languageCode?.identifier,
@@ -56,6 +62,14 @@ class Utilities {
                 if result.releaseDates != nil {
                     for date in result.releaseDates! {
                         if date.type != nil && date.type == 3 {
+                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
+                            return dateString.string(from: release)
+                        }
+                        if date.type != nil && date.type == 4 {
+                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
+                            return dateString.string(from: release)
+                        }
+                        if date.type != nil && date.type == 6 {
                             let release = releaseDateFormatter.date(from: date.releaseDate!)!
                             return dateString.string(from: release)
                         }

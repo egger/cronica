@@ -14,6 +14,7 @@ struct TrailerListView: View {
     var body: some View {
         if let trailers {
             VStack {
+                Divider().padding(.horizontal)
                 TitleView(title: "Videos", subtitle: "Official Trailers", image: "play.tv")
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
@@ -83,6 +84,7 @@ struct TrailerListView: View {
                     }
                     .padding(.top)
                 }
+                Divider().padding(.horizontal)
             }
             .sheet(item: $selectedItem) { item in
                 if let url = item.url {

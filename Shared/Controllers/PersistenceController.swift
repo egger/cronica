@@ -60,7 +60,7 @@ struct PersistenceController {
     /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
     func save(_ content: ItemContent) {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.contentType = content.itemContentMedia.watchlistInt
         item.title = content.itemTitle
@@ -76,11 +76,20 @@ struct PersistenceController {
         try? viewContext.save()
     }
     
+    func save(_ person: Person) {
+        let viewContext = container.viewContext
+        let item = PersonItem(context: viewContext)
+        item.name = person.name
+        item.id = Int64(person.id)
+        item.image = person.personImage
+        try? viewContext.save()
+    }
+    
     /// Get an item from the Watchlist.
     /// - Parameter id: The ID used to fetch the list.
     /// - Returns: If the item is in the list, it will return it.
     func fetch(for id: WatchlistItem.ID) -> WatchlistItem? {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", id)
         let item = try? viewContext.fetch(request)
@@ -90,8 +99,19 @@ struct PersistenceController {
         return nil
     }
     
+    func fetch(person id: PersonItem.ID) -> PersonItem? {
+        let context = container.viewContext
+        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", id)
+        let item = try? context.fetch(request)
+        if let item {
+            return item[0]
+        }
+        return nil
+    }
+    
     func updateMarkAs(id: Int, watched: Bool? = nil, favorite: Bool? = nil) {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = container.viewContext
         let item = self.fetch(for: WatchlistItem.ID(id))
         if let item {
             if let watched {
@@ -109,7 +129,7 @@ struct PersistenceController {
     // Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {
-            let viewContext = PersistenceController.shared.container.viewContext
+            let viewContext = container.viewContext
             let item = self.fetch(for: WatchlistItem.ID(content.id))
             if let item {
                 item.title = content.itemTitle
@@ -138,10 +158,19 @@ struct PersistenceController {
     
     /// Deletes a WatchlistItem from Core Data.
     func delete(_ item: WatchlistItem) {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = container.viewContext
         let item = try? viewContext.existingObject(with: item.objectID)
         if let item {
             viewContext.delete(item)
+            try? viewContext.save()
+        }
+    }
+    
+    func delete(_ item: PersonItem) {
+        let viewContext = container.viewContext
+        let person = try? viewContext.existingObject(with: item.objectID)
+        if let person {
+            viewContext.delete(person)
             try? viewContext.save()
         }
     }
@@ -154,7 +183,7 @@ struct PersistenceController {
     ///   - type: The Media Type of the content.
     /// - Returns: Returns true if the content is already added to the Watchlist.
     func isItemSaved(id: ItemContent.ID, type: MediaType) -> Bool {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
         let numberOfObjects = try? viewContext.count(for: request)
@@ -168,6 +197,17 @@ struct PersistenceController {
                 }
                 return true
             }
+        }
+        return false
+    }
+    
+    func isPersonSaved(id: Person.ID) -> Bool {
+        let context = container.viewContext
+        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", PersonItem.ID(id))
+        let numberOfObjects = try? context.count(for: request)
+        if let numberOfObjects {
+            if numberOfObjects > 0 { return true }
         }
         return false
     }
