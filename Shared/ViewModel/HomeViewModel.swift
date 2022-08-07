@@ -24,46 +24,29 @@ class HomeViewModel: ObservableObject {
                 }
             }
             if sectionsItems.isEmpty {
-                let sections = await self.fetchEndpoints()
-                if let sections {
-                    sectionsItems.append(contentsOf: sections)
-                }
+                let sections = await self.fetchSections()
+                sectionsItems.append(contentsOf: sections)
             }
         }
     }
     
-    private func fetchEndpoints(_ endpoints: [Endpoints] = Endpoints.allCases) async -> [ItemContentSection]? {
-        let results: [Result<ItemContentSection, Error>] = await withTaskGroup(of: Result<ItemContentSection, Error>.self) { group in
-            for endpoint in endpoints {
-                group.addTask {
-                    await self.fetchFrom(endpoint, media: .movie)
-                }
-            }
-            var results = [Result<ItemContentSection, Error>]()
-            for await result in group {
-                results.append(result)
-            }
-            return results
-        }
+    private func fetchSections() async -> [ItemContentSection] {
+        let endpoints = Endpoints.allCases
         var sections = [ItemContentSection]()
-        
-        results.forEach { result in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let section):
+        for endpoint in endpoints {
+            let section = await fetch(from: endpoint)
+            if let section {
                 sections.append(section)
             }
         }
-        
-        return sections.sorted { $0.endpoint.sortIndex < $1.endpoint.sortIndex }
+        return sections
     }
     
-    private func fetchFrom(_ endpoint: Endpoints, media: MediaType) async -> Result<ItemContentSection, Error> {
-        let section = try? await service.fetchContents(from: "\(media.rawValue)/\(endpoint.rawValue)")
+    private func fetch(from endpoint: Endpoints) async -> ItemContentSection? {
+        let section = try? await service.fetchContents(from: "\(MediaType.movie.rawValue)/\(endpoint.rawValue)")
         if let section {
-            return .success(.init(results: section, endpoint: endpoint))
+            return .init(results: section, endpoint: endpoint)
         }
-        return .failure(NetworkError.invalidResponse)
+        return nil
     }
 }

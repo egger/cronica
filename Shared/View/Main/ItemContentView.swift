@@ -83,7 +83,8 @@ struct ItemContentView: View {
                                         title: "Recommendations",
                                         subtitle: "You may like",
                                         image: "list.and.film",
-                                        addedItemConfirmation: $showConfirmation)
+                                        addedItemConfirmation: $showConfirmation,
+                                        displayAsCard: true)
                     
                     AttributionView()
                         .padding([.top, .bottom])

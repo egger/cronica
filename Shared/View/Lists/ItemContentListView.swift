@@ -15,31 +15,45 @@ struct ItemContentListView: View {
     let subtitle: String
     let image: String
     @Binding var addedItemConfirmation: Bool
+    var displayAsCard: Bool = false
     var body: some View {
         if let items {
             if !items.isEmpty {
+                if displayAsCard { Divider().padding(.horizontal) }
                 VStack {
                     TitleView(title: title,
                               subtitle: subtitle,
                               image: image)
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         HStack {
-                            ForEach(items) { item in
-                                NavigationLink(value: item) {
-                                    PosterView(item: item)
-                                        .modifier(ItemContentContextMenu(item: item,
-                                                                         showConfirmation: $addedItemConfirmation))
-                                        .padding([.leading, .trailing], 4)
+                            if displayAsCard {
+                                ForEach(items) { item in
+                                    ItemContentFrameView(item: item,
+                                                         showConfirmation: $addedItemConfirmation)
+                                    .padding([.leading, .trailing], 4)
+                                    .buttonStyle(.plain)
+                                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                                    .padding([.top, .bottom])
                                 }
-                                .buttonStyle(.plain)
-                                .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                .padding([.top, .bottom])
+                            } else {
+                                ForEach(items) { item in
+                                    NavigationLink(value: item) {
+                                        PosterView(item: item)
+                                            .modifier(ItemContentContextMenu(item: item,
+                                                                             showConfirmation: $addedItemConfirmation))
+                                            .padding([.leading, .trailing], 4)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                                    .padding([.top, .bottom])
+                                }
                             }
                         }
                     })
                 }
-                
+                if displayAsCard { Divider().padding(.horizontal) }
             }
         }
     }

@@ -8,18 +8,18 @@
 import Foundation
 
 class TrailerUtilities {
-    static func fetch(for videos: [VideosResult]? = nil) -> [Trailer]? {
+    static func fetch(for videos: [VideosResult]? = nil) -> [VideoItem]? {
         if let videos {
-            var trailers: [Trailer] = []
+            var items: [VideoItem] = []
             for video in videos {
                 if video.official && video.type.lowercased() == "trailer" {
-                    trailers.append(Trailer.init(url: urlBuilder(video: video.key),
+                    items.append(VideoItem.init(url: urlBuilder(video: video.key),
                                                  thumbnail: fetchThumbnail(for: video.key),
                                                  title: video.name))
                 }
             }
-            if !trailers.isEmpty {
-                return trailers
+            if !items.isEmpty {
+                return items
             }
         }
         return nil

@@ -9,13 +9,13 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TrailerListView: View {
-    var trailers: [Trailer]?
-    @State var selectedItem: Trailer? = nil
+    var trailers: [VideoItem]?
+    @State var selectedItem: VideoItem? = nil
     var body: some View {
         if let trailers {
             VStack {
                 Divider().padding(.horizontal)
-                TitleView(title: "Videos", subtitle: "Official Trailers", image: "play.tv")
+                TitleView(title: "Trailers", subtitle: "", image: "play.tv")
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(trailers) { trailer in
@@ -76,7 +76,6 @@ struct TrailerListView: View {
                             .accessibilityElement(children: .combine)
                             .accessibilityLabel(trailer.title)
                             .frame(width: DrawingConstants.imageWidth)
-                            .draggable(trailer)
                             .padding(.horizontal, 4)
                             .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
                             .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)
