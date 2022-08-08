@@ -15,7 +15,6 @@ struct ItemContentView: View {
     let itemUrl: URL
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store: SettingsStore
-    @State private var markAsMenuVisibility = false
     @State private var animateGesture = false
     @State private var showConfirmation = false
     init(title: String, id: Int, type: MediaType) {
@@ -62,7 +61,26 @@ struct ItemContentView: View {
                         }
                     }
                     
-                    watchlistButton
+                    ViewThatFits {
+                        HStack {
+                            watchlistButton
+                            if viewModel.showMarkAsButton {
+                                markAsMenu
+                                    .controlSize(.large)
+                                    .buttonStyle(.bordered)
+                            }
+                        }
+                        .padding(.horizontal)
+                        VStack {
+                            watchlistButton
+                            
+                            if viewModel.showMarkAsButton {
+                                markAsMenu
+                                    .controlSize(.large)
+                                    .buttonStyle(.bordered)
+                            }
+                        }
+                    }
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
                                     title: title,
@@ -104,9 +122,6 @@ struct ItemContentView: View {
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
-                        if markAsMenuVisibility {
-                            markAsMenu
-                        }
                     }
                 }
             }
@@ -170,7 +185,7 @@ struct ItemContentView: View {
             })
             .keyboardShortcut("f", modifiers: [.option])
         }, label: {
-            Label("More", systemImage: "ellipsis")
+            Text("Mark as")
         })
         .disabled(viewModel.isLoading ? true : false)
     }
@@ -193,13 +208,6 @@ struct ItemContentView: View {
     private func load() {
         Task {
             await self.viewModel.load()
-            if viewModel.content != nil {
-                withAnimation {
-                    if viewModel.content?.itemStatus == .released {
-                        markAsMenuVisibility = true
-                    }
-                }
-            }
         }
     }
 }

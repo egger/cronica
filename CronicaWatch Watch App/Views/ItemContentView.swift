@@ -84,6 +84,13 @@ struct ItemContentView: View {
                     Divider().padding(.horizontal)
                 }
                 
+                VStack(alignment: .leading) {
+                    Text("For more details, open the companion app.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+                
                 AttributionView()
                 
             }

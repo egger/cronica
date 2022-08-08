@@ -10,6 +10,14 @@ import SDWebImageSwiftUI
 
 struct ItemView: View {
     let content: WatchlistItem
+    @State private var isWatched: Bool = false
+    @State private var isFavorite: Bool = false
+    private let context = PersistenceController.shared
+    init(content: WatchlistItem) {
+        self.content = content
+        isWatched = content.isWatched
+        isFavorite = content.isFavorite
+    }
     var body: some View {
         HStack {
             ZStack {
@@ -27,7 +35,7 @@ struct ItemView: View {
                     .transition(.opacity)
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
-                if content.watched {
+                if isWatched {
                     Color.black.opacity(0.6)
                     Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
                 }
@@ -49,7 +57,7 @@ struct ItemView: View {
             }
 #if os(watchOS)
 #else
-            if content.favorite {
+            if isFavorite {
                 Spacer()
                 Image(systemName: "heart.fill")
                     .symbolRenderingMode(.multicolor)
@@ -59,6 +67,93 @@ struct ItemView: View {
 #endif
         }
         .accessibilityElement(children: .combine)
+        .contextMenu {
+            Button(action: {
+                updateWatched()
+            }, label: {
+                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+            })
+            Button(action: {
+                updateFavorite()
+            }, label: {
+                Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                      systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
+            })
+            ShareLink(item: content.itemLink)
+            Divider()
+            Button(role: .destructive, action: {
+                deleteItem(item: content)
+            }, label: {
+                Label("Remove", systemImage: "trash")
+            })
+        }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+            Button(action: {
+                updateWatched()
+            }, label: {
+                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                .labelStyle(.titleAndIcon)
+            })
+            .controlSize(.large)
+            .tint(isWatched ? .yellow : .green )
+        }
+        .swipeActions(edge: .leading, allowsFullSwipe: false) {
+            Button(action: {
+                updateFavorite()
+            }, label: {
+                Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                      systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
+            })
+            .controlSize(.large)
+            .labelStyle(.titleAndIcon)
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button(role: .destructive, action: {
+                deleteItem(item: content)
+            }, label: {
+                Label("Remove", systemImage: "trash")
+                    .labelStyle(.titleAndIcon)
+            })
+            .controlSize(.large)
+        }
+    }
+    
+    private func updateFavorite() {
+        withAnimation {
+#if os(watchOS)
+#else
+            HapticManager.shared.softHaptic()
+#endif
+            withAnimation {
+                isFavorite.toggle()
+            }
+            context.updateMarkAs(id: content.itemId, favorite: !content.favorite)
+        }
+    }
+    
+    private func updateWatched() {
+        withAnimation {
+#if os(watchOS)
+#else
+            HapticManager.shared.softHaptic()
+#endif
+            withAnimation {
+                isWatched.toggle()
+            }
+            context.updateMarkAs(id: content.itemId, watched: !content.watched)
+        }
+    }
+    
+    private func deleteItem(item: WatchlistItem) {
+#if os(watchOS)
+#else
+            HapticManager.shared.softHaptic()
+#endif
+        withAnimation {
+            context.delete(item)
+        }
     }
 }
 

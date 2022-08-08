@@ -25,6 +25,7 @@ class ItemContentViewModel: ObservableObject {
     @Published var isWatched = false
     @Published var isFavorite = false
     @Published var isLoading = true
+    @Published var showMarkAsButton = false
     
     init(id: ItemContent.ID, type: MediaType) {
         self.id = id
@@ -54,6 +55,9 @@ class ItemContentViewModel: ObservableObject {
                     }
                     withAnimation {
                         isNotificationAvailable = content?.itemCanNotify ?? false
+                        if content?.itemStatus == .released {
+                            showMarkAsButton = true
+                        }
                     }
                     isLoading = false
                 }
@@ -111,10 +115,7 @@ class ItemContentViewModel: ObservableObject {
             }
             else {
                 if context.isItemSaved(id: content.id, type: content.itemContentMedia) {
-#if os(watchOS)
-#else
                     HapticManager.shared.softHaptic()
-#endif
                     let item = context.fetch(for: WatchlistItem.ID(content.id))
                     if let item {
                         let identifier: String = "\(content.itemTitle)+\(content.id)"
