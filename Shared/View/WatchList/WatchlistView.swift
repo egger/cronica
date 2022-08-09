@@ -19,6 +19,8 @@ struct WatchlistView: View {
     }
     @State var selectedOrder: WatchListSortOrder = .optimized
     @State private var selectedItems = Set<WatchlistItem.ID>()
+    @State private var presentNewListAlert = false
+    @State private var newListName = ""
     @Environment(\.editMode) private var editMode
     var body: some View {
         AdaptableNavigationView {
@@ -96,6 +98,23 @@ struct WatchlistView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
+                        Button(action: {
+                            presentNewListAlert.toggle()
+                        }, label: {
+                            Label("New List", systemImage: "plus.circle")
+                        })
+                        .alert("New List", isPresented: $presentNewListAlert, actions: {
+                            TextField("New List", text: $newListName)
+                            Button("Save") {
+                                PersistenceController.shared.save(withTitle: newListName)
+                            }
+                            Button("Cancel", role: .cancel) {
+                                newListName = ""
+                                presentNewListAlert.toggle()
+                            }
+                        }, message: {
+                            Text("Enter a name for this list.")
+                        })
                         EditButton()
                     }
                 }

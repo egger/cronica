@@ -87,13 +87,16 @@ struct PersistenceController {
         }
     }
     
-    func save(_ list: CustomListItem) {
+    /// Save a new CustomListItem to CoreData
+    /// - Parameter title: The title for the new list.
+    func save(withTitle title: String) {
         let viewContext = container.viewContext
         let item = CustomListItem(context: viewContext)
         item.id = UUID()
-        item.title = list.title
+        item.title = title
         if viewContext.hasChanges {
             try? viewContext.save()
+            print(item as Any)
         }
     }
     
