@@ -78,6 +78,7 @@ extension WatchlistItem {
             if itemSchedule == .released && !isWatched { return true }
             if itemSchedule == .cancelled && !isWatched { return true }
         }
+        if nextSeasonNumber != 1 && itemSchedule == .soon { return true }
         return false
     }
     var isUpcomingMovie: Bool {
@@ -93,7 +94,9 @@ extension WatchlistItem {
         return false
     }
     var isInProduction: Bool {
-        if itemSchedule == .soon && !isWatched && !notify { return true }
+        //if itemSchedule == .soon && !isWatched && !notify { return true }
+        if nextSeasonNumber == 1 && itemSchedule == .soon && !isWatched && !notify { return true }
+        //if itemSchedule == .soon && !isWatched && !notify { return true }
         if itemSchedule == .production { return true }
         return false
     }

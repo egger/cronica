@@ -21,6 +21,8 @@
 		B8110EEA279245D100844FEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED9279245D000844FEB /* ContentView.swift */; };
 		B8110EEC279245D100844FEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8110EDA279245D100844FEB /* Assets.xcassets */; };
 		B8110F3C279364C800844FEB /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
+		B813917F289F4F8D003BEB2E /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
+		B813918228A0637D003BEB2E /* ListItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B813918128A0637D003BEB2E /* ListItemsView.swift */; };
 		B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
 		B8207715289339860097D053 /* WatchListSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8207714289339860097D053 /* WatchListSortOrder.swift */; };
 		B82C267A2795E33900259D98 /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* PosterView.swift */; };
@@ -80,6 +82,7 @@
 		B86E587927A48E5A005DBF38 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
 		B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E589027A4BE75005DBF38 /* Endpoints.swift */; };
 		B8733CEF284FDD2800346FC0 /* UpcomingWatchlistContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733CEE284FDD2800346FC0 /* UpcomingWatchlistContextMenu.swift */; };
+		B8754F9328A1BCC800551CAC /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58227FCCE69006BE5E1 /* HapticManager.swift */; };
 		B876DE50281B1B81005558DD /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE4F281B1B81005558DD /* MediaType.swift */; };
 		B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE51281B1BA5005558DD /* ItemSchedule.swift */; };
 		B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE53281B1BC0005558DD /* ImageSize.swift */; };
@@ -200,6 +203,7 @@
 		B8110EDF279245D100844FEB /* Story.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Story.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8110F162792764B00844FEB /* Story (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Story (iOS).entitlements"; sourceTree = "<group>"; };
 		B8110F3B279364C800844FEB /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		B813918128A0637D003BEB2E /* ListItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsView.swift; sourceTree = "<group>"; };
 		B815A15B27BEB7F20062F727 /* ItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContent.swift; sourceTree = "<group>"; };
 		B8207714289339860097D053 /* WatchListSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSortOrder.swift; sourceTree = "<group>"; };
 		B82C26792795E33900259D98 /* PosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterView.swift; sourceTree = "<group>"; };
@@ -527,6 +531,7 @@
 				B8ADAF6B282B463E001D72EF /* WatchListUpcomingSeasonsListView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
 				B8C09BF1289D596A0038D18F /* PersonItemView.swift */,
+				B813918128A0637D003BEB2E /* ListItemsView.swift */,
 			);
 			path = WatchList;
 			sourceTree = "<group>";
@@ -773,6 +778,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B813917F289F4F8D003BEB2E /* Attribution.xcassets in Resources */,
 				B806C4E82899BE2900A5330E /* Preview Assets.xcassets in Resources */,
 				B806C4E52899BE2900A5330E /* Assets.xcassets in Resources */,
 			);
@@ -816,6 +822,7 @@
 				B84043B1289B187400D5CEBF /* Key.swift in Sources */,
 				B84043C7289B18EC00D5CEBF /* Utilities.swift in Sources */,
 				B84043BD289B18C500D5CEBF /* Person.swift in Sources */,
+				B8754F9328A1BCC800551CAC /* HapticManager.swift in Sources */,
 				B84043C9289B191E00D5CEBF /* TrailerUtilities.swift in Sources */,
 				B806C4E32899BE2800A5330E /* ContentView.swift in Sources */,
 				B84043C3289B18DE00D5CEBF /* ItemSchedule.swift in Sources */,
@@ -923,6 +930,7 @@
 				B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */,
 				B804E395284EDC2B00F59855 /* ItemContentListView.swift in Sources */,
 				B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */,
+				B813918228A0637D003BEB2E /* ListItemsView.swift in Sources */,
 				B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B876DE5A281B283F005558DD /* Credits-Extensions.swift in Sources */,

@@ -83,6 +83,11 @@ struct SearchView: View {
                         .foregroundColor(.secondary)
                         .padding()
                 }
+            } else {
+                VStack {
+                    Spacer()
+                    AttributionView()
+                }
             }
         case .success(let values) where values.isEmpty:
             Label("No Results", systemImage: "minus.magnifyingglass")

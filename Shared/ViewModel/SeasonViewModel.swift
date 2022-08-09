@@ -12,11 +12,13 @@ class SeasonViewModel: ObservableObject {
     private let service = NetworkService.shared
     @Published var season: Season?
     @Published var isLoading: Bool = true    
+    private var hasFirstLoaded: Bool = false
     
     func load(id: Int, season: Int) async {
         if Task.isCancelled { return }
         isLoading = true
         self.season = try? await self.service.fetchSeason(id: id, season: season)
+        if !hasFirstLoaded { hasFirstLoaded.toggle() }
         isLoading = false
     }
 }

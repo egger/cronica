@@ -67,7 +67,7 @@ extension ItemContent {
             return "\(itemGenre) • \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
-            return "\(itemGenre), \(Utilities.dateString.string(from: date))"
+            return "\(itemGenre) • \(Utilities.dateString.string(from: date))"
         }
         if let shortItemRuntime {
             return "\(itemGenre) • \(shortItemRuntime)"
@@ -96,7 +96,7 @@ extension ItemContent {
         default: return cardImageMedium
         }
     }
-    var itemTrailers: [Trailer]? {
+    var itemTrailers: [VideoItem]? {
         return TrailerUtilities.fetch(for: videos?.results)
     }
     var itemURL: URL {

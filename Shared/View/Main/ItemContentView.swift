@@ -15,9 +15,9 @@ struct ItemContentView: View {
     let itemUrl: URL
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store: SettingsStore
-    @State private var markAsMenuVisibility = false
     @State private var animateGesture = false
     @State private var showConfirmation = false
+    @State private var switchMarkAsView = false
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         _store = StateObject(wrappedValue: SettingsStore())
@@ -62,7 +62,24 @@ struct ItemContentView: View {
                         }
                     }
                     
-                    watchlistButton
+                    if UIDevice.isIPad {
+                        HStack {
+                            watchlistButton
+                            if viewModel.showMarkAsButton {
+                                markAsMenu
+                                    .controlSize(.large)
+                                    .buttonStyle(.bordered)
+                            }
+                        }
+                        .padding(.horizontal)
+                    } else {
+                        watchlistButton
+                            .onAppear {
+                                withAnimation {
+                                    switchMarkAsView.toggle()
+                                }
+                            }
+                    }
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
                                     title: title,
@@ -83,7 +100,8 @@ struct ItemContentView: View {
                                         title: "Recommendations",
                                         subtitle: "You may like",
                                         image: "list.and.film",
-                                        addedItemConfirmation: $showConfirmation)
+                                        addedItemConfirmation: $showConfirmation,
+                                        displayAsCard: true)
                     
                     AttributionView()
                         .padding([.top, .bottom])
@@ -103,9 +121,7 @@ struct ItemContentView: View {
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
-                        if markAsMenuVisibility {
-                            markAsMenu
-                        }
+                        if switchMarkAsView { markAsMenu }
                     }
                 }
             }
@@ -142,13 +158,6 @@ struct ItemContentView: View {
     private var markAsMenu: some View {
         Menu(content: {
             Button(action: {
-                viewModel.isWatched.toggle()
-                if !viewModel.isInWatchlist {
-                    withAnimation {
-                        viewModel.isInWatchlist.toggle()
-                        viewModel.hasNotificationScheduled = viewModel.content?.itemCanNotify ?? false
-                    }
-                }
                 viewModel.update(markAsWatched: viewModel.isWatched)
             }, label: {
                 Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
@@ -156,12 +165,6 @@ struct ItemContentView: View {
             })
             .keyboardShortcut("w", modifiers: [.option])
             Button(action: {
-                viewModel.isFavorite.toggle()
-                if !viewModel.isInWatchlist {
-                    withAnimation {
-                        viewModel.isInWatchlist.toggle()
-                    }
-                }
                 viewModel.update(markAsFavorite: viewModel.isFavorite)
             }, label: {
                 Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
@@ -169,7 +172,11 @@ struct ItemContentView: View {
             })
             .keyboardShortcut("f", modifiers: [.option])
         }, label: {
-            Label("More", systemImage: "ellipsis")
+            if switchMarkAsView {
+                Label("Mark as", systemImage: "ellipsis")
+            } else {
+                Text("Mark as")
+            }
         })
         .disabled(viewModel.isLoading ? true : false)
     }
@@ -192,13 +199,6 @@ struct ItemContentView: View {
     private func load() {
         Task {
             await self.viewModel.load()
-            if viewModel.content != nil {
-                withAnimation {
-                    if viewModel.content?.itemStatus == .released {
-                        markAsMenuVisibility = true
-                    }
-                }
-            }
         }
     }
 }

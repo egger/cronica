@@ -51,14 +51,10 @@ struct WatchlistView: View {
                                 WatchListSection(items: items.filter { $0.isFavorite },
                                                  title: "Favorites")
                             case .optimized:
-                                WatchListSection(items: items.filter { $0.isReleasedMovie },
-                                                 title: "Released Movies")
-                                WatchListSection(items: items.filter { $0.isReleasedTvShow },
-                                                 title: "Released Shows")
-                                WatchListSection(items: items.filter { $0.isUpcomingMovie },
-                                                 title: "Upcoming Movies")
-                                WatchListSection(items: items.filter { $0.isUpcomingTvShow },
-                                                 title: "Upcoming Seasons")
+                                WatchListSection(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow },
+                                                 title: "Released")
+                                WatchListSection(items: items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow },
+                                                 title: "Upcoming")
                                 WatchListSection(items: items.filter { $0.isInProduction },
                                                  title: "In Production")
                             case .people:
@@ -106,9 +102,8 @@ struct WatchlistView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Picker(selection: $selectedOrder, content: {
                         ForEach(WatchListSortOrder.allCases) { sort in
-                            Label(sort.title, systemImage: "arrow.up.arrow.down.circle.fill").tag(sort)
+                            Label(sort.title, systemImage: "arrow.up.arrow.down.circle").tag(sort)
                                 .labelStyle(.iconOnly)
-                            //Text(sort.title).tag(sort)
                         }
                     }, label: {
                         Label("Sort List", systemImage: "arrow.up.arrow.down.circle")

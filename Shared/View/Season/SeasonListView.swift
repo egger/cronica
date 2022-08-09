@@ -30,10 +30,8 @@ struct SeasonsView: View {
                         }
                     }
                     .pickerStyle(.menu)
-                    .onChange(of: selectedSeason) { value in
-                        if selectedSeason != 1 {
-                            load()
-                        }
+                    .onChange(of: selectedSeason) { _ in
+                        load()
                     }
                     .padding(.leading)
                     .padding(.bottom, 1)
@@ -56,17 +54,10 @@ struct SeasonsView: View {
                                 .padding(0)
                                 .buttonStyle(.plain)
                             } else {
-                                HStack {
-                                    Spacer()
-                                    VStack {
-                                        Image(systemName: "tv.fill")
-                                        Text("No Episode Available")
-                                    }
-                                    Spacer()
-                                }
+                                emptySeasonView
                             }
                         } else {
-                            Label("No Episode Available", systemImage: "tv.fill")
+                            emptySeasonView
                         }
                     }
                     .padding(0)
@@ -91,6 +82,18 @@ struct SeasonsView: View {
             .padding(0)
             .redacted(reason: viewModel.isLoading ? .placeholder : [] )
         }
+    }
+    
+    private var emptySeasonView: some View {
+        HStack {
+            Spacer()
+            VStack {
+                Image(systemName: "tv.fill")
+                Text("No Episode Available")
+            }
+            Spacer()
+        }
+        .padding(.horizontal)
     }
     
     private func load() {
