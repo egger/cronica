@@ -10,16 +10,22 @@
 struct ItemContentContextMenu: ViewModifier, Sendable {
     let item: ItemContent
     @Binding var showConfirmation: Bool
+    @State private var isInWatchlist: Bool = false
     private let context = PersistenceController.shared
     func body(content: Content) -> some View {
         return content
             .contextMenu {
                 ShareLink(item: item.itemURL)
                 Button(action: {
+                    isInWatchlist.toggle()
                     updateWatchlist(with: item)
                 }, label: {
-                    Label("Add to watchlist", systemImage: "plus.circle")
+                    Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
+                          systemImage: isInWatchlist ? "minus.square" : "plus.square")
                 })
+            }
+            .task {
+                isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
             }
     }
     

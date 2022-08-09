@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 /// A view that displays a frame with an image, episode number, title, and two line overview,
 /// on tap it display a sheet view with more information.
@@ -23,14 +24,8 @@ struct EpisodeFrameView: View {
     }
     var body: some View {
         VStack {
-            AsyncImage(url: episode.itemImageMedium,
-                       transaction: Transaction(animation: .easeInOut)) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .transition(.opacity)
-                } else {
+            WebImage(url: episode.itemImageMedium)
+                .placeholder {
                     ZStack {
                         Rectangle().fill(.thickMaterial)
                         VStack {
@@ -43,23 +38,37 @@ struct EpisodeFrameView: View {
                         .padding()
                         .foregroundColor(.secondary)
                     }
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
                 }
-            }
-            .frame(width: DrawingConstants.imageWidth,
-                   height: DrawingConstants.imageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                        style: .continuous))
-            .contextMenu {
-                Button(action: {
-                    withAnimation {
-                        isWatched.toggle()
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .transition(.opacity)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                .overlay {
+                    if isWatched {
+                        ZStack {
+                            Color.black.opacity(0.6)
+                            Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                        .frame(width: DrawingConstants.imageWidth,
+                               height: DrawingConstants.imageHeight)
                     }
-                    persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
-                }, label: {
-                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-                })
-            }
+                }
+                .contextMenu {
+                    Button(action: {
+                        withAnimation {
+                            isWatched.toggle()
+                        }
+                        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
+                    }, label: {
+                        Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                              systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                    })
+                }
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .font(.caption2)

@@ -11,7 +11,7 @@ struct FilmographyListView: View {
     let filmography: [ItemContent]?
     @Binding var showConfirmation: Bool
     let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))
+        GridItem(.adaptive(minimum: 160))
     ]
     var body: some View {
         if let filmography {
@@ -20,7 +20,8 @@ struct FilmographyListView: View {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(filmography) { item in
                         NavigationLink(value: item) {
-                            ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
+                            PosterView(item: item)
+                                .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
                         }
                         
                     }

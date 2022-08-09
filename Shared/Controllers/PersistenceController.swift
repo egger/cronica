@@ -82,7 +82,19 @@ struct PersistenceController {
         item.name = person.name
         item.id = Int64(person.id)
         item.image = person.personImage
-        try? viewContext.save()
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
+    }
+    
+    func save(_ list: CustomListItem) {
+        let viewContext = container.viewContext
+        let item = CustomListItem(context: viewContext)
+        item.id = UUID()
+        item.title = list.title
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
     }
     
     /// Get an item from the Watchlist.
@@ -202,6 +214,15 @@ struct PersistenceController {
         let person = try? viewContext.existingObject(with: item.objectID)
         if let person {
             viewContext.delete(person)
+            try? viewContext.save()
+        }
+    }
+    
+    func delete(_ item: CustomListItem) {
+        let viewContext = container.viewContext
+        let list = try? viewContext.existingObject(with: item.objectID)
+        if let list {
+            viewContext.delete(list)
             try? viewContext.save()
         }
     }
