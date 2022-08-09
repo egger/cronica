@@ -126,6 +126,37 @@ struct PersistenceController {
         }
     }
     
+    func updateEpisodeList(show: Int, season: Int, episode: Int) {
+        let viewContext = container.viewContext
+        let item = fetch(for: WatchlistItem.ID(show))
+        if let item {
+            if isEpisodeSaved(show: show, season: season, episode: episode) {
+                let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
+                item.watchedEpisodes = watched
+            } else {
+                let watched = "-\(episode)@\(season)"
+                item.watchedEpisodes?.append(watched)
+            }
+            if viewContext.hasChanges {
+                try? viewContext.save()
+            }
+        }
+    }
+    
+    func isEpisodeSaved(show: Int, season: Int, episode: Int) -> Bool {
+        if isItemSaved(id: show, type: .tvShow) {
+            let item = fetch(for: WatchlistItem.ID(show))
+            if let item {
+                if let watched = item.watchedEpisodes {
+                    if watched.contains("-\(episode)@\(season)") {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
     // Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {

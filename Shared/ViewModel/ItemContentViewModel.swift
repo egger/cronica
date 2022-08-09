@@ -37,14 +37,14 @@ class ItemContentViewModel: ObservableObject {
         if content == nil {
             do {
                 content = try await self.service.fetchContent(id: self.id, type: self.type)
-                if content != nil {
+                if let content {
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
                     if recommendations == nil {
-                        recommendations = content?.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity}
+                        recommendations = content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity}
                     }
                     if credits.isEmpty {
-                        credits.append(contentsOf: content?.credits?.cast ?? [])
-                        credits.append(contentsOf: content?.credits?.crew ?? [])
+                        credits.append(contentsOf: content.credits?.cast ?? [])
+                        credits.append(contentsOf: content.credits?.crew ?? [])
                     }
                     if isInWatchlist {
                         withAnimation {
@@ -54,8 +54,8 @@ class ItemContentViewModel: ObservableObject {
                         }
                     }
                     withAnimation {
-                        isNotificationAvailable = content?.itemCanNotify ?? false
-                        if content?.itemStatus == .released {
+                        isNotificationAvailable = content.itemCanNotify
+                        if content.itemStatus == .released {
                             showMarkAsButton = true
                         }
                     }
@@ -91,10 +91,7 @@ class ItemContentViewModel: ObservableObject {
     func update(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil) {
         if let content {
             if let favorite {
-#if os(watchOS)
-#else
                 HapticManager.shared.lightHaptic()
-#endif
                 if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
                     context.save(content)
                     withAnimation {
@@ -107,10 +104,7 @@ class ItemContentViewModel: ObservableObject {
                 }
             }
             else if let watched {
-#if os(watchOS)
-#else
                 HapticManager.shared.lightHaptic()
-#endif
                 if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
                     context.save(content)
                     withAnimation {
@@ -135,10 +129,7 @@ class ItemContentViewModel: ObservableObject {
                         context.delete(item)
                     }
                 } else {
-#if os(watchOS)
-#else
                     HapticManager.shared.mediumHaptic()
-#endif
                     context.save(content)
                     if content.itemCanNotify {
                         notification.schedule(notificationContent: content)

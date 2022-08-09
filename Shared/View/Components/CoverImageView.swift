@@ -16,6 +16,7 @@ struct CoverImageView: View {
     let title: String
     let isAdult: Bool
     let glanceInfo: String?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         VStack {
             ZStack {
@@ -38,8 +39,8 @@ struct CoverImageView: View {
                 }
                 .opacity(animateGesture ? 1 : 0)
             }
-            .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-                   height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+            .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+                   height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
             .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
             .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
                     radius: DrawingConstants.shadowRadius)
@@ -66,3 +67,5 @@ private struct DrawingConstants {
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12
 }
+
+

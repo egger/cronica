@@ -35,7 +35,7 @@ struct PersonDetailsView: View {
                             OverviewBoxView(overview: viewModel.person?.personBiography,
                                             title: name,
                                             type: .person)
-                            .frame(minWidth: 500)
+                            .frame(width: 500)
                             .padding(.horizontal)
                         }
                         

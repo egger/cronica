@@ -9,7 +9,16 @@ import SwiftUI
 
 struct EpisodeDetailsView: View {
     let episode: Episode
+    let season: Int
+    let show: Int
+    private let persistence = PersistenceController.shared
     @State private var isPad: Bool = UIDevice.isIPad
+    @State private var isWatched: Bool = false
+    init(episode: Episode, season: Int, show: Int) {
+        self.episode = episode
+        self.season = season
+        self.show = show
+    }
     var body: some View {
         VStack {
             ScrollView {
@@ -19,6 +28,18 @@ struct EpisodeDetailsView: View {
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.coverImageShadow)
+                
+                Button(action: {
+                    updateWatched()
+                }, label: {
+                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                })
+                .tint(isWatched ? .red : .blue)
+                .buttonStyle(.bordered)
+                .controlSize(.large)
+                .padding([.top, .horizontal])
+                
                 OverviewBoxView(overview: episode.overview,
                                 title: episode.itemTitle,
                                 type: .tvShow)
@@ -26,7 +47,21 @@ struct EpisodeDetailsView: View {
             }
             .navigationTitle(episode.itemTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .task {
+                load()
+            }
         }
+    }
+    
+    private func updateWatched() {
+        withAnimation {
+            isWatched.toggle()
+        }
+        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
+    }
+    
+    private func load() {
+        isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
     }
 }
 

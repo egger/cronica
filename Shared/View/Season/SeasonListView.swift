@@ -69,7 +69,7 @@ struct SeasonsView: View {
             }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
-                    EpisodeDetailsView(episode: item)
+                    EpisodeDetailsView(episode: item, season: selectedSeason, show: tvId)
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {

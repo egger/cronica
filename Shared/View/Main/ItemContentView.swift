@@ -18,6 +18,7 @@ struct ItemContentView: View {
     @State private var animateGesture = false
     @State private var showConfirmation = false
     @State private var switchMarkAsView = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         _store = StateObject(wrappedValue: SettingsStore())
@@ -62,23 +63,16 @@ struct ItemContentView: View {
                         }
                     }
                     
-                    if UIDevice.isIPad {
+                    if horizontalSizeClass == .regular && viewModel.showMarkAsButton {
                         HStack {
                             watchlistButton
-                            if viewModel.showMarkAsButton {
-                                markAsMenu
-                                    .controlSize(.large)
-                                    .buttonStyle(.bordered)
-                            }
+                            markAsMenu
+                                .buttonStyle(.bordered)
+                                .controlSize(.large)
                         }
-                        .padding(.horizontal)
+                        .padding()
                     } else {
                         watchlistButton
-                            .onAppear {
-                                withAnimation {
-                                    switchMarkAsView.toggle()
-                                }
-                            }
                     }
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
@@ -93,15 +87,17 @@ struct ItemContentView: View {
                     
                     CastListView(credits: viewModel.credits)
                     
-                    InformationSectionView(item: viewModel.content)
-                        .padding()
-                    
                     ItemContentListView(items: viewModel.recommendations,
                                         title: "Recommendations",
                                         subtitle: "You may like",
                                         image: "list.and.film",
                                         addedItemConfirmation: $showConfirmation,
                                         displayAsCard: true)
+                    
+                    InformationSectionView(item: viewModel.content)
+                        .padding()
+                    
+                    
                     
                     AttributionView()
                         .padding([.top, .bottom])
@@ -121,7 +117,7 @@ struct ItemContentView: View {
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
-                        if switchMarkAsView { markAsMenu }
+                        if horizontalSizeClass == .compact { markAsMenu }
                     }
                 }
             }
@@ -172,7 +168,7 @@ struct ItemContentView: View {
             })
             .keyboardShortcut("f", modifiers: [.option])
         }, label: {
-            if switchMarkAsView {
+            if horizontalSizeClass == .compact {
                 Label("Mark as", systemImage: "ellipsis")
             } else {
                 Text("Mark as")
