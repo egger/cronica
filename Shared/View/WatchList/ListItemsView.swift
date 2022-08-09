@@ -15,35 +15,48 @@ class TableListViewModel: ObservableObject {
     @Published var items = [WatchlistItem]()
     private let context = PersistenceController.shared
     
-    func fetch(filter: DefaultListsOrder) {
+    @Environment(\.managedObjectContext) private var viewContext
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
+//        animation: .default)
+    //var items: FetchedResults<WatchlistItem>
+    @Published private var query = ""
+     var filteredMovieItems: [WatchlistItem] {
+        return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
+    }
+    
+    
+    func fetch(filter: DefaultListItems) {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let list = try? self.context.container.viewContext.fetch(request)
+        
         if let list {
             switch filter {
-            case .releasedMovies:
-                items.append(contentsOf: list.filter { $0.isReleasedMovie })
-            case .releasedShows:
-                items.append(contentsOf: list.filter { $0.isReleasedTvShow })
-            case .upcomingMovies:
-                items.append(contentsOf: list.filter { $0.isUpcomingMovie })
-            case .upcomingShows:
-                items.append(contentsOf: list.filter { $0.isUpcomingTvShow })
-            case .inProduction:
-                items.append(contentsOf: list.filter { $0.isInProduction })
             case .movies:
-                items.append(contentsOf: list.filter { $0.isReleasedMovie })
+                //items.filter { $0.isMovie }
+                items.append(contentsOf: list.filter { $0.isMovie })
             case .shows:
-                items.append(contentsOf: list.filter { $0.isReleasedMovie })
-            case .toWatch:
-                items.append(contentsOf: list.filter { $0.isReleasedMovie })
-            case .watched:
-                items.append(contentsOf: list.filter { $0.isReleasedMovie })
+               // items.filter { $0.isTvShow }
+                items.append(contentsOf: list.filter { $0.isTvShow })
+            case .upcoming:
+                //items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow }
+                items.append(contentsOf: list.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow })
+            case .production:
+                //items.filter { $0.isInProduction }
+                items.append(contentsOf: list.filter { $0.isInProduction })
             case .favorites:
-                items.append(contentsOf: list.filter { $0.isReleasedMovie })
-            case .people:
-                items.append(contentsOf: list.filter { $0.isReleasedMovie })
+                //items.filter { $0.isFavorite }
+                items.append(contentsOf: list.filter { $0.isFavorite })
+            case .watched:
+                //items.filter { $0.isWatched }
+                items.append(contentsOf: list.filter { $0.isWatched })
+            case .unwatched:
+                //items.filter { !$0.isWatched }
+                items.append(contentsOf: list.filter { !$0.isWatched })
             }
         }
+        
+        
     }
 }
 
@@ -69,40 +82,6 @@ enum DefaultListItems: String, Identifiable, Hashable, CaseIterable {
             return "Watched"
         case .unwatched:
             return "Unwatched"
-        }
-    }
-}
-
-
-enum DefaultListsOrder: String, Identifiable, Hashable, CaseIterable {
-    var id: String { rawValue }
-    case releasedMovies, releasedShows, upcomingMovies, upcomingShows, inProduction
-    case movies, shows, toWatch, watched, favorites, people
-    
-    var title: String {
-        switch self {
-        case .releasedMovies:
-            return NSLocalizedString("Released Movies", comment: "")
-        case .releasedShows:
-            return NSLocalizedString("Released Shows", comment: "")
-        case .upcomingMovies:
-            return NSLocalizedString("Upcoming Movies", comment: "")
-        case .upcomingShows:
-            return NSLocalizedString("Upcoming Shows", comment: "")
-        case .inProduction:
-            return NSLocalizedString("In Production", comment: "")
-        case .movies:
-            return NSLocalizedString("Movies", comment: "")
-        case .shows:
-            return NSLocalizedString("TV Shows", comment: "")
-        case .toWatch:
-            return NSLocalizedString("To Watch", comment: "")
-        case .watched:
-            return NSLocalizedString("Watched", comment: "")
-        case .favorites:
-            return NSLocalizedString("Favorites", comment: "")
-        case .people:
-            return NSLocalizedString("People", comment: "")
         }
     }
 }

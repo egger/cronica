@@ -15,8 +15,8 @@ struct ItemView: View {
     private let context = PersistenceController.shared
     init(content: WatchlistItem) {
         self.content = content
-        isWatched = content.isWatched
-        isFavorite = content.isFavorite
+        isWatched = content.watched
+        isFavorite = content.favorite
     }
     var body: some View {
         HStack {
@@ -71,8 +71,8 @@ struct ItemView: View {
             Button(action: {
                 updateWatched()
             }, label: {
-                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                Label(content.isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: content.isWatched ? "minus.circle" : "checkmark.circle")
             })
             Button(action: {
                 updateFavorite()
@@ -92,12 +92,13 @@ struct ItemView: View {
             Button(action: {
                 updateWatched()
             }, label: {
-                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                Label(content.isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: content.isWatched ? "minus.circle" : "checkmark.circle")
                 .labelStyle(.titleAndIcon)
             })
             .controlSize(.large)
-            .tint(isWatched ? .yellow : .green )
+            .tint(isWatched ? .yellow : .green)
+            .disabled(!content.isReleasedMovie)
         }
         .swipeActions(edge: .leading, allowsFullSwipe: false) {
             Button(action: {

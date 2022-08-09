@@ -17,35 +17,103 @@ struct WatchlistView: View {
     private var filteredMovieItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
+    @State var selectedOrder: WatchListSortOrder = .optimized
+    @State private var selectedItems = Set<WatchlistItem.ID>()
+    @Environment(\.editMode) private var editMode
     var body: some View {
         AdaptableNavigationView {
-            ScrollView {
-                ForEach(DefaultListsOrder.allCases) { list in
-                    NavigationLink(destination: NewListView(type: list), label: {
-                        HStack {
-                            Text(list.title)
-                        }
-                        .backgroundStyle(.secondary)
+            VStack {
+                if items.isEmpty {
+                    Text("Your list is empty.")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
                         .padding()
-                        .cornerRadius(12)
-                    })
+                } else {
+                    List {
+                        if !filteredMovieItems.isEmpty {
+                            WatchListSection(items: filteredMovieItems,
+                                             title: "Filtered Items")
+                        } else if !query.isEmpty && filteredMovieItems.isEmpty {
+                            Text("No results found.")
+                        } else {
+                            switch selectedOrder {
+                            case .type:
+                                WatchListSection(items: items.filter { $0.isMovie },
+                                                 title: "Movies")
+                                WatchListSection(items: items.filter { $0.isTvShow },
+                                                 title: "TV Shows")
+                            case .status:
+                                WatchListSection(items: items.filter { !$0.isWatched },
+                                                 title: "To Watch")
+                                WatchListSection(items: items.filter { $0.isWatched },
+                                                 title: "Watched")
+                            case .favorites:
+                                WatchListSection(items: items.filter { $0.isFavorite },
+                                                 title: "Favorites")
+                            case .optimized:
+                                WatchListSection(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow },
+                                                 title: "Released")
+                                WatchListSection(items: items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow },
+                                                 title: "Upcoming")
+                                WatchListSection(items: items.filter { $0.isInProduction },
+                                                 title: "In Production")
+                            case .people:
+                                PersonStruct()
+                            }
+                        }
+                    }
+                    .listStyle(.inset)
+                    .dropDestination(for: ItemContent.self) { items, location  in
+                        let context = PersistenceController.shared
+                        for item in items {
+                            context.save(item)
+                        }
+                        return true
+                    } isTargeted: { inDropArea in
+                        print(inDropArea)
+                    }
                 }
             }
             .navigationTitle("Watchlist")
             .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(for: WatchlistItem.self) { item in
+                ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+            }
+            .navigationDestination(for: PersonItem.self) { item in
+                PersonDetailsView(title: item.personName, id: Int(item.id))
+            }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            }
+            .navigationDestination(for: Person.self) { person in
+                PersonDetailsView(title: person.name, id: person.id)
+            }
+            .refreshable {
+                Task {
+                    await refresh()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
-                        Button(action: {
-                            
-                        }, label: {
-                            Label("New List", systemImage: "plus.circle")
-                        })
                         EditButton()
                     }
                 }
-
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Picker(selection: $selectedOrder, content: {
+                        ForEach(WatchListSortOrder.allCases) { sort in
+                            Label(sort.title, systemImage: "arrow.up.arrow.down.circle").tag(sort)
+                                .labelStyle(.iconOnly)
+                        }
+                    }, label: {
+                        Label("Sort List", systemImage: "arrow.up.arrow.down.circle")
+                    })
+                }
             }
+            .searchable(text: $query,
+                        placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
+                        prompt: "Search watchlist")
+            .disableAutocorrection(true)
         }
     }
     
@@ -64,98 +132,5 @@ struct WatchListView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
-
-
-private struct NewListView: View {
-    @StateObject private var viewModel = TableListViewModel()
-    @State private var sortOrder = [KeyPathComparator(\WatchlistItem.itemTitle)]
-    @State private var query = ""
-    let type: DefaultListsOrder
-    var body: some View {
-        VStack {
-            if viewModel.items.isEmpty {
-                Text("Your list is empty.")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                    .padding()
-            } else {
-                if UIDevice.isIPad {
-                    Table(viewModel.items, sortOrder: $sortOrder) {
-                        TableColumn("Titles", value: \.itemTitle) { item in
-                            NavigationLink(value: item) {
-                                ItemView(content: item)
-                            }
-                        }
-                        TableColumn("Watched", value: \.itemTitle) { watched in
-                            if watched.isWatched {
-                                Image(systemName: "checkmark.circle.fill")
-                            } else {
-                                Image(systemName: "circle")
-                            }
-                        }
-                    }
-                    .onChange(of: sortOrder) { change in
-                        print(change as Any)
-                    }
-                } else {
-                    List {
-                        Section {
-                            ForEach(viewModel.items) { item in
-                                NavigationLink(value: item) {
-                                    ItemView(content: item)
-                                }
-                            }
-                        } header: {
-                            Text("\(viewModel.items.count) titles")
-                        }
-                    }
-                    
-                    
-                }
-            }
-        }
-        .navigationTitle(type.title)
-        .searchable(text: $query,
-                    placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
-                    prompt: "Search watchlist")
-        .toolbar {
-            EditButton()
-        }
-        .autocorrectionDisabled(true)
-        .onAppear {
-            viewModel.fetch(filter: type)
-        }
-        .navigationDestination(for: WatchlistItem.self) { item in
-            ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
-        }
-        .navigationDestination(for: PersonItem.self) { item in
-            PersonDetailsView(title: item.personName, id: Int(item.id))
-        }
-        .navigationDestination(for: ItemContent.self) { item in
-            ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-        }
-        .navigationDestination(for: Person.self) { person in
-            PersonDetailsView(title: person.name, id: person.id)
-        }
-    }
-    
-    private func delete(offsets: IndexSet) {
-        HapticManager.shared.mediumHaptic()
-        withAnimation {
-            //offsets.map { items[$0] }.forEach(context.delete)
-        }
-    }
-}
-
-private struct ListItemView: View {
-    var body: some View {
-        ZStack {
-            VStack {
-                Spacer()
-                Text("")
-            }
-        }
     }
 }

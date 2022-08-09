@@ -97,8 +97,14 @@ class ItemContentViewModel: ObservableObject {
 #endif
                 if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
                     context.save(content)
+                    withAnimation {
+                        isInWatchlist.toggle()
+                    }
                 }
                 context.update(item: content, isFavorite: favorite)
+                withAnimation {
+                    isFavorite.toggle()
+                }
             }
             else if let watched {
 #if os(watchOS)
@@ -107,10 +113,14 @@ class ItemContentViewModel: ObservableObject {
 #endif
                 if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
                     context.save(content)
+                    withAnimation {
+                        isInWatchlist.toggle()
+                    }
                 }
                 context.update(item: content, isWatched: watched)
                 withAnimation {
                     isWatched.toggle()
+                    hasNotificationScheduled = content.itemCanNotify
                 }
             }
             else {

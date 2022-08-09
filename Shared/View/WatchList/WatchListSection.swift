@@ -17,46 +17,6 @@ struct WatchListSection: View {
                 ForEach(items) { item in
                     NavigationLink(value: item) {
                         ItemView(content: item)
-                            .contextMenu {
-                                Button(action: {
-                                    withAnimation {
-                                        context.updateMarkAs(id: item.itemId, watched: !item.watched, favorite: nil)
-                                    }
-                                }, label: {
-                                    Label(item.watched ? "Remove from Watched" : "Mark as Watched",
-                                          systemImage: item.watched ? "minus.circle" : "checkmark.circle")
-                                })
-                                ShareLink(item: item.itemLink)
-                                Divider()
-                                Button(role: .destructive, action: {
-                                    deleteItem(item: item)
-                                }, label: {
-                                    Label("Remove", systemImage: "trash")
-                                })
-                            }
-                    }
-                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                        Button(action: {
-                            HapticManager.shared.lightHaptic()
-                            withAnimation {
-                                context.updateMarkAs(id: item.itemId, watched: !item.watched, favorite: nil)
-                            }
-                        }, label: {
-                            Label(item.watched ? "Remove from Watched" : "Mark as Watched",
-                                  systemImage: item.watched ? "minus.circle" : "checkmark.circle")
-                            .labelStyle(.titleAndIcon)
-                        })
-                        .controlSize(.large)
-                        .tint(item.watched ? .yellow : .green )
-                    }
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button(role: .destructive, action: {
-                            deleteItem(item: item)
-                        }, label: {
-                            Label("Remove", systemImage: "trash")
-                                .labelStyle(.titleAndIcon)
-                        })
-                        .controlSize(.large)
                     }
                 }
                 .onDelete(perform: delete)
@@ -89,10 +49,4 @@ struct WatchListSection: View {
         }
     }
     
-}
-
-struct WatchListSection_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchListSection(items: [WatchlistItem.example], title: "Examples")
-    }
 }
