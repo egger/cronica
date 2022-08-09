@@ -11,7 +11,16 @@ import SwiftUI
 /// on tap it display a sheet view with more information.
 struct EpisodeFrameView: View {
     let episode: Episode
+    let season: Int
+    let show: Int
+    private let persistence = PersistenceController.shared
+    @State private var isWatched: Bool = false
     @State private var isPad: Bool = UIDevice.isIPad
+    init(episode: Episode, season: Int, show: Int) {
+        self.episode = episode
+        self.season = season
+        self.show = show
+    }
     var body: some View {
         VStack {
             AsyncImage(url: episode.itemImageMedium,
@@ -40,6 +49,17 @@ struct EpisodeFrameView: View {
                    height: DrawingConstants.imageHeight)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                         style: .continuous))
+            .contextMenu {
+                Button(action: {
+                    withAnimation {
+                        isWatched.toggle()
+                    }
+                    persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
+                }, label: {
+                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                })
+            }
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .font(.caption2)
@@ -64,6 +84,9 @@ struct EpisodeFrameView: View {
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
+        .task {
+            isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+        }
     }
 }
 

@@ -42,7 +42,7 @@ struct SeasonsView: View {
                         if let season = viewModel.season?.episodes {
                             if !season.isEmpty {
                                 ForEach(season) { item in
-                                    EpisodeFrameView(episode: item)
+                                    EpisodeFrameView(episode: item, season: selectedSeason, show: tvId)
                                         .frame(width: 160, height: 200)
                                         .onTapGesture {
                                             selectedEpisode = item
