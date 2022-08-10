@@ -13,13 +13,13 @@ class SettingsStore: ObservableObject {
             UserDefaults.standard.set(gesture.rawValue, forKey: "gesture")
         }
     }
-    @Published var openYouTubeIn: YouTubeLinksBehavior {
+    @Published var useLegacy: UseLegacyWatchlist {
         didSet {
-            UserDefaults.standard.set(openYouTubeIn.rawValue, forKey: "openYouTubeIn")
+            UserDefaults.standard.set(useLegacy.rawValue, forKey: "useLegacy")
         }
     }
     init() {
         self.gesture = (UserDefaults.standard.object(forKey: "gesture") == nil ? .favorite : DoubleTapGesture(rawValue: UserDefaults.standard.object(forKey: "gesture") as! Int)) ?? .favorite
-        self.openYouTubeIn = (UserDefaults.standard.object(forKey: "openYouTubeIn") == nil ? .inCronica : YouTubeLinksBehavior(rawValue: UserDefaults.standard.object(forKey: "openYouTubeIn") as! Int)) ?? .inCronica
+        self.useLegacy = (UserDefaults.standard.object(forKey: "useLegacy") == nil ? .legacy : UseLegacyWatchlist(rawValue: UserDefaults.standard.object(forKey: "useLegacy") as! Int)) ?? .legacy
     }
 }

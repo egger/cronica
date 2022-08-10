@@ -35,7 +35,7 @@ struct ItemView: View {
                     .transition(.opacity)
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
-                if isWatched {
+                if isWatched || content.watched {
                     Color.black.opacity(0.6)
                     Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
                 }
@@ -57,7 +57,7 @@ struct ItemView: View {
             }
 #if os(watchOS)
 #else
-            if isFavorite {
+            if isFavorite || content.favorite {
                 Spacer()
                 Image(systemName: "heart.fill")
                     .symbolRenderingMode(.multicolor)

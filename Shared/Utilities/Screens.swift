@@ -9,5 +9,5 @@ import Foundation
 
 enum Screens: String, Hashable, Identifiable {
     var id: String { rawValue }
-    case home, discover, watchlist, search
+    case home, discover, watchlist, lists, search
 }

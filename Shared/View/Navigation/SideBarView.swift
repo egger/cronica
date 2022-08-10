@@ -28,18 +28,34 @@ struct SideBarView: View {
                     Label("Explore", systemImage: "film")
                 }
                 .tag(DiscoverView.tag)
-                NavigationLink(value: Screens.watchlist) {
-                    Label("Watchlist", systemImage: "square.stack.fill")
-                }
-                .tag(WatchlistView.tag)
-                .dropDestination(for: ItemContent.self) { items, location  in
-                    let context = PersistenceController.shared
-                    for item in items {
-                        context.save(item)
+                if settings.useLegacy == .legacy {
+                    NavigationLink(value: Screens.watchlist) {
+                        Label("Watchlist", systemImage: "square.stack.fill")
                     }
-                    return true
-                } isTargeted: { inDropArea in
-                    print(inDropArea)
+                    .tag(WatchlistView.tag)
+                    .dropDestination(for: ItemContent.self) { items, location  in
+                        let context = PersistenceController.shared
+                        for item in items {
+                            context.save(item)
+                        }
+                        return true
+                    } isTargeted: { inDropArea in
+                        print(inDropArea)
+                    }
+                } else {
+                    NavigationLink(value: Screens.lists) {
+                        Label("Lists", systemImage: "square.stack.fill")
+                    }
+                    .tag(CronicaListsView.tag)
+                    .dropDestination(for: ItemContent.self) { items, location  in
+                        let context = PersistenceController.shared
+                        for item in items {
+                            context.save(item)
+                        }
+                        return true
+                    } isTargeted: { inDropArea in
+                        print(inDropArea)
+                    }
                 }
             }
             .listStyle(.sidebar)
@@ -84,6 +100,7 @@ struct SideBarView: View {
                     case .home: HomeView()
                     case .discover: DiscoverView()
                     case .watchlist: WatchlistView()
+                    case .lists: CronicaListsView()
                     case .search: SearchView()
                     }
                 }

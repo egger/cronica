@@ -15,8 +15,11 @@ struct StoryApp: App {
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     @Environment(\.scenePhase) private var scenePhase
     init() {
+#if targetEnvironment(simulator)
+#else
         let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey)
         TelemetryManager.initialize(with: configuration)
+#endif
         registerRefreshBGTask()
     }
     var body: some Scene {
@@ -61,6 +64,9 @@ struct StoryApp: App {
             background.handleAppRefreshContent()
         }
         task.setTaskCompleted(success: true)
+#if targetEnvironment(simulator)
+#else
         TelemetryManager.send("handleAppRefreshBGTask", with: ["identifier":"\(task.identifier)"])
+#endif
     }
 }

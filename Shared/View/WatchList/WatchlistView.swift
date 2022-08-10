@@ -8,20 +8,15 @@ import SwiftUI
 
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
-    @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default)
     private var items: FetchedResults<WatchlistItem>
-    @State private var query = ""
-    private var filteredMovieItems: [WatchlistItem] {
+    private var filteredItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
-    @State var selectedOrder: WatchListSortOrder = .optimized
-    @State private var selectedItems = Set<WatchlistItem.ID>()
-    @State private var presentNewListAlert = false
-    @State private var newListName = ""
-    @Environment(\.editMode) private var editMode
+    @State private var query = ""
+    @State private var selectedOrder: WatchListSortOrder = .optimized
     var body: some View {
         AdaptableNavigationView {
             VStack {
@@ -32,10 +27,10 @@ struct WatchlistView: View {
                         .padding()
                 } else {
                     List {
-                        if !filteredMovieItems.isEmpty {
-                            WatchListSection(items: filteredMovieItems,
+                        if !filteredItems.isEmpty {
+                            WatchListSection(items: filteredItems,
                                              title: "Filtered Items")
-                        } else if !query.isEmpty && filteredMovieItems.isEmpty {
+                        } else if !query.isEmpty && filteredItems.isEmpty {
                             Text("No results found.")
                         } else {
                             switch selectedOrder {
@@ -59,8 +54,6 @@ struct WatchlistView: View {
                                                  title: "Upcoming")
                                 WatchListSection(items: items.filter { $0.isInProduction },
                                                  title: "In Production")
-                            case .people:
-                                PersonStruct()
                             }
                         }
                     }
@@ -97,26 +90,7 @@ struct WatchlistView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        Button(action: {
-                            presentNewListAlert.toggle()
-                        }, label: {
-                            Label("New List", systemImage: "plus.circle")
-                        })
-                        .alert("New List", isPresented: $presentNewListAlert, actions: {
-                            TextField("New List", text: $newListName)
-                            Button("Save") {
-                                PersistenceController.shared.save(withTitle: newListName)
-                            }
-                            Button("Cancel", role: .cancel) {
-                                newListName = ""
-                                presentNewListAlert.toggle()
-                            }
-                        }, message: {
-                            Text("Enter a name for this list.")
-                        })
-                        EditButton()
-                    }
+                    EditButton()
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Picker(selection: $selectedOrder, content: {
@@ -143,8 +117,6 @@ struct WatchlistView: View {
             background.handleAppRefreshContent()
         }
     }
-    
-    
 }
 
 struct WatchListView_Previews: PreviewProvider {

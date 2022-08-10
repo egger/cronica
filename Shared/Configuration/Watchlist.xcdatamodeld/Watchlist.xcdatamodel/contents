@@ -3,6 +3,7 @@
     <entity name="CustomListItem" representedClassName="CustomListItem" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WatchlistItem" inverseName="list" inverseEntity="WatchlistItem"/>
     </entity>
     <entity name="PersonItem" representedClassName="PersonItem" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -24,5 +25,6 @@
         <attribute name="upcomingSeason" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="watched" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="watchedEpisodes" attributeType="String" defaultValueString=""/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomListItem" inverseName="items" inverseEntity="CustomListItem"/>
     </entity>
 </model>

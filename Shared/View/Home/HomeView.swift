@@ -72,6 +72,11 @@ struct HomeView: View {
                     }
                     .task { load() }
                 }
+                .refreshable {
+                    Task {
+                        await viewModel.reload()
+                    }
+                }
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
         }

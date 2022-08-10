@@ -32,17 +32,22 @@ struct SettingsView: View {
                     Text("The function is performed when double-tap the cover image.")
                         .padding(.bottom)
                 }
-//                Section {
-//                    Picker(selection: $store.openYouTubeIn) {
-//                        Text("In Cronica").tag(YouTubeLinksBehavior.inCronica)
-//                        Text("In YouTube App").tag(YouTubeLinksBehavior.inYouTubeApp)
-//                    } label: {
-//                        Text("Open YouTube Links")
-//                    }
-//                    .pickerStyle(.menu)
-//                } header: {
-//                    Label("Open Links In", systemImage: "link")
-//                }
+                
+                Section {
+                    Picker(selection: $store.useLegacy) {
+                        Text("Legacy").tag(UseLegacyWatchlist.legacy)
+                        Text("New").tag(UseLegacyWatchlist.new)
+                    } label: {
+                        Text("Watchlist Mode")
+                    }
+                    .pickerStyle(.menu)
+                } header: {
+                    Label("Watchlist", systemImage: "square.stack")
+                } footer: {
+                    Text("The legacy watchlist do not support custom lists.")
+                        .padding(.bottom)
+                }
+                
                 Section {
                     Button( action: {
                         email.send(openURL: openURL)
@@ -62,13 +67,6 @@ struct SettingsView: View {
                 } header: {
                     Label("Support", systemImage: "questionmark.circle")
                 }
-//                Section {
-//
-//                } header: {
-//                    Text("Tips")
-//                } footer: {
-//                    Text("Help support Cronica development with a tip, there's no paid feature to be unlocked.")
-//                }
                 HStack {
                     Spacer()
                     Text("Made in Brazil 🇧🇷")

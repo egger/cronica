@@ -11,12 +11,12 @@ import CoreData
 @MainActor
 class HomeViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
-    @Published var trendingItems: [ItemContent]?
+    @Published var trendingItems: [ItemContent] = []
     @Published var sectionsItems: [ItemContentSection] = []
     
     func load() async {
         Task {
-            if trendingItems == nil {
+            if trendingItems.isEmpty {
                 let result = try? await service.fetchContents(from: "trending/all/week")
                 if let result {
                     let trending = result.filter { $0.itemContentMedia != .person }
@@ -28,6 +28,12 @@ class HomeViewModel: ObservableObject {
                 sectionsItems.append(contentsOf: sections)
             }
         }
+    }
+    
+    func reload() async {
+        trendingItems.removeAll()
+        sectionsItems.removeAll()
+        await load()
     }
     
     private func fetchSections() async -> [ItemContentSection] {
@@ -49,4 +55,6 @@ class HomeViewModel: ObservableObject {
         }
         return nil
     }
+    
+    
 }

@@ -10,6 +10,10 @@ import SwiftUI
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
+    @StateObject private var settings: SettingsStore
+    init() {
+        _settings = StateObject(wrappedValue: SettingsStore())
+    }
     var body: some View {
         TabView(selection: $selectedView) {
             HomeView()
@@ -18,21 +22,19 @@ struct TabBarView: View {
             DiscoverView()
                 .tag(DiscoverView.tag)
                 .tabItem { Label("Explore", systemImage: "film") }
-            WatchlistView()
-                .tag(WatchlistView.tag)
-                .tabItem {
-                    Label("Watchlist", systemImage: "square.stack.fill")
-                        .dropDestination(for: ItemContent.self) { items, location  in
-                            let context = PersistenceController.shared
-                            for item in items {
-                                context.save(item)
-                            }
-                            return true
-                        } isTargeted: { inDropArea in
-                            print(inDropArea)
-                        }
-                }
-                
+            if settings.useLegacy == .legacy {
+                WatchlistView()
+                    .tag(WatchlistView.tag)
+                    .tabItem {
+                        Label("Watchlist", systemImage: "square.stack.fill")
+                    }
+            } else {
+                CronicaListsView()
+                    .tag(CronicaListsView.tag)
+                    .tabItem {
+                        Label("Lists", systemImage: "square.stack.fill")
+                    }
+            }
             SearchView()
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }

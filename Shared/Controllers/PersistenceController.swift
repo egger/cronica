@@ -267,6 +267,16 @@ struct PersistenceController {
         return false
     }
     
+    func isCustomListAvailable() -> Bool {
+        let context = container.viewContext
+        let request: NSFetchRequest<CustomListItem> = CustomListItem.fetchRequest()
+        let numberOfObjects = try? context.count(for: request)
+        if let numberOfObjects {
+            if numberOfObjects > 0 { return true }
+        }
+        return false
+    }
+    
     /// Returns a boolean indicating the status of 'watched' on a given item.
     func isMarkedAsWatched(id: ItemContent.ID) -> Bool {
         let item = fetch(for: WatchlistItem.ID(id))
