@@ -27,9 +27,6 @@ struct CastListView: View {
                                 PersonCardView(person: cast)
                                     .shadow(radius: DrawingConstants.shadowRadius)
                                     .padding(.leading, cast.id == self.credits.first!.id ? 16 : 0)
-                                    .contextMenu {
-                                        ShareLink(item: cast.itemURL)
-                                    }
                             }
                             .buttonStyle(.plain)
                         }

@@ -11,11 +11,12 @@ struct CronicaListsView: View {
     static let tag: Screens? = .lists
     @State private var query = ""
     @State private var presentNewListAlert = false
-    @State private var newListName = ""
+    @State private var listTitle = ""
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomListItem.title, ascending: true)],
         animation: .default)
     private var items: FetchedResults<CustomListItem>
+    private let persistence = PersistenceController.shared
     var body: some View {
         AdaptableNavigationView {
             VStack {
@@ -40,8 +41,16 @@ struct CronicaListsView: View {
                                         Text(item.itemTitle)
                                             .lineLimit(1)
                                     }
+                                    .contextMenu {
+                                        Button(role: .destructive, action: {
+                                            deleteItem(item)
+                                        }, label: {
+                                            Label("Delete List", systemImage: "trash")
+                                        })
+                                    }
                                 })
                             }
+                            .onDelete(perform: delete)
                         } header: {
                             Text("Custom Lists")
                         }
@@ -70,20 +79,24 @@ struct CronicaListsView: View {
                             Label("New List", systemImage: "plus.circle")
                         })
                         .alert("New List", isPresented: $presentNewListAlert, actions: {
-                            TextField("New List", text: $newListName)
+                            TextField("New List", text: $listTitle)
                             Button("Save") {
-                                PersistenceController.shared.save(withTitle: newListName)
-                                newListName = ""
-                                presentNewListAlert.toggle()
+                                if !listTitle.isEmpty {
+                                    PersistenceController.shared.save(withTitle: listTitle)
+                                    listTitle = ""
+                                    presentNewListAlert.toggle()
+                                }
                             }
                             Button("Cancel", role: .cancel) {
-                                newListName = ""
+                                listTitle = ""
                                 presentNewListAlert.toggle()
                             }
                         }, message: {
                             Text("Enter a name for this list.")
                         })
-                        EditButton()
+                        if !items.isEmpty {
+                            EditButton()
+                        }
                     }
                 }
             }
@@ -96,6 +109,19 @@ struct CronicaListsView: View {
             } isTargeted: { inDropArea in
                 print(inDropArea)
             }
+        }
+    }
+    
+    func deleteItem(_ item: CustomListItem) {
+        withAnimation {
+            persistence.delete(item)
+        }
+    }
+    
+    private func delete(offsets: IndexSet) {
+        HapticManager.shared.mediumHaptic()
+        withAnimation {
+            offsets.map { items[$0] }.forEach(persistence.delete)
         }
     }
 }

@@ -59,7 +59,7 @@ struct PersistenceController {
     //MARK: CRUD operations.
     /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
-    func save(_ content: ItemContent) {
+    func save(_ content: ItemContent, list: CustomListItem? = nil) {
         let viewContext = container.viewContext
         let item = WatchlistItem(context: viewContext)
         item.contentType = content.itemContentMedia.watchlistInt
@@ -72,6 +72,9 @@ struct PersistenceController {
         if content.itemContentMedia == .tvShow {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
+        }
+        if let list {
+            item.list = list
         }
         try? viewContext.save()
     }
@@ -155,6 +158,14 @@ struct PersistenceController {
             if viewContext.hasChanges {
                 try? viewContext.save()
             }
+        }
+    }
+    
+    func renameList(_ item: CustomListItem, title: String) {
+        let viewContext = container.viewContext
+        item.title = title
+        if viewContext.hasChanges {
+            try? viewContext.save()
         }
     }
     

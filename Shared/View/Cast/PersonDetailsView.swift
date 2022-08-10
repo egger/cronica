@@ -76,6 +76,7 @@ struct PersonDetailsView: View {
                             Label(viewModel.isFavorite ? "Remove from Favorites" : "Add to Favorites",
                                   systemImage: viewModel.isFavorite ? "star.slash.fill" : "star")
                         })
+                        .disabled(!viewModel.isLoaded)
                         ShareLink(item: personUrl)
                     }
                 }
