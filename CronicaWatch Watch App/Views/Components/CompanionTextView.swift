@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct CompanionTextView: View {
-     var body: some View {
-         VStack(alignment: .leading) {
-             Text("For more details, open the companion app.")
-                 .font(.caption)
-                 .foregroundColor(.secondary)
-         }
-         .padding()
-     }
- }
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("For more details, open the companion app.")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+    }
+}
 
- struct CompanionTextView_Previews: PreviewProvider {
-     static var previews: some View {
-         CompanionTextView()
-     }
- }
+struct CompanionTextView_Previews: PreviewProvider {
+    static var previews: some View {
+        CompanionTextView()
+    }
+}

@@ -12,14 +12,14 @@ struct ItemContentView: View {
     let title: String
     let url: URL
     @StateObject private var viewModel: ItemContentViewModel
-    init(id: Int, title: String, mediaType: MediaType) {
+    init(id: Int, title: String, type: MediaType) {
         self.title = title
-        _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: mediaType))
-        self.url = URL(string: "https://www.themoviedb.org/\(mediaType.rawValue)/\(id)")!
+        _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
+        self.url = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
     }
     var body: some View {
-        ScrollView {
-            VStack {
+        VStack {
+            ScrollView {
                 WebImage(url: viewModel.content?.cardImageMedium)
                     .resizable()
                     .placeholder {
@@ -27,24 +27,17 @@ struct ItemContentView: View {
                     }
                     .aspectRatio(contentMode: .fill)
                     .transition(.opacity)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                                style: .continuous))
                     .padding()
                 
                 WatchlistButtonView()
                     .environmentObject(viewModel)
                     .padding()
                 
-                Button(action: {
-                    viewModel.update(markAsWatched: !viewModel.isWatched)
-                }, label: {
-                    Label(viewModel.isWatched ? "Remove from watched" : "Mark as watched",
-                          systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
-                })
-                .buttonStyle(.bordered)
-                .tint(viewModel.isWatched ? .yellow : .green)
-                .controlSize(.large)
-                .disabled(viewModel.isLoading)
-                .padding([.horizontal, .bottom])
+                WatchButtonView()
+                    .environmentObject(viewModel)
+                    .padding([.horizontal, .bottom])
                 
                 ShareLink(item: url)
                     .padding([.horizontal, .bottom])
@@ -56,14 +49,12 @@ struct ItemContentView: View {
                 AttributionView()
                 
             }
-            .task {
-                Task {
-                    await viewModel.load()
-                }
-            }
-            .navigationTitle(title)
-            .redacted(reason: viewModel.isLoading ? .placeholder : [])
         }
+        .task {
+            await viewModel.load()
+        }
+        .navigationTitle(title)
+        .redacted(reason: viewModel.isLoading ? .placeholder : [])
     }
 }
 
@@ -71,6 +62,10 @@ struct ItemContentView_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentView(id: ItemContent.previewContent.id,
                         title: ItemContent.previewContent.itemTitle,
-                        mediaType: ItemContent.previewContent.itemContentMedia)
+                        type: ItemContent.previewContent.itemContentMedia)
     }
+}
+
+private struct DrawingConstants {
+    static let imageRadius: CGFloat = 12
 }

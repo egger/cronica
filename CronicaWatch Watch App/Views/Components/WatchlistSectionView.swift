@@ -8,27 +8,27 @@
 import SwiftUI
 
 struct WatchlistSectionView: View {
-     let items: [WatchlistItem]
-     let title: String
-     var body: some View {
-         if !items.isEmpty {
-             Section {
-                 ForEach(items) { item in
-                     NavigationLink(value: item) {
-                         ItemView(content: item)
-                     }
-                 }
-             } header: {
-                 Text(NSLocalizedString(title, comment: ""))
-             }
-             .padding(.bottom)
-         }
-     }
- }
+    let items: [WatchlistItem]
+    let title: String
+    var body: some View {
+        if !items.isEmpty {
+            Section {
+                ForEach(items) { item in
+                    NavigationLink(value: item) {
+                        ItemView(content: item)
+                    }
+                }
+            } header: {
+                Text(NSLocalizedString(title, comment: ""))
+            }
+            .padding(.bottom)
+        }
+    }
+}
 
- struct WatchlistSectionView_Previews: PreviewProvider {
-     static var previews: some View {
-         WatchlistSectionView(items: [WatchlistItem.example],
-                              title: "Preview")
-     }
- }
+struct WatchlistSectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        WatchlistSectionView(items: [WatchlistItem.example],
+                             title: "Preview")
+    }
+}

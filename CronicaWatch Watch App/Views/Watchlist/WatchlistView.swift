@@ -37,12 +37,12 @@ struct WatchlistView: View {
                         List {
                             WatchlistSectionView(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow }, title: "Released")
                             WatchlistSectionView(items: items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow },
-                                             title: "Upcoming")
+                                                 title: "Upcoming")
                             WatchlistSectionView(items: items.filter { $0.isInProduction },
-                                             title: "In Production")
+                                                 title: "In Production")
                             WatchlistSectionView(items: items.filter { $0.isWatched },
-                                                  title: "Watched")
-
+                                                 title: "Watched")
+                            
                         }
                     }
                 }
@@ -60,7 +60,7 @@ struct WatchlistView: View {
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
-                ItemContentView(id: item.itemId, title: item.itemTitle, mediaType: item.itemMedia)
+                ItemContentView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
             }
             .navigationDestination(for: Screens.self) { screen in
                 if screen == .search {

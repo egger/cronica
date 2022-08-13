@@ -32,7 +32,7 @@ struct SearchView: View {
             if item.media == .person {
                 PersonView(id: item.id, name: item.itemTitle)
             } else {
-                ItemContentView(id: item.id, title: item.itemTitle, mediaType: item.itemContentMedia)
+                ItemContentView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
             }
         }
         .disableAutocorrection(true)
