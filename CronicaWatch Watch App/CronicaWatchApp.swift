@@ -12,7 +12,7 @@ struct CronicaWatch_Watch_AppApp: App {
     let persistence = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WatchlistView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
         }
     }
