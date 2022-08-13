@@ -8,5 +8,6 @@
 import Foundation
 
 struct Key {
-    static let keyV3 = ""
+    static let keyV3 = "" // TMDb API key.
+    static let telemetryClientKey = "" // Telemetry Viewer key.
 }
