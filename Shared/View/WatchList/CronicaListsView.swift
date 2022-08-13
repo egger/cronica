@@ -61,11 +61,7 @@ struct CronicaListsView: View {
             }
             .navigationTitle("Lists")
             .navigationDestination(for: DefaultListTypes.self) { item in
-                if item == .people {
-                    FavoritePeopleListView()
-                } else {
-                    DefaultListView(list: item)
-                }
+                DefaultListView(list: item)
             }
             .navigationDestination(for: CustomListItem.self) { item in
                 CustomListView(list: item)

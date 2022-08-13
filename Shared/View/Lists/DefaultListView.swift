@@ -52,8 +52,6 @@ struct DefaultListView: View {
                         case .unwatched:
                             WatchListSection(items: items.filter { !$0.isWatched },
                                              title: "Unwatched")
-                        case .people:
-                            EmptyView()
                         }
                     }
                 }

@@ -65,14 +65,18 @@ struct ItemContentView: View {
                     
                     if horizontalSizeClass == .regular && viewModel.showMarkAsButton {
                         HStack {
-                            watchlistButton
+                            WatchlistButtonView()
+                                .keyboardShortcut("l", modifiers: [.option])
+                                .environmentObject(viewModel)
                             markAsMenu
                                 .buttonStyle(.bordered)
                                 .controlSize(.large)
                         }
                         .padding()
                     } else {
-                        watchlistButton
+                        WatchlistButtonView()
+                            .keyboardShortcut("l", modifiers: [.option])
+                            .environmentObject(viewModel)
                     }
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
@@ -103,7 +107,9 @@ struct ItemContentView: View {
                         .padding([.top, .bottom])
                 }
             }
-            .task { load() }
+            .task {
+                await viewModel.load()
+            }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .overlay(overlayView)
             .navigationTitle(title)
@@ -123,32 +129,6 @@ struct ItemContentView: View {
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
-    }
-    
-    var watchlistButton: some View {
-        Button(action: {
-            withAnimation {
-                viewModel.isInWatchlist.toggle()
-            }
-            viewModel.update()
-            if !viewModel.isInWatchlist {
-                withAnimation {
-                    viewModel.hasNotificationScheduled = viewModel.content?.itemCanNotify ?? false
-                }
-            } else {
-                withAnimation {
-                    viewModel.hasNotificationScheduled.toggle()
-                }
-            }
-        }, label: {
-            Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                  systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
-        })
-        .buttonStyle(.bordered)
-        .tint(viewModel.isInWatchlist ? .red : .blue)
-        .controlSize(.large)
-        .disabled(viewModel.isLoading)
-        .keyboardShortcut("l", modifiers: [.option])
     }
     
     private var markAsMenu: some View {
@@ -191,12 +171,6 @@ struct ItemContentView: View {
             .background(.regularMaterial)
         }
     }
-    
-    private func load() {
-        Task {
-            await self.viewModel.load()
-        }
-    }
 }
 
 struct ContentDetailsView_Previews: PreviewProvider {
@@ -204,33 +178,5 @@ struct ContentDetailsView_Previews: PreviewProvider {
         ItemContentView(title: ItemContent.previewContent.itemTitle,
                         id: ItemContent.previewContent.id,
                         type: MediaType.movie)
-    }
-}
-
-private struct GlanceInfo: View {
-    let info: String?
-    var body: some View {
-        if let info {
-            Text(info)
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
-    }
-}
-
-private struct ScoreSection: View {
-    var body: some View {
-        Section {
-            
-        } header: {
-            Label("Score", systemImage: "")
-        }
-    }
-}
-
-
-private struct HorizontalInformationView: View {
-    var body: some View {
-        EmptyView()
     }
 }

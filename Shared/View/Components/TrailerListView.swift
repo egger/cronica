@@ -15,7 +15,13 @@ struct TrailerListView: View {
         if let trailers {
             VStack {
                 Divider().padding(.horizontal)
-                TitleView(title: "Trailers", subtitle: "", image: "play.tv")
+                HStack {
+                    Text("Trailers")
+                        .fontWeight(.semibold)
+                        .padding([.horizontal, .top])
+                    Spacer()
+                }
+                .unredacted()
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(trailers) { trailer in
@@ -81,7 +87,7 @@ struct TrailerListView: View {
                             .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)
                         }
                     }
-                    .padding(.top)
+                    .padding(.top, 8)
                 }
                 Divider().padding(.horizontal)
             }

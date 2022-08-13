@@ -80,13 +80,15 @@ struct PersistenceController {
     }
     
     func save(_ person: Person) {
-        let viewContext = container.viewContext
-        let item = PersonItem(context: viewContext)
-        item.name = person.name
-        item.id = Int64(person.id)
-        item.image = person.personImage
-        if viewContext.hasChanges {
-            try? viewContext.save()
+        if !isPersonSaved(id: person.id) {
+            let viewContext = container.viewContext
+            let item = PersonItem(context: viewContext)
+            item.name = person.name
+            item.id = Int64(person.id)
+            item.image = person.personImage
+            if viewContext.hasChanges {
+                try? viewContext.save()
+            }
         }
     }
     
@@ -155,6 +157,17 @@ struct PersistenceController {
                 let watched = "-\(episode)@\(season)"
                 item.watchedEpisodes?.append(watched)
             }
+            if viewContext.hasChanges {
+                try? viewContext.save()
+            }
+        }
+    }
+    
+    func updateItemOnList(_ content: ItemContent, to list: CustomListItem) {
+        let item = fetch(for: WatchlistItem.ID(content.id))
+        if let item {
+            let viewContext = container.viewContext
+            item.list = list
             if viewContext.hasChanges {
                 try? viewContext.save()
             }
@@ -286,6 +299,18 @@ struct PersistenceController {
             if numberOfObjects > 0 { return true }
         }
         return false
+    }
+    
+    func isItemSavedOnList(_ content: ItemContent?) -> CustomListItem? {
+        if let content {
+            let item = fetch(for: WatchlistItem.ID(content.id))
+            if let item {
+                if item.itemMedia == content.itemContentMedia {
+                    return item.list
+                }
+            }
+        }
+        return nil
     }
     
     /// Returns a boolean indicating the status of 'watched' on a given item.

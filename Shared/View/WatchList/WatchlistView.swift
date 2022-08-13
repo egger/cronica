@@ -16,7 +16,7 @@ struct WatchlistView: View {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
     @State private var query = ""
-    @State private var selectedOrder: WatchListSortOrder = .optimized
+    @State private var selectedOrder: DefaultListTypes = .released
     var body: some View {
         AdaptableNavigationView {
             VStack {
@@ -34,30 +34,28 @@ struct WatchlistView: View {
                             Text("No results found.")
                         } else {
                             switch selectedOrder {
-                            case .type:
-                                WatchListSection(items: items.filter { $0.isMovie },
-                                                 title: "Movies")
-                                WatchListSection(items: items.filter { $0.isTvShow },
-                                                 title: "TV Shows")
-                            case .status:
-                                WatchListSection(items: items.filter { !$0.isWatched },
-                                                 title: "To Watch")
-                                WatchListSection(items: items.filter { $0.isWatched },
-                                                 title: "Watched")
+                            case .released:
+                                WatchListSection(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow },
+                                                 title: "Released")
+                            case .upcoming:
+                                WatchListSection(items: items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow },
+                                                 title: "Upcoming")
+                            case .production:
+                                WatchListSection(items: items.filter { $0.isInProduction },
+                                                 title: "In Production")
                             case .favorites:
                                 WatchListSection(items: items.filter { $0.isFavorite },
                                                  title: "Favorites")
-                            case .optimized:
-                                WatchListSection(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow },
-                                                 title: "Released")
-                                WatchListSection(items: items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow },
-                                                 title: "Upcoming")
-                                WatchListSection(items: items.filter { $0.isInProduction },
-                                                 title: "In Production")
+                            case .watched:
+                                WatchListSection(items: items.filter { $0.isWatched },
+                                                 title: "Watched")
+                            case .unwatched:
+                                WatchListSection(items: items.filter { !$0.isWatched },
+                                                 title: "To Watch")
                             }
                         }
                     }
-                    .listStyle(.inset)
+                    .listStyle(.insetGrouped)
                     .dropDestination(for: ItemContent.self) { items, location  in
                         let context = PersistenceController.shared
                         for item in items {
@@ -94,7 +92,7 @@ struct WatchlistView: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Picker(selection: $selectedOrder, content: {
-                        ForEach(WatchListSortOrder.allCases) { sort in
+                        ForEach(DefaultListTypes.allCases) { sort in
                             Label(sort.title, systemImage: "arrow.up.arrow.down.circle").tag(sort)
                                 .labelStyle(.iconOnly)
                         }
