@@ -36,6 +36,8 @@
 "Remove" = "Remover";
 "Added to watchlist" = "Adicionado à lista";
 "Mark as" = "Marcar como";
+"Add to Favorites" = "Adicionar aos Favoritos";
+"Share" = "Compartilhar";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -47,7 +49,7 @@
 "Add to watchlist" = "Adicionar à lista";
 "Remove from watchlist" = "Remover da lista";
 "About" = "Sobre";
-"Trailer" = "Trailer";
+"Trailers" = "Trailers";
 "Season" = "Temporada";
 "Seasons" = "Temporadas";
 "Recommendations" = "Recomendações";
@@ -56,6 +58,7 @@
 "Remove from Watched" = "Remover de Assistidos";
 "Mark as Favorite" = "Marcar como Favorito";
 "Remove from Favorites" = "Remover de Favoritos";
+"Ratings Score" = "Pontuação de Classificações";
 
 //MARK: ExploreView.swift
 "Explore" = "Descubra";
@@ -99,7 +102,7 @@
 "Search" = "Pesquisar";
 "Cronica" = "Cronica";
 
-//MARK: AccountView.swift
+//MARK: SettingsView.swift
 "Support" = "Suporte";
 "Send feedback" = "Enviar Feedback";
 "Privacy Policy" = "Política de Privacidade";
@@ -108,6 +111,7 @@
 "Double Tap Gesture" = "Gesto de Dois Toques";
 "The function is performed when double-tap the cover image." = "A função será executada quando tocar duas vezes na imagem da capa.";
 "Settings" = "Configurações";
+"Review Cronica" = "Avalie Cronica";
 
 //MARK: HomeView.swift
 "Trending" = "Em Alta";
@@ -146,6 +150,8 @@
 "Movies, Shows, People" = "Filmes, Séries, Pessoas";
 "Searching" = "Pesquisando";
 "No Results" = "Sem Resultados";
+"All" = "Todos";
+"Shows" = "Séries";
 
 //MARK: WatchlistView.swift
 "Your list is empty." = "Sua lista está vazia.";
@@ -161,3 +167,14 @@
 "Released Movies" = "Filmes Lançados";
 "Released Shows" = "Séries Lançadas";
 "Releases" = "Lançamentos";
+"Upcoming" = "Em Breve";
+"No results" = "Sem resultados";
+"Search results" = "Resultado da busca";
+"This list is empty." = "Esta lista está vazia.";
+
+//MARK: Developer Settings
+"Watchlist Mode" = "Modo da lista";
+"Legacy" = "Legado";
+"New" = "Novo";
+"Developer Settings" = "Desenvolvedor";
+"Print object" = "Print object";

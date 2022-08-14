@@ -18,7 +18,8 @@ class ItemContentViewModel: ObservableObject {
     @Published var content: ItemContent?
     @Published var recommendations: [ItemContent]?
     @Published var credits: [Person] = []
-    @Published var errorMessage: String?
+    @Published var errorMessage: String = "Error found, try again later."
+    @Published var showErrorAlert: Bool = false
     @Published var isInWatchlist = false
     @Published var isNotificationAvailable = false
     @Published var hasNotificationScheduled = false
@@ -52,6 +53,9 @@ class ItemContentViewModel: ObservableObject {
                             isWatched = context.isMarkedAsWatched(id: self.id)
                             isFavorite = isMarkedAsFavorite()
                         }
+#if targetEnvironment(simulator)
+                        print(context.fetch(for: WatchlistItem.ID(id)) as Any)
+#endif
                     }
                     withAnimation {
                         isNotificationAvailable = content.itemCanNotify
@@ -63,8 +67,11 @@ class ItemContentViewModel: ObservableObject {
                 }
             } catch {
                 errorMessage = error.localizedDescription
+                showErrorAlert = true
                 content = nil
+#if targetEnvironment(simulator)
                 print(error.localizedDescription)
+#endif
             }
         }
     }
@@ -98,12 +105,11 @@ class ItemContentViewModel: ObservableObject {
                         isInWatchlist.toggle()
                     }
                 }
-                context.update(item: content, isFavorite: favorite)
                 withAnimation {
                     isFavorite.toggle()
                 }
-            }
-            else if let watched {
+                context.update(item: content, isFavorite: favorite)
+            } else if let watched {
                 HapticManager.shared.lightHaptic()
                 if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
                     context.save(content)
@@ -116,8 +122,7 @@ class ItemContentViewModel: ObservableObject {
                     isWatched.toggle()
                     hasNotificationScheduled = content.itemCanNotify
                 }
-            }
-            else {
+            } else {
                 if context.isItemSaved(id: content.id, type: content.itemContentMedia) {
                     HapticManager.shared.softHaptic()
                     let item = context.fetch(for: WatchlistItem.ID(content.id))

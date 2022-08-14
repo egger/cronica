@@ -15,7 +15,6 @@ struct ItemContentView: View {
     let itemUrl: URL
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store: SettingsStore
-    @State private var animateGesture = false
     @State private var showConfirmation = false
     @State private var switchMarkAsView = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -29,59 +28,32 @@ struct ItemContentView: View {
     }
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack {
-                    CoverImageView(isWatched: $viewModel.isWatched,
-                                   isFavorite: $viewModel.isFavorite,
-                                   animateGesture: $animateGesture,
-                                   image: UIDevice.isIPad ? viewModel.content?.cardImageLarge : viewModel.content?.cardImageMedium,
-                                   title: title,
-                                   isAdult: viewModel.content?.adult ?? false, glanceInfo: viewModel.content?.itemInfo)
-                    .environmentObject(store)
-                    .onTapGesture(count: 2) {
-                        withAnimation {
-                            animateGesture.toggle()
-                        }
-                        if !viewModel.isInWatchlist {
-                            viewModel.update()
-                            withAnimation {
-                                viewModel.isInWatchlist.toggle()
-                                viewModel.hasNotificationScheduled.toggle()
-                            }
-                        }
-                        if store.gesture == .favorite {
-                            viewModel.isFavorite.toggle()
-                            viewModel.update(markAsFavorite: viewModel.isFavorite)
-                        } else {
-                            viewModel.isWatched.toggle()
-                            viewModel.update(markAsWatched: viewModel.isWatched)
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                            withAnimation {
-                                animateGesture = false
-                            }
-                        }
-                    }
+            VStack {
+                ScrollView {
+                    CoverImageView(title: title)
+                        .environmentObject(viewModel)
                     
-                    if horizontalSizeClass == .regular && viewModel.showMarkAsButton {
+                    ViewThatFits {
                         HStack {
                             WatchlistButtonView()
                                 .keyboardShortcut("l", modifiers: [.option])
                                 .environmentObject(viewModel)
-                            markAsMenu
+                                .padding(.horizontal)
+                            MarkAsMenuView()
+                                .environmentObject(viewModel)
                                 .buttonStyle(.bordered)
                                 .controlSize(.large)
+                                .padding(.horizontal)
                         }
-                        .padding()
-                    } else {
+                        .padding([.top, .bottom])
+                        
                         WatchlistButtonView()
                             .keyboardShortcut("l", modifiers: [.option])
                             .environmentObject(viewModel)
                     }
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
-                                    title: title,
-                                    type: .movie)
+                                    title: title)
                     .padding()
                     
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
@@ -101,8 +73,6 @@ struct ItemContentView: View {
                     InformationSectionView(item: viewModel.content)
                         .padding()
                     
-                    
-                    
                     AttributionView()
                         .padding([.top, .bottom])
                 }
@@ -111,7 +81,6 @@ struct ItemContentView: View {
                 await viewModel.load()
             }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            .overlay(overlayView)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -123,15 +92,48 @@ struct ItemContentView: View {
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
-                        if horizontalSizeClass == .compact { markAsMenu }
+                        if horizontalSizeClass == .compact {
+                            MarkAsMenuView()
+                                .environmentObject(viewModel)
+                        }
                     }
                 }
             }
+            .alert("Error",
+                   isPresented: $viewModel.showErrorAlert,
+                   actions: {
+                Button("Cancel") {
+                    
+                }
+                Button("Retry") {
+                    Task {
+                        await viewModel.load()
+                    }
+                }
+            }, message: {
+                if let error = viewModel.errorMessage {
+                    Text(error)
+                } else {
+                    Text("Error found, try again later.")
+                }
+            })
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
-    
-    private var markAsMenu: some View {
+}
+
+struct ContentDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ItemContentView(title: ItemContent.previewContent.itemTitle,
+                        id: ItemContent.previewContent.id,
+                        type: MediaType.movie)
+    }
+}
+
+struct MarkAsMenuView: View {
+    @EnvironmentObject var viewModel: ItemContentViewModel
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    var body: some View {
         Menu(content: {
             Button(action: {
                 viewModel.update(markAsWatched: viewModel.isWatched)
@@ -147,6 +149,13 @@ struct ItemContentView: View {
                       systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
             })
             .keyboardShortcut("f", modifiers: [.option])
+#if targetEnvironment(simulator)
+            Button(action: {
+                print(viewModel.content?.itemStatus as Any)
+            }, label: {
+                Label("Print object", systemImage: "ellipsis.curlybraces")
+            })
+#endif
         }, label: {
             if horizontalSizeClass == .compact {
                 Label("Mark as", systemImage: "ellipsis")
@@ -155,28 +164,5 @@ struct ItemContentView: View {
             }
         })
         .disabled(viewModel.isLoading ? true : false)
-    }
-    
-    @ViewBuilder
-    private var overlayView: some View {
-        if let error = viewModel.errorMessage {
-            ZStack {
-                RetryView(message: error, retryAction: {
-                    Task {
-                        await viewModel.load()
-                    }
-                })
-            }
-            .padding()
-            .background(.regularMaterial)
-        }
-    }
-}
-
-struct ContentDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentView(title: ItemContent.previewContent.itemTitle,
-                        id: ItemContent.previewContent.id,
-                        type: MediaType.movie)
     }
 }

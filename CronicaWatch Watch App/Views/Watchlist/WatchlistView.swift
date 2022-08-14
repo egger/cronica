@@ -32,7 +32,7 @@ struct WatchlistView: View {
                             }
                         }
                     } else if !query.isEmpty && filteredItems.isEmpty {
-                        Text("No results found.")
+                        Text("No results")
                     } else {
                         List {
                             WatchlistSectionView(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow }, title: "Released")

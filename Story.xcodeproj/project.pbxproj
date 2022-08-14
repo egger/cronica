@@ -133,6 +133,7 @@
 		B8C09BF0289D55340038D18F /* PersonItem-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C09BEE289D55340038D18F /* PersonItem-Extensions.swift */; };
 		B8C09BF2289D596A0038D18F /* PersonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C09BF1289D596A0038D18F /* PersonItemView.swift */; };
 		B8C09BF4289D5DCE0038D18F /* Credits-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE59281B283F005558DD /* Credits-Extensions.swift */; };
+		B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8C0C67E28A92FF0009F4593 /* TelemetryClient */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */; };
 		B8C781F0287F4A7500B4C2C2 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */; };
@@ -330,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B84043DD289B360B00D5CEBF /* SDWebImageSwiftUI in Frameworks */,
+				B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -777,6 +779,7 @@
 			name = "CronicaWatch Watch App";
 			packageProductDependencies = (
 				B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */,
+				B8C0C67E28A92FF0009F4593 /* TelemetryClient */,
 			);
 			productName = "CronicaWatch Watch App";
 			productReference = B806C4DE2899BE2800A5330E /* Cronica.app */;
@@ -1455,6 +1458,11 @@
 			productName = SDWebImageSwiftUI;
 		};
 		B87F745D280605CE00E94126 /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
+			productName = TelemetryClient;
+		};
+		B8C0C67E28A92FF0009F4593 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
 			productName = TelemetryClient;

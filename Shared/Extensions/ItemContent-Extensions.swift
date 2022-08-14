@@ -40,7 +40,7 @@ extension ItemContent {
         case "Planned": return .production
         case "In Production": return .soon
         case "Post Production": return .soon
-        case "Returning Series": return .soon
+        case "Returning Series": return .renewed
         case "Released": return .released
         case "Ended": return .released
         case "Canceled": return .cancelled
@@ -74,6 +74,15 @@ extension ItemContent {
         }
         if !itemGenre.isEmpty { return "\(itemGenre)" }
         return ""
+    }
+    var itemUrlProxy: String {
+        return  "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)"
+    }
+    var itemRating: String? {
+        if let voteAverage {
+            return "\(voteAverage.rounded()) out of 10"
+        }
+        return nil
     }
     var posterImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
@@ -169,7 +178,6 @@ extension ItemContent {
             return .tvShow
         }
     }
-    
     /// This MediaType value is only used on search results
     ///
     /// Change to itemContentMedia to specify on normal usage.
@@ -181,23 +189,12 @@ extension ItemContent {
         default: return .movie
         }
     }
-    //MARK: Sample Data for preview
+    // MARK: Sample Data for preview
     static var previewContents: [ItemContent] {
         let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
     }
     static var previewContent: ItemContent {
         previewContents[0]
-    }
-    
-    var itemUrlProxy: String {
-        return  "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)"
-    }
-    
-    var itemRating: String? {
-        if let voteAverage {
-            return "\(voteAverage.rounded()) out of 10"
-        }
-        return nil
     }
 }

@@ -40,7 +40,7 @@ struct StoryApp: App {
     //MARK: Background task
     private func registerRefreshBGTask() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundIdentifier, using: nil) { task in
-            self.handleAppRefresh(task: task as! BGAppRefreshTask)
+            self.handleAppRefresh(task: task as? BGAppRefreshTask ?? nil)
         }
     }
     
@@ -51,22 +51,24 @@ struct StoryApp: App {
     }
     
     // Fetch the latest updates from api.
-    private func handleAppRefresh(task: BGAppRefreshTask) {
-        scheduleAppRefresh()
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        let background = BackgroundManager()
-        task.expirationHandler = {
-            // After all operations are cancelled, the completion block below is called to set the task to complete.
-            queue.cancelAllOperations()
-        }
-        queue.addOperation {
-            background.handleAppRefreshContent()
-        }
-        task.setTaskCompleted(success: true)
+    private func handleAppRefresh(task: BGAppRefreshTask?) {
+        if let task {
+            scheduleAppRefresh()
+            let queue = OperationQueue()
+            queue.maxConcurrentOperationCount = 1
+            let background = BackgroundManager()
+            task.expirationHandler = {
+                // After all operations are cancelled, the completion block below is called to set the task to complete.
+                queue.cancelAllOperations()
+            }
+            queue.addOperation {
+                background.handleAppRefreshContent()
+            }
+            task.setTaskCompleted(success: true)
 #if targetEnvironment(simulator)
 #else
-        TelemetryManager.send("handleAppRefreshBGTask", with: ["identifier":"\(task.identifier)"])
+            TelemetryManager.send("handleAppRefreshBGTask", with: ["identifier":"\(task.identifier)"])
 #endif
+        }
     }
 }

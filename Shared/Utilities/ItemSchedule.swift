@@ -9,7 +9,7 @@ import Foundation
 
 enum ItemSchedule: String, CaseIterable, Identifiable {
     var id: String { rawValue }
-    case soon, released, production, cancelled, unknown
+    case soon, released, production, cancelled, unknown, renewed
     var scheduleNumber: Int16 {
         switch self {
         case .soon: return 0
@@ -17,6 +17,7 @@ enum ItemSchedule: String, CaseIterable, Identifiable {
         case .production: return 2
         case .cancelled: return 3
         case .unknown: return 4
+        case .renewed: return 5
         }
     }
     var scheduleTitle: String {
@@ -31,6 +32,8 @@ enum ItemSchedule: String, CaseIterable, Identifiable {
             return NSLocalizedString("Cancelled", comment: "")
         case .unknown:
             return NSLocalizedString("Unknown", comment: "")
+        case .renewed:
+            return NSLocalizedString("Upcoming Season Soon", comment: "")
         }
     }
 }

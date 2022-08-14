@@ -7,30 +7,28 @@
 import SwiftUI
 
 struct CoverImageView: View {
-    @EnvironmentObject var store: SettingsStore
-    @Binding var isWatched: Bool
-    @Binding var isFavorite: Bool
+    @StateObject private var store = SettingsStore()
+    @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var isPad: Bool = UIDevice.isIPad
-    @Binding var animateGesture: Bool
-    let image: URL?
+    @State private var animateGesture: Bool = false
     let title: String
-    let isAdult: Bool
-    let glanceInfo: String?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         VStack {
             ZStack {
-                HeroImage(url: image, title: title, blurImage: isAdult)
+                HeroImage(url: isPad ? viewModel.content?.cardImageLarge : viewModel.content?.cardImageMedium,
+                          title: title,
+                          blurImage: viewModel.content?.itemIsAdult ?? false)
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
                     if store.gesture == .favorite {
-                        Image(systemName: isFavorite ? "heart.fill" : "heart.slash.fill")
+                        Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart.slash.fill")
                             .symbolRenderingMode(.multicolor)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
                     } else {
-                        Image(systemName: isWatched ? "checkmark.circle" : "minus.circle.fill")
+                        Image(systemName: viewModel.isWatched ? "checkmark.circle" : "minus.circle.fill")
                             .symbolRenderingMode(.monochrome)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -47,9 +45,24 @@ struct CoverImageView: View {
             .padding([.top, .bottom])
             .accessibilityElement(children: .combine)
             .accessibility(hidden: true)
-            
-            if let glanceInfo {
-                Text(glanceInfo)
+            .onTapGesture(count: 2) {
+                withAnimation {
+                    animateGesture.toggle()
+                }
+                if store.gesture == .favorite {
+                    viewModel.update(markAsFavorite: viewModel.isFavorite)
+                } else {
+                    viewModel.update(markAsWatched: viewModel.isWatched)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    withAnimation {
+                        animateGesture = false
+                    }
+                }
+            }
+
+            if let info = viewModel.content?.itemInfo {
+                Text(info)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

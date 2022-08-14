@@ -6,6 +6,7 @@
 //  swiftlint:disable trailing_whitespace
 
 import Foundation
+import TelemetryClient
 
 class NetworkService {
     static let shared = NetworkService()
@@ -58,11 +59,27 @@ class NetworkService {
     
     private func fetch<T: Decodable>(url: URL) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
-                  throw NetworkError.invalidResponse
-              }
-        return try Utilities.decoder.decode(T.self, from: data)
+        guard let httpResponse = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
+        let responseError = handleNetworkResponses(response: httpResponse)
+        if let responseError {
+            #if targetEnvironment(simulator)
+            #else
+            TelemetryManager.send("fetchError", with: ["error":"\(responseError.message)"])
+            #endif
+            throw responseError
+        } else {
+            return try Utilities.decoder.decode(T.self, from: data)
+        }
+    }
+    
+    private func handleNetworkResponses(response: HTTPURLResponse) -> NetworkError? {
+        switch response.statusCode {
+        case 200: return nil
+        case 401: return .invalidApi
+        case 503: return .maintenanceApi
+        case 500: return .internalError
+        default: return .invalidResponse
+        }
     }
     
     /// Build a safe URL for the TMDB API Service.
@@ -85,8 +102,7 @@ class NetworkService {
                 .init(name: "page", value: page),
                 .init(name: "append_to_response", value: append)
             ]
-        }
-        else {
+        } else {
             component.queryItems = [
                 .init(name: "api_key", value: Key.keyV3),
                 .init(name: "language", value: Utilities.userLang),

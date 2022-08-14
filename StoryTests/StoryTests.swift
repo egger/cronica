@@ -20,17 +20,10 @@ class StoryTests: XCTestCase {
     
     func testAddToWatchlist() {
         for item in ItemContent.previewContents {
-            persistence.saveItem(content: item, notify: false)
+            persistence.save(item)
         }
         for item in ItemContent.previewContents {
-            XCTAssertTrue(persistence.isItemInList(id: item.id, type: .movie))
+            XCTAssertTrue(persistence.isItemSaved(id: item.id, type: item.itemContentMedia))
         }
     }
-    
-//    func testRemoveFromWatchlist() {
-//        XCTAssertNoThrow({
-//            let item = try self.dataController.getItem(id: WatchlistItem.ID(ItemContent.previewContent.id))
-//            try self.dataController.removeItem(id: item)
-//        })
-//    }
 }

@@ -33,6 +33,7 @@ struct SettingsView: View {
                         .padding(.bottom)
                 }
                 
+#if targetEnvironment(simulator)
                 Section {
                     Picker(selection: $store.useLegacy) {
                         Text("Legacy").tag(UseLegacyWatchlist.legacy)
@@ -42,11 +43,9 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.menu)
                 } header: {
-                    Label("Watchlist", systemImage: "square.stack")
-                } footer: {
-                    Text("The legacy watchlist do not support custom lists.")
-                        .padding(.bottom)
+                    Label("Developer Settings", systemImage: "hammer.fill")
                 }
+#endif
                 
                 Section {
                     Button( action: {

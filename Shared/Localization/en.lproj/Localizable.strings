@@ -37,6 +37,8 @@
 "Remove" = "Remove";
 "Added to watchlist" = "Added to watchlist";
 "Mark as" = "Mark as";
+"Add to Favorites" = "Add to Favorites";
+"Share" = "Share";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
@@ -48,7 +50,7 @@
 "Add to watchlist" = "Add to watchlist";
 "Remove from watchlist" = "Remove from watchlist";
 "About" = "About";
-"Trailer" = "Trailer";
+"Trailers" = "Trailers";
 "Seasons" = "Seasons";
 "Recommendations" = "Recommendations";
 "You may like" = "You may like";
@@ -56,6 +58,7 @@
 "Remove from Watched" = "Remove from Watched";
 "Mark as Favorite" = "Mark as Favorite";
 "Remove from Favorites" = "Remove from Favorites";
+"Ratings Score" = "Ratings Score";
 
 //MARK: ExploreView.swift
 "Explore" = "Explore";
@@ -99,7 +102,7 @@
 "Search" = "Search";
 "Cronica" = "Cronica";
 
-//MARK: AccountView.swift
+//MARK: SettingsView.swift
 "Support" = "Support";
 "Send feedback" = "Send Feedback";
 "Privacy Policy" = "Privacy Policy";
@@ -108,6 +111,7 @@
 "Double Tap Gesture" = "Double Tap Gesture";
 "The function is performed when double-tap the cover image." = "The function is performed when double-tap the cover image.";
 "Settings" = "Settings";
+"Review Cronica" = "Review Cronica";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";
@@ -146,6 +150,8 @@
 "Movies, Shows, People" = "Movies, Shows, People";
 "Searching" = "Searching";
 "No Results" = "No Results";
+"All" = "All";
+"Shows" = "Shows";
 
 //MARK: WatchlistView.swift
 "Your list is empty." = "Your list is empty.";
@@ -161,3 +167,14 @@
 "Released Movies" = "Released Movies";
 "Released Shows" = "Released Shows";
 "Releases" = "Releases";
+"Upcoming" = "Upcoming";
+"No results" = "No results";
+"Search results" = "Search results"; 
+"This list is empty." = "This list is empty.";
+
+//MARK: Developer Settings
+"Watchlist Mode" = "Watchlist Mode";
+"Legacy" = "Legacy";
+"New" = "New";
+"Developer Settings" = "Developer Settings";
+"Print object" = "Print object";

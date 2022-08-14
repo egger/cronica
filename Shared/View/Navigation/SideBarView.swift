@@ -13,6 +13,7 @@ struct SideBarView: View {
     @StateObject private var viewModel: SearchViewModel
     @State private var showSettings = false
     @State private var selectedSearchItem: ItemContent? = nil
+    @State private var scope: SearchItemsScope = .noScope
     init() {
         _settings = StateObject(wrappedValue: SettingsStore())
         _viewModel = StateObject(wrappedValue: SearchViewModel())
@@ -67,6 +68,11 @@ struct SideBarView: View {
                     ForEach(viewModel.searchSuggestions) { item in
                         Text(item.suggestion).searchCompletion(item.suggestion)
                     }
+                }
+            }
+            .searchScopes($scope) {
+                ForEach(SearchItemsScope.allCases) { scope in
+                    Text(scope.title).tag(scope)
                 }
             }
             .onAppear {
@@ -172,11 +178,35 @@ struct SideBarView: View {
             }
         case .success(_):
             List {
-                ForEach(viewModel.searchItems) { item in
-                    SearchItem(item: item)
-                        .onTapGesture {
-                            selectedSearchItem = item
-                        }
+                switch scope {
+                case .noScope:
+                    ForEach(viewModel.searchItems) { item in
+                        SearchItem(item: item)
+                            .onTapGesture {
+                                selectedSearchItem = item
+                            }
+                    }
+                case .movies:
+                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
+                        SearchItem(item: item)
+                            .onTapGesture {
+                                selectedSearchItem = item
+                            }
+                    }
+                case .shows:
+                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
+                        SearchItem(item: item)
+                            .onTapGesture {
+                                selectedSearchItem = item
+                            }
+                    }
+                case .people:
+                    ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
+                        SearchItem(item: item)
+                            .onTapGesture {
+                                selectedSearchItem = item
+                            }
+                    }
                 }
             }
             .listStyle(.inset)

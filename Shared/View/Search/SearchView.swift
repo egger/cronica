@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct SearchView: View { 
     static let tag: Screens? = .search
     @StateObject private var viewModel: SearchViewModel
     @State private var showConfirmation: Bool = false

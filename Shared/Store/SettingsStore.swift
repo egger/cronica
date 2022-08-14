@@ -19,7 +19,7 @@ class SettingsStore: ObservableObject {
         }
     }
     init() {
-        self.gesture = (UserDefaults.standard.object(forKey: "gesture") == nil ? .favorite : DoubleTapGesture(rawValue: UserDefaults.standard.object(forKey: "gesture") as! Int)) ?? .favorite
-        self.useLegacy = (UserDefaults.standard.object(forKey: "useLegacy") == nil ? .legacy : UseLegacyWatchlist(rawValue: UserDefaults.standard.object(forKey: "useLegacy") as! Int)) ?? .legacy
+        self.gesture = (UserDefaults.standard.object(forKey: "gesture") == nil ? .favorite : DoubleTapGesture(rawValue: UserDefaults.standard.object(forKey: "gesture") as? Int ?? DoubleTapGesture.favorite.rawValue)) ?? .favorite
+        self.useLegacy = (UserDefaults.standard.object(forKey: "useLegacy") == nil ? .legacy : UseLegacyWatchlist(rawValue: UserDefaults.standard.object(forKey: "useLegacy") as? Int ?? UseLegacyWatchlist.legacy.rawValue)) ?? .legacy
     }
 }

@@ -55,6 +55,4 @@ class HomeViewModel: ObservableObject {
         }
         return nil
     }
-    
-    
 }

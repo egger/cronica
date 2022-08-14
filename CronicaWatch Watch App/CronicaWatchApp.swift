@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import TelemetryClient
 
 @main
 struct CronicaWatch_Watch_AppApp: App {
     let persistence = PersistenceController.shared
+    init() {
+#if targetEnvironment(simulator)
+#else
+        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey)
+        TelemetryManager.initialize(with: configuration)
+#endif
+    }
     var body: some Scene {
         WindowGroup {
             WatchlistView()

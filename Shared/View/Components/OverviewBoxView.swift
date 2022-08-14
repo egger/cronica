@@ -12,7 +12,7 @@ import SwiftUI
 struct OverviewBoxView: View {
     let overview: String?
     let title: String
-    let type: MediaType
+    var type: MediaType = .movie
     @State private var showDetailsSheet: Bool = false
     var body: some View {
         GroupBox {
@@ -33,8 +33,10 @@ struct OverviewBoxView: View {
             }
         }
         .onTapGesture {
-            HapticManager.shared.lightHaptic()
-            showDetailsSheet.toggle()
+            if overview != nil {
+                HapticManager.shared.lightHaptic()
+                showDetailsSheet.toggle()
+            }
         }
         .accessibilityElement(children: .combine)
         .sheet(isPresented: $showDetailsSheet, content: {

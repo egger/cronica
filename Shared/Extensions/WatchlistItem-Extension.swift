@@ -29,6 +29,7 @@ extension WatchlistItem {
         case 1: return .released
         case 2: return .production
         case 3: return .cancelled
+        case 5: return .renewed
         default: return .unknown
         }
     }
@@ -71,14 +72,11 @@ extension WatchlistItem {
         return false
     }
     var isReleasedTvShow: Bool {
-        if itemMedia == .movie {
-            return false
-        } else {
-            if itemSchedule == .soon && !upcomingSeason && notify { return true }
+        if itemMedia == .tvShow {
+            if itemSchedule == .renewed { return true }
             if itemSchedule == .released && !isWatched { return true }
             if itemSchedule == .cancelled && !isWatched { return true }
         }
-        if nextSeasonNumber != 1 && itemSchedule == .soon { return true }
         return false
     }
     var isUpcomingMovie: Bool {
@@ -94,9 +92,8 @@ extension WatchlistItem {
         return false
     }
     var isInProduction: Bool {
-        //if itemSchedule == .soon && !isWatched && !notify { return true }
         if nextSeasonNumber == 1 && itemSchedule == .soon && !isWatched && !notify { return true }
-        //if itemSchedule == .soon && !isWatched && !notify { return true }
+        if itemSchedule == .renewed && notify && date != nil { return true }
         if itemSchedule == .production { return true }
         return false
     }

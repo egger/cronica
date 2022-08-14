@@ -39,9 +39,9 @@ struct ItemContentFrameView: View {
                            height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
                                                 style: .continuous))
+                    .draggable(item)
                     .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
                     .shadow(radius: DrawingConstants.imageShadow)
-                    .draggable(item)
                 HStack {
                     Text(item.itemTitle)
                         .font(.caption)

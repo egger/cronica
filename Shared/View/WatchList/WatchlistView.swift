@@ -29,9 +29,9 @@ struct WatchlistView: View {
                     List {
                         if !filteredItems.isEmpty {
                             WatchListSection(items: filteredItems,
-                                             title: "Filtered Items")
+                                             title: "Search results")
                         } else if !query.isEmpty && filteredItems.isEmpty {
-                            Text("No results found.")
+                            Text("No results")
                         } else {
                             switch selectedOrder {
                             case .released:
@@ -91,14 +91,25 @@ struct WatchlistView: View {
                     EditButton()
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Picker(selection: $selectedOrder, content: {
-                        ForEach(DefaultListTypes.allCases) { sort in
-                            Label(sort.title, systemImage: "arrow.up.arrow.down.circle").tag(sort)
-                                .labelStyle(.iconOnly)
-                        }
-                    }, label: {
-                        Label("Sort List", systemImage: "arrow.up.arrow.down.circle")
-                    })
+                    Menu {
+                        Picker(selection: $selectedOrder, content: {
+                            ForEach(DefaultListTypes.allCases) { sort in
+                                Text(sort.title).tag(sort)
+                            }
+                        }, label: {
+                            EmptyView()
+                        })
+                    } label: {
+                        Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
+                            .labelStyle(.iconOnly)
+                    }
+//                    Picker(selection: $selectedOrder, content: {
+//                        ForEach(DefaultListTypes.allCases) { sort in
+//                            Text(sort.title).tag(sort)
+//                        }
+//                    }, label: {
+//                        Label("Sort List", systemImage: "arrow.up.arrow.down.circle")
+//                    })
                 }
             }
             .searchable(text: $query,

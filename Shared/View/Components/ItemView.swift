@@ -123,10 +123,7 @@ struct ItemView: View {
     
     private func updateFavorite() {
         withAnimation {
-#if os(watchOS)
-#else
             HapticManager.shared.softHaptic()
-#endif
             withAnimation {
                 isFavorite.toggle()
             }
@@ -136,10 +133,7 @@ struct ItemView: View {
     
     private func updateWatched() {
         withAnimation {
-#if os(watchOS)
-#else
             HapticManager.shared.softHaptic()
-#endif
             withAnimation {
                 isWatched.toggle()
             }
@@ -148,10 +142,7 @@ struct ItemView: View {
     }
     
     private func deleteItem(item: WatchlistItem) {
-#if os(watchOS)
-#else
-            HapticManager.shared.softHaptic()
-#endif
+        HapticManager.shared.softHaptic()
         withAnimation {
             context.delete(item)
         }

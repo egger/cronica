@@ -67,6 +67,7 @@ struct CronicaListsView: View {
                 CustomListView(list: item)
             }
             .toolbar {
+#if targetEnvironment(simulator)
                 ToolbarItem {
                     HStack {
                         Button(action: {
@@ -95,6 +96,7 @@ struct CronicaListsView: View {
                         }
                     }
                 }
+#endif
             }
             .dropDestination(for: ItemContent.self) { items, location  in
                 let context = PersistenceController.shared

@@ -23,8 +23,7 @@ struct WatchListSection: View {
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
             }
-            .dropDestination(for: ItemContent.self) { items, location  in
-                let context = PersistenceController.shared
+            .dropDestination(for: ItemContent.self) { items, _  in
                 for item in items {
                     context.save(item)
                 }
@@ -32,13 +31,11 @@ struct WatchListSection: View {
             } isTargeted: { inDropArea in
                 print(inDropArea)
             }
-        }
-    }
-    
-    private func deleteItem(item: WatchlistItem) {
-        HapticManager.shared.mediumHaptic()
-        withAnimation {
-            context.delete(item)
+        } else {
+            Text("This list is empty.")
+                .font(.headline)
+                .foregroundColor(.secondary)
+                .padding()
         }
     }
     
@@ -48,5 +45,4 @@ struct WatchListSection: View {
             offsets.map { items[$0] }.forEach(context.delete)
         }
     }
-    
 }
