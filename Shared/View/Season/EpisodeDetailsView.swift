@@ -54,6 +54,7 @@ struct EpisodeDetailsView: View {
     }
     
     private func updateWatched() {
+        HapticManager.shared.lightHaptic()
         withAnimation {
             isWatched.toggle()
         }

@@ -63,6 +63,20 @@ extension WatchlistItem {
         if itemMedia == .tvShow { return true }
         return false
     }
+    var isReleased: Bool {
+        if itemMedia == .movie {
+            return isReleasedMovie
+        } else {
+            return isReleasedTvShow
+        }
+    }
+    var isUpcoming: Bool {
+        if itemMedia == .movie {
+            return isUpcomingMovie
+        } else {
+            return isUpcomingTvShow
+        }
+    }
     var isReleasedMovie: Bool {
         if itemMedia == .movie {
             if itemSchedule == .released && !notify && !isWatched {

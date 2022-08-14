@@ -15,15 +15,6 @@ struct WatchlistButtonView: View {
                 viewModel.isInWatchlist.toggle()
             }
             viewModel.update()
-            if !viewModel.isInWatchlist {
-                withAnimation {
-                    viewModel.hasNotificationScheduled = viewModel.content?.itemCanNotify ?? false
-                }
-            } else {
-                withAnimation {
-                    viewModel.hasNotificationScheduled.toggle()
-                }
-            }
         }, label: {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")

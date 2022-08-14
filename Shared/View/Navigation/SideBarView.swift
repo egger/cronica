@@ -29,35 +29,34 @@ struct SideBarView: View {
                     Label("Explore", systemImage: "film")
                 }
                 .tag(DiscoverView.tag)
-                if settings.useLegacy == .legacy {
-                    NavigationLink(value: Screens.watchlist) {
-                        Label("Watchlist", systemImage: "square.stack.fill")
-                    }
-                    .tag(WatchlistView.tag)
-                    .dropDestination(for: ItemContent.self) { items, location  in
-                        let context = PersistenceController.shared
-                        for item in items {
-                            context.save(item)
-                        }
-                        return true
-                    } isTargeted: { inDropArea in
-                        print(inDropArea)
-                    }
-                } else {
-                    NavigationLink(value: Screens.lists) {
-                        Label("Lists", systemImage: "square.stack.fill")
-                    }
-                    .tag(CronicaListsView.tag)
-                    .dropDestination(for: ItemContent.self) { items, location  in
-                        let context = PersistenceController.shared
-                        for item in items {
-                            context.save(item)
-                        }
-                        return true
-                    } isTargeted: { inDropArea in
-                        print(inDropArea)
-                    }
+                NavigationLink(value: Screens.watchlist) {
+                    Label("Watchlist", systemImage: "square.stack.fill")
                 }
+                .tag(WatchlistView.tag)
+                .dropDestination(for: ItemContent.self) { items, location  in
+                    let context = PersistenceController.shared
+                    for item in items {
+                        context.save(item)
+                    }
+                    return true
+                } isTargeted: { inDropArea in
+                    print(inDropArea)
+                }
+#if targetEnvironment(simulator)
+                NavigationLink(value: Screens.lists) {
+                    Label("Lists", systemImage: "square.stack.fill")
+                }
+                .tag(CronicaListsView.tag)
+                .dropDestination(for: ItemContent.self) { items, location  in
+                    let context = PersistenceController.shared
+                    for item in items {
+                        context.save(item)
+                    }
+                    return true
+                } isTargeted: { inDropArea in
+                    print(inDropArea)
+                }
+#endif
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
@@ -210,15 +209,8 @@ struct SideBarView: View {
                 }
             }
             .listStyle(.inset)
-        case .failure(let error):
-            ZStack {
-                Rectangle().fill(.ultraThinMaterial)
-                RetryView(message: error.localizedDescription, retryAction: {
-                    Task {
-                        await viewModel.search(query: viewModel.query)
-                    }
-                })
-            }
+        case .failure(_):
+            EmptyView()
         }
     }
 }

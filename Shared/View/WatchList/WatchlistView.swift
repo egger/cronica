@@ -35,10 +35,10 @@ struct WatchlistView: View {
                         } else {
                             switch selectedOrder {
                             case .released:
-                                WatchListSection(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow },
+                                WatchListSection(items: items.filter { $0.isReleased },
                                                  title: "Released")
                             case .upcoming:
-                                WatchListSection(items: items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow },
+                                WatchListSection(items: items.filter { $0.isUpcoming },
                                                  title: "Upcoming")
                             case .production:
                                 WatchListSection(items: items.filter { $0.isInProduction },
@@ -50,13 +50,13 @@ struct WatchlistView: View {
                                 WatchListSection(items: items.filter { $0.isWatched },
                                                  title: "Watched")
                             case .unwatched:
-                                WatchListSection(items: items.filter { !$0.isWatched },
+                                WatchListSection(items: items.filter { !$0.isWatched && $0.isReleased },
                                                  title: "To Watch")
                             }
                         }
                     }
                     .listStyle(.insetGrouped)
-                    .dropDestination(for: ItemContent.self) { items, location  in
+                    .dropDestination(for: ItemContent.self) { items, _  in
                         let context = PersistenceController.shared
                         for item in items {
                             context.save(item)
@@ -103,13 +103,6 @@ struct WatchlistView: View {
                         Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
                             .labelStyle(.iconOnly)
                     }
-//                    Picker(selection: $selectedOrder, content: {
-//                        ForEach(DefaultListTypes.allCases) { sort in
-//                            Text(sort.title).tag(sort)
-//                        }
-//                    }, label: {
-//                        Label("Sort List", systemImage: "arrow.up.arrow.down.circle")
-//                    })
                 }
             }
             .searchable(text: $query,

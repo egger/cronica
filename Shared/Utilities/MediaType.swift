@@ -21,7 +21,7 @@ enum MediaType: String, CaseIterable, Identifiable {
             return NSLocalizedString("People", comment: "")
         }
     }
-    var watchlistInt: Int64 {
+    var toInt: Int64 {
         switch self {
         case .movie: return 0
         case .tvShow: return 1

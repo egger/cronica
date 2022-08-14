@@ -93,12 +93,8 @@ struct SearchView: View {
             Label("No Results", systemImage: "minus.magnifyingglass")
                 .font(.title)
                 .foregroundColor(.secondary)
-        case .failure(let error):
-            RetryView(message: error.localizedDescription, retryAction: {
-                Task {
-                    await viewModel.search(query: viewModel.query)
-                }
-            })
+        case .failure(_):
+            EmptyView()
         default: EmptyView()
         }
     }

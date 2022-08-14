@@ -62,10 +62,10 @@ class NetworkService {
         guard let httpResponse = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
         let responseError = handleNetworkResponses(response: httpResponse)
         if let responseError {
-            #if targetEnvironment(simulator)
-            #else
-            TelemetryManager.send("fetchError", with: ["error":"\(responseError.message)"])
-            #endif
+#if targetEnvironment(simulator)
+#else
+            TelemetryManager.send("fetchError", with: ["error":"\(responseError.localizedName)"])
+#endif
             throw responseError
         } else {
             return try Utilities.decoder.decode(T.self, from: data)

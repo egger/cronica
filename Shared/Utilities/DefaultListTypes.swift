@@ -29,24 +29,3 @@ enum DefaultListTypes: String, Identifiable, Hashable, CaseIterable {
         }
     }
 }
-
-class WatchlistItemFilter: ObservableObject {
-    func filter(items: FetchedResults<WatchlistItem>, by filter: DefaultListTypes) -> [WatchlistItem] {
-        var results: [WatchlistItem]
-        switch filter {
-        case .released:
-            results = items.filter { $0.isReleasedMovie || $0.isReleasedTvShow }
-        case .upcoming:
-            results = items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow }
-        case .production:
-            results = items.filter { $0.isInProduction }
-        case .favorites:
-            results = items.filter { $0.favorite }
-        case .watched:
-            results = items.filter { $0.watched }
-        case .unwatched:
-            results = items.filter { !$0.watched }
-        }
-        return results
-    }
-}

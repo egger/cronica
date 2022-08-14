@@ -16,6 +16,7 @@ struct CastListView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Text("Cast & Crew")
+                        .font(.title3)
                         .padding([.horizontal, .top])
                     Spacer()
                 }
@@ -34,9 +35,6 @@ struct CastListView: View {
                             NavigationLink(value: director) {
                                 PersonCardView(person: director)
                                     .shadow(radius: DrawingConstants.shadowRadius)
-                                    .contextMenu {
-                                        ShareLink(item: director.itemURL)
-                                    }
                             }
                             .buttonStyle(.plain)
                         }

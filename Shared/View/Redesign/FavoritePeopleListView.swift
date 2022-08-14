@@ -21,9 +21,9 @@ struct FavoritePeopleListView: View {
             if !items.isEmpty {
                 List {
                     if !filteredItems.isEmpty {
-                        FavoritePeopleStructView(items: filteredItems, title: "Filtered Results")
+                        FavoritePeopleStructView(items: filteredItems, title: "Search Results")
                     } else if !query.isEmpty && filteredItems.isEmpty {
-                        Text("No results found.")
+                        Text("No results.")
                     } else {
                         FavoritePeopleStructView(items: items.filter { $0.type == .person }, title: "\(items.count) people")
                     }
@@ -52,8 +52,6 @@ struct FavoritePeopleListView: View {
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
         .disableAutocorrection(true)
     }
-    
-   
 }
 
 struct FavoritePeopleListView_Previews: PreviewProvider {

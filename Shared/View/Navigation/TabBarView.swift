@@ -22,19 +22,18 @@ struct TabBarView: View {
             DiscoverView()
                 .tag(DiscoverView.tag)
                 .tabItem { Label("Explore", systemImage: "film") }
-            if settings.useLegacy == .legacy {
-                WatchlistView()
-                    .tag(WatchlistView.tag)
-                    .tabItem {
-                        Label("Watchlist", systemImage: "square.stack.fill")
-                    }
-            } else {
-                CronicaListsView()
-                    .tag(CronicaListsView.tag)
-                    .tabItem {
-                        Label("Lists", systemImage: "square.stack.fill")
-                    }
-            }
+            WatchlistView()
+                .tag(WatchlistView.tag)
+                .tabItem {
+                    Label("Watchlist", systemImage: "square.stack.fill")
+                }
+#if targetEnvironment(simulator)
+            CronicaListsView()
+                .tag(CronicaListsView.tag)
+                .tabItem {
+                    Label("Lists", systemImage: "square.stack.fill")
+                }
+#endif
             SearchView()
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }

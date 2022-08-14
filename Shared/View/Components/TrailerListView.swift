@@ -17,7 +17,7 @@ struct TrailerListView: View {
                 Divider().padding(.horizontal)
                 HStack {
                     Text("Trailers")
-                        .fontWeight(.semibold)
+                        .font(.title3)
                         .padding([.horizontal, .top])
                     Spacer()
                 }

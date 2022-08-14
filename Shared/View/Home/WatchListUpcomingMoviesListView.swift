@@ -12,13 +12,13 @@ struct WatchListUpcomingMoviesListView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
+            NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: true),
         ],
         predicate: NSCompoundPredicate(type: .and,
                                        subpredicates: [
-                                        NSPredicate(format: "schedule == %d", ItemSchedule.soon.scheduleNumber),
+                                        NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
                                         NSPredicate(format: "notify == %d", true),
-                                        NSPredicate(format: "contentType == %d", MediaType.movie.watchlistInt)
+                                        NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
                                        ])
     )
     var items: FetchedResults<WatchlistItem>

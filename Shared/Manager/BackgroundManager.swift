@@ -15,7 +15,7 @@ class BackgroundManager {
     private let notifications = NotificationManager.shared
     
     func handleAppRefreshContent() {
-        let items = self.fetchWatchlistItems()
+        let items = self.fetchItems()
         Task {
             await self.fetchUpdates(items: items)
         }
@@ -23,13 +23,17 @@ class BackgroundManager {
     
     /// Fetch for any Watchlist item that match notify, soon, or tv predicates.
     /// - Returns: Returns a list of Watchlist items that matched the predicates.
-    private func fetchWatchlistItems() -> [WatchlistItem] {
+    private func fetchItems() -> [WatchlistItem] {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let notifyPredicate = NSPredicate(format: "notify == %d", true)
-        let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.scheduleNumber)
-        let tvPredicate = NSPredicate(format: "contentType == %d", MediaType.tvShow.watchlistInt)
+        let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt)
+        let renewedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.renewed.toInt)
+        let tvPredicate = NSPredicate(format: "contentType == %d", MediaType.tvShow.toInt)
         let orPredicate = NSCompoundPredicate(type: .or,
-                                              subpredicates: [notifyPredicate, soonPredicate, tvPredicate])
+                                              subpredicates: [notifyPredicate,
+                                                              soonPredicate,
+                                                              renewedPredicate,
+                                                              tvPredicate])
         request.predicate = orPredicate
         let list = try? self.context.container.viewContext.fetch(request)
         if let list {

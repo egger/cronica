@@ -20,7 +20,7 @@ struct PersistenceController {
             newItem.title = item.itemTitle
             newItem.id = Int64(item.id)
             newItem.image = item.cardImageMedium
-            newItem.contentType = MediaType.movie.watchlistInt
+            newItem.contentType = MediaType.movie.toInt
             newItem.notify = Bool.random()
         }
         do {
@@ -62,11 +62,11 @@ struct PersistenceController {
     func save(_ content: ItemContent, list: CustomListItem? = nil) {
         let viewContext = container.viewContext
         let item = WatchlistItem(context: viewContext)
-        item.contentType = content.itemContentMedia.watchlistInt
+        item.contentType = content.itemContentMedia.toInt
         item.title = content.itemTitle
         item.id = Int64(content.id)
         item.image = content.cardImageMedium
-        item.schedule = content.itemStatus.scheduleNumber
+        item.schedule = content.itemStatus.toInt
         item.notify = content.itemCanNotify
         item.formattedDate = content.itemTheatricalString
         if content.itemContentMedia == .tvShow {
@@ -148,17 +148,19 @@ struct PersistenceController {
     
     func updateEpisodeList(show: Int, season: Int, episode: Int) {
         let viewContext = container.viewContext
-        let item = fetch(for: WatchlistItem.ID(show))
-        if let item {
-            if isEpisodeSaved(show: show, season: season, episode: episode) {
-                let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
-                item.watchedEpisodes = watched
-            } else {
-                let watched = "-\(episode)@\(season)"
-                item.watchedEpisodes?.append(watched)
-            }
-            if viewContext.hasChanges {
-                try? viewContext.save()
+        if isItemSaved(id: show, type: .tvShow) {
+            let item = fetch(for: WatchlistItem.ID(show))
+            if let item {
+                if isEpisodeSaved(show: show, season: season, episode: episode) {
+                    let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
+                    item.watchedEpisodes = watched
+                } else {
+                    let watched = "-\(episode)@\(season)"
+                    item.watchedEpisodes?.append(watched)
+                }
+                if viewContext.hasChanges {
+                    try? viewContext.save()
+                }
             }
         }
     }
@@ -204,7 +206,7 @@ struct PersistenceController {
             if let item {
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
-                item.schedule = content.itemStatus.scheduleNumber
+                item.schedule = content.itemStatus.toInt
                 item.notify = content.itemCanNotify
                 item.formattedDate = content.itemTheatricalString
                 if content.itemContentMedia == .tvShow {
@@ -228,11 +230,13 @@ struct PersistenceController {
     
     /// Deletes a WatchlistItem from Core Data.
     func delete(_ item: WatchlistItem) {
-        let viewContext = container.viewContext
-        let item = try? viewContext.existingObject(with: item.objectID)
-        if let item {
-            viewContext.delete(item)
-            try? viewContext.save()
+        if isItemSaved(id: item.itemId, type: item.itemMedia) {
+            let viewContext = container.viewContext
+            let item = try? viewContext.existingObject(with: item.objectID)
+            if let item {
+                viewContext.delete(item)
+                try? viewContext.save()
+            }
         }
     }
     

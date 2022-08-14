@@ -38,12 +38,14 @@ struct ItemContentView: View {
                             WatchlistButtonView()
                                 .keyboardShortcut("l", modifiers: [.option])
                                 .environmentObject(viewModel)
-                                .padding(.horizontal)
+                                .frame(width: 260)
+                                .padding(.leading)
                             MarkAsMenuView()
                                 .environmentObject(viewModel)
                                 .buttonStyle(.bordered)
                                 .controlSize(.large)
-                                .padding(.horizontal)
+                                .frame(width: 260)
+                                .padding(.trailing)
                         }
                         .padding([.top, .bottom])
                         

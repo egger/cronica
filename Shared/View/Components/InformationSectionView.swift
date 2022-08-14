@@ -22,7 +22,7 @@ struct InformationSectionView: View {
                          content: item?.itemRating)
                 InfoView(title: NSLocalizedString("Status",
                                                      comment: ""),
-                         content: item?.itemStatus.scheduleTitle)
+                         content: item?.itemStatus.localizedTitle)
                 InfoView(title: NSLocalizedString("Genre",
                                                      comment: ""),
                             content: item?.itemGenre)

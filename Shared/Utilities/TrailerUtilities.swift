@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TrailerUtilities {
+struct TrailerUtilities {
     static func fetch(for videos: [VideosResult]? = nil) -> [VideoItem]? {
         if let videos {
             var items: [VideoItem] = []

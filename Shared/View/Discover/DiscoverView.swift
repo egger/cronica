@@ -65,7 +65,6 @@ struct DiscoverView: View {
                         PersonDetailsView(title: person.name, id: person.id)
                     }
                 }
-                
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
             .navigationTitle("Explore")

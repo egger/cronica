@@ -15,8 +15,8 @@ struct ItemView: View {
     private let context = PersistenceController.shared
     init(content: WatchlistItem) {
         self.content = content
-        isWatched = content.watched
-        isFavorite = content.favorite
+        isWatched = content.isWatched
+        isFavorite = content.isFavorite
     }
     var body: some View {
         HStack {
@@ -68,84 +68,63 @@ struct ItemView: View {
         }
         .accessibilityElement(children: .combine)
         .contextMenu {
-            Button(action: {
-                updateWatched()
-            }, label: {
-                Label(content.isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: content.isWatched ? "minus.circle" : "checkmark.circle")
-            })
-            Button(action: {
-                updateFavorite()
-            }, label: {
-                Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                      systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
-            })
+            watchedButton
+            favoriteButton
             ShareLink(item: content.itemLink)
             Divider()
-            Button(role: .destructive, action: {
-                deleteItem(item: content)
-            }, label: {
-                Label("Remove", systemImage: "trash")
-            })
+            deleteButton
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            Button(action: {
-                updateWatched()
-            }, label: {
-                Label(content.isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: content.isWatched ? "minus.circle" : "checkmark.circle")
-                .labelStyle(.titleAndIcon)
-            })
-            .controlSize(.large)
-            .tint(isWatched ? .yellow : .green)
-            .disabled(!content.isReleasedMovie)
-        }
-        .swipeActions(edge: .leading, allowsFullSwipe: false) {
-            Button(action: {
-                updateFavorite()
-            }, label: {
-                Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                      systemImage: isFavorite ? "heart.circle.fill" : "heart.circle")
-            })
-            .controlSize(.large)
-            .labelStyle(.titleAndIcon)
+            watchedButton
+                .tint(content.isWatched ? .yellow : .green)
+                .disabled(!content.isReleased)
+            favoriteButton
+                .tint(content.isFavorite ? .orange : .blue)
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-            Button(role: .destructive, action: {
-                deleteItem(item: content)
-            }, label: {
-                Label("Remove", systemImage: "trash")
-                    .labelStyle(.titleAndIcon)
-            })
-            .controlSize(.large)
+            deleteButton
         }
     }
     
-    private func updateFavorite() {
-        withAnimation {
+    private var watchedButton: some View {
+        Button(action: {
+            withAnimation {
+                HapticManager.shared.softHaptic()
+                withAnimation {
+                    isWatched.toggle()
+                }
+                context.updateMarkAs(id: content.itemId, watched: !content.watched)
+            }
+        }, label: {
+            Label(content.isWatched ? "Remove from Watched" : "Mark as Watched",
+                  systemImage: content.isWatched ? "minus.circle" : "checkmark.circle")
+        })
+    }
+    
+    private var favoriteButton: some View {
+        Button(action: {
+            withAnimation {
+                HapticManager.shared.softHaptic()
+                withAnimation {
+                    isFavorite.toggle()
+                }
+                context.updateMarkAs(id: content.itemId, favorite: !content.favorite)
+            }
+        }, label: {
+            Label(content.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                  systemImage: content.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
+        })
+    }
+    
+    private var deleteButton: some View {
+        Button(role: .destructive, action: {
             HapticManager.shared.softHaptic()
             withAnimation {
-                isFavorite.toggle()
+                context.delete(content)
             }
-            context.updateMarkAs(id: content.itemId, favorite: !content.favorite)
-        }
-    }
-    
-    private func updateWatched() {
-        withAnimation {
-            HapticManager.shared.softHaptic()
-            withAnimation {
-                isWatched.toggle()
-            }
-            context.updateMarkAs(id: content.itemId, watched: !content.watched)
-        }
-    }
-    
-    private func deleteItem(item: WatchlistItem) {
-        HapticManager.shared.softHaptic()
-        withAnimation {
-            context.delete(item)
-        }
+        }, label: {
+            Label("Remove", systemImage: "trash")
+        })
     }
 }
 
@@ -154,7 +133,6 @@ struct ItemView_Previews: PreviewProvider {
         ItemView(content: WatchlistItem.example)
     }
 }
-
 
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 70

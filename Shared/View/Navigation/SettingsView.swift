@@ -33,20 +33,6 @@ struct SettingsView: View {
                         .padding(.bottom)
                 }
                 
-#if targetEnvironment(simulator)
-                Section {
-                    Picker(selection: $store.useLegacy) {
-                        Text("Legacy").tag(UseLegacyWatchlist.legacy)
-                        Text("New").tag(UseLegacyWatchlist.new)
-                    } label: {
-                        Text("Watchlist Mode")
-                    }
-                    .pickerStyle(.menu)
-                } header: {
-                    Label("Developer Settings", systemImage: "hammer.fill")
-                }
-#endif
-                
                 Section {
                     Button( action: {
                         email.send(openURL: openURL)

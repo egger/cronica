@@ -35,8 +35,9 @@ struct WatchlistView: View {
                         Text("No results")
                     } else {
                         List {
-                            WatchlistSectionView(items: items.filter { $0.isReleasedMovie || $0.isReleasedTvShow }, title: "Released")
-                            WatchlistSectionView(items: items.filter { $0.isUpcomingMovie || $0.isUpcomingTvShow },
+                            WatchlistSectionView(items: items.filter { $0.isReleased },
+                                                 title: "Released")
+                            WatchlistSectionView(items: items.filter { $0.isUpcoming },
                                                  title: "Upcoming")
                             WatchlistSectionView(items: items.filter { $0.isInProduction },
                                                  title: "In Production")

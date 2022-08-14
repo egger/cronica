@@ -22,7 +22,7 @@ struct PersonCardView: View {
         ZStack {
             WebImage(url: person.personImage)
                 .placeholder {
-                    Color.secondary
+                    Rectangle().fill(.blue.gradient)
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -31,7 +31,7 @@ struct PersonCardView: View {
             WebImage(url: person.personImage, options: .highPriority)
                 .placeholder {
                     ZStack {
-                        Rectangle().fill(.secondary)
+                        Rectangle().fill(.blue.gradient)
                         Image(systemName: "person")
                             .resizable()
                             .aspectRatio(contentMode: .fit)

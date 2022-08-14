@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum ItemSchedule: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case soon, released, production, cancelled, unknown, renewed
-    var scheduleNumber: Int16 {
+    var toInt: Int16 {
         switch self {
         case .soon: return 0
         case .released: return 1
@@ -20,7 +21,7 @@ enum ItemSchedule: String, CaseIterable, Identifiable {
         case .renewed: return 5
         }
     }
-    var scheduleTitle: String {
+    var localizedTitle: String {
         switch self {
         case .soon:
             return NSLocalizedString("Coming Soon", comment: "")
@@ -33,7 +34,7 @@ enum ItemSchedule: String, CaseIterable, Identifiable {
         case .unknown:
             return NSLocalizedString("Unknown", comment: "")
         case .renewed:
-            return NSLocalizedString("Upcoming Season Soon", comment: "")
+            return NSLocalizedString("Renewed Series", comment: "")
         }
     }
 }

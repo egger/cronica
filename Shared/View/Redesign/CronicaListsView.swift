@@ -15,7 +15,11 @@ struct CronicaListsView: View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomListItem.title, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<CustomListItem>
+    private var lists: FetchedResults<CustomListItem>
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<WatchlistItem>
     private let persistence = PersistenceController.shared
     var body: some View {
         AdaptableNavigationView {
@@ -29,13 +33,12 @@ struct CronicaListsView: View {
                                 }
                             })
                         }
-                    } header: {
-                        Text("Default Lists")
+                        NavigationLink("Favorite People", destination: FavoritePeopleListView())
                     }
                     
-                    if !items.isEmpty {
+                    if !lists.isEmpty {
                         Section {
-                            ForEach(items) { item in
+                            ForEach(lists) { item in
                                 NavigationLink(value: item, label: {
                                     VStack(alignment: .leading) {
                                         Text(item.itemTitle)
@@ -60,11 +63,33 @@ struct CronicaListsView: View {
                 .listStyle(.insetGrouped)
             }
             .navigationTitle("Lists")
+            .searchable(text: $query, prompt: "Search Watchlist")
             .navigationDestination(for: DefaultListTypes.self) { item in
-                DefaultListView(list: item)
+                switch item {
+                case .released: ItemsWatchListView(items: items.filter { $0.isReleased },
+                                                defaultList: item,
+                                                title: item.title)
+                case .upcoming: ItemsWatchListView(items: items.filter { $0.isUpcoming },
+                                                defaultList: item,
+                                                title: item.title)
+                case .production: ItemsWatchListView(items: items.filter { $0.isInProduction },
+                                                  defaultList: item,
+                                                  title: item.title)
+                case .favorites: ItemsWatchListView(items: items.filter { $0.isFavorite },
+                                                 defaultList: item,
+                                                 title: item.title)
+                case .watched: ItemsWatchListView(items: items.filter { $0.isWatched },
+                                               defaultList: item,
+                                               title: item.title)
+                case .unwatched: ItemsWatchListView(items: items.filter { !$0.isWatched },
+                                                 defaultList: item,
+                                                 title: item.title)
+                }
             }
             .navigationDestination(for: CustomListItem.self) { item in
-                CustomListView(list: item)
+                ItemsWatchListView(items: items.filter { $0.list == item },
+                                                 customList: item,
+                                                 title: item.itemTitle)
             }
             .toolbar {
 #if targetEnvironment(simulator)
@@ -91,7 +116,7 @@ struct CronicaListsView: View {
                         }, message: {
                             Text("Enter a name for this list.")
                         })
-                        if !items.isEmpty {
+                        if !lists.isEmpty {
                             EditButton()
                         }
                     }

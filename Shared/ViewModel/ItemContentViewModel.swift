@@ -140,6 +140,15 @@ class ItemContentViewModel: ObservableObject {
                         notification.schedule(notificationContent: content)
                     }
                 }
+                if !isInWatchlist {
+                    withAnimation {
+                        hasNotificationScheduled = content.itemCanNotify
+                    }
+                } else {
+                    withAnimation {
+                        hasNotificationScheduled.toggle()
+                    }
+                }
             }
         }
     }

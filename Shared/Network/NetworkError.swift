@@ -6,27 +6,28 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum NetworkError: Error, CustomNSError {
     case invalidResponse, invalidRequest, invalidEndpoint, decodingError
     case invalidApi, internalError, maintenanceApi
     
-    var errorMessage: String {
+    var localizedName: LocalizedStringKey {
         switch self {
         case .invalidResponse:
-            return NSLocalizedString("Invalid Response", comment: "")
+            return "Invalid Response"
         case .invalidRequest:
-            return NSLocalizedString("Invalid Request", comment: "")
+            return "Invalid Request"
         case .invalidEndpoint:
-            return NSLocalizedString("Invalid Endpoint", comment: "")
+            return "Invalid Endpoint"
         case .decodingError:
-            return NSLocalizedString("Error reading this title", comment: "")
+            return "Error reading this title"
         case .invalidApi:
-            return NSLocalizedString("Invalid API key: You must be granted a valid key.", comment: "")
+            return "Invalid API key: You must be granted a valid key."
         case .internalError:
-            return NSLocalizedString("Internal error: Something went wrong, contact TMDB.", comment: "")
+            return "Internal error: Something went wrong, contact TMDB."
         case .maintenanceApi:
-            return NSLocalizedString("The API is undergoing maintenance. Try again later.", comment: "")
+            return "The API is undergoing maintenance. Try again later."
         }
     }
 }

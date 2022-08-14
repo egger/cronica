@@ -42,14 +42,9 @@ struct OverviewBoxView: View {
         .sheet(isPresented: $showDetailsSheet, content: {
             NavigationStack {
                 ScrollView {
-                    if let overview {
-                        Text(overview)
-                            .padding()
-                            .textSelection(.enabled)
-                    } else {
-                        Text("Not Available.")
-                            .padding()
-                    }
+                    Text(overview ?? NSLocalizedString("Not Available.", comment: ""))
+                        .padding()
+                        .textSelection(.enabled)
                 }
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)

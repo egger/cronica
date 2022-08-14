@@ -35,9 +35,8 @@ struct SearchItem: View {
                                   height: DrawingConstants.personImageHeight)
                            .clipShape(Circle())
             } else {
-#if os(watchOS)
                 WebImage(url: item.itemImage)
-                    .resizable() 
+                    .resizable()
                     .placeholder {
                         ZStack {
                             Color.secondary
@@ -51,32 +50,7 @@ struct SearchItem: View {
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-#else
-                AsyncImage(url: item.itemImage,
-                           transaction: Transaction(animation: .easeInOut)) { phase in
-                    if let image = phase.image {
-                        ZStack {
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .transition(.opacity)
-                        }
-                    } else if phase.error != nil {
-                        ZStack {
-                            Color.secondary
-                            ProgressView()
-                        }
-                    } else {
-                        ZStack {
-                            Color.secondary
-                            Image(systemName: "film")
-                        }
-                    }
-                }
-                           .frame(width: DrawingConstants.imageWidth,
-                                  height: DrawingConstants.imageHeight)
-                           .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-#endif
+                    .transition(.opacity)
             }
             VStack(alignment: .leading) {
                 HStack {

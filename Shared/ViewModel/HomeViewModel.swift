@@ -7,32 +7,35 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 @MainActor
 class HomeViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
-    @Published var trendingItems: [ItemContent] = []
-    @Published var sectionsItems: [ItemContentSection] = []
+    @Published var trending: [ItemContent] = []
+    @Published var sections: [ItemContentSection] = []
     
     func load() async {
         Task {
-            if trendingItems.isEmpty {
+            if trending.isEmpty {
                 let result = try? await service.fetchContents(from: "trending/all/week")
                 if let result {
-                    let trending = result.filter { $0.itemContentMedia != .person }
-                    trendingItems = trending
+                    let filtered = result.filter { $0.itemContentMedia != .person }
+                    trending = filtered
                 }
             }
-            if sectionsItems.isEmpty {
-                let sections = await self.fetchSections()
-                sectionsItems.append(contentsOf: sections)
+            if sections.isEmpty {
+                let result = await self.fetchSections()
+                sections.append(contentsOf: result)
             }
         }
     }
     
     func reload() async {
-        trendingItems.removeAll()
-        sectionsItems.removeAll()
+        withAnimation {
+            trending.removeAll()
+            sections.removeAll()
+        }
         await load()
     }
     
@@ -53,6 +56,10 @@ class HomeViewModel: ObservableObject {
         if let section {
             return .init(results: section, endpoint: endpoint)
         }
+        return nil
+    }
+    
+    private func fetchRecommendationFromPerson() -> [String: [ItemContent]]? {
         return nil
     }
 }
