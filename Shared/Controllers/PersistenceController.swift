@@ -254,8 +254,7 @@ struct PersistenceController {
         }
     }
     
-    //MARK: Data properties.
-    
+    // MARK: Data properties.
     /// Search if an item is added to the list.
     /// - Parameters:
     ///   - id: The ID used to fetch Watchlist list.
@@ -321,5 +320,4 @@ struct PersistenceController {
         }
         return false
     }
-    
 }

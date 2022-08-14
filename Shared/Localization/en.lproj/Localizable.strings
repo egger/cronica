@@ -178,3 +178,15 @@
 "New" = "New";
 "Developer Settings" = "Developer Settings";
 "Print object" = "Print object";
+
+// MARK: Error
+"Invalid Response" = "Invalid Response.";
+"Invalid Request" = "Invalid Request.";
+"Invalid Endpoint" = "Invalid Endpoint.";
+"Error reading this title" = "Error reading this title.";
+"Invalid API key: You must be granted a valid key." = "Invalid API key.";
+"Internal error: Something went wrong, contact TMDB." = "Internal error: Something went wrong, contact TMDB.";
+"The API is undergoing maintenance. Try again later." = "The API is undergoing maintenance. Try again later.";
+"Error" = "Error";
+"Cancel" = "Cancel";
+"Retry" = "Retry";

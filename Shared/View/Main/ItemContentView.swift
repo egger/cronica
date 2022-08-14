@@ -58,7 +58,8 @@ struct ItemContentView: View {
                     
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
-                    SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons, tvId: id)
+                    SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons,
+                                tvId: id)
                         .padding(0)
                     
                     CastListView(credits: viewModel.credits)
@@ -111,11 +112,7 @@ struct ItemContentView: View {
                     }
                 }
             }, message: {
-                if let error = viewModel.errorMessage {
-                    Text(error)
-                } else {
-                    Text("Error found, try again later.")
-                }
+                Text(viewModel.errorMessage)
             })
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
