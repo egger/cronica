@@ -72,6 +72,9 @@ extension ItemContent {
         if let shortItemRuntime {
             return "\(itemGenre) • \(shortItemRuntime)"
         }
+        if let itemFallbackDate {
+            return "\(itemGenre) • \(Utilities.dateString.string(from: itemFallbackDate))"
+        }
         if !itemGenre.isEmpty { return "\(itemGenre)" }
         return ""
     }
@@ -80,7 +83,11 @@ extension ItemContent {
     }
     var itemRating: String? {
         if let voteAverage {
-            return "\(voteAverage.rounded()) out of 10"
+            if voteAverage <= 0.9 {
+                return nil
+            } else {
+                return "\(voteAverage.rounded()) out of 10"
+            }
         }
         return nil
     }
@@ -144,6 +151,11 @@ extension ItemContent {
     var itemFallbackDate: Date? {
         if let releaseDate = releaseDate {
             return Utilities.dateFormatter.date(from: releaseDate)
+        }
+        if let lastEpisodeToAir {
+            if let date = lastEpisodeToAir.airDate {
+                return Utilities.dateFormatter.date(from: date)
+            }
         }
         return nil
     }

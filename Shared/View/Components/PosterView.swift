@@ -22,8 +22,7 @@ struct PosterView: View {
                    height: DrawingConstants.posterHeight)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
                                         style: .continuous))
-            .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                    radius: DrawingConstants.shadowRadius)
+            .shadow(radius: DrawingConstants.shadowRadius)
             .draggable(item)
             .padding(.zero)
     }
@@ -57,15 +56,13 @@ private struct PosterPlaceholder: View {
                height: DrawingConstants.posterHeight)
         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
                                     style: .continuous))
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                radius: DrawingConstants.shadowRadius)
+        .shadow(radius: DrawingConstants.shadowRadius)
     }
 }
 
 private struct DrawingConstants {
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
-    static let posterRadius: CGFloat = 8
-    static let shadowOpacity: Double = 0.5
+    static let posterRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2.5
 }

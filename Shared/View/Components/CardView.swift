@@ -76,9 +76,8 @@ struct CardView: View {
             }
             .frame(width: DrawingConstants.cardWidth,
                    height: DrawingConstants.cardHeight)
-            .cornerRadius(DrawingConstants.cardRadius)
-            .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                    radius: DrawingConstants.shadowRadius)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
+            .shadow(radius: DrawingConstants.shadowRadius)
             .modifier(UpcomingWatchlistContextMenu(item: item))
             .padding([.leading, .trailing], 4)
             .transition(.opacity)
@@ -97,8 +96,7 @@ struct CardView_Previews: PreviewProvider {
 private struct DrawingConstants {
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160
-    static let cardRadius: CGFloat = 8
-    static let shadowOpacity: Double = 0.5
+    static let cardRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1
 }

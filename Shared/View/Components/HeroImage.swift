@@ -32,9 +32,8 @@ struct HeroImage: View {
         }
         .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
                height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-        .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                radius: DrawingConstants.shadowRadius)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+        .shadow(radius: DrawingConstants.shadowRadius)
     }
 }
 
@@ -62,19 +61,16 @@ private struct HeroImagePlaceholder: View {
         }
         .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
                height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-        .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
-        .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                radius: DrawingConstants.shadowRadius)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+        .shadow(radius: DrawingConstants.shadowRadius)
     }
 }
 
 private struct DrawingConstants {
-    static let shadowOpacity: Double = 0.2
     static let shadowRadius: CGFloat = 5
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 12
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
-    static let padImageRadius: CGFloat = 12
 }
