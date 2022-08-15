@@ -56,7 +56,6 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
-    //MARK: CRUD operations.
     /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
     func save(_ content: ItemContent, list: CustomListItem? = nil) {
@@ -68,6 +67,11 @@ struct PersistenceController {
         item.image = content.cardImageMedium
         item.schedule = content.itemStatus.toInt
         item.notify = content.itemCanNotify
+        if let theatrical = content.itemTheatricalDate {
+            item.date = theatrical
+        } else {
+            item.date = content.itemFallbackDate
+        }
         item.formattedDate = content.itemTheatricalString
         if content.itemContentMedia == .tvShow {
             item.upcomingSeason = content.hasUpcomingSeason
@@ -213,6 +217,11 @@ struct PersistenceController {
                     item.upcomingSeason = content.hasUpcomingSeason
                     item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                 }
+                if let theatrical = content.itemTheatricalDate {
+                    item.date = theatrical
+                } else {
+                    item.date = content.itemFallbackDate
+                }
                 if let watched {
                     item.watched = watched
                 }
@@ -258,7 +267,6 @@ struct PersistenceController {
         }
     }
     
-    // MARK: Data properties.
     /// Search if an item is added to the list.
     /// - Parameters:
     ///   - id: The ID used to fetch Watchlist list.

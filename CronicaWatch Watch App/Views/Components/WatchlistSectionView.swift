@@ -15,7 +15,7 @@ struct WatchlistSectionView: View {
             Section {
                 ForEach(items) { item in
                     NavigationLink(value: item) {
-                        ItemView(content: item)
+                        WatchlistItemView(content: item)
                     }
                 }
             } header: {

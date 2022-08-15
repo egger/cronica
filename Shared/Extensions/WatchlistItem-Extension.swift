@@ -40,7 +40,10 @@ extension WatchlistItem {
         switch itemMedia {
         case .tvShow:
             if upcomingSeason {
-                return NSLocalizedString("Season \(nextSeasonNumber)", comment: "")
+                if let formattedDate {
+                    return "Season \(nextSeasonNumber) • \(formattedDate)"
+                }
+                return "Season \(nextSeasonNumber)"
             }
         default:
             if let formattedDate {

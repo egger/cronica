@@ -29,16 +29,14 @@ struct EpisodeDetailsView: View {
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.coverImageShadow)
                 
-                Button(action: {
-                    updateWatched()
-                }, label: {
-                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-                })
-                .tint(isWatched ? .red : .blue)
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .padding([.top, .horizontal])
+                WatchEpisodeButtonView(episode: episode,
+                                       season: season,
+                                       show: show,
+                                       isWatched: $isWatched)
+                    .tint(isWatched ? .red : .blue)
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
+                    .padding([.top, .horizontal])
                 
                 OverviewBoxView(overview: episode.overview,
                                 title: episode.itemTitle,
@@ -51,14 +49,6 @@ struct EpisodeDetailsView: View {
                 load()
             }
         }
-    }
-    
-    private func updateWatched() {
-        HapticManager.shared.lightHaptic()
-        withAnimation {
-            isWatched.toggle()
-        }
-        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
     }
     
     private func load() {

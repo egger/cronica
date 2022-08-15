@@ -16,7 +16,6 @@ struct EpisodeFrameView: View {
     let show: Int
     private let persistence = PersistenceController.shared
     @State private var isWatched: Bool = false
-    @State private var isPad: Bool = UIDevice.isIPad
     init(episode: Episode, season: Int, show: Int) {
         self.episode = episode
         self.season = season
@@ -59,15 +58,10 @@ struct EpisodeFrameView: View {
                     }
                 }
                 .contextMenu {
-                    Button(action: {
-                        withAnimation {
-                            isWatched.toggle()
-                        }
-                        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
-                    }, label: {
-                        Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                              systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-                    })
+                    WatchEpisodeButtonView(episode: episode,
+                                           season: season,
+                                           show: show,
+                                           isWatched: $isWatched)
                 }
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")

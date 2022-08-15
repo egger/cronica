@@ -28,7 +28,7 @@ struct WatchlistView: View {
                     if !filteredItems.isEmpty {
                         List(filteredItems) { item in
                             NavigationLink(value: item) {
-                                ItemView(content: item)
+                                WatchlistItemView(content: item)
                             }
                         }
                     } else if !query.isEmpty && filteredItems.isEmpty {

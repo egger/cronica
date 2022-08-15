@@ -13,7 +13,7 @@ import TelemetryClient
 struct StoryApp: App {
     let persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
-    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.scenePhase) private var scene
     init() {
 #if targetEnvironment(simulator)
 #else
@@ -26,18 +26,14 @@ struct StoryApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
-                .onChange(of: scenePhase) { phase in
-                    switch phase {
-                    case .background:
-                        scheduleAppRefresh()
-                    default:
-                        print("Phase: \(phase).")
-                    }
-                }
+        }
+        .onChange(of: scene) { phase in
+            if phase == .background {
+                scheduleAppRefresh()
+            }
         }
     }
     
-    //MARK: Background task
     private func registerRefreshBGTask() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundIdentifier, using: nil) { task in
             self.handleAppRefresh(task: task as? BGAppRefreshTask ?? nil)

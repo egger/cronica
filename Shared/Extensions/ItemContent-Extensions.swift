@@ -130,6 +130,9 @@ extension ItemContent {
         if let dates = releaseDates?.results {
             return Utilities.getReleaseDateFormatted(results: dates)
         }
+        if let date = nextEpisodeDate {
+            return "\(Utilities.dateString.string(from: date))"
+        }
         return nil
     }
     var itemTheatricalDate: Date? {
@@ -189,7 +192,6 @@ extension ItemContent {
         default: return .movie
         }
     }
-    // MARK: Sample Data for preview
     static var previewContents: [ItemContent] {
         let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results

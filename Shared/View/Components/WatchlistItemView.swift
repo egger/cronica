@@ -1,5 +1,5 @@
 //
-//  ItemView.swift
+//  WatchlistItemView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 07/02/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ItemView: View {
+struct WatchlistItemView: View {
     let content: WatchlistItem
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
@@ -130,7 +130,7 @@ struct ItemView: View {
 
 struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemView(content: WatchlistItem.example)
+        WatchlistItemView(content: WatchlistItem.example)
     }
 }
 

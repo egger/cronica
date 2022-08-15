@@ -16,7 +16,7 @@ struct TitleView: View {
             VStack {
                 HStack {
                     Text(NSLocalizedString(title, comment: ""))
-                        .font(.headline)
+                        .font(.title3)
                         .padding([.top, .horizontal])
                     Spacer()
                 }

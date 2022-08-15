@@ -42,21 +42,6 @@ struct SideBarView: View {
                 } isTargeted: { inDropArea in
                     print(inDropArea)
                 }
-#if targetEnvironment(simulator)
-                NavigationLink(value: Screens.lists) {
-                    Label("Lists", systemImage: "square.stack.fill")
-                }
-                .tag(CronicaListsView.tag)
-                .dropDestination(for: ItemContent.self) { items, location  in
-                    let context = PersistenceController.shared
-                    for item in items {
-                        context.save(item)
-                    }
-                    return true
-                } isTargeted: { inDropArea in
-                    print(inDropArea)
-                }
-#endif
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
@@ -105,7 +90,6 @@ struct SideBarView: View {
                     case .home: HomeView()
                     case .discover: DiscoverView()
                     case .watchlist: WatchlistView()
-                    case .lists: CronicaListsView()
                     case .search: SearchView()
                     }
                 }

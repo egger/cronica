@@ -27,13 +27,6 @@ struct TabBarView: View {
                 .tabItem {
                     Label("Watchlist", systemImage: "square.stack.fill")
                 }
-#if targetEnvironment(simulator)
-            CronicaListsView()
-                .tag(CronicaListsView.tag)
-                .tabItem {
-                    Label("Lists", systemImage: "square.stack.fill")
-                }
-#endif
             SearchView()
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
