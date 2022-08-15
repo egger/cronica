@@ -36,7 +36,6 @@ struct TitleView: View {
                     .accessibilityHidden(true)
             }
         }
-        .unredacted()
         .accessibilityElement(children: .combine)
     }
 }

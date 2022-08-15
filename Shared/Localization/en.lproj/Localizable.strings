@@ -141,6 +141,7 @@
 "Seasons" = "Seasons";
 "Season %lld" = "Season %lld";
 "Episode %lld" = "Episode %lld";
+"Mark Season as Watched" = "Mark Season as Watched";
 
 //MARK: FilmographyView.swift
 "Filmography" = "Filmography";

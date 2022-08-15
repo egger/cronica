@@ -36,6 +36,15 @@ struct SeasonsView: View {
                     .padding(.leading)
                     .padding(.bottom, 1)
                     Spacer()
+                    Menu {
+                        Button("Mark Season as Watched") {
+                            viewModel.markSeasonAsWatched(id: tvId)
+                        }
+                    } label: {
+                        Label("More", systemImage: "ellipsis.circle")
+                            .labelStyle(.iconOnly)
+                    }
+                    .padding(.horizontal)
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {

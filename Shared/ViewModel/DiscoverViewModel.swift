@@ -11,38 +11,34 @@ import SwiftUI
 @MainActor
 class DiscoverViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
-    @Published var items: [ItemContent]?
-    private var id: Int = 0
-    private var type: MediaType = .movie
+    @Published var items = [ItemContent]()
+    @Published var selectedGenre: Int = 28
+    @Published var selectedMedia: MediaType = .movie
+    @Published var isLoaded: Bool = false
     // MARK: Pagination Properties
     @Published var currentPage: Int = 0
     @Published var startPagination: Bool = false
     @Published var endPagination: Bool = false
     @Published var restartFetch: Bool = false
     
-    init(id: Int, type: MediaType) {
-        self.id = id
-        self.type = type
-    }
-    
-    func clearItems() {
+    private func clearItems() {
         withAnimation {
-            items?.removeAll()
+            isLoaded = false
+            items.removeAll()
         }
     }
     
-    func loadMoreItems(genre: Int? = nil, media: MediaType? = nil) {
+    func loadMoreItems() {
         if restartFetch {
             currentPage = 0
             startPagination = true
             clearItems()
-            if let genre {
-                self.id = genre
-            }
-            if let media {
-                self.type = media
-            }
             restartFetch = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                withAnimation {
+                    self.isLoaded = true
+                }
+            }
         }
         currentPage += 1
         Task {
@@ -51,12 +47,18 @@ class DiscoverViewModel: ObservableObject {
     }
     
     private func fetch() async {
-        let result = try? await service.fetchDiscover(type: type,
+        let result = try? await service.fetchDiscover(type: selectedMedia,
                                                       page: currentPage,
-                                                      genres: "\(self.id)")
+                                                      genres: "\(selectedGenre)")
         Task {
-            if items == nil { items = [] }
-            items?.append(contentsOf: result ?? [])
+            items.append(contentsOf: result ?? [])
+            if currentPage == 1 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    withAnimation {
+                        self.isLoaded = true
+                    }
+                }
+            }
             endPagination = currentPage == 1000
             startPagination = false
         }
@@ -82,7 +84,7 @@ class DiscoverViewModel: ObservableObject {
         Genre(id: 53, name: NSLocalizedString("Thriller", comment: "")),
         Genre(id: 10752, name: NSLocalizedString("War", comment: ""))
     ]
-    let tvShows: [Genre] = [
+    let shows: [Genre] = [
         Genre(id: 10759, name: NSLocalizedString("Action & Adventure", comment: "")),
         Genre(id: 16, name: NSLocalizedString("Animation", comment: "")),
         Genre(id: 35, name: NSLocalizedString("Comedy", comment: "")),

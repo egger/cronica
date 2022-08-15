@@ -22,6 +22,10 @@ struct HomeView: View {
     var body: some View {
         AdaptableNavigationView {
             ZStack {
+                if !viewModel.isLoaded {
+                    ProgressView()
+                        .unredacted()
+                }
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
                         WatchListUpcomingMoviesListView()
@@ -49,7 +53,7 @@ struct HomeView: View {
                     .navigationDestination(for: WatchlistItem.self) { item in
                         ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
                     }
-                    .redacted(reason: isLoading ? .placeholder : [] )
+                    .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
                     .navigationTitle("Home")
                     .toolbar {
                         if UIDevice.isIPhone {
@@ -70,7 +74,9 @@ struct HomeView: View {
                         SettingsView(showSettings: $showSettings)
                             .environmentObject(settings)
                     }
-                    .task { load() }
+                    .task {
+                        await viewModel.load()
+                    }
                 }
                 .refreshable {
                     Task {
@@ -78,15 +84,6 @@ struct HomeView: View {
                     }
                 }
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
-            }
-        }
-    }
-    
-    private func load() {
-        Task {
-            await viewModel.load()
-            withAnimation {
-                isLoading = false
             }
         }
     }

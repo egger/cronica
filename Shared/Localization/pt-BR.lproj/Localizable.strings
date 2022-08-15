@@ -141,6 +141,7 @@
 "Seasons" = "Temporadas";
 "Season %lld" = "Temporada %lld";
 "Episode %lld" = "Episódio %lld";
+"Mark Season as Watched" = "Marcar temporada como assistida";
 
 //MARK: FilmographyView.swift
 "Filmography" = "Filmografia";

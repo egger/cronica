@@ -28,4 +28,14 @@ class SeasonViewModel: ObservableObject {
         }
         isLoading = false
     }
+    
+    func markSeasonAsWatched(id: Int) {
+        if let season {
+            if let episodes = season.episodes {
+                for episode in episodes {
+                    persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
+                }
+            }
+        }
+    }
 }

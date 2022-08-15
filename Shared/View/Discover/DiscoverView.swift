@@ -10,29 +10,31 @@ import SwiftUI
 struct DiscoverView: View {
     static let tag: Screens? = .discover
     @State private var showConfirmation = false
-    @State private var selectedMedia: MediaType = .movie
-    @State private var selectedGenre: Int = 28
-    @State private var isLoading = true
     @State private var onChanging = false
     @StateObject private var viewModel: DiscoverViewModel
-    let columns: [GridItem] = [
+    private let columns: [GridItem] = [
         GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))
     ]
     init() {
-        _viewModel = StateObject(wrappedValue: DiscoverViewModel(id: 28, type: .movie))
+        _viewModel = StateObject(wrappedValue: DiscoverViewModel())
     }
     var body: some View {
         AdaptableNavigationView {
             ZStack {
+                if !viewModel.isLoaded {
+                    ProgressView()
+                        .unredacted()
+                }
                 ScrollView {
                     VStack {
-                        if let content = viewModel.items {
-                            LazyVGrid(columns: columns, spacing: 20) {
-                                ForEach(content) { item in
-                                    ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
-                                        .buttonStyle(.plain)
-                                }
-                                if viewModel.startPagination || !viewModel.endPagination {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(viewModel.items) { item in
+                                ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            }
+                            if !viewModel.startPagination || !viewModel.endPagination {
+                                HStack {
+                                    Spacer()
                                     ProgressView()
                                         .padding()
                                         .onAppear {
@@ -40,23 +42,22 @@ struct DiscoverView: View {
                                                 viewModel.loadMoreItems()
                                             }
                                         }
-                                }
-                            }
-                            .padding()
-                            if viewModel.endPagination {
-                                HStack {
-                                    Spacer()
-                                    Text("This is the end.")
-                                        .padding()
-                                        .font(.callout)
-                                        .foregroundColor(.secondary)
                                     Spacer()
                                 }
                             }
-                            AttributionView()
-                        } else {
-                            ProgressView()
                         }
+                        .padding()
+                        if viewModel.endPagination {
+                            HStack {
+                                Spacer()
+                                Text("This is the end.")
+                                    .padding()
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                            }
+                        }
+                        AttributionView()
                     }
                     .navigationDestination(for: ItemContent.self) { item in
                         ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
@@ -71,23 +72,23 @@ struct DiscoverView: View {
             .task {
                 load()
             }
-            .redacted(reason: isLoading ? .placeholder : [] )
+            .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Picker("Media", selection: $selectedMedia) {
+                    Picker("Media", selection: $viewModel.selectedMedia) {
                         Text(MediaType.movie.title).tag(MediaType.movie)
                         Text(MediaType.tvShow.title).tag(MediaType.tvShow)
                     }
                     .pickerStyle(.menu)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Picker("Genre", selection: $selectedGenre) {
-                        if selectedMedia == .movie {
+                    Picker("Genre", selection: $viewModel.selectedGenre) {
+                        if viewModel.selectedMedia == .movie {
                             ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
                                 Text(genre.name!).tag(genre.id)
                             }
                         } else {
-                            ForEach(viewModel.tvShows.sorted { $0.name! < $1.name! }) { genre in
+                            ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
                                 Text(genre.name!).tag(genre.id)
                             }
                         }
@@ -95,20 +96,20 @@ struct DiscoverView: View {
                     .pickerStyle(.menu)
                 }
             }
-            .onChange(of: selectedMedia) { value in
+            .onChange(of: viewModel.selectedMedia) { value in
                 onChanging = true
                 var genre: Genre?
                 if value == .tvShow {
-                    genre = viewModel.tvShows[0]
+                    genre = viewModel.shows[0]
                 } else {
                     genre = viewModel.movies[0]
                 }
                 if let genre {
-                    selectedGenre = genre.id
+                    viewModel.selectedGenre = genre.id
                 }
                 load()
             }
-            .onChange(of: selectedGenre) { value in
+            .onChange(of: viewModel.selectedGenre) { value in
                 onChanging = true
                 load()
             }
@@ -119,20 +120,10 @@ struct DiscoverView: View {
         Task {
             if onChanging {
                 viewModel.restartFetch = true
-                withAnimation {
-                    isLoading = true
-                }
                 onChanging = false
-                viewModel.loadMoreItems(genre: selectedGenre, media: selectedMedia)
+                viewModel.loadMoreItems()
             } else {
                 viewModel.loadMoreItems()
-            }
-            if viewModel.currentPage == 1 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    withAnimation {
-                        isLoading = false
-                    }
-                }
             }
         }
     }

@@ -42,6 +42,8 @@ struct EpisodeDetailsView: View {
                                 title: episode.itemTitle,
                                 type: .tvShow)
                 .padding()
+                
+                AttributionView()
             }
             .navigationTitle(episode.itemTitle)
             .navigationBarTitleDisplayMode(.inline)

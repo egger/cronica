@@ -14,6 +14,7 @@ class HomeViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published var trending: [ItemContent] = []
     @Published var sections: [ItemContentSection] = []
+    @Published var isLoaded: Bool = false
     
     func load() async {
         Task {
@@ -28,13 +29,18 @@ class HomeViewModel: ObservableObject {
                 let result = await self.fetchSections()
                 sections.append(contentsOf: result)
             }
+            withAnimation {
+                isLoaded = true
+            }
         }
     }
     
     func reload() async {
         withAnimation {
+            isLoaded = false
             trending.removeAll()
             sections.removeAll()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { }
         }
         await load()
     }
