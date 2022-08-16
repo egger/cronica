@@ -12,10 +12,9 @@ struct CardView: View {
     let item: WatchlistItem
     var body: some View {
         if item.image != nil {
-            ZStack {
-                Rectangle().fill(.ultraThinMaterial)
-                Color.black.opacity(0.6)
+            VStack {
                 WebImage(url: item.image, options: .highPriority)
+                    .resizable()
                     .placeholder {
                         ZStack {
                             Color.black.opacity(0.4)
@@ -24,55 +23,78 @@ struct CardView: View {
                                 .foregroundColor(.secondary)
                         }
                     }
-                    .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .mask(
-                        LinearGradient(gradient: Gradient(stops: [
-                            .init(color: .black, location: 0),
-                            .init(color: .black, location: 0.5),
-                            .init(color: .black.opacity(0), location: 1)
-                        ]), startPoint: .top, endPoint: .bottom)
-                    )
-                    .transition(.opacity)
-                if let info = item.itemGlanceInfo {
-                    VStack(alignment: .leading) {
-                        Spacer()
-                        HStack {
-                            Text(item.itemTitle)
-                                .fontWeight(.semibold)
-                                .font(.callout)
-                                .foregroundColor(.white)
-                                .lineLimit(DrawingConstants.lineLimits)
-                                .padding(.leading)
-                            Spacer()
-                        }
-                        HStack {
-                            Text(info)
-                                .font(.caption)
-                                .foregroundColor(.white)
-                                .lineLimit(DrawingConstants.lineLimits)
-                                .padding(.leading)
-                                .padding(.bottom, 8)
-                            Spacer()
+                    .overlay {
+                        ZStack(alignment: .bottom) {
+                            Color.black.opacity(0.2)
+                                .frame(height: 40)
+                                .mask {
+                                    LinearGradient(colors: [Color.black.opacity(0),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.924),
+                                                            Color.black],
+                                                   startPoint: .top,
+                                                   endPoint: .bottom)
+                                }
+                            Rectangle()
+                                .fill(.ultraThinMaterial)
+                                .frame(height: 70)
+                                .mask {
+                                    VStack(spacing: 0) {
+                                        LinearGradient(colors: [Color.black.opacity(0),
+                                                                Color.black.opacity(0.383),
+                                                                Color.black.opacity(0.707),
+                                                                Color.black.opacity(0.924),
+                                                                Color.black],
+                                                       startPoint: .top,
+                                                       endPoint: .bottom)
+                                        .frame(height: 50)
+                                        Rectangle()
+                                    }
+                                }
+                            if let info = item.itemGlanceInfo {
+                                VStack(alignment: .leading) {
+                                    Spacer()
+                                    HStack {
+                                        Text(item.itemTitle)
+                                            .fontWeight(.semibold)
+                                            .font(.callout)
+                                            .foregroundColor(.white)
+                                            .lineLimit(DrawingConstants.lineLimits)
+                                            .padding(.leading)
+                                        Spacer()
+                                    }
+                                    HStack {
+                                        Text(info)
+                                            .font(.caption)
+                                            .foregroundColor(.white)
+                                            .lineLimit(DrawingConstants.lineLimits)
+                                            .padding(.leading)
+                                            .padding(.bottom, 8)
+                                        Spacer()
+                                    }
+                                }
+                                .padding(.horizontal, 2)
+                            } else {
+                                VStack(alignment: .leading) {
+                                    Spacer()
+                                    HStack {
+                                        Text(item.itemTitle)
+                                            .fontWeight(.semibold)
+                                            .font(.callout)
+                                            .foregroundColor(.white)
+                                            .lineLimit(DrawingConstants.lineLimits)
+                                            .padding()
+                                        Spacer()
+                                    }
+
+                                }
+                                .padding(.horizontal, 2)
+                            }
+
                         }
                     }
-                    .padding(.horizontal, 2)
-                } else {
-                    VStack(alignment: .leading) {
-                        Spacer()
-                        HStack {
-                            Text(item.itemTitle)
-                                .fontWeight(.semibold)
-                                .font(.callout)
-                                .foregroundColor(.white)
-                                .lineLimit(DrawingConstants.lineLimits)
-                                .padding()
-                            Spacer()
-                        }
-                        
-                    }
-                    .padding(.horizontal, 2)
-                }
             }
             .frame(width: DrawingConstants.cardWidth,
                    height: DrawingConstants.cardHeight)

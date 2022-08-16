@@ -57,7 +57,9 @@ struct DiscoverView: View {
                                 Spacer()
                             }
                         }
-                        AttributionView()
+                        if !viewModel.items.isEmpty {
+                            AttributionView()
+                        }
                     }
                     .navigationDestination(for: ItemContent.self) { item in
                         ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)

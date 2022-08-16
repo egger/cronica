@@ -56,6 +56,7 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
+    // MARK: WatchlistItem
     /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
     func save(_ content: ItemContent, list: CustomListItem? = nil) {
@@ -83,32 +84,6 @@ struct PersistenceController {
         try? viewContext.save()
     }
     
-    func save(_ person: Person) {
-        if !isPersonSaved(id: person.id) {
-            let viewContext = container.viewContext
-            let item = PersonItem(context: viewContext)
-            item.name = person.name
-            item.id = Int64(person.id)
-            item.image = person.personImage
-            if viewContext.hasChanges {
-                try? viewContext.save()
-            }
-        }
-    }
-    
-    /// Save a new CustomListItem to CoreData
-    /// - Parameter title: The title for the new list.
-    func save(withTitle title: String) {
-        let viewContext = container.viewContext
-        let item = CustomListItem(context: viewContext)
-        item.id = UUID()
-        item.title = title
-        if viewContext.hasChanges {
-            try? viewContext.save()
-            print(item as Any)
-        }
-    }
-    
     /// Get an item from the Watchlist.
     /// - Parameter id: The ID used to fetch the list.
     /// - Returns: If the item is in the list, it will return it.
@@ -121,85 +96,6 @@ struct PersistenceController {
             return item[0]
         }
         return nil
-    }
-    
-    func fetch(person id: PersonItem.ID) -> PersonItem? {
-        let context = container.viewContext
-        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", id)
-        let item = try? context.fetch(request)
-        if let item {
-            return item[0]
-        }
-        return nil
-    }
-    
-    func updateMarkAs(id: Int, watched: Bool? = nil, favorite: Bool? = nil) {
-        let viewContext = container.viewContext
-        let item = self.fetch(for: WatchlistItem.ID(id))
-        if let item {
-            if let watched {
-                item.watched = watched
-            }
-            if let favorite {
-                item.favorite = favorite
-            }
-            if viewContext.hasChanges {
-                try? viewContext.save()
-            }
-        }
-    }
-    
-    func updateEpisodeList(show: Int, season: Int, episode: Int) {
-        let viewContext = container.viewContext
-        if isItemSaved(id: show, type: .tvShow) {
-            let item = fetch(for: WatchlistItem.ID(show))
-            if let item {
-                if isEpisodeSaved(show: show, season: season, episode: episode) {
-                    let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
-                    item.watchedEpisodes = watched
-                } else {
-                    let watched = "-\(episode)@\(season)"
-                    item.watchedEpisodes?.append(watched)
-                }
-                if viewContext.hasChanges {
-                    try? viewContext.save()
-                }
-            }
-        }
-    }
-    
-    func updateItemOnList(_ content: ItemContent, to list: CustomListItem) {
-        let item = fetch(for: WatchlistItem.ID(content.id))
-        if let item {
-            let viewContext = container.viewContext
-            item.list = list
-            if viewContext.hasChanges {
-                try? viewContext.save()
-            }
-        }
-    }
-    
-    func renameList(_ item: CustomListItem, title: String) {
-        let viewContext = container.viewContext
-        item.title = title
-        if viewContext.hasChanges {
-            try? viewContext.save()
-        }
-    }
-    
-    func isEpisodeSaved(show: Int, season: Int, episode: Int) -> Bool {
-        if isItemSaved(id: show, type: .tvShow) {
-            let item = fetch(for: WatchlistItem.ID(show))
-            if let item {
-                if let watched = item.watchedEpisodes {
-                    if watched.contains("-\(episode)@\(season)") {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
     }
     
     // Updates a WatchlistItem on Core Data.
@@ -249,24 +145,6 @@ struct PersistenceController {
         }
     }
     
-    func delete(_ item: PersonItem) {
-        let viewContext = container.viewContext
-        let person = try? viewContext.existingObject(with: item.objectID)
-        if let person {
-            viewContext.delete(person)
-            try? viewContext.save()
-        }
-    }
-    
-    func delete(_ item: CustomListItem) {
-        let viewContext = container.viewContext
-        let list = try? viewContext.existingObject(with: item.objectID)
-        if let list {
-            viewContext.delete(list)
-            try? viewContext.save()
-        }
-    }
-    
     /// Search if an item is added to the list.
     /// - Parameters:
     ///   - id: The ID used to fetch Watchlist list.
@@ -291,37 +169,53 @@ struct PersistenceController {
         return false
     }
     
-    func isPersonSaved(id: Person.ID) -> Bool {
-        let context = container.viewContext
-        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", PersonItem.ID(id))
-        let numberOfObjects = try? context.count(for: request)
-        if let numberOfObjects {
-            if numberOfObjects > 0 { return true }
+    func updateMarkAs(id: Int, watched: Bool? = nil, favorite: Bool? = nil) {
+        let viewContext = container.viewContext
+        let item = self.fetch(for: WatchlistItem.ID(id))
+        if let item {
+            if let watched {
+                item.watched = watched
+            }
+            if let favorite {
+                item.favorite = favorite
+            }
+            if viewContext.hasChanges {
+                try? viewContext.save()
+            }
         }
-        return false
     }
     
-    func isCustomListAvailable() -> Bool {
-        let context = container.viewContext
-        let request: NSFetchRequest<CustomListItem> = CustomListItem.fetchRequest()
-        let numberOfObjects = try? context.count(for: request)
-        if let numberOfObjects {
-            if numberOfObjects > 0 { return true }
-        }
-        return false
-    }
-    
-    func isItemSavedOnList(_ content: ItemContent?) -> CustomListItem? {
-        if let content {
-            let item = fetch(for: WatchlistItem.ID(content.id))
+    func updateEpisodeList(show: Int, season: Int, episode: Int) {
+        let viewContext = container.viewContext
+        if isItemSaved(id: show, type: .tvShow) {
+            let item = fetch(for: WatchlistItem.ID(show))
             if let item {
-                if item.itemMedia == content.itemContentMedia {
-                    return item.list
+                if isEpisodeSaved(show: show, season: season, episode: episode) {
+                    let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
+                    item.watchedEpisodes = watched
+                } else {
+                    let watched = "-\(episode)@\(season)"
+                    item.watchedEpisodes?.append(watched)
+                }
+                if viewContext.hasChanges {
+                    try? viewContext.save()
                 }
             }
         }
-        return nil
+    }
+    
+    func isEpisodeSaved(show: Int, season: Int, episode: Int) -> Bool {
+        if isItemSaved(id: show, type: .tvShow) {
+            let item = fetch(for: WatchlistItem.ID(show))
+            if let item {
+                if let watched = item.watchedEpisodes {
+                    if watched.contains("-\(episode)@\(season)") {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
     
     /// Returns a boolean indicating the status of 'watched' on a given item.
@@ -329,6 +223,51 @@ struct PersistenceController {
         let item = fetch(for: WatchlistItem.ID(id))
         if let item {
             return item.watched
+        }
+        return false
+    }
+    
+    // MARK: PersonItem
+    func save(_ person: Person) {
+        if !isPersonSaved(id: person.id) {
+            let viewContext = container.viewContext
+            let item = PersonItem(context: viewContext)
+            item.name = person.name
+            item.id = Int64(person.id)
+            item.image = person.personImage
+            if viewContext.hasChanges {
+                try? viewContext.save()
+            }
+        }
+    }
+    
+    func fetch(person id: PersonItem.ID) -> PersonItem? {
+        let context = container.viewContext
+        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", id)
+        let item = try? context.fetch(request)
+        if let item {
+            return item[0]
+        }
+        return nil
+    }
+
+    func delete(_ item: PersonItem) {
+        let viewContext = container.viewContext
+        let person = try? viewContext.existingObject(with: item.objectID)
+        if let person {
+            viewContext.delete(person)
+            try? viewContext.save()
+        }
+    }
+    
+    func isPersonSaved(id: Person.ID) -> Bool {
+        let context = container.viewContext
+        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", PersonItem.ID(id))
+        let numberOfObjects = try? context.count(for: request)
+        if let numberOfObjects {
+            if numberOfObjects > 0 { return true }
         }
         return false
     }

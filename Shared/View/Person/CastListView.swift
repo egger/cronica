@@ -26,7 +26,6 @@ struct CastListView: View {
                         ForEach(credits.prefix(10)) { cast in
                             NavigationLink(value: cast) {
                                 PersonCardView(person: cast)
-                                    .shadow(radius: DrawingConstants.shadowRadius)
                                     .padding(.leading, cast.id == self.credits.first!.id ? 16 : 0)
                             }
                             .buttonStyle(.plain)

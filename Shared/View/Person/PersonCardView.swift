@@ -11,83 +11,106 @@ import SDWebImageSwiftUI
 /// This view is responsible for displaying a given person
 /// in a card view, with its name, role, and image.
 struct PersonCardView: View {
-    let person: Person
-    @State private var isFavorite: Bool = false
-    private let context = PersistenceController.shared
-    init(person: Person) {
-        self.person = person
-        isFavorite = context.isPersonSaved(id: person.id)
-    }
-    var body: some View {
-        ZStack {
-            WebImage(url: person.personImage)
-                .placeholder {
-                    Rectangle().fill(.blue.gradient)
-                }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-            Rectangle().fill(.ultraThinMaterial)
-            Color.black.opacity(0.4)
-            WebImage(url: person.personImage, options: .highPriority)
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.blue.gradient)
-                        Image(systemName: "person")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 50, height: 50, alignment: .center)
-                            .foregroundColor(.white)
-                        PersonNameCredits(person: person)
-                    }
-                    .frame(width: DrawingConstants.profileWidth,
-                           height: DrawingConstants.profileHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
-                                                style: .continuous))
-                }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .mask(
-                    LinearGradient(gradient: Gradient(stops: [
-                        .init(color: .black, location: 0),
-                        .init(color: .black, location: 0.5),
-                        .init(color: .black.opacity(0), location: 1)
-                    ]), startPoint: .top, endPoint: .bottom)
-                )
-                .transition(.opacity)
-            if person.personImage != nil {
-                PersonNameCredits(person: person)
-            }
-        }
-        .frame(width: DrawingConstants.profileWidth,
-               height: DrawingConstants.profileHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
-                                    style: .continuous))
-        .contextMenu {
-            Button(action: {
-                if isFavorite {
-                    HapticManager.shared.softHaptic()
-                    if let cast = context.fetch(person: PersonItem.ID(person.id)) {
-                        context.delete(cast)
-                        isFavorite.toggle()
-                    }
-                } else {
-                    HapticManager.shared.softHaptic()
-                    isFavorite.toggle()
-                    context.save(person)
-                }
-            }, label: {
-                Label(isFavorite ? "Remove from Favorites" : "Add to Favorites",
-                      systemImage: isFavorite ? "star.slash.fill" : "star")
-            })
-            ShareLink(item: person.itemURL)
-        }
-    }
+   let person: Person
+   @State private var isFavorite: Bool = false
+   private let context = PersistenceController.shared
+   init(person: Person) {
+       self.person = person
+       isFavorite = context.isPersonSaved(id: person.id)
+   }
+   var body: some View {
+       VStack {
+           WebImage(url: person.personImage)
+               .resizable()
+               .placeholder {
+                   ZStack {
+                       Rectangle().fill(.gray.gradient)
+                       Image(systemName: "person")
+                           .resizable()
+                           .aspectRatio(contentMode: .fit)
+                           .frame(width: 50, height: 50, alignment: .center)
+                           .foregroundColor(.white)
+                       PersonNameCredits(person: person)
+                   }
+                   .frame(width: DrawingConstants.profileWidth,
+                          height: DrawingConstants.profileHeight)
+                   .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
+                                               style: .continuous))
+               }
+               .aspectRatio(contentMode: .fill)
+               .frame(width: DrawingConstants.profileWidth,
+                      height: DrawingConstants.profileHeight)
+               .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
+                                           style: .continuous))
+               .shadow(radius: DrawingConstants.shadowRadius)
+               .overlay {
+                   ZStack(alignment: .bottom) {
+                       if person.personImage != nil {
+                           Color.black.opacity(0.2)
+                               .frame(height: 40)
+                               .mask {
+                                   LinearGradient(colors: [Color.black.opacity(0),
+                                                           Color.black.opacity(0.383),
+                                                           Color.black.opacity(0.707),
+                                                           Color.black.opacity(0.924),
+                                                           Color.black],
+                                                  startPoint: .top,
+                                                  endPoint: .bottom)
+                               }
+                           Rectangle()
+                               .fill(.ultraThinMaterial)
+                               .frame(height: 80)
+                               .mask {
+                                   VStack(spacing: 0) {
+                                       LinearGradient(colors: [Color.black.opacity(0),
+                                                               Color.black.opacity(0.383),
+                                                               Color.black.opacity(0.707),
+                                                               Color.black.opacity(0.924),
+                                                               Color.black],
+                                                      startPoint: .top,
+                                                      endPoint: .bottom)
+                                       .frame(height: 60)
+                                       Rectangle()
+                                   }
+                               }
+                           PersonNameCredits(person: person)
+                       }
+                       
+                   }
+                   .frame(width: DrawingConstants.profileWidth,
+                          height: DrawingConstants.profileHeight)
+                   .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
+                                               style: .continuous))
+               }
+               .transition(.opacity)
+       }
+       .contextMenu {
+           Button(action: {
+               if isFavorite {
+                   HapticManager.shared.softHaptic()
+                   if let cast = context.fetch(person: PersonItem.ID(person.id)) {
+                       context.delete(cast)
+                       isFavorite.toggle()
+                   }
+               } else {
+                   HapticManager.shared.softHaptic()
+                   isFavorite.toggle()
+                   context.save(person)
+               }
+           }, label: {
+               Label(isFavorite ? "Remove from Favorites" : "Add to Favorites",
+                     systemImage: isFavorite ? "star.slash.fill" : "star")
+           })
+           ShareLink(item: person.itemURL)
+       }
+   }
 }
+
 
 private struct DrawingConstants {
     static let profileWidth: CGFloat = 140
     static let profileHeight: CGFloat = 200
-    static let shadowRadius: CGFloat = 2
+    static let shadowRadius: CGFloat = 2.5
     static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
 }

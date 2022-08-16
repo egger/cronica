@@ -20,4 +20,39 @@ extension Episode {
     var itemImageLarge: URL? {
         return NetworkService.urlBuilder(size: .large, path: stillPath)
     }
+    var itemDate: String? {
+        if let airDate {
+            let date = Utilities.dateFormatter.date(from: airDate)
+            if let date {
+                return Utilities.dateString.string(from: date)
+            }
+        }
+        return nil
+    }
+    var itemInfo: String? {
+        if let itemDate {
+            if let episodeNumber {
+                return "Episode \(episodeNumber) • \(itemDate)"
+            }
+        }
+        return nil
+    }
+    var itemCast: [Person] {
+        var value = [Person]()
+        if let crew {
+            value.append(contentsOf: crew)
+        }
+        if let guestStars {
+            value.append(contentsOf: guestStars)
+        }
+        if !value.isEmpty {
+            let unique: Set = Set(value)
+            let result: [Person] = unique.sorted { $0.itemPopularity > $1.itemPopularity }
+            return result
+        }
+        return value
+    }
+    var itemLink: URL {
+        return URL(string: "https://www.themoviedb.org/tv/92749-moon-knight/season/1/episode/1")!
+    }
 }

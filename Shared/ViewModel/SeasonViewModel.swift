@@ -33,7 +33,9 @@ class SeasonViewModel: ObservableObject {
         if let season {
             if let episodes = season.episodes {
                 for episode in episodes {
-                    persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
+                    if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
+                        persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
+                    }
                 }
             }
         }

@@ -17,6 +17,7 @@ struct Person: Codable, Identifiable, Hashable {
     let name: String
     let job, character, biography, profilePath: String?
     let combinedCredits: Filmography?
+    let popularity: Double?
 }
 struct Filmography: Codable, Hashable {
     let cast, crew: [ItemContent]?

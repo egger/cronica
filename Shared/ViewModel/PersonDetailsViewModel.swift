@@ -16,7 +16,8 @@ class PersonDetailsViewModel: ObservableObject {
     @Published var isLoaded: Bool = false
     @Published var person: Person?
     @Published var credits: [ItemContent]?
-    @Published var errorMessage: String?
+    @Published var errorMessage: String = "Error found, try again later."
+    @Published var showErrorAlert: Bool = false
     @Published var query: String = ""
     @Published var isFavorite: Bool = false
     

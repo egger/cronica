@@ -27,6 +27,9 @@ extension Person {
     var personRole: String? {
         job ?? character
     }
+    var itemPopularity: Double {
+        return popularity ?? 0.00
+    }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/person/\(id)")!
     }

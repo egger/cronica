@@ -29,6 +29,17 @@ struct EpisodeDetailsView: View {
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.coverImageShadow)
                 
+                if let info = episode.itemInfo {
+                    HStack {
+                        Spacer()
+                        Text(info)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
+                    .padding([.top, .horizontal])
+                }
+                
                 WatchEpisodeButtonView(episode: episode,
                                        season: season,
                                        show: show,
@@ -43,12 +54,19 @@ struct EpisodeDetailsView: View {
                                 type: .tvShow)
                 .padding()
                 
+                CastListView(credits: episode.itemCast)
+                
                 AttributionView()
             }
             .navigationTitle(episode.itemTitle)
-            .navigationBarTitleDisplayMode(.inline)
             .task {
                 load()
+            }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            }
+            .navigationDestination(for: Person.self) { person in
+                PersonDetailsView(title: person.name, id: person.id)
             }
         }
     }

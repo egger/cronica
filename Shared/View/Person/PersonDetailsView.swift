@@ -81,6 +81,20 @@ struct PersonDetailsView: View {
                     }
                 }
             }
+            .alert("Error",
+                   isPresented: $viewModel.showErrorAlert,
+                   actions: {
+                Button("Cancel") {
+                    
+                }
+                Button("Retry") {
+                    Task {
+                        await viewModel.load()
+                    }
+                }
+            }, message: {
+                Text(viewModel.errorMessage)
+            })
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }

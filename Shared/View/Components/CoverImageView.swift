@@ -16,7 +16,7 @@ struct CoverImageView: View {
     var body: some View {
         VStack {
             ZStack {
-                HeroImage(url: isPad ? viewModel.content?.cardImageLarge : viewModel.content?.cardImageMedium,
+                HeroImage(url: viewModel.content?.cardImageLarge,
                           title: title,
                           blurImage: viewModel.content?.itemIsAdult ?? false)
                 ZStack {

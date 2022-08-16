@@ -16,7 +16,7 @@ class ItemContentViewModel: ObservableObject {
     private var id: ItemContent.ID
     private var type: MediaType
     @Published var content: ItemContent?
-    @Published var recommendations: [ItemContent]?
+    @Published var recommendations = [ItemContent]()
     @Published var credits: [Person] = []
     @Published var errorMessage: String = "Error found, try again later."
     @Published var showErrorAlert: Bool = false
@@ -40,11 +40,11 @@ class ItemContentViewModel: ObservableObject {
                 content = try await self.service.fetchContent(id: self.id, type: self.type)
                 if let content {
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
-                    if recommendations == nil {
-                        recommendations = content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity}
+                    if recommendations.isEmpty {
+                        recommendations.append(contentsOf: content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity } ?? [])
                     }
                     if credits.isEmpty {
-                        credits.append(contentsOf: content.credits?.cast ?? [])
+                        credits.append(contentsOf: content.credits?.cast.prefix(10) ?? [])
                         credits.append(contentsOf: content.credits?.crew ?? [])
                     }
                     if isInWatchlist {
