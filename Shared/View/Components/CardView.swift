@@ -26,16 +26,18 @@ struct CardView: View {
                     .aspectRatio(contentMode: .fill)
                     .overlay {
                         ZStack(alignment: .bottom) {
-                            Color.black.opacity(0.2)
+                            Color.black.opacity(0.4)
                                 .frame(height: 40)
                                 .mask {
-                                    LinearGradient(colors: [Color.black.opacity(0),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0.707),
-                                                            Color.black.opacity(0.924),
-                                                            Color.black],
-                                                   startPoint: .top,
-                                                   endPoint: .bottom)
+                                    LinearGradient(colors: [
+                                        Color.black,
+                                        Color.black.opacity(0.924),
+                                        Color.black.opacity(0.707),
+                                        Color.black.opacity(0.383), 
+                                        Color.black.opacity(0)
+                                    ],
+                                                   startPoint: .bottom,
+                                                   endPoint: .top)
                                 }
                             Rectangle()
                                 .fill(.ultraThinMaterial)

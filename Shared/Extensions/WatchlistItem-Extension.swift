@@ -99,12 +99,14 @@ extension WatchlistItem {
     var isUpcomingMovie: Bool {
         if itemMedia == .movie {
             if itemSchedule == .soon && notify { return true }
+            if itemSchedule == .soon { return true }
         }
         return false
     }
     var isUpcomingTvShow: Bool {
         if itemMedia == .tvShow {
             if itemSchedule == .soon && upcomingSeason && notify { return true }
+            if itemSchedule == .soon { return true }
         }
         return false
     }

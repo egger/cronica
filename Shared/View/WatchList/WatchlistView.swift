@@ -18,6 +18,7 @@ struct WatchlistView: View {
     @State private var query = ""
     @State private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
+    @State private var isRefreshing: Bool = false
     var body: some View {
         AdaptableNavigationView {
             VStack {
@@ -100,9 +101,7 @@ struct WatchlistView: View {
                 PersonDetailsView(title: person.name, id: person.id)
             }
             .refreshable {
-                Task {
-                    await refresh()
-                }
+                refresh()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -132,14 +131,28 @@ struct WatchlistView: View {
                 }
             }
             .disableAutocorrection(true)
+            .overlay {
+                if isRefreshing {
+                    ZStack {
+                        VStack {
+                            ProgressView("Updating items, please wait.")
+                        }
+                        .foregroundColor(.secondary)
+                    }
+                }
+            }
         }
     }
     
-    private func refresh() async {
+    private func refresh() {
         HapticManager.shared.softHaptic()
-        DispatchQueue.global(qos: .background).async {
-            let background = BackgroundManager()
-            background.handleAppRefreshContent()
+        withAnimation {
+            isRefreshing = true
+        }
+        let background = BackgroundManager()
+        background.handleAppRefreshContent()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            isRefreshing = false
         }
     }
 }
