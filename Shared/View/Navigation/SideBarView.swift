@@ -56,7 +56,7 @@ struct SideBarView: View {
             }
             .searchScopes($scope) {
                 ForEach(SearchItemsScope.allCases) { scope in
-                    Text(scope.title).tag(scope)
+                    Text(scope.localizableTitle).tag(scope)
                 }
             }
             .onAppear {

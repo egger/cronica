@@ -17,19 +17,37 @@ struct WatchlistView: View {
     }
     @State private var query = ""
     @State private var selectedOrder: DefaultListTypes = .released
+    @State private var scope: WatchlistSearchScope = .noScope
     var body: some View {
         AdaptableNavigationView {
             VStack {
                 if items.isEmpty {
-                    Text("Your list is empty.")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                        .padding()
+                    if scope != .noScope {
+                        Text("Your list is empty.")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                            .padding()
+                    } else {
+                        Text("Your list is empty.")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                            .padding()
+                    }
                 } else {
                     List {
                         if !filteredItems.isEmpty {
-                            WatchListSection(items: filteredItems,
-                                             title: "Search results")
+                            switch scope {
+                            case .noScope:
+                                WatchListSection(items: filteredItems,
+                                                 title: "Search results")
+                            case .movies:
+                                WatchListSection(items: filteredItems.filter { $0.isMovie },
+                                                 title: "Search results")
+                            case .shows:
+                                WatchListSection(items: filteredItems.filter { $0.isTvShow },
+                                                 title: "Search results")
+                            }
+                            
                         } else if !query.isEmpty && filteredItems.isEmpty {
                             Text("No results")
                         } else {
@@ -108,6 +126,11 @@ struct WatchlistView: View {
             .searchable(text: $query,
                         placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
                         prompt: "Search watchlist")
+            .searchScopes($scope) {
+                ForEach(WatchlistSearchScope.allCases) { scope in
+                    Text(scope.localizableTitle).tag(scope)
+                }
+            }
             .disableAutocorrection(true)
         }
     }
