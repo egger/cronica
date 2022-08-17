@@ -13,7 +13,7 @@ struct WatchButtonView: View {
         Button(action: {
             viewModel.update(markAsWatched: !viewModel.isWatched)
         }, label: {
-            Label(viewModel.isWatched ? "Remove from watched" : "Mark as watched",
+            Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
         })
         .buttonStyle(.bordered)

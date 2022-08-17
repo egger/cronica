@@ -131,29 +131,13 @@ struct WatchlistView: View {
                 }
             }
             .disableAutocorrection(true)
-            .overlay {
-                if isRefreshing {
-                    ZStack {
-                        VStack {
-                            ProgressView("Updating items, please wait.")
-                        }
-                        .foregroundColor(.secondary)
-                    }
-                }
-            }
         }
     }
     
     private func refresh() {
         HapticManager.shared.softHaptic()
-        withAnimation {
-            isRefreshing = true
-        }
         let background = BackgroundManager()
         background.handleAppRefreshContent()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            isRefreshing = false
-        }
     }
 }
 

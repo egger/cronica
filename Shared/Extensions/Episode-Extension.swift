@@ -52,7 +52,4 @@ extension Episode {
         }
         return value
     }
-    var itemLink: URL {
-        return URL(string: "https://www.themoviedb.org/tv/92749-moon-knight/season/1/episode/1")!
-    }
 }

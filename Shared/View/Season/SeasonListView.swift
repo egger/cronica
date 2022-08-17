@@ -35,11 +35,16 @@ struct SeasonsView: View {
                     }
                     .padding(.leading)
                     .padding(.bottom, 1)
+                    .unredacted()
                     Spacer()
                     Menu {
-                        Button("Mark Season as Watched") {
-                            viewModel.markSeasonAsWatched(id: tvId)
-                        }
+                        Button(action: {
+                            Task {
+                                await viewModel.markSeasonAsWatched(id: tvId)
+                            }
+                        }, label: {
+                            Label("Mark Season as Watched", systemImage: "checkmark.circle.fill")
+                        })
                     } label: {
                         Label("More", systemImage: "ellipsis.circle")
                             .labelStyle(.iconOnly)

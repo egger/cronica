@@ -192,3 +192,7 @@
 "Error" = "Erro";
 "Cancel" = "Cancelar";
 "Retry" = "Tentar novamente";
+
+// MARK: watchOS
+"Search TMDb" = "Procure no TMDb";
+"For more details, open the companion app." = "Para mais detalhes, abra o aplicativo no iPhone.";

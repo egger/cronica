@@ -14,14 +14,12 @@ import SwiftUI
 /// just to conform to the SideBar.
 struct AdaptableNavigationView<Content: View>: View {
     let content: () -> Content
-    @State private var path = NavigationPath()
-    @EnvironmentObject var coordinator: Coordinator
     init(@ViewBuilder content: @escaping () -> Content) {
         self.content = content
     }
     var body: some View {
         if UIDevice.isIPhone {
-            NavigationStack(path: $path) {
+            NavigationStack {
                 content()
             }
         } else {

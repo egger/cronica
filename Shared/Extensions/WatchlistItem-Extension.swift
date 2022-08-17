@@ -106,7 +106,7 @@ extension WatchlistItem {
     var isUpcomingTvShow: Bool {
         if itemMedia == .tvShow {
             if itemSchedule == .soon && upcomingSeason && notify { return true }
-            if itemSchedule == .soon { return true }
+            if itemSchedule == .soon && upcomingSeason { return true }
         }
         return false
     }

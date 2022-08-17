@@ -13,6 +13,7 @@ struct PersonDetailsView: View {
     @State private var isLoading = true
     @StateObject private var viewModel: PersonDetailsViewModel
     @State private var showConfirmation = false
+    @State private var scope: WatchlistSearchScope = .noScope
     let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 160 ))
     ]
@@ -63,8 +64,13 @@ struct PersonDetailsView: View {
             }
             .task { load() }
             .redacted(reason: isLoading ? .placeholder : [])
-            .overlay(searchOverlay)
+            .overlay(search)
             .searchable(text: $viewModel.query)
+            .searchScopes($scope) {
+                ForEach(WatchlistSearchScope.allCases) { scope in
+                    Text(scope.localizableTitle).tag(scope)
+                }
+            }
             .autocorrectionDisabled(true)
             .navigationTitle(name)
             .toolbar {
@@ -111,15 +117,23 @@ struct PersonDetailsView: View {
     }
     
     @ViewBuilder
-    private var searchOverlay: some View {
+    private var search: some View {
         if viewModel.query != "" {
             List {
-                if let credits = viewModel.credits {
-                    ForEach(credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
+                switch scope {
+                case .noScope:
+                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
+                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                    }
+                case .movies:
+                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
+                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                    }
+                case .shows:
+                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                     }
                 }
-                
             }
         }
     }

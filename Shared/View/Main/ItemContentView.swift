@@ -33,7 +33,11 @@ struct ItemContentView: View {
                     CoverImageView(title: title)
                         .environmentObject(viewModel)
                     
-                    ViewThatFits {
+                    if UIDevice.isIPhone {
+                        WatchlistButtonView()
+                            .keyboardShortcut("l", modifiers: [.option])
+                            .environmentObject(viewModel)
+                    } else {
                         HStack {
                             WatchlistButtonView()
                                 .keyboardShortcut("l", modifiers: [.option])
@@ -46,10 +50,6 @@ struct ItemContentView: View {
                                 .padding(.trailing)
                         }
                         .padding([.top, .bottom])
-                        
-                        WatchlistButtonView()
-                            .keyboardShortcut("l", modifiers: [.option])
-                            .environmentObject(viewModel)
                     }
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,
@@ -93,7 +93,7 @@ struct ItemContentView: View {
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
-                        if horizontalSizeClass == .compact {
+                        if UIDevice.isIPhone {
                             MarkAsMenuView()
                                 .environmentObject(viewModel)
                         }

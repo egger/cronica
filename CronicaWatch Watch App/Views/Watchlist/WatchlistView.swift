@@ -49,7 +49,7 @@ struct WatchlistView: View {
                 }
             }
             .navigationTitle("Watchlist")
-            .searchable(text: $query, prompt: "Search Watchlist")
+            .searchable(text: $query, prompt: "Search watchlist")
             .toolbar {
                 ToolbarItem {
                     NavigationLink(value: Screens.search) {

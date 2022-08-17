@@ -17,7 +17,7 @@ class ItemContentViewModel: ObservableObject {
     private var type: MediaType
     @Published var content: ItemContent?
     @Published var recommendations = [ItemContent]()
-    @Published var credits: [Person] = []
+    @Published var credits = [Person]()
     @Published var errorMessage: String = "Error found, try again later."
     @Published var showErrorAlert: Bool = false
     @Published var isInWatchlist = false
