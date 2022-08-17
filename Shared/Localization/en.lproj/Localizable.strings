@@ -40,6 +40,7 @@
 "Mark as" = "Mark as";
 "Add to Favorites" = "Add to Favorites";
 "Share" = "Share";
+"Mark this and previous episodes as watched" = "Mark this and previous episodes as watched";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
@@ -113,6 +114,11 @@
 "The function is performed when double-tap the cover image." = "The function is performed when double-tap the cover image.";
 "Settings" = "Settings";
 "Review Cronica" = "Review Cronica";
+"Send Feedback" = "Send Feedback";
+"Feedback" = "Feedback";
+"Send" = "Send";
+"Cancel" = "Cancel";
+"Send your suggestions to help improve Cronica." = "Send your suggestions to help improve Cronica.";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";

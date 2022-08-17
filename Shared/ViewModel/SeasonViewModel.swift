@@ -42,10 +42,7 @@ class SeasonViewModel: ObservableObject {
         if let season {
             if let episodes = season.episodes {
                 if !isItemInWatchlist {
-                    let content = try? await network.fetchContent(id: id, type: .tvShow)
-                    if let content {
-                        persistence.save(content)
-                    }
+                    await saveItemOnList(id: id)
                 }
                 for episode in episodes {
                     if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
@@ -53,6 +50,31 @@ class SeasonViewModel: ObservableObject {
                     }
                 }
             }
+        }
+    }
+    
+    func markThisAndPrevious(until id: Int, show: Int) async {
+        if !isItemInWatchlist {
+            await saveItemOnList(id: show)
+        }
+        if let season {
+            if let episodes = season.episodes {
+                for episode in episodes {
+                    if !persistence.isEpisodeSaved(show: show, season: season.seasonNumber, episode: episode.id) {
+                        persistence.updateEpisodeList(show: show, season: season.seasonNumber, episode: episode.id)
+                    }
+                    if episode.id == id {
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    private func saveItemOnList(id: Int) async {
+        let content = try? await network.fetchContent(id: id, type: .tvShow)
+        if let content {
+            persistence.save(content)
         }
     }
 }

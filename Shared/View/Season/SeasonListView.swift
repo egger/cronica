@@ -52,9 +52,11 @@ struct SeasonsView: View {
                     .padding(.horizontal)
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        if let season = viewModel.season?.episodes {
-                            if !season.isEmpty {
+                    if let season = viewModel.season?.episodes {
+                        if season.isEmpty {
+                            emptySeasonView
+                        } else {
+                            LazyHStack {
                                 ForEach(season) { item in
                                     EpisodeFrameView(episode: item, season: selectedSeason, show: tvId)
                                         .frame(width: 160, height: 200)
@@ -67,14 +69,10 @@ struct SeasonsView: View {
                                 }
                                 .padding(0)
                                 .buttonStyle(.plain)
-                            } else {
-                                emptySeasonView
                             }
-                        } else {
-                            emptySeasonView
+                            .padding(0)
                         }
                     }
-                    .padding(0)
                 }
                 .padding(0)
                 .task {
@@ -103,8 +101,11 @@ struct SeasonsView: View {
             Spacer()
             VStack {
                 Image(systemName: "tv.fill")
+                    .padding(.bottom, 6)
                 Text("No Episode Available")
             }
+            .foregroundColor(.secondary)
+            .padding(.horizontal)
             Spacer()
         }
         .padding(.horizontal)

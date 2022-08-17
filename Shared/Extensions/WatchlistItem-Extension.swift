@@ -107,12 +107,12 @@ extension WatchlistItem {
         if itemMedia == .tvShow {
             if itemSchedule == .soon && upcomingSeason && notify { return true }
             if itemSchedule == .soon && upcomingSeason { return true }
+            if itemSchedule == .renewed && notify && date != nil && upcomingSeason { return true }
         }
         return false
     }
     var isInProduction: Bool {
         if nextSeasonNumber == 1 && itemSchedule == .soon && !isWatched && !notify { return true }
-        if itemSchedule == .renewed && notify && date != nil { return true }
         if itemSchedule == .production { return true }
         return false
     }

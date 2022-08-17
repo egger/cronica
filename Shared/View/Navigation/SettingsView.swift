@@ -7,13 +7,15 @@
 
 import SwiftUI
 import StoreKit
+import TelemetryClient
 
 struct SettingsView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.requestReview) var requestReview
     @EnvironmentObject var store: SettingsStore
-    @State private var email = SupportEmail()
     @State private var showPolicy = false
+    @State private var showFeedbackAlert = false
+    @State private var feedback: String = ""
     @Binding var showSettings: Bool
     var body: some View {
         NavigationStack {
@@ -32,12 +34,22 @@ struct SettingsView: View {
                     Text("The function is performed when double-tap the cover image.")
                         .padding(.bottom)
                 }
-                
                 Section {
                     Button( action: {
-                        email.send(openURL: openURL)
+                        showFeedbackAlert = true
                     }, label: {
                         Label("Send feedback", systemImage: "envelope")
+                    })
+                    .alert("Send Feedback", isPresented: $showFeedbackAlert, actions: {
+                        TextField("Feedback", text: $feedback)
+                        Button("Send") {
+                            sendFeedback()
+                        }
+                        Button("Cancel", role: .cancel) {
+                            cancelFeedback()
+                        }
+                    }, message: {
+                        Text("Send your suggestions to help improve Cronica.")
                     })
                     Button(action: {
                         showPolicy.toggle()
@@ -72,6 +84,23 @@ struct SettingsView: View {
                 })
             }
         }
+    }
+    
+    private func sendFeedback() {
+        if !feedback.isEmpty {
+#if targetEnvironment(simulator)
+            print("feedback: \(feedback)")
+#else
+            TelemetryManager.send("feedback", with: ["message":feedback])
+#endif
+            showFeedbackAlert = false
+            feedback = ""
+        }
+    }
+    
+    private func cancelFeedback() {
+        showFeedbackAlert = false
+        feedback = ""
     }
 }
 

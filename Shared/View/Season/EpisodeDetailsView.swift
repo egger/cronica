@@ -22,13 +22,13 @@ struct EpisodeDetailsView: View {
     var body: some View {
         VStack {
             ScrollView {
-                HeroImage(url: episode.itemImageMedium, title: episode.itemTitle)
+                HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
                     .frame(width: isPad ? DrawingConstants.padCoverImageWidth : DrawingConstants.heroImageWidth,
                            height: isPad ? DrawingConstants.padCoverImageHeight : DrawingConstants.heroImageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.coverImageShadow)
-                
+
                 if let info = episode.itemInfo {
                     HStack {
                         Spacer()

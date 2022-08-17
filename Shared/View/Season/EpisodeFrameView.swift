@@ -14,12 +14,14 @@ struct EpisodeFrameView: View {
     let episode: Episode
     let season: Int
     let show: Int
+    var itemLink: URL
     private let persistence = PersistenceController.shared
     @State private var isWatched: Bool = false
     init(episode: Episode, season: Int, show: Int) {
         self.episode = episode
         self.season = season
         self.show = show
+        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.episodeNumber ?? 1)")!
     }
     var body: some View {
         VStack {
@@ -62,6 +64,14 @@ struct EpisodeFrameView: View {
                                            season: season,
                                            show: show,
                                            isWatched: $isWatched)
+                    if let number = episode.episodeNumber {
+                        if number != 1 && !isWatched {
+                            Button("Mark this and previous episodes as watched") {
+                                
+                            }
+                        }
+                    }
+                    ShareLink(item: itemLink)
                 }
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")

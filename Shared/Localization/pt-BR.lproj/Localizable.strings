@@ -39,6 +39,7 @@
 "Mark as" = "Marcar como";
 "Add to Favorites" = "Adicionar aos Favoritos";
 "Share" = "Compartilhar";
+"Mark this and previous episodes as watched" = "Marque este e os episódios anteriores como assistidos";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -105,7 +106,7 @@
 
 //MARK: SettingsView.swift
 "Support" = "Suporte";
-"Send feedback" = "Enviar Feedback";
+"Send feedback" = "Enviar Sugestão";
 "Privacy Policy" = "Política de Privacidade";
 "Made in Brazil 🇧🇷" = "Feito no Brasil 🇧🇷";
 "Gesture" = "Gestos";
@@ -113,6 +114,11 @@
 "The function is performed when double-tap the cover image." = "A função será executada quando tocar duas vezes na imagem da capa.";
 "Settings" = "Configurações";
 "Review Cronica" = "Avalie Cronica";
+"Send Feedback" = "Enviar Sugestão";
+"Feedback" = "Sugestão";
+"Send" = "Enviar";
+"Cancel" = "Cancelar";
+"Send your suggestions to help improve Cronica." = "Envie suas sugestões para ajudar a melhorar o Cronica.";
 
 //MARK: HomeView.swift
 "Trending" = "Em Alta";
