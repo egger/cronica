@@ -44,8 +44,10 @@ class ItemContentViewModel: ObservableObject {
                         recommendations.append(contentsOf: content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity } ?? [])
                     }
                     if credits.isEmpty {
-                        credits.append(contentsOf: content.credits?.cast.prefix(10) ?? [])
-                        credits.append(contentsOf: content.credits?.crew ?? [])
+                        let cast = content.credits?.cast ?? []
+                        let crew = content.credits?.crew ?? []
+                        let combined = cast + crew
+                        credits.append(contentsOf: combined)
                     }
                     if isInWatchlist {
                         withAnimation {

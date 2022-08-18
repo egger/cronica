@@ -14,6 +14,7 @@ struct SideBarView: View {
     @State private var showSettings = false
     @State private var selectedSearchItem: ItemContent? = nil
     @State private var scope: SearchItemsScope = .noScope
+    let persistence = PersistenceController.shared
     init() {
         _settings = StateObject(wrappedValue: SettingsStore())
         _viewModel = StateObject(wrappedValue: SearchViewModel())
@@ -81,7 +82,9 @@ struct SideBarView: View {
                 VStack {
                     switch selectedView {
                     case .discover: DiscoverView()
-                    case .watchlist: WatchlistView()
+                    case .watchlist:
+                        WatchlistView()
+                            .environment(\.managedObjectContext, persistence.container.viewContext)
                     default: HomeView()
                     }
                 }
@@ -89,7 +92,9 @@ struct SideBarView: View {
                     switch screens {
                     case .home: HomeView()
                     case .discover: DiscoverView()
-                    case .watchlist: WatchlistView()
+                    case .watchlist:
+                        WatchlistView()
+                            .environment(\.managedObjectContext, persistence.container.viewContext)
                     case .search: SearchView()
                     }
                 }

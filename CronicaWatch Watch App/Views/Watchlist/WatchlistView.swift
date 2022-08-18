@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WatchlistView: View {
+    @Environment(\.managedObjectContext) private var viewcontext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default)

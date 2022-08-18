@@ -90,7 +90,7 @@ extension WatchlistItem {
     }
     var isReleasedTvShow: Bool {
         if itemMedia == .tvShow {
-            if itemSchedule == .renewed { return true }
+            if itemSchedule == .renewed && nextSeasonNumber != 1 { return true }
             if itemSchedule == .released && !isWatched { return true }
             if itemSchedule == .cancelled && !isWatched { return true }
         }

@@ -10,6 +10,7 @@ import SwiftUI
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
+    let persistence = PersistenceController.shared
     var body: some View {
         TabView(selection: $selectedView) {
             HomeView()
@@ -19,6 +20,7 @@ struct TabBarView: View {
                 .tag(DiscoverView.tag)
                 .tabItem { Label("Explore", systemImage: "film") }
             WatchlistView()
+                .environment(\.managedObjectContext, persistence.container.viewContext)
                 .tag(WatchlistView.tag)
                 .tabItem {
                     Label("Watchlist", systemImage: "square.stack.fill")

@@ -65,7 +65,8 @@ struct PersonDetailsView: View {
             .task { load() }
             .redacted(reason: isLoading ? .placeholder : [])
             .overlay(search)
-            .searchable(text: $viewModel.query)
+            .searchable(text: $viewModel.query,
+                        placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always))
             .searchScopes($scope) {
                 ForEach(WatchlistSearchScope.allCases) { scope in
                     Text(scope.localizableTitle).tag(scope)
@@ -84,6 +85,14 @@ struct PersonDetailsView: View {
                         })
                         .disabled(!viewModel.isLoaded)
                         ShareLink(item: personUrl)
+#if targetEnvironment(simulator)
+                        Button(action: {
+                            print("Print object '\(name)': \(viewModel.person as Any)")
+                        }, label: {
+                            Label("Print object", systemImage: "curlybraces.square.fill")
+                        })
+                        .tint(.orange)
+#endif
                     }
                 }
             }

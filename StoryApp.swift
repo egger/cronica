@@ -42,7 +42,7 @@ struct StoryApp: App {
     
     private func scheduleAppRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 480 * 60) // Fetch no earlier than 8 hours from now
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
         try? BGTaskScheduler.shared.submit(request)
     }
     

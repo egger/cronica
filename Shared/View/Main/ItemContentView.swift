@@ -16,6 +16,7 @@ struct ItemContentView: View {
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store: SettingsStore
     @State private var showConfirmation = false
+    @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     init(title: String, id: Int, type: MediaType) {
@@ -59,8 +60,10 @@ struct ItemContentView: View {
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
                     SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                tvId: id)
-                        .padding(0)
+                                tvId: id,
+                                inWatchlist: $viewModel.isInWatchlist,
+                                seasonConfirmation: $showSeasonConfirmation)
+                    .padding(0)
                     
                     CastListView(credits: viewModel.credits)
                     
@@ -97,6 +100,14 @@ struct ItemContentView: View {
                             MarkAsMenuView()
                                 .environmentObject(viewModel)
                         }
+#if targetEnvironment(simulator)
+                        Button(action: {
+                            print("Print object '\(title)': \(viewModel.content as Any)")
+                        }, label: {
+                            Label("Print object", systemImage: "curlybraces.square.fill")
+                        })
+                        .tint(.orange)
+#endif
                     }
                 }
             }
@@ -115,6 +126,8 @@ struct ItemContentView: View {
                 Text(viewModel.errorMessage)
             })
             ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
+                                   message: "Season Marked as Watched", image: "tv.fill")
         }
     }
 }
@@ -124,42 +137,5 @@ struct ContentDetailsView_Previews: PreviewProvider {
         ItemContentView(title: ItemContent.previewContent.itemTitle,
                         id: ItemContent.previewContent.id,
                         type: MediaType.movie)
-    }
-}
-
-struct MarkAsMenuView: View {
-    @EnvironmentObject var viewModel: ItemContentViewModel
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    var body: some View {
-        Menu(content: {
-            Button(action: {
-                viewModel.update(markAsWatched: viewModel.isWatched)
-            }, label: {
-                Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
-            })
-            .keyboardShortcut("w", modifiers: [.option])
-            Button(action: {
-                viewModel.update(markAsFavorite: viewModel.isFavorite)
-            }, label: {
-                Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                      systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
-            })
-            .keyboardShortcut("f", modifiers: [.option])
-#if targetEnvironment(simulator)
-            Button(action: {
-                print(viewModel.content?.itemStatus as Any)
-            }, label: {
-                Label("Print object", systemImage: "ellipsis.curlybraces")
-            })
-#endif
-        }, label: {
-            if horizontalSizeClass == .compact {
-                Label("Mark as", systemImage: "ellipsis")
-            } else {
-                Text("Mark as")
-            }
-        })
-        .disabled(viewModel.isLoading ? true : false)
     }
 }

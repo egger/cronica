@@ -23,17 +23,10 @@ struct CastListView: View {
                 .unredacted()
                 ScrollView(.horizontal, showsIndicators: false, content: {
                     LazyHStack {
-                        ForEach(credits.prefix(10)) { cast in
+                        ForEach(credits) { cast in
                             NavigationLink(value: cast) {
                                 PersonCardView(person: cast)
                                     .padding(.leading, cast.id == self.credits.first!.id ? 16 : 0)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                        ForEach(credits.filter { $0.personRole == "Director" }) { director in
-                            NavigationLink(value: director) {
-                                PersonCardView(person: director)
-                                    .shadow(radius: DrawingConstants.shadowRadius)
                             }
                             .buttonStyle(.plain)
                         }

@@ -32,12 +32,12 @@ class PersonDetailsViewModel: ObservableObject {
                 person = try await self.service.fetchPerson(id: self.id)
                 if let person {
                     isFavorite = persistence.isPersonSaved(id: person.id)
-                    let combinedCredits = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false }
-                    if let combinedCredits {
-                        if !combinedCredits.isEmpty {
-                            let combined: Set = Set(combinedCredits)
-                            credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
-                        }
+                    let cast = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false } ?? []
+                    let crew = person.combinedCredits?.crew?.filter { $0.itemIsAdult == false } ?? []
+                    let combinedCredits = cast + crew
+                    if !combinedCredits.isEmpty {
+                        let combined = Array(Set(combinedCredits))
+                        credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
                     }
                 }
                 withAnimation {

@@ -15,8 +15,6 @@ struct WatchlistItemView: View {
     private let context = PersistenceController.shared
     init(content: WatchlistItem) {
         self.content = content
-        isWatched = content.isWatched
-        isFavorite = content.isFavorite
     }
     var body: some View {
         HStack {
@@ -66,18 +64,25 @@ struct WatchlistItemView: View {
             }
 #endif
         }
+        .task {
+            isWatched = content.isWatched
+            isFavorite = content.isFavorite
+        }
         .accessibilityElement(children: .combine)
         .contextMenu {
+#if os(watchOS)
+#else
             watchedButton
             favoriteButton
             ShareLink(item: content.itemLink)
             Divider()
             deleteButton
+#endif
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
             watchedButton
                 .tint(content.isWatched ? .yellow : .green)
-                .disabled(!content.isReleased)
+                .disabled(content.isInProduction || content.isUpcoming)
             favoriteButton
                 .tint(content.isFavorite ? .orange : .blue)
         }

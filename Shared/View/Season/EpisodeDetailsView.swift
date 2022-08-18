@@ -14,10 +14,12 @@ struct EpisodeDetailsView: View {
     private let persistence = PersistenceController.shared
     @State private var isPad: Bool = UIDevice.isIPad
     @State private var isWatched: Bool = false
-    init(episode: Episode, season: Int, show: Int) {
+    @Binding private var isInWatchlist: Bool
+    init(episode: Episode, season: Int, show: Int, inWatchlist: Binding<Bool>) {
         self.episode = episode
         self.season = season
         self.show = show
+        self._isInWatchlist = inWatchlist
     }
     var body: some View {
         VStack {
@@ -43,7 +45,8 @@ struct EpisodeDetailsView: View {
                 WatchEpisodeButtonView(episode: episode,
                                        season: season,
                                        show: show,
-                                       isWatched: $isWatched)
+                                       isWatched: $isWatched,
+                                       inWatchlist: $isInWatchlist)
                     .tint(isWatched ? .red : .blue)
                     .buttonStyle(.bordered)
                     .controlSize(.large)
@@ -59,6 +62,7 @@ struct EpisodeDetailsView: View {
                 AttributionView()
             }
             .navigationTitle(episode.itemTitle)
+            .navigationBarTitleDisplayMode(.inline)
             .task {
                 load()
             }

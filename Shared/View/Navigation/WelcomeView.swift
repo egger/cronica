@@ -48,7 +48,7 @@ struct WelcomeView: View {
                     } label: {
                         Text("Continue")
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.borderedProminent)
                     .tint(Color.blue.gradient)
                     .controlSize(.large)
                     .padding()
@@ -72,11 +72,11 @@ struct WelcomeView_Previews: PreviewProvider {
 private struct InformationContainerView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            InformationDetailView(title: "Find", subTitle: "Search for upcoming movies and tv shows.", imageName: "magnifyingglass.circle.fill")
+            InformationDetailView(title: "Your Watchlist", subTitle: "Add everything you want, the Watchlist automatically organizes it for you.", imageName: "film.circle.fill")
+            
+            InformationDetailView(title: "Discover what's next", subTitle: "The Discover will help you find your next favorite title.", imageName: "magnifyingglass.circle.fill")
             
             InformationDetailView(title: "Never miss out", subTitle: "Get notifications about the newest releases.", imageName: "bell.circle.fill")
-            
-            InformationDetailView(title: "Organize", subTitle: "Keep everything organized inside the Watchlist.", imageName: "folder.circle.fill")
         }
         .padding(.horizontal)
     }
@@ -95,7 +95,7 @@ private struct InformationDetailView: View {
             
             VStack(alignment: .leading) {
                 Text(NSLocalizedString(title, comment: ""))
-                    .font(.headline)
+                    .font(.title3)
                     .foregroundColor(.primary)
                     .accessibility(addTraits: .isHeader)
                 
@@ -109,10 +109,10 @@ private struct InformationDetailView: View {
             
             Spacer()
         }
-        .background(.thinMaterial)
-        .cornerRadius(6)
-        .shadow(radius: 2)
-        .padding([.top, .horizontal])
+        .background(.regularMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(radius: 2.5)
+        .padding(.top)
     }
 }
 

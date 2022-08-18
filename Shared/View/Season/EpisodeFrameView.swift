@@ -17,10 +17,13 @@ struct EpisodeFrameView: View {
     var itemLink: URL
     private let persistence = PersistenceController.shared
     @State private var isWatched: Bool = false
-    init(episode: Episode, season: Int, show: Int) {
+    @Binding var isInWatchlist: Bool
+    @EnvironmentObject var viewModel: SeasonViewModel
+    init(episode: Episode, season: Int, show: Int, isInWatchlist: Binding<Bool>) {
         self.episode = episode
         self.season = season
         self.show = show
+        self._isInWatchlist = isInWatchlist
         itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.episodeNumber ?? 1)")!
     }
     var body: some View {
@@ -63,11 +66,14 @@ struct EpisodeFrameView: View {
                     WatchEpisodeButtonView(episode: episode,
                                            season: season,
                                            show: show,
-                                           isWatched: $isWatched)
+                                           isWatched: $isWatched,
+                                           inWatchlist: $isInWatchlist)
                     if let number = episode.episodeNumber {
                         if number != 1 && !isWatched {
                             Button("Mark this and previous episodes as watched") {
-                                
+                                Task {
+                                    await viewModel.markThisAndPrevious(until: episode.id, show: show)
+                                }
                             }
                         }
                     }

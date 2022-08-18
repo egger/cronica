@@ -40,6 +40,7 @@ struct ItemContentListView: View {
                                 ForEach(items) { item in
                                     NavigationLink(value: item) {
                                         PosterView(item: item)
+                                            .draggable(item)
                                             .modifier(ItemContentContextMenu(item: item,
                                                                              showConfirmation: $addedItemConfirmation))
                                             .padding([.leading, .trailing], 4)

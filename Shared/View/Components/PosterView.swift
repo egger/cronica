@@ -23,7 +23,6 @@ struct PosterView: View {
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
                                         style: .continuous))
             .shadow(radius: DrawingConstants.shadowRadius)
-            .draggable(item)
             .padding(.zero)
     }
 }

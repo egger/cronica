@@ -16,7 +16,6 @@ struct PersonCardView: View {
    private let context = PersistenceController.shared
    init(person: Person) {
        self.person = person
-       isFavorite = context.isPersonSaved(id: person.id)
    }
    var body: some View {
        VStack {
@@ -83,6 +82,9 @@ struct PersonCardView: View {
                                                style: .continuous))
                }
                .transition(.opacity)
+       }
+       .task {
+           isFavorite = context.isPersonSaved(id: person.id)
        }
        .contextMenu {
            Button(action: {

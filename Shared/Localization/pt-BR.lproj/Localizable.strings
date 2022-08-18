@@ -138,6 +138,10 @@
 "Get notifications about the newest releases." = "Receba notificações sobre os últimos lançamentos.";
 "Organize" = "Tudo organizado";
 "Keep everything organized inside the Watchlist." = "Mantenha tudo organizado dentro da Lista.";
+"Your Watchlist" = "Sua Lista";
+"Add everything you want, the Watchlist automatically organizes it for you." = "Adicione tudo o que quiser, a Lista organiza automaticamente para você.";
+"Discover what's next" = "Descubra novos títulos";
+"The Discover will help you find your next favorite title." = "O Descubra ajudará você a encontrar seu próximo título favorito.";
 
 //MARK: CastDetailsView.swift
 "Biography" = "Biografia";

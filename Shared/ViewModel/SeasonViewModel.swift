@@ -19,16 +19,16 @@ class SeasonViewModel: ObservableObject {
     @Published var watchlistItem: WatchlistItem?
     @Published var isItemInWatchlist: Bool = false
     
-    func load(id: Int, season: Int) async {
+    func load(id: Int, season: Int, isInWatchlist: Bool) async {
         if Task.isCancelled { return }
+        isItemInWatchlist = isInWatchlist
         withAnimation {
             isLoading = true
         }
         self.season = try? await self.service.fetchSeason(id: id, season: season)
         if !hasFirstLoaded {
             hasFirstLoaded.toggle()
-            if persistence.isItemSaved(id: id, type: .tvShow) {
-                isItemInWatchlist = true
+            if isItemInWatchlist {
                 watchlistItem = persistence.fetch(for: WatchlistItem.ID(id))
             }
         }
@@ -54,6 +54,7 @@ class SeasonViewModel: ObservableObject {
     }
     
     func markThisAndPrevious(until id: Int, show: Int) async {
+        HapticManager.shared.lightHaptic()
         if !isItemInWatchlist {
             await saveItemOnList(id: show)
         }
@@ -75,6 +76,7 @@ class SeasonViewModel: ObservableObject {
         let content = try? await network.fetchContent(id: id, type: .tvShow)
         if let content {
             persistence.save(content)
+            isItemInWatchlist = true
         }
     }
 }

@@ -15,10 +15,14 @@ struct SeasonsView: View {
     @State private var selectedSeason: Int = 1
     @State private var selectedEpisode: Episode? = nil
     @StateObject private var viewModel: SeasonViewModel
-    init(numberOfSeasons: [Int]?, tvId: Int) {
+    @Binding var inWatchlist: Bool
+    @Binding var seasonConfirmation: Bool
+    init(numberOfSeasons: [Int]?, tvId: Int, inWatchlist: Binding<Bool>, seasonConfirmation: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: SeasonViewModel())
         self.numberOfSeasons = numberOfSeasons
         self.tvId = tvId
+        self._inWatchlist = inWatchlist
+        self._seasonConfirmation = seasonConfirmation
     }
     var body: some View {
         if let numberOfSeasons {
@@ -40,7 +44,19 @@ struct SeasonsView: View {
                     Menu {
                         Button(action: {
                             Task {
+                                withAnimation {
+                                    seasonConfirmation.toggle()
+                                }
                                 await viewModel.markSeasonAsWatched(id: tvId)
+                                if !inWatchlist {
+                                    inWatchlist = viewModel.isItemInWatchlist
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                    withAnimation {
+                                        seasonConfirmation = false
+                                    }
+                                }
+                                
                             }
                         }, label: {
                             Label("Mark Season as Watched", systemImage: "checkmark.circle.fill")
@@ -58,14 +74,18 @@ struct SeasonsView: View {
                         } else {
                             LazyHStack {
                                 ForEach(season) { item in
-                                    EpisodeFrameView(episode: item, season: selectedSeason, show: tvId)
-                                        .frame(width: 160, height: 200)
-                                        .onTapGesture {
-                                            selectedEpisode = item
-                                        }
-                                        .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == season.first!.id ? 16 : 0)
-                                        .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                                    EpisodeFrameView(episode: item,
+                                                     season: selectedSeason,
+                                                     show: tvId,
+                                                     isInWatchlist: $inWatchlist)
+                                    .environmentObject(viewModel)
+                                    .frame(width: 160, height: 200)
+                                    .onTapGesture {
+                                        selectedEpisode = item
+                                    }
+                                    .padding([.leading, .trailing], 4)
+                                    .padding(.leading, item.id == season.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == season.last!.id ? 16 : 0)
                                 }
                                 .padding(0)
                                 .buttonStyle(.plain)
@@ -79,9 +99,15 @@ struct SeasonsView: View {
                     load()
                 }
             }
+            .onChange(of: viewModel.isItemInWatchlist) { value in
+                if value != inWatchlist {
+                    inWatchlist = value
+                }
+            }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
-                    EpisodeDetailsView(episode: item, season: selectedSeason, show: tvId)
+                    EpisodeDetailsView(episode: item, season: selectedSeason, show: tvId, inWatchlist: $inWatchlist)
+                        .environmentObject(viewModel)
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {
@@ -113,13 +139,14 @@ struct SeasonsView: View {
     
     private func load() {
         Task {
-            await self.viewModel.load(id: self.tvId, season: self.selectedSeason)
+            await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
         }
     }
 }
 
 struct HorizontalSeasonView_Previews: PreviewProvider {
+    @State private static var preview = false
     static var previews: some View {
-        SeasonsView(numberOfSeasons: Array(1...8), tvId: 1419)
+        SeasonsView(numberOfSeasons: Array(1...8), tvId: 1419, inWatchlist: $preview, seasonConfirmation: $preview)
     }
 }

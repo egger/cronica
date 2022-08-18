@@ -11,11 +11,13 @@ import SwiftUI
 /// item is saved on Watchlist.
 struct ConfirmationDialogView: View {
     @Binding var showConfirmation: Bool
+    var message: String = "Added to watchlist"
+    var image: String = "checkmark.circle"
     var body: some View {
         VStack {
             Spacer()
             HStack {
-                Label("Added to watchlist", systemImage: "checkmark.circle")
+                Label(message, systemImage: image)
                     .padding()
             }
             .background(.regularMaterial)

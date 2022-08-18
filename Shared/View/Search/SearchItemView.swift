@@ -14,6 +14,7 @@ struct SearchItemView: View {
         if item.media == .person {
             NavigationLink(value: item) {
                 SearchItem(item: item)
+                    .draggable(item)
                     .contextMenu {
                         ShareLink(item: item.itemSearchURL)
                     }
@@ -21,6 +22,7 @@ struct SearchItemView: View {
         } else {
             NavigationLink(value: item) {
                 SearchItem(item: item)
+                    .draggable(item)
                     .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
             }
         }

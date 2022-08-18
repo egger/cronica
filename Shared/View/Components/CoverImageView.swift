@@ -22,13 +22,13 @@ struct CoverImageView: View {
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
                     if store.gesture == .favorite {
-                        Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart.slash.fill")
+                        Image(systemName: viewModel.isFavorite ? "heart.slash.fill" : "heart.fill")
                             .symbolRenderingMode(.multicolor)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
                     } else {
-                        Image(systemName: viewModel.isWatched ? "checkmark.circle" : "minus.circle.fill")
+                        Image(systemName: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle")
                             .symbolRenderingMode(.monochrome)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -49,14 +49,14 @@ struct CoverImageView: View {
                 withAnimation {
                     animateGesture.toggle()
                 }
-                if store.gesture == .favorite {
-                    viewModel.update(markAsFavorite: viewModel.isFavorite)
-                } else {
-                    viewModel.update(markAsWatched: viewModel.isWatched)
-                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                     withAnimation {
                         animateGesture = false
+                    }
+                    if store.gesture == .favorite {
+                        viewModel.update(markAsFavorite: !viewModel.isFavorite)
+                    } else {
+                        viewModel.update(markAsWatched: !viewModel.isWatched)
                     }
                 }
             }
