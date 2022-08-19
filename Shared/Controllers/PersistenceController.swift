@@ -6,7 +6,7 @@
 //  swiftlint:disable trailing_whitespace
 
 import CoreData
-import SwiftUI
+import CloudKit
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
@@ -41,6 +41,8 @@ struct PersistenceController {
     /// - Parameter inMemory: Whether to store this data in temporary memory or not.
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "Watchlist")
+        let description = container.persistentStoreDescriptions.first
+        description?.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.dev.alexandremadeira.Story")
         
         // For testing and previewing purposes, we create a temporary database that is destroyed
         // after the app finishes running.

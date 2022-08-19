@@ -86,12 +86,12 @@ struct PersonDetailsView: View {
                         .disabled(!viewModel.isLoaded)
                         ShareLink(item: personUrl)
 #if targetEnvironment(simulator)
-                        Button(action: {
-                            print("Print object '\(name)': \(viewModel.person as Any)")
-                        }, label: {
-                            Label("Print object", systemImage: "curlybraces.square.fill")
-                        })
-                        .tint(.orange)
+//                        Button(action: {
+//                            print("Print object '\(name)': \(viewModel.person as Any)")
+//                        }, label: {
+//                            Label("Print object", systemImage: "curlybraces.square.fill")
+//                        })
+//                        .tint(.orange)
 #endif
                     }
                 }

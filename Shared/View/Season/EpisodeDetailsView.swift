@@ -51,6 +51,7 @@ struct EpisodeDetailsView: View {
                     .buttonStyle(.bordered)
                     .controlSize(.large)
                     .padding([.top, .horizontal])
+                    .keyboardShortcut("e", modifiers: [.control])
                 
                 OverviewBoxView(overview: episode.overview,
                                 title: episode.itemTitle,

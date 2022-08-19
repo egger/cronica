@@ -17,7 +17,7 @@ struct ConfirmationDialogView: View {
         VStack {
             Spacer()
             HStack {
-                Label(message, systemImage: image)
+                Label(NSLocalizedString(message, comment: ""), systemImage: image)
                     .padding()
             }
             .background(.regularMaterial)
