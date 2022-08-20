@@ -7,8 +7,12 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
-extension WatchlistItem {
+extension WatchlistItem: Transferable {
+    public static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: \.itemUrlProxy)
+    }
     var itemTitle: String {
         title ?? "No title available"
     }
@@ -35,6 +39,9 @@ extension WatchlistItem {
     }
     var itemLink: URL {
         return URL(string: "https://www.themoviedb.org/\(itemMedia.rawValue)/\(itemId)")!
+    }
+    var itemUrlProxy: String {
+        return  "https://www.themoviedb.org/\(itemMedia.rawValue)/\(id)"
     }
     var itemGlanceInfo: String? {
         switch itemMedia {

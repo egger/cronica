@@ -94,9 +94,6 @@ extension ItemContent {
     var posterImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
-    var cardImageSmall: URL? {
-        return NetworkService.urlBuilder(size: .small, path: backdropPath)
-    }
     var cardImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: backdropPath)
     }

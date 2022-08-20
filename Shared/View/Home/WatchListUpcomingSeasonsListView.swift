@@ -28,6 +28,7 @@ struct WatchListUpcomingSeasonsListView: View {
                         ForEach(items) { item in
                             NavigationLink(value: item) {
                                 CardView(item: item)
+                                    .draggable(item)
                             }
                             .buttonStyle(.plain)
                             .padding(.leading, item.id == self.items.first!.id ? 16 : 0)

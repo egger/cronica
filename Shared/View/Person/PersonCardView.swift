@@ -13,9 +13,6 @@ import SDWebImageSwiftUI
 struct PersonCardView: View {
    let person: Person
    @State private var isFavorite: Bool = false
-   init(person: Person) {
-       self.person = person
-   }
    var body: some View {
        VStack {
            WebImage(url: person.personImage)
@@ -28,7 +25,7 @@ struct PersonCardView: View {
                            .aspectRatio(contentMode: .fit)
                            .frame(width: 50, height: 50, alignment: .center)
                            .foregroundColor(.white)
-                       PersonNameCredits(person: person)
+                       name
                    }
                    .frame(width: DrawingConstants.profileWidth,
                           height: DrawingConstants.profileHeight)
@@ -71,7 +68,7 @@ struct PersonCardView: View {
                                        Rectangle()
                                    }
                                }
-                           PersonNameCredits(person: person)
+                           name
                        }
                        
                    }
@@ -86,20 +83,8 @@ struct PersonCardView: View {
            ShareLink(item: person.itemURL)
        }
    }
-}
-
-
-private struct DrawingConstants {
-    static let profileWidth: CGFloat = 140
-    static let profileHeight: CGFloat = 200
-    static let shadowRadius: CGFloat = 2.5
-    static let profileRadius: CGFloat = 12
-    static let lineLimit: Int = 1
-}
-
-private struct PersonNameCredits: View {
-    let person: Person
-    var body: some View {
+    
+    var name: some View {
         VStack {
             Spacer()
             HStack {
@@ -124,9 +109,16 @@ private struct PersonNameCredits: View {
     }
 }
 
-
 struct PersonCardView_Previews: PreviewProvider {
     static var previews: some View {
         PersonCardView(person: Person.previewCast)
     }
+}
+
+private struct DrawingConstants {
+    static let profileWidth: CGFloat = 140
+    static let profileHeight: CGFloat = 200
+    static let shadowRadius: CGFloat = 2.5
+    static let profileRadius: CGFloat = 12
+    static let lineLimit: Int = 1
 }

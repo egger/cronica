@@ -41,14 +41,12 @@ class ItemContentViewModel: ObservableObject {
                 content = try await self.service.fetchContent(id: self.id, type: self.type)
                 if let content {
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
-                    if isInWatchlist {
-                        withAnimation {
+                    withAnimation {
+                        if isInWatchlist {
                             hasNotificationScheduled = isNotificationScheduled()
                             isWatched = context.isMarkedAsWatched(id: self.id)
                             isFavorite = context.isMarkedAsFavorite(id: self.id)
                         }
-                    }
-                    withAnimation {
                         isNotificationAvailable = content.itemCanNotify
                         if content.itemStatus == .released {
                             showMarkAsButton = true
@@ -63,7 +61,7 @@ class ItemContentViewModel: ObservableObject {
                         let combined = cast + crew
                         credits.append(contentsOf: combined)
                     }
-                    withAnimation { isLoading = false }
+                    isLoading = false
                 }
             } catch {
                 errorMessage = error.localizedDescription

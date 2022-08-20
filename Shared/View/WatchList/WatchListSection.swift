@@ -17,6 +17,7 @@ struct WatchListSection: View {
                 ForEach(items) { item in
                     NavigationLink(value: item) {
                         WatchlistItemView(content: item)
+                            .draggable(item)
                     }
                 }
                 .onDelete(perform: delete)

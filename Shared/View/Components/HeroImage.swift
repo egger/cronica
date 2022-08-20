@@ -30,10 +30,6 @@ struct HeroImage: View {
                         .font(.system(size: 30))
                 }
             }
-            .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-                   height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-            .shadow(radius: DrawingConstants.shadowRadius)
     }
 }
 
@@ -59,18 +55,5 @@ private struct HeroImagePlaceholder: View {
             .padding()
             .foregroundColor(.secondary)
         }
-        .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-               height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-        .shadow(radius: DrawingConstants.shadowRadius)
     }
-}
-
-private struct DrawingConstants {
-    static let shadowRadius: CGFloat = 5
-    static let imageWidth: CGFloat = 360
-    static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 12
-    static let padImageWidth: CGFloat = 500
-    static let padImageHeight: CGFloat = 300
 }

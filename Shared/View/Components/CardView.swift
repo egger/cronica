@@ -27,7 +27,7 @@ struct CardView: View {
                     .overlay {
                         ZStack(alignment: .bottom) {
                             Color.black.opacity(0.4)
-                                .frame(height: 40)
+                                .frame(height: 50)
                                 .mask {
                                     LinearGradient(colors: [
                                         Color.black,
