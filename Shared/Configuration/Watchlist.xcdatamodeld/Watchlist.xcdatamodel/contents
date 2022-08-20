@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21277" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="CustomListItem" representedClassName="CustomListItem" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WatchlistItem" inverseName="list" inverseEntity="WatchlistItem"/>
-    </entity>
-    <entity name="PersonItem" representedClassName="PersonItem" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="image" optional="YES" attributeType="URI"/>
-        <attribute name="name" attributeType="String" defaultValueString=""/>
-    </entity>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21277" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="WatchlistItem" representedClassName="WatchlistItem" syncable="YES" codeGenerationType="class">
         <attribute name="contentType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -18,6 +8,7 @@
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="isWatching" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="nextEpisodeNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nextSeasonNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="notify" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="schedule" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -25,6 +16,5 @@
         <attribute name="upcomingSeason" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="watched" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="watchedEpisodes" attributeType="String" defaultValueString=""/>
-        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomListItem" inverseName="items" inverseEntity="CustomListItem"/>
     </entity>
 </model>

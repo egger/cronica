@@ -59,7 +59,6 @@ struct HomeView: View {
                         if UIDevice.isIPhone {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button(action: {
-                                    HapticManager.shared.softHaptic()
                                     showSettings.toggle()
                                 }, label: {
                                     Label("Settings", systemImage: "gearshape")
@@ -78,11 +77,7 @@ struct HomeView: View {
                         await viewModel.load()
                     }
                 }
-                .refreshable {
-                    Task {
-                        await viewModel.reload()
-                    }
-                }
+                .refreshable { viewModel.reload() }
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
         }

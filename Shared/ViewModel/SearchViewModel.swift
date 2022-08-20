@@ -12,7 +12,6 @@ import Combine
 @MainActor class SearchViewModel: ObservableObject {
     @Published var query: String = ""
     @Published private(set) var phase: DataFetchPhase<[ItemContent]> = .empty
-    @Published var searchSuggestions = [SearchSuggestionItem]()
     private var cancellable = Set<AnyCancellable>()
     private var service: NetworkService = NetworkService.shared
     var trimmedQuery: String {
@@ -40,18 +39,6 @@ import Combine
             .store(in: &cancellable)
     }
     
-    func fetchSuggestions() async {
-        if searchSuggestions.isEmpty {
-            let result = try? await service.fetchContents(from: "trending/all/week")
-            if let result {
-                let sorted = result.shuffled()
-                while searchSuggestions.count <= 8 {
-                    searchSuggestions.append(SearchSuggestionItem.init(suggestion: sorted[searchSuggestions.count].itemTitle ))
-                }
-            }
-        }
-    }
-    
     func search(query: String) async {
         if Task.isCancelled { return }
         phase = .empty
@@ -72,7 +59,3 @@ import Combine
     }
 }
 
-struct SearchSuggestionItem: Identifiable {
-    var id = UUID()
-    let suggestion: String
-}

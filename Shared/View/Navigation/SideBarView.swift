@@ -48,13 +48,6 @@ struct SideBarView: View {
             .navigationTitle("Cronica")
             .searchable(text: $viewModel.query, placement: .sidebar, prompt: "Movies, Shows, People")
             .disableAutocorrection(true)
-            .searchSuggestions {
-                if viewModel.query.isEmpty {
-                    ForEach(viewModel.searchSuggestions) { item in
-                        Text(item.suggestion).searchCompletion(item.suggestion)
-                    }
-                }
-            }
             .searchScopes($scope) {
                 ForEach(SearchItemsScope.allCases) { scope in
                     Text(scope.localizableTitle).tag(scope)
@@ -62,15 +55,11 @@ struct SideBarView: View {
             }
             .onAppear {
                 viewModel.observe()
-                Task {
-                    await viewModel.fetchSuggestions()
-                }
             }
             .overlay(searchOverlay)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        HapticManager.shared.softHaptic()
                         showSettings.toggle()
                     }, label: {
                         Label("Settings", systemImage: "gearshape")

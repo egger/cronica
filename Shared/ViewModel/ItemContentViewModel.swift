@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import TelemetryClient
 
 @MainActor
 class ItemContentViewModel: ObservableObject {
@@ -40,6 +41,19 @@ class ItemContentViewModel: ObservableObject {
                 content = try await self.service.fetchContent(id: self.id, type: self.type)
                 if let content {
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
+                    if isInWatchlist {
+                        withAnimation {
+                            hasNotificationScheduled = isNotificationScheduled()
+                            isWatched = context.isMarkedAsWatched(id: self.id)
+                            isFavorite = context.isMarkedAsFavorite(id: self.id)
+                        }
+                    }
+                    withAnimation {
+                        isNotificationAvailable = content.itemCanNotify
+                        if content.itemStatus == .released {
+                            showMarkAsButton = true
+                        }
+                    }
                     if recommendations.isEmpty {
                         recommendations.append(contentsOf: content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity } ?? [])
                     }
@@ -49,23 +63,7 @@ class ItemContentViewModel: ObservableObject {
                         let combined = cast + crew
                         credits.append(contentsOf: combined)
                     }
-                    if isInWatchlist {
-                        withAnimation {
-                            hasNotificationScheduled = isNotificationScheduled()
-                            isWatched = context.isMarkedAsWatched(id: self.id)
-                            isFavorite = isMarkedAsFavorite()
-                        }
-#if targetEnvironment(simulator)
-                        print(context.fetch(for: WatchlistItem.ID(id)) as Any)
-#endif
-                    }
-                    withAnimation {
-                        isNotificationAvailable = content.itemCanNotify
-                        if content.itemStatus == .released {
-                            showMarkAsButton = true
-                        }
-                    }
-                    isLoading = false
+                    withAnimation { isLoading = false }
                 }
             } catch {
                 errorMessage = error.localizedDescription
@@ -73,6 +71,8 @@ class ItemContentViewModel: ObservableObject {
                 content = nil
 #if targetEnvironment(simulator)
                 print(error.localizedDescription)
+#else
+                TelemetryManager.send("fetchError", with: ["error":"\(error.localizedDescription)"])
 #endif
             }
         }
@@ -84,15 +84,6 @@ class ItemContentViewModel: ObservableObject {
         let item = context.fetch(for: WatchlistItem.ID(self.id))
         if let item {
             return item.notify
-        }
-        return false
-    }
-    
-    // Returns a boolean indicating the status of 'favorite' on a given item.
-    private func isMarkedAsFavorite() -> Bool {
-        let item = context.fetch(for: WatchlistItem.ID(self.id))
-        if let item {
-            return item.favorite
         }
         return false
     }

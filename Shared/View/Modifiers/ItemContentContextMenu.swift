@@ -11,6 +11,8 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     @State private var isInWatchlist: Bool = false
+    @State private var isWatched: Bool = false
+    @State private var isFavorite: Bool = false
     private let context = PersistenceController.shared
     func body(content: Content) -> some View {
         return content
@@ -23,10 +25,48 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
                     Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                           systemImage: isInWatchlist ? "minus.square" : "plus.square")
                 })
+                if isInWatchlist {
+                    watchedButton
+                    favoriteButton
+                }
             }
             .task {
                 isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                if isInWatchlist {
+                    isWatched = context.isMarkedAsWatched(id: item.id)
+                    isFavorite = context.isMarkedAsFavorite(id: item.id)
+                }
             }
+    }
+    
+    private var watchedButton: some View {
+        Button(action: {
+            withAnimation {
+                HapticManager.shared.softHaptic()
+                context.updateMarkAs(id: item.id, watched: !isWatched)
+                withAnimation {
+                    isWatched.toggle()
+                }
+            }
+        }, label: {
+            Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                  systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+        })
+    }
+    
+    private var favoriteButton: some View {
+        Button(action: {
+            withAnimation {
+                HapticManager.shared.softHaptic()
+                context.updateMarkAs(id: item.id, favorite: !isFavorite)
+                withAnimation {
+                    isFavorite.toggle()
+                }
+            }
+        }, label: {
+            Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                  systemImage: isFavorite ? "heart.slash.circle.fill" : "heart.circle")
+        })
     }
     
     private func updateWatchlist(with item: ItemContent) {

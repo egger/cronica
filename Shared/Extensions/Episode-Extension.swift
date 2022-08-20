@@ -35,6 +35,9 @@ extension Episode {
                 return "Episode \(episodeNumber) • \(itemDate)"
             }
         }
+        if let episodeNumber {
+            return "Episode \(episodeNumber)"
+        }
         return nil
     }
     var itemCast: [Person] {

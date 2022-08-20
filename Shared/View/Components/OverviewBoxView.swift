@@ -34,7 +34,6 @@ struct OverviewBoxView: View {
         }
         .onTapGesture {
             if overview != nil {
-                HapticManager.shared.lightHaptic()
                 showDetailsSheet.toggle()
             }
         }

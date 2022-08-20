@@ -13,7 +13,6 @@ import SDWebImageSwiftUI
 struct PersonCardView: View {
    let person: Person
    @State private var isFavorite: Bool = false
-   private let context = PersistenceController.shared
    init(person: Person) {
        self.person = person
    }
@@ -83,26 +82,7 @@ struct PersonCardView: View {
                }
                .transition(.opacity)
        }
-       .task {
-           isFavorite = context.isPersonSaved(id: person.id)
-       }
        .contextMenu {
-           Button(action: {
-               if isFavorite {
-                   HapticManager.shared.softHaptic()
-                   if let cast = context.fetch(person: PersonItem.ID(person.id)) {
-                       context.delete(cast)
-                       isFavorite.toggle()
-                   }
-               } else {
-                   HapticManager.shared.softHaptic()
-                   isFavorite.toggle()
-                   context.save(person)
-               }
-           }, label: {
-               Label(isFavorite ? "Remove from Favorites" : "Add to Favorites",
-                     systemImage: isFavorite ? "star.slash.fill" : "star")
-           })
            ShareLink(item: person.itemURL)
        }
    }
@@ -147,6 +127,6 @@ private struct PersonNameCredits: View {
 
 struct PersonCardView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonCardView(person: Credits.previewCast)
+        PersonCardView(person: Person.previewCast)
     }
 }

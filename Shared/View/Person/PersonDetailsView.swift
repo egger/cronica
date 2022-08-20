@@ -77,21 +77,14 @@ struct PersonDetailsView: View {
             .toolbar {
                 ToolbarItem {
                     HStack {
-                        Button(action: {
-                            viewModel.updateFavorite()
-                        }, label: {
-                            Label(viewModel.isFavorite ? "Remove from Favorites" : "Add to Favorites",
-                                  systemImage: viewModel.isFavorite ? "star.slash.fill" : "star")
-                        })
-                        .disabled(!viewModel.isLoaded)
                         ShareLink(item: personUrl)
-#if targetEnvironment(simulator)
-//                        Button(action: {
-//                            print("Print object '\(name)': \(viewModel.person as Any)")
-//                        }, label: {
-//                            Label("Print object", systemImage: "curlybraces.square.fill")
-//                        })
-//                        .tint(.orange)
+#if DEBUG
+                        Button(action: {
+                            print("Print object '\(name)': \(viewModel.person as Any)")
+                        }, label: {
+                            Label("Print object", systemImage: "curlybraces.square.fill")
+                        })
+                        .tint(.orange)
 #endif
                     }
                 }
@@ -150,8 +143,8 @@ struct PersonDetailsView: View {
 
 struct CastDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonDetailsView(title: Credits.previewCast.name,
-                          id: Credits.previewCast.id)
+        PersonDetailsView(title: Person.previewCast.name,
+                          id: Person.previewCast.id)
     }
 }
 

@@ -44,7 +44,7 @@ private struct DrawingConstants {
 
 struct Previews_ProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileImageView(url: Credits.previewCast.personImage,
-                         name: Credits.previewCast.name)
+        ProfileImageView(url: Person.previewCast.personImage,
+                         name: Person.previewCast.name)
     }
 }

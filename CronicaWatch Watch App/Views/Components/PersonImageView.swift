@@ -34,7 +34,7 @@ struct PersonImageView: View {
 
 struct PersonImageView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonImageView(image: Credits.previewCast.personImage)
+        PersonImageView(image: Person.previewCast.personImage)
     }
 }
 

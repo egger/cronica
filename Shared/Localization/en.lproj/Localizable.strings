@@ -41,6 +41,13 @@
 "Add to Favorites" = "Add to Favorites";
 "Share" = "Share";
 "Mark this and previous episodes as watched" = "Mark this and previous episodes as watched";
+"No Episode Available" = "No Episode Available";
+"Season Marked as Watched" = "Season Marked as Watched";
+"No biography available." = "No biography available.";
+"No information available." = "No information available.";
+"No title available" = "No title available";
+"No Name Found" = "No Name Found";
+"Not Available" = "Not Available";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
@@ -119,6 +126,7 @@
 "Send" = "Send";
 "Cancel" = "Cancel";
 "Send your suggestions to help improve Cronica." = "Send your suggestions to help improve Cronica.";
+"Feedback sent" = "Feedback sent";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";
@@ -183,6 +191,7 @@
 "No results" = "No results";
 "Search results" = "Search results"; 
 "This list is empty." = "This list is empty.";
+"Sort List" = "Sort List";
 
 //MARK: Developer Settings
 "Watchlist Mode" = "Watchlist Mode";

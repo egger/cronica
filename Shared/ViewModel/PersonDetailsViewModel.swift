@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import TelemetryClient
 
 @MainActor
 class PersonDetailsViewModel: ObservableObject {
@@ -31,7 +32,6 @@ class PersonDetailsViewModel: ObservableObject {
             do {
                 person = try await self.service.fetchPerson(id: self.id)
                 if let person {
-                    isFavorite = persistence.isPersonSaved(id: person.id)
                     let cast = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false } ?? []
                     let crew = person.combinedCredits?.crew?.filter { $0.itemIsAdult == false } ?? []
                     let combinedCredits = cast + crew
@@ -46,27 +46,11 @@ class PersonDetailsViewModel: ObservableObject {
             } catch {
                 person = nil
                 errorMessage = error.localizedDescription
+#if targetEnvironment(simulator)
                 print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func updateFavorite() {
-        if let person {
-            if isFavorite {
-                let item = persistence.fetch(person: PersonItem.ID(person.id))
-                if let item {
-                    persistence.delete(item)
-                }
-            } else {
-                persistence.save(person)
-            }
-            withAnimation {
-#if os(watchOS)
 #else
-                HapticManager.shared.lightHaptic()
+                TelemetryManager.send("fetchError", with: ["error":"\(error.localizedDescription)"])
 #endif
-                isFavorite.toggle()
             }
         }
     }

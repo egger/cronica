@@ -40,6 +40,13 @@
 "Add to Favorites" = "Adicionar aos Favoritos";
 "Share" = "Compartilhar";
 "Mark this and previous episodes as watched" = "Marque este e os episódios anteriores como assistidos";
+"No Episode Available" = "Nenhum Episódio Disponível";
+"Season Marked as Watched" = "Temporada marcada como assistida";
+"No biography available." = "Nenhuma biografia disponível.";
+"No information available." = "Nenhuma informação disponível.";
+"No title available" = "Nenhum título disponível";
+"No Name Found" = "Nenhum nome encontrado";
+"Not Available" = "Indisponível";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
@@ -119,6 +126,7 @@
 "Send" = "Enviar";
 "Cancel" = "Cancelar";
 "Send your suggestions to help improve Cronica." = "Envie suas sugestões para ajudar a melhorar o Cronica.";
+"Feedback sent" = "Sugestão enviada";
 
 //MARK: HomeView.swift
 "Trending" = "Em Alta";
@@ -183,6 +191,7 @@
 "No results" = "Sem resultados";
 "Search results" = "Resultado da busca";
 "This list is empty." = "Esta lista está vazia.";
+"Sort List" = "Filtrar Lista";
 
 //MARK: Developer Settings
 "Watchlist Mode" = "Modo da lista";

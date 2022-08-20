@@ -8,7 +8,7 @@ import SwiftUI
 
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
-    @Environment(\.managedObjectContext) private var viewcontext
+    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default)
@@ -19,7 +19,6 @@ struct WatchlistView: View {
     @State private var query = ""
     @State private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
-    @State private var isRefreshing: Bool = false
     var body: some View {
         AdaptableNavigationView {
             VStack {
@@ -92,17 +91,11 @@ struct WatchlistView: View {
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
             }
-            .navigationDestination(for: PersonItem.self) { item in
-                PersonDetailsView(title: item.personName, id: Int(item.id))
-            }
             .navigationDestination(for: ItemContent.self) { item in
                 ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
-            }
-            .refreshable {
-                refresh()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -133,12 +126,6 @@ struct WatchlistView: View {
             }
             .disableAutocorrection(true)
         }
-    }
-    
-    private func refresh() {
-        HapticManager.shared.softHaptic()
-        let background = BackgroundManager()
-        background.handleAppRefreshContent()
     }
 }
 

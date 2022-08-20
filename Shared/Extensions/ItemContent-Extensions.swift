@@ -22,13 +22,13 @@ extension ItemContent {
         return NSLocalizedString("No information available.", comment: "")
     }
     var itemGenre: String {
-        genres?.first?.name ?? "Not Available"
+        genres?.first?.name ?? NSLocalizedString("Not Available", comment: "")
     }
     var itemCountry: String? {
-        return productionCountries?.first?.name ?? "Not Available"
+        return productionCountries?.first?.name ?? NSLocalizedString("Not Available", comment: "")
     }
     var itemCompany: String {
-        return productionCompanies?.first?.name ?? "Not Available"
+        return productionCompanies?.first?.name ?? NSLocalizedString("Not Available", comment: "")
     }
     var itemPopularity: Double {
         popularity ?? 0.0
@@ -86,7 +86,7 @@ extension ItemContent {
             if voteAverage <= 0.9 {
                 return nil
             } else {
-                return "\(voteAverage.rounded()) out of 10"
+                return NSLocalizedString("\(voteAverage.rounded())/10", comment: "")
             }
         }
         return nil

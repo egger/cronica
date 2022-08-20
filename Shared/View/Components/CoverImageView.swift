@@ -15,10 +15,10 @@ struct CoverImageView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         VStack {
-            ZStack {
-                HeroImage(url: viewModel.content?.cardImageLarge,
-                          title: title,
-                          blurImage: viewModel.content?.itemIsAdult ?? false)
+            HeroImage(url: viewModel.content?.cardImageLarge,
+                      title: title,
+                      blurImage: viewModel.content?.itemIsAdult ?? false)
+            .overlay {
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
                     if store.gesture == .favorite {
@@ -39,10 +39,10 @@ struct CoverImageView: View {
             }
             .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
                    height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
-            .cornerRadius(isPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius)
-            .shadow(color: .black.opacity(DrawingConstants.shadowOpacity),
-                    radius: DrawingConstants.shadowRadius)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+            .shadow(radius: DrawingConstants.shadowRadius)
             .padding([.top, .bottom])
+            
             .accessibilityElement(children: .combine)
             .accessibility(hidden: true)
             .onTapGesture(count: 2) {
@@ -60,7 +60,7 @@ struct CoverImageView: View {
                     }
                 }
             }
-
+            
             if let info = viewModel.content?.itemInfo {
                 Text(info)
                     .font(.caption)

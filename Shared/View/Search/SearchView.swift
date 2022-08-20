@@ -63,9 +63,6 @@ struct SearchView: View {
                 .overlay(overlayView)
                 .onAppear {
                     viewModel.observe()
-                    Task {
-                        await viewModel.fetchSuggestions()
-                    }
                 }
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
             }

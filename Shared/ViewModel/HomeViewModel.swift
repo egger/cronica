@@ -35,14 +35,22 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func reload() async {
+    func reload() {
+        HapticManager.shared.lightHaptic()
+        withAnimation { isLoaded = false }
+        updateWatchlist()
         withAnimation {
-            isLoaded = false
-            trending.removeAll()
-            sections.removeAll()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.isLoaded = false
+            }
         }
-        await load()
+    }
+    
+    private func updateWatchlist() {
+        DispatchQueue.global(qos: .background).async {
+            let background = BackgroundManager()
+            background.handleAppRefreshContent()
+        }
     }
     
     private func fetchSections() async -> [ItemContentSection] {
@@ -62,10 +70,6 @@ class HomeViewModel: ObservableObject {
         if let section {
             return .init(results: section, endpoint: endpoint)
         }
-        return nil
-    }
-    
-    private func fetchRecommendationFromPerson() -> [String: [ItemContent]]? {
         return nil
     }
 }

@@ -90,6 +90,7 @@ extension WatchlistItem {
     }
     var isReleasedTvShow: Bool {
         if itemMedia == .tvShow {
+            if itemSchedule == .renewed && nextSeasonNumber == 1 && nextEpisodeNumber > 1 { return true }
             if itemSchedule == .renewed && nextSeasonNumber != 1 { return true }
             if itemSchedule == .released && !isWatched { return true }
             if itemSchedule == .cancelled && !isWatched { return true }
@@ -108,6 +109,7 @@ extension WatchlistItem {
             if itemSchedule == .soon && upcomingSeason && notify { return true }
             if itemSchedule == .soon && upcomingSeason { return true }
             if itemSchedule == .renewed && notify && date != nil && upcomingSeason { return true }
+            if itemSchedule == .renewed && nextSeasonNumber == 1 && nextEpisodeNumber == 1 { return true }
         }
         return false
     }

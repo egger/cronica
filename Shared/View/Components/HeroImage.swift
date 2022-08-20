@@ -14,26 +14,26 @@ struct HeroImage: View {
     var blurImage: Bool = false
     private let isPad: Bool = UIDevice.isIPad
     var body: some View {
-        ZStack {
-            WebImage(url: url)
-                .resizable()
-                .placeholder {
-                    HeroImagePlaceholder(title: title)
-                }
-                .aspectRatio(contentMode: .fill)
-                .transition(.opacity)
-            if blurImage {
-                Rectangle().fill(.secondary)
-                Rectangle().fill(.ultraThinMaterial)
-                Image(systemName: "eye.slash.fill")
-                    .foregroundColor(.white)
-                    .font(.system(size: 30))
+        WebImage(url: url)
+            .resizable()
+            .placeholder {
+                HeroImagePlaceholder(title: title)
             }
-        }
-        .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-               height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-        .shadow(radius: DrawingConstants.shadowRadius)
+            .aspectRatio(contentMode: .fill)
+            .transition(.opacity)
+            .overlay {
+                if blurImage {
+                    Rectangle().fill(.secondary)
+                    Rectangle().fill(.ultraThinMaterial)
+                    Image(systemName: "eye.slash.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 30))
+                }
+            }
+            .frame(width: isPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+                   height: isPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+            .shadow(radius: DrawingConstants.shadowRadius)
     }
 }
 

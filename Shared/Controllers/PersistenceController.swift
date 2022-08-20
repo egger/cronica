@@ -7,10 +7,12 @@
 
 import CoreData
 import CloudKit
+import TelemetryClient
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
 struct PersistenceController {
+    private let containerId = "iCloud.dev.alexandremadeira.Story"
     static let shared = PersistenceController()
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
@@ -42,7 +44,7 @@ struct PersistenceController {
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "Watchlist")
         let description = container.persistentStoreDescriptions.first
-        description?.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.dev.alexandremadeira.Story")
+        description?.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: containerId)
         
         // For testing and previewing purposes, we create a temporary database that is destroyed
         // after the app finishes running.
@@ -50,15 +52,16 @@ struct PersistenceController {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
         container.loadPersistentStores {storeDescription, error in
-            print(storeDescription.url as Any)
             if let error {
-                print(error.localizedDescription)
+#if DEBUG
+#else
+                TelemetryManager.send("containerError", with: ["error":"\(error.localizedDescription)"])
+#endif
             }
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
-    // MARK: WatchlistItem
     /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
     func save(_ content: ItemContent) {
@@ -77,6 +80,11 @@ struct PersistenceController {
         }
         item.formattedDate = content.itemTheatricalString
         if content.itemContentMedia == .tvShow {
+            if let episode = content.lastEpisodeToAir {
+                if let number = episode.episodeNumber {
+                    item.nextEpisodeNumber = Int64(number)
+                }
+            }
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
@@ -109,6 +117,11 @@ struct PersistenceController {
                 item.notify = content.itemCanNotify
                 item.formattedDate = content.itemTheatricalString
                 if content.itemContentMedia == .tvShow {
+                    if let episode = content.lastEpisodeToAir {
+                        if let number = episode.episodeNumber {
+                            item.nextEpisodeNumber = Int64(number)
+                        }
+                    }
                     item.upcomingSeason = content.hasUpcomingSeason
                     item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                 }
@@ -226,47 +239,11 @@ struct PersistenceController {
         return false
     }
     
-    // MARK: PersonItem
-    func save(_ person: Person) {
-        if !isPersonSaved(id: person.id) {
-            let viewContext = container.viewContext
-            let item = PersonItem(context: viewContext)
-            item.name = person.name
-            item.id = Int64(person.id)
-            item.image = person.personImage
-            if viewContext.hasChanges {
-                try? viewContext.save()
-            }
-        }
-    }
-    
-    func fetch(person id: PersonItem.ID) -> PersonItem? {
-        let context = container.viewContext
-        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", id)
-        let item = try? context.fetch(request)
+    // Returns a boolean indicating the status of 'favorite' on a given item.
+    func isMarkedAsFavorite(id: ItemContent.ID) -> Bool {
+        let item = fetch(for: WatchlistItem.ID(id))
         if let item {
-            return item[0]
-        }
-        return nil
-    }
-
-    func delete(_ item: PersonItem) {
-        let viewContext = container.viewContext
-        let person = try? viewContext.existingObject(with: item.objectID)
-        if let person {
-            viewContext.delete(person)
-            try? viewContext.save()
-        }
-    }
-    
-    func isPersonSaved(id: Person.ID) -> Bool {
-        let context = container.viewContext
-        let request: NSFetchRequest<PersonItem> = PersonItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", PersonItem.ID(id))
-        let numberOfObjects = try? context.count(for: request)
-        if let numberOfObjects {
-            if numberOfObjects > 0 { return true }
+            return item.favorite
         }
         return false
     }
