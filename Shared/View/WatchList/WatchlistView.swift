@@ -141,7 +141,7 @@ struct WatchlistView: View {
         }
     }
     private var deleteAllButton: some View {
-        Button( action: {
+        Button(role: .destructive, action: {
             withAnimation {
                 PersistenceController.shared.delete(items: multiSelection)
             }
