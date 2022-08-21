@@ -46,7 +46,9 @@ struct SideBarView: View {
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
-            .searchable(text: $viewModel.query, placement: .sidebar, prompt: "Movies, Shows, People")
+            .searchable(text: $viewModel.query,
+                        placement: .navigationBarDrawer(displayMode: .always),
+                        prompt: "Movies, Shows, People")
             .disableAutocorrection(true)
             .searchScopes($scope) {
                 ForEach(SearchItemsScope.allCases) { scope in

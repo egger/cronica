@@ -53,7 +53,8 @@ struct PersistenceController {
         }
         container.loadPersistentStores {storeDescription, error in
             if let error {
-#if DEBUG
+#if targetEnvironment(simulator)
+                print(error as Any)
 #else
                 TelemetryManager.send("containerError", with: ["error":"\(error.localizedDescription)"])
 #endif
@@ -88,7 +89,9 @@ struct PersistenceController {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
-        try? viewContext.save()
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
     }
     
     /// Get an item from the Watchlist.
@@ -146,15 +149,55 @@ struct PersistenceController {
     }
     
     /// Deletes a WatchlistItem from Core Data.
-    func delete(_ item: WatchlistItem) {
-        if isItemSaved(id: item.itemId, type: item.itemMedia) {
-            let viewContext = container.viewContext
-            let item = try? viewContext.existingObject(with: item.objectID)
-            if let item {
-                viewContext.delete(item)
+    func delete(_ content: WatchlistItem) {
+        let viewContext = container.viewContext
+        let item = try? viewContext.existingObject(with: content.objectID)
+        if let item {
+            if isNotificationScheduled(for: content) {
+                let notification = NotificationManager.shared
+                notification.removeNotification(identifier: "\(content.itemTitle)+\(content.id)")
+            }
+            viewContext.delete(item)
+            if viewContext.hasChanges {
                 try? viewContext.save()
             }
         }
+    }
+    
+    func delete(items: Set<Int64>) {
+        var content = [WatchlistItem]()
+        for item in items {
+            let fetch = fetch(for: item)
+            if let fetch {
+                content.append(fetch)
+            }
+        }
+        if !content.isEmpty {
+            for item in content {
+                delete(item)
+            }
+        }
+    }
+    
+    func updateMarkAs(items: Set<WatchlistItem>, favorite: Bool? = nil, watched: Bool? = nil) {
+        for item in items {
+            if let favorite {
+                updateMarkAs(id: item.itemId, favorite: favorite)
+            }
+            if let watched {
+                updateMarkAs(id: item.itemId, watched: watched)
+            }
+        }
+    }
+    
+    /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
+    /// and might not be an actual representation if the item will notify the user.
+    private func isNotificationScheduled(for content: WatchlistItem) -> Bool {
+        let item = fetch(for: content.id)
+        if let item {
+            return item.notify
+        }
+        return false
     }
     
     /// Search if an item is added to the list.

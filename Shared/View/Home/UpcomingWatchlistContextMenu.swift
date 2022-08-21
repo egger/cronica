@@ -27,7 +27,7 @@ struct UpcomingWatchlistContextMenu: ViewModifier {
         HapticManager.shared.mediumHaptic()
         withAnimation(.easeInOut) {
             viewContext.delete(item)
-            try? viewContext.save()
+            if viewContext.hasChanges { try? viewContext.save() }
         }
     }
 }

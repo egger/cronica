@@ -36,7 +36,7 @@ extension Episode {
             }
         }
         if let episodeNumber {
-            return "Episode \(episodeNumber)"
+            return NSLocalizedString("Episode \(episodeNumber)", comment: "")
         }
         return nil
     }

@@ -14,7 +14,7 @@ extension WatchlistItem: Transferable {
         ProxyRepresentation(exporting: \.itemUrlProxy)
     }
     var itemTitle: String {
-        title ?? "No title available"
+        title ?? NSLocalizedString("No title available", comment: "")
     }
     var itemId: Int {
         Int(id)
@@ -50,7 +50,7 @@ extension WatchlistItem: Transferable {
                 if let formattedDate {
                     return "Season \(nextSeasonNumber) • \(formattedDate)"
                 }
-                return "Season \(nextSeasonNumber)"
+                return NSLocalizedString("Season \(nextSeasonNumber)", comment: "")
             }
         default:
             if let formattedDate {

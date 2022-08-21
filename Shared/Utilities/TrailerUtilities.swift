@@ -12,7 +12,7 @@ struct TrailerUtilities {
         if let videos {
             var items: [VideoItem] = []
             for video in videos {
-                if video.official && video.type.lowercased() == "trailer" {
+                if video.isTrailer {
                     items.append(VideoItem.init(url: urlBuilder(video: video.key),
                                                  thumbnail: fetchThumbnail(for: video.key),
                                                  title: video.name))

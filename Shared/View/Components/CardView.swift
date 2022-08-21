@@ -105,6 +105,7 @@ struct CardView: View {
             .modifier(UpcomingWatchlistContextMenu(item: item))
             .padding([.leading, .trailing], 4)
             .transition(.opacity)
+            .hoverEffect(.lift)
         } else {
             EmptyView()
         }

@@ -39,18 +39,23 @@ struct ItemContentView: View {
                             .keyboardShortcut("l", modifiers: [.option])
                             .environmentObject(viewModel)
                     } else {
-                        HStack {
+                        ViewThatFits {
+                            HStack {
+                                WatchlistButtonView()
+                                    .keyboardShortcut("l", modifiers: [.option])
+                                    .environmentObject(viewModel)
+                                    .padding(.horizontal)
+                                MarkAsMenuView()
+                                    .environmentObject(viewModel)
+                                    .buttonStyle(.bordered)
+                                    .controlSize(.large)
+                                    .padding(.trailing)
+                            }
+                            .padding([.top, .bottom])
                             WatchlistButtonView()
                                 .keyboardShortcut("l", modifiers: [.option])
                                 .environmentObject(viewModel)
-                                .padding(.leading)
-                            MarkAsMenuView()
-                                .environmentObject(viewModel)
-                                .buttonStyle(.bordered)
-                                .controlSize(.large)
-                                .padding(.trailing)
                         }
-                        .padding([.top, .bottom])
                     }
                     
                     OverviewBoxView(overview: viewModel.content?.itemOverview,

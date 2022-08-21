@@ -50,6 +50,7 @@ struct ItemContentFrameView: View {
                 }
                 .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
             }
+            .hoverEffect(.lift)
         }
     }
 }

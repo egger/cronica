@@ -12,4 +12,5 @@ extension UTType {
     static var itemContent = UTType(exportedAs: "dev.alexandremadeira.Story.itemContent")
     static var trailerItem = UTType(exportedAs: "dev.alexandremadeira.Story.trailerItem")
     static var watchlistItem = UTType(exportedAs: "dev.alexandremadeia.Story.watchlistItem")
+    static var person = UTType(exportedAs: "dev.alexandremadeira.Story.person")
 }

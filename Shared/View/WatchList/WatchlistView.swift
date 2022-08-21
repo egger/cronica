@@ -19,6 +19,8 @@ struct WatchlistView: View {
     @State private var query = ""
     @State private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
+    @State private var multiSelection = Set<WatchlistItem.ID>()
+    @Environment(\.editMode) private var editMode
     var body: some View {
         AdaptableNavigationView {
             VStack {
@@ -35,7 +37,7 @@ struct WatchlistView: View {
                             .padding()
                     }
                 } else {
-                    List {
+                    List(selection: $multiSelection) {
                         if !filteredItems.isEmpty {
                             switch scope {
                             case .noScope:
@@ -84,6 +86,11 @@ struct WatchlistView: View {
                     } isTargeted: { inDropArea in
                         print(inDropArea)
                     }
+                    .contextMenu(forSelectionType: WatchlistItem.ID.self) { items in
+                        if items.count >= 1 {
+                            deleteAllButton
+                        }
+                    }
                 }
             }
             .navigationTitle("Watchlist")
@@ -99,7 +106,13 @@ struct WatchlistView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                    HStack {
+                        if editMode?.wrappedValue.isEditing == true {
+                            deleteAllButton
+                                .labelStyle(.titleOnly)
+                        }
+                        EditButton()
+                    }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Menu {
@@ -126,6 +139,15 @@ struct WatchlistView: View {
             }
             .disableAutocorrection(true)
         }
+    }
+    private var deleteAllButton: some View {
+        Button( action: {
+            withAnimation {
+                PersistenceController.shared.delete(items: multiSelection)
+            }
+        }, label: {
+            Label("Remove Selected", systemImage: "trash")
+        })
     }
 }
 

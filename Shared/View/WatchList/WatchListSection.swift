@@ -18,6 +18,7 @@ struct WatchListSection: View {
                     NavigationLink(value: item) {
                         WatchlistItemView(content: item)
                             .draggable(item)
+                            .hoverEffect(.highlight)
                     }
                 }
                 .onDelete(perform: delete)

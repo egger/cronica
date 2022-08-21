@@ -32,6 +32,7 @@ struct OverviewBoxView: View {
                     .unredacted()
             }
         }
+        .hoverEffect(.highlight)
         .onTapGesture {
             if overview != nil {
                 showDetailsSheet.toggle()

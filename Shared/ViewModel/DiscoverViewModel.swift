@@ -40,7 +40,7 @@ class DiscoverViewModel: ObservableObject {
                 }
             }
         }
-        currentPage += 1
+        currentPage += 1 
         Task {
             await fetch()
         }

@@ -33,6 +33,9 @@ extension Person {
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/person/\(id)")!
     }
+    var itemUrlProxy: String {
+        return  "https://www.themoviedb.org/person/\(id)"
+    }
     static var example: [Person] {
         return ItemContent.previewContent.credits!.cast
     }

@@ -17,7 +17,7 @@ struct HeroImage: View {
         WebImage(url: url)
             .resizable()
             .placeholder {
-                HeroImagePlaceholder(title: title)
+                placeholder
             }
             .aspectRatio(contentMode: .fill)
             .transition(.opacity)
@@ -31,19 +31,7 @@ struct HeroImage: View {
                 }
             }
     }
-}
-
-struct HeroImage_Previews: PreviewProvider {
-    static var previews: some View {
-        HeroImage(url: ItemContent.previewContent.cardImageLarge,
-                  title: ItemContent.previewContent.itemTitle)
-    }
-}
-
-private struct HeroImagePlaceholder: View {
-    let title: String
-    private let isPad: Bool = UIDevice.isIPad
-    var body: some View {
+    private var placeholder: some View {
         ZStack {
             Rectangle().fill(.thickMaterial)
             VStack {
@@ -55,5 +43,12 @@ private struct HeroImagePlaceholder: View {
             .padding()
             .foregroundColor(.secondary)
         }
+    }
+}
+
+struct HeroImage_Previews: PreviewProvider {
+    static var previews: some View {
+        HeroImage(url: ItemContent.previewContent.cardImageLarge,
+                  title: ItemContent.previewContent.itemTitle)
     }
 }

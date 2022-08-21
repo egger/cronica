@@ -39,7 +39,7 @@ import Combine
             .store(in: &cancellable)
     }
     
-    func search(query: String) async {
+   private func search(query: String) async {
         if Task.isCancelled { return }
         phase = .empty
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)

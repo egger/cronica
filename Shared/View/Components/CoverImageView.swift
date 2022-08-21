@@ -42,7 +42,6 @@ struct CoverImageView: View {
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
             .shadow(radius: DrawingConstants.shadowRadius)
             .padding([.top, .bottom])
-            
             .accessibilityElement(children: .combine)
             .accessibility(hidden: true)
             .onTapGesture(count: 2) {
@@ -60,6 +59,7 @@ struct CoverImageView: View {
                     }
                 }
             }
+            .hoverEffect(.highlight)
             
             if let info = viewModel.content?.itemInfo {
                 Text(info)
@@ -71,7 +71,6 @@ struct CoverImageView: View {
 }
 
 private struct DrawingConstants {
-    static let shadowOpacity: Double = 0.2
     static let shadowRadius: CGFloat = 5
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
@@ -80,5 +79,3 @@ private struct DrawingConstants {
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12
 }
-
-

@@ -26,6 +26,11 @@ struct TrailerItemView: View {
                 .overlay {
                     overlay
                 }
+                .contextMenu {
+                    if let url = trailer.url {
+                        ShareLink(item: url)
+                    }
+                }
             HStack {
                 Text(trailer.title)
                     .lineLimit(1)
@@ -38,6 +43,7 @@ struct TrailerItemView: View {
         .frame(width: DrawingConstants.imageWidth)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(trailer.title)
+        .hoverEffect(.lift)
     }
     var placeholder: some View {
         ZStack {

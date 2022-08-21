@@ -106,7 +106,7 @@ struct SeasonsView: View {
             }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
-                    EpisodeDetailsView(episode: item, season: selectedSeason, show: tvId, inWatchlist: $inWatchlist)
+                    EpisodeDetailsView(episode: item, season: selectedSeason, show: tvId, isInWatchlist: $inWatchlist)
                         .environmentObject(viewModel)
                         .toolbar {
                             ToolbarItem {

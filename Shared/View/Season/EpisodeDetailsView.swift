@@ -14,22 +14,16 @@ struct EpisodeDetailsView: View {
     private let persistence = PersistenceController.shared
     @State private var isPad: Bool = UIDevice.isIPad
     @State private var isWatched: Bool = false
-    @Binding private var isInWatchlist: Bool
-    init(episode: Episode, season: Int, show: Int, inWatchlist: Binding<Bool>) {
-        self.episode = episode
-        self.season = season
-        self.show = show
-        self._isInWatchlist = inWatchlist
-    }
+    @Binding var isInWatchlist: Bool
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         VStack {
             ScrollView {
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
-                    .frame(width: isPad ? DrawingConstants.padCoverImageWidth : DrawingConstants.heroImageWidth,
-                           height: isPad ? DrawingConstants.padCoverImageHeight : DrawingConstants.heroImageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                                style: .continuous))
-                    .shadow(radius: DrawingConstants.coverImageShadow)
+                    .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+                           height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                    .shadow(radius: DrawingConstants.shadowRadius)
 
                 if let info = episode.itemInfo {
                     HStack {
@@ -82,13 +76,12 @@ struct EpisodeDetailsView: View {
 }
 
 private struct DrawingConstants {
-    static let imageWidth: CGFloat = 160
-    static let imageHeight: CGFloat = 100
-    static let imageRadius: CGFloat = 8
     static let titleLineLimit: Int = 1
-    static let heroImageWidth: CGFloat = 360
-    static let heroImageHeight: CGFloat = 210
-    static let padCoverImageWidth: CGFloat = 500
-    static let padCoverImageHeight: CGFloat = 300
-    static let coverImageShadow: CGFloat = 6
+    static let shadowRadius: CGFloat = 5
+    static let imageWidth: CGFloat = 360
+    static let imageHeight: CGFloat = 210
+    static let imageRadius: CGFloat = 8
+    static let padImageWidth: CGFloat = 500
+    static let padImageHeight: CGFloat = 300
+    static let padImageRadius: CGFloat = 12
 }

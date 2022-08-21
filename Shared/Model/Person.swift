@@ -11,7 +11,10 @@ import SwiftUI
 struct Credits: Codable, Hashable {
     let cast, crew: [Person]
 }
-struct Person: Codable, Identifiable, Hashable {
+struct Person: Codable, Identifiable, Hashable, Transferable {
+    public static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: \.itemUrlProxy)
+    }
     let adult: Bool?
     let id: Int
     let name: String

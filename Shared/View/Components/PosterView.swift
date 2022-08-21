@@ -24,6 +24,7 @@ struct PosterView: View {
                                         style: .continuous))
             .shadow(radius: DrawingConstants.shadowRadius)
             .padding(.zero)
+            .hoverEffect(.lift)
     }
 }
 

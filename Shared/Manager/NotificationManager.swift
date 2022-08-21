@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 import SwiftUI
+import TelemetryClient
 
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
@@ -44,9 +45,9 @@ class NotificationManager: ObservableObject {
         }
         var date: Date?
         if notificationContent.itemContentMedia == .movie {
-            date = notificationContent.itemTheatricalDate!
+            date = notificationContent.itemTheatricalDate
         } else if notificationContent.itemContentMedia == .tvShow {
-            date = notificationContent.nextEpisodeDate!
+            date = notificationContent.nextEpisodeDate
         } else {
             date = notificationContent.itemFallbackDate
         }
@@ -71,7 +72,11 @@ class NotificationManager: ObservableObject {
                                             trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error {
+#if targetEnvironment(simulator)
                 print(error.localizedDescription)
+#else
+                TelemetryManager.send("scheduleNotification", with: ["error":"\(error.localizedDescription)"])
+#endif
             }
         }
     }

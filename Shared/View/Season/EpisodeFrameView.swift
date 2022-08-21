@@ -101,6 +101,7 @@ struct EpisodeFrameView: View {
                 Spacer()
             }
         }
+        .hoverEffect(.lift)
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .task {

@@ -48,6 +48,7 @@
 "No title available" = "No title available";
 "No Name Found" = "No Name Found";
 "Not Available" = "Not Available";
+"Remove Selected" = "Remove Selected";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
