@@ -88,6 +88,8 @@ struct WatchlistView: View {
                     }
                     .contextMenu(forSelectionType: WatchlistItem.ID.self) { items in
                         if items.count >= 1 {
+                            updateWatchButton
+                            Divider()
                             deleteAllButton
                         }
                     }
@@ -147,6 +149,17 @@ struct WatchlistView: View {
             }
         }, label: {
             Label("Remove Selected", systemImage: "trash")
+        })
+    }
+    private var updateWatchButton: some View {
+        Button(action: {
+            PersistenceController.shared.updateMarkAs(items: multiSelection)
+        }, label: {
+            if selectedOrder != .watched {
+                Label("Mark selected as watched", systemImage: "checkmark.circle")
+            } else {
+                Label("Mark selected as unwatched", systemImage: "minus.circle")
+            }
         })
     }
 }

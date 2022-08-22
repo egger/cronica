@@ -49,6 +49,8 @@
 "No Name Found" = "No Name Found";
 "Not Available" = "Not Available";
 "Remove Selected" = "Remove Selected";
+"Mark selected as watched" = "Mark selected as watched";
+"Mark selected as unwatched" = "Mark selected as unwatched";
 
 //MARK: AttributionView.swift
 "This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";

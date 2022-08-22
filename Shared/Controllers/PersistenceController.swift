@@ -179,6 +179,21 @@ struct PersistenceController {
         }
     }
     
+    func updateMarkAs(items: Set<Int64>) {
+        var content = [WatchlistItem]()
+        for item in items {
+            let fetch = fetch(for: item)
+            if let fetch {
+                content.append(fetch)
+            }
+        }
+        if !content.isEmpty {
+            for item in content {
+                updateMarkAs(id: item.itemId, watched: !item.watched)
+            }
+        }
+    }
+    
     func updateMarkAs(items: Set<WatchlistItem>, favorite: Bool? = nil, watched: Bool? = nil) {
         for item in items {
             if let favorite {
