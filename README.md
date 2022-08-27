@@ -16,7 +16,7 @@
 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/8fb81b4f7f1ad54ae8b8df12c790fdf7a1d25bae/Screenshots/CronicaHome.png" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
+    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Screenshots/CronicaHome.png?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
 </p>
 
 
