@@ -21,7 +21,10 @@ struct PersonView: View {
     var body: some View {
         VStack {
             ScrollView {
-                PersonImageView(image: viewModel.person?.personImage)
+                PersonImageView(url: viewModel.person?.personImage, name: name)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                    .padding()
                 
                 ShareLink(item: url)
                     .padding(.bottom)
@@ -47,4 +50,9 @@ struct PersonView_Previews: PreviewProvider {
         PersonView(id: Person.previewCast.id,
                    name: Person.previewCast.name)
     }
+}
+
+private struct DrawingConstants {
+    static let imageWidth: CGFloat = 100
+    static let imageHeight: CGFloat = 100
 }

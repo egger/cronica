@@ -35,7 +35,7 @@ enum MediaType: String, CaseIterable, Identifiable {
         case .person:
             return "combined_credits,images"
         case .tvShow:
-            return "credits,recommendations,videos,content_ratings"
+            return "credits,recommendations,videos"
         }
     }
 }

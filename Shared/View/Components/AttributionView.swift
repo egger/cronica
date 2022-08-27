@@ -17,7 +17,7 @@ struct AttributionView: View {
                        height: DrawingConstants.imageHeight,
                        alignment: .center)
                 .accessibility(hidden: true)
-            Text("This product uses the TMDB API but is not endorsed or certified by TMDB.")
+            Text("This product uses the TMDb API but is not endorsed or certified by TMDb.")
                 .frame(alignment: .center)
                 .font(.caption)
                 .foregroundColor(.secondary)

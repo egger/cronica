@@ -12,7 +12,6 @@ struct HeroImage: View {
     let url: URL?
     let title: String
     var blurImage: Bool = false
-    private let isPad: Bool = UIDevice.isIPad
     var body: some View {
         WebImage(url: url)
             .resizable()
@@ -23,8 +22,11 @@ struct HeroImage: View {
             .transition(.opacity)
             .overlay {
                 if blurImage {
+#if os(watchOS)
                     Rectangle().fill(.secondary)
+#else
                     Rectangle().fill(.ultraThinMaterial)
+#endif
                     Image(systemName: "eye.slash.fill")
                         .foregroundColor(.white)
                         .font(.system(size: 30))
@@ -33,7 +35,11 @@ struct HeroImage: View {
     }
     private var placeholder: some View {
         ZStack {
+#if os(watchOS)
+            Rectangle().fill(.secondary)
+#else
             Rectangle().fill(.thickMaterial)
+#endif
             VStack {
                 Text(title)
                     .lineLimit(1)

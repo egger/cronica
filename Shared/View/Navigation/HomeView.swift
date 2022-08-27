@@ -27,7 +27,7 @@ struct HomeView: View {
                                         NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
                                        ])
     )
-    var upcomingMovies: FetchedResults<WatchlistItem>
+    var movies: FetchedResults<WatchlistItem>
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
@@ -35,7 +35,7 @@ struct HomeView: View {
         ],
         predicate: NSPredicate(format: "upcomingSeason == %d", true)
     )
-    var upcomingSeasons: FetchedResults<WatchlistItem>
+    var seasons: FetchedResults<WatchlistItem>
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
         _settings = StateObject(wrappedValue: SettingsStore())
@@ -48,8 +48,8 @@ struct HomeView: View {
             }
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
-                    UpcomingSectionsList(items: upcomingMovies, title: "Upcoming Movies")
-                    UpcomingSectionsList(items: upcomingSeasons, title: "Upcoming Seasons")
+                    UpcomingSectionsList(items: movies, title: "Upcoming Movies")
+                    UpcomingSectionsList(items: seasons, title: "Upcoming Seasons")
                     ItemContentListView(items: viewModel.trending,
                                         title: "Trending",
                                         subtitle: "This week",

@@ -28,8 +28,9 @@ struct PersonDetailsView: View {
                 ScrollView {
                     ViewThatFits {
                         HStack {
-                            ProfileImageView(url: viewModel.person?.personImage,
+                            PersonImageView(url: viewModel.person?.personImage,
                                              name: name)
+                            .frame(width: DrawingConstants.padImageWidth, height: DrawingConstants.padImageHeight)
                             .shadow(radius: DrawingConstants.imageShadow)
                             .padding(.horizontal)
                             
@@ -41,8 +42,9 @@ struct PersonDetailsView: View {
                         }
                         
                         VStack {
-                            ProfileImageView(url: viewModel.person?.personImage,
+                            PersonImageView(url: viewModel.person?.personImage,
                                              name: name)
+                            .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
                             .shadow(radius: DrawingConstants.imageShadow)
                             .padding(.horizontal)
                             
@@ -150,4 +152,8 @@ struct CastDetailsView_Previews: PreviewProvider {
 
 private struct DrawingConstants {
     static let imageShadow: CGFloat = 6
+    static let imageWidth: CGFloat = 150
+    static let imageHeight: CGFloat = 150
+    static let padImageWidth: CGFloat = 250
+    static let padImageHeight: CGFloat = 250
 }

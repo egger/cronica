@@ -34,7 +34,6 @@ struct WatchEpisodeButtonView: View {
         } else {
             handleList()
         }
-        
     }
     
     private func handleList() {

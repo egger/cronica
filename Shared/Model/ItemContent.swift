@@ -44,7 +44,6 @@ struct Genre: Codable, Identifiable, Hashable {
     let id: Int
     let name: String?
 }
-
 struct ItemContentResponse: Identifiable, Codable, Hashable {
     let id: String?
     let results: [ItemContent]

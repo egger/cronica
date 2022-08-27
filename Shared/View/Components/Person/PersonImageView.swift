@@ -1,16 +1,18 @@
 //
-//  PersonImageView.swift
-//  CronicaWatch Watch App
+//  ProfileImageView.swift
+//  Story (iOS)
 //
-//  Created by Alexandre Madeira on 13/08/22.
+//  Created by Alexandre Madeira on 05/04/22.
 //
 
 import SwiftUI
 
+/// This view displays a rounded image for the given person.
 struct PersonImageView: View {
-    let image: URL?
+    let url: URL?
+    let name: String
     var body: some View {
-        AsyncImage(url: image) { phase in
+        AsyncImage(url: url) { phase in
             if let image = phase.image {
                 image
                     .resizable()
@@ -19,26 +21,24 @@ struct PersonImageView: View {
                 Rectangle().redacted(reason: .placeholder)
             } else {
                 ZStack {
+#if os(watchOS)
                     Rectangle().fill(.secondary)
+#else
+                    Rectangle().fill(.thickMaterial)
+#endif
                     ProgressView()
                 }
             }
         }
-        .frame(width: DrawingConstants.imageWidth,
-               height: DrawingConstants.imageHeight)
         .clipShape(Circle())
         .padding([.top, .bottom])
         .accessibilityHidden(true)
     }
 }
 
-struct PersonImageView_Previews: PreviewProvider {
+struct Previews_ProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonImageView(image: Person.previewCast.personImage)
+        PersonImageView(url: Person.previewCast.personImage,
+                        name: Person.previewCast.name)
     }
-}
-
-private struct DrawingConstants {
-    static let imageWidth: CGFloat = 100
-    static let imageHeight: CGFloat = 100
 }

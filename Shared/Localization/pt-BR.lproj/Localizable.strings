@@ -218,3 +218,6 @@
 // MARK: watchOS
 "Search TMDb" = "Procure no TMDb";
 "For more details, open the companion app." = "Para mais detalhes, abra o aplicativo no iPhone.";
+
+// MARK: Widget
+"Shows movies and TV Shows trending from TMDb." = "Mostra filmes e séries em destaque da TMDb.";
