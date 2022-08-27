@@ -15,11 +15,9 @@ struct WatchListSection: View {
         if !items.isEmpty {
             Section {
                 ForEach(items) { item in
-                    NavigationLink(value: item) {
-                        WatchlistItemView(content: item)
-                            .draggable(item)
-                            .hoverEffect(.highlight)
-                    }
+                    WatchlistItemView(content: item)
+                        .draggable(item)
+                        .hoverEffect(.highlight)
                 }
                 .onDelete(perform: delete)
             } header: {

@@ -18,6 +18,10 @@ struct CoverImageView: View {
             HeroImage(url: viewModel.content?.cardImageLarge,
                       title: title,
                       blurImage: viewModel.content?.itemIsAdult ?? false)
+            .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+                   height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+            .shadow(radius: DrawingConstants.shadowRadius)
             .overlay {
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
@@ -37,10 +41,6 @@ struct CoverImageView: View {
                 }
                 .opacity(animateGesture ? 1 : 0)
             }
-            .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-                   height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-            .shadow(radius: DrawingConstants.shadowRadius)
             .padding([.top, .bottom])
             .accessibilityElement(children: .combine)
             .accessibility(hidden: true)
@@ -59,7 +59,6 @@ struct CoverImageView: View {
                     }
                 }
             }
-            .hoverEffect(.highlight)
             
             if let info = viewModel.content?.itemInfo {
                 Text(info)

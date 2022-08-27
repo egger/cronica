@@ -10,9 +10,10 @@ import SDWebImageSwiftUI
 
 struct CardView: View {
     let item: WatchlistItem
+    @Environment(\.managedObjectContext) private var viewContext
     var body: some View {
         if item.image != nil {
-            VStack {
+            NavigationLink(value: item) {
                 WebImage(url: item.image, options: .highPriority)
                     .resizable()
                     .placeholder {
@@ -29,13 +30,11 @@ struct CardView: View {
                             Color.black.opacity(0.4)
                                 .frame(height: 50)
                                 .mask {
-                                    LinearGradient(colors: [
-                                        Color.black,
-                                        Color.black.opacity(0.924),
-                                        Color.black.opacity(0.707),
-                                        Color.black.opacity(0.383), 
-                                        Color.black.opacity(0)
-                                    ],
+                                    LinearGradient(colors: [Color.black,
+                                                            Color.black.opacity(0.924),
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0)],
                                                    startPoint: .bottom,
                                                    endPoint: .top)
                                 }
@@ -90,24 +89,41 @@ struct CardView: View {
                                             .padding()
                                         Spacer()
                                     }
-
+                                    
                                 }
                                 .padding(.horizontal, 2)
                             }
-
+                            
                         }
                     }
+                    .frame(width: DrawingConstants.cardWidth,
+                           height: DrawingConstants.cardHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
+                    .shadow(radius: DrawingConstants.shadowRadius)
+                    .contextMenu {
+                        ShareLink(item: item.itemLink)
+                        Divider()
+                        Button(role: .destructive, action: {
+                            remove(item: item)
+                        }, label: {
+                            Label("Remove from watchlist", systemImage: "trash")
+                        })
+                    }
+                    .padding([.leading, .trailing], 4)
+                    .transition(.opacity)
+                    .hoverEffect(.lift)
+                    .draggable(item)
             }
-            .frame(width: DrawingConstants.cardWidth,
-                   height: DrawingConstants.cardHeight)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
-            .shadow(radius: DrawingConstants.shadowRadius)
-            .modifier(UpcomingWatchlistContextMenu(item: item))
-            .padding([.leading, .trailing], 4)
-            .transition(.opacity)
-            .hoverEffect(.lift)
         } else {
             EmptyView()
+        }
+    }
+    
+    private func remove(item: WatchlistItem) {
+        HapticManager.shared.mediumHaptic()
+        withAnimation {
+            viewContext.delete(item)
+            if viewContext.hasChanges { try? viewContext.save() }
         }
     }
 }

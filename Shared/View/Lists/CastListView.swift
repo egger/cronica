@@ -24,12 +24,10 @@ struct CastListView: View {
                 ScrollView(.horizontal, showsIndicators: false, content: {
                     LazyHStack {
                         ForEach(credits) { person in
-                            NavigationLink(value: person) {
-                                PersonCardView(person: person)
-                                    .hoverEffect(.lift)
-                                    .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
-                            }
-                            .buttonStyle(.plain)
+                            PersonCardView(person: person)
+                                .hoverEffect(.lift)
+                                .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
+                                .buttonStyle(.plain)
                         }
                     }
                     .padding([.top, .bottom])

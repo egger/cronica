@@ -26,7 +26,7 @@ struct ConfirmationDialogView: View {
             .padding()
             .shadow(radius: 6)
             .opacity(showConfirmation ? 1 : 0)
-            .scaleEffect(showConfirmation ? 1.2 : 1)
+            .scaleEffect(showConfirmation ? 1.1 : 1)
             .animation(.easeInOut, value: showConfirmation)
         }
     }

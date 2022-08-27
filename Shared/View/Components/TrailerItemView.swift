@@ -23,6 +23,7 @@ struct TrailerItemView: View {
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                             style: .continuous))
+                .hoverEffect(.lift)
                 .overlay {
                     overlay
                 }
@@ -43,7 +44,6 @@ struct TrailerItemView: View {
         .frame(width: DrawingConstants.imageWidth)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(trailer.title)
-        .hoverEffect(.lift)
     }
     var placeholder: some View {
         ZStack {

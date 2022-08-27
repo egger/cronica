@@ -19,102 +19,100 @@ struct DiscoverView: View {
         _viewModel = StateObject(wrappedValue: DiscoverViewModel())
     }
     var body: some View {
-        AdaptableNavigationView {
-            ZStack {
-                if !viewModel.isLoaded {
-                    ProgressView()
-                        .unredacted()
-                }
-                ScrollView {
-                    VStack {
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(viewModel.items) { item in
-                                ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
-                                    .buttonStyle(.plain)
-                            }
-                            if !viewModel.startPagination || !viewModel.endPagination {
-                                HStack {
-                                    Spacer()
-                                    ProgressView()
-                                        .padding()
-                                        .onAppear {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                                viewModel.loadMoreItems()
-                                            }
-                                        }
-                                    Spacer()
-                                }
-                            }
+        ZStack {
+            if !viewModel.isLoaded {
+                ProgressView()
+                    .unredacted()
+            }
+            ScrollView {
+                VStack {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(viewModel.items) { item in
+                            ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
+                                .buttonStyle(.plain)
                         }
-                        .padding()
-                        if viewModel.endPagination {
+                        if !viewModel.startPagination || !viewModel.endPagination {
                             HStack {
                                 Spacer()
-                                Text("This is the end.")
+                                ProgressView()
                                     .padding()
-                                    .font(.callout)
-                                    .foregroundColor(.secondary)
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                            viewModel.loadMoreItems()
+                                        }
+                                    }
                                 Spacer()
                             }
                         }
-                        if !viewModel.items.isEmpty {
-                            AttributionView()
+                    }
+                    .padding()
+                    if viewModel.endPagination {
+                        HStack {
+                            Spacer()
+                            Text("This is the end.")
+                                .padding()
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                            Spacer()
                         }
                     }
-                    .navigationDestination(for: ItemContent.self) { item in
-                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                    }
-                    .navigationDestination(for: Person.self) { person in
-                        PersonDetailsView(title: person.name, id: person.id)
+                    if !viewModel.items.isEmpty {
+                        AttributionView()
                     }
                 }
-                ConfirmationDialogView(showConfirmation: $showConfirmation)
-            }
-            .navigationTitle("Explore")
-            .task {
-                load()
-            }
-            .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Picker("Media", selection: $viewModel.selectedMedia) {
-                        Text(MediaType.movie.title).tag(MediaType.movie)
-                        Text(MediaType.tvShow.title).tag(MediaType.tvShow)
-                    }
-                    .pickerStyle(.menu)
+                .navigationDestination(for: ItemContent.self) { item in
+                    ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Picker("Genre", selection: $viewModel.selectedGenre) {
-                        if viewModel.selectedMedia == .movie {
-                            ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
-                                Text(genre.name!).tag(genre.id)
-                            }
-                        } else {
-                            ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
-                                Text(genre.name!).tag(genre.id)
-                            }
+                .navigationDestination(for: Person.self) { person in
+                    PersonDetailsView(title: person.name, id: person.id)
+                }
+            }
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
+        }
+        .navigationTitle("Explore")
+        .task {
+            load()
+        }
+        .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Picker("Media", selection: $viewModel.selectedMedia) {
+                    Text(MediaType.movie.title).tag(MediaType.movie)
+                    Text(MediaType.tvShow.title).tag(MediaType.tvShow)
+                }
+                .pickerStyle(.menu)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Picker("Genre", selection: $viewModel.selectedGenre) {
+                    if viewModel.selectedMedia == .movie {
+                        ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
+                            Text(genre.name!).tag(genre.id)
+                        }
+                    } else {
+                        ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
+                            Text(genre.name!).tag(genre.id)
                         }
                     }
-                    .pickerStyle(.menu)
                 }
+                .pickerStyle(.menu)
             }
-            .onChange(of: viewModel.selectedMedia) { value in
-                onChanging = true
-                var genre: Genre?
-                if value == .tvShow {
-                    genre = viewModel.shows[0]
-                } else {
-                    genre = viewModel.movies[0]
-                }
-                if let genre {
-                    viewModel.selectedGenre = genre.id
-                }
-                load()
+        }
+        .onChange(of: viewModel.selectedMedia) { value in
+            onChanging = true
+            var genre: Genre?
+            if value == .tvShow {
+                genre = viewModel.shows[0]
+            } else {
+                genre = viewModel.movies[0]
             }
-            .onChange(of: viewModel.selectedGenre) { value in
-                onChanging = true
-                load()
+            if let genre {
+                viewModel.selectedGenre = genre.id
             }
+            load()
+        }
+        .onChange(of: viewModel.selectedGenre) { value in
+            onChanging = true
+            load()
         }
     }
     

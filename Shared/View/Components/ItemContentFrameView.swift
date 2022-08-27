@@ -67,11 +67,12 @@ struct ItemContentFrameView: View {
                            height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
                                                 style: .continuous))
+                    .shadow(radius: DrawingConstants.imageShadow)
+                    .hoverEffect(.lift)
                     .draggable(item)
                     .modifier(ItemContentContextMenu(item: item,
                                                      showConfirmation: $showConfirmation,
                                                      isInWatchlist: $isInWatchlist))
-                    .shadow(radius: DrawingConstants.imageShadow)
                 HStack {
                     Text(item.itemTitle)
                         .font(.caption)
@@ -80,7 +81,6 @@ struct ItemContentFrameView: View {
                 }
                 .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
             }
-            .hoverEffect(.lift)
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
@@ -97,7 +97,6 @@ struct ItemContentFrameView_Previews: PreviewProvider {
                              showConfirmation: $show)
     }
 }
-
 
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 160

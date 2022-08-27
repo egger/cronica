@@ -25,7 +25,7 @@ struct ItemContentListView: View {
                               subtitle: subtitle,
                               image: image)
                     ScrollView(.horizontal, showsIndicators: false, content: {
-                        HStack {
+                        LazyHStack {
                             if displayAsCard {
                                 ForEach(items) { item in
                                     ItemContentFrameView(item: item,

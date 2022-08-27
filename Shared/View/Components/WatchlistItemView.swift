@@ -17,77 +17,79 @@ struct WatchlistItemView: View {
         self.content = content
     }
     var body: some View {
-        HStack {
-            ZStack {
-                WebImage(url: content.image)
-                    .placeholder {
-                        ZStack {
-                            Color.secondary
-                            Image(systemName: "film")
+        NavigationLink(value: content) {
+            HStack {
+                ZStack {
+                    WebImage(url: content.image)
+                        .placeholder {
+                            ZStack {
+                                Color.secondary
+                                Image(systemName: "film")
+                            }
+                            .frame(width: DrawingConstants.imageWidth,
+                                   height: DrawingConstants.imageHeight)
                         }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .transition(.opacity)
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)
+                    if isWatched || content.watched {
+                        Color.black.opacity(0.6)
+                        Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
                     }
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                if isWatched || content.watched {
-                    Color.black.opacity(0.6)
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
                 }
-            }
-            .frame(width: DrawingConstants.imageWidth,
-                   height: DrawingConstants.imageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(content.itemTitle)
-                        .lineLimit(DrawingConstants.textLimit)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(content.itemTitle)
+                            .lineLimit(DrawingConstants.textLimit)
+                    }
+                    HStack {
+                        Text(content.itemMedia.title)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
                 }
-                HStack {
-                    Text(content.itemMedia.title)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+    #if os(watchOS)
+    #else
+                if isFavorite || content.favorite {
                     Spacer()
+                    Image(systemName: "heart.fill")
+                        .symbolRenderingMode(.multicolor)
+                        .padding(.trailing)
+                        .accessibilityLabel("\(content.itemTitle) is favorite.")
                 }
+    #endif
             }
-#if os(watchOS)
-#else
-            if isFavorite || content.favorite {
-                Spacer()
-                Image(systemName: "heart.fill")
-                    .symbolRenderingMode(.multicolor)
-                    .padding(.trailing)
-                    .accessibilityLabel("\(content.itemTitle) is favorite.")
+            .task {
+                isWatched = content.isWatched
+                isFavorite = content.isFavorite
             }
-#endif
-        }
-        .task {
-            isWatched = content.isWatched
-            isFavorite = content.isFavorite
-        }
-        .accessibilityElement(children: .combine)
-        .contextMenu {
-#if os(watchOS)
-#else
-            watchedButton
-            favoriteButton
-            ShareLink(item: content.itemLink)
-            Divider()
-            deleteButton
-#endif
-        }
-        .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            watchedButton
-                .tint(content.isWatched ? .yellow : .green)
-                .disabled(content.isInProduction || content.isUpcoming)
-            favoriteButton
-                .tint(content.isFavorite ? .orange : .blue)
-        }
-        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-            deleteButton
+            .accessibilityElement(children: .combine)
+            .contextMenu {
+    #if os(watchOS)
+    #else
+                watchedButton
+                favoriteButton
+                ShareLink(item: content.itemLink)
+                Divider()
+                deleteButton
+    #endif
+            }
+            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                watchedButton
+                    .tint(content.isWatched ? .yellow : .green)
+                    .disabled(content.isInProduction || content.isUpcoming)
+                favoriteButton
+                    .tint(content.isFavorite ? .orange : .blue)
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                deleteButton
+            }
         }
     }
     

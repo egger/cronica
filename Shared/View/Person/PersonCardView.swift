@@ -14,49 +14,37 @@ struct PersonCardView: View {
     let person: Person
     @State private var isFavorite: Bool = false
     var body: some View {
-        VStack {
-            WebImage(url: person.personImage)
-                .resizable()
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                        Image(systemName: "person")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 50, height: 50, alignment: .center)
-                            .foregroundColor(.white)
-                        name
+        NavigationLink(value: person) {
+            VStack {
+                WebImage(url: person.personImage)
+                    .resizable()
+                    .placeholder {
+                        ZStack {
+                            Rectangle().fill(.gray.gradient)
+                            Image(systemName: "person")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50, height: 50, alignment: .center)
+                                .foregroundColor(.white)
+                            name
+                        }
+                        .frame(width: DrawingConstants.profileWidth,
+                               height: DrawingConstants.profileHeight)
+                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
+                                                    style: .continuous))
                     }
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: DrawingConstants.profileWidth,
                            height: DrawingConstants.profileHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
                                                 style: .continuous))
-                }
-                .aspectRatio(contentMode: .fill)
-                .frame(width: DrawingConstants.profileWidth,
-                       height: DrawingConstants.profileHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
-                                            style: .continuous))
-                .shadow(radius: DrawingConstants.shadowRadius)
-                .overlay {
-                    ZStack(alignment: .bottom) {
-                        if person.personImage != nil {
-                            Color.black.opacity(0.2)
-                                .frame(height: 40)
-                                .mask {
-                                    LinearGradient(colors: [Color.black.opacity(0),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0.707),
-                                                            Color.black.opacity(0.924),
-                                                            Color.black],
-                                                   startPoint: .top,
-                                                   endPoint: .bottom)
-                                }
-                            Rectangle()
-                                .fill(.ultraThinMaterial)
-                                .frame(height: 80)
-                                .mask {
-                                    VStack(spacing: 0) {
+                    .shadow(radius: DrawingConstants.shadowRadius)
+                    .overlay {
+                        ZStack(alignment: .bottom) {
+                            if person.personImage != nil {
+                                Color.black.opacity(0.2)
+                                    .frame(height: 40)
+                                    .mask {
                                         LinearGradient(colors: [Color.black.opacity(0),
                                                                 Color.black.opacity(0.383),
                                                                 Color.black.opacity(0.707),
@@ -64,27 +52,41 @@ struct PersonCardView: View {
                                                                 Color.black],
                                                        startPoint: .top,
                                                        endPoint: .bottom)
-                                        .frame(height: 60)
-                                        Rectangle()
                                     }
-                                }
-                            name
+                                Rectangle()
+                                    .fill(.ultraThinMaterial)
+                                    .frame(height: 80)
+                                    .mask {
+                                        VStack(spacing: 0) {
+                                            LinearGradient(colors: [Color.black.opacity(0),
+                                                                    Color.black.opacity(0.383),
+                                                                    Color.black.opacity(0.707),
+                                                                    Color.black.opacity(0.924),
+                                                                    Color.black],
+                                                           startPoint: .top,
+                                                           endPoint: .bottom)
+                                            .frame(height: 60)
+                                            Rectangle()
+                                        }
+                                    }
+                                name
+                            }
+                            
                         }
-                        
+                        .frame(width: DrawingConstants.profileWidth,
+                               height: DrawingConstants.profileHeight)
+                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
+                                                    style: .continuous))
                     }
-                    .frame(width: DrawingConstants.profileWidth,
-                           height: DrawingConstants.profileHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
-                                                style: .continuous))
-                }
-                .transition(.opacity)
-        }
-        .draggable(person)
-        .contextMenu {
-            ShareLink(item: person.itemURL)
+                    .transition(.opacity)
+            }
+            .draggable(person)
+            .contextMenu {
+                ShareLink(item: person.itemURL)
+            }
         }
     }
-    var name: some View {
+    private var name: some View {
         VStack {
             Spacer()
             HStack {

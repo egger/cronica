@@ -14,9 +14,7 @@ struct WatchlistSectionView: View {
         if !items.isEmpty {
             Section {
                 ForEach(items) { item in
-                    NavigationLink(value: item) {
-                        WatchlistItemView(content: item)
-                    }
+                    WatchlistItemView(content: item)
                 }
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
