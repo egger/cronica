@@ -10,6 +10,17 @@ import TelemetryClient
 
 class NetworkService {
     static let shared = NetworkService()
+    private let decoder = JSONDecoder()
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy,MM,dd"
+        return formatter
+    }()
+    
+    init() {
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .formatted(NetworkService.dateFormatter)
+    }
     
     func fetchContent(id: ItemContent.ID, type: MediaType) async throws -> ItemContent {
         guard let url = urlBuilder(path: "\(type.rawValue)/\(id)", append: type.append) else {
@@ -63,12 +74,13 @@ class NetworkService {
         let responseError = handleNetworkResponses(response: httpResponse)
         if let responseError {
 #if targetEnvironment(simulator)
+            print(responseError as Any)
 #else
             TelemetryManager.send("fetchError", with: ["error":"\(responseError.localizedName)"])
 #endif
             throw responseError
         } else {
-            return try Utilities.decoder.decode(T.self, from: data)
+            return try decoder.decode(T.self, from: data)
         }
     }
     
@@ -80,6 +92,18 @@ class NetworkService {
         case 500: return .internalError
         default: return .invalidResponse
         }
+    }
+    
+    func downloadImageData(from url: URL?) async -> Data? {
+        if let url = url {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                return data
+            } catch {
+                print(error as Any)
+            }
+        }
+        return nil
     }
     
     /// Build a safe URL for the TMDB API Service.
@@ -97,21 +121,21 @@ class NetworkService {
         component.path = "/3/\(path)"
         if let append {
             component.queryItems = [
-                .init(name: "api_key", value: Key.keyV3),
+                .init(name: "api_key", value: Key.tmdbApi),
                 .init(name: "language", value: Utilities.userLang),
                 .init(name: "page", value: page),
                 .init(name: "append_to_response", value: append)
             ]
         } else {
             component.queryItems = [
-                .init(name: "api_key", value: Key.keyV3),
+                .init(name: "api_key", value: Key.tmdbApi),
                 .init(name: "language", value: Utilities.userLang),
                 .init(name: "region", value: Utilities.userRegion)
             ]
         }
         if let query {
             component.queryItems = [
-                .init(name: "api_key", value: Key.keyV3),
+                .init(name: "api_key", value: Key.tmdbApi),
                 .init(name: "language", value: Utilities.userLang),
                 .init(name: "query", value: query),
                 .init(name: "page", value: page),
@@ -128,7 +152,7 @@ class NetworkService {
         component.host = "api.themoviedb.org"
         component.path = "/3/discover/\(type)"
         component.queryItems = [
-            .init(name: "api_key", value: Key.keyV3),
+            .init(name: "api_key", value: Key.tmdbApi),
             .init(name: "language", value: Utilities.userLang),
             .init(name: "region", value: Utilities.userRegion),
             .init(name: "sort_by", value: "popularity.desc"),

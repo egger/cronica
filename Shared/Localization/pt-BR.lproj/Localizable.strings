@@ -129,7 +129,7 @@
 "Send" = "Enviar";
 "Cancel" = "Cancelar";
 "Send your suggestions to help improve Cronica." = "Envie suas sugestões para ajudar a melhorar o Cronica.";
-"Feedback sent" = "Sugestão enviada";
+"Feedback sent" = "Obrigado pelo seu feedback.";
 
 //MARK: HomeView.swift
 "Trending" = "Em Alta";

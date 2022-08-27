@@ -35,7 +35,7 @@ class NotificationManager: ObservableObject {
                 return
             }
         }
-        let identifier: String = "\(notificationContent.itemTitle)+\(notificationContent.id)"
+        let identifier: String = notificationContent.itemNotificationID
         let title = notificationContent.itemTitle
         var body: String
         if notificationContent.itemContentMedia == .movie {
@@ -79,6 +79,9 @@ class NotificationManager: ObservableObject {
 #endif
             }
         }
+#if DEBUG
+        print(request as Any)
+#endif
     }
     
     func removeNotification(identifier: String) {

@@ -10,16 +10,20 @@
 struct ItemContentContextMenu: ViewModifier, Sendable {
     let item: ItemContent
     @Binding var showConfirmation: Bool
-    @State private var isInWatchlist: Bool = false
+    @Binding var isInWatchlist: Bool
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
     private let context = PersistenceController.shared
     func body(content: Content) -> some View {
+#if os(watchOS)
+#else
         return content
             .contextMenu {
                 ShareLink(item: item.itemURL)
                 Button(action: {
-                    isInWatchlist.toggle()
+                    withAnimation {
+                        isInWatchlist.toggle()
+                    }
                     updateWatchlist(with: item)
                 }, label: {
                     Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
@@ -31,12 +35,12 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
                 }
             }
             .task {
-                isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
                 if isInWatchlist {
                     isWatched = context.isMarkedAsWatched(id: item.id)
                     isFavorite = context.isMarkedAsFavorite(id: item.id)
                 }
             }
+#endif
     }
     
     private var watchedButton: some View {

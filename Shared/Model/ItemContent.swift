@@ -44,17 +44,7 @@ struct Genre: Codable, Identifiable, Hashable {
     let id: Int
     let name: String?
 }
-struct ReleaseDates: Codable, Hashable {
-    let results: [ReleaseDatesResult]
-}
-struct ReleaseDatesResult: Codable, Hashable {
-    let iso31661: String?
-    let releaseDates: [ReleaseDate]?
-}
-struct ReleaseDate: Codable, Hashable {
-    let certification, iso6391, releaseDate: String?
-    let type: Int?
-}
+
 struct ItemContentResponse: Identifiable, Codable, Hashable {
     let id: String?
     let results: [ItemContent]

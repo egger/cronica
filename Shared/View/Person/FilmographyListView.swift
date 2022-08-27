@@ -19,11 +19,7 @@ struct FilmographyListView: View {
                 TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(filmography) { item in
-                        NavigationLink(value: item) {
-                            PosterView(item: item)
-                                .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
-                        }
-                        
+                        PosterView(item: item, addedItemConfirmation: $showConfirmation)
                     }
                     .buttonStyle(.plain)
                 }

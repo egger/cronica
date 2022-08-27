@@ -15,6 +15,7 @@ struct SideBarView: View {
     @State private var selectedSearchItem: ItemContent? = nil
     @State private var scope: SearchItemsScope = .noScope
     let persistence = PersistenceController.shared
+    @State private var isInWatchlist = false
     init() {
         _settings = StateObject(wrappedValue: SettingsStore())
         _viewModel = StateObject(wrappedValue: SearchViewModel())
@@ -160,28 +161,28 @@ struct SideBarView: View {
                 switch scope {
                 case .noScope:
                     ForEach(viewModel.searchItems) { item in
-                        SearchItem(item: item)
+                        SearchItem(item: item, isInWatchlist: $isInWatchlist)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
                 case .movies:
                     ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
-                        SearchItem(item: item)
+                        SearchItem(item: item, isInWatchlist: $isInWatchlist)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
                 case .shows:
                     ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
-                        SearchItem(item: item)
+                        SearchItem(item: item, isInWatchlist: $isInWatchlist)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
                 case .people:
                     ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
-                        SearchItem(item: item)
+                        SearchItem(item: item, isInWatchlist: $isInWatchlist)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }

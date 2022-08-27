@@ -28,18 +28,15 @@ class BackgroundManager {
         let notifyPredicate = NSPredicate(format: "notify == %d", true)
         let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt)
         let renewedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.renewed.toInt)
-        let tvPredicate = NSPredicate(format: "contentType == %d", MediaType.tvShow.toInt)
+        let productionPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.production.toInt)
         let orPredicate = NSCompoundPredicate(type: .or,
                                               subpredicates: [notifyPredicate,
+                                                              productionPredicate,
                                                               soonPredicate,
-                                                              renewedPredicate,
-                                                              tvPredicate])
+                                                              renewedPredicate])
         request.predicate = orPredicate
         let list = try? self.context.container.viewContext.fetch(request)
-        if let list {
-            return list
-        }
-        return []
+        return list ?? []
     }
     
     /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.
@@ -47,12 +44,29 @@ class BackgroundManager {
         for item in items {
             let content = try? await self.network.fetchContent(id: item.itemId, type: item.itemMedia)
             if let content {
-                self.context.update(item: content)
                 if content.itemCanNotify {
+                    // If fetched item release date is different than the scheduled one,
+                    // then remove the old date and register the new one.
+                    if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {
+                        self.notifications.removeNotification(identifier: content.itemNotificationID)
+                    }
                     self.notifications.schedule(notificationContent: content)
+                }
+                self.context.update(item: content)
+            }
+        }
+    }
+    
+    /// Compares two dates and returns a bool if the dates are different.
+    private func compareDates(original: Date?, new: Date?) -> Bool {
+        if let original {
+            if let new {
+                if original != new {
+                    return true
                 }
             }
         }
+        return false
     }
 }
 

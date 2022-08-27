@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct SearchItem: View {
     let item: ItemContent
+    @Binding var isInWatchlist: Bool
     var body: some View {
         HStack {
             if item.media == .person {
@@ -31,9 +32,8 @@ struct SearchItem: View {
                         }
                     }
                 }
-                           .frame(width: DrawingConstants.personImageWidth,
-                                  height: DrawingConstants.personImageHeight)
-                           .clipShape(Circle())
+                .frame(width: DrawingConstants.personImageWidth, height: DrawingConstants.personImageHeight)
+                .clipShape(Circle())
             } else {
                 WebImage(url: item.itemImage)
                     .resizable()
@@ -45,6 +45,16 @@ struct SearchItem: View {
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                    }
+                    .overlay {
+                        if isInWatchlist {
+                            ZStack {
+                                Color.black.opacity(0.5)
+                                Image(systemName: "square.stack.fill")
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding()
+                            }
+                        }
                     }
                     .aspectRatio(contentMode: .fill)
                     .frame(width: DrawingConstants.imageWidth,

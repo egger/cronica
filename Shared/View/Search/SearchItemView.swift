@@ -10,10 +10,12 @@ import SwiftUI
 struct SearchItemView: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
+    @State private var isInWatchlist = false
+    private let context = PersistenceController.shared
     var body: some View {
         if item.media == .person {
             NavigationLink(value: item) {
-                SearchItem(item: item)
+                SearchItem(item: item, isInWatchlist: $isInWatchlist)
                     .hoverEffect(.lift)
                     .draggable(item)
                     .contextMenu {
@@ -22,10 +24,13 @@ struct SearchItemView: View {
             }
         } else {
             NavigationLink(value: item) {
-                SearchItem(item: item)
+                SearchItem(item: item, isInWatchlist: $isInWatchlist)
                     .hoverEffect(.lift)
                     .draggable(item)
-                    .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
+                    .task {
+                        isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                    }
+                    .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
             }
         }
     }

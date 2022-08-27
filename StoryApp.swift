@@ -14,6 +14,7 @@ struct StoryApp: App {
     let persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     @Environment(\.scenePhase) private var scene
+    @State private var widgetItem: ItemContent?
     init() {
 #if targetEnvironment(simulator)
 #else
@@ -26,6 +27,34 @@ struct StoryApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
+                .onOpenURL { url in
+                    if widgetItem != nil { widgetItem = nil }
+                    let typeInt = url.absoluteString.first!
+                    let idString: String = url.absoluteString
+                    let formattedIdString = String(idString.dropFirst())
+                    let id = Int(formattedIdString)!
+                    var type: MediaType
+                    if typeInt == "0" {
+                        type = .movie
+                    } else {
+                        type = .tvShow
+                    }
+                    Task {
+                        widgetItem = try? await NetworkService.shared.fetchContent(id: id, type: type)
+                    }
+                }
+                .sheet(item: $widgetItem) { item in
+                    NavigationStack {
+                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                            .toolbar {
+                                ToolbarItem(placement: .navigationBarLeading) {
+                                    Button("Done") {
+                                        widgetItem = nil
+                                    }
+                                }
+                            }
+                    }
+                }
         }
         .onChange(of: scene) { phase in
             if phase == .background {

@@ -91,6 +91,9 @@ extension ItemContent {
         }
         return nil
     }
+    var itemNotificationID: String {
+        return "\(id)@\(itemContentMedia.toInt)"
+    }
     var posterImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
@@ -143,9 +146,15 @@ extension ItemContent {
         if let itemTheatricalString {
             return Utilities.dateString.date(from: itemTheatricalString)
         }
+        if let releaseDate = releaseDate {
+            return Utilities.dateFormatter.date(from: releaseDate)
+        }
         return nil
     }
     var itemFallbackDate: Date? {
+        if let itemTheatricalDate {
+            return itemTheatricalDate
+        }
         if let releaseDate = releaseDate {
             return Utilities.dateFormatter.date(from: releaseDate)
         }

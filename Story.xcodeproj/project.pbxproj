@@ -136,6 +136,31 @@
 		B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */; };
 		B8CC953327D05D1000B6757C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
 		B8CC954A27D1310B00B6757C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
+		B8D7AEA828B95F5E0053CE5A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD442F284AD42300778275 /* WidgetKit.framework */; };
+		B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD4431284AD42300778275 /* SwiftUI.framework */; };
+		B8D7AEAC28B95F5E0053CE5A /* CronicaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */; };
+		B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */; };
+		B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B8D7AEBA28B95FB20053CE5A /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
+		B8D7AEBB28B95FC60053CE5A /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEB828B95F840053CE5A /* ItemContent.swift */; };
+		B8D7AEBC28B960420053CE5A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
+		B8D7AEC028B961470053CE5A /* ItemContent-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEBE28B9611C0053CE5A /* ItemContent-Extensions.swift */; };
+		B8D7AEC128B961600053CE5A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
+		B8D7AEC228B961650053CE5A /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE4F281B1B81005558DD /* MediaType.swift */; };
+		B8D7AEC328B961680053CE5A /* ItemSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE51281B1BA5005558DD /* ItemSchedule.swift */; };
+		B8D7AEC428B9616C0053CE5A /* ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE53281B1BC0005558DD /* ImageSize.swift */; };
+		B8D7AEC528B961860053CE5A /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF652829F134001D72EF /* NetworkError.swift */; };
+		B8D7AEC628B961890053CE5A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
+		B8D7AEC828B961A20053CE5A /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
+		B8D7AEC928B961AD0053CE5A /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
+		B8D7AECA28B961AE0053CE5A /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
+		B8D7AECF28B962660053CE5A /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AECD28B962490053CE5A /* Person.swift */; };
+		B8D7AED428B963110053CE5A /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AED128B963000053CE5A /* Season.swift */; };
+		B8D7AED828B963720053CE5A /* ItemContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AED628B963700053CE5A /* ItemContentList.swift */; };
+		B8D7AEDA28B963930053CE5A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8D7AED928B963930053CE5A /* SDWebImageSwiftUI */; };
+		B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8D7AEDB28B967180053CE5A /* TelemetryClient */; };
+		B8D7AEE328BA64DF0053CE5A /* DataPlaceholder.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */; };
+		B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
 		B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
 		B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
@@ -167,6 +192,13 @@
 			remoteGlobalIDString = B8110EDE279245D100844FEB;
 			remoteInfo = "Story (iOS)";
 		};
+		B8D7AEB028B95F5F0053CE5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8110ED3279245D000844FEB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8D7AEA628B95F5D0053CE5A;
+			remoteInfo = CronicaWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -187,6 +219,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +327,18 @@
 		B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Story--iOS--Info.plist"; sourceTree = "<group>"; };
 		B8CC954C27D1310B00B6757C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B8CC954F27D132F700B6757C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CronicaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaWidget.swift; sourceTree = "<group>"; };
+		B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B8D7AEAF28B95F5F0053CE5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8D7AEB328B95F5F0053CE5A /* CronicaWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CronicaWidgetExtension.entitlements; sourceTree = "<group>"; };
+		B8D7AEB828B95F840053CE5A /* ItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContent.swift; sourceTree = "<group>"; };
+		B8D7AEBE28B9611C0053CE5A /* ItemContent-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemContent-Extensions.swift"; sourceTree = "<group>"; };
+		B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseDate.swift; sourceTree = "<group>"; };
+		B8D7AECD28B962490053CE5A /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		B8D7AED128B963000053CE5A /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
+		B8D7AED628B963700053CE5A /* ItemContentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentList.swift; sourceTree = "<group>"; };
+		B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DataPlaceholder.json; sourceTree = "<group>"; };
 		B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionView.swift; sourceTree = "<group>"; };
 		B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
@@ -336,6 +381,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8D7AEA428B95F5D0053CE5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D7AEDA28B963930053CE5A /* SDWebImageSwiftUI in Frameworks */,
+				B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */,
+				B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */,
+				B8D7AEA828B95F5E0053CE5A /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -363,12 +419,14 @@
 		B8110ED2279245D000844FEB = {
 			isa = PBXGroup;
 			children = (
+				B8D7AEB328B95F5F0053CE5A /* CronicaWidgetExtension.entitlements */,
 				B8110ED7279245D000844FEB /* Shared */,
 				B8110ED8279245D000844FEB /* StoryApp.swift */,
 				B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */,
 				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
 				B85E036E27B0371C005C7FDF /* StoryTests */,
 				B806C4DF2899BE2800A5330E /* CronicaWatch Watch App */,
+				B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */,
 				B8B271A227A59EF400F6463F /* Frameworks */,
 				B8110EE0279245D100844FEB /* Products */,
 			);
@@ -401,6 +459,7 @@
 				B8110EDF279245D100844FEB /* Story.app */,
 				B85E036D27B0371C005C7FDF /* StoryTests.xctest */,
 				B806C4DE2899BE2800A5330E /* Cronica.app */,
+				B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -412,6 +471,7 @@
 				B840D2CD279B24C900A07C71 /* Person.swift */,
 				B876DE63281B36A7005558DD /* Season.swift */,
 				B876DE65281B4040005558DD /* Videos.swift */,
+				B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -703,6 +763,54 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B8D7AEE128BA5B170053CE5A /* Placeholder */,
+				B8D7AED528B9634F0053CE5A /* Views */,
+				B8D7AEBD28B9610C0053CE5A /* Extensions */,
+				B8D7AEB728B95F770053CE5A /* Model */,
+				B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */,
+				B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */,
+				B8D7AEAF28B95F5F0053CE5A /* Info.plist */,
+			);
+			path = CronicaWidget;
+			sourceTree = "<group>";
+		};
+		B8D7AEB728B95F770053CE5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B8D7AEB828B95F840053CE5A /* ItemContent.swift */,
+				B8D7AECD28B962490053CE5A /* Person.swift */,
+				B8D7AED128B963000053CE5A /* Season.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B8D7AEBD28B9610C0053CE5A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B8D7AEBE28B9611C0053CE5A /* ItemContent-Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B8D7AED528B9634F0053CE5A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B8D7AED628B963700053CE5A /* ItemContentList.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B8D7AEE128BA5B170053CE5A /* Placeholder */ = {
+			isa = PBXGroup;
+			children = (
+				B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */,
+			);
+			path = Placeholder;
+			sourceTree = "<group>";
+		};
 		B8E7651927B738D200D9B731 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -783,6 +891,7 @@
 			);
 			dependencies = (
 				B806C4EA2899BE2900A5330E /* PBXTargetDependency */,
+				B8D7AEB128B95F5F0053CE5A /* PBXTargetDependency */,
 			);
 			name = "Story (iOS)";
 			packageProductDependencies = (
@@ -811,6 +920,27 @@
 			productReference = B85E036D27B0371C005C7FDF /* StoryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8D7AEB628B95F5F0053CE5A /* Build configuration list for PBXNativeTarget "CronicaWidgetExtension" */;
+			buildPhases = (
+				B8D7AEA328B95F5D0053CE5A /* Sources */,
+				B8D7AEA428B95F5D0053CE5A /* Frameworks */,
+				B8D7AEA528B95F5D0053CE5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CronicaWidgetExtension;
+			packageProductDependencies = (
+				B8D7AED928B963930053CE5A /* SDWebImageSwiftUI */,
+				B8D7AEDB28B967180053CE5A /* TelemetryClient */,
+			);
+			productName = CronicaWidgetExtension;
+			productReference = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -830,6 +960,9 @@
 					B85E036C27B0371C005C7FDF = {
 						CreatedOnToolsVersion = 13.2.1;
 						TestTargetID = B8110EDE279245D100844FEB;
+					};
+					B8D7AEA628B95F5D0053CE5A = {
+						CreatedOnToolsVersion = 14.0;
 					};
 				};
 			};
@@ -854,6 +987,7 @@
 				B8110EDE279245D100844FEB /* Story (iOS) */,
 				B85E036C27B0371C005C7FDF /* StoryTests */,
 				B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */,
+				B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -885,6 +1019,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8D7AEA528B95F5D0053CE5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D7AEE328BA64DF0053CE5A /* DataPlaceholder.json in Resources */,
+				B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */,
+				B8D7AEBC28B960420053CE5A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,6 +1076,7 @@
 				B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */,
 				B84043C6289B18E900D5CEBF /* Screens.swift in Sources */,
 				B82B759A28A84CC700C3212A /* PersonImageView.swift in Sources */,
+				B8D7AEC928B961AD0053CE5A /* ReleaseDate.swift in Sources */,
 				B84043C1289B18D700D5CEBF /* NetworkError.swift in Sources */,
 				B82B75AD28A8557E00C3212A /* WatchButtonView.swift in Sources */,
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
@@ -1030,6 +1175,7 @@
 				B8389ED028AB46C5003025BC /* SearchItemsScope.swift in Sources */,
 				B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */,
 				B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */,
+				B8D7AEC828B961A20053CE5A /* ReleaseDate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1038,6 +1184,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8D7AEA328B95F5D0053CE5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8D7AED828B963720053CE5A /* ItemContentList.swift in Sources */,
+				B8D7AEC628B961890053CE5A /* NetworkService.swift in Sources */,
+				B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */,
+				B8D7AEC428B9616C0053CE5A /* ImageSize.swift in Sources */,
+				B8D7AEC228B961650053CE5A /* MediaType.swift in Sources */,
+				B8D7AECA28B961AE0053CE5A /* ReleaseDate.swift in Sources */,
+				B8D7AEAC28B95F5E0053CE5A /* CronicaWidget.swift in Sources */,
+				B8D7AEBA28B95FB20053CE5A /* Key.swift in Sources */,
+				B8D7AEC028B961470053CE5A /* ItemContent-Extensions.swift in Sources */,
+				B8D7AEC128B961600053CE5A /* Utilities.swift in Sources */,
+				B8D7AED428B963110053CE5A /* Season.swift in Sources */,
+				B8D7AEC528B961860053CE5A /* NetworkError.swift in Sources */,
+				B8D7AECF28B962660053CE5A /* Person.swift in Sources */,
+				B8D7AEBB28B95FC60053CE5A /* ItemContent.swift in Sources */,
+				B8D7AEC328B961680053CE5A /* ItemSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,6 +1221,11 @@
 			isa = PBXTargetDependency;
 			target = B8110EDE279245D100844FEB /* Story (iOS) */;
 			targetProxy = B85E037127B0371C005C7FDF /* PBXContainerItemProxy */;
+		};
+		B8D7AEB128B95F5F0053CE5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */;
+			targetProxy = B8D7AEB028B95F5F0053CE5A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1367,6 +1540,71 @@
 			};
 			name = Release;
 		};
+		B8D7AEB428B95F5F0053CE5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = CronicaWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CronicaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CronicaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.6.4;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B8D7AEB528B95F5F0053CE5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = CronicaWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CronicaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CronicaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.6.4;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1402,6 +1640,15 @@
 			buildConfigurations = (
 				B85E037427B0371C005C7FDF /* Debug */,
 				B85E037527B0371C005C7FDF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8D7AEB628B95F5F0053CE5A /* Build configuration list for PBXNativeTarget "CronicaWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8D7AEB428B95F5F0053CE5A /* Debug */,
+				B8D7AEB528B95F5F0053CE5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1447,6 +1694,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		B8D7AED928B963930053CE5A /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		B8D7AEDB28B967180053CE5A /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
+			productName = TelemetryClient;
 		};
 /* End XCSwiftPackageProductDependency section */
 

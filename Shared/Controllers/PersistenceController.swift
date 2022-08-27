@@ -121,17 +121,19 @@ struct PersistenceController {
                 item.formattedDate = content.itemTheatricalString
                 if content.itemContentMedia == .tvShow {
                     if let episode = content.lastEpisodeToAir {
-                        if let number = episode.episodeNumber {
-                            item.nextEpisodeNumber = Int64(number)
-                        }
+                        item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)
+                    }
+                    if let episode = content.nextEpisodeToAir {
+                        item.nextEpisodeNumber = Int64(episode.episodeNumber ?? 1)
                     }
                     item.upcomingSeason = content.hasUpcomingSeason
                     item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
-                }
-                if let theatrical = content.itemTheatricalDate {
-                    item.date = theatrical
                 } else {
-                    item.date = content.itemFallbackDate
+                    if let theatrical = content.itemTheatricalDate {
+                        item.date = theatrical
+                    } else {
+                        item.date = content.itemFallbackDate
+                    }
                 }
                 if let watched {
                     item.watched = watched

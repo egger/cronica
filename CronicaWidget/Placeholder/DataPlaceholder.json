@@ -1,0 +1,32 @@
+{
+  "results": [
+    {
+      "backdrop_path": "/k2G4WqGiT60K9yJnPh4K6VLnl3A.jpg",
+      "id": 639933,
+      "poster_path": "/zhLKlUaF1SEpO58ppHIAyENkwgw.jpg",
+      "title": "The Northman",
+      "media_type": "movie"
+    },
+    {
+      "backdrop_path": "/dQF17lG4OZ3pC4QD9iNjaMS96gO.jpg",
+      "id": 72844,
+      "poster_path": "/38PkhBGRQtmVx2drvPik3F42qHO.jpg",
+      "name": "The Haunting of Hill House",
+      "media_type": "tv"
+    },
+    {
+      "backdrop_path": "/k2G4WqGiT60K9yJnPh4K6VLnl3A.jpg",
+      "id": 530915,
+      "poster_path": "/iZf0KyrE25z1sage4SYFLCCrMi9.jpg",
+      "title": "1917",
+      "media_type": "movie"
+    },
+    {
+      "backdrop_path": "/k2G4WqGiT60K9yJnPh4K6VLnl3A.jpg",
+      "id": 137113,
+      "poster_path": "/xjw5trHV7Mwo61P0kCTy8paEkgO.jpg",
+      "title": "Edge of Tomorrow",
+      "media_type": "movie"
+    }
+  ]
+}

@@ -125,6 +125,15 @@ extension WatchlistItem: Transferable {
         if itemSchedule == .production { return true }
         return false
     }
+    var notificationID: String {
+        return "\(itemId)@\(itemMedia.toInt)"
+    }
+    var itemDate: Date? {
+        if let date {
+            return date
+        }
+        return nil
+    }
     static var example: WatchlistItem {
         let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext

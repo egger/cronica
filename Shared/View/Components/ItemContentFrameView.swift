@@ -11,6 +11,8 @@ import SDWebImageSwiftUI
 struct ItemContentFrameView: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
+    private let context = PersistenceController.shared
+    @State private var isInWatchlist: Bool = false
     var body: some View {
         NavigationLink(value: item) {
             VStack {
@@ -33,6 +35,32 @@ struct ItemContentFrameView: View {
                                height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius, style: .continuous))
                     }
+                    .overlay {
+                        if isInWatchlist {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "square.stack.fill")
+                                        .foregroundColor(.white.opacity(0.8))
+                                        .padding()
+                                }
+                                .background {
+                                    Color.black.opacity(0.5)
+                                        .mask {
+                                            LinearGradient(colors:
+                                                            [Color.black,
+                                                             Color.black.opacity(0.924),
+                                                             Color.black.opacity(0.707),
+                                                             Color.black.opacity(0.383),
+                                                             Color.black.opacity(0)],
+                                                           startPoint: .bottom,
+                                                           endPoint: .top)
+                                        }
+                                }
+                            }
+                        }
+                    }
                     .aspectRatio(contentMode: .fill)
                     .transition(.opacity)
                     .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
@@ -40,7 +68,9 @@ struct ItemContentFrameView: View {
                     .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
                                                 style: .continuous))
                     .draggable(item)
-                    .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation))
+                    .modifier(ItemContentContextMenu(item: item,
+                                                     showConfirmation: $showConfirmation,
+                                                     isInWatchlist: $isInWatchlist))
                     .shadow(radius: DrawingConstants.imageShadow)
                 HStack {
                     Text(item.itemTitle)
@@ -51,6 +81,11 @@ struct ItemContentFrameView: View {
                 .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
             }
             .hoverEffect(.lift)
+            .task {
+                withAnimation {
+                    isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                }
+            }
         }
     }
 }

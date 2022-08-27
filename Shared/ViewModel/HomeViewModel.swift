@@ -19,7 +19,7 @@ class HomeViewModel: ObservableObject {
     func load() async {
         Task {
             if trending.isEmpty {
-                let result = try? await service.fetchContents(from: "trending/all/week")
+                let result = try? await service.fetchContents(from: "trending/all/day")
                 if let result {
                     let filtered = result.filter { $0.itemContentMedia != .person }
                     trending = filtered

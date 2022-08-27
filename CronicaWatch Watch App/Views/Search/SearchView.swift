@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var viewModel: SearchViewModel
+    @State private var isInWatchlist = false
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
     }
@@ -17,7 +18,7 @@ struct SearchView: View {
             List {
                 ForEach(viewModel.searchItems) { item in
                     NavigationLink(value: item) {
-                        SearchItem(item: item)
+                        SearchItem(item: item, isInWatchlist: $isInWatchlist)
                     }
                 }
             }
