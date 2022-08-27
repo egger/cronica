@@ -12,26 +12,43 @@ struct SearchItemView: View {
     @Binding var showConfirmation: Bool
     @State private var isInWatchlist = false
     private let context = PersistenceController.shared
+    var isSidebar = false
     var body: some View {
         if item.media == .person {
-            NavigationLink(value: item) {
+            if isSidebar {
                 SearchItem(item: item, isInWatchlist: $isInWatchlist)
-                    .hoverEffect(.lift)
                     .draggable(item)
                     .contextMenu {
                         ShareLink(item: item.itemSearchURL)
                     }
+            } else {
+                NavigationLink(value: item) {
+                    SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                        .draggable(item)
+                        .contextMenu {
+                            ShareLink(item: item.itemSearchURL)
+                        }
+                }
             }
         } else {
-            NavigationLink(value: item) {
+            if isSidebar {
                 SearchItem(item: item, isInWatchlist: $isInWatchlist)
-                    .hoverEffect(.lift)
                     .draggable(item)
                     .task {
                         isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
                     }
                     .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
+            } else {
+                NavigationLink(value: item) {
+                    SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                        .draggable(item)
+                        .task {
+                            isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                        }
+                        .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
+                }
             }
+            
         }
     }
 }

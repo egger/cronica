@@ -36,6 +36,7 @@
 		B82C267A2795E33900259D98 /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* PosterView.swift */; };
 		B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */; };
+		B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
 		B8389ECE28AA8A92003025BC /* WatchEpisodeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECD28AA8A92003025BC /* WatchEpisodeButtonView.swift */; };
 		B8389ED028AB46C5003025BC /* SearchItemsScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */; };
 		B8389ED228AB46E3003025BC /* WatchlistSearchScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */; };
@@ -1066,6 +1067,7 @@
 				B84043B8289B18AA00D5CEBF /* WatchlistItem-Extension.swift in Sources */,
 				B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */,
 				B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */,
+				B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */,
 				B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */,
 				B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */,
 				B84043E7289B417500D5CEBF /* TitleView.swift in Sources */,

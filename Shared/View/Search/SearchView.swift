@@ -24,18 +24,22 @@ struct SearchView: View {
                     case .noScope:
                         ForEach(viewModel.searchItems) { item in
                             SearchItemView(item: item, showConfirmation: $showConfirmation)
+                                .draggable(item)
                         }
                     case .movies:
                         ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
                             SearchItemView(item: item, showConfirmation: $showConfirmation)
+                                .draggable(item)
                         }
                     case .shows:
                         ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
                             SearchItemView(item: item, showConfirmation: $showConfirmation)
+                                .draggable(item)
                         }
                     case .people:
                         ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
                             SearchItemView(item: item, showConfirmation: $showConfirmation)
+                                .draggable(item)
                         }
                     }
                 }

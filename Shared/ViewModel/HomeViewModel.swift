@@ -72,4 +72,9 @@ class HomeViewModel: ObservableObject {
         }
         return nil
     }
+    
+    private func fetchRecommendation(for id: Int, type: MediaType) -> [ItemContent] {
+        
+        return []
+    }
 }
