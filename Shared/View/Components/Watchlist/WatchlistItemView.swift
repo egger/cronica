@@ -13,6 +13,7 @@ struct WatchlistItemView: View {
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
     private let context = PersistenceController.shared
+    private let notification = NotificationManager.shared
     init(content: WatchlistItem) {
         self.content = content
     }
@@ -54,8 +55,8 @@ struct WatchlistItemView: View {
                         Spacer()
                     }
                 }
-    #if os(watchOS)
-    #else
+#if os(watchOS)
+#else
                 if isFavorite || content.favorite {
                     Spacer()
                     Image(systemName: "heart.fill")
@@ -63,7 +64,7 @@ struct WatchlistItemView: View {
                         .padding(.trailing)
                         .accessibilityLabel("\(content.itemTitle) is favorite.")
                 }
-    #endif
+#endif
             }
             .task {
                 isWatched = content.isWatched
@@ -71,14 +72,14 @@ struct WatchlistItemView: View {
             }
             .accessibilityElement(children: .combine)
             .contextMenu {
-    #if os(watchOS)
-    #else
+#if os(watchOS)
+#else
                 watchedButton
                 favoriteButton
                 ShareLink(item: content.itemLink)
                 Divider()
                 deleteButton
-    #endif
+#endif
             }
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 watchedButton
@@ -126,6 +127,9 @@ struct WatchlistItemView: View {
     private var deleteButton: some View {
         Button(role: .destructive, action: {
             HapticManager.shared.softHaptic()
+            if content.notify {
+                notification.removeNotification(identifier: content.notificationID)
+            }
             withAnimation {
                 context.delete(content)
             }

@@ -13,6 +13,8 @@
 "No information available" = "Nenhuma informação disponível";
 "No title available" = "Nenhuma informação disponível";
 "Up Coming" = "Próximos Lançamentos";
+"Upcoming Episodes" = "Próximos Episódios";
+"Arriving Soon" = "Chegando em breve";
 "Latest Movies" = "Lançamentos Recentes";
 "Latest Shows" = "Últimas séries de TV";
 "TV Show" = "Série";
@@ -28,6 +30,7 @@
 "Default" = "Otimizada";
 "Favorites" = "Favoritos";
 "To Watch" = "Para Assistir";
+"Unwatched" = "Para Assistir";
 "Watched" = "Assistidos";
 "Upcoming Movies" = "Próximos Filmes";
 "Upcoming Seasons" = "Próximas Temporadas";
@@ -52,7 +55,7 @@
 "Mark selected as unwatched" = "Marcar selecionados como não assistidos";
 
 //MARK: AttributionView.swift
-"This product uses the TMDB API but is not endorsed or certified by TMDB." = "Este produto usa a API TMDB, mas não é endossado ou certificado pelo TMDB.";
+"This product uses the TMDb API but is not endorsed or certified by TMDb." = "Este produto usa a API TMDb, mas não é endossado ou certificado pelo TMDb.";
 
 //MARK: OverlayView.swift
 "Something went wrong, try again later." = "Algo deu errado, tente novamente mais tarde.";

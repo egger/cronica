@@ -42,7 +42,7 @@ class BackgroundManager {
     /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.
     private func fetchUpdates(items: [WatchlistItem]) async {
         for item in items {
-            let content = try? await self.network.fetchContent(id: item.itemId, type: item.itemMedia)
+            let content = try? await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
             if let content {
                 if content.itemCanNotify {
                     // If fetched item release date is different than the scheduled one,

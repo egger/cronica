@@ -11,6 +11,7 @@ import SwiftUI
 struct Credits: Codable, Hashable {
     let cast, crew: [Person]
 }
+/// A model that represents a person.
 struct Person: Codable, Identifiable, Hashable, Transferable {
     public static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation(exporting: \.itemUrlProxy)

@@ -97,22 +97,32 @@ struct PersistenceController {
     /// Get an item from the Watchlist.
     /// - Parameter id: The ID used to fetch the list.
     /// - Returns: If the item is in the list, it will return it.
-    func fetch(for id: WatchlistItem.ID) -> WatchlistItem? {
+    func fetch(for id: WatchlistItem.ID) throws -> WatchlistItem? {
         let viewContext = container.viewContext
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", id)
-        let item = try? viewContext.fetch(request)
-        if let item {
-            return item[0]
+        do {
+            let items = try viewContext.fetch(request)
+            if !items.isEmpty {
+                return items[0]
+            } else {
+                return nil
+            }
+        } catch {
+#if targetEnvironment(simulator)
+            print("Error: PersistenceController.fetch(for:) with localized description of \(error.localizedDescription)")
+#else
+            TelemetryManager.send("PersistenceController.fetch(for:)", with: ["error":"\(error.localizedDescription)"])
+#endif
+            return nil
         }
-        return nil
     }
     
-    // Updates a WatchlistItem on Core Data.
+    /// Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {
             let viewContext = container.viewContext
-            let item = self.fetch(for: WatchlistItem.ID(content.id))
+            let item = try? fetch(for: WatchlistItem.ID(content.id))
             if let item {
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
@@ -169,7 +179,7 @@ struct PersistenceController {
     func delete(items: Set<Int64>) {
         var content = [WatchlistItem]()
         for item in items {
-            let fetch = fetch(for: item)
+            let fetch = try? fetch(for: item)
             if let fetch {
                 content.append(fetch)
             }
@@ -184,7 +194,7 @@ struct PersistenceController {
     func updateMarkAs(items: Set<Int64>) {
         var content = [WatchlistItem]()
         for item in items {
-            let fetch = fetch(for: item)
+            let fetch = try? fetch(for: item)
             if let fetch {
                 content.append(fetch)
             }
@@ -209,8 +219,8 @@ struct PersistenceController {
     
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
-    private func isNotificationScheduled(for content: WatchlistItem) -> Bool {
-        let item = fetch(for: content.id)
+    func isNotificationScheduled(for content: WatchlistItem) -> Bool {
+        let item = try? fetch(for: content.id)
         if let item {
             return item.notify
         }
@@ -229,7 +239,7 @@ struct PersistenceController {
         let numberOfObjects = try? viewContext.count(for: request)
         if let numberOfObjects {
             if numberOfObjects > 0 {
-                let item = fetch(for: WatchlistItem.ID(id))
+                let item = try? fetch(for: WatchlistItem.ID(id))
                 if let item {
                     if item.itemMedia != type {
                         return false
@@ -243,7 +253,7 @@ struct PersistenceController {
     
     func updateMarkAs(id: Int, watched: Bool? = nil, favorite: Bool? = nil) {
         let viewContext = container.viewContext
-        let item = self.fetch(for: WatchlistItem.ID(id))
+        let item = try? fetch(for: WatchlistItem.ID(id))
         if let item {
             if let watched {
                 item.watched = watched
@@ -260,7 +270,7 @@ struct PersistenceController {
     func updateEpisodeList(show: Int, season: Int, episode: Int) {
         let viewContext = container.viewContext
         if isItemSaved(id: show, type: .tvShow) {
-            let item = fetch(for: WatchlistItem.ID(show))
+            let item = try? fetch(for: WatchlistItem.ID(show))
             if let item {
                 if isEpisodeSaved(show: show, season: season, episode: episode) {
                     let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
@@ -278,7 +288,7 @@ struct PersistenceController {
     
     func isEpisodeSaved(show: Int, season: Int, episode: Int) -> Bool {
         if isItemSaved(id: show, type: .tvShow) {
-            let item = fetch(for: WatchlistItem.ID(show))
+            let item = try? fetch(for: WatchlistItem.ID(show))
             if let item {
                 if let watched = item.watchedEpisodes {
                     if watched.contains("-\(episode)@\(season)") {
@@ -292,19 +302,13 @@ struct PersistenceController {
     
     /// Returns a boolean indicating the status of 'watched' on a given item.
     func isMarkedAsWatched(id: ItemContent.ID) -> Bool {
-        let item = fetch(for: WatchlistItem.ID(id))
-        if let item {
-            return item.watched
-        }
-        return false
+        let item = try? fetch(for: WatchlistItem.ID(id))
+        return item?.watched ?? false
     }
     
-    // Returns a boolean indicating the status of 'favorite' on a given item.
+    /// Returns a boolean indicating the status of 'favorite' on a given item.
     func isMarkedAsFavorite(id: ItemContent.ID) -> Bool {
-        let item = fetch(for: WatchlistItem.ID(id))
-        if let item {
-            return item.favorite
-        }
-        return false
+        let item = try? fetch(for: WatchlistItem.ID(id))
+        return item?.favorite ?? false
     }
 }

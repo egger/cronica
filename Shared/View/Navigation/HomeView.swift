@@ -15,6 +15,82 @@ struct HomeView: View {
     @State private var showSettings = false
     @State private var isLoading = true
     @State private var showConfirmation = false
+    init() {
+        _viewModel = StateObject(wrappedValue: HomeViewModel())
+        _settings = StateObject(wrappedValue: SettingsStore())
+    }
+    var body: some View {
+        AdaptableNavigationView {
+            ZStack {
+                if !viewModel.isLoaded {
+                    ProgressView()
+                        .unredacted()
+                }
+                VStack {
+                    ScrollView {
+                        UpcomingMovies()
+                        UpcomingShows()
+                        ItemContentListView(items: viewModel.trending,
+                                            title: "Trending",
+                                            subtitle: "This week",
+                                            image: "crown",
+                                            addedItemConfirmation: $showConfirmation)
+                        ForEach(viewModel.sections) { section in
+                            ItemContentListView(items: section.results,
+                                                title: section.title,
+                                                subtitle: section.subtitle,
+                                                image: section.image,
+                                                addedItemConfirmation: $showConfirmation)
+                        }
+                        AttributionView()
+                    }
+                    .refreshable { viewModel.reload() }
+                }
+                .navigationDestination(for: ItemContent.self) { item in
+                    ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                }
+                .navigationDestination(for: Person.self) { person in
+                    PersonDetailsView(title: person.name, id: person.id)
+                }
+                .navigationDestination(for: WatchlistItem.self) { item in
+                    ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                }
+                .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
+                .navigationTitle("Home")
+                .toolbar {
+                    if UIDevice.isIPhone {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                showSettings.toggle()
+                            }, label: {
+                                Label("Settings", systemImage: "gearshape")
+                            })
+                        }
+                    }
+                }
+                .sheet(isPresented: $displayOnboard) {
+                    WelcomeView()
+                }
+                .sheet(isPresented: $showSettings) {
+                    SettingsView(showSettings: $showSettings)
+                        .environmentObject(settings)
+                }
+                .task {
+                    await viewModel.load()
+                }
+                ConfirmationDialogView(showConfirmation: $showConfirmation)
+            }
+        }
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
+}
+
+private struct UpcomingMovies: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
@@ -27,7 +103,12 @@ struct HomeView: View {
                                         NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
                                        ])
     )
-    var movies: FetchedResults<WatchlistItem>
+    var items: FetchedResults<WatchlistItem>
+    var body: some View {
+        UpcomingSectionsList(items: items, title: "Upcoming Movies")
+    }
+}
+private struct UpcomingShows: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
@@ -35,76 +116,8 @@ struct HomeView: View {
         ],
         predicate: NSPredicate(format: "upcomingSeason == %d", true)
     )
-    var seasons: FetchedResults<WatchlistItem>
-    init() {
-        _viewModel = StateObject(wrappedValue: HomeViewModel())
-        _settings = StateObject(wrappedValue: SettingsStore())
-    }
+    var items: FetchedResults<WatchlistItem>
     var body: some View {
-        ZStack {
-            if !viewModel.isLoaded {
-                ProgressView()
-                    .unredacted()
-            }
-            VStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    UpcomingSectionsList(items: movies, title: "Upcoming Movies")
-                    UpcomingSectionsList(items: seasons, title: "Upcoming Seasons")
-                    ItemContentListView(items: viewModel.trending,
-                                        title: "Trending",
-                                        subtitle: "This week",
-                                        image: "crown",
-                                        addedItemConfirmation: $showConfirmation)
-                    ForEach(viewModel.sections) { section in
-                        ItemContentListView(items: section.results,
-                                            title: section.title,
-                                            subtitle: section.subtitle,
-                                            image: section.image,
-                                            addedItemConfirmation: $showConfirmation)
-                    }
-                    AttributionView()
-                }
-                .refreshable { viewModel.reload() }
-            }
-            .navigationDestination(for: ItemContent.self) { item in
-                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-            }
-            .navigationDestination(for: Person.self) { person in
-                PersonDetailsView(title: person.name, id: person.id)
-            }
-            .navigationDestination(for: WatchlistItem.self) { item in
-                ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
-            }
-            .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-            .navigationTitle("Home")
-            .toolbar {
-                if UIDevice.isIPhone {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            showSettings.toggle()
-                        }, label: {
-                            Label("Settings", systemImage: "gearshape")
-                        })
-                    }
-                }
-            }
-            .sheet(isPresented: $displayOnboard) {
-                WelcomeView()
-            }
-            .sheet(isPresented: $showSettings) {
-                SettingsView(showSettings: $showSettings)
-                    .environmentObject(settings)
-            }
-            .task {
-                await viewModel.load()
-            }
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
-        }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
+        UpcomingSectionsList(items: items, title: "Upcoming Seasons")
     }
 }

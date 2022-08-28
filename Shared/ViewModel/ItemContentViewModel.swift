@@ -14,6 +14,7 @@ class ItemContentViewModel: ObservableObject {
     private let service = NetworkService.shared
     private let notification = NotificationManager()
     private let context = PersistenceController.shared
+    private let persistence = PersistenceController.shared
     private var id: ItemContent.ID
     private var type: MediaType
     @Published var content: ItemContent?
@@ -38,7 +39,7 @@ class ItemContentViewModel: ObservableObject {
         if Task.isCancelled { return }
         if content == nil {
             do {
-                content = try await self.service.fetchContent(id: self.id, type: self.type)
+                content = try await self.service.fetchItem(id: self.id, type: self.type)
                 if let content {
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
                     withAnimation {
@@ -68,79 +69,69 @@ class ItemContentViewModel: ObservableObject {
                 showErrorAlert = true
                 content = nil
 #if targetEnvironment(simulator)
-                print(error.localizedDescription)
+                print("Error: ItemContentViewModel.load() with localized description of \(error.localizedDescription)")
 #else
-                TelemetryManager.send("fetchError", with: ["error":"\(error.localizedDescription)"])
+                TelemetryManager.send("ItemContentViewModel.load()", with: ["error":"\(error.localizedDescription)"])
 #endif
             }
+        }
+    }
+    
+    /// Automatically saves or delete an item from Watchlist and it's respective notification, if applicable.
+    ///
+    /// If an item already exists in Watchlist, it'll remove it from there and delete the scheduled notification.
+    /// If an item don't exist yet in Watchlist, it'll add to it and schedule a notification, if needed.
+    /// - Parameter item: The item to update the Watchlist with.
+    func updateWatchlist(with item: ItemContent) {
+        if isInWatchlist {
+            // Removes item from Watchlist
+            withAnimation {
+                isInWatchlist.toggle()
+            }
+            let watchlistItem = try? persistence.fetch(for: Int64(item.id))
+            if let watchlistItem {
+                if watchlistItem.notify {
+                    notification.removeNotification(identifier: item.itemNotificationID)
+                    withAnimation {
+                        hasNotificationScheduled.toggle()
+                    }
+                }
+                persistence.delete(watchlistItem)
+            }
+        } else {
+            // Adds the item to Watchlist
+            withAnimation {
+                isInWatchlist.toggle()
+            }
+            persistence.save(item)
+            if item.itemCanNotify {
+                notification.schedule(notificationContent: item)
+                withAnimation {
+                    hasNotificationScheduled.toggle()
+                }
+            }
+        }
+    }
+    
+    func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil) {
+        if let watched {
+            withAnimation {
+                isWatched.toggle()
+            }
+            persistence.updateMarkAs(id: id, watched: watched)
+        }
+        if let favorite {
+            withAnimation {
+                isFavorite.toggle()
+            }
+            persistence.updateMarkAs(id: id, favorite: favorite)
         }
     }
     
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
     private func isNotificationScheduled() -> Bool {
-        let item = context.fetch(for: WatchlistItem.ID(self.id))
-        if let item {
-            return item.notify
-        }
-        return false
-    }
-    
-    func update(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil) {
-        if let content {
-            if let favorite {
-                HapticManager.shared.lightHaptic()
-                if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
-                    context.save(content)
-                    withAnimation {
-                        isInWatchlist.toggle()
-                    }
-                }
-                withAnimation {
-                    isFavorite.toggle()
-                }
-                context.update(item: content, isFavorite: favorite)
-            } else if let watched {
-                HapticManager.shared.lightHaptic()
-                if !context.isItemSaved(id: content.id, type: content.itemContentMedia) {
-                    context.save(content)
-                    withAnimation {
-                        isInWatchlist.toggle()
-                    }
-                }
-                context.update(item: content, isWatched: watched)
-                withAnimation {
-                    isWatched.toggle()
-                    hasNotificationScheduled = content.itemCanNotify
-                }
-            } else {
-                if context.isItemSaved(id: content.id, type: content.itemContentMedia) {
-                    HapticManager.shared.softHaptic()
-                    let item = context.fetch(for: WatchlistItem.ID(content.id))
-                    if let item {
-                        let identifier: String = "\(content.itemTitle)+\(content.id)"
-                        if isNotificationScheduled() {
-                            notification.removeNotification(identifier: identifier)
-                        }
-                        context.delete(item)
-                    }
-                } else {
-                    HapticManager.shared.mediumHaptic()
-                    context.save(content)
-                    if content.itemCanNotify {
-                        notification.schedule(notificationContent: content)
-                    }
-                }
-                if !isInWatchlist {
-                    withAnimation {
-                        hasNotificationScheduled = content.itemCanNotify
-                    }
-                } else {
-                    withAnimation {
-                        hasNotificationScheduled.toggle()
-                    }
-                }
-            }
-        }
+        let item = try? context.fetch(for: WatchlistItem.ID(self.id))
+        return item?.notify ?? false
     }
 }

@@ -23,9 +23,9 @@ struct Provider: TimelineProvider {
         Task {
             let nextUpdate = Date().addingTimeInterval(86400) // 24 hours in seconds
             do {
-                let result = try await NetworkService.shared.fetchContents(from: "trending/all/day")
+                let result = try await NetworkService.shared.fetchItems(from: "trending/all/day")
                 var content = [ItemContent]()
-                for item in result.prefix(4) {
+                for item in result.shuffled().prefix(4) {
                     let image = await NetworkService.shared.downloadImageData(from: item.posterImage)
                     let itemContent = ItemContent(id: item.id,
                                                   title: item.title,

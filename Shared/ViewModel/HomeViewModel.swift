@@ -19,7 +19,7 @@ class HomeViewModel: ObservableObject {
     func load() async {
         Task {
             if trending.isEmpty {
-                let result = try? await service.fetchContents(from: "trending/all/day")
+                let result = try? await service.fetchItems(from: "trending/all/week")
                 if let result {
                     let filtered = result.filter { $0.itemContentMedia != .person }
                     trending = filtered
@@ -65,8 +65,11 @@ class HomeViewModel: ObservableObject {
         return sections
     }
     
+    /// Fetch an Endpoint value.
+    /// - Parameter endpoint: The endpoint used for popular, upcoming, etc.
+    /// - Returns: Return a ItemContentSection already populated with Endpoint value if that fetch is successful, otherwise it returns nil.
     private func fetch(from endpoint: Endpoints) async -> ItemContentSection? {
-        let section = try? await service.fetchContents(from: "\(MediaType.movie.rawValue)/\(endpoint.rawValue)")
+        let section = try? await service.fetchItems(from: "\(endpoint.type.rawValue)/\(endpoint.rawValue)")
         if let section {
             return .init(results: section, endpoint: endpoint)
         }

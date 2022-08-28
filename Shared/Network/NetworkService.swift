@@ -22,7 +22,7 @@ class NetworkService {
         decoder.dateDecodingStrategy = .formatted(NetworkService.dateFormatter)
     }
     
-    func fetchContent(id: ItemContent.ID, type: MediaType) async throws -> ItemContent {
+    func fetchItem(id: ItemContent.ID, type: MediaType) async throws -> ItemContent {
         guard let url = urlBuilder(path: "\(type.rawValue)/\(id)", append: type.append) else {
             throw NetworkError.invalidEndpoint
         }
@@ -36,7 +36,7 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
-    func fetchContents(from path: String) async throws -> [ItemContent] {
+    func fetchItems(from path: String) async throws -> [ItemContent] {
         guard let url = urlBuilder(path: path) else {
             throw NetworkError.invalidEndpoint
         }
@@ -146,6 +146,11 @@ class NetworkService {
         return component.url
     }
     
+    /// Build a safe URL for the TMDb's Discovery endpoint.
+    /// - Parameters:
+    ///   - type: The content type for the discovery fetch.
+    ///   - page: The page used for pagination.
+    ///   - genres: The desired genres for the discovery.
     private func urlBuilder(type: String, page: Int, genres: String) -> URL? {
         var component = URLComponents()
         component.scheme = "https"

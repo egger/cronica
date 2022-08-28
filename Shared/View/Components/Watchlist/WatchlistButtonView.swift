@@ -11,10 +11,9 @@ struct WatchlistButtonView: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     var body: some View {
         Button(action: {
-            withAnimation {
-                viewModel.isInWatchlist.toggle()
+            if let item = viewModel.content {
+                viewModel.updateWatchlist(with: item)
             }
-            viewModel.update()
         }, label: {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")

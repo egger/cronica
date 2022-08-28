@@ -29,7 +29,7 @@ class SeasonViewModel: ObservableObject {
         if !hasFirstLoaded {
             hasFirstLoaded.toggle()
             if isItemInWatchlist {
-                watchlistItem = persistence.fetch(for: WatchlistItem.ID(id))
+                watchlistItem = try? persistence.fetch(for: WatchlistItem.ID(id))
             }
         }
         withAnimation {
@@ -73,7 +73,7 @@ class SeasonViewModel: ObservableObject {
     }
     
     private func saveItemOnList(id: Int) async {
-        let content = try? await network.fetchContent(id: id, type: .tvShow)
+        let content = try? await network.fetchItem(id: id, type: .tvShow)
         if let content {
             persistence.save(content)
             isItemInWatchlist = true

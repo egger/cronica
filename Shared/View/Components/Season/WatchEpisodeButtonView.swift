@@ -45,7 +45,7 @@ struct WatchEpisodeButtonView: View {
     
     private func fetch() async {
         let network = NetworkService.shared
-        let content = try? await network.fetchContent(id: show, type: .tvShow)
+        let content = try? await network.fetchItem(id: show, type: .tvShow)
         if let content {
             persistence.save(content)
             withAnimation {

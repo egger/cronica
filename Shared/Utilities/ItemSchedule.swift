@@ -6,8 +6,10 @@
 //
 
 import Foundation
-import SwiftUI
 
+/// The value for the types of schedule supported by ItemContent and WatchlistItem.
+///
+/// This value is most used to quickly filter out WatchlistItem and handle better fetching in notifications.
 enum ItemSchedule: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case soon, released, production, cancelled, unknown, renewed

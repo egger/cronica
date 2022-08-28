@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 
-/// Represents a movie, tv show model, it is also used for people only
-/// on search.
+/// A model that represents a movie or tv show.
+///
+/// it is also used for people only on multi search results.
 struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(for: ItemContent.self, contentType: .itemContent)
@@ -60,11 +61,5 @@ struct ItemContentSection: Identifiable, Sendable {
     }
     var image: String {
         endpoint.image
-    }
-    var type: MediaType {
-        switch endpoint {
-        case .upcoming: return .movie
-        case .nowPlaying: return .movie
-        }
     }
 }

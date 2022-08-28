@@ -11,7 +11,6 @@ import SwiftUI
 enum NetworkError: Error, CustomNSError {
     case invalidResponse, invalidRequest, invalidEndpoint, decodingError
     case invalidApi, internalError, maintenanceApi
-    
     var localizedName: LocalizedStringKey {
         switch self {
         case .invalidResponse:

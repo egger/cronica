@@ -23,7 +23,7 @@ struct TrailerListView: View {
                 }
                 .unredacted()
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
+                    HStack {
                         ForEach(trailers) { trailer in
                             TrailerItemView(trailer: trailer)
                                 .onTapGesture {

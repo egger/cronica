@@ -59,10 +59,11 @@ struct PosterView: View {
                 .modifier(ItemContentContextMenu(item: item,
                                                  showConfirmation: $addedItemConfirmation,
                                                  isInWatchlist: $isInWatchlist))
+                .onAppear {
+                    isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                }
                 .task {
-                    withAnimation {
-                        isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
-                    }
+                    //isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
                 }
         }
     }

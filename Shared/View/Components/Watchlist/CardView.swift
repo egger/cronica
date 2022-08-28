@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct CardView: View {
     let item: WatchlistItem
+    private let notification = NotificationManager.shared
     @Environment(\.managedObjectContext) private var viewContext
     var body: some View {
         if item.image != nil {
@@ -121,6 +122,9 @@ struct CardView: View {
     
     private func remove(item: WatchlistItem) {
         HapticManager.shared.mediumHaptic()
+        if item.notify {
+            notification.removeNotification(identifier: item.notificationID)
+        }
         withAnimation {
             viewContext.delete(item)
             if viewContext.hasChanges { try? viewContext.save() }

@@ -4,7 +4,6 @@
 //
 //  Created by Alexandre Madeira on 28/04/22.
 //
-
 import SwiftUI
 
 struct SideBarView: View {
@@ -202,4 +201,3 @@ struct SideBarView_Previews: PreviewProvider {
         SideBarView()
     }
 }
-

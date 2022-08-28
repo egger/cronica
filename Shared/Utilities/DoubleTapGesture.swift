@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Double tap values for the CoverImage gesture.
 enum DoubleTapGesture: Int {
     case favorite = 0
     case watched = 1

@@ -13,6 +13,8 @@
 "No information available" = "No information available";
 "No title available" = "No title available";
 "Up Coming" = "Up Coming";
+"Upcoming Episodes" = "Upcoming Episodes";
+"Arriving Soon" = "Arriving Soon";
 "Latest Movies" = "Latest Movies";
 "Latest Shows" = "Latest Shows";
 "Upcoming Movies" = "Upcoming Movies";
@@ -29,6 +31,7 @@
 "Default" = "Optimized";
 "Favorites" = "Favorites";
 "To Watch" = "To Watch";
+"Unwatched" = "Unwatched";
 "Watched" = "Watched";
 "Upcoming Movies" = "Upcoming Movies";
 "Upcoming Seasons" = "Upcoming Seasons";
@@ -53,7 +56,7 @@
 "Mark selected as unwatched" = "Mark selected as unwatched";
 
 //MARK: AttributionView.swift
-"This product uses the TMDB API but is not endorsed or certified by TMDB." = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
+"This product uses the TMDb API but is not endorsed or certified by TMDb." = "This product uses the TMDb API but is not endorsed or certified by TMDb.";
 
 //MARK: OverlayView.swift
 "Something went wrong, try again later." = "Something went wrong, try again later.";
@@ -209,7 +212,7 @@
 "Invalid Endpoint" = "Invalid Endpoint.";
 "Error reading this title" = "Error reading this title.";
 "Invalid API key: You must be granted a valid key." = "Invalid API key.";
-"Internal error: Something went wrong, contact TMDB." = "Internal error: Something went wrong, contact TMDB.";
+"Internal error: Something went wrong, contact TMDB." = "Internal error: Something went wrong, contact TMDb.";
 "The API is undergoing maintenance. Try again later." = "The API is undergoing maintenance. Try again later.";
 "Error" = "Error";
 "Cancel" = "Cancel";

@@ -13,14 +13,14 @@ struct MarkAsMenuView: View {
     var body: some View {
         Menu(content: {
             Button(action: {
-                viewModel.update(markAsWatched: viewModel.isWatched)
+                viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
             }, label: {
                 Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                       systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
             })
             .keyboardShortcut("w", modifiers: [.option])
             Button(action: {
-                viewModel.update(markAsFavorite: viewModel.isFavorite)
+                viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
             }, label: {
                 Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                       systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")

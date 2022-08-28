@@ -40,7 +40,7 @@ struct StoryApp: App {
                         type = .tvShow
                     }
                     Task {
-                        widgetItem = try? await NetworkService.shared.fetchContent(id: id, type: type)
+                        widgetItem = try? await NetworkService.shared.fetchItem(id: id, type: type)
                     }
                 }
                 .sheet(item: $widgetItem) { item in

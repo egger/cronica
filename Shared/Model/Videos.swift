@@ -16,13 +16,13 @@ struct VideosResult: Codable, Hashable {
     let name, key, type: String
     let official: Bool
 }
+/// A model that represents a trailer.
 struct VideoItem: Identifiable, Codable, Hashable {
     var id = UUID()
     let url: URL?
     let thumbnail: URL?
     let title: String
 }
-
 extension VideosResult {
     private var isYouTube: Bool {
         if let site {

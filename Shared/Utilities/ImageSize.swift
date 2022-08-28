@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Values that returns safe path to their relative sizes.
 enum ImageSize: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case small = "t/p/w154"

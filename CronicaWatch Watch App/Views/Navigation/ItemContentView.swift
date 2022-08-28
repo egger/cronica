@@ -50,7 +50,7 @@ struct ItemContentView: View {
     }
     private var watchButton: some View {
         Button(action: {
-            viewModel.update(markAsWatched: !viewModel.isWatched)
+            viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
         }, label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
