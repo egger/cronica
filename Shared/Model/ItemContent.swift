@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 /// A model that represents a movie or tv show.
 ///
 /// it is also used for people only on multi search results.

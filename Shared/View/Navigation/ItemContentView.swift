@@ -107,14 +107,6 @@ struct ItemContentView: View {
                             MarkAsMenuView()
                                 .environmentObject(viewModel)
                         }
-#if DEBUG
-                        Button(action: {
-                            print("Print object '\(title)': \(viewModel.content as Any)")
-                        }, label: {
-                            Label("Print object", systemImage: "curlybraces.square.fill")
-                        })
-                        .tint(.orange)
-#endif
                     }
                 }
             }

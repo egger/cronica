@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import SwiftUI
+import TelemetryClient
 
 @MainActor
 class HomeViewModel: ObservableObject {
@@ -69,11 +70,18 @@ class HomeViewModel: ObservableObject {
     /// - Parameter endpoint: The endpoint used for popular, upcoming, etc.
     /// - Returns: Return a ItemContentSection already populated with Endpoint value if that fetch is successful, otherwise it returns nil.
     private func fetch(from endpoint: Endpoints) async -> ItemContentSection? {
-        let section = try? await service.fetchItems(from: "\(endpoint.type.rawValue)/\(endpoint.rawValue)")
-        if let section {
+        do {
+            let section = try await service.fetchItems(from: "\(endpoint.type.rawValue)/\(endpoint.rawValue)")
             return .init(results: section, endpoint: endpoint)
+        } catch {
+            if Task.isCancelled { return nil }
+#if targetEnvironment(simulator)
+                print("Error: HomeViewModel.fetch with error-endpoint: \(error.localizedDescription)-\(endpoint as Any).")
+#else
+                TelemetryManager.send("HomeViewModel.fetch(from endpoint: Endpoints)", with: ["error":"\(error.localizedDescription)"])
+#endif
+            return nil
         }
-        return nil
     }
     
     private func fetchRecommendation(for id: Int, type: MediaType) -> [ItemContent] {

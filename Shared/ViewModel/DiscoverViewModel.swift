@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import TelemetryClient
 
 @MainActor
 class DiscoverViewModel: ObservableObject {
@@ -15,6 +16,7 @@ class DiscoverViewModel: ObservableObject {
     @Published var selectedGenre: Int = 28
     @Published var selectedMedia: MediaType = .movie
     @Published var isLoaded: Bool = false
+    @Published var showErrorDialog: Bool = false
     // MARK: Pagination Properties
     @Published var currentPage: Int = 0
     @Published var startPagination: Bool = false
@@ -47,11 +49,11 @@ class DiscoverViewModel: ObservableObject {
     }
     
     private func fetch() async {
-        let result = try? await service.fetchDiscover(type: selectedMedia,
-                                                      page: currentPage,
-                                                      genres: "\(selectedGenre)")
-        Task {
-            items.append(contentsOf: result ?? [])
+        do {
+            let result = try await service.fetchDiscover(type: selectedMedia,
+                                                          page: currentPage,
+                                                          genres: "\(selectedGenre)")
+            items.append(contentsOf: result)
             if currentPage == 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     withAnimation {
@@ -61,6 +63,14 @@ class DiscoverViewModel: ObservableObject {
             }
             endPagination = currentPage == 1000
             startPagination = false
+        } catch {
+            if Task.isCancelled { return }
+#if targetEnvironment(simulator)
+                print("Error: DiscoverViewModel.fetch() with error-endpoint: \(error.localizedDescription)")
+#else
+                TelemetryManager.send("DiscoverViewModel.fetch()", with: ["error":"\(error.localizedDescription)"])
+#endif
+            showErrorDialog.toggle()
         }
     }
     

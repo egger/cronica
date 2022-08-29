@@ -78,17 +78,7 @@ struct PersonDetailsView: View {
             .navigationTitle(name)
             .toolbar {
                 ToolbarItem {
-                    HStack {
-                        ShareLink(item: personUrl)
-#if DEBUG
-                        Button(action: {
-                            print("Print object '\(name)': \(viewModel.person as Any)")
-                        }, label: {
-                            Label("Print object", systemImage: "curlybraces.square.fill")
-                        })
-                        .tint(.orange)
-#endif
-                    }
+                    ShareLink(item: personUrl)
                 }
             }
             .alert("Error",

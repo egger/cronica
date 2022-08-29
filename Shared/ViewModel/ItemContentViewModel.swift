@@ -65,6 +65,7 @@ class ItemContentViewModel: ObservableObject {
                     isLoading = false
                 }
             } catch {
+                if Task.isCancelled { return }
                 errorMessage = error.localizedDescription
                 showErrorAlert = true
                 content = nil
@@ -114,6 +115,14 @@ class ItemContentViewModel: ObservableObject {
     }
     
     func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil) {
+        if !isInWatchlist {
+            if let content {
+                withAnimation {
+                    isInWatchlist.toggle()
+                }
+                updateWatchlist(with: content)
+            }
+        }
         if let watched {
             withAnimation {
                 isWatched.toggle()

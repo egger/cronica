@@ -53,6 +53,12 @@ struct StoryApp: App {
                                     }
                                 }
                             }
+                            .navigationDestination(for: ItemContent.self) { item in
+                                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                            }
+                            .navigationDestination(for: Person.self) { item in
+                                PersonDetailsView(title: item.name, id: item.id)
+                            }
                     }
                 }
         }

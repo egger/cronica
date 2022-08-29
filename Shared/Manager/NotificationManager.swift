@@ -87,4 +87,40 @@ class NotificationManager: ObservableObject {
     func removeNotification(identifier: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
     }
+    
+    func fetchUpcomingNotifications() async -> [ItemContent]? {
+        var identifiers = [String]()
+        let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
+        for item in notifications {
+            identifiers.append(item.identifier)
+#if targetEnvironment(simulator)
+            print(item.identifier)
+#endif
+        }
+        var items = [ItemContent]()
+        if identifiers.isEmpty {
+            return items
+        }
+        let service = NetworkService.shared
+        for identifier in identifiers {
+            let type = identifier.last ?? "0"
+            var media: MediaType = .movie
+            if type == "1" {
+                media = .tvShow
+            }
+            let id = identifier.dropLast(2)
+            do {
+                let item = try await service.fetchItem(id: Int(id)!, type: media)
+                items.append(item)
+            } catch {
+                return nil
+            }
+        }
+#if targetEnvironment(simulator)
+        for item in items {
+            print("\(item.itemTitle) with notification id of: \(item.itemNotificationID)")
+        }
+#endif
+        return items
+    }
 }

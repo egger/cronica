@@ -44,12 +44,13 @@ class PersonDetailsViewModel: ObservableObject {
                     isLoaded.toggle()
                 }
             } catch {
+                if Task.isCancelled { return }
                 person = nil
                 errorMessage = error.localizedDescription
 #if targetEnvironment(simulator)
-                print(error.localizedDescription)
+                print("Error: PersonDetailsViewModel.load() with localized description of \(error.localizedDescription)")
 #else
-                TelemetryManager.send("fetchError", with: ["error":"\(error.localizedDescription)"])
+                TelemetryManager.send("PersonDetailsViewModel.load()", with: ["error":"\(error.localizedDescription)"])
 #endif
             }
         }

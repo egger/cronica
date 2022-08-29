@@ -28,6 +28,13 @@ struct TabBarView: View {
             SearchView()
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
+#if targetEnvironment(simulator)
+            DeveloperView()
+                .tag(DeveloperView.tag)
+                .tabItem {
+                    Label("Developer", systemImage: "hammer.fill")
+                }
+#endif
         }
     }
 }
