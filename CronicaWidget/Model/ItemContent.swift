@@ -11,6 +11,7 @@ struct ItemContent: Identifiable, Decodable, Hashable {
     var id: Int
     let title, name, posterPath, backdropPath: String?
     let data: Data?
+    var placeholderImagePath: String?
 }
 struct ItemContentResponse: Identifiable, Decodable, Hashable {
     let id: String?

@@ -27,24 +27,28 @@ extension ItemContent {
     static let placeholder = ItemContent(id: 639933, title: "The Northman", name: nil, posterPath: "/8p9zXB7M78nZpm215zHfqpknMeM.jpg", backdropPath: "/cIjmEgK67974md4Z9Xe6350sAS2.jpg", data: nil)
     static var previewContents: [ItemContent] {
         let data: ItemContentResponse? = try? Bundle.main.decode(from: "DataPlaceholder")
-        Task {
-            if let results = data?.results {
-                var items = [ItemContent]()
-                for item in results {
-                    let image = await NetworkService.shared.downloadImageData(from: item.posterImage)
-                    let itemContent = ItemContent(id: item.id,
-                                                  title: item.title,
-                                                  name: item.name,
-                                                  posterPath: item.posterPath,
-                                                  backdropPath: item.backdropPath,
-                                                  data: image)
-                    items.append(itemContent)
+        if let results = data?.results {
+            var items = [ItemContent]()
+            for item in results {
+                var imagePath = String()
+                switch item.id {
+                case 72844: imagePath = "2"
+                case 530915: imagePath = "3"
+                case 137113: imagePath = "4"
+                default: imagePath = "1"
                 }
-                if !items.isEmpty {
-                    return items
-                }
+                let itemContent = ItemContent(id: item.id,
+                                              title: item.title,
+                                              name: item.name,
+                                              posterPath: item.posterPath,
+                                              backdropPath: item.backdropPath,
+                                              data: nil,
+                                              placeholderImagePath: imagePath)
+                items.append(itemContent)
             }
-            return data!.results
+            if !items.isEmpty {
+                return items
+            }
         }
         return data!.results
     }
