@@ -44,12 +44,12 @@ struct SideBarView: View {
                 } isTargeted: { inDropArea in
                     print(inDropArea)
                 }
-#if targetEnvironment(simulator)
-                NavigationLink(value: Screens.developer) {
-                    Label("Developer", systemImage: "hammer")
-                }
-                .tag(DeveloperView.tag)
-#endif
+//#if targetEnvironment(simulator)
+//                NavigationLink(value: Screens.developer) {
+//                    Label("Developer", systemImage: "hammer")
+//                }
+//                .tag(DeveloperView.tag)
+//#endif
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
@@ -94,8 +94,7 @@ struct SideBarView: View {
                         WatchlistView()
                             .environment(\.managedObjectContext, persistence.container.viewContext)
                     case .search: SearchView()
-                    case .developer:
-                        DeveloperView()
+                    case .developer: DeveloperView()
                     }
                 }
             }

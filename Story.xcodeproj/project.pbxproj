@@ -472,9 +472,9 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B86AAD0828BD1CD100D135B1 /* Developer */,
 				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8EC463E27D84C62009389FC /* Components */,
+				B86AAD0828BD1CD100D135B1 /* Developer */,
 				B8C3354928170AC90055389D /* Lists */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
 			);

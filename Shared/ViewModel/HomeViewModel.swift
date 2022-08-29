@@ -37,6 +37,10 @@ class HomeViewModel: ObservableObject {
     }
     
     func reload() {
+#if targetEnvironment(simulator)
+#else
+        TelemetryManager.send("HomeViewModel.reload()")
+#endif
         HapticManager.shared.lightHaptic()
         withAnimation { isLoaded = false }
         updateWatchlist()
@@ -76,16 +80,11 @@ class HomeViewModel: ObservableObject {
         } catch {
             if Task.isCancelled { return nil }
 #if targetEnvironment(simulator)
-                print("Error: HomeViewModel.fetch with error-endpoint: \(error.localizedDescription)-\(endpoint as Any).")
+            print("Error: HomeViewModel.fetch with error-endpoint: \(error.localizedDescription)-\(endpoint as Any).")
 #else
-                TelemetryManager.send("HomeViewModel.fetch(from endpoint: Endpoints)", with: ["error":"\(error.localizedDescription)"])
+            TelemetryManager.send("HomeViewModel.fetch(from endpoint: Endpoints)", with: ["error":"\(error.localizedDescription)"])
 #endif
             return nil
         }
-    }
-    
-    private func fetchRecommendation(for id: Int, type: MediaType) -> [ItemContent] {
-        
-        return []
     }
 }
