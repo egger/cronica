@@ -117,9 +117,6 @@ class ItemContentViewModel: ObservableObject {
     func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil) {
         if !isInWatchlist {
             if let content {
-                withAnimation {
-                    isInWatchlist.toggle()
-                }
                 updateWatchlist(with: content)
             }
         }

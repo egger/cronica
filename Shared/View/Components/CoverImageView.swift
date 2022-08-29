@@ -11,6 +11,8 @@ struct CoverImageView: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var isPad: Bool = UIDevice.isIPad
     @State private var animateGesture: Bool = false
+    @State private var isFavorite = false
+    @State private var isWatched = false
     let title: String
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
@@ -22,13 +24,13 @@ struct CoverImageView: View {
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
                     if store.gesture == .favorite {
-                        Image(systemName: viewModel.isFavorite ? "heart.slash.fill" : "heart.fill")
+                        Image(systemName: isFavorite ? "heart.slash.fill" : "heart.fill")
                             .symbolRenderingMode(.multicolor)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
                     } else {
-                        Image(systemName: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle")
+                        Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
                             .symbolRenderingMode(.monochrome)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -48,16 +50,26 @@ struct CoverImageView: View {
                 withAnimation {
                     animateGesture.toggle()
                 }
+                if store.gesture == .favorite {
+                    viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+                        isFavorite.toggle()
+                    }
+                } else {
+                    viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+                        isWatched.toggle()
+                    }
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                     withAnimation {
                         animateGesture = false
                     }
-                    if store.gesture == .favorite {
-                        viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
-                    } else {
-                        viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
-                    }
                 }
+            }
+            .task {
+                isFavorite = viewModel.isFavorite
+                isWatched = viewModel.isWatched
             }
             
             if let info = viewModel.content?.itemInfo {
