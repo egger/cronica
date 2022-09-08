@@ -12,6 +12,8 @@
     <a href="https://twitter.com/_alexMadeira">
         <img src="https://img.shields.io/badge/Twitter-@_alexMadeira-lightgrey.svg?style=flat" alt="Twitter: @_alexMadeira" />
     </a>
+<img src="https://img.shields.io/github/license/MadeiraAlexandre/Cronica" alt="GitHub license MIT badge" />
+
 </p>
 
 
@@ -19,18 +21,28 @@
     <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Screenshots/CronicaHome.png?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
 </p>
 
+## About
+
+Cronica is built using Swift and SwiftUI, it uses Core Data to persist the user's watchlist, and CloudKit to sync the list effortlessly between the user's device. 
+
+To provide release notifications, the app takes advantage of local notifications to notify users about new episodes or a movie release. To keep notifications useful, there's a background task that updates item values with new information using TMDb API, if needed.
+
+Thanks to CloudKit and SwiftUI, Cronica also can run on Apple Watch, and the information will automatically sync.
 
 
+##  Build information
+
+#### This project targets iOS 16, iPadOS 16, watchOS 9, macOS 13, and requires Xcode 14.
+
+To get started you'll need to:
+
+1. Get an API key to use TMDb API, you can get yours at their [webiste](https://www.themoviedb.org/documentation/api),  after that, go to Shared/Configuration/Key and replace the value of *tmdbApi* with your own key.
+2. You can remove TelemetryDeck service if you want to, I use it for the Feedback feature and sending signal when a catch occurs.
+
+If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.
 
 
-### Build information
-
-This project targets iOS 16, and requires Xcode 14. To get started, create an API Key for TMDB, you can create one at the [TMDB website](https://www.themoviedb.org/documentation/api), after that, go to Shared/Configuration/Key and replace the empty string with your own key.
-
-***To work with iOS 15 and Xcode 13, change to branch [iOS 15 Support](https://github.com/MadeiraAlexandre/Cronica/tree/iOS15-Support).***
-
-
-### Instalation
+## Instalation
 
 Cronica is available in the [App Store](https://apple.co/38SXpVJ), you can also build it using its source-code.
 

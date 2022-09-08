@@ -176,6 +176,8 @@ struct PersistenceController {
         }
     }
     
+    ///  Deletes an array of WatchlistItem from Core Data.
+    /// - Parameter items: The IDs of the items to be fetched from Core Data and then deleted.
     func delete(items: Set<Int64>) {
         var content = [WatchlistItem]()
         for item in items {
@@ -191,6 +193,8 @@ struct PersistenceController {
         }
     }
     
+    /// Updates the "watched" property of an array of WatchlistItem in Core Data.
+    /// - Parameter items: The IDs of the items to be fetched from Core Data and then updated.
     func updateMarkAs(items: Set<Int64>) {
         var content = [WatchlistItem]()
         for item in items {
@@ -206,6 +210,7 @@ struct PersistenceController {
         }
     }
     
+    /// Updates the "watched" and/or the "favorite" property of an array of WatchlistItem in Core Data.
     func updateMarkAs(items: Set<WatchlistItem>, favorite: Bool? = nil, watched: Bool? = nil) {
         for item in items {
             if let favorite {
