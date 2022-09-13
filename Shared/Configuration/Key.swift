@@ -8,6 +8,6 @@
 import Foundation
 
 struct Key {
-    static let keyV3 = "" // TMDb API key.
-    static let telemetryClientKey = "" // Telemetry Viewer key.
+    static let tmdbApi = ProcessInfo.processInfo.environment["tmdb_api"]
+    static let telemetryClientKey = ProcessInfo.processInfo.environment["telemetry_client_key"]
 }
