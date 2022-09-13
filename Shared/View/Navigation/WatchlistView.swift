@@ -57,22 +57,19 @@ struct WatchlistView: View {
                             switch selectedOrder {
                             case .released:
                                 WatchListSection(items: items.filter { $0.isReleased },
-                                                 title: "Released")
+                                                 list: .released)
                             case .upcoming:
                                 WatchListSection(items: items.filter { $0.isUpcoming },
-                                                 title: "Upcoming")
+                                                 list: .upcoming)
                             case .production:
                                 WatchListSection(items: items.filter { $0.isInProduction },
-                                                 title: "In Production")
+                                                 list: .production)
                             case .favorites:
                                 WatchListSection(items: items.filter { $0.isFavorite },
-                                                 title: "Favorites")
+                                                 list: .favorites)
                             case .watched:
                                 WatchListSection(items: items.filter { $0.isWatched },
-                                                 title: "Watched")
-                            case .unwatched:
-                                WatchListSection(items: items.filter { !$0.isWatched && $0.isReleased },
-                                                 title: "To Watch")
+                                                 list: .watched)
                             }
                         }
                     }

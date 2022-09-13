@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// The Keys used for the TMDb API and the TelemetryDeck service.
+///
+/// The values for each key is defined in an environment variable.
 struct Key {
     static let tmdbApi = ProcessInfo.processInfo.environment["tmdb_api"]
     static let telemetryClientKey = ProcessInfo.processInfo.environment["telemetry_client_key"]

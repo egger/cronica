@@ -29,7 +29,7 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
                     favoriteButton
                 }
             }
-            .onAppear {
+            .task {
                 if isInWatchlist {
                     isWatched = context.isMarkedAsWatched(id: item.id)
                     isFavorite = context.isMarkedAsFavorite(id: item.id)

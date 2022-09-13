@@ -29,12 +29,14 @@ struct CoverImageView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
+                            .scaleEffect(animateGesture ? 1.1 : 1)
                     } else {
                         Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
                             .symbolRenderingMode(.monochrome)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
+                            .scaleEffect(animateGesture ? 1.1 : 1)
                     }
                 }
                 .opacity(animateGesture ? 1 : 0)

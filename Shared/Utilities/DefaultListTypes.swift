@@ -11,7 +11,7 @@ import Foundation
 /// This value is used to provide filter functionality for WatchlistView.
 enum DefaultListTypes: String, Identifiable, Hashable, CaseIterable {
     var id: String { rawValue }
-    case released, upcoming, production, unwatched, watched, favorites
+    case released, upcoming, production, watched, favorites
     var title: String {
         switch self {
         case .released:
@@ -20,8 +20,6 @@ enum DefaultListTypes: String, Identifiable, Hashable, CaseIterable {
             return NSLocalizedString("Upcoming", comment: "")
         case .production:
             return NSLocalizedString("In Production", comment: "")
-        case .unwatched:
-            return NSLocalizedString("Unwatched", comment: "")
         case .watched:
             return NSLocalizedString("Watched", comment: "")
         case .favorites:
