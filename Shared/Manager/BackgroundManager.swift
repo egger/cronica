@@ -21,6 +21,13 @@ class BackgroundManager {
         }
     }
     
+    func handleAppRefreshMaintenance() {
+        let items = self.fetchReleasedItems()
+        Task {
+            await self.fetchUpdates(items: items)
+        }
+    }
+    
     /// Fetch for any Watchlist item that match notify, soon, or tv predicates.
     /// - Returns: Returns a list of Watchlist items that matched the predicates.
     private func fetchItems() -> [WatchlistItem] {
@@ -35,6 +42,15 @@ class BackgroundManager {
                                                               soonPredicate,
                                                               renewedPredicate])
         request.predicate = orPredicate
+        let list = try? self.context.container.viewContext.fetch(request)
+        return list ?? []
+    }
+    
+    private func fetchReleasedItems() -> [WatchlistItem] {
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let releasedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.released.toInt)
+        request.predicate = NSCompoundPredicate(type: .or,
+                                                subpredicates: [releasedPredicate])
         let list = try? self.context.container.viewContext.fetch(request)
         return list ?? []
     }

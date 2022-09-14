@@ -20,7 +20,7 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
     let id: Int
     let title, name, overview: String?
     let posterPath, backdropPath, profilePath: String?
-    let releaseDate, status, imdbID: String?
+    let releaseDate, status, imdbId: String?
     let runtime, numberOfEpisodes, numberOfSeasons, voteCount: Int?
     let popularity, voteAverage: Double?
     let productionCompanies: [ProductionCompany]?

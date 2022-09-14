@@ -89,9 +89,14 @@ struct PersistenceController {
             item.upcomingSeason = content.hasUpcomingSeason
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
+        item.imdbID = content.imdbId
         if viewContext.hasChanges {
             try? viewContext.save()
         }
+#if targetEnvironment(simulator)
+        print(content as Any)
+        print(item as Any)
+#endif
     }
     
     /// Get an item from the Watchlist.
