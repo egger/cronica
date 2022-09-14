@@ -26,6 +26,20 @@ struct MarkAsMenuView: View {
                       systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
             })
             .keyboardShortcut("f", modifiers: [.option])
+            Menu {
+                Button("IMDb") {
+                    if let url = viewModel.content?.imdbUrl {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                Button("TMDb") {
+                    if let url = viewModel.content?.itemURL {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            } label: {
+                Text("Open In")
+            }
         }, label: {
             if horizontalSizeClass == .compact {
                 Label("Mark as", systemImage: "ellipsis")

@@ -106,6 +106,12 @@ extension ItemContent {
     var castImage: URL? {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
+    var imdbUrl: URL? {
+        if let imdbId {
+            return URL(string: "https://www.imdb.com/title/\(imdbId)")
+        }
+        return nil
+    }
     var itemImage: URL? {
         switch media {
         case .person: return castImage
