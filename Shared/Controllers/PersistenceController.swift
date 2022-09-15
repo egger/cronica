@@ -14,6 +14,7 @@ import TelemetryClient
 struct PersistenceController {
     private let containerId = "iCloud.dev.alexandremadeira.Story"
     static let shared = PersistenceController()
+    // MARK: Preview sample
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
@@ -32,7 +33,7 @@ struct PersistenceController {
         }
         return result
     }()
-    
+    // MARK: Setup
     /// The lone CloudKit container used to store all  data.
     let container: NSPersistentCloudKitContainer
     
@@ -62,12 +63,19 @@ struct PersistenceController {
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
+    // MARK: CRUD
+    
+    private func saveContext() {
+        let viewContext = container.viewContext
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
+    }
     
     /// Adds an WatchlistItem to  Core Data.
     /// - Parameter content: The item to be added, or updated.
     func save(_ content: ItemContent) {
-        let viewContext = container.viewContext
-        let item = WatchlistItem(context: viewContext)
+        let item = WatchlistItem(context: container.viewContext)
         item.contentType = content.itemContentMedia.toInt
         item.title = content.itemTitle
         item.id = Int64(content.id)
@@ -90,9 +98,7 @@ struct PersistenceController {
             item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
         }
         item.imdbID = content.imdbId
-        if viewContext.hasChanges {
-            try? viewContext.save()
-        }
+        saveContext()
 #if targetEnvironment(simulator)
         print(content as Any)
         print(item as Any)
@@ -126,7 +132,6 @@ struct PersistenceController {
     /// Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {
-            let viewContext = container.viewContext
             let item = try? fetch(for: WatchlistItem.ID(content.id))
             if let item {
                 item.title = content.itemTitle
@@ -156,9 +161,7 @@ struct PersistenceController {
                 if let favorite {
                     item.favorite = favorite
                 }
-                if viewContext.hasChanges {
-                    try? viewContext.save()
-                }
+                saveContext()
             }
         } else {
             self.save(content)
@@ -175,9 +178,7 @@ struct PersistenceController {
                 notification.removeNotification(identifier: "\(content.itemTitle)+\(content.id)")
             }
             viewContext.delete(item)
-            if viewContext.hasChanges {
-                try? viewContext.save()
-            }
+            saveContext()
         }
     }
     

@@ -30,6 +30,9 @@ struct TrailerItemView: View {
                 .contextMenu {
                     if let url = trailer.url {
                         ShareLink(item: url)
+                        Button("Open in YouTube") {
+                            UIApplication.shared.open(url)
+                        }
                     }
                 }
             HStack {

@@ -6,6 +6,7 @@
 //
 
 @preconcurrency import SwiftUI
+import SDWebImageSwiftUI
 
 struct ItemContentContextMenu: ViewModifier, Sendable {
     let item: ItemContent
@@ -15,6 +16,8 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
     @State private var isFavorite: Bool = false
     private let context = PersistenceController.shared
     func body(content: Content) -> some View {
+#if os(watchOS)
+#else
         return content
             .contextMenu {
                 ShareLink(item: item.itemURL)
@@ -28,13 +31,71 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
                     watchedButton
                     favoriteButton
                 }
+            } preview: {
+                ZStack {
+                    WebImage(url: item.cardImageMedium)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .overlay {
+                            VStack {
+                                Spacer()
+                                ZStack(alignment: .bottom) {
+                                    Color.black.opacity(0.4)
+                                        .frame(height: 70)
+                                        .mask {
+                                            LinearGradient(colors: [Color.black,
+                                                                    Color.black.opacity(0.924),
+                                                                    Color.black.opacity(0.707),
+                                                                    Color.black.opacity(0.383),
+                                                                    Color.black.opacity(0)],
+                                                           startPoint: .bottom,
+                                                           endPoint: .top)
+                                        }
+                                    Rectangle()
+                                        .fill(.ultraThinMaterial)
+                                        .frame(height: 100)
+                                        .mask {
+                                            VStack(spacing: 0) {
+                                                LinearGradient(colors: [Color.black.opacity(0),
+                                                                        Color.black.opacity(0.383),
+                                                                        Color.black.opacity(0.707),
+                                                                        Color.black.opacity(0.924),
+                                                                        Color.black],
+                                                               startPoint: .top,
+                                                               endPoint: .bottom)
+                                                .frame(height: 70)
+                                                Rectangle()
+                                            }
+                                        }
+                                    VStack(alignment: .leading) {
+                                        Text(item.itemTitle)
+                                            .font(.title3)
+                                            .padding(.horizontal)
+                                            .foregroundColor(.white)
+                                            .fontWeight(.semibold)
+                                            .lineLimit(1)
+                                            .padding(.bottom, 4)
+                                        if let overview = item.overview {
+                                            Text(overview)
+                                                .lineLimit(2)
+                                                .font(.caption)
+                                                .foregroundColor(.white)
+                                                .padding(.horizontal)
+                                                .padding(.bottom, 16)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
             }
             .task {
                 if isInWatchlist {
                     isWatched = context.isMarkedAsWatched(id: item.id)
                     isFavorite = context.isMarkedAsFavorite(id: item.id)
                 }
-            } 
+            }
+#endif
     }
     
     private var watchedButton: some View {
