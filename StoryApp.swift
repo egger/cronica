@@ -19,7 +19,7 @@ struct StoryApp: App {
     init() {
 #if targetEnvironment(simulator)
 #else
-        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey)
+        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
         TelemetryManager.initialize(with: configuration)
 #endif
         registerRefreshBGTask()

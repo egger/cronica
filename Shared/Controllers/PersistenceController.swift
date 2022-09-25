@@ -54,11 +54,11 @@ class PersistenceController: ObservableObject {
             
         }
         #if DEBUG
-        do {
-            try container.initializeCloudKitSchema()
-        } catch {
-            fatalError(error.localizedDescription)
-        }
+//        do {
+//            try container.initializeCloudKitSchema()
+//        } catch {
+//            fatalError(error.localizedDescription)
+//        }
         #endif
         return container
     }()
