@@ -11,6 +11,7 @@ struct SideBarView: View {
     @StateObject private var settings: SettingsStore
     @StateObject private var viewModel: SearchViewModel
     @State private var showSettings = false
+    @State private var showNotifications = false
     @State private var selectedSearchItem: ItemContent? = nil
     @State private var scope: SearchItemsScope = .noScope
     let persistence = PersistenceController.shared
@@ -44,12 +45,6 @@ struct SideBarView: View {
                 } isTargeted: { inDropArea in
                     print(inDropArea)
                 }
-//#if targetEnvironment(simulator)
-//                NavigationLink(value: Screens.developer) {
-//                    Label("Developer", systemImage: "hammer")
-//                }
-//                .tag(DeveloperView.tag)
-//#endif
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
@@ -68,11 +63,18 @@ struct SideBarView: View {
             .overlay(searchOverlay)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showSettings.toggle()
-                    }, label: {
-                        Label("Settings", systemImage: "gearshape")
-                    })
+                    HStack {
+                        Button(action: {
+                            showNotifications.toggle()
+                        }, label: {
+                            Label("Notifications", systemImage: "bell")
+                        })
+                        Button(action: {
+                            showSettings.toggle()
+                        }, label: {
+                            Label("Settings", systemImage: "gearshape")
+                        })
+                    }
                 }
             }
         } detail: {
@@ -94,13 +96,15 @@ struct SideBarView: View {
                         WatchlistView()
                             .environment(\.managedObjectContext, persistence.container.viewContext)
                     case .search: SearchView()
-                    case .developer: DeveloperView()
                     }
                 }
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView(showSettings: $showSettings)
                     .environmentObject(settings)
+            }
+            .sheet(isPresented: $showNotifications) {
+                NotificationListView(showNotification: $showNotifications)
             }
             .sheet(item: $selectedSearchItem) { item in
                 if item.media == .person {

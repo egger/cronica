@@ -13,6 +13,7 @@ struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @StateObject private var settings: SettingsStore
     @State private var showSettings = false
+    @State private var showNotifications = false
     @State private var isLoading = true
     @State private var showConfirmation = false
     init() {
@@ -20,46 +21,55 @@ struct HomeView: View {
         _settings = StateObject(wrappedValue: SettingsStore())
     }
     var body: some View {
-        AdaptableNavigationView {
-            ZStack {
-                if !viewModel.isLoaded {
-                    ProgressView()
-                        .unredacted()
-                }
-                VStack {
-                    ScrollView {
-                        UpcomingMovies()
-                        UpcomingShows()
-                        ItemContentListView(items: viewModel.trending,
-                                            title: "Trending",
-                                            subtitle: "This week",
-                                            image: "crown",
+        ZStack {
+            if !viewModel.isLoaded {
+                ProgressView()
+                    .unredacted()
+            }
+            VStack {
+                ScrollView {
+                    UpcomingMovies()
+                    UpcomingShows()
+                    ItemContentListView(items: viewModel.trending,
+                                        title: "Trending",
+                                        subtitle: "This week",
+                                        image: "crown",
+                                        addedItemConfirmation: $showConfirmation)
+                    ForEach(viewModel.sections) { section in
+                        ItemContentListView(items: section.results,
+                                            title: section.title,
+                                            subtitle: section.subtitle,
+                                            image: section.image,
                                             addedItemConfirmation: $showConfirmation)
-                        ForEach(viewModel.sections) { section in
-                            ItemContentListView(items: section.results,
-                                                title: section.title,
-                                                subtitle: section.subtitle,
-                                                image: section.image,
-                                                addedItemConfirmation: $showConfirmation)
-                        }
-                        AttributionView()
                     }
-                    .refreshable { viewModel.reload() }
+                    AttributionView()
                 }
-                .navigationDestination(for: ItemContent.self) { item in
-                    ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                }
-                .navigationDestination(for: Person.self) { person in
-                    PersonDetailsView(title: person.name, id: person.id)
-                }
-                .navigationDestination(for: WatchlistItem.self) { item in
-                    ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
-                }
-                .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-                .navigationTitle("Home")
-                .toolbar {
-                    if UIDevice.isIPhone {
-                        ToolbarItem(placement: .navigationBarTrailing) {
+                .refreshable { viewModel.reload() }
+            }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentView(title: item.itemTitle,
+                                id: item.id,
+                                type: item.itemContentMedia,
+                                image: item.cardImageMedium)
+            }
+            .navigationDestination(for: Person.self) { person in
+                PersonDetailsView(title: person.name, id: person.id)
+            }
+            .navigationDestination(for: WatchlistItem.self) { item in
+                ItemContentView(title: item.itemTitle,
+                                id: item.itemId, type: item.itemMedia)
+            }
+            .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
+            .navigationTitle("Home")
+            .toolbar {
+                if UIDevice.isIPhone {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack {
+                            Button(action: {
+                                showNotifications.toggle()
+                            }, label: {
+                                Label("Notifications", systemImage: "bell")
+                            })
                             Button(action: {
                                 showSettings.toggle()
                             }, label: {
@@ -68,18 +78,21 @@ struct HomeView: View {
                         }
                     }
                 }
-                .sheet(isPresented: $displayOnboard) {
-                    WelcomeView()
-                }
-                .sheet(isPresented: $showSettings) {
-                    SettingsView(showSettings: $showSettings)
-                        .environmentObject(settings)
-                }
-                .task {
-                    await viewModel.load()
-                }
-                ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
+            .sheet(isPresented: $displayOnboard) {
+                WelcomeView()
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView(showSettings: $showSettings)
+                    .environmentObject(settings)
+            }
+            .sheet(isPresented: $showNotifications) {
+                NotificationListView(showNotification: $showNotifications)
+            }
+            .task {
+                await viewModel.load()
+            }
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
 }

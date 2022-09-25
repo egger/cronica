@@ -18,3 +18,8 @@ enum DataFetchPhase<T> {
         return nil
     }
 }
+
+enum ItemFetchResult<T> {
+    case sucess(T)
+    case failure(Error)
+}

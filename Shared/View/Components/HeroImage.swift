@@ -13,7 +13,7 @@ struct HeroImage: View {
     let title: String
     var blurImage: Bool = false
     var body: some View {
-        WebImage(url: url)
+        WebImage(url: url, options: .highPriority)
             .resizable()
             .placeholder {
                 placeholder
@@ -43,7 +43,7 @@ struct HeroImage: View {
             VStack {
                 Text(title)
                     .lineLimit(1)
-                    .padding(.bottom)
+                    .padding()
                 Image(systemName: "film")
             }
             .padding()

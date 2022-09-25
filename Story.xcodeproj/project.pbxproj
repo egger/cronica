@@ -35,7 +35,6 @@
 		B8389ECE28AA8A92003025BC /* WatchEpisodeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECD28AA8A92003025BC /* WatchEpisodeButtonView.swift */; };
 		B8389ED028AB46C5003025BC /* SearchItemsScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */; };
 		B8389ED228AB46E3003025BC /* WatchlistSearchScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */; };
-		B83F1E9628BACDC6008E151D /* AdaptableNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F1E9528BACDC6008E151D /* AdaptableNavigationView.swift */; };
 		B83F1E9928BAD24C008E151D /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F1E9828BAD24C008E151D /* SideBarView.swift */; };
 		B84043B0289B187000D5CEBF /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
 		B84043B1289B187400D5CEBF /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
@@ -79,6 +78,7 @@
 		B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
+		B845149328E0C96A00963399 /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845149228E0C96A00963399 /* NotificationListView.swift */; };
 		B849E1B3289468FD00BD666F /* TrailerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1B2289468FD00BD666F /* TrailerUtilities.swift */; };
 		B84C53FD27B1F1DD00425524 /* WatchlistItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemView.swift */; };
 		B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
@@ -253,7 +253,6 @@
 		B8389ECD28AA8A92003025BC /* WatchEpisodeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchEpisodeButtonView.swift; sourceTree = "<group>"; };
 		B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemsScope.swift; sourceTree = "<group>"; };
 		B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSearchScope.swift; sourceTree = "<group>"; };
-		B83F1E9528BACDC6008E151D /* AdaptableNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptableNavigationView.swift; sourceTree = "<group>"; };
 		B83F1E9828BAD24C008E151D /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
 		B84043CB289B294600D5CEBF /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		B84043CF289B2A1600D5CEBF /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -268,6 +267,7 @@
 		B845132927EA514C00F0D4A4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person-Extensions.swift"; sourceTree = "<group>"; };
 		B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extension.swift"; sourceTree = "<group>"; };
+		B845149228E0C96A00963399 /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
 		B849E1B2289468FD00BD666F /* TrailerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerUtilities.swift; sourceTree = "<group>"; };
 		B84C53FC27B1F1DD00425524 /* WatchlistItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemView.swift; sourceTree = "<group>"; };
 		B85C65AB27A6307C0080121E /* PersonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsView.swift; sourceTree = "<group>"; };
@@ -511,7 +511,6 @@
 		B83F1E9728BACFB0008E151D /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				B83F1E9528BACDC6008E151D /* AdaptableNavigationView.swift */,
 				B8779376281E319D00174F32 /* TabBarView.swift */,
 				B83F1E9828BAD24C008E151D /* SideBarView.swift */,
 			);
@@ -709,6 +708,7 @@
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 				B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */,
 				B86DD41128BA9FA8002C8427 /* UpcomingSectionsListView.swift */,
+				B845149228E0C96A00963399 /* NotificationListView.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -1101,8 +1101,8 @@
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */,
 				B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */,
+				B845149328E0C96A00963399 /* NotificationListView.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */,
-				B83F1E9628BACDC6008E151D /* AdaptableNavigationView.swift in Sources */,
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,
 				B82C267A2795E33900259D98 /* PosterView.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */,

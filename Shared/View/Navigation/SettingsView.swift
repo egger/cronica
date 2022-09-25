@@ -18,6 +18,7 @@ struct SettingsView: View {
     @State private var feedback: String = ""
     @State private var feedbackSent = false
     @Binding var showSettings: Bool
+    @AppStorage("displayDeveloperSettings") var displayDeveloperSettings: Bool?
     var body: some View {
         NavigationStack {
             ZStack {
@@ -47,6 +48,7 @@ struct SettingsView: View {
                             Button("Send") {
                                 sendFeedback()
                             }
+                            //.disabled((feedback.isEmpty) ? true : false)
                             Button("Cancel", role: .cancel) {
                                 cancelFeedback()
                             }
@@ -69,11 +71,31 @@ struct SettingsView: View {
                     HStack {
                         Spacer()
                         Text("Made in Brazil 🇧🇷")
+                            .onTapGesture(count: 3, perform: {
+                                if let displayDeveloperSettings {
+                                    self.displayDeveloperSettings = !displayDeveloperSettings
+                                }
+                                displayDeveloperSettings = true
+                            })
                             .font(.caption)
                         Spacer()
                     }
                     .fullScreenCover(isPresented: $showPolicy) {
-                        SFSafariViewWrapper(url: URL(string: "https://cronica.alexandremadeira.dev/privacy")!)
+                        SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+                    }
+                    if let displayDeveloperSettings {
+                        if displayDeveloperSettings {
+                            Section {
+
+                                NavigationLink(destination: DeveloperView(),
+                                               label: {
+                                    Label("Developer", systemImage: "hammer.fill")
+                                })
+
+                            } header: {
+                                Label("Developer Options", systemImage: "hammer")
+                            }
+                        }
                     }
                 }
                 .navigationTitle("Settings")

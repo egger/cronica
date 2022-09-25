@@ -10,31 +10,35 @@ import SwiftUI
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
-    let persistence = PersistenceController.shared
+    @StateObject var persistence = PersistenceController.shared
     var body: some View {
         TabView(selection: $selectedView) {
-            HomeView()
-                .tag(HomeView.tag)
-                .tabItem { Label("Home", systemImage: "house") }
-            DiscoverView()
-                .tag(DiscoverView.tag)
-                .tabItem { Label("Explore", systemImage: "film") }
-            WatchlistView()
-                .environment(\.managedObjectContext, persistence.container.viewContext)
-                .tag(WatchlistView.tag)
-                .tabItem {
-                    Label("Watchlist", systemImage: "square.stack.fill")
-                }
-            SearchView()
-                .tag(SearchView.tag)
-                .tabItem { Label("Search", systemImage: "magnifyingglass") }
-#if targetEnvironment(simulator)
-            DeveloperView()
-                .tag(DeveloperView.tag)
-                .tabItem {
-                    Label("Developer", systemImage: "hammer.fill")
-                }
-#endif
+            NavigationStack {
+                HomeView()
+            }
+            .tag(HomeView.tag)
+            .tabItem { Label("Home", systemImage: "house") }
+            
+            NavigationStack {
+                DiscoverView()
+            }
+            .tag(DiscoverView.tag)
+            .tabItem { Label("Explore", systemImage: "film") }
+            
+            NavigationStack {
+                WatchlistView()
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+            }
+            .tag(WatchlistView.tag)
+            .tabItem {
+                Label("Watchlist", systemImage: "square.stack.fill")
+            }
+    
+            NavigationStack {
+                SearchView()
+            }
+            .tag(SearchView.tag)
+            .tabItem { Label("Search", systemImage: "magnifyingglass") }
         }
     }
 }

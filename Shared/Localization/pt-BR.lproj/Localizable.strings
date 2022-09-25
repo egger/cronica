@@ -53,6 +53,10 @@
 "Remove Selected" = "Remover Selecionados";
 "Mark selected as watched" = "Marcar selecionados como assistidos";
 "Mark selected as unwatched" = "Marcar selecionados como não assistidos";
+"Open in" = "Abrir em";
+"IMDb" = "IMDb";
+"TMDb" = "TMDb";
+"Coming Soon To Theaters" = "Em Breve Nos Cinemas";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "Este produto usa a API TMDb, mas não é endossado ou certificado pelo TMDb.";
@@ -224,3 +228,11 @@
 
 // MARK: Widget
 "Shows movies and TV Shows trending from TMDb." = "Mostra filmes e séries em destaque da TMDb.";
+
+// MARK: NotificationListView
+"Notifications" = "Notificações";
+"Upcoming Notifications" = "Próximas Notificações";
+"Recent Notifications" = "Notificações Recentes";
+"No notifications" = "Sem notificações";
+"Remove Notification" = "Remover Notificação";
+"Loading" = "Carregando";

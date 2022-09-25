@@ -11,14 +11,15 @@ import TelemetryClient
 
 @main
 struct StoryApp: App {
-    let persistence = PersistenceController.shared
+    @StateObject var persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
+    @AppStorage("removedOldNotifications") private var removedOldNotifications = false
     init() {
 #if targetEnvironment(simulator)
 #else
-        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
+        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey)
         TelemetryManager.initialize(with: configuration)
 #endif
         registerRefreshBGTask()
@@ -45,7 +46,10 @@ struct StoryApp: App {
                 }
                 .sheet(item: $widgetItem) { item in
                     NavigationStack {
-                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        ItemContentView(title: item.itemTitle,
+                                        id: item.id,
+                                        type: item.itemContentMedia,
+                                        image: item.cardImageMedium)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarLeading) {
                                     Button("Done") {
@@ -54,11 +58,21 @@ struct StoryApp: App {
                                 }
                             }
                             .navigationDestination(for: ItemContent.self) { item in
-                                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                                ItemContentView(title: item.itemTitle,
+                                                id: item.id,
+                                                type: item.itemContentMedia,
+                                                image: item.cardImageMedium)
                             }
                             .navigationDestination(for: Person.self) { item in
                                 PersonDetailsView(title: item.name, id: item.id)
                             }
+                    }
+                }
+                .onAppear {
+                    if !removedOldNotifications {
+                        Task {
+                            await NotificationManager.shared.clearOldNotificationId()
+                        }
                     }
                 }
         }

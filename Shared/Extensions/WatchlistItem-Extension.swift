@@ -19,6 +19,15 @@ extension WatchlistItem: Transferable {
     var itemId: Int {
         Int(id)
     }
+    var contentID: Int {
+        return Int(id+itemMedia.toInt)
+    }
+    var itemImage: URL? {
+        if let largeCardImage {
+            return largeCardImage
+        }
+        return image
+    }
     var itemMedia: MediaType {
         switch contentType {
         case 0: return .movie

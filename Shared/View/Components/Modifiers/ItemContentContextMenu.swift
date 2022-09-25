@@ -8,7 +8,7 @@
 @preconcurrency import SwiftUI
 import SDWebImageSwiftUI
 
-struct ItemContentContextMenu: ViewModifier, Sendable {
+struct ItemContentContextMenu: ViewModifier {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     @Binding var isInWatchlist: Bool
@@ -32,62 +32,9 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
                     favoriteButton
                 }
             } preview: {
-                ZStack {
-                    WebImage(url: item.cardImageMedium)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .overlay {
-                            VStack {
-                                Spacer()
-                                ZStack(alignment: .bottom) {
-                                    Color.black.opacity(0.4)
-                                        .frame(height: 70)
-                                        .mask {
-                                            LinearGradient(colors: [Color.black,
-                                                                    Color.black.opacity(0.924),
-                                                                    Color.black.opacity(0.707),
-                                                                    Color.black.opacity(0.383),
-                                                                    Color.black.opacity(0)],
-                                                           startPoint: .bottom,
-                                                           endPoint: .top)
-                                        }
-                                    Rectangle()
-                                        .fill(.ultraThinMaterial)
-                                        .frame(height: 100)
-                                        .mask {
-                                            VStack(spacing: 0) {
-                                                LinearGradient(colors: [Color.black.opacity(0),
-                                                                        Color.black.opacity(0.383),
-                                                                        Color.black.opacity(0.707),
-                                                                        Color.black.opacity(0.924),
-                                                                        Color.black],
-                                                               startPoint: .top,
-                                                               endPoint: .bottom)
-                                                .frame(height: 70)
-                                                Rectangle()
-                                            }
-                                        }
-                                    VStack(alignment: .leading) {
-                                        Text(item.itemTitle)
-                                            .font(.title3)
-                                            .padding(.horizontal)
-                                            .foregroundColor(.white)
-                                            .fontWeight(.semibold)
-                                            .lineLimit(1)
-                                            .padding(.bottom, 4)
-                                        if let overview = item.overview {
-                                            Text(overview)
-                                                .lineLimit(2)
-                                                .font(.caption)
-                                                .foregroundColor(.white)
-                                                .padding(.horizontal)
-                                                .padding(.bottom, 16)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                }
+                ItemContentContextPreview(title: item.itemTitle,
+                                          image: item.cardImageLarge,
+                                          overview: item.itemOverview)
             }
             .task {
                 if isInWatchlist {
@@ -100,7 +47,6 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
     
     private var watchedButton: some View {
         Button(action: {
-            HapticManager.shared.softHaptic()
             context.updateMarkAs(id: item.id, watched: !isWatched)
             withAnimation {
                 isWatched.toggle()
@@ -113,7 +59,6 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
     
     private var favoriteButton: some View {
         Button(action: {
-            HapticManager.shared.softHaptic()
             context.updateMarkAs(id: item.id, favorite: !isFavorite)
             withAnimation {
                 isFavorite.toggle()
@@ -125,7 +70,6 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
     }
     
     private func updateWatchlist(with item: ItemContent) {
-        HapticManager.shared.softHaptic()
         if isInWatchlist {
             withAnimation {
                 isInWatchlist.toggle()
@@ -162,5 +106,84 @@ struct ItemContentContextMenu: ViewModifier, Sendable {
                 }
             }
         }
+    }
+}
+
+private struct ItemContentContextPreview: View {
+    let title: String
+    let image: URL?
+    let overview: String
+    var body: some View {
+#if os(watchOS)
+#else
+        ZStack {
+            WebImage(url: image)
+                .resizable()
+                .placeholder {
+                    ZStack {
+                        Rectangle().fill(.regularMaterial)
+                        Label(title, systemImage: "film")
+                            .foregroundColor(.secondary)
+                            .padding()
+                    }
+                    .frame(width: 260, height: 180)
+                }
+                .aspectRatio(contentMode: .fill)
+                .overlay {
+                    if image != nil {
+                        VStack(alignment: .leading) {
+                            Spacer()
+                            ZStack(alignment: .bottom) {
+                                Color.black.opacity(0.4)
+                                    .frame(height: 70)
+                                    .mask {
+                                        LinearGradient(colors: [Color.black,
+                                                                Color.black.opacity(0.924),
+                                                                Color.black.opacity(0.707),
+                                                                Color.black.opacity(0.383),
+                                                                Color.black.opacity(0)],
+                                                       startPoint: .bottom,
+                                                       endPoint: .top)
+                                    }
+                                Rectangle()
+                                    .fill(.ultraThinMaterial)
+                                    .frame(height: 100)
+                                    .mask {
+                                        VStack(spacing: 0) {
+                                            LinearGradient(colors: [Color.black.opacity(0),
+                                                                    Color.black.opacity(0.383),
+                                                                    Color.black.opacity(0.707),
+                                                                    Color.black.opacity(0.924),
+                                                                    Color.black],
+                                                           startPoint: .top,
+                                                           endPoint: .bottom)
+                                            .frame(height: 70)
+                                            Rectangle()
+                                        }
+                                    }
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text(title)
+                                            .font(.callout)
+                                            .foregroundColor(.white)
+                                            .fontWeight(.semibold)
+                                            .lineLimit(1)
+                                            .padding(.horizontal)
+                                            .padding(.bottom, 2)
+                                        Spacer()
+                                    }
+                                    Text(overview)
+                                        .lineLimit(2)
+                                        .font(.caption)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal)
+                                        .padding(.bottom, 16)
+                                }
+                            }
+                        }
+                    }
+                }
+        }
+#endif
     }
 }

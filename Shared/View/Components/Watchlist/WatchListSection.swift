@@ -10,8 +10,7 @@ import SwiftUI
 struct WatchListSection: View {
     private let context = PersistenceController.shared 
     let items: [WatchlistItem]
-    var list: DefaultListTypes? = nil
-    var title: String? = nil
+    var title: String
     var body: some View {
         if !items.isEmpty {
             Section {
@@ -22,14 +21,10 @@ struct WatchListSection: View {
                 }
                 .onDelete(perform: delete)
             } header: {
-                if let list {
-                    Text(NSLocalizedString(list.title, comment: ""))
-                }
-                if let title {
-                    Text(NSLocalizedString(title, comment: ""))
-                }
+                Text(NSLocalizedString(title, comment: ""))
             } footer: {
-                Text("\(items.count) items.")
+                Text("\(items.count) items")
+                    .padding(.bottom)
             }
             .dropDestination(for: ItemContent.self) { items, _  in
                 for item in items {

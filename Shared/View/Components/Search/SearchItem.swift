@@ -67,12 +67,21 @@ struct SearchItem: View {
                     Text(item.itemTitle)
                         .lineLimit(DrawingConstants.textLimit)
                 }
+                #if os(watchOS)
                 HStack {
                     Text(item.media.title)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Spacer()
                 }
+                #else
+                HStack {
+                    Text(item.itemSearchDescription)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+                #endif
             }
         }
         .accessibilityElement(children: .combine)

@@ -88,6 +88,91 @@ class NotificationManager: ObservableObject {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
     }
     
+    func removeDeliveredNotification(identifier: String) {
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
+    }
+    
+    func removeAllDeliveredNotifications() {
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
+    
+    private func getUpcomingNotificationsId() async -> [String] {
+        var identifiers = [String]()
+        let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
+        for item in notifications {
+            identifiers.append(item.identifier)
+#if DEBUG
+            print(item.identifier)
+#endif
+        }
+        return identifiers
+    }
+    
+    private func getDeliveredNotificationsId() async -> [String] {
+        var identifiers = [String]()
+        let notifications = await UNUserNotificationCenter.current().deliveredNotifications()
+        if notifications.isEmpty {
+            return identifiers
+        } else {
+            for item in notifications {
+                if item.request.identifier.contains("@") {
+                    identifiers.append(item.request.identifier)
+                }
+            }
+        }
+        return identifiers
+    }
+    
+    func clearOldNotificationId() async {
+        let notifications = await getUpcomingNotificationsId()
+        for notification in notifications {
+            if !notification.contains("@") {
+                removeNotification(identifier: notification)
+            }
+        }
+    }
+    
+    func fetchDeliveredNotifications() async -> [ItemContent] {
+        var items = [ItemContent]()
+        let notifications = await getDeliveredNotificationsId()
+        if notifications.isEmpty { return items }
+        for notification in notifications {
+            let type = notification.last ?? "0"
+            var media: MediaType = .movie
+            if type == "1" {
+                media = .tvShow
+            }
+            let id = notification.dropLast(2)
+            let item = try? await NetworkService.shared.fetchItem(id: Int(id)!, type: media)
+            if let item {
+                items.append(item)
+            }
+        }
+        return items
+    }
+    
+    func fetchUpcomingNotifications() async throws -> [WatchlistItem] {
+        var items = [WatchlistItem]()
+        let notifications = await getUpcomingNotificationsId()
+        for notification in notifications {
+            let type = notification.last ?? "0"
+            var media: MediaType = .movie
+            if type == "1" {
+                media = .tvShow
+            }
+            let id = notification.dropLast(2)
+            do {
+                let item = try PersistenceController.shared.fetch(for: Int64(id)!, media: media)
+                if let item {
+                    items.append(item)
+                }
+            } catch {
+                throw error
+            }
+        }
+        return items
+    }
+    
     func fetchUpcomingNotifications() async -> [ItemContent]? {
         var identifiers = [String]()
         let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()

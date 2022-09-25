@@ -8,10 +8,12 @@
 import CoreData
 import CloudKit
 import TelemetryClient
+import Combine
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
-struct PersistenceController {
+class PersistenceController: ObservableObject {
+    private var subscriptions: Set<AnyCancellable> = []
     private let containerId = "iCloud.dev.alexandremadeira.Story"
     static let shared = PersistenceController()
     // MARK: Preview sample
@@ -33,38 +35,41 @@ struct PersistenceController {
         }
         return result
     }()
-    // MARK: Setup
-    /// The lone CloudKit container used to store all  data.
-    let container: NSPersistentCloudKitContainer
     
-    /// Generate a data controller, in memory (for testing and previewing), or on permanent
-    /// storage (for regular app runs).
-    ///
-    /// Defaults to permanent storage.
-    /// - Parameter inMemory: Whether to store this data in temporary memory or not.
-    init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Watchlist")
-        let description = container.persistentStoreDescriptions.first
-        description?.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: containerId)
-        
-        // For testing and previewing purposes, we create a temporary database that is destroyed
-        // after the app finishes running.
-        if inMemory {
-            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
-        }
-        container.loadPersistentStores {storeDescription, error in
-            if let error {
-#if targetEnvironment(simulator)
-                print(error as Any)
+    let container: NSPersistentCloudKitContainer = {
+        let container = NSPersistentCloudKitContainer(name: "Watchlist")
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error as NSError? {
+#if DEBUG
+                fatalError("Unresolved error \(error), \(error.userInfo)")
 #else
                 TelemetryManager.send("containerError", with: ["error":"\(error.localizedDescription)"])
 #endif
             }
+            //storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.dev.alexandremadeira.Story")
+            storeDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+            storeDescription.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+            
         }
-        container.viewContext.automaticallyMergesChangesFromParent = true
-    }
-    // MARK: CRUD
+        #if DEBUG
+        do {
+            try container.initializeCloudKitSchema()
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+        #endif
+        return container
+    }()
     
+    init(inMemory: Bool = false) {
+        if inMemory {
+            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        }
+    }
+    
+    // MARK: CRUD
     private func saveContext() {
         let viewContext = container.viewContext
         if viewContext.hasChanges {
@@ -80,6 +85,7 @@ struct PersistenceController {
         item.title = content.itemTitle
         item.id = Int64(content.id)
         item.image = content.cardImageMedium
+        item.largeCardImage = content.cardImageLarge
         item.schedule = content.itemStatus.toInt
         item.notify = content.itemCanNotify
         if let theatrical = content.itemTheatricalDate {
@@ -129,6 +135,30 @@ struct PersistenceController {
         }
     }
     
+    func fetch(for id: Int64, media: MediaType) throws -> WatchlistItem? {
+        let viewContext = container.viewContext
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let idPredicate = NSPredicate(format: "id == %d", id)
+        let typePredicate = NSPredicate(format: "contentType == %d", media.toInt)
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [idPredicate, typePredicate])
+        request.predicate = compoundPredicate
+        do {
+            let items = try viewContext.fetch(request)
+            if !items.isEmpty {
+                return items[0]
+            } else {
+                return nil
+            }
+        } catch {
+#if targetEnvironment(simulator)
+            print("Error: PersistenceController.fetch(for:) with localized description of \(error.localizedDescription)")
+#else
+            TelemetryManager.send("PersistenceController.fetch(for:)", with: ["error":"\(error.localizedDescription)"])
+#endif
+            return nil
+        }
+    }
+    
     /// Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {
@@ -136,6 +166,7 @@ struct PersistenceController {
             if let item {
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
+                item.largeCardImage = content.cardImageLarge
                 item.schedule = content.itemStatus.toInt
                 item.notify = content.itemCanNotify
                 item.formattedDate = content.itemTheatricalString
@@ -163,8 +194,6 @@ struct PersistenceController {
                 }
                 saveContext()
             }
-        } else {
-            self.save(content)
         }
     }
     
@@ -175,7 +204,7 @@ struct PersistenceController {
         if let item {
             if isNotificationScheduled(for: content) {
                 let notification = NotificationManager.shared
-                notification.removeNotification(identifier: "\(content.itemTitle)+\(content.id)")
+                notification.removeNotification(identifier: content.notificationID)
             }
             viewContext.delete(item)
             saveContext()

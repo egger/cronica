@@ -29,7 +29,7 @@ enum Endpoints: String, CaseIterable, Identifiable {
     }
     var subtitle: String {
         switch self {
-        case .upcoming: return "Releasing Soon"
+        case .upcoming: return "Coming Soon To Theaters"
         case .nowPlaying: return "Recently Released"
         case .onTheAir: return "Arriving Soon"
         }

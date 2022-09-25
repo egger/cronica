@@ -112,6 +112,25 @@ extension ItemContent {
         }
         return nil
     }
+    var hasIMDbUrl: Bool {
+        if imdbId != nil { return true }
+        return false
+    }
+    var itemSearchDescription: String {
+        if itemTheatricalString != nil && shortItemRuntime != nil {
+            return "\(itemContentMedia.title) • \(itemTheatricalString!)"
+        }
+        if let itemTheatricalString {
+            return "\(itemContentMedia.title) • \(itemTheatricalString)"
+        }
+        if let date = nextEpisodeDate {
+            return "\(itemContentMedia.title) • \(Utilities.dateString.string(from: date))"
+        }
+        if let itemFallbackDate {
+            return "\(itemContentMedia.title) • \(Utilities.dateString.string(from: itemFallbackDate))"
+        }
+        return "\(itemContentMedia.title)"
+    }
     var itemImage: URL? {
         switch media {
         case .person: return castImage

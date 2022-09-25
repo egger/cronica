@@ -17,59 +17,57 @@ struct SearchView: View {
         _viewModel = StateObject(wrappedValue: SearchViewModel())
     }
     var body: some View {
-        AdaptableNavigationView {
-            ZStack {
-                List {
-                    switch scope {
-                    case .noScope:
-                        ForEach(viewModel.searchItems) { item in
-                            SearchItemView(item: item, showConfirmation: $showConfirmation)
-                                .draggable(item)
-                        }
-                    case .movies:
-                        ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
-                            SearchItemView(item: item, showConfirmation: $showConfirmation)
-                                .draggable(item)
-                        }
-                    case .shows:
-                        ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
-                            SearchItemView(item: item, showConfirmation: $showConfirmation)
-                                .draggable(item)
-                        }
-                    case .people:
-                        ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
-                            SearchItemView(item: item, showConfirmation: $showConfirmation)
-                                .draggable(item)
-                        }
+        ZStack {
+            List {
+                switch scope {
+                case .noScope:
+                    ForEach(viewModel.searchItems) { item in
+                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                            .draggable(item)
+                    }
+                case .movies:
+                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
+                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                            .draggable(item)
+                    }
+                case .shows:
+                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
+                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                            .draggable(item)
+                    }
+                case .people:
+                    ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
+                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                            .draggable(item)
                     }
                 }
-                .navigationTitle("Search")
-                .navigationBarTitleDisplayMode(.large)
-                .navigationDestination(for: Person.self) { person in
-                    PersonDetailsView(title: person.name, id: person.id)
-                }
-                .navigationDestination(for: ItemContent.self) { item in
-                    if item.media == .person {
-                        PersonDetailsView(title: item.itemTitle, id: item.id)
-                    } else {
-                        ItemContentView(title: item.itemTitle, id: item.id, type: item.media)
-                    }
-                }
-                .searchable(text: $viewModel.query,
-                            placement: .navigationBarDrawer(displayMode: .always),
-                            prompt: Text("Movies, Shows, People"))
-                .searchScopes($scope) {
-                    ForEach(SearchItemsScope.allCases) { scope in
-                        Text(scope.localizableTitle).tag(scope)
-                    }
-                }
-                .disableAutocorrection(true)
-                .overlay(overlayView)
-                .onAppear {
-                    viewModel.observe()
-                }
-                ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
+            .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(for: Person.self) { person in
+                PersonDetailsView(title: person.name, id: person.id)
+            }
+            .navigationDestination(for: ItemContent.self) { item in
+                if item.media == .person {
+                    PersonDetailsView(title: item.itemTitle, id: item.id)
+                } else {
+                    ItemContentView(title: item.itemTitle, id: item.id, type: item.media)
+                }
+            }
+            .searchable(text: $viewModel.query,
+                        placement: .navigationBarDrawer(displayMode: .always),
+                        prompt: Text("Movies, Shows, People"))
+            .searchScopes($scope) {
+                ForEach(SearchItemsScope.allCases) { scope in
+                    Text(scope.localizableTitle).tag(scope)
+                }
+            }
+            .disableAutocorrection(true)
+            .overlay(overlayView)
+            .onAppear {
+                viewModel.observe()
+            }
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
     

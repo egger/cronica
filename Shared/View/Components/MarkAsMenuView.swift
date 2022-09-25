@@ -27,9 +27,11 @@ struct MarkAsMenuView: View {
             })
             .keyboardShortcut("f", modifiers: [.option])
             Menu {
-                Button("IMDb") {
-                    if let url = viewModel.content?.imdbUrl {
-                        UIApplication.shared.open(url)
+                if viewModel.content?.hasIMDbUrl ?? false {
+                    Button("IMDb") {
+                        if let url = viewModel.content?.imdbUrl {
+                            UIApplication.shared.open(url)
+                        }
                     }
                 }
                 Button("TMDb") {
@@ -38,7 +40,7 @@ struct MarkAsMenuView: View {
                     }
                 }
             } label: {
-                Text("Open In")
+                Text("Open in")
             }
         }, label: {
             if horizontalSizeClass == .compact {
