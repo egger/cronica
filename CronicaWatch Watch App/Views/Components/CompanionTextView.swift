@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CompanionTextView: View {
     var body: some View {
-        VStack(alignment: .leading) {
+        HStack {
             Text("For more details, open the companion app.")
                 .font(.caption)
                 .foregroundColor(.secondary)

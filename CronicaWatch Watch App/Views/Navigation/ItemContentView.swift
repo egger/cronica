@@ -9,10 +9,12 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ItemContentView: View {
+    let id: Int
     let title: String
     let url: URL
     @StateObject private var viewModel: ItemContentViewModel
     init(id: Int, title: String, type: MediaType) {
+        self.id = id
         self.title = title
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         self.url = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
@@ -33,6 +35,9 @@ struct ItemContentView: View {
                     .padding([.horizontal, .bottom])
                 
                 ShareLink(item: url)
+                    .padding([.horizontal, .bottom])
+                
+                SeasonButton(numberOfSeasons: viewModel.content?.itemSeasons, id: id, isInWatchlist: $viewModel.isInWatchlist)
                     .padding([.horizontal, .bottom])
                 
                 AboutSectionView(about: viewModel.content?.itemOverview)
@@ -74,7 +79,7 @@ private struct DrawingConstants {
     static let imageRadius: CGFloat = 12
 }
 
-private struct AboutSectionView: View {
+struct AboutSectionView: View {
     let about: String?
     var body: some View {
         if let about {

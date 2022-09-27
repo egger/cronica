@@ -65,12 +65,12 @@ struct WatchlistView: View {
 //                        Text("Hey")
 //                    })
                     
-//                    NavigationLink(value: Screens.search) {
-//                        Label("Search TMDb", systemImage: "globe")
-//                    }
-//                    .buttonStyle(.bordered)
-//                    .tint(.blue)
-//                    .padding(.bottom)
+                    NavigationLink(value: Screens.search) {
+                        Label("Search TMDb", systemImage: "globe")
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.blue)
+                    .padding(.bottom)
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in

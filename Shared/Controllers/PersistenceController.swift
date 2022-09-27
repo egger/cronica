@@ -200,6 +200,9 @@ class PersistenceController: ObservableObject {
                 if let favorite {
                     item.favorite = favorite
                 }
+                if container.viewContext.hasChanges {
+                    item.lastValuesUpdated = Date()
+                }
                 saveContext()
             }
         }

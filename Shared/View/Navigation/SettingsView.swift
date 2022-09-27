@@ -17,6 +17,7 @@ struct SettingsView: View {
     @State private var showFeedbackAlert = false
     @State private var feedback: String = ""
     @State private var feedbackSent = false
+    @State private var updatingItems = false
     @Binding var showSettings: Bool
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings: Bool?
     var body: some View {
@@ -38,6 +39,22 @@ struct SettingsView: View {
                             .padding(.bottom)
                     }
                     Section {
+                        Button(action: {
+                            updateItems()
+                        }, label: {
+                            if updatingItems {
+                                ProgressView()
+                            } else {
+                                Text("Update Items")
+                            }
+                        })
+                    } header: {
+                        Label("Sync", systemImage: "arrow.2.circlepath")
+                    } footer: {
+                        Text("'Update Items' will update your items with new information available on TMDb, if available.")
+                            .padding(.bottom)
+                    }
+                    Section {
                         Button( action: {
                             showFeedbackAlert = true
                         }, label: {
@@ -48,7 +65,6 @@ struct SettingsView: View {
                             Button("Send") {
                                 sendFeedback()
                             }
-                            //.disabled((feedback.isEmpty) ? true : false)
                             Button("Cancel", role: .cancel) {
                                 cancelFeedback()
                             }
@@ -77,6 +93,9 @@ struct SettingsView: View {
                                 }
                                 displayDeveloperSettings = true
                             })
+                            .onLongPressGesture(perform: {
+                                displayDeveloperSettings = false
+                            })
                             .font(.caption)
                         Spacer()
                     }
@@ -86,7 +105,6 @@ struct SettingsView: View {
                     if let displayDeveloperSettings {
                         if displayDeveloperSettings {
                             Section {
-
                                 NavigationLink(destination: DeveloperView(),
                                                label: {
                                     Label("Developer", systemImage: "hammer.fill")
@@ -131,6 +149,17 @@ struct SettingsView: View {
     
     private func cancelFeedback() {
         feedback = ""
+    }
+    
+    private func updateItems() {
+        let background = BackgroundManager()
+        withAnimation {
+            updatingItems.toggle()
+        }
+        background.handleAppRefreshContent()
+        withAnimation {
+            updatingItems.toggle()
+        }
     }
 }
 

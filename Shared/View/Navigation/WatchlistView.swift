@@ -5,6 +5,7 @@
 //  Created by Alexandre Madeira on 15/01/22.
 //
 import SwiftUI
+import TelemetryClient
 
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
@@ -13,14 +14,13 @@ struct WatchlistView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default)
     private var items: FetchedResults<WatchlistItem>
-    private var filteredItems: [WatchlistItem] {
-        return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
-    }
+    @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
     @State private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var multiSelection = Set<WatchlistItem.ID>()
     @Environment(\.editMode) private var editMode
+    @State private var isSearching = false
     var body: some View {
         VStack {
             if items.isEmpty {
@@ -50,7 +50,7 @@ struct WatchlistView: View {
                                              title: "Search results")
                         }
                         
-                    } else if !query.isEmpty && filteredItems.isEmpty {
+                    } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
                         Text("No results")
                     } else {
                         switch selectedOrder {
@@ -139,6 +139,23 @@ struct WatchlistView: View {
         .onChange(of: selectedOrder) { _ in
             if multiSelection.count > 0 {
                 multiSelection.removeAll()
+            }
+        }
+        .task(id: query) {
+            do {
+                isSearching = true
+                try await Task.sleep(nanoseconds: 300_000_000)
+                if !filteredItems.isEmpty { filteredItems.removeAll() }
+                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+                isSearching = false
+            } catch {
+                if Task.isCancelled { return }
+#if targetEnvironment(simulator)
+                print(error.localizedDescription)
+#else
+                TelemetryManager.send("WatchlistView.task(id: query)",
+                                      with: ["Error":"\(error.localizedDescription)"])
+#endif
             }
         }
     }

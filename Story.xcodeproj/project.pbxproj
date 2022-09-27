@@ -110,6 +110,13 @@
 		B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
 		B87F9D89286145600064947A /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D88286145600064947A /* DiscoverViewModel.swift */; };
+		B88529AB28E35A9F0026D33A /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529AA28E35A9F0026D33A /* SeasonListView.swift */; };
+		B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
+		B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
+		B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */; };
+		B88529B128E371350026D33A /* EpisodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529B028E371350026D33A /* EpisodeView.swift */; };
+		B88529B328E371650026D33A /* EpisodeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529B228E371650026D33A /* EpisodeListView.swift */; };
+		B88529B528E3717F0026D33A /* SeasonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529B428E3717F0026D33A /* SeasonButton.swift */; };
 		B886D232284D512F00FFE96A /* ConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */; };
 		B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
 		B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57827FC999F006BE5E1 /* HeroImage.swift */; };
@@ -295,6 +302,11 @@
 		B87B5CD32799AF3600632648 /* Attribution.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Attribution.xcassets; sourceTree = "<group>"; };
 		B87F746228064D3800E94126 /* BackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundManager.swift; sourceTree = "<group>"; };
 		B87F9D88286145600064947A /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
+		B88529AA28E35A9F0026D33A /* SeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonListView.swift; sourceTree = "<group>"; };
+		B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
+		B88529B028E371350026D33A /* EpisodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeView.swift; sourceTree = "<group>"; };
+		B88529B228E371650026D33A /* EpisodeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListView.swift; sourceTree = "<group>"; };
+		B88529B428E3717F0026D33A /* SeasonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonButton.swift; sourceTree = "<group>"; };
 		B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationDialogView.swift; sourceTree = "<group>"; };
 		B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentContextMenu.swift; sourceTree = "<group>"; };
 		B890C57827FC999F006BE5E1 /* HeroImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImage.swift; sourceTree = "<group>"; };
@@ -488,6 +500,8 @@
 			isa = PBXGroup;
 			children = (
 				B82B759428A84C8C00C3212A /* CompanionTextView.swift */,
+				B88529B028E371350026D33A /* EpisodeView.swift */,
+				B88529B428E3717F0026D33A /* SeasonButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -495,7 +509,9 @@
 		B82B759E28A84D5500C3212A /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				B88529B228E371650026D33A /* EpisodeListView.swift */,
 				B82B759F28A84D6600C3212A /* FilmographyListView.swift */,
+				B88529AA28E35A9F0026D33A /* SeasonListView.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -625,6 +641,7 @@
 		B86DD41B28BAAE94002C8427 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */,
 				B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */,
 				B84043E3289B3F3800D5CEBF /* PersonView.swift */,
 				B84043CF289B2A1600D5CEBF /* SearchView.swift */,
@@ -1018,6 +1035,7 @@
 				B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */,
 				B84043D9289B327B00D5CEBF /* AttributionView.swift in Sources */,
 				B84043BC289B18C200D5CEBF /* ItemContent.swift in Sources */,
+				B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */,
 				B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */,
 				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
 				B84043BA289B18B200D5CEBF /* UTType-Extensions.swift in Sources */,
@@ -1027,6 +1045,7 @@
 				B84043C7289B18EC00D5CEBF /* Utilities.swift in Sources */,
 				B82B75A428A84DBA00C3212A /* WatchlistView.swift in Sources */,
 				B84043BD289B18C500D5CEBF /* Person.swift in Sources */,
+				B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */,
 				B8754F9328A1BCC800551CAC /* HapticManager.swift in Sources */,
 				B82B75A728A84E9500C3212A /* WatchlistButtonView.swift in Sources */,
 				B84043C9289B191E00D5CEBF /* TrailerUtilities.swift in Sources */,
@@ -1040,6 +1059,7 @@
 				B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */,
 				B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */,
 				B86DD41A28BAABCC002C8427 /* HeroImage.swift in Sources */,
+				B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */,
 				B86DD41928BAAADF002C8427 /* PersonImageView.swift in Sources */,
 				B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */,
 				B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */,
@@ -1050,14 +1070,18 @@
 				B84043E4289B3F3800D5CEBF /* PersonView.swift in Sources */,
 				B84043B5289B188B00D5CEBF /* ItemContent-Extensions.swift in Sources */,
 				B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */,
+				B88529AB28E35A9F0026D33A /* SeasonListView.swift in Sources */,
 				B84043C6289B18E900D5CEBF /* Screens.swift in Sources */,
 				B8D7AEC928B961AD0053CE5A /* ReleaseDate.swift in Sources */,
 				B84043C1289B18D700D5CEBF /* NetworkError.swift in Sources */,
+				B88529B328E371650026D33A /* EpisodeListView.swift in Sources */,
+				B88529B528E3717F0026D33A /* SeasonButton.swift in Sources */,
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043CA289B20BC00D5CEBF /* DataFetchPhase.swift in Sources */,
 				B84043D0289B2A1600D5CEBF /* SearchView.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
 				B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */,
+				B88529B128E371350026D33A /* EpisodeView.swift in Sources */,
 				B84043B7289B18A300D5CEBF /* Person-Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

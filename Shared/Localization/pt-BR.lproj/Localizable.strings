@@ -137,6 +137,9 @@
 "Cancel" = "Cancelar";
 "Send your suggestions to help improve Cronica." = "Envie suas sugestões para ajudar a melhorar o Cronica.";
 "Feedback sent" = "Obrigado pelo seu feedback.";
+"Sync" = "Sincronização";
+"Update Items" = "Atualizar Itens";
+"'Update Items' will update your items with new information available on TMDb, if available." = "'Atualizar Itens' atualizará seus itens com novas informações disponíveis no TMDb, se disponíveis.";
 
 //MARK: HomeView.swift
 "Trending" = "Em Alta";

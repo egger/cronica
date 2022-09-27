@@ -121,6 +121,7 @@ extension WatchlistItem: Transferable {
         if itemMedia == .tvShow {
             if itemSchedule == .soon && upcomingSeason && notify { return true }
             if itemSchedule == .soon && upcomingSeason { return true }
+            if itemSchedule == .soon && nextSeasonNumber == 1 { return true }
             if itemSchedule == .renewed && notify && date != nil && upcomingSeason { return true }
             if itemSchedule == .renewed && nextSeasonNumber == 1 && nextEpisodeNumber == 1 { return true }
         }
@@ -128,6 +129,8 @@ extension WatchlistItem: Transferable {
     }
     var isInProduction: Bool {
         if nextSeasonNumber == 1 && itemSchedule == .soon && !isWatched && !notify { return true }
+        if itemSchedule == .soon && date == nil  { return true }
+        if itemSchedule == .production && nextSeasonNumber == 1 { return true }
         if itemSchedule == .production { return true }
         return false
     }

@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import BackgroundTasks
+import TelemetryClient
 
 class BackgroundManager {
     private let context = PersistenceController.shared
@@ -42,8 +43,18 @@ class BackgroundManager {
                                                               soonPredicate,
                                                               renewedPredicate])
         request.predicate = orPredicate
-        let list = try? self.context.container.viewContext.fetch(request)
-        return list ?? []
+        do {
+            let list = try self.context.container.viewContext.fetch(request)
+            return list
+        } catch {
+#if targetEnvironment(simulator)
+            print(error.localizedDescription)
+#else
+            TelemetryManager.send("BackgroundManager.fetchItems()",
+                                  with: ["Error":"\(error.localizedDescription)"])
+#endif
+            return []
+        }
     }
     
     private func fetchReleasedItems() -> [WatchlistItem] {

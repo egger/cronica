@@ -20,10 +20,16 @@ class HomeViewModel: ObservableObject {
     func load() async {
         Task {
             if trending.isEmpty {
-                let result = try? await service.fetchItems(from: "trending/all/week")
-                if let result {
+                do {
+                    let result = try await service.fetchItems(from: "trending/all/week")
                     let filtered = result.filter { $0.itemContentMedia != .person }
                     trending = filtered
+                } catch {
+#if targetEnvironment(simulator)
+#else
+                    TelemetryManager.send("HomeViewModel.load()",
+                                          with: ["Error":"\(error.localizedDescription)"])
+#endif
                 }
             }
             if sections.isEmpty {
@@ -37,24 +43,12 @@ class HomeViewModel: ObservableObject {
     }
     
     func reload() {
-#if targetEnvironment(simulator)
-#else
-        TelemetryManager.send("HomeViewModel.reload()")
-#endif
         HapticManager.shared.lightHaptic()
         withAnimation { isLoaded = false }
-        updateWatchlist()
-        withAnimation {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.isLoaded = false
-            }
-        }
-    }
-    
-    private func updateWatchlist() {
-        DispatchQueue.global(qos: .background).async {
-            let background = BackgroundManager()
-            background.handleAppRefreshContent()
+        trending.removeAll()
+        sections.removeAll()
+        Task {
+            await load()
         }
     }
     
@@ -82,7 +76,7 @@ class HomeViewModel: ObservableObject {
 #if targetEnvironment(simulator)
             print("Error: HomeViewModel.fetch with error-endpoint: \(error.localizedDescription)-\(endpoint as Any).")
 #else
-            TelemetryManager.send("HomeViewModel.fetch(from endpoint: Endpoints)", with: ["error":"\(error.localizedDescription)"])
+            TelemetryManager.send("HomeViewModel.fetch(from endpoint: Endpoints)", with: ["Error-Endpoint":"\(error.localizedDescription)-\(endpoint.title)"])
 #endif
             return nil
         }
