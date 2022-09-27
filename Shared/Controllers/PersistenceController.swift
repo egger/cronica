@@ -9,10 +9,13 @@ import CoreData
 import CloudKit
 import TelemetryClient
 import Combine
+import os
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
 class PersistenceController: ObservableObject {
+    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!,
+                                       category: String(describing: PersistenceController.self))
     private var subscriptions: Set<AnyCancellable> = []
     private let containerId = "iCloud.dev.alexandremadeira.Story"
     static let shared = PersistenceController()
@@ -48,17 +51,16 @@ class PersistenceController: ObservableObject {
                 TelemetryManager.send("containerError", with: ["error":"\(error.localizedDescription)"])
 #endif
             }
-            //storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.dev.alexandremadeira.Story")
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
             
         }
         #if DEBUG
-//        do {
-//            try container.initializeCloudKitSchema()
-//        } catch {
-//            fatalError(error.localizedDescription)
-//        }
+        do {
+            try container.initializeCloudKitSchema()
+        } catch {
+            print(error.localizedDescription)
+        }
         #endif
         return container
     }()
@@ -78,37 +80,41 @@ class PersistenceController: ObservableObject {
     }
     
     /// Adds an WatchlistItem to  Core Data.
+    ///
+    /// This function will automatically check if the item is saved in the list.
+    ///
+    /// If the item is saved, it will not create another instance of it.
     /// - Parameter content: The item to be added, or updated.
     func save(_ content: ItemContent) {
-        let item = WatchlistItem(context: container.viewContext)
-        item.contentType = content.itemContentMedia.toInt
-        item.title = content.itemTitle
-        item.id = Int64(content.id)
-        item.image = content.cardImageMedium
-        item.largeCardImage = content.cardImageLarge
-        item.schedule = content.itemStatus.toInt
-        item.notify = content.itemCanNotify
-        if let theatrical = content.itemTheatricalDate {
-            item.date = theatrical
-        } else {
-            item.date = content.itemFallbackDate
-        }
-        item.formattedDate = content.itemTheatricalString
-        if content.itemContentMedia == .tvShow {
-            if let episode = content.lastEpisodeToAir {
-                if let number = episode.episodeNumber {
-                    item.nextEpisodeNumber = Int64(number)
-                }
+        if !self.isItemSaved(id: content.id, type: content.itemContentMedia) {
+            let item = WatchlistItem(context: container.viewContext)
+            item.contentType = content.itemContentMedia.toInt
+            item.title = content.itemTitle
+            item.id = Int64(content.id)
+            item.tmdbID = Int64(content.id)
+            item.contentID = content.itemNotificationID
+            item.imdbID = content.imdbId
+            item.image = content.cardImageMedium
+            item.largeCardImage = content.cardImageLarge
+            item.schedule = content.itemStatus.toInt
+            item.notify = content.itemCanNotify
+            if let theatrical = content.itemTheatricalDate {
+                item.date = theatrical
+            } else {
+                item.date = content.itemFallbackDate
             }
-            item.upcomingSeason = content.hasUpcomingSeason
-            item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
+            item.formattedDate = content.itemTheatricalString
+            if content.itemContentMedia == .tvShow {
+                if let episode = content.lastEpisodeToAir {
+                    if let number = episode.episodeNumber {
+                        item.nextEpisodeNumber = Int64(number)
+                    }
+                }
+                item.upcomingSeason = content.hasUpcomingSeason
+                item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
+            }
+            saveContext()
         }
-        item.imdbID = content.imdbId
-        saveContext()
-#if targetEnvironment(simulator)
-        print(content as Any)
-        print(item as Any)
-#endif
     }
     
     /// Get an item from the Watchlist.
@@ -164,6 +170,8 @@ class PersistenceController: ObservableObject {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {
             let item = try? fetch(for: WatchlistItem.ID(content.id))
             if let item {
+                item.contentID = content.itemNotificationID
+                item.tmdbID = Int64(content.id)
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
                 item.largeCardImage = content.cardImageLarge

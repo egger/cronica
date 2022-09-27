@@ -17,6 +17,7 @@ struct WatchlistView: View {
     private var filteredItems: [WatchlistItem] {
         return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
     }
+    @State private var selectedOrder: DefaultListTypes = .released
     var body: some View {
         NavigationStack {
             VStack {
@@ -53,12 +54,23 @@ struct WatchlistView: View {
             .searchable(text: $query, prompt: "Search watchlist")
             .toolbar {
                 ToolbarItem {
-                    NavigationLink(value: Screens.search) {
-                        Label("Search TMDb", systemImage: "globe")
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.blue)
-                    .padding(.bottom)
+//                    Menu(content: {
+//                        Picker("Sort Watchlist",
+//                               selection: $selectedOrder) {
+//                            ForEach(DefaultListTypes.allCases) { list in
+//                                Text(list.title).tag(list)
+//                            }
+//                        }
+//                    }, label: {
+//                        Text("Hey")
+//                    })
+                    
+//                    NavigationLink(value: Screens.search) {
+//                        Label("Search TMDb", systemImage: "globe")
+//                    }
+//                    .buttonStyle(.bordered)
+//                    .tint(.blue)
+//                    .padding(.bottom)
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
@@ -69,6 +81,7 @@ struct WatchlistView: View {
                     SearchView()
                 }
             }
+            
         }
     }
 }

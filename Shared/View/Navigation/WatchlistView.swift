@@ -136,7 +136,13 @@ struct WatchlistView: View {
             }
         }
         .disableAutocorrection(true)
+        .onChange(of: selectedOrder) { _ in
+            if multiSelection.count > 0 {
+                multiSelection.removeAll()
+            }
+        }
     }
+    
     private var deleteAllButton: some View {
         Button(role: .destructive, action: {
             withAnimation {
@@ -146,6 +152,7 @@ struct WatchlistView: View {
             Label("Remove Selected", systemImage: "trash")
         })
     }
+    
     private var updateWatchButton: some View {
         Button(action: {
             PersistenceController.shared.updateMarkAs(items: multiSelection)

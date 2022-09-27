@@ -117,6 +117,9 @@ extension ItemContent {
         return false
     }
     var itemSearchDescription: String {
+        if media == .person {
+            return media.title
+        }
         if itemTheatricalString != nil && shortItemRuntime != nil {
             return "\(itemContentMedia.title) • \(itemTheatricalString!)"
         }

@@ -16,6 +16,7 @@ struct DeveloperView: View {
     @State private var itemIdField: String = ""
     @State private var itemMediaType: MediaType = .movie
     @State private var isFetching = false
+    private let background = BackgroundManager()
     private let service = NetworkService.shared
     var body: some View {
         Form {
@@ -60,6 +61,12 @@ struct DeveloperView: View {
             
             NavigationLink(destination: WelcomeView(), label: {
                 Text("Show Onboarding")
+            })
+            
+            Button(action: {
+                background.handleAppRefreshMaintenance()
+            }, label: {
+                Text("Update items")
             })
         }
         .navigationTitle("Developer tools")

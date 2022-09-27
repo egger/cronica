@@ -7,16 +7,21 @@
 
 import Foundation
 import SwiftUI
+import TelemetryClient
+import os
 
 @MainActor
 class SeasonViewModel: ObservableObject {
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: SeasonViewModel.self)
+    )
     private let service = NetworkService.shared
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
     private var hasFirstLoaded: Bool = false
     @Published var season: Season?
     @Published var isLoading: Bool = true
-    @Published var watchlistItem: WatchlistItem?
     @Published var isItemInWatchlist: Bool = false
     
     func load(id: Int, season: Int, isInWatchlist: Bool) async {
@@ -25,12 +30,20 @@ class SeasonViewModel: ObservableObject {
         withAnimation {
             isLoading = true
         }
-        self.season = try? await self.service.fetchSeason(id: id, season: season)
+        do {
+            self.season = try await self.service.fetchSeason(id: id, season: season)
+        } catch {
+            #if targetEnvironment(simulator)
+            SeasonViewModel.logger.error("\(error.localizedDescription, privacy: .public)")
+            #else
+            TelemetryManager.send(
+                "SeasonViewModel.load()",
+                with: ["Error":"\(error.localizedDescription)"]
+            )
+            #endif
+        }
         if !hasFirstLoaded {
             hasFirstLoaded.toggle()
-            if isItemInWatchlist {
-                watchlistItem = try? persistence.fetch(for: WatchlistItem.ID(id))
-            }
         }
         withAnimation {
             isLoading = false

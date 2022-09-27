@@ -26,7 +26,7 @@ struct NotificationListView: View {
                         } else {
                             if !deliveredItems.isEmpty {
                                 Section {
-                                    ForEach(deliveredItems) { item in
+                                    ForEach(deliveredItems.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
                                         ItemContentItemView(item: item, subtitle: item.itemContentMedia.title)
                                             .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
                                                 Button(role: .destructive,
@@ -45,7 +45,7 @@ struct NotificationListView: View {
                             
                             if !items.isEmpty {
                                 Section {
-                                    ForEach(items) { item in
+                                    ForEach(items.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
                                         ItemContentItemView(item: item, subtitle: item.itemSearchDescription)
                                             .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
                                                 Button(role: .destructive,

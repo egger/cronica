@@ -7,8 +7,13 @@
 
 import Foundation
 import TelemetryClient
+import os
 
 class NetworkService {
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: NetworkService.self)
+    )
     static let shared = NetworkService()
     private let decoder = JSONDecoder()
     private static let dateFormatter: DateFormatter = {
@@ -17,7 +22,7 @@ class NetworkService {
         return formatter
     }()
     
-    init() {
+    private init() {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .formatted(NetworkService.dateFormatter)
     }
@@ -74,9 +79,12 @@ class NetworkService {
         let responseError = handleNetworkResponses(response: httpResponse)
         if let responseError {
 #if targetEnvironment(simulator)
-            print(responseError as Any)
+            NetworkService.logger.error("\(responseError.localizedDescription, privacy: .public)")
 #else
-            TelemetryManager.send("fetchError", with: ["error":"\(responseError.localizedName)"])
+            TelemetryManager.send(
+                "NetworkService.fetch()",
+                with: ["Error":"\(responseError.localizedName)"]
+            )
 #endif
             throw responseError
         } else {
@@ -100,7 +108,14 @@ class NetworkService {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 return data
             } catch {
-                print(error as Any)
+#if targetEnvironment(simulator)
+            NetworkService.logger.error("\(error.localizedDescription, privacy: .public)")
+#else
+//            TelemetryManager.send(
+//                "NetworkService.downloadImageData()",
+//                with: ["Error":"\(error.localizedName)"]
+//            )
+#endif
             }
         }
         return nil
