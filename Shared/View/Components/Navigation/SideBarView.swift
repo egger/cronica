@@ -36,7 +36,7 @@ struct SideBarView: View {
                     Label("Watchlist", systemImage: "square.stack.fill")
                 }
                 .tag(WatchlistView.tag)
-                .dropDestination(for: ItemContent.self) { items, location  in
+                .dropDestination(for: ItemContent.self) { items, _  in
                     let context = PersistenceController.shared
                     for item in items {
                         context.save(item)

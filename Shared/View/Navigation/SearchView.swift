@@ -11,7 +11,6 @@ struct SearchView: View {
     static let tag: Screens? = .search
     @StateObject private var viewModel: SearchViewModel
     @State private var showConfirmation: Bool = false
-    private let context = PersistenceController.shared
     @State private var scope: SearchItemsScope = .noScope
     init() {
         _viewModel = StateObject(wrappedValue: SearchViewModel())

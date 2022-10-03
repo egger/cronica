@@ -13,6 +13,7 @@ struct ItemContentFrameView: View {
     @Binding var showConfirmation: Bool
     private let context = PersistenceController.shared
     @State private var isInWatchlist: Bool = false
+    @State private var isWatched = false
     var body: some View {
         NavigationLink(value: item) {
             VStack {
@@ -41,9 +42,15 @@ struct ItemContentFrameView: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
-                                    Image(systemName: "square.stack.fill")
-                                        .foregroundColor(.white.opacity(0.8))
-                                        .padding()
+                                    if isWatched {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundColor(.white.opacity(0.8))
+                                            .padding()
+                                    } else {
+                                        Image(systemName: "square.stack.fill")
+                                            .foregroundColor(.white.opacity(0.8))
+                                            .padding()
+                                    }
                                 }
                                 .background {
                                     Color.black.opacity(0.5)
@@ -84,6 +91,9 @@ struct ItemContentFrameView: View {
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                    if isInWatchlist && !isWatched {
+                        isWatched = context.isMarkedAsWatched(id: item.id)
+                    }
                 }
             }
         }

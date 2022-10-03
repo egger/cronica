@@ -11,7 +11,8 @@ import SDWebImageSwiftUI
 struct PosterView: View {
     let item: ItemContent
     private let context = PersistenceController.shared
-    @State private var isInWatchlist: Bool = false
+    @State private var isInWatchlist = false
+    @State private var isWatched = false
     @Binding var addedItemConfirmation: Bool
     var body: some View {
         NavigationLink(value: item) {
@@ -26,9 +27,15 @@ struct PosterView: View {
                             Spacer()
                             HStack {
                                 Spacer()
-                                Image(systemName: "square.stack.fill")
-                                    .foregroundColor(.white.opacity(0.8))
-                                    .padding()
+                                if isWatched {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.white.opacity(0.8))
+                                        .padding()
+                                } else {
+                                    Image(systemName: "square.stack.fill")
+                                        .foregroundColor(.white.opacity(0.8))
+                                        .padding()
+                                }
                             }
                             .background {
                                 Color.black.opacity(0.5)
@@ -59,11 +66,13 @@ struct PosterView: View {
                 .modifier(ItemContentContextMenu(item: item,
                                                  showConfirmation: $addedItemConfirmation,
                                                  isInWatchlist: $isInWatchlist))
-                .onAppear {
-                    isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
-                }
                 .task {
-                    //isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                    withAnimation {
+                        isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                        if isInWatchlist && !isWatched {
+                            isWatched = context.isMarkedAsWatched(id: item.id)
+                        }
+                    }
                 }
         }
     }
