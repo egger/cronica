@@ -21,6 +21,14 @@ struct SeasonListView: View {
                         label: {
                             Text("Season \(season)")
                         })
+                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                        Button(action: {
+                            
+                        }, label: {
+                            Label("Mark season as watched", systemImage: "checkmark.circle.fill")
+                        })
+                        .tint(.green)
+                    }
                 }
             }
         }

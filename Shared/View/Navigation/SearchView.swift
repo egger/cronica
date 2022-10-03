@@ -21,22 +21,35 @@ struct SearchView: View {
             List {
                 switch scope {
                 case .noScope:
-                    ForEach(viewModel.searchItems) { item in
+                    ForEach(viewModel.items) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
+                    if viewModel.startPagination && !viewModel.endPagination {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                                .padding()
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        viewModel.loadMoreItems()
+                                    }
+                                }
+                            Spacer()
+                        }
+                    }
                 case .movies:
-                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
+                    ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
                 case .shows:
-                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
+                    ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
                 case .people:
-                    ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
+                    ForEach(viewModel.items.filter { $0.media == .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
@@ -63,37 +76,35 @@ struct SearchView: View {
                 }
             }
             .disableAutocorrection(true)
-            .overlay(overlayView)
-            .onAppear {
-                viewModel.observe()
+            .task(id: viewModel.query) {
+                await viewModel.search(viewModel.query)
             }
+            .overlay(searchResults)
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }
     
     @ViewBuilder
-    private var overlayView: some View {
-        switch viewModel.phase {
-        case .empty:
-            if !viewModel.trimmedQuery.isEmpty {
-                VStack {
-                    ProgressView("Searching")
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
-            } else {
-                VStack {
-                    Spacer()
-                    AttributionView() 
-                }
+    private var searchResults: some View {
+        switch viewModel.stage {
+        case .none:
+            VStack {
+                Spacer()
+                AttributionView()
             }
-        case .success(let values) where values.isEmpty:
+        case .searching:
+            ProgressView("Searching")
+                .foregroundColor(.secondary)
+                .padding()
+        case .empty:
             Label("No Results", systemImage: "minus.magnifyingglass")
                 .font(.title)
                 .foregroundColor(.secondary)
-        case .failure(_):
-            EmptyView()
-        default: EmptyView()
+        case .failure:
+            VStack {
+                Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
+            }
+        case .success: EmptyView()
         }
     }
 }

@@ -25,8 +25,10 @@ struct EpisodeDetailsView: View {
             ScrollView {
                 HeroImage(url: episode.itemImageMedium,
                           title: episode.itemTitle)
-                .clipShape(RoundedRectangle(cornerRadius: 8,
-                                            style: .continuous))
+                .clipShape(
+                    RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                     style: .continuous)
+                )
                 .padding()
                 
                 watchButton
@@ -58,7 +60,14 @@ struct EpisodeDetailsView: View {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")
         })
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.bordered)
         .tint(isWatched ? .orange : .green)
     }
+}
+
+private struct DrawingConstants {
+    static let imageRadius: CGFloat = 8
+    static let imageWidth: CGFloat = 324
+    static let imageHeight: CGFloat = 163
+    static let lineLimit: Int = 1
 }

@@ -14,7 +14,7 @@ struct WatchListSection: View {
     var body: some View {
         if !items.isEmpty {
             Section {
-                ForEach(items) { item in
+                ForEach(items, id: \.notificationID) { item in
                     WatchlistItemView(content: item)
                         .draggable(item)
                         .hoverEffect(.highlight)

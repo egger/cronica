@@ -14,10 +14,9 @@ struct WatchlistView: View {
         animation: .default)
     private var items: FetchedResults<WatchlistItem>
     @State private var query = ""
-    private var filteredItems: [WatchlistItem] {
-        return items.filter { ($0.title?.localizedStandardContains(query))! as Bool }
-    }
-    @State private var selectedOrder: DefaultListTypes = .released
+    @State private var filteredItems = [WatchlistItem]()
+    @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
+    @State private var showPicker = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -28,49 +27,64 @@ struct WatchlistView: View {
                         .padding()
                 } else {
                     if !filteredItems.isEmpty {
-                        List(filteredItems) { item in
-                            NavigationLink(value: item) {
-                                WatchlistItemView(content: item)
+                        Section {
+                            ForEach(filteredItems) { item in
+                                NavigationLink(value: item) {
+                                    WatchlistItemView(content: item)
+                                }
                             }
+                        } header: {
+                            Text("Results from Watchlist")
                         }
-                    } else if !query.isEmpty && filteredItems.isEmpty {
-                        Text("No results")
                     } else {
                         List {
-                            WatchlistSectionView(items: items.filter { $0.isReleased },
-                                                 title: "Released")
-                            WatchlistSectionView(items: items.filter { $0.isUpcoming },
-                                                 title: "Upcoming")
-                            WatchlistSectionView(items: items.filter { $0.isInProduction },
-                                                 title: "In Production")
-                            WatchlistSectionView(items: items.filter { $0.isWatched },
-                                                 title: "Watched")
-                            
+                            switch selectedOrder {
+                            case .released:
+                                WatchlistSectionView(items: items.filter { $0.isReleased },
+                                                     title: "Released")
+                            case .upcoming:
+                                WatchlistSectionView(items: items.filter { $0.isUpcoming },
+                                                     title: "Upcoming")
+                            case .production:
+                                WatchlistSectionView(items: items.filter { $0.isInProduction },
+                                                     title: "In Production")
+                            case .watched:
+                                WatchlistSectionView(items: items.filter { $0.isWatched },
+                                                     title: "Watched")
+                            case .favorites:
+                                WatchlistSectionView(items: items.filter { $0.isFavorite },
+                                                     title: "Favorites")
+                            }
                         }
                     }
                 }
             }
             .navigationTitle("Watchlist")
-            .searchable(text: $query, prompt: "Search watchlist")
+            .searchable(text: $query)
+            .task(id: query) {
+                do {
+                    if query.isEmpty { return }
+                    try await Task.sleep(nanoseconds: 300_000_000)
+                    if !filteredItems.isEmpty { filteredItems.removeAll() }
+                    filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+                } catch {
+                    if Task.isCancelled { return }
+                    print(error.localizedDescription)
+                }
+            }
             .toolbar {
                 ToolbarItem {
-//                    Menu(content: {
-//                        Picker("Sort Watchlist",
-//                               selection: $selectedOrder) {
-//                            ForEach(DefaultListTypes.allCases) { list in
-//                                Text(list.title).tag(list)
-//                            }
-//                        }
-//                    }, label: {
-//                        Text("Hey")
-//                    })
-                    
-                    NavigationLink(value: Screens.search) {
-                        Label("Search TMDb", systemImage: "globe")
+                    VStack {
+                        Button(action: {
+                            showPicker = true
+                        }, label: {
+                            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle.fill")
+                        })
+                        .buttonStyle(.bordered)
+                        .tint(.blue)
+                        .padding(.bottom)
                     }
-                    .buttonStyle(.bordered)
-                    .tint(.blue)
-                    .padding(.bottom)
+                    
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
@@ -81,7 +95,21 @@ struct WatchlistView: View {
                     SearchView()
                 }
             }
-            
+            .sheet(isPresented: $showPicker) {
+                NavigationStack {
+                    ScrollView(.vertical) {
+                        ForEach(DefaultListTypes.allCases) { list in
+                            Button(action: {
+                                selectedOrder = list
+                                showPicker = false
+                            }, label: {
+                                Text(list.title)
+                            })
+                        }
+                    }
+                    .navigationTitle("Sort List")
+                }
+            }
         }
     }
 }
@@ -105,6 +133,8 @@ private struct WatchlistSectionView: View {
                 Text(NSLocalizedString(title, comment: ""))
             }
             .padding(.bottom)
+        } else {
+            Text("No results")
         }
     }
 }

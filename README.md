@@ -36,7 +36,7 @@ Thanks to CloudKit and SwiftUI, Cronica also can run on Apple Watch, and the inf
 
 To get started you'll need to:
 
-1. Get an API key to use TMDb API, you can get yours at their [webiste](https://www.themoviedb.org/documentation/api),  after that, go to Shared/Configuration/Key and replace the value of *tmdbApi* with your own key.
+1. Get an API key to use TMDb API, you can get yours at their [website](https://www.themoviedb.org/documentation/api),  after that, go to Shared/Configuration/Key and replace the value of *tmdbApi* with your own key.
 2. You can remove TelemetryDeck service if you want to, I use it for the Feedback feature and sending signal when a catch occurs.
 
 If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.

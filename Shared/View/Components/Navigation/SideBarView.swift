@@ -57,8 +57,8 @@ struct SideBarView: View {
                     Text(scope.localizableTitle).tag(scope)
                 }
             }
-            .onAppear {
-                viewModel.observe()
+            .task(id: viewModel.query) {
+                await viewModel.search(viewModel.query)
             }
             .overlay(searchOverlay)
             .toolbar {
@@ -148,7 +148,12 @@ struct SideBarView: View {
     
     @ViewBuilder
     private var searchOverlay: some View {
-        switch viewModel.phase {
+        switch viewModel.stage {
+        case .none: EmptyView()
+        case .searching:
+            ProgressView("Searching")
+                .foregroundColor(.secondary)
+                .padding()
         case .empty:
             if !viewModel.trimmedQuery.isEmpty {
                 ZStack {
@@ -159,40 +164,57 @@ struct SideBarView: View {
                             .padding()
                     }
                 }
+            } else {
+                ZStack {
+                    Rectangle().fill(.ultraThinMaterial)
+                    Label("No Results", systemImage: "minus.magnifyingglass")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                }
             }
-        case .success(let values) where values.isEmpty:
-            ZStack {
-                Rectangle().fill(.ultraThinMaterial)
-                Label("No Results", systemImage: "minus.magnifyingglass")
-                    .font(.title)
-                    .foregroundColor(.secondary)
+        case .failure:
+            VStack {
+                Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
             }
-        case .success(_):
+        case .success:
             List {
                 switch scope {
                 case .noScope:
-                    ForEach(viewModel.searchItems) { item in
+                    ForEach(viewModel.items) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
+                    if viewModel.startPagination && !viewModel.endPagination {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                                .padding()
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        viewModel.loadMoreItems()
+                                    }
+                                }
+                            Spacer()
+                        }
+                    }
                 case .movies:
-                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .movie }) { item in
+                    ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
                 case .shows:
-                    ForEach(viewModel.searchItems.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
+                    ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
                 case .people:
-                    ForEach(viewModel.searchItems.filter { $0.media == .person }) { item in
+                    ForEach(viewModel.items.filter { $0.media == .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
@@ -200,9 +222,7 @@ struct SideBarView: View {
                     }
                 }
             }
-            .listStyle(.inset)
-        case .failure(_):
-            EmptyView()
+            .listStyle(.insetGrouped)
         }
     }
 }

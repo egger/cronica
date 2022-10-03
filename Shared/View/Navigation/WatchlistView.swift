@@ -16,9 +16,9 @@ struct WatchlistView: View {
     private var items: FetchedResults<WatchlistItem>
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
-    @State private var selectedOrder: DefaultListTypes = .released
+    @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
-    @State private var multiSelection = Set<WatchlistItem.ID>()
+    @State private var multiSelection = Set<String>()
     @Environment(\.editMode) private var editMode
     @State private var isSearching = false
     var body: some View {
@@ -82,7 +82,7 @@ struct WatchlistView: View {
                 } isTargeted: { inDropArea in
                     print(inDropArea)
                 }
-                .contextMenu(forSelectionType: WatchlistItem.ID.self) { items in
+                .contextMenu(forSelectionType: String.self) { items in
                     if items.count >= 1 {
                         updateWatchButton
                         Divider()
@@ -172,7 +172,7 @@ struct WatchlistView: View {
     
     private var updateWatchButton: some View {
         Button(action: {
-            PersistenceController.shared.updateMarkAs(items: multiSelection)
+            //PersistenceController.shared.updateMarkAs(items: multiSelection)
         }, label: {
             if selectedOrder != .watched {
                 Label("Mark selected as watched", systemImage: "checkmark.circle")

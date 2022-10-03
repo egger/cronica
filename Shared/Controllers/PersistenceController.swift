@@ -239,6 +239,27 @@ class PersistenceController: ObservableObject {
         }
     }
     
+    func delete(items: Set<String>) {
+        var list = [WatchlistItem]()
+        for item in items {
+            let type = item.last ?? "0"
+            var media: MediaType = .movie
+            if type == "1" {
+                media = .tvShow
+            }
+            let id = item.dropLast(2)
+            let content = try? fetch(for: Int64(id)!, media: media)
+            if let content {
+                list.append(content)
+            }
+        }
+        if !list.isEmpty {
+            for item in list {
+                delete(item)
+            }
+        }
+    }
+    
     /// Updates the "watched" property of an array of WatchlistItem in Core Data.
     /// - Parameter items: The IDs of the items to be fetched from Core Data and then updated.
     func updateMarkAs(items: Set<Int64>) {

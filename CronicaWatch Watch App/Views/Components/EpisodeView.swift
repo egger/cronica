@@ -16,7 +16,6 @@ struct EpisodeView: View {
     private let persistence = PersistenceController.shared
     @State private var isWatched: Bool = false
     @Binding var isInWatchlist: Bool
-    @EnvironmentObject var viewModel: SeasonViewModel
     init(episode: Episode, season: Int, show: Int, isInWatchlist: Binding<Bool>) {
         self.episode = episode
         self.season = season
@@ -32,26 +31,36 @@ struct EpisodeView: View {
                         Rectangle().fill(.secondary)
                         Image(systemName: "tv")
                     }
-                    .frame(width: 70, height: 45)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .transition(.fade)
-                .frame(width: 70, height: 45)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .transition(.opacity)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(
+                    RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                     style: .continuous)
+                )
                 .overlay {
                     if isWatched {
                         ZStack {
                             Color.black.opacity(0.6)
-                            Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.white)
                         }
-                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                        .frame(width: 70, height: 45)
+                        .clipShape(
+                            RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                             style: .continuous)
+                        )
+                        .frame(width: DrawingConstants.imageWidth,
+                               height: DrawingConstants.imageHeight)
                     }
                 }
             VStack(alignment: .leading) {
                 Text(episode.itemTitle)
-                    .lineLimit(1)
+                    .lineLimit(DrawingConstants.lineLimit)
                     .font(.callout)
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .font(.caption)
@@ -78,4 +87,11 @@ struct EpisodeView: View {
             isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
         }
     }
+}
+
+private struct DrawingConstants {
+    static let imageRadius: CGFloat = 8
+    static let imageWidth: CGFloat = 70
+    static let imageHeight: CGFloat = 45
+    static let lineLimit: Int = 1
 }

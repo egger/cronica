@@ -23,8 +23,10 @@ struct ItemContentView: View {
         VStack {
             ScrollView {
                 HeroImage(url: viewModel.content?.cardImageMedium, title: title)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                                style: .continuous))
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                         style: .continuous)
+                    )
                     .padding()
                 
                 WatchlistButtonView()
@@ -76,25 +78,9 @@ struct ItemContentView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 8
+    static let imageWidth: CGFloat = 240
+    static let imageHeight: CGFloat = 120
+    static let lineLimit: Int = 1
 }
 
-struct AboutSectionView: View {
-    let about: String?
-    var body: some View {
-        if let about {
-            Divider().padding(.horizontal)
-            Section {
-                Text(about)
-            } header: {
-                HStack {
-                    Label("About", systemImage: "film")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-            }
-            .padding()
-            Divider().padding(.horizontal)
-        }
-    }
-}

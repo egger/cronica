@@ -11,51 +11,84 @@ import Combine
 
 @MainActor class SearchViewModel: ObservableObject {
     @Published var query: String = ""
-    @Published private(set) var phase: DataFetchPhase<[ItemContent]> = .empty
-    private var cancellable = Set<AnyCancellable>()
     private var service: NetworkService = NetworkService.shared
     var trimmedQuery: String {
         query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    var searchItems: [ItemContent] { phase.value ?? [] }
+    private var page = 1
+    @Published var items = [ItemContent]()
+    @Published var startPagination: Bool = false
+    @Published var endPagination: Bool = false
+    var stage: SearchStage = .none
     
-    func observe() {
-        guard cancellable.isEmpty else { return }
-        $query
-            .filter { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-            .sink { [weak self] _ in
-                self?.phase = .empty
+    func search(_ query: String) async {
+        if query.isEmpty {
+            startPagination = false
+            withAnimation {
+                items.removeAll()
             }
-            .store(in: &cancellable)
-        $query
-            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-            .debounce(for: 1, scheduler: DispatchQueue.main)
-            .sink { query in
-                Task { [weak self] in
-                    guard let self = self else { return }
-                    await self.search(query: query)
-                }
-            }
-            .store(in: &cancellable)
-    }
-    
-   private func search(query: String) async {
-        if Task.isCancelled { return }
-        phase = .empty
-        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedQuery.isEmpty else {
+            stage = .none
             return
         }
+        stage = .searching
+        if Task.isCancelled { return }
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedQuery.isEmpty else { return }
         do {
-            let searchItems = try await service.search(query: trimmedQuery, page: "1")
             if Task.isCancelled { return }
-            guard trimmedQuery == self.trimmedQuery else { return }
-            phase = .success(searchItems.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+            try await Task.sleep(nanoseconds: 300_000_000)
+            if !items.isEmpty {
+                items.removeAll()
+            }
+            // restart pagination values
+            page = 1
+            endPagination = false
+            let result = try await service.search(query: trimmedQuery, page: "1")
+            if result.isEmpty {
+                stage = .empty
+                return
+            }
+            page += 1
+            items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+            stage = .success
+            startPagination = true
         } catch {
-            if Task.isCancelled { return }
-            guard trimmedQuery == self.trimmedQuery else { return }
-            phase = .failure(error)
+            stage = .failure
+            //CrErrorHandling.shared.handleErrorMessage(error.localizedDescription, for: "")
+            print(error.localizedDescription)
         }
     }
+    
+    func loadMoreItems() {
+        if items.isEmpty { return }
+        if endPagination { return }
+        if page <= 10 {
+            if Task.isCancelled { return }
+            Task {
+                do {
+                    print(page)
+                    let result = try await service.search(query: trimmedQuery, page: "\(page)")
+                    if result.isEmpty { endPagination.toggle() }
+                    withAnimation {
+                        self.items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+                    }
+                    self.page += 1
+                } catch {
+                    if Task.isCancelled { return }
+    #if targetEnvironment(simulator)
+                    print(error.localizedDescription)
+    #else
+    #endif
+                }
+            }
+        } else {
+            endPagination = true
+        }
+    }
+}
+
+enum SearchStage: String {
+    var id: String { rawValue }
+    case none, failure, empty, success, searching
 }
 
