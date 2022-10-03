@@ -7,15 +7,9 @@
 
 import Foundation
 import SwiftUI
-import TelemetryClient
-import os
 
 @MainActor
 class SeasonViewModel: ObservableObject {
-    private static let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: SeasonViewModel.self)
-    )
     private let service = NetworkService.shared
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
@@ -33,14 +27,8 @@ class SeasonViewModel: ObservableObject {
         do {
             self.season = try await self.service.fetchSeason(id: id, season: season)
         } catch {
-            #if targetEnvironment(simulator)
-            SeasonViewModel.logger.error("\(error.localizedDescription, privacy: .public)")
-            #else
-            TelemetryManager.send(
-                "SeasonViewModel.load()",
-                with: ["Error":"\(error.localizedDescription)"]
-            )
-            #endif
+            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                            for: "SeasonViewModel.load()")
         }
         if !hasFirstLoaded {
             hasFirstLoaded.toggle()

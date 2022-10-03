@@ -8,7 +8,6 @@
 import Foundation
 import CoreData
 import SwiftUI
-import TelemetryClient
 
 @MainActor
 class HomeViewModel: ObservableObject {
@@ -25,11 +24,8 @@ class HomeViewModel: ObservableObject {
                     let filtered = result.filter { $0.itemContentMedia != .person }
                     trending = filtered
                 } catch {
-#if targetEnvironment(simulator)
-#else
-                    TelemetryManager.send("HomeViewModel.load()",
-                                          with: ["Error":"\(error.localizedDescription)"])
-#endif
+                    TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                                    for: "HomeViewModel.load()")
                 }
             }
             if sections.isEmpty {
@@ -73,11 +69,9 @@ class HomeViewModel: ObservableObject {
             return .init(results: section, endpoint: endpoint)
         } catch {
             if Task.isCancelled { return nil }
-#if targetEnvironment(simulator)
-            print("Error: HomeViewModel.fetch with error-endpoint: \(error.localizedDescription)-\(endpoint as Any).")
-#else
-            TelemetryManager.send("HomeViewModel.fetch(from endpoint: Endpoints)", with: ["Error-Endpoint":"\(error.localizedDescription)-\(endpoint.title)"])
-#endif
+            TelemetryErrorManager.shared.handleErrorMessage(
+                "\(error.localizedDescription), endpoint: \(endpoint.title)",
+                for: "HomeViewModel.load()")
             return nil
         }
     }

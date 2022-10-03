@@ -54,8 +54,8 @@ import Combine
             startPagination = true
         } catch {
             stage = .failure
-            //CrErrorHandling.shared.handleErrorMessage(error.localizedDescription, for: "")
-            print(error.localizedDescription)
+            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                            for: "SearchViewModel.search()")
         }
     }
     
@@ -75,10 +75,10 @@ import Combine
                     self.page += 1
                 } catch {
                     if Task.isCancelled { return }
-    #if targetEnvironment(simulator)
-                    print(error.localizedDescription)
-    #else
-    #endif
+                    TelemetryErrorManager.shared.handleErrorMessage(
+                        error.localizedDescription,
+                        for: "ItemContentViewModel.loadMoreItems()"
+                    )
                 }
             }
         } else {

@@ -140,6 +140,9 @@
 "Sync" = "Sincronização";
 "Update Items" = "Atualizar Itens";
 "'Update Items' will update your items with new information available on TMDb, if available." = "'Atualizar Itens' atualizará seus itens com novas informações disponíveis no TMDb, se disponíveis.";
+"Privacy" = "Privacidade";
+"Disable Telemetry" = "Desativar Telemetria";
+"privacyfooter" = "A Cronica coleta dados mínimos para minimizar falhas de aplicativos, esses dados são anônimos.";
 
 //MARK: HomeView.swift
 "Trending" = "Em Alta";

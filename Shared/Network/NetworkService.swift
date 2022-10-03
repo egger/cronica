@@ -6,7 +6,6 @@
 //  swiftlint:disable trailing_whitespace
 
 import Foundation
-import TelemetryClient
 import os
 
 class NetworkService {
@@ -78,14 +77,10 @@ class NetworkService {
         guard let httpResponse = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
         let responseError = handleNetworkResponses(response: httpResponse)
         if let responseError {
-#if targetEnvironment(simulator)
-            NetworkService.logger.error("\(responseError.localizedDescription, privacy: .public)")
-#else
-            TelemetryManager.send(
-                "NetworkService.fetch()",
-                with: ["Error":"\(responseError.localizedName)"]
-            )
-#endif
+//            TelemetryErrorManager.shared.handleErrorMessage("\(responseError.localizedDescription)",
+//                                                            for: "NetworkService.fetch()")
+//            TelemetryManager.shared.handleErrorMessage("\(responseError.localizedDescription)",
+//                                                       for: "NetworkService.fetch()")
             throw responseError
         } else {
             return try decoder.decode(T.self, from: data)

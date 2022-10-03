@@ -172,7 +172,7 @@ struct ItemContentItemView: View {
                     }
                 }
             }
-            .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
+//            .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
         }
     }
 }

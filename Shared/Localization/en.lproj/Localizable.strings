@@ -140,6 +140,9 @@
 "Sync" = "Sync";
 "Update Items" = "Update Items";
 "'Update Items' will update your items with new information available on TMDb, if available." = "'Update Items' will update your items with new information available on TMDb, if available.";
+"Privacy" = "Privacy";
+"Disable Telemetry" = "Disable Telemetry";
+"privacyfooter" = "Cronica collects minimal data to minimize app crashes, this data is anonymously.";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";

@@ -41,20 +41,26 @@ struct WelcomeView: View {
                 InformationContainerView()
                 HStack {
                     Spacer()
-                    Button {
-                        withAnimation {
-                            displayOnboard.toggle()
+                    VStack {
+                        Button {
+                            withAnimation {
+                                displayOnboard.toggle()
+                            }
+                        } label: {
+                            Text("Continue")
                         }
-                    } label: {
-                        Text("Continue")
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color.blue.gradient)
+                        .controlSize(.large)
+                        .padding()
+                        Button("Privacy Policy") {
+                            
+                        }
+                        .padding([.horizontal, .bottom])
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(Color.blue.gradient)
-                    .controlSize(.large)
                     .padding()
                     Spacer()
                 }
-                .padding()
             }
         }
         .interactiveDismissDisabled(true)

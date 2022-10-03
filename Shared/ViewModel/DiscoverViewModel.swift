@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import TelemetryClient
 
 @MainActor
 class DiscoverViewModel: ObservableObject {
@@ -65,11 +64,8 @@ class DiscoverViewModel: ObservableObject {
             startPagination = false
         } catch {
             if Task.isCancelled { return }
-#if targetEnvironment(simulator)
-                print("Error: DiscoverViewModel.fetch() with error-endpoint: \(error.localizedDescription)")
-#else
-                TelemetryManager.send("DiscoverViewModel.fetch()", with: ["error":"\(error.localizedDescription)"])
-#endif
+            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                            for: "DiscoverViewModel.fetch()")
             showErrorDialog.toggle()
         }
     }

@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import TelemetryClient
 
 @MainActor
 class ItemContentViewModel: ObservableObject {
@@ -45,8 +44,8 @@ class ItemContentViewModel: ObservableObject {
                     withAnimation {
                         if isInWatchlist {
                             hasNotificationScheduled = isNotificationScheduled()
-                            isWatched = context.isMarkedAsWatched(id: self.id)
-                            isFavorite = context.isMarkedAsFavorite(id: self.id)
+                            isWatched = context.isMarkedAsWatched(id: self.id, type: type)
+                            isFavorite = context.isMarkedAsFavorite(id: self.id, type: type)
                         }
                         isNotificationAvailable = content.itemCanNotify
                         if content.itemStatus == .released {
@@ -69,11 +68,8 @@ class ItemContentViewModel: ObservableObject {
                 errorMessage = error.localizedDescription
                 showErrorAlert = true
                 content = nil
-#if targetEnvironment(simulator)
-                print("Error: ItemContentViewModel.load() with localized description of \(error.localizedDescription)")
-#else
-                TelemetryManager.send("ItemContentViewModel.load()", with: ["error":"\(error.localizedDescription)"])
-#endif
+                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                                for: "ItemContentViewModel.load()")
             }
         }
     }
@@ -89,7 +85,7 @@ class ItemContentViewModel: ObservableObject {
             withAnimation {
                 isInWatchlist.toggle()
             }
-            let watchlistItem = try? persistence.fetch(for: Int64(item.id))
+            let watchlistItem = try? persistence.fetch(for: Int64(item.id), media: type)
             if let watchlistItem {
                 if watchlistItem.notify {
                     notification.removeNotification(identifier: item.itemNotificationID)
@@ -124,20 +120,20 @@ class ItemContentViewModel: ObservableObject {
             withAnimation {
                 isWatched.toggle()
             }
-            persistence.updateMarkAs(id: id, watched: watched)
+            persistence.updateMarkAs(id: id, type: type, watched: watched)
         }
         if let favorite {
             withAnimation {
                 isFavorite.toggle()
             }
-            persistence.updateMarkAs(id: id, favorite: favorite)
+            persistence.updateMarkAs(id: id, type: type, favorite: favorite)
         }
     }
     
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
     private func isNotificationScheduled() -> Bool {
-        let item = try? context.fetch(for: WatchlistItem.ID(self.id))
+        let item = try? context.fetch(for: WatchlistItem.ID(self.id), media: type)
         return item?.notify ?? false
     }
 }

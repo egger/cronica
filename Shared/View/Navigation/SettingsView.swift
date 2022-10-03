@@ -20,6 +20,7 @@ struct SettingsView: View {
     @State private var updatingItems = false
     @Binding var showSettings: Bool
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings: Bool?
+    @AppStorage("disableTelemetry") var disableTelemetry = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -54,6 +55,7 @@ struct SettingsView: View {
                         Text("'Update Items' will update your items with new information available on TMDb, if available.")
                             .padding(.bottom)
                     }
+                    
                     Section {
                         Button( action: {
                             showFeedbackAlert = true
@@ -72,11 +74,6 @@ struct SettingsView: View {
                             Text("Send your suggestions to help improve Cronica.")
                         })
                         Button(action: {
-                            showPolicy.toggle()
-                        }, label: {
-                            Label("Privacy Policy", systemImage: "hand.raised")
-                        })
-                        Button(action: {
                             requestReview()
                         }, label: {
                             Label("Review Cronica", systemImage: "star")
@@ -84,6 +81,19 @@ struct SettingsView: View {
                     } header: {
                         Label("Support", systemImage: "questionmark.circle")
                     }
+                    
+                    Section {
+                        Button("Privacy Policy") {
+                            showPolicy.toggle()
+                        }
+                        Toggle("Disable Telemetry", isOn: $disableTelemetry)
+                    } header: {
+                        Label("Privacy", systemImage: "hand.raised")
+                    } footer: {
+                        Text("privacyfooter")
+                            .padding(.bottom)
+                    }
+                    
                     HStack {
                         Spacer()
                         Text("Made in Brazil 🇧🇷")

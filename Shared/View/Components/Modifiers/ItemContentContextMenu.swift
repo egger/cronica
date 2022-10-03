@@ -12,7 +12,7 @@ struct ItemContentContextMenu: ViewModifier {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     @Binding var isInWatchlist: Bool
-    @State private var isWatched: Bool = false
+    @Binding var isWatched: Bool
     @State private var isFavorite: Bool = false
     private let context = PersistenceController.shared
     func body(content: Content) -> some View {
@@ -38,8 +38,7 @@ struct ItemContentContextMenu: ViewModifier {
             }
             .task {
                 if isInWatchlist {
-                    isWatched = context.isMarkedAsWatched(id: item.id)
-                    isFavorite = context.isMarkedAsFavorite(id: item.id)
+                    isFavorite = context.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia)
                 }
             }
 #endif
@@ -47,7 +46,7 @@ struct ItemContentContextMenu: ViewModifier {
     
     private var watchedButton: some View {
         Button(action: {
-            context.updateMarkAs(id: item.id, watched: !isWatched)
+            context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: !isWatched)
             withAnimation {
                 isWatched.toggle()
             }
@@ -59,7 +58,7 @@ struct ItemContentContextMenu: ViewModifier {
     
     private var favoriteButton: some View {
         Button(action: {
-            context.updateMarkAs(id: item.id, favorite: !isFavorite)
+            context.updateMarkAs(id: item.id, type: item.itemContentMedia, favorite: !isFavorite)
             withAnimation {
                 isFavorite.toggle()
             }
@@ -74,7 +73,7 @@ struct ItemContentContextMenu: ViewModifier {
             withAnimation {
                 isInWatchlist.toggle()
             }
-            let watchlistItem = try? context.fetch(for: Int64(item.id))
+            let watchlistItem = try? context.fetch(for: Int64(item.id), media: item.itemContentMedia)
             if let watchlistItem {
                 if watchlistItem.notify {
                     NotificationManager.shared.removeNotification(identifier: watchlistItem.notificationID)

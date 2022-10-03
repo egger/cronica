@@ -8,7 +8,6 @@
 import Foundation
 import UserNotifications
 import SwiftUI
-import TelemetryClient
 
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
@@ -72,16 +71,10 @@ class NotificationManager: ObservableObject {
                                             trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error {
-#if targetEnvironment(simulator)
-                print(error.localizedDescription)
-#else
-                TelemetryManager.send("scheduleNotification", with: ["error":"\(error.localizedDescription)"])
-#endif
+                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                                for: "scheduleNotification")
             }
         }
-#if DEBUG
-        print(request as Any)
-#endif
     }
     
     func removeNotification(identifier: String) {
@@ -101,9 +94,6 @@ class NotificationManager: ObservableObject {
         let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
         for item in notifications {
             identifiers.append(item.identifier)
-#if DEBUG
-            print(item.identifier)
-#endif
         }
         return identifiers
     }
@@ -178,9 +168,6 @@ class NotificationManager: ObservableObject {
         let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
         for item in notifications {
             identifiers.append(item.identifier)
-#if targetEnvironment(simulator)
-            print(item.identifier)
-#endif
         }
         var items = [ItemContent]()
         if identifiers.isEmpty {
@@ -201,11 +188,6 @@ class NotificationManager: ObservableObject {
                 return nil
             }
         }
-#if targetEnvironment(simulator)
-        for item in items {
-            print("\(item.itemTitle) with notification id of: \(item.itemNotificationID)")
-        }
-#endif
         return items
     }
 }

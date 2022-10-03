@@ -11,6 +11,7 @@ struct SearchItemView: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     @State private var isInWatchlist = false
+    @State private var isWatched = false
     private let context = PersistenceController.shared
     var isSidebar = false
     var body: some View {
@@ -35,17 +36,33 @@ struct SearchItemView: View {
                 SearchItem(item: item, isInWatchlist: $isInWatchlist)
                     .draggable(item)
                     .task {
-                        isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                        isInWatchlist = context.isItemSaved(id: item.id, type: item.media)
+                        if isInWatchlist {
+                            isWatched = context.isMarkedAsWatched(id: item.id, type: item.media)
+                        }
                     }
-                    .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
+                    .modifier(
+                        ItemContentContextMenu(item: item,
+                                               showConfirmation: $showConfirmation,
+                                               isInWatchlist: $isInWatchlist,
+                                               isWatched: $isWatched)
+                    )
             } else {
                 NavigationLink(value: item) {
                     SearchItem(item: item, isInWatchlist: $isInWatchlist)
                         .draggable(item)
                         .task {
-                            isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                            isInWatchlist = context.isItemSaved(id: item.id, type: item.media)
+                            if isInWatchlist {
+                                isWatched = context.isMarkedAsWatched(id: item.id, type: item.media)
+                            }
                         }
-                        .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
+                        .modifier(
+                            ItemContentContextMenu(item: item,
+                                                   showConfirmation: $showConfirmation,
+                                                   isInWatchlist: $isInWatchlist,
+                                                   isWatched: $isWatched)
+                        )
                         .modifier(SearchItemSwipeGesture(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
                 }
             }

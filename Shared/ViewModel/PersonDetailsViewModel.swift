@@ -47,11 +47,7 @@ class PersonDetailsViewModel: ObservableObject {
                 if Task.isCancelled { return }
                 person = nil
                 errorMessage = error.localizedDescription
-#if targetEnvironment(simulator)
-                print("Error: PersonDetailsViewModel.load() with localized description of \(error.localizedDescription)")
-#else
-                TelemetryManager.send("PersonDetailsViewModel.load()", with: ["error":"\(error.localizedDescription)"])
-#endif
+                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription, for: "PersonDetailsViewModel.load()")
             }
         }
     }

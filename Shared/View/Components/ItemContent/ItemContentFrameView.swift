@@ -77,9 +77,12 @@ struct ItemContentFrameView: View {
                     .shadow(radius: DrawingConstants.imageShadow)
                     .hoverEffect(.lift)
                     .draggable(item)
-                    .modifier(ItemContentContextMenu(item: item,
-                                                     showConfirmation: $showConfirmation,
-                                                     isInWatchlist: $isInWatchlist))
+                    .modifier(
+                        ItemContentContextMenu(item: item,
+                                               showConfirmation: $showConfirmation,
+                                               isInWatchlist: $isInWatchlist,
+                                               isWatched: $isWatched)
+                    )
                 HStack {
                     Text(item.itemTitle)
                         .font(.caption)
@@ -92,7 +95,7 @@ struct ItemContentFrameView: View {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
                     if isInWatchlist && !isWatched {
-                        isWatched = context.isMarkedAsWatched(id: item.id)
+                        isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
                     }
                 }
             }

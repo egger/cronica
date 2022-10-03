@@ -63,14 +63,17 @@ struct PosterView: View {
                 .padding(.zero)
                 .hoverEffect(.lift)
                 .draggable(item)
-                .modifier(ItemContentContextMenu(item: item,
-                                                 showConfirmation: $addedItemConfirmation,
-                                                 isInWatchlist: $isInWatchlist))
+                .modifier(
+                    ItemContentContextMenu(item: item,
+                                           showConfirmation: $addedItemConfirmation,
+                                           isInWatchlist: $isInWatchlist,
+                                           isWatched: $isWatched)
+                )
                 .task {
                     withAnimation {
                         isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
                         if isInWatchlist && !isWatched {
-                            isWatched = context.isMarkedAsWatched(id: item.id)
+                            isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
                         }
                     }
                 }

@@ -16,11 +16,14 @@ struct StoryApp: App {
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
+    @AppStorage("disableTelemetry") var disableTelemetry = false
     init() {
 #if targetEnvironment(simulator)
 #else
-        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
-        TelemetryManager.initialize(with: configuration)
+        if !disableTelemetry {
+            let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
+            TelemetryManager.initialize(with: configuration)
+        }
 #endif
         registerRefreshBGTask()
     }
@@ -110,10 +113,8 @@ struct StoryApp: App {
                 background.handleAppRefreshContent()
             }
             task.setTaskCompleted(success: true)
-#if targetEnvironment(simulator)
-#else
-            TelemetryManager.send("handleAppRefreshBGTask", with: ["identifier":"\(task.identifier)"])
-#endif
+            TelemetryErrorManager.shared.handleErrorMessage("identifier \(task.identifier)",
+                                                            for: "handleAppRefreshBGTask")
         }
     }
 }

@@ -203,7 +203,7 @@ struct WatchlisItemContextMenu: ViewModifier {
                 withAnimation {
                     isWatched.toggle()
                 }
-                context.updateMarkAs(id: item.itemId, watched: !item.watched)
+                context.updateMarkAs(id: item.itemId, type: item.itemMedia, watched: !item.watched)
             }
         }, label: {
             Label(item.isWatched ? "Remove from Watched" : "Mark as Watched",
@@ -217,7 +217,7 @@ struct WatchlisItemContextMenu: ViewModifier {
                 withAnimation {
                     isFavorite.toggle()
                 }
-                context.updateMarkAs(id: item.itemId, favorite: !item.favorite)
+                context.updateMarkAs(id: item.itemId, type: item.itemMedia, favorite: !item.favorite)
             }
         }, label: {
             Label(item.isFavorite ? "Remove from Favorites" : "Mark as Favorite",

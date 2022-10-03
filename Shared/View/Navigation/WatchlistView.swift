@@ -5,7 +5,6 @@
 //  Created by Alexandre Madeira on 15/01/22.
 //
 import SwiftUI
-import TelemetryClient
 
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
@@ -150,12 +149,8 @@ struct WatchlistView: View {
                 isSearching = false
             } catch {
                 if Task.isCancelled { return }
-#if targetEnvironment(simulator)
-                print(error.localizedDescription)
-#else
-                TelemetryManager.send("WatchlistView.task(id: query)",
-                                      with: ["Error":"\(error.localizedDescription)"])
-#endif
+                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                                for: "WatchlistView.task(id: query)")
             }
         }
     }
@@ -172,7 +167,7 @@ struct WatchlistView: View {
     
     private var updateWatchButton: some View {
         Button(action: {
-            //PersistenceController.shared.updateMarkAs(items: multiSelection)
+            PersistenceController.shared.updateMarkAs(items: multiSelection)
         }, label: {
             if selectedOrder != .watched {
                 Label("Mark selected as watched", systemImage: "checkmark.circle")

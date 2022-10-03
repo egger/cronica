@@ -23,7 +23,7 @@ struct SeasonListView: View {
                         })
                     .swipeActions(edge: .leading, allowsFullSwipe: true) {
                         Button(action: {
-                            
+                            markSeasonAsWatched(season: season)
                         }, label: {
                             Label("Mark season as watched", systemImage: "checkmark.circle.fill")
                         })
@@ -33,5 +33,9 @@ struct SeasonListView: View {
             }
         }
         .navigationTitle("Seasons")
+    }
+    
+    private func markSeasonAsWatched(season: Int) {
+        
     }
 }
