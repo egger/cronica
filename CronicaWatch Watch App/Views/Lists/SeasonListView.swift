@@ -21,14 +21,14 @@ struct SeasonListView: View {
                         label: {
                             Text("Season \(season)")
                         })
-//                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-//                        Button(action: {
-//                            markSeasonAsWatched(season: season)
-//                        }, label: {
-//                            Label("Mark season as watched", systemImage: "checkmark.circle.fill")
-//                        })
-//                        .tint(.green)
-//                    }
+                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                        Button(action: {
+                            markSeasonAsWatched(season: season)
+                        }, label: {
+                            Label("Mark season as watched", systemImage: "checkmark.circle.fill")
+                        })
+                        .tint(.green)
+                    }
                 }
             }
         }

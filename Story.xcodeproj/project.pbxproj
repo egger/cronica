@@ -13,7 +13,7 @@
 		B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */; };
 		B806C4E52899BE2900A5330E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B806C4E42899BE2900A5330E /* Assets.xcassets */; };
 		B806C4E82899BE2900A5330E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B806C4E72899BE2900A5330E /* Preview Assets.xcassets */; };
-		B806C4EB2899BE2900A5330E /* Cronica.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B806C4DE2899BE2800A5330E /* Cronica.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B806C4EB2899BE2900A5330E /* Cronica.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B806C4DE2899BE2800A5330E /* Cronica.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4F0289B139000A5330E /* UTType-Extensions.swift */; };
 		B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B4DA9284537EF008BA43C /* SearchItemView.swift */; };
 		B8110EE8279245D100844FEB /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
@@ -1224,6 +1224,7 @@
 /* Begin PBXTargetDependency section */
 		B806C4EA2899BE2900A5330E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */;
 			targetProxy = B806C4E92899BE2900A5330E /* PBXContainerItemProxy */;
 		};
@@ -1274,7 +1275,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -1307,7 +1308,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -1460,13 +1461,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1496,13 +1497,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1572,7 +1573,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1605,7 +1606,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.7;
+				MARKETING_VERSION = 1.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
