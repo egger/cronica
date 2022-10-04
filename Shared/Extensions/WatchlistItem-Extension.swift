@@ -20,10 +20,8 @@ extension WatchlistItem: Transferable {
         Int(id)
     }
     var itemImage: URL? {
-        if let largeCardImage {
-            return largeCardImage
-        }
-        return image
+        guard let largeCardImage else { return image }
+        return largeCardImage
     }
     var itemMedia: MediaType {
         switch contentType {
@@ -138,10 +136,8 @@ extension WatchlistItem: Transferable {
         return "\(itemId)@\(itemMedia.toInt)"
     }
     var itemDate: Date? {
-        if let date {
-            return date
-        }
-        return nil
+        guard let date else { return nil }
+        return date
     }
     static var example: WatchlistItem {
         let controller = PersistenceController(inMemory: true)

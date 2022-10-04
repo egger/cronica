@@ -47,6 +47,12 @@ struct SearchItemView: View {
                                                isInWatchlist: $isInWatchlist,
                                                isWatched: $isWatched)
                     )
+                    .modifier(
+                        SearchItemSwipeGesture(item: item,
+                                               showConfirmation: $showConfirmation,
+                                               isInWatchlist: $isInWatchlist,
+                                               isWatched: $isWatched)
+                    )
             } else {
                 NavigationLink(value: item) {
                     SearchItem(item: item, isInWatchlist: $isInWatchlist)
@@ -63,7 +69,12 @@ struct SearchItemView: View {
                                                    isInWatchlist: $isInWatchlist,
                                                    isWatched: $isWatched)
                         )
-                        .modifier(SearchItemSwipeGesture(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
+                        .modifier(
+                            SearchItemSwipeGesture(item: item,
+                                                   showConfirmation: $showConfirmation,
+                                                   isInWatchlist: $isInWatchlist,
+                                                   isWatched: $isWatched)
+                        )
                 }
             }
             

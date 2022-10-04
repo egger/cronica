@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct TrailerListView: View {
     var trailers: [VideoItem]?
     @State var selectedItem: VideoItem? = nil
+    @AppStorage("openInYouTube") var openInYouTube = false
     var body: some View {
         if let trailers {
             VStack {
@@ -27,7 +28,7 @@ struct TrailerListView: View {
                         ForEach(trailers) { trailer in
                             TrailerItemView(trailer: trailer)
                                 .onTapGesture {
-                                    selectedItem = trailer
+                                    openVideo(trailer)
                                 }
                                 .padding(.horizontal, 4)
                                 .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
@@ -43,6 +44,15 @@ struct TrailerListView: View {
                     SFSafariViewWrapper(url: url)
                 }
             }
+        }
+    }
+    
+    private func openVideo(_ trailer: VideoItem) {
+        if openInYouTube {
+            guard let url = trailer.url else { return }
+            UIApplication.shared.open(url)
+        } else {
+            selectedItem = trailer
         }
     }
 }

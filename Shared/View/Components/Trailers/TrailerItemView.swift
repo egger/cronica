@@ -23,7 +23,6 @@ struct TrailerItemView: View {
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                             style: .continuous))
-                .hoverEffect(.lift)
                 .overlay {
                     overlay
                 }
@@ -35,9 +34,10 @@ struct TrailerItemView: View {
                         }
                     }
                 }
+                .hoverEffect()
             HStack {
                 Text(trailer.title)
-                    .lineLimit(1)
+                    .lineLimit(DrawingConstants.lineLimits)
                     .padding([.trailing, .bottom])
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -63,10 +63,12 @@ struct TrailerItemView: View {
     }
     var overlay: some View {
         ZStack {
-            Color.black.opacity(0.1)
+            Color.black.opacity(DrawingConstants.overlayOpacity)
             Image(systemName: "play.circle.fill")
                 .resizable()
-                .frame(width: 40, height: 40, alignment: .center)
+                .frame(width: DrawingConstants.overlayWidth,
+                       height: DrawingConstants.overlayHeight,
+                       alignment: .center)
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(.white, .secondary)
                 .scaledToFit()
@@ -85,4 +87,8 @@ private struct DrawingConstants {
     static let imageShadow: CGFloat = 2.5
     static let imageWidth: CGFloat = 220
     static let imageHeight: CGFloat = 120
+    static let overlayOpacity: Double = 0.1
+    static let overlayWidth: CGFloat = 40
+    static let overlayHeight: CGFloat = 40
+    static let lineLimits: Int = 1
 }

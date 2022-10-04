@@ -72,6 +72,7 @@ class PersistenceController: ObservableObject {
     }
     
     // MARK: CRUD
+    /// Save viewContext only if it has changes.
     private func saveContext() {
         let viewContext = container.viewContext
         if viewContext.hasChanges {
@@ -289,7 +290,6 @@ class PersistenceController: ObservableObject {
     }
     
     func updateMarkAs(id: Int, type: MediaType, watched: Bool? = nil, favorite: Bool? = nil) {
-        let viewContext = container.viewContext
         let item = try? fetch(for: WatchlistItem.ID(id), media: type)
         if let item {
             if let watched {
@@ -298,14 +298,11 @@ class PersistenceController: ObservableObject {
             if let favorite {
                 item.favorite = favorite
             }
-            if viewContext.hasChanges {
-                try? viewContext.save()
-            }
+            saveContext()
         }
     }
     
     func updateEpisodeList(show: Int, season: Int, episode: Int) {
-        let viewContext = container.viewContext
         if isItemSaved(id: show, type: .tvShow) {
             let item = try? fetch(for: WatchlistItem.ID(show), media: .tvShow)
             if let item {
@@ -316,9 +313,7 @@ class PersistenceController: ObservableObject {
                     let watched = "-\(episode)@\(season)"
                     item.watchedEpisodes?.append(watched)
                 }
-                if viewContext.hasChanges {
-                    try? viewContext.save()
-                }
+                saveContext()
             }
         }
     }

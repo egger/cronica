@@ -107,10 +107,8 @@ extension ItemContent {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
     var imdbUrl: URL? {
-        if let imdbId {
-            return URL(string: "https://www.imdb.com/title/\(imdbId)")
-        }
-        return nil
+        guard let imdbId else { return nil }
+        return URL(string: "https://www.imdb.com/title/\(imdbId)")
     }
     var hasIMDbUrl: Bool {
         if imdbId != nil { return true }
@@ -150,10 +148,8 @@ extension ItemContent {
         return URL(string: "https://www.themoviedb.org/\(media.rawValue)/\(id)")!
     }
     var itemSeasons: [Int]? {
-        if let numberOfSeasons {
-            return Array(1...numberOfSeasons)
-        }
-        return nil
+        guard let numberOfSeasons else { return nil }
+        return Array(1...numberOfSeasons)
     }
     var nextEpisodeDate: Date? {
         if let nextEpisodeDate = nextEpisodeToAir?.airDate {

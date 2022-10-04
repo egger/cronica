@@ -18,29 +18,12 @@ struct WatchlistItemView: View {
     var body: some View {
         NavigationLink(value: content) {
             HStack {
-                ZStack {
-                    WebImage(url: content.image)
-                        .placeholder {
-                            ZStack {
-                                Color.secondary
-                                Image(systemName: "film")
-                            }
-                            .frame(width: DrawingConstants.imageWidth,
-                                   height: DrawingConstants.imageHeight)
-                        }
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .transition(.opacity)
-                        .frame(width: DrawingConstants.imageWidth,
-                               height: DrawingConstants.imageHeight)
-                    if isWatched || content.watched {
-                        Color.black.opacity(0.6)
-                        Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
-                    }
-                }
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+#if os(watchOS)
+                image
+#else
+                image
+                    .hoverEffect(.highlight)
+#endif
                 VStack(alignment: .leading) {
                     HStack {
                         Text(content.itemTitle)
@@ -74,6 +57,31 @@ struct WatchlistItemView: View {
             .accessibilityElement(children: .combine)
         }
     }
+    private var image: some View {
+        ZStack {
+            WebImage(url: content.image)
+                .placeholder {
+                    ZStack {
+                        Color.secondary
+                        Image(systemName: "film")
+                    }
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .transition(.opacity)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+            if isWatched || content.watched {
+                Color.black.opacity(0.6)
+                Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
+            }
+        }
+        .frame(width: DrawingConstants.imageWidth,
+               height: DrawingConstants.imageHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+    }
 }
 
 struct ItemView_Previews: PreviewProvider {
@@ -89,7 +97,7 @@ private struct DrawingConstants {
     static let textLimit: Int = 1
 }
 
-struct WatchlisItemContextMenu: ViewModifier {
+private struct WatchlisItemContextMenu: ViewModifier {
     let item: WatchlistItem
     @Binding var isWatched: Bool
     @Binding var isFavorite: Bool
@@ -199,7 +207,6 @@ struct WatchlisItemContextMenu: ViewModifier {
     private var watchedButton: some View {
         Button(action: {
             withAnimation {
-                HapticManager.shared.softHaptic()
                 withAnimation {
                     isWatched.toggle()
                 }

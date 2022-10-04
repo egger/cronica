@@ -39,7 +39,6 @@ class SeasonViewModel: ObservableObject {
     }
     
     func markSeasonAsWatched(id: Int) async {
-        HapticManager.shared.lightHaptic()
         if let season {
             if let episodes = season.episodes {
                 if !isItemInWatchlist {
@@ -55,7 +54,6 @@ class SeasonViewModel: ObservableObject {
     }
     
     func markThisAndPrevious(until id: Int, show: Int) async {
-        HapticManager.shared.lightHaptic()
         if !isItemInWatchlist {
             await saveItemOnList(id: show)
         }

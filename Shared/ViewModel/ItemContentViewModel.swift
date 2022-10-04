@@ -40,6 +40,7 @@ class ItemContentViewModel: ObservableObject {
             do {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
                 if let content {
+                    print(content.hashValue)
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
                     withAnimation {
                         if isInWatchlist {

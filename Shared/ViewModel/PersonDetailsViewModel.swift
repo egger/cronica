@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import TelemetryClient
 
 @MainActor
 class PersonDetailsViewModel: ObservableObject {

@@ -56,7 +56,6 @@ struct SeasonsView: View {
                                         seasonConfirmation = false
                                     }
                                 }
-                                
                             }
                         }, label: {
                             Label("Mark Season as Watched", systemImage: "checkmark.circle.fill")

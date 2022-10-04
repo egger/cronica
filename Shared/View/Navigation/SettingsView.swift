@@ -7,7 +7,7 @@
 
 import SwiftUI
 import StoreKit
-import TelemetryClient
+import TelemetryClient 
 
 struct SettingsView: View {
     @Environment(\.openURL) var openURL
@@ -21,6 +21,7 @@ struct SettingsView: View {
     @Binding var showSettings: Bool
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings: Bool?
     @AppStorage("disableTelemetry") var disableTelemetry = false
+    @AppStorage("openInYouTube") var openInYouTube = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -39,6 +40,13 @@ struct SettingsView: View {
                         Text("The function is performed when double-tap the cover image.")
                             .padding(.bottom)
                     }
+                    
+                    Section {
+                        Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
+                    } header: {
+                        Label("Media", systemImage: "video")
+                    }
+                    
                     Section {
                         Button(action: {
                             updateItems()

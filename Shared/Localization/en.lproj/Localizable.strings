@@ -141,8 +141,10 @@
 "Update Items" = "Update Items";
 "'Update Items' will update your items with new information available on TMDb, if available." = "'Update Items' will update your items with new information available on TMDb, if available.";
 "Privacy" = "Privacy";
-"Disable Telemetry" = "Disable Telemetry";
-"privacyfooter" = "Cronica collects minimal data to minimize app crashes, this data is anonymously.";
+"Disable Telemetry" = "Disable Crash Report";
+"privacyfooter" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
+"Open Trailers in YouTube App" = "Open Trailers in YouTube App";
+"Media" = "Media";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";

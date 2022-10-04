@@ -77,10 +77,6 @@ class NetworkService {
         guard let httpResponse = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
         let responseError = handleNetworkResponses(response: httpResponse)
         if let responseError {
-//            TelemetryErrorManager.shared.handleErrorMessage("\(responseError.localizedDescription)",
-//                                                            for: "NetworkService.fetch()")
-//            TelemetryManager.shared.handleErrorMessage("\(responseError.localizedDescription)",
-//                                                       for: "NetworkService.fetch()")
             throw responseError
         } else {
             return try decoder.decode(T.self, from: data)
@@ -98,22 +94,13 @@ class NetworkService {
     }
     
     func downloadImageData(from url: URL?) async -> Data? {
-        if let url = url {
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                return data
-            } catch {
-#if targetEnvironment(simulator)
-            NetworkService.logger.error("\(error.localizedDescription, privacy: .public)")
-#else
-//            TelemetryManager.send(
-//                "NetworkService.downloadImageData()",
-//                with: ["Error":"\(error.localizedName)"]
-//            )
-#endif
-            }
+        guard let url else { return nil}
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            return data
+        } catch {
+            return nil
         }
-        return nil
     }
     
     /// Build a safe URL for the TMDB API Service.

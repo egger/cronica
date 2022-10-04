@@ -10,6 +10,7 @@ import SwiftUI
 /// Onboard experience.
 struct WelcomeView: View {
     @AppStorage("showOnboarding") var displayOnboard = true
+    @State private var showPolicy = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -54,13 +55,16 @@ struct WelcomeView: View {
                         .controlSize(.large)
                         .padding()
                         Button("Privacy Policy") {
-                            
+                            showPolicy.toggle()
                         }
                         .padding([.horizontal, .bottom])
                     }
                     .padding()
                     Spacer()
                 }
+            }
+            .fullScreenCover(isPresented: $showPolicy) {
+                SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
             }
         }
         .interactiveDismissDisabled(true)

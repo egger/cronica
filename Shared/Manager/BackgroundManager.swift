@@ -8,7 +8,6 @@
 import Foundation
 import CoreData
 import BackgroundTasks
-import TelemetryClient
 
 class BackgroundManager {
     private let context = PersistenceController.shared
@@ -47,12 +46,8 @@ class BackgroundManager {
             let list = try self.context.container.viewContext.fetch(request)
             return list
         } catch {
-#if targetEnvironment(simulator)
-            print(error.localizedDescription)
-#else
-            TelemetryManager.send("BackgroundManager.fetchItems()",
-                                  with: ["Error":"\(error.localizedDescription)"])
-#endif
+            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                            for: "BackgroundManager.fetchItems()")
             return []
         }
     }
@@ -77,7 +72,11 @@ class BackgroundManager {
                     if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {
                         self.notifications.removeNotification(identifier: content.itemNotificationID)
                     }
-                    self.notifications.schedule(notificationContent: content)
+                    if content.itemStatus == .cancelled {
+                        notifications.removeNotification(identifier: content.itemNotificationID)
+                    } else {
+                        self.notifications.schedule(notificationContent: content)
+                    }
                 }
                 self.context.update(item: content)
             }

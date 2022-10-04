@@ -50,7 +50,10 @@ struct EpisodeFrameView: View {
                 .transition(.opacity)
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                .clipShape(
+                    RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                     style: .continuous)
+                )
                 .overlay {
                     if isWatched {
                         ZStack {
@@ -79,6 +82,7 @@ struct EpisodeFrameView: View {
                     }
                     ShareLink(item: itemLink)
                 }
+                .hoverEffect()
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .font(.caption2)
@@ -101,7 +105,6 @@ struct EpisodeFrameView: View {
                 Spacer()
             }
         }
-        .hoverEffect(.lift)
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .task {

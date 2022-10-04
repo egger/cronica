@@ -17,7 +17,6 @@ struct WatchListSection: View {
                 ForEach(items, id: \.notificationID) { item in
                     WatchlistItemView(content: item)
                         .draggable(item)
-                        .hoverEffect(.highlight)
                 }
                 .onDelete(perform: delete)
             } header: {

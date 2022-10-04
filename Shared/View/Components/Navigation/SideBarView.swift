@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct SideBarView: View {
-    @SceneStorage("selectedView") var selectedView: Screens?
+    @AppStorage("selectedView") var selectedView: Screens?
     @StateObject private var settings: SettingsStore
     @StateObject private var viewModel: SearchViewModel
     @State private var showSettings = false
@@ -28,10 +28,12 @@ struct SideBarView: View {
                     Label("Home", systemImage: "house")
                 }
                 .tag(HomeView.tag)
+                
                 NavigationLink(value: Screens.discover) {
                     Label("Explore", systemImage: "film")
                 }
                 .tag(DiscoverView.tag)
+                
                 NavigationLink(value: Screens.watchlist) {
                     Label("Watchlist", systemImage: "square.stack.fill")
                 }
@@ -79,68 +81,56 @@ struct SideBarView: View {
             }
         } detail: {
             NavigationStack {
-                VStack {
-                    switch selectedView {
-                    case .discover: DiscoverView()
-                    case .watchlist:
-                        WatchlistView()
-                            .environment(\.managedObjectContext, persistence.container.viewContext)
-                    default: HomeView()
-                    }
-                }
-                .navigationDestination(for: Screens.self) { screens in
-                    switch screens {
-                    case .home: HomeView()
-                    case .discover: DiscoverView()
-                    case .watchlist:
-                        WatchlistView()
-                            .environment(\.managedObjectContext, persistence.container.viewContext)
-                    case .search: SearchView()
-                    }
+                switch selectedView {
+                case .discover: DiscoverView()
+                case .watchlist:
+                    WatchlistView()
+                        .environment(\.managedObjectContext, persistence.container.viewContext)
+                default: HomeView()
                 }
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsView(showSettings: $showSettings)
-                    .environmentObject(settings)
-            }
-            .sheet(isPresented: $showNotifications) {
-                NotificationListView(showNotification: $showNotifications)
-            }
-            .sheet(item: $selectedSearchItem) { item in
-                if item.media == .person {
-                    NavigationStack {
-                        PersonDetailsView(title: item.itemTitle, id: item.id)
-                            .toolbar {
-                                ToolbarItem(placement: .navigationBarLeading) {
-                                    Button("Done") {
-                                        selectedSearchItem = nil
-                                    }
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView(showSettings: $showSettings)
+                .environmentObject(settings)
+        }
+        .sheet(isPresented: $showNotifications) {
+            NotificationListView(showNotification: $showNotifications)
+        }
+        .sheet(item: $selectedSearchItem) { item in
+            if item.media == .person {
+                NavigationStack {
+                    PersonDetailsView(title: item.itemTitle, id: item.id)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Done") {
+                                    selectedSearchItem = nil
                                 }
                             }
-                            .navigationDestination(for: ItemContent.self) { item in
-                                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                            }
-                            .navigationDestination(for: Person.self) { person in
-                                PersonDetailsView(title: person.name, id: person.id)
-                            }
-                    }
-                } else {
-                    NavigationStack {
-                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                            .toolbar {
-                                ToolbarItem(placement: .navigationBarLeading) {
-                                    Button("Done") {
-                                        selectedSearchItem = nil
-                                    }
+                        }
+                        .navigationDestination(for: ItemContent.self) { item in
+                            ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        }
+                        .navigationDestination(for: Person.self) { person in
+                            PersonDetailsView(title: person.name, id: person.id)
+                        }
+                }
+            } else {
+                NavigationStack {
+                    ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Done") {
+                                    selectedSearchItem = nil
                                 }
                             }
-                            .navigationDestination(for: ItemContent.self) { item in
-                                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                            }
-                            .navigationDestination(for: Person.self) { person in
-                                PersonDetailsView(title: person.name, id: person.id)
-                            }
-                    }
+                        }
+                        .navigationDestination(for: ItemContent.self) { item in
+                            ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        }
+                        .navigationDestination(for: Person.self) { person in
+                            PersonDetailsView(title: person.name, id: person.id)
+                        }
                 }
             }
         }
