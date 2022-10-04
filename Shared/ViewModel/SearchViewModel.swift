@@ -53,6 +53,7 @@ import Combine
             stage = .success
             startPagination = true
         } catch {
+            if Task.isCancelled { return }
             stage = .failure
             TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
                                                             for: "SearchViewModel.search()")

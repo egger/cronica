@@ -52,7 +52,11 @@ struct SettingsView: View {
                             updateItems()
                         }, label: {
                             if updatingItems {
-                                ProgressView()
+                                HStack {
+                                    Spacer()
+                                    ProgressView()
+                                    Spacer()
+                                }
                             } else {
                                 Text("Update Items")
                             }
@@ -171,13 +175,15 @@ struct SettingsView: View {
     }
     
     private func updateItems() {
-        let background = BackgroundManager()
-        withAnimation {
-            updatingItems.toggle()
-        }
-        background.handleAppRefreshContent()
-        withAnimation {
-            updatingItems.toggle()
+        Task {
+            let background = BackgroundManager()
+            withAnimation {
+                self.updatingItems.toggle()
+            }
+            await background.handleAppRefreshContent()
+            withAnimation {
+                self.updatingItems.toggle()
+            }
         }
     }
 }

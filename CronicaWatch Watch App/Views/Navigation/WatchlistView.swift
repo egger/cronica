@@ -108,13 +108,16 @@ struct WatchlistView: View {
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
-                ItemContentView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
+                ItemContentView(id: item.itemId,
+                                title: item.itemTitle,
+                                type: item.itemMedia,
+                                image: item.itemImage)
             }
             .navigationDestination(for: ItemContent.self) { item in
                 if item.media == .person {
                     PersonView(id: item.id, name: item.itemTitle)
                 } else {
-                    ItemContentView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+                    ItemContentView(id: item.id, title: item.itemTitle, type: item.itemContentMedia, image: item.cardImageMedium)
                 }
             }
             .sheet(isPresented: $showPicker) {

@@ -13,6 +13,7 @@ struct NotificationListView: View {
     @State private var hasLoaded = false
     @State private var items = [ItemContent]()
     @State private var deliveredItems = [ItemContent]()
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -59,10 +60,10 @@ struct NotificationListView: View {
                                     .onDelete(perform: delete)
                                 } header: {
                                     Text("Upcoming Notifications")
+                                } footer: {
+                                    Text("\(items.count) upcoming notifications.")
                                 }
                             }
-                            
-                            
                         }
                     }
                 } else {

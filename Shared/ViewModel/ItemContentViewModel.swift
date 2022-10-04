@@ -28,7 +28,6 @@ class ItemContentViewModel: ObservableObject {
     @Published var isFavorite = false
     @Published var isLoading = true
     @Published var showMarkAsButton = false
-    
     init(id: ItemContent.ID, type: MediaType) {
         self.id = id
         self.type = type
@@ -40,7 +39,6 @@ class ItemContentViewModel: ObservableObject {
             do {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
                 if let content {
-                    print(content.hashValue)
                     isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
                     withAnimation {
                         if isInWatchlist {

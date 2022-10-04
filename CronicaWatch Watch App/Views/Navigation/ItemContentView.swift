@@ -12,17 +12,19 @@ struct ItemContentView: View {
     let id: Int
     let title: String
     let url: URL
+    let image: URL?
     @StateObject private var viewModel: ItemContentViewModel
-    init(id: Int, title: String, type: MediaType) {
+    init(id: Int, title: String, type: MediaType, image: URL?) {
         self.id = id
         self.title = title
+        self.image = image
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         self.url = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
     }
     var body: some View {
         VStack {
             ScrollView {
-                HeroImage(url: viewModel.content?.cardImageMedium, title: title)
+                HeroImage(url: image, title: title)
                     .clipShape(
                         RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                          style: .continuous)
@@ -73,7 +75,8 @@ struct ItemContentView_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentView(id: ItemContent.previewContent.id,
                         title: ItemContent.previewContent.itemTitle,
-                        type: ItemContent.previewContent.itemContentMedia)
+                        type: ItemContent.previewContent.itemContentMedia,
+                        image: ItemContent.previewContent.cardImageMedium)
     }
 }
 

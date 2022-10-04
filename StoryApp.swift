@@ -110,7 +110,9 @@ struct StoryApp: App {
                 queue.cancelAllOperations()
             }
             queue.addOperation {
-                background.handleAppRefreshContent()
+                Task {
+                    await background.handleAppRefreshContent()
+                }
             }
             task.setTaskCompleted(success: true)
             TelemetryErrorManager.shared.handleErrorMessage("identifier \(task.identifier)",

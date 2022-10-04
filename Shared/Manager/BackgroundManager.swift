@@ -14,11 +14,9 @@ class BackgroundManager {
     private let network = NetworkService.shared
     private let notifications = NotificationManager.shared
     
-    func handleAppRefreshContent() {
+    func handleAppRefreshContent() async {
         let items = self.fetchItems()
-        Task {
-            await self.fetchUpdates(items: items)
-        }
+        await self.fetchUpdates(items: items)
     }
     
     func handleAppRefreshMaintenance() {

@@ -90,15 +90,21 @@ struct SearchView: View {
             VStack {
                 Spacer()
                 AttributionView()
-            }
+            } 
         case .searching:
             ProgressView("Searching")
                 .foregroundColor(.secondary)
                 .padding()
         case .empty:
-            Label("No Results", systemImage: "minus.magnifyingglass")
-                .font(.title)
-                .foregroundColor(.secondary)
+            if !viewModel.query.isEmpty {
+                ProgressView("Searching")
+                    .foregroundColor(.secondary)
+                    .padding()
+            } else {
+                Label("No Results", systemImage: "minus.magnifyingglass")
+                    .font(.title)
+                    .foregroundColor(.secondary)
+            }
         case .failure:
             VStack {
                 Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
