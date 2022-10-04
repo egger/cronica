@@ -17,6 +17,8 @@ struct WatchlistView: View {
     @State private var filteredItems = [WatchlistItem]()
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
     @State private var showPicker = false
+    @StateObject private var searchVM = SearchViewModel()
+    @State private var isInWatchlist = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -26,15 +28,34 @@ struct WatchlistView: View {
                         .foregroundColor(.secondary)
                         .padding()
                 } else {
-                    if !filteredItems.isEmpty {
-                        Section {
-                            ForEach(filteredItems) { item in
-                                NavigationLink(value: item) {
-                                    WatchlistItemView(content: item)
+                    if !query.isEmpty {
+                        List {
+                            Section {
+                                if !filteredItems.isEmpty {
+                                    ForEach(filteredItems) { item in
+                                        NavigationLink(value: item) {
+                                            WatchlistItemView(content: item)
+                                        }
+                                    }
+                                } else {
+                                    Text("No results from Watchlist")
                                 }
+                            } header: {
+                                Text("Results from Watchlist")
                             }
-                        } header: {
-                            Text("Results from Watchlist")
+                            Section {
+                                if !searchVM.items.isEmpty {
+                                    ForEach(searchVM.items) { item in
+                                        NavigationLink(value: item) {
+                                            SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                                        }
+                                    }
+                                } else {
+                                    Text("No results from TMDb")
+                                }
+                            } header: {
+                                Text("Results from TMDb")
+                            }
                         }
                     } else {
                         List {
@@ -60,6 +81,7 @@ struct WatchlistView: View {
                 }
             }
             .navigationTitle("Watchlist")
+            .disableAutocorrection(true)
             .searchable(text: $query)
             .task(id: query) {
                 do {
@@ -67,47 +89,54 @@ struct WatchlistView: View {
                     try await Task.sleep(nanoseconds: 300_000_000)
                     if !filteredItems.isEmpty { filteredItems.removeAll() }
                     filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+                    await searchVM.search(query)
                 } catch {
                     if Task.isCancelled { return }
                     print(error.localizedDescription)
                 }
             }
             .toolbar {
-                ToolbarItem {
-                    VStack {
-                        Button(action: {
-                            showPicker = true
-                        }, label: {
-                            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle.fill")
-                        })
-                        .buttonStyle(.bordered)
-                        .tint(.blue)
-                        .padding(.bottom)
-                    }
-                    
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+                        showPicker = true
+                    }, label: {
+                        Label("Sort List", systemImage: "line.3.horizontal.decrease.circle.fill")
+                    })
+                    .buttonStyle(.bordered)
+                    .tint(.blue)
+                    .padding(.bottom)
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
             }
-            .navigationDestination(for: Screens.self) { screen in
-                if screen == .search {
-                    SearchView()
+            .navigationDestination(for: ItemContent.self) { item in
+                if item.media == .person {
+                    PersonView(id: item.id, name: item.itemTitle)
+                } else {
+                    ItemContentView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
                 }
             }
             .sheet(isPresented: $showPicker) {
                 NavigationStack {
-                    ScrollView(.vertical) {
-                        ForEach(DefaultListTypes.allCases) { list in
-                            Button(action: {
-                                selectedOrder = list
-                                showPicker = false
-                            }, label: {
-                                Text(list.title)
-                            })
+                    VStack {
+                        ScrollView {
+                            ForEach(DefaultListTypes.allCases) { list in
+                                Button(action: {
+                                    selectedOrder = list
+                                    showPicker = false
+                                }, label: {
+                                    Text(list.title)
+                                })
+                            }
                         }
                     }
                     .navigationTitle("Sort List")
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Done") { showPicker = false }
+                        }
+                    }
                 }
             }
         }

@@ -210,6 +210,10 @@
 "Search results" = "Search results"; 
 "This list is empty." = "This list is empty.";
 "Sort List" = "Sort List";
+"Results from Watchlist" = "Results from Watchlist";
+"No results from Watchlist" = "No results from Watchlist";
+"Results from TMDb" = "Results from TMDb";
+"No results from TMDb" = "No results from TMDb";
 
 //MARK: Developer Settings
 "Watchlist Mode" = "Watchlist Mode";

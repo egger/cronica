@@ -81,6 +81,7 @@ struct SettingsView: View {
                         }, message: {
                             Text("Send your suggestions to help improve Cronica.")
                         })
+                        .disabled(disableTelemetry)
                         Button(action: {
                             requestReview()
                         }, label: {

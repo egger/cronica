@@ -20,11 +20,8 @@ struct CronicaWatch_Watch_AppApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            TabView {
-                WatchlistView()
-                    .environment(\.managedObjectContext, persistence.container.viewContext)
-                SearchView()
-            }
+            WatchlistView()
+                .environment(\.managedObjectContext, persistence.container.viewContext)
         }
     }
 }

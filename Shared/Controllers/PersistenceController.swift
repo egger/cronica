@@ -7,15 +7,11 @@
 
 import CoreData
 import CloudKit
-import TelemetryClient
 import Combine
-import os
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
 class PersistenceController: ObservableObject {
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier!,
-                                       category: String(describing: PersistenceController.self))
     private var subscriptions: Set<AnyCancellable> = []
     private let containerId = "iCloud.dev.alexandremadeira.Story"
     static let shared = PersistenceController()
@@ -48,20 +44,22 @@ class PersistenceController: ObservableObject {
 #if DEBUG
                 fatalError("Unresolved error \(error), \(error.userInfo)")
 #else
-                TelemetryManager.send("containerError", with: ["error":"\(error.localizedDescription)"])
+                TelemetryErrorManager.shared.handleErrorMessage("\(error.localizedDescription)",
+                                                                for: "containerError")
 #endif
             }
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
             
         }
-        #if DEBUG
+#if DEBUG
         do {
             try container.initializeCloudKitSchema()
         } catch {
-            print(error.localizedDescription)
+            TelemetryErrorManager.shared.handleErrorMessage("\(error.localizedDescription)",
+                                                            for: "initializeCloudKitSchema")
         }
-        #endif
+#endif
         return container
     }()
     

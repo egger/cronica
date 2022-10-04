@@ -210,6 +210,10 @@
 "Search results" = "Resultado da busca";
 "This list is empty." = "Esta lista está vazia.";
 "Sort List" = "Filtrar Lista";
+"Results from Watchlist" = "Resultados da Lista";
+"No results from Watchlist" = "Nenhum resultado da Lista";
+"Results from TMDb" = "Resultados do TMDb";
+"No results from TMDb" = "Nenhum resultado do TMDb";
 
 //MARK: Developer Settings
 "Watchlist Mode" = "Modo da lista";

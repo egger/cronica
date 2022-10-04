@@ -62,7 +62,6 @@
 		B84043CA289B20BC00D5CEBF /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
 		B84043CC289B294600D5CEBF /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CB289B294600D5CEBF /* SearchItem.swift */; };
 		B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CB289B294600D5CEBF /* SearchItem.swift */; };
-		B84043D0289B2A1600D5CEBF /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CF289B2A1600D5CEBF /* SearchView.swift */; };
 		B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */; };
 		B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */; };
 		B84043D9289B327B00D5CEBF /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
@@ -268,7 +267,6 @@
 		B83C630628E642FB00927AE7 /* AboutSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSectionView.swift; sourceTree = "<group>"; };
 		B83F1E9828BAD24C008E151D /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
 		B84043CB289B294600D5CEBF /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
-		B84043CF289B2A1600D5CEBF /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentView.swift; sourceTree = "<group>"; };
 		B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CronicaWatch Watch App.entitlements"; sourceTree = "<group>"; };
 		B84043DF289B372B00D5CEBF /* CronicaWatch-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "CronicaWatch-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -654,7 +652,6 @@
 				B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */,
 				B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */,
 				B84043E3289B3F3800D5CEBF /* PersonView.swift */,
-				B84043CF289B2A1600D5CEBF /* SearchView.swift */,
 				B82B75A328A84DBA00C3212A /* WatchlistView.swift */,
 			);
 			path = Navigation;
@@ -1092,7 +1089,6 @@
 				B88529B528E3717F0026D33A /* SeasonButton.swift in Sources */,
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043CA289B20BC00D5CEBF /* DataFetchPhase.swift in Sources */,
-				B84043D0289B2A1600D5CEBF /* SearchView.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
 				B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */,
 				B88529B128E371350026D33A /* EpisodeView.swift in Sources */,
