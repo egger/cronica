@@ -62,6 +62,7 @@ struct NotificationListView: View {
                                     Text("Upcoming Notifications")
                                 } footer: {
                                     Text("\(items.count) upcoming notifications.")
+                                        .padding(.bottom)
                                 }
                             }
                         }

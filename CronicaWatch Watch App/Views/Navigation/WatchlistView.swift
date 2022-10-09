@@ -47,7 +47,7 @@ struct WatchlistView: View {
                                 if !searchVM.items.isEmpty {
                                     ForEach(searchVM.items) { item in
                                         NavigationLink(value: item) {
-                                            SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                                            SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isInWatchlist)
                                         }
                                     }
                                 } else {

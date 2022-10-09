@@ -139,6 +139,15 @@ extension WatchlistItem: Transferable {
         guard let date else { return nil }
         return date
     }
+    var canShowOnUpcoming: Bool {
+        if itemMedia == .tvShow {
+            if image != nil && isUpcomingTvShow { return true }
+            return false
+        } else {
+            if image != nil && isUpcomingMovie { return true }
+            return false
+        }
+    }
     static var example: WatchlistItem {
         let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext

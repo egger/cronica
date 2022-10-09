@@ -17,14 +17,14 @@ struct SearchItemView: View {
     var body: some View {
         if item.media == .person {
             if isSidebar {
-                SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                     .draggable(item)
                     .contextMenu {
                         ShareLink(item: item.itemSearchURL)
                     }
             } else {
                 NavigationLink(value: item) {
-                    SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                    SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                         .draggable(item)
                         .contextMenu {
                             ShareLink(item: item.itemSearchURL)
@@ -33,7 +33,7 @@ struct SearchItemView: View {
             }
         } else {
             if isSidebar {
-                SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                     .draggable(item)
                     .task {
                         isInWatchlist = context.isItemSaved(id: item.id, type: item.media)
@@ -55,7 +55,7 @@ struct SearchItemView: View {
                     )
             } else {
                 NavigationLink(value: item) {
-                    SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                    SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                         .draggable(item)
                         .task {
                             isInWatchlist = context.isItemSaved(id: item.id, type: item.media)

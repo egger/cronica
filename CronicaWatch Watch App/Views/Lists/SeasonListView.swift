@@ -36,6 +36,19 @@ struct SeasonListView: View {
     }
     
     private func markSeasonAsWatched(season: Int) {
-        
+        Task {
+            do {
+                let result = try await NetworkService.shared.fetchSeason(id: id, season: season)
+                guard let episodes = result.episodes else { return }
+                for episode in episodes {
+                    PersistenceController.shared.updateEpisodeList(show: id,
+                                                                   season: season,
+                                                                   episode: episode.id)
+                }
+            } catch {
+                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                                for: "markSeasonAsWatched() watchOS")
+            }
+        }
     }
 }

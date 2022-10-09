@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct SearchItem: View {
     let item: ItemContent
     @Binding var isInWatchlist: Bool
+    @Binding var isWatched: Bool
     var body: some View {
         HStack {
             if item.media == .person {
@@ -68,9 +69,15 @@ struct SearchItem: View {
                 if isInWatchlist {
                     ZStack {
                         Color.black.opacity(0.5)
-                        Image(systemName: "square.stack.fill")
-                            .foregroundColor(.white.opacity(0.8))
-                            .padding()
+                        if isWatched {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.white.opacity(0.8))
+                                .padding()
+                        } else {
+                            Image(systemName: "square.stack.fill")
+                                .foregroundColor(.white.opacity(0.8))
+                                .padding()
+                        }
                     }
                 }
             }

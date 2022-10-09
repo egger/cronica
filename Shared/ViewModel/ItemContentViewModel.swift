@@ -12,7 +12,6 @@ import SwiftUI
 class ItemContentViewModel: ObservableObject {
     private let service = NetworkService.shared
     private let notification = NotificationManager()
-    private let context = PersistenceController.shared
     private let persistence = PersistenceController.shared
     private var id: ItemContent.ID
     private var type: MediaType
@@ -39,12 +38,12 @@ class ItemContentViewModel: ObservableObject {
             do {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
                 if let content {
-                    isInWatchlist = context.isItemSaved(id: self.id, type: self.type)
+                    isInWatchlist = persistence.isItemSaved(id: self.id, type: self.type)
                     withAnimation {
                         if isInWatchlist {
                             hasNotificationScheduled = isNotificationScheduled()
-                            isWatched = context.isMarkedAsWatched(id: self.id, type: type)
-                            isFavorite = context.isMarkedAsFavorite(id: self.id, type: type)
+                            isWatched = persistence.isMarkedAsWatched(id: self.id, type: type)
+                            isFavorite = persistence.isMarkedAsFavorite(id: self.id, type: type)
                         }
                         isNotificationAvailable = content.itemCanNotify
                         if content.itemStatus == .released {
@@ -132,7 +131,7 @@ class ItemContentViewModel: ObservableObject {
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
     private func isNotificationScheduled() -> Bool {
-        let item = try? context.fetch(for: WatchlistItem.ID(self.id), media: type)
+        let item = try? persistence.fetch(for: WatchlistItem.ID(self.id), media: type)
         return item?.notify ?? false
     }
 }

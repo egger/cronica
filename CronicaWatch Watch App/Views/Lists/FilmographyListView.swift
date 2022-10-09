@@ -10,6 +10,7 @@ import SwiftUI
 struct FilmographyListView: View {
     let items: [ItemContent]?
     @State private var isInWatchlist = false
+    @State private var isWatched = false
     private let context = PersistenceController.shared
     var body: some View {
         if let items {
@@ -22,9 +23,12 @@ struct FilmographyListView: View {
                     LazyVStack {
                         ForEach(items) { item in
                             NavigationLink(value: item) {
-                                SearchItem(item: item, isInWatchlist: $isInWatchlist)
+                                SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                                     .task {
                                         isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                                        if isInWatchlist {
+                                            isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+                                        }
                                     }
                             }
                         }
