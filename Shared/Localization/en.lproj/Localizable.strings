@@ -149,6 +149,10 @@
 //MARK: HomeView.swift
 "Trending" = "Trending";
 "This week" = "This week";
+"Today" = "Today";
+"My Pins" = "My Pins";
+"Your pinned items" = "Your pinned items";
+"Remove Pin" = "Remove Pin";
 
 //MARK: WatchlistSectionView.swift
 "Coming Soon" = "Coming Soon";
@@ -214,13 +218,9 @@
 "No results from Watchlist" = "No results from Watchlist";
 "Results from TMDb" = "Results from TMDb";
 "No results from TMDb" = "No results from TMDb";
-
-//MARK: Developer Settings
-"Watchlist Mode" = "Watchlist Mode";
-"Legacy" = "Legacy";
-"New" = "New";
-"Developer Settings" = "Developer Settings";
-"Print object" = "Print object";
+"Pin Item" = "Pin Item";
+"Unpin Item" = "Unpin Item";
+"Pin Items" = "Pin Items";
 
 // MARK: Error
 "Invalid Response" = "Invalid Response.";

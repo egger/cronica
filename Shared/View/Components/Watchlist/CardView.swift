@@ -55,7 +55,7 @@ struct CardView: View {
                                         Rectangle()
                                     }
                                 }
-                            if let info = item.itemGlanceInfo {
+                            if let info = item.itemGlanceInfo { 
                                 VStack(alignment: .leading) {
                                     Spacer()
                                     HStack {

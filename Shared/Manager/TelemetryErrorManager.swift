@@ -25,7 +25,7 @@ class TelemetryErrorManager {
         logger.error("\(message), for: \(id)")
 #else
         if disableTelemetry { return }
-        TelemetryManager.send("\(id)", with: ["Error":"\(message)"])
+        TelemetryManager.send("\(id)", with: ["Message":"\(message)"])
 #endif
     }
 }

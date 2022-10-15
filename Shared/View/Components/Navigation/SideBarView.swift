@@ -14,7 +14,7 @@ struct SideBarView: View {
     @State private var showNotifications = false
     @State private var selectedSearchItem: ItemContent? = nil
     @State private var scope: SearchItemsScope = .noScope
-    let persistence = PersistenceController.shared
+    private let persistence = PersistenceController.shared
     @State private var showConfirmation = false
     @State private var isInWatchlist = false
     init() {
@@ -39,13 +39,10 @@ struct SideBarView: View {
                 }
                 .tag(WatchlistView.tag)
                 .dropDestination(for: ItemContent.self) { items, _  in
-                    let context = PersistenceController.shared
                     for item in items {
-                        context.save(item)
+                        PersistenceController.shared.save(item)
                     }
                     return true
-                } isTargeted: { inDropArea in
-                    print(inDropArea)
                 }
             }
             .listStyle(.sidebar)
@@ -141,29 +138,28 @@ struct SideBarView: View {
         switch viewModel.stage {
         case .none: EmptyView()
         case .searching:
-            ProgressView("Searching")
-                .foregroundColor(.secondary)
-                .padding()
+            ZStack {
+                Rectangle()
+                    .fill(.regularMaterial)
+                    .ignoresSafeArea(.all)
+                ProgressView("Searching")
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
         case .empty:
-            if !viewModel.trimmedQuery.isEmpty {
-                ZStack {
-                    Rectangle().fill(.ultraThinMaterial)
-                    VStack {
-                        ProgressView("Searching")
-                            .foregroundColor(.secondary)
-                            .padding()
-                    }
-                }
-            } else {
-                ZStack {
-                    Rectangle().fill(.ultraThinMaterial)
-                    Label("No Results", systemImage: "minus.magnifyingglass")
-                        .font(.title)
-                        .foregroundColor(.secondary)
-                }
+            ZStack {
+                Rectangle()
+                    .fill(.regularMaterial)
+                    .ignoresSafeArea(.all)
+                Label("No Results", systemImage: "minus.magnifyingglass")
+                    .font(.title)
+                    .foregroundColor(.secondary)
             }
         case .failure:
-            VStack {
+            ZStack {
+                Rectangle()
+                    .fill(.regularMaterial)
+                    .ignoresSafeArea(.all)
                 Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
             }
         case .success:

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct HomeView: View {
     static let tag: Screens? = .home
-    @AppStorage("showOnboarding") var displayOnboard = true
+    @AppStorage("showOnboarding") private var displayOnboard = true
+    @AppStorage("isNotificationAllowed") private var notificationAllowed = true
     @StateObject private var viewModel: HomeViewModel
     @StateObject private var settings: SettingsStore
     @State private var showSettings = false
@@ -28,11 +30,11 @@ struct HomeView: View {
             }
             VStack {
                 ScrollView {
-                    UpcomingMovies()
-                    UpcomingShows()
+                    UpcomingWatchlist()
+                    PinItemsList()
                     ItemContentListView(items: viewModel.trending,
                                         title: "Trending",
-                                        subtitle: "This week",
+                                        subtitle: "Today",
                                         image: "crown",
                                         addedItemConfirmation: $showConfirmation)
                     ForEach(viewModel.sections) { section in
@@ -68,8 +70,11 @@ struct HomeView: View {
                             Button(action: {
                                 showNotifications.toggle()
                             }, label: {
-                                Label("Notifications", systemImage: "bell")
+                                Label("Notifications",
+                                      systemImage: notificationAllowed ? "bell" : "bell.slash.fill")
+                                .tint(notificationAllowed ? nil : .red)
                             })
+                            
                             Button(action: {
                                 showSettings.toggle()
                             }, label: {
@@ -103,34 +108,120 @@ struct HomeView_Previews: PreviewProvider {
     }
 }
 
-private struct UpcomingMovies: View {
+private struct UpcomingWatchlist: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: true),
         ],
-        predicate: NSCompoundPredicate(type: .and,
-                                       subpredicates: [
-                                        NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
-                                        NSPredicate(format: "notify == %d", true),
-                                        NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
-                                       ])
+        predicate: NSCompoundPredicate(type: .or, subpredicates: [
+                                        NSCompoundPredicate(type: .and,
+                                                            subpredicates: [
+                                                                NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
+                                                                NSPredicate(format: "notify == %d", true),
+                                                                NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
+                                                            ])
+                                        ,
+                                        NSPredicate(format: "upcomingSeason == %d", true)])
     )
     var items: FetchedResults<WatchlistItem>
     var body: some View {
-        UpcomingSectionsList(items: items, title: "Upcoming Movies")
+        UpcomingListView(items: items.filter { $0.image != nil })
     }
 }
-private struct UpcomingShows: View {
+
+private struct PinItemsList: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: true),
         ],
-        predicate: NSPredicate(format: "upcomingSeason == %d", true)
+        predicate: NSPredicate(format: "isPin == %d", true)
     )
+    
     var items: FetchedResults<WatchlistItem>
     var body: some View {
-        UpcomingSectionsList(items: items, title: "Upcoming Seasons")
+        if !items.isEmpty {
+            VStack {
+                TitleView(title: "My Pins",
+                          subtitle: "Your pinned items",
+                          image: "pin")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(items) { item in
+                            PosterWatchlistItem(item: item)
+                                .buttonStyle(.plain)
+                                .padding([.leading, .trailing], 4)
+                                .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                                .padding([.top, .bottom])
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+private struct DrawingConstants {
+    static let posterWidth: CGFloat = 160
+    static let posterHeight: CGFloat = 240
+    static let posterRadius: CGFloat = 12
+    static let shadowRadius: CGFloat = 2
+}
+
+private struct PosterWatchlistItem: View {
+    let item: WatchlistItem
+    var body: some View {
+        NavigationLink(value: item) {
+            WebImage(url: item.mediumPosterImage)
+                .resizable()
+                .placeholder {
+                    ZStack {
+                        Rectangle().fill(.gray.gradient)
+                        VStack {
+                            Text(item.itemTitle)
+                                .font(.callout)
+                                .lineLimit(1)
+                                .foregroundColor(.white)
+                                .padding(.bottom)
+                            Image(systemName: item.isMovie ? "film" : "tv")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .opacity(0.8)
+                        }
+                        .padding()
+                    }
+                    .frame(width: DrawingConstants.posterWidth,
+                           height: DrawingConstants.posterHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
+                                                style: .continuous))
+                    .shadow(radius: DrawingConstants.shadowRadius)
+                    .hoverEffect(.lift)
+                }
+                .aspectRatio(contentMode: .fill)
+                .transition(.opacity)
+                .frame(width: DrawingConstants.posterWidth,
+                       height: DrawingConstants.posterHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
+                                            style: .continuous))
+                .shadow(radius: DrawingConstants.shadowRadius)
+                .padding(.zero)
+                .hoverEffect(.lift)
+                .draggable(item)
+                .contextMenu {
+                    ShareLink(item: item.itemLink)
+                    Divider()
+                    Button(action: {
+                        withAnimation {
+                            PersistenceController.shared.markPinAs(item: item)
+                        }
+                    }, label: {
+                        Label("Remove Pin", systemImage: "pin.slash.fill")
+                    })
+                }
+        }
     }
 }

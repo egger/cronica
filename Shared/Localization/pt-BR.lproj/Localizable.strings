@@ -149,6 +149,10 @@
 //MARK: HomeView.swift
 "Trending" = "Em Alta";
 "This week" = "Esta semana";
+"Today" = "Hoje";
+"My Pins" = "Meus Pins";
+"Your pinned items" = "Seus itens fixados";
+"Remove Pin" = "Remover Fixado";
 
 //MARK: WatchlistSectionView.swift
 "Coming Soon" = "Em Breve";
@@ -214,6 +218,9 @@
 "No results from Watchlist" = "Nenhum resultado da Lista";
 "Results from TMDb" = "Resultados do TMDb";
 "No results from TMDb" = "Nenhum resultado do TMDb";
+"Pin Item" = "Fixar Item";
+"Unpin Item" = "Desafixar Item";
+"Pin Items" = "Fixar Itens";
 
 //MARK: Developer Settings
 "Watchlist Mode" = "Modo da lista";

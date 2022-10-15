@@ -88,7 +88,7 @@ struct PosterView_Previews: PreviewProvider {
     }
 }
 
-private struct PosterPlaceholder: View {
+struct PosterPlaceholder: View {
     var title: String
     var body: some View {
         ZStack {

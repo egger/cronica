@@ -19,13 +19,15 @@ struct SettingsView: View {
     @State private var feedbackSent = false
     @State private var updatingItems = false
     @Binding var showSettings: Bool
-    @AppStorage("displayDeveloperSettings") var displayDeveloperSettings: Bool?
-    @AppStorage("disableTelemetry") var disableTelemetry = false
-    @AppStorage("openInYouTube") var openInYouTube = false
+    @AppStorage("displayDeveloperSettings") private var displayDeveloperSettings = false
+    @AppStorage("disableTelemetry") private var disableTelemetry = false
+    @AppStorage("openInYouTube") private var openInYouTube = false
+    @State private var animateEasterEgg = false
     var body: some View {
         NavigationStack {
             ZStack {
                 Form {
+                    // MARK: Gesture Section
                     Section {
                         Picker(selection: $store.gesture) {
                             Text("Favorites").tag(DoubleTapGesture.favorite)
@@ -40,13 +42,13 @@ struct SettingsView: View {
                         Text("The function is performed when double-tap the cover image.")
                             .padding(.bottom)
                     }
-                    
+                    // MARK: Media Section
                     Section {
                         Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
                     } header: {
                         Label("Media", systemImage: "video")
                     }
-                    
+                    // MARK: Update Section
                     Section {
                         Button(action: {
                             updateItems()
@@ -67,7 +69,7 @@ struct SettingsView: View {
                         Text("'Update Items' will update your items with new information available on TMDb, if available.")
                             .padding(.bottom)
                     }
-                    
+                    // MARK: Support Section
                     Section {
                         Button( action: {
                             showFeedbackAlert = true
@@ -94,7 +96,7 @@ struct SettingsView: View {
                     } header: {
                         Label("Support", systemImage: "questionmark.circle")
                     }
-                    
+                    // MARK: Privacy Section
                     Section {
                         Button("Privacy Policy") {
                             showPolicy.toggle()
@@ -106,37 +108,42 @@ struct SettingsView: View {
                         Text("privacyfooter")
                             .padding(.bottom)
                     }
-                    
+                    // MARK: Developer Section
+                    if displayDeveloperSettings {
+                        Section {
+                            NavigationLink(destination: DeveloperView(),
+                                           label: {
+                                Label("Developer", systemImage: "hammer.fill")
+                            })
+                            
+                        } header: {
+                            Label("Developer Options", systemImage: "hammer")
+                        }
+                    }
                     HStack {
                         Spacer()
                         Text("Made in Brazil 🇧🇷")
-                            .onTapGesture(count: 3, perform: {
-                                if let displayDeveloperSettings {
-                                    self.displayDeveloperSettings = !displayDeveloperSettings
+                            .onTapGesture {
+                                Task {
+                                    withAnimation {
+                                        self.animateEasterEgg.toggle()
+                                    }
+                                    try? await Task.sleep(nanoseconds: 1_500_000_000)
+                                    withAnimation {
+                                        self.animateEasterEgg.toggle()
+                                    }
                                 }
-                                displayDeveloperSettings = true
-                            })
+                            }
                             .onLongPressGesture(perform: {
-                                displayDeveloperSettings = false
+                                displayDeveloperSettings.toggle()
                             })
-                            .font(.caption)
+                            .font(animateEasterEgg ? .title3 : .caption)
+                            .foregroundColor(animateEasterEgg ? .green : nil)
+                            .animation(.easeInOut, value: animateEasterEgg)
                         Spacer()
                     }
                     .fullScreenCover(isPresented: $showPolicy) {
                         SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-                    }
-                    if let displayDeveloperSettings {
-                        if displayDeveloperSettings {
-                            Section {
-                                NavigationLink(destination: DeveloperView(),
-                                               label: {
-                                    Label("Developer", systemImage: "hammer.fill")
-                                })
-
-                            } header: {
-                                Label("Developer Options", systemImage: "hammer")
-                            }
-                        }
                     }
                 }
                 .navigationTitle("Settings")
@@ -156,11 +163,7 @@ struct SettingsView: View {
     private func sendFeedback() {
         if !feedback.isEmpty {
             withAnimation { feedbackSent.toggle() }
-#if targetEnvironment(simulator)
-            print("feedback: \(feedback)")
-#else
-            TelemetryManager.send("feedback", with: ["message":feedback])
-#endif
+            TelemetryErrorManager.shared.handleErrorMessage(feedback, for: "sendFeedback")
             feedback = ""
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                 withAnimation {

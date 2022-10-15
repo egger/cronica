@@ -12,6 +12,7 @@ struct WatchlistItemView: View {
     let content: WatchlistItem
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
+    @State private var isPin = false
     init(content: WatchlistItem) {
         self.content = content
     }
@@ -50,10 +51,12 @@ struct WatchlistItemView: View {
             .task {
                 isWatched = content.isWatched
                 isFavorite = content.isFavorite
+                isPin = content.isPin
             }
-            .modifier(WatchlisItemContextMenu(item: content,
+            .modifier(WatchlistItemContextMenu(item: content,
                                               isWatched: $isWatched,
-                                              isFavorite: $isFavorite))
+                                              isFavorite: $isFavorite,
+                                              isPin: $isPin))
             .accessibilityElement(children: .combine)
         }
     }
@@ -97,10 +100,11 @@ private struct DrawingConstants {
     static let textLimit: Int = 1
 }
 
-private struct WatchlisItemContextMenu: ViewModifier {
+private struct WatchlistItemContextMenu: ViewModifier {
     let item: WatchlistItem
     @Binding var isWatched: Bool
     @Binding var isFavorite: Bool
+    @Binding var isPin: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
     func body(content: Content) -> some View {
@@ -131,6 +135,7 @@ private struct WatchlisItemContextMenu: ViewModifier {
             .contextMenu {
                 watchedButton
                 favoriteButton
+                pinButton
                 ShareLink(item: item.itemLink)
                 Divider()
                 deleteButton
@@ -229,6 +234,16 @@ private struct WatchlisItemContextMenu: ViewModifier {
         }, label: {
             Label(item.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: item.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
+        })
+    }
+    
+    private var pinButton: some View {
+        Button(action: {
+            PersistenceController.shared.updatePin(items: [item.notificationID])
+            isPin.toggle()
+        }, label: {
+            Label(isPin ? "Unpin Item" : "Pin Item",
+                  systemImage: isPin ? "pin.slash.fill" : "pin.fill")
         })
     }
     

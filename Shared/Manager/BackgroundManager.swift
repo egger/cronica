@@ -19,11 +19,9 @@ class BackgroundManager {
         await self.fetchUpdates(items: items)
     }
     
-    func handleAppRefreshMaintenance() {
+    func handleAppRefreshMaintenance() async {
         let items = self.fetchReleasedItems()
-        Task {
-            await self.fetchUpdates(items: items)
-        }
+        await self.fetchUpdates(items: items)
     }
     
     /// Fetch for any Watchlist item that match notify, soon, or tv predicates.
@@ -61,22 +59,24 @@ class BackgroundManager {
     
     /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.
     private func fetchUpdates(items: [WatchlistItem]) async {
-        for item in items {
-            let content = try? await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
-            if let content {
-                if content.itemCanNotify {
-                    // If fetched item release date is different than the scheduled one,
-                    // then remove the old date and register the new one.
-                    if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {
-                        self.notifications.removeNotification(identifier: content.itemNotificationID)
+        if !items.isEmpty {
+            for item in items {
+                let content = try? await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
+                if let content {
+                    if content.itemCanNotify {
+                        // If fetched item release date is different than the scheduled one,
+                        // then remove the old date and register the new one.
+                        if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {
+                            self.notifications.removeNotification(identifier: content.itemNotificationID)
+                        }
+                        if content.itemStatus == .cancelled {
+                            notifications.removeNotification(identifier: content.itemNotificationID)
+                        } else {
+                            self.notifications.schedule(notificationContent: content)
+                        }
                     }
-                    if content.itemStatus == .cancelled {
-                        notifications.removeNotification(identifier: content.itemNotificationID)
-                    } else {
-                        self.notifications.schedule(notificationContent: content)
-                    }
+                    self.context.update(item: content)
                 }
-                self.context.update(item: content)
             }
         }
     }

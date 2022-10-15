@@ -13,7 +13,7 @@ struct NotificationListView: View {
     @State private var hasLoaded = false
     @State private var items = [ItemContent]()
     @State private var deliveredItems = [ItemContent]()
-    
+    @AppStorage("isNotificationAllowed") var notificationAllowed = true
     var body: some View {
         NavigationStack {
             VStack {
@@ -136,11 +136,9 @@ struct NotificationListView_Previews: PreviewProvider {
     }
 }
 
-struct ItemContentItemView: View {
+private struct ItemContentItemView: View {
     let item: ItemContent
     let subtitle: String
-    @State private var showConfirmation = false
-    @State private var isInWatchlist = true
     var body: some View {
         NavigationLink(value: item) {
             HStack {
@@ -174,7 +172,6 @@ struct ItemContentItemView: View {
                     }
                 }
             }
-//            .modifier(ItemContentContextMenu(item: item, showConfirmation: $showConfirmation, isInWatchlist: $isInWatchlist))
         }
     }
 }

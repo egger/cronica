@@ -35,7 +35,10 @@ import Combine
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedQuery.isEmpty else { return }
         do {
-            if Task.isCancelled { return }
+            if Task.isCancelled {
+                stage = .none
+                return
+            }
             try await Task.sleep(nanoseconds: 300_000_000)
             if !items.isEmpty {
                 items.removeAll()
@@ -44,12 +47,12 @@ import Combine
             page = 1
             endPagination = false
             let result = try await service.search(query: trimmedQuery, page: "1")
-            if result.isEmpty {
+            page += 1
+            items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+            if self.items.isEmpty {
                 stage = .empty
                 return
             }
-            page += 1
-            items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
             stage = .success
             startPagination = true
         } catch {

@@ -73,17 +73,15 @@ struct WatchlistView: View {
                 }
                 .listStyle(.insetGrouped)
                 .dropDestination(for: ItemContent.self) { items, _  in
-                    let context = PersistenceController.shared
                     for item in items {
-                        context.save(item)
+                        PersistenceController.shared.save(item)
                     }
                     return true
-                } isTargeted: { inDropArea in
-                    print(inDropArea)
                 }
                 .contextMenu(forSelectionType: String.self) { items in
                     if items.count >= 1 {
                         updateWatchButton
+                        updatePinButton
                         Divider()
                         deleteAllButton
                     }
@@ -105,8 +103,15 @@ struct WatchlistView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     if editMode?.wrappedValue.isEditing == true {
-                        deleteAllButton
-                            .labelStyle(.titleOnly)
+                        Menu(content: {
+                            updateWatchButton
+                            updatePinButton
+                            Divider()
+                            deleteAllButton
+                        }, label: {
+                            Label("Options", systemImage: "ellipsis.circle.fill")
+                        })
+                        .disabled(multiSelection.isEmpty ? true : false)
                     }
                     EditButton()
                 }
@@ -162,6 +167,14 @@ struct WatchlistView: View {
             }
         }, label: {
             Label("Remove Selected", systemImage: "trash")
+        })
+    }
+    
+    private var updatePinButton: some View {
+        Button(action: {
+            PersistenceController.shared.updatePin(items: multiSelection)
+        }, label: {
+            Label("Pin Items", systemImage: "pin.fill")
         })
     }
     

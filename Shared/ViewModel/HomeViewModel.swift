@@ -20,10 +20,11 @@ class HomeViewModel: ObservableObject {
         Task {
             if trending.isEmpty {
                 do {
-                    let result = try await service.fetchItems(from: "trending/all/week")
+                    let result = try await service.fetchItems(from: "trending/all/day")
                     let filtered = result.filter { $0.itemContentMedia != .person }
                     trending = filtered
                 } catch {
+                    if Task.isCancelled { return }
                     TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
                                                                     for: "HomeViewModel.load()")
                 }

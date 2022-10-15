@@ -16,7 +16,8 @@ struct DeveloperView: View {
     @State private var itemIdField: String = ""
     @State private var itemMediaType: MediaType = .movie
     @State private var isFetching = false
-    @State private var showAllitems = false
+    @State private var isFetchingAll = false
+    @State private var showAllItems = false
     private let background = BackgroundManager()
     private let service = NetworkService.shared
     var body: some View {
@@ -42,9 +43,8 @@ struct DeveloperView: View {
                                 }
                             } else {
                                 let person = try? await service.fetchPerson(id: Int(itemIdField)!)
-                                if let person {
-                                    self.person = person
-                                }
+                                guard let person else { return }
+                                self.person = person
                             }
                         }
                         isFetching = false
@@ -60,21 +60,41 @@ struct DeveloperView: View {
                 Label("Fetch a single item.", systemImage: "hammer")
             }
             
-            NavigationLink(destination: WelcomeView(), label: {
-                Text("Show Onboarding")
-            })
+            Section {
+                NavigationLink(
+                    destination: WelcomeView(),
+                    label: {
+                        Text("Show Onboarding")
+                    })
+            } header: {
+                Text("Presentation")
+            }
             
-            Button(action: {
-                background.handleAppRefreshMaintenance()
-            }, label: {
-                Text("Update items")
-            })
+            Section {
+                Button(action: {
+                    Task {
+                        self.isFetchingAll = true
+                        await background.handleAppRefreshMaintenance()
+                        await background.handleAppRefreshContent()
+                        self.isFetchingAll = false
+                    }
+                }, label: {
+                    if isFetchingAll {
+                        ProgressView()
+                    } else {
+                        Text("Update Items")
+                    }
+                })
+                
+                Button(action: {
+                    showAllItems.toggle()
+                }, label: {
+                    Text("Show All Items")
+                })
+            } header: {
+                Text("Items")
+            }
             
-            Button(action: {
-                showAllitems.toggle()
-            }, label: {
-                Text("Show All Items")
-            })
         }
         .navigationTitle("Developer tools")
         .sheet(item: $item) { item in
@@ -131,13 +151,13 @@ struct DeveloperView: View {
                     }
             }
         }
-        .sheet(isPresented: $showAllitems) {
+        .sheet(isPresented: $showAllItems) {
             NavigationStack {
                 ShowAllItemsView()
                     .toolbar {
                         ToolbarItem {
                             Button("Done") {
-                                showAllitems.toggle()
+                                showAllItems.toggle()
                             }
                         }
                     }

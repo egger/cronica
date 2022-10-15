@@ -95,6 +95,8 @@ class PersistenceController: ObservableObject {
             item.imdbID = content.imdbId
             item.image = content.cardImageMedium
             item.largeCardImage = content.cardImageLarge
+            item.mediumPosterImage = content.posterImageMedium
+            item.largePosterImage = content.posterImageLarge
             item.schedule = content.itemStatus.toInt
             item.notify = content.itemCanNotify
             if let theatrical = content.itemTheatricalDate {
@@ -152,6 +154,8 @@ class PersistenceController: ObservableObject {
                 item.title = content.itemTitle
                 item.image = content.cardImageMedium
                 item.largeCardImage = content.cardImageLarge
+                item.mediumPosterImage = content.posterImageMedium
+                item.largePosterImage = content.posterImageLarge
                 item.schedule = content.itemStatus.toInt
                 item.notify = content.itemCanNotify
                 item.formattedDate = content.itemTheatricalString
@@ -239,6 +243,33 @@ class PersistenceController: ObservableObject {
                 updateMarkAs(id: item.itemId, type: item.itemMedia, watched: !item.watched)
             }
         }
+    }
+    
+    func updatePin(items: Set<String>) {
+        var list = [WatchlistItem]()
+        for item in items {
+            let type = item.last ?? "0"
+            var media: MediaType = .movie
+            if type == "1" {
+                media = .tvShow
+            }
+            let id = item.dropLast(2)
+            let content = try? fetch(for: Int64(id)!, media: media)
+            if let content {
+                list.append(content)
+            }
+        }
+        if !list.isEmpty {
+            for item in list {
+                item.isPin.toggle()
+            }
+            saveContext()
+        }
+    }
+    
+    func markPinAs(item: WatchlistItem) {
+        item.isPin.toggle()
+        saveContext()
     }
     
     /// Updates the "watched" and/or the "favorite" property of an array of WatchlistItem in Core Data.

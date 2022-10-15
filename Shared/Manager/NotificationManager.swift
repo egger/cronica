@@ -12,9 +12,10 @@ import SwiftUI
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
     @Published var settings: UNNotificationSettings?
+    @AppStorage("isNotificationAllowed") var notificationAllowed = true
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .provisional]) { granted, error in
             self.fetchNotificationSettings()
             completion(granted)
         }
@@ -31,7 +32,10 @@ class NotificationManager: ObservableObject {
     func schedule(notificationContent: ItemContent) {
         self.requestAuthorization { granted in
             if !granted {
+                self.notificationAllowed = false
                 return
+            } else {
+                self.notificationAllowed = true
             }
         }
         let identifier: String = notificationContent.itemNotificationID
@@ -79,6 +83,19 @@ class NotificationManager: ObservableObject {
     
     func removeNotification(identifier: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+    }
+    
+    func removeNotificationSchedule(identifier: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        let type = identifier.last ?? "0"
+        var media: MediaType = .movie
+        if type == "1" {
+            media = .tvShow
+        }
+        let id = identifier.dropLast(2)
+        let item = try? PersistenceController.shared.fetch(for: Int64(id)!, media: media)
+        guard let item else { return }
+        item.notify = false
     }
     
     func removeDeliveredNotification(identifier: String) {

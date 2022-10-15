@@ -81,12 +81,12 @@
 		B845149328E0C96A00963399 /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845149228E0C96A00963399 /* NotificationListView.swift */; };
 		B849E1B3289468FD00BD666F /* TrailerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1B2289468FD00BD666F /* TrailerUtilities.swift */; };
 		B84C53FD27B1F1DD00425524 /* WatchlistItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemView.swift */; };
+		B85344C128FA07B60013E9C7 /* UpcomingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85344C028FA07B60013E9C7 /* UpcomingListView.swift */; };
 		B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
 		B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };
 		B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E036F27B0371C005C7FDF /* StoryTests.swift */; };
 		B86AAD0A28BD1CDD00D135B1 /* DeveloperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */; };
 		B86AAD0D28BD2E2600D135B1 /* PlaceholderMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86AAD0B28BD2D6B00D135B1 /* PlaceholderMedia.xcassets */; };
-		B86DD41228BA9FA8002C8427 /* UpcomingSectionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86DD41128BA9FA8002C8427 /* UpcomingSectionsListView.swift */; };
 		B86DD41928BAAADF002C8427 /* PersonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58027FCCD14006BE5E1 /* PersonImageView.swift */; };
 		B86DD41A28BAABCC002C8427 /* HeroImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57827FC999F006BE5E1 /* HeroImage.swift */; };
 		B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */; };
@@ -281,13 +281,13 @@
 		B845149228E0C96A00963399 /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
 		B849E1B2289468FD00BD666F /* TrailerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerUtilities.swift; sourceTree = "<group>"; };
 		B84C53FC27B1F1DD00425524 /* WatchlistItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemView.swift; sourceTree = "<group>"; };
+		B85344C028FA07B60013E9C7 /* UpcomingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingListView.swift; sourceTree = "<group>"; };
 		B85C65AB27A6307C0080121E /* PersonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsView.swift; sourceTree = "<group>"; };
 		B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewModel.swift; sourceTree = "<group>"; };
 		B85E036D27B0371C005C7FDF /* StoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85E036F27B0371C005C7FDF /* StoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTests.swift; sourceTree = "<group>"; };
 		B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperView.swift; sourceTree = "<group>"; };
 		B86AAD0B28BD2D6B00D135B1 /* PlaceholderMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlaceholderMedia.xcassets; sourceTree = "<group>"; };
-		B86DD41128BA9FA8002C8427 /* UpcomingSectionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSectionsListView.swift; sourceTree = "<group>"; };
 		B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSectionView.swift; sourceTree = "<group>"; };
 		B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataFetchPhase.swift; path = Shared/Utilities/DataFetchPhase.swift; sourceTree = SOURCE_ROOT; };
 		B86E587827A48E5A005DBF38 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
@@ -731,8 +731,8 @@
 				B804E394284EDC2B00F59855 /* ItemContentListView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 				B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */,
-				B86DD41128BA9FA8002C8427 /* UpcomingSectionsListView.swift */,
 				B845149228E0C96A00963399 /* NotificationListView.swift */,
+				B85344C028FA07B60013E9C7 /* UpcomingListView.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -1145,7 +1145,6 @@
 				B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */,
 				B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */,
 				B8CC953327D05D1000B6757C /* HomeViewModel.swift in Sources */,
-				B86DD41228BA9FA8002C8427 /* UpcomingSectionsListView.swift in Sources */,
 				B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */,
 				B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */,
 				B8B94CEC28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
@@ -1179,6 +1178,7 @@
 				B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */,
 				B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
+				B85344C128FA07B60013E9C7 /* UpcomingListView.swift in Sources */,
 				B876DE5C281B2B04005558DD /* Screens.swift in Sources */,
 				B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */,
 				B886D232284D512F00FFE96A /* ConfirmationDialogView.swift in Sources */,
