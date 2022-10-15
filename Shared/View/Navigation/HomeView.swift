@@ -71,8 +71,7 @@ struct HomeView: View {
                                 showNotifications.toggle()
                             }, label: {
                                 Label("Notifications",
-                                      systemImage: notificationAllowed ? "bell" : "bell.slash.fill")
-                                .tint(notificationAllowed ? nil : .red)
+                                      systemImage: "bell")
                             })
                             
                             Button(action: {

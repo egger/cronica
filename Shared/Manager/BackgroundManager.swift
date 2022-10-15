@@ -19,9 +19,13 @@ class BackgroundManager {
         await self.fetchUpdates(items: items)
     }
     
-    func handleAppRefreshMaintenance() async {
+    func handleAppRefreshMaintenance(isAppMaintenance: Bool = false) async {
         let items = self.fetchReleasedItems()
         await self.fetchUpdates(items: items)
+        if isAppMaintenance {
+            TelemetryErrorManager.shared.handleErrorMessage("App Maintenance done.",
+                                                            for: "handleAppRefreshMaintenance()")
+        }
     }
     
     /// Fetch for any Watchlist item that match notify, soon, or tv predicates.

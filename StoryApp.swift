@@ -13,6 +13,7 @@ import TelemetryClient
 struct StoryApp: App {
     @StateObject var persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
+    private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
@@ -26,6 +27,7 @@ struct StoryApp: App {
         }
 #endif
         registerRefreshBGTask()
+        registerAppMaintenanceBGTask()
     }
     var body: some Scene {
         WindowGroup {
@@ -53,22 +55,22 @@ struct StoryApp: App {
                                         id: item.id,
                                         type: item.itemContentMedia,
                                         image: item.cardImageMedium)
-                            .toolbar {
-                                ToolbarItem(placement: .navigationBarLeading) {
-                                    Button("Done") {
-                                        widgetItem = nil
-                                    }
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Done") {
+                                    widgetItem = nil
                                 }
                             }
-                            .navigationDestination(for: ItemContent.self) { item in
-                                ItemContentView(title: item.itemTitle,
-                                                id: item.id,
-                                                type: item.itemContentMedia,
-                                                image: item.cardImageMedium)
-                            }
-                            .navigationDestination(for: Person.self) { item in
-                                PersonDetailsView(title: item.name, id: item.id)
-                            }
+                        }
+                        .navigationDestination(for: ItemContent.self) { item in
+                            ItemContentView(title: item.itemTitle,
+                                            id: item.id,
+                                            type: item.itemContentMedia,
+                                            image: item.cardImageMedium)
+                        }
+                        .navigationDestination(for: Person.self) { item in
+                            PersonDetailsView(title: item.name, id: item.id)
+                        }
                     }
                 }
                 .onAppear {
@@ -82,6 +84,7 @@ struct StoryApp: App {
         .onChange(of: scene) { phase in
             if phase == .background {
                 scheduleAppRefresh()
+                scheduleAppMaintenance()
             }
         }
     }
@@ -92,10 +95,33 @@ struct StoryApp: App {
         }
     }
     
+    private func registerAppMaintenanceBGTask() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundProcessingIdentifier, using: nil) { task in
+            self.handleAppMaintenance(task: task as? BGProcessingTask ?? nil)
+        }
+    }
+    
     private func scheduleAppRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
         try? BGTaskScheduler.shared.submit(request)
+    }
+    
+    private func scheduleAppMaintenance() {
+        let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
+        request.requiresNetworkConnectivity = true
+        request.requiresExternalPower = true
+        let oneWeek = TimeInterval(7 * 24 * 60 * 60)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: oneWeek)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+#if DEBUG
+            print("Scheduled App Maintenance.")
+#endif
+        } catch {
+            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                                                            for: "scheduleAppMaintenance()")
+        }
     }
     
     // Fetch the latest updates from api.
@@ -115,8 +141,27 @@ struct StoryApp: App {
                 }
             }
             task.setTaskCompleted(success: true)
-            TelemetryErrorManager.shared.handleErrorMessage("identifier \(task.identifier)",
+            TelemetryErrorManager.shared.handleErrorMessage("identifier: \(task.identifier)",
                                                             for: "handleAppRefreshBGTask")
         }
+    }
+    
+    private func handleAppMaintenance(task: BGProcessingTask?) {
+        guard let task else { return }
+        scheduleAppMaintenance()
+        let queue = OperationQueue()
+        let background = BackgroundManager()
+        queue.maxConcurrentOperationCount = 1
+        task.expirationHandler = {
+            queue.cancelAllOperations()
+        }
+        queue.addOperation {
+            Task {
+                await background.handleAppRefreshMaintenance(isAppMaintenance: true)
+            }
+        }
+        task.setTaskCompleted(success: true)
+        TelemetryErrorManager.shared.handleErrorMessage("identifier: \(task.identifier)",
+                                                        for: "handleAppMaintenance")
     }
 }

@@ -100,7 +100,8 @@ struct WatchlistView: View {
                     Button(action: {
                         showPicker = true
                     }, label: {
-                        Label("Sort List", systemImage: "line.3.horizontal.decrease.circle.fill")
+                        Label("Sort List",
+                              systemImage: "line.3.horizontal.decrease.circle.fill")
                     })
                     .buttonStyle(.bordered)
                     .tint(.blue)
