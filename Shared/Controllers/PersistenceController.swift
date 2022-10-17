@@ -341,10 +341,28 @@ class PersistenceController: ObservableObject {
                 } else {
                     let watched = "-\(episode)@\(season)"
                     item.watchedEpisodes?.append(watched)
+                    item.isWatching = true
+                    item.lastSelectedSeason = Int64(season)
+                    item.lastWatchedEpisode = Int64(episode)
                 }
                 saveContext()
             }
         }
+    }
+    
+    func fetchLastSelectedSeason(for id: Int64) -> Int? {
+        let item = try? fetch(for: id, media: .tvShow)
+        guard let item else { return nil }
+        if item.lastSelectedSeason == 0 { return 1 }
+        return Int(item.lastSelectedSeason)
+    }
+    
+    func fetchLastWatchedEpisode(for id: Int64) -> Int? {
+        let item = try? fetch(for: id, media: .tvShow)
+        guard let item else { return nil }
+        if !item.isWatching { return nil }
+        if item.lastWatchedEpisode == 0 { return nil }
+        return Int(item.lastWatchedEpisode)
     }
     
     func isEpisodeSaved(show: Int, season: Int, episode: Int) -> Bool {

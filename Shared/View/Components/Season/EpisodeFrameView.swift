@@ -57,8 +57,11 @@ struct EpisodeFrameView: View {
                 .overlay {
                     if isWatched {
                         ZStack {
-                            Color.black.opacity(0.6)
-                            Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
+                            Color.black.opacity(0.4)
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                                .opacity(0.8)
                         }
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                         .frame(width: DrawingConstants.imageWidth,

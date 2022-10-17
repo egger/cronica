@@ -12,8 +12,10 @@ import SwiftUI
 struct SeasonsView: View {
     var numberOfSeasons: [Int]?
     var tvId: Int
+    var lastSelectedSeason: Int?
     @State private var selectedSeason: Int = 1
     @State private var selectedEpisode: Episode? = nil
+    @State private var hasFirstLoaded = false
     @StateObject private var viewModel: SeasonViewModel
     @Binding var inWatchlist: Bool
     @Binding var seasonConfirmation: Bool
@@ -34,8 +36,10 @@ struct SeasonsView: View {
                         }
                     }
                     .pickerStyle(.menu)
-                    .onChange(of: selectedSeason) { _ in
-                        load()
+                    .onChange(of: selectedSeason) { season in
+                        Task {
+                            await viewModel.load(id: self.tvId, season: season, isInWatchlist: inWatchlist)
+                        }
                     }
                     .padding(.leading)
                     .padding(.bottom, 1)
@@ -71,25 +75,42 @@ struct SeasonsView: View {
                         if season.isEmpty {
                             emptySeasonView
                         } else {
-                            LazyHStack {
-                                ForEach(season) { item in
-                                    EpisodeFrameView(episode: item,
-                                                     season: selectedSeason,
-                                                     show: tvId,
-                                                     isInWatchlist: $inWatchlist)
-                                    .environmentObject(viewModel)
-                                    .frame(width: 160, height: 200)
-                                    .onTapGesture {
-                                        selectedEpisode = item
+                            ScrollViewReader { proxy in
+                                LazyHStack {
+                                    ForEach(season) { item in
+                                        EpisodeFrameView(episode: item,
+                                                         season: selectedSeason,
+                                                         show: tvId,
+                                                         isInWatchlist: $inWatchlist)
+                                        .environmentObject(viewModel)
+                                        .frame(width: 160, height: 200)
+                                        .onTapGesture {
+                                            selectedEpisode = item
+                                        }
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == season.first!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == season.last!.id ? 16 : 0)
                                     }
-                                    .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == season.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                                    .padding(0)
+                                    .buttonStyle(.plain)
+                                }
+                                .onAppear {
+                                    let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
+                                    guard let lastWatchedEpisode else { return }
+                                    withAnimation {
+                                        proxy.scrollTo(lastWatchedEpisode, anchor: .top)
+                                    }
+                                }
+                                .onChange(of: selectedSeason) { _ in
+                                    if !hasFirstLoaded { return }
+                                    let first = season.first ?? nil
+                                    guard let first else { return }
+                                    withAnimation {
+                                        proxy.scrollTo(first.id)
+                                    }
                                 }
                                 .padding(0)
-                                .buttonStyle(.plain)
                             }
-                            .padding(0)
                         }
                     }
                 }
@@ -138,6 +159,18 @@ struct SeasonsView: View {
     
     private func load() {
         Task {
+            if !hasFirstLoaded {
+                if self.inWatchlist {
+                    let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))
+                    if let lastSeason {
+                        self.selectedSeason = lastSeason
+                        print(lastSeason)
+                        await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)
+                        hasFirstLoaded.toggle()
+                        return
+                    }
+                }
+            }
             await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
         }
     }
