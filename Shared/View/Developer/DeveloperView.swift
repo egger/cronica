@@ -18,6 +18,7 @@ struct DeveloperView: View {
     @State private var isFetching = false
     @State private var isFetchingAll = false
     @State private var showAllItems = false
+    @AppStorage("markEpisodeWatchedTap") private var episodeTap = false
     private let background = BackgroundManager()
     private let service = NetworkService.shared
     var body: some View {
@@ -93,6 +94,14 @@ struct DeveloperView: View {
                 })
             } header: {
                 Text("Items")
+            }
+            
+            Section {
+                Toggle("Single Tap to mark episode as watched", isOn: $episodeTap)
+            } header: {
+                Label("Gestures", systemImage: "hand.tap")
+            } footer: {
+                Text("This will disable episode details view. To enable back you must turn this feature off.")
             }
             
         }

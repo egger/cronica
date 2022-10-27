@@ -97,7 +97,7 @@ struct ItemContentFrameView: View {
                     if isInWatchlist && !isWatched {
                         isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
                     }
-                }
+                } 
             }
         }
     }

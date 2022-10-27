@@ -13,7 +13,7 @@ struct EpisodeDetailsView: View {
     let show: Int
     private let persistence = PersistenceController.shared
     @State private var isPad: Bool = UIDevice.isIPad
-    @State private var isWatched: Bool = false
+    @Binding var isWatched: Bool 
     @Binding var isInWatchlist: Bool
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {

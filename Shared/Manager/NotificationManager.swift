@@ -63,6 +63,8 @@ class NotificationManager: ObservableObject {
     }
     
     private func scheduleNotification(identifier: String, title: String, message: String, date: Date) {
+#if os(tvOS)
+#else
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
         notificationContent.body = message
@@ -79,6 +81,7 @@ class NotificationManager: ObservableObject {
                                                                 for: "scheduleNotification")
             }
         }
+#endif
     }
     
     func removeNotification(identifier: String) {
@@ -99,11 +102,17 @@ class NotificationManager: ObservableObject {
     }
     
     func removeDeliveredNotification(identifier: String) {
+#if os(tvOS)
+#else
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
+#endif
     }
     
     func removeAllDeliveredNotifications() {
+#if os(tvOS)
+#else
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+#endif
     }
     
     private func getUpcomingNotificationsId() async -> [String] {
@@ -116,6 +125,9 @@ class NotificationManager: ObservableObject {
     }
     
     private func getDeliveredNotificationsId() async -> [String] {
+#if os(tvOS)
+        return []
+#else
         var identifiers = [String]()
         let notifications = await UNUserNotificationCenter.current().deliveredNotifications()
         if notifications.isEmpty {
@@ -128,6 +140,7 @@ class NotificationManager: ObservableObject {
             }
         }
         return identifiers
+#endif
     }
     
     func clearOldNotificationId() async {

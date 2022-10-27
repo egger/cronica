@@ -16,7 +16,9 @@ struct EpisodeFrameView: View {
     let show: Int
     var itemLink: URL
     private let persistence = PersistenceController.shared
+    @AppStorage("markEpisodeWatchedTap") private var episodeTap = false
     @State private var isWatched: Bool = false
+    @State private var showDetails = false
     @Binding var isInWatchlist: Bool
     @EnvironmentObject var viewModel: SeasonViewModel
     init(episode: Episode, season: Int, show: Int, isInWatchlist: Binding<Bool>) {
@@ -111,7 +113,34 @@ struct EpisodeFrameView: View {
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .task {
-            isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+            withAnimation {
+                isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+            }
+        }
+        .onTapGesture {
+            if episodeTap {
+                PersistenceController.shared.updateEpisodeList(show: show,
+                                                               season: season,
+                                                               episode: episode.id)
+                withAnimation {
+                    isWatched.toggle()
+                }
+                return
+            }
+            showDetails.toggle()
+        }
+        .sheet(isPresented: $showDetails) {
+            NavigationStack {
+                EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
+                    .environmentObject(viewModel)
+                    .toolbar {
+                        ToolbarItem {
+                            Button("Done") {
+                                showDetails = false
+                            }
+                        }
+                    }
+            }
         }
     }
 }

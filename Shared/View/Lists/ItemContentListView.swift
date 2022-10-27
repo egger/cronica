@@ -27,6 +27,8 @@ struct ItemContentListView: View {
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         LazyHStack {
                             if displayAsCard {
+                                #if os(tvOS)
+                                #else
                                 ForEach(items) { item in
                                     ItemContentFrameView(item: item,
                                                          showConfirmation: $addedItemConfirmation)
@@ -36,6 +38,7 @@ struct ItemContentListView: View {
                                     .padding(.trailing, item.id == items.last!.id ? 16 : 0)
                                     .padding([.top, .bottom])
                                 }
+                                #endif
                             } else {
                                 ForEach(items) { item in
                                     PosterView(item: item,

@@ -20,7 +20,10 @@ struct ItemContentContextMenu: ViewModifier {
 #else
         return content
             .contextMenu {
+                #if os(tvOS)
+                #else
                 ShareLink(item: item.itemURL)
+                #endif
                 Button(action: {
                     updateWatchlist(with: item)
                 }, label: {

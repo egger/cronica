@@ -30,8 +30,6 @@ struct WatchListSection: View {
                     context.save(item)
                 }
                 return true
-            } isTargeted: { inDropArea in
-                print(inDropArea)
             }
         } else {
             Text("This list is empty.")

@@ -17,6 +17,7 @@ struct SeasonsView: View {
     @State private var selectedEpisode: Episode? = nil
     @State private var hasFirstLoaded = false
     @StateObject private var viewModel: SeasonViewModel
+    @AppStorage("markEpisodeWatchedTap") var episodeTap = false
     @Binding var inWatchlist: Bool
     @Binding var seasonConfirmation: Bool
     init(numberOfSeasons: [Int]?, tvId: Int, inWatchlist: Binding<Bool>, seasonConfirmation: Binding<Bool>) {
@@ -85,6 +86,7 @@ struct SeasonsView: View {
                                         .environmentObject(viewModel)
                                         .frame(width: 160, height: 200)
                                         .onTapGesture {
+                                            
                                             selectedEpisode = item
                                         }
                                         .padding([.leading, .trailing], 4)
@@ -122,19 +124,6 @@ struct SeasonsView: View {
             .onChange(of: viewModel.isItemInWatchlist) { value in
                 if value != inWatchlist {
                     inWatchlist = value
-                }
-            }
-            .sheet(item: $selectedEpisode) { item in
-                NavigationStack {
-                    EpisodeDetailsView(episode: item, season: selectedSeason, show: tvId, isInWatchlist: $inWatchlist)
-                        .environmentObject(viewModel)
-                        .toolbar {
-                            ToolbarItem {
-                                Button("Done") {
-                                    selectedEpisode = nil
-                                }
-                            }
-                        }
                 }
             }
             .padding(0)
