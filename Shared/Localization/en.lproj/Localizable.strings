@@ -39,7 +39,7 @@
 "Releasing Soon" = "Releasing Soon";
 "Recently Released" = "Recently Released";
 "Remove" = "Remove";
-"Added to watchlist" = "Added to watchlist";
+"Added to watchlist" = "Added to Watchlist";
 "Mark as" = "Mark as";
 "Add to Favorites" = "Add to Favorites";
 "Share" = "Share";
@@ -66,8 +66,8 @@
 "Something went wrong, try again later." = "Something went wrong, try again later.";
 
 //MARK: ContentDetailsView.swift
-"Add to watchlist" = "Add to watchlist";
-"Remove from watchlist" = "Remove from watchlist";
+"Add to watchlist" = "Add to Watchlist";
+"Remove from watchlist" = "Remove from Watchlist";
 "About" = "About";
 "Trailers" = "Trailers";
 "Seasons" = "Seasons";
@@ -143,6 +143,7 @@
 "Privacy" = "Privacy";
 "Disable Telemetry" = "Disable Crash Report";
 "privacyfooter" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
+"privacyFooterTV" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy at https://alexandremadeira.dev/cronica/privacy.";
 "Open Trailers in YouTube App" = "Open Trailers in YouTube App";
 "Media" = "Media";
 
@@ -201,7 +202,7 @@
 "Now Available" = "Now Available";
 "Released" = "Released";
 "Watchlist" = "Watchlist";
-"Search watchlist" = "Search watchlist";
+"Search watchlist" = "Search Watchlist";
 "In Production" = "In Production";
 "Production" = "Production";
 "Cancelled" = "Cancelled";

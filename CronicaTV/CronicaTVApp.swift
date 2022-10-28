@@ -10,8 +10,7 @@ import TelemetryClient
 
 @main
 struct CronicaTVApp: App {
-    @StateObject var persistence = PersistenceController.shared
-    @AppStorage("disableTelemetry") var disableTelemetry = false
+    @AppStorage("disableTelemetry") private var disableTelemetry = false
     init() {
 #if targetEnvironment(simulator)
 #else
@@ -24,7 +23,6 @@ struct CronicaTVApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistence.container.viewContext)
         }
     }
 }

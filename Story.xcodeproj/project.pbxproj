@@ -236,6 +236,7 @@
 		B8DD5686290C7BB4002CAAFD /* PersonCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5685290C7BB4002CAAFD /* PersonCircleView.swift */; };
 		B8DD5688290C7CC1002CAAFD /* ItemContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5687290C7CC1002CAAFD /* ItemContentHeaderView.swift */; };
 		B8DD568A290C7D14002CAAFD /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5689290C7D14002CAAFD /* InfoSection.swift */; };
+		B8DD5690290C92A5002CAAFD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD568F290C92A5002CAAFD /* SettingsView.swift */; };
 		B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
 		B8EC45E427D5A010009389FC /* ItemContent-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* ItemContent-Extensions.swift */; };
 		B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* NotificationManager.swift */; };
@@ -438,6 +439,7 @@
 		B8DD5685290C7BB4002CAAFD /* PersonCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCircleView.swift; sourceTree = "<group>"; };
 		B8DD5687290C7CC1002CAAFD /* ItemContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentHeaderView.swift; sourceTree = "<group>"; };
 		B8DD5689290C7D14002CAAFD /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
+		B8DD568F290C92A5002CAAFD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
 		B8EC45E327D5A010009389FC /* ItemContent-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemContent-Extensions.swift"; sourceTree = "<group>"; };
 		B8EC462E27D7AA99009389FC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -787,9 +789,9 @@
 		B86E7A2D290AF3F400459E41 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B8DD568D290C9123002CAAFD /* WatchlistItem */,
+				B8DD568C290C911D002CAAFD /* Person */,
 				B8DD568B290C7D4E002CAAFD /* ItemContent */,
-				B86E7A2E290AF41500459E41 /* SearchItemContentView.swift */,
-				B8DD5685290C7BB4002CAAFD /* PersonCircleView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -963,6 +965,7 @@
 				B8DD567E290C759E002CAAFD /* PersonDetailsView.swift */,
 				B86E7A2B290AEEFE00459E41 /* SearchView.swift */,
 				B86E7A1B290A91E200459E41 /* WatchlistView.swift */,
+				B8DD568F290C92A5002CAAFD /* SettingsView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -974,8 +977,24 @@
 				B8DD5675290C3839002CAAFD /* ItemContentCardView.swift */,
 				B8DD5687290C7CC1002CAAFD /* ItemContentHeaderView.swift */,
 				B8DD5680290C77B0002CAAFD /* ItemContentOverview.swift */,
+				B86E7A2E290AF41500459E41 /* SearchItemContentView.swift */,
 			);
 			path = ItemContent;
+			sourceTree = "<group>";
+		};
+		B8DD568C290C911D002CAAFD /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				B8DD5685290C7BB4002CAAFD /* PersonCircleView.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		B8DD568D290C9123002CAAFD /* WatchlistItem */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WatchlistItem;
 			sourceTree = "<group>";
 		};
 		B8E7651927B738D200D9B731 /* Configuration */ = {
@@ -1430,6 +1449,7 @@
 				B86E7A26290AC2C600459E41 /* HomeView.swift in Sources */,
 				B86E79FC290A909B00459E41 /* NotificationManager.swift in Sources */,
 				B86E7A05290A90AE00459E41 /* NetworkError.swift in Sources */,
+				B8DD5690290C92A5002CAAFD /* SettingsView.swift in Sources */,
 				B86E7A09290A90CA00459E41 /* DefaultListTypes.swift in Sources */,
 				B8DD5688290C7CC1002CAAFD /* ItemContentHeaderView.swift in Sources */,
 				B86E79F4290A907500459E41 /* Bundle-Decodable.swift in Sources */,

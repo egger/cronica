@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
-    @State private var showConfirmation = false
     var body: some View {
         VStack {
             switch viewModel.stage {
@@ -57,6 +56,13 @@ struct SearchView: View {
         .searchable(text: $viewModel.query, prompt: "Movies, Shows, People")
         .task(id: viewModel.query) {
             await viewModel.search(viewModel.query)
+        }
+        .navigationDestination(for: ItemContent.self) { item in
+            if item.media == .person {
+                PersonDetailsView(title: item.itemTitle, id: item.id)
+            } else {
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            }
         }
     }
 }
