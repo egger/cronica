@@ -16,7 +16,6 @@ struct HomeView: View {
     @StateObject private var settings: SettingsStore
     @State private var showSettings = false
     @State private var showNotifications = false
-    @State private var isLoading = true
     @State private var showConfirmation = false
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())

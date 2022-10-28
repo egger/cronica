@@ -13,7 +13,7 @@ struct EpisodeDetailsView: View {
     let show: Int
     private let persistence = PersistenceController.shared
     @State private var isPad: Bool = UIDevice.isIPad
-    @Binding var isWatched: Bool 
+    @Binding var isWatched: Bool
     @Binding var isInWatchlist: Bool
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
@@ -24,7 +24,7 @@ struct EpisodeDetailsView: View {
                            height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
-
+                
                 if let info = episode.itemInfo {
                     HStack {
                         Spacer()
@@ -41,11 +41,11 @@ struct EpisodeDetailsView: View {
                                        show: show,
                                        isWatched: $isWatched,
                                        inWatchlist: $isInWatchlist)
-                    .tint(isWatched ? .red : .blue)
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
-                    .padding([.top, .horizontal])
-                    .keyboardShortcut("e", modifiers: [.control])
+                .tint(isWatched ? .red : .blue)
+                .buttonStyle(.bordered)
+                .controlSize(.large)
+                .padding([.top, .horizontal])
+                .keyboardShortcut("e", modifiers: [.control])
                 
                 OverviewBoxView(overview: episode.overview,
                                 title: episode.itemTitle,
@@ -62,13 +62,19 @@ struct EpisodeDetailsView: View {
                 load()
             }
             .navigationDestination(for: ItemContent.self) { item in
+#if os(tvOS)
+#else
                 ItemContentView(title: item.itemTitle,
                                 id: item.id,
                                 type: item.itemContentMedia,
                                 image: item.cardImageMedium)
+#endif
             }
             .navigationDestination(for: Person.self) { person in
+#if os(tvOS)
+#else
                 PersonDetailsView(title: person.name, id: person.id)
+#endif
             }
         }
     }

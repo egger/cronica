@@ -71,6 +71,8 @@ struct EpisodeFrameView: View {
                     }
                 }
                 .contextMenu {
+#if os(tvOS)
+#else
                     WatchEpisodeButtonView(episode: episode,
                                            season: season,
                                            show: show,
@@ -86,6 +88,7 @@ struct EpisodeFrameView: View {
                         }
                     }
                     ShareLink(item: itemLink)
+                    #endif
                 }
                 .hoverEffect()
             HStack {
@@ -130,6 +133,8 @@ struct EpisodeFrameView: View {
             showDetails.toggle()
         }
         .sheet(isPresented: $showDetails) {
+            #if os(tvOS)
+            #else
             NavigationStack {
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
@@ -141,6 +146,7 @@ struct EpisodeFrameView: View {
                         }
                     }
             }
+            #endif
         }
     }
 }

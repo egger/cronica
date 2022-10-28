@@ -60,9 +60,7 @@ struct WatchlistView: View {
             }
         }
         .navigationDestination(for: WatchlistItem.self) { item in
-            ItemContentView(title: item.itemTitle,
-                            id: item.itemId,
-                            type: item.itemMedia)
+            ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
         }
         .sheet(isPresented: $showFilters) {
             VStack {

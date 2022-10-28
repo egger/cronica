@@ -35,7 +35,7 @@ struct SearchView: View {
                     LazyHStack {
                         ForEach(viewModel.items) { item in
                             NavigationLink(value: item) {
-                                RectangularItemContentView(item: item)
+                                SearchItemContentView(item: item)
                             }
                             .ignoresSafeArea(.all)
                             .buttonStyle(.card)
@@ -65,52 +65,4 @@ struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
     }
-}
-
-struct SearchItemView: View {
-    let item: ItemContent
-    @State private var showConfirmation = false
-    var body: some View {
-        if item.media == .person {
-            NavigationLink(value: item) {
-                profile
-            }
-            .ignoresSafeArea(.all)
-            .buttonStyle(.card)
-        } else {
-            PosterView(item: item, addedItemConfirmation: $showConfirmation)
-        }
-    }
-    private var profile: some View {
-        AsyncImage(url: item.itemImage,
-                   transaction: Transaction(animation: .easeInOut)) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-            } else if phase.error != nil {
-                ZStack {
-                    ProgressView()
-                }.background(.secondary)
-            } else {
-                ZStack {
-                    Color.secondary
-                    Image(systemName: "person")
-                }
-            }
-        }
-                   .frame(width: DrawingConstants.personImageWidth,
-                          height: DrawingConstants.personImageHeight)
-                   .clipShape(Circle())
-    }
-}
-
-private struct DrawingConstants {
-    static let imageWidth: CGFloat = 70
-    static let imageHeight: CGFloat = 50
-    static let imageRadius: CGFloat = 4
-    static let textLimit: Int = 1
-    static let personImageWidth: CGFloat = 60
-    static let personImageHeight: CGFloat = 60
 }

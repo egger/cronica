@@ -9,26 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
-    @StateObject var persistence = PersistenceController.shared
     var body: some View {
-        TabView {
-            NavigationStack {
+        NavigationStack {
+            TabView {
                 HomeView()
-            }
-            .tabItem {
-                Label("Home", systemImage: "house")
-            }
-            NavigationStack {
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
                 WatchlistView()
-            }
-            .tabItem {
-                Label("Watchlist", systemImage: "square.stack.fill")
-            }
-            NavigationStack {
+                    .tabItem {
+                        Label("Watchlist", systemImage: "square.stack.fill")
+                    }
                 SearchView()
-            }
-            .tabItem {
-                Label("Search", systemImage: "magnifyingglass")
+                    .tabItem {
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
             }
         }
     }

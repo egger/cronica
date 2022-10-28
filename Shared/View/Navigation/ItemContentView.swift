@@ -72,7 +72,7 @@ struct ItemContentView: View {
                     
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
-                    SeasonsView(numberOfSeasons: viewModel.content?.itemSeasons,
+                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
                                 tvId: id,
                                 inWatchlist: $viewModel.isInWatchlist,
                                 seasonConfirmation: $showSeasonConfirmation)

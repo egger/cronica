@@ -109,6 +109,9 @@ extension ItemContent {
     var cardImageLarge: URL? {
         return NetworkService.urlBuilder(size: .large, path: backdropPath)
     }
+    var cardImageOriginal: URL? {
+        return NetworkService.urlBuilder(size: .original, path: backdropPath)
+    }
     var castImage: URL? {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
@@ -139,10 +142,17 @@ extension ItemContent {
         return "\(itemContentMedia.title)"
     }
     var itemImage: URL? {
+#if os(tvOS)
+        switch media {
+        case .person: return castImage
+        default: return posterImageMedium
+        }
+#else
         switch media {
         case .person: return castImage
         default: return cardImageMedium
         }
+#endif
     }
     var itemTrailers: [VideoItem]? {
         return TrailerUtilities.fetch(for: videos?.results)
