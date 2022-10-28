@@ -10,24 +10,30 @@ import SwiftUI
 struct ContentView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
     var body: some View {
-        NavigationStack {
-            TabView {
+        TabView {
+            NavigationStack {
                 HomeView()
-                    .tabItem {
-                        Label("Home", systemImage: "house")
-                    }
+            }
+            .tabItem {
+                Label("Home", systemImage: "house")
+            }
+            NavigationStack {
                 WatchlistView()
-                    .tabItem {
-                        Label("Watchlist", systemImage: "square.stack.fill")
-                    }
+            }
+            .tabItem {
+                Label("Watchlist", systemImage: "square.stack.fill")
+            }
+            NavigationStack {
                 SearchView()
-                    .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
-                    }
+            }
+            .tabItem {
+                Label("Search", systemImage: "magnifyingglass")
+            }
+            NavigationStack {
                 SettingsView()
-                    .tabItem {
-                        Label("Settings", systemImage: "gearshape")
-                    }
+            }
+            .tabItem {
+                Label("Settings", systemImage: "gearshape")
             }
         }
     }
