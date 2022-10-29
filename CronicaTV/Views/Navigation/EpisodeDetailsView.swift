@@ -1,5 +1,5 @@
 //
-//  ItemContentHeaderView.swift
+//  EpisodeDetailsView.swift
 //  CronicaTV
 //
 //  Created by Alexandre Madeira on 28/10/22.
@@ -8,12 +8,15 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ItemContentHeaderView: View {
-    let title: String
-    @EnvironmentObject var viewModel: ItemContentViewModel
+struct EpisodeDetailsView: View {
+    let episode: Episode
+    let id: Int
+    let season: Int
+    @State private var isWatched = false
+    @Binding var inWatchlist: Bool
     var body: some View {
         ZStack {
-            WebImage(url: viewModel.content?.cardImageOriginal)
+            WebImage(url: episode.itemImageOriginal)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 1920, height: 1080)
@@ -56,29 +59,22 @@ struct ItemContentHeaderView: View {
                 Spacer()
                 HStack(alignment: .bottom) {
                     VStack {
-                        Text(title)
+                        Text(episode.itemTitle)
                             .lineLimit(1)
                             .font(.title3)
-                        GlanceInfo(info: viewModel.content?.itemInfo)
+                        GlanceInfo(info: episode.itemInfo)
                             .padding([.bottom, .top], 6)
-                        ItemContentOverview(overview: viewModel.content?.itemOverview)
+                        ItemContentOverview(overview: episode.itemOverview)
                     }
                     .frame(maxWidth: 900)
                     Spacer()
                     VStack {
                         HStack {
-                            Button(action: {
-                                if let item = viewModel.content {
-                                    viewModel.updateWatchlist(with: item)
-                                }
-                            }, label: {
-                                Text(viewModel.isInWatchlist ? "Remove from List" : "Add to List")
-                            })
-                            Button(action: {
-                                viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
-                            }, label: {
-                                Text(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched")
-                            })
+                            WatchEpisodeButtonView(episode: episode,
+                                                   season: season,
+                                                   show: id,
+                                                   isWatched: $isWatched,
+                                                   inWatchlist: $inWatchlist)
                         }
                     }
                 }
@@ -86,16 +82,8 @@ struct ItemContentHeaderView: View {
             }
             .padding()
         }
-    }
-}
-
-struct GlanceInfo: View {
-    var info: String?
-    var body: some View {
-        if let info {
-            Text(info)
-                .font(.caption)
-                .foregroundColor(.secondary)
+        .task {
+            isWatched = PersistenceController.shared.isEpisodeSaved(show: id, season: season, episode: episode.id)
         }
     }
 }

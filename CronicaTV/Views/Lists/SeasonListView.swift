@@ -76,13 +76,7 @@ struct SeasonListView: View {
         }
         .sheet(item: $selectedEpisode) { item in
             NavigationStack {
-                VStack {
-                    Text(item.itemTitle)
-                    WatchEpisodeButtonView(episode: item,
-                                           season: selectedSeason,
-                                           show: id,
-                                           isWatched: $hasFirstLoaded, inWatchlist: $inWatchlist)
-                }
+                EpisodeDetailsView(episode: item, id: id, season: selectedSeason, inWatchlist: $inWatchlist)
             }
             .toolbar {
                 ToolbarItem {

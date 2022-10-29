@@ -20,6 +20,9 @@ extension Episode {
     var itemImageLarge: URL? {
         return NetworkService.urlBuilder(size: .large, path: stillPath)
     }
+    var itemImageOriginal: URL? {
+        return NetworkService.urlBuilder(size: .original, path: stillPath)
+    }
     var itemDate: String? {
         if let airDate {
             let date = Utilities.dateFormatter.date(from: airDate)
