@@ -34,6 +34,8 @@ struct PersonCircleView: View {
                        height: DrawingConstants.profileHeight)
                 .transition(.opacity)
         }
+        .clipShape(Circle())
+        .buttonStyle(.card)
     }
 }
 

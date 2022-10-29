@@ -29,12 +29,22 @@ struct CastListView: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(credits) { item in
-                            PersonCircleView(person: item)
-                                .buttonStyle(.card)
-                                .padding([.leading, .trailing], 4)
-                                .padding(.leading, item.id == credits.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == credits.last!.id ? 16 : 0)
-                                .padding([.top, .bottom])
+                            VStack {
+                                PersonCircleView(person: item)
+                                Text(item.name)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                if let role = item.personRole {
+                                    Text(role)
+                                        .font(.caption)
+                                        .lineLimit(1)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding([.leading, .trailing], 4)
+                            .padding(.leading, item.id == credits.first!.id ? 16 : 0)
+                            .padding(.trailing, item.id == credits.last!.id ? 16 : 0)
+                            .padding([.top, .bottom])
                         }
                     }
                 }
