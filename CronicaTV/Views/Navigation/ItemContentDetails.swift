@@ -28,6 +28,9 @@ struct ItemContentDetails: View {
                                     title: "Recommendations",
                                     subtitle: "You may like",
                                     image: "film.stack")
+                    if let seasons = viewModel.content?.itemSeasons {
+                        SeasonListView(numberOfSeasons: seasons, id: self.id, inWatchlist: $viewModel.isInWatchlist)
+                    }
                     CastListView(credits: viewModel.credits)
                     InfoSection(item: viewModel.content)
                         .padding([.top, .bottom])

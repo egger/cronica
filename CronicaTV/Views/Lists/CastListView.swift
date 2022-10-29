@@ -30,6 +30,7 @@ struct CastListView: View {
                     LazyHStack {
                         ForEach(credits) { item in
                             PersonCircleView(person: item)
+                                .buttonStyle(.card)
                                 .padding([.leading, .trailing], 4)
                                 .padding(.leading, item.id == credits.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == credits.last!.id ? 16 : 0)

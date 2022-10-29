@@ -17,7 +17,7 @@ struct EpisodeFrameView: View {
     var itemLink: URL
     private let persistence = PersistenceController.shared
     @AppStorage("markEpisodeWatchedTap") private var episodeTap = false
-    @State private var isWatched: Bool = false
+    @State private var isWatched = false
     @State private var showDetails = false
     @Binding var isInWatchlist: Bool
     @EnvironmentObject var viewModel: SeasonViewModel
@@ -71,8 +71,6 @@ struct EpisodeFrameView: View {
                     }
                 }
                 .contextMenu {
-#if os(tvOS)
-#else
                     WatchEpisodeButtonView(episode: episode,
                                            season: season,
                                            show: show,
@@ -88,7 +86,6 @@ struct EpisodeFrameView: View {
                         }
                     }
                     ShareLink(item: itemLink)
-                    #endif
                 }
                 .hoverEffect()
             HStack {
