@@ -12,6 +12,28 @@ struct SettingsView: View {
     @State private var updatingItems = false
     var body: some View {
         Form {
+            // MARK: Update Section
+            Section {
+                Button(action: {
+                    updateItems()
+                }, label: {
+                    if updatingItems {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                    } else {
+                        Text("Update Items")
+                    }
+                })
+            } header: {
+                Label("Sync", systemImage: "arrow.2.circlepath")
+            } footer: {
+                Text("'Update Items' will update your items with new information available on TMDb, if available.")
+                    .padding(.bottom)
+            }
+            
             Section {
                 Toggle("Disable Telemetry", isOn: $disableTelemetry)
             } header: {
@@ -28,6 +50,19 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+    }
+    
+    private func updateItems() {
+        Task {
+            let background = BackgroundManager()
+            withAnimation {
+                self.updatingItems.toggle()
+            }
+            await background.handleAppRefreshContent()
+            withAnimation {
+                self.updatingItems.toggle()
+            }
+        }
     }
 }
 

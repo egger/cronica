@@ -60,6 +60,9 @@ struct EpisodeItemFrame: View {
                     isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
                 }
             }
+            .contextMenu {
+                Button("Cancel") { }
+            }
     }
 }
 

@@ -13,6 +13,7 @@ struct ItemContentHeaderView: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     var body: some View {
         ZStack {
+            if viewModel.isLoading { ProgressView("Loading").unredacted() }
             WebImage(url: viewModel.content?.cardImageOriginal)
                 .resizable()
                 .aspectRatio(contentMode: .fill)

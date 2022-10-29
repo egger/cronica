@@ -22,15 +22,15 @@ struct ItemContentDetails: View {
         ScrollView {
             ItemContentHeaderView(title: title)
                 .environmentObject(viewModel)
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
             VStack {
                 ScrollView {
                     ItemContentList(items: viewModel.recommendations,
                                     title: "Recommendations",
                                     subtitle: "You may like",
                                     image: "film.stack")
-                    if let seasons = viewModel.content?.itemSeasons {
-                        SeasonListView(numberOfSeasons: seasons, id: self.id, inWatchlist: $viewModel.isInWatchlist)
-                    }
+                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
+                                   id: self.id, inWatchlist: $viewModel.isInWatchlist)
                     CastListView(credits: viewModel.credits)
                     InfoSection(item: viewModel.content)
                         .padding([.top, .bottom])
@@ -46,6 +46,7 @@ struct ItemContentDetails: View {
             .task {
                 await viewModel.load()
             }
+            .redacted(reason: viewModel.isLoading ? .placeholder : [])
         }
         .ignoresSafeArea()
     }

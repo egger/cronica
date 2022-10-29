@@ -43,7 +43,7 @@ struct InfoSection: View {
                 }
             }
         }
-        
+        .padding()
     }
 }
 
@@ -54,9 +54,11 @@ private struct InfoSegmentView: View {
         if let info {
             VStack {
                 Text(title)
+                    .lineLimit(1)
                     .font(.body)
                     .foregroundColor(.secondary)
                 Text(info)
+                    .lineLimit(1)
                     .font(.body)
             }
         }

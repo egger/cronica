@@ -14,6 +14,7 @@ struct ItemContentContextMenu: ViewModifier {
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
     @State private var isFavorite: Bool = false
+    @State private var isPin: Bool = false
     private let context = PersistenceController.shared
     func body(content: Content) -> some View {
 #if os(watchOS)
@@ -33,6 +34,7 @@ struct ItemContentContextMenu: ViewModifier {
                 if isInWatchlist {
                     watchedButton
                     favoriteButton
+                    pinButton
                 }
 #if os(tvOS)
                 Button("Cancel") { }
@@ -72,6 +74,19 @@ struct ItemContentContextMenu: ViewModifier {
             Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: isFavorite ? "heart.slash.circle.fill" : "heart.circle")
         })
+    }
+    
+    private var pinButton: some View {
+        Button {
+            context.updatePin(items: [item.itemNotificationID])
+            withAnimation {
+                isPin.toggle()
+            }
+        } label: {
+            Label(isPin ? "" : "",
+                  systemImage: isPin ? "" : "")
+        }
+
     }
     
     private func updateWatchlist(with item: ItemContent) {

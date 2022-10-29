@@ -25,10 +25,10 @@ struct WatchEpisodeButtonView: View {
     }
     
     private func update() {
-        #if os(tvOS)
-        #else
+#if os(tvOS)
+#else
         HapticManager.shared.lightHaptic()
-        #endif
+#endif
         if !inWatchlist {
             Task {
                 await fetch()

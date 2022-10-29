@@ -68,6 +68,9 @@ struct WatchlistView: View {
                         case .watched:
                             WatchListSection(items: items.filter { $0.isWatched },
                                              title: DefaultListTypes.watched.title)
+                        case .pin:
+                            WatchListSection(items: items.filter { $0.isPin },
+                                             title: DefaultListTypes.pin.title)
                         }
                     }
                 }

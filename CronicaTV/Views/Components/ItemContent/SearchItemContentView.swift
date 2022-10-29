@@ -88,7 +88,7 @@ struct SearchItemContentView: View {
     }
 }
 
-struct RectangularItemContentView_Previews: PreviewProvider {
+struct SearchItemContentView_Previews: PreviewProvider {
     static var previews: some View {
         SearchItemContentView(item: ItemContent.previewContent)
     }

@@ -1,14 +1,14 @@
 //
-//  ItemContentList.swift
+//  WatchlistItemListView.swift
 //  CronicaTV
 //
-//  Created by Alexandre Madeira on 28/10/22.
+//  Created by Alexandre Madeira on 29/10/22.
 //
 
 import SwiftUI
 
-struct ItemContentList: View {
-    let items: [ItemContent]
+struct WatchlistItemListView: View {
+    let items: [WatchlistItem]
     let title: String
     let subtitle: String
     let image: String
@@ -19,7 +19,7 @@ struct ItemContentList: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(items) { item in
-                            ItemContentCardView(item: item)
+                            WatchlistItemCard(item: item)
                                 .padding([.leading, .trailing], 4)
                                 .buttonStyle(.plain)
                                 .padding(.leading, item.id == items.first!.id ? 16 : 0)
@@ -34,11 +34,8 @@ struct ItemContentList: View {
     }
 }
 
-struct ItemContentList_Previews: PreviewProvider {
+struct WatchlistItemListView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentList(items: [ItemContent.previewContent],
-                        title: "Preview",
-                        subtitle: "Preview Sample",
-                        image: "film")
+        WatchlistItemListView(items: [WatchlistItem.example], title: "Items", subtitle: "Preview", image: "film")
     }
 }

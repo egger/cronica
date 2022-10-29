@@ -75,6 +75,9 @@ struct WatchlistView: View {
                             case .favorites:
                                 WatchlistSectionView(items: items.filter { $0.isFavorite },
                                                      title: "Favorites")
+                            case .pin:
+                                WatchlistSectionView(items: items.filter { $0.isPin },
+                                                     title: "Pins")
                             }
                         }
                     }

@@ -12,20 +12,7 @@ struct CastListView: View {
     var body: some View {
         if !credits.isEmpty {
             VStack(alignment: .leading) {
-                HStack {
-                    HStack {
-                        Text(NSLocalizedString("Cast & Crew", comment: ""))
-                            .font(.callout)
-                            .padding([.top, .horizontal])
-                        Spacer()
-                    }
-                    Spacer()
-                    Image(systemName: "person.3")
-                        .foregroundColor(.secondary)
-                        .padding()
-                        .accessibilityHidden(true)
-                }
-                .accessibilityElement(children: .combine)
+                ListTitleView(title: "Cast & Crew", subtitle: "", image: "person.3")
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(credits) { item in
@@ -49,6 +36,7 @@ struct CastListView: View {
                     }
                 }
             }
+            .padding()
         }
     }
 }
