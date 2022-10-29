@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct PersonDetailsView: View {
     private let columns: [GridItem] = [
@@ -19,24 +20,33 @@ struct PersonDetailsView: View {
         self.name = title
     }
     var body: some View {
-        VStack {
-            if !viewModel.credits.isEmpty {
-                ScrollView {
+        ScrollView {
+            VStack {
+                HStack {
+                    WebImage(url: viewModel.person?.personImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 200, height: 200)
+                        .clipShape(Circle())
+                    Text(name)
+                        .font(.title2)
+                }
+                .padding()
+                if !viewModel.credits.isEmpty {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(viewModel.credits) { item in
                             ItemContentCardView(item: item)
                         }
                     }
+                } else {
+                    Spacer()
+                    Text("No Filmography.")
+                    Spacer()
                 }
-            } else {
-                Spacer()
-                Text("This list is empty.")
-                Spacer()
             }
-        }
-        .navigationTitle(name)
-        .task {
-            await viewModel.load()
+            .task {
+                await viewModel.load()
+            }
         }
     }
 }

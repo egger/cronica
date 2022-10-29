@@ -18,22 +18,25 @@ struct SeasonListView: View {
     @StateObject private var viewModel = SeasonViewModel()
     var body: some View {
         VStack {
-            ScrollView(.horizontal) {
-                HStack(alignment: .center) {
-                    Picker("Seasons", selection: $selectedSeason) {
-                        ForEach(numberOfSeasons, id: \.self) { season in
-                            Text("Season \(season)").tag(season)
+            HStack(alignment: .center) {
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal) {
+                        Picker("Seasons", selection: $selectedSeason) {
+                            ForEach(numberOfSeasons, id: \.self) { season in
+                                Text("Season \(season)").tag(season)
+                            }
+                        }
+                        .padding([.trailing, .leading], 16)
+                        .padding([.top, .bottom])
+                    }
+                    .onChange(of: selectedSeason) { season in
+                        proxy.scrollTo(season, anchor: .topLeading)
+                        Task {
+                            await viewModel.load(id: self.id, season: season, isInWatchlist: inWatchlist)
                         }
                     }
-                    .padding([.trailing, .leading], 16)
-                    .padding([.top, .bottom])
                 }
-                .padding()
-                .onChange(of: selectedSeason) { season in
-                    Task {
-                        await viewModel.load(id: self.id, season: season, isInWatchlist: inWatchlist)
-                    }
-                }
+                
             }
             ScrollView(.horizontal) {
                 if let season = viewModel.season?.episodes {
@@ -67,6 +70,13 @@ struct SeasonListView: View {
                                     .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                     .padding(.trailing, item.id == season.last!.id ? 16 : 0)
                                     .padding([.top, .bottom])
+                                }
+                            }
+                            .onAppear {
+                                let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(id))
+                                guard let lastWatchedEpisode else { return }
+                                withAnimation {
+                                    proxy.scrollTo(lastWatchedEpisode, anchor: .top)
                                 }
                             }
                         }

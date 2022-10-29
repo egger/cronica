@@ -20,10 +20,10 @@ struct ItemContentContextMenu: ViewModifier {
 #else
         return content
             .contextMenu {
-                #if os(tvOS)
-                #else
+#if os(tvOS)
+#else
                 ShareLink(item: item.itemURL)
-                #endif
+#endif
                 Button(action: {
                     updateWatchlist(with: item)
                 }, label: {
@@ -34,6 +34,9 @@ struct ItemContentContextMenu: ViewModifier {
                     watchedButton
                     favoriteButton
                 }
+#if os(tvOS)
+                Button("Cancel") { }
+#endif
             } preview: {
                 ItemContentContextPreview(title: item.itemTitle,
                                           image: item.cardImageLarge,

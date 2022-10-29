@@ -968,13 +968,13 @@
 		B8DD5682290C78B0002CAAFD /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				B8DD5697290CB41C002CAAFD /* EpisodeDetailsView.swift */,
 				B86E7A25290AC2C600459E41 /* HomeView.swift */,
 				B86E7A20290AAEB600459E41 /* ItemContentDetails.swift */,
 				B8DD567E290C759E002CAAFD /* PersonDetailsView.swift */,
 				B86E7A2B290AEEFE00459E41 /* SearchView.swift */,
-				B86E7A1B290A91E200459E41 /* WatchlistView.swift */,
 				B8DD568F290C92A5002CAAFD /* SettingsView.swift */,
-				B8DD5697290CB41C002CAAFD /* EpisodeDetailsView.swift */,
+				B86E7A1B290A91E200459E41 /* WatchlistView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";

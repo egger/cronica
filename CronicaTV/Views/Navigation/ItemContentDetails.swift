@@ -40,6 +40,9 @@ struct ItemContentDetails: View {
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
             }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            }
             .task {
                 await viewModel.load()
             }

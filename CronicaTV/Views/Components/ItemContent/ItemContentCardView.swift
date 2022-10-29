@@ -99,12 +99,6 @@ struct ItemContentCardView: View {
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                 .aspectRatio(contentMode: .fill)
-            .modifier(
-                ItemContentContextMenu(item: item,
-                                       showConfirmation: $showConfirmation,
-                                       isInWatchlist: $isInWatchlist,
-                                       isWatched: $isWatched)
-            )
         }
         .buttonStyle(.card)
         .task {
@@ -115,6 +109,12 @@ struct ItemContentCardView: View {
                 }
             }
         }
+        .modifier(
+            ItemContentContextMenu(item: item,
+                                   showConfirmation: $showConfirmation,
+                                   isInWatchlist: $isInWatchlist,
+                                   isWatched: $isWatched)
+        )
     }
 }
 
