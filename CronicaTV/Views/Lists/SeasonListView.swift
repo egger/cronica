@@ -42,7 +42,9 @@ struct SeasonListView: View {
                 ScrollView(.horizontal) {
                     if let season = viewModel.season?.episodes {
                         if season.isEmpty {
-                            
+                            CenterHorizontalView {
+                                Text("No Episodes Available")
+                            }
                         } else {
                             ScrollViewReader { proxy in
                                 LazyHStack {

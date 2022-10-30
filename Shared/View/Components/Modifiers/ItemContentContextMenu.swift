@@ -47,6 +47,7 @@ struct ItemContentContextMenu: ViewModifier {
             .task {
                 if isInWatchlist {
                     isFavorite = context.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia)
+                    isPin = context.isItemPinned(id: item.id, type: item.itemContentMedia)
                 }
             }
 #endif
@@ -83,8 +84,8 @@ struct ItemContentContextMenu: ViewModifier {
                 isPin.toggle()
             }
         } label: {
-            Label(isPin ? "" : "",
-                  systemImage: isPin ? "" : "")
+            Label(isPin ? "Unpin Item" : "Pin Item",
+                  systemImage: isPin ? "pin.slash" : "pin")
         }
 
     }

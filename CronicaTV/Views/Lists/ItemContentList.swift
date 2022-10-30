@@ -29,6 +29,9 @@ struct ItemContentList: View {
                     }
                 }
             }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            }
             .padding()
         }
     }

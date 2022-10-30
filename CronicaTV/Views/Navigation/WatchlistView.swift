@@ -21,26 +21,9 @@ struct WatchlistView: View {
         ScrollView {
             VStack {
                 HStack {
-                    switch selectedOrder {
-                    case .released:
-                        Text(selectedOrder.title)
-                            .font(.title)
-                    case .upcoming:
-                        Text(selectedOrder.title)
-                            .font(.title)
-                    case .production:
-                        Text(selectedOrder.title)
-                            .font(.title)
-                    case .watched:
-                        Text(selectedOrder.title)
-                            .font(.title)
-                    case .favorites:
-                        Text(selectedOrder.title)
-                            .font(.title)
-                    case .pin:
-                        Text(selectedOrder.title)
-                            .font(.title)
-                    }
+                    Text(selectedOrder.title)
+                        .font(.title3)
+                        .padding()
                     Spacer()
                     Button(action: {
                         showFilters.toggle()
@@ -48,6 +31,7 @@ struct WatchlistView: View {
                         Label("List Filters",
                               systemImage: "line.3.horizontal.decrease.circle")
                     })
+                    .buttonStyle(.bordered)
                     .padding()
                 }
                 switch selectedOrder {
@@ -71,11 +55,14 @@ struct WatchlistView: View {
             .sheet(isPresented: $showFilters) {
                 VStack {
                     ForEach(DefaultListTypes.allCases) { list in
-                        Button(list.title) {
+                        Button {
                             selectedOrder = list
                             showFilters.toggle()
+                        } label: {
+                            Text(list.title)
+                                .frame(maxWidth: 400)
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(.bordered)
                     }
                 }
             }

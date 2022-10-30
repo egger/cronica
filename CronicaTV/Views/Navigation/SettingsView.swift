@@ -18,11 +18,7 @@ struct SettingsView: View {
                     updateItems()
                 }, label: {
                     if updatingItems {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
+                        CenterHorizontalView { ProgressView() }
                     } else {
                         Text("Update Items")
                     }
@@ -43,11 +39,7 @@ struct SettingsView: View {
                     .padding(.bottom)
             }
             
-            HStack {
-                Spacer()
-                Text("Made in Brazil 🇧🇷")
-                Spacer()
-            }
+            CenterHorizontalView { Text("Made in Brazil 🇧🇷") }
         }
         .navigationTitle("Settings")
     }

@@ -77,7 +77,12 @@ struct WatchlistView: View {
                 .listStyle(.insetGrouped)
                 .dropDestination(for: ItemContent.self) { items, _  in
                     for item in items {
-                        PersistenceController.shared.save(item)
+                        Task {
+                            let result = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
+                            if let result {
+                                PersistenceController.shared.save(result)
+                            }
+                        }
                     }
                     return true
                 }

@@ -11,11 +11,9 @@ struct InfoSection: View {
     var item: ItemContent?
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
+            CenterHorizontalView {
                 Label("Information", systemImage: "info")
                     .unredacted()
-                Spacer()
             }
             .padding(.bottom)
             HStack {

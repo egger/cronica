@@ -15,18 +15,15 @@ struct WelcomeView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Spacer()
-                HStack {
-                    Spacer()
+                CenterHorizontalView {
                     Image("Icon")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100, alignment: .center)
                         .padding()
-                    Spacer()
                 }
                 VStack(alignment: .center) {
-                    HStack {
-                        Spacer()
+                    CenterHorizontalView {
                         VStack {
                             Text("Welcome to")
                                 .fontWeight(.black)
@@ -36,12 +33,10 @@ struct WelcomeView: View {
                                 .font(.system(size: 34))
                         }
                         .padding(.horizontal)
-                        Spacer()
                     }
                 }
                 InformationContainerView()
-                HStack {
-                    Spacer()
+                CenterHorizontalView {
                     VStack {
                         Button {
                             withAnimation {
@@ -60,7 +55,6 @@ struct WelcomeView: View {
                         .padding([.horizontal, .bottom])
                     }
                     .padding()
-                    Spacer()
                 }
             }
             .fullScreenCover(isPresented: $showPolicy) {
@@ -115,8 +109,7 @@ private struct InformationDetailView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.leading, 6)
-            .padding([.top, .bottom], 8)
-            
+            .padding([.top, .bottom], 8)      
             Spacer()
         }
         .background(.regularMaterial)

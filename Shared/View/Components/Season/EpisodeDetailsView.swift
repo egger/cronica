@@ -26,12 +26,10 @@ struct EpisodeDetailsView: View {
                     .shadow(radius: DrawingConstants.shadowRadius)
                 
                 if let info = episode.itemInfo {
-                    HStack {
-                        Spacer()
+                    CenterHorizontalView {
                         Text(info)
                             .font(.caption)
                             .foregroundColor(.secondary)
-                        Spacer()
                     }
                     .padding([.top, .horizontal])
                 }

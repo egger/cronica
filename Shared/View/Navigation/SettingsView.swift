@@ -54,10 +54,8 @@ struct SettingsView: View {
                             updateItems()
                         }, label: {
                             if updatingItems {
-                                HStack {
-                                    Spacer()
+                                CenterHorizontalView {
                                     ProgressView()
-                                    Spacer()
                                 }
                             } else {
                                 Text("Update Items")
@@ -120,8 +118,7 @@ struct SettingsView: View {
                             Label("Developer Options", systemImage: "hammer")
                         }
                     }
-                    HStack {
-                        Spacer()
+                    CenterHorizontalView {
                         Text("Made in Brazil 🇧🇷")
                             .onTapGesture {
                                 Task {
@@ -140,7 +137,6 @@ struct SettingsView: View {
                             .font(animateEasterEgg ? .title3 : .caption)
                             .foregroundColor(animateEasterEgg ? .green : nil)
                             .animation(.easeInOut, value: animateEasterEgg)
-                        Spacer()
                     }
                     .fullScreenCover(isPresented: $showPolicy) {
                         SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)

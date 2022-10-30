@@ -20,6 +20,7 @@ struct HomeView: View {
             }
             VStack {
                 ScrollView {
+                    PinItemsList()
                     ItemContentList(items: viewModel.trending,
                                     title: "Trending",
                                     subtitle: "Today",
@@ -33,9 +34,7 @@ struct HomeView: View {
                     AttributionView()
                 }
             }
-            .navigationDestination(for: ItemContent.self) { item in
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-            }
+            
             .task {
                 await viewModel.load()
             }
@@ -47,5 +46,22 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+    }
+}
+
+private struct PinItemsList: View {
+    @FetchRequest(
+        entity: WatchlistItem.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: true),
+        ],
+        predicate: NSPredicate(format: "isPin == %d", true)
+    )
+    
+    var items: FetchedResults<WatchlistItem>
+    var body: some View {
+        WatchlistItemListView(items: items.filter { $0.largeCardImage != nil },
+                              title: "My Pins", subtitle: "Pinned Items",
+                              image: "pin")
     }
 }

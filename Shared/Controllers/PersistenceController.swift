@@ -390,4 +390,9 @@ class PersistenceController: ObservableObject {
         let item = try? fetch(for: WatchlistItem.ID(id), media: type)
         return item?.favorite ?? false
     }
+    
+    func isItemPinned(id: ItemContent.ID, type: MediaType) -> Bool {
+        let item = try? fetch(for: WatchlistItem.ID(id), media: type)
+        return item?.isPin ?? false
+    }
 }

@@ -61,6 +61,14 @@ struct EpisodeItemFrame: View {
                 }
             }
             .contextMenu {
+                Button {
+                    guard let season = episode.seasonNumber else { return }
+                    persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
+                } label: {
+                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                }
+
                 Button("Cancel") { }
             }
     }

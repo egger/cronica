@@ -33,7 +33,13 @@ struct SearchView: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(viewModel.items) { item in
-                            NavigationLink(value: item) {
+                            NavigationLink {
+                                if item.media == .person {
+                                    PersonDetailsView(title: item.itemTitle, id: item.id)
+                                } else {
+                                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                                }
+                            } label: {
                                 SearchItemContentView(item: item)
                             }
                             .ignoresSafeArea(.all)
@@ -56,13 +62,6 @@ struct SearchView: View {
         .searchable(text: $viewModel.query, prompt: "Movies, Shows, People")
         .task(id: viewModel.query) {
             await viewModel.search(viewModel.query)
-        }
-        .navigationDestination(for: ItemContent.self) { item in
-            if item.media == .person {
-                PersonDetailsView(title: item.itemTitle, id: item.id)
-            } else {
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-            }
         }
     }
 }

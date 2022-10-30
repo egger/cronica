@@ -52,7 +52,9 @@ struct DeveloperView: View {
                     }
                 }, label: {
                     if isFetching {
-                        ProgressView()
+                        CenterHorizontalView {
+                            ProgressView()
+                        }
                     } else {
                         Text("Fetch")
                     }
@@ -81,7 +83,9 @@ struct DeveloperView: View {
                     }
                 }, label: {
                     if isFetchingAll {
-                        ProgressView()
+                        CenterHorizontalView {
+                            ProgressView()
+                        }
                     } else {
                         Text("Update Items")
                     }
