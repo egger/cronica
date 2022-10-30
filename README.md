@@ -1,7 +1,7 @@
 # Cronica
 
 <p align="center">
-    <img src="https://cronica.alexandremadeira.dev/resources/img/icon.png" alt="Cronica Icon" width="100" height="100" />
+    <img src="https://alexandremadeira.dev/resources/img/cronica/icon.webp" alt="Cronica Icon" width="100" height="100" />
 </p>
 
 <p align="center">
