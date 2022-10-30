@@ -21,7 +21,7 @@ struct EpisodeItemFrame: View {
                     Text(episode.itemTitle)
                         .font(.callout)
                         .lineLimit(1)
-                        .padding(.bottom)
+                        .padding()
                     Image(systemName: "tv")
                         .font(.title3)
                 }
@@ -59,17 +59,6 @@ struct EpisodeItemFrame: View {
                     guard let season = episode.seasonNumber else { return }
                     isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
                 }
-            }
-            .contextMenu {
-                Button {
-                    guard let season = episode.seasonNumber else { return }
-                    persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
-                } label: {
-                    Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                          systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-                }
-
-                Button("Cancel") { }
             }
     }
 }

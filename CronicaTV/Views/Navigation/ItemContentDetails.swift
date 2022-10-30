@@ -25,12 +25,12 @@ struct ItemContentDetails: View {
                 .redacted(reason: viewModel.isLoading ? .placeholder : [])
             VStack {
                 ScrollView {
+                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
+                                   id: self.id, inWatchlist: $viewModel.isInWatchlist)
                     ItemContentList(items: viewModel.recommendations,
                                     title: "Recommendations",
                                     subtitle: "You may like",
                                     image: "film.stack")
-                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                   id: self.id, inWatchlist: $viewModel.isInWatchlist)
                     CastListView(credits: viewModel.credits)
                     InfoSection(item: viewModel.content)
                         .padding([.top, .bottom])

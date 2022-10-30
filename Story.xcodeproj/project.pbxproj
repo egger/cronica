@@ -95,7 +95,6 @@
 		B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E589027A4BE75005DBF38 /* Endpoints.swift */; };
 		B86E79E4290A8F2700459E41 /* CronicaTVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E79E3290A8F2700459E41 /* CronicaTVApp.swift */; };
 		B86E79E6290A8F2700459E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E79E5290A8F2700459E41 /* ContentView.swift */; };
-		B86E79E8290A8F2900459E41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86E79E7290A8F2900459E41 /* Assets.xcassets */; };
 		B86E79EB290A8F2900459E41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86E79EA290A8F2900459E41 /* Preview Assets.xcassets */; };
 		B86E79F1290A906200459E41 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
 		B86E79F2290A906A00459E41 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
@@ -246,6 +245,7 @@
 		B8DD56A0290DE2D7002CAAFD /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
 		B8DD56A1290DE2FD002CAAFD /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
 		B8DD56A2290DE2FE002CAAFD /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
+		B8DD56A4290EA09A002CAAFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8DD56A3290EA09A002CAAFD /* Assets.xcassets */; };
 		B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
 		B8EC45E427D5A010009389FC /* ItemContent-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* ItemContent-Extensions.swift */; };
 		B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* NotificationManager.swift */; };
@@ -367,7 +367,6 @@
 		B86E79E1290A8F2700459E41 /* CronicaTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CronicaTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B86E79E3290A8F2700459E41 /* CronicaTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTVApp.swift; sourceTree = "<group>"; };
 		B86E79E5290A8F2700459E41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B86E79E7290A8F2900459E41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B86E79EA290A8F2900459E41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B86E79EF290A8F6A00459E41 /* CronicaTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CronicaTV.entitlements; sourceTree = "<group>"; };
 		B86E79F0290A8F7B00459E41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -456,6 +455,7 @@
 		B8DD569B290DDD9C002CAAFD /* WatchlistItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemListView.swift; sourceTree = "<group>"; };
 		B8DD569D290DDDD5002CAAFD /* ListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTitleView.swift; sourceTree = "<group>"; };
 		B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterHorizontalView.swift; sourceTree = "<group>"; };
+		B8DD56A3290EA09A002CAAFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 		B8E6D64127B6B106002E7A63 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
 		B8EC45E327D5A010009389FC /* ItemContent-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemContent-Extensions.swift"; sourceTree = "<group>"; };
 		B8EC462E27D7AA99009389FC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -774,8 +774,8 @@
 			isa = PBXGroup;
 			children = (
 				B86E7A1F290AAE9E00459E41 /* Views */,
-				B86E79E7290A8F2900459E41 /* Assets.xcassets */,
 				B86E79E5290A8F2700459E41 /* ContentView.swift */,
+				B8DD56A3290EA09A002CAAFD /* Assets.xcassets */,
 				B86E79EF290A8F6A00459E41 /* CronicaTV.entitlements */,
 				B86E79E3290A8F2700459E41 /* CronicaTVApp.swift */,
 				B86E79F0290A8F7B00459E41 /* Info.plist */,
@@ -1273,8 +1273,8 @@
 				B86E79EB290A8F2900459E41 /* Preview Assets.xcassets in Resources */,
 				B86E79FA290A908D00459E41 /* Localizable.strings in Resources */,
 				B86E7A2A290AEC3100459E41 /* Attribution.xcassets in Resources */,
-				B86E79E8290A8F2900459E41 /* Assets.xcassets in Resources */,
 				B86E7A07290A90B300459E41 /* content.json in Resources */,
+				B8DD56A4290EA09A002CAAFD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

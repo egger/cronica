@@ -34,7 +34,9 @@ struct HomeView: View {
                     AttributionView()
                 }
             }
-            
+            .navigationDestination(for: WatchlistItem.self) { item in
+                ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+            }
             .task {
                 await viewModel.load()
             }
