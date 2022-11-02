@@ -11,7 +11,7 @@ import TelemetryClient
 
 @main
 struct StoryApp: App {
-    @StateObject var persistence = PersistenceController.shared
+    @StateObject var persistence = PersistenceController.shared 
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
     @Environment(\.scenePhase) private var scene

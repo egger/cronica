@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct SideBarView: View {
-    @AppStorage("selectedView") var selectedView: Screens?
+    @AppStorage("selectedView") private var selectedView: Screens?
     @StateObject private var settings: SettingsStore
     @StateObject private var viewModel: SearchViewModel
     @State private var showSettings = false

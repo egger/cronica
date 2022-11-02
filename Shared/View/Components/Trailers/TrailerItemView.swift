@@ -30,11 +30,13 @@ struct TrailerItemView: View {
                     if let url = trailer.url {
                         ShareLink(item: url)
                         Button("Open in YouTube") {
+                            #if os(iOS)
                             UIApplication.shared.open(url)
+                            #endif
                         }
                     }
                 }
-                .hoverEffect()
+            #warning(".hoverEffect()")
             HStack {
                 Text(trailer.title)
                     .lineLimit(DrawingConstants.lineLimits)

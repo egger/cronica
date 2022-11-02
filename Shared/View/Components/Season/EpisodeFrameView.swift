@@ -87,7 +87,7 @@ struct EpisodeFrameView: View {
                     }
                     ShareLink(item: itemLink)
                 }
-                .hoverEffect()
+            #warning(".hoverEffect()")
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .font(.caption2)
@@ -133,6 +133,7 @@ struct EpisodeFrameView: View {
             #if os(tvOS)
             #else
             NavigationStack {
+                #if os(iOS)
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
                     .toolbar {
@@ -142,6 +143,7 @@ struct EpisodeFrameView: View {
                             }
                         }
                     }
+                #endif
             }
             #endif
         }

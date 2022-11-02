@@ -20,12 +20,16 @@ struct SeasonListView: View {
     @AppStorage("markEpisodeWatchedTap") var episodeTap = false
     @Binding var inWatchlist: Bool
     @Binding var seasonConfirmation: Bool
+    private var isMac = false
     init(numberOfSeasons: [Int]?, tvId: Int, inWatchlist: Binding<Bool>, seasonConfirmation: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: SeasonViewModel())
         self.numberOfSeasons = numberOfSeasons
         self.tvId = tvId
         self._inWatchlist = inWatchlist
         self._seasonConfirmation = seasonConfirmation
+        #if os(macOS)
+        isMac = true
+        #endif
     }
     var body: some View {
         if let numberOfSeasons {
@@ -45,31 +49,22 @@ struct SeasonListView: View {
                     .padding(.leading)
                     .padding(.bottom, 1)
                     .unredacted()
+                    .frame(maxWidth: isMac ? 300 : nil)
                     Spacer()
+#if os(macOS)
+                    markSeasonAsWatched
+                        .unredacted()
+                        .disabled(viewModel.isLoading)
+                        .padding()
+#else
                     Menu {
-                        Button(action: {
-                            Task {
-                                withAnimation {
-                                    seasonConfirmation.toggle()
-                                }
-                                await viewModel.markSeasonAsWatched(id: tvId)
-                                if !inWatchlist {
-                                    inWatchlist = viewModel.isItemInWatchlist
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                    withAnimation {
-                                        seasonConfirmation = false
-                                    }
-                                }
-                            }
-                        }, label: {
-                            Label("Mark Season as Watched", systemImage: "checkmark.circle.fill")
-                        })
+                        markSeasonAsWatched
                     } label: {
                         Label("More", systemImage: "ellipsis.circle")
                             .labelStyle(.iconOnly)
                     }
                     .padding(.horizontal)
+#endif
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     if let season = viewModel.season?.episodes {
@@ -129,6 +124,27 @@ struct SeasonListView: View {
             .padding(0)
             .redacted(reason: viewModel.isLoading ? .placeholder : [] )
         }
+    }
+    
+    private var markSeasonAsWatched: some View {
+        Button(action: {
+            Task {
+                withAnimation {
+                    seasonConfirmation.toggle()
+                }
+                await viewModel.markSeasonAsWatched(id: tvId)
+                if !inWatchlist {
+                    inWatchlist = viewModel.isItemInWatchlist
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    withAnimation {
+                        seasonConfirmation = false
+                    }
+                }
+            }
+        }, label: {
+            Label("Mark Season as Watched", systemImage: "checkmark.circle.fill")
+        })
     }
     
     private var emptySeasonView: some View {

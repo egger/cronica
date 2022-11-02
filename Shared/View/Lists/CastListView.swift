@@ -25,9 +25,9 @@ struct CastListView: View {
                     LazyHStack {
                         ForEach(credits) { person in
                             PersonCardView(person: person)
-                                .hoverEffect(.lift)
                                 .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
                                 .buttonStyle(.plain)
+                            #warning(".hoverEffect(.lift)")
                         }
                     }
                     .padding([.top, .bottom])

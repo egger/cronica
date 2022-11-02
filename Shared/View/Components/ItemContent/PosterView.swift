@@ -61,7 +61,6 @@ struct PosterView: View {
                                             style: .continuous))
                 .shadow(radius: DrawingConstants.shadowRadius)
                 .padding(.zero)
-                .hoverEffect(.lift)
                 .draggable(item)
                 .modifier(
                     ItemContentContextMenu(item: item,
@@ -120,3 +119,5 @@ private struct DrawingConstants {
     static let posterRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2
 }
+
+#warning("implement .hoverEffect(.lift) for iPadOS users.")

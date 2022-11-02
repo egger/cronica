@@ -21,6 +21,8 @@ struct WatchlistItemView: View {
             HStack {
 #if os(watchOS)
                 image
+#elseif os(macOS)
+                image
 #else
                 image
                     .hoverEffect(.highlight)

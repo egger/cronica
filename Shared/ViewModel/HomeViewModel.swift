@@ -40,9 +40,8 @@ class HomeViewModel: ObservableObject {
     }
     
     func reload() {
-#if os(tvOS)
-#else
-        HapticManager.shared.lightHaptic()
+#if os(iOS)
+        HapticManager.shared.lightHaptic() 
 #endif
         withAnimation { isLoaded = false }
         trending.removeAll()

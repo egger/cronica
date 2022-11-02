@@ -189,6 +189,76 @@
 		B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */; };
 		B8B94CEF28EB8B8200EDEC85 /* TelemetryErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */; };
 		B8B94CF028EB8B8200EDEC85 /* TelemetryErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */; };
+		B8BF628F2912D85C0051915C /* CronicaMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF628E2912D85C0051915C /* CronicaMacApp.swift */; };
+		B8BF62912912D85C0051915C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62902912D85C0051915C /* ContentView.swift */; };
+		B8BF62962912D85D0051915C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8BF62952912D85D0051915C /* Preview Assets.xcassets */; };
+		B8BF629D2912D9620051915C /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
+		B8BF629F2912D96C0051915C /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8BF629E2912D96C0051915C /* TelemetryClient */; };
+		B8BF62A12912D96C0051915C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8BF62A02912D96C0051915C /* SDWebImageSwiftUI */; };
+		B8BF62A62912D9F90051915C /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
+		B8BF62A72912D9FC0051915C /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */; };
+		B8BF62A82912DA230051915C /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
+		B8BF62A92912DA230051915C /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
+		B8BF62AA2912DA230051915C /* DefaultListTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812529728A407120062B0C9 /* DefaultListTypes.swift */; };
+		B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF652829F134001D72EF /* NetworkError.swift */; };
+		B8BF62AC2912DA230051915C /* ItemContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */; };
+		B8BF62AD2912DA230051915C /* ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE53281B1BC0005558DD /* ImageSize.swift */; };
+		B8BF62AE2912DA230051915C /* WatchlistItem-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B878E83427BC85BC0021A981 /* WatchlistItem-Extension.swift */; };
+		B8BF62AF2912DA230051915C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
+		B8BF62B02912DA230051915C /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
+		B8BF62B12912DA230051915C /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B3621E28D27D3B005F8825 /* WatchProviders.swift */; };
+		B8BF62B22912DA230051915C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
+		B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
+		B8BF62B42912DA230051915C /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
+		B8BF62B52912DA230051915C /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
+		B8BF62B62912DA230051915C /* TelemetryErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */; };
+		B8BF62B72912DA230051915C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* PersistenceController.swift */; };
+		B8BF62B82912DA230051915C /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
+		B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4F0289B139000A5330E /* UTType-Extensions.swift */; };
+		B8BF62BA2912DA230051915C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
+		B8BF62BB2912DA230051915C /* ItemSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE51281B1BA5005558DD /* ItemSchedule.swift */; };
+		B8BF62BC2912DA230051915C /* TrailerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1B2289468FD00BD666F /* TrailerUtilities.swift */; };
+		B8BF62BD2912DA230051915C /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D88286145600064947A /* DiscoverViewModel.swift */; };
+		B8BF62BE2912DA230051915C /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CCB27999C5700632648 /* content.json */; };
+		B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* ItemContent-Extensions.swift */; };
+		B8BF62C02912DA230051915C /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E589027A4BE75005DBF38 /* Endpoints.swift */; };
+		B8BF62C12912DA230051915C /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE63281B36A7005558DD /* Season.swift */; };
+		B8BF62C22912DA230051915C /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE4F281B1B81005558DD /* MediaType.swift */; };
+		B8BF62C32912DA230051915C /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
+		B8BF62C42912DA230051915C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
+		B8BF62C52912DA230051915C /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };
+		B8BF62C62912DA230051915C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* NotificationManager.swift */; };
+		B8BF62C72912DA230051915C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
+		B8BF62C82912DA230051915C /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
+		B8BF62C92912DA270051915C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
+		B8BF62CD2912DAA20051915C /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62CC2912DAA20051915C /* SideBarView.swift */; };
+		B8BF62CF2912DDBC0051915C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62CE2912DDBC0051915C /* SettingsView.swift */; };
+		B8BF62D02912E0010051915C /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
+		B8BF62D22912E0E90051915C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62D12912E0E90051915C /* HomeView.swift */; };
+		B8BF62D52912E3660051915C /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* PosterView.swift */; };
+		B8BF62D62912E3790051915C /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
+		B8BF62D82912E3C10051915C /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
+		B8BF62D92912E3E40051915C /* ItemContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E394284EDC2B00F59855 /* ItemContentListView.swift */; };
+		B8BF62DB2912E6360051915C /* ItemContentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */; };
+		B8BF62DD2912EA940051915C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2E2793B61B0012259B /* CardView.swift */; };
+		B8BF62DE2912EAD90051915C /* UpcomingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85344C028FA07B60013E9C7 /* UpcomingListView.swift */; };
+		B8BF62DF2912ED6D0051915C /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
+		B8BF62E32912EFB60051915C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8BF62E22912EFB60051915C /* Assets.xcassets */; };
+		B8BF62E52912EFF00051915C /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62E42912EFF00051915C /* DiscoverView.swift */; };
+		B8BF62E62912F1AF0051915C /* TrailerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B879B70128B12201005EADCE /* TrailerItemView.swift */; };
+		B8BF62E72912F1DD0051915C /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */; };
+		B8BF62E82912F2340051915C /* WatchlistItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemView.swift */; };
+		B8BF62E92912F23F0051915C /* WatchlistItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */; };
+		B8BF62EB2912F2730051915C /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62EA2912F2730051915C /* WatchlistView.swift */; };
+		B8BF62EC2912F3060051915C /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */; };
+		B8BF62ED2912F30C0051915C /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
+		B8BF62EE2912F3130051915C /* WatchEpisodeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECD28AA8A92003025BC /* WatchEpisodeButtonView.swift */; };
+		B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */; };
+		B8BF62F02912F3830051915C /* InformationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */; };
+		B8BF62F22912F6E90051915C /* WatchlistButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82B75A628A84E9500C3212A /* WatchlistButtonView.swift */; };
+		B8BF62F32912FF6C0051915C /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */; };
+		B8BF62F42912FF780051915C /* FilmographyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */; };
+		B8BF62F52912FFC10051915C /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
 		B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8C0C67E28A92FF0009F4593 /* TelemetryClient */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */; };
@@ -203,7 +273,7 @@
 		B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD4431284AD42300778275 /* SwiftUI.framework */; };
 		B8D7AEAC28B95F5E0053CE5A /* CronicaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */; };
 		B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */; };
-		B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B8D7AEBA28B95FB20053CE5A /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
 		B8D7AEBB28B95FC60053CE5A /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEB828B95F840053CE5A /* ItemContent.swift */; };
 		B8D7AEBC28B960420053CE5A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
@@ -415,6 +485,18 @@
 		B8B3621E28D27D3B005F8825 /* WatchProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviders.swift; sourceTree = "<group>"; };
 		B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemSwipeGesture.swift; sourceTree = "<group>"; };
 		B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryErrorManager.swift; sourceTree = "<group>"; };
+		B8BF628C2912D85C0051915C /* CronicaMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CronicaMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8BF628E2912D85C0051915C /* CronicaMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaMacApp.swift; sourceTree = "<group>"; };
+		B8BF62902912D85C0051915C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B8BF62952912D85D0051915C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B8BF62972912D85D0051915C /* CronicaMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CronicaMac.entitlements; sourceTree = "<group>"; };
+		B8BF62CC2912DAA20051915C /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
+		B8BF62CE2912DDBC0051915C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B8BF62D12912E0E90051915C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentDetailsView.swift; sourceTree = "<group>"; };
+		B8BF62E22912EFB60051915C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
+		B8BF62E42912EFF00051915C /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		B8BF62EA2912F2730051915C /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		B8C335462815ED140055389D /* WatchListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSection.swift; sourceTree = "<group>"; };
 		B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
 		B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
@@ -504,6 +586,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8BF62892912D85C0051915C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8BF62A12912D96C0051915C /* SDWebImageSwiftUI in Frameworks */,
+				B8BF629F2912D96C0051915C /* TelemetryClient in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8D7AEA428B95F5D0053CE5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -549,6 +640,7 @@
 				B806C4DF2899BE2800A5330E /* CronicaWatch Watch App */,
 				B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */,
 				B86E79E2290A8F2700459E41 /* CronicaTV */,
+				B8BF628D2912D85C0051915C /* CronicaMac */,
 				B8B271A227A59EF400F6463F /* Frameworks */,
 				B8110EE0279245D100844FEB /* Products */,
 				B8110ED7279245D000844FEB /* Shared */,
@@ -585,6 +677,7 @@
 				B806C4DE2899BE2800A5330E /* Cronica.app */,
 				B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */,
 				B86E79E1290A8F2700459E41 /* CronicaTV.app */,
+				B8BF628C2912D85C0051915C /* CronicaMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -805,11 +898,11 @@
 		B86E7A2D290AF3F400459E41 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B8DD5691290C9950002CAAFD /* Episode */,
-				B8DD568D290C9123002CAAFD /* WatchlistItem */,
-				B8DD568C290C911D002CAAFD /* Person */,
-				B8DD568B290C7D4E002CAAFD /* ItemContent */,
 				B8DD569D290DDDD5002CAAFD /* ListTitleView.swift */,
+				B8DD5691290C9950002CAAFD /* Episode */,
+				B8DD568B290C7D4E002CAAFD /* ItemContent */,
+				B8DD568C290C911D002CAAFD /* Person */,
+				B8DD568D290C9123002CAAFD /* WatchlistItem */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -878,6 +971,56 @@
 				B8B271A527A5A18C00F6463F /* PersistenceController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B8BF628D2912D85C0051915C /* CronicaMac */ = {
+			isa = PBXGroup;
+			children = (
+				B8BF62E22912EFB60051915C /* Assets.xcassets */,
+				B8BF62CA2912DA910051915C /* Views */,
+				B8BF628E2912D85C0051915C /* CronicaMacApp.swift */,
+				B8BF62902912D85C0051915C /* ContentView.swift */,
+				B8BF62972912D85D0051915C /* CronicaMac.entitlements */,
+				B8BF62942912D85D0051915C /* Preview Content */,
+			);
+			path = CronicaMac;
+			sourceTree = "<group>";
+		};
+		B8BF62942912D85D0051915C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B8BF62952912D85D0051915C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B8BF62CA2912DA910051915C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B8BF62DC2912EA3F0051915C /* Components */,
+				B8BF62CB2912DA960051915C /* Navigation */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B8BF62CB2912DA960051915C /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				B8BF62CC2912DAA20051915C /* SideBarView.swift */,
+				B8BF62CE2912DDBC0051915C /* SettingsView.swift */,
+				B8BF62D12912E0E90051915C /* HomeView.swift */,
+				B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */,
+				B8BF62E42912EFF00051915C /* DiscoverView.swift */,
+				B8BF62EA2912F2730051915C /* WatchlistView.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		B8BF62DC2912EA3F0051915C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B8C3354928170AC90055389D /* Lists */ = {
@@ -969,8 +1112,8 @@
 		B8DD5677290C39AD002CAAFD /* Lists */ = {
 			isa = PBXGroup;
 			children = (
-				B8DD567A290C39DF002CAAFD /* ItemContentList.swift */,
 				B8DD5683290C7B40002CAAFD /* CastListView.swift */,
+				B8DD567A290C39DF002CAAFD /* ItemContentList.swift */,
 				B8DD5694290C9CA5002CAAFD /* SeasonListView.swift */,
 				B8DD569B290DDD9C002CAAFD /* WatchlistItemListView.swift */,
 			);
@@ -1160,6 +1303,27 @@
 			productReference = B86E79E1290A8F2700459E41 /* CronicaTV.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B8BF628B2912D85C0051915C /* CronicaMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8BF62982912D85D0051915C /* Build configuration list for PBXNativeTarget "CronicaMac" */;
+			buildPhases = (
+				B8BF62882912D85C0051915C /* Sources */,
+				B8BF62892912D85C0051915C /* Frameworks */,
+				B8BF628A2912D85C0051915C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CronicaMac;
+			packageProductDependencies = (
+				B8BF629E2912D96C0051915C /* TelemetryClient */,
+				B8BF62A02912D96C0051915C /* SDWebImageSwiftUI */,
+			);
+			productName = CronicaMac;
+			productReference = B8BF628C2912D85C0051915C /* CronicaMac.app */;
+			productType = "com.apple.product-type.application";
+		};
 		B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8D7AEB628B95F5F0053CE5A /* Build configuration list for PBXNativeTarget "CronicaWidgetExtension" */;
@@ -1188,7 +1352,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					B806C4DD2899BE2800A5330E = {
@@ -1203,6 +1367,9 @@
 					};
 					B86E79E0290A8F2700459E41 = {
 						CreatedOnToolsVersion = 14.0.1;
+					};
+					B8BF628B2912D85C0051915C = {
+						CreatedOnToolsVersion = 14.1;
 					};
 					B8D7AEA628B95F5D0053CE5A = {
 						CreatedOnToolsVersion = 14.0;
@@ -1232,6 +1399,7 @@
 				B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */,
 				B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */,
 				B86E79E0290A8F2700459E41 /* CronicaTV */,
+				B8BF628B2912D85C0051915C /* CronicaMac */,
 			);
 		};
 /* End PBXProject section */
@@ -1275,6 +1443,18 @@
 				B86E7A2A290AEC3100459E41 /* Attribution.xcassets in Resources */,
 				B86E7A07290A90B300459E41 /* content.json in Resources */,
 				B8DD56A4290EA09A002CAAFD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8BF628A2912D85C0051915C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8BF62C92912DA270051915C /* Localizable.strings in Resources */,
+				B8BF629D2912D9620051915C /* Attribution.xcassets in Resources */,
+				B8BF62962912D85D0051915C /* Preview Assets.xcassets in Resources */,
+				B8BF62BE2912DA230051915C /* content.json in Resources */,
+				B8BF62E32912EFB60051915C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1525,6 +1705,76 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8BF62882912D85C0051915C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8BF62DF2912ED6D0051915C /* AttributionView.swift in Sources */,
+				B8BF62C22912DA230051915C /* MediaType.swift in Sources */,
+				B8BF62D92912E3E40051915C /* ItemContentListView.swift in Sources */,
+				B8BF62C72912DA230051915C /* SearchViewModel.swift in Sources */,
+				B8BF62C32912DA230051915C /* Bundle-Decodable.swift in Sources */,
+				B8BF62D62912E3790051915C /* ItemContentContextMenu.swift in Sources */,
+				B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */,
+				B8BF62DB2912E6360051915C /* ItemContentDetailsView.swift in Sources */,
+				B8BF62C52912DA230051915C /* PersonDetailsViewModel.swift in Sources */,
+				B8BF62D52912E3660051915C /* PosterView.swift in Sources */,
+				B8BF62C42912DA230051915C /* HomeViewModel.swift in Sources */,
+				B8BF62B62912DA230051915C /* TelemetryErrorManager.swift in Sources */,
+				B8BF62B02912DA230051915C /* ItemContent.swift in Sources */,
+				B8BF62B42912DA230051915C /* Videos.swift in Sources */,
+				B8BF62C82912DA230051915C /* SeasonViewModel.swift in Sources */,
+				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
+				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
+				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
+				B8BF62F22912F6E90051915C /* WatchlistButtonView.swift in Sources */,
+				B8BF62B22912DA230051915C /* Utilities.swift in Sources */,
+				B8BF62D22912E0E90051915C /* HomeView.swift in Sources */,
+				B8BF62DD2912EA940051915C /* CardView.swift in Sources */,
+				B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */,
+				B8BF62A82912DA230051915C /* Episode-Extension.swift in Sources */,
+				B8BF62BC2912DA230051915C /* TrailerUtilities.swift in Sources */,
+				B8BF62C02912DA230051915C /* Endpoints.swift in Sources */,
+				B8BF62BB2912DA230051915C /* ItemSchedule.swift in Sources */,
+				B8BF62E52912EFF00051915C /* DiscoverView.swift in Sources */,
+				B8BF62DE2912EAD90051915C /* UpcomingListView.swift in Sources */,
+				B8BF62BA2912DA230051915C /* Person.swift in Sources */,
+				B8BF62F32912FF6C0051915C /* PersonCardView.swift in Sources */,
+				B8BF62AE2912DA230051915C /* WatchlistItem-Extension.swift in Sources */,
+				B8BF62C62912DA230051915C /* NotificationManager.swift in Sources */,
+				B8BF62E92912F23F0051915C /* WatchlistItemContextMenu.swift in Sources */,
+				B8BF62CD2912DAA20051915C /* SideBarView.swift in Sources */,
+				B8BF62F52912FFC10051915C /* CastListView.swift in Sources */,
+				B8BF62AA2912DA230051915C /* DefaultListTypes.swift in Sources */,
+				B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */,
+				B8BF62EB2912F2730051915C /* WatchlistView.swift in Sources */,
+				B8BF62EE2912F3130051915C /* WatchEpisodeButtonView.swift in Sources */,
+				B8BF62A72912D9FC0051915C /* Watchlist.xcdatamodeld in Sources */,
+				B8BF62B82912DA230051915C /* Person-Extensions.swift in Sources */,
+				B8BF62E72912F1DD0051915C /* TrailerListView.swift in Sources */,
+				B8BF62AC2912DA230051915C /* ItemContentViewModel.swift in Sources */,
+				B8BF62D02912E0010051915C /* CenterHorizontalView.swift in Sources */,
+				B8BF62B12912DA230051915C /* WatchProviders.swift in Sources */,
+				B8BF62E82912F2340051915C /* WatchlistItemView.swift in Sources */,
+				B8BF628F2912D85C0051915C /* CronicaMacApp.swift in Sources */,
+				B8BF62E62912F1AF0051915C /* TrailerItemView.swift in Sources */,
+				B8BF62A62912D9F90051915C /* Key.swift in Sources */,
+				B8BF62F42912FF780051915C /* FilmographyListView.swift in Sources */,
+				B8BF62AD2912DA230051915C /* ImageSize.swift in Sources */,
+				B8BF62B52912DA230051915C /* Screens.swift in Sources */,
+				B8BF62D82912E3C10051915C /* TitleView.swift in Sources */,
+				B8BF62ED2912F30C0051915C /* EpisodeFrameView.swift in Sources */,
+				B8BF62AF2912DA230051915C /* NetworkService.swift in Sources */,
+				B8BF62F02912F3830051915C /* InformationSectionView.swift in Sources */,
+				B8BF62A92912DA230051915C /* ReleaseDate.swift in Sources */,
+				B8BF62EC2912F3060051915C /* SeasonListView.swift in Sources */,
+				B8BF62C12912DA230051915C /* Season.swift in Sources */,
+				B8BF62B72912DA230051915C /* PersistenceController.swift in Sources */,
+				B8BF62BD2912DA230051915C /* DiscoverViewModel.swift in Sources */,
+				B8BF62CF2912DDBC0051915C /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8D7AEA328B95F5D0053CE5A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1562,6 +1812,7 @@
 		};
 		B8D7AEB128B95F5F0053CE5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */;
 			targetProxy = B8D7AEB028B95F5F0053CE5A /* PBXContainerItemProxy */;
 		};
@@ -1943,6 +2194,68 @@
 			};
 			name = Release;
 		};
+		B8BF62992912D85D0051915C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = CronicaMac/CronicaMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CronicaMac/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Cronica;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B8BF629A2912D85D0051915C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = CronicaMac/CronicaMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CronicaMac/Preview Content\"";
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Cronica;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		B8D7AEB428B95F5F0053CE5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2058,6 +2371,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		B8BF62982912D85D0051915C /* Build configuration list for PBXNativeTarget "CronicaMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8BF62992912D85D0051915C /* Debug */,
+				B8BF629A2912D85D0051915C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B8D7AEB628B95F5F0053CE5A /* Build configuration list for PBXNativeTarget "CronicaWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2108,6 +2430,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
 			productName = TelemetryClient;
+		};
+		B8BF629E2912D96C0051915C /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
+			productName = TelemetryClient;
+		};
+		B8BF62A02912D96C0051915C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		B8C0C67E28A92FF0009F4593 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;

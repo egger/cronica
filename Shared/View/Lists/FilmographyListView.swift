@@ -15,13 +15,15 @@ struct FilmographyListView: View {
     ]
     var body: some View {
         if let filmography {
-            VStack {
-                TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(filmography) { item in
-                        PosterView(item: item, addedItemConfirmation: $showConfirmation)
+            if !filmography.isEmpty {
+                VStack {
+                    TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(filmography) { item in
+                            PosterView(item: item, addedItemConfirmation: $showConfirmation)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
         }
