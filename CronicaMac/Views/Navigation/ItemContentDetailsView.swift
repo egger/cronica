@@ -79,13 +79,14 @@ struct ItemContentDetailsView: View {
                                             WatchlistButtonView()
                                                 .environmentObject(viewModel)
                                         }
+                                        .padding(.horizontal)
                                         Spacer()
                                         OverviewBoxView(overview: viewModel.content?.itemOverview,
                                                         title: "About",
                                                         type: .movie)
                                         .foregroundColor(.white)
                                         .padding([.horizontal, .top])
-                                        .frame(width: 600)
+                                        .frame(maxWidth: 500)
                                     }
                                     .padding()
                                 }
@@ -118,11 +119,20 @@ struct ItemContentDetailsView: View {
             .task {
                 await viewModel.load()
             }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+            }
             .navigationDestination(for: Person.self) { item in
                 PersonDetailsView(title: item.name, id: item.id)
             }
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .status) {
+                    Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
+                        .opacity(viewModel.isNotificationAvailable ? 1 : 0)
+                        .accessibilityHidden(true)
+                        .accessibilityLabel(viewModel.hasNotificationScheduled ? "Notification scheduled." : "No notification scheduled.")
+                }
+                ToolbarItem(placement: .status) {
                     Button(action: {
                         viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
                     }, label: {
@@ -132,7 +142,7 @@ struct ItemContentDetailsView: View {
                     .keyboardShortcut("w", modifiers: [.option])
                     .disabled(viewModel.isLoading ? true : false)
                 }
-                ToolbarItem {
+                ToolbarItem(placement: .status) {
                     Button(action: {
                         viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
                     }, label: {
@@ -142,7 +152,7 @@ struct ItemContentDetailsView: View {
                     .keyboardShortcut("f", modifiers: [.option])
                     .disabled(viewModel.isLoading ? true : false)
                 }
-                ToolbarItem {
+                ToolbarItem(placement: .status) {
                     ShareLink(item: itemUrl)
                 }
             }

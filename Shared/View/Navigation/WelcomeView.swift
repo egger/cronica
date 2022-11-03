@@ -50,16 +50,25 @@ struct WelcomeView: View {
                         .controlSize(.large)
                         .padding()
                         Button("Privacy Policy") {
+#if os(macOS)
+                            NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+#else
                             showPolicy.toggle()
+#endif
                         }
                         .padding([.horizontal, .bottom])
+#if os(macOS)
+                        .buttonStyle(.link)
+#endif
                     }
                     .padding()
                 }
             }
+#if os(iOS)
             .fullScreenCover(isPresented: $showPolicy) {
                 SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
             }
+#endif
         }
         .interactiveDismissDisabled(true)
     }
@@ -109,7 +118,7 @@ private struct InformationDetailView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.leading, 6)
-            .padding([.top, .bottom], 8)      
+            .padding([.top, .bottom], 8)
             Spacer()
         }
         .background(.regularMaterial)

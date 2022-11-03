@@ -72,7 +72,7 @@ To get started you'll need to:
 ### Mac
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Mac.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." minWidth="220" maxWidth="440" height="240">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Mac.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." maxWidth="220" maxWidth="440" >
 </p>
 <p align="center">
 <a href="https://apps.apple.com/us/app/cronica-watchlist/id6444166357">
@@ -82,11 +82,11 @@ To get started you'll need to:
 
 ### Apple TV
 <p align="center">
-	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/TV.webp" alt="Cronica running on Apple TV displaying details for Top Gun: Maverick." minWidth="220" maxWidth="560" height="340">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/TV.webp" alt="Cronica running on Apple TV displaying details for Top Gun: Maverick." maxWidth="220" maxWidth="560" minWidth="40" minHeight="60">
 </p>
 <p align="center">
 <a href="https://apps.apple.com/app/cronica-your-watchlist-on-tv/id6444088014">
-	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Badges/AppleTV.svg" alt="Badge for download Cronica on Apple TV App Store" width="160" height="80">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Badges/AppleTV.svg" alt="Badge for download Cronica on Apple TV App Store" maxWidth="160" maxHeight="80"> 
 </a>
 </p>
 

@@ -54,7 +54,7 @@ struct SeasonListView: View {
 #if os(macOS)
                     markSeasonAsWatched
                         .unredacted()
-                        .disabled(viewModel.isLoading)
+                        .disabled(!viewModel.isLoading)
                         .padding()
 #else
                     Menu {
@@ -80,9 +80,6 @@ struct SeasonListView: View {
                                                          isInWatchlist: $inWatchlist)
                                         .environmentObject(viewModel)
                                         .frame(width: 160, height: 200)
-                                        .onTapGesture {
-                                            selectedEpisode = item
-                                        }
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                         .padding(.trailing, item.id == season.last!.id ? 16 : 0)

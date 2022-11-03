@@ -14,6 +14,12 @@ struct SettingsView: View {
                 .tabItem {
                     Label("General", systemImage: "gearshape")
                 }
+#if DEBUG
+            DeveloperView()
+                .tabItem {
+                    Label("Developer", systemImage: "curlybraces")
+                }
+#endif
         }
         .frame(width: 450, height: 350)
     }
@@ -47,6 +53,11 @@ private struct GeneralSettingsView: View {
                 .buttonStyle(.link)
             } header: {
                 Label("Sync", systemImage: "arrow.2.circlepath")
+            } footer: {
+                HStack {
+                    Text("This will update your items with new information available on TMDb, if available.")
+                    Spacer()
+                }
             }
             
             Section {
@@ -55,19 +66,8 @@ private struct GeneralSettingsView: View {
                     NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
                 }
                 .buttonStyle(.link)
-                Button {
-                    
-                } label: {
-                    Label("Send Email", systemImage: "envelope.open")
-                }
-                .buttonStyle(.link)
-
-                Button("Follow Developer on Twitter") {
-                    NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-                }
-                .buttonStyle(.link)
             } header: {
-                Text("Privacy")
+                Label("Privacy", systemImage: "hand.raised.fingers.spread")
             } footer: {
                 Text("privacyfooter")
                     .padding(.bottom)

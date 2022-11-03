@@ -18,6 +18,7 @@ struct DeveloperView: View {
     @State private var isFetching = false
     @State private var isFetchingAll = false
     @State private var showAllItems = false
+    @State private var showOnboardingMac = false
     @AppStorage("markEpisodeWatchedTap") private var episodeTap = false
     private let background = BackgroundManager()
     private let service = NetworkService.shared
@@ -25,7 +26,9 @@ struct DeveloperView: View {
         Form {
             Section {
                 TextField("Item ID", text: $itemIdField)
+#if os(iOS)
                     .keyboardType(.numberPad)
+#endif
                 Picker(selection: $itemMediaType, content: {
                     ForEach(MediaType.allCases) { media in
                         Text(media.title).tag(media)
@@ -64,11 +67,17 @@ struct DeveloperView: View {
             }
             
             Section {
+                #if os(macOS)
+                Button("Show Onboarding") {
+                    showOnboardingMac.toggle()
+                }
+                #else
                 NavigationLink(
                     destination: WelcomeView(),
                     label: {
                         Text("Show Onboarding")
                     })
+                #endif
             } header: {
                 Text("Presentation")
             }
@@ -110,7 +119,24 @@ struct DeveloperView: View {
             
         }
         .navigationTitle("Developer tools")
+        .sheet(isPresented: $showOnboardingMac, content: {
+            NavigationStack {
+                WelcomeView()
+                    .frame(width: 500, height: 700, alignment: .center)
+            }
+        })
         .sheet(item: $item) { item in
+#if os(macOS)
+            NavigationStack {
+                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+                    .frame(width: 800, height: 500, alignment: .center)
+                    .toolbar {
+                        Button("Done") {
+                            self.item = nil
+                        }
+                    }
+            }
+#else
             NavigationStack {
                 ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     .toolbar {
@@ -138,12 +164,13 @@ struct DeveloperView: View {
                         PersonDetailsView(title: item.name, id: item.id)
                     }
             }
+#endif
         }
         .sheet(item: $person) { item in
             NavigationStack {
                 PersonDetailsView(title: item.name, id: item.id)
                     .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
+                        ToolbarItem {
                             HStack {
                                 Button("Done") {
                                     self.person = nil
@@ -157,7 +184,10 @@ struct DeveloperView: View {
                         }
                     }
                     .navigationDestination(for: ItemContent.self) { item in
+#if os(macOS)
+#else
                         ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#endif
                     }
                     .navigationDestination(for: Person.self) { item in
                         PersonDetailsView(title: item.name, id: item.id)
@@ -174,8 +204,14 @@ struct DeveloperView: View {
                             }
                         }
                     }
+                #if os(macOS)
+                    .frame(width: 500, height: 500, alignment: .center)
+                #endif
             }
         }
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
 }
 
@@ -232,10 +268,16 @@ private struct ShowAllItemsView: View {
         }
         .navigationTitle("All Items")
         .navigationDestination(for: WatchlistItem.self) { item in
+#if os(macOS)
+#else
             ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+#endif
         }
         .navigationDestination(for: ItemContent.self) { item in
+#if os(macOS)
+#else
             ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#endif
         }
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)

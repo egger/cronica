@@ -118,20 +118,18 @@ struct EpisodeFrameView: View {
             }
         }
         .onTapGesture {
+#if os(macOS)
+            markAsWatched()
+#else
             if episodeTap {
-                PersistenceController.shared.updateEpisodeList(show: show,
-                                                               season: season,
-                                                               episode: episode.id)
-                withAnimation {
-                    isWatched.toggle()
-                }
+                markAsWatched()
                 return
             }
             showDetails.toggle()
+#endif
         }
         .sheet(isPresented: $showDetails) {
             NavigationStack {
-#if os(iOS)
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
                     .toolbar {
@@ -141,8 +139,19 @@ struct EpisodeFrameView: View {
                             }
                         }
                     }
+#if os(macOS)
+                    .frame(width: 900, height: 500)
 #endif
             }
+        }
+    }
+    
+    private func markAsWatched() {
+        PersistenceController.shared.updateEpisodeList(show: show,
+                                                       season: season,
+                                                       episode: episode.id)
+        withAnimation {
+            isWatched.toggle()
         }
     }
 }

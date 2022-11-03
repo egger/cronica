@@ -93,9 +93,13 @@ private struct WatchlistSection: View {
             }
             .padding([.top, .bottom])
         } else {
-            Spacer()
-            Text("This list is empty.")
-            Spacer()
+            VStack(alignment: .center) {
+                CenterHorizontalView {
+                    Text("This list is empty.")
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                }
+            }
         }
     }
 }

@@ -53,24 +53,6 @@ struct SideBarView: View {
                 }
             }
             .navigationTitle("Cronica")
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    Button {
-                        showNotifications.toggle()
-                    } label: {
-                        Label("Notifications", systemImage: "bell")
-                    }
-                }
-            }
-            .sheet(isPresented: $showNotifications) {
-                NavigationStack {
-                    NotificationsView()
-                        .toolbar {
-                            Button("Done") { showNotifications.toggle() }
-                        }
-                        .frame(width: 900, height: 500)
-                }
-            }
         } detail: {
             ZStack {
                 switch selectedView {
@@ -88,12 +70,28 @@ struct SideBarView: View {
             }
             .overlay(searchOverlay)
             .sheet(item: $selectedSearchItem) { item in
-                NavigationStack {
-                    ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.media)
-                        .frame(width: 900, height: 600)
-                        .toolbar {
-                            Button("Done") { selectedSearchItem = nil }
-                        }
+                if item.media == .person {
+                    NavigationStack {
+                        PersonDetailsView(title: item.itemTitle, id: item.id)
+                            .frame(width: 900, height: 400)
+                            .toolbar {
+                                Button("Done") { selectedSearchItem = nil }
+                            }
+                            .navigationDestination(for: ItemContent.self) { item in
+                                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+                            }
+                            .navigationDestination(for: Person.self) { item in
+                                PersonDetailsView(title: item.name, id: item.id)
+                            }
+                    }
+                } else {
+                    NavigationStack {
+                        ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.media)
+                            .frame(width: 900, height: 400)
+                            .toolbar {
+                                Button("Done") { selectedSearchItem = nil }
+                            }
+                    }
                 }
             }
         }
@@ -193,7 +191,7 @@ struct SideBarView_Previews: PreviewProvider {
 }
 
 
-private struct NotificationsView: View {
+struct NotificationsView: View {
     @State private var hasLoaded = false
     @State private var items = [ItemContent]()
     @State private var deliveredItems = [ItemContent]()

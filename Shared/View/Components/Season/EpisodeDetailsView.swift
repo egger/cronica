@@ -12,18 +12,29 @@ struct EpisodeDetailsView: View {
     let season: Int
     let show: Int
     private let persistence = PersistenceController.shared
-    @State private var isPad: Bool = UIDevice.isIPad
     @Binding var isWatched: Bool
     @Binding var isInWatchlist: Bool
+#if os(macOS)
+#else
+    @State private var isPad: Bool = UIDevice.isIPad
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+#endif
     var body: some View {
         VStack {
             ScrollView {
+#if os(macOS)
+                HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
+                    .frame(width: DrawingConstants.padImageWidth,
+                           height: DrawingConstants.padImageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                    .shadow(radius: DrawingConstants.shadowRadius)
+#else
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
                     .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
                            height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
+#endif
                 
                 if let info = episode.itemInfo {
                     CenterHorizontalView {
@@ -55,19 +66,24 @@ struct EpisodeDetailsView: View {
                 AttributionView()
             }
             .navigationTitle(episode.itemTitle)
-            .navigationBarTitleDisplayMode(.inline)
             .task {
                 load()
             }
             .navigationDestination(for: ItemContent.self) { item in
+#if os(macOS)
+#else
                 ItemContentView(title: item.itemTitle,
                                 id: item.id,
                                 type: item.itemContentMedia,
                                 image: item.cardImageMedium)
+#endif
             }
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
             }
+#if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+#endif
         }
     }
     

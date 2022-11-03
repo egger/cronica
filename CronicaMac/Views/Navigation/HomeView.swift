@@ -11,6 +11,8 @@ import SDWebImageSwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var showConfirmation = false
+    @State private var showNotifications = false
+    @AppStorage("showOnboarding") private var displayOnboard = true
     @Environment(\.managedObjectContext) var viewContext
     var body: some View {
         NavigationStack {
@@ -47,6 +49,28 @@ struct HomeView: View {
                 .navigationTitle("Home")
                 .task {
                     await viewModel.load()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigation) {
+                        Button {
+                            showNotifications.toggle()
+                        } label: {
+                            Label("Notifications", systemImage: "bell")
+                        }
+                    }
+                }
+                .sheet(isPresented: $showNotifications) {
+                    NavigationStack {
+                        NotificationsView()
+                            .toolbar {
+                                Button("Done") { showNotifications.toggle() }
+                            }
+                            .frame(width: 900, height: 500)
+                    }
+                }
+                .sheet(isPresented: $displayOnboard) {
+                    WelcomeView()
+                        .frame(width: 500, height: 700, alignment: .center)
                 }
             }
         }
