@@ -33,8 +33,8 @@ Thanks to CloudKit and SwiftUI, Cronica also can run on every Apple device, and 
 - Files related to Models, ViewModels, Network, Error, and Localization live inside the Shared folder.
 - The iOS and iPadOS apps are fully inside the Shared folder.
 - The tvOS app shares resources with Shared folder and it's unique UI elements lives only on CronicaTV folder.
-- 
-- 
+- The macOS app shares resources with Shared folder and it's unique UI elements lives only on CronicaMac
+- The watchOS app shares resources with Shared folder and it's unique UI elements lives only on 
 
 ##  Build information
 
