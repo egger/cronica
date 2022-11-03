@@ -24,7 +24,7 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             if !viewModel.isLoaded {
-                ProgressView()
+                ProgressView("Loading")
                     .unredacted()
             }
             VStack {
@@ -49,6 +49,7 @@ struct HomeView: View {
             }
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
+                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
 #else
                 ItemContentView(title: item.itemTitle,
                                 id: item.id,
@@ -60,6 +61,7 @@ struct HomeView: View {
             }
             .navigationDestination(for: WatchlistItem.self) { item in
 #if os(macOS)
+                ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
 #else
                 ItemContentView(title: item.itemTitle,
                                 id: item.itemId,
@@ -100,6 +102,9 @@ struct HomeView: View {
             }
             .sheet(isPresented: $displayOnboard) {
                 WelcomeView()
+#if os(macOS)
+                    .frame(width: 500, height: 700, alignment: .center)
+#endif
             }
             .sheet(isPresented: $showSettings) {
 #if os(iOS)
@@ -109,6 +114,9 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showNotifications) {
                 NotificationListView(showNotification: $showNotifications)
+#if os(macOS)
+                    .frame(width: 800, height: 500)
+#endif
             }
             .task {
                 await viewModel.load()

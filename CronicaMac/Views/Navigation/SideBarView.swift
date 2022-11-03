@@ -57,8 +57,10 @@ struct SideBarView: View {
             ZStack {
                 switch selectedView {
                 case .home:
-                    HomeView()
-                        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                    NavigationStack {
+                        HomeView()
+                            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                    }
                 case .discover:
                     DiscoverView()
                 case .watchlist:
