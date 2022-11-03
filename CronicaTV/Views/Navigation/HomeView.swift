@@ -91,7 +91,7 @@ private struct UpcomingList: View {
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         WatchlistItemListView(items: items.filter { $0.image != nil },
-                              title: "My Pins", subtitle: "Pinned Items",
-                              image: "pin")
+                              title: "Upcoming", subtitle: "From Watchlist",
+                              image: "rectangle.stack")
     }
 }

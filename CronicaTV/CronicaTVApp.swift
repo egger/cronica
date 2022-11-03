@@ -11,7 +11,7 @@ import TelemetryClient
 @main
 struct CronicaTVApp: App {
     @AppStorage("disableTelemetry") private var disableTelemetry = false
-    @StateObject var persistence = PersistenceController.shared
+    let persistence = PersistenceController.shared
     init() {
 #if targetEnvironment(simulator)
 #else

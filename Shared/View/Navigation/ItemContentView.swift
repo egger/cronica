@@ -153,7 +153,6 @@ struct ContentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentView(title: ItemContent.previewContent.itemTitle,
                         id: ItemContent.previewContent.id,
-                        type: MediaType.movie,
-                        image: ItemContent.previewContent.cardImageLarge)
+                        type: MediaType.movie)
     }
 }

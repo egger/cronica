@@ -74,8 +74,7 @@ struct EpisodeDetailsView: View {
 #else
                 ItemContentView(title: item.itemTitle,
                                 id: item.id,
-                                type: item.itemContentMedia,
-                                image: item.cardImageMedium)
+                                type: item.itemContentMedia)
 #endif
             }
             .navigationDestination(for: Person.self) { person in
