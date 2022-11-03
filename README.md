@@ -34,7 +34,7 @@ Thanks to CloudKit and SwiftUI, Cronica also can run on every Apple device, and 
 - The iOS and iPadOS apps are fully inside the Shared folder.
 - The tvOS app shares resources with Shared folder and it's unique UI elements lives only on CronicaTV folder.
 - The macOS app shares resources with Shared folder and it's unique UI elements lives only on CronicaMac
-- The watchOS app shares resources with Shared folder and it's unique UI elements lives only on 
+- The watchOS app shares resources with Shared folder and it's unique UI elements lives only on CronicaWatch.
 
 ##  Build information
 
@@ -47,18 +47,61 @@ To get started you'll need to:
 
 ## App Store
 
-Cronica is available in the [App Store](https://apple.co/38SXpVJ).
+### iOS/iPadOS
 
+<p align="center">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/iPhone.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." minWidth="220" maxWidth="440" height="340">
+</p>
+<p align="center">
+<a href="https://apple.co/38SXpVJ">
+	<img src="https://alexandremadeira.dev/resources/img/cronica/AppStoreBadge.svg" alt="Badge for download Cronica on App Store" width="160" height="80">
+</a>
+</p>
+
+### Apple Watch
+
+<p align="center">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Apple%20Watch.webp" alt="Cronica running on Apple Watch S7." minWidth="220" maxWidth="440" height="240">
+</p>
+<p align="center"> 
+<a href="https://apps.apple.com/app/cronica/id1614950275">
+	<img src="https://alexandremadeira.dev/resources/img/cronica/AppStoreBadge.svg" alt="Badge for download Cronica on Apple Watch App Store" width="160" height="80">
+</a>
+</p>
+
+### Mac
+
+<p align="center">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Mac.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." minWidth="220" maxWidth="440" height="240">
+</p>
+<p align="center">
+<a href="https://apps.apple.com/us/app/cronica-watchlist/id6444166357">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Badges/Mac.svg" alt="Badge for download Cronica on Mac App Store" width="160" height="80">
+</a>
+</p>
+
+### Apple TV
+<p align="center">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/TV.webp" alt="Cronica running on Apple TV displaying details for Top Gun: Maverick." minWidth="220" maxWidth="560" height="340">
+</p>
+<p align="center">
+<a href="https://apps.apple.com/app/cronica-your-watchlist-on-tv/id6444088014">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Badges/AppleTV.svg" alt="Badge for download Cronica on Apple TV App Store" width="160" height="80">
+</a>
+</p>
+
+
+### QR Code
 <p align="center">
     <a href="https://apple.co/38SXpVJ">
             <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/d15209c4e281948b35db08fcd41ac5f0/4ab4af64ddd50c272495eae4245f6a8e.png" alt="App Store QR Code" minWidth="250" minHeight="250" width="300" height="300">
     </a>
  </p>
 
-## TestFlight
+
 
 ## Contact
 
 If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.<br>
-If you wish, you can follow me on Twitter: [_alexMadeira](https://twitter.com/_alexMadeira).
+Follow me on Twitter: [_alexMadeira](https://twitter.com/_alexMadeira).
 
