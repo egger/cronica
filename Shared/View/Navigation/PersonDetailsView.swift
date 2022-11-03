@@ -29,10 +29,10 @@ struct PersonDetailsView: View {
                     ViewThatFits {
                         HStack {
                             PersonImageView(url: viewModel.person?.personImage,
-                                             name: name)
+                                            name: name)
                             .frame(width: DrawingConstants.padImageWidth, height: DrawingConstants.padImageHeight)
                             .shadow(radius: DrawingConstants.imageShadow)
-                            .padding(.horizontal)
+                            .padding([.horizontal, .top])
                             
                             OverviewBoxView(overview: viewModel.person?.personBiography,
                                             title: name,
@@ -43,7 +43,7 @@ struct PersonDetailsView: View {
                         
                         VStack {
                             PersonImageView(url: viewModel.person?.personImage,
-                                             name: name)
+                                            name: name)
                             .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
                             .shadow(radius: DrawingConstants.imageShadow)
                             .padding(.horizontal)
@@ -67,8 +67,6 @@ struct PersonDetailsView: View {
             .task { load() }
             .redacted(reason: isLoading ? .placeholder : [])
             .overlay(search)
-            .searchable(text: $viewModel.query,
-                        placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always))
             .searchScopes($scope) {
                 ForEach(WatchlistSearchScope.allCases) { scope in
                     Text(scope.localizableTitle).tag(scope)
@@ -95,6 +93,9 @@ struct PersonDetailsView: View {
             }, message: {
                 Text(viewModel.errorMessage)
             })
+#if os(iOS)
+            .searchable(text: $viewModel.query, placement: .automatic)
+#endif
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
     }

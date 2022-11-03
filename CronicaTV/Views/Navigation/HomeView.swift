@@ -20,6 +20,7 @@ struct HomeView: View {
             }
             VStack {
                 ScrollView {
+                    UpcomingList()
                     PinItemsList()
                     ItemContentList(items: viewModel.trending,
                                     title: "Trending",
@@ -36,6 +37,9 @@ struct HomeView: View {
             }
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+            }
+            .navigationDestination(for: Person.self) { item in
+                PersonDetailsView(title: item.name, id: item.id)
             }
             .task {
                 await viewModel.load()
@@ -63,6 +67,30 @@ private struct PinItemsList: View {
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         WatchlistItemListView(items: items.filter { $0.largeCardImage != nil },
+                              title: "My Pins", subtitle: "Pinned Items",
+                              image: "pin")
+    }
+}
+
+private struct UpcomingList: View {
+    @FetchRequest(
+        entity: WatchlistItem.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: true),
+        ],
+        predicate: NSCompoundPredicate(type: .or, subpredicates: [
+                                        NSCompoundPredicate(type: .and,
+                                                            subpredicates: [
+                                                                NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
+                                                                NSPredicate(format: "notify == %d", true),
+                                                                NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
+                                                            ])
+                                        ,
+                                        NSPredicate(format: "upcomingSeason == %d", true)])
+    )
+    var items: FetchedResults<WatchlistItem>
+    var body: some View {
+        WatchlistItemListView(items: items.filter { $0.image != nil },
                               title: "My Pins", subtitle: "Pinned Items",
                               image: "pin")
     }

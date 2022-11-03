@@ -55,7 +55,7 @@ struct CardView: View {
                                         Rectangle()
                                     }
                                 }
-                            if let info = item.itemGlanceInfo { 
+                            if let info = item.itemGlanceInfo {
                                 VStack(alignment: .leading) {
                                     Spacer()
                                     HStack {
@@ -113,6 +113,7 @@ struct CardView: View {
                     .padding([.leading, .trailing], 4)
                     .transition(.opacity)
                     .draggable(item)
+                    .applyHoverEffect()
             }
         } else {
             EmptyView()
@@ -120,9 +121,9 @@ struct CardView: View {
     }
     
     private func remove(item: WatchlistItem) {
-        #if os(iOS)
+#if os(iOS)
         HapticManager.shared.mediumHaptic()
-        #endif
+#endif
         if item.notify {
             notification.removeNotification(identifier: item.notificationID)
         }
@@ -146,5 +147,3 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1
 }
-
-#warning("implement .hoverEffect(.lift) for iPadOS users")

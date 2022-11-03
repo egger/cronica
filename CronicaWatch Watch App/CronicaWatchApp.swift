@@ -10,7 +10,7 @@ import TelemetryClient
 
 @main
 struct CronicaWatch_Watch_AppApp: App {
-    @StateObject var persistence = PersistenceController.shared
+    var persistence = PersistenceController.shared
     init() {
 #if targetEnvironment(simulator)
 #else

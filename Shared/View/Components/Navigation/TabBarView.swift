@@ -10,7 +10,7 @@ import SwiftUI
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
-    @StateObject var persistence = PersistenceController.shared
+    var persistence = PersistenceController.shared
     var body: some View {
         TabView(selection: $selectedView) {
             NavigationStack {

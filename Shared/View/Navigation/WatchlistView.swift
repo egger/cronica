@@ -65,7 +65,7 @@ struct WatchlistView: View {
                         case .favorites:
                             WatchListSection(items: items.filter { $0.isFavorite },
                                              title: DefaultListTypes.favorites.title)
-                        case .watched:
+                        case .watched: 
                             WatchListSection(items: items.filter { $0.isWatched },
                                              title: DefaultListTypes.watched.title)
                         case .pin:

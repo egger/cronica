@@ -1,7 +1,7 @@
 # Cronica
 
 <p align="center">
-    <img src="https://cronica.alexandremadeira.dev/resources/img/icon.png" alt="Cronica Icon" width="100" height="100" />
+    <img src="https://alexandremadeira.dev/resources/img/cronica/icon.webp" alt="Cronica Icon" width="100" height="100" />
 </p>
 
 <p align="center">
@@ -27,27 +27,38 @@ Cronica is built using Swift and SwiftUI, it uses Core Data to persist the user'
 
 To provide release notifications, the app takes advantage of local notifications to notify users about new episodes or a movie release. To keep notifications useful, there's a background task that updates item values with new information using TMDb API, if needed.
 
-Thanks to CloudKit and SwiftUI, Cronica also can run on Apple Watch, and the information will automatically sync.
+Thanks to CloudKit and SwiftUI, Cronica also can run on every Apple device, and the information will automatically sync.
 
+## Project Organization
+- Files related to Models, ViewModels, Network, Error, and Localization live inside the Shared folder.
+- The iOS and iPadOS apps are fully inside the Shared folder.
+- The tvOS app shares resources with Shared folder and it's unique UI elements lives only on CronicaTV folder.
+- 
+- 
 
 ##  Build information
 
-#### This project targets iOS 16, iPadOS 16, watchOS 9, macOS 13, and requires Xcode 14.
+#### This project targets iOS 16, iPadOS 16, watchOS 9, macOS 13, tvOS 16 and requires Xcode 14.
 
 To get started you'll need to:
 
 1. Get an API key to use TMDb API, you can get yours at their [website](https://www.themoviedb.org/documentation/api),  after that, go to Shared/Configuration/Key and replace the value of *tmdbApi* with your own key.
 2. You can remove TelemetryDeck service if you want to, I use it for the Feedback feature and sending signal when a catch occurs.
 
-If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.
+## App Store
 
-
-## Instalation
-
-Cronica is available in the [App Store](https://apple.co/38SXpVJ), you can also build it using its source-code.
+Cronica is available in the [App Store](https://apple.co/38SXpVJ).
 
 <p align="center">
     <a href="https://apple.co/38SXpVJ">
             <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/d15209c4e281948b35db08fcd41ac5f0/4ab4af64ddd50c272495eae4245f6a8e.png" alt="App Store QR Code" minWidth="250" minHeight="250" width="300" height="300">
     </a>
  </p>
+
+## TestFlight
+
+## Contact
+
+If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.<br>
+If you wish, you can follow me on Twitter: [_alexMadeira](https://twitter.com/_alexMadeira).
+

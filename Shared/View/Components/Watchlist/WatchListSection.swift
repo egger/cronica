@@ -40,9 +40,12 @@ struct WatchListSection: View {
     }
     
     private func delete(offsets: IndexSet) {
+        #if os(iOS)
         HapticManager.shared.mediumHaptic()
+        #else
         withAnimation {
             offsets.map { items[$0] }.forEach(context.delete)
         }
+        #endif
     }
 }

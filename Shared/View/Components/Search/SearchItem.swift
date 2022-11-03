@@ -15,14 +15,14 @@ struct SearchItem: View {
     var body: some View {
         HStack {
             if item.media == .person {
-#if os(watchOS)
+#if os(watchOS) || os(macOS)
                 profile
 #else
                 profile
                     .hoverEffect()
 #endif
             } else {
-#if os(watchOS)
+#if os(watchOS) || os(macOS)
                 image
 #else
                 image

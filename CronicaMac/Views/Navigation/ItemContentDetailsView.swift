@@ -14,10 +14,12 @@ struct ItemContentDetailsView: View {
     @StateObject private var viewModel: ItemContentViewModel
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
+    private var itemUrl: URL
     init(id: Int, title: String, type: MediaType) {
         self.id = id
         self.title = title
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
+        self.itemUrl = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
     }
     var body: some View {
         ZStack {
@@ -47,7 +49,7 @@ struct ItemContentDetailsView: View {
                                             }
                                         Rectangle()
                                             .fill(.ultraThinMaterial)
-                                            .frame(height: 180)
+                                            .frame(height: 140)
                                             .mask {
                                                 VStack(spacing: 0) {
                                                     LinearGradient(colors: [Color.black.opacity(0),
@@ -72,25 +74,17 @@ struct ItemContentDetailsView: View {
                                                 .font(.title)
                                                 .foregroundColor(.white)
                                             GlanceInfo(info: viewModel.content?.itemInfo)
-                                                .padding([.bottom, .top], 6)
-                                                .foregroundColor(.white)
+                                                .padding(.bottom, 6)
+                                                .foregroundColor(.secondary)
                                             WatchlistButtonView()
                                                 .environmentObject(viewModel)
                                         }
                                         Spacer()
-                                        VStack(alignment: .leading) {
-                                            Label("About", systemImage: "film")
-                                                .padding(.bottom, 4)
-                                                .foregroundColor(.white)
-                                                .font(.title2)
-                                            if let overview = viewModel.content?.itemOverview {
-                                                Text(overview)
-                                                    .font(.callout)
-                                                    .lineLimit(3)
-                                                    .foregroundColor(.white)
-                                            }
-                                        }
-                                        .padding()
+                                        OverviewBoxView(overview: viewModel.content?.itemOverview,
+                                                        title: "About",
+                                                        type: .movie)
+                                        .foregroundColor(.white)
+                                        .padding([.horizontal, .top])
                                         .frame(width: 600)
                                     }
                                     .padding()
@@ -124,6 +118,9 @@ struct ItemContentDetailsView: View {
             .task {
                 await viewModel.load()
             }
+            .navigationDestination(for: Person.self) { item in
+                PersonDetailsView(title: item.name, id: item.id)
+            }
             .toolbar {
                 ToolbarItem {
                     Button(action: {
@@ -144,6 +141,9 @@ struct ItemContentDetailsView: View {
                     })
                     .keyboardShortcut("f", modifiers: [.option])
                     .disabled(viewModel.isLoading ? true : false)
+                }
+                ToolbarItem {
+                    ShareLink(item: itemUrl)
                 }
             }
             .navigationTitle(title)

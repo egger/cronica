@@ -161,8 +161,6 @@ private struct PinItemsList: View {
     }
 }
 
-
-
 private struct DrawingConstants {
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240

@@ -11,7 +11,7 @@ import Combine
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
-class PersistenceController: ObservableObject {
+struct PersistenceController {
     private var subscriptions: Set<AnyCancellable> = []
     private let containerId = "iCloud.dev.alexandremadeira.Story"
     static let shared = PersistenceController()
@@ -52,7 +52,7 @@ class PersistenceController: ObservableObject {
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
             
         }
-#if DEBUG
+#if targetEnvironment(simulator)
         do {
             try container.initializeCloudKitSchema()
         } catch {

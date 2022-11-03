@@ -60,19 +60,13 @@ struct EpisodeDetailsView: View {
                 load()
             }
             .navigationDestination(for: ItemContent.self) { item in
-#if os(tvOS)
-#else
                 ItemContentView(title: item.itemTitle,
                                 id: item.id,
                                 type: item.itemContentMedia,
                                 image: item.cardImageMedium)
-#endif
             }
             .navigationDestination(for: Person.self) { person in
-#if os(tvOS)
-#else
                 PersonDetailsView(title: person.name, id: person.id)
-#endif
             }
         }
     }

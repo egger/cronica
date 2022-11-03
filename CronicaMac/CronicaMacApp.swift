@@ -10,16 +10,16 @@ import TelemetryClient
 
 @main
 struct CronicaMacApp: App {
-    //let persistence = PersistenceController.shared
+    let persistenceController = PersistenceController.shared
     init() {
         let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
         TelemetryManager.initialize(with: configuration)
+        TelemetryManager.updateDefaultUser(to: UUID().uuidString)
     }
     var body: some Scene {
         WindowGroup {
             ContentView()
-                //.environment(\.managedObjectContext,
-                 //             PersistenceController.shared.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         
         Settings {

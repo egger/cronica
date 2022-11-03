@@ -15,9 +15,9 @@ struct TrailerListView: View {
     var body: some View {
         if let trailers {
             VStack {
-                #if os(iOS)
+#if os(iOS)
                 Divider().padding(.horizontal)
-                #endif
+#endif
                 HStack {
                     Text("Trailers")
                         .font(.title3)
@@ -43,9 +43,9 @@ struct TrailerListView: View {
             }
             .sheet(item: $selectedItem) { item in
                 if let url = item.url {
-                    #if os(iOS)
+#if os(iOS)
                     SFSafariViewWrapper(url: url)
-                    #endif
+#endif
                 }
             }
         }
@@ -54,11 +54,18 @@ struct TrailerListView: View {
     private func openVideo(_ trailer: VideoItem) {
         if openInYouTube {
             guard let url = trailer.url else { return }
-            #if os(iOS)
+#if os(iOS)
             UIApplication.shared.open(url)
-            #endif
+#elseif os(macOS)
+            NSWorkspace.shared.open(url)
+#endif
         } else {
+#if os(macOS)
+            guard let url = trailer.url else { return }
+            NSWorkspace.shared.open(url)
+#else
             selectedItem = trailer
+#endif
         }
     }
 }

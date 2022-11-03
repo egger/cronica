@@ -27,7 +27,7 @@ struct CastListView: View {
                             PersonCardView(person: person)
                                 .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
                                 .buttonStyle(.plain)
-                            #warning(".hoverEffect(.lift)")
+                                .applyHoverEffect()
                         }
                     }
                     .padding([.top, .bottom])

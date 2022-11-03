@@ -87,7 +87,7 @@ struct EpisodeFrameView: View {
                     }
                     ShareLink(item: itemLink)
                 }
-            #warning(".hoverEffect()")
+                .applyHoverEffect()
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .font(.caption2)
@@ -130,10 +130,8 @@ struct EpisodeFrameView: View {
             showDetails.toggle()
         }
         .sheet(isPresented: $showDetails) {
-            #if os(tvOS)
-            #else
             NavigationStack {
-                #if os(iOS)
+#if os(iOS)
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
                     .toolbar {
@@ -143,9 +141,8 @@ struct EpisodeFrameView: View {
                             }
                         }
                     }
-                #endif
+#endif
             }
-            #endif
         }
     }
 }

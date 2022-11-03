@@ -20,104 +20,106 @@ struct DiscoverView: View {
         _viewModel = StateObject(wrappedValue: DiscoverViewModel())
     }
     var body: some View {
-        ZStack {
-            if !viewModel.isLoaded {
-                ProgressView()
-                    .unredacted()
-            }
-            ScrollView {
-                VStack {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(viewModel.items) { item in
-                            ItemContentCardView(item: item, showConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
+        NavigationStack {
+            ZStack {
+                if !viewModel.isLoaded {
+                    ProgressView()
+                        .unredacted()
+                }
+                ScrollView {
+                    VStack {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(viewModel.items) { item in
+                                ItemContentCardView(item: item, showConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            }
+                            if !viewModel.startPagination || !viewModel.endPagination {
+                                HStack {
+                                    Spacer()
+                                    ProgressView()
+                                        .padding()
+                                        .onAppear {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                                viewModel.loadMoreItems()
+                                            }
+                                        }
+                                    Spacer()
+                                }
+                            }
                         }
-                        if !viewModel.startPagination || !viewModel.endPagination {
+                        .padding()
+                        if viewModel.endPagination {
                             HStack {
                                 Spacer()
-                                ProgressView()
+                                Text("This is the end.")
                                     .padding()
-                                    .onAppear {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                            viewModel.loadMoreItems()
-                                        }
-                                    }
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
                                 Spacer()
                             }
                         }
-                    }
-                    .padding()
-                    if viewModel.endPagination {
-                        HStack {
-                            Spacer()
-                            Text("This is the end.")
-                                .padding()
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                            Spacer()
+                        if !viewModel.items.isEmpty {
+                            AttributionView()
                         }
                     }
-                    if !viewModel.items.isEmpty {
-                        AttributionView()
+                    .navigationDestination(for: ItemContent.self) { item in
+                        ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+                    }
+                    .navigationDestination(for: Person.self) { person in
+                        PersonDetailsView(title: person.name, id: person.id)
                     }
                 }
-                .navigationDestination(for: ItemContent.self) { item in
-                    //ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                }
-                .navigationDestination(for: Person.self) { person in
-                    //PersonDetailsView(title: person.name, id: person.id)
-                }
+                ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
-            //ConfirmationDialogView(showConfirmation: $showConfirmation)
-        }
-        .navigationTitle("Explore")
-        .task {
-            await load()
-        }
-        .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Picker("Media", selection: $viewModel.selectedMedia) {
-                    Text(MediaType.movie.title).tag(MediaType.movie)
-                    Text(MediaType.tvShow.title).tag(MediaType.tvShow)
-                }
-                .pickerStyle(.menu)
-            }
-            ToolbarItem(placement: .automatic) {
-                Picker("Genre", selection: $viewModel.selectedGenre) {
-                    if viewModel.selectedMedia == .movie {
-                        ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
-                            Text(genre.name!).tag(genre.id)
-                        }
-                    } else {
-                        ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
-                            Text(genre.name!).tag(genre.id)
-                        }
-                    }
-                }
-                .pickerStyle(.menu)
-            }
-        }
-        .onChange(of: viewModel.selectedMedia) { value in
-            onChanging = true
-            var genre: Genre?
-            if value == .tvShow {
-                genre = viewModel.shows[0]
-            } else {
-                genre = viewModel.movies[0]
-            }
-            if let genre {
-                viewModel.selectedGenre = genre.id
-            }
-            Task {
+            .navigationTitle("Explore")
+            .task {
                 await load()
             }
-            
-        }
-        .onChange(of: viewModel.selectedGenre) { value in
-            onChanging = true
-            Task {
-                await load()
+            .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Picker("Media", selection: $viewModel.selectedMedia) {
+                        Text(MediaType.movie.title).tag(MediaType.movie)
+                        Text(MediaType.tvShow.title).tag(MediaType.tvShow)
+                    }
+                    .pickerStyle(.menu)
+                }
+                ToolbarItem(placement: .automatic) {
+                    Picker("Genre", selection: $viewModel.selectedGenre) {
+                        if viewModel.selectedMedia == .movie {
+                            ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
+                                Text(genre.name!).tag(genre.id)
+                            }
+                        } else {
+                            ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
+                                Text(genre.name!).tag(genre.id)
+                            }
+                        }
+                    }
+                    .pickerStyle(.menu)
+                }
+            }
+            .onChange(of: viewModel.selectedMedia) { value in
+                onChanging = true
+                var genre: Genre?
+                if value == .tvShow {
+                    genre = viewModel.shows[0]
+                } else {
+                    genre = viewModel.movies[0]
+                }
+                if let genre {
+                    viewModel.selectedGenre = genre.id
+                }
+                Task {
+                    await load()
+                }
+                
+            }
+            .onChange(of: viewModel.selectedGenre) { value in
+                onChanging = true
+                Task {
+                    await load()
+                }
             }
         }
     }

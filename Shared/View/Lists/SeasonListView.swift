@@ -81,7 +81,6 @@ struct SeasonListView: View {
                                         .environmentObject(viewModel)
                                         .frame(width: 160, height: 200)
                                         .onTapGesture {
-                                            
                                             selectedEpisode = item
                                         }
                                         .padding([.leading, .trailing], 4)

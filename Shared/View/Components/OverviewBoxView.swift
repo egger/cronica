@@ -46,13 +46,20 @@ struct OverviewBoxView: View {
                         .textSelection(.enabled)
                 }
                 .navigationTitle(title)
-                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
+                    #if os(iOS)
                     ToolbarItem(placement: .navigationBarTrailing, content: {
                         Button("Done") {
                             showDetailsSheet.toggle()
                         }
                     })
+                    #else
+                    ToolbarItem {
+                        Button("Done") {
+                            showDetailsSheet.toggle()
+                        }
+                    }
+                    #endif
                 }
             }
         })
