@@ -13,21 +13,19 @@ struct ItemContentView: View {
     var id: Int
     var type: MediaType
     let itemUrl: URL
-    var itemImage: URL?
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store: SettingsStore
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    init(title: String, id: Int, type: MediaType, image: URL? = nil) {
+    init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         _store = StateObject(wrappedValue: SettingsStore())
         self.title = title
         self.id = id
         self.type = type
         self.itemUrl = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
-        self.itemImage = image
     }
     var body: some View {
         ZStack {

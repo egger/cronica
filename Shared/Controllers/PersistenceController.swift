@@ -12,8 +12,6 @@ import Combine
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
 struct PersistenceController {
-    private var subscriptions: Set<AnyCancellable> = []
-    private let containerId = "iCloud.dev.alexandremadeira.Story"
     static let shared = PersistenceController()
     // MARK: Preview sample
     static var preview: PersistenceController = {

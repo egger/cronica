@@ -74,18 +74,28 @@ struct NotificationListView: View {
             .navigationTitle("Notifications")
             .toolbar {
                 if hasLoaded && !items.isEmpty {
+#if os(iOS)
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
                     }
+#endif
                 }
+#if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Done") {
                         showNotification.toggle()
                     }
                 }
+#else
+                Button("Done") { showNotification.toggle() }
+#endif
             }
             .navigationDestination(for: ItemContent.self) { item in
+#if os(macOS)
+                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+#else
                 ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#endif
             }
             .navigationDestination(for: Person.self) { item in
                 PersonDetailsView(title: item.name, id: item.id)

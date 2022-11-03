@@ -279,6 +279,15 @@
 		B8BF632E29142E380051915C /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8991C7C27E4B5D2001055CB /* WelcomeView.swift */; };
 		B8BF633029143E4E0051915C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8BF632F29143E4E0051915C /* Assets.xcassets */; };
 		B8BF633129143FAC0051915C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8110EDA279245D100844FEB /* Assets.xcassets */; };
+		B8BF6332291468F30051915C /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845149228E0C96A00963399 /* NotificationListView.swift */; };
+		B8BF633529146A2A0051915C /* PinItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633329146A1F0051915C /* PinItemsList.swift */; };
+		B8BF633629146A2D0051915C /* PinItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633329146A1F0051915C /* PinItemsList.swift */; };
+		B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633729146A460051915C /* PosterWatchlistItem.swift */; };
+		B8BF633929146A4C0051915C /* PosterWatchlistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633729146A460051915C /* PosterWatchlistItem.swift */; };
+		B8BF633B29146AEB0051915C /* UpcomingWatchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */; };
+		B8BF633C29146AF10051915C /* UpcomingWatchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */; };
+		B8BF633D29146D140051915C /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */; };
+		B8BF633E29146D1D0051915C /* DoubleTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */; };
 		B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8C0C67E28A92FF0009F4593 /* TelemetryClient */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */; };
@@ -518,6 +527,9 @@
 		B8BF630129131AE00051915C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 		B8BF63262914013D0051915C /* HoverEffectModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverEffectModifier.swift; sourceTree = "<group>"; };
 		B8BF632F29143E4E0051915C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B8BF633329146A1F0051915C /* PinItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinItemsList.swift; sourceTree = "<group>"; };
+		B8BF633729146A460051915C /* PosterWatchlistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterWatchlistItem.swift; sourceTree = "<group>"; };
+		B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingWatchlist.swift; sourceTree = "<group>"; };
 		B8C335462815ED140055389D /* WatchListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSection.swift; sourceTree = "<group>"; };
 		B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
 		B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
@@ -852,6 +864,7 @@
 				B82B75A628A84E9500C3212A /* WatchlistButtonView.swift */,
 				B84C53FC27B1F1DD00425524 /* WatchlistItemView.swift */,
 				B8C335462815ED140055389D /* WatchListSection.swift */,
+				B8BF633729146A460051915C /* PosterWatchlistItem.swift */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -1050,10 +1063,12 @@
 				B8A3F48527A610AF005F2941 /* CastListView.swift */,
 				B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */,
 				B804E394284EDC2B00F59855 /* ItemContentListView.swift */,
+				B845149228E0C96A00963399 /* NotificationListView.swift */,
+				B8BF633329146A1F0051915C /* PinItemsList.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 				B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */,
-				B845149228E0C96A00963399 /* NotificationListView.swift */,
 				B85344C028FA07B60013E9C7 /* UpcomingListView.swift */,
+				B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -1573,6 +1588,7 @@
 				B8B3621F28D27D3B005F8825 /* WatchProviders.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */,
+				B8BF633529146A2A0051915C /* PinItemsList.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ItemContentView.swift in Sources */,
 				B86AAD0A28BD1CDD00D135B1 /* DeveloperView.swift in Sources */,
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
@@ -1607,6 +1623,7 @@
 				B890C58327FCCE69006BE5E1 /* HapticManager.swift in Sources */,
 				B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */,
 				B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */,
+				B8BF633C29146AF10051915C /* UpcomingWatchlist.swift in Sources */,
 				B8CC953327D05D1000B6757C /* HomeViewModel.swift in Sources */,
 				B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */,
 				B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */,
@@ -1617,6 +1634,7 @@
 				B879B70228B12201005EADCE /* TrailerItemView.swift in Sources */,
 				B878E83527BC85BC0021A981 /* WatchlistItem-Extension.swift in Sources */,
 				B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */,
+				B8BF633929146A4C0051915C /* PosterWatchlistItem.swift in Sources */,
 				B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */,
 				B8FF4DC127FB56F500C7DE9F /* SFSafariViewWrapper.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
@@ -1736,12 +1754,14 @@
 			files = (
 				B8BF62DF2912ED6D0051915C /* AttributionView.swift in Sources */,
 				B8BF62C22912DA230051915C /* MediaType.swift in Sources */,
+				B8BF633629146A2D0051915C /* PinItemsList.swift in Sources */,
 				B8BF62D92912E3E40051915C /* ItemContentListView.swift in Sources */,
 				B8BF62C72912DA230051915C /* SearchViewModel.swift in Sources */,
 				B8BF62C32912DA230051915C /* Bundle-Decodable.swift in Sources */,
 				B8BF62D62912E3790051915C /* ItemContentContextMenu.swift in Sources */,
 				B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */,
 				B8BF632E29142E380051915C /* WelcomeView.swift in Sources */,
+				B8BF633B29146AEB0051915C /* UpcomingWatchlist.swift in Sources */,
 				B8BF62DB2912E6360051915C /* ItemContentDetailsView.swift in Sources */,
 				B8BF62C52912DA230051915C /* PersonDetailsViewModel.swift in Sources */,
 				B8BF62D52912E3660051915C /* PosterView.swift in Sources */,
@@ -1756,11 +1776,13 @@
 				B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */,
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
+				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
 				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
 				B8BF62FA291307CE0051915C /* OverviewBoxView.swift in Sources */,
 				B8BF62F22912F6E90051915C /* WatchlistButtonView.swift in Sources */,
 				B8BF62B22912DA230051915C /* Utilities.swift in Sources */,
 				B8BF62D22912E0E90051915C /* HomeView.swift in Sources */,
+				B8BF633D29146D140051915C /* SettingsStore.swift in Sources */,
 				B8BF62DD2912EA940051915C /* CardView.swift in Sources */,
 				B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */,
 				B8BF62F82913079B0051915C /* SearchItem.swift in Sources */,
@@ -1779,6 +1801,7 @@
 				B8BF62F52912FFC10051915C /* CastListView.swift in Sources */,
 				B8BF62AA2912DA230051915C /* DefaultListTypes.swift in Sources */,
 				B8BF62FB2913081C0051915C /* PersonImageView.swift in Sources */,
+				B8BF6332291468F30051915C /* NotificationListView.swift in Sources */,
 				B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */,
 				B8BF62EB2912F2730051915C /* WatchlistView.swift in Sources */,
 				B8BF62EE2912F3130051915C /* WatchEpisodeButtonView.swift in Sources */,
@@ -1805,6 +1828,7 @@
 				B8BF62A92912DA230051915C /* ReleaseDate.swift in Sources */,
 				B8BF62EC2912F3060051915C /* SeasonListView.swift in Sources */,
 				B8BF62C12912DA230051915C /* Season.swift in Sources */,
+				B8BF633E29146D1D0051915C /* DoubleTapGesture.swift in Sources */,
 				B8BF6328291402700051915C /* HoverEffectModifier.swift in Sources */,
 				B8BF62B72912DA230051915C /* PersistenceController.swift in Sources */,
 				B8BF62BD2912DA230051915C /* DiscoverViewModel.swift in Sources */,
