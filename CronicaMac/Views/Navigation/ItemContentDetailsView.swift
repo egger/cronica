@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct ItemContentDetailsView: View {
     let id: Int
     let title: String
+    let type: MediaType
     @StateObject private var viewModel: ItemContentViewModel
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
@@ -18,6 +19,7 @@ struct ItemContentDetailsView: View {
     init(id: Int, title: String, type: MediaType) {
         self.id = id
         self.title = title
+        self.type = type
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         self.itemUrl = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
     }

@@ -265,7 +265,6 @@
 		B8BF62FB2913081C0051915C /* PersonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58027FCCD14006BE5E1 /* PersonImageView.swift */; };
 		B8BF62FC291308320051915C /* WatchlistSearchScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */; };
 		B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */; };
-		B8BF630229131AE10051915C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8BF630129131AE00051915C /* Assets.xcassets */; };
 		B8BF630329132FCD0051915C /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B8BF6324291346A60051915C /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8BF63272914013D0051915C /* HoverEffectModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF63262914013D0051915C /* HoverEffectModifier.swift */; };
@@ -288,6 +287,7 @@
 		B8BF633D29146D140051915C /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */; };
 		B8BF633E29146D1D0051915C /* DoubleTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */; };
 		B8BF633F29146DCF0051915C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
+		B8BF6341291471580051915C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8BF6340291471580051915C /* Assets.xcassets */; };
 		B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8C0C67E28A92FF0009F4593 /* TelemetryClient */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */; };
@@ -523,12 +523,12 @@
 		B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentDetailsView.swift; sourceTree = "<group>"; };
 		B8BF62E42912EFF00051915C /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		B8BF62EA2912F2730051915C /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
-		B8BF630129131AE00051915C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 		B8BF63262914013D0051915C /* HoverEffectModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverEffectModifier.swift; sourceTree = "<group>"; };
 		B8BF632F29143E4E0051915C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8BF633329146A1F0051915C /* PinItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinItemsList.swift; sourceTree = "<group>"; };
 		B8BF633729146A460051915C /* PosterWatchlistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterWatchlistItem.swift; sourceTree = "<group>"; };
 		B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingWatchlist.swift; sourceTree = "<group>"; };
+		B8BF6340291471580051915C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8C335462815ED140055389D /* WatchListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSection.swift; sourceTree = "<group>"; };
 		B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
 		B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
@@ -899,9 +899,9 @@
 		B86E79E2290A8F2700459E41 /* CronicaTV */ = {
 			isa = PBXGroup;
 			children = (
+				B8BF6340291471580051915C /* Assets.xcassets */,
 				B86E7A1F290AAE9E00459E41 /* Views */,
 				B86E79E5290A8F2700459E41 /* ContentView.swift */,
-				B8BF630129131AE00051915C /* Assets.xcassets */,
 				B86E79EF290A8F6A00459E41 /* CronicaTV.entitlements */,
 				B86E79E3290A8F2700459E41 /* CronicaTVApp.swift */,
 				B86E79F0290A8F7B00459E41 /* Info.plist */,
@@ -1476,7 +1476,7 @@
 				B86E79FA290A908D00459E41 /* Localizable.strings in Resources */,
 				B86E7A2A290AEC3100459E41 /* Attribution.xcassets in Resources */,
 				B86E7A07290A90B300459E41 /* content.json in Resources */,
-				B8BF630229131AE10051915C /* Assets.xcassets in Resources */,
+				B8BF6341291471580051915C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
