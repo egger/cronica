@@ -15,6 +15,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var isPin: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
+    @AppStorage("showPinSwipeButton") private var pinAsSwipe = false
     func body(content: Content) -> some View {
 #if os(watchOS)
         return content
@@ -22,8 +23,13 @@ struct WatchlistItemContextMenu: ViewModifier {
                 watchedButton
                     .tint(item.isWatched ? .yellow : .green)
                     .disabled(item.isInProduction || item.isUpcoming)
-                favoriteButton
-                    .tint(item.isFavorite ? .orange : .blue)
+                if pinAsSwipe {
+                    pinButton
+                        .tint(item.isPin ? .orange : .blue)
+                } else {
+                    favoriteButton
+                        .tint(item.isFavorite ? .orange : .blue)
+                }
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 deleteButton
@@ -34,8 +40,13 @@ struct WatchlistItemContextMenu: ViewModifier {
                 watchedButton
                     .tint(item.isWatched ? .yellow : .green)
                     .disabled(item.isInProduction || item.isUpcoming)
-                favoriteButton
-                    .tint(item.isFavorite ? .orange : .blue)
+                if pinAsSwipe {
+                    pinButton
+                        .tint(item.isPin ? .orange : .blue)
+                } else {
+                    favoriteButton
+                        .tint(item.isFavorite ? .orange : .blue)
+                }
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 deleteButton

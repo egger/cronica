@@ -19,6 +19,7 @@ struct ItemContentView: View {
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         _store = StateObject(wrappedValue: SettingsStore())
@@ -35,12 +36,8 @@ struct ItemContentView: View {
             }
             VStack {
                 ScrollView {
-                    if viewModel.content != nil {
-                        CoverImageView(title: title)
-                            .environmentObject(viewModel)
-                    } else {
-                        CoverImagePlaceholder(title: title)
-                    }
+                    CoverImageView(title: title)
+                        .environmentObject(viewModel)
                     
                     if UIDevice.isIPhone {
                         WatchlistButtonView()
@@ -90,6 +87,21 @@ struct ItemContentView: View {
                     
                     AttributionView()
                         .padding([.top, .bottom])
+                }
+            }
+            .background {
+                if newBackgroundStyle {
+                    ZStack {
+                        WebImage(url: viewModel.content?.cardImageMedium)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .ignoresSafeArea()
+                            .padding(.zero)
+                        Rectangle()
+                            .fill(.regularMaterial)
+                            .ignoresSafeArea()
+                            .padding(.zero)
+                    }
                 }
             }
             .task {

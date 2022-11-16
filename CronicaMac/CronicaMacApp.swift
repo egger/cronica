@@ -10,7 +10,7 @@ import TelemetryClient
 
 @main
 struct CronicaMacApp: App {
-    let persistenceController = PersistenceController.shared
+    @StateObject var persistence = PersistenceController.shared
     init() {
         let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
         TelemetryManager.initialize(with: configuration)
@@ -19,7 +19,7 @@ struct CronicaMacApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistence.container.viewContext)
         }
         
         Settings {

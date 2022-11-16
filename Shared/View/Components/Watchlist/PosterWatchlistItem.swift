@@ -10,6 +10,9 @@ import SDWebImageSwiftUI
 
 struct PosterWatchlistItem: View {
     let item: WatchlistItem
+    @State private var isPin = false
+    @State private var isFavorite = false
+    @State private var isWatched = false
     var body: some View {
         NavigationLink(value: item) {
             WebImage(url: item.mediumPosterImage)
@@ -47,16 +50,14 @@ struct PosterWatchlistItem: View {
                 .padding(.zero)
                 .applyHoverEffect()
                 .draggable(item)
-                .contextMenu {
-                    ShareLink(item: item.itemLink)
-                    Divider()
-                    Button(action: {
-                        withAnimation {
-                            PersistenceController.shared.markPinAs(item: item)
-                        }
-                    }, label: {
-                        Label("Remove Pin", systemImage: "pin.slash.fill")
-                    })
+                .modifier(WatchlistItemContextMenu(item: item,
+                                                   isWatched: $isWatched,
+                                                   isFavorite: $isFavorite,
+                                                   isPin: $isPin))
+                .task {
+                    isWatched = item.isWatched
+                    isFavorite = item.isFavorite
+                    isPin = item.isPin
                 }
         }
     }

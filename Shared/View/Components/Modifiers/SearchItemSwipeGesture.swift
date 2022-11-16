@@ -14,6 +14,8 @@ struct SearchItemSwipeGesture: ViewModifier {
     @Binding var isWatched: Bool
     @State private var isFavorite: Bool = false
     private let context = PersistenceController.shared
+    @AppStorage("showPinOnSearch") private var pinOnSearch = false
+    @State private var isPin = false
     func body(content: Content) -> some View {
         return content
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -27,6 +29,18 @@ struct SearchItemSwipeGesture: ViewModifier {
                         Label("Add to watchlist", systemImage: "plus.square")
                     })
                     .tint(.blue)
+                }
+                if pinOnSearch {
+                    Button(action: {
+                        if !isInWatchlist {
+                            updateWatchlist(with: item)
+                        }
+                        PersistenceController.shared.updatePin(items: [item.itemNotificationID])
+                        isPin.toggle()
+                    }, label: {
+                        Label(isPin ? "Unpin Item" : "Pin Item",
+                              systemImage: isPin ? "pin.slash.fill" : "pin.fill")
+                    })
                 }
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {

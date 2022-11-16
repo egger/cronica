@@ -27,21 +27,18 @@ struct SettingsView: View {
         NavigationStack {
             ZStack {
                 Form {
-                    // MARK: Gesture Section
+                    
                     Section {
-                        Picker(selection: $store.gesture) {
-                            Text("Favorites").tag(DoubleTapGesture.favorite)
-                            Text("Watched").tag(DoubleTapGesture.watched)
+                        NavigationLink {
+                            GesturesSettingsView()
+                                .environmentObject(store)
                         } label: {
-                            Text("Mark as")
+                            Text("Gestures")
                         }
-                        .pickerStyle(.menu)
                     } header: {
-                        Label("Double Tap Gesture", systemImage: "hand.tap")
-                    } footer: {
-                        Text("The function is performed when double-tap the cover image.")
-                            .padding(.bottom)
+                        Label("Gestures", systemImage: "hand.tap")
                     }
+                    
                     // MARK: Media Section
                     Section {
                         Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
@@ -94,6 +91,8 @@ struct SettingsView: View {
                     } header: {
                         Label("Support", systemImage: "questionmark.circle")
                     }
+
+                    
                     // MARK: Privacy Section
                     Section {
                         Button("Privacy Policy") {
@@ -106,6 +105,20 @@ struct SettingsView: View {
                         Text("privacyfooter")
                             .padding(.bottom)
                     }
+                    
+                    Section {
+                        NavigationLink {
+                            FeaturePreviewSettings()
+                        } label: {
+                            Text("Experimental Features")
+                        }
+                    } header: {
+                        Label("Experimental Features", systemImage: "wand.and.stars")
+                    } footer: {
+                        Text("Experimental Features are meant for users that want to test out features that still in development.")
+                    }
+
+                    
                     // MARK: Developer Section
                     if displayDeveloperSettings {
                         Section {
@@ -193,5 +206,65 @@ struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(showSettings: $showSettings)
             .environmentObject(settings)
+    }
+}
+
+struct GesturesSettingsView: View {
+    @EnvironmentObject var store: SettingsStore
+    @AppStorage("markEpisodeWatchedTap") private var markEpisodeWatchedOnTap = false
+    @AppStorage("showPinSwipeButton") private var pinAsSwipe = false
+    var body: some View {
+        Form {
+            Section {
+                Picker(selection: $store.gesture) {
+                    Text("Favorites").tag(DoubleTapGesture.favorite)
+                    Text("Watched").tag(DoubleTapGesture.watched)
+                } label: {
+                    Text("Double Tap Gesture")
+                }
+                .pickerStyle(.menu)
+            } header: {
+                Label("Cover Image Gesture", systemImage: "hand.tap")
+            } footer: {
+                Text("The function is performed when double-tap the cover image.")
+                    .padding(.bottom)
+            }
+            
+            Section {
+                Toggle("Tap To Mark as Watched",
+                       isOn: $markEpisodeWatchedOnTap)
+            } header: {
+                Label("Episode Gesture", systemImage: "tv")
+            } footer: {
+                Text("This will mark an episode as watched on tap gesture.")
+            }
+            
+            Section {
+                Toggle("Show Pin On Swipe", isOn: $pinAsSwipe)
+            } header: {
+                Label("Watchlist Gesture", systemImage: "square.stack")
+            }
+        }
+        .navigationTitle("Gestures")
+    }
+}
+
+private struct FeaturePreviewSettings: View {
+    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
+    @AppStorage("showPinOnSearch") private var pinOnSearch = false
+    var body: some View {
+        Form {
+            Section {
+                Toggle("Translucent Background", isOn: $newBackgroundStyle)
+            } header: {
+                Label("Appearance", systemImage: "doc.text.image.fill")
+            }
+            Section {
+                Toggle("Pin on Search", isOn: $pinOnSearch)
+            } footer: {
+                Text("Shows Pin feature on right swipe.")
+            }
+        }
+        .navigationTitle("Experimental Features")
     }
 }

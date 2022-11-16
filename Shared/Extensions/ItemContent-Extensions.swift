@@ -139,6 +139,12 @@ extension ItemContent {
         if let itemFallbackDate {
             return "\(itemContentMedia.title) • \(Utilities.dateString.string(from: itemFallbackDate))"
         }
+        if let date = lastEpisodeToAir?.airDate {
+            let formattedDate = Utilities.dateFormatter.date(from: date)
+            if let formattedDate {
+                return "\(itemContentMedia.title) • \(Utilities.dateString.string(from: formattedDate))"
+            }
+        }
         return "\(itemContentMedia.title)"
     }
     var itemImage: URL? {
@@ -184,6 +190,7 @@ extension ItemContent {
     }
     var itemTheatricalDate: Date? {
         if let itemTheatricalString {
+            //return Date.convertDateToString(itemTheatricalDate)
             return Utilities.dateString.date(from: itemTheatricalString)
         }
         if let releaseDate = releaseDate {

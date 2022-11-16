@@ -14,38 +14,40 @@ struct TrailerListView: View {
     @AppStorage("openInYouTube") var openInYouTube = false
     var body: some View {
         if let trailers {
-            VStack {
+            if !trailers.isEmpty {
+                VStack {
 #if os(iOS)
-                Divider().padding(.horizontal)
+                    Divider().padding(.horizontal)
 #endif
-                HStack {
-                    Text("Trailers")
-                        .font(.title3)
-                        .padding([.horizontal, .top])
-                    Spacer()
-                }
-                .unredacted()
-                ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(trailers) { trailer in
-                            TrailerItemView(trailer: trailer)
-                                .onTapGesture {
-                                    openVideo(trailer)
-                                }
-                                .padding(.horizontal, 4)
-                                .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
-                                .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)
-                        }
+                        Text("Trailers")
+                            .font(.title3)
+                            .padding([.horizontal, .top])
+                        Spacer()
                     }
-                    .padding(.top, 8)
+                    .unredacted()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(trailers) { trailer in
+                                TrailerItemView(trailer: trailer)
+                                    .onTapGesture {
+                                        openVideo(trailer)
+                                    }
+                                    .padding(.horizontal, 4)
+                                    .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
+                                    .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)
+                            }
+                        }
+                        .padding(.top, 8)
+                    }
+                    Divider().padding(.horizontal)
                 }
-                Divider().padding(.horizontal)
-            }
-            .sheet(item: $selectedItem) { item in
-                if let url = item.url {
+                .sheet(item: $selectedItem) { item in
+                    if let url = item.url {
 #if os(iOS)
-                    SFSafariViewWrapper(url: url)
+                        SFSafariViewWrapper(url: url)
 #endif
+                    }
                 }
             }
         }

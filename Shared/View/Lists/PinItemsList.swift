@@ -11,7 +11,7 @@ struct PinItemsList: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: true),
+            NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
         ],
         predicate: NSPredicate(format: "isPin == %d", true)
     )
@@ -45,3 +45,4 @@ struct PinItemsList_Previews: PreviewProvider {
         PinItemsList()
     }
 }
+

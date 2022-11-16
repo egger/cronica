@@ -85,6 +85,11 @@ struct EpisodeFrameView: View {
                             }
                         }
                     }
+                    if episodeTap {
+                        Button("Show Details") {
+                            showDetails.toggle()
+                        }
+                    }
                     ShareLink(item: itemLink)
                 }
                 .applyHoverEffect()

@@ -109,14 +109,6 @@ struct DeveloperView: View {
                 Text("Items")
             }
             
-            Section {
-                Toggle("Single Tap to mark episode as watched", isOn: $episodeTap)
-            } header: {
-                Label("Gestures", systemImage: "hand.tap")
-            } footer: {
-                Text("This will disable episode details view. To enable back you must turn this feature off.")
-            }
-            
         }
         .navigationTitle("Developer tools")
         .sheet(isPresented: $showOnboardingMac, content: {

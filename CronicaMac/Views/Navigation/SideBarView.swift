@@ -15,6 +15,7 @@ struct SideBarView: View {
     @State private var showConfirmation = false
     @State private var selectedSearchItem: ItemContent? = nil
     @State private var scope: SearchItemsScope = .noScope
+    @StateObject var persistence = PersistenceController.shared
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedView) {
@@ -59,13 +60,13 @@ struct SideBarView: View {
                 case .home:
                     NavigationStack {
                         HomeView()
-                            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                            .environment(\.managedObjectContext, persistence.container.viewContext)
                     }
                 case .discover:
                     DiscoverView()
                 case .watchlist:
                     WatchlistView()
-                        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                        .environment(\.managedObjectContext, persistence.container.viewContext)
                 case .search:
                     EmptyView()
                 }

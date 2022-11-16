@@ -21,20 +21,17 @@ struct ItemContentContextMenu: ViewModifier {
 #else
         return content
             .contextMenu {
-#if os(tvOS)
-#else
-                ShareLink(item: item.itemURL)
-#endif
-                Button(action: {
-                    updateWatchlist(with: item)
-                }, label: {
-                    Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                          systemImage: isInWatchlist ? "minus.square" : "plus.square")
-                })
                 if isInWatchlist {
                     watchedButton
                     favoriteButton
                     pinButton
+                    shareButton
+                    Divider()
+                    watchlistButton
+                } else {
+                    shareButton
+                    Divider()
+                    watchlistButton
                 }
 #if os(tvOS)
                 Button("Cancel") { }
@@ -50,6 +47,23 @@ struct ItemContentContextMenu: ViewModifier {
                     isPin = context.isItemPinned(id: item.id, type: item.itemContentMedia)
                 }
             }
+#endif
+    }
+    
+    private var watchlistButton: some View {
+        Button(role: isInWatchlist ? .destructive : nil) {
+            updateWatchlist(with: item)
+        } label: {
+            Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
+                  systemImage: isInWatchlist ? "minus.square" : "plus.square")
+        }
+    }
+    
+    private var shareButton: some View {
+#if os(tvOS)
+        EmptyView()
+#else
+        ShareLink(item: item.itemURL)
 #endif
     }
     
@@ -87,7 +101,7 @@ struct ItemContentContextMenu: ViewModifier {
             Label(isPin ? "Unpin Item" : "Pin Item",
                   systemImage: isPin ? "pin.slash" : "pin")
         }
-
+        
     }
     
     private func updateWatchlist(with item: ItemContent) {

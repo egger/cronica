@@ -50,7 +50,7 @@ struct PersistenceController {
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
             
         }
-#if targetEnvironment(simulator)
+#if DEBUG && os(iOS)
         do {
             try container.initializeCloudKitSchema()
         } catch {
@@ -104,10 +104,8 @@ struct PersistenceController {
             }
             item.formattedDate = content.itemTheatricalString
             if content.itemContentMedia == .tvShow {
-                if let episode = content.lastEpisodeToAir {
-                    if let number = episode.episodeNumber {
-                        item.nextEpisodeNumber = Int64(number)
-                    }
+                if let episode = content.lastEpisodeToAir?.episodeNumber {
+                    item.nextEpisodeNumber = Int64(episode)
                 }
                 item.upcomingSeason = content.hasUpcomingSeason
                 item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
@@ -200,7 +198,7 @@ struct PersistenceController {
             saveContext()
         }
     }
-
+    
     func delete(items: Set<String>) {
         var list = [WatchlistItem]()
         for item in items {

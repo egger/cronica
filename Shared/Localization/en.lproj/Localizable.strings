@@ -250,3 +250,20 @@
 "Remove Notification" = "Remove Notification";
 "Loading" = "Loading";
 "%lld upcoming notifications." = "%lld upcoming notifications.";
+
+// MARK: GesturesSettingsView
+"Gestures" = "Gestures";
+"Cover Image Gesture" = "Cover Image Gesture";
+"Tap To Mark as Watched" = "Tap To Mark as Watched";
+"Episode Gesture" = "Episode Gesture";
+"This will mark an episode as watched on tap gesture." = "This will mark an episode as watched on tap gesture.";
+"Show Pin On Swipe" = "Show Pin On Swipe";
+"Watchlist Gesture" = "Watchlist Gesture";
+
+// MARK: FeaturePreviewSettings
+"Experimental Features" = "Experimental Features";
+"Experimental Features are meant for users that want to test out features that still in development." = "Experimental Features are meant for users that want to test out features that still in development.";
+"Translucent Background" = "Translucent Background";
+"Appearance" = "Appearance";
+"Pin on Search" = "Pin on Search";
+"Shows Pin feature on right swipe." = "Shows Pin feature on right swipe.";
