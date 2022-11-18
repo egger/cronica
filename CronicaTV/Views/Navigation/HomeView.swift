@@ -25,7 +25,7 @@ struct HomeView: View {
                     ItemContentList(items: viewModel.trending,
                                     title: "Trending",
                                     subtitle: "Today",
-                                    image: "crown")
+                                    image: "crown", displayAsPosters: true)
                     ForEach(viewModel.sections) { section in
                         ItemContentList(items: section.results,
                                         title: section.title,

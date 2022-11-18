@@ -12,6 +12,8 @@ struct ItemContentList: View {
     let title: String
     let subtitle: String
     let image: String
+    var displayAsPosters = false
+    @State private var showConfirmation = false
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
@@ -19,12 +21,22 @@ struct ItemContentList: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(items) { item in
-                            ItemContentCardView(item: item)
-                                .padding([.leading, .trailing], 4)
-                                .buttonStyle(.plain)
-                                .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                .padding([.top, .bottom])
+                            if displayAsPosters {
+                                PosterView(item: item, addedItemConfirmation: $showConfirmation)
+                                    .padding([.leading, .trailing], 4)
+                                    .buttonStyle(.card)
+                                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                                    .padding([.top, .bottom])
+                            } else {
+                                ItemContentCardView(item: item)
+                                    .padding([.leading, .trailing], 4)
+                                    .buttonStyle(.plain)
+                                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                                    .padding([.top, .bottom])
+                            }
+                            
                         }
                     }
                 }

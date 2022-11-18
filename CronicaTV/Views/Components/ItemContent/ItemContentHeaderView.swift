@@ -75,11 +75,13 @@ struct ItemContentHeaderView: View {
                             }, label: {
                                 Text(viewModel.isInWatchlist ? "Remove from List" : "Add to List")
                             })
+                            .buttonStyle(.borderedProminent)
                             Button(action: {
                                 viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
                             }, label: {
                                 Text(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched")
                             })
+                            .buttonStyle(.borderedProminent)
                         }
                     }
                 }

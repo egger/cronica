@@ -19,7 +19,7 @@ struct PosterView: View {
             WebImage(url: item.posterImageMedium, options: .highPriority)
                 .resizable()
                 .placeholder {
-                    PosterPlaceholder(title: item.itemTitle)
+                    PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
                 }
                 .overlay {
                     if isInWatchlist {
@@ -61,7 +61,6 @@ struct PosterView: View {
                                             style: .continuous))
                 .shadow(radius: DrawingConstants.shadowRadius)
                 .padding(.zero)
-                .draggable(item)
                 .applyHoverEffect()
                 .modifier(
                     ItemContentContextMenu(item: item,
@@ -77,6 +76,9 @@ struct PosterView: View {
                         }
                     }
                 }
+#if os(iOS) || os(macOS)
+                .draggable(item)
+#endif
         }
     }
 }
@@ -90,21 +92,20 @@ struct PosterView_Previews: PreviewProvider {
 
 struct PosterPlaceholder: View {
     var title: String
+    let type: MediaType
     var body: some View {
         ZStack {
-#if os(watchOS)
-            Rectangle().fill(.secondary)
-#else
-            Rectangle().fill(.thickMaterial)
-#endif
+            Rectangle().fill(.gray.gradient)
             VStack {
                 Text(title)
+                    .foregroundColor(.white.opacity(0.8))
                     .lineLimit(1)
-                    .padding(.bottom)
-                Image(systemName: "film")
+                    .padding()
+                Image(systemName: type == .tvShow ? "tv" : "film")
+                    .font(.title)
+                    .foregroundColor(.white.opacity(0.8))
             }
             .padding()
-            .foregroundColor(.secondary)
         }
         .frame(width: DrawingConstants.posterWidth,
                height: DrawingConstants.posterHeight)
@@ -117,6 +118,6 @@ struct PosterPlaceholder: View {
 private struct DrawingConstants {
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
-    static let posterRadius: CGFloat = 12
+    static let posterRadius: CGFloat = 8
     static let shadowRadius: CGFloat = 2
 }

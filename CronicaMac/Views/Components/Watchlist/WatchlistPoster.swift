@@ -46,7 +46,6 @@ struct WatchlistPoster: View {
                                             style: .continuous))
                 .shadow(radius: DrawingConstants.shadowRadius)
                 .padding(.zero)
-                .draggable(item)
                 .applyHoverEffect()
                 .modifier(
                     WatchlistItemContextMenu(item: item,
@@ -61,6 +60,9 @@ struct WatchlistPoster: View {
                         isPin = item.isPin
                     }
                 }
+#if os(macOS)
+                .draggable(item)
+#endif
         }
     }
 }

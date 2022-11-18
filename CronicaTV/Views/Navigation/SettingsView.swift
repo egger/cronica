@@ -31,6 +31,16 @@ struct SettingsView: View {
             }
             
             Section {
+                NavigationLink(destination: FeedbackSettingsView()) {
+                    Text("Send Feedback")
+                }
+                .disabled(disableTelemetry)
+                
+            } header: {
+                Label("Support", systemImage: "questionmark.circle")
+            }
+            
+            Section {
                 Toggle("Disable Telemetry", isOn: $disableTelemetry)
             } header: {
                 Label("Privacy", systemImage: "hand.raised.fingers.spread")
