@@ -68,7 +68,9 @@ struct NotificationListView: View {
                         }
                     }
                 } else {
-                    ProgressView("Loading")
+                    CenterHorizontalView {
+                        ProgressView("Loading")
+                    }
                 }
             }
             .navigationTitle("Notifications")
