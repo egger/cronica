@@ -58,7 +58,7 @@ import Combine
         } catch {
             if Task.isCancelled { return }
             stage = .failure
-            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                             for: "SearchViewModel.search()")
         }
     }
@@ -79,7 +79,7 @@ import Combine
                     self.page += 1
                 } catch {
                     if Task.isCancelled { return }
-                    TelemetryErrorManager.shared.handleErrorMessage(
+                    CronicaTelemetry.shared.handleMessage(
                         error.localizedDescription,
                         for: "ItemContentViewModel.loadMoreItems()"
                     )

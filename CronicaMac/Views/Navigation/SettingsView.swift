@@ -10,9 +10,17 @@ import SwiftUI
 struct SettingsView: View {
     var body: some View {
         TabView {
-            GeneralSettingsView()
+            WatchlistSettings()
                 .tabItem {
-                    Label("General", systemImage: "gearshape")
+                    Label("Watchlist", systemImage: "square.stack")
+                }
+            PrivacySettings()
+                .tabItem {
+                    Label("Privacy", systemImage: "hand.raised.fingers.spread")
+                }
+            SupportSettingsTab()
+                .tabItem {
+                    Label("Support", systemImage: "questionmark.circle")
                 }
 #if DEBUG
             DeveloperView()
@@ -31,13 +39,35 @@ struct SettingsView_Previews: PreviewProvider {
     }
 }
 
-private struct GeneralSettingsView: View {
-    @State private var animateEasterEgg = false
-    @State private var updatingItems = false
-    @State private var showFeedbackAlert = false
-    @State private var feedback: String = ""
-    @State private var feedbackSent = false
+private struct SupportSettingsTab: View {
+    var body: some View {
+        FeedbackSettingsView()
+    }
+}
+
+private struct PrivacySettings: View {
     @AppStorage("disableTelemetry") private var disableTelemetry = false
+    var body: some View {
+        Form {
+            Section {
+                Toggle("Disable Telemetry", isOn: $disableTelemetry)
+                Button("Privacy Policy") {
+                    NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+                }
+                .buttonStyle(.link)
+            } header: {
+                Label("Privacy", systemImage: "hand.raised.fingers.spread")
+            } footer: {
+                Text("privacyfooter")
+                    .padding(.bottom)
+            }
+        }
+        .formStyle(.grouped)
+    }
+}
+
+private struct WatchlistSettings: View {
+    @State private var updatingItems = false
     var body: some View {
         Form {
             Section {
@@ -59,79 +89,8 @@ private struct GeneralSettingsView: View {
                     Spacer()
                 }
             }
-            
-            Section {
-                Toggle("Disable Telemetry", isOn: $disableTelemetry)
-                Button("Privacy Policy") {
-                    NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-                }
-                .buttonStyle(.link)
-            } header: {
-                Label("Privacy", systemImage: "hand.raised.fingers.spread")
-            } footer: {
-                Text("privacyfooter")
-                    .padding(.bottom)
-            }
-            
-            Section {
-                Button( action: {
-                    showFeedbackAlert = true
-                }, label: {
-                    Label("Send feedback", systemImage: "envelope")
-                })
-                .buttonStyle(.link)
-                .alert("Send Feedback", isPresented: $showFeedbackAlert, actions: {
-                    TextField("Feedback", text: $feedback)
-                    Button("Send") {
-                        sendFeedback()
-                    }
-                    Button("Cancel", role: .cancel) {
-                        cancelFeedback()
-                    }
-                }, message: {
-                    Text("Send your suggestions to help improve Cronica.")
-                })
-                .disabled(disableTelemetry)
-            } header: {
-                Label("Support", systemImage: "questionmark.circle")
-            }
-            
-            CenterHorizontalView {
-                Text("Made in Brazil 🇧🇷")
-                    .onTapGesture {
-                        Task {
-                            withAnimation {
-                                self.animateEasterEgg.toggle()
-                            }
-                            try? await Task.sleep(nanoseconds: 1_500_000_000)
-                            withAnimation {
-                                self.animateEasterEgg.toggle()
-                            }
-                        }
-                    }
-                    .font(animateEasterEgg ? .title3 : .caption)
-                    .foregroundColor(animateEasterEgg ? .green : nil)
-                    .animation(.easeInOut, value: animateEasterEgg)
-            }
         }
         .formStyle(.grouped)
-    }
-    
-    private func sendFeedback() {
-        if !feedback.isEmpty {
-            withAnimation { feedbackSent.toggle() }
-            TelemetryErrorManager.shared.handleErrorMessage(feedback, for: "sendFeedback")
-            feedback = ""
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                withAnimation {
-                    feedbackSent = false
-                }
-            }
-        }
-    }
-    
-    private func cancelFeedback() {
-        feedback = ""
     }
     
     private func updateItems() {
@@ -147,4 +106,3 @@ private struct GeneralSettingsView: View {
         }
     }
 }
-

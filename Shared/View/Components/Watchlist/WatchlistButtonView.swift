@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WatchlistButtonView: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
+    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     var body: some View {
         Button(action: {
             if let item = viewModel.content {
@@ -18,9 +19,12 @@ struct WatchlistButtonView: View {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
         })
-        .buttonStyle(.bordered)
-        .tint(viewModel.isInWatchlist ? .red : .blue)
+        .buttonStyle(.borderedProminent)
         .controlSize(.large)
         .disabled(viewModel.isLoading)
+        .tint(viewModel.isInWatchlist ? .red : .blue)
+#if os(iOS)
+        .buttonBorderShape(.capsule)
+#endif
     }
 }

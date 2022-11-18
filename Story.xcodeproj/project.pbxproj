@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B80318A62925664F00714B3E /* GesturesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A52925664F00714B3E /* GesturesSettingsView.swift */; };
+		B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
+		B80318A92925DA4300714B3E /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
+		B80318AD2926757100714B3E /* WatchlistPoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318AC2926757100714B3E /* WatchlistPoster.swift */; };
 		B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E392284EC4A500F59855 /* CoverImageView.swift */; };
 		B804E395284EDC2B00F59855 /* ItemContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E394284EDC2B00F59855 /* ItemContentListView.swift */; };
 		B804E397284FCBCB00F59855 /* ItemContentFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E396284FCBCB00F59855 /* ItemContentFrameView.swift */; };
@@ -108,7 +112,7 @@
 		B86E79FA290A908D00459E41 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
 		B86E79FB290A909300459E41 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B86E79FC290A909B00459E41 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* NotificationManager.swift */; };
-		B86E79FD290A909E00459E41 /* TelemetryErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */; };
+		B86E79FD290A909E00459E41 /* CronicaTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */; };
 		B86E79FE290A90A100459E41 /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
 		B86E79FF290A90A800459E41 /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
 		B86E7A00290A90A800459E41 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE63281B36A7005558DD /* Season.swift */; };
@@ -191,8 +195,8 @@
 		B8B3621F28D27D3B005F8825 /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B3621E28D27D3B005F8825 /* WatchProviders.swift */; };
 		B8B94CEC28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */; };
 		B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */; };
-		B8B94CEF28EB8B8200EDEC85 /* TelemetryErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */; };
-		B8B94CF028EB8B8200EDEC85 /* TelemetryErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */; };
+		B8B94CEF28EB8B8200EDEC85 /* CronicaTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */; };
+		B8B94CF028EB8B8200EDEC85 /* CronicaTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */; };
 		B8BF628F2912D85C0051915C /* CronicaMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF628E2912D85C0051915C /* CronicaMacApp.swift */; };
 		B8BF62912912D85C0051915C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62902912D85C0051915C /* ContentView.swift */; };
 		B8BF62962912D85D0051915C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8BF62952912D85D0051915C /* Preview Assets.xcassets */; };
@@ -215,7 +219,7 @@
 		B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
 		B8BF62B42912DA230051915C /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
 		B8BF62B52912DA230051915C /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
-		B8BF62B62912DA230051915C /* TelemetryErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */; };
+		B8BF62B62912DA230051915C /* CronicaTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */; };
 		B8BF62B72912DA230051915C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* PersistenceController.swift */; };
 		B8BF62B82912DA230051915C /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4F0289B139000A5330E /* UTType-Extensions.swift */; };
@@ -411,6 +415,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B80318A52925664F00714B3E /* GesturesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesSettingsView.swift; sourceTree = "<group>"; };
+		B80318A729256AE700714B3E /* FeedbackSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSettingsView.swift; sourceTree = "<group>"; };
+		B80318AA2925DAD700714B3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B80318AC2926757100714B3E /* WatchlistPoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPoster.swift; sourceTree = "<group>"; };
 		B804E392284EC4A500F59855 /* CoverImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageView.swift; sourceTree = "<group>"; };
 		B804E394284EDC2B00F59855 /* ItemContentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentListView.swift; sourceTree = "<group>"; };
 		B804E396284FCBCB00F59855 /* ItemContentFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentFrameView.swift; sourceTree = "<group>"; };
@@ -517,7 +525,7 @@
 		B8B271A527A5A18C00F6463F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		B8B3621E28D27D3B005F8825 /* WatchProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviders.swift; sourceTree = "<group>"; };
 		B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemSwipeGesture.swift; sourceTree = "<group>"; };
-		B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryErrorManager.swift; sourceTree = "<group>"; };
+		B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTelemetry.swift; sourceTree = "<group>"; };
 		B8BF628C2912D85C0051915C /* Cronica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cronica.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8BF628E2912D85C0051915C /* CronicaMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaMacApp.swift; sourceTree = "<group>"; };
 		B8BF62902912D85C0051915C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -645,6 +653,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B80318A42925663F00714B3E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B80318A52925664F00714B3E /* GesturesSettingsView.swift */,
+				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B80318AB2926755200714B3E /* Watchlist */ = {
+			isa = PBXGroup;
+			children = (
+				B80318AC2926757100714B3E /* WatchlistPoster.swift */,
+			);
+			path = Watchlist;
+			sourceTree = "<group>";
+		};
 		B806C4DF2899BE2800A5330E /* CronicaWatch Watch App */ = {
 			isa = PBXGroup;
 			children = (
@@ -1015,6 +1040,7 @@
 		B8BF628D2912D85C0051915C /* CronicaMac */ = {
 			isa = PBXGroup;
 			children = (
+				B80318AA2925DAD700714B3E /* Info.plist */,
 				B8BF632F29143E4E0051915C /* Assets.xcassets */,
 				B8BF62CA2912DA910051915C /* Views */,
 				B8BF628E2912D85C0051915C /* CronicaMacApp.swift */,
@@ -1057,6 +1083,7 @@
 		B8BF62DC2912EA3F0051915C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B80318AB2926755200714B3E /* Watchlist */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1225,7 +1252,7 @@
 				B87F746228064D3800E94126 /* BackgroundManager.swift */,
 				B890C58227FCCE69006BE5E1 /* HapticManager.swift */,
 				B8EC462E27D7AA99009389FC /* NotificationManager.swift */,
-				B8B94CEE28EB8B8200EDEC85 /* TelemetryErrorManager.swift */,
+				B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1233,6 +1260,7 @@
 		B8EC463E27D84C62009389FC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B80318A42925663F00714B3E /* Settings */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
 				B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */,
 				B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */,
@@ -1520,7 +1548,7 @@
 				B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */,
 				B84043D9289B327B00D5CEBF /* AttributionView.swift in Sources */,
 				B84043BC289B18C200D5CEBF /* ItemContent.swift in Sources */,
-				B8B94CF028EB8B8200EDEC85 /* TelemetryErrorManager.swift in Sources */,
+				B8B94CF028EB8B8200EDEC85 /* CronicaTelemetry.swift in Sources */,
 				B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */,
 				B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */,
 				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
@@ -1592,6 +1620,7 @@
 				B8EC45E427D5A010009389FC /* ItemContent-Extensions.swift in Sources */,
 				B8B3621F28D27D3B005F8825 /* WatchProviders.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
+				B80318A62925664F00714B3E /* GesturesSettingsView.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */,
 				B8BF633529146A2A0051915C /* PinItemsList.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ItemContentView.swift in Sources */,
@@ -1648,13 +1677,14 @@
 				B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */,
 				B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */,
 				B82B75A828A84E9A00C3212A /* WatchlistButtonView.swift in Sources */,
+				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,
 				B8389ECE28AA8A92003025BC /* WatchEpisodeButtonView.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
 				B8423E2F2793B61B0012259B /* CardView.swift in Sources */,
 				B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */,
-				B8B94CEF28EB8B8200EDEC85 /* TelemetryErrorManager.swift in Sources */,
+				B8B94CEF28EB8B8200EDEC85 /* CronicaTelemetry.swift in Sources */,
 				B876DE50281B1B81005558DD /* MediaType.swift in Sources */,
 				B8B271A627A5A18C00F6463F /* PersistenceController.swift in Sources */,
 				B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */,
@@ -1699,7 +1729,7 @@
 				B8A8103F2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
 				B8DD569E290DDDD5002CAAFD /* ListTitleView.swift in Sources */,
 				B86E7A27290AC39800459E41 /* ItemContentContextMenu.swift in Sources */,
-				B86E79FD290A909E00459E41 /* TelemetryErrorManager.swift in Sources */,
+				B86E79FD290A909E00459E41 /* CronicaTelemetry.swift in Sources */,
 				B8DD567B290C39DF002CAAFD /* ItemContentList.swift in Sources */,
 				B86E7A0C290A90CA00459E41 /* Utilities.swift in Sources */,
 				B86E79E6290A8F2700459E41 /* ContentView.swift in Sources */,
@@ -1776,11 +1806,12 @@
 				B8BF632C29142C850051915C /* HeroImage.swift in Sources */,
 				B8BF6324291346A60051915C /* WatchListSection.swift in Sources */,
 				B8BF62C42912DA230051915C /* HomeViewModel.swift in Sources */,
-				B8BF62B62912DA230051915C /* TelemetryErrorManager.swift in Sources */,
+				B8BF62B62912DA230051915C /* CronicaTelemetry.swift in Sources */,
 				B8BF62B02912DA230051915C /* ItemContent.swift in Sources */,
 				B8BF62B42912DA230051915C /* Videos.swift in Sources */,
 				B8BF62C82912DA230051915C /* SeasonViewModel.swift in Sources */,
 				B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */,
+				B80318AD2926757100714B3E /* WatchlistPoster.swift in Sources */,
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
@@ -1835,6 +1866,7 @@
 				B8BF633F29146DCF0051915C /* HomeView.swift in Sources */,
 				B8BF62A92912DA230051915C /* ReleaseDate.swift in Sources */,
 				B8BF62EC2912F3060051915C /* SeasonListView.swift in Sources */,
+				B80318A92925DA4300714B3E /* FeedbackSettingsView.swift in Sources */,
 				B8BF62C12912DA230051915C /* Season.swift in Sources */,
 				B8BF633E29146D1D0051915C /* DoubleTapGesture.swift in Sources */,
 				B8BF6328291402700051915C /* HoverEffectModifier.swift in Sources */,
@@ -1924,7 +1956,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -1957,7 +1989,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2110,7 +2142,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2146,7 +2178,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2229,7 +2261,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2262,7 +2294,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2285,12 +2317,13 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_ASSET_PATHS = "\"CronicaMac/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CronicaMac/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cronica;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -2299,7 +2332,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = macosx;
@@ -2319,12 +2352,13 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_ASSET_PATHS = "\"CronicaMac/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CronicaMac/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cronica;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -2333,7 +2367,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = macosx;
@@ -2363,7 +2397,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2396,7 +2430,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

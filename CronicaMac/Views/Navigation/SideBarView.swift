@@ -15,7 +15,7 @@ struct SideBarView: View {
     @State private var showConfirmation = false
     @State private var selectedSearchItem: ItemContent? = nil
     @State private var scope: SearchItemsScope = .noScope
-    @StateObject var persistence = PersistenceController.shared
+    let persistence = PersistenceController.shared
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedView) {

@@ -16,6 +16,7 @@ struct SeasonButton: View {
             NavigationLink(destination: SeasonListView(numberOfSeasons: numberOfSeasons, id: id, isInWatchlist: $isInWatchlist), label: {
                 Text("Seasons")
             })
+            .buttonBorderShape(.capsule)
         }
     }
 }

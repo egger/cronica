@@ -67,17 +67,17 @@ struct DeveloperView: View {
             }
             
             Section {
-                #if os(macOS)
+#if os(macOS)
                 Button("Show Onboarding") {
                     showOnboardingMac.toggle()
                 }
-                #else
+#else
                 NavigationLink(
                     destination: WelcomeView(),
                     label: {
                         Text("Show Onboarding")
                     })
-                #endif
+#endif
             } header: {
                 Text("Presentation")
             }
@@ -99,7 +99,10 @@ struct DeveloperView: View {
                         Text("Update Items")
                     }
                 })
-                
+            } header: {
+                Text("Sync")
+            }
+            Section {
                 Button(action: {
                     showAllItems.toggle()
                 }, label: {
@@ -196,9 +199,9 @@ struct DeveloperView: View {
                             }
                         }
                     }
-                #if os(macOS)
+#if os(macOS)
                     .frame(width: 500, height: 500, alignment: .center)
-                #endif
+#endif
             }
         }
 #if os(macOS)

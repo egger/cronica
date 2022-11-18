@@ -60,7 +60,8 @@ struct EpisodeDetailsView: View {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")
         })
-        .buttonStyle(.bordered)
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.capsule)
         .tint(isWatched ? .orange : .green)
     }
 }

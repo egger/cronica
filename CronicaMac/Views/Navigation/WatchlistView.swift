@@ -77,21 +77,21 @@ struct WatchlistView_Previews: PreviewProvider {
 }
 
 private struct WatchlistSection: View {
-    private let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 240))
+    let columns: [GridItem] = [
+        GridItem(.adaptive(minimum: 160))
     ]
     let items: [WatchlistItem]
     var body: some View {
         if !items.isEmpty {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(items) { item in
-                    WatchlistItemCard(item: item)
-                        .navigationDestination(for: WatchlistItem.self) { item in
-                            ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
-                        }
+            VStack {
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(items) { item in
+                        WatchlistPoster(item: item)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
-            .padding([.top, .bottom])
+            .padding()
         } else {
             VStack {
                 Spacer()
@@ -105,99 +105,4 @@ private struct WatchlistSection: View {
             .padding()
         }
     }
-}
-
-struct WatchlistItemCard: View {
-    let item: WatchlistItem
-    @State private var isWatched = false
-    @State private var isFavorite = false
-    @State private var isPin = false
-    var body: some View {
-        NavigationLink(value: item) {
-            WebImage(url: item.image)
-                .resizable()
-                .placeholder {
-                    VStack {
-                        if item.itemMedia == .movie {
-                            Image(systemName: "film")
-                        } else {
-                            Image(systemName: "tv")
-                        }
-                        Text(item.itemTitle)
-                            .lineLimit(1)
-                            .foregroundColor(.secondary)
-                            .padding()
-                    }
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                }
-                .overlay {
-                    ZStack(alignment: .bottom) {
-                        VStack {
-                            Spacer()
-                            ZStack {
-                                Color.black.opacity(0.4)
-                                    .frame(height: 30)
-                                    .mask {
-                                        LinearGradient(colors: [Color.black,
-                                                                Color.black.opacity(0.924),
-                                                                Color.black.opacity(0.707),
-                                                                Color.black.opacity(0.383),
-                                                                Color.black.opacity(0)],
-                                                       startPoint: .bottom,
-                                                       endPoint: .top)
-                                    }
-                                Rectangle()
-                                    .fill(.ultraThinMaterial)
-                                    .frame(height: 40)
-                                    .mask {
-                                        VStack(spacing: 0) {
-                                            LinearGradient(colors: [Color.black.opacity(0),
-                                                                    Color.black.opacity(0.383),
-                                                                    Color.black.opacity(0.707),
-                                                                    Color.black.opacity(0.924),
-                                                                    Color.black],
-                                                           startPoint: .top,
-                                                           endPoint: .bottom)
-                                            .frame(height: 30)
-                                            Rectangle()
-                                        }
-                                    }
-                            }
-                        }
-                        HStack {
-                            Text(item.itemTitle)
-                                .font(.callout)
-                                .foregroundColor(.white)
-                                .lineLimit(1)
-                                .padding([.leading, .bottom])
-                            Spacer()
-                        }
-                        
-                    }
-                }
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                .aspectRatio(contentMode: .fill)
-                .task {
-                    isWatched = item.isWatched
-                    isFavorite = item.isFavorite
-                    isPin = item.isPin
-                }
-        }
-        .buttonStyle(.plain)
-        .modifier(WatchlistItemContextMenu(item: item,
-                                           isWatched: $isWatched, isFavorite: $isFavorite,
-                                           isPin: $isPin))
-    }
-}
-
-private struct DrawingConstants {
-    static let imageWidth: CGFloat = 240
-    static let imageHeight: CGFloat = 140
-    static let imageRadius: CGFloat = 12
-    static let imageShadow: CGFloat = 2.5
-    static let titleLineLimit: Int = 1
 }

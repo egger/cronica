@@ -77,7 +77,7 @@ class NotificationManager: ObservableObject {
                                             trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error {
-                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                                 for: "scheduleNotification")
             }
         }
@@ -150,6 +150,7 @@ class NotificationManager: ObservableObject {
                 removeNotification(identifier: notification)
             }
         }
+        CronicaTelemetry.shared.handleMessage("Old notifications ID cleaned up.", for: "clearOldNotificationId")
     }
     
     func fetchDeliveredNotifications() async -> [ItemContent] {

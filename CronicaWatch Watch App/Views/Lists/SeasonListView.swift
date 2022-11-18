@@ -55,7 +55,7 @@ struct SeasonListView: View {
                                                                    episode: episode.id)
                 }
             } catch {
-                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                                 for: "markSeasonAsWatched() watchOS")
             }
         }

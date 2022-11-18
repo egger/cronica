@@ -46,7 +46,7 @@ class PersonDetailsViewModel: ObservableObject {
                 if Task.isCancelled { return }
                 person = nil
                 errorMessage = error.localizedDescription
-                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription, for: "PersonDetailsViewModel.load()")
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "PersonDetailsViewModel.load()")
             }
         }
     }

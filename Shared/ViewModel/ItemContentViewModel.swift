@@ -66,7 +66,7 @@ class ItemContentViewModel: ObservableObject {
                 errorMessage = error.localizedDescription
                 showErrorAlert = true
                 content = nil
-                TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                                 for: "ItemContentViewModel.load()")
             }
         }

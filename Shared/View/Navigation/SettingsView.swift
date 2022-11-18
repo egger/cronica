@@ -25,165 +25,136 @@ struct SettingsView: View {
     @State private var animateEasterEgg = false
     var body: some View {
         NavigationStack {
-            ZStack {
-                Form {
-                    
-                    Section {
-                        NavigationLink {
-                            GesturesSettingsView()
-                                .environmentObject(store)
-                        } label: {
-                            Text("Gestures")
-                        }
-                    } header: {
-                        Label("Gestures", systemImage: "hand.tap")
+            Form {
+                Section {
+                    NavigationLink {
+                        GesturesSettingsView()
+                            .environmentObject(store)
+                    } label: {
+                        Text("Gestures")
                     }
-                    
-                    // MARK: Media Section
-                    Section {
-                        Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
-                    } header: {
-                        Label("Media", systemImage: "video")
-                    }
-                    // MARK: Update Section
-                    Section {
-                        Button(action: {
-                            updateItems()
-                        }, label: {
-                            if updatingItems {
-                                CenterHorizontalView {
-                                    ProgressView()
-                                }
-                            } else {
-                                Text("Update Items")
-                            }
-                        })
-                    } header: {
-                        Label("Sync", systemImage: "arrow.2.circlepath")
-                    } footer: {
-                        Text("'Update Items' will update your items with new information available on TMDb, if available.")
-                            .padding(.bottom)
-                    }
-                    // MARK: Support Section
-                    Section {
-                        Button( action: {
-                            showFeedbackAlert = true
-                        }, label: {
-                            Label("Send feedback", systemImage: "envelope")
-                        })
-                        .alert("Send Feedback", isPresented: $showFeedbackAlert, actions: {
-                            TextField("Feedback", text: $feedback)
-                            Button("Send") {
-                                sendFeedback()
-                            }
-                            Button("Cancel", role: .cancel) {
-                                cancelFeedback()
-                            }
-                        }, message: {
-                            Text("Send your suggestions to help improve Cronica.")
-                        })
-                        .disabled(disableTelemetry)
-                        Button(action: {
-                            requestReview()
-                        }, label: {
-                            Label("Review Cronica", systemImage: "star")
-                        })
-                    } header: {
-                        Label("Support", systemImage: "questionmark.circle")
-                    }
-
-                    
-                    // MARK: Privacy Section
-                    Section {
-                        Button("Privacy Policy") {
-                            showPolicy.toggle()
-                        }
-                        Toggle("Disable Telemetry", isOn: $disableTelemetry)
-                    } header: {
-                        Label("Privacy", systemImage: "hand.raised")
-                    } footer: {
-                        Text("privacyfooter")
-                            .padding(.bottom)
-                    }
-                    
-                    Section {
-                        NavigationLink {
-                            FeaturePreviewSettings()
-                        } label: {
-                            Text("Experimental Features")
-                        }
-                    } header: {
-                        Label("Experimental Features", systemImage: "wand.and.stars")
-                    } footer: {
-                        Text("Experimental Features are meant for users that want to test out features that still in development.")
-                    }
-
-                    
-                    // MARK: Developer Section
-                    if displayDeveloperSettings {
-                        Section {
-                            NavigationLink(destination: DeveloperView(),
-                                           label: {
-                                Label("Developer", systemImage: "hammer.fill")
-                            })
-                            
-                        } header: {
-                            Label("Developer Options", systemImage: "hammer")
-                        }
-                    }
-                    CenterHorizontalView {
-                        Text("Made in Brazil 🇧🇷")
-                            .onTapGesture {
-                                Task {
-                                    withAnimation {
-                                        self.animateEasterEgg.toggle()
-                                    }
-                                    try? await Task.sleep(nanoseconds: 1_500_000_000)
-                                    withAnimation {
-                                        self.animateEasterEgg.toggle()
-                                    }
-                                }
-                            }
-                            .onLongPressGesture(perform: {
-                                displayDeveloperSettings.toggle()
-                            })
-                            .font(animateEasterEgg ? .title3 : .caption)
-                            .foregroundColor(animateEasterEgg ? .green : nil)
-                            .animation(.easeInOut, value: animateEasterEgg)
-                    }
-                    .fullScreenCover(isPresented: $showPolicy) {
-                        SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-                    }
+                } header: {
+                    Label("Gestures", systemImage: "hand.tap")
                 }
-                .navigationTitle("Settings")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        Button("Done") {
-                            showSettings.toggle()
+                
+                // MARK: Media Section
+                Section {
+                    NavigationLink(destination: MediaSettings()) {
+                        Text("Content")
+                    }
+                } header: {
+                    Label("Content", systemImage: "video")
+                }
+                // MARK: Update Section
+                Section {
+                    Button(action: {
+                        updateItems()
+                    }, label: {
+                        if updatingItems {
+                            CenterHorizontalView {
+                                ProgressView()
+                            }
+                        } else {
+                            Text("Update Items")
                         }
                     })
+                } header: {
+                    Label("Sync", systemImage: "arrow.2.circlepath")
+                } footer: {
+                    Text("'Update Items' will update your items with new information available on TMDb, if available.")
+                        .padding(.bottom)
                 }
-                ConfirmationDialogView(showConfirmation: $feedbackSent, message: "Feedback sent", image: "envelope.badge")
+                // MARK: Support Section
+                Section {
+                    NavigationLink(destination: FeedbackSettingsView()) {
+                        Text("Send Feedback")
+                    }
+                    .disabled(disableTelemetry)
+                    
+                } header: {
+                    Label("Support", systemImage: "questionmark.circle")
+                }
+                Section {
+                    Button(action: {
+                        requestReview()
+                    }, label: {
+                        Text("Write a review")
+                    })
+                } header: {
+                    Label("Review Cronica", systemImage: "star")
+                }
+                // MARK: Privacy Section
+                Section {
+                    Button("Privacy Policy") {
+                        showPolicy.toggle()
+                    }
+                    Toggle("Disable Telemetry", isOn: $disableTelemetry)
+                } header: {
+                    Label("Privacy", systemImage: "hand.raised")
+                } footer: {
+                    Text("privacyfooter")
+                        .padding(.bottom)
+                }
+                
+                Section {
+                    NavigationLink {
+                        FeaturePreviewSettings()
+                    } label: {
+                        Text("Experimental Features")
+                    }
+                } header: {
+                    Label("Experimental Features", systemImage: "wand.and.stars")
+                } footer: {
+                    Text("Experimental Features are meant for users that want to test out features that still in development.")
+                }
+
+                
+                // MARK: Developer Section
+                if displayDeveloperSettings {
+                    Section {
+                        NavigationLink(destination: DeveloperView(),
+                                       label: {
+                            Text("Developer")
+                        })
+                        
+                    } header: {
+                        Label("Developer Options", systemImage: "hammer")
+                    }
+                }
+                CenterHorizontalView {
+                    Text("Made in Brazil 🇧🇷")
+                        .onTapGesture {
+                            Task {
+                                withAnimation {
+                                    self.animateEasterEgg.toggle()
+                                }
+                                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                                withAnimation {
+                                    self.animateEasterEgg.toggle()
+                                }
+                            }
+                        }
+                        .onLongPressGesture(perform: {
+                            displayDeveloperSettings.toggle()
+                        })
+                        .font(animateEasterEgg ? .title3 : .caption)
+                        .foregroundColor(animateEasterEgg ? .green : nil)
+                        .animation(.easeInOut, value: animateEasterEgg)
+                }
+                .fullScreenCover(isPresented: $showPolicy) {
+                    SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+                }
+            }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing, content: {
+                    Button("Done") {
+                        showSettings.toggle()
+                    }
+                })
             }
         }
-    }
-    
-    private func sendFeedback() {
-        if !feedback.isEmpty {
-            withAnimation { feedbackSent.toggle() }
-            TelemetryErrorManager.shared.handleErrorMessage(feedback, for: "sendFeedback")
-            feedback = ""
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                withAnimation {
-                    feedbackSent = false
-                }
-            }
-        }
-    }
-    
-    private func cancelFeedback() {
-        feedback = ""
     }
     
     private func updateItems() {
@@ -209,46 +180,6 @@ struct AccountView_Previews: PreviewProvider {
     }
 }
 
-struct GesturesSettingsView: View {
-    @EnvironmentObject var store: SettingsStore
-    @AppStorage("markEpisodeWatchedTap") private var markEpisodeWatchedOnTap = false
-    @AppStorage("showPinSwipeButton") private var pinAsSwipe = false
-    var body: some View {
-        Form {
-            Section {
-                Picker(selection: $store.gesture) {
-                    Text("Favorites").tag(DoubleTapGesture.favorite)
-                    Text("Watched").tag(DoubleTapGesture.watched)
-                } label: {
-                    Text("Double Tap Gesture")
-                }
-                .pickerStyle(.menu)
-            } header: {
-                Label("Cover Image Gesture", systemImage: "hand.tap")
-            } footer: {
-                Text("The function is performed when double-tap the cover image.")
-                    .padding(.bottom)
-            }
-            
-            Section {
-                Toggle("Tap To Mark as Watched",
-                       isOn: $markEpisodeWatchedOnTap)
-            } header: {
-                Label("Episode Gesture", systemImage: "tv")
-            } footer: {
-                Text("This will mark an episode as watched on tap gesture.")
-            }
-            
-            Section {
-                Toggle("Show Pin On Swipe", isOn: $pinAsSwipe)
-            } header: {
-                Label("Watchlist Gesture", systemImage: "square.stack")
-            }
-        }
-        .navigationTitle("Gestures")
-    }
-}
-
 private struct FeaturePreviewSettings: View {
     @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     @AppStorage("showPinOnSearch") private var pinOnSearch = false
@@ -266,5 +197,25 @@ private struct FeaturePreviewSettings: View {
             }
         }
         .navigationTitle("Experimental Features")
+    }
+}
+
+private struct MediaSettings: View {
+    @AppStorage("useLowData") private var lowData = false
+    @AppStorage("openInYouTube") private var openInYouTube = false
+    var body: some View {
+        Form {
+            Section {
+                Toggle("Low Data on 3/4G", isOn: $lowData)
+            } header: {
+                Label("Connection", systemImage: "cellularbars")
+            }
+            Section {
+                Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
+            } header: {
+                Label("Links", systemImage: "link")
+            }
+        }
+        .navigationTitle("Media")
     }
 }

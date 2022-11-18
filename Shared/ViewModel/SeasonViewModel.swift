@@ -27,7 +27,7 @@ class SeasonViewModel: ObservableObject {
         do {
             self.season = try await self.service.fetchSeason(id: id, season: season)
         } catch {
-            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                             for: "SeasonViewModel.load()")
         }
         if !hasFirstLoaded {

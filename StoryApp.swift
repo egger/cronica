@@ -17,15 +17,8 @@ struct StoryApp: App {
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
-    @AppStorage("disableTelemetry") var disableTelemetry = false
     init() {
-#if targetEnvironment(simulator)
-#else
-        if !disableTelemetry {
-            let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
-            TelemetryManager.initialize(with: configuration)
-        }
-#endif
+        CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
     }
@@ -117,7 +110,7 @@ struct StoryApp: App {
             print("Scheduled App Maintenance.")
 #endif
         } catch {
-            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                             for: "scheduleAppMaintenance()")
         }
     }
@@ -139,7 +132,7 @@ struct StoryApp: App {
                 }
             }
             task.setTaskCompleted(success: true)
-            TelemetryErrorManager.shared.handleErrorMessage("identifier: \(task.identifier)",
+            CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
                                                             for: "handleAppRefreshBGTask")
         }
     }
@@ -159,7 +152,7 @@ struct StoryApp: App {
             }
         }
         task.setTaskCompleted(success: true)
-        TelemetryErrorManager.shared.handleErrorMessage("identifier: \(task.identifier)",
+        CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
                                                         for: "handleAppMaintenance")
     }
 }

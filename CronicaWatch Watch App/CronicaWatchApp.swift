@@ -12,11 +12,7 @@ import TelemetryClient
 struct CronicaWatch_Watch_AppApp: App {
     var persistence = PersistenceController.shared
     init() {
-#if targetEnvironment(simulator)
-#else
-        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
-        TelemetryManager.initialize(with: configuration)
-#endif
+        CronicaTelemetry.shared.setup()
     }
     var body: some Scene {
         WindowGroup {

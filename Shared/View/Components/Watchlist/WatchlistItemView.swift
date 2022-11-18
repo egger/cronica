@@ -33,10 +33,19 @@ struct WatchlistItemView: View {
                             .lineLimit(DrawingConstants.textLimit)
                     }
                     HStack {
-                        Text(content.itemMedia.title)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
+                        if let itemGenre = content.genre {
+                            if !itemGenre.isEmpty {
+                                Text("\(content.itemMedia.title) • \(itemGenre)")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                            }
+                        } else {
+                            Text(content.itemMedia.title)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                        }
                     }
                 }
 #if os(watchOS)

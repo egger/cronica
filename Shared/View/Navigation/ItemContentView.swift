@@ -46,18 +46,21 @@ struct ItemContentView: View {
                     } else {
                         ViewThatFits {
                             HStack {
-                                watchlistButton
+                                WatchlistButtonView()
                                     .keyboardShortcut("l", modifiers: [.option])
+                                    .environmentObject(viewModel)
                                     .padding(.horizontal)
                                 MarkAsMenuView()
                                     .environmentObject(viewModel)
                                     .buttonStyle(.bordered)
+                                    .buttonBorderShape(.capsule)
                                     .controlSize(.large)
                                     .padding(.trailing)
                             }
                             .padding([.top, .bottom])
-                            watchlistButton
+                            WatchlistButtonView()
                                 .keyboardShortcut("l", modifiers: [.option])
+                                .environmentObject(viewModel)
                         }
                     }
                     
@@ -144,20 +147,6 @@ struct ItemContentView: View {
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
                                    message: "Season Marked as Watched", image: "tv.fill")
         }
-    }
-    private var watchlistButton: some View {
-        Button(action: {
-            if let item = viewModel.content {
-                viewModel.updateWatchlist(with: item)
-            }
-        }, label: {
-            Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                  systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
-        })
-        .buttonStyle(.bordered)
-        .tint(viewModel.isInWatchlist ? .red : .blue)
-        .controlSize(.large)
-        .disabled(viewModel.isLoading)
     }
 }
 

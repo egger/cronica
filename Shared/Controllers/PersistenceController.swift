@@ -42,7 +42,7 @@ struct PersistenceController {
 #if DEBUG
                 fatalError("Unresolved error \(error), \(error.userInfo)")
 #else
-                TelemetryErrorManager.shared.handleErrorMessage("\(error.localizedDescription)",
+                CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
                                                                 for: "containerError")
 #endif
             }
@@ -54,7 +54,7 @@ struct PersistenceController {
         do {
             try container.initializeCloudKitSchema()
         } catch {
-            TelemetryErrorManager.shared.handleErrorMessage("\(error.localizedDescription)",
+            CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
                                                             for: "initializeCloudKitSchema")
         }
 #endif
@@ -97,6 +97,7 @@ struct PersistenceController {
             item.largePosterImage = content.posterImageLarge
             item.schedule = content.itemStatus.toInt
             item.notify = content.itemCanNotify
+            item.genre = content.itemGenre
             if let theatrical = content.itemTheatricalDate {
                 item.date = theatrical
             } else {
@@ -134,7 +135,7 @@ struct PersistenceController {
                 return nil
             }
         } catch {
-            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                             for: "PersistenceController.fetch(for:)")
             return nil
         }
@@ -155,6 +156,7 @@ struct PersistenceController {
                 item.schedule = content.itemStatus.toInt
                 item.notify = content.itemCanNotify
                 item.formattedDate = content.itemTheatricalString
+                item.genre = content.itemGenre
                 if content.itemContentMedia == .tvShow {
                     if let episode = content.lastEpisodeToAir {
                         item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)

@@ -10,11 +10,9 @@ import TelemetryClient
 
 @main
 struct CronicaMacApp: App {
-    @StateObject var persistence = PersistenceController.shared
+    let persistence = PersistenceController.shared
     init() {
-        let configuration = TelemetryManagerConfiguration(appID: Key.telemetryClientKey!)
-        TelemetryManager.initialize(with: configuration)
-        TelemetryManager.updateDefaultUser(to: UUID().uuidString)
+        CronicaTelemetry.shared.setup()
     }
     var body: some Scene {
         WindowGroup {

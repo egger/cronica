@@ -23,7 +23,7 @@ class BackgroundManager {
         let items = self.fetchReleasedItems()
         await self.fetchUpdates(items: items)
         if isAppMaintenance {
-            TelemetryErrorManager.shared.handleErrorMessage("App Maintenance done.",
+            CronicaTelemetry.shared.handleMessage("App Maintenance done.",
                                                             for: "handleAppRefreshMaintenance()")
         }
     }
@@ -46,7 +46,7 @@ class BackgroundManager {
             let list = try self.context.container.viewContext.fetch(request)
             return list
         } catch {
-            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                             for: "BackgroundManager.fetchItems()")
             return []
         }

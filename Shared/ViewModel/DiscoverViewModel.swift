@@ -64,7 +64,7 @@ class DiscoverViewModel: ObservableObject {
             startPagination = false
         } catch {
             if Task.isCancelled { return }
-            TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                             for: "DiscoverViewModel.fetch()")
             showErrorDialog.toggle()
         }

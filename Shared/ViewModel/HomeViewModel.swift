@@ -25,7 +25,7 @@ class HomeViewModel: ObservableObject {
                     trending = filtered
                 } catch {
                     if Task.isCancelled { return }
-                    TelemetryErrorManager.shared.handleErrorMessage(error.localizedDescription,
+                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                                     for: "HomeViewModel.load()")
                 }
             }
@@ -72,7 +72,7 @@ class HomeViewModel: ObservableObject {
             return .init(results: section, endpoint: endpoint)
         } catch {
             if Task.isCancelled { return nil }
-            TelemetryErrorManager.shared.handleErrorMessage(
+            CronicaTelemetry.shared.handleMessage(
                 "\(error.localizedDescription), endpoint: \(endpoint.title)",
                 for: "HomeViewModel.load()")
             return nil

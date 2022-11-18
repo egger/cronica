@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct EpisodeDetailsView: View {
     let episode: Episode
@@ -14,6 +15,7 @@ struct EpisodeDetailsView: View {
     private let persistence = PersistenceController.shared
     @Binding var isWatched: Bool
     @Binding var isInWatchlist: Bool
+    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
 #if os(macOS)
 #else
     @State private var isPad: Bool = UIDevice.isIPad
@@ -51,10 +53,13 @@ struct EpisodeDetailsView: View {
                                        isWatched: $isWatched,
                                        inWatchlist: $isInWatchlist)
                 .tint(isWatched ? .red : .blue)
-                .buttonStyle(.bordered)
+                .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .padding([.top, .horizontal])
                 .keyboardShortcut("e", modifiers: [.control])
+#if os(iOS)
+                .buttonBorderShape(.capsule)
+#endif
                 
                 OverviewBoxView(overview: episode.overview,
                                 title: episode.itemTitle,
@@ -83,6 +88,21 @@ struct EpisodeDetailsView: View {
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
+        }
+        .background {
+            if newBackgroundStyle {
+                ZStack {
+                    WebImage(url: episode.itemImageLarge)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .ignoresSafeArea()
+                        .padding(.zero)
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .ignoresSafeArea()
+                        .padding(.zero)
+                }
+            }
         }
     }
     

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct PersonDetailsView: View {
     let name: String
@@ -14,6 +15,7 @@ struct PersonDetailsView: View {
     @StateObject private var viewModel: PersonDetailsViewModel
     @State private var showConfirmation = false
     @State private var scope: WatchlistSearchScope = .noScope
+    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 160 ))
     ]
@@ -77,6 +79,21 @@ struct PersonDetailsView: View {
             .toolbar {
                 ToolbarItem {
                     ShareLink(item: personUrl)
+                }
+            }
+            .background {
+                if newBackgroundStyle {
+                    ZStack {
+                        WebImage(url: viewModel.person?.personImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .ignoresSafeArea()
+                            .padding(.zero)
+                        Rectangle()
+                            .fill(.regularMaterial)
+                            .ignoresSafeArea()
+                            .padding(.zero)
+                    }
                 }
             }
             .alert("Error",
