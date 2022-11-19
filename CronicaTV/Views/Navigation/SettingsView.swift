@@ -49,6 +49,18 @@ struct SettingsView: View {
                     .padding(.bottom)
             }
             
+            Section {
+                NavigationLink {
+                    FeaturesPreviewSettings()
+                } label: {
+                    Text("Experimental Features")
+                }
+            } header: {
+                Label("Experimental Features", systemImage: "wand.and.stars")
+            } footer: {
+                Text("Experimental Features are meant for users that want to test out features that still in development.")
+            }
+            
             CenterHorizontalView { Text("Made in Brazil 🇧🇷") }
         }
         .navigationTitle("Settings")

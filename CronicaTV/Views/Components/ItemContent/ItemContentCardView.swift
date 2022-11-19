@@ -19,16 +19,15 @@ struct ItemContentCardView: View {
             WebImage(url: item.cardImageLarge)
                 .resizable()
                 .placeholder {
-                    VStack {
-                        if item.itemContentMedia == .movie {
-                            Image(systemName: "film")
-                        } else {
-                            Image(systemName: "tv")
+                    ZStack {
+                        Rectangle().fill(.gray.gradient)
+                        VStack {
+                            Image(systemName: item.itemContentMedia == .tvShow ? "tv" : "film")
+                            Text(item.itemTitle)
+                                .lineLimit(1)
+                                .foregroundColor(.secondary)
+                                .padding()
                         }
-                        Text(item.itemTitle)
-                            .lineLimit(1)
-                            .foregroundColor(.secondary)
-                            .padding()
                     }
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)

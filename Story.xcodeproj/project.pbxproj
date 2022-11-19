@@ -157,6 +157,11 @@
 		B8733A7A29293B7D00CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B8733A7C29293C4800CBEF2B /* FeaturesPreviewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */; };
 		B8733A7D29293C5000CBEF2B /* FeaturesPreviewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */; };
+		B8733A7E29294AEA00CBEF2B /* FeaturesPreviewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */; };
+		B8733A7F29294B5900CBEF2B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2E2793B61B0012259B /* CardView.swift */; };
+		B8733A8029294C1200CBEF2B /* UpcomingWatchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */; };
+		B8733A8129294C2000CBEF2B /* UpcomingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85344C028FA07B60013E9C7 /* UpcomingListView.swift */; };
+		B8733A8229294C2900CBEF2B /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
 		B873F6D2290AF9C600CC080A /* WatchlistItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */; };
 		B8754F9328A1BCC800551CAC /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58227FCCE69006BE5E1 /* HapticManager.swift */; };
 		B876DE50281B1B81005558DD /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE4F281B1B81005558DD /* MediaType.swift */; };
@@ -1739,6 +1744,7 @@
 				B80318AF2927DE4100714B3E /* ConfirmationDialogView.swift in Sources */,
 				B8DD5681290C77B0002CAAFD /* ItemContentOverview.swift in Sources */,
 				B86E7A10290A90D100459E41 /* AttributionView.swift in Sources */,
+				B8733A7E29294AEA00CBEF2B /* FeaturesPreviewSettings.swift in Sources */,
 				B8DD5676290C3839002CAAFD /* ItemContentCardView.swift in Sources */,
 				B86E7A03290A90A800459E41 /* WatchProviders.swift in Sources */,
 				B8DD5696290CB21A002CAAFD /* WatchEpisodeButtonView.swift in Sources */,
@@ -1747,6 +1753,7 @@
 				B86E7A27290AC39800459E41 /* ItemContentContextMenu.swift in Sources */,
 				B86E79FD290A909E00459E41 /* CronicaTelemetry.swift in Sources */,
 				B8DD567B290C39DF002CAAFD /* ItemContentList.swift in Sources */,
+				B8733A7F29294B5900CBEF2B /* CardView.swift in Sources */,
 				B86E7A0C290A90CA00459E41 /* Utilities.swift in Sources */,
 				B86E79E6290A8F2700459E41 /* ContentView.swift in Sources */,
 				B8733A7A29293B7D00CBEF2B /* TranslucentBackground.swift in Sources */,
@@ -1781,9 +1788,11 @@
 				B80318B1292826F300714B3E /* Poster.swift in Sources */,
 				B86E7A1C290A91E200459E41 /* WatchlistView.swift in Sources */,
 				B8DD569C290DDD9C002CAAFD /* WatchlistItemListView.swift in Sources */,
+				B8733A8229294C2900CBEF2B /* TitleView.swift in Sources */,
 				B86E7A0D290A90CA00459E41 /* ItemSchedule.swift in Sources */,
 				B86E7A13290A90E200459E41 /* PersonDetailsViewModel.swift in Sources */,
 				B86E79FF290A90A800459E41 /* ReleaseDate.swift in Sources */,
+				B8733A8029294C1200CBEF2B /* UpcomingWatchlist.swift in Sources */,
 				B86E7A21290AAEB600459E41 /* ItemContentDetails.swift in Sources */,
 				B86E7A04290A90AE00459E41 /* NetworkService.swift in Sources */,
 				B86E79FB290A909300459E41 /* BackgroundManager.swift in Sources */,
@@ -1797,6 +1806,7 @@
 				B86E7A0A290A90CA00459E41 /* Screens.swift in Sources */,
 				B8DD569A290DDB74002CAAFD /* WatchlistItemCard.swift in Sources */,
 				B8DD5695290C9CA5002CAAFD /* SeasonListView.swift in Sources */,
+				B8733A8129294C2000CBEF2B /* UpcomingListView.swift in Sources */,
 				B8DD56A0290DE2D7002CAAFD /* CenterHorizontalView.swift in Sources */,
 				B86E79FE290A90A100459E41 /* ItemContent.swift in Sources */,
 				B86E7A00290A90A800459E41 /* Season.swift in Sources */,

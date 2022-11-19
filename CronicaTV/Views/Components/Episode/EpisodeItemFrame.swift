@@ -17,13 +17,16 @@ struct EpisodeItemFrame: View {
         WebImage(url: episode.itemImageLarge)
             .resizable()
             .placeholder {
-                VStack {
-                    Text(episode.itemTitle)
-                        .font(.callout)
-                        .lineLimit(1)
-                        .padding()
-                    Image(systemName: "tv")
-                        .font(.title3)
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    VStack {
+                        Text(episode.itemTitle)
+                            .font(.callout)
+                            .lineLimit(1)
+                            .padding()
+                        Image(systemName: "tv")
+                            .font(.title3)
+                    }
                 }
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)

@@ -19,35 +19,40 @@ struct ItemContentDetails: View {
         self.type = type
     }
     var body: some View {
-        ScrollView {
-            ItemContentHeaderView(title: title)
-                .environmentObject(viewModel)
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            VStack {
-                ScrollView {
-                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                   id: self.id, inWatchlist: $viewModel.isInWatchlist)
-                    ItemContentList(items: viewModel.recommendations,
-                                    title: "Recommendations",
-                                    subtitle: "You may like",
-                                    image: "film.stack")
-                    CastListView(credits: viewModel.credits)
-                    InfoSection(item: viewModel.content)
-                        .padding([.top, .bottom])
-                    AttributionView()
+        ZStack {
+            ScrollView {
+                ItemContentHeaderView(title: title)
+                    .environmentObject(viewModel)
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                VStack {
+                    ScrollView {
+                        SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
+                                       id: self.id, inWatchlist: $viewModel.isInWatchlist)
+                        ItemContentList(items: viewModel.recommendations,
+                                        title: "Recommendations",
+                                        subtitle: "You may like",
+                                        image: "film.stack")
+                        CastListView(credits: viewModel.credits)
+                        InfoSection(item: viewModel.content)
+                            .padding([.top, .bottom])
+                        AttributionView()
+                    }
                 }
+                .navigationDestination(for: Person.self) { person in
+                    PersonDetailsView(title: person.name, id: person.id)
+                }
+                .navigationDestination(for: ItemContent.self) { item in
+                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                }
+                .task {
+                    await viewModel.load()
+                }
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
             }
-            .navigationDestination(for: Person.self) { person in
-                PersonDetailsView(title: person.name, id: person.id)
+            .ignoresSafeArea()
+            .background {
+                TranslucentBackground(image: viewModel.content?.cardImageLarge)
             }
-            .navigationDestination(for: ItemContent.self) { item in
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-            }
-            .task {
-                await viewModel.load()
-            }
-            .redacted(reason: viewModel.isLoading ? .placeholder : [])
         }
-        .ignoresSafeArea()
     }
 }

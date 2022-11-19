@@ -19,25 +19,23 @@ struct SeasonListView: View {
     var body: some View {
         if let numberOfSeasons {
             VStack {
-                HStack(alignment: .center) {
+                ScrollView(.horizontal) {
                     ScrollViewReader { proxy in
-                        ScrollView(.horizontal) {
-                            Picker("Seasons", selection: $selectedSeason) {
-                                ForEach(numberOfSeasons, id: \.self) { season in
-                                    Text("Season \(season)").tag(season)
-                                }
+                        Picker("Seasons", selection: $selectedSeason) {
+                            ForEach(numberOfSeasons, id: \.self) { season in
+                                Text("Season \(season)").tag(season)
                             }
-                            .padding([.trailing, .leading], 16)
-                            .padding([.top, .bottom])
                         }
+                        .padding([.trailing, .leading], 16)
+                        .padding([.top, .bottom])
                         .onChange(of: selectedSeason) { season in
-                            proxy.scrollTo(season, anchor: .topLeading)
+                            proxy.scrollTo(season)
                             Task {
                                 await viewModel.load(id: self.id, season: season, isInWatchlist: inWatchlist)
                             }
                         }
+                        .pickerStyle(.navigationLink)
                     }
-                    
                 }
                 ScrollView(.horizontal) {
                     if let season = viewModel.season?.episodes {

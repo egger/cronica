@@ -12,6 +12,13 @@ struct CardView: View {
     let item: WatchlistItem
     private let notification = NotificationManager.shared
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var isTV = false
+    init(item: WatchlistItem) {
+        self.item = item
+#if os(tvOS)
+        isTV = true
+#endif
+    }
     var body: some View {
         if item.image != nil {
             NavigationLink(value: item) {
@@ -19,9 +26,9 @@ struct CardView: View {
                     .resizable()
                     .placeholder {
                         ZStack {
+                            Rectangle().fill(.gray.gradient)
                             Color.black.opacity(0.4)
-                            Rectangle().fill(.thickMaterial)
-                            Image(systemName: "film")
+                            Image(systemName: item.itemMedia == .tvShow ? "tv" : "film")
                                 .foregroundColor(.secondary)
                         }
                     }
@@ -97,12 +104,14 @@ struct CardView: View {
                             
                         }
                     }
-                    .frame(width: DrawingConstants.cardWidth,
-                           height: DrawingConstants.cardHeight)
+                    .frame(width: isTV ? 560 : DrawingConstants.cardWidth,
+                           height: isTV ? 240 : DrawingConstants.cardHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
                     .contextMenu {
+#if os(iOS) || os(macOS)
                         ShareLink(item: item.itemLink)
+#endif
                         Divider()
                         Button(role: .destructive, action: {
                             remove(item: item)
@@ -112,8 +121,10 @@ struct CardView: View {
                     }
                     .padding([.leading, .trailing], 4)
                     .transition(.opacity)
-                    .draggable(item)
                     .applyHoverEffect()
+#if os(iOS) || os(macOS)
+                    .draggable(item)
+#endif
             }
         } else {
             EmptyView()
