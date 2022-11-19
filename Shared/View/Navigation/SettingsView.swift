@@ -38,13 +38,14 @@ struct SettingsView: View {
                 }
                 
                 // MARK: Media Section
-                Section {
-                    NavigationLink(destination: MediaSettings()) {
-                        Text("Content")
+                Form {
+                    Section {
+                        Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
+                    } header: {
+                        Label("Links", systemImage: "link")
                     }
-                } header: {
-                    Label("Content", systemImage: "video")
                 }
+                .navigationTitle("Media")
                 // MARK: Update Section
                 Section {
                     Button(action: {
@@ -85,8 +86,6 @@ struct SettingsView: View {
                 }
                 // MARK: Privacy Section
                 Section {
-                    NavigationLink("Privacy Policy",
-                                   destination: PrivacyPolicySettings())
                     Button("Privacy Policy") {
                         showPolicy.toggle()
                     }
@@ -179,25 +178,5 @@ struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(showSettings: $showSettings)
             .environmentObject(settings)
-    }
-}
-
-private struct MediaSettings: View {
-    @AppStorage("useLowData") private var lowData = false
-    @AppStorage("openInYouTube") private var openInYouTube = false
-    var body: some View {
-        Form {
-            Section {
-                Toggle("Low Data on 3/4G", isOn: $lowData)
-            } header: {
-                Label("Connection", systemImage: "cellularbars")
-            }
-            Section {
-                Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
-            } header: {
-                Label("Links", systemImage: "link")
-            }
-        }
-        .navigationTitle("Media")
     }
 }

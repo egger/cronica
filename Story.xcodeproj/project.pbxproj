@@ -152,9 +152,6 @@
 		B86E7A2A290AEC3100459E41 /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
 		B86E7A2C290AEEFE00459E41 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A2B290AEEFE00459E41 /* SearchView.swift */; };
 		B86E7A2F290AF41500459E41 /* SearchItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A2E290AF41500459E41 /* SearchItemContentView.swift */; };
-		B8733A742928798D00CBEF2B /* PrivacyPolicySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A732928798D00CBEF2B /* PrivacyPolicySettings.swift */; };
-		B8733A75292879F700CBEF2B /* PrivacyPolicySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A732928798D00CBEF2B /* PrivacyPolicySettings.swift */; };
-		B8733A76292879F900CBEF2B /* PrivacyPolicySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A732928798D00CBEF2B /* PrivacyPolicySettings.swift */; };
 		B8733A7829293ABB00CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B8733A7929293B7900CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B8733A7A29293B7D00CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
@@ -498,7 +495,6 @@
 		B86E7A25290AC2C600459E41 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B86E7A2B290AEEFE00459E41 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B86E7A2E290AF41500459E41 /* SearchItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemContentView.swift; sourceTree = "<group>"; };
-		B8733A732928798D00CBEF2B /* PrivacyPolicySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicySettings.swift; sourceTree = "<group>"; };
 		B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentBackground.swift; sourceTree = "<group>"; };
 		B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesPreviewSettings.swift; sourceTree = "<group>"; };
 		B876DE4F281B1B81005558DD /* MediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
@@ -674,7 +670,6 @@
 				B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */,
 				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
 				B80318A52925664F00714B3E /* GesturesSettingsView.swift */,
-				B8733A732928798D00CBEF2B /* PrivacyPolicySettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1713,7 +1708,6 @@
 				B804E395284EDC2B00F59855 /* ItemContentListView.swift in Sources */,
 				B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */,
 				B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
-				B8733A742928798D00CBEF2B /* PrivacyPolicySettings.swift in Sources */,
 				B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B85344C128FA07B60013E9C7 /* UpcomingListView.swift in Sources */,
@@ -1782,7 +1776,6 @@
 				B86E7A16290A90E200459E41 /* ItemContentViewModel.swift in Sources */,
 				B86E7A08290A90BE00459E41 /* DataFetchPhase.swift in Sources */,
 				B80318AE2927DE1600714B3E /* FeedbackSettingsView.swift in Sources */,
-				B8733A76292879F900CBEF2B /* PrivacyPolicySettings.swift in Sources */,
 				B86E7A06290A90AE00459E41 /* Endpoints.swift in Sources */,
 				B86E79F5290A907800459E41 /* Episode-Extension.swift in Sources */,
 				B80318B1292826F300714B3E /* Poster.swift in Sources */,
@@ -1869,7 +1862,6 @@
 				B8BF6332291468F30051915C /* NotificationListView.swift in Sources */,
 				B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */,
 				B8BF62EB2912F2730051915C /* WatchlistView.swift in Sources */,
-				B8733A75292879F700CBEF2B /* PrivacyPolicySettings.swift in Sources */,
 				B8BF62EE2912F3130051915C /* WatchEpisodeButtonView.swift in Sources */,
 				B8BF62A72912D9FC0051915C /* Watchlist.xcdatamodeld in Sources */,
 				B8BF62B82912DA230051915C /* Person-Extensions.swift in Sources */,
