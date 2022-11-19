@@ -19,24 +19,23 @@ struct WatchlistPoster: View {
             WebImage(url: item.mediumPosterImage, options: .highPriority)
                 .resizable()
                 .placeholder {
-                    VStack {
-                        Text(item.itemTitle)
-                            .lineLimit(1)
-                            .padding(.bottom)
-                        if item.itemMedia == .tvShow {
-                            Image(systemName: "tv")
-                        } else {
-                            Image(systemName: "film")
+                    ZStack {
+                        Rectangle().fill(Color.gray.gradient)
+                        VStack {
+                            Text(item.itemTitle)
+                                .lineLimit(1)
+                                .padding()
+                            Image(systemName: item.itemMedia == .tvShow ? "tv" : "film")
+                                .font(.title)
                         }
                     }
-                    .padding()
-                    .foregroundColor(.secondary)
-                    .background(Color.gray.gradient)
+                    .foregroundColor(.white)
                     .frame(width: DrawingConstants.posterWidth,
                            height: DrawingConstants.posterHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
+                    .padding(.zero)
                 }
                 .aspectRatio(contentMode: .fill)
                 .transition(.opacity)

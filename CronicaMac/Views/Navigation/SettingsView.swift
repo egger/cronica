@@ -48,21 +48,25 @@ private struct SupportSettingsTab: View {
 private struct PrivacySettings: View {
     @AppStorage("disableTelemetry") private var disableTelemetry = false
     var body: some View {
-        Form {
-            Section {
-                Toggle("Disable Telemetry", isOn: $disableTelemetry)
-                Button("Privacy Policy") {
-                    NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+        NavigationStack {
+            Form {
+                Section {
+                    Toggle("Disable Telemetry", isOn: $disableTelemetry)
+                    NavigationLink("Privacy Policy",
+                                   destination: PrivacyPolicySettings())
+                    Button("Privacy Policy") {
+                        NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+                    }
+                    .buttonStyle(.link)
+                } header: {
+                    Label("Privacy", systemImage: "hand.raised.fingers.spread")
+                } footer: {
+                    Text("privacyfooter")
+                        .padding(.bottom)
                 }
-                .buttonStyle(.link)
-            } header: {
-                Label("Privacy", systemImage: "hand.raised.fingers.spread")
-            } footer: {
-                Text("privacyfooter")
-                    .padding(.bottom)
             }
+            .formStyle(.grouped)
         }
-        .formStyle(.grouped)
     }
 }
 

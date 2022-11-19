@@ -85,6 +85,8 @@ struct SettingsView: View {
                 }
                 // MARK: Privacy Section
                 Section {
+                    NavigationLink("Privacy Policy",
+                                   destination: PrivacyPolicySettings())
                     Button("Privacy Policy") {
                         showPolicy.toggle()
                     }
