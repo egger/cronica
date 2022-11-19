@@ -96,7 +96,7 @@ struct NotificationListView: View {
 #if os(macOS)
                 ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
 #else
-                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 #endif
             }
             .navigationDestination(for: Person.self) { item in

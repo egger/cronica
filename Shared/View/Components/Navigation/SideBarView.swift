@@ -106,7 +106,7 @@ struct SideBarView: View {
                             }
                         }
                         .navigationDestination(for: ItemContent.self) { item in
-                            ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                         }
                         .navigationDestination(for: Person.self) { person in
                             PersonDetailsView(title: person.name, id: person.id)
@@ -114,7 +114,7 @@ struct SideBarView: View {
                 }
             } else {
                 NavigationStack {
-                    ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button("Done") {
@@ -123,7 +123,7 @@ struct SideBarView: View {
                             }
                         }
                         .navigationDestination(for: ItemContent.self) { item in
-                            ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                         }
                         .navigationDestination(for: Person.self) { person in
                             PersonDetailsView(title: person.name, id: person.id)

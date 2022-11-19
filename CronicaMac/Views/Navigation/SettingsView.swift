@@ -22,12 +22,10 @@ struct SettingsView: View {
                 .tabItem {
                     Label("Support", systemImage: "questionmark.circle")
                 }
-#if DEBUG
-            DeveloperView()
+            FeaturesPreviewSettings()
                 .tabItem {
-                    Label("Developer", systemImage: "curlybraces")
+                    Label("Experimental", systemImage: "wand.and.stars")
                 }
-#endif
         }
         .frame(width: 450, height: 350)
     }
@@ -52,8 +50,6 @@ private struct PrivacySettings: View {
             Form {
                 Section {
                     Toggle("Disable Telemetry", isOn: $disableTelemetry)
-                    NavigationLink("Privacy Policy",
-                                   destination: PrivacyPolicySettings())
                     Button("Privacy Policy") {
                         NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
                     }
@@ -79,7 +75,9 @@ private struct WatchlistSettings: View {
                     updateItems()
                 }, label: {
                     if updatingItems {
-                        Text("Updating, please wait.")
+                        CenterHorizontalView {
+                            ProgressView()
+                        }
                     } else {
                         Text("Update Items")
                     }

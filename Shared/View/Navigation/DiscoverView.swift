@@ -28,7 +28,7 @@ struct DiscoverView: View {
                 VStack {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(viewModel.items) { item in
-                            ItemContentFrameView(item: item, showConfirmation: $showConfirmation)
+                            CardFrame(item: item, showConfirmation: $showConfirmation)
                                 .buttonStyle(.plain)
                         }
                         if !viewModel.startPagination || !viewModel.endPagination {
@@ -61,7 +61,7 @@ struct DiscoverView: View {
                     }
                 }
                 .navigationDestination(for: ItemContent.self) { item in
-                    ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                 }
                 .navigationDestination(for: Person.self) { person in
                     PersonDetailsView(title: person.name, id: person.id)

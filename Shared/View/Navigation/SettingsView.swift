@@ -100,7 +100,7 @@ struct SettingsView: View {
                 
                 Section {
                     NavigationLink {
-                        FeaturePreviewSettings()
+                        FeaturesPreviewSettings()
                     } label: {
                         Text("Experimental Features")
                     }
@@ -179,26 +179,6 @@ struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(showSettings: $showSettings)
             .environmentObject(settings)
-    }
-}
-
-private struct FeaturePreviewSettings: View {
-    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
-    @AppStorage("showPinOnSearch") private var pinOnSearch = false
-    var body: some View {
-        Form {
-            Section {
-                Toggle("Translucent Background", isOn: $newBackgroundStyle)
-            } header: {
-                Label("Appearance", systemImage: "doc.text.image.fill")
-            }
-            Section {
-                Toggle("Pin on Search", isOn: $pinOnSearch)
-            } footer: {
-                Text("Shows Pin feature on right swipe.")
-            }
-        }
-        .navigationTitle("Experimental Features")
     }
 }
 

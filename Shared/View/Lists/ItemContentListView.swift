@@ -31,7 +31,7 @@ struct ItemContentListView: View {
                             if displayAsCard {
                                 ForEach(items) { item in
 #if os(iOS)
-                                    ItemContentFrameView(item: item,
+                                    CardFrame(item: item,
                                                          showConfirmation: $addedItemConfirmation)
                                     .padding([.leading, .trailing], 4)
                                     .buttonStyle(.plain)
@@ -49,7 +49,7 @@ struct ItemContentListView: View {
                                 }
                             } else {
                                 ForEach(items) { item in
-                                    PosterView(item: item,
+                                    Poster(item: item,
                                                addedItemConfirmation: $addedItemConfirmation)
                                     .padding([.leading, .trailing], 4)
                                     .buttonStyle(.plain)

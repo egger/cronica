@@ -133,7 +133,7 @@ struct DeveloperView: View {
             }
 #else
             NavigationStack {
-                ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             HStack {
@@ -153,7 +153,7 @@ struct DeveloperView: View {
                         }
                     }
                     .navigationDestination(for: ItemContent.self) { item in
-                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     }
                     .navigationDestination(for: Person.self) { item in
                         PersonDetailsView(title: item.name, id: item.id)
@@ -181,7 +181,7 @@ struct DeveloperView: View {
                     .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
 #else
-                        ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 #endif
                     }
                     .navigationDestination(for: Person.self) { item in
@@ -265,13 +265,13 @@ private struct ShowAllItemsView: View {
         .navigationDestination(for: WatchlistItem.self) { item in
 #if os(macOS)
 #else
-            ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+            ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
 #endif
         }
         .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
 #else
-            ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 #endif
         }
         .navigationDestination(for: Person.self) { person in

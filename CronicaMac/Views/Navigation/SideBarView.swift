@@ -124,7 +124,7 @@ struct SideBarView: View {
                                 switch scope {
                                 case .noScope:
                                     ForEach(searchViewModel.items) { item in
-                                        PosterView(item: item, addedItemConfirmation: $showConfirmation)
+                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
                                             .onTapGesture {
                                                 selectedSearchItem = item
                                             }
@@ -145,21 +145,21 @@ struct SideBarView: View {
                                     }
                                 case .movies:
                                     ForEach(searchViewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                                        PosterView(item: item, addedItemConfirmation: $showConfirmation)
+                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
                                             .onTapGesture {
                                                 selectedSearchItem = item
                                             }
                                     }
                                 case .shows:
                                     ForEach(searchViewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                                        PosterView(item: item, addedItemConfirmation: $showConfirmation)
+                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
                                             .onTapGesture {
                                                 selectedSearchItem = item
                                             }
                                     }
                                 case .people:
                                     ForEach(searchViewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                                        PosterView(item: item, addedItemConfirmation: $showConfirmation)
+                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
                                             .onTapGesture {
                                                 selectedSearchItem = item
                                             }

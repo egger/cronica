@@ -27,9 +27,9 @@ struct SeasonListView: View {
         self.tvId = tvId
         self._inWatchlist = inWatchlist
         self._seasonConfirmation = seasonConfirmation
-        #if os(macOS)
+#if os(macOS)
         isMac = true
-        #endif
+#endif
     }
     var body: some View {
         if let numberOfSeasons {
@@ -54,7 +54,7 @@ struct SeasonListView: View {
 #if os(macOS)
                     markSeasonAsWatched
                         .unredacted()
-                        .disabled(!viewModel.isLoading)
+                        .disabled(viewModel.isLoading)
                         .padding()
 #else
                     Menu {
@@ -144,18 +144,16 @@ struct SeasonListView: View {
     }
     
     private var emptySeasonView: some View {
-        HStack {
-            Spacer()
+        CenterHorizontalView {
             VStack {
                 Image(systemName: "tv.fill")
+                    .font(.title)
                     .padding(.bottom, 6)
                 Text("No Episode Available")
             }
             .foregroundColor(.secondary)
             .padding(.horizontal)
-            Spacer()
         }
-        .padding(.horizontal)
     }
     
     private func load() {

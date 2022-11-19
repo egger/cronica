@@ -33,13 +33,14 @@ struct EpisodeFrameView: View {
             WebImage(url: episode.itemImageMedium)
                 .placeholder {
                     ZStack {
-                        Rectangle().fill(.thickMaterial)
+                        Rectangle().fill(.gray.gradient)
                         VStack {
                             Text(episode.itemTitle)
                                 .font(.callout)
                                 .lineLimit(1)
                                 .padding(.bottom)
                             Image(systemName: "tv")
+                                .font(.title)
                         }
                         .padding()
                         .foregroundColor(.secondary)

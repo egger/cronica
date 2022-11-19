@@ -15,9 +15,7 @@ struct EpisodeDetailsView: View {
     private let persistence = PersistenceController.shared
     @Binding var isWatched: Bool
     @Binding var isInWatchlist: Bool
-    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
-#if os(macOS)
-#else
+#if os(iOS)
     @State private var isPad: Bool = UIDevice.isIPad
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 #endif
@@ -77,7 +75,7 @@ struct EpisodeDetailsView: View {
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
 #else
-                ItemContentView(title: item.itemTitle,
+                ItemContentDetails(title: item.itemTitle,
                                 id: item.id,
                                 type: item.itemContentMedia)
 #endif
@@ -90,19 +88,7 @@ struct EpisodeDetailsView: View {
 #endif
         }
         .background {
-            if newBackgroundStyle {
-                ZStack {
-                    WebImage(url: episode.itemImageLarge)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .ignoresSafeArea()
-                        .padding(.zero)
-                    Rectangle()
-                        .fill(.regularMaterial)
-                        .ignoresSafeArea()
-                        .padding(.zero)
-                }
-            }
+            TranslucentBackground(image: episode.itemImageLarge)
         }
     }
     

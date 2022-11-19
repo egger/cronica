@@ -38,7 +38,7 @@ struct ItemContentDetailsView: View {
                                 tvId: id,
                                 inWatchlist: $viewModel.isInWatchlist,
                                 seasonConfirmation: $showSeasonConfirmation)
-                    .padding(0)
+                    .padding(.zero)
                     
                     CastListView(credits: viewModel.credits)
                     
@@ -79,6 +79,9 @@ struct ItemContentDetailsView: View {
                 }
             }
             .navigationTitle(title)
+        }
+        .background {
+            TranslucentBackground(image: viewModel.content?.cardImageLarge)
         }
     }
     
@@ -121,7 +124,7 @@ struct ItemContentDetailsView: View {
             .placeholder {
                 ZStack {
                     Rectangle().fill(Color.gray.gradient)
-                    Image(systemName: "film")
+                    Image(systemName: type == .tvShow ? "tv" : "film")
                         .foregroundColor(.secondary)
                         .font(.title)
                 }
@@ -134,8 +137,8 @@ struct ItemContentDetailsView: View {
                     VStack {
                         Spacer()
                         ZStack(alignment: .bottom) {
-                            Color.black.opacity(0.4)
-                                .frame(height: 80)
+                            Color.black.opacity(0.8)
+                                .frame(height: 150)
                                 .mask {
                                     LinearGradient(colors: [Color.black,
                                                             Color.black.opacity(0.924),
@@ -149,21 +152,18 @@ struct ItemContentDetailsView: View {
                                 .fill(.ultraThinMaterial)
                                 .frame(height: 140)
                                 .mask {
-                                    VStack(spacing: 0) {
-                                        LinearGradient(colors: [Color.black.opacity(0),
-                                                                Color.black.opacity(0.383),
-                                                                Color.black.opacity(0.707),
-                                                                Color.black.opacity(0.924),
-                                                                Color.black],
-                                                       startPoint: .top,
-                                                       endPoint: .bottom)
-                                        .frame(height: 80)
-                                        Rectangle()
-                                    }
+                                    LinearGradient(colors: [Color.black,
+                                                            Color.black.opacity(0.924),
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0)],
+                                                   startPoint: .bottom,
+                                                   endPoint: .top)
+                                    .frame(height: 150)
                                 }
                         }
                     }
-                    VStack {
+                    VStack(alignment: .leading) {
                         Spacer()
                         HStack(alignment: .bottom) {
                             VStack {
@@ -173,10 +173,11 @@ struct ItemContentDetailsView: View {
                                     .foregroundColor(.white)
                                 GlanceInfo(info: viewModel.content?.itemInfo)
                                     .padding(.bottom, 6)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.white.opacity(0.8))
                                 WatchlistButtonView()
                                     .environmentObject(viewModel)
                             }
+                            .frame(maxWidth: 600)
                             .padding(.horizontal)
                             Spacer()
                             OverviewBoxView(overview: viewModel.content?.itemOverview,
@@ -185,6 +186,7 @@ struct ItemContentDetailsView: View {
                             .foregroundColor(.white)
                             .padding([.horizontal, .top])
                             .frame(maxWidth: 500)
+                            Spacer()
                         }
                         .padding()
                     }

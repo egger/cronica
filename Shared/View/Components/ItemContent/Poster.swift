@@ -1,5 +1,5 @@
 //
-//  PosterView.swift
+//  Poster.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 17/01/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct PosterView: View {
+struct Poster: View {
     let item: ItemContent
     private let context = PersistenceController.shared
     @State private var isInWatchlist = false
@@ -86,7 +86,7 @@ struct PosterView: View {
 struct PosterView_Previews: PreviewProvider {
     @State static var show = false
     static var previews: some View {
-        PosterView(item: ItemContent.previewContent, addedItemConfirmation: $show)
+        Poster(item: ItemContent.previewContent, addedItemConfirmation: $show)
     }
 }
 

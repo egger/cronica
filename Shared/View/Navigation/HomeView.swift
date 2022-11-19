@@ -51,7 +51,7 @@ struct HomeView: View {
 #if os(macOS)
                 ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
 #else
-                ItemContentView(title: item.itemTitle,
+                ItemContentDetails(title: item.itemTitle,
                                 id: item.id,
                                 type: item.itemContentMedia)
 #endif
@@ -63,7 +63,7 @@ struct HomeView: View {
 #if os(macOS)
                 ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
 #else
-                ItemContentView(title: item.itemTitle,
+                ItemContentDetails(title: item.itemTitle,
                                 id: item.itemId,
                                 type: item.itemMedia)
 #endif
@@ -72,7 +72,7 @@ struct HomeView: View {
             .navigationTitle("Home")
             .toolbar {
 #if os(macOS)
-                ToolbarItem(placement: .navigation) {
+                ToolbarItem(placement: .primaryAction) {
                     Button {
                         showNotifications.toggle()
                     } label: {

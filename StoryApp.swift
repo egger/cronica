@@ -44,7 +44,7 @@ struct StoryApp: App {
                 }
                 .sheet(item: $widgetItem) { item in
                     NavigationStack {
-                        ItemContentView(title: item.itemTitle,
+                        ItemContentDetails(title: item.itemTitle,
                                         id: item.id,
                                         type: item.itemContentMedia)
                         .toolbar {
@@ -55,7 +55,7 @@ struct StoryApp: App {
                             }
                         }
                         .navigationDestination(for: ItemContent.self) { item in
-                            ItemContentView(title: item.itemTitle,
+                            ItemContentDetails(title: item.itemTitle,
                                             id: item.id,
                                             type: item.itemContentMedia)
                         }

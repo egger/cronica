@@ -63,7 +63,7 @@ struct SearchView: View {
                 if item.media == .person {
                     PersonDetailsView(title: item.itemTitle, id: item.id)
                 } else {
-                    ItemContentView(title: item.itemTitle, id: item.id, type: item.media)
+                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
                 }
             }
             .searchable(text: $viewModel.query,

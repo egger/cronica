@@ -99,10 +99,10 @@ struct WatchlistView: View {
         .navigationTitle("Watchlist")
         .navigationBarTitleDisplayMode(.large)
         .navigationDestination(for: WatchlistItem.self) { item in
-            ItemContentView(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+            ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
         }
         .navigationDestination(for: ItemContent.self) { item in
-            ItemContentView(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
         }
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)

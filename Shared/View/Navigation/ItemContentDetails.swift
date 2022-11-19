@@ -1,5 +1,5 @@
 //
-//  ItemContentView.swift
+//  ItemContentDetails.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 02/03/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ItemContentView: View {
+struct ItemContentDetails: View {
     var title: String
     var id: Int
     var type: MediaType
@@ -19,7 +19,6 @@ struct ItemContentView: View {
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         _store = StateObject(wrappedValue: SettingsStore())
@@ -93,19 +92,7 @@ struct ItemContentView: View {
                 }
             }
             .background {
-                if newBackgroundStyle {
-                    ZStack {
-                        WebImage(url: viewModel.content?.cardImageMedium)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .ignoresSafeArea()
-                            .padding(.zero)
-                        Rectangle()
-                            .fill(.regularMaterial)
-                            .ignoresSafeArea()
-                            .padding(.zero)
-                    }
-                }
+                TranslucentBackground(image: viewModel.content?.cardImageLarge)
             }
             .task {
                 await viewModel.load()
@@ -150,9 +137,9 @@ struct ItemContentView: View {
     }
 }
 
-struct ContentDetailsView_Previews: PreviewProvider {
+struct ItemContentDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentView(title: ItemContent.previewContent.itemTitle,
+        ItemContentDetails(title: ItemContent.previewContent.itemTitle,
                         id: ItemContent.previewContent.id,
                         type: MediaType.movie)
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ItemContentFrameView: View {
+struct CardFrame: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     private let context = PersistenceController.shared
@@ -106,7 +106,7 @@ struct ItemContentFrameView: View {
 struct ItemContentFrameView_Previews: PreviewProvider {
     @State private static var show = false
     static var previews: some View {
-        ItemContentFrameView(item: ItemContent.previewContent,
+        CardFrame(item: ItemContent.previewContent,
                              showConfirmation: $show)
     }
 }
