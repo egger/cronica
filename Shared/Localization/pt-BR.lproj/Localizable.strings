@@ -57,6 +57,18 @@
 "IMDb" = "IMDb";
 "TMDb" = "TMDb";
 "Coming Soon To Theaters" = "Em Breve Nos Cinemas";
+"Pins" = "Fixados";
+"Write a review" = "Escreva uma avaliação";
+"Share App" = "Compartilhar aplicativo";
+"Experimental" = "Experimental";
+"Developer" = "Desenvolvedor";
+"Developer Tools" = "Ferramentas de Desenvolvedor";
+"Item ID" = "Item ID";
+"Select the Media Type" = "Selecione o Tipo de Mídia";
+"Fetch" = "Buscar";
+"Show Onboarding" = "Mostrar Boas-Vindas";
+"Show All Items" = "Mostrar Todos os Itens";
+"Email (optional)" = "E-mail (opcional)";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "Este produto usa a API TMDb, mas não é endossado ou certificado pelo TMDb.";
@@ -142,7 +154,8 @@
 "'Update Items' will update your items with new information available on TMDb, if available." = "'Atualizar Itens' atualizará seus itens com novas informações disponíveis no TMDb, se disponíveis.";
 "Privacy" = "Privacidade";
 "Disable Telemetry" = "Desativar Relatório de Falha";
-"privacyfooter" = "A Cronica coleta dados mínimos para minimizar falhas de aplicativos, esses dados são anônimos. Veja mais detalhes na Política de Privacidade.";
+"privacyfooter" = "A Cronica coleta dados mínimos para minimizar falhas de aplicativo, esses dados são anônimos. Veja mais detalhes na Política de Privacidade.";
+"privacyFooterTV" = "A Cronica coleta dados mínimos para minimizar falhas de aplicativo, esses dados são anônimos. Veja mais detalhes na Política de Privacidade em https://alexandremadeira.dev/cronica/privacy.";
 "Open Trailers in YouTube App" = "Abra Trailers no Aplicativo do YouTube";
 "Media" = "Vídeos";
 

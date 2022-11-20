@@ -15,7 +15,7 @@ struct WatchlistItemCard: View {
     @State private var isPin = false
     var body: some View {
         NavigationLink(value: item) {
-            WebImage(url: item.image)
+            WebImage(url: item.itemImage)
                 .resizable()
                 .placeholder {
                     VStack {
@@ -97,11 +97,11 @@ struct WatchlistItemCard: View {
 }
 
 private struct DrawingConstants {
-    static let imageWidth: CGFloat = 360
-    static let imageHeight: CGFloat = 200
-    static let imageRadius: CGFloat = 12
-    static let imageShadow: CGFloat = 2.5
+    static let imageWidth: CGFloat = 460
+    static let imageHeight: CGFloat = 260
+    static let imageRadius: CGFloat = 8
     static let titleLineLimit: Int = 1
+    static let imageShadow: CGFloat = 2.5
 }
 
 struct WatchlistItemContextMenu: ViewModifier {

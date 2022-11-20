@@ -9,20 +9,12 @@ import SwiftUI
 
 struct FeaturesPreviewSettings: View {
     @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
-    @AppStorage("showPinOnSearch") private var pinOnSearch = false
     var body: some View {
         Form {
             Section {
                 Toggle("Translucent Background", isOn: $newBackgroundStyle)
             } header: {
                 Text("Appearance")
-            }
-            Section {
-                Toggle("Pin on Search", isOn: $pinOnSearch)
-            } header: {
-                Text("Search")
-            } footer: {
-                Text("Shows Pin feature on right swipe.")
             }
         }
         .navigationTitle("Experimental Features")

@@ -31,8 +31,8 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
     let recommendations: ItemContentResponse?
     let releaseDates: ReleaseDates?
     let mediaType: String?
-    let videos: Videos?
-    let nextEpisodeToAir, lastEpisodeToAir: Episode?
+    var videos: Videos?
+    var nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
 struct ProductionCompany: Codable, Hashable {
     let name: String

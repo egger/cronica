@@ -13,8 +13,6 @@ struct SideBarView: View {
     @State private var showNotifications = false
     @StateObject private var searchViewModel = SearchViewModel()
     @State private var showConfirmation = false
-    @State private var selectedSearchItem: ItemContent? = nil
-    @State private var scope: SearchItemsScope = .noScope
     let persistence = PersistenceController.shared
     @State private var isSearching = false
     let columns: [GridItem] = [
@@ -56,11 +54,6 @@ struct SideBarView: View {
             .searchable(text: $searchViewModel.query,
                         placement: .sidebar)
             .disableAutocorrection(true)
-            .searchScopes($scope) {
-                ForEach(SearchItemsScope.allCases) { scope in
-                    Text(scope.localizableTitle).tag(scope)
-                }
-            }
             .navigationTitle("Cronica")
         } detail: {
             ZStack {
@@ -80,7 +73,7 @@ struct SideBarView: View {
                             .environment(\.managedObjectContext, persistence.container.viewContext)
                     }
                 }
-                
+                ConfirmationDialogView(showConfirmation: $showConfirmation)
             }
         }
         .navigationSplitViewStyle(.balanced)
@@ -91,29 +84,46 @@ struct SideBarView: View {
         switch searchViewModel.stage {
         case .none: EmptyView()
         case .searching:
-            ZStack {
-                Rectangle()
-                    .fill(.regularMaterial)
-                    .ignoresSafeArea(.all)
-                ProgressView("Searching")
-                    .foregroundColor(.secondary)
-                    .padding()
+            NavigationStack {
+                VStack {
+                    ProgressView("Searching")
+                        .foregroundColor(.secondary)
+                        .padding()
+                }
+                .background {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .ignoresSafeArea(.all)
+                }
+                .navigationTitle("Search")
             }
         case .empty:
-            ZStack {
-                Rectangle()
-                    .fill(.regularMaterial)
-                    .ignoresSafeArea(.all)
-                Label("No Results", systemImage: "minus.magnifyingglass")
-                    .font(.title)
-                    .foregroundColor(.secondary)
+            NavigationStack {
+                VStack {
+                    Label("No Results", systemImage: "minus.magnifyingglass")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                }
+                .background {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .ignoresSafeArea(.all)
+                }
+                .navigationTitle("Search")
             }
         case .failure:
-            ZStack {
-                Rectangle()
-                    .fill(.regularMaterial)
-                    .ignoresSafeArea(.all)
-                Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
+            NavigationStack {
+                VStack {
+                    Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                }
+                .background {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .ignoresSafeArea(.all)
+                }
+                .navigationTitle("Search")
             }
         case .success:
             NavigationStack {
@@ -121,47 +131,24 @@ struct SideBarView: View {
                     VStack(alignment: .leading) {
                         VStack {
                             LazyVGrid(columns: columns, spacing: 20) {
-                                switch scope {
-                                case .noScope:
-                                    ForEach(searchViewModel.items) { item in
+                                ForEach(searchViewModel.items) { item in
+                                    if item.media == .person {
+                                        PersonSearchImage(item: item)
+                                    } else {
                                         Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                            .onTapGesture {
-                                                selectedSearchItem = item
-                                            }
                                     }
-                                    .buttonStyle(.plain)
-                                    if searchViewModel.startPagination && !searchViewModel.endPagination {
-                                        CenterHorizontalView {
-                                            ProgressView()
-                                                .padding()
-                                                .onAppear {
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                        withAnimation {
-                                                            searchViewModel.loadMoreItems()
-                                                        }
+                                }
+                                .buttonStyle(.plain)
+                                if searchViewModel.startPagination && !searchViewModel.endPagination {
+                                    CenterHorizontalView {
+                                        ProgressView()
+                                            .padding()
+                                            .onAppear {
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    withAnimation {
+                                                        searchViewModel.loadMoreItems()
                                                     }
                                                 }
-                                        }
-                                    }
-                                case .movies:
-                                    ForEach(searchViewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                            .onTapGesture {
-                                                selectedSearchItem = item
-                                            }
-                                    }
-                                case .shows:
-                                    ForEach(searchViewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                            .onTapGesture {
-                                                selectedSearchItem = item
-                                            }
-                                    }
-                                case .people:
-                                    ForEach(searchViewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                            .onTapGesture {
-                                                selectedSearchItem = item
                                             }
                                     }
                                 }

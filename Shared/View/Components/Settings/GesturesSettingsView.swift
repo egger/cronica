@@ -10,7 +10,6 @@ import SwiftUI
 struct GesturesSettingsView: View {
     @EnvironmentObject var store: SettingsStore
     @AppStorage("markEpisodeWatchedTap") private var markEpisodeWatchedOnTap = false
-    @AppStorage("showPinSwipeButton") private var pinAsSwipe = false
     var body: some View {
         Form {
             Section {
@@ -35,12 +34,6 @@ struct GesturesSettingsView: View {
                 Label("Episode Gesture", systemImage: "tv")
             } footer: {
                 Text("This will mark an episode as watched on tap gesture.")
-            }
-            
-            Section {
-                Toggle("Show Pin On Swipe", isOn: $pinAsSwipe)
-            } header: {
-                Label("Watchlist Gesture", systemImage: "square.stack")
             }
         }
         .navigationTitle("Gestures")

@@ -148,9 +148,10 @@ class NotificationManager: ObservableObject {
         for notification in notifications {
             if !notification.contains("@") {
                 removeNotification(identifier: notification)
+                CronicaTelemetry.shared.handleMessage("Old notifications ID cleaned up.",
+                                                      for: "clearOldNotificationId")
             }
         }
-        CronicaTelemetry.shared.handleMessage("Old notifications ID cleaned up.", for: "clearOldNotificationId")
     }
     
     func fetchDeliveredNotifications() async -> [ItemContent] {

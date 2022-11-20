@@ -58,6 +58,18 @@
 "IMDb" = "IMDb";
 "TMDb" = "TMDb";
 "Coming Soon To Theaters" = "Coming Soon To Theaters";
+"Pins" = "Pins";
+"Write a review" = "Write a review";
+"Share App" = "Share App";
+"Experimental" = "Experimental";
+"Developer" = "Developer";
+"Developer Tools" = "Developer Tools";
+"Item ID" = "Item ID";
+"Select the Media Type" = "Select the Media Type";
+"Fetch" = "Fetch";
+"Show Onboarding" = "Show Onboarding";
+"Show All Items" = "Show All Items";
+"Email (optional)" = "Email (optional)";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "This product uses the TMDb API but is not endorsed or certified by TMDb.";

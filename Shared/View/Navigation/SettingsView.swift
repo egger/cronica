@@ -38,14 +38,11 @@ struct SettingsView: View {
                 }
                 
                 // MARK: Media Section
-                Form {
-                    Section {
-                        Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
-                    } header: {
-                        Label("Links", systemImage: "link")
-                    }
+                Section {
+                    Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
+                } header: {
+                    Label("Links", systemImage: "link")
                 }
-                .navigationTitle("Media")
                 // MARK: Update Section
                 Section {
                     Button(action: {
@@ -95,6 +92,12 @@ struct SettingsView: View {
                 } footer: {
                     Text("privacyfooter")
                         .padding(.bottom)
+                }
+                
+                Section {
+                    ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
+                } header: {
+                    Label("About", systemImage: "info.circle")
                 }
                 
                 Section {

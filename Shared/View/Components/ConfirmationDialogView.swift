@@ -13,7 +13,6 @@ struct ConfirmationDialogView: View {
     @Binding var showConfirmation: Bool
     var message: String = "Added to watchlist"
     var image: String = "checkmark.circle"
-    var showOpaqueBackground: Bool = false
     var body: some View {
         VStack {
             Spacer()
@@ -21,7 +20,13 @@ struct ConfirmationDialogView: View {
                 Label(NSLocalizedString(message, comment: ""), systemImage: image)
                     .padding()
             }
-            .background(.thinMaterial)
+            .background {
+#if os(macOS)
+                Rectangle().fill(.ultraThickMaterial)
+#else
+                Rectangle().fill(.thinMaterial)
+#endif
+            }
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .padding()
             .shadow(radius: 6)

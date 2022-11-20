@@ -78,7 +78,7 @@ struct WatchlistView_Previews: PreviewProvider {
 
 private struct WatchlistSection: View {
     private let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 360))
+        GridItem(.adaptive(minimum: 460))
     ]
     let items: [WatchlistItem]
     var body: some View {

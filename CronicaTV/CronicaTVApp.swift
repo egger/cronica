@@ -10,9 +10,11 @@ import TelemetryClient
 
 @main
 struct CronicaTVApp: App {
-    let persistence = PersistenceController.shared
+    private let persistence = PersistenceController.shared
     init() {
         CronicaTelemetry.shared.setup()
+        BackgroundManager.shared.registerRefreshBGTask()
+        BackgroundManager.shared.registerAppMaintenanceBGTask()
     }
     var body: some Scene {
         WindowGroup {

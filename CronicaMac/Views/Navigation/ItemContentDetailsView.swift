@@ -16,6 +16,9 @@ struct ItemContentDetailsView: View {
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
     private var itemUrl: URL
+    @State private var actionMessageConfirmation = ""
+    @State private var actionImageConfirmation = ""
+    @State private var showActionConfirmation = false
     init(id: Int, title: String, type: MediaType) {
         self.id = id
         self.title = title
@@ -25,34 +28,35 @@ struct ItemContentDetailsView: View {
     }
     var body: some View {
         ZStack {
-            if viewModel.isLoading {
-                ProgressView("Loading")
-            }
             VStack {
-                ScrollView {
-                    headerView
-                    
-                    TrailerListView(trailers: viewModel.content?.itemTrailers)
-                    
-                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                tvId: id,
-                                inWatchlist: $viewModel.isInWatchlist,
-                                seasonConfirmation: $showSeasonConfirmation)
-                    .padding(.zero)
-                    
-                    CastListView(credits: viewModel.credits)
-                    
-                    ItemContentListView(items: viewModel.recommendations,
-                                        title: "Recommendations",
-                                        subtitle: "You may like",
-                                        image: "list.and.film",
-                                        addedItemConfirmation: $showConfirmation,
-                                        displayAsCard: true)
-                    
-                    InformationSectionView(item: viewModel.content)
-                        .padding()
-                    
-                    AttributionView()
+                if viewModel.isLoading {
+                    ProgressView("Loading")
+                } else {
+                    ScrollView {
+                        headerView
+                        
+                        TrailerListView(trailers: viewModel.content?.itemTrailers)
+                        
+                        SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
+                                    tvId: id,
+                                    inWatchlist: $viewModel.isInWatchlist,
+                                    seasonConfirmation: $showSeasonConfirmation)
+                        .padding(.zero)
+                        
+                        CastListView(credits: viewModel.credits)
+                        
+                        ItemContentListView(items: viewModel.recommendations,
+                                            title: "Recommendations",
+                                            subtitle: "You may like",
+                                            image: "list.and.film",
+                                            addedItemConfirmation: $showConfirmation,
+                                            displayAsCard: true)
+                        
+                        InformationSectionView(item: viewModel.content)
+                            .padding()
+                        
+                        AttributionView()
+                    }
                 }
             }
             .task {
@@ -68,10 +72,10 @@ struct ItemContentDetailsView: View {
                 ToolbarItem {
                     ViewThatFits {
                         HStack {
-                            shareButton
+                            notificationButton
                             watchButton
                             favoriteButton
-                            notificationButton
+                            shareButton
                         }
                         shareButton
                     }
@@ -79,6 +83,12 @@ struct ItemContentDetailsView: View {
                 }
             }
             .navigationTitle(title)
+            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
+                                   message: "Season Marked as Watched", image: "tv.fill")
+            ConfirmationDialogView(showConfirmation: $showActionConfirmation,
+                                   message: actionMessageConfirmation,
+                                   image: actionImageConfirmation)
         }
         .background {
             TranslucentBackground(image: viewModel.content?.cardImageLarge)
@@ -87,7 +97,22 @@ struct ItemContentDetailsView: View {
     
     private var watchButton: some View {
         Button(action: {
+            if viewModel.isWatched {
+                actionMessageConfirmation = "Removed from Watched"
+                actionImageConfirmation = "minus.circle"
+            } else {
+                actionMessageConfirmation = "Marked as Watched"
+                actionImageConfirmation = "checkmark.circle"
+            }
             viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
+            showActionConfirmation.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                withAnimation {
+                    showActionConfirmation = false
+                    actionMessageConfirmation = ""
+                    actionImageConfirmation = ""
+                }
+            }
         }, label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
@@ -97,7 +122,22 @@ struct ItemContentDetailsView: View {
     }
     private var favoriteButton: some View {
         Button(action: {
+            if viewModel.isFavorite {
+                actionMessageConfirmation = "Removed from Favorites"
+                actionImageConfirmation = "heart.circle.fill"
+            } else {
+                actionMessageConfirmation = "Marked as Favorite"
+                actionImageConfirmation = "heart.circle"
+            }
             viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
+            showActionConfirmation.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                withAnimation {
+                    showActionConfirmation = false
+                    actionMessageConfirmation = ""
+                    actionImageConfirmation = ""
+                }
+            }
         }, label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")

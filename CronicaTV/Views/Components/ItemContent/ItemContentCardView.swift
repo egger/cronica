@@ -21,13 +21,9 @@ struct ItemContentCardView: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        VStack {
-                            Image(systemName: item.itemContentMedia == .tvShow ? "tv" : "film")
-                            Text(item.itemTitle)
-                                .lineLimit(1)
-                                .foregroundColor(.secondary)
-                                .padding()
-                        }
+                        Image(systemName: item.itemContentMedia == .tvShow ? "tv" : "film")
+                            .font(.title)
+                            .foregroundColor(.secondary)
                     }
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
@@ -125,8 +121,8 @@ struct ItemContentCardView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let imageWidth: CGFloat = 360
-    static let imageHeight: CGFloat = 200
-    static let imageRadius: CGFloat = 12
+    static let imageWidth: CGFloat = 440
+    static let imageHeight: CGFloat = 240
+    static let imageRadius: CGFloat = 8
     static let titleLineLimit: Int = 1
 }

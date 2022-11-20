@@ -15,27 +15,12 @@ struct WatchlistView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default)
     private var items: FetchedResults<WatchlistItem>
-    @State private var filteredItems = [WatchlistItem]()
-    @State private var query = ""
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
-    @State private var scope: WatchlistSearchScope = .noScope
     @State private var isSearching = false
     var body: some View {
         NavigationStack {
             VStack {
                 ScrollView {
-//                    if filteredItems.isEmpty {
-//                        switch scope {
-//                        case .noScope:
-//                            WatchlistSection(items: filteredItems)
-//                        case .movies:
-//                            WatchlistSection(items: filteredItems.filter { $0.isMovie })
-//                        case .shows:
-//                            WatchlistSection(items: filteredItems.filter { $0.isTvShow })
-//                        }
-//                    } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-//                        Text("No results")
-//                    }
                     switch selectedOrder {
                     case .released:
                         WatchlistSection(items: items.filter { $0.isReleased })
@@ -81,26 +66,6 @@ struct WatchlistView: View {
                 }
                 return true
             }
-//            .searchable(text: $query)
-//            .searchScopes($scope) {
-//                ForEach(WatchlistSearchScope.allCases) { scope in
-//                    Text(scope.localizableTitle).tag(scope)
-//                }
-//            }
-//            .disableAutocorrection(true)
-//            .task(id: query) {
-//                do {
-//                    isSearching = true
-//                    try await Task.sleep(nanoseconds: 300_000_000)
-//                    if !filteredItems.isEmpty { filteredItems.removeAll() }
-//                    filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-//                    isSearching = false
-//                } catch {
-//                    if Task.isCancelled { return }
-//                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-//                                                                    for: "WatchlistView.task(id: query)")
-//                }
-//            }
         }
     }
 }

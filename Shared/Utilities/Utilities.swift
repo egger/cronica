@@ -25,18 +25,6 @@ class Utilities {
         formatter.timeStyle = .none
         return formatter
     }()
-    static let durationFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .full
-        formatter.allowedUnits = [.hour, .minute]
-        return formatter
-    }()
-    static let shortDurationFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .abbreviated
-        formatter.allowedUnits = [.hour, .minute]
-        return formatter
-    }()
     static let userLang: String = {
         let locale = Locale.current
         guard let langCode = locale.language.languageCode?.identifier,

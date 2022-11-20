@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct PersonDetailsView: View {
     private let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 360))
+        GridItem(.adaptive(minimum: 440))
     ]
     let name: String
     @State private var isLoading = true
@@ -65,6 +65,9 @@ struct PersonDetailsView: View {
                 await viewModel.load()
             }
             .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+        }
+        .background {
+            TranslucentBackground(image: viewModel.person?.personImage)
         }
     }
 }

@@ -21,6 +21,7 @@ struct Poster: View {
                 .placeholder {
                     PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
                 }
+                .aspectRatio(contentMode: .fill)
                 .overlay {
                     if isInWatchlist {
                         VStack {
@@ -53,7 +54,6 @@ struct Poster: View {
                         }
                     }
                 }
-                .aspectRatio(contentMode: .fill)
                 .transition(.opacity)
                 .frame(width: DrawingConstants.posterWidth,
                        height: DrawingConstants.posterHeight)
@@ -83,7 +83,7 @@ struct Poster: View {
     }
 }
 
-struct PosterView_Previews: PreviewProvider {
+struct Poster_Previews: PreviewProvider {
     @State static var show = false
     static var previews: some View {
         Poster(item: ItemContent.previewContent, addedItemConfirmation: $show)

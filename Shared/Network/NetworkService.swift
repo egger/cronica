@@ -140,6 +140,9 @@ class NetworkService {
                 .init(name: "region", value: Utilities.userRegion)
             ]
         }
+#if DEBUG
+        print("URL created: \(component.url as Any)")
+#endif
         return component.url
     }
     
@@ -163,6 +166,9 @@ class NetworkService {
             .init(name: "page", value: "\(page)"),
             .init(name: "with_genres", value: genres)
         ]
+#if DEBUG
+        print("URL created: \(component.url as Any)")
+#endif
         return component.url
     }
     

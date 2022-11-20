@@ -21,7 +21,7 @@ struct PinItemsList: View {
         if !items.isEmpty {
             VStack {
                 TitleView(title: "My Pins",
-                          subtitle: "Your pinned items",
+                          subtitle: "",
                           image: "pin")
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
