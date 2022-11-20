@@ -29,13 +29,11 @@ struct TrailerItemView: View {
                 .contextMenu {
                     if let url = trailer.url {
                         ShareLink(item: url)
-                        Button("Open in YouTube") {
 #if os(iOS)
+                        Button("Open in YouTube") {
                             UIApplication.shared.open(url)
-#elseif os(macOS)
-                            NSWorkspace.shared.open(url)
-#endif
                         }
+#endif
                     }
                 }
                 .applyHoverEffect()

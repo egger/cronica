@@ -87,7 +87,7 @@ private struct WatchlistSettings: View {
                 Label("Sync", systemImage: "arrow.2.circlepath")
             } footer: {
                 HStack {
-                    Text("This will update your items with new information available on TMDb, if available.")
+                    Text("'Update Items' will update your items with new information available on TMDb, if available.")
                     Spacer()
                 }
             }

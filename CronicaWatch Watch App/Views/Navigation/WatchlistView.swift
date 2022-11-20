@@ -22,63 +22,61 @@ struct WatchlistView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                if items.isEmpty {
+                if !query.isEmpty {
+                    List {
+                        Section {
+                            if !filteredItems.isEmpty {
+                                ForEach(filteredItems) { item in
+                                    NavigationLink(value: item) {
+                                        WatchlistItemView(content: item)
+                                    }
+                                }
+                            } else {
+                                Text("No results from Watchlist")
+                            }
+                        } header: {
+                            Text("Results from Watchlist")
+                        }
+                        Section {
+                            if !searchVM.items.isEmpty {
+                                ForEach(searchVM.items) { item in
+                                    NavigationLink(value: item) {
+                                        SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isInWatchlist)
+                                    }
+                                }
+                            } else {
+                                Text("No results from TMDb")
+                            }
+                        } header: {
+                            Text("Results from TMDb")
+                        }
+                    }
+                } else if items.isEmpty {
                     Text("Your list is empty.")
                         .font(.headline)
                         .foregroundColor(.secondary)
                         .padding()
                 } else {
-                    if !query.isEmpty {
-                        List {
-                            Section {
-                                if !filteredItems.isEmpty {
-                                    ForEach(filteredItems) { item in
-                                        NavigationLink(value: item) {
-                                            WatchlistItemView(content: item)
-                                        }
-                                    }
-                                } else {
-                                    Text("No results from Watchlist")
-                                }
-                            } header: {
-                                Text("Results from Watchlist")
-                            }
-                            Section {
-                                if !searchVM.items.isEmpty {
-                                    ForEach(searchVM.items) { item in
-                                        NavigationLink(value: item) {
-                                            SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isInWatchlist)
-                                        }
-                                    }
-                                } else {
-                                    Text("No results from TMDb")
-                                }
-                            } header: {
-                                Text("Results from TMDb")
-                            }
-                        }
-                    } else {
-                        List {
-                            switch selectedOrder {
-                            case .released:
-                                WatchlistSectionView(items: items.filter { $0.isReleased },
-                                                     title: "Released")
-                            case .upcoming:
-                                WatchlistSectionView(items: items.filter { $0.isUpcoming },
-                                                     title: "Upcoming")
-                            case .production:
-                                WatchlistSectionView(items: items.filter { $0.isInProduction },
-                                                     title: "In Production")
-                            case .watched:
-                                WatchlistSectionView(items: items.filter { $0.isWatched },
-                                                     title: "Watched")
-                            case .favorites:
-                                WatchlistSectionView(items: items.filter { $0.isFavorite },
-                                                     title: "Favorites")
-                            case .pin:
-                                WatchlistSectionView(items: items.filter { $0.isPin },
-                                                     title: "Pins")
-                            }
+                    List {
+                        switch selectedOrder {
+                        case .released:
+                            WatchlistSectionView(items: items.filter { $0.isReleased },
+                                                 title: "Released")
+                        case .upcoming:
+                            WatchlistSectionView(items: items.filter { $0.isUpcoming },
+                                                 title: "Upcoming")
+                        case .production:
+                            WatchlistSectionView(items: items.filter { $0.isInProduction },
+                                                 title: "In Production")
+                        case .watched:
+                            WatchlistSectionView(items: items.filter { $0.isWatched },
+                                                 title: "Watched")
+                        case .favorites:
+                            WatchlistSectionView(items: items.filter { $0.isFavorite },
+                                                 title: "Favorites")
+                        case .pin:
+                            WatchlistSectionView(items: items.filter { $0.isPin },
+                                                 title: "Pins")
                         }
                     }
                 }
@@ -87,16 +85,11 @@ struct WatchlistView: View {
             .disableAutocorrection(true)
             .searchable(text: $query)
             .task(id: query) {
-                do {
-                    if query.isEmpty { return }
-                    try await Task.sleep(nanoseconds: 300_000_000)
-                    if !filteredItems.isEmpty { filteredItems.removeAll() }
-                    filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-                    await searchVM.search(query)
-                } catch {
-                    if Task.isCancelled { return }
-                    print(error.localizedDescription)
-                }
+                if query.isEmpty { return }
+                if Task.isCancelled { return }
+                if !filteredItems.isEmpty { filteredItems.removeAll() }
+                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+                await searchVM.search(query)
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

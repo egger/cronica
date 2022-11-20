@@ -28,35 +28,32 @@ struct ItemContentDetailsView: View {
     }
     var body: some View {
         ZStack {
+            if viewModel.isLoading { ProgressView() }
             VStack {
-                if viewModel.isLoading {
-                    ProgressView("Loading")
-                } else {
-                    ScrollView {
-                        headerView
-                        
-                        TrailerListView(trailers: viewModel.content?.itemTrailers)
-                        
-                        SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                    tvId: id,
-                                    inWatchlist: $viewModel.isInWatchlist,
-                                    seasonConfirmation: $showSeasonConfirmation)
-                        .padding(.zero)
-                        
-                        CastListView(credits: viewModel.credits)
-                        
-                        ItemContentListView(items: viewModel.recommendations,
-                                            title: "Recommendations",
-                                            subtitle: "You may like",
-                                            image: "list.and.film",
-                                            addedItemConfirmation: $showConfirmation,
-                                            displayAsCard: true)
-                        
-                        InformationSectionView(item: viewModel.content)
-                            .padding()
-                        
-                        AttributionView()
-                    }
+                ScrollView {
+                    headerView
+                    
+                    TrailerListView(trailers: viewModel.content?.itemTrailers)
+                    
+                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
+                                tvId: id,
+                                inWatchlist: $viewModel.isInWatchlist,
+                                seasonConfirmation: $showSeasonConfirmation)
+                    .padding(.zero)
+                    
+                    CastListView(credits: viewModel.credits)
+                    
+                    ItemContentListView(items: viewModel.recommendations,
+                                        title: "Recommendations",
+                                        subtitle: "You may like",
+                                        image: "list.and.film",
+                                        addedItemConfirmation: $showConfirmation,
+                                        displayAsCard: true)
+                    
+                    InformationSectionView(item: viewModel.content)
+                        .padding()
+                    
+                    AttributionView()
                 }
             }
             .task {

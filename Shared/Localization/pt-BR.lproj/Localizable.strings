@@ -69,6 +69,11 @@
 "Show Onboarding" = "Mostrar Boas-Vindas";
 "Show All Items" = "Mostrar Todos os Itens";
 "Email (optional)" = "E-mail (opcional)";
+"Open in YouTube" = "Abrir no YouTube";
+"List Filters" = "Filtros de Lista";
+"Add to List" = "Adicionar à Lista";
+"Remove from List" = "Remover da Lista";
+"Pinned Items" = "Itens Fixados";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "Este produto usa a API TMDb, mas não é endossado ou certificado pelo TMDb.";
