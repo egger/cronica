@@ -93,11 +93,8 @@ struct SettingsView: View {
                     Text("privacyfooter")
                         .padding(.bottom)
                 }
-                
-                Section {
-                    ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
-                } header: {
-                    Label("About", systemImage: "info.circle")
+                .fullScreenCover(isPresented: $showPolicy) {
+                    SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
                 }
                 
                 Section {
@@ -112,6 +109,31 @@ struct SettingsView: View {
                     Text("Experimental Features are meant for users that want to test out features that still in development.")
                 }
 
+                Section {
+                    ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
+                    CenterHorizontalView {
+                        Text("Made in Brazil 🇧🇷")
+                            .onTapGesture {
+                                Task {
+                                    withAnimation {
+                                        self.animateEasterEgg.toggle()
+                                    }
+                                    try? await Task.sleep(nanoseconds: 1_500_000_000)
+                                    withAnimation {
+                                        self.animateEasterEgg.toggle()
+                                    }
+                                }
+                            }
+                            .onLongPressGesture(perform: {
+                                displayDeveloperSettings.toggle()
+                            })
+                            .font(animateEasterEgg ? .title3 : .caption)
+                            .foregroundColor(animateEasterEgg ? .green : nil)
+                            .animation(.easeInOut, value: animateEasterEgg)
+                    }
+                } header: {
+                    Label("About", systemImage: "info.circle")
+                }
                 
                 // MARK: Developer Section
                 if displayDeveloperSettings {
@@ -122,31 +144,8 @@ struct SettingsView: View {
                         })
                         
                     } header: {
-                        Label("Developer Options", systemImage: "hammer")
+                        Label("Developer Tools", systemImage: "hammer")
                     }
-                }
-                CenterHorizontalView {
-                    Text("Made in Brazil 🇧🇷")
-                        .onTapGesture {
-                            Task {
-                                withAnimation {
-                                    self.animateEasterEgg.toggle()
-                                }
-                                try? await Task.sleep(nanoseconds: 1_500_000_000)
-                                withAnimation {
-                                    self.animateEasterEgg.toggle()
-                                }
-                            }
-                        }
-                        .onLongPressGesture(perform: {
-                            displayDeveloperSettings.toggle()
-                        })
-                        .font(animateEasterEgg ? .title3 : .caption)
-                        .foregroundColor(animateEasterEgg ? .green : nil)
-                        .animation(.easeInOut, value: animateEasterEgg)
-                }
-                .fullScreenCover(isPresented: $showPolicy) {
-                    SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
                 }
             }
             .navigationTitle("Settings")

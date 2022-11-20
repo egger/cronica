@@ -74,6 +74,7 @@
 "Add to List" = "Adicionar à Lista";
 "Remove from List" = "Remover da Lista";
 "Pinned Items" = "Itens Fixados";
+"Show Details" = "Mostrar Detalhes";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "Este produto usa a API TMDb, mas não é endossado ou certificado pelo TMDb.";

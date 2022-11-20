@@ -18,8 +18,8 @@ struct FeedbackSettingsView: View {
                     TextField("Feedback", text: $feedback)
                         .lineLimit(4)
                     TextField("Email (optional)", text: $email)
-                        .textContentType(.username)
 #if os(iOS)
+                        .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
 #endif
                     Button("Send") {

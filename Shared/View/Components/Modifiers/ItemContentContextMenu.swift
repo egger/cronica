@@ -16,21 +16,12 @@ struct ItemContentContextMenu: ViewModifier {
     @State private var isFavorite: Bool = false
     @State private var isPin: Bool = false
     private let context = PersistenceController.shared
-    private let nextEpisode = "x"
     func body(content: Content) -> some View {
 #if os(watchOS)
 #else
         return content
             .contextMenu {
                 if isInWatchlist {
-                    if item.itemContentMedia == .tvShow {
-                        Button {
-                            
-                        } label: {
-                            Text("Mark episode \(nextEpisode) as watched")
-                        }
-
-                    }
                     watchedButton
                     favoriteButton
                     pinButton

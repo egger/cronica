@@ -113,7 +113,7 @@ struct DeveloperView: View {
             }
             
         }
-        .navigationTitle("Developer tools")
+        .navigationTitle("Developer Tools")
         .sheet(isPresented: $showOnboardingMac, content: {
             NavigationStack {
                 WelcomeView()
