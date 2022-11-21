@@ -4,19 +4,19 @@
 //
 //  Created by Alexandre Madeira on 14/01/22.
 //
-
 import SwiftUI
 import BackgroundTasks
 import TelemetryClient
 
 @main
 struct StoryApp: App {
+    var persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
-    let persistence = PersistenceController.shared
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
+    @AppStorage("disableTelemetry") var disableTelemetry = false
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
@@ -49,7 +49,9 @@ struct StoryApp: App {
                                         type: item.itemContentMedia)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") { widgetItem = nil }
+                                Button("Done") {
+                                    widgetItem = nil
+                                }
                             }
                         }
                         .navigationDestination(for: ItemContent.self) { item in
@@ -72,8 +74,8 @@ struct StoryApp: App {
         }
         .onChange(of: scene) { phase in
             if phase == .background {
-                registerRefreshBGTask()
-                registerAppMaintenanceBGTask()
+                scheduleAppRefresh()
+                scheduleAppMaintenance()
             }
         }
     }
@@ -109,29 +111,30 @@ struct StoryApp: App {
 #endif
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.scheduleAppMaintenance()")
+                                                            for: "scheduleAppMaintenance()")
         }
     }
     
     // Fetch the latest updates from api.
     private func handleAppRefresh(task: BGAppRefreshTask?) {
-        guard let task else { return }
-        scheduleAppRefresh()
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        let background = BackgroundManager()
-        task.expirationHandler = {
-            // After all operations are cancelled, the completion block below is called to set the task to complete.
-            queue.cancelAllOperations()
-        }
-        queue.addOperation {
-            Task {
-                await background.handleAppRefreshContent()
+        if let task {
+            scheduleAppRefresh()
+            let queue = OperationQueue()
+            queue.maxConcurrentOperationCount = 1
+            let background = BackgroundManager()
+            task.expirationHandler = {
+                // After all operations are cancelled, the completion block below is called to set the task to complete.
+                queue.cancelAllOperations()
             }
+            queue.addOperation {
+                Task {
+                    await background.handleAppRefreshContent()
+                }
+            }
+            task.setTaskCompleted(success: true)
+            CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
+                                                            for: "handleAppRefreshBGTask")
         }
-        task.setTaskCompleted(success: true)
-        CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                              for: "BackgroundManager.handleAppRefreshBGTask")
     }
     
     private func handleAppMaintenance(task: BGProcessingTask?) {
@@ -150,6 +153,6 @@ struct StoryApp: App {
         }
         task.setTaskCompleted(success: true)
         CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                              for: "BackgroundManager.handleAppMaintenance")
+                                                        for: "handleAppMaintenance")
     }
 }

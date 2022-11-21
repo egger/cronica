@@ -19,12 +19,15 @@ struct ItemContentDetailsView: View {
     @State private var actionMessageConfirmation = ""
     @State private var actionImageConfirmation = ""
     @State private var showActionConfirmation = false
-    init(id: Int, title: String, type: MediaType) {
+    var handleToolbarOnPopup = false
+    init(id: Int, title: String, type: MediaType, handleToolbarOnPopup: Bool = false) {
         self.id = id
         self.title = title
         self.type = type
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         self.itemUrl = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
+        self.handleToolbarOnPopup = handleToolbarOnPopup
+       
     }
     var body: some View {
         ZStack {
@@ -66,17 +69,32 @@ struct ItemContentDetailsView: View {
                 PersonDetailsView(title: item.name, id: item.id)
             }
             .toolbar {
-                ToolbarItem {
-                    ViewThatFits {
-                        HStack {
-                            notificationButton
-                            watchButton
-                            favoriteButton
+                if handleToolbarOnPopup {
+                    ToolbarItem(placement: .status) {
+                        ViewThatFits {
+                            HStack {
+                                notificationButton
+                                watchButton
+                                favoriteButton
+                                shareButton
+                            }
                             shareButton
                         }
-                        shareButton
+                        
                     }
-                    
+                } else {
+                    ToolbarItem {
+                        ViewThatFits {
+                            HStack {
+                                notificationButton
+                                watchButton
+                                favoriteButton
+                                shareButton
+                            }
+                            shareButton
+                        }
+                        
+                    }
                 }
             }
             .navigationTitle(title)

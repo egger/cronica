@@ -20,7 +20,6 @@
         <attribute name="lastWatchedEpisode" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mediumPosterImage" optional="YES" attributeType="URI"/>
         <attribute name="nextEpisodeNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="nextEpisodeToWatch" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nextSeasonNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="notify" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="schedule" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
