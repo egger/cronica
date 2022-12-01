@@ -10,31 +10,40 @@ import SwiftUI
 struct TitleView: View {
     let title: String
     let subtitle: String
-    var image: String? = nil
+    let image: String
+    var showChevron = false
     var body: some View {
         HStack {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     Text(NSLocalizedString(title, comment: ""))
+                        .padding([.top, .leading])
+                    #if os(tvOS)
+                        .font(.callout)
+                    #else
                         .font(.title3)
-                        .padding([.top, .horizontal])
-                    Spacer()
+                    #endif
+                    if showChevron {
+                        Image(systemName: "chevron.right")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(.secondary)
+                            .padding(.top)
+                            .accessibilityHidden(true)
+                    }
                 }
                 HStack {
                     Text(NSLocalizedString(subtitle, comment: ""))
                         .font(.caption)
                         .foregroundColor(.secondary)
-                        .padding(.horizontal)
-                    Spacer()
+                        .padding(.leading)
                 }
             }
             Spacer()
-            if let image {
-                Image(systemName: image)
-                    .foregroundColor(.secondary)
-                    .padding()
-                    .accessibilityHidden(true)
-            }
+            Image(systemName: image)
+                .foregroundColor(.secondary)
+                .padding()
+                .accessibilityHidden(true)
         }
         .accessibilityElement(children: .combine)
     }

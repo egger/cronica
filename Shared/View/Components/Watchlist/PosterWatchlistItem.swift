@@ -13,6 +13,7 @@ struct PosterWatchlistItem: View {
     @State private var isPin = false
     @State private var isFavorite = false
     @State private var isWatched = false
+    @State private var isArchive = false
     var body: some View {
         NavigationLink(value: item) {
             WebImage(url: item.mediumPosterImage)
@@ -53,11 +54,13 @@ struct PosterWatchlistItem: View {
                 .modifier(WatchlistItemContextMenu(item: item,
                                                    isWatched: $isWatched,
                                                    isFavorite: $isFavorite,
-                                                   isPin: $isPin))
+                                                   isPin: $isPin,
+                                                   isArchive: $isArchive))
                 .task {
                     isWatched = item.isWatched
                     isFavorite = item.isFavorite
                     isPin = item.isPin
+                    isArchive = item.isArchive
                 }
         }
     }

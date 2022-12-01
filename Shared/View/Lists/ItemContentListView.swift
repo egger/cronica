@@ -15,7 +15,9 @@ struct ItemContentListView: View {
     let subtitle: String
     let image: String
     @Binding var addedItemConfirmation: Bool
-    var displayAsCard: Bool = false
+    var displayAsCard = false
+    var endpoint: Endpoints?
+    var showChevron = false
     var body: some View {
         if let items {
             if !items.isEmpty {
@@ -23,16 +25,28 @@ struct ItemContentListView: View {
                     Divider().padding(.horizontal)
                 }
                 VStack {
-                    TitleView(title: title,
-                              subtitle: subtitle,
-                              image: image)
+                    if let endpoint {
+                        NavigationLink(value: endpoint) {
+                            TitleView(title: title, subtitle: subtitle, image: image, showChevron: showChevron)
+                        }
+                        .buttonStyle(.plain)
+                    } else {
+                        if showChevron {
+                            NavigationLink(value: items) {
+                                TitleView(title: title, subtitle: subtitle, image: image, showChevron: true)
+                            }
+                            .buttonStyle(.plain)
+                        } else {
+                            TitleView(title: title, subtitle: subtitle, image: image)
+                        }
+                    }
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         LazyHStack {
                             if displayAsCard {
                                 ForEach(items) { item in
 #if os(iOS)
                                     CardFrame(item: item,
-                                                         showConfirmation: $addedItemConfirmation)
+                                              showConfirmation: $addedItemConfirmation)
                                     .padding([.leading, .trailing], 4)
                                     .buttonStyle(.plain)
                                     .padding(.leading, item.id == items.first!.id ? 16 : 0)
@@ -50,7 +64,7 @@ struct ItemContentListView: View {
                             } else {
                                 ForEach(items) { item in
                                     Poster(item: item,
-                                               addedItemConfirmation: $addedItemConfirmation)
+                                           addedItemConfirmation: $addedItemConfirmation)
                                     .padding([.leading, .trailing], 4)
                                     .buttonStyle(.plain)
                                     .padding(.leading, item.id == items.first!.id ? 16 : 0)

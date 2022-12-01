@@ -72,11 +72,11 @@ struct EpisodeFrameView: View {
                     }
                 }
                 .contextMenu {
-                    WatchEpisodeButtonView(episode: episode,
-                                           season: season,
-                                           show: show,
-                                           isWatched: $isWatched,
-                                           inWatchlist: $isInWatchlist)
+                    WatchEpisodeButton(episode: episode,
+                                       season: season,
+                                       show: show,
+                                       isWatched: $isWatched,
+                                       inWatchlist: $isInWatchlist)
                     if let number = episode.episodeNumber {
                         if number != 1 && !isWatched {
                             Button("Mark this and previous episodes as watched") {
@@ -91,7 +91,11 @@ struct EpisodeFrameView: View {
                             showDetails.toggle()
                         }
                     }
+#if os(tvOS)
+                    Button("Cancel") { }
+#else
                     ShareLink(item: itemLink)
+#endif
                 }
                 .applyHoverEffect()
             HStack {
@@ -135,6 +139,9 @@ struct EpisodeFrameView: View {
 #endif
         }
         .sheet(isPresented: $showDetails) {
+#if os(tvOS)
+            EmptyView()
+#else
             NavigationStack {
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
@@ -149,6 +156,7 @@ struct EpisodeFrameView: View {
                     .frame(width: 900, height: 500)
 #endif
             }
+#endif
         }
     }
     
@@ -163,8 +171,14 @@ struct EpisodeFrameView: View {
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let imageWidth: CGFloat = 360
+    static let imageHeight: CGFloat = 200
+    static let imageRadius: CGFloat = 12
+#else
     static let imageWidth: CGFloat = 160
     static let imageHeight: CGFloat = 100
     static let imageRadius: CGFloat = 8
+#endif
     static let titleLineLimit: Int = 1
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WatchListSection: View {
-    private let context = PersistenceController.shared 
+    private let context = PersistenceController.shared
     let items: [WatchlistItem]
     var title: String
     var body: some View {
@@ -40,12 +40,8 @@ struct WatchListSection: View {
     }
     
     private func delete(offsets: IndexSet) {
-        #if os(iOS)
-        HapticManager.shared.mediumHaptic()
-        #else
         withAnimation {
             offsets.map { items[$0] }.forEach(context.delete)
         }
-        #endif
     }
 }

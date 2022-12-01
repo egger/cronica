@@ -22,6 +22,7 @@ import Combine
     var stage: SearchStage = .none
     
     func search(_ query: String) async {
+        if Task.isCancelled { return }
         if query.isEmpty {
             startPagination = false
             withAnimation {
@@ -31,7 +32,6 @@ import Combine
             return
         }
         stage = .searching
-        if Task.isCancelled { return }
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedQuery.isEmpty else { return }
         do {
@@ -64,29 +64,25 @@ import Combine
     }
     
     func loadMoreItems() {
+        if Task.isCancelled { return }
         if items.isEmpty { return }
         if endPagination { return }
-        if page <= 10 {
-            if Task.isCancelled { return }
-            Task {
-                do {
-                    print(page)
-                    let result = try await service.search(query: trimmedQuery, page: "\(page)")
-                    if result.isEmpty { endPagination.toggle() }
-                    withAnimation {
-                        self.items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
-                    }
-                    self.page += 1
-                } catch {
-                    if Task.isCancelled { return }
-                    CronicaTelemetry.shared.handleMessage(
-                        error.localizedDescription,
-                        for: "ItemContentViewModel.loadMoreItems()"
-                    )
+        if Task.isCancelled { return }
+        Task {
+            do {
+                let result = try await service.search(query: trimmedQuery, page: "\(page)")
+                if result.isEmpty { endPagination.toggle() }
+                withAnimation {
+                    self.items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
                 }
+                self.page += 1
+            } catch {
+                if Task.isCancelled { return }
+                CronicaTelemetry.shared.handleMessage(
+                    error.localizedDescription,
+                    for: "ItemContentViewModel.loadMoreItems()"
+                )
             }
-        } else {
-            endPagination = true
         }
     }
 }

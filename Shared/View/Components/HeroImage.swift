@@ -12,12 +12,11 @@ struct HeroImage: View {
     let url: URL?
     let title: String
     var blurImage: Bool = false
+    var type: MediaType = .movie
     var body: some View {
         WebImage(url: url, options: .highPriority)
             .resizable()
-            .placeholder {
-                placeholder
-            }
+            .placeholder { placeholder }
             .aspectRatio(contentMode: .fill)
             .transition(.opacity)
             .overlay {
@@ -35,19 +34,17 @@ struct HeroImage: View {
     }
     private var placeholder: some View {
         ZStack {
-#if os(watchOS)
-            Rectangle().fill(.secondary)
-#else
-            Rectangle().fill(.thickMaterial)
-#endif
+            Rectangle().fill(.gray.gradient)
             VStack {
                 Text(title)
+                    .font(.title)
                     .lineLimit(1)
                     .padding()
-                Image(systemName: "film")
+                Image(systemName: type == .movie ? "film" : "tv")
+                    .font(.title)
             }
             .padding()
-            .foregroundColor(.secondary)
+            .foregroundColor(.white.opacity(0.8))
         }
     }
 }

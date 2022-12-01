@@ -24,34 +24,36 @@ struct SearchView: View {
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
-                    if viewModel.startPagination && !viewModel.endPagination {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                                .padding()
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        viewModel.loadMoreItems()
-                                    }
-                                }
-                            Spacer()
-                        }
-                    }
+                    loadableProgressRing
+//                    if viewModel.startPagination && !viewModel.endPagination {
+//                        CenterHorizontalView {
+//                            ProgressView()
+//                                .padding()
+//                                .onAppear {
+//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                                        viewModel.loadMoreItems()
+//                                    }
+//                                }
+//                        }
+//                    }
                 case .movies:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
+                    loadableProgressRing
                 case .shows:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
+                    loadableProgressRing
                 case .people:
                     ForEach(viewModel.items.filter { $0.media == .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
                             .draggable(item)
                     }
+                    loadableProgressRing
                 }
             }
             .navigationTitle("Search")
@@ -65,6 +67,9 @@ struct SearchView: View {
                 } else {
                     ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
                 }
+            }
+            .navigationDestination(for: [ItemContent].self) { item in
+                ItemContentCollectionDetails(title: "Recommendations", items: item)
             }
             .searchable(text: $viewModel.query,
                         placement: .navigationBarDrawer(displayMode: .always),
@@ -104,6 +109,23 @@ struct SearchView: View {
                 Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
             }
         case .success: EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private var loadableProgressRing: some View {
+        if viewModel.startPagination && !viewModel.endPagination {
+            CenterHorizontalView {
+                ProgressView()
+                    .padding()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            viewModel.loadMoreItems()
+                        }
+                    }
+            }
+        } else {
+            EmptyView()
         }
     }
 }

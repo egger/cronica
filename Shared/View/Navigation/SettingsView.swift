@@ -17,7 +17,6 @@ struct SettingsView: View {
     @State private var showFeedbackAlert = false
     @State private var feedback: String = ""
     @State private var feedbackSent = false
-    @State private var updatingItems = false
     @Binding var showSettings: Bool
     @AppStorage("displayDeveloperSettings") private var displayDeveloperSettings = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
@@ -43,25 +42,15 @@ struct SettingsView: View {
                 } header: {
                     Label("Links", systemImage: "link")
                 }
-                // MARK: Update Section
+                
                 Section {
-                    Button(action: {
-                        updateItems()
-                    }, label: {
-                        if updatingItems {
-                            CenterHorizontalView {
-                                ProgressView()
-                            }
-                        } else {
-                            Text("Update Items")
-                        }
-                    })
+                    NavigationLink(destination: WatchlistSettings()) {
+                        Text("Watchlist")
+                    }
                 } header: {
-                    Label("Sync", systemImage: "arrow.2.circlepath")
-                } footer: {
-                    Text("'Update Items' will update your items with new information available on TMDb, if available.")
-                        .padding(.bottom)
+                    Label("Watchlist", systemImage: "square.stack")
                 }
+                
                 // MARK: Support Section
                 Section {
                     NavigationLink(destination: FeedbackSettingsView()) {
@@ -159,19 +148,6 @@ struct SettingsView: View {
             }
         }
     }
-    
-    private func updateItems() {
-        Task {
-            let background = BackgroundManager()
-            withAnimation {
-                self.updatingItems.toggle()
-            }
-            await background.handleAppRefreshContent()
-            withAnimation {
-                self.updatingItems.toggle()
-            }
-        }
-    }
 }
 
 struct AccountView_Previews: PreviewProvider {
@@ -182,3 +158,5 @@ struct AccountView_Previews: PreviewProvider {
             .environmentObject(settings)
     }
 }
+
+

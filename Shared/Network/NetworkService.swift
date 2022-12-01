@@ -40,8 +40,8 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
-    func fetchItems(from path: String) async throws -> [ItemContent] {
-        guard let url = urlBuilder(path: path) else {
+    func fetchItems(from path: String, page: String = "1") async throws -> [ItemContent] {
+        guard let url = urlBuilder(path: path, page: page) else {
             throw NetworkError.invalidEndpoint
         }
         let response: ItemContentResponse = try await self.fetch(url: url)
@@ -127,7 +127,8 @@ class NetworkService {
             component.queryItems = [
                 .init(name: "api_key", value: Key.tmdbApi),
                 .init(name: "language", value: Utilities.userLang),
-                .init(name: "region", value: Utilities.userRegion)
+                .init(name: "region", value: Utilities.userRegion),
+                .init(name: "page", value: page)
             ]
         }
         if let query {
@@ -188,5 +189,39 @@ class NetworkService {
             return component.url
         }
         return nil
+    }
+    
+    static func fetchVideos(for videos: [VideosResult]? = nil) -> [VideoItem]? {
+        guard let videos else { return nil }
+        var items: [VideoItem] = []
+        for video in videos {
+            if video.isTrailer {
+                items.append(VideoItem.init(url: urlBuilder(video: video.key),
+                                             thumbnail: fetchThumbnail(for: video.key),
+                                             title: video.name))
+            }
+        }
+        return items
+    }
+    
+    /// Build a URL for the trailer, only generate YouTube links.
+    /// - Parameter path: The 'key' for the trailer.
+    /// - Returns: Returns nil if the path is nil, otherwise return a safe URL.
+    private static func urlBuilder(video path: String? = nil) -> URL? {
+        guard let path else { return nil }
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "www.youtube.com"
+        components.path = "/embed/\(path)"
+        return components.url
+    }
+    
+    private static func fetchThumbnail(for id: String?) -> URL? {
+        guard let id else { return nil }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "img.youtube.com"
+        urlComponents.path = "/vi/\(id)/maxresdefault.jpg"
+        return urlComponents.url
     }
 }

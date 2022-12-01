@@ -43,6 +43,7 @@ struct SeasonListView: View {
                     .pickerStyle(.menu)
                     .onChange(of: selectedSeason) { season in
                         Task {
+                            if Task.isCancelled { return }
                             await viewModel.load(id: self.tvId, season: season, isInWatchlist: inWatchlist)
                         }
                     }
@@ -67,42 +68,44 @@ struct SeasonListView: View {
 #endif
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
-                    if let season = viewModel.season?.episodes {
-                        if season.isEmpty {
-                            emptySeasonView
-                        } else {
-                            ScrollViewReader { proxy in
-                                LazyHStack {
-                                    ForEach(season) { item in
-                                        EpisodeFrameView(episode: item,
-                                                         season: selectedSeason,
-                                                         show: tvId,
-                                                         isInWatchlist: $inWatchlist)
-                                        .environmentObject(viewModel)
-                                        .frame(width: 160, height: 200)
-                                        .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == season.first!.id ? 16 : 0)
-                                        .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                    if viewModel.isLoading {
+                        CenterHorizontalView { ProgressView() }.padding()
+                    } else {
+                        if let season = viewModel.season?.episodes {
+                            if season.isEmpty {
+                                emptySeasonView
+                            } else {
+                                ScrollViewReader { proxy in
+                                    LazyHStack {
+                                        ForEach(season) { item in
+                                            EpisodeFrameView(episode: item,
+                                                             season: selectedSeason,
+                                                             show: tvId,
+                                                             isInWatchlist: $inWatchlist)
+                                            .environmentObject(viewModel)
+                                            .frame(width: 160, height: 200)
+                                            .padding([.leading, .trailing], 4)
+                                            .padding(.leading, item.id == season.first!.id ? 16 : 0)
+                                            .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                                        }
+                                        .padding(0)
+                                        .buttonStyle(.plain)
+                                    }
+                                    .onAppear {
+                                        let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
+                                        guard let lastWatchedEpisode else { return }
+                                        withAnimation {
+                                            proxy.scrollTo(lastWatchedEpisode, anchor: .top)
+                                        }
+                                    }
+                                    .onChange(of: selectedSeason) { _ in
+                                        if !hasFirstLoaded { return }
+                                        let first = season.first ?? nil
+                                        guard let first else { return }
+                                        withAnimation { proxy.scrollTo(first.id) }
                                     }
                                     .padding(0)
-                                    .buttonStyle(.plain)
                                 }
-                                .onAppear {
-                                    let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
-                                    guard let lastWatchedEpisode else { return }
-                                    withAnimation {
-                                        proxy.scrollTo(lastWatchedEpisode, anchor: .top)
-                                    }
-                                }
-                                .onChange(of: selectedSeason) { _ in
-                                    if !hasFirstLoaded { return }
-                                    let first = season.first ?? nil
-                                    guard let first else { return }
-                                    withAnimation {
-                                        proxy.scrollTo(first.id)
-                                    }
-                                }
-                                .padding(0)
                             }
                         }
                     }
@@ -158,6 +161,7 @@ struct SeasonListView: View {
     
     private func load() {
         Task {
+            if Task.isCancelled { return }
             if !hasFirstLoaded {
                 if self.inWatchlist {
                     let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))

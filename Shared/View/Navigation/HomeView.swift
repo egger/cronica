@@ -11,7 +11,6 @@ import SDWebImageSwiftUI
 struct HomeView: View {
     static let tag: Screens? = .home
     @AppStorage("showOnboarding") private var displayOnboard = true
-    @AppStorage("isNotificationAllowed") private var notificationAllowed = true
     @StateObject private var viewModel: HomeViewModel
     @StateObject private var settings: SettingsStore
     @State private var showSettings = false
@@ -35,13 +34,16 @@ struct HomeView: View {
                                         title: "Trending",
                                         subtitle: "Today",
                                         image: "crown",
-                                        addedItemConfirmation: $showConfirmation)
+                                        addedItemConfirmation: $showConfirmation,
+                                        showChevron: false)
                     ForEach(viewModel.sections) { section in
                         ItemContentListView(items: section.results,
                                             title: section.title,
                                             subtitle: section.subtitle,
                                             image: section.image,
-                                            addedItemConfirmation: $showConfirmation)
+                                            addedItemConfirmation: $showConfirmation,
+                                            endpoint: section.endpoint,
+                                            showChevron: true)
                     }
                     AttributionView()
                 }
@@ -52,8 +54,8 @@ struct HomeView: View {
                 ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
 #else
                 ItemContentDetails(title: item.itemTitle,
-                                id: item.id,
-                                type: item.itemContentMedia)
+                                   id: item.id,
+                                   type: item.itemContentMedia)
 #endif
             }
             .navigationDestination(for: Person.self) { person in
@@ -64,9 +66,20 @@ struct HomeView: View {
                 ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
 #else
                 ItemContentDetails(title: item.itemTitle,
-                                id: item.itemId,
-                                type: item.itemMedia)
+                                   id: item.itemId,
+                                   type: item.itemMedia)
 #endif
+            }
+            .navigationDestination(for: [ItemContent].self) { item in
+                ItemContentCollectionDetails(title: "Recommendations", items: item)
+            }
+            .navigationDestination(for: [WatchlistItem].self) { item in
+                TitleWatchlistDetails(items: item)
+            }
+            .navigationDestination(for: Endpoints.self) { endpoint in
+                EndpointDetails(title: endpoint.title,
+                                 endpoint: endpoint,
+                                 columns: DrawingConstants.columns)
             }
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
             .navigationTitle("Home")
@@ -130,4 +143,22 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }
+}
+
+struct TitleWatchlistDetails: View {
+    let items: [WatchlistItem]
+    var body: some View {
+        List(items) { item in
+            WatchlistItemView(content: item)
+        }
+        .navigationTitle(LocalizedStringKey("Upcoming"))
+    }
+}
+
+private struct DrawingConstants {
+#if os(macOS)
+    static let columns = [GridItem(.adaptive(minimum: 160))]
+#else
+    static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
+#endif
 }

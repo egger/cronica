@@ -4,6 +4,7 @@
 //
 //  Created by Alexandre Madeira on 06/03/22.
 //  swiftlint:disable trailing_whitespace
+
 import Foundation
 
 extension ItemContent {
@@ -162,7 +163,7 @@ extension ItemContent {
 #endif
     }
     var itemTrailers: [VideoItem]? {
-        return TrailerUtilities.fetch(for: videos?.results)
+        return NetworkService.fetchVideos(for: videos?.results)
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!

@@ -71,6 +71,9 @@ struct WatchlistView: View {
                         case .pin:
                             WatchListSection(items: items.filter { $0.isPin },
                                              title: DefaultListTypes.pin.title)
+                        case .archive:
+                            WatchListSection(items: items.filter { $0.isArchive },
+                                             title: DefaultListTypes.archive.title)
                         }
                     }
                 }
@@ -106,6 +109,9 @@ struct WatchlistView: View {
         }
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)
+        }
+        .navigationDestination(for: [ItemContent].self) { item in
+            ItemContentCollectionDetails(title: "Recommendations", items: item)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

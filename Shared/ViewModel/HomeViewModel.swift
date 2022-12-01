@@ -40,9 +40,6 @@ class HomeViewModel: ObservableObject {
     }
     
     func reload() {
-#if os(iOS)
-        HapticManager.shared.lightHaptic() 
-#endif
         withAnimation { isLoaded = false }
         trending.removeAll()
         sections.removeAll()
@@ -72,9 +69,10 @@ class HomeViewModel: ObservableObject {
             return .init(results: section, endpoint: endpoint)
         } catch {
             if Task.isCancelled { return nil }
-            CronicaTelemetry.shared.handleMessage(
-                "\(error.localizedDescription), endpoint: \(endpoint.title)",
-                for: "HomeViewModel.load()")
+            let message = """
+Can't load the endpoint \(endpoint.title), with error message: \(error.localizedDescription).
+"""
+            CronicaTelemetry.shared.handleMessage(message, for: "HomeViewModel.load()")
             return nil
         }
     }

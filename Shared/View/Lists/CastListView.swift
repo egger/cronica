@@ -14,16 +14,10 @@ struct CastListView: View {
     var body: some View {
         if !credits.isEmpty {
             VStack(alignment: .leading) {
-                HStack {
-                    Text("Cast & Crew")
-                        .font(.title3)
-                        .padding([.horizontal, .top])
-                    Spacer()
-                }
-                .unredacted()
-                ScrollView(.horizontal, showsIndicators: false, content: {
+                TitleView(title: "Cast & Crew", subtitle: "", image: "person.3", showChevron: false)
+                ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
-                        ForEach(credits) { person in
+                        ForEach(credits, id: \.personListID) { person in
                             PersonCardView(person: person)
                                 .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
                                 .buttonStyle(.plain)
@@ -32,7 +26,7 @@ struct CastListView: View {
                     }
                     .padding([.top, .bottom])
                     .padding(.trailing)
-                })
+                }
             }
         }
     }
@@ -40,7 +34,7 @@ struct CastListView: View {
 
 struct PersonListView_Previews: PreviewProvider {
     static var previews: some View {
-        CastListView(credits: [Person]())
+        CastListView(credits: Person.example)
     }
 }
 

@@ -15,14 +15,14 @@ struct PinItemsList: View {
         ],
         predicate: NSPredicate(format: "isPin == %d", true)
     )
-    
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         if !items.isEmpty {
             VStack {
                 TitleView(title: "My Pins",
-                          subtitle: "",
-                          image: "pin")
+                          subtitle: "Pinned Items",
+                          image: "pin",
+                          showChevron: false)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(items) { item in

@@ -34,7 +34,7 @@ struct CronicaTelemetry {
     /// This function will respect user setting for sending the messages to the developer.
     func handleMessage(_ message: String, for id: String) {
 #if targetEnvironment(simulator) || DEBUG
-        logger.error("\(message), for: \(id)")
+        logger.warning("\(message), for: \(id)")
 #else
         if disableTelemetry { return }
         TelemetryManager.send("\(id)", with: ["Message":"\(message)"])

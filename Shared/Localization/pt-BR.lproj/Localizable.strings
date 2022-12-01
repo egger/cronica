@@ -75,6 +75,11 @@
 "Remove from List" = "Remover da Lista";
 "Pinned Items" = "Itens Fixados";
 "Show Details" = "Mostrar Detalhes";
+"Archive" = "Arquivo";
+"Archive Item" = "Arquivar Item";
+"Remove from Archive" = "Remover do Arquivo";
+"Be reminded of upcoming Movies & TV Shows." = "Lembre-se dos próximos filmes e séries.";
+"Your smart Watchlist" = "Sua Lista inteligente";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "Este produto usa a API TMDb, mas não é endossado ou certificado pelo TMDb.";
@@ -191,6 +196,8 @@
 "Add everything you want, the Watchlist automatically organizes it for you." = "Adicione tudo o que quiser, a Lista organiza automaticamente para você.";
 "Discover what's next" = "Descubra novos títulos";
 "The Discover will help you find your next favorite title." = "O Descubra ajudará você a encontrar seu próximo título favorito.";
+"Track your episodes" = "Acompanhe seus episódios";
+"Keep track of every episode you've watched." = "Acompanhe todos os episódios que você assistiu.";
 
 //MARK: CastDetailsView.swift
 "Biography" = "Biografia";

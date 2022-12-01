@@ -45,7 +45,7 @@ struct EpisodeDetailsView: View {
                     .padding([.top, .horizontal])
                 }
                 
-                WatchEpisodeButtonView(episode: episode,
+                WatchEpisodeButton(episode: episode,
                                        season: season,
                                        show: show,
                                        isWatched: $isWatched,

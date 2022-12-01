@@ -132,9 +132,6 @@ struct CardView: View {
     }
     
     private func remove(item: WatchlistItem) {
-#if os(iOS)
-        HapticManager.shared.mediumHaptic()
-#endif
         if item.notify {
             notification.removeNotification(identifier: item.notificationID)
         }

@@ -11,6 +11,7 @@ struct FeedbackSettingsView: View {
     @State private var email = ""
     @State private var feedback = ""
     @State private var showFeedbackAnimation = false
+    @AppStorage("disableTelemetry") private var disableTelemetry = false
     var body: some View {
         ZStack {
             Form {
@@ -25,7 +26,7 @@ struct FeedbackSettingsView: View {
                     Button("Send") {
                         send()
                     }
-                    .disabled(feedback.isEmpty)
+                    .disabled(feedback.isEmpty || disableTelemetry)
                 } header: {
                     Label("Send feedback", systemImage: "envelope")
                 } footer: {

@@ -79,7 +79,7 @@ struct SideBarView: View {
         } detail: {
             NavigationStack {
                 switch selectedView {
-                case .discover: DiscoverView()
+                case .discover: DiscoverView(columns: DrawingConstants.columns)
                 case .watchlist:
                     WatchlistView()
                         .environment(\.managedObjectContext, persistence.container.viewContext)
@@ -217,4 +217,12 @@ struct SideBarView_Previews: PreviewProvider {
     static var previews: some View {
         SideBarView()
     }
+}
+
+private struct DrawingConstants {
+#if os(macOS)
+    static let columns = [GridItem(.adaptive(minimum: 160))]
+#else
+    static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
+#endif
 }

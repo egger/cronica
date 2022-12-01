@@ -32,13 +32,9 @@ struct OverviewBoxView: View {
                     .unredacted()
             }
         }
-        .onTapGesture {
-            if overview != nil {
-                showDetailsSheet.toggle()
-            }
-        }
+        .onTapGesture {  showDetailsSheet.toggle() }
         .accessibilityElement(children: .combine)
-        .sheet(isPresented: $showDetailsSheet, content: {
+        .sheet(isPresented: $showDetailsSheet) {
             NavigationStack {
                 ScrollView {
                     Text(overview ?? NSLocalizedString("Not Available.", comment: ""))
@@ -47,22 +43,23 @@ struct OverviewBoxView: View {
                 }
                 .navigationTitle(title)
                 .toolbar {
-                    #if os(iOS)
+#if os(iOS)
                     ToolbarItem(placement: .navigationBarTrailing, content: {
                         Button("Done") {
                             showDetailsSheet.toggle()
                         }
                     })
-                    #else
+#else
                     ToolbarItem {
                         Button("Done") {
                             showDetailsSheet.toggle()
                         }
                     }
-                    #endif
+#endif
                 }
             }
-        })
+        }
+        .contextMenu { if let overview { ShareLink(item: overview) } }
     }
 }
 

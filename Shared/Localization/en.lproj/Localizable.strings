@@ -76,6 +76,11 @@
 "Remove from List" = "Remove from List";
 "Pinned Items" = "Pinned Items";
 "Show Details" = "Show Details";
+"Archive" = "Archive";
+"Archive Item" = "Archive Item";
+"Remove from Archive" = "Remove from Archive";
+"Be reminded of upcoming Movies & TV Shows." = "Be reminded of upcoming Movies & TV Shows.";
+"Your smart Watchlist" = "Your smart Watchlist";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "This product uses the TMDb API but is not endorsed or certified by TMDb.";
@@ -191,6 +196,8 @@
 "Add everything you want, the Watchlist automatically organizes it for you." = "Add everything you want, the Watchlist automatically organizes it for you.";
 "Discover what's next" = "Discover what's next";
 "The Discover will help you find your next favorite title." = "The Discover will help you find your next favorite title.";
+"Track your episodes" = "Track your episodes";
+"Keep track of every episode you've watched." = "Keep track of every episode you've watched.";
 
 //MARK: CastDetailsView.swift
 "Biography" = "Biography";

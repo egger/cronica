@@ -13,6 +13,8 @@ struct WatchlistItemView: View {
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
     @State private var isPin = false
+    @State private var isArchive = false
+    @AppStorage("showGenreOnWatchlist") private var showGenre = false
     init(content: WatchlistItem) {
         self.content = content
     }
@@ -39,9 +41,16 @@ struct WatchlistItemView: View {
                             .foregroundColor(.secondary)
                         Spacer()
 #else
-                        if let itemGenre = content.genre {
-                            if !itemGenre.isEmpty {
-                                Text("\(content.itemMedia.title) • \(itemGenre)")
+                        if showGenre {
+                            if let itemGenre = content.genre {
+                                if !itemGenre.isEmpty {
+                                    Text("\(content.itemMedia.title) • \(itemGenre)")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                }
+                            } else {
+                                Text(content.itemMedia.title)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                 Spacer()
@@ -52,6 +61,7 @@ struct WatchlistItemView: View {
                                 .foregroundColor(.secondary)
                             Spacer()
                         }
+                        
 #endif
                     }
                 }
@@ -70,12 +80,14 @@ struct WatchlistItemView: View {
                 isWatched = content.isWatched
                 isFavorite = content.isFavorite
                 isPin = content.isPin
+                isArchive = content.isArchive
             }
             .accessibilityElement(children: .combine)
             .modifier(WatchlistItemContextMenu(item: content,
                                                isWatched: $isWatched,
                                                isFavorite: $isFavorite,
-                                               isPin: $isPin))
+                                               isPin: $isPin,
+                                               isArchive: $isArchive))
         }
     }
     private var image: some View {
@@ -83,8 +95,9 @@ struct WatchlistItemView: View {
             WebImage(url: content.image)
                 .placeholder {
                     ZStack {
-                        Color.secondary
-                        Image(systemName: "film")
+                        Rectangle().fill(.gray.gradient)
+                        Image(systemName: content.itemMedia == .movie ? "film" : "tv")
+                            .foregroundColor(.white.opacity(0.8))
                     }
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)

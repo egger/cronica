@@ -13,29 +13,27 @@ class SeasonViewModel: ObservableObject {
     private let service = NetworkService.shared
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
-    private var hasFirstLoaded: Bool = false
+    private var hasFirstLoaded = false
     @Published var season: Season?
-    @Published var isLoading: Bool = true
-    @Published var isItemInWatchlist: Bool = false
+    @Published var isLoading = true
+    @Published var isItemInWatchlist = false
     
     func load(id: Int, season: Int, isInWatchlist: Bool) async {
         if Task.isCancelled { return }
         isItemInWatchlist = isInWatchlist
-        withAnimation {
-            isLoading = true
-        }
+        withAnimation { isLoading = true }
         do {
             self.season = try await self.service.fetchSeason(id: id, season: season)
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                            for: "SeasonViewModel.load()")
+            let message = """
+Can't load the season \(season) of the show \(id), error: \(error.localizedDescription).
+"""
+            CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load()")
         }
         if !hasFirstLoaded {
             hasFirstLoaded.toggle()
         }
-        withAnimation {
-            isLoading = false
-        }
+        withAnimation { isLoading = false }
     }
     
     func markSeasonAsWatched(id: Int) async {
@@ -63,9 +61,7 @@ class SeasonViewModel: ObservableObject {
                     if !persistence.isEpisodeSaved(show: show, season: season.seasonNumber, episode: episode.id) {
                         persistence.updateEpisodeList(show: show, season: season.seasonNumber, episode: episode.id)
                     }
-                    if episode.id == id {
-                        return
-                    }
+                    if episode.id == id { return }
                 }
             }
         }

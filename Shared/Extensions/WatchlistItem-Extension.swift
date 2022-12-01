@@ -52,7 +52,7 @@ extension WatchlistItem: Transferable {
         case .tvShow:
             if upcomingSeason {
                 if let formattedDate {
-                    return "Season \(nextSeasonNumber) • \(formattedDate)"
+                    return "\(NSLocalizedString("Season", comment: "")) \(nextSeasonNumber) • \(formattedDate)"
                 }
                 return NSLocalizedString("Season \(nextSeasonNumber)", comment: "")
             }
@@ -78,6 +78,7 @@ extension WatchlistItem: Transferable {
         return false
     }
     var isReleased: Bool {
+        if isArchive { return false }
         if itemMedia == .movie {
             return isReleasedMovie
         } else {
@@ -85,13 +86,14 @@ extension WatchlistItem: Transferable {
         }
     }
     var isUpcoming: Bool {
+        if isArchive { return false }
         if itemMedia == .movie {
             return isUpcomingMovie
         } else {
             return isUpcomingTvShow
         }
     }
-    var isReleasedMovie: Bool {
+    private var isReleasedMovie: Bool {
         if itemMedia == .movie {
             if itemSchedule == .released && !notify && !isWatched {
                 return true
@@ -99,7 +101,7 @@ extension WatchlistItem: Transferable {
         }
         return false
     }
-    var isReleasedTvShow: Bool {
+    private var isReleasedTvShow: Bool {
         if itemMedia == .tvShow {
             if itemSchedule == .renewed && nextSeasonNumber == 1 && nextEpisodeNumber > 1 { return true }
             if itemSchedule == .renewed && nextSeasonNumber != 1 { return true }
@@ -108,14 +110,14 @@ extension WatchlistItem: Transferable {
         }
         return false
     }
-    var isUpcomingMovie: Bool {
+    private var isUpcomingMovie: Bool {
         if itemMedia == .movie {
             if itemSchedule == .soon && notify { return true }
             if itemSchedule == .soon { return true }
         }
         return false
     }
-    var isUpcomingTvShow: Bool {
+    private var isUpcomingTvShow: Bool {
         if itemMedia == .tvShow {
             if itemSchedule == .soon && upcomingSeason && notify { return true }
             if itemSchedule == .soon && upcomingSeason { return true }
@@ -126,6 +128,7 @@ extension WatchlistItem: Transferable {
         return false
     }
     var isInProduction: Bool {
+        if isArchive { return false }
         if nextSeasonNumber == 1 && itemSchedule == .soon && !isWatched && !notify { return true }
         if itemSchedule == .soon && date == nil  { return true }
         if itemSchedule == .production && nextSeasonNumber == 1 { return true }
@@ -140,6 +143,7 @@ extension WatchlistItem: Transferable {
         return date
     }
     var canShowOnUpcoming: Bool {
+        if isArchive { return false }
         if itemMedia == .tvShow {
             if image != nil && isUpcomingTvShow { return true }
             return false

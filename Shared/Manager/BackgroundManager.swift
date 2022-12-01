@@ -55,8 +55,9 @@ class BackgroundManager {
     private func fetchReleasedItems() -> [WatchlistItem] {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let releasedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.released.toInt)
+        let archivePredicate = NSPredicate(format: "isArchive == %d", true)
         request.predicate = NSCompoundPredicate(type: .or,
-                                                subpredicates: [releasedPredicate])
+                                                subpredicates: [releasedPredicate, archivePredicate])
         let list = try? self.context.container.viewContext.fetch(request)
         return list ?? []
     }
@@ -67,7 +68,7 @@ class BackgroundManager {
             for item in items {
                 let content = try? await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
                 if let content {
-                    if content.itemCanNotify {
+                    if content.itemCanNotify && item.shouldNotify {
                         // If fetched item release date is different than the scheduled one,
                         // then remove the old date and register the new one.
                         if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {

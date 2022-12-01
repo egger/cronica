@@ -11,29 +11,25 @@ struct DiscoverView: View {
     static let tag: Screens? = .discover
     @State private var showConfirmation = false
     @State private var onChanging = false
-    @StateObject private var viewModel: DiscoverViewModel
-    private let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))
-    ]
-    init() {
-        _viewModel = StateObject(wrappedValue: DiscoverViewModel())
-    }
+    @StateObject private var viewModel = DiscoverViewModel()
+    let columns: [GridItem]
     var body: some View {
         ZStack {
-            if !viewModel.isLoaded {
-                ProgressView()
-                    .unredacted()
-            }
+            if !viewModel.isLoaded {  ProgressView().unredacted() }
             ScrollView {
                 VStack {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(viewModel.items) { item in
+                            #if os(macOS)
+                            ItemContentCardView(item: item, showConfirmation: $showConfirmation)
+                                .buttonStyle(.plain)
+                            #else
                             CardFrame(item: item, showConfirmation: $showConfirmation)
                                 .buttonStyle(.plain)
+                            #endif
                         }
-                        if !viewModel.startPagination || !viewModel.endPagination {
-                            HStack {
-                                Spacer()
+                        if viewModel.isLoaded && !viewModel.endPagination {
+                            CenterHorizontalView {
                                 ProgressView()
                                     .padding()
                                     .onAppear {
@@ -41,30 +37,27 @@ struct DiscoverView: View {
                                             viewModel.loadMoreItems()
                                         }
                                     }
-                                Spacer()
                             }
                         }
                     }
                     .padding()
-                    if viewModel.endPagination {
-                        HStack {
-                            Spacer()
-                            Text("This is the end.")
-                                .padding()
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                        }
-                    }
                     if !viewModel.items.isEmpty {
                         AttributionView()
                     }
                 }
                 .navigationDestination(for: ItemContent.self) { item in
-                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#if os(macOS)
+                ItemContentDetailsView(id: item.id, title: item.itemTitle,
+                                       type: item.itemContentMedia, handleToolbarOnPopup: true)
+#else
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#endif
                 }
                 .navigationDestination(for: Person.self) { person in
                     PersonDetailsView(title: person.name, id: person.id)
+                }
+                .navigationDestination(for: [ItemContent].self) { item in
+                    ItemContentCollectionDetails(title: "Recommendations", items: item)
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
@@ -75,6 +68,29 @@ struct DiscoverView: View {
         }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
         .toolbar {
+#if os(macOS)
+            ToolbarItem(placement: .automatic) {
+                Picker("Media", selection: $viewModel.selectedMedia) {
+                    Text(MediaType.movie.title).tag(MediaType.movie)
+                    Text(MediaType.tvShow.title).tag(MediaType.tvShow)
+                }
+                .pickerStyle(.menu)
+            }
+            ToolbarItem(placement: .automatic) {
+                Picker("Genre", selection: $viewModel.selectedGenre) {
+                    if viewModel.selectedMedia == .movie {
+                        ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
+                            Text(genre.name!).tag(genre.id)
+                        }
+                    } else {
+                        ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
+                            Text(genre.name!).tag(genre.id)
+                        }
+                    }
+                }
+                .pickerStyle(.menu)
+            }
+#else
             ToolbarItem(placement: .navigationBarLeading) {
                 Picker("Media", selection: $viewModel.selectedMedia) {
                     Text(MediaType.movie.title).tag(MediaType.movie)
@@ -96,6 +112,7 @@ struct DiscoverView: View {
                 }
                 .pickerStyle(.menu)
             }
+#endif
         }
         .onChange(of: viewModel.selectedMedia) { value in
             onChanging = true
@@ -111,7 +128,6 @@ struct DiscoverView: View {
             Task {
                 await load()
             }
-            
         }
         .onChange(of: viewModel.selectedGenre) { value in
             onChanging = true
@@ -134,6 +150,10 @@ struct DiscoverView: View {
 
 struct Previews_DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscoverView()
+        #if os(macOS)
+        DiscoverView(columns: [GridItem(.adaptive(minimum: 240 ))])
+        #else
+        DiscoverView(columns: [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))])
+        #endif
     }
 }

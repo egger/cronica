@@ -20,7 +20,7 @@ struct TabBarView: View {
             .tabItem { Label("Home", systemImage: "house") }
             
             NavigationStack {
-                DiscoverView()
+                DiscoverView(columns: DrawingConstants.columns)
             }
             .tag(DiscoverView.tag)
             .tabItem { Label("Explore", systemImage: "film") }
@@ -47,4 +47,8 @@ struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
         TabBarView()
     }
+}
+
+private struct DrawingConstants {
+    static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
 }

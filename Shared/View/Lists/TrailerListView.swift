@@ -19,13 +19,7 @@ struct TrailerListView: View {
 #if os(iOS)
                     Divider().padding(.horizontal)
 #endif
-                    HStack {
-                        Text("Trailers")
-                            .font(.title3)
-                            .padding([.horizontal, .top])
-                        Spacer()
-                    }
-                    .unredacted()
+                    TitleView(title: "Trailers", subtitle: "", image: "play.rectangle", showChevron: false)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(trailers) { trailer in

@@ -14,13 +14,15 @@ extension Person {
     var personImage: URL? {
         return NetworkService.urlBuilder(size: .medium, path: profilePath)
     }
+    var originalPersonImage: URL? {
+        return NetworkService.urlBuilder(size: .original, path: profilePath)
+    }
     var personBiography: String {
         if let biography {
             if biography.isEmpty {
                 return NSLocalizedString("No biography available.", comment: "")
-            } else {
-                return biography
             }
+            return biography
         }
         return NSLocalizedString("No biography available.", comment: "")
     }
@@ -35,6 +37,10 @@ extension Person {
     }
     var itemUrlProxy: String {
         return  "https://www.themoviedb.org/person/\(id)"
+    }
+    var personListID: String {
+        if let personRole { return "\(id)\(personRole)" }
+        return "\(id)"
     }
     static var example: [Person] {
         return ItemContent.previewContent.credits!.cast
