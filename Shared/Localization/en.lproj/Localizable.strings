@@ -198,6 +198,8 @@
 "The Discover will help you find your next favorite title." = "The Discover will help you find your next favorite title.";
 "Track your episodes" = "Track your episodes";
 "Keep track of every episode you've watched." = "Keep track of every episode you've watched.";
+"Always Synced" = "Always Synced";
+"Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.";
 
 //MARK: CastDetailsView.swift
 "Biography" = "Biography";

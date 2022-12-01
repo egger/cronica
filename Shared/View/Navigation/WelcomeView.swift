@@ -13,7 +13,6 @@ struct WelcomeView: View {
     @State private var showPolicy = false
     var body: some View {
         VStack(alignment: .leading) {
-            Spacer()
             CenterHorizontalView {
                 HStack {
                     Image("Cronica")
@@ -21,6 +20,7 @@ struct WelcomeView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100, alignment: .center)
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .shadow(radius: 2)
                         .padding(.leading)
                     VStack(alignment: .leading) {
                         Text("Cronica")
@@ -34,8 +34,10 @@ struct WelcomeView: View {
                 }
             }
             .padding([.top, .bottom])
-            Spacer()
-            InformationContainerView()
+            ScrollView {
+                InformationContainerView()
+            }
+            .padding(.horizontal)
             Spacer()
             CenterHorizontalView {
                 VStack {
@@ -88,20 +90,21 @@ struct WelcomeView_Previews: PreviewProvider {
 private struct InformationContainerView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            ScrollView {
-                InformationContainerItem(title: "Your Watchlist", subTitle: "Add everything you want, the Watchlist automatically organizes it for you.", imageName: "film.stack.fill", imageTint: .gray)
-                
-                InformationContainerItem(title: "Discover what's next", subTitle: "The Discover will help you find your next favorite title.", imageName: "square.grid.3x3.topleft.filled", imageTint: .teal)
-                
-                InformationContainerItem(title: "Never miss out", subTitle: "Get notifications about the newest releases.", imageName: "bell.fill", imageTint: .orange)
-                
-                InformationContainerItem(title: "Track your episodes",
-                                         subTitle: "Keep track of every episode you've watched.",
-                                         imageName: "rectangle.fill.badge.checkmark",
-                                         imageTint: .blue)
-            }
+            InformationContainerItem(title: "Your Watchlist", subTitle: "Add everything you want, the Watchlist automatically organizes it for you.", imageName: "film.stack.fill", imageTint: .gray)
+            
+            InformationContainerItem(title: "Discover what's next", subTitle: "The Discover will help you find your next favorite title.", imageName: "square.grid.3x3.topleft.filled", imageTint: .teal)
+            
+            InformationContainerItem(title: "Never miss out", subTitle: "Get notifications about the newest releases.", imageName: "bell.fill", imageTint: .orange)
+            
+            InformationContainerItem(title: "Track your episodes",
+                                     subTitle: "Keep track of every episode you've watched.",
+                                     imageName: "rectangle.fill.badge.checkmark",
+                                     imageTint: .blue)
+            
+            InformationContainerItem(title: "Always Synced",
+                                     subTitle: "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.",
+                                     imageName: "icloud")
         }
-        .padding(.horizontal)
     }
 }
 
@@ -114,10 +117,9 @@ private struct InformationContainerItem: View {
         HStack(alignment: .center) {
             Image(systemName: imageName)
                 .font(.largeTitle)
-                .padding(.leading)
+                .frame(width: 60)
                 .accessibility(hidden: true)
                 .foregroundColor(imageTint)
-                .shadow(radius: 2)
             
             VStack(alignment: .leading) {
                 Text(NSLocalizedString(title, comment: ""))
@@ -132,7 +134,6 @@ private struct InformationContainerItem: View {
             }
             .padding(.leading, 6)
             .padding([.top, .bottom], 8)
-            Spacer()
         }
         .padding(.top)
     }
