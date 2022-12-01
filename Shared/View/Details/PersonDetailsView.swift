@@ -32,13 +32,7 @@ struct PersonDetailsView: View {
                     ViewThatFits {
                         HStack {
                             imageProfile
-                                .frame(width: DrawingConstants.padImageWidth,
-                                       height: DrawingConstants.padImageHeight)
-                                .shadow(radius: DrawingConstants.imageShadow)
                                 .padding([.horizontal, .top])
-                                .onTapGesture {
-                                    showImageFullscreen = true
-                                }
                             
                             OverviewBoxView(overview: viewModel.person?.personBiography,
                                             title: name,
@@ -49,12 +43,7 @@ struct PersonDetailsView: View {
                         
                         VStack {
                             imageProfile
-                                .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-                                .shadow(radius: DrawingConstants.imageShadow)
                                 .padding(.horizontal)
-                                .onTapGesture {
-                                    showImageFullscreen = true
-                                }
                             
                             OverviewBoxView(overview: viewModel.person?.personBiography,
                                             title: name,
@@ -90,43 +79,6 @@ struct PersonDetailsView: View {
             .background {
                 TranslucentBackground(image: viewModel.person?.personImage)
             }
-            .sheet(isPresented: $showImageFullscreen) {
-                NavigationStack {
-                    ZStack {
-                        WebImage(url: viewModel.person?.originalPersonImage)
-                            .resizable()
-                            .placeholder { ProgressView() }
-                            .aspectRatio(contentMode: .fit)
-                            .contextMenu {
-                                #if os(iOS)
-                                Button {
-                                    guard let imageUrl = viewModel.person?.originalPersonImage else { return }
-                                    Task {
-                                        let data = await NetworkService.shared.downloadImageData(from: imageUrl)
-                                        guard let data else { return }
-                                        let image = UIImage(data: data)
-                                        guard let image else { return }
-                                        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                                        showSaveConfirmation.toggle()
-                                    }
-                                } label: {
-                                    Label("Save Image", systemImage: "square.and.arrow.down")
-                                }
-                                #endif
-
-                            }
-                        ConfirmationDialogView(showConfirmation: $showSaveConfirmation, message: "Image Saved.", image: "photo.fill")
-                    }
-                    .toolbar {
-                        ToolbarItem {
-                            Button("Done") { showImageFullscreen = false }
-                        }
-                    }
-                }
-#if os(macOS)
-                    .frame(width: 500, height: 700, alignment: .center)
-#endif
-            }
             .alert("Error",
                    isPresented: $viewModel.showErrorAlert,
                    actions: {
@@ -156,6 +108,22 @@ struct PersonDetailsView: View {
                     isLoading = false
                 }
             }
+        }
+    }
+    
+    private var downloadButton: some View {
+        Button {
+            guard let imageUrl = viewModel.person?.originalPersonImage else { return }
+            Task {
+                let data = await NetworkService.shared.downloadImageData(from: imageUrl)
+                guard let data else { return }
+                let image = UIImage(data: data)
+                guard let image else { return }
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                showSaveConfirmation.toggle()
+            }
+        } label: {
+            Label("Save Image", systemImage: "square.and.arrow.down")
         }
     }
     
@@ -197,8 +165,11 @@ struct PersonDetailsView: View {
             }
         }
         .clipShape(Circle())
-        .padding([.top, .bottom])
+        .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+        .shadow(radius: DrawingConstants.imageShadow)
         .accessibilityHidden(true)
+        .buttonStyle(.plain)
+        .padding([.top, .bottom])
     }
 }
 
@@ -210,9 +181,12 @@ struct CastDetailsView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
+#if os(macOS)
+    static let imageWidth: CGFloat = 250
+    static let imageHeight: CGFloat = 250
+#else
+    static let imageWidth: CGFloat = UIDevice.isIPad ? 250 : 150
+    static let imageHeight: CGFloat = UIDevice.isIPad ? 250 : 150
+#endif
     static let imageShadow: CGFloat = 6
-    static let imageWidth: CGFloat = 150
-    static let imageHeight: CGFloat = 150
-    static let padImageWidth: CGFloat = 250
-    static let padImageHeight: CGFloat = 250
 }

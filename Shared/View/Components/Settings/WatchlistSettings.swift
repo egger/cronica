@@ -30,13 +30,13 @@ struct WatchlistSettings: View {
                 Text("'Update Items' will update your items with new information available on TMDb, if available.")
                     .padding(.bottom)
             }
-            #if os(iOS)
+#if os(iOS)
             Toggle("Show Genre on Watchlist", isOn: $showGenre)
-            #endif
+#endif
         }
-        #if os(macOS)
+#if os(macOS)
         .formStyle(.grouped)
-        #endif
+#endif
         .navigationTitle("Watchlist")
     }
     

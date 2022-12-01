@@ -102,8 +102,8 @@ struct StoryApp: App {
         let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
         request.requiresNetworkConnectivity = true
         request.requiresExternalPower = true
-        let oneWeek = TimeInterval(7 * 24 * 60 * 60)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: oneWeek)
+        let fourDays = TimeInterval(4 * 24 * 60 * 60)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: fourDays)
         do {
             try BGTaskScheduler.shared.submit(request)
 #if DEBUG

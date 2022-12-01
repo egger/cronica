@@ -97,6 +97,19 @@ struct SettingsView: View {
                 } footer: {
                     Text("Experimental Features are meant for users that want to test out features that still in development.")
                 }
+                
+                // MARK: Developer Section
+                if displayDeveloperSettings {
+                    Section {
+                        NavigationLink(destination: DeveloperView(),
+                                       label: {
+                            Text("Developer")
+                        })
+                        
+                    } header: {
+                        Label("Developer Tools", systemImage: "hammer")
+                    }
+                }
 
                 Section {
                     ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
@@ -122,19 +135,6 @@ struct SettingsView: View {
                     }
                 } header: {
                     Label("About", systemImage: "info.circle")
-                }
-                
-                // MARK: Developer Section
-                if displayDeveloperSettings {
-                    Section {
-                        NavigationLink(destination: DeveloperView(),
-                                       label: {
-                            Text("Developer")
-                        })
-                        
-                    } header: {
-                        Label("Developer Tools", systemImage: "hammer")
-                    }
                 }
             }
             .navigationTitle("Settings")

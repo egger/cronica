@@ -169,6 +169,7 @@
 "privacyFooterTV" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy at https://alexandremadeira.dev/cronica/privacy.";
 "Open Trailers in YouTube App" = "Open Trailers in YouTube App";
 "Media" = "Media";
+"Show Genre on Watchlist" = "Show Genre on Watchlist";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";
