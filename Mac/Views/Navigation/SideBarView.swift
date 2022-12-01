@@ -68,7 +68,7 @@ struct SideBarView: View {
                                 .environment(\.managedObjectContext, persistence.container.viewContext)
                         }
                     case .discover:
-                        DiscoverView(columns: DrawingConstants.columns)
+                        DiscoverView()
                     case .watchlist:
                         WatchlistView()
                             .environment(\.managedObjectContext, persistence.container.viewContext)

@@ -111,6 +111,7 @@ struct PersonDetailsView: View {
         }
     }
     
+    #if os(iOS)
     private var downloadButton: some View {
         Button {
             guard let imageUrl = viewModel.person?.originalPersonImage else { return }
@@ -126,6 +127,7 @@ struct PersonDetailsView: View {
             Label("Save Image", systemImage: "square.and.arrow.down")
         }
     }
+    #endif
     
     @ViewBuilder
     private var search: some View {

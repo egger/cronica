@@ -35,6 +35,7 @@
 		B8114C8B2938140600930AF4 /* WatchEpisodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECD28AA8A92003025BC /* WatchEpisodeButton.swift */; };
 		B8114C8C2938164400930AF4 /* WatchlistItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */; };
 		B8114C8D29381A3F00930AF4 /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
+		B8114C9029385F1900930AF4 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8114C8E29385F1500930AF4 /* DiscoverView.swift */; };
 		B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812529728A407120062B0C9 /* DefaultListTypes.swift */; };
 		B813917F289F4F8D003BEB2E /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
 		B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
@@ -365,7 +366,6 @@
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE5E29379A3B005D1A50 /* CardFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5D29379A3B005D1A50 /* CardFrame.swift */; };
 		B8F6DE5F29379A78005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
-		B8F6DE6029379B26005D1A50 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8779374281E2CE700174F32 /* DiscoverView.swift */; };
 		B8F6DE6229379F58005D1A50 /* ItemContentCollectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */; };
 		B8F6DE652937A144005D1A50 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
@@ -448,6 +448,7 @@
 		B8110F162792764B00844FEB /* Story (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Story (iOS).entitlements"; sourceTree = "<group>"; };
 		B8110F3B279364C800844FEB /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B8114C8629380A5400930AF4 /* WatchlistSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSettings.swift; sourceTree = "<group>"; };
+		B8114C8E29385F1500930AF4 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		B812529728A407120062B0C9 /* DefaultListTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListTypes.swift; sourceTree = "<group>"; };
 		B815A15B27BEB7F20062F727 /* ItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContent.swift; sourceTree = "<group>"; };
 		B82B759428A84C8C00C3212A /* CompanionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionTextView.swift; sourceTree = "<group>"; };
@@ -1197,6 +1198,7 @@
 				B86E7A2B290AEEFE00459E41 /* SearchView.swift */,
 				B8DD568F290C92A5002CAAFD /* SettingsView.swift */,
 				B86E7A1B290A91E200459E41 /* WatchlistView.swift */,
+				B8114C8E29385F1500930AF4 /* DiscoverView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1860,7 +1862,6 @@
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
-				B8F6DE6029379B26005D1A50 /* DiscoverView.swift in Sources */,
 				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
 				B8BF62FA291307CE0051915C /* OverviewBoxView.swift in Sources */,
 				B8BF62F22912F6E90051915C /* WatchlistButtonView.swift in Sources */,
@@ -1922,6 +1923,7 @@
 				B8BF62BD2912DA230051915C /* DiscoverViewModel.swift in Sources */,
 				B8BF630329132FCD0051915C /* BackgroundManager.swift in Sources */,
 				B8733A7D29293C5000CBEF2B /* FeaturesPreviewSettings.swift in Sources */,
+				B8114C9029385F1900930AF4 /* DiscoverView.swift in Sources */,
 				B8BF62FC291308320051915C /* WatchlistSearchScope.swift in Sources */,
 				B8BF632D29142E2F0051915C /* DeveloperView.swift in Sources */,
 				B8BF62CF2912DDBC0051915C /* SettingsView.swift in Sources */,
@@ -2367,7 +2369,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 106;
+				CURRENT_PROJECT_VERSION = 122;
 				DEVELOPMENT_ASSET_PATHS = "\"Mac/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2382,7 +2384,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.8.3;
+				MARKETING_VERSION = 1.8.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = macosx;
@@ -2402,7 +2404,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 106;
+				CURRENT_PROJECT_VERSION = 122;
 				DEVELOPMENT_ASSET_PATHS = "\"Mac/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2417,7 +2419,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.8.3;
+				MARKETING_VERSION = 1.8.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = macosx;
