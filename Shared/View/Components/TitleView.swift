@@ -18,11 +18,11 @@ struct TitleView: View {
                 HStack {
                     Text(NSLocalizedString(title, comment: ""))
                         .padding([.top, .leading])
-                    #if os(tvOS)
+#if os(tvOS)
                         .font(.callout)
-                    #else
+#else
                         .font(.title3)
-                    #endif
+#endif
                     if showChevron {
                         Image(systemName: "chevron.right")
                             .font(.title3)

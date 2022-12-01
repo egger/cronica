@@ -26,6 +26,13 @@ struct SettingsView: View {
                 .tabItem {
                     Label("Experimental", systemImage: "wand.and.stars")
                 }
+            
+#if DEBUG
+            DeveloperView()
+                .tabItem {
+                    Label("Developer Tools", systemImage: "hammer")
+                }
+#endif
         }
         .frame(width: 450, height: 350)
     }

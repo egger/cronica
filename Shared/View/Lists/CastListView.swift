@@ -14,12 +14,12 @@ struct CastListView: View {
     var body: some View {
         if !credits.isEmpty {
             VStack(alignment: .leading) {
-                TitleView(title: "Cast & Crew", subtitle: "", image: "person.3", showChevron: false)
+                TitleView(title: "Cast & Crew", subtitle: "", image: "person.3")
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(credits, id: \.personListID) { person in
                             PersonCardView(person: person)
-                                .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
+                                .padding(.leading, person.id == self.credits.first!.id ? DrawingConstants.padding : 0)
                                 .buttonStyle(.plain)
                                 .applyHoverEffect()
                         }
@@ -44,4 +44,5 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 2
     static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
+    static let padding: CGFloat = 16
 }
