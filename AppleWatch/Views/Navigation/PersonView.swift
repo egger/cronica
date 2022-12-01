@@ -21,7 +21,7 @@ struct PersonView: View {
     var body: some View {
         VStack {
             ScrollView {
-                PersonImageView(url: viewModel.person?.personImage, name: name)
+                imageProfile
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .padding()
@@ -43,6 +43,25 @@ struct PersonView: View {
         }
     }
     
+    private var imageProfile: some View {
+        AsyncImage(url: viewModel.person?.personImage) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else if phase.error != nil {
+                Rectangle().redacted(reason: .placeholder)
+            } else {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    ProgressView()
+                }
+            }
+        }
+        .clipShape(Circle())
+        .padding([.top, .bottom])
+        .accessibilityHidden(true)
+    }
 }
 
 struct PersonView_Previews: PreviewProvider {

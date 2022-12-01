@@ -99,11 +99,11 @@ private struct InformationContainerView: View {
             InformationContainerItem(title: "Track your episodes",
                                      subTitle: "Keep track of every episode you've watched.",
                                      imageName: "rectangle.fill.badge.checkmark",
-                                     imageTint: .blue)
+                                     imageTint: .green)
             
             InformationContainerItem(title: "Always Synced",
                                      subTitle: "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.",
-                                     imageName: "icloud")
+                                     imageName: "icloud.fill")
         }
     }
 }

@@ -33,10 +33,10 @@ struct CoverImageView: View {
                             .scaleEffect(animateGesture ? 1.1 : 1)
                     } else {
                         Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
-                            .symbolRenderingMode(.monochrome)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
+                            .foregroundColor(isWatched ? Color.red : Color.green)
                             .scaleEffect(animateGesture ? 1.1 : 1)
                     }
                 }

@@ -31,6 +31,7 @@ struct WatchlistItemContextMenu: ViewModifier {
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 deleteButton
+                archiveButton
             }
 #elseif os(tvOS)
         return content
@@ -39,8 +40,8 @@ struct WatchlistItemContextMenu: ViewModifier {
                 favoriteButton
                 pinButton
                 archiveButton
-                Divider()
                 deleteButton
+                Button("Cancel") { }
             }
 #else
         return content
@@ -58,11 +59,11 @@ struct WatchlistItemContextMenu: ViewModifier {
                 deleteButton
             }
             .contextMenu {
+                ShareLink(item: item.itemLink)
                 watchedButton
                 favoriteButton
                 pinButton
                 archiveButton
-                ShareLink(item: item.itemLink)
                 Divider()
                 deleteButton
             } preview: {
@@ -80,9 +81,10 @@ struct WatchlistItemContextMenu: ViewModifier {
                 .resizable()
                 .placeholder {
                     ZStack {
-                        Rectangle().fill(.regularMaterial)
-                        Label(item.itemTitle, systemImage: "film")
-                            .foregroundColor(.secondary)
+                        Rectangle().fill(.gray.gradient)
+                        Image(systemName: item.isMovie ? "film" : "tv")
+                            .font(.largeTitle)
+                            .foregroundColor(.white.opacity(0.8))
                             .padding()
                     }
                     .frame(width: 260, height: 180)

@@ -191,11 +191,7 @@ struct PersonDetailsView: View {
                 Rectangle().redacted(reason: .placeholder)
             } else {
                 ZStack {
-#if os(watchOS)
-                    Rectangle().fill(.secondary)
-#else
-                    Rectangle().fill(.thickMaterial)
-#endif
+                    Rectangle().fill(.gray.gradient)
                     ProgressView()
                 }
             }

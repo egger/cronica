@@ -14,7 +14,6 @@ struct SeasonListView: View {
     var tvId: Int
     var lastSelectedSeason: Int?
     @State private var selectedSeason: Int = 1
-    @State private var selectedEpisode: Episode? = nil
     @State private var hasFirstLoaded = false
     @StateObject private var viewModel: SeasonViewModel
     @AppStorage("markEpisodeWatchedTap") var episodeTap = false
