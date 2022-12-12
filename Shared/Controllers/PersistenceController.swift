@@ -336,10 +336,22 @@ struct PersistenceController {
                 if let item {
                     if item.itemMedia != type {
                         return false
+                    } else {
+                        return true
                     }
                 }
-                return true
             }
+        }
+        return false
+    }
+    
+    func isItemSaved(id: String) -> Bool {
+        let viewContext = container.viewContext
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        request.predicate = NSPredicate(format: "contentID == %d", id)
+        let numberOfObjects = try? viewContext.count(for: request)
+        if let numberOfObjects {
+            if numberOfObjects > 0 { return true }
         }
         return false
     }
