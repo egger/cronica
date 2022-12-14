@@ -17,7 +17,6 @@ struct ItemContentListView: View {
     @Binding var addedItemConfirmation: Bool
     var displayAsCard = false
     var endpoint: Endpoints?
-    var showChevron = false
     var body: some View {
         if let items {
             if !items.isEmpty {
@@ -27,18 +26,14 @@ struct ItemContentListView: View {
                 VStack {
                     if let endpoint {
                         NavigationLink(value: endpoint) {
-                            TitleView(title: title, subtitle: subtitle, image: image, showChevron: showChevron)
+                            TitleView(title: title, subtitle: subtitle, image: image, showChevron: true)
                         }
                         .buttonStyle(.plain)
                     } else {
-                        if showChevron {
-                            NavigationLink(value: items) {
-                                TitleView(title: title, subtitle: subtitle, image: image, showChevron: true)
-                            }
-                            .buttonStyle(.plain)
-                        } else {
-                            TitleView(title: title, subtitle: subtitle, image: image)
+                        NavigationLink(value: [title: items]) {
+                            TitleView(title: title, subtitle: subtitle, image: image, showChevron: true)
                         }
+                        .buttonStyle(.plain)
                     }
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         LazyHStack {

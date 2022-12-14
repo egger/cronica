@@ -25,17 +25,6 @@ struct SearchView: View {
                             .draggable(item)
                     }
                     loadableProgressRing
-//                    if viewModel.startPagination && !viewModel.endPagination {
-//                        CenterHorizontalView {
-//                            ProgressView()
-//                                .padding()
-//                                .onAppear {
-//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                                        viewModel.loadMoreItems()
-//                                    }
-//                                }
-//                        }
-//                    }
                 case .movies:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
                         SearchItemView(item: item, showConfirmation: $showConfirmation)
@@ -68,8 +57,10 @@ struct SearchView: View {
                     ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
                 }
             }
-            .navigationDestination(for: [ItemContent].self) { item in
-                ItemContentCollectionDetails(title: "Recommendations", items: item)
+            .navigationDestination(for: [String:[ItemContent]].self) { item in
+                let keys = item.map { (key, value) in key }
+                let value = item.map { (key, value) in value }
+                ItemContentCollectionDetails(title: keys[0], items: value[0])
             }
             .searchable(text: $viewModel.query,
                         placement: .navigationBarDrawer(displayMode: .always),

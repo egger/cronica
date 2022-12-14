@@ -58,7 +58,7 @@ struct ItemContentDetails: View {
                                         subtitle: "You may like",
                                         image: "list.and.film",
                                         addedItemConfirmation: $showConfirmation,
-                                        displayAsCard: true, showChevron: true)
+                                        displayAsCard: true)
                     
                     InformationSectionView(item: viewModel.content)
                         .padding()

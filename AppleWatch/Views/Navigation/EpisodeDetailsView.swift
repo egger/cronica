@@ -51,16 +51,16 @@ struct EpisodeDetailsView: View {
     }
     
     private var watchButton: some View {
-        Button(action: {
+        Button {
             withAnimation {
                 isWatched.toggle()
             }
             persistence.updateEpisodeList(show: self.show, season: self.season, episode: self.episode.id)
-        }, label: {
+        } label: {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-        })
-        .buttonStyle(.bordered)
+                  systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
+        }
+        .buttonStyle(.borderedProminent)
         .tint(isWatched ? .orange : .green)
     }
 }

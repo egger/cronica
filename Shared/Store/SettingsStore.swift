@@ -13,7 +13,13 @@ class SettingsStore: ObservableObject {
             UserDefaults.standard.set(gesture.rawValue, forKey: "gesture")
         }
     }
+    @Published var rowType: WatchlistSubtitleRow {
+        didSet {
+            UserDefaults.standard.set(rowType.rawValue, forKey: "rowType")
+        }
+    }
     init() {
         self.gesture = (UserDefaults.standard.object(forKey: "gesture") == nil ? .favorite : DoubleTapGesture(rawValue: UserDefaults.standard.object(forKey: "gesture") as? Int ?? DoubleTapGesture.favorite.rawValue)) ?? .favorite
+        self.rowType = (UserDefaults.standard.object(forKey: "rowType") == nil ? WatchlistSubtitleRow.none : WatchlistSubtitleRow(rawValue: UserDefaults.standard.object(forKey: "rowType") as? Int ?? WatchlistSubtitleRow.none.rawValue)) ?? .none
     }
 }

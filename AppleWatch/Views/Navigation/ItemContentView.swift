@@ -35,14 +35,15 @@ struct ItemContentView: View {
                     .environmentObject(viewModel)
                     .padding()
                 
+                SeasonButton(numberOfSeasons: viewModel.content?.itemSeasons, id: id, isInWatchlist: $viewModel.isInWatchlist)
+                    .padding([.horizontal, .bottom])
+                
                 watchButton
                     .padding([.horizontal, .bottom])
                 
                 ShareLink(item: url)
                     .padding([.horizontal, .bottom])
                 
-                SeasonButton(numberOfSeasons: viewModel.content?.itemSeasons, id: id, isInWatchlist: $viewModel.isInWatchlist)
-                    .padding([.horizontal, .bottom])
                 
                 AboutSectionView(about: viewModel.content?.itemOverview)
                 

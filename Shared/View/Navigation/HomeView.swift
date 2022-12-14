@@ -34,16 +34,14 @@ struct HomeView: View {
                                         title: "Trending",
                                         subtitle: "Today",
                                         image: "crown",
-                                        addedItemConfirmation: $showConfirmation,
-                                        showChevron: false)
+                                        addedItemConfirmation: $showConfirmation)
                     ForEach(viewModel.sections) { section in
                         ItemContentListView(items: section.results,
                                             title: section.title,
                                             subtitle: section.subtitle,
                                             image: section.image,
                                             addedItemConfirmation: $showConfirmation,
-                                            endpoint: section.endpoint,
-                                            showChevron: true)
+                                            endpoint: section.endpoint)
                     }
                     AttributionView()
                 }
@@ -70,9 +68,6 @@ struct HomeView: View {
                                    type: item.itemMedia)
 #endif
             }
-            .navigationDestination(for: [ItemContent].self) { item in
-                ItemContentCollectionDetails(title: "Recommendations", items: item)
-            }
             .navigationDestination(for: [WatchlistItem].self) { item in
                 TitleWatchlistDetails(items: item)
             }
@@ -81,6 +76,16 @@ struct HomeView: View {
                                  endpoint: endpoint,
                                  columns: DrawingConstants.columns)
             }
+            .navigationDestination(for: [String:[WatchlistItem]].self) { item in
+                let keys = item.map { (key, value) in key }
+                let value = item.map { (key, value) in value }
+                TitleWatchlistDetails(title: keys[0], items: value[0])
+            }
+            .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+                let keys = item.map { (key, value) in key }
+                let value = item.map { (key, value) in value }
+                ItemContentCollectionDetails(title: keys[0], items: value[0])
+            })
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
             .navigationTitle("Home")
             .toolbar {
@@ -146,12 +151,15 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 struct TitleWatchlistDetails: View {
+    var title = "Upcoming"
     let items: [WatchlistItem]
+    @State private var query = ""
     var body: some View {
         List(items) { item in
             WatchlistItemView(content: item)
         }
-        .navigationTitle(LocalizedStringKey("Upcoming"))
+        .navigationTitle(LocalizedStringKey(title))
+        .searchable(text: $query)
     }
 }
 

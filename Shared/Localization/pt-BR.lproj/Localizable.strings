@@ -286,19 +286,52 @@
 "Loading" = "Carregando";
 "%lld upcoming notifications." = "%lld notificações futuras.";
 
-// MARK: GesturesSettingsView
-"Gestures" = "Gestos";
-"Cover Image Gesture" = "Gesto de Imagem de Capa";
-"Tap To Mark as Watched" = "Toque para marcar como Assistido";
-"Episode Gesture" = "Gesto do Episódio";
-"This will mark an episode as watched on tap gesture." = "Isso marcará um episódio como visto no gesto de toque.";
-"Show Pin On Swipe" = "Mostrar Fixar No Deslize";
-"Watchlist Gesture" = "Gesto da Lista";
 
-// MARK: FeaturePreviewSettings
-"Experimental Features" = "Recursos Experimentais";
-"Experimental Features are meant for users that want to test out features that still in development." = "Os Recursos Experimentais são destinados a usuários que desejam testar recursos que ainda estão em desenvolvimento.";
-"Translucent Background" = "Fundo Translúcido";
-"Appearance" = "Visual";
-"Pin on Search" = "Fixar na Pesquisa";
-"Shows Pin feature on right swipe." = "Mostra o recurso Fixar no deslize para a direita.";
+
+// MARK: AppearanceSetting
+"appearanceRowTypeTitle" = "Informações do item da Lista";
+"appearanceRowTypeSubtitle" = "Escolha que tipo de informação você deseja exibir.";
+"appearanceWatchlist" = "Lista";
+"appearanceBackgroundTitle" = "Fundo Translúcido";
+"appearanceBackgroundSubtitle" = "Fundo parcialmente transparente que permite que alguma luz passe por ele.";
+"appearanceSendFeedback" = "Enviar Feedback";
+"appearanceExperimentalHeader" = "Visuais Experimentais";
+"appearanceExperimentalFooter" = "Você está testando alguns recursos experimentais, por favor, reserve um momento para enviar um feedback sobre isso. Isso ajudará a tornar a Cronica melhor para você e para os outros.";
+"appearanceTitle" = "Aparência";
+
+// MARK: BehaviorSetting
+"behaviorDoubleTapTitle" = "Toque Duplo Na Capa";
+"behaviorDoubleTapSubtitle" = "Escolha qual função executar ao tocar duas vezes na imagem da capa.";
+"behaviorGestureTitle" = "Gestos";
+"behaviorYouTubeTitle" = "Abra Trailers no YouTube";
+"behaviorYouTubeSubtitle" = "Abra trailers no aplicativo do YouTube.";
+"behaviorLinkTitle" = "Links";
+"behaviorTitle" = "Comportamento";
+"behaviorEpisodeTitle" = "Toque para marcar o episódio como exibido";
+
+// MARK: WatchlistSubtitleRow
+"watchlistSubtitleRowNone" = "Padrão";
+"watchlistSubtitleRowGenre" = "Gênero";
+"watchlistSubtitleRowDate" = "Data de Lançamento";
+
+// MARK: DoubleTapGesture
+"Watched" = "Assistido";
+"Favorite" = "Favorito";
+
+// MARK: CronicaSettings
+"settingsBehaviorTitle" = "Comportamento";
+"settingsAppearanceTitle" = "Aparência";
+"settingsGeneralTitle" = "Geral";
+"settingsSyncTitle" = "Sincronização";
+"settingsReviewCronica" = "Escreva uma Review";
+"settingsPrivacyPolicy" = "Política de privacidade";
+"settingsDisableTelemetryTitle" = "Desativar Relatórios de Falhas";
+"settingsDisableTelemetrySubtitle" = "Veja mais detalhes na Política de Privacidade.";
+"settingsFeedbackTitle" = "Enviar Feedback";
+"settingsPrivacySupportTitle" = "Privacidade e Suporte";
+
+// MARK: SyncSetting
+"syncSettingsUpdateWatchlistTitle" = "Atualizar Itens";
+"syncSettingsUpdateWatchlistSubtitle" = "Atualize itens com novas informações, se disponíveis no TMDb.";
+"syncSettingsWatchlistTitle" = "Lista";
+"syncSettingsTitle" = "Sincronização";

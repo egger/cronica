@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B80318A62925664F00714B3E /* GesturesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A52925664F00714B3E /* GesturesSettingsView.swift */; };
 		B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
 		B80318A92925DA4300714B3E /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
 		B80318AD2926757100714B3E /* WatchlistPoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318AC2926757100714B3E /* WatchlistPoster.swift */; };
@@ -24,6 +23,14 @@
 		B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4F0289B139000A5330E /* UTType-Extensions.swift */; };
 		B80982BD292AA6B00020716F /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B4DA9284537EF008BA43C /* SearchItemView.swift */; };
+		B80BBE582949665A00958876 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
+		B80BBE592949669500958876 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
+		B80BBE5B294966FC00958876 /* InformationalToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalToggle.swift */; };
+		B80BBE5C294966FE00958876 /* InformationalToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalToggle.swift */; };
+		B80BBE5E2949677300958876 /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
+		B80BBE5F2949677500958876 /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
+		B80BBE6129496A7D00958876 /* PrivacySupportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */; };
+		B80BBE6229496AC900958876 /* PrivacySupportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */; };
 		B8110EE8279245D100844FEB /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
 		B8110EEA279245D100844FEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED9279245D000844FEB /* ContentView.swift */; };
 		B8110EEC279245D100844FEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8110EDA279245D100844FEB /* Assets.xcassets */; };
@@ -158,9 +165,6 @@
 		B8733A7829293ABB00CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B8733A7929293B7900CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B8733A7A29293B7D00CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
-		B8733A7C29293C4800CBEF2B /* FeaturesPreviewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */; };
-		B8733A7D29293C5000CBEF2B /* FeaturesPreviewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */; };
-		B8733A7E29294AEA00CBEF2B /* FeaturesPreviewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */; };
 		B8733A7F29294B5900CBEF2B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2E2793B61B0012259B /* CardView.swift */; };
 		B8733A8029294C1200CBEF2B /* UpcomingWatchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */; };
 		B8733A8129294C2000CBEF2B /* UpcomingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85344C028FA07B60013E9C7 /* UpcomingListView.swift */; };
@@ -427,7 +431,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B80318A52925664F00714B3E /* GesturesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesSettingsView.swift; sourceTree = "<group>"; };
 		B80318A729256AE700714B3E /* FeedbackSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSettingsView.swift; sourceTree = "<group>"; };
 		B80318AA2925DAD700714B3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B80318AC2926757100714B3E /* WatchlistPoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPoster.swift; sourceTree = "<group>"; };
@@ -441,6 +444,10 @@
 		B806C4F0289B139000A5330E /* UTType-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UTType-Extensions.swift"; sourceTree = "<group>"; };
 		B80982BC292AA6B00020716F /* PersonSearchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSearchImage.swift; sourceTree = "<group>"; };
 		B80B4DA9284537EF008BA43C /* SearchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemView.swift; sourceTree = "<group>"; };
+		B80BBE572949665A00958876 /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
+		B80BBE5A294966FC00958876 /* InformationalToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationalToggle.swift; sourceTree = "<group>"; };
+		B80BBE5D2949677300958876 /* SyncSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSetting.swift; sourceTree = "<group>"; };
+		B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySupportSetting.swift; sourceTree = "<group>"; };
 		B8110ED8279245D000844FEB /* StoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryApp.swift; sourceTree = "<group>"; };
 		B8110ED9279245D000844FEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B8110EDA279245D100844FEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -501,7 +508,6 @@
 		B86E7A2B290AEEFE00459E41 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B86E7A2E290AF41500459E41 /* SearchItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemContentView.swift; sourceTree = "<group>"; };
 		B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentBackground.swift; sourceTree = "<group>"; };
-		B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesPreviewSettings.swift; sourceTree = "<group>"; };
 		B876DE4F281B1B81005558DD /* MediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
 		B876DE51281B1BA5005558DD /* ItemSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSchedule.swift; sourceTree = "<group>"; };
 		B876DE53281B1BC0005558DD /* ImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSize.swift; sourceTree = "<group>"; };
@@ -670,9 +676,7 @@
 		B80318A42925663F00714B3E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				B8733A7B29293C4800CBEF2B /* FeaturesPreviewSettings.swift */,
 				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
-				B80318A52925664F00714B3E /* GesturesSettingsView.swift */,
 				B8114C8629380A5400930AF4 /* WatchlistSettings.swift */,
 			);
 			path = Settings;
@@ -1116,6 +1120,10 @@
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
 				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,
+				B80BBE572949665A00958876 /* AppearanceSetting.swift */,
+				B80BBE5A294966FC00958876 /* InformationalToggle.swift */,
+				B80BBE5D2949677300958876 /* SyncSetting.swift */,
+				B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1656,7 +1664,6 @@
 				B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */,
 				B8EC45E427D5A010009389FC /* ItemContent-Extensions.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
-				B80318A62925664F00714B3E /* GesturesSettingsView.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */,
 				B8BF633529146A2A0051915C /* PinItemsList.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ItemContentDetails.swift in Sources */,
@@ -1664,6 +1671,7 @@
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
 				B8779375281E2CE700174F32 /* DiscoverView.swift in Sources */,
 				B83F1E9928BAD24C008E151D /* SideBarView.swift in Sources */,
+				B80BBE582949665A00958876 /* AppearanceSetting.swift in Sources */,
 				B84043CC289B294600D5CEBF /* SearchItem.swift in Sources */,
 				B8779377281E319D00174F32 /* TabBarView.swift in Sources */,
 				B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */,
@@ -1686,6 +1694,7 @@
 				B845149328E0C96A00963399 /* NotificationListView.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */,
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,
+				B80BBE5E2949677300958876 /* SyncSetting.swift in Sources */,
 				B82C267A2795E33900259D98 /* Poster.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */,
 				B8C781F0287F4A7500B4C2C2 /* PersonCardView.swift in Sources */,
@@ -1719,6 +1728,7 @@
 				B8733A7829293ABB00CBEF2B /* TranslucentBackground.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
+				B80BBE5B294966FC00958876 /* InformationalToggle.swift in Sources */,
 				B8423E2F2793B61B0012259B /* CardView.swift in Sources */,
 				B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */,
 				B8B94CEF28EB8B8200EDEC85 /* CronicaTelemetry.swift in Sources */,
@@ -1730,11 +1740,11 @@
 				B8DD56A1290DE2FD002CAAFD /* CenterHorizontalView.swift in Sources */,
 				B804E395284EDC2B00F59855 /* ItemContentListView.swift in Sources */,
 				B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */,
+				B80BBE6129496A7D00958876 /* PrivacySupportSetting.swift in Sources */,
 				B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
 				B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B85344C128FA07B60013E9C7 /* UpcomingListView.swift in Sources */,
-				B8733A7C29293C4800CBEF2B /* FeaturesPreviewSettings.swift in Sources */,
 				B876DE5C281B2B04005558DD /* Screens.swift in Sources */,
 				B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */,
 				B886D232284D512F00FFE96A /* ConfirmationDialogView.swift in Sources */,
@@ -1762,7 +1772,6 @@
 				B80318AF2927DE4100714B3E /* ConfirmationDialogView.swift in Sources */,
 				B8DD5681290C77B0002CAAFD /* ItemContentOverview.swift in Sources */,
 				B86E7A10290A90D100459E41 /* AttributionView.swift in Sources */,
-				B8733A7E29294AEA00CBEF2B /* FeaturesPreviewSettings.swift in Sources */,
 				B8DD5676290C3839002CAAFD /* ItemContentCardView.swift in Sources */,
 				B8114C8C2938164400930AF4 /* WatchlistItemContextMenu.swift in Sources */,
 				B8A8103F2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
@@ -1844,6 +1853,7 @@
 				B8BF62D62912E3790051915C /* ItemContentContextMenu.swift in Sources */,
 				B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */,
 				B8BF632E29142E380051915C /* WelcomeView.swift in Sources */,
+				B80BBE6229496AC900958876 /* PrivacySupportSetting.swift in Sources */,
 				B8BF633B29146AEB0051915C /* UpcomingWatchlist.swift in Sources */,
 				B8BF62DB2912E6360051915C /* ItemContentDetails.swift in Sources */,
 				B8BF62C52912DA230051915C /* PersonDetailsViewModel.swift in Sources */,
@@ -1860,6 +1870,7 @@
 				B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */,
 				B80318AD2926757100714B3E /* WatchlistPoster.swift in Sources */,
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
+				B80BBE5F2949677500958876 /* SyncSetting.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
 				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
@@ -1870,6 +1881,7 @@
 				B8BF62DD2912EA940051915C /* CardView.swift in Sources */,
 				B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */,
 				B8BF62F82913079B0051915C /* SearchItem.swift in Sources */,
+				B80BBE5C294966FE00958876 /* InformationalToggle.swift in Sources */,
 				B8BF62A82912DA230051915C /* Episode-Extension.swift in Sources */,
 				B8BF62C02912DA230051915C /* Endpoints.swift in Sources */,
 				B8BF62BB2912DA230051915C /* ItemSchedule.swift in Sources */,
@@ -1887,6 +1899,7 @@
 				B8F6DE6229379F58005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
 				B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */,
 				B8BF62EB2912F2730051915C /* WatchlistView.swift in Sources */,
+				B80BBE592949669500958876 /* AppearanceSetting.swift in Sources */,
 				B8BF62EE2912F3130051915C /* WatchEpisodeButton.swift in Sources */,
 				B8BF62A72912D9FC0051915C /* Watchlist.xcdatamodeld in Sources */,
 				B8BF62B82912DA230051915C /* Person-Extensions.swift in Sources */,
@@ -1922,7 +1935,6 @@
 				B8BF62B72912DA230051915C /* PersistenceController.swift in Sources */,
 				B8BF62BD2912DA230051915C /* DiscoverViewModel.swift in Sources */,
 				B8BF630329132FCD0051915C /* BackgroundManager.swift in Sources */,
-				B8733A7D29293C5000CBEF2B /* FeaturesPreviewSettings.swift in Sources */,
 				B8114C9029385F1900930AF4 /* DiscoverView.swift in Sources */,
 				B8BF62FC291308320051915C /* WatchlistSearchScope.swift in Sources */,
 				B8BF632D29142E2F0051915C /* DeveloperView.swift in Sources */,

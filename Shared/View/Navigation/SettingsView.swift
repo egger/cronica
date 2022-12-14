@@ -7,111 +7,46 @@
 
 import SwiftUI
 import StoreKit
-import TelemetryClient 
 
 struct SettingsView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.requestReview) var requestReview
     @EnvironmentObject var store: SettingsStore
     @State private var showPolicy = false
-    @State private var showFeedbackAlert = false
-    @State private var feedback: String = ""
-    @State private var feedbackSent = false
     @Binding var showSettings: Bool
     @AppStorage("displayDeveloperSettings") private var displayDeveloperSettings = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
-    @AppStorage("openInYouTube") private var openInYouTube = false
     @State private var animateEasterEgg = false
     var body: some View {
         NavigationStack {
             Form {
+                // MARK: General Settings
                 Section {
-                    NavigationLink {
-                        GesturesSettingsView()
-                            .environmentObject(store)
-                    } label: {
-                        Text("Gestures")
+                    NavigationLink(destination: BehaviorSetting().environmentObject(store)) {
+                        Label("settingsBehaviorTitle", systemImage: "hand.tap")
+                    }
+                    NavigationLink(destination: AppearanceSetting().environmentObject(store)) {
+                        Label("settingsAppearanceTitle", systemImage: "moon.stars")
+                    }
+                    NavigationLink(destination: SyncSetting()) {
+                        Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
                     }
                 } header: {
-                    Label("Gestures", systemImage: "hand.tap")
+                    Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
                 }
-                
-                // MARK: Media Section
-                Section {
-                    Toggle("Open Trailers in YouTube App", isOn: $openInYouTube)
-                } header: {
-                    Label("Links", systemImage: "link")
-                }
-                
-                Section {
-                    NavigationLink(destination: WatchlistSettings()) {
-                        Text("Watchlist")
-                    }
-                } header: {
-                    Label("Watchlist", systemImage: "square.stack")
-                }
-                
-                // MARK: Support Section
-                Section {
-                    NavigationLink(destination: FeedbackSettingsView()) {
-                        Text("Send Feedback")
-                    }
-                    .disabled(disableTelemetry)
-                    
-                } header: {
-                    Label("Support", systemImage: "questionmark.circle")
-                }
-                Section {
-                    Button(action: {
-                        requestReview()
-                    }, label: {
-                        Text("Write a review")
-                    })
-                } header: {
-                    Label("Review Cronica", systemImage: "star")
-                }
-                // MARK: Privacy Section
-                Section {
-                    Button("Privacy Policy") {
-                        showPolicy.toggle()
-                    }
-                    Toggle("Disable Telemetry", isOn: $disableTelemetry)
-                } header: {
-                    Label("Privacy", systemImage: "hand.raised")
-                } footer: {
-                    Text("privacyfooter")
-                        .padding(.bottom)
-                }
-                .fullScreenCover(isPresented: $showPolicy) {
-                    SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-                }
-                
-                Section {
-                    NavigationLink {
-                        FeaturesPreviewSettings()
-                    } label: {
-                        Text("Experimental Features")
-                    }
-                } header: {
-                    Label("Experimental Features", systemImage: "wand.and.stars")
-                } footer: {
-                    Text("Experimental Features are meant for users that want to test out features that still in development.")
-                }
-                
-                // MARK: Developer Section
+                PrivacySupportSetting()
                 if displayDeveloperSettings {
-                    Section {
-                        NavigationLink(destination: DeveloperView(),
-                                       label: {
-                            Text("Developer")
-                        })
-                        
-                    } header: {
-                        Label("Developer Tools", systemImage: "hammer")
+                    NavigationLink(destination: EmptyView()) {
+                        Label("settingsDeveloperOptions", systemImage: "hammer")
                     }
                 }
-
+                // MARK: About Settings
                 Section {
+                    Button {
+                        requestReview()
+                    } label: {
+                        Label("settingsReviewCronica", systemImage: "star.fill")
+                    }
                     ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
                     CenterHorizontalView {
                         Text("Made in Brazil 🇧🇷")
@@ -159,4 +94,41 @@ struct AccountView_Previews: PreviewProvider {
     }
 }
 
+
+
+struct BehaviorSetting: View {
+    @EnvironmentObject var store: SettingsStore
+    @AppStorage("openInYouTube") private var openInYouTube = false
+    @AppStorage("markEpisodeWatchedTap") private var markEpisodeWatchedOnTap = false
+    var body: some View {
+        Form {
+            Section {
+                Picker(selection: $store.gesture) {
+                    ForEach(DoubleTapGesture.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                } label: {
+                    InformationalToggle(title: "behaviorDoubleTapTitle",
+                                        subtitle: "behaviorDoubleTapSubtitle")
+                }
+                Toggle(isOn: $markEpisodeWatchedOnTap) {
+                    InformationalToggle(title: "behaviorEpisodeTitle")
+                }
+            } header: {
+                Label("behaviorGestureTitle", systemImage: "hand.tap")
+            }
+            Section {
+                Toggle(isOn: $openInYouTube) {
+                    InformationalToggle(title: "behaviorYouTubeTitle")
+                }
+            } header: {
+                Label("behaviorLinkTitle", systemImage: "link")
+            }
+        }
+        .navigationTitle("behaviorTitle")
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
+    }
+}
 

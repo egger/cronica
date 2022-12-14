@@ -295,3 +295,57 @@
 "Appearance" = "Appearance";
 "Pin on Search" = "Pin on Search";
 "Shows Pin feature on right swipe." = "Shows Pin feature on right swipe.";
+
+
+
+
+// MARK: AppearanceSetting
+"appearanceRowTypeTitle" = "Watchlist Item's Information";
+"appearanceRowTypeSubtitle" = "Choose what type of information you want to display.";
+"appearanceWatchlist" = "Watchlist";
+"appearanceBackgroundTitle" = "Translucent Background";
+"appearanceBackgroundSubtitle" = "Partially transparent background that allows some light to pass through it.";
+"appearanceSendFeedback" = "Send Feedback";
+"appearanceExperimentalHeader" = "Experimental Visuals";
+"appearanceExperimentalFooter" = "You're trying some experimental features, please, take a moment to send a feedback about it. This will help make Cronica better for you and others.";
+"appearanceTitle" = "Appearance";
+
+// MARK: BehaviorSetting
+"behaviorDoubleTapTitle" = "Double Tap On Cover";
+"behaviorDoubleTapSubtitle" = "Choose what function to perform when double tap the cover image.";
+"behaviorGestureTitle" = "Gestures";
+"behaviorYouTubeTitle" = "Open Trailers in YouTube";
+"behaviorYouTubeSubtitle" = "Open trailers in YouTube app.";
+"behaviorLinkTitle" = "Links";
+"behaviorTitle" = "Behavior";
+"behaviorEpisodeTitle" = "Tap To Mark Episode as Watched";
+
+// MARK: WatchlistSubtitleRow
+"watchlistSubtitleRowNone" = "Default";
+"watchlistSubtitleRowGenre" = "Genre";
+"watchlistSubtitleRowDate" = "Release Date";
+
+// MARK: DoubleTapGesture
+"Watched" = "Watched";
+"Favorite" = "Favorite";
+
+// MARK: CronicaSettings
+"settingsBehaviorTitle" = "Behavior";
+"settingsAppearanceTitle" = "Appearance";
+"settingsGeneralTitle" = "General";
+"settingsSyncTitle" = "Synchronization";
+"settingsReviewCronica" = "Review Cronica on App Store";
+"settingsPrivacyPolicy" = "Privacy Policy";
+"settingsDisableTelemetryTitle" = "Disable Crash Reports";
+"settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
+"settingsFeedbackTitle" = "Send Feedback";
+"settingsPrivacySupportTitle" = "Privacy & Support";
+
+// MARK: SyncSetting
+"syncSettingsUpdateWatchlistTitle" = "Update Items";
+"syncSettingsUpdateWatchlistSubtitle" = "Update items with new information, if available on TMDb.";
+"syncSettingsWatchlistTitle" = "Watchlist";
+"syncSettingsTitle" = "Synchronization";
+
+
+//"" = "";

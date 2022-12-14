@@ -20,13 +20,13 @@ struct DiscoverView: View {
                 VStack {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(viewModel.items) { item in
-                            #if os(macOS)
+#if os(macOS)
                             ItemContentCardView(item: item, showConfirmation: $showConfirmation)
                                 .buttonStyle(.plain)
-                            #else
+#else
                             CardFrame(item: item, showConfirmation: $showConfirmation)
                                 .buttonStyle(.plain)
-                            #endif
+#endif
                         }
                         if viewModel.isLoaded && !viewModel.endPagination {
                             CenterHorizontalView {
@@ -47,18 +47,20 @@ struct DiscoverView: View {
                 }
                 .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
-                ItemContentDetailsView(id: item.id, title: item.itemTitle,
-                                       type: item.itemContentMedia, handleToolbarOnPopup: true)
+                    ItemContentDetailsView(id: item.id, title: item.itemTitle,
+                                           type: item.itemContentMedia, handleToolbarOnPopup: true)
 #else
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 #endif
                 }
                 .navigationDestination(for: Person.self) { person in
                     PersonDetailsView(title: person.name, id: person.id)
                 }
-                .navigationDestination(for: [ItemContent].self) { item in
-                    ItemContentCollectionDetails(title: "Recommendations", items: item)
-                }
+                .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+                    let keys = item.map { (key, value) in key }
+                    let value = item.map { (key, value) in value }
+                    ItemContentCollectionDetails(title: keys[0], items: value[0])
+                })
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
@@ -150,10 +152,10 @@ struct DiscoverView: View {
 
 struct Previews_DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        #if os(macOS)
+#if os(macOS)
         DiscoverView(columns: [GridItem(.adaptive(minimum: 240 ))])
-        #else
+#else
         DiscoverView(columns: [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))])
-        #endif
+#endif
     }
 }

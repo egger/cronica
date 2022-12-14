@@ -1,15 +1,14 @@
 //
-//  WatchlistSettings.swift
+//  SyncSetting.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 30/11/22.
+//  Created by Alexandre Madeira on 13/12/22.
 //
 
 import SwiftUI
 
-struct WatchlistSettings: View {
-    @AppStorage("showGenreOnWatchlist") private var showGenre = false
-    @State private var updatingItems = false 
+struct SyncSetting: View {
+    @State private var updatingItems = false
     var body: some View {
         Form {
             Section {
@@ -21,23 +20,21 @@ struct WatchlistSettings: View {
                             ProgressView()
                         }
                     } else {
-                        Text("Update Items")
+                        InformationalToggle(title: "syncSettingsUpdateWatchlistTitle",
+                                            subtitle: "syncSettingsUpdateWatchlistSubtitle")
                     }
                 })
+                #if os(macOS)
+                .buttonStyle(.plain)
+                #endif
             } header: {
-                Label("Sync", systemImage: "arrow.2.circlepath")
-            } footer: {
-                Text("'Update Items' will update your items with new information available on TMDb, if available.")
-                    .padding(.bottom)
+                Label("syncSettingsWatchlistTitle", systemImage: "square.stack")
             }
-#if os(iOS)
-            Toggle("Show Genre on Watchlist", isOn: $showGenre)
-#endif
         }
+        .navigationTitle("syncSettingsTitle")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
-        .navigationTitle("Watchlist")
     }
     
     private func updateItems() {
@@ -47,6 +44,7 @@ struct WatchlistSettings: View {
                 self.updatingItems.toggle()
             }
             await background.handleAppRefreshContent()
+            await background.handleAppRefreshMaintenance()
             withAnimation {
                 self.updatingItems.toggle()
             }
@@ -54,8 +52,8 @@ struct WatchlistSettings: View {
     }
 }
 
-struct WatchlistSettings_Previews: PreviewProvider {
+struct SyncSetting_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistSettings()
+        SyncSetting()
     }
 }

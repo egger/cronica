@@ -110,9 +110,11 @@ struct WatchlistView: View {
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)
         }
-        .navigationDestination(for: [ItemContent].self) { item in
-            ItemContentCollectionDetails(title: "Recommendations", items: item)
-        }
+        .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+            let keys = item.map { (key, value) in key }
+            let value = item.map { (key, value) in value }
+            ItemContentCollectionDetails(title: keys[0], items: value[0])
+        })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {

@@ -18,24 +18,10 @@ struct PinItemsList: View {
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         if !items.isEmpty {
-            VStack {
-                TitleView(title: "My Pins",
-                          subtitle: "Pinned Items",
-                          image: "pin",
-                          showChevron: false)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(items) { item in
-                            PosterWatchlistItem(item: item)
-                                .buttonStyle(.plain)
-                                .padding([.leading, .trailing], 4)
-                                .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
-                                .padding([.top, .bottom])
-                        }
-                    }
-                }
-            }
+            HorizontalWatchlistList(items: items.sorted { $0.itemTitle > $1.itemTitle },
+                                    title: "My Pins",
+                                    subtitle: "Pinned Items",
+                                    image: "pin")
         }
     }
 }
@@ -46,3 +32,32 @@ struct PinItemsList_Previews: PreviewProvider {
     }
 }
 
+private struct HorizontalWatchlistList: View {
+    let items: [WatchlistItem]
+    let title: String
+    let subtitle: String
+    let image: String
+    var body: some View {
+        VStack {
+            NavigationLink(value: [title:items]) {
+                TitleView(title: title,
+                          subtitle: subtitle,
+                          image: image,
+                          showChevron: true)
+            }
+            .buttonStyle(.plain)
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack {
+                    ForEach(items) { item in
+                        PosterWatchlistItem(item: item)
+                            .buttonStyle(.plain)
+                            .padding([.leading, .trailing], 4)
+                            .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
+                            .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                            .padding([.top, .bottom])
+                    }
+                }
+            }
+        }
+    }
+}
