@@ -76,6 +76,11 @@ struct AppearanceSetting: View {
             }
         }
         .navigationTitle("appearanceTitle")
+        .task {
+            if newBackgroundStyle {
+                isExperimentalFeaturesEnabled = true
+            }
+        }
 #if os(macOS)
         .formStyle(.grouped)
 #endif
