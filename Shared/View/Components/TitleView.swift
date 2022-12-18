@@ -18,15 +18,16 @@ struct TitleView: View {
                 HStack {
                     Text(NSLocalizedString(title, comment: ""))
                         .padding([.top, .leading])
+                        .fontWeight(.semibold)
 #if os(tvOS)
                         .font(.callout)
 #else
-                        .font(.title3)
+                        .font(.title2)
 #endif
                     if showChevron {
                         Image(systemName: "chevron.right")
                             .font(.title3)
-                            .fontWeight(.bold)
+                            .fontWeight(.semibold)
                             .foregroundColor(.secondary)
                             .padding(.top)
                             .accessibilityHidden(true)
@@ -42,7 +43,7 @@ struct TitleView: View {
             Spacer()
             Image(systemName: image)
                 .foregroundColor(.secondary)
-                .padding()
+                .padding([.top, .horizontal])
                 .accessibilityHidden(true)
         }
         .accessibilityElement(children: .combine)

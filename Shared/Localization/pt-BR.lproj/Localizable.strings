@@ -298,6 +298,8 @@
 "appearanceExperimentalHeader" = "Visuais Experimentais";
 "appearanceExperimentalFooter" = "Você está testando alguns recursos experimentais, por favor, reserve um momento para enviar um feedback sobre isso. Isso ajudará a tornar a Cronica melhor para você e para os outros.";
 "appearanceTitle" = "Aparência";
+"appearanceThemeTitle" = "Cor de Destaque";
+"appearanceTheme" = "Temas";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Toque Duplo Na Capa";
@@ -335,3 +337,18 @@
 "syncSettingsUpdateWatchlistSubtitle" = "Atualize itens com novas informações, se disponíveis no TMDb.";
 "syncSettingsWatchlistTitle" = "Lista";
 "syncSettingsTitle" = "Sincronização";
+
+// MARK: AppThemeColors
+"appThemeColorsBlue" = "Azul";
+"appThemeColorsRed" = "Vermelho";
+"appThemeColorsGreen" = "Verde";
+"appThemeColorsBrown" = "Marrom";
+"appThemeColorsCyan" = "Ciano";
+"appThemeColorsGray" = "Cinza";
+"appThemeColorsIndigo" = "Anil";
+"appThemeColorsMint" = "Mint";
+"appThemeColorsOrange" = "Laranja";
+"appThemeColorsPink" = "Rosa";
+"appThemeColorsPurple" = "Roxo";
+"appThemeColorsTeal" = "Teal";
+"appThemeColorsYellow" = "Amarelo";

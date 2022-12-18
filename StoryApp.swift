@@ -17,6 +17,7 @@ struct StoryApp: App {
     @State private var widgetItem: ItemContent?
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
     @AppStorage("disableTelemetry") var disableTelemetry = false
+    @StateObject private var settings = SettingsStore()
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
@@ -25,6 +26,7 @@ struct StoryApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .tint(settings.appTheme.color)
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .onOpenURL { url in
                     if widgetItem != nil { widgetItem = nil }

@@ -309,6 +309,8 @@
 "appearanceExperimentalHeader" = "Experimental Visuals";
 "appearanceExperimentalFooter" = "You're trying some experimental features, please, take a moment to send a feedback about it. This will help make Cronica better for you and others.";
 "appearanceTitle" = "Appearance";
+"appearanceThemeTitle" = "App Tint";
+"appearanceTheme" = "Themes";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Double Tap On Cover";
@@ -347,5 +349,18 @@
 "syncSettingsWatchlistTitle" = "Watchlist";
 "syncSettingsTitle" = "Synchronization";
 
-
+// MARK: AppThemeColors
+"appThemeColorsBlue" = "Blue";
+"appThemeColorsRed" = "Red";
+"appThemeColorsGreen" = "Green";
+"appThemeColorsBrown" = "Brown";
+"appThemeColorsCyan" = "Cyan";
+"appThemeColorsGray" = "Gray";
+"appThemeColorsIndigo" = "Indigo";
+"appThemeColorsMint" = "Mint";
+"appThemeColorsOrange" = "Orange";
+"appThemeColorsPink" = "Pink";
+"appThemeColorsPurple" = "Purple";
+"appThemeColorsTeal" = "Teal";
+"appThemeColorsYellow" = "Yellow";
 //"" = "";

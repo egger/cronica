@@ -30,6 +30,25 @@ struct AppearanceSetting: View {
             }
 #endif
             Section {
+                Picker(selection: $store.appTheme) {
+                    ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
+                        HStack {
+                            Circle()
+                                .fill(item.color)
+                                .frame(width: 25)
+                            Text(item.localizableName)
+                        }
+                        .tag(item)
+                    }
+                } label: {
+                    InformationalToggle(title: "appearanceThemeTitle")
+                }
+                .pickerStyle(.navigationLink)
+
+            } header: {
+                Label("appearanceTheme", systemImage: "paintbrush.fill")
+            }
+            Section {
                 Toggle(isOn: $newBackgroundStyle) {
                     InformationalToggle(title: "appearanceBackgroundTitle",
                                         subtitle: "appearanceBackgroundSubtitle")
