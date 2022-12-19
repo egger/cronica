@@ -100,6 +100,7 @@ struct EpisodeFrameView: View {
                 .applyHoverEffect()
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
+                    .fontDesign(.rounded)
                     .font(.caption2)
                     .lineLimit(1)
                     .foregroundColor(.secondary)

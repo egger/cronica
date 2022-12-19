@@ -24,13 +24,9 @@
 		B80982BD292AA6B00020716F /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B4DA9284537EF008BA43C /* SearchItemView.swift */; };
 		B80BBE582949665A00958876 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
-		B80BBE592949669500958876 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
 		B80BBE5B294966FC00958876 /* InformationalToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalToggle.swift */; };
-		B80BBE5C294966FE00958876 /* InformationalToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalToggle.swift */; };
 		B80BBE5E2949677300958876 /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
-		B80BBE5F2949677500958876 /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
 		B80BBE6129496A7D00958876 /* PrivacySupportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */; };
-		B80BBE6229496AC900958876 /* PrivacySupportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */; };
 		B8110EE8279245D100844FEB /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
 		B8110EEA279245D100844FEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED9279245D000844FEB /* ContentView.swift */; };
 		B8110EEC279245D100844FEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8110EDA279245D100844FEB /* Assets.xcassets */; };
@@ -198,6 +194,17 @@
 		B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57827FC999F006BE5E1 /* HeroImage.swift */; };
 		B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */; };
 		B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
+		B89446B9294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
+		B89446BA294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
+		B89446BC294FDABA008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
+		B89446BD294FDABA008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
+		B89446BF294FDACA008974BA /* AppThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BE294FDACA008974BA /* AppThemeColors.swift */; };
+		B89446C0294FDACA008974BA /* AppThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BE294FDACA008974BA /* AppThemeColors.swift */; };
+		B89446C1294FDADF008974BA /* AppThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BE294FDACA008974BA /* AppThemeColors.swift */; };
+		B89446C2294FDAE2008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
+		B89446C3294FDAE4008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
+		B89446C4294FDAE6008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
+		B89446C5294FDAE7008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
 		B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8991C7C27E4B5D2001055CB /* WelcomeView.swift */; };
 		B899F21328B0391C00272484 /* DefaultListTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812529728A407120062B0C9 /* DefaultListTypes.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
@@ -532,6 +539,9 @@
 		B890C57827FC999F006BE5E1 /* HeroImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImage.swift; sourceTree = "<group>"; };
 		B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerListView.swift; sourceTree = "<group>"; };
 		B890C58427FE4442006BE5E1 /* Episode-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Episode-Extension.swift"; sourceTree = "<group>"; };
+		B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSubtitleRow.swift; sourceTree = "<group>"; };
+		B89446BB294FDABA008974BA /* WatchlistItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemType.swift; sourceTree = "<group>"; };
+		B89446BE294FDACA008974BA /* AppThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeColors.swift; sourceTree = "<group>"; };
 		B8991C7C27E4B5D2001055CB /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
 		B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extensions.swift"; sourceTree = "<group>"; };
@@ -786,6 +796,7 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B89446C6294FE267008974BA /* Settings */,
 				B8389ECB28A9BD31003025BC /* Modifiers */,
 				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8EC463E27D84C62009389FC /* Components */,
@@ -876,9 +887,9 @@
 		B845132C27ECB33E00F0D4A4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B89446B7294FDA94008974BA /* Settings */,
 				B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */,
 				B812529728A407120062B0C9 /* DefaultListTypes.swift */,
-				B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */,
 				B876DE53281B1BC0005558DD /* ImageSize.swift */,
 				B876DE51281B1BA5005558DD /* ItemSchedule.swift */,
 				B876DE4F281B1B81005558DD /* MediaType.swift */,
@@ -1017,6 +1028,29 @@
 			path = Season;
 			sourceTree = "<group>";
 		};
+		B89446B7294FDA94008974BA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B89446BE294FDACA008974BA /* AppThemeColors.swift */,
+				B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */,
+				B89446BB294FDABA008974BA /* WatchlistItemType.swift */,
+				B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B89446C6294FE267008974BA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B80BBE572949665A00958876 /* AppearanceSetting.swift */,
+				B80BBE5A294966FC00958876 /* InformationalToggle.swift */,
+				B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */,
+				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
+				B80BBE5D2949677300958876 /* SyncSetting.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		B8ADAF6D282C42A9001D72EF /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -1117,13 +1151,8 @@
 				B8779374281E2CE700174F32 /* DiscoverView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
 				B8CC952027CFEBEC00B6757C /* SearchView.swift */,
-				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
 				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,
-				B80BBE572949665A00958876 /* AppearanceSetting.swift */,
-				B80BBE5A294966FC00958876 /* InformationalToggle.swift */,
-				B80BBE5D2949677300958876 /* SyncSetting.swift */,
-				B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1615,6 +1644,7 @@
 				B873F6D2290AF9C600CC080A /* WatchlistItemContextMenu.swift in Sources */,
 				B8DD56A2290DE2FE002CAAFD /* CenterHorizontalView.swift in Sources */,
 				B84043C3289B18DE00D5CEBF /* ItemSchedule.swift in Sources */,
+				B89446C3294FDAE4008974BA /* WatchlistItemType.swift in Sources */,
 				B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */,
 				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
 				B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
@@ -1645,6 +1675,7 @@
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043CA289B20BC00D5CEBF /* DataFetchPhase.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
+				B89446C5294FDAE7008974BA /* WatchlistSubtitleRow.swift in Sources */,
 				B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */,
 				B88529B128E371350026D33A /* EpisodeView.swift in Sources */,
 				B84043B7289B18A300D5CEBF /* Person-Extensions.swift in Sources */,
@@ -1669,6 +1700,7 @@
 				B8CC952A27D02C5700B6757C /* ItemContentDetails.swift in Sources */,
 				B86AAD0A28BD1CDD00D135B1 /* DeveloperView.swift in Sources */,
 				B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */,
+				B89446B9294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */,
 				B8779375281E2CE700174F32 /* DiscoverView.swift in Sources */,
 				B83F1E9928BAD24C008E151D /* SideBarView.swift in Sources */,
 				B80BBE582949665A00958876 /* AppearanceSetting.swift in Sources */,
@@ -1687,6 +1719,7 @@
 				B876DE64281B36A7005558DD /* Season.swift in Sources */,
 				B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
+				B89446BF294FDACA008974BA /* AppThemeColors.swift in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */,
 				B86E7A24290AB6C500459E41 /* WatchlistItemContextMenu.swift in Sources */,
@@ -1708,6 +1741,7 @@
 				B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */,
 				B8110F3C279364C800844FEB /* Utilities.swift in Sources */,
 				B879B70228B12201005EADCE /* TrailerItemView.swift in Sources */,
+				B89446BC294FDABA008974BA /* WatchlistItemType.swift in Sources */,
 				B878E83527BC85BC0021A981 /* WatchlistItem-Extension.swift in Sources */,
 				B8114C8729380A5400930AF4 /* WatchlistSettings.swift in Sources */,
 				B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */,
@@ -1799,8 +1833,10 @@
 				B8DD5690290C92A5002CAAFD /* SettingsView.swift in Sources */,
 				B86E7A09290A90CA00459E41 /* DefaultListTypes.swift in Sources */,
 				B8DD5688290C7CC1002CAAFD /* ItemContentHeaderView.swift in Sources */,
+				B89446C1294FDADF008974BA /* AppThemeColors.swift in Sources */,
 				B86E79F4290A907500459E41 /* Bundle-Decodable.swift in Sources */,
 				B86E79F6290A907B00459E41 /* ItemContent-Extensions.swift in Sources */,
+				B89446C4294FDAE6008974BA /* WatchlistSubtitleRow.swift in Sources */,
 				B80318B02928266E00714B3E /* WatchlistPoster.swift in Sources */,
 				B86E7A0B290A90CA00459E41 /* ImageSize.swift in Sources */,
 				B86E7A0F290A90CA00459E41 /* MediaType.swift in Sources */,
@@ -1820,6 +1856,7 @@
 				B86E7A21290AAEB600459E41 /* ItemContentDetails.swift in Sources */,
 				B86E7A04290A90AE00459E41 /* NetworkService.swift in Sources */,
 				B86E79FB290A909300459E41 /* BackgroundManager.swift in Sources */,
+				B89446C2294FDAE2008974BA /* WatchlistItemType.swift in Sources */,
 				B86E7A2F290AF41500459E41 /* SearchItemContentView.swift in Sources */,
 				B8DD5686290C7BB4002CAAFD /* PersonCircleView.swift in Sources */,
 				B86E79F8290A908600459E41 /* UTType-Extensions.swift in Sources */,
@@ -1853,7 +1890,6 @@
 				B8BF62D62912E3790051915C /* ItemContentContextMenu.swift in Sources */,
 				B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */,
 				B8BF632E29142E380051915C /* WelcomeView.swift in Sources */,
-				B80BBE6229496AC900958876 /* PrivacySupportSetting.swift in Sources */,
 				B8BF633B29146AEB0051915C /* UpcomingWatchlist.swift in Sources */,
 				B8BF62DB2912E6360051915C /* ItemContentDetails.swift in Sources */,
 				B8BF62C52912DA230051915C /* PersonDetailsViewModel.swift in Sources */,
@@ -1869,9 +1905,10 @@
 				B8BF62C82912DA230051915C /* SeasonViewModel.swift in Sources */,
 				B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */,
 				B80318AD2926757100714B3E /* WatchlistPoster.swift in Sources */,
+				B89446BD294FDABA008974BA /* WatchlistItemType.swift in Sources */,
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
-				B80BBE5F2949677500958876 /* SyncSetting.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
+				B89446C0294FDACA008974BA /* AppThemeColors.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
 				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
 				B8BF62FA291307CE0051915C /* OverviewBoxView.swift in Sources */,
@@ -1881,13 +1918,13 @@
 				B8BF62DD2912EA940051915C /* CardView.swift in Sources */,
 				B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */,
 				B8BF62F82913079B0051915C /* SearchItem.swift in Sources */,
-				B80BBE5C294966FE00958876 /* InformationalToggle.swift in Sources */,
 				B8BF62A82912DA230051915C /* Episode-Extension.swift in Sources */,
 				B8BF62C02912DA230051915C /* Endpoints.swift in Sources */,
 				B8BF62BB2912DA230051915C /* ItemSchedule.swift in Sources */,
 				B8BF62DE2912EAD90051915C /* UpcomingListView.swift in Sources */,
 				B8BF62BA2912DA230051915C /* Person.swift in Sources */,
 				B8A810402915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
+				B89446BA294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */,
 				B8BF62AE2912DA230051915C /* WatchlistItem-Extension.swift in Sources */,
 				B8BF62C62912DA230051915C /* NotificationManager.swift in Sources */,
 				B8BF62E92912F23F0051915C /* WatchlistItemContextMenu.swift in Sources */,
@@ -1899,7 +1936,6 @@
 				B8F6DE6229379F58005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
 				B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */,
 				B8BF62EB2912F2730051915C /* WatchlistView.swift in Sources */,
-				B80BBE592949669500958876 /* AppearanceSetting.swift in Sources */,
 				B8BF62EE2912F3130051915C /* WatchEpisodeButton.swift in Sources */,
 				B8BF62A72912D9FC0051915C /* Watchlist.xcdatamodeld in Sources */,
 				B8BF62B82912DA230051915C /* Person-Extensions.swift in Sources */,
@@ -2028,7 +2064,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
 		};
@@ -2062,7 +2098,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;
 		};
@@ -2201,7 +2237,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2237,7 +2273,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2332,7 +2368,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 16.0;
+				TVOS_DEPLOYMENT_TARGET = 16.1;
 			};
 			name = Debug;
 		};
@@ -2365,7 +2401,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 16.0;
+				TVOS_DEPLOYMENT_TARGET = 16.1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2395,7 +2431,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;
@@ -2430,7 +2466,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;

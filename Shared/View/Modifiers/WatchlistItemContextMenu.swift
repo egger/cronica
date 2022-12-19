@@ -1,9 +1,9 @@
-////
-////  WatchlistItemContextMenu.swift
-////  CronicaTV
-////
-////  Created by Alexandre Madeira on 27/10/22.
-////
+//
+//  WatchlistItemContextMenu.swift
+//  Shared
+//
+//  Created by Alexandre Madeira on 27/10/22.
+//
 
 import SwiftUI
 import SDWebImageSwiftUI
@@ -196,5 +196,19 @@ struct WatchlistItemContextMenu: ViewModifier {
         }, label: {
             Label("Remove", systemImage: "trash")
         })
+    }
+}
+
+extension View {
+    func watchlistContextMenu(item: WatchlistItem,
+                              isWatched: Binding<Bool>,
+                              isFavorite: Binding<Bool>,
+                              isPin: Binding<Bool>,
+                              isArchive: Binding<Bool>) -> some View {
+        modifier(WatchlistItemContextMenu(item: item,
+                                          isWatched: isWatched,
+                                          isFavorite: isFavorite,
+                                          isPin: isPin,
+                                          isArchive: isPin))
     }
 }

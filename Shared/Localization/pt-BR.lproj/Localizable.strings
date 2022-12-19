@@ -300,6 +300,8 @@
 "appearanceTitle" = "Aparência";
 "appearanceThemeTitle" = "Cor de Destaque";
 "appearanceTheme" = "Temas";
+"appearanceRowStyleTitle" = "Estilo do Item da Lista";
+"appearanceRowStyleSubtitle" = "Escolha como exibir sua Lista";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Toque Duplo Na Capa";
@@ -352,3 +354,8 @@
 "appThemeColorsPurple" = "Roxo";
 "appThemeColorsTeal" = "Teal";
 "appThemeColorsYellow" = "Amarelo";
+
+// MARK: WatchlistItemType
+"watchlistItemTypeList" = "Lista";
+"watchlistItemTypePoster" = "Poster";
+"watchlistItemTypeCard" = "Cartão";

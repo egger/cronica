@@ -18,7 +18,7 @@ struct HomeView: View {
     @State private var showConfirmation = false
     init() {
         _viewModel = StateObject(wrappedValue: HomeViewModel())
-        _settings = StateObject(wrappedValue: SettingsStore())
+        _settings = StateObject(wrappedValue: SettingsStore.shared)
     }
     var body: some View {
         ZStack {
@@ -87,7 +87,7 @@ struct HomeView: View {
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
             })
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-            .navigationTitle("Home")
+            .navigationTitle("Home").fontDesign(.rounded)
             .toolbar {
 #if os(macOS)
                 ToolbarItem(placement: .primaryAction) {

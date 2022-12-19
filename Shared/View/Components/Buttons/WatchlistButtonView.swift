@@ -17,6 +17,7 @@ struct WatchlistButtonView: View {
         }, label: {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
+            .fontDesign(.rounded)
         })
         .buttonStyle(.borderedProminent)
         .controlSize(.large)

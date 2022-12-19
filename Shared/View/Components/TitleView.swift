@@ -19,6 +19,7 @@ struct TitleView: View {
                     Text(NSLocalizedString(title, comment: ""))
                         .padding([.top, .leading])
                         .fontWeight(.semibold)
+                        .fontDesign(.rounded)
 #if os(tvOS)
                         .font(.callout)
 #else
@@ -27,7 +28,7 @@ struct TitleView: View {
                     if showChevron {
                         Image(systemName: "chevron.right")
                             .font(.title3)
-                            .fontWeight(.semibold)
+                            .fontWeight(.bold)
                             .foregroundColor(.secondary)
                             .padding(.top)
                             .accessibilityHidden(true)
@@ -38,6 +39,7 @@ struct TitleView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .padding(.leading)
+                        .fontDesign(.rounded)
                 }
             }
             Spacer()

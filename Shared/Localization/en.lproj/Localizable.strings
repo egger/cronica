@@ -209,7 +209,7 @@
 //MARK: SeasonListView.swift
 "Seasons" = "Seasons";
 "Season %lld" = "Season %lld";
-"Episode %lld" = "Episode %lld";
+"Episode %lld" = "EPISODE %lld";
 "Mark Season as Watched" = "Mark Season as Watched";
 
 //MARK: FilmographyView.swift
@@ -311,6 +311,8 @@
 "appearanceTitle" = "Appearance";
 "appearanceThemeTitle" = "App Tint";
 "appearanceTheme" = "Themes";
+"appearanceRowStyleTitle" = "Watchlist's Item Style";
+"appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Double Tap On Cover";
@@ -364,3 +366,8 @@
 "appThemeColorsTeal" = "Teal";
 "appThemeColorsYellow" = "Yellow";
 //"" = "";
+
+// MARK: WatchlistItemType
+"watchlistItemTypeList" = "List";
+"watchlistItemTypePoster" = "Poster";
+"watchlistItemTypeCard" = "Card";

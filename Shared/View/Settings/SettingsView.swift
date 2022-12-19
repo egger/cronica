@@ -25,7 +25,7 @@ struct SettingsView: View {
                     NavigationLink(destination: BehaviorSetting().environmentObject(store)) {
                         Label("settingsBehaviorTitle", systemImage: "hand.tap")
                     }
-                    NavigationLink(destination: AppearanceSetting().environmentObject(store)) {
+                    NavigationLink(destination: AppearanceSetting()) {
                         Label("settingsAppearanceTitle", systemImage: "moon.stars")
                     }
                     NavigationLink(destination: SyncSetting()) {
@@ -36,7 +36,7 @@ struct SettingsView: View {
                 }
                 PrivacySupportSetting()
                 if displayDeveloperSettings {
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: DeveloperView()) {
                         Label("settingsDeveloperOptions", systemImage: "hammer")
                     }
                 }
@@ -94,8 +94,6 @@ struct AccountView_Previews: PreviewProvider {
     }
 }
 
-
-
 struct BehaviorSetting: View {
     @EnvironmentObject var store: SettingsStore
     @AppStorage("openInYouTube") private var openInYouTube = false
@@ -132,3 +130,30 @@ struct BehaviorSetting: View {
     }
 }
 
+struct AcknowledgementsSettings: View {
+    var body: some View {
+        Form {
+            Button {
+                
+            } label: {
+                Text("acknowledgmentsDeveloper")
+            }
+            Button {
+                
+            } label: {
+                Text("acknowledgmentsAppIcon")
+            }
+            Button {
+                
+            } label: {
+                Text("acknowledgmentsContentProvider")
+            }
+            Button {
+                
+            } label: {
+                Text("acknowledgmentsSDWebImage")
+            }
+        }
+        .navigationTitle("acknowledgmentsTitle")
+    }
+}

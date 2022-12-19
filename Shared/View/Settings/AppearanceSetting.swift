@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct AppearanceSetting: View {
-    @EnvironmentObject var store: SettingsStore
+    @ObservedObject private var store = SettingsStore.shared
     @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     @State private var isExperimentalFeaturesEnabled = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
+    @State private var disableRowType = false
     var body: some View {
         Form {
-#if os(iOS)
             Section {
                 Picker(selection: $store.rowType) {
                     ForEach(WatchlistSubtitleRow.allCases) { item in
@@ -24,11 +24,20 @@ struct AppearanceSetting: View {
                     InformationalToggle(title: "appearanceRowTypeTitle",
                                         subtitle: "appearanceRowTypeSubtitle")
                 }
-                
+                .disabled(disableRowType)
+                Picker(selection: $store.watchlistStyle) {
+                    ForEach(WatchlistItemType.allCases) { item in
+                        Text(item.localizableName).tag(item)
+                    }
+                } label: {
+                    InformationalToggle(title: "appearanceRowStyleTitle",
+                                        subtitle: "appearanceRowStyleSubtitle")
+                }
+
             } header: {
                 Label("appearanceWatchlist", systemImage: "rectangle.stack")
             }
-#endif
+            
             Section {
                 Picker(selection: $store.appTheme) {
                     ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
@@ -74,12 +83,20 @@ struct AppearanceSetting: View {
                     isExperimentalFeaturesEnabled = false
                 }
             }
+            .onChange(of: store.watchlistStyle) { newValue in
+                if newValue != .list {
+                    disableRowType = true
+                } else {
+                    disableRowType = false
+                }
+            }
         }
         .navigationTitle("appearanceTitle")
         .task {
-            if newBackgroundStyle {
+            if newBackgroundStyle && !disableTelemetry {
                 isExperimentalFeaturesEnabled = true
             }
+            if store.watchlistStyle != .list { disableRowType = true } 
         }
 #if os(macOS)
         .formStyle(.grouped)

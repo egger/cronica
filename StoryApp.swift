@@ -17,7 +17,8 @@ struct StoryApp: App {
     @State private var widgetItem: ItemContent?
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
     @AppStorage("disableTelemetry") var disableTelemetry = false
-    @StateObject private var settings = SettingsStore()
+    @StateObject private var settings = SettingsStore.shared
+    @State private var appTint: Color = .blue
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
@@ -26,6 +27,7 @@ struct StoryApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .fontDesign(.rounded)
                 .tint(settings.appTheme.color)
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .onOpenURL { url in
@@ -72,6 +74,10 @@ struct StoryApp: App {
                             await NotificationManager.shared.clearOldNotificationId()
                         }
                     }
+                }
+                .onChange(of: settings.appTheme) { newValue in
+                    print(newValue as Any)
+                    appTint = newValue.color
                 }
         }
         .onChange(of: scene) { phase in
