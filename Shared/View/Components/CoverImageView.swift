@@ -8,7 +8,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CoverImageView: View {
-    @StateObject private var store = SettingsStore()
+    @StateObject private var store = SettingsStore.shared
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var isPad: Bool = UIDevice.isIPad
     @State private var animateGesture: Bool = false
@@ -24,14 +24,15 @@ struct CoverImageView: View {
             .overlay {
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
-                    if store.gesture == .favorite {
+                    switch store.gesture {
+                    case .favorite:
                         Image(systemName: isFavorite ? "heart.slash.fill" : "heart.fill")
                             .symbolRenderingMode(.multicolor)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
                             .scaleEffect(animateGesture ? 1.1 : 1)
-                    } else {
+                    case .watched:
                         Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -84,7 +85,7 @@ struct CoverImageView: View {
     }
 }
 
-struct CoverImagePlaceholder: View {
+private struct CoverImagePlaceholder: View {
     let title: String
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
@@ -96,6 +97,7 @@ struct CoverImagePlaceholder: View {
 #endif
             VStack {
                 Text(title)
+                    .font(.callout)
                     .lineLimit(1)
                     .padding()
                 Image(systemName: "film")

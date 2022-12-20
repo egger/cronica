@@ -37,7 +37,6 @@ struct HeroImage: View {
             Rectangle().fill(.gray.gradient)
             VStack {
                 Text(title)
-                    .font(.title)
                     .lineLimit(1)
                     .padding()
                 Image(systemName: type == .movie ? "film" : "tv")

@@ -193,30 +193,40 @@ struct WatchlistView: View {
         if !filteredItems.isEmpty {
             switch scope {
             case .noScope:
-                WatchlistCardSection(items: filteredItems)
+                WatchlistCardSection(items: filteredItems,
+                                     title: "Search results")
             case .movies:
-                WatchlistCardSection(items: filteredItems.filter { $0.isMovie })
+                WatchlistCardSection(items: filteredItems.filter { $0.isMovie },
+                                     title: "Search results")
             case .shows:
-                WatchlistCardSection(items: filteredItems.filter { $0.isTvShow })
+                WatchlistCardSection(items: filteredItems.filter { $0.isTvShow },
+                                     title: "Search results")
             }
         } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
             noResults
         } else {
             switch selectedOrder {
             case .released:
-                WatchlistCardSection(items: items.filter { $0.isReleased })
+                WatchlistCardSection(items: items.filter { $0.isReleased },
+                                     title: DefaultListTypes.released.title)
             case .upcoming:
-                WatchlistCardSection(items: items.filter { $0.isUpcoming })
+                WatchlistCardSection(items: items.filter { $0.isUpcoming },
+                                     title: DefaultListTypes.upcoming.title)
             case .production:
-                WatchlistCardSection(items: items.filter { $0.isInProduction })
+                WatchlistCardSection(items: items.filter { $0.isInProduction },
+                                     title: DefaultListTypes.production.title)
             case .watched:
-                WatchlistCardSection(items: items.filter { $0.isWatched })
+                WatchlistCardSection(items: items.filter { $0.isWatched },
+                                     title: DefaultListTypes.watched.title)
             case .favorites:
-                WatchlistCardSection(items: items.filter { $0.isFavorite })
+                WatchlistCardSection(items: items.filter { $0.isFavorite },
+                                     title: DefaultListTypes.favorites.title)
             case .pin:
-                WatchlistCardSection(items: items.filter { $0.isPin })
+                WatchlistCardSection(items: items.filter { $0.isPin },
+                                     title: DefaultListTypes.pin.title)
             case .archive:
-                WatchlistCardSection(items: items.filter { $0.isArchive })
+                WatchlistCardSection(items: items.filter { $0.isArchive },
+                                     title: DefaultListTypes.archive.title)
             }
         }
     }
@@ -226,30 +236,40 @@ struct WatchlistView: View {
         if !filteredItems.isEmpty {
             switch scope {
             case .noScope:
-                WatchlistPosterSection(items: filteredItems)
+                WatchlistPosterSection(items: filteredItems,
+                                       title: "Search results")
             case .movies:
-                WatchlistPosterSection(items: filteredItems.filter { $0.isMovie })
+                WatchlistPosterSection(items: filteredItems.filter { $0.isMovie },
+                                       title: "Search results")
             case .shows:
-                WatchlistPosterSection(items: filteredItems.filter { $0.isTvShow })
+                WatchlistPosterSection(items: filteredItems.filter { $0.isTvShow },
+                                       title: "Search results")
             }
         } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
             noResults
         } else {
             switch selectedOrder {
             case .released:
-                WatchlistPosterSection(items: items.filter { $0.isReleased })
+                WatchlistPosterSection(items: items.filter { $0.isReleased },
+                                       title: DefaultListTypes.released.title)
             case .upcoming:
-                WatchlistPosterSection(items: items.filter { $0.isUpcoming })
+                WatchlistPosterSection(items: items.filter { $0.isUpcoming },
+                                       title: DefaultListTypes.upcoming.title)
             case .production:
-                WatchlistPosterSection(items: items.filter { $0.isInProduction })
+                WatchlistPosterSection(items: items.filter { $0.isInProduction },
+                                       title: DefaultListTypes.production.title)
             case .watched:
-                WatchlistPosterSection(items: items.filter { $0.isWatched })
+                WatchlistPosterSection(items: items.filter { $0.isWatched },
+                                       title: DefaultListTypes.watched.title)
             case .favorites:
-                WatchlistPosterSection(items: items.filter { $0.isFavorite })
+                WatchlistPosterSection(items: items.filter { $0.isFavorite },
+                                       title: DefaultListTypes.favorites.title)
             case .pin:
-                WatchlistPosterSection(items: items.filter { $0.isPin })
+                WatchlistPosterSection(items: items.filter { $0.isPin },
+                                       title: DefaultListTypes.pin.title)
             case .archive:
-                WatchlistPosterSection(items: items.filter { $0.isArchive })
+                WatchlistPosterSection(items: items.filter { $0.isArchive },
+                                       title: DefaultListTypes.archive.title)
             }
         }
     }

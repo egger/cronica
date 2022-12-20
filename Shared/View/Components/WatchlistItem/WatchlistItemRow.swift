@@ -15,6 +15,7 @@ struct WatchlistItemRow: View {
     @State private var isPin = false
     @State private var isArchive = false
     @AppStorage("showGenreOnWatchlist") private var showGenre = false
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         NavigationLink(value: content) {
             HStack {
@@ -31,36 +32,15 @@ struct WatchlistItemRow: View {
                         Text(content.itemTitle)
                             .lineLimit(DrawingConstants.textLimit)
                     }
-                    HStack {
 #if os(watchOS)
-                        Text(content.itemMedia.title)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
+                    rowInformationNone
 #else
-                        if showGenre {
-                            if let itemGenre = content.genre {
-                                if !itemGenre.isEmpty {
-                                    Text("\(content.itemMedia.title) • \(itemGenre)")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                    Spacer()
-                                }
-                            } else {
-                                Text(content.itemMedia.title)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                Spacer()
-                            }
-                        } else {
-                            Text(content.itemMedia.title)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                        }
-                        
-#endif
+                    switch settings.rowType {
+                    case .none: rowInformationNone
+                    case .date: rowInformationDate
+                    case .genre: rowInformationGenre
                     }
+#endif
                 }
 #if os(watchOS)
 #else
@@ -87,6 +67,7 @@ struct WatchlistItemRow: View {
                                   isArchive: $isArchive)
         }
     }
+    
     private var image: some View {
         ZStack {
             WebImage(url: content.image)
@@ -112,6 +93,51 @@ struct WatchlistItemRow: View {
         .frame(width: DrawingConstants.imageWidth,
                height: DrawingConstants.imageHeight)
         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+    }
+    
+    private var rowInformationNone: some View {
+        HStack {
+            Text(content.itemMedia.title)
+                .font(.caption)
+                .foregroundColor(.secondary)
+            Spacer()
+        }
+    }
+    
+    private var rowInformationGenre: some View {
+        HStack {
+            if let itemGenre = content.genre {
+                if !itemGenre.isEmpty {
+                    Text("\(content.itemMedia.title) • \(itemGenre)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+            } else {
+                Text(content.itemMedia.title)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+        }
+    }
+    
+    private var rowInformationDate: some View {
+        HStack {
+            if let date = content.formattedDate {
+                if !date.isEmpty {
+                    Text("\(content.itemMedia.title) • \(date)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+            } else {
+                Text(content.itemMedia.title)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+        }
     }
 }
 

@@ -33,16 +33,15 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing, content: {
-                    Button("Done") {
-                        showSettings.toggle()
-                    }
+                    Button("Done") { showSettings.toggle() }
                 })
             }
         }
     }
+    
     private var general: some View {
         Section {
-            NavigationLink(destination: BehaviorSetting().environmentObject(store)) {
+            NavigationLink(destination: BehaviorSetting()) {
                 Label("settingsBehaviorTitle", systemImage: "hand.tap")
             }
             NavigationLink(destination: AppearanceSetting()) {
@@ -55,6 +54,7 @@ struct SettingsView: View {
             Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
         }
     }
+    
     private var about: some View {
         Section {
             Button {
@@ -89,75 +89,11 @@ struct SettingsView: View {
     }
 }
 
-struct AccountView_Previews: PreviewProvider {
+struct SettingsView_Previews: PreviewProvider {
     @StateObject private static var settings = SettingsStore()
     @State private static var showSettings = false
     static var previews: some View {
         SettingsView(showSettings: $showSettings)
             .environmentObject(settings)
-    }
-}
-
-struct BehaviorSetting: View {
-    @EnvironmentObject var store: SettingsStore
-    @AppStorage("openInYouTube") private var openInYouTube = false
-    @AppStorage("markEpisodeWatchedTap") private var markEpisodeWatchedOnTap = false
-    var body: some View {
-        Form {
-            Section {
-                Picker(selection: $store.gesture) {
-                    ForEach(DoubleTapGesture.allCases) { item in
-                        Text(item.title).tag(item)
-                    }
-                } label: {
-                    InformationalToggle(title: "behaviorDoubleTapTitle",
-                                        subtitle: "behaviorDoubleTapSubtitle")
-                }
-                Toggle(isOn: $markEpisodeWatchedOnTap) {
-                    InformationalToggle(title: "behaviorEpisodeTitle")
-                }
-            } header: {
-                Label("behaviorGestureTitle", systemImage: "hand.tap")
-            }
-            Section {
-                Toggle(isOn: $openInYouTube) {
-                    InformationalToggle(title: "behaviorYouTubeTitle")
-                }
-            } header: {
-                Label("behaviorLinkTitle", systemImage: "link")
-            }
-        }
-        .navigationTitle("behaviorTitle")
-#if os(macOS)
-        .formStyle(.grouped)
-#endif
-    }
-}
-
-struct AcknowledgementsSettings: View {
-    var body: some View {
-        Form {
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsDeveloper")
-            }
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsAppIcon")
-            }
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsContentProvider")
-            }
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsSDWebImage")
-            }
-        }
-        .navigationTitle("acknowledgmentsTitle")
     }
 }

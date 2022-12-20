@@ -17,7 +17,17 @@ extension View {
                                           isWatched: isWatched,
                                           isFavorite: isFavorite,
                                           isPin: isPin,
-                                          isArchive: isPin))
+                                          isArchive: isArchive))
+    }
+    
+    func itemContentContextMenu(item: ItemContent,
+                                isWatched: Binding<Bool>,
+                                showConfirmation: Binding<Bool>,
+                                isInWatchlist: Binding<Bool>) -> some View {
+        modifier(ItemContentContextMenu(item: item,
+                                        showConfirmation: showConfirmation,
+                                        isInWatchlist: isInWatchlist,
+                                        isWatched: isWatched))
     }
     
     func applyHoverEffect() -> some View {

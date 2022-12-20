@@ -11,15 +11,11 @@ import SDWebImageSwiftUI
 struct HomeView: View {
     static let tag: Screens? = .home
     @AppStorage("showOnboarding") private var displayOnboard = true
-    @StateObject private var viewModel: HomeViewModel
-    @StateObject private var settings: SettingsStore
+    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var settings = SettingsStore.shared
     @State private var showSettings = false
     @State private var showNotifications = false
     @State private var showConfirmation = false
-    init() {
-        _viewModel = StateObject(wrappedValue: HomeViewModel())
-        _settings = StateObject(wrappedValue: SettingsStore.shared)
-    }
     var body: some View {
         ZStack {
             if !viewModel.isLoaded {
@@ -73,8 +69,8 @@ struct HomeView: View {
             }
             .navigationDestination(for: Endpoints.self) { endpoint in
                 EndpointDetails(title: endpoint.title,
-                                 endpoint: endpoint,
-                                 columns: DrawingConstants.columns)
+                                endpoint: endpoint,
+                                columns: DrawingConstants.columns)
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
                 let keys = item.map { (key, value) in key }
@@ -159,7 +155,9 @@ struct TitleWatchlistDetails: View {
             WatchlistItemRow(content: item)
         }
         .navigationTitle(LocalizedStringKey(title))
-        .searchable(text: $query)
+#if os(iOS)
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
+#endif
     }
 }
 

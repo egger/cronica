@@ -10,16 +10,36 @@ import SwiftUI
 struct WatchlistPosterSection: View {
     private let context = PersistenceController.shared
     let items: [WatchlistItem]
+    let title: String
     var body: some View {
         if !items.isEmpty {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160 ))],
                           spacing: 20) {
-                    ForEach(items, id: \.notificationID) { item in
-                        WatchlistItemPoster(content: item)
-                            .buttonStyle(.plain)
+                    Section {
+                        ForEach(items, id: \.notificationID) { item in
+                            WatchlistItemPoster(content: item)
+                                .buttonStyle(.plain)
+                        }
+                        .onDelete(perform: delete)
+                    } header: {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text(NSLocalizedString(title, comment: ""))
+                                .foregroundColor(.secondary)
+                                .font(.callout)
+                            Spacer()
+                        }
+                        .padding(.leading)
+                    } footer: {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("\(items.count) items")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.bottom)
+                            Spacer()
+                        }
+                        .padding(.leading)
                     }
-                    .onDelete(perform: delete)
                 }.padding()
             }
         } else {
@@ -41,6 +61,6 @@ struct WatchlistPosterSection: View {
 
 struct WatchlistPosterSection_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistPosterSection(items: [.example])
+        WatchlistPosterSection(items: [.example], title: "Preview")
     }
 }
