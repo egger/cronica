@@ -30,16 +30,19 @@ struct TitleView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(.secondary)
+                            .padding(.leading, .zero)
                             .padding(.top)
                             .accessibilityHidden(true)
                     }
                 }
-                HStack {
-                    Text(NSLocalizedString(subtitle, comment: ""))
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(.leading)
-                        .fontDesign(.rounded)
+                if !subtitle.isEmpty {
+                    HStack {
+                        Text(NSLocalizedString(subtitle, comment: ""))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.leading)
+                            .fontDesign(.rounded)
+                    }
                 }
             }
             Spacer()

@@ -18,9 +18,3 @@ struct HoverEffectModifier: ViewModifier {
 #endif
     }
 }
-
-extension View {
-    func applyHoverEffect() -> some View {
-        modifier(HoverEffectModifier())
-    }
-}

@@ -1,5 +1,5 @@
 //
-//  ItemContentContext.swift
+//  ItemContentContextMenu.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 06/06/22.
@@ -51,12 +51,11 @@ struct ItemContentContextMenu: ViewModifier {
 #endif
     }
     
-    #warning("fix it")
     private var addAndMarkWatchedButton: some View {
         Button {
             updateWatchlist(with: item)
-            context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: true)
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: true)
                 withAnimation {
                     isWatched.toggle()
                 }

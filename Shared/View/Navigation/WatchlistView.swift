@@ -25,7 +25,7 @@ struct WatchlistView: View {
         VStack {
             switch settings.watchlistStyle {
             case .list: listStyle
-            case .poster: EmptyView()
+            case .poster: posterStyle
             case .card: frameStyle
             }
         }
@@ -40,11 +40,11 @@ struct WatchlistView: View {
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)
         }
-        .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+        .navigationDestination(for: [String:[ItemContent]].self) { item in
             let keys = item.map { (key, value) in key }
             let value = item.map { (key, value) in value }
             ItemContentCollectionDetails(title: keys[0], items: value[0])
-        })
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
@@ -59,7 +59,9 @@ struct WatchlistView: View {
                         })
                         .disabled(multiSelection.isEmpty ? true : false)
                     }
-                    EditButton()
+                    if settings.watchlistStyle == .list {
+                        EditButton()
+                    }
                 }
             }
             ToolbarItem(placement: .navigationBarLeading) {
@@ -198,12 +200,7 @@ struct WatchlistView: View {
                 WatchlistCardSection(items: filteredItems.filter { $0.isTvShow })
             }
         } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-            CenterHorizontalView {
-                Text("No results")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                    .padding()
-            }
+            noResults
         } else {
             switch selectedOrder {
             case .released:
@@ -224,6 +221,38 @@ struct WatchlistView: View {
         }
     }
     
+    @ViewBuilder
+    private var posterStyle: some View {
+        if !filteredItems.isEmpty {
+            switch scope {
+            case .noScope:
+                WatchlistPosterSection(items: filteredItems)
+            case .movies:
+                WatchlistPosterSection(items: filteredItems.filter { $0.isMovie })
+            case .shows:
+                WatchlistPosterSection(items: filteredItems.filter { $0.isTvShow })
+            }
+        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
+            noResults
+        } else {
+            switch selectedOrder {
+            case .released:
+                WatchlistPosterSection(items: items.filter { $0.isReleased })
+            case .upcoming:
+                WatchlistPosterSection(items: items.filter { $0.isUpcoming })
+            case .production:
+                WatchlistPosterSection(items: items.filter { $0.isInProduction })
+            case .watched:
+                WatchlistPosterSection(items: items.filter { $0.isWatched })
+            case .favorites:
+                WatchlistPosterSection(items: items.filter { $0.isFavorite })
+            case .pin:
+                WatchlistPosterSection(items: items.filter { $0.isPin })
+            case .archive:
+                WatchlistPosterSection(items: items.filter { $0.isArchive })
+            }
+        }
+    }
     
     private var deleteAllButton: some View {
         Button(role: .destructive, action: {
@@ -235,12 +264,21 @@ struct WatchlistView: View {
         })
     }
     
+    private var noResults: some View {
+        CenterHorizontalView {
+            Text("No results")
+                .font(.headline)
+                .foregroundColor(.secondary)
+                .padding()
+        }
+    }
+    
     private var updatePinButton: some View {
-        Button(action: {
+        Button {
             PersistenceController.shared.updatePin(items: multiSelection)
-        }, label: {
+        } label: {
             Label("Pin Items", systemImage: "pin.fill")
-        })
+        }
     }
     
     private var updateWatchButton: some View {
@@ -256,7 +294,7 @@ struct WatchlistView: View {
     }
 }
 
-struct WatchListView_Previews: PreviewProvider {
+struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)

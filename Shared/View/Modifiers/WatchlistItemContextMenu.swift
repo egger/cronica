@@ -198,17 +198,3 @@ struct WatchlistItemContextMenu: ViewModifier {
         })
     }
 }
-
-extension View {
-    func watchlistContextMenu(item: WatchlistItem,
-                              isWatched: Binding<Bool>,
-                              isFavorite: Binding<Bool>,
-                              isPin: Binding<Bool>,
-                              isArchive: Binding<Bool>) -> some View {
-        modifier(WatchlistItemContextMenu(item: item,
-                                          isWatched: isWatched,
-                                          isFavorite: isFavorite,
-                                          isPin: isPin,
-                                          isArchive: isPin))
-    }
-}
