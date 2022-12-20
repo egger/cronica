@@ -344,6 +344,7 @@
 "settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
 "settingsFeedbackTitle" = "Send Feedback";
 "settingsPrivacySupportTitle" = "Privacy & Support";
+"settingsDeveloperOptions" = "Developer Settings";
 
 // MARK: SyncSetting
 "syncSettingsUpdateWatchlistTitle" = "Update Items";

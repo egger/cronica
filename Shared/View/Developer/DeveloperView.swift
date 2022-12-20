@@ -19,8 +19,6 @@ struct DeveloperView: View {
     @State private var isFetchingAll = false
     @State private var showAllItems = false
     @State private var showOnboardingMac = false
-    @AppStorage("markEpisodeWatchedTap") private var episodeTap = false
-    private let background = BackgroundManager()
     private let service = NetworkService.shared
     var body: some View {
         Form {
@@ -84,26 +82,6 @@ struct DeveloperView: View {
             
             Section {
                 Button(action: {
-                    Task {
-                        self.isFetchingAll = true
-                        await background.handleAppRefreshMaintenance()
-                        await background.handleAppRefreshContent()
-                        self.isFetchingAll = false
-                    }
-                }, label: {
-                    if isFetchingAll {
-                        CenterHorizontalView {
-                            ProgressView()
-                        }
-                    } else {
-                        Text("Update Items")
-                    }
-                })
-            } header: {
-                Text("Sync")
-            }
-            Section {
-                Button(action: {
                     showAllItems.toggle()
                 }, label: {
                     Text("Show All Items")
@@ -113,7 +91,7 @@ struct DeveloperView: View {
             }
             
         }
-        .navigationTitle("Developer Tools")
+        .navigationTitle("settingsDeveloperOptions")
         .sheet(isPresented: $showOnboardingMac, content: {
             NavigationStack {
                 WelcomeView()
@@ -143,9 +121,11 @@ struct DeveloperView: View {
                                 Button(action: {
                                     let watchlist = try? PersistenceController.shared.fetch(for: Int64(itemIdField)!, media: itemMediaType)
                                     if let watchlist {
-                                        print("Watchlist: \(watchlist.itemSchedule )")
+                                        CronicaTelemetry.shared.handleMessage("WatchlistItem: \(watchlist as Any)",
+                                                                              for: "DeveloperView.printObject")
                                     }
-                                    print("Print object '\(item.itemTitle)': \(item as Any)")
+                                    CronicaTelemetry.shared.handleMessage("ItemContent: \(item as Any)",
+                                                                          for: "DeveloperView.printObject")
                                 }, label: {
                                     Label("Print object", systemImage: "hammer.circle.fill")
                                 })
@@ -232,7 +212,7 @@ private struct ShowAllItemsView: View {
                 } else if !filteredItems.isEmpty {
                     Section {
                         ForEach(filteredItems) { item in
-                            WatchlistItemView(content: item)
+                            WatchlistItemRow(content: item)
                         }
                     } header: {
                         Text("Filtered items - \(filteredItems.count)")
@@ -240,7 +220,7 @@ private struct ShowAllItemsView: View {
                 } else {
                     Section {
                         ForEach(items) { item in
-                            WatchlistItemView(content: item)
+                            WatchlistItemRow(content: item)
                         }
                     } header: {
                         Text("All items - \(items.count)")

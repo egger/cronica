@@ -333,6 +333,7 @@
 "settingsDisableTelemetrySubtitle" = "Veja mais detalhes na Política de Privacidade.";
 "settingsFeedbackTitle" = "Enviar Feedback";
 "settingsPrivacySupportTitle" = "Privacidade e Suporte";
+"settingsDeveloperOptions" = "Configurações do Desenvolvedor";
 
 // MARK: SyncSetting
 "syncSettingsUpdateWatchlistTitle" = "Atualizar Itens";

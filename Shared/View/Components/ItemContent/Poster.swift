@@ -86,7 +86,7 @@ struct Poster: View {
 struct Poster_Previews: PreviewProvider {
     @State static var show = false
     static var previews: some View {
-        Poster(item: ItemContent.previewContent, addedItemConfirmation: $show)
+        Poster(item: .previewContent, addedItemConfirmation: $show)
     }
 }
 

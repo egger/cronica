@@ -31,6 +31,7 @@ struct ItemContentContextMenu: ViewModifier {
                 } else {
                     shareButton
                     Divider()
+                    addAndMarkWatchedButton
                     watchlistButton
                 }
 #if os(tvOS)
@@ -48,6 +49,22 @@ struct ItemContentContextMenu: ViewModifier {
                 }
             }
 #endif
+    }
+    
+    #warning("fix it")
+    private var addAndMarkWatchedButton: some View {
+        Button {
+            updateWatchlist(with: item)
+            context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: true)
+            DispatchQueue.main.async {
+                withAnimation {
+                    isWatched.toggle()
+                }
+            }
+        } label: {
+            Label("addAndMarkWatchedButton", systemImage: "rectangle.badge.checkmark.fill")
+        }
+
     }
     
     private var watchlistButton: some View {

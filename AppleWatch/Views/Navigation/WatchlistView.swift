@@ -28,7 +28,7 @@ struct WatchlistView: View {
                             if !filteredItems.isEmpty {
                                 ForEach(filteredItems) { item in
                                     NavigationLink(value: item) {
-                                        WatchlistItemView(content: item)
+                                        WatchlistItemRow(content: item)
                                     }
                                 }
                             } else {
@@ -162,7 +162,7 @@ private struct WatchlistSectionView: View {
         if !items.isEmpty {
             Section {
                 ForEach(items) { item in
-                    WatchlistItemView(content: item)
+                    WatchlistItemRow(content: item)
                 }
             } header: {
                 Text(NSLocalizedString(title, comment: ""))

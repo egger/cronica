@@ -20,83 +20,13 @@ struct WatchlistView: View {
     @State private var multiSelection = Set<String>()
     @Environment(\.editMode) private var editMode
     @State private var isSearching = false
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
-            if items.isEmpty {
-                if scope != .noScope {
-                    Text("Your list is empty.")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                        .padding()
-                } else {
-                    Text("Your list is empty.")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
-            } else {
-                List(selection: $multiSelection) {
-                    if !filteredItems.isEmpty {
-                        switch scope {
-                        case .noScope:
-                            WatchListSection(items: filteredItems,
-                                             title: "Search results")
-                        case .movies:
-                            WatchListSection(items: filteredItems.filter { $0.isMovie },
-                                             title: "Search results")
-                        case .shows:
-                            WatchListSection(items: filteredItems.filter { $0.isTvShow },
-                                             title: "Search results")
-                        }
-                        
-                    } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
-                        Text("No results")
-                    } else {
-                        switch selectedOrder {
-                        case .released:
-                            WatchListSection(items: items.filter { $0.isReleased },
-                                             title: DefaultListTypes.released.title)
-                        case .upcoming:
-                            WatchListSection(items: items.filter { $0.isUpcoming },
-                                             title: DefaultListTypes.upcoming.title)
-                        case .production:
-                            WatchListSection(items: items.filter { $0.isInProduction },
-                                             title: DefaultListTypes.production.title)
-                        case .favorites:
-                            WatchListSection(items: items.filter { $0.isFavorite },
-                                             title: DefaultListTypes.favorites.title)
-                        case .watched: 
-                            WatchListSection(items: items.filter { $0.isWatched },
-                                             title: DefaultListTypes.watched.title)
-                        case .pin:
-                            WatchListSection(items: items.filter { $0.isPin },
-                                             title: DefaultListTypes.pin.title)
-                        case .archive:
-                            WatchListSection(items: items.filter { $0.isArchive },
-                                             title: DefaultListTypes.archive.title)
-                        }
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .dropDestination(for: ItemContent.self) { items, _  in
-                    for item in items {
-                        Task {
-                            let result = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                            if let result {
-                                PersistenceController.shared.save(result)
-                            }
-                        }
-                    }
-                    return true
-                }
-                .contextMenu(forSelectionType: String.self) { items in
-                    if items.count >= 1 {
-                        updateWatchButton
-                        updatePinButton
-                        Divider()
-                        deleteAllButton
-                    }
-                }
+            switch settings.watchlistStyle {
+            case .list: listStyle
+            case .poster: EmptyView()
+            case .card: frameStyle
             }
         }
         .navigationTitle("Watchlist")
@@ -175,6 +105,125 @@ struct WatchlistView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private var listStyle: some View {
+        if items.isEmpty {
+            if scope != .noScope {
+                Text("Your list is empty.")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                    .padding()
+            } else {
+                Text("Your list is empty.")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
+        } else {
+            List(selection: $multiSelection) {
+                if !filteredItems.isEmpty {
+                    switch scope {
+                    case .noScope:
+                        WatchListSection(items: filteredItems,
+                                         title: "Search results")
+                    case .movies:
+                        WatchListSection(items: filteredItems.filter { $0.isMovie },
+                                         title: "Search results")
+                    case .shows:
+                        WatchListSection(items: filteredItems.filter { $0.isTvShow },
+                                         title: "Search results")
+                    }
+                    
+                } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
+                    Text("No results")
+                } else {
+                    switch selectedOrder {
+                    case .released:
+                        WatchListSection(items: items.filter { $0.isReleased },
+                                         title: DefaultListTypes.released.title)
+                    case .upcoming:
+                        WatchListSection(items: items.filter { $0.isUpcoming },
+                                         title: DefaultListTypes.upcoming.title)
+                    case .production:
+                        WatchListSection(items: items.filter { $0.isInProduction },
+                                         title: DefaultListTypes.production.title)
+                    case .favorites:
+                        WatchListSection(items: items.filter { $0.isFavorite },
+                                         title: DefaultListTypes.favorites.title)
+                    case .watched:
+                        WatchListSection(items: items.filter { $0.isWatched },
+                                         title: DefaultListTypes.watched.title)
+                    case .pin:
+                        WatchListSection(items: items.filter { $0.isPin },
+                                         title: DefaultListTypes.pin.title)
+                    case .archive:
+                        WatchListSection(items: items.filter { $0.isArchive },
+                                         title: DefaultListTypes.archive.title)
+                    }
+                }
+            }
+            .listStyle(.insetGrouped)
+            .dropDestination(for: ItemContent.self) { items, _  in
+                for item in items {
+                    Task {
+                        let result = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
+                        if let result {
+                            PersistenceController.shared.save(result)
+                        }
+                    }
+                }
+                return true
+            }
+            .contextMenu(forSelectionType: String.self) { items in
+                if items.count >= 1 {
+                    updateWatchButton
+                    updatePinButton
+                    Divider()
+                    deleteAllButton
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var frameStyle: some View {
+        if !filteredItems.isEmpty {
+            switch scope {
+            case .noScope:
+                WatchlistCardSection(items: filteredItems)
+            case .movies:
+                WatchlistCardSection(items: filteredItems.filter { $0.isMovie })
+            case .shows:
+                WatchlistCardSection(items: filteredItems.filter { $0.isTvShow })
+            }
+        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
+            CenterHorizontalView {
+                Text("No results")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
+        } else {
+            switch selectedOrder {
+            case .released:
+                WatchlistCardSection(items: items.filter { $0.isReleased })
+            case .upcoming:
+                WatchlistCardSection(items: items.filter { $0.isUpcoming })
+            case .production:
+                WatchlistCardSection(items: items.filter { $0.isInProduction })
+            case .watched:
+                WatchlistCardSection(items: items.filter { $0.isWatched })
+            case .favorites:
+                WatchlistCardSection(items: items.filter { $0.isFavorite })
+            case .pin:
+                WatchlistCardSection(items: items.filter { $0.isPin })
+            case .archive:
+                WatchlistCardSection(items: items.filter { $0.isArchive })
+            }
+        }
+    }
+    
     
     private var deleteAllButton: some View {
         Button(role: .destructive, action: {

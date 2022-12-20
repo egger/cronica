@@ -15,7 +15,7 @@ struct WatchListSection: View {
         if !items.isEmpty {
             Section {
                 ForEach(items, id: \.notificationID) { item in
-                    WatchlistItemView(content: item)
+                    WatchlistItemRow(content: item)
                         .draggable(item)
                 }
                 .onDelete(perform: delete)

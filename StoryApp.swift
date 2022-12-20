@@ -17,7 +17,7 @@ struct StoryApp: App {
     @State private var widgetItem: ItemContent?
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
     @AppStorage("disableTelemetry") var disableTelemetry = false
-    @StateObject private var settings = SettingsStore.shared
+    @ObservedObject private var settings = SettingsStore.shared
     @State private var appTint: Color = .blue
     init() {
         CronicaTelemetry.shared.setup()

@@ -20,57 +20,14 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                // MARK: General Settings
-                Section {
-                    NavigationLink(destination: BehaviorSetting().environmentObject(store)) {
-                        Label("settingsBehaviorTitle", systemImage: "hand.tap")
-                    }
-                    NavigationLink(destination: AppearanceSetting()) {
-                        Label("settingsAppearanceTitle", systemImage: "moon.stars")
-                    }
-                    NavigationLink(destination: SyncSetting()) {
-                        Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
-                    }
-                } header: {
-                    Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
-                }
+                general
                 PrivacySupportSetting()
                 if displayDeveloperSettings {
                     NavigationLink(destination: DeveloperView()) {
                         Label("settingsDeveloperOptions", systemImage: "hammer")
                     }
                 }
-                // MARK: About Settings
-                Section {
-                    Button {
-                        requestReview()
-                    } label: {
-                        Label("settingsReviewCronica", systemImage: "star.fill")
-                    }
-                    ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
-                    CenterHorizontalView {
-                        Text("Made in Brazil 🇧🇷")
-                            .onTapGesture {
-                                Task {
-                                    withAnimation {
-                                        self.animateEasterEgg.toggle()
-                                    }
-                                    try? await Task.sleep(nanoseconds: 1_500_000_000)
-                                    withAnimation {
-                                        self.animateEasterEgg.toggle()
-                                    }
-                                }
-                            }
-                            .onLongPressGesture(perform: {
-                                displayDeveloperSettings.toggle()
-                            })
-                            .font(animateEasterEgg ? .title3 : .caption)
-                            .foregroundColor(animateEasterEgg ? .green : nil)
-                            .animation(.easeInOut, value: animateEasterEgg)
-                    }
-                } header: {
-                    Label("About", systemImage: "info.circle")
-                }
+                about
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -81,6 +38,53 @@ struct SettingsView: View {
                     }
                 })
             }
+        }
+    }
+    private var general: some View {
+        Section {
+            NavigationLink(destination: BehaviorSetting().environmentObject(store)) {
+                Label("settingsBehaviorTitle", systemImage: "hand.tap")
+            }
+            NavigationLink(destination: AppearanceSetting()) {
+                Label("settingsAppearanceTitle", systemImage: "moon.stars")
+            }
+            NavigationLink(destination: SyncSetting()) {
+                Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
+            }
+        } header: {
+            Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
+        }
+    }
+    private var about: some View {
+        Section {
+            Button {
+                requestReview()
+            } label: {
+                Label("settingsReviewCronica", systemImage: "star.fill")
+            }
+            ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
+            CenterHorizontalView {
+                Text("Made in Brazil 🇧🇷")
+                    .onTapGesture {
+                        Task {
+                            withAnimation {
+                                self.animateEasterEgg.toggle()
+                            }
+                            try? await Task.sleep(nanoseconds: 1_500_000_000)
+                            withAnimation {
+                                self.animateEasterEgg.toggle()
+                            }
+                        }
+                    }
+                    .onLongPressGesture(perform: {
+                        displayDeveloperSettings.toggle()
+                    })
+                    .font(animateEasterEgg ? .title3 : .caption)
+                    .foregroundColor(animateEasterEgg ? .green : nil)
+                    .animation(.easeInOut, value: animateEasterEgg)
+            }
+        } header: {
+            Label("About", systemImage: "info.circle")
         }
     }
 }

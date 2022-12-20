@@ -1,5 +1,5 @@
 //
-//  WatchlistItemView.swift
+//  WatchlistItemRow.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 07/02/22.
@@ -8,16 +8,13 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct WatchlistItemView: View {
+struct WatchlistItemRow: View {
     let content: WatchlistItem
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
     @State private var isPin = false
     @State private var isArchive = false
     @AppStorage("showGenreOnWatchlist") private var showGenre = false
-    init(content: WatchlistItem) {
-        self.content = content
-    }
     var body: some View {
         NavigationLink(value: content) {
             HStack {
@@ -83,11 +80,11 @@ struct WatchlistItemView: View {
                 isArchive = content.isArchive
             }
             .accessibilityElement(children: .combine)
-            .modifier(WatchlistItemContextMenu(item: content,
-                                               isWatched: $isWatched,
-                                               isFavorite: $isFavorite,
-                                               isPin: $isPin,
-                                               isArchive: $isArchive))
+            .watchlistContextMenu(item: content,
+                                  isWatched: $isWatched,
+                                  isFavorite: $isFavorite,
+                                  isPin: $isPin,
+                                  isArchive: $isArchive)
         }
     }
     private var image: some View {
@@ -108,7 +105,7 @@ struct WatchlistItemView: View {
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
             if isWatched || content.watched {
-                Color.black.opacity(0.6)
+                Color.black.opacity(0.5)
                 Image(systemName: "checkmark.circle.fill").foregroundColor(.white)
             }
         }
@@ -118,9 +115,9 @@ struct WatchlistItemView: View {
     }
 }
 
-struct ItemView_Previews: PreviewProvider {
+struct WatchlistItemRow_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistItemView(content: WatchlistItem.example)
+        WatchlistItemRow(content: .example)
     }
 }
 

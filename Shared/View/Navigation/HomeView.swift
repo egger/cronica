@@ -156,7 +156,7 @@ struct TitleWatchlistDetails: View {
     @State private var query = ""
     var body: some View {
         List(items) { item in
-            WatchlistItemView(content: item)
+            WatchlistItemRow(content: item)
         }
         .navigationTitle(LocalizedStringKey(title))
         .searchable(text: $query)

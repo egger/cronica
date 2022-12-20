@@ -104,11 +104,10 @@ struct CardFrame: View {
     }
 }
 
-struct ItemContentFrameView_Previews: PreviewProvider {
+struct CardFrame_Previews: PreviewProvider {
     @State private static var show = false
     static var previews: some View {
-        CardFrame(item: ItemContent.previewContent,
-                             showConfirmation: $show)
+        CardFrame(item: .previewContent, showConfirmation: $show)
     }
 }
 
