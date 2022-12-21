@@ -32,6 +32,9 @@ struct FeedbackSettingsView: View {
                 } footer: {
 #if os(iOS)
                     Text("Send your suggestions to help improve Cronica.")
+                    if disableTelemetry {
+                        Text("cantSendFeedback")
+                    }
 #endif
                 }
                 

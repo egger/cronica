@@ -10,35 +10,38 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject private var settings = SettingsStore()
     var body: some View {
-        NavigationStack {
-            TabView {
-                AppearanceSetting()
-                    .environmentObject(settings)
-                    .tabItem {
-                        Label("settingsAppearanceTitle", systemImage: "moon.stars")
-                    }
-                SyncSetting()
-                    .tabItem {
-                        Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
-                    }
-                
-                Form {
-                    PrivacySupportSetting()
-                }
-                .formStyle(.grouped)
+        TabView {
+            AppearanceSetting()
+                .environmentObject(settings)
                 .tabItem {
-                    Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
+                    Label("settingsAppearanceTitle", systemImage: "moon.stars")
                 }
-                
-    #if DEBUG
-                DeveloperView()
-                    .tabItem {
-                        Label("Developer Tools", systemImage: "hammer")
-                    }
-    #endif
+            SyncSetting()
+                .tabItem {
+                    Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
+                }
+            
+            FeedbackSettingsView()
+                .tabItem {
+                    Label("Feedback", systemImage: "envelope.open.fill")
+                }
+            
+            Form {
+                PrivacySupportSetting()
             }
-            .frame(width: 550, height: 320)
+            .formStyle(.grouped)
+            .tabItem {
+                Label("Privacy", systemImage: "hand.raised.fill")
+            }
+            
+#if DEBUG
+            DeveloperView()
+                .tabItem {
+                    Label("Developer Tools", systemImage: "hammer")
+                }
+#endif
         }
+        .frame(width: 550, height: 320)
     }
 }
 

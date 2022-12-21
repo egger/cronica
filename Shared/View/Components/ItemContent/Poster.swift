@@ -62,12 +62,10 @@ struct Poster: View {
                 .shadow(radius: DrawingConstants.shadowRadius)
                 .padding(.zero)
                 .applyHoverEffect()
-                .modifier(
-                    ItemContentContextMenu(item: item,
-                                           showConfirmation: $addedItemConfirmation,
-                                           isInWatchlist: $isInWatchlist,
-                                           isWatched: $isWatched)
-                )
+                .itemContentContextMenu(item: item,
+                                        isWatched: $isWatched,
+                                        showConfirmation: $addedItemConfirmation,
+                                        isInWatchlist: $isInWatchlist)
                 .task {
                     withAnimation {
                         isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)

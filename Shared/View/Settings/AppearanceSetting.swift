@@ -33,7 +33,7 @@ struct AppearanceSetting: View {
                     InformationalToggle(title: "appearanceRowStyleTitle",
                                         subtitle: "appearanceRowStyleSubtitle")
                 }
-
+                
             } header: {
                 Label("appearanceWatchlist", systemImage: "rectangle.stack")
             }
@@ -52,8 +52,12 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalToggle(title: "appearanceThemeTitle")
                 }
+#if os(macOS)
+                .pickerStyle(.automatic)
+#else
                 .pickerStyle(.navigationLink)
-
+#endif
+                
             } header: {
                 Label("appearanceTheme", systemImage: "paintbrush.fill")
             }
@@ -62,16 +66,27 @@ struct AppearanceSetting: View {
                     InformationalToggle(title: "appearanceBackgroundTitle",
                                         subtitle: "appearanceBackgroundSubtitle")
                 }
+#if os(iOS)
                 if isExperimentalFeaturesEnabled {
                     NavigationLink(destination: FeedbackSettingsView()) {
                         Text("appearanceSendFeedback")
                     }
                 }
+#endif
             } header: {
                 Label("appearanceExperimentalHeader", systemImage: "wand.and.stars.inverse")
             } footer: {
                 if isExperimentalFeaturesEnabled {
+#if os(macOS)
+                    HStack {
+                        Text("appearanceExperimentalFooter")
+                            .foregroundColor(.secondary)
+                            .padding(.leading)
+                        Spacer()
+                    }
+#else
                     Text("appearanceExperimentalFooter")
+#endif
                 }
             }
             .onChange(of: newBackgroundStyle) { newValue in
@@ -96,7 +111,7 @@ struct AppearanceSetting: View {
             if newBackgroundStyle && !disableTelemetry {
                 isExperimentalFeaturesEnabled = true
             }
-            if store.watchlistStyle != .list { disableRowType = true } 
+            if store.watchlistStyle != .list { disableRowType = true }
         }
 #if os(macOS)
         .formStyle(.grouped)

@@ -28,10 +28,20 @@ struct BehaviorSetting: View {
             } header: {
                 Label("behaviorGestureTitle", systemImage: "hand.tap")
             }
+            
             Section {
                 Toggle(isOn: $openInYouTube) {
                     InformationalToggle(title: "behaviorYouTubeTitle")
                 }
+//                Picker(selection: $store.preferredShareLink) {
+//                    ForEach(PreferredShareLink.allCases) { item in
+//                        Text(item.title).tag(item)
+//                    }
+//                } label: {
+//                    InformationalToggle(title: "behaviorPreferredShareLinkTitle",
+//                                        subtitle: "behaviorPreferredShareLinkSubtitle")
+//                }
+
             } header: {
                 Label("behaviorLinkTitle", systemImage: "link")
             }

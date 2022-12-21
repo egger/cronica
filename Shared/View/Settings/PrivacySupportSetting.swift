@@ -28,16 +28,22 @@ struct PrivacySupportSetting: View {
 #elseif os(macOS)
             .buttonStyle(.link)
 #endif
+#if os(iOS)
             NavigationLink(destination: FeedbackSettingsView()) {
                 Label("settingsFeedbackTitle", systemImage: "mail")
             }
             .disabled(disableTelemetry)
+#endif
             Toggle(isOn: $disableTelemetry) {
                 InformationalToggle(title: "settingsDisableTelemetryTitle",
                                     subtitle: "settingsDisableTelemetrySubtitle")
             }
         } header: {
+#if os(iOS)
             Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
+#elseif os(macOS)
+            Label("Privacy", systemImage: "hand.raised")
+#endif
         }
     }
 }

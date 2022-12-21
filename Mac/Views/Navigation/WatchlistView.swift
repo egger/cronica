@@ -22,30 +22,7 @@ struct WatchlistView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                ScrollView {
-                    if !filteredItems.isEmpty {
-                        WatchlistSection(items: filteredItems)
-                    } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-                        CenterHorizontalView { Text("No results") }.padding()
-                    } else {
-                        switch selectedOrder {
-                        case .released:
-                            WatchlistSection(items: items.filter { $0.isReleased })
-                        case .upcoming:
-                            WatchlistSection(items: items.filter { $0.isUpcoming })
-                        case .production:
-                            WatchlistSection(items: items.filter { $0.isInProduction })
-                        case .watched:
-                            WatchlistSection(items: items.filter { $0.isWatched })
-                        case .favorites:
-                            WatchlistSection(items: items.filter { $0.isFavorite })
-                        case .pin:
-                            WatchlistSection(items: items.filter { $0.isPin })
-                        case .archive:
-                            WatchlistSection(items: items.filter { $0.isArchive })
-                        }
-                    }
-                }
+                posterStyle
             }
             .navigationTitle("Watchlist")
             .searchable(text: $query, prompt: "Search watchlist")
@@ -69,13 +46,7 @@ struct WatchlistView: View {
                 }
             }
             .dropDestination(for: ItemContent.self) { items, _  in
-                for item in items {
-                    Task {
-                        let content = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                        guard let content else { return }
-                        PersistenceController.shared.save(content)
-                    }
-                }
+                fetchDroppedItems(for: items)
                 return true
             }
             .task(id: query) {
@@ -95,41 +66,89 @@ struct WatchlistView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private var frameStyle: some View {
+        EmptyView()
+//        if !filteredItems.isEmpty {
+//            WatchlistPosterSection(items: filteredItems)
+//        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
+//            noResults
+//        } else {
+//            switch selectedOrder {
+//            case .released:
+//                WatchlistPosterSection(items: items.filter { $0.isReleased })
+//            case .upcoming:
+//                WatchlistPosterSection(items: items.filter { $0.isUpcoming })
+//            case .production:
+//                WatchlistPosterSection(items: items.filter { $0.isInProduction })
+//            case .watched:
+//                WatchlistPosterSection(items: items.filter { $0.isWatched })
+//            case .favorites:
+//                WatchlistPosterSection(items: items.filter { $0.isFavorite })
+//            case .pin:
+//                WatchlistPosterSection(items: items.filter { $0.isPin })
+//            case .archive:
+//                WatchlistPosterSection(items: items.filter { $0.isArchive })
+//            }
+//        }
+    }
+    
+    @ViewBuilder
+    private var posterStyle: some View {
+        if !filteredItems.isEmpty {
+            WatchlistPosterSection(items: filteredItems, title: "Search results")
+        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
+            noResults
+        } else {
+            switch selectedOrder {
+            case .released:
+                WatchlistPosterSection(items: items.filter { $0.isReleased },
+                                       title: DefaultListTypes.released.title)
+            case .upcoming:
+                WatchlistPosterSection(items: items.filter { $0.isUpcoming },
+                                       title: DefaultListTypes.upcoming.title)
+            case .production:
+                WatchlistPosterSection(items: items.filter { $0.isInProduction },
+                                       title: DefaultListTypes.production.title)
+            case .watched:
+                WatchlistPosterSection(items: items.filter { $0.isWatched },
+                                       title: DefaultListTypes.watched.title)
+            case .favorites:
+                WatchlistPosterSection(items: items.filter { $0.isFavorite },
+                                       title: DefaultListTypes.favorites.title)
+            case .pin:
+                WatchlistPosterSection(items: items.filter { $0.isPin },
+                                       title: DefaultListTypes.pin.title)
+            case .archive:
+                WatchlistPosterSection(items: items.filter { $0.isArchive },
+                                       title: DefaultListTypes.archive.title)
+            }
+        }
+    }
+    
+    private var noResults: some View {
+        CenterHorizontalView {
+            Text("No results")
+                .font(.headline)
+                .foregroundColor(.secondary)
+                .padding()
+        }
+    }
+    
+    private func fetchDroppedItems(for items: [ItemContent]) {
+        Task {
+            for item in items {
+                let content = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
+                guard let content else { return }
+                PersistenceController.shared.save(content)
+            }
+        }
+    }
 }
 
 struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()
-    }
-}
-
-private struct WatchlistSection: View {
-    let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 160))
-    ]
-    let items: [WatchlistItem]
-    var body: some View {
-        if !items.isEmpty {
-            VStack {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(items) { item in
-                        WatchlistPoster(item: item)
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .padding()
-        } else {
-            VStack {
-                Spacer()
-                CenterHorizontalView {
-                    Text("This list is empty.")
-                        .font(.title3)
-                        .foregroundColor(.secondary)
-                }
-                Spacer()
-            }
-            .padding()
-        }
     }
 }

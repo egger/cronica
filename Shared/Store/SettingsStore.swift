@@ -29,10 +29,21 @@ class SettingsStore: ObservableObject {
             UserDefaults.standard.set(watchlistStyle.rawValue, forKey: "watchlistStyle")
         }
     }
+    @Published var preferredShareLink: PreferredShareLink {
+        didSet {
+            UserDefaults.standard.set(preferredShareLink.rawValue, forKey: "preferredShareLink")
+        }
+    }
     init() {
         self.gesture = (UserDefaults.standard.object(forKey: "gesture") == nil ? .favorite : DoubleTapGesture(rawValue: UserDefaults.standard.object(forKey: "gesture") as? Int ?? DoubleTapGesture.favorite.rawValue)) ?? .favorite
+        
         self.rowType = (UserDefaults.standard.object(forKey: "rowType") == nil ? WatchlistSubtitleRow.none : WatchlistSubtitleRow(rawValue: UserDefaults.standard.object(forKey: "rowType") as? Int ?? WatchlistSubtitleRow.none.rawValue)) ?? .none
+        
         self.appTheme = (UserDefaults.standard.object(forKey: "appThemeColor") == nil ? .blue : AppThemeColors(rawValue: UserDefaults.standard.object(forKey: "appThemeColor") as? Int ?? AppThemeColors.blue.rawValue)) ?? .blue
+        
         self.watchlistStyle = (UserDefaults.standard.object(forKey: "watchlistStyle") == nil ? .list : WatchlistItemType(rawValue: UserDefaults.standard.object(forKey: "watchlistStyle") as? Int ?? WatchlistItemType.list.rawValue)) ?? .list
+        
+        self.preferredShareLink = (UserDefaults.standard.object(forKey: "preferredShareLink") == nil ? .tmdb : PreferredShareLink(rawValue: UserDefaults.standard.object(forKey: "preferredShareLink") as? Int ?? PreferredShareLink.tmdb.rawValue)) ?? .tmdb
+
     }
 }

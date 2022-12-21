@@ -34,10 +34,12 @@ struct DeveloperView: View {
                 }, label: {
                     Text("Select the Media Type")
                 })
-                Button(action: {
+                Button {
                     Task {
                         if !itemIdField.isEmpty {
-                            isFetching = true
+                            DispatchQueue.main.async {
+                                withAnimation { isFetching = false }
+                            }
                             if itemMediaType != .person {
                                 let item = try? await service.fetchItem(id: Int(itemIdField)!, type: itemMediaType)
                                 if let item {
@@ -49,9 +51,11 @@ struct DeveloperView: View {
                                 self.person = person
                             }
                         }
-                        isFetching = false
+                        DispatchQueue.main.async {
+                            withAnimation { isFetching = false }
+                        }
                     }
-                }, label: {
+                } label: {
                     if isFetching {
                         CenterHorizontalView {
                             ProgressView()
@@ -59,7 +63,10 @@ struct DeveloperView: View {
                     } else {
                         Text("Fetch")
                     }
-                })
+                }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
             } header: {
                 Label("Fetch a single item.", systemImage: "hammer")
             }
@@ -69,6 +76,7 @@ struct DeveloperView: View {
                 Button("Show Onboarding") {
                     showOnboardingMac.toggle()
                 }
+                .buttonStyle(.link)
 #else
                 NavigationLink(
                     destination: WelcomeView(),
@@ -81,11 +89,12 @@ struct DeveloperView: View {
             }
             
             Section {
-                Button(action: {
+                Button("Show All Items") {
                     showAllItems.toggle()
-                }, label: {
-                    Text("Show All Items")
-                })
+                }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
             } header: {
                 Text("Items")
             }
