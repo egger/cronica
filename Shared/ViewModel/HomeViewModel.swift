@@ -25,8 +25,10 @@ class HomeViewModel: ObservableObject {
                     trending = filtered
                 } catch {
                     if Task.isCancelled { return }
-                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                                    for: "HomeViewModel.load()")
+                    let message = """
+            Can't load trending/all/day, error: \(error.localizedDescription)
+            """
+                    CronicaTelemetry.shared.handleMessage(message, for: "HomeViewModel.load()")
                 }
             }
             if sections.isEmpty {

@@ -24,7 +24,7 @@ struct WatchlistView: View {
         NavigationStack {
             VStack {
                 switch settings.watchlistStyle {
-                case .list: EmptyView()
+                case .list: listStyle
                 case .poster: posterStyle
                 case .card: frameStyle
                 }
@@ -67,6 +67,48 @@ struct WatchlistView: View {
                     if Task.isCancelled { return }
                     CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                                     for: "WatchlistView.task(id: query)")
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var listStyle: some View {
+        if items.isEmpty {
+            Text("Your list is empty.")
+                .font(.headline)
+                .foregroundColor(.secondary)
+                .padding()
+        } else {
+            if !filteredItems.isEmpty {
+                WatchListSection(items: filteredItems,
+                                 title: "Search results")
+                
+            } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
+                Text("No results")
+            } else {
+                switch selectedOrder {
+                case .released:
+                    WatchListSection(items: items.filter { $0.isReleased },
+                                     title: DefaultListTypes.released.title)
+                case .upcoming:
+                    WatchListSection(items: items.filter { $0.isUpcoming },
+                                     title: DefaultListTypes.upcoming.title)
+                case .production:
+                    WatchListSection(items: items.filter { $0.isInProduction },
+                                     title: DefaultListTypes.production.title)
+                case .favorites:
+                    WatchListSection(items: items.filter { $0.isFavorite },
+                                     title: DefaultListTypes.favorites.title)
+                case .watched:
+                    WatchListSection(items: items.filter { $0.isWatched },
+                                     title: DefaultListTypes.watched.title)
+                case .pin:
+                    WatchListSection(items: items.filter { $0.isPin },
+                                     title: DefaultListTypes.pin.title)
+                case .archive:
+                    WatchListSection(items: items.filter { $0.isArchive },
+                                     title: DefaultListTypes.archive.title)
                 }
             }
         }

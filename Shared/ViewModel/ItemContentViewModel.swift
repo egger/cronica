@@ -18,8 +18,8 @@ class ItemContentViewModel: ObservableObject {
     @Published var content: ItemContent?
     @Published var recommendations = [ItemContent]()
     @Published var credits = [Person]()
-    @Published var errorMessage: String = "Error found, try again later."
-    @Published var showErrorAlert: Bool = false
+    @Published var errorMessage = "Something went wrong, try again later."
+    @Published var showErrorAlert = false
     @Published var isInWatchlist = false
     @Published var isNotificationAvailable = false
     @Published var hasNotificationScheduled = false
@@ -63,11 +63,12 @@ class ItemContentViewModel: ObservableObject {
                 }
             } catch {
                 if Task.isCancelled { return }
-                errorMessage = error.localizedDescription
                 showErrorAlert = true
                 content = nil
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                                for: "ItemContentViewModel.load()")
+                let message = """
+Can't load the content with id: \(id) and media type: \(type.title), error: \(error.localizedDescription)
+"""
+                CronicaTelemetry.shared.handleMessage(message, for: "ItemContentViewModel.load()")
             }
         }
     }

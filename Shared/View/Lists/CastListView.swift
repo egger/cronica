@@ -24,7 +24,8 @@ struct CastListView: View {
                                 .applyHoverEffect()
                         }
                     }
-                    .padding([.top, .bottom])
+                    .padding(.bottom)
+                    .padding(.top, 8)
                     .padding(.trailing)
                 }
             }

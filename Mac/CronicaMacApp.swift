@@ -23,6 +23,7 @@ struct CronicaMacApp: App {
         
         Settings {
             SettingsView()
+                .tint(settings.appTheme.color)
         }
     }
 }

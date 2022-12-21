@@ -39,22 +39,13 @@ struct ItemContentListView: View {
                         LazyHStack {
                             if displayAsCard {
                                 ForEach(items) { item in
-#if os(iOS)
-                                    CardFrame(item: item,
-                                              showConfirmation: $addedItemConfirmation)
-                                    .padding([.leading, .trailing], 4)
-                                    .buttonStyle(.plain)
-                                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                    .padding([.top, .bottom])
-#else
                                     CardFrame(item: item, showConfirmation: $addedItemConfirmation)
                                         .padding([.leading, .trailing], 4)
                                         .buttonStyle(.plain)
                                         .padding(.leading, item.id == items.first!.id ? 16 : 0)
                                         .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                        .padding([.top, .bottom])
-#endif
+                                        .padding(.top, 8)
+                                        .padding(.bottom)
                                 }
                             } else {
                                 ForEach(items) { item in
@@ -64,7 +55,7 @@ struct ItemContentListView: View {
                                     .buttonStyle(.plain)
                                     .padding(.leading, item.id == items.first!.id ? 16 : 0)
                                     .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                    .padding(.top, 6)
+                                    .padding(.top, 8)
                                     .padding(.bottom)
                                 }
                             }

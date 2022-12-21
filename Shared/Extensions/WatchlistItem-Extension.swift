@@ -138,6 +138,9 @@ extension WatchlistItem: Transferable {
     var notificationID: String {
         return "\(itemId)@\(itemMedia.toInt)"
     }
+    var itemGenre: String {
+        genre ?? "Not Available"
+    }
     var itemDate: Date? {
         guard let date else { return nil }
         return date

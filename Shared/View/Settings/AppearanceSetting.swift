@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppearanceSetting: View {
-    @ObservedObject private var store = SettingsStore.shared
+    @StateObject private var store = SettingsStore.shared
     @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     @State private var isExperimentalFeaturesEnabled = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
@@ -16,6 +16,7 @@ struct AppearanceSetting: View {
     var body: some View {
         Form {
             Section {
+#if os(iOS)
                 Picker(selection: $store.rowType) {
                     ForEach(WatchlistSubtitleRow.allCases) { item in
                         Text(item.localizableName).tag(item)
@@ -25,6 +26,7 @@ struct AppearanceSetting: View {
                                         subtitle: "appearanceRowTypeSubtitle")
                 }
                 .disabled(disableRowType)
+#endif
                 Picker(selection: $store.watchlistStyle) {
                     ForEach(WatchlistItemType.allCases) { item in
                         Text(item.localizableName).tag(item)

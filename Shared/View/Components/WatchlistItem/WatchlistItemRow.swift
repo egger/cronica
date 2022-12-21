@@ -34,7 +34,7 @@ struct WatchlistItemRow: View {
                     }
 #if os(watchOS)
                     rowInformationNone
-#else
+#elseif os(iOS)
                     switch settings.rowType {
                     case .none: rowInformationNone
                     case .date: rowInformationDate

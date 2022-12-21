@@ -41,7 +41,11 @@ class SettingsStore: ObservableObject {
         
         self.appTheme = (UserDefaults.standard.object(forKey: "appThemeColor") == nil ? .blue : AppThemeColors(rawValue: UserDefaults.standard.object(forKey: "appThemeColor") as? Int ?? AppThemeColors.blue.rawValue)) ?? .blue
         
+#if os(macOS)
+        self.watchlistStyle = (UserDefaults.standard.object(forKey: "watchlistStyle") == nil ? .poster : WatchlistItemType(rawValue: UserDefaults.standard.object(forKey: "watchlistStyle") as? Int ?? WatchlistItemType.poster.rawValue)) ?? .poster
+#else
         self.watchlistStyle = (UserDefaults.standard.object(forKey: "watchlistStyle") == nil ? .list : WatchlistItemType(rawValue: UserDefaults.standard.object(forKey: "watchlistStyle") as? Int ?? WatchlistItemType.list.rawValue)) ?? .list
+#endif
         
         self.preferredShareLink = (UserDefaults.standard.object(forKey: "preferredShareLink") == nil ? .tmdb : PreferredShareLink(rawValue: UserDefaults.standard.object(forKey: "preferredShareLink") as? Int ?? PreferredShareLink.tmdb.rawValue)) ?? .tmdb
 

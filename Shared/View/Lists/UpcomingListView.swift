@@ -12,12 +12,6 @@ struct UpcomingListView: View {
     var body: some View {
         if !items.isEmpty {
             VStack {
-                #if os(macOS)
-                TitleView(title: "Upcoming",
-                          subtitle: "From Watchlist",
-                          image: "rectangle.stack",
-                          showChevron: false)
-                #else
                 NavigationLink(value: items) {
                     TitleView(title: "Upcoming",
                               subtitle: "From Watchlist",
@@ -25,14 +19,12 @@ struct UpcomingListView: View {
                               showChevron: true)
                 }
                 .buttonStyle(.plain)
-                #endif
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(items) { item in
                             CardView(item: item)
                                 .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
-                                .padding([.top, .bottom])
 #if os(tvOS)
                                 .buttonStyle(.card)
 #else
@@ -40,6 +32,8 @@ struct UpcomingListView: View {
 #endif
                         }
                     }
+                    .padding(.bottom)
+                    .padding(.top, 8)
                 }
             }
         }

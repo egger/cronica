@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject private var settings = SettingsStore()
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         TabView {
             AppearanceSetting()
-                .environmentObject(settings)
                 .tabItem {
                     Label("settingsAppearanceTitle", systemImage: "moon.stars")
                 }

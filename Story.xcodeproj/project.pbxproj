@@ -710,13 +710,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B80318AB2926755200714B3E /* Watchlist */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Watchlist;
-			sourceTree = "<group>";
-		};
 		B806C4DF2899BE2800A5330E /* AppleWatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -1148,7 +1141,6 @@
 			isa = PBXGroup;
 			children = (
 				B80982BB292AA6A00020716F /* Person */,
-				B80318AB2926755200714B3E /* Watchlist */,
 			);
 			path = Components;
 			sourceTree = "<group>";

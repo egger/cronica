@@ -13,6 +13,16 @@ struct WatchListSection: View {
     var title: String
     var body: some View {
         if !items.isEmpty {
+#if os(macOS)
+            Table(items) {
+                TableColumn("Title") { item in
+                    WatchlistItemRow(content: item)
+                        .buttonStyle(.plain)
+                }
+                TableColumn("Media", value: \.itemMedia.title)
+                TableColumn("Genre", value: \.itemGenre)
+            }
+#else
             Section {
                 ForEach(items, id: \.notificationID) { item in
                     WatchlistItemRow(content: item)
@@ -31,6 +41,7 @@ struct WatchListSection: View {
                 }
                 return true
             }
+#endif
         } else {
             Text("This list is empty.")
                 .font(.headline)
