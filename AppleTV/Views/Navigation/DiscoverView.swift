@@ -29,7 +29,7 @@ struct DiscoverView: View {
                     VStack {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(viewModel.items) { item in
-                                ItemContentCardView(item: item, showConfirmation: $showConfirmation)
+                                CardFrame(item: item, showConfirmation: $showConfirmation)
                                     .buttonStyle(.plain)
                             }
                             if !viewModel.startPagination || !viewModel.endPagination {

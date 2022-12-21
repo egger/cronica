@@ -367,7 +367,6 @@
 		B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 		B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */; };
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
-		B8F6DE5E29379A3B005D1A50 /* CardFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5D29379A3B005D1A50 /* CardFrame.swift */; };
 		B8F6DE5F29379A78005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE6229379F58005D1A50 /* ItemContentCollectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */; };
@@ -402,6 +401,9 @@
 		B8FB2A9C2952B141006DAC8E /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
 		B8FB2AA129534E29006DAC8E /* WatchlistItemPoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8129524C37006DAC8E /* WatchlistItemPoster.swift */; };
 		B8FB2AA229534E90006DAC8E /* WatchlistPosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8829524FAD006DAC8E /* WatchlistPosterSection.swift */; };
+		B8FB2AA329535057006DAC8E /* CardFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E396284FCBCB00F59855 /* CardFrame.swift */; };
+		B8FB2AA4295353D5006DAC8E /* WatchlistItemFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A7D29522E58006DAC8E /* WatchlistItemFrame.swift */; };
+		B8FB2AA529535438006DAC8E /* WatchlistCardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A7F295235E2006DAC8E /* WatchlistCardSection.swift */; };
 		B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */; };
 		B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
 		B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
@@ -480,7 +482,7 @@
 		B8110EDF279245D100844FEB /* Story.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Story.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8110F162792764B00844FEB /* Story (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Story (iOS).entitlements"; sourceTree = "<group>"; };
 		B8110F3B279364C800844FEB /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		B8114C8E29385F1500930AF4 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		B8114C8E29385F1500930AF4 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DiscoverView.swift; path = ../../../AppleTV/Views/Navigation/DiscoverView.swift; sourceTree = "<group>"; };
 		B812529728A407120062B0C9 /* DefaultListTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListTypes.swift; sourceTree = "<group>"; };
 		B815A15B27BEB7F20062F727 /* ItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContent.swift; sourceTree = "<group>"; };
 		B82B759428A84C8C00C3212A /* CompanionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionTextView.swift; sourceTree = "<group>"; };
@@ -633,7 +635,6 @@
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBoxView.swift; sourceTree = "<group>"; };
 		B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetails.swift; sourceTree = "<group>"; };
-		B8F6DE5D29379A3B005D1A50 /* CardFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFrame.swift; sourceTree = "<group>"; };
 		B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentCollectionDetails.swift; sourceTree = "<group>"; };
 		B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVerticalView.swift; sourceTree = "<group>"; };
 		B8FB2A7D29522E58006DAC8E /* WatchlistItemFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemFrame.swift; sourceTree = "<group>"; };
@@ -1133,6 +1134,7 @@
 		B8BF62CB2912DA960051915C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				B8114C8E29385F1500930AF4 /* DiscoverView.swift */,
 				B8FB2A9D29534BA2006DAC8E /* Watchlist */,
 				B8BF62CC2912DAA20051915C /* SideBarView.swift */,
 				B8BF62CE2912DDBC0051915C /* SettingsView.swift */,
@@ -1147,7 +1149,6 @@
 			children = (
 				B80982BB292AA6A00020716F /* Person */,
 				B80318AB2926755200714B3E /* Watchlist */,
-				B8F6DE5D29379A3B005D1A50 /* CardFrame.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1258,7 +1259,6 @@
 				B86E7A2B290AEEFE00459E41 /* SearchView.swift */,
 				B8DD568F290C92A5002CAAFD /* SettingsView.swift */,
 				B86E7A1B290A91E200459E41 /* WatchlistView.swift */,
-				B8114C8E29385F1500930AF4 /* DiscoverView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1956,6 +1956,7 @@
 				B8BF633B29146AEB0051915C /* UpcomingWatchlist.swift in Sources */,
 				B8BF62DB2912E6360051915C /* ItemContentDetails.swift in Sources */,
 				B8BF62C52912DA230051915C /* PersonDetailsViewModel.swift in Sources */,
+				B8FB2AA529535438006DAC8E /* WatchlistCardSection.swift in Sources */,
 				B8BF62F62913077A0051915C /* PersonDetailsView.swift in Sources */,
 				B8FB2AA129534E29006DAC8E /* WatchlistItemPoster.swift in Sources */,
 				B8114C8A29380B1E00930AF4 /* PersonCardView.swift in Sources */,
@@ -1966,6 +1967,7 @@
 				B8BF62B02912DA230051915C /* ItemContent.swift in Sources */,
 				B8BF62B42912DA230051915C /* Videos.swift in Sources */,
 				B80982BD292AA6B00020716F /* PersonSearchImage.swift in Sources */,
+				B8FB2AA4295353D5006DAC8E /* WatchlistItemFrame.swift in Sources */,
 				B8BF62C82912DA230051915C /* SeasonViewModel.swift in Sources */,
 				B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */,
 				B8FB2A8529524D97006DAC8E /* View-Extensions.swift in Sources */,
@@ -1973,6 +1975,7 @@
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
 				B89446C0294FDACA008974BA /* AppThemeColors.swift in Sources */,
+				B8FB2AA329535057006DAC8E /* CardFrame.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
 				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
 				B8BF62FA291307CE0051915C /* OverviewBoxView.swift in Sources */,
@@ -1996,7 +1999,6 @@
 				B8BF62CD2912DAA20051915C /* SideBarView.swift in Sources */,
 				B8BF62F52912FFC10051915C /* CastListView.swift in Sources */,
 				B8BF62AA2912DA230051915C /* DefaultListTypes.swift in Sources */,
-				B8F6DE5E29379A3B005D1A50 /* CardFrame.swift in Sources */,
 				B8BF6332291468F30051915C /* NotificationListView.swift in Sources */,
 				B8F6DE6229379F58005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
 				B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */,

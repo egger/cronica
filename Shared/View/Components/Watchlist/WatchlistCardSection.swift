@@ -14,7 +14,7 @@ struct WatchlistCardSection: View {
     var body: some View {
         if !items.isEmpty {
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))],
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))],
                           spacing: 20) {
                     Section {
                         ForEach(items, id: \.notificationID) { item in
@@ -63,4 +63,12 @@ struct WatchlistCardSection_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistCardSection(items: [.example], title: "Preview")
     }
+}
+
+private struct DrawingConstants {
+#if os(macOS)
+    static let columns: CGFloat = 240
+#else
+    static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
+#endif
 }

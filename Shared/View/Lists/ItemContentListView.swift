@@ -48,7 +48,7 @@ struct ItemContentListView: View {
                                     .padding(.trailing, item.id == items.last!.id ? 16 : 0)
                                     .padding([.top, .bottom])
 #else
-                                    ItemContentCardView(item: item, showConfirmation: $addedItemConfirmation)
+                                    CardFrame(item: item, showConfirmation: $addedItemConfirmation)
                                         .padding([.leading, .trailing], 4)
                                         .buttonStyle(.plain)
                                         .padding(.leading, item.id == items.first!.id ? 16 : 0)
@@ -64,7 +64,8 @@ struct ItemContentListView: View {
                                     .buttonStyle(.plain)
                                     .padding(.leading, item.id == items.first!.id ? 16 : 0)
                                     .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                    .padding([.top, .bottom])
+                                    .padding(.top, 6)
+                                    .padding(.bottom)
                                 }
                             }
                         }

@@ -34,7 +34,7 @@ struct WatchlistItemFrame: View {
                     Spacer()
                 }
             }
-            .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth)
+            .frame(width: DrawingConstants.imageWidth)
             .task {
                 isWatched = content.isWatched
                 isFavorite = content.isFavorite
@@ -49,12 +49,12 @@ struct WatchlistItemFrame: View {
             .placeholder { placeholder }
             .aspectRatio(contentMode: .fill)
             .transition(.opacity)
-            .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
-                   height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius,
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                         style: .continuous))
             .shadow(radius: DrawingConstants.imageShadow)
-            .hoverEffect(.lift)
+            .applyHoverEffect()
     }
     private var placeholder: some View {
         ZStack {
@@ -70,9 +70,9 @@ struct WatchlistItemFrame: View {
             }
             .padding()
         }
-        .frame(width: UIDevice.isIPad ? DrawingConstants.padImageWidth :  DrawingConstants.imageWidth,
-               height: UIDevice.isIPad ? DrawingConstants.padImageHeight : DrawingConstants.imageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: UIDevice.isIPad ? DrawingConstants.padImageRadius : DrawingConstants.imageRadius, style: .continuous))
+        .frame(width: DrawingConstants.imageWidth,
+               height: DrawingConstants.imageHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
     }
 }
 
@@ -83,16 +83,16 @@ struct WatchlistItemFrame_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let imageWidth: CGFloat = 160
-    static let imageHeight: CGFloat = 100
-    static let imageRadius: CGFloat = 8
-    static let imageShadow: CGFloat = 2.5
 #if os(macOS)
+    static let imageWidth: CGFloat = 240
+    static let imageHeight: CGFloat = 140
+    static let imageRadius: CGFloat = 12
 #else
+    static let imageWidth: CGFloat = UIDevice.isIPad ? 240 : 160
+    static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
+    static let imageRadius: CGFloat = 8
 #endif
-    static let padImageWidth: CGFloat = 240
-    static let padImageHeight: CGFloat = 140
-    static let padImageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1
+    static let imageShadow: CGFloat = 2.5
     static let placeholderForegroundColor: Color = .white.opacity(0.8)
 }

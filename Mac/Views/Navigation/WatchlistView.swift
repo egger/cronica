@@ -1,6 +1,6 @@
 //
 //  WatchlistView.swift
-//  CronicaMac
+//  Mac
 //
 //  Created by Alexandre Madeira on 02/11/22.
 //
@@ -19,10 +19,15 @@ struct WatchlistView: View {
     @State private var isSearching = false
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         NavigationStack {
             VStack {
-                posterStyle
+                switch settings.watchlistStyle {
+                case .list: EmptyView()
+                case .poster: posterStyle
+                case .card: frameStyle
+                }
             }
             .navigationTitle("Watchlist")
             .searchable(text: $query, prompt: "Search watchlist")
@@ -70,28 +75,35 @@ struct WatchlistView: View {
     @ViewBuilder
     private var frameStyle: some View {
         EmptyView()
-//        if !filteredItems.isEmpty {
-//            WatchlistPosterSection(items: filteredItems)
-//        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-//            noResults
-//        } else {
-//            switch selectedOrder {
-//            case .released:
-//                WatchlistPosterSection(items: items.filter { $0.isReleased })
-//            case .upcoming:
-//                WatchlistPosterSection(items: items.filter { $0.isUpcoming })
-//            case .production:
-//                WatchlistPosterSection(items: items.filter { $0.isInProduction })
-//            case .watched:
-//                WatchlistPosterSection(items: items.filter { $0.isWatched })
-//            case .favorites:
-//                WatchlistPosterSection(items: items.filter { $0.isFavorite })
-//            case .pin:
-//                WatchlistPosterSection(items: items.filter { $0.isPin })
-//            case .archive:
-//                WatchlistPosterSection(items: items.filter { $0.isArchive })
-//            }
-//        }
+        if !filteredItems.isEmpty {
+            WatchlistCardSection(items: filteredItems, title: "Search results")
+        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
+            noResults
+        } else {
+            switch selectedOrder {
+            case .released:
+                WatchlistCardSection(items: items.filter { $0.isReleased },
+                                     title: DefaultListTypes.released.title)
+            case .upcoming:
+                WatchlistCardSection(items: items.filter { $0.isUpcoming },
+                                     title: DefaultListTypes.upcoming.title)
+            case .production:
+                WatchlistCardSection(items: items.filter { $0.isInProduction },
+                                     title: DefaultListTypes.production.title)
+            case .watched:
+                WatchlistCardSection(items: items.filter { $0.isWatched },
+                                     title: DefaultListTypes.watched.title)
+            case .favorites:
+                WatchlistCardSection(items: items.filter { $0.isFavorite },
+                                     title: DefaultListTypes.favorites.title)
+            case .pin:
+                WatchlistCardSection(items: items.filter { $0.isPin },
+                                     title: DefaultListTypes.pin.title)
+            case .archive:
+                WatchlistCardSection(items: items.filter { $0.isArchive },
+                                     title: DefaultListTypes.archive.title)
+            }
+        }
     }
     
     @ViewBuilder
