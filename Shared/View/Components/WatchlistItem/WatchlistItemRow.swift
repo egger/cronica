@@ -19,14 +19,8 @@ struct WatchlistItemRow: View {
     var body: some View {
         NavigationLink(value: content) {
             HStack {
-#if os(watchOS)
                 image
-#elseif os(macOS)
-                image
-#else
-                image
-                    .hoverEffect(.highlight)
-#endif
+                    .applyHoverEffect()
                 VStack(alignment: .leading) {
                     HStack {
                         Text(content.itemTitle)
@@ -42,8 +36,7 @@ struct WatchlistItemRow: View {
                     }
 #endif
                 }
-#if os(watchOS)
-#else
+#if os(iOS) || os(macOS)
                 if isFavorite || content.favorite {
                     Spacer()
                     Image(systemName: "heart.fill")

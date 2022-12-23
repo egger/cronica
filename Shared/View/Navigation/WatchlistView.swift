@@ -173,7 +173,7 @@ struct WatchlistView: View {
                         if let result {
                             PersistenceController.shared.save(result)
                         }
-                    }
+                    } 
                 }
                 return true
             }

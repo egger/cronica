@@ -1,6 +1,6 @@
 //
 //  HoverEffectModifier.swift
-//  CronicaTV
+//  Shared
 //
 //  Created by Alexandre Madeira on 03/11/22.
 //

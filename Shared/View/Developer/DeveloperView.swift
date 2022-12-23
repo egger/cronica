@@ -19,6 +19,7 @@ struct DeveloperView: View {
     @State private var isFetchingAll = false
     @State private var showAllItems = false
     @State private var showOnboardingMac = false
+    private let persistence = PersistenceController.shared
     private let service = NetworkService.shared
     var body: some View {
         Form {
@@ -110,7 +111,7 @@ struct DeveloperView: View {
         .sheet(item: $item) { item in
 #if os(macOS)
             NavigationStack {
-                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia, handleToolbarOnPopup: true)
                     .frame(width: 800, height: 500, alignment: .center)
                     .toolbar {
                         Button("Done") {
@@ -169,6 +170,10 @@ struct DeveloperView: View {
                     }
                     .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
+                        ItemContentDetailsView(id: item.id,
+                                               title: item.itemTitle,
+                                               type: item.itemContentMedia,
+                                               handleToolbarOnPopup: true)
 #else
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 #endif
@@ -190,6 +195,7 @@ struct DeveloperView: View {
                     }
 #if os(macOS)
                     .frame(width: 500, height: 500, alignment: .center)
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
 #endif
             }
         }

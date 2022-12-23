@@ -60,7 +60,7 @@ class DiscoverViewModel: ObservableObject {
                     }
                 }
             }
-            endPagination = currentPage == 1000
+            if result.isEmpty { endPagination = true }
             startPagination = false
         } catch {
             if Task.isCancelled { return }

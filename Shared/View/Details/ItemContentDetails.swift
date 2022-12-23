@@ -18,6 +18,9 @@ struct ItemContentDetails: View {
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
+    @State private var showMarkAsConfirmation = false
+    @State private var markAsMessage = ""
+    @State private var markAsImage = ""
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
@@ -85,7 +88,12 @@ struct ItemContentDetails: View {
                             .accessibilityHidden(true)
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
-                        moreMenu
+                        if UIDevice.isIPad {
+                            watchButton
+                            favoriteButton
+                        } else {
+                            moreMenu
+                        }
                     }
                 }
             }
@@ -106,12 +114,35 @@ struct ItemContentDetails: View {
             ConfirmationDialogView(showConfirmation: $showConfirmation)
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
                                    message: "Season Marked as Watched", image: "tv.fill")
+            ConfirmationDialogView(showConfirmation: $showMarkAsConfirmation,
+                                   message: markAsMessage, image: markAsImage)
         }
     }
     
     private var watchButton: some View {
         Button(action: {
+            if UIDevice.isIPad {
+                if viewModel.isFavorite {
+                    markAsMessage = "removedFromWatched"
+                    markAsImage = "minus.circle"
+                } else {
+                    markAsMessage = "markedAsWatched"
+                    markAsImage = "checkmark.circle"
+                }
+            }
+            
             viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
+            
+            if UIDevice.isIPad {
+                showMarkAsConfirmation.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                    withAnimation {
+                        showMarkAsConfirmation = false
+                        markAsMessage = ""
+                        markAsImage = ""
+                    }
+                }
+            }
         }, label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
@@ -121,7 +152,28 @@ struct ItemContentDetails: View {
     
     private var favoriteButton: some View {
         Button(action: {
+            if UIDevice.isIPad {
+                if viewModel.isFavorite {
+                    markAsMessage = "removedFromFavorites"
+                    markAsImage = "heart.circle.fill"
+                } else {
+                    markAsMessage = "markedAsFavorite"
+                    markAsImage = "heart.circle"
+                }
+            }
+            
             viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
+            
+            if UIDevice.isIPad {
+                showMarkAsConfirmation.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                    withAnimation {
+                        showMarkAsConfirmation = false
+                        markAsMessage = ""
+                        markAsImage = ""
+                    }
+                }
+            }
         }, label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")

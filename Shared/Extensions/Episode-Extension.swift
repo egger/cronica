@@ -12,7 +12,12 @@ extension Episode {
         name ?? "Not Available"
     }
     var itemOverview: String {
-        overview ?? "Not Available"
+        if let overview {
+            if !overview.isEmpty {
+                return overview
+            }
+        }
+        return NSLocalizedString("Not Available", comment: "")
     }
     var itemImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: stillPath)
@@ -51,11 +56,6 @@ extension Episode {
         if let guestStars {
             value.append(contentsOf: guestStars)
         }
-        if !value.isEmpty {
-            let unique: Set = Set(value)
-            let result: [Person] = unique.sorted { $0.itemPopularity > $1.itemPopularity }
-            return result
-        }
-        return value
+        return value.sorted { $0.itemPopularity > $1.itemPopularity }
     }
 }

@@ -12,54 +12,19 @@ struct SettingsView: View {
     @State private var updatingItems = false
     var body: some View {
         Form {
-            // MARK: Update Section
-            Section {
-                Button(action: {
-                    updateItems()
-                }, label: {
-                    if updatingItems {
-                        CenterHorizontalView { ProgressView() }
-                    } else {
-                        Text("Update Items")
-                    }
-                })
-            } header: {
-                Label("Sync", systemImage: "arrow.2.circlepath")
-            } footer: {
-                Text("'Update Items' will update your items with new information available on TMDb, if available.")
-                    .padding(.bottom)
-            }
             
             Section {
-                NavigationLink(destination: FeedbackSettingsView()) {
-                    Text("Send Feedback")
+                NavigationLink(destination: AppearanceSetting()) {
+                    Label("settingsAppearanceTitle", systemImage: "moon.stars")
                 }
-                .disabled(disableTelemetry)
-                
-            } header: {
-                Label("Support", systemImage: "questionmark.circle")
-            }
-            
-            Section {
-                Toggle("Disable Telemetry", isOn: $disableTelemetry)
-            } header: {
-                Label("Privacy", systemImage: "hand.raised.fingers.spread")
-            } footer: {
-                Text("privacyFooterTV")
-                    .padding(.bottom)
-            }
-            
-            Section {
-                NavigationLink {
-                    FeaturesPreviewSettings()
-                } label: {
-                    Text("Experimental Features")
+                NavigationLink(destination: SyncSetting()) {
+                    Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
                 }
             } header: {
-                Label("Experimental Features", systemImage: "wand.and.stars")
-            } footer: {
-                Text("Experimental Features are meant for users that want to test out features that still in development.")
+                Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
             }
+            
+            PrivacySupportSetting()
             
             CenterHorizontalView { Text("Made in Brazil 🇧🇷") }
         }

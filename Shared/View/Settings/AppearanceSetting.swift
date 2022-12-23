@@ -15,6 +15,7 @@ struct AppearanceSetting: View {
     @State private var disableRowType = false
     var body: some View {
         Form {
+#if os(iOS) || os(macOS)
             Section {
 #if os(iOS)
                 Picker(selection: $store.rowType) {
@@ -39,7 +40,8 @@ struct AppearanceSetting: View {
             } header: {
                 Label("appearanceWatchlist", systemImage: "rectangle.stack")
             }
-            
+#endif
+#if os(iOS) || os(macOS)
             Section {
                 Picker(selection: $store.appTheme) {
                     ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
@@ -63,6 +65,7 @@ struct AppearanceSetting: View {
             } header: {
                 Label("appearanceTheme", systemImage: "paintbrush.fill")
             }
+#endif
             Section {
                 Toggle(isOn: $newBackgroundStyle) {
                     InformationalToggle(title: "appearanceBackgroundTitle",

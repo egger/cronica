@@ -52,10 +52,11 @@ struct WatchlistItemContextMenu: ViewModifier {
                 pinButton
                     .tint(item.isPin ? .gray : .teal)
                 favoriteButton
-                    .tint(item.isFavorite ? .orange : .blue)
+                    .tint(item.isFavorite ? .orange : .purple)
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 archiveButton
+                    .tint(item.isArchive ? .gray : .indigo)
                 deleteButton
             }
             .contextMenu {
@@ -196,5 +197,6 @@ struct WatchlistItemContextMenu: ViewModifier {
         }, label: {
             Label("Remove", systemImage: "trash")
         })
+        .tint(.red)
     }
 }

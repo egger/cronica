@@ -82,6 +82,10 @@
 "Be reminded of upcoming Movies & TV Shows." = "Be reminded of upcoming Movies & TV Shows.";
 "Your smart Watchlist" = "Your smart Watchlist";
 "addAndMarkWatchedButton" = "Add and Mark as Watched";
+"markedAsWatched" = "Marked as Watched";
+"removedFromWatched" = "Removed from Watched";
+"markedAsFavorite" = "Marked as Favorite";
+"removedFromFavorites" = "Removed from Favorites";
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "This product uses the TMDb API but is not endorsed or certified by TMDb.";

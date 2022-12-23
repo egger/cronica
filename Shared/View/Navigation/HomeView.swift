@@ -69,8 +69,7 @@ struct HomeView: View {
             }
             .navigationDestination(for: Endpoints.self) { endpoint in
                 EndpointDetails(title: endpoint.title,
-                                endpoint: endpoint,
-                                columns: DrawingConstants.columns)
+                                endpoint: endpoint)
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
                 let keys = item.map { (key, value) in key }
@@ -86,7 +85,7 @@ struct HomeView: View {
             .navigationTitle("Home").fontDesign(.rounded)
             .toolbar {
 #if os(macOS)
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItem(placement: .navigation) {
                     Button {
                         showNotifications.toggle()
                     } label: {
@@ -149,22 +148,26 @@ struct HomeView_Previews: PreviewProvider {
 struct TitleWatchlistDetails: View {
     var title = "Upcoming"
     let items: [WatchlistItem]
-    @State private var query = ""
     var body: some View {
-        List(items) { item in
-            WatchlistItemRow(content: item)
+        VStack {
+#if os(macOS)
+            WatchListSection(items: items, title: title)
+#else
+            List(items) { item in
+                WatchlistItemRow(content: item)
+            }
+            
+#endif
         }
         .navigationTitle(LocalizedStringKey(title))
-#if os(iOS)
-        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
-#endif
+        
     }
 }
 
-private struct DrawingConstants {
-#if os(macOS)
-    static let columns = [GridItem(.adaptive(minimum: 160))]
-#else
-    static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
-#endif
-}
+//private struct DrawingConstants {
+//#if os(macOS)
+//    static let columns = [GridItem(.adaptive(minimum: 160))]
+//#else
+//    static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
+//#endif
+//}

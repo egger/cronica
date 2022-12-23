@@ -19,6 +19,7 @@ struct WatchlistView: View {
     @State private var isSearching = false
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
+    @State private var scope: WatchlistSearchScope = .noScope
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         NavigationStack {
@@ -31,6 +32,11 @@ struct WatchlistView: View {
             }
             .navigationTitle("Watchlist")
             .searchable(text: $query, prompt: "Search watchlist")
+            .searchScopes($scope) {
+                ForEach(WatchlistSearchScope.allCases) { scope in
+                    Text(scope.localizableTitle).tag(scope)
+                }
+            }
             .autocorrectionDisabled()
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
@@ -81,8 +87,17 @@ struct WatchlistView: View {
                 .padding()
         } else {
             if !filteredItems.isEmpty {
-                WatchListSection(items: filteredItems,
-                                 title: "Search results")
+                switch scope {
+                case .noScope:
+                    WatchListSection(items: filteredItems,
+                                     title: "Search results")
+                case .movies:
+                    WatchListSection(items: filteredItems.filter { $0.isMovie },
+                                     title: "Search results")
+                case .shows:
+                    WatchListSection(items: filteredItems.filter { $0.isTvShow },
+                                     title: "Search results")
+                }
                 
             } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
                 Text("No results")

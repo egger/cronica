@@ -12,13 +12,12 @@ struct EndpointDetails: View {
     var endpoint: Endpoints?
     @StateObject private var viewModel = EndpointDetailsModel()
     @State private var showConfirmation = false
-    let columns: [GridItem]
     var body: some View {
         ZStack {
             if viewModel.isLoading { ProgressView() }
             ScrollView {
                 VStack {
-                    LazyVGrid(columns: columns, spacing: 20) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))], spacing: 20) {
                         ForEach(viewModel.items) { item in
 #if os(macOS)
                             Poster(item: item, addedItemConfirmation: $showConfirmation)
@@ -86,6 +85,10 @@ private class EndpointDetailsModel: ObservableObject {
     }
 }
 
-//= [
-//    GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))
-//]
+private struct DrawingConstants {
+#if os(macOS)
+    static let columns: CGFloat = 160
+#else
+    static let columns: CGFloat = UIDevice.isIPad ? 240 : 160 
+#endif
+}

@@ -12,6 +12,7 @@ struct PrivacySupportSetting: View {
     @State private var showPolicy = false
     var body: some View {
         Section {
+#if os(iOS) || os(macOS)
             Button {
 #if os(macOS)
                 NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
@@ -28,7 +29,8 @@ struct PrivacySupportSetting: View {
 #elseif os(macOS)
             .buttonStyle(.link)
 #endif
-#if os(iOS)
+#endif
+#if os(iOS) || os(tvOS)
             NavigationLink(destination: FeedbackSettingsView()) {
                 Label("settingsFeedbackTitle", systemImage: "mail")
             }
@@ -39,11 +41,16 @@ struct PrivacySupportSetting: View {
                                     subtitle: "settingsDisableTelemetrySubtitle")
             }
         } header: {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
             Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
 #elseif os(macOS)
             Label("Privacy", systemImage: "hand.raised")
 #endif
+        } footer: {
+            #if os(tvOS)
+            Text("privacyFooterTV")
+                .padding(.bottom)
+            #endif
         }
     }
 }

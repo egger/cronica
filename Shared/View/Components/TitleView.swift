@@ -28,9 +28,8 @@ struct TitleView: View {
                     if showChevron {
                         Image(systemName: "chevron.right")
                             .font(.title3)
-                            .fontWeight(.bold)
+                            .fontWeight(.semibold)
                             .foregroundColor(.secondary)
-                            .padding(.leading, .zero)
                             .padding(.top)
                             .accessibilityHidden(true)
                     }
@@ -38,10 +37,14 @@ struct TitleView: View {
                 if !subtitle.isEmpty {
                     HStack {
                         Text(NSLocalizedString(subtitle, comment: ""))
-                            .font(.caption)
                             .foregroundColor(.secondary)
                             .padding(.leading)
                             .fontDesign(.rounded)
+#if os(tvOS)
+                            .font(.caption)
+#else
+                            .font(.callout)
+#endif
                     }
                 }
             }
