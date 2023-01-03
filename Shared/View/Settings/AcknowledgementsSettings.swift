@@ -9,26 +9,30 @@ import SwiftUI
 
 struct AcknowledgementsSettings: View {
     var body: some View {
-        Form {
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsDeveloper")
-            }
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsAppIcon")
-            }
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsContentProvider")
-            }
-            Button {
-                
-            } label: {
-                Text("acknowledgmentsSDWebImage")
+        Section {
+            Form {
+                Button {
+                    
+                } label: {
+                    InformationalToggle(title: "acknowledgmentsDeveloperitle",
+                                        subtitle: "acknowledgmentsDeveloperSubtitle")
+                }
+                Button {
+                    
+                } label: {
+                    InformationalToggle(title: "acknowledgmentsAppIconTitle",
+                                        subtitle: "acknowledgmentsAppIconSubtitle")
+                }
+                Button {
+                    
+                } label: {
+                    Text("acknowledgmentsContentProvider")
+                }
+                Button {
+                    
+                } label: {
+                    Text("acknowledgmentsSDWebImage")
+                }
             }
         }
         .navigationTitle("acknowledgmentsTitle")

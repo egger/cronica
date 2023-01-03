@@ -12,6 +12,7 @@ struct AppearanceSetting: View {
     @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     @State private var isExperimentalFeaturesEnabled = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
+    @AppStorage("user_theme") private var currentTheme: AppTheme = .system
     @State private var disableRowType = false
     var body: some View {
         Form {
@@ -43,6 +44,14 @@ struct AppearanceSetting: View {
 #endif
 #if os(iOS) || os(macOS)
             Section {
+                Picker(selection: $currentTheme) {
+                    ForEach(AppTheme.allCases) { item in
+                        Text(item.localizableName).tag(item)
+                    }
+                } label: {
+                    InformationalToggle(title: "appearanceAppThemeTitle")
+                }
+
                 Picker(selection: $store.appTheme) {
                     ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
                         HStack {

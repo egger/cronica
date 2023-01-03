@@ -40,6 +40,7 @@ struct TabBarView: View {
             .tag(SearchView.tag)
             .tabItem { Label("Search", systemImage: "magnifyingglass") }
         }
+        .appTheme()
     }
 }
 

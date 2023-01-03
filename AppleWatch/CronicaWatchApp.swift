@@ -18,6 +18,7 @@ struct CronicaWatch_Watch_AppApp: App {
         WindowGroup {
             WatchlistView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
+                .fontDesign(.rounded)
         }
     }
 }

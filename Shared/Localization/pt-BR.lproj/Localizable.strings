@@ -307,6 +307,7 @@
 "appearanceTheme" = "Temas";
 "appearanceRowStyleTitle" = "Estilo do Item da Lista";
 "appearanceRowStyleSubtitle" = "Escolha como exibir sua Lista";
+"appearanceAppThemeTitle" = "Tema do aplicativo";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Toque Duplo Na Capa";
@@ -365,3 +366,8 @@
 "watchlistItemTypeList" = "Lista";
 "watchlistItemTypePoster" = "Poster";
 "watchlistItemTypeCard" = "Cartão";
+
+// MARK: AppTheme
+"appThemeSystem" = "Sistema";
+"appThemeLight" = "Claro";
+"appThemeDark" = "Escuro";

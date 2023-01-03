@@ -19,6 +19,7 @@ struct CronicaMacApp: App {
             ContentView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .tint(settings.appTheme.color)
+                .fontDesign(.rounded)
         }
         
         Settings {

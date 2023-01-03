@@ -318,6 +318,7 @@
 "appearanceTheme" = "Themes";
 "appearanceRowStyleTitle" = "Watchlist's Item Style";
 "appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
+"appearanceAppThemeTitle" = "App Theme";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Double Tap On Cover";
@@ -377,3 +378,8 @@
 "watchlistItemTypeList" = "List";
 "watchlistItemTypePoster" = "Poster";
 "watchlistItemTypeCard" = "Card";
+
+// MARK: AppTheme
+"appThemeSystem" = "System";
+"appThemeLight" = "Light";
+"appThemeDark" = "Dark";

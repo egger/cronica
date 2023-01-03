@@ -67,6 +67,7 @@ struct StoryApp: App {
                             PersonDetailsView(title: item.name, id: item.id)
                         }
                     }
+                    .appTheme()
                 }
                 .onAppear {
                     if !removedOldNotifications {

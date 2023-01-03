@@ -123,10 +123,12 @@ struct HomeView: View {
 #if os(iOS)
                 SettingsView(showSettings: $showSettings)
                     .environmentObject(settings)
+                    .appTheme()
 #endif
             }
             .sheet(isPresented: $showNotifications) {
                 NotificationListView(showNotification: $showNotifications)
+                    .appTheme()
 #if os(macOS)
                     .frame(width: 800, height: 500)
 #endif
