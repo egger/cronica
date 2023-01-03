@@ -9,33 +9,40 @@ import SwiftUI
 
 struct AcknowledgementsSettings: View {
     var body: some View {
-        Section {
-            Form {
+        Form {
+            Section {
                 Button {
-                    
-                } label: {
-                    InformationalToggle(title: "acknowledgmentsDeveloperitle",
-                                        subtitle: "acknowledgmentsDeveloperSubtitle")
-                }
-                Button {
-                    
+                    openUrl(URL(string: "https://www.fiverr.com/akhmad437")!)
                 } label: {
                     InformationalToggle(title: "acknowledgmentsAppIconTitle",
                                         subtitle: "acknowledgmentsAppIconSubtitle")
                 }
                 Button {
-                    
+                    openUrl(URL(string: "https://www.themoviedb.org")!)
                 } label: {
-                    Text("acknowledgmentsContentProvider")
+                    InformationalToggle(title: "acknowledgmentsContentProviderTitle",
+                                        subtitle: "acknowledgmentsContentProviderSubtitle")
                 }
                 Button {
-                    
+                    openUrl(URL(string: "https://github.com/SDWebImage/SDWebImageSwiftUI")!)
                 } label: {
-                    Text("acknowledgmentsSDWebImage")
+                    InformationalToggle(title: "acknowledgmentsSDWebImage")
                 }
+            } header: {
+                Label("settingsAcknowledgments", systemImage: "smiley")
+            } footer: {
+                Text("settingsAcknowledgmentsFooter")
             }
         }
         .navigationTitle("acknowledgmentsTitle")
+    }
+    
+    private func openUrl(_ url: URL) {
+#if os(macOS)
+        NSWorkspace.shared.open(url)
+#else
+        UIApplication.shared.open(url)
+#endif
     }
 }
 

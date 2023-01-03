@@ -63,6 +63,15 @@ struct SettingsView: View {
                 Label("settingsReviewCronica", systemImage: "star.fill")
             }
             ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
+//            Button {
+//                
+//            } label: {
+//                InformationalToggle(title: "settingsDeveloperTitle")
+//            }
+
+            NavigationLink(destination: AcknowledgementsSettings()) {
+                Text("acknowledgmentsTitle")
+            }
             CenterHorizontalView {
                 Text("Made in Brazil 🇧🇷")
                     .onTapGesture {

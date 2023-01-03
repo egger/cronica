@@ -124,6 +124,7 @@ struct HomeView: View {
                 SettingsView(showSettings: $showSettings)
                     .environmentObject(settings)
                     .appTheme()
+                    .tint(settings.appTheme.color)
 #endif
             }
             .sheet(isPresented: $showNotifications) {

@@ -351,6 +351,7 @@
 "settingsFeedbackTitle" = "Send Feedback";
 "settingsPrivacySupportTitle" = "Privacy & Support";
 "settingsDeveloperOptions" = "Developer Settings";
+"settingsDeveloperTitle" = "Developed by Alexandre Madeira";
 
 // MARK: SyncSetting
 "syncSettingsUpdateWatchlistTitle" = "Update Items";
@@ -383,3 +384,14 @@
 "appThemeSystem" = "System";
 "appThemeLight" = "Light";
 "appThemeDark" = "Dark";
+
+// MARK: AcknowledgementsSettings
+"acknowledgmentsAppIconTitle" = "Icon Designer";
+"acknowledgmentsAppIconSubtitle" = "Akhmad";
+"acknowledgmentsContentProviderTitle" = "Content Provider";
+"acknowledgmentsContentProviderSubtitle" = "TMDb";
+"acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
+"settingsAcknowledgments" = "Acknowledgments";
+"settingsAcknowledgmentsFooter" = "Thanks to everyone who made Cronica possible.";
+"acknowledgmentsTitle" = "Acknowledgments";
+

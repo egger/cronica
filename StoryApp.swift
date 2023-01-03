@@ -68,6 +68,7 @@ struct StoryApp: App {
                         }
                     }
                     .appTheme()
+                    .tint(settings.appTheme.color)
                 }
                 .onAppear {
                     if !removedOldNotifications {
