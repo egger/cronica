@@ -20,6 +20,7 @@ struct CronicaMacApp: App {
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .tint(settings.appTheme.color)
                 .fontDesign(.rounded)
+                .appTheme()
         }
         
         Settings {

@@ -66,12 +66,15 @@ struct SideBarView: View {
                         NavigationStack {
                             HomeView()
                                 .environment(\.managedObjectContext, persistence.container.viewContext)
+                                .appTheme()
                         }
                     case .discover:
                         DiscoverView()
+                            .appTheme()
                     case .watchlist:
                         WatchlistView()
                             .environment(\.managedObjectContext, persistence.container.viewContext)
+                            .appTheme()
                     }
                 }
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
