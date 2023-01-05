@@ -394,4 +394,9 @@
 "settingsAcknowledgments" = "Acknowledgments";
 "settingsAcknowledgmentsFooter" = "Thanks to everyone who made Cronica possible.";
 "acknowledgmentsTitle" = "Acknowledgments";
+"acknowledgmentsUserTitle" = "Thank you for your feedback and support!";
 
+// MARK: TipJarSetting
+"tipJarTitle" = "Tip Jar";
+"tipJarFooter" = "You can choose to contribute a small, medium, or large amount, and all proceeds will go towards improving and maintaining the app. Cronica will always remain free and ad-free, so this is purely an optional way for users to support the development of the app.";
+"restorePurchases" = "Restore Purchases";

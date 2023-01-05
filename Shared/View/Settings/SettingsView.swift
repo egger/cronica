@@ -20,13 +20,19 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                general
-                PrivacySupportSetting()
                 if displayDeveloperSettings {
                     NavigationLink(destination: DeveloperView()) {
                         Label("settingsDeveloperOptions", systemImage: "hammer")
                     }
                 }
+                general
+                PrivacySupportSetting()
+                Button {
+                    requestReview()
+                } label: {
+                    Label("settingsReviewCronica", systemImage: "star.fill")
+                }
+                ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
                 about
             }
             .navigationTitle("Settings")
@@ -57,21 +63,13 @@ struct SettingsView: View {
     
     private var about: some View {
         Section {
-            Button {
-                requestReview()
-            } label: {
-                Label("settingsReviewCronica", systemImage: "star.fill")
+            NavigationLink(destination: TipJarSetting()) {
+                Label("tipJarTitle", systemImage: "heart")
             }
-            ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
-//            Button {
-//                
-//            } label: {
-//                InformationalToggle(title: "settingsDeveloperTitle")
-//            }
-
             NavigationLink(destination: AcknowledgementsSettings()) {
-                Text("acknowledgmentsTitle")
+                Label("acknowledgmentsTitle", systemImage: "doc")
             }
+            
             CenterHorizontalView {
                 Text("Made in Brazil 🇧🇷")
                     .onTapGesture {

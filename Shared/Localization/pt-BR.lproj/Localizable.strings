@@ -382,3 +382,9 @@
 "settingsAcknowledgments" = "Agradecimentos";
 "settingsAcknowledgmentsFooter" = "Obrigado a todos que tornaram a Cronica possível.";
 "acknowledgmentsTitle" = "Agradecimentos";
+"acknowledgmentsUserTitle" = "Obrigado pelo seu feedback e apoio!";
+
+// MARK: TipJarSetting
+"tipJarTitle" = "Gorjeta";
+"tipJarFooter" = "Você pode optar por contribuir com uma quantidade pequena, média ou grande, e todos os lucros irão para melhorar e manter o aplicativo. O Cronica sempre permanecerá gratuito e sem anúncios, então esta é uma maneira puramente opcional para os usuários apoiarem o desenvolvimento do aplicativo.";
+"restorePurchases" = "Restaurar Compras";

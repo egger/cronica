@@ -28,6 +28,7 @@ struct AcknowledgementsSettings: View {
                 } label: {
                     InformationalToggle(title: "acknowledgmentsSDWebImage")
                 }
+                InformationalToggle(title: "acknowledgmentsUserTitle")
             } header: {
                 Label("settingsAcknowledgments", systemImage: "smiley")
             } footer: {

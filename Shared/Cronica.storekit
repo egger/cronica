@@ -1,0 +1,80 @@
+{
+  "identifier" : "DC3D0D41",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : true,
+      "internalID" : "6445309370",
+      "localizations" : [
+        {
+          "description" : "A large contribution.",
+          "displayName" : "Large Tip",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Uma grande contribuição.",
+          "displayName" : "Grande Contribuição",
+          "locale" : "pt_BR"
+        }
+      ],
+      "productID" : "CronicaTipJarLarge",
+      "referenceName" : "Cronica Tip Jar Large",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : true,
+      "internalID" : "6445309283",
+      "localizations" : [
+        {
+          "description" : "Uma contribuição média.",
+          "displayName" : "Contribuição Média.",
+          "locale" : "pt_BR"
+        },
+        {
+          "description" : "A medium contribution.",
+          "displayName" : "Medium Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "CronicaTipJarMedium",
+      "referenceName" : "Cronica Tip Jar Medium",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : true,
+      "internalID" : "6445309355",
+      "localizations" : [
+        {
+          "description" : "A small contribution.",
+          "displayName" : "Small Tip",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Uma pequena contribuição.",
+          "displayName" : "Pequena Contribuição",
+          "locale" : "pt_BR"
+        }
+      ],
+      "productID" : "CronicaTipJarSmall",
+      "referenceName" : "Cronica Tip Jar Small",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1614950275",
+    "_developerTeamID" : "2NF329R2JB",
+    "_lastSynchronizedDate" : 694654131.83394301
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
