@@ -196,6 +196,8 @@
 		B892EB1429675B5E002E028E /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB1329675B5E002E028E /* StoreKitManager.swift */; };
 		B892EB1529675B5E002E028E /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB1329675B5E002E028E /* StoreKitManager.swift */; };
 		B892EB1629675B5E002E028E /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB1329675B5E002E028E /* StoreKitManager.swift */; };
+		B892EB17296851A9002E028E /* Cronica.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B892EB0929675265002E028E /* Cronica.storekit */; };
+		B892EB18296851AB002E028E /* Cronica.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B892EB0929675265002E028E /* Cronica.storekit */; };
 		B89446B9294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
 		B89446BA294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
 		B89446BC294FDABA008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
@@ -1672,6 +1674,7 @@
 				B86E79EB290A8F2900459E41 /* Preview Assets.xcassets in Resources */,
 				B86E79FA290A908D00459E41 /* Localizable.strings in Resources */,
 				B86E7A2A290AEC3100459E41 /* Attribution.xcassets in Resources */,
+				B892EB18296851AB002E028E /* Cronica.storekit in Resources */,
 				B86E7A07290A90B300459E41 /* content.json in Resources */,
 				B8BF6341291471580051915C /* Assets.xcassets in Resources */,
 			);
@@ -1683,6 +1686,7 @@
 			files = (
 				B8BF62C92912DA270051915C /* Localizable.strings in Resources */,
 				B8BF629D2912D9620051915C /* Attribution.xcassets in Resources */,
+				B892EB17296851A9002E028E /* Cronica.storekit in Resources */,
 				B8BF62962912D85D0051915C /* Preview Assets.xcassets in Resources */,
 				B8BF62BE2912DA230051915C /* content.json in Resources */,
 				B892EB12296755A3002E028E /* ProductList.plist in Resources */,
@@ -2629,7 +2633,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.8;
+				MARKETING_VERSION = 1.8.9;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2662,7 +2666,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.8;
+				MARKETING_VERSION = 1.8.9;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

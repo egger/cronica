@@ -13,6 +13,7 @@ struct TipJarSetting: View {
     var body: some View {
         Form {
             Section {
+                if !viewModel.hasLoadedProducts { ProgressView() }
                 ForEach(viewModel.storeProducts) { item in
                     Button {
                         Task {
@@ -21,12 +22,16 @@ struct TipJarSetting: View {
                     } label: {
                         TipJarItem(storeKit: viewModel, product: item)
                     }
+#if os(macOS)
+                    .buttonStyle(.plain)
+#endif
                 }
                 Button("restorePurchases") {
                     Task {
                         try? await AppStore.sync()
                     }
                 }
+                .disabled(!viewModel.hasLoadedProducts)
             } header: {
                 Label("tipJarTitle", systemImage: "heart")
             } footer: {
@@ -34,6 +39,9 @@ struct TipJarSetting: View {
             }
         }
         .navigationTitle("tipJarTitle")
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
 }
 

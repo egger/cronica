@@ -10,6 +10,7 @@ import StoreKit
 class StoreKitManager: ObservableObject {
     @Published var storeProducts = [Product]()
     @Published var purchasedTipJar = [Product]()
+    @Published var hasLoadedProducts = false
     private let productDict: [String:String]
     var updateListenerTask: Task<Void, Error>? = nil
     
@@ -25,6 +26,7 @@ class StoreKitManager: ObservableObject {
             await requestProducts()
             await updateConsumerUpdateStatus()
         }
+        hasLoadedProducts = true
     }
     
     deinit {
@@ -36,7 +38,10 @@ class StoreKitManager: ObservableObject {
         do {
             storeProducts = try await Product.products(for: productDict.values)
         } catch {
-            CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
+            let message = """
+Can't request products, error: \(error.localizedDescription)
+"""
+            CronicaTelemetry.shared.handleMessage(message,
                                                   for: "StoreKitManager.requestProducts()")
         }
     }
@@ -93,7 +98,8 @@ class StoreKitManager: ObservableObject {
                     purchasedTipJar.append(jar)
                 }
             } catch {
-                print(error.localizedDescription)
+                let message = "\(error.localizedDescription)"
+                CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.updateConsumerUpdateStatus()")
             }
         }
         self.purchasedTipJar = purchasedTipJar

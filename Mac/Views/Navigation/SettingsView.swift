@@ -33,6 +33,11 @@ struct SettingsView: View {
                 Label("Privacy", systemImage: "hand.raised.fill")
             }
             
+            TipJarSetting()
+                .tabItem {
+                    Label("tipJarTitle", systemImage: "heart")
+                }
+            
 #if DEBUG
             DeveloperView()
                 .tabItem {

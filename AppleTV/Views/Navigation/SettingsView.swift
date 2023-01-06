@@ -12,7 +12,6 @@ struct SettingsView: View {
     @State private var updatingItems = false
     var body: some View {
         Form {
-            
             Section {
                 NavigationLink(destination: AppearanceSetting()) {
                     Label("settingsAppearanceTitle", systemImage: "moon.stars")
@@ -25,6 +24,12 @@ struct SettingsView: View {
             }
             
             PrivacySupportSetting()
+            
+            Section {
+                NavigationLink(destination: TipJarSetting()) {
+                    Label("tipJarTitle", systemImage: "heart")
+                }
+            }
             
             CenterHorizontalView { Text("Made in Brazil 🇧🇷") }
         }
