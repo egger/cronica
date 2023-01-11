@@ -44,6 +44,7 @@ struct AppearanceSetting: View {
 #endif
 #if os(iOS) || os(macOS)
             Section {
+#if os(iOS)
                 Picker(selection: $currentTheme) {
                     ForEach(AppTheme.allCases) { item in
                         Text(item.localizableName).tag(item)
@@ -51,7 +52,7 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalToggle(title: "appearanceAppThemeTitle")
                 }
-
+#endif
                 Picker(selection: $store.appTheme) {
                     ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
                         HStack {

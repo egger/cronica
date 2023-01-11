@@ -53,6 +53,8 @@ Can't request products, error: \(error.localizedDescription)
             let transaction = try checkVerified(verification)
             await updateConsumerUpdateStatus()
             await transaction.finish()
+            let message = "Transaction of \(transaction.productID) has successfully."
+            CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase()")
             return transaction
         case .userCancelled, .pending:
             return nil

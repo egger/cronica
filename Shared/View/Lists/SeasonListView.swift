@@ -94,14 +94,14 @@ struct SeasonListView: View {
                                         let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
                                         guard let lastWatchedEpisode else { return }
                                         withAnimation {
-                                            proxy.scrollTo(lastWatchedEpisode, anchor: .top)
+                                            proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
                                         }
                                     }
                                     .onChange(of: selectedSeason) { _ in
                                         if !hasFirstLoaded { return }
                                         let first = season.first ?? nil
                                         guard let first else { return }
-                                        withAnimation { proxy.scrollTo(first.id) }
+                                        withAnimation { proxy.scrollTo(first.id, anchor: .topLeading) }
                                     }
                                     .padding(0)
                                 }

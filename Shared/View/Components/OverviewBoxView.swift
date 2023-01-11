@@ -18,7 +18,7 @@ struct OverviewBoxView: View {
         GroupBox {
             Text(overview ?? "Not Available")
                 .padding([.top], 2)
-                .lineLimit(4)
+                .lineLimit(showDetailsSheet ? nil : 4)
         } label: {
             switch type {
             case .person:
@@ -32,33 +32,12 @@ struct OverviewBoxView: View {
                     .unredacted()
             }
         }
-        .onTapGesture {  showDetailsSheet.toggle() }
-        .accessibilityElement(children: .combine)
-        .sheet(isPresented: $showDetailsSheet) {
-            NavigationStack {
-                ScrollView {
-                    Text(overview ?? NSLocalizedString("Not Available.", comment: ""))
-                        .padding()
-                        .textSelection(.enabled)
-                }
-                .navigationTitle(title)
-                .toolbar {
-#if os(iOS)
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        Button("Done") {
-                            showDetailsSheet.toggle()
-                        }
-                    })
-#else
-                    ToolbarItem {
-                        Button("Done") {
-                            showDetailsSheet.toggle()
-                        }
-                    }
-#endif
-                }
+        .onTapGesture {
+            withAnimation {
+                showDetailsSheet.toggle()
             }
         }
+        .accessibilityElement(children: .combine)
         .contextMenu { if let overview { ShareLink(item: overview) } }
     }
 }
