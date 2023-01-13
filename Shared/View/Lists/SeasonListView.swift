@@ -134,6 +134,7 @@ struct SeasonListView: View {
                 if !inWatchlist {
                     inWatchlist = viewModel.isItemInWatchlist
                 }
+                HapticManager.shared.successHaptic()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                     withAnimation {
                         seasonConfirmation = false

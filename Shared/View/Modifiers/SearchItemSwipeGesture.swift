@@ -47,6 +47,7 @@ struct SearchItemSwipeGesture: ViewModifier {
             withAnimation {
                 isWatched.toggle()
             }
+            HapticManager.shared.successHaptic()
         }, label: {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")
@@ -60,6 +61,7 @@ struct SearchItemSwipeGesture: ViewModifier {
             withAnimation {
                 isFavorite.toggle()
             }
+            HapticManager.shared.successHaptic()
         }, label: {
             Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: isFavorite ? "heart.slash.circle.fill" : "heart.circle")
@@ -93,6 +95,7 @@ struct SearchItemSwipeGesture: ViewModifier {
                         NotificationManager.shared.schedule(notificationContent: item)
                     }
                 }
+                HapticManager.shared.successHaptic()
             }
             withAnimation {
                 showConfirmation.toggle()

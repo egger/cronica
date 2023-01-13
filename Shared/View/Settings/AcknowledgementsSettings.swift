@@ -14,21 +14,21 @@ struct AcknowledgementsSettings: View {
                 Button {
                     openUrl(URL(string: "https://www.fiverr.com/akhmad437")!)
                 } label: {
-                    InformationalToggle(title: "acknowledgmentsAppIconTitle",
+                    InformationalLabel(title: "acknowledgmentsAppIconTitle",
                                         subtitle: "acknowledgmentsAppIconSubtitle")
                 }
                 Button {
                     openUrl(URL(string: "https://www.themoviedb.org")!)
                 } label: {
-                    InformationalToggle(title: "acknowledgmentsContentProviderTitle",
+                    InformationalLabel(title: "acknowledgmentsContentProviderTitle",
                                         subtitle: "acknowledgmentsContentProviderSubtitle")
                 }
                 Button {
                     openUrl(URL(string: "https://github.com/SDWebImage/SDWebImageSwiftUI")!)
                 } label: {
-                    InformationalToggle(title: "acknowledgmentsSDWebImage")
+                    InformationalLabel(title: "acknowledgmentsSDWebImage")
                 }
-                InformationalToggle(title: "acknowledgmentsUserTitle")
+                InformationalLabel(title: "acknowledgmentsUserTitle")
             } header: {
                 Label("settingsAcknowledgments", systemImage: "smiley")
             } footer: {

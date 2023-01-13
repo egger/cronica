@@ -20,7 +20,7 @@
 		B80982BD292AA6B00020716F /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B4DA9284537EF008BA43C /* SearchItemView.swift */; };
 		B80BBE582949665A00958876 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
-		B80BBE5B294966FC00958876 /* InformationalToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalToggle.swift */; };
+		B80BBE5B294966FC00958876 /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
 		B80BBE5E2949677300958876 /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
 		B80BBE6129496A7D00958876 /* PrivacySupportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */; };
 		B8110EE8279245D100844FEB /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
@@ -85,6 +85,10 @@
 		B840D2CE279B24C900A07C71 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
 		B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2B2793B4C10012259B /* WatchlistView.swift */; };
 		B8423E2F2793B61B0012259B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2E2793B61B0012259B /* CardView.swift */; };
+		B84457C22970D599009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
+		B84457C32970D59D009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
+		B84457C42970D59D009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
+		B84457C52970D59E009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
 		B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
@@ -388,7 +392,7 @@
 		B8E3ABF9295538FB00CA0945 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */; };
 		B8E3ABFA2955390200CA0945 /* DoubleTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */; };
 		B8E3ABFB2955394100CA0945 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
-		B8E3ABFC2955398500CA0945 /* InformationalToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalToggle.swift */; };
+		B8E3ABFC2955398500CA0945 /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
 		B8E3ABFD295539A300CA0945 /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
 		B8E3ABFE295539E100CA0945 /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
 		B8E3ABFF29553A4000CA0945 /* PrivacySupportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */; };
@@ -428,7 +432,7 @@
 		B8FB2A972952B132006DAC8E /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
 		B8FB2A982952B135006DAC8E /* BehaviorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8D29526341006DAC8E /* BehaviorSetting.swift */; };
 		B8FB2A992952B138006DAC8E /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
-		B8FB2A9A2952B13B006DAC8E /* InformationalToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalToggle.swift */; };
+		B8FB2A9A2952B13B006DAC8E /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
 		B8FB2A9B2952B13D006DAC8E /* PrivacySupportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */; };
 		B8FB2A9C2952B141006DAC8E /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
 		B8FB2AA129534E29006DAC8E /* WatchlistItemPoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8129524C37006DAC8E /* WatchlistItemPoster.swift */; };
@@ -505,7 +509,7 @@
 		B80982BC292AA6B00020716F /* PersonSearchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSearchImage.swift; sourceTree = "<group>"; };
 		B80B4DA9284537EF008BA43C /* SearchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemView.swift; sourceTree = "<group>"; };
 		B80BBE572949665A00958876 /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
-		B80BBE5A294966FC00958876 /* InformationalToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationalToggle.swift; sourceTree = "<group>"; };
+		B80BBE5A294966FC00958876 /* InformationalLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationalLabel.swift; sourceTree = "<group>"; };
 		B80BBE5D2949677300958876 /* SyncSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSetting.swift; sourceTree = "<group>"; };
 		B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySupportSetting.swift; sourceTree = "<group>"; };
 		B8110ED8279245D000844FEB /* StoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryApp.swift; sourceTree = "<group>"; };
@@ -538,6 +542,7 @@
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		B8423E2E2793B61B0012259B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		B84457C12970D599009CB21F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		B845132927EA514C00F0D4A4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person-Extensions.swift"; sourceTree = "<group>"; };
 		B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extension.swift"; sourceTree = "<group>"; };
@@ -859,7 +864,6 @@
 				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8EC463E27D84C62009389FC /* Components */,
 				B8F6DE642937A023005D1A50 /* Details */,
-				B86AAD0828BD1CD100D135B1 /* Developer */,
 				B8C3354928170AC90055389D /* Lists */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
 			);
@@ -967,14 +971,6 @@
 				B85E036F27B0371C005C7FDF /* StoryTests.swift */,
 			);
 			path = StoryTests;
-			sourceTree = "<group>";
-		};
-		B86AAD0828BD1CD100D135B1 /* Developer */ = {
-			isa = PBXGroup;
-			children = (
-				B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */,
-			);
-			path = Developer;
 			sourceTree = "<group>";
 		};
 		B86DD41628BAA8C4002C8427 /* Watchlist */ = {
@@ -1107,8 +1103,9 @@
 				B8FB2A8F295263AB006DAC8E /* AcknowledgementsSettings.swift */,
 				B80BBE572949665A00958876 /* AppearanceSetting.swift */,
 				B8FB2A8D29526341006DAC8E /* BehaviorSetting.swift */,
+				B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */,
 				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
-				B80BBE5A294966FC00958876 /* InformationalToggle.swift */,
+				B80BBE5A294966FC00958876 /* InformationalLabel.swift */,
 				B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */,
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B80BBE5D2949677300958876 /* SyncSetting.swift */,
@@ -1359,6 +1356,7 @@
 				B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */,
 				B8EC462E27D7AA99009389FC /* NotificationManager.swift */,
 				B892EB1329675B5E002E028E /* StoreKitManager.swift */,
+				B84457C12970D599009CB21F /* HapticManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1739,6 +1737,7 @@
 				B8DD56A2290DE2FE002CAAFD /* CenterHorizontalView.swift in Sources */,
 				B84043C3289B18DE00D5CEBF /* ItemSchedule.swift in Sources */,
 				B89446C3294FDAE4008974BA /* WatchlistItemType.swift in Sources */,
+				B84457C52970D59E009CB21F /* HapticManager.swift in Sources */,
 				B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */,
 				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
 				B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
@@ -1786,6 +1785,7 @@
 			files = (
 				B8389ED228AB46E3003025BC /* WatchlistSearchScope.swift in Sources */,
 				B8110EEA279245D100844FEB /* ContentView.swift in Sources */,
+				B84457C22970D599009CB21F /* HapticManager.swift in Sources */,
 				B876DE66281B4040005558DD /* Videos.swift in Sources */,
 				B8110EE8279245D100844FEB /* StoryApp.swift in Sources */,
 				B8BF632A291402730051915C /* HoverEffectModifier.swift in Sources */,
@@ -1869,7 +1869,7 @@
 				B8733A7829293ABB00CBEF2B /* TranslucentBackground.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
-				B80BBE5B294966FC00958876 /* InformationalToggle.swift in Sources */,
+				B80BBE5B294966FC00958876 /* InformationalLabel.swift in Sources */,
 				B8AAA6EE296455E2004FDF21 /* AppThemeModifier.swift in Sources */,
 				B8423E2F2793B61B0012259B /* CardView.swift in Sources */,
 				B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */,
@@ -1992,10 +1992,11 @@
 				B8733A8129294C2000CBEF2B /* UpcomingListView.swift in Sources */,
 				B8DD56A0290DE2D7002CAAFD /* CenterHorizontalView.swift in Sources */,
 				B86E79FE290A90A100459E41 /* ItemContent.swift in Sources */,
+				B84457C32970D59D009CB21F /* HapticManager.swift in Sources */,
 				B86E7A00290A90A800459E41 /* Season.swift in Sources */,
 				B86E7A12290A90E200459E41 /* DiscoverViewModel.swift in Sources */,
 				B8DD5684290C7B40002CAAFD /* CastListView.swift in Sources */,
-				B8E3ABFC2955398500CA0945 /* InformationalToggle.swift in Sources */,
+				B8E3ABFC2955398500CA0945 /* InformationalLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2006,7 +2007,7 @@
 				B8BF62DF2912ED6D0051915C /* AttributionView.swift in Sources */,
 				B8BF62C22912DA230051915C /* MediaType.swift in Sources */,
 				B8BF633629146A2D0051915C /* PinItemsList.swift in Sources */,
-				B8FB2A9A2952B13B006DAC8E /* InformationalToggle.swift in Sources */,
+				B8FB2A9A2952B13B006DAC8E /* InformationalLabel.swift in Sources */,
 				B8BF62D92912E3E40051915C /* ItemContentListView.swift in Sources */,
 				B8BF62C72912DA230051915C /* SearchViewModel.swift in Sources */,
 				B8BF62C32912DA230051915C /* Bundle-Decodable.swift in Sources */,
@@ -2110,6 +2111,7 @@
 				B8114C9029385F1900930AF4 /* DiscoverView.swift in Sources */,
 				B8BF62FC291308320051915C /* WatchlistSearchScope.swift in Sources */,
 				B8BF632D29142E2F0051915C /* DeveloperView.swift in Sources */,
+				B84457C42970D59D009CB21F /* HapticManager.swift in Sources */,
 				B8BF62CF2912DDBC0051915C /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2192,7 +2194,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.9;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2225,7 +2227,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.9;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2378,7 +2380,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.9;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2414,7 +2416,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.9;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2633,7 +2635,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.9;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2666,7 +2668,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.9;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

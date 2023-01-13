@@ -25,8 +25,8 @@ class StoreKitManager: ObservableObject {
         Task {
             await requestProducts()
             await updateConsumerUpdateStatus()
+            self.hasLoadedProducts = true
         }
-        hasLoadedProducts = true
     }
     
     deinit {

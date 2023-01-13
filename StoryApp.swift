@@ -18,7 +18,6 @@ struct StoryApp: App {
     @AppStorage("removedOldNotifications") private var removedOldNotifications = false
     @AppStorage("disableTelemetry") var disableTelemetry = false
     @ObservedObject private var settings = SettingsStore.shared
-    @State private var appTint: Color = .blue
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
@@ -66,6 +65,11 @@ struct StoryApp: App {
                         .navigationDestination(for: Person.self) { item in
                             PersonDetailsView(title: item.name, id: item.id)
                         }
+                        .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+                            let keys = item.map { (key, value) in key }
+                            let value = item.map { (key, value) in value }
+                            ItemContentCollectionDetails(title: keys[0], items: value[0])
+                        })
                     }
                     .appTheme()
                     .tint(settings.appTheme.color)
@@ -76,10 +80,6 @@ struct StoryApp: App {
                             await NotificationManager.shared.clearOldNotificationId()
                         }
                     }
-                }
-                .onChange(of: settings.appTheme) { newValue in
-                    print(newValue as Any)
-                    appTint = newValue.color
                 }
         }
         .onChange(of: scene) { phase in
@@ -116,9 +116,6 @@ struct StoryApp: App {
         request.earliestBeginDate = Date(timeIntervalSinceNow: fourDays)
         do {
             try BGTaskScheduler.shared.submit(request)
-#if DEBUG
-            print("Scheduled App Maintenance.")
-#endif
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                             for: "scheduleAppMaintenance()")

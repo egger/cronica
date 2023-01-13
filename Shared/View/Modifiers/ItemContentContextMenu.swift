@@ -68,6 +68,7 @@ struct ItemContentContextMenu: ViewModifier {
     
     private var watchlistButton: some View {
         Button(role: isInWatchlist ? .destructive : nil) {
+            if !isInWatchlist { HapticManager.shared.successHaptic() }
             updateWatchlist(with: item)
         } label: {
             Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
@@ -89,6 +90,7 @@ struct ItemContentContextMenu: ViewModifier {
             withAnimation {
                 isWatched.toggle()
             }
+            HapticManager.shared.successHaptic()
         }, label: {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")
@@ -101,6 +103,7 @@ struct ItemContentContextMenu: ViewModifier {
             withAnimation {
                 isFavorite.toggle()
             }
+            HapticManager.shared.successHaptic()
         }, label: {
             Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: isFavorite ? "heart.slash.circle.fill" : "heart.circle")
@@ -113,6 +116,7 @@ struct ItemContentContextMenu: ViewModifier {
             withAnimation {
                 isPin.toggle()
             }
+            HapticManager.shared.successHaptic()
         } label: {
             Label(isPin ? "Unpin Item" : "Pin Item",
                   systemImage: isPin ? "pin.slash" : "pin")

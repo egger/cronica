@@ -159,6 +159,7 @@ struct EpisodeFrameView: View {
                     .frame(width: 900, height: 500)
 #endif
             }
+            .appTheme()
 #endif
         }
     }
