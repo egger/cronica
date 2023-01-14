@@ -64,6 +64,14 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
+    func fetchProviders(id: ItemContent.ID, for media: MediaType) async throws -> WatchProviders {
+        guard let url = urlBuilder(path: "\(media.rawValue)/\(id)/watch/providers")
+        else {
+            throw NetworkError.invalidRequest
+        }
+        return try await self.fetch(url: url)
+    }
+    
     func search(query: String, page: String) async throws -> [ItemContent] {
         guard let url = urlBuilder(path: "search/multi", query: query, page: page) else {
             throw NetworkError.invalidEndpoint

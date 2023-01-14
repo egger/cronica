@@ -403,3 +403,7 @@
 // MARK: PreferredShareLink
 "preferredShareLinkTMDB" = "TMDb";
 "preferredShareLinkIMDB" = "IMDb";
+
+
+
+"watchProviderTitleList" = "Como Assistir";

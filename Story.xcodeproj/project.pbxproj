@@ -89,6 +89,13 @@
 		B84457C32970D59D009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
 		B84457C42970D59D009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
 		B84457C52970D59E009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
+		B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
+		B84457C8297341B4009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
+		B84457C9297341B5009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
+		B84457CA297341B6009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
+		B84457CB297341B7009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
+		B84457CC297341B8009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
+		B84457CE29734F90009CB21F /* WatchProvidersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457CD29734F90009CB21F /* WatchProvidersList.swift */; };
 		B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
@@ -543,6 +550,8 @@
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		B8423E2E2793B61B0012259B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		B84457C12970D599009CB21F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		B84457C6297341AF009CB21F /* WatchProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviders.swift; sourceTree = "<group>"; };
+		B84457CD29734F90009CB21F /* WatchProvidersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProvidersList.swift; sourceTree = "<group>"; };
 		B845132927EA514C00F0D4A4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person-Extensions.swift"; sourceTree = "<group>"; };
 		B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extension.swift"; sourceTree = "<group>"; };
@@ -850,6 +859,7 @@
 				B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */,
 				B876DE63281B36A7005558DD /* Season.swift */,
 				B876DE65281B4040005558DD /* Videos.swift */,
+				B84457C6297341AF009CB21F /* WatchProviders.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -866,6 +876,7 @@
 				B8F6DE642937A023005D1A50 /* Details */,
 				B8C3354928170AC90055389D /* Lists */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
+				B84457CD29734F90009CB21F /* WatchProvidersList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1719,6 +1730,7 @@
 				B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */,
 				B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */,
 				B8F6DE672937F8AE005D1A50 /* WatchEpisodeButton.swift in Sources */,
+				B84457C8297341B4009CB21F /* WatchProviders.swift in Sources */,
 				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
 				B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B84043BA289B18B200D5CEBF /* UTType-Extensions.swift in Sources */,
@@ -1839,6 +1851,7 @@
 				B8CC953327D05D1000B6757C /* HomeViewModel.swift in Sources */,
 				B8FB2A80295235E2006DAC8E /* WatchlistCardSection.swift in Sources */,
 				B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */,
+				B84457CE29734F90009CB21F /* WatchProvidersList.swift in Sources */,
 				B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */,
 				B8B94CEC28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */,
@@ -1861,6 +1874,7 @@
 				B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */,
 				B8FB2A7E29522E58006DAC8E /* WatchlistItemFrame.swift in Sources */,
 				B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */,
+				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
 				B82B75A828A84E9A00C3212A /* WatchlistButtonView.swift in Sources */,
 				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,
@@ -1902,6 +1916,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84457CC297341B8009CB21F /* WatchProviders.swift in Sources */,
 				B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1962,6 +1977,7 @@
 				B86E7A06290A90AE00459E41 /* Endpoints.swift in Sources */,
 				B892EB1529675B5E002E028E /* StoreKitManager.swift in Sources */,
 				B86E79F5290A907800459E41 /* Episode-Extension.swift in Sources */,
+				B84457CB297341B7009CB21F /* WatchProviders.swift in Sources */,
 				B8AAA6EB29645561004FDF21 /* AppTheme.swift in Sources */,
 				B86E7A1C290A91E200459E41 /* WatchlistView.swift in Sources */,
 				B8E3ABFF29553A4000CA0945 /* PrivacySupportSetting.swift in Sources */,
@@ -2034,6 +2050,7 @@
 				B8BF62C82912DA230051915C /* SeasonViewModel.swift in Sources */,
 				B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */,
 				B8FB2A8529524D97006DAC8E /* View-Extensions.swift in Sources */,
+				B84457CA297341B6009CB21F /* WatchProviders.swift in Sources */,
 				B8AAA6EC29645561004FDF21 /* AppTheme.swift in Sources */,
 				B89446BD294FDABA008974BA /* WatchlistItemType.swift in Sources */,
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
@@ -2120,6 +2137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84457C9297341B5009CB21F /* WatchProviders.swift in Sources */,
 				B8D7AED828B963720053CE5A /* ItemContentList.swift in Sources */,
 				B8F6DE652937A144005D1A50 /* Videos.swift in Sources */,
 				B8D7AEC628B961890053CE5A /* NetworkService.swift in Sources */,
