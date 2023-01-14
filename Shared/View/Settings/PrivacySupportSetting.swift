@@ -31,7 +31,7 @@ struct PrivacySupportSetting: View {
 #endif
 #endif
 #if os(iOS) || os(tvOS)
-            NavigationLink(destination: FeedbackSettingsView()) {
+            NavigationLink(value: SettingsScreen.sendFeedback) {
                 Label("settingsFeedbackTitle", systemImage: "mail")
             }
             .disabled(disableTelemetry)

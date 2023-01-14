@@ -68,7 +68,6 @@
 		B84043C3289B18DE00D5CEBF /* ItemSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE51281B1BA5005558DD /* ItemSchedule.swift */; };
 		B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE53281B1BC0005558DD /* ImageSize.swift */; };
 		B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE4F281B1B81005558DD /* MediaType.swift */; };
-		B84043C6289B18E900D5CEBF /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
 		B84043C7289B18EC00D5CEBF /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
 		B84043CA289B20BC00D5CEBF /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
 		B84043CC289B294600D5CEBF /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CB289B294600D5CEBF /* SearchItem.swift */; };
@@ -96,6 +95,7 @@
 		B84457CB297341B7009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
 		B84457CC297341B8009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
 		B84457CE29734F90009CB21F /* WatchProvidersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457CD29734F90009CB21F /* WatchProvidersList.swift */; };
+		B84457D1297373A9009CB21F /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D0297373A9009CB21F /* SettingsScreen.swift */; };
 		B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
@@ -139,7 +139,6 @@
 		B86E7A07290A90B300459E41 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CCB27999C5700632648 /* content.json */; };
 		B86E7A08290A90BE00459E41 /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
 		B86E7A09290A90CA00459E41 /* DefaultListTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812529728A407120062B0C9 /* DefaultListTypes.swift */; };
-		B86E7A0A290A90CA00459E41 /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
 		B86E7A0B290A90CA00459E41 /* ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE53281B1BC0005558DD /* ImageSize.swift */; };
 		B86E7A0C290A90CA00459E41 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
 		B86E7A0D290A90CA00459E41 /* ItemSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE51281B1BA5005558DD /* ItemSchedule.swift */; };
@@ -266,7 +265,6 @@
 		B8BF62B22912DA230051915C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110F3B279364C800844FEB /* Utilities.swift */; };
 		B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */; };
 		B8BF62B42912DA230051915C /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
-		B8BF62B52912DA230051915C /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
 		B8BF62B62912DA230051915C /* CronicaTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */; };
 		B8BF62B72912DA230051915C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* PersistenceController.swift */; };
 		B8BF62B82912DA230051915C /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
@@ -552,6 +550,7 @@
 		B84457C12970D599009CB21F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		B84457C6297341AF009CB21F /* WatchProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviders.swift; sourceTree = "<group>"; };
 		B84457CD29734F90009CB21F /* WatchProvidersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProvidersList.swift; sourceTree = "<group>"; };
+		B84457D0297373A9009CB21F /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		B845132927EA514C00F0D4A4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person-Extensions.swift"; sourceTree = "<group>"; };
 		B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extension.swift"; sourceTree = "<group>"; };
@@ -943,6 +942,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		B84457CF2973739F009CB21F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B876DE5B281B2B04005558DD /* Screens.swift */,
+				B84457D0297373A9009CB21F /* SettingsScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
 		B845132B27EC1B1600F0D4A4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -962,13 +970,13 @@
 		B845132C27ECB33E00F0D4A4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B84457CF2973739F009CB21F /* Screens */,
 				B89446B7294FDA94008974BA /* Settings */,
 				B86E586F27A4842A005DBF38 /* DataFetchPhase.swift */,
 				B812529728A407120062B0C9 /* DefaultListTypes.swift */,
 				B876DE53281B1BC0005558DD /* ImageSize.swift */,
 				B876DE51281B1BA5005558DD /* ItemSchedule.swift */,
 				B876DE4F281B1B81005558DD /* MediaType.swift */,
-				B876DE5B281B2B04005558DD /* Screens.swift */,
 				B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */,
 				B8110F3B279364C800844FEB /* Utilities.swift */,
 				B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */,
@@ -1773,7 +1781,6 @@
 				B8FB2A942952B078006DAC8E /* PreferredShareLink.swift in Sources */,
 				B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */,
 				B88529AB28E35A9F0026D33A /* SeasonListView.swift in Sources */,
-				B84043C6289B18E900D5CEBF /* Screens.swift in Sources */,
 				B8FB2A8629524D9A006DAC8E /* View-Extensions.swift in Sources */,
 				B8D7AEC928B961AD0053CE5A /* ReleaseDate.swift in Sources */,
 				B8AAA6EF296455E2004FDF21 /* AppThemeModifier.swift in Sources */,
@@ -1823,6 +1830,7 @@
 				B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */,
 				B8ADAF71282C4400001D72EF /* DoubleTapGesture.swift in Sources */,
 				B8FB2A8429524D6E006DAC8E /* View-Extensions.swift in Sources */,
+				B84457D1297373A9009CB21F /* SettingsScreen.swift in Sources */,
 				B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* WatchlistItemRow.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
@@ -2001,7 +2009,6 @@
 				B8114C8D29381A3F00930AF4 /* EpisodeFrameView.swift in Sources */,
 				B86E79F7290A907F00459E41 /* Person-Extensions.swift in Sources */,
 				B86E7A01290A90A800459E41 /* Videos.swift in Sources */,
-				B86E7A0A290A90CA00459E41 /* Screens.swift in Sources */,
 				B8DD569A290DDB74002CAAFD /* WatchlistItemCard.swift in Sources */,
 				B8E3ABFE295539E100CA0945 /* SyncSetting.swift in Sources */,
 				B8DD5695290C9CA5002CAAFD /* SeasonListView.swift in Sources */,
@@ -2103,7 +2110,6 @@
 				B8BF62F42912FF780051915C /* FilmographyListView.swift in Sources */,
 				B8BF62AD2912DA230051915C /* ImageSize.swift in Sources */,
 				B8BF62F9291307A30051915C /* SearchItemSwipeGesture.swift in Sources */,
-				B8BF62B52912DA230051915C /* Screens.swift in Sources */,
 				B8BF62D82912E3C10051915C /* TitleView.swift in Sources */,
 				B892EB1629675B5E002E028E /* StoreKitManager.swift in Sources */,
 				B8FB2A992952B138006DAC8E /* FeedbackSettingsView.swift in Sources */,

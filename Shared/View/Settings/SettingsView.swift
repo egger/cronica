@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#warning("test out settings")
+
 struct SettingsView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.requestReview) var requestReview
@@ -25,12 +25,30 @@ struct SettingsView: View {
             ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
             about
         }
+        .navigationDestination(for: SettingsScreen.self) { item in
+            switch item {
+            case .behavior:
+                BehaviorSetting()
+            case .sendFeedback:
+                FeedbackSettingsView()
+            case .appearance:
+                AppearanceSetting()
+            case .sync:
+                SyncSetting()
+            case .tipJar:
+                TipJarSetting()
+            case .acknowledgements:
+                AcknowledgementsSettings()
+            case .developer:
+                DeveloperView()
+            }
+        }
     }
     
     @ViewBuilder
     private var developer: some View {
         if displayDeveloperSettings {
-            NavigationLink(destination: DeveloperView()) {
+            NavigationLink(value: SettingsScreen.developer) {
                 Label("settingsDeveloperOptions", systemImage: "hammer")
             }
         } else {
@@ -40,13 +58,13 @@ struct SettingsView: View {
     
     private var general: some View {
         Section {
-            NavigationLink(destination: BehaviorSetting()) {
+            NavigationLink(value: SettingsScreen.behavior) {
                 Label("settingsBehaviorTitle", systemImage: "hand.tap")
             }
-            NavigationLink(destination: AppearanceSetting()) {
+            NavigationLink(value: SettingsScreen.appearance) {
                 Label("settingsAppearanceTitle", systemImage: "moon.stars")
             }
-            NavigationLink(destination: SyncSetting()) {
+            NavigationLink(value: SettingsScreen.sync) {
                 Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
             }
         } header: {
@@ -56,17 +74,19 @@ struct SettingsView: View {
     
     private var about: some View {
         Section {
-            NavigationLink(destination: TipJarSetting()) {
+            NavigationLink(value: SettingsScreen.tipJar) {
                 Label("tipJarTitle", systemImage: "heart")
             }
-            NavigationLink(destination: AcknowledgementsSettings()) {
+            NavigationLink(value: SettingsScreen.acknowledgements) {
                 Label("acknowledgmentsTitle", systemImage: "doc")
             }
+#if os(iOS)
             Button {
                 
             } label: {
-                Text("developerWebsite")
+                Label("developerWebsite", systemImage: "globe.americas.fill")
             }
+#endif
             CenterHorizontalView {
                 Text("Made in Brazil 🇧🇷")
                     .onTapGesture {

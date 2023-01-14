@@ -12,47 +12,46 @@ struct WatchProviders: Codable, Hashable {
 }
 
 struct Results: Codable, Hashable {
-    var ae: AE?
-    var ag: Ag?
-    var al, ar, at, au: AE?
-    var ba: AE?
-    var bb: Bb?
-    var be, bg, bh, bo: AE?
-    var br: AE?
-    var bs: Bb?
-    var ca, ch, cl, co: AE?
-    var cr, cz, de, dk: AE?
-    var resultsDO: AE?
-    var dz: Bb?
-    var ec, ee, eg, es: AE?
-    var fi, fr, gb: AE?
-    var gf: Bb?
-    var gr, gt, hk, hn: AE?
-    var hr, hu, id, ie: AE?
-    var resultsIN: AE?
-    var iq: Bb?
-    var resultsIS, it, jm, jo: AE?
-    var jp: AE?
-    var kr: Ag?
-    var kw: Bb?
-    var lb, lt, lv: AE?
-    var ly, ma: Bb?
-    var md, mk: AE?
-    var mt: Ag?
-    var mx, my, nl, no: AE?
-    var nz, om, pa, pe: AE?
-    var ph, pl: AE?
-    var ps: Bb?
-    var pt, py: AE?
-    var qa, ro, rs: Bb?
-    var sa, se, sg, si: AE?
-    var sk, sv, th: AE?
-    var tn: Bb?
-    var tr, tt, tw, us: AE?
-    var uy, ve: AE?
-    var ye: Bb?
-    var za: Ag?
-
+    var ae: ProviderItem?
+    var ag: ProviderItem?
+    var al, ar, at, au: ProviderItem?
+    var ba: ProviderItem?
+    var bb: ProviderItem?
+    var be, bg, bh, bo: ProviderItem?
+    var br: ProviderItem?
+    var bs: ProviderItem?
+    var ca, ch, cl, co: ProviderItem?
+    var cr, cz, de, dk: ProviderItem?
+    var resultsDO: ProviderItem?
+    var dz: ProviderItem?
+    var ec, ee, eg, es: ProviderItem?
+    var fi, fr, gb: ProviderItem?
+    var gf: ProviderItem?
+    var gr, gt, hk, hn: ProviderItem?
+    var hr, hu, id, ie: ProviderItem?
+    var resultsIN: ProviderItem?
+    var iq: ProviderItem?
+    var resultsIS, it, jm, jo: ProviderItem?
+    var jp: ProviderItem?
+    var kr: ProviderItem?
+    var kw: ProviderItem?
+    var lb, lt, lv: ProviderItem?
+    var ly, ma: ProviderItem?
+    var md, mk: ProviderItem?
+    var mt: ProviderItem?
+    var mx, my, nl, no: ProviderItem?
+    var nz, om, pa, pe: ProviderItem?
+    var ph, pl: ProviderItem?
+    var ps: ProviderItem?
+    var pt, py: ProviderItem?
+    var qa, ro, rs: ProviderItem?
+    var sa, se, sg, si: ProviderItem?
+    var sk, sv, th: ProviderItem?
+    var tn: ProviderItem?
+    var tr, tt, tw, us: ProviderItem?
+    var uy, ve: ProviderItem?
+    var ye: ProviderItem?
+    var za: ProviderItem?
     enum CodingKeys: String, CodingKey {
         case ae = "AE"
         case ag = "AG"
@@ -146,22 +145,19 @@ struct Results: Codable, Hashable {
     }
 }
 
-struct AE: Codable, Hashable {
+struct ProviderItem: Codable, Hashable {
     var link: String?
-    var buy, rent, flatrate, free: [Buy]?
+    var buy, rent, flatrate, free: [WatchProviderContent]?
 }
 
-struct Buy: Codable, Hashable {
+struct WatchProviderContent: Codable, Hashable {
     var logoPath: String?
     var providerId: Int?
     var providerName: String?
     var displayPriority: Int?
 }
 
-extension Buy {
-    var contentId: String {
-        return UUID().uuidString
-    }
+extension WatchProviderContent {
     var providerTitle: String {
         providerName ?? "Not Found"
     }
@@ -173,12 +169,3 @@ extension Buy {
     }
 }
 
-struct Ag: Codable, Hashable {
-    var link: String?
-    var buy: [Buy]?
-}
-
-struct Bb: Codable, Hashable {
-    var link: String?
-    var flatrate: [Buy]?
-}

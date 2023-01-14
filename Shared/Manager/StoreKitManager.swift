@@ -7,6 +7,7 @@
 
 import StoreKit
 
+
 class StoreKitManager: ObservableObject {
     @Published var storeProducts = [Product]()
     @Published var purchasedTipJar = [Product]()
@@ -25,7 +26,9 @@ class StoreKitManager: ObservableObject {
         Task {
             await requestProducts()
             await updateConsumerUpdateStatus()
-            self.hasLoadedProducts = true
+            DispatchQueue.main.async { [self] in
+                hasLoadedProducts = true
+            }
         }
     }
     
