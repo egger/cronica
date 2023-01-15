@@ -62,6 +62,11 @@ struct BehaviorSetting: View {
                     } label: {
                         InformationalLabel(title: "watchRegionTitle", subtitle: "watchRegionSubtitle")
                     }
+#if os(macOS)
+                .pickerStyle(.automatic)
+#else
+                .pickerStyle(.navigationLink)
+#endif
                 }
             } header: {
                 Label("contentRegionTitle", systemImage: "globe.desk")

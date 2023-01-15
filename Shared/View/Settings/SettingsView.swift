@@ -12,43 +12,36 @@ struct SettingsView: View {
     @Environment(\.requestReview) var requestReview
     @AppStorage("displayDeveloperSettings") private var displayDeveloperSettings = false
     @State private var animateEasterEgg = false
+    @Binding var showSettings: Bool
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
-        Form {
-            developer
-            general
-            PrivacySupportSetting()
-            Button {
-                requestReview()
-            } label: {
-                Label("settingsReviewCronica", systemImage: "star.fill")
+        NavigationStack {
+            Form {
+                developer
+                general
+                PrivacySupportSetting()
+                Button {
+                    requestReview()
+                } label: {
+                    Label("settingsReviewCronica", systemImage: "star.fill")
+                }
+                ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
+                about
             }
-            ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
-            about
-        }
-        .navigationDestination(for: SettingsScreen.self) { item in
-            switch item {
-            case .behavior:
-                BehaviorSetting()
-            case .sendFeedback:
-                FeedbackSettingsView()
-            case .appearance:
-                AppearanceSetting()
-            case .sync:
-                SyncSetting()
-            case .tipJar:
-                TipJarSetting()
-            case .acknowledgements:
-                AcknowledgementsSettings()
-            case .developer:
-                DeveloperView()
+            .toolbar {
+                Button("Done") { showSettings = false }
             }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
         }
+        .appTheme()
+        .tint(settings.appTheme.color)
     }
     
     @ViewBuilder
     private var developer: some View {
         if displayDeveloperSettings {
-            NavigationLink(value: SettingsScreen.developer) {
+            NavigationLink(destination: DeveloperView()) {
                 Label("settingsDeveloperOptions", systemImage: "hammer")
             }
         } else {
@@ -58,13 +51,13 @@ struct SettingsView: View {
     
     private var general: some View {
         Section {
-            NavigationLink(value: SettingsScreen.behavior) {
+            NavigationLink(destination: BehaviorSetting()) {
                 Label("settingsBehaviorTitle", systemImage: "hand.tap")
             }
-            NavigationLink(value: SettingsScreen.appearance) {
+            NavigationLink(destination: AppearanceSetting()) {
                 Label("settingsAppearanceTitle", systemImage: "moon.stars")
             }
-            NavigationLink(value: SettingsScreen.sync) {
+            NavigationLink(destination: SyncSetting()) {
                 Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
             }
         } header: {
@@ -74,10 +67,10 @@ struct SettingsView: View {
     
     private var about: some View {
         Section {
-            NavigationLink(value: SettingsScreen.tipJar) {
+            NavigationLink(destination: TipJarSetting()) {
                 Label("tipJarTitle", systemImage: "heart")
             }
-            NavigationLink(value: SettingsScreen.acknowledgements) {
+            NavigationLink(destination: AcknowledgementsSettings()) {
                 Label("acknowledgmentsTitle", systemImage: "doc")
             }
 #if os(iOS)
@@ -114,7 +107,8 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
+    @State private static var dismiss = false
     static var previews: some View {
-        SettingsView()
+        SettingsView(showSettings: $dismiss)
     }
 }

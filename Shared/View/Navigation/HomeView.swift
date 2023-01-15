@@ -121,16 +121,8 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showSettings) {
 #if os(iOS)
-                NavigationStack {
-                    SettingsView()
-                        .toolbar {
-                            Button("Done") { showSettings = false }
-                        }
-                        .navigationTitle("Settings")
-                        .navigationBarTitleDisplayMode(.inline)
-                }
-                .appTheme()
-                .tint(settings.appTheme.color)
+                SettingsView(showSettings: $showSettings)
+                
                     
 #endif
             }

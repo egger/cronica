@@ -88,14 +88,7 @@ struct SideBarView: View {
             }
         }
         .sheet(isPresented: $showSettings) {
-            NavigationStack {
-                SettingsView()
-            }
-            .toolbar {
-                Button("Done") { showSettings = false }
-            }
-            .appTheme()
-            .tint(settings.appTheme.color)
+            SettingsView(showSettings: $showSettings)
         }
         .sheet(isPresented: $showNotifications) {
             NotificationListView(showNotification: $showNotifications)

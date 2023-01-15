@@ -74,6 +74,11 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalLabel(title: "appearanceThemeTitle")
                 }
+#if os(macOS)
+                .pickerStyle(.automatic)
+#else
+                .pickerStyle(.navigationLink)
+#endif
                 
             } header: {
                 Label("appearanceTheme", systemImage: "paintbrush.fill")
