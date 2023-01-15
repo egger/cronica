@@ -60,7 +60,7 @@ struct WatchProvidersList: View {
     }
 }
 
-struct WatchProviderItem: View {
+private struct WatchProviderItem: View {
     let item: WatchProviderContent
     var body: some View {
         VStack(alignment: .leading) {
@@ -80,6 +80,7 @@ struct WatchProviderItem: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
+                .padding(.leading)
         }
         .frame(width: 80, height: 100, alignment: .center)
     }
@@ -94,50 +95,134 @@ struct WatchProviderItem: View {
 class WatchProvidersListViewModel: ObservableObject {
     @Published var isProvidersAvailable = false
     @Published var items = [WatchProviderContent]()
-    @Published var link: String?
+    @Published var link: URL?
     private var isLoaded = false
+    @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
+    @AppStorage("selectedWatchProviderRegion") private var watchRegion: WatchProviderOption = .us
+    @AppStorage("firstLocaleCheck") private var firstCheck = false
+    
+    private func checkLocale() {
+        if firstCheck { return }
+        let userLocale = Utilities.userRegion
+        let providerRegions = WatchProviderOption.allCases
+        for region in providerRegions {
+            if userLocale.lowercased() == region.rawValue.lowercased() {
+                watchRegion = region
+            }
+        }
+        firstCheck = true
+    }
     
     @MainActor
     func load(id: ItemContent.ID, media: MediaType) async {
         do {
+            if !firstCheck { checkLocale() }
             if Task.isCancelled { return }
             if isLoaded { return }
             let providers = try await NetworkService.shared.fetchProviders(id: id, for: media)
-            
             if let results = providers.results {
-                withAnimation { isProvidersAvailable = true }
-                link = results.br?.link
+                var regionContent: ProviderItem?
+                switch watchRegion {
+                case .br:
+                    regionContent = results.br
+                case .us:
+                    regionContent = results.us
+                case .ae:
+                    regionContent = results.ae
+                case .ar:
+                    regionContent = results.ar
+                case .at:
+                    regionContent = results.at
+                case .au:
+                    regionContent = results.au
+                case .be:
+                    regionContent = results.be
+                case .bg:
+                    regionContent = results.bg
+                case .ca:
+                    regionContent = results.ca
+                case .ch:
+                    regionContent = results.ch
+                case .cz:
+                    regionContent = results.cz
+                case .de:
+                    regionContent = results.de
+                case .dk:
+                    regionContent = results.dk
+                case .ee:
+                    regionContent = results.ee
+                case .es:
+                    regionContent = results.es
+                case .fi:
+                    regionContent = results.fi
+                case .fr:
+                    regionContent = results.fr
+                case .gb:
+                    regionContent = results.gb
+                case .hk:
+                    regionContent = results.hk
+                case .hr:
+                    regionContent = results.hr
+                case .hu:
+                    regionContent = results.hu
+                case .id:
+                    regionContent = results.id
+                case .ie:
+                    regionContent = results.ie
+                case .india:
+                    regionContent = results.resultsIN
+                case .it:
+                    regionContent = results.it
+                case .jp:
+                    regionContent = results.jp
+                case .kr:
+                    regionContent = results.kr
+                case .lt:
+                    regionContent = results.lt
+                case .mx:
+                    regionContent = results.mx
+                case .nl:
+                    regionContent = results.nl
+                case .no:
+                    regionContent = results.no
+                case .nz:
+                    regionContent = results.nz
+                case .ph:
+                    regionContent = results.ph
+                case .pl:
+                    regionContent = results.pl
+                case .pt:
+                    regionContent = results.pt
+                case .rs:
+                    regionContent = results.rs
+                case .se:
+                    regionContent = results.se
+                case .sk:
+                    regionContent = results.sk
+                case .tr:
+                    regionContent = results.tr
+                case .za:
+                    regionContent = results.za
+                }
+                link = regionContent?.itemLink
                 var content = [WatchProviderContent]()
-                if let flatrate = results.br?.flatrate {
-                    content.append(contentsOf: flatrate.sorted { $0.listPriority < $1.listPriority })
+                if let flatrate = regionContent?.flatrate {
+                    content.append(contentsOf: flatrate)
                 }
-                if let buy =  results.br?.buy {
-                    content.append(contentsOf: buy.sorted { $0.listPriority < $1.listPriority })
+                if let buy =  regionContent?.buy {
+                    content.append(contentsOf: buy)
                 }
-                if let free = results.br?.free {
-                    content.append(contentsOf: free.sorted { $0.listPriority < $1.listPriority })
+                if let free = regionContent?.free {
+                    content.append(contentsOf: free)
                 }
-                items.append(contentsOf: content)
+                items.append(contentsOf: content.sorted { $0.listPriority < $1.listPriority })
+                withAnimation { isProvidersAvailable = true }
             }
             isLoaded = true
         } catch {
             let message = """
 """
             CronicaTelemetry.shared.handleMessage(message, for: "WatchProvidersListViewModel.load()")
-        }
-    }
-}
-
-
-enum WatchProviderOption: String, CaseIterable, Identifiable {
-    var id: String { rawValue }
-    case br, us
-    var localizableTitle: String {
-        switch self {
-        case .br:
-            return NSLocalizedString("watchProviderBr", comment: "")
-        case .us:
-            return NSLocalizedString("watchProviderUs", comment: "")
         }
     }
 }

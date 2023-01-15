@@ -407,3 +407,52 @@
 
 
 "watchProviderTitleList" = "Como Assistir";
+"behaviorWatchProvidersTitle" = "Provedor de Conteúdo";
+"behaviorWatchProvidersSubtitle" = "Veja em quais plataformas o conteúdo está disponível.";
+"watchRegionTitle" = "Região do Provedor de Conteúdo";
+"watchRegionSubtitle" = "O provedor de conteúdo se adaptará à região selecionada.";
+"contentRegionTitle" = "Região";
+
+
+// MARK: WatchProviderOption
+"watchProviderBr" = "Brasil";
+"watchProviderUs" = "Estados Unidos da América";
+"watchProviderAe" = "Emirados Árabes Unidos";
+"watchProviderAr" = "Argentina";
+"watchProviderAt" = "Austria";
+"watchProviderAu" = "Australia";
+"watchProviderBe" = "Bélgica";
+"watchProviderBg" = "Bulgaria";
+"watchProviderCa" = "Canadá";
+"watchProviderCh" = "Suíça";
+"watchProviderCz" = "Czech Republic";
+"watchProviderDe" = "Alemanha";
+"watchProviderDk" = "Denmark";
+"watchProviderEe" = "Estônia";
+"watchProviderEs" = "Espanha";
+"watchProviderFi" = "Finland";
+"watchProviderFr" = "França";
+"watchProviderGb" = "Reino Unido";
+"watchProviderHk" = "Hong Kong";
+"watchProviderHr" = "Croatia";
+"watchProviderHu" = "Hungary";
+"watchProviderId" = "Indonesia";
+"watchProviderIe" = "Ireland";
+"watchProviderIndia" = "India";
+"watchProviderIt" = "Italy";
+"watchProviderJp" = "Japan";
+"watchProviderKr" = "South Korea";
+"watchProviderLt" = "Lithuania";
+"watchProviderMx" = "Mexico";
+"watchProviderNl" = "Netherlands";
+"watchProviderNo" = "Norway";
+"watchProviderNz" = "New Zealand";
+"watchProviderPh" = "Filipinas";
+"watchProviderPl" = "Polônia";
+"watchProviderPt" = "Portugal";
+"watchProviderRs" = "Serbia";
+"watchProviderSk" = "Slovakia";
+"watchProviderTr" = "Turkey";
+"watchProviderSe" = "Sweden";
+"watchProviderZa" = "South Africa";
+

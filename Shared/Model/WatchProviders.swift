@@ -150,6 +150,15 @@ struct ProviderItem: Codable, Hashable {
     var buy, rent, flatrate, free: [WatchProviderContent]?
 }
 
+extension ProviderItem {
+    var itemLink: URL? {
+        if let link {
+            return URL(string: link)
+        }
+        return nil
+    }
+}
+
 struct WatchProviderContent: Codable, Hashable {
     var logoPath: String?
     var providerId: Int?

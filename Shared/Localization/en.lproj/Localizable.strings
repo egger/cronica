@@ -389,3 +389,50 @@
 
 
 "watchProviderTitleList" = "How to Watch";
+"behaviorWatchProvidersTitle" = "Watch Providers";
+"behaviorWatchProvidersSubtitle" = "See in what platforms the content is available on.";
+"watchRegionTitle" = "Watch Provider Region";
+"watchRegionSubtitle" = "Watch Providers will adapt to the selected region.";
+"contentRegionTitle" = "Region";
+
+// MARK: WatchProviderOption
+"watchProviderBr" = "Brazil";
+"watchProviderUs" = "United States of America";
+"watchProviderAe" = "United Arab Emirates";
+"watchProviderAr" = "Argentina";
+"watchProviderAt" = "Austria";
+"watchProviderAu" = "Australia";
+"watchProviderBe" = "Belgium";
+"watchProviderBg" = "Bulgaria";
+"watchProviderCa" = "Canada";
+"watchProviderCh" = "Switzerland";
+"watchProviderCz" = "Czech Republic";
+"watchProviderDe" = "Germany";
+"watchProviderDk" = "Denmark";
+"watchProviderEe" = "Estonia";
+"watchProviderEs" = "Spain";
+"watchProviderFi" = "Finland";
+"watchProviderFr" = "France";
+"watchProviderGb" = "United Kingdom";
+"watchProviderHk" = "Hong Kong";
+"watchProviderHr" = "Croatia";
+"watchProviderHu" = "Hungary";
+"watchProviderId" = "Indonesia";
+"watchProviderIe" = "Ireland";
+"watchProviderIndia" = "India";
+"watchProviderIt" = "Italy";
+"watchProviderJp" = "Japan";
+"watchProviderKr" = "South Korea";
+"watchProviderLt" = "Lithuania";
+"watchProviderMx" = "Mexico";
+"watchProviderNl" = "Netherlands";
+"watchProviderNo" = "Norway";
+"watchProviderNz" = "New Zealand";
+"watchProviderPh" = "Philippines";
+"watchProviderPl" = "Poland";
+"watchProviderPt" = "Portugal";
+"watchProviderRs" = "Serbia";
+"watchProviderSk" = "Slovakia";
+"watchProviderTr" = "Turkey";
+"watchProviderSe" = "Sweden";
+"watchProviderZa" = "South Africa";

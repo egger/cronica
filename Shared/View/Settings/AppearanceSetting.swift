@@ -74,11 +74,6 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalLabel(title: "appearanceThemeTitle")
                 }
-#if os(macOS)
-                .pickerStyle(.automatic)
-#else
-                .pickerStyle(.navigationLink)
-#endif
                 
             } header: {
                 Label("appearanceTheme", systemImage: "paintbrush.fill")
@@ -135,8 +130,7 @@ struct AppearanceSetting: View {
 }
 
 struct AppearanceSetting_Previews: PreviewProvider {
-    @StateObject private static var settings = SettingsStore()
     static var previews: some View {
-        AppearanceSetting().environmentObject(settings)
+        AppearanceSetting()
     }
 }
