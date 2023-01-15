@@ -39,14 +39,6 @@ struct BehaviorSetting: View {
                 Toggle(isOn: $openInYouTube) {
                     InformationalLabel(title: "behaviorYouTubeTitle")
                 }
-                //                Picker(selection: $store.preferredShareLink) {
-                //                    ForEach(PreferredShareLink.allCases) { item in
-                //                        Text(item.localizableNameTitle).tag(item)
-                //                    }
-                //                } label: {
-                //                    InformationalLabel(title: "behaviorPreferredShareLinkTitle",
-                //                                        subtitle: "behaviorPreferredShareLinkSubtitle")
-                //                }
             } header: {
                 Label("behaviorLinkTitle", systemImage: "link")
             }

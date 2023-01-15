@@ -40,7 +40,7 @@ struct WatchProvidersList: View {
                             .padding(.horizontal, 6)
                         }
                     }
-                    .padding([.top, .bottom], 8)
+                    .padding(.top, 8)
                 }
                 Divider().padding()
             }
