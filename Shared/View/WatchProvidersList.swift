@@ -14,15 +14,16 @@ struct WatchProvidersList: View {
     let type: MediaType
     @State private var showConfirmation = false
     @AppStorage("alwaysShowConfirmationWatchProvider") private var isConfirmationEnabled = true
+    @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
     var body: some View {
         VStack {
-            if viewModel.isProvidersAvailable && !viewModel.items.isEmpty {
+            if viewModel.isProvidersAvailable && isWatchProviderEnabled {
                 TitleView(title: "watchProviderTitleList",
-                          subtitle: "",
+                          subtitle: "justWatchSubtitle",
                           image: "rectangle.stack.badge.play.fill",
                           showChevron: false)
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
+                    LazyHStack {
                         ForEach(viewModel.items, id: \.self) { item in
                             Button(action: {
                                 if isConfirmationEnabled {
@@ -34,12 +35,14 @@ struct WatchProvidersList: View {
                                 WatchProviderItem(item: item)
                             })
                             .buttonStyle(.plain)
-                            .padding(.leading, item.self == viewModel.items.first!.self ? 16 : 4)
-                            .padding(.leading, item.self == viewModel.items.last!.self ? 16 : 4)
+                            .padding(.leading, item.self == viewModel.items.first!.self ? 16 : 0)
+                            .padding(.trailing, item.self == viewModel.items.last!.self ? 16 : 0)
+                            .padding(.horizontal, 4)
                         }
                     }
                     .padding([.top, .bottom], 8)
                 }
+                Divider().padding()
             }
         }
         .task {
@@ -75,21 +78,29 @@ private struct WatchProviderItem: View {
                 .placeholder {
                     VStack {
                         ProgressView()
-                            .frame(width: 80, height: 80, alignment: .center)
+                            .frame(width: DrawingConstants.imageWidth,
+                                   height: DrawingConstants.imageHeight)
                     }
                 }
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 80, height: 80, alignment: .center)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                 .applyHoverEffect()
             Text(item.providerTitle)
                 .font(.caption)
                 .foregroundColor(.secondary)
-                .lineLimit(1)
-                .padding(.leading)
+                .lineLimit(DrawingConstants.lineLimits)
+                .padding(.leading, 2)
         }
-        .frame(width: 80, height: 100, alignment: .center)
+        .frame(width: DrawingConstants.imageWidth, height: 100, alignment: .center)
     }
+}
+private struct DrawingConstants {
+    static let imageRadius: CGFloat = 12
+    static let imageWidth: CGFloat = 75
+    static let imageHeight: CGFloat = 75
+    static let lineLimits: Int = 1
 }
 
 struct WatchProvidersList_Previews: PreviewProvider {

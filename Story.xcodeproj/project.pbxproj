@@ -98,6 +98,11 @@
 		B84457D1297373A9009CB21F /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D0297373A9009CB21F /* SettingsScreen.swift */; };
 		B84457D32973987E009CB21F /* WatchProviderOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* WatchProviderOption.swift */; };
 		B84457D52973A402009CB21F /* WatchProvidersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */; };
+		B84457D62973B2C8009CB21F /* WatchProviderOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* WatchProviderOption.swift */; };
+		B84457D72973B2D9009CB21F /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
+		B84457D82973B2DA009CB21F /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
+		B84457D92973B455009CB21F /* WatchProvidersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457CD29734F90009CB21F /* WatchProvidersList.swift */; };
+		B84457DA2973B463009CB21F /* WatchProvidersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */; };
 		B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
@@ -1984,6 +1989,7 @@
 				B89446C4294FDAE6008974BA /* WatchlistSubtitleRow.swift in Sources */,
 				B86E7A0B290A90CA00459E41 /* ImageSize.swift in Sources */,
 				B86E7A0F290A90CA00459E41 /* MediaType.swift in Sources */,
+				B84457D82973B2DA009CB21F /* Screens.swift in Sources */,
 				B86E7A14290A90E200459E41 /* HomeViewModel.swift in Sources */,
 				B86E7A16290A90E200459E41 /* ItemContentViewModel.swift in Sources */,
 				B86E7A08290A90BE00459E41 /* DataFetchPhase.swift in Sources */,
@@ -2071,6 +2077,7 @@
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
 				B89446C0294FDACA008974BA /* AppThemeColors.swift in Sources */,
+				B84457D92973B455009CB21F /* WatchProvidersList.swift in Sources */,
 				B8FB2AA329535057006DAC8E /* CardFrame.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
 				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
@@ -2080,6 +2087,7 @@
 				B8BF62B22912DA230051915C /* Utilities.swift in Sources */,
 				B8BF633D29146D140051915C /* SettingsStore.swift in Sources */,
 				B8BF62DD2912EA940051915C /* CardView.swift in Sources */,
+				B84457D62973B2C8009CB21F /* WatchProviderOption.swift in Sources */,
 				B8BF62B32912DA230051915C /* DataFetchPhase.swift in Sources */,
 				B8BF62F82913079B0051915C /* SearchItem.swift in Sources */,
 				B8FB2A932952AFDE006DAC8E /* PreferredShareLink.swift in Sources */,
@@ -2089,6 +2097,7 @@
 				B8BF62DE2912EAD90051915C /* UpcomingListView.swift in Sources */,
 				B8BF62BA2912DA230051915C /* Person.swift in Sources */,
 				B8A810402915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
+				B84457DA2973B463009CB21F /* WatchProvidersListViewModel.swift in Sources */,
 				B89446BA294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */,
 				B892EB0E29675582002E028E /* TipJarSetting.swift in Sources */,
 				B8BF62AE2912DA230051915C /* WatchlistItem-Extension.swift in Sources */,
@@ -2100,6 +2109,7 @@
 				B8BF6332291468F30051915C /* NotificationListView.swift in Sources */,
 				B8F6DE6229379F58005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
 				B8BF62BF2912DA230051915C /* ItemContent-Extensions.swift in Sources */,
+				B84457D72973B2D9009CB21F /* Screens.swift in Sources */,
 				B8BF62EB2912F2730051915C /* WatchlistView.swift in Sources */,
 				B8FB2A972952B132006DAC8E /* AppearanceSetting.swift in Sources */,
 				B8BF62EE2912F3130051915C /* WatchEpisodeButton.swift in Sources */,
@@ -2226,7 +2236,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2259,7 +2269,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2412,7 +2422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2448,7 +2458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2667,7 +2677,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2700,7 +2710,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

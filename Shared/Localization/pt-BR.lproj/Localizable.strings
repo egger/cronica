@@ -405,6 +405,7 @@
 "preferredShareLinkIMDB" = "IMDb";
 
 
+"justWatchSubtitle" = "Fornecido pelo JustWatch";
 
 "openWatchProviderTitle" = "Isso abrirá o site da TMDb com os links para cada serviço.";
 "confirmOpenWatchProvider" = "Confirmar";
@@ -445,20 +446,20 @@
 "watchProviderId" = "Indonesia";
 "watchProviderIe" = "Ireland";
 "watchProviderIndia" = "India";
-"watchProviderIt" = "Italy";
-"watchProviderJp" = "Japan";
-"watchProviderKr" = "South Korea";
+"watchProviderIt" = "Itália";
+"watchProviderJp" = "Japão";
+"watchProviderKr" = "Coreia do Sul";
 "watchProviderLt" = "Lithuania";
 "watchProviderMx" = "Mexico";
-"watchProviderNl" = "Netherlands";
+"watchProviderNl" = "Holanda";
 "watchProviderNo" = "Norway";
-"watchProviderNz" = "New Zealand";
+"watchProviderNz" = "Nova Zelândia";
 "watchProviderPh" = "Filipinas";
 "watchProviderPl" = "Polônia";
 "watchProviderPt" = "Portugal";
 "watchProviderRs" = "Serbia";
 "watchProviderSk" = "Slovakia";
-"watchProviderTr" = "Turkey";
+"watchProviderTr" = "Turquia";
 "watchProviderSe" = "Sweden";
-"watchProviderZa" = "South Africa";
+"watchProviderZa" = "África do Sul";
 

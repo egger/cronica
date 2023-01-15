@@ -387,6 +387,8 @@
 
 
 
+"justWatchSubtitle" = "Provided by JustWatch";
+
 
 "openWatchProviderTitle" = "This will open TMDb website with the links to each service.";
 "confirmOpenWatchProvider" = "Confirm";

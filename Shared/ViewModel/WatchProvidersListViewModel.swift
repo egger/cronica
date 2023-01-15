@@ -138,6 +138,9 @@ class WatchProvidersListViewModel: ObservableObject {
             isLoaded = true
         } catch {
             let message = """
+Can't load the provider for \(id) with media type of \(media.rawValue).
+Actual region: \(Utilities.userRegion), selected region: \(watchRegion.rawValue).
+Error: \(error.localizedDescription)
 """
             CronicaTelemetry.shared.handleMessage(message, for: "WatchProvidersListViewModel.load()")
         }

@@ -168,10 +168,10 @@ struct WatchProviderContent: Codable, Hashable {
 
 extension WatchProviderContent {
     var providerTitle: String {
-        providerName ?? "Not Found"
+        providerName ?? NSLocalizedString("Not Available", comment: "")
     }
     var providerImage: URL? {
-        return NetworkService.urlBuilder(size: .medium, path: logoPath)
+        return NetworkService.urlBuilder(size: .original, path: logoPath)
     }
     var listPriority: Int {
         return displayPriority ?? 10

@@ -73,7 +73,7 @@ struct SettingsView: View {
             NavigationLink(destination: AcknowledgementsSettings()) {
                 Label("acknowledgmentsTitle", systemImage: "doc")
             }
-#if os(iOS)
+#if os(iOS) && targetEnvironment(simulator)
             Button {
                 
             } label: {
