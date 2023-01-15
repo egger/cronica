@@ -37,7 +37,7 @@ struct WatchProvidersList: View {
                             .buttonStyle(.plain)
                             .padding(.leading, item.self == viewModel.items.first!.self ? 16 : 0)
                             .padding(.trailing, item.self == viewModel.items.last!.self ? 16 : 0)
-                            .padding(.horizontal, 4)
+                            .padding(.horizontal, 6)
                         }
                     }
                     .padding([.top, .bottom], 8)
@@ -93,13 +93,13 @@ private struct WatchProviderItem: View {
                 .lineLimit(DrawingConstants.lineLimits)
                 .padding(.leading, 2)
         }
-        .frame(width: DrawingConstants.imageWidth, height: 100, alignment: .center)
+        .frame(width: DrawingConstants.imageWidth)
     }
 }
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 12
-    static let imageWidth: CGFloat = 75
-    static let imageHeight: CGFloat = 75
+    static let imageRadius: CGFloat = 8
+    static let imageWidth: CGFloat = 60
+    static let imageHeight: CGFloat = 60
     static let lineLimits: Int = 1
 }
 
