@@ -61,14 +61,6 @@
 "Pins" = "Pins";
 "Write a review" = "Write a review";
 "Share App" = "Share App";
-"Experimental" = "Experimental";
-"Developer" = "Developer";
-"Developer Tools" = "Developer Tools";
-"Item ID" = "Item ID";
-"Select the Media Type" = "Select the Media Type";
-"Fetch" = "Fetch";
-"Show Onboarding" = "Show Onboarding";
-"Show All Items" = "Show All Items";
 "Email (optional)" = "Email (optional)";
 "Open in YouTube" = "Open in YouTube";
 "List Filters" = "List Filters";
@@ -173,8 +165,6 @@
 "privacyfooter" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
 "privacyFooterTV" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy at https://alexandremadeira.dev/cronica/privacy.";
 "Open Trailers in YouTube App" = "Open Trailers in YouTube App";
-"Media" = "Media";
-"Show Genre on Watchlist" = "Show Genre on Watchlist";
 
 //MARK: HomeView.swift
 "Trending" = "Trending";
@@ -187,25 +177,6 @@
 //MARK: WatchlistSectionView.swift
 "Coming Soon" = "Coming Soon";
 "From Watchlist" = "From Watchlist";
-
-//MARK: WelcomeView.swift
-"Welcome to" = "Welcome to";
-" Cronica" = " Cronica";
-"Continue" = "Continue";
-"Find" = "Find";
-"Search for upcoming movies and tv shows." = "Search for upcoming movies and tv shows.";
-"Never miss out" = "Never miss out";
-"Get notifications about the newest releases." = "Get notifications about the newest releases.";
-"Organize" = "Organize";
-"Keep everything organized inside the Watchlist." = "Keep everything organized inside the Watchlist.";
-"Your Watchlist" = "Your Watchlist";
-"Add everything you want, the Watchlist automatically organizes it for you." = "Add everything you want, the Watchlist automatically organizes it for you.";
-"Discover what's next" = "Discover what's next";
-"The Discover will help you find your next favorite title." = "The Discover will help you find your next favorite title.";
-"Track your episodes" = "Track your episodes";
-"Keep track of every episode you've watched." = "Keep track of every episode you've watched.";
-"Always Synced" = "Always Synced";
-"Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.";
 
 //MARK: CastDetailsView.swift
 "Biography" = "Biography";
@@ -284,25 +255,76 @@
 "Loading" = "Loading";
 "%lld upcoming notifications." = "%lld upcoming notifications.";
 
-// MARK: GesturesSettingsView
-"Gestures" = "Gestures";
-"Cover Image Gesture" = "Cover Image Gesture";
-"Tap To Mark as Watched" = "Tap To Mark as Watched";
-"Episode Gesture" = "Episode Gesture";
-"This will mark an episode as watched on tap gesture." = "This will mark an episode as watched on tap gesture.";
-"Show Pin On Swipe" = "Show Pin On Swipe";
-"Watchlist Gesture" = "Watchlist Gesture";
+// MARK: WatchlistSubtitleRow
+"watchlistSubtitleRowNone" = "Default";
+"watchlistSubtitleRowGenre" = "Genre";
+"watchlistSubtitleRowDate" = "Release Date";
 
-// MARK: FeaturePreviewSettings
-"Experimental Features" = "Experimental Features";
-"Experimental Features are meant for users that want to test out features that still in development." = "Experimental Features are meant for users that want to test out features that still in development.";
-"Translucent Background" = "Translucent Background";
-"Appearance" = "Appearance";
-"Pin on Search" = "Pin on Search";
-"Shows Pin feature on right swipe." = "Shows Pin feature on right swipe.";
+// MARK: DoubleTapGesture
+"Watched" = "Watched";
+"Favorite" = "Favorite";
 
+// MARK: AppThemeColors
+"appThemeColorsBlue" = "Blue";
+"appThemeColorsRed" = "Red";
+"appThemeColorsGreen" = "Green";
+"appThemeColorsBrown" = "Brown";
+"appThemeColorsCyan" = "Cyan";
+"appThemeColorsGray" = "Gray";
+"appThemeColorsIndigo" = "Indigo";
+"appThemeColorsMint" = "Mint";
+"appThemeColorsOrange" = "Orange";
+"appThemeColorsPink" = "Pink";
+"appThemeColorsPurple" = "Purple";
+"appThemeColorsTeal" = "Teal";
+"appThemeColorsYellow" = "Yellow";
 
+// MARK: WatchlistItemType
+"watchlistItemTypeList" = "List";
+"watchlistItemTypePoster" = "Poster";
+"watchlistItemTypeCard" = "Card";
 
+// MARK: AppTheme
+"appThemeSystem" = "System";
+"appThemeLight" = "Light";
+"appThemeDark" = "Dark";
+
+// MARK: WatchlistButtonView
+"removeDialogTitle" = "Are You Sure?";
+"confirmDialogAction" = "Confirm";
+"cancelConfirmDialogAction" = "Cancel";
+
+// MARK: PreferredShareLink
+"preferredShareLinkTMDB" = "TMDb";
+"preferredShareLinkIMDB" = "IMDb";
+
+// MARK: Settings
+"settingsBehaviorTitle" = "Behavior";
+"settingsAppearanceTitle" = "Appearance";
+"settingsGeneralTitle" = "General";
+"settingsSyncTitle" = "Synchronization";
+"settingsReviewCronica" = "Review Cronica on App Store";
+"settingsPrivacyPolicy" = "Privacy Policy";
+"settingsDisableTelemetryTitle" = "Disable Crash Reports";
+"settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
+"settingsFeedbackTitle" = "Send Feedback";
+"settingsPrivacySupportTitle" = "Privacy & Support";
+"settingsDeveloperOptions" = "Developer Settings";
+"settingsDeveloperTitle" = "Developed by Alexandre Madeira";
+
+// MARK: BehaviorSetting
+"behaviorDoubleTapTitle" = "Double Tap On Cover";
+"behaviorDoubleTapSubtitle" = "Choose what function to perform when double tap the cover image.";
+"behaviorGestureTitle" = "Gestures";
+"behaviorYouTubeTitle" = "Open Trailers in YouTube";
+"behaviorYouTubeSubtitle" = "Open trailers in YouTube app.";
+"behaviorLinkTitle" = "Links";
+"behaviorTitle" = "Behavior";
+"behaviorEpisodeTitle" = "Tap To Mark Episode as Watched";
+"hapticFeedbackTitle" = "Haptic Feedback";
+"hapticFeedbackSubtitle" = "Haptic Feedback is used when adding a title or marking an episode as watched.";
+"behaviorPreferredShareLinkTitle" = "Preferred Share Link";
+"behaviorPreferredShareLinkSubtitle" = "The app will fallback to TMDb if there's no way to provide the IMDb link.";
 
 // MARK: AppearanceSetting
 "appearanceRowTypeTitle" = "Watchlist Item's Information";
@@ -319,71 +341,14 @@
 "appearanceRowStyleTitle" = "Watchlist's Item Style";
 "appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
 "appearanceAppThemeTitle" = "App Theme";
-
-// MARK: BehaviorSetting
-"behaviorDoubleTapTitle" = "Double Tap On Cover";
-"behaviorDoubleTapSubtitle" = "Choose what function to perform when double tap the cover image.";
-"behaviorGestureTitle" = "Gestures";
-"behaviorYouTubeTitle" = "Open Trailers in YouTube";
-"behaviorYouTubeSubtitle" = "Open trailers in YouTube app.";
-"behaviorLinkTitle" = "Links";
-"behaviorTitle" = "Behavior";
-"behaviorEpisodeTitle" = "Tap To Mark Episode as Watched";
-
-// MARK: WatchlistSubtitleRow
-"watchlistSubtitleRowNone" = "Default";
-"watchlistSubtitleRowGenre" = "Genre";
-"watchlistSubtitleRowDate" = "Release Date";
-
-// MARK: DoubleTapGesture
-"Watched" = "Watched";
-"Favorite" = "Favorite";
-
-// MARK: CronicaSettings
-"settingsBehaviorTitle" = "Behavior";
-"settingsAppearanceTitle" = "Appearance";
-"settingsGeneralTitle" = "General";
-"settingsSyncTitle" = "Synchronization";
-"settingsReviewCronica" = "Review Cronica on App Store";
-"settingsPrivacyPolicy" = "Privacy Policy";
-"settingsDisableTelemetryTitle" = "Disable Crash Reports";
-"settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
-"settingsFeedbackTitle" = "Send Feedback";
-"settingsPrivacySupportTitle" = "Privacy & Support";
-"settingsDeveloperOptions" = "Developer Settings";
-"settingsDeveloperTitle" = "Developed by Alexandre Madeira";
+"accessibilityTitle" = "Accessibility";
+"disableTranslucentTitle" = "Disable Translucent Background";
 
 // MARK: SyncSetting
 "syncSettingsUpdateWatchlistTitle" = "Update Items";
 "syncSettingsUpdateWatchlistSubtitle" = "Update items with new information, if available on TMDb.";
 "syncSettingsWatchlistTitle" = "Watchlist";
 "syncSettingsTitle" = "Synchronization";
-
-// MARK: AppThemeColors
-"appThemeColorsBlue" = "Blue";
-"appThemeColorsRed" = "Red";
-"appThemeColorsGreen" = "Green";
-"appThemeColorsBrown" = "Brown";
-"appThemeColorsCyan" = "Cyan";
-"appThemeColorsGray" = "Gray";
-"appThemeColorsIndigo" = "Indigo";
-"appThemeColorsMint" = "Mint";
-"appThemeColorsOrange" = "Orange";
-"appThemeColorsPink" = "Pink";
-"appThemeColorsPurple" = "Purple";
-"appThemeColorsTeal" = "Teal";
-"appThemeColorsYellow" = "Yellow";
-//"" = "";
-
-// MARK: WatchlistItemType
-"watchlistItemTypeList" = "List";
-"watchlistItemTypePoster" = "Poster";
-"watchlistItemTypeCard" = "Card";
-
-// MARK: AppTheme
-"appThemeSystem" = "System";
-"appThemeLight" = "Light";
-"appThemeDark" = "Dark";
 
 // MARK: AcknowledgementsSettings
 "acknowledgmentsAppIconTitle" = "Icon Designer";
@@ -400,3 +365,81 @@
 "tipJarTitle" = "Tip Jar";
 "tipJarFooter" = "You can choose to contribute a small, medium, or large amount, and all proceeds will go towards improving and maintaining the app. Cronica will always remain free and ad-free, so this is purely an optional way for users to support the development of the app.";
 "restorePurchases" = "Restore Purchases";
+
+//MARK: WelcomeView.swift
+"Welcome to" = "Welcome to";
+" Cronica" = " Cronica";
+"Continue" = "Continue";
+"Find" = "Find";
+"Search for upcoming movies and tv shows." = "Search for upcoming movies and tv shows.";
+"Never miss out" = "Never miss out";
+"Get notifications about the newest releases." = "Get notifications about the newest releases.";
+"Organize" = "Organize";
+"Keep everything organized inside the Watchlist." = "Keep everything organized inside the Watchlist.";
+"Your Watchlist" = "Your Watchlist";
+"Add everything you want, the Watchlist automatically organizes it for you." = "Add everything you want, the Watchlist automatically organizes it for you.";
+"Discover what's next" = "Discover what's next";
+"The Discover will help you find your next favorite title." = "The Discover will help you find your next favorite title.";
+"Track your episodes" = "Track your episodes";
+"Keep track of every episode you've watched." = "Keep track of every episode you've watched.";
+"Always Synced" = "Always Synced";
+"Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.";
+
+
+
+"justWatchSubtitle" = "Provided by JustWatch";
+
+
+"openWatchProviderTitle" = "This will open TMDb website with the links to each service.";
+"confirmOpenWatchProvider" = "Confirm";
+"confirmOpenDontAskAgainProvider" = "Confirm and don't ask again";
+"cancelOpenWatchProvider" = "Cancel";
+
+"watchProviderTitleList" = "How to Watch";
+"behaviorWatchProvidersTitle" = "Watch Providers";
+"behaviorWatchProvidersSubtitle" = "See in what platforms the content is available on.";
+"watchRegionTitle" = "Watch Provider Region";
+"watchRegionSubtitle" = "Watch Providers will adapt to the selected region.";
+"contentRegionTitle" = "Region";
+
+// MARK: WatchProviderOption
+"watchProviderBr" = "Brazil";
+"watchProviderUs" = "United States of America";
+"watchProviderAe" = "United Arab Emirates";
+"watchProviderAr" = "Argentina";
+"watchProviderAt" = "Austria";
+"watchProviderAu" = "Australia";
+"watchProviderBe" = "Belgium";
+"watchProviderBg" = "Bulgaria";
+"watchProviderCa" = "Canada";
+"watchProviderCh" = "Switzerland";
+"watchProviderCz" = "Czech Republic";
+"watchProviderDe" = "Germany";
+"watchProviderDk" = "Denmark";
+"watchProviderEe" = "Estonia";
+"watchProviderEs" = "Spain";
+"watchProviderFi" = "Finland";
+"watchProviderFr" = "France";
+"watchProviderGb" = "United Kingdom";
+"watchProviderHk" = "Hong Kong";
+"watchProviderHr" = "Croatia";
+"watchProviderHu" = "Hungary";
+"watchProviderId" = "Indonesia";
+"watchProviderIe" = "Ireland";
+"watchProviderIndia" = "India";
+"watchProviderIt" = "Italy";
+"watchProviderJp" = "Japan";
+"watchProviderKr" = "South Korea";
+"watchProviderLt" = "Lithuania";
+"watchProviderMx" = "Mexico";
+"watchProviderNl" = "Netherlands";
+"watchProviderNo" = "Norway";
+"watchProviderNz" = "New Zealand";
+"watchProviderPh" = "Philippines";
+"watchProviderPl" = "Poland";
+"watchProviderPt" = "Portugal";
+"watchProviderRs" = "Serbia";
+"watchProviderSk" = "Slovakia";
+"watchProviderTr" = "Turkey";
+"watchProviderSe" = "Sweden";
+"watchProviderZa" = "South Africa";

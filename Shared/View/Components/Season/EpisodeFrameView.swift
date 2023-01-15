@@ -121,6 +121,7 @@ struct EpisodeFrameView: View {
                     .foregroundColor(.secondary)
                 Spacer()
             }
+            Spacer()
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
@@ -158,6 +159,7 @@ struct EpisodeFrameView: View {
                     .frame(width: 900, height: 500)
 #endif
             }
+            .appTheme()
 #endif
         }
     }

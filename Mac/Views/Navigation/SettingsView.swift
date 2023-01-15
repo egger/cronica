@@ -11,6 +11,10 @@ struct SettingsView: View {
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         TabView {
+            BehaviorSetting()
+                .tabItem {
+                    Label("settingsBehaviorTitle", systemImage: "cursorarrow.click")
+                }
             AppearanceSetting()
                 .tabItem {
                     Label("settingsAppearanceTitle", systemImage: "moon.stars")
@@ -32,13 +36,12 @@ struct SettingsView: View {
             .tabItem {
                 Label("Privacy", systemImage: "hand.raised.fill")
             }
-            
+ 
+#if DEBUG
             TipJarSetting()
                 .tabItem {
                     Label("tipJarTitle", systemImage: "heart")
                 }
-            
-#if DEBUG
             DeveloperView()
                 .tabItem {
                     Label("Developer Tools", systemImage: "hammer")

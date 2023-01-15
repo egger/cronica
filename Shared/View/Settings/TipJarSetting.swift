@@ -51,7 +51,7 @@ private struct TipJarItem: View {
     var product: Product
     var body: some View {
         HStack {
-            InformationalToggle(title: product.displayName, subtitle: product.description)
+            InformationalLabel(title: product.displayName, subtitle: product.description)
             Spacer()
             if isPurchased {
                 Image(systemName: "checkmark")

@@ -122,9 +122,8 @@ struct HomeView: View {
             .sheet(isPresented: $showSettings) {
 #if os(iOS)
                 SettingsView(showSettings: $showSettings)
-                    .environmentObject(settings)
-                    .appTheme()
-                    .tint(settings.appTheme.color)
+                
+                    
 #endif
             }
             .sheet(isPresented: $showNotifications) {

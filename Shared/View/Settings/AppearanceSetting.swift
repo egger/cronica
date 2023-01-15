@@ -10,6 +10,7 @@ import SwiftUI
 struct AppearanceSetting: View {
     @StateObject private var store = SettingsStore.shared
     @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
+    @AppStorage("disableTranslucentBackground") private var disableTranslucent = false
     @State private var isExperimentalFeaturesEnabled = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
     @AppStorage("user_theme") private var currentTheme: AppTheme = .system
@@ -24,7 +25,7 @@ struct AppearanceSetting: View {
                         Text(item.localizableName).tag(item)
                     }
                 } label: {
-                    InformationalToggle(title: "appearanceRowTypeTitle",
+                    InformationalLabel(title: "appearanceRowTypeTitle",
                                         subtitle: "appearanceRowTypeSubtitle")
                 }
                 .disabled(disableRowType)
@@ -34,24 +35,32 @@ struct AppearanceSetting: View {
                         Text(item.localizableName).tag(item)
                     }
                 } label: {
-                    InformationalToggle(title: "appearanceRowStyleTitle",
+                    InformationalLabel(title: "appearanceRowStyleTitle",
                                         subtitle: "appearanceRowStyleSubtitle")
                 }
                 
             } header: {
                 Label("appearanceWatchlist", systemImage: "rectangle.stack")
             }
+            .onChange(of: store.watchlistStyle) { newValue in
+                if newValue != .list {
+                    disableRowType = true
+                } else {
+                    disableRowType = false
+                }
+            }
 #endif
 #if os(iOS) || os(macOS)
             Section {
+#if os(iOS)
                 Picker(selection: $currentTheme) {
                     ForEach(AppTheme.allCases) { item in
                         Text(item.localizableName).tag(item)
                     }
                 } label: {
-                    InformationalToggle(title: "appearanceAppThemeTitle")
+                    InformationalLabel(title: "appearanceAppThemeTitle")
                 }
-
+#endif
                 Picker(selection: $store.appTheme) {
                     ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
                         HStack {
@@ -63,7 +72,7 @@ struct AppearanceSetting: View {
                         .tag(item)
                     }
                 } label: {
-                    InformationalToggle(title: "appearanceThemeTitle")
+                    InformationalLabel(title: "appearanceThemeTitle")
                 }
 #if os(macOS)
                 .pickerStyle(.automatic)
@@ -75,49 +84,41 @@ struct AppearanceSetting: View {
                 Label("appearanceTheme", systemImage: "paintbrush.fill")
             }
 #endif
+//            Section {
+//
+//#if os(iOS)
+//                if isExperimentalFeaturesEnabled {
+//                    NavigationLink(destination: FeedbackSettingsView()) {
+//                        Text("appearanceSendFeedback")
+//                    }
+//                }
+//#endif
+//            } header: {
+//                Label("appearanceExperimentalHeader", systemImage: "wand.and.stars.inverse")
+//            } footer: {
+//                if isExperimentalFeaturesEnabled {
+//#if os(macOS)
+//                    HStack {
+//                        Text("appearanceExperimentalFooter")
+//                            .foregroundColor(.secondary)
+//                            .padding(.leading)
+//                        Spacer()
+//                    }
+//#else
+//                    Text("appearanceExperimentalFooter")
+//#endif
+//                }
+//            }
+            
             Section {
-                Toggle(isOn: $newBackgroundStyle) {
-                    InformationalToggle(title: "appearanceBackgroundTitle",
-                                        subtitle: "appearanceBackgroundSubtitle")
+                Toggle(isOn: $disableTranslucent) {
+                    InformationalLabel(title: "disableTranslucentTitle")
                 }
-#if os(iOS)
-                if isExperimentalFeaturesEnabled {
-                    NavigationLink(destination: FeedbackSettingsView()) {
-                        Text("appearanceSendFeedback")
-                    }
-                }
-#endif
             } header: {
-                Label("appearanceExperimentalHeader", systemImage: "wand.and.stars.inverse")
-            } footer: {
-                if isExperimentalFeaturesEnabled {
-#if os(macOS)
-                    HStack {
-                        Text("appearanceExperimentalFooter")
-                            .foregroundColor(.secondary)
-                            .padding(.leading)
-                        Spacer()
-                    }
-#else
-                    Text("appearanceExperimentalFooter")
-#endif
-                }
+                Label("accessibilityTitle", systemImage: "eyeglasses")
             }
-            .onChange(of: newBackgroundStyle) { newValue in
-                CronicaTelemetry.shared.handleMessage("FeaturesPreview",
-                                                      for: "newBackgroundStyle = \(newBackgroundStyle.description)")
-                if newValue && !disableTelemetry {
-                    isExperimentalFeaturesEnabled = true
-                } else {
-                    isExperimentalFeaturesEnabled = false
-                }
-            }
-            .onChange(of: store.watchlistStyle) { newValue in
-                if newValue != .list {
-                    disableRowType = true
-                } else {
-                    disableRowType = false
-                }
+            .onChange(of: disableTranslucent) { newValue in
+                CronicaTelemetry.shared.handleMessage("accessibilityDisableTranslucent is turned \(newValue)", for: "AppearanceSetting")
             }
         }
         .navigationTitle("appearanceTitle")
@@ -134,8 +135,7 @@ struct AppearanceSetting: View {
 }
 
 struct AppearanceSetting_Previews: PreviewProvider {
-    @StateObject private static var settings = SettingsStore()
     static var previews: some View {
-        AppearanceSetting().environmentObject(settings)
+        AppearanceSetting()
     }
 }

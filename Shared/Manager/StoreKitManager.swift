@@ -7,6 +7,7 @@
 
 import StoreKit
 
+
 class StoreKitManager: ObservableObject {
     @Published var storeProducts = [Product]()
     @Published var purchasedTipJar = [Product]()
@@ -25,8 +26,10 @@ class StoreKitManager: ObservableObject {
         Task {
             await requestProducts()
             await updateConsumerUpdateStatus()
+            DispatchQueue.main.async { [self] in
+                hasLoadedProducts = true
+            }
         }
-        hasLoadedProducts = true
     }
     
     deinit {
@@ -53,6 +56,8 @@ Can't request products, error: \(error.localizedDescription)
             let transaction = try checkVerified(verification)
             await updateConsumerUpdateStatus()
             await transaction.finish()
+            let message = "Transaction of \(transaction.productID) has successfully."
+            CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase()")
             return transaction
         case .userCancelled, .pending:
             return nil

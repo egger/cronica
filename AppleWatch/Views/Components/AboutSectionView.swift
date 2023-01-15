@@ -9,11 +9,13 @@ import SwiftUI
 
 struct AboutSectionView: View {
     let about: String?
+    @State private var showOverview = false
     var body: some View {
         if let about {
             Divider().padding(.horizontal)
             Section {
                 Text(about)
+                    .lineLimit(showOverview ? nil : 4)
             } header: {
                 HStack {
                     Label("About", systemImage: "film")
@@ -22,6 +24,9 @@ struct AboutSectionView: View {
                 }
             }
             .padding()
+            .onTapGesture {
+                withAnimation { showOverview.toggle() }
+            }
             Divider().padding(.horizontal)
         }
     }

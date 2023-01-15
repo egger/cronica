@@ -308,6 +308,8 @@
 "appearanceRowStyleTitle" = "Estilo do Item da Lista";
 "appearanceRowStyleSubtitle" = "Escolha como exibir sua Lista";
 "appearanceAppThemeTitle" = "Tema do aplicativo";
+"accessibilityTitle" = "Acessibilidade";
+"disableTranslucentTitle" = "Desativar Fundo Translúcido";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Toque Duplo Na Capa";
@@ -317,7 +319,11 @@
 "behaviorYouTubeSubtitle" = "Abra trailers no aplicativo do YouTube.";
 "behaviorLinkTitle" = "Links";
 "behaviorTitle" = "Comportamento";
-"behaviorEpisodeTitle" = "Toque para marcar o episódio como exibido";
+"behaviorEpisodeTitle" = "Toque para marcar o episódio como assistido";
+"hapticFeedbackTitle" = "Feedback Tátil";
+"hapticFeedbackSubtitle" = "O Feedback Tátil é usado ao adicionar um título ou marcar um episódio como assistido.";
+"behaviorPreferredShareLinkTitle" = "Link de Compartilhamento";
+"behaviorPreferredShareLinkSubtitle" = "O aplicativo reverterá para o TMDb se não houver como fornecer o link do IMDb.";
 
 // MARK: WatchlistSubtitleRow
 "watchlistSubtitleRowNone" = "Padrão";
@@ -388,3 +394,72 @@
 "tipJarTitle" = "Gorjeta";
 "tipJarFooter" = "Você pode optar por contribuir com uma quantidade pequena, média ou grande, e todos os lucros irão para melhorar e manter o aplicativo. O Cronica sempre permanecerá gratuito e sem anúncios, então esta é uma maneira puramente opcional para os usuários apoiarem o desenvolvimento do aplicativo.";
 "restorePurchases" = "Restaurar Compras";
+
+// MARK: WatchlistButtonView
+"removeDialogTitle" = "Você Tem Certeza?";
+"confirmDialogAction" = "Confirmar";
+"cancelConfirmDialogAction" = "Cancelar";
+
+// MARK: PreferredShareLink
+"preferredShareLinkTMDB" = "TMDb";
+"preferredShareLinkIMDB" = "IMDb";
+
+
+"justWatchSubtitle" = "Fornecido pelo JustWatch";
+
+"openWatchProviderTitle" = "Isso abrirá o site da TMDb com os links para cada serviço.";
+"confirmOpenWatchProvider" = "Confirmar";
+"confirmOpenDontAskAgainProvider" = "Confirme e não pergunte novamente";
+"cancelOpenWatchProvider" = "Cancelar";
+
+
+"watchProviderTitleList" = "Como Assistir";
+"behaviorWatchProvidersTitle" = "Provedor de Conteúdo";
+"behaviorWatchProvidersSubtitle" = "Veja em quais plataformas o conteúdo está disponível.";
+"watchRegionTitle" = "Região do Provedor de Conteúdo";
+"watchRegionSubtitle" = "O provedor de conteúdo se adaptará à região selecionada.";
+"contentRegionTitle" = "Região";
+
+
+// MARK: WatchProviderOption
+"watchProviderBr" = "Brasil";
+"watchProviderUs" = "Estados Unidos da América";
+"watchProviderAe" = "Emirados Árabes Unidos";
+"watchProviderAr" = "Argentina";
+"watchProviderAt" = "Áustria";
+"watchProviderAu" = "Australia";
+"watchProviderBe" = "Bélgica";
+"watchProviderBg" = "Bulgária";
+"watchProviderCa" = "Canadá";
+"watchProviderCh" = "Suíça";
+"watchProviderCz" = "República Checa";
+"watchProviderDe" = "Alemanha";
+"watchProviderDk" = "Dinamarca";
+"watchProviderEe" = "Estônia";
+"watchProviderEs" = "Espanha";
+"watchProviderFi" = "Finlândia";
+"watchProviderFr" = "França";
+"watchProviderGb" = "Reino Unido";
+"watchProviderHk" = "Hong Kong";
+"watchProviderHr" = "Croácia";
+"watchProviderHu" = "Hungria";
+"watchProviderId" = "Indonesia";
+"watchProviderIe" = "Irlanda";
+"watchProviderIndia" = "India";
+"watchProviderIt" = "Itália";
+"watchProviderJp" = "Japão";
+"watchProviderKr" = "Coreia do Sul";
+"watchProviderLt" = "Lituânia";
+"watchProviderMx" = "Mexico";
+"watchProviderNl" = "Holanda";
+"watchProviderNo" = "Noruega";
+"watchProviderNz" = "Nova Zelândia";
+"watchProviderPh" = "Filipinas";
+"watchProviderPl" = "Polônia";
+"watchProviderPt" = "Portugal";
+"watchProviderRs" = "Serbia";
+"watchProviderSk" = "Eslováquia";
+"watchProviderTr" = "Turquia";
+"watchProviderSe" = "Suécia";
+"watchProviderZa" = "África do Sul";
+

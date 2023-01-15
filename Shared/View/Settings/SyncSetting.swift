@@ -20,7 +20,7 @@ struct SyncSetting: View {
                             ProgressView()
                         }
                     } else {
-                        InformationalToggle(title: "syncSettingsUpdateWatchlistTitle",
+                        InformationalLabel(title: "syncSettingsUpdateWatchlistTitle",
                                             subtitle: "syncSettingsUpdateWatchlistSubtitle")
                     }
                 })

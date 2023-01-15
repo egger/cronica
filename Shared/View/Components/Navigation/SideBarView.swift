@@ -89,7 +89,6 @@ struct SideBarView: View {
         }
         .sheet(isPresented: $showSettings) {
             SettingsView(showSettings: $showSettings)
-                .environmentObject(settings)
         }
         .sheet(isPresented: $showNotifications) {
             NotificationListView(showNotification: $showNotifications)

@@ -37,7 +37,7 @@ struct PrivacySupportSetting: View {
             .disabled(disableTelemetry)
 #endif
             Toggle(isOn: $disableTelemetry) {
-                InformationalToggle(title: "settingsDisableTelemetryTitle",
+                InformationalLabel(title: "settingsDisableTelemetryTitle",
                                     subtitle: "settingsDisableTelemetrySubtitle")
             }
         } header: {

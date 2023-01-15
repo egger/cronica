@@ -10,9 +10,9 @@ import SDWebImageSwiftUI
 
 struct TranslucentBackground: View {
     var image: URL?
-    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
+    @AppStorage("disableTranslucentBackground") private var disableTranslucent = false
     var body: some View {
-        if newBackgroundStyle && image != nil {
+        if !disableTranslucent  && image != nil {
             ZStack {
                 WebImage(url: image)
                     .resizable()

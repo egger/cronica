@@ -146,6 +146,7 @@ struct WatchlistItemContextMenu: ViewModifier {
                 }
                 context.updateMarkAs(id: item.itemId, type: item.itemMedia, watched: !item.watched)
             }
+            HapticManager.shared.successHaptic()
         }, label: {
             Label(item.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: item.isWatched ? "minus.circle" : "checkmark.circle")
@@ -160,6 +161,7 @@ struct WatchlistItemContextMenu: ViewModifier {
                 }
                 context.updateMarkAs(id: item.itemId, type: item.itemMedia, favorite: !item.favorite)
             }
+            HapticManager.shared.successHaptic()
         }, label: {
             Label(item.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: item.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
@@ -170,6 +172,7 @@ struct WatchlistItemContextMenu: ViewModifier {
         Button(action: {
             PersistenceController.shared.updatePin(items: [item.notificationID])
             isPin.toggle()
+            HapticManager.shared.successHaptic()
         }, label: {
             Label(isPin ? "Unpin Item" : "Pin Item",
                   systemImage: isPin ? "pin.slash.fill" : "pin.fill")
@@ -180,6 +183,7 @@ struct WatchlistItemContextMenu: ViewModifier {
         Button {
             PersistenceController.shared.updateArchive(items: [item.notificationID])
             isArchive.toggle()
+            HapticManager.shared.successHaptic()
         } label: {
             Label(isArchive ? "Remove from Archive" : "Archive Item",
                   systemImage: isArchive ? "archivebox.fill" : "archivebox")

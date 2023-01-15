@@ -44,6 +44,8 @@ struct ItemContentDetailsView: View {
                                 seasonConfirmation: $showSeasonConfirmation)
                     .padding(.zero)
                     
+                    WatchProvidersList(id: id, type: type)
+                    
                     CastListView(credits: viewModel.credits)
                     
                     ItemContentListView(items: viewModel.recommendations,

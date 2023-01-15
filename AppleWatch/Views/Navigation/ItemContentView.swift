@@ -44,7 +44,6 @@ struct ItemContentView: View {
                 ShareLink(item: url)
                     .padding([.horizontal, .bottom])
                 
-                
                 AboutSectionView(about: viewModel.content?.itemOverview)
                 
                 CompanionTextView()

@@ -6,25 +6,18 @@
 //
 
 import SwiftUI
-import StoreKit
 
 struct SettingsView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.requestReview) var requestReview
-    @EnvironmentObject var store: SettingsStore
-    @State private var showPolicy = false
-    @Binding var showSettings: Bool
     @AppStorage("displayDeveloperSettings") private var displayDeveloperSettings = false
-    @AppStorage("disableTelemetry") private var disableTelemetry = false
     @State private var animateEasterEgg = false
+    @Binding var showSettings: Bool
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         NavigationStack {
             Form {
-                if displayDeveloperSettings {
-                    NavigationLink(destination: DeveloperView()) {
-                        Label("settingsDeveloperOptions", systemImage: "hammer")
-                    }
-                }
+                developer
                 general
                 PrivacySupportSetting()
                 Button {
@@ -32,16 +25,27 @@ struct SettingsView: View {
                 } label: {
                     Label("settingsReviewCronica", systemImage: "star.fill")
                 }
-                ShareLink("Share App", item: URL(string: "https://apple.co/3TV9SLP")!)
+                ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
                 about
+            }
+            .toolbar {
+                Button("Done") { showSettings = false }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing, content: {
-                    Button("Done") { showSettings.toggle() }
-                })
+        }
+        .appTheme()
+        .tint(settings.appTheme.color)
+    }
+    
+    @ViewBuilder
+    private var developer: some View {
+        if displayDeveloperSettings {
+            NavigationLink(destination: DeveloperView()) {
+                Label("settingsDeveloperOptions", systemImage: "hammer")
             }
+        } else {
+            EmptyView()
         }
     }
     
@@ -69,7 +73,13 @@ struct SettingsView: View {
             NavigationLink(destination: AcknowledgementsSettings()) {
                 Label("acknowledgmentsTitle", systemImage: "doc")
             }
-            
+#if os(iOS) && targetEnvironment(simulator)
+            Button {
+                
+            } label: {
+                Label("developerWebsite", systemImage: "globe.americas.fill")
+            }
+#endif
             CenterHorizontalView {
                 Text("Made in Brazil 🇧🇷")
                     .onTapGesture {
@@ -97,10 +107,8 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
-    @StateObject private static var settings = SettingsStore()
-    @State private static var showSettings = false
+    @State private static var dismiss = false
     static var previews: some View {
-        SettingsView(showSettings: $showSettings)
-            .environmentObject(settings)
+        SettingsView(showSettings: $dismiss)
     }
 }

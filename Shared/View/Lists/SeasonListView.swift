@@ -82,7 +82,7 @@ struct SeasonListView: View {
                                                              show: tvId,
                                                              isInWatchlist: $inWatchlist)
                                             .environmentObject(viewModel)
-                                            .frame(width: 160, height: 200)
+                                            .frame(width: 160)
                                             .padding([.leading, .trailing], 4)
                                             .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                             .padding(.trailing, item.id == season.last!.id ? 16 : 0)
@@ -94,14 +94,14 @@ struct SeasonListView: View {
                                         let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
                                         guard let lastWatchedEpisode else { return }
                                         withAnimation {
-                                            proxy.scrollTo(lastWatchedEpisode, anchor: .top)
+                                            proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
                                         }
                                     }
                                     .onChange(of: selectedSeason) { _ in
                                         if !hasFirstLoaded { return }
                                         let first = season.first ?? nil
                                         guard let first else { return }
-                                        withAnimation { proxy.scrollTo(first.id) }
+                                        withAnimation { proxy.scrollTo(first.id, anchor: .topLeading) }
                                     }
                                     .padding(0)
                                 }
@@ -113,6 +113,7 @@ struct SeasonListView: View {
                 .task {
                     load()
                 }
+                Divider().padding()
             }
             .onChange(of: viewModel.isItemInWatchlist) { value in
                 if value != inWatchlist {
@@ -134,6 +135,7 @@ struct SeasonListView: View {
                 if !inWatchlist {
                     inWatchlist = viewModel.isItemInWatchlist
                 }
+                HapticManager.shared.successHaptic()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                     withAnimation {
                         seasonConfirmation = false

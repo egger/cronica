@@ -33,6 +33,7 @@ struct WatchEpisodeButton: View {
         } else {
             handleList()
         }
+        HapticManager.shared.successHaptic()
     }
     
     private func handleList() {

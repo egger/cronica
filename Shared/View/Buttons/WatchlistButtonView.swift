@@ -19,6 +19,9 @@ struct WatchlistButtonView: View {
                 update()
             }
 #else
+            if !viewModel.isInWatchlist {
+                HapticManager.shared.successHaptic()
+            }
             update()
 #endif
         }, label: {
@@ -33,9 +36,9 @@ struct WatchlistButtonView: View {
 #if os(iOS)
         .buttonBorderShape(.capsule)
 #elseif os(watchOS)
-        .alert("Are you sure?", isPresented: $showConfirmationPopup) {
-            Button("Confirm") { update() }
-            Button("Cancel") {  showConfirmationPopup = false }
+        .alert("removeDialogTitle", isPresented: $showConfirmationPopup) {
+            Button("confirmDialogAction") { update() }
+            Button("cancelConfirmDialogAction") {  showConfirmationPopup = false }
         }
 #endif
     }

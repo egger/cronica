@@ -44,6 +44,11 @@ struct WatchlistView: View {
             .navigationDestination(for: ItemContent.self) { item in
                 ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
             }
+            .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+                let keys = item.map { (key, value) in key }
+                let value = item.map { (key, value) in value }
+                ItemContentCollectionDetails(title: keys[0], items: value[0])
+            })
             .toolbar {
                 ToolbarItem {
                     Picker(selection: $selectedOrder, content: {
