@@ -16,6 +16,7 @@ struct BehaviorSetting: View {
     @AppStorage("selectedWatchProviderRegion") private var watchRegion: WatchProviderOption = .us
     var body: some View {
         Form {
+#if os(iOS)
             Section {
                 Picker(selection: $store.gesture) {
                     ForEach(DoubleTapGesture.allCases) { item in
@@ -23,7 +24,7 @@ struct BehaviorSetting: View {
                     }
                 } label: {
                     InformationalLabel(title: "behaviorDoubleTapTitle",
-                                        subtitle: "behaviorDoubleTapSubtitle")
+                                       subtitle: "behaviorDoubleTapSubtitle")
                 }
                 Toggle(isOn: $markEpisodeWatchedOnTap) {
                     InformationalLabel(title: "behaviorEpisodeTitle")
@@ -31,22 +32,25 @@ struct BehaviorSetting: View {
             } header: {
                 Label("behaviorGestureTitle", systemImage: "hand.tap")
             }
+#endif
             
+#if os(iOS)
             Section {
                 Toggle(isOn: $openInYouTube) {
                     InformationalLabel(title: "behaviorYouTubeTitle")
                 }
-//                Picker(selection: $store.preferredShareLink) {
-//                    ForEach(PreferredShareLink.allCases) { item in
-//                        Text(item.localizableNameTitle).tag(item)
-//                    }
-//                } label: {
-//                    InformationalLabel(title: "behaviorPreferredShareLinkTitle",
-//                                        subtitle: "behaviorPreferredShareLinkSubtitle")
-//                }
+                //                Picker(selection: $store.preferredShareLink) {
+                //                    ForEach(PreferredShareLink.allCases) { item in
+                //                        Text(item.localizableNameTitle).tag(item)
+                //                    }
+                //                } label: {
+                //                    InformationalLabel(title: "behaviorPreferredShareLinkTitle",
+                //                                        subtitle: "behaviorPreferredShareLinkSubtitle")
+                //                }
             } header: {
                 Label("behaviorLinkTitle", systemImage: "link")
             }
+#endif
             
             Section {
                 Toggle(isOn: $isWatchProviderEnabled) {
@@ -63,15 +67,16 @@ struct BehaviorSetting: View {
                         InformationalLabel(title: "watchRegionTitle", subtitle: "watchRegionSubtitle")
                     }
 #if os(macOS)
-                .pickerStyle(.automatic)
+                    .pickerStyle(.automatic)
 #else
-                .pickerStyle(.navigationLink)
+                    .pickerStyle(.navigationLink)
 #endif
                 }
             } header: {
                 Label("contentRegionTitle", systemImage: "globe.desk")
             }
             
+#if os(iOS)
             Section {
                 Toggle(isOn: $hapticFeedback) {
                     InformationalLabel(title: "hapticFeedbackTitle", subtitle: "hapticFeedbackSubtitle")
@@ -79,6 +84,7 @@ struct BehaviorSetting: View {
             } header: {
                 Label("accessibilityTitle", systemImage: "figure.roll")
             }
+#endif
         }
         .navigationTitle("behaviorTitle")
 #if os(macOS)

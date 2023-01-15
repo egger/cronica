@@ -113,6 +113,7 @@ struct SeasonListView: View {
                 .task {
                     load()
                 }
+                Divider().padding()
             }
             .onChange(of: viewModel.isItemInWatchlist) { value in
                 if value != inWatchlist {
