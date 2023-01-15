@@ -388,6 +388,11 @@
 
 
 
+"openWatchProviderTitle" = "This will open TMDb website with the links to each service.";
+"confirmOpenWatchProvider" = "Confirm";
+"confirmOpenDontAskAgainProvider" = "Confirm and don't ask again";
+"cancelOpenWatchProvider" = "Cancel";
+
 "watchProviderTitleList" = "How to Watch";
 "behaviorWatchProvidersTitle" = "Watch Providers";
 "behaviorWatchProvidersSubtitle" = "See in what platforms the content is available on.";

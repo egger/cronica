@@ -406,6 +406,12 @@
 
 
 
+"openWatchProviderTitle" = "Isso abrirá o site da TMDb com os links para cada serviço.";
+"confirmOpenWatchProvider" = "Confirmar";
+"confirmOpenDontAskAgainProvider" = "Confirme e não pergunte novamente";
+"cancelOpenWatchProvider" = "Cancelar";
+
+
 "watchProviderTitleList" = "Como Assistir";
 "behaviorWatchProvidersTitle" = "Provedor de Conteúdo";
 "behaviorWatchProvidersSubtitle" = "Veja em quais plataformas o conteúdo está disponível.";
