@@ -88,6 +88,7 @@ struct CardFrame: View {
                     Text(item.itemTitle)
                         .font(.caption)
                         .lineLimit(DrawingConstants.titleLineLimit)
+                        .accessibilityHidden(true)
                     Spacer()
                 }
                 .frame(width: DrawingConstants.imageWidth)
@@ -101,6 +102,7 @@ struct CardFrame: View {
                 } 
             }
         }
+        .accessibilityLabel(Text(item.itemTitle))
     }
 }
 

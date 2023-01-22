@@ -8,16 +8,23 @@
 import SwiftUI
 
 /// A horizontal list that displays a limited number of
-///  cast people in an ItemContent.
+/// cast people in an ItemContent.
 struct CastListView: View {
     let credits: [Person]
     var body: some View {
         if !credits.isEmpty {
             VStack(alignment: .leading) {
-                TitleView(title: "Cast & Crew", subtitle: "", image: "person.3")
+#if os(macOS)
+                title
+#else
+                NavigationLink(value: credits) {
+                    title
+                }
+                .buttonStyle(.plain)
+#endif
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
-                        ForEach(credits, id: \.personListID) { person in
+                        ForEach(credits.prefix(10), id: \.personListID) { person in
                             PersonCardView(person: person)
                                 .padding(.leading, person.id == self.credits.first!.id ? DrawingConstants.padding : 0)
                                 .buttonStyle(.plain)
@@ -30,6 +37,9 @@ struct CastListView: View {
                 }
             }
         }
+    }
+    private var title: some View {
+        TitleView(title: "Cast & Crew", subtitle: "", image: "person.3", showChevron: true)
     }
 }
 

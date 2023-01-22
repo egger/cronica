@@ -15,8 +15,6 @@ struct StoryApp: App {
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
-    @AppStorage("removedOldNotifications") private var removedOldNotifications = false
-    @AppStorage("disableTelemetry") var disableTelemetry = false
     @ObservedObject private var settings = SettingsStore.shared
     init() {
         CronicaTelemetry.shared.setup()
@@ -65,21 +63,14 @@ struct StoryApp: App {
                         .navigationDestination(for: Person.self) { item in
                             PersonDetailsView(title: item.name, id: item.id)
                         }
-                        .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+                        .navigationDestination(for: [String:[ItemContent]].self) { item in
                             let keys = item.map { (key, value) in key }
                             let value = item.map { (key, value) in value }
                             ItemContentCollectionDetails(title: keys[0], items: value[0])
-                        })
+                        }
                     }
                     .appTheme()
                     .tint(settings.appTheme.color)
-                }
-                .onAppear {
-                    if !removedOldNotifications {
-                        Task {
-                            await NotificationManager.shared.clearOldNotificationId()
-                        }
-                    }
                 }
         }
         .onChange(of: scene) { phase in
@@ -104,21 +95,29 @@ struct StoryApp: App {
     
     private func scheduleAppRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
-        try? BGTaskScheduler.shared.submit(request)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 240 * 60) // Fetch no earlier than 4 hours from now
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            let message = """
+Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)
+"""
+            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppRefresh()")
+        }
     }
     
     private func scheduleAppMaintenance() {
         let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
         request.requiresNetworkConnectivity = true
-        request.requiresExternalPower = true
-        let fourDays = TimeInterval(4 * 24 * 60 * 60)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: fourDays)
+        let twoDays = TimeInterval(2 * 24 * 60 * 60)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: twoDays)
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                            for: "scheduleAppMaintenance()")
+            let message = """
+Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
+"""
+            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppMaintenance()")
         }
     }
     

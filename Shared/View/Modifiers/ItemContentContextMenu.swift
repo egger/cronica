@@ -13,8 +13,9 @@ struct ItemContentContextMenu: ViewModifier {
     @Binding var showConfirmation: Bool
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
-    @State private var isFavorite: Bool = false
-    @State private var isPin: Bool = false
+    @State private var isFavorite = false
+    @State private var isPin = false
+    @State private var isArchive = false
     private let context = PersistenceController.shared
     func body(content: Content) -> some View {
 #if os(watchOS)
@@ -26,6 +27,7 @@ struct ItemContentContextMenu: ViewModifier {
                     watchedButton
                     favoriteButton
                     pinButton
+                    archiveButton
                     Divider()
                     watchlistButton
                 } else {
@@ -46,6 +48,7 @@ struct ItemContentContextMenu: ViewModifier {
                 if isInWatchlist {
                     isFavorite = context.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia)
                     isPin = context.isItemPinned(id: item.id, type: item.itemContentMedia)
+                    isArchive = context.isItemArchived(id: item.id, type: item.itemContentMedia)
                 }
             }
 #endif
@@ -121,7 +124,18 @@ struct ItemContentContextMenu: ViewModifier {
             Label(isPin ? "Unpin Item" : "Pin Item",
                   systemImage: isPin ? "pin.slash" : "pin")
         }
-        
+    }
+    
+    private var archiveButton: some View {
+        Button {
+            context.updateArchive(items: [item.itemNotificationID])
+            isArchive.toggle()
+            HapticManager.shared.successHaptic()
+        } label: {
+            Label(isArchive ? "Remove from Archive" : "Archive Item",
+                  systemImage: isArchive ? "archivebox.fill" : "archivebox")
+        }
+
     }
     
     private func updateWatchlist(with item: ItemContent) {

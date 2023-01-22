@@ -78,6 +78,8 @@ struct Poster: View {
                 .draggable(item)
 #endif
         }
+        .buttonStyle(.plain)
+        .accessibility(label: Text(item.itemTitle))
     }
 }
 

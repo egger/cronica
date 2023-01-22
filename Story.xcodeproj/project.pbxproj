@@ -214,6 +214,8 @@
 		B892EB1629675B5E002E028E /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB1329675B5E002E028E /* StoreKitManager.swift */; };
 		B892EB17296851A9002E028E /* Cronica.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B892EB0929675265002E028E /* Cronica.storekit */; };
 		B892EB18296851AB002E028E /* Cronica.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B892EB0929675265002E028E /* Cronica.storekit */; };
+		B89429C9297C94CD0029646F /* DetailedPeopleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89429C8297C94CD0029646F /* DetailedPeopleList.swift */; };
+		B89429CA297CCD030029646F /* DetailedPeopleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89429C8297C94CD0029646F /* DetailedPeopleList.swift */; };
 		B89446B9294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
 		B89446BA294FDAA5008974BA /* WatchlistSubtitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */; };
 		B89446BC294FDABA008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
@@ -616,6 +618,7 @@
 		B892EB0B29675582002E028E /* TipJarSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarSetting.swift; sourceTree = "<group>"; };
 		B892EB0F296755A2002E028E /* ProductList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ProductList.plist; sourceTree = "<group>"; };
 		B892EB1329675B5E002E028E /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
+		B89429C8297C94CD0029646F /* DetailedPeopleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPeopleList.swift; sourceTree = "<group>"; };
 		B89446B8294FDAA5008974BA /* WatchlistSubtitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSubtitleRow.swift; sourceTree = "<group>"; };
 		B89446BB294FDABA008974BA /* WatchlistItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemType.swift; sourceTree = "<group>"; };
 		B89446BE294FDACA008974BA /* AppThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeColors.swift; sourceTree = "<group>"; };
@@ -884,6 +887,7 @@
 				B8C3354928170AC90055389D /* Lists */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
 				B84457CD29734F90009CB21F /* WatchProvidersList.swift */,
+				B89429C8297C94CD0029646F /* DetailedPeopleList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1874,6 +1878,7 @@
 				B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */,
 				B8B94CEC28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */,
+				B89429C9297C94CD0029646F /* DetailedPeopleList.swift in Sources */,
 				B8110F3C279364C800844FEB /* Utilities.swift in Sources */,
 				B879B70228B12201005EADCE /* TrailerItemView.swift in Sources */,
 				B89446BC294FDABA008974BA /* WatchlistItemType.swift in Sources */,
@@ -2125,6 +2130,7 @@
 				B8733A7929293B7900CBEF2B /* TranslucentBackground.swift in Sources */,
 				B8BF62F42912FF780051915C /* FilmographyListView.swift in Sources */,
 				B8BF62AD2912DA230051915C /* ImageSize.swift in Sources */,
+				B89429CA297CCD030029646F /* DetailedPeopleList.swift in Sources */,
 				B8BF62F9291307A30051915C /* SearchItemSwipeGesture.swift in Sources */,
 				B8BF62D82912E3C10051915C /* TitleView.swift in Sources */,
 				B892EB1629675B5E002E028E /* StoreKitManager.swift in Sources */,

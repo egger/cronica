@@ -62,6 +62,9 @@ struct SearchView: View {
                 let value = item.map { (key, value) in value }
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
             }
+            .navigationDestination(for: [Person].self, destination: { items in
+                DetailedPeopleList(items: items)
+            })
             .searchable(text: $viewModel.query,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: Text("Movies, Shows, People"))

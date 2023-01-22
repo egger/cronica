@@ -98,6 +98,7 @@ struct PersistenceController {
             item.schedule = content.itemStatus.toInt
             item.notify = content.itemCanNotify
             item.genre = content.itemGenre
+            item.lastValuesUpdated = Date()
             if let theatrical = content.itemTheatricalDate {
                 item.date = theatrical
             } else {
@@ -179,9 +180,7 @@ struct PersistenceController {
                 if let favorite {
                     item.favorite = favorite
                 }
-                if container.viewContext.hasChanges {
-                    item.lastValuesUpdated = Date()
-                }
+                item.lastValuesUpdated = Date()
                 saveContext()
             }
         }
@@ -286,6 +285,10 @@ struct PersistenceController {
         }
         if !list.isEmpty {
             for item in list {
+                // Removes notification (if available) for an item before setting it as archive.
+                if !item.isArchive {
+                    NotificationManager.shared.removeNotification(identifier: item.notificationID)
+                }
                 item.isArchive.toggle()
                 item.shouldNotify.toggle()
             }
@@ -432,5 +435,10 @@ struct PersistenceController {
     func isItemPinned(id: ItemContent.ID, type: MediaType) -> Bool {
         let item = try? fetch(for: WatchlistItem.ID(id), media: type)
         return item?.isPin ?? false
+    }
+    
+    func isItemArchived(id: ItemContent.ID, type: MediaType) -> Bool {
+        let item = try? fetch(for: WatchlistItem.ID(id), media: type)
+        return item?.isArchive ?? false
     }
 }

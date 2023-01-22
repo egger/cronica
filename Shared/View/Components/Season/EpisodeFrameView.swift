@@ -47,6 +47,7 @@ struct EpisodeFrameView: View {
                     }
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
+                    .accessibilityHidden(true)
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -119,6 +120,7 @@ struct EpisodeFrameView: View {
                     .font(.caption)
                     .lineLimit(2)
                     .foregroundColor(.secondary)
+                    .accessibilityHidden(true)
                 Spacer()
             }
             Spacer()

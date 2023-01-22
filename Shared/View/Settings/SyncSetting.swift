@@ -12,21 +12,21 @@ struct SyncSetting: View {
     var body: some View {
         Form {
             Section {
-                Button(action: {
+                Button {
                     updateItems()
-                }, label: {
+                } label: {
                     if updatingItems {
                         CenterHorizontalView {
                             ProgressView()
                         }
                     } else {
                         InformationalLabel(title: "syncSettingsUpdateWatchlistTitle",
-                                            subtitle: "syncSettingsUpdateWatchlistSubtitle")
+                                           subtitle: "syncSettingsUpdateWatchlistSubtitle")
                     }
-                })
-                #if os(macOS)
+                }
+#if os(macOS)
                 .buttonStyle(.plain)
-                #endif
+#endif
             } header: {
                 Label("syncSettingsWatchlistTitle", systemImage: "square.stack")
             }

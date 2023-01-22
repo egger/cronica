@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(\.openURL) var openURL
     @Environment(\.requestReview) var requestReview
     @AppStorage("displayDeveloperSettings") private var displayDeveloperSettings = false
     @State private var animateEasterEgg = false

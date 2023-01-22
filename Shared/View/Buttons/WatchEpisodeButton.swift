@@ -16,12 +16,12 @@ struct WatchEpisodeButton: View {
     private let persistence = PersistenceController.shared
     @State private var errorMessage = false
     var body: some View {
-        Button(action: {
+        Button {
             update()
-        }, label: {
+        } label: {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
-        })
+        }
     }
     
     private func update() {

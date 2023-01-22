@@ -10,7 +10,7 @@ import CoreData
 import BackgroundTasks
 
 class BackgroundManager {
-    private let context = PersistenceController.shared
+    private let context = PersistenceController.shared.container.newBackgroundContext()
     private let network = NetworkService.shared
     private let notifications = NotificationManager.shared
     
@@ -43,7 +43,7 @@ class BackgroundManager {
                                                               renewedPredicate])
         request.predicate = orPredicate
         do {
-            let list = try self.context.container.viewContext.fetch(request)
+            let list = try self.context.fetch(request)
             return list
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
@@ -58,32 +58,59 @@ class BackgroundManager {
         let archivePredicate = NSPredicate(format: "isArchive == %d", true)
         request.predicate = NSCompoundPredicate(type: .or,
                                                 subpredicates: [releasedPredicate, archivePredicate])
-        let list = try? self.context.container.viewContext.fetch(request)
-        return list ?? []
+        do {
+            let list = try self.context.fetch(request)
+            return list
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "BackgroundManager.fetchReleasedItems()")
+            return []
+        }
     }
     
     /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.
     private func fetchUpdates(items: [WatchlistItem]) async {
         if !items.isEmpty {
             for item in items {
-                let content = try? await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
-                if let content {
-                    if content.itemCanNotify && item.shouldNotify {
-                        // If fetched item release date is different than the scheduled one,
-                        // then remove the old date and register the new one.
-                        if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {
-                            self.notifications.removeNotification(identifier: content.itemNotificationID)
+                if item.isReleased || item.isArchive || item.isWatched {
+                    if let lastUpdate = item.lastValuesUpdated {
+                        let now = Date()
+                        let week = TimeInterval(7 * 24 * 60 * 60)
+                        if now > (lastUpdate + week) {
+                            await update(item)
                         }
-                        if content.itemStatus == .cancelled {
-                            notifications.removeNotification(identifier: content.itemNotificationID)
-                        } else {
-                            self.notifications.schedule(notificationContent: content)
-                        }
+                    } else {
+                        await update(item)
                     }
-                    self.context.update(item: content)
+                } else {
+                    await update(item)
                 }
             }
         }
+    }
+    
+    private func update(_ item: WatchlistItem) async {
+        do {
+            let content = try await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
+            if content.itemCanNotify && item.shouldNotify {
+                // If fetched item release date is different than the scheduled one,
+                // then remove the old date and register the new one.
+                if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {
+                    self.notifications.removeNotification(identifier: content.itemNotificationID)
+                }
+                if content.itemStatus == .cancelled {
+                    notifications.removeNotification(identifier: content.itemNotificationID)
+                } else {
+                    self.notifications.schedule(notificationContent: content)
+                }
+            }
+            PersistenceController.shared.update(item: content)
+        } catch {
+            if Task.isCancelled { return }
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "BackgroundManager.update()")
+        }
+        
     }
     
     /// Compares two dates and returns a bool if the dates are different.

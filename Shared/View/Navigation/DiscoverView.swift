@@ -61,6 +61,9 @@ struct DiscoverView: View {
                     let value = item.map { (key, value) in value }
                     ItemContentCollectionDetails(title: keys[0], items: value[0])
                 })
+                .navigationDestination(for: [Person].self, destination: { items in
+                    DetailedPeopleList(items: items)
+                })
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }

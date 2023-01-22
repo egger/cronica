@@ -443,3 +443,5 @@
 "watchProviderTr" = "Turkey";
 "watchProviderSe" = "Sweden";
 "watchProviderZa" = "South Africa";
+
+"settingsBehaviorSubtitle" = "Gestures, Link, Region";

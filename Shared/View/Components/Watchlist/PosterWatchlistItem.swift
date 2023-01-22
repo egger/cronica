@@ -63,6 +63,8 @@ struct PosterWatchlistItem: View {
                     isArchive = item.isArchive
                 }
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(item.itemTitle))
     }
 }
 

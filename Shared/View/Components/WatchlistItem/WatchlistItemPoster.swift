@@ -45,6 +45,7 @@ struct WatchlistItemPoster: View {
                 .draggable(content)
 #endif
         }
+        .accessibilityLabel(Text(content.itemTitle))
     }
 }
 

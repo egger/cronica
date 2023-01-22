@@ -45,6 +45,9 @@ struct WatchlistView: View {
             let value = item.map { (key, value) in value }
             ItemContentCollectionDetails(title: keys[0], items: value[0])
         }
+        .navigationDestination(for: [Person].self, destination: { items in
+            DetailedPeopleList(items: items)
+        })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
@@ -136,7 +139,6 @@ struct WatchlistView: View {
                         WatchListSection(items: filteredItems.filter { $0.isTvShow },
                                          title: "Search results")
                     }
-                    
                 } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
                     Text("No results")
                 } else {

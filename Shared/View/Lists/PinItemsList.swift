@@ -50,7 +50,6 @@ private struct HorizontalWatchlistList: View {
                 LazyHStack {
                     ForEach(items) { item in
                         PosterWatchlistItem(item: item)
-                            .buttonStyle(.plain)
                             .padding([.leading, .trailing], 4)
                             .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                             .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)

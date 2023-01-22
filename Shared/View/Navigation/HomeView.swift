@@ -76,13 +76,16 @@ struct HomeView: View {
                 let value = item.map { (key, value) in value }
                 TitleWatchlistDetails(title: keys[0], items: value[0])
             }
-            .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+            .navigationDestination(for: [String:[ItemContent]].self) { item in
                 let keys = item.map { (key, value) in key }
                 let value = item.map { (key, value) in value }
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
-            })
+            }
+            .navigationDestination(for: [Person].self) { items in
+                DetailedPeopleList(items: items)
+            }
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-            .navigationTitle("Home").fontDesign(.rounded)
+            .navigationTitle("Home")
             .toolbar {
 #if os(macOS)
                 ToolbarItem(placement: .navigation) {
@@ -165,11 +168,3 @@ struct TitleWatchlistDetails: View {
         
     }
 }
-
-//private struct DrawingConstants {
-//#if os(macOS)
-//    static let columns = [GridItem(.adaptive(minimum: 160))]
-//#else
-//    static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
-//#endif
-//}
