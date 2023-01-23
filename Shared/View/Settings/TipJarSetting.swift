@@ -10,10 +10,11 @@ import StoreKit
 
 struct TipJarSetting: View {
     @StateObject private var viewModel = StoreKitManager()
+    @State private var productsLoaded = false
     var body: some View {
         Form {
             Section {
-                if !viewModel.hasLoadedProducts { ProgressView() }
+                if !productsLoaded { ProgressView() }
                 ForEach(viewModel.storeProducts) { item in
                     Button {
                         Task {
@@ -31,7 +32,7 @@ struct TipJarSetting: View {
                         try? await AppStore.sync()
                     }
                 }
-                .disabled(!viewModel.hasLoadedProducts)
+                .disabled(!productsLoaded)
             } header: {
                 Label("tipJarTitle", systemImage: "heart")
             } footer: {
@@ -39,6 +40,11 @@ struct TipJarSetting: View {
             }
         }
         .navigationTitle("tipJarTitle")
+        .onChange(of: viewModel.hasLoadedProducts) { hasLoaded in
+            if hasLoaded {
+                withAnimation { productsLoaded = true }
+            }
+        }
 #if os(macOS)
         .formStyle(.grouped)
 #endif

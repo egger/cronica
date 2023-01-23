@@ -13,6 +13,17 @@ class BackgroundManager {
     private let context = PersistenceController.shared.container.newBackgroundContext()
     private let network = NetworkService.shared
     private let notifications = NotificationManager.shared
+    private static let lastMaintenanceKey = "lastMaintenance"
+    static let shared = BackgroundManager()
+    
+    var lastMaintenance: Date? {
+        get {
+            return UserDefaults.standard.object(forKey: BackgroundManager.lastMaintenanceKey) as? Date
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: BackgroundManager.lastMaintenanceKey)
+        }
+    }
     
     func handleAppRefreshContent() async {
         let items = self.fetchItems()
@@ -107,8 +118,8 @@ class BackgroundManager {
             PersistenceController.shared.update(item: content)
         } catch {
             if Task.isCancelled { return }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.update()")
+            let message = "Could not update, error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update()")
         }
         
     }
@@ -125,4 +136,3 @@ class BackgroundManager {
         return false
     }
 }
-

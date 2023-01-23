@@ -12,6 +12,8 @@ struct FeedbackSettingsView: View {
     @State private var feedback = ""
     @State private var showFeedbackAnimation = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
+    @Environment(\.openURL) var openURL
+    @State private var supportEmail = SupportEmail()
     var body: some View {
         ZStack {
             Form {
@@ -37,7 +39,15 @@ struct FeedbackSettingsView: View {
                     }
 #endif
                 }
-                
+                Section {
+                    Button {
+                        supportEmail.send(openURL: openURL)
+                    } label: {
+                        Label("sendEmail", systemImage: "envelope.open.fill")
+                    }
+                } footer: {
+                    Text("sendEmailFooter")
+                }
             }
 #if os(macOS)
             .formStyle(.grouped)

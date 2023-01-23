@@ -444,4 +444,5 @@
 "watchProviderSe" = "Sweden";
 "watchProviderZa" = "South Africa";
 
-"settingsBehaviorSubtitle" = "Gestures, Link, Region";
+"sendEmail" = "Send Email";
+"sendEmailFooter" = "If you prefer, you can also send an email for a faster follow-up.";

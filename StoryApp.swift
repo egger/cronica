@@ -6,7 +6,6 @@
 //
 import SwiftUI
 import BackgroundTasks
-import TelemetryClient
 
 @main
 struct StoryApp: App {
@@ -95,7 +94,7 @@ struct StoryApp: App {
     
     private func scheduleAppRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 240 * 60) // Fetch no earlier than 4 hours from now
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
@@ -107,9 +106,14 @@ Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)
     }
     
     private func scheduleAppMaintenance() {
+        let lastMaintenanceDate = BackgroundManager.shared.lastMaintenance ?? .distantPast
+        let now = Date()
+        let twoDays = TimeInterval(2 * 24 * 60 * 60)
+        
+        // Maintenance the database at most two days per week.
+        guard now > (lastMaintenanceDate + twoDays) else { return }
         let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
         request.requiresNetworkConnectivity = true
-        let twoDays = TimeInterval(2 * 24 * 60 * 60)
         request.earliestBeginDate = Date(timeIntervalSinceNow: twoDays)
         do {
             try BGTaskScheduler.shared.submit(request)
@@ -127,14 +131,13 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
             scheduleAppRefresh()
             let queue = OperationQueue()
             queue.maxConcurrentOperationCount = 1
-            let background = BackgroundManager()
             task.expirationHandler = {
                 // After all operations are cancelled, the completion block below is called to set the task to complete.
                 queue.cancelAllOperations()
             }
             queue.addOperation {
                 Task {
-                    await background.handleAppRefreshContent()
+                    await BackgroundManager.shared.handleAppRefreshContent()
                 }
             }
             task.setTaskCompleted(success: true)
@@ -147,17 +150,17 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
         guard let task else { return }
         scheduleAppMaintenance()
         let queue = OperationQueue()
-        let background = BackgroundManager()
         queue.maxConcurrentOperationCount = 1
         task.expirationHandler = {
             queue.cancelAllOperations()
         }
         queue.addOperation {
             Task {
-                await background.handleAppRefreshMaintenance(isAppMaintenance: true)
+                await BackgroundManager.shared.handleAppRefreshMaintenance(isAppMaintenance: true)
             }
         }
         task.setTaskCompleted(success: true)
+        BackgroundManager.shared.lastMaintenance = Date()
         CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
                                                         for: "handleAppMaintenance")
     }

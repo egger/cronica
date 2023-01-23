@@ -463,4 +463,5 @@
 "watchProviderSe" = "Suécia";
 "watchProviderZa" = "África do Sul";
 
-"settingsBehaviorSubtitle" = "Gestos, Link, Região";
+"sendEmail" = "Enviar Email";
+"sendEmailFooter" = "Se preferir, você também pode enviar um e-mail para um acompanhamento mais rápido.";

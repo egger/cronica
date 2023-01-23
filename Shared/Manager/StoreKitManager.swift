@@ -11,7 +11,7 @@ import StoreKit
 class StoreKitManager: ObservableObject {
     @Published var storeProducts = [Product]()
     @Published var purchasedTipJar = [Product]()
-    @Published var hasLoadedProducts = false
+    var hasLoadedProducts = false
     private let productDict: [String:String]
     var updateListenerTask: Task<Void, Error>? = nil
     
@@ -26,9 +26,7 @@ class StoreKitManager: ObservableObject {
         Task {
             await requestProducts()
             await updateConsumerUpdateStatus()
-            DispatchQueue.main.async { [self] in
-                hasLoadedProducts = true
-            }
+            hasLoadedProducts = true
         }
     }
     
@@ -78,7 +76,8 @@ Can't request products, error: \(error.localizedDescription)
                     await self.updateConsumerUpdateStatus()
                     await transaction.finish()
                 } catch {
-                    print(error.localizedDescription)
+                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                          for: "StoreKitManager.listenForTransaction()")
                 }
             }
         }
@@ -103,8 +102,8 @@ Can't request products, error: \(error.localizedDescription)
                     purchasedTipJar.append(jar)
                 }
             } catch {
-                let message = "\(error.localizedDescription)"
-                CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.updateConsumerUpdateStatus()")
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                      for: "StoreKitManager.updateConsumerUpdateStatus()")
             }
         }
         self.purchasedTipJar = purchasedTipJar

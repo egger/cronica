@@ -59,7 +59,7 @@ struct EpisodeDetailsView: View {
                 .buttonBorderShape(.capsule)
 #endif
                 
-                OverviewBoxView(overview: episode.overview,
+                OverviewBoxView(overview: episode.itemOverview,
                                 title: episode.itemTitle,
                                 type: .tvShow)
                 .padding()
@@ -82,6 +82,9 @@ struct EpisodeDetailsView: View {
             }
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
+            }
+            .navigationDestination(for: [Person].self) { item in
+                DetailedPeopleList(items: item)
             }
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)

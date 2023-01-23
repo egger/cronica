@@ -56,6 +56,6 @@ extension Episode {
         if let guestStars {
             value.append(contentsOf: guestStars)
         }
-        return value.sorted { $0.itemPopularity > $1.itemPopularity }
+        return value
     }
 }
