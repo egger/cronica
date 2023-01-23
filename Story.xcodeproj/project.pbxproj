@@ -889,8 +889,6 @@
 				B8F6DE642937A023005D1A50 /* Details */,
 				B8C3354928170AC90055389D /* Lists */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
-				B84457CD29734F90009CB21F /* WatchProvidersList.swift */,
-				B89429C8297C94CD0029646F /* DetailedPeopleList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1235,6 +1233,7 @@
 			isa = PBXGroup;
 			children = (
 				B8A3F48527A610AF005F2941 /* CastListView.swift */,
+				B89429C8297C94CD0029646F /* DetailedPeopleList.swift */,
 				B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */,
 				B804E394284EDC2B00F59855 /* ItemContentListView.swift */,
 				B845149228E0C96A00963399 /* NotificationListView.swift */,
@@ -1243,6 +1242,7 @@
 				B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */,
 				B85344C028FA07B60013E9C7 /* UpcomingListView.swift */,
 				B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */,
+				B84457CD29734F90009CB21F /* WatchProvidersList.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -2246,7 +2246,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2279,7 +2279,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2432,7 +2432,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2468,7 +2468,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2551,7 +2551,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2584,7 +2584,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2687,7 +2687,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2720,7 +2720,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
