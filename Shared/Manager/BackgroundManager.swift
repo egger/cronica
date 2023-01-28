@@ -83,6 +83,9 @@ class BackgroundManager {
     private func fetchUpdates(items: [WatchlistItem]) async {
         if !items.isEmpty {
             for item in items {
+                // if the item is already released, archive or watched
+                // the need for constant updates are not there.
+                // So, to save resources, they will update less frequently.
                 if item.isReleased || item.isArchive || item.isWatched {
                     if let lastUpdate = item.lastValuesUpdated {
                         let now = Date()

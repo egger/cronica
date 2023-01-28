@@ -96,9 +96,6 @@ struct DeveloperView: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
-                Button("Export Items") {
-                    
-                }
             } header: {
                 Text("Items")
             }

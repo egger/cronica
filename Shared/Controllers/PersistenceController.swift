@@ -441,4 +441,38 @@ struct PersistenceController {
         let item = try? fetch(for: WatchlistItem.ID(id), media: type)
         return item?.isArchive ?? false
     }
+    
+    func fetchAllItemsIDs() -> [String] {
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        do {
+            let list = try container.viewContext.fetch(request)
+            var ids = [String]()
+            for item in list {
+                ids.append(item.notificationID)
+            }
+            return ids
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "BackgroundManager.fetchItems()")
+            return []
+        }
+//        request.propertiesToFetch = ["contentID"]
+//        request.returnsObjectsAsFaults = false
+//        do {
+//            let results = try container.viewContext.fetch(request) as? [NSDictionary]
+//            if let results {
+//                if !results.isEmpty {
+//                    var ids = [String]()
+//                    for result in results {
+//                        let id = result["contentID"] as! String
+//                        ids.append(id)
+//                    }
+//                    return ids
+//                }
+//            }
+//        } catch {
+//
+//        }
+//        return []
+    }
 }

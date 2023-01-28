@@ -48,8 +48,8 @@ class NetworkService {
         return response.results
     }
     
-    func fetchDiscover(type: MediaType, page: Int, genres: String) async throws -> [ItemContent] {
-        guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres) else {
+    func fetchDiscover(type: MediaType, page: Int, genres: String, sort: DiscoverSortBy) async throws -> [ItemContent] {
+        guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres, sortBy: sort) else {
             throw NetworkError.invalidEndpoint
         }
         let response: ItemContentResponse = try await self.fetch(url: url)
@@ -160,7 +160,7 @@ class NetworkService {
     ///   - type: The content type for the discovery fetch.
     ///   - page: The page used for pagination.
     ///   - genres: The desired genres for the discovery.
-    private func urlBuilder(type: String, page: Int, genres: String) -> URL? {
+    private func urlBuilder(type: String, page: Int, genres: String, sortBy: DiscoverSortBy) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"
@@ -169,7 +169,7 @@ class NetworkService {
             .init(name: "api_key", value: Key.tmdbApi),
             .init(name: "language", value: Utilities.userLang),
             .init(name: "region", value: Utilities.userRegion),
-            .init(name: "sort_by", value: "popularity.desc"),
+            .init(name: "sort_by", value: sortBy.rawValue),
             .init(name: "include_adult", value: "false"),
             .init(name: "include_video", value: "false"),
             .init(name: "page", value: "\(page)"),

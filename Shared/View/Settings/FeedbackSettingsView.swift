@@ -39,6 +39,7 @@ struct FeedbackSettingsView: View {
                     }
 #endif
                 }
+#if os(iOS) || os(macOS)
                 Section {
                     Button {
                         supportEmail.send(openURL: openURL)
@@ -48,6 +49,7 @@ struct FeedbackSettingsView: View {
                 } footer: {
                     Text("sendEmailFooter")
                 }
+#endif
             }
 #if os(macOS)
             .formStyle(.grouped)
@@ -65,7 +67,6 @@ struct FeedbackSettingsView: View {
         var message = String()
         if email.isEmpty {
             message = """
-                      Email: nil
                       Feedback: \(feedback)
                       """
         } else {

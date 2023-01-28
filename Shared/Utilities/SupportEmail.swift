@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 22/01/23.
 //
 
-import UIKit
+//import UIKit
 import SwiftUI
 
 struct SupportEmail {

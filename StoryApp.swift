@@ -39,7 +39,13 @@ struct StoryApp: App {
                         type = .tvShow
                     }
                     Task {
-                        widgetItem = try? await NetworkService.shared.fetchItem(id: id, type: type)
+                        do {
+                            widgetItem = try await NetworkService.shared.fetchItem(id: id, type: type)
+                        } catch {
+                            let message = "Item ID: \(id). Item Type: \(type.rawValue)."
+                            CronicaTelemetry.shared.handleMessage("\(message)\(error.localizedDescription)",
+                                                                  for: "CronicaWidgetLoadItem")
+                        }
                     }
                 }
                 .sheet(item: $widgetItem) { item in

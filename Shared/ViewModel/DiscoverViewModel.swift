@@ -14,8 +14,12 @@ class DiscoverViewModel: ObservableObject {
     @Published var items = [ItemContent]()
     @Published var selectedGenre: Int = 28
     @Published var selectedMedia: MediaType = .movie
+    @Published var selectedSortBy: DiscoverSortBy = .popularityDesc
+    @Published var selectedWatchProviders = [String]()
     @Published var isLoaded: Bool = false
     @Published var showErrorDialog: Bool = false
+    @Published var hideAddedItems = false
+    @Published var isWatchProviderEnabled = false
     // MARK: Pagination Properties
     @Published var currentPage: Int = 0
     @Published var startPagination: Bool = false
@@ -26,6 +30,19 @@ class DiscoverViewModel: ObservableObject {
         withAnimation {
             isLoaded = false
             items.removeAll()
+        }
+    }
+    
+    func hideItems() {
+        let ids = PersistenceController.shared.fetchAllItemsIDs()
+        withAnimation {
+            items.removeAll(where: { ids.contains($0.itemNotificationID)})
+//            items.removeAll { item in
+//                if ids.contains(item.itemNotificationID) {
+//                    return true
+//                }
+//                return false
+//            }
         }
     }
     
@@ -50,9 +67,15 @@ class DiscoverViewModel: ObservableObject {
     private func fetch() async {
         do {
             let result = try await service.fetchDiscover(type: selectedMedia,
-                                                          page: currentPage,
-                                                          genres: "\(selectedGenre)")
-            items.append(contentsOf: result)
+                                                         page: currentPage,
+                                                         genres: "\(selectedGenre)",
+                                                         sort: selectedSortBy)
+            if hideAddedItems {
+                let ids = PersistenceController.shared.fetchAllItemsIDs()
+                items.append(contentsOf: result.filter { !ids.contains($0.itemNotificationID)})
+            } else {
+                items.append(contentsOf: result)
+            }
             if currentPage == 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     withAnimation {

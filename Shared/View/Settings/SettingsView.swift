@@ -72,13 +72,6 @@ struct SettingsView: View {
             NavigationLink(destination: AcknowledgementsSettings()) {
                 Label("acknowledgmentsTitle", systemImage: "doc")
             }
-#if os(iOS) && targetEnvironment(simulator)
-            Button {
-                
-            } label: {
-                Label("developerWebsite", systemImage: "globe.americas.fill")
-            }
-#endif
             CenterHorizontalView {
                 Text("Made in Brazil 🇧🇷")
                     .onTapGesture {

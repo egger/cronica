@@ -446,3 +446,10 @@
 
 "sendEmail" = "Send Email";
 "sendEmailFooter" = "If you prefer, you can also send an email for a faster follow-up.";
+
+"mediaTypeDiscoverFilterTitle" = "Media Type";
+"genreDiscoverFilterTitle" = "Genre";
+"filterDiscoverTitle" = "Filters";
+"hideAddedItemsDiscoverFilter" = "Hide Added Items";
+"whereToWatchDiscoverFilter" = "Where To Watch";
+"watchProviderToggleDiscover" = "Only Show From Watch Provider";

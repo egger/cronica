@@ -71,7 +71,7 @@ struct BehaviorSetting: View {
 #if os(iOS)
             Section {
                 Toggle(isOn: $hapticFeedback) {
-                    InformationalLabel(title: "hapticFeedbackTitle", subtitle: "hapticFeedbackSubtitle")
+                    InformationalLabel(title: "hapticFeedbackTitle")
                 }
             } header: {
                 Label("accessibilityTitle", systemImage: "figure.roll")
@@ -88,5 +88,11 @@ struct BehaviorSetting: View {
 struct BehaviorSetting_Previews: PreviewProvider {
     static var previews: some View {
         BehaviorSetting()
+            .preferredColorScheme(.light)
+        BehaviorSetting()
+            .preferredColorScheme(.dark)
+        BehaviorSetting()
+            .previewDevice("iPad Air (5th generation)")
+            .previewInterfaceOrientation(.landscapeRight)
     }
 }

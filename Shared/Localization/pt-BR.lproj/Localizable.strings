@@ -465,3 +465,10 @@
 
 "sendEmail" = "Enviar Email";
 "sendEmailFooter" = "Se preferir, você também pode enviar um e-mail para um acompanhamento mais rápido.";
+
+"mediaTypeDiscoverFilterTitle" = "Tipo de Mídia";
+"genreDiscoverFilterTitle" = "Gênero";
+"filterDiscoverTitle" = "Filtros";
+"hideAddedItemsDiscoverFilter" = "Ocultar Itens Adicionados";
+"whereToWatchDiscoverFilter" = "Onde Assistir";
+"watchProviderToggleDiscover" = "Only Show From Watch Provider";

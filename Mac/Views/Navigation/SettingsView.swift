@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         TabView {
             BehaviorSetting()
@@ -36,19 +35,13 @@ struct SettingsView: View {
             .tabItem {
                 Label("Privacy", systemImage: "hand.raised.fill")
             }
- 
-#if DEBUG
-            TipJarSetting()
+            
+            AcknowledgementsSettings()
                 .tabItem {
-                    Label("tipJarTitle", systemImage: "heart")
+                    Label("acknowledgmentsTitle", systemImage: "doc")
                 }
-            DeveloperView()
-                .tabItem {
-                    Label("Developer Tools", systemImage: "hammer")
-                }
-#endif
         }
-        .frame(width: 550, height: 320)
+        .frame(width: 580, height: 320)
     }
 }
 

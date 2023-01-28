@@ -11,113 +11,142 @@ struct DiscoverView: View {
     static let tag: Screens? = .discover
     @State private var showConfirmation = false
     @State private var onChanging = false
+    @State private var showFilters = false
     @StateObject private var viewModel = DiscoverViewModel()
-    let columns: [GridItem]
     var body: some View {
         ZStack {
             if !viewModel.isLoaded {  ProgressView().unredacted() }
             ScrollView {
-                VStack {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(viewModel.items) { item in
-#if os(macOS)
-                            ItemContentCardView(item: item, showConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
-#else
-                            CardFrame(item: item, showConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
-#endif
-                        }
-                        if viewModel.isLoaded && !viewModel.endPagination {
-                            CenterHorizontalView {
-                                ProgressView()
-                                    .padding()
-                                    .onAppear {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                            viewModel.loadMoreItems()
+                ScrollViewReader { proxy in
+                    VStack {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))], spacing: 20) {
+                            ForEach(viewModel.items) { item in
+                                CardFrame(item: item, showConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            }
+                            if viewModel.isLoaded && !viewModel.endPagination {
+                                CenterHorizontalView {
+                                    ProgressView()
+                                        .padding()
+                                        .onAppear {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                                viewModel.loadMoreItems()
+                                            }
                                         }
-                                    }
+                                }
                             }
                         }
+                        .padding()
+                        if !viewModel.items.isEmpty {
+                            AttributionView()
+                        }
                     }
-                    .padding()
-                    if !viewModel.items.isEmpty {
-                        AttributionView()
+                    .onChange(of: onChanging) { value in
+                        let first = viewModel.items[0]
+                        withAnimation {
+                            proxy.scrollTo(first.id, anchor: .topLeading)
+                        }
                     }
-                }
-                .navigationDestination(for: ItemContent.self) { item in
+                    .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
-                    ItemContentDetailsView(id: item.id, title: item.itemTitle,
-                                           type: item.itemContentMedia, handleToolbarOnPopup: true)
+                        ItemContentDetailsView(id: item.id, title: item.itemTitle,
+                                               type: item.itemContentMedia, handleToolbarOnPopup: true)
 #else
-                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 #endif
+                    }
+                    .navigationDestination(for: Person.self) { person in
+                        PersonDetailsView(title: person.name, id: person.id)
+                    }
+                    .navigationDestination(for: [String:[ItemContent]].self) { item in
+                        let keys = item.map { (key, value) in key }
+                        let value = item.map { (key, value) in value }
+                        ItemContentCollectionDetails(title: keys[0], items: value[0])
+                    }
+                    .navigationDestination(for: [Person].self) { items in
+                        DetailedPeopleList(items: items)
+                    }
                 }
-                .navigationDestination(for: Person.self) { person in
-                    PersonDetailsView(title: person.name, id: person.id)
-                }
-                .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
-                    let keys = item.map { (key, value) in key }
-                    let value = item.map { (key, value) in value }
-                    ItemContentCollectionDetails(title: keys[0], items: value[0])
-                })
-                .navigationDestination(for: [Person].self, destination: { items in
-                    DetailedPeopleList(items: items)
-                })
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
+        .sheet(isPresented: $showFilters, content: {
+            NavigationStack {
+                Form {
+                    Section {
+                        Picker(selection: $viewModel.selectedMedia) {
+                            ForEach(MediaType.allCases) { type in
+                                if type != .person {
+                                    Text(type.title).tag(type)
+                                }
+                            }
+                        } label: {
+                            Text("mediaTypeDiscoverFilterTitle")
+                        }
+                        Picker(selection: $viewModel.selectedGenre) {
+                            if viewModel.selectedMedia == .movie {
+                                ForEach(viewModel.movies) { genre in
+                                    Text(genre.name!).tag(genre)
+                                }
+                            } else {
+                                ForEach(viewModel.shows) { genre in
+                                    Text(genre.name!).tag(genre)
+                                }
+                            }
+                        } label: {
+                            Text("genreDiscoverFilterTitle")
+                        }
+#if os(iOS)
+                        .pickerStyle(.navigationLink)
+#endif
+                    }
+                    Section {
+                        Toggle("hideAddedItemsDiscoverFilter", isOn: $viewModel.hideAddedItems)
+                            .onChange(of: viewModel.hideAddedItems) { value in
+                                if value {
+                                    viewModel.hideItems()
+                                } else {
+                                    onChanging = true
+                                    Task {
+                                        await load()
+                                    }
+                                }
+                            }
+                    }
+                }
+                .toolbar {
+                    ToolbarItem {
+                        Button("Cancel") { showFilters = false }
+#if os(macOS)
+                            .buttonStyle(.link)
+#endif
+                    }
+                }
+#if os(iOS)
+                .navigationBarTitle("filterDiscoverTitle")
+                .navigationBarTitleDisplayMode(.inline)
+#elseif os(macOS)
+                .formStyle(.grouped)
+#endif
+            }
+            .presentationDetents([.medium])
+            .unredacted()
+            .appTheme()
+        })
         .navigationTitle("Explore")
         .task {
             await load()
         }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
         .toolbar {
-#if os(macOS)
-            ToolbarItem(placement: .automatic) {
-                Picker("Media", selection: $viewModel.selectedMedia) {
-                    Text(MediaType.movie.title).tag(MediaType.movie)
-                    Text(MediaType.tvShow.title).tag(MediaType.tvShow)
+            ToolbarItem {
+                Button {
+                    showFilters.toggle()
+                } label: {
+                    Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                        .labelStyle(.iconOnly)
                 }
-                .pickerStyle(.menu)
             }
-            ToolbarItem(placement: .automatic) {
-                Picker("Genre", selection: $viewModel.selectedGenre) {
-                    if viewModel.selectedMedia == .movie {
-                        ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
-                            Text(genre.name!).tag(genre.id)
-                        }
-                    } else {
-                        ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
-                            Text(genre.name!).tag(genre.id)
-                        }
-                    }
-                }
-                .pickerStyle(.menu)
-            }
-#else
-            ToolbarItem(placement: .navigationBarLeading) {
-                Picker("Media", selection: $viewModel.selectedMedia) {
-                    Text(MediaType.movie.title).tag(MediaType.movie)
-                    Text(MediaType.tvShow.title).tag(MediaType.tvShow)
-                }
-                .pickerStyle(.menu)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Picker("Genre", selection: $viewModel.selectedGenre) {
-                    if viewModel.selectedMedia == .movie {
-                        ForEach(viewModel.movies.sorted { $0.name! < $1.name! }) { genre in
-                            Text(genre.name!).tag(genre.id)
-                        }
-                    } else {
-                        ForEach(viewModel.shows.sorted { $0.name! < $1.name! }) { genre in
-                            Text(genre.name!).tag(genre.id)
-                        }
-                    }
-                }
-                .pickerStyle(.menu)
-            }
-#endif
         }
         .onChange(of: viewModel.selectedMedia) { value in
             onChanging = true
@@ -155,10 +184,16 @@ struct DiscoverView: View {
 
 struct Previews_DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-#if os(macOS)
-        DiscoverView(columns: [GridItem(.adaptive(minimum: 240 ))])
-#else
-        DiscoverView(columns: [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))])
-#endif
+        NavigationStack {
+            DiscoverView()
+        }
     }
+}
+
+private struct DrawingConstants {
+#if os(macOS)
+    static let columns: CGFloat = 240
+#else
+    static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
+#endif
 }

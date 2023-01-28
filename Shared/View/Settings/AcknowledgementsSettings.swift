@@ -15,19 +15,28 @@ struct AcknowledgementsSettings: View {
                     openUrl(URL(string: "https://www.fiverr.com/akhmad437")!)
                 } label: {
                     InformationalLabel(title: "acknowledgmentsAppIconTitle",
-                                        subtitle: "acknowledgmentsAppIconSubtitle")
+                                       subtitle: "acknowledgmentsAppIconSubtitle")
                 }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
                 Button {
                     openUrl(URL(string: "https://www.themoviedb.org")!)
                 } label: {
                     InformationalLabel(title: "acknowledgmentsContentProviderTitle",
-                                        subtitle: "acknowledgmentsContentProviderSubtitle")
+                                       subtitle: "acknowledgmentsContentProviderSubtitle")
                 }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
                 Button {
                     openUrl(URL(string: "https://github.com/SDWebImage/SDWebImageSwiftUI")!)
                 } label: {
                     InformationalLabel(title: "acknowledgmentsSDWebImage")
                 }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
                 InformationalLabel(title: "acknowledgmentsUserTitle")
             } header: {
                 Label("settingsAcknowledgments", systemImage: "smiley")
@@ -36,6 +45,9 @@ struct AcknowledgementsSettings: View {
             }
         }
         .navigationTitle("acknowledgmentsTitle")
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
     
     private func openUrl(_ url: URL) {
