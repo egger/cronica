@@ -29,6 +29,9 @@ struct FeedbackSettingsView: View {
                         send()
                     }
                     .disabled(feedback.isEmpty || disableTelemetry)
+#if os(macOS)
+                    .buttonStyle(.link)
+#endif
                 } header: {
                     Label("Send feedback", systemImage: "envelope")
                 } footer: {
@@ -46,8 +49,18 @@ struct FeedbackSettingsView: View {
                     } label: {
                         Label("sendEmail", systemImage: "envelope.open.fill")
                     }
+#if os(macOS)
+                    .buttonStyle(.link)
+#endif
                 } footer: {
+#if os(iOS)
                     Text("sendEmailFooter")
+#else
+                    HStack {
+                        Text("sendEmailFooter")
+                        Spacer()
+                    }
+#endif
                 }
 #endif
             }

@@ -8,8 +8,7 @@ import SwiftUI
 
 struct SideBarView: View {
     @AppStorage("selectedView") private var selectedView: Screens?
-    @StateObject private var settings: SettingsStore
-    @StateObject private var viewModel: SearchViewModel
+    @StateObject private var viewModel = SearchViewModel()
     @State private var showSettings = false
     @State private var showNotifications = false
     @State private var selectedSearchItem: ItemContent? = nil
@@ -17,10 +16,6 @@ struct SideBarView: View {
     private let persistence = PersistenceController.shared
     @State private var showConfirmation = false
     @State private var isInWatchlist = false
-    init() {
-        _settings = StateObject(wrappedValue: SettingsStore())
-        _viewModel = StateObject(wrappedValue: SearchViewModel())
-    }
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedView) {
@@ -29,10 +24,10 @@ struct SideBarView: View {
                 }
                 .tag(HomeView.tag)
                 
-                NavigationLink(value: Screens.discover) {
+                NavigationLink(value: Screens.explore) {
                     Label("Explore", systemImage: "film")
                 }
-                .tag(DiscoverView.tag)
+                .tag(ExploreView.tag)
                 
                 NavigationLink(value: Screens.watchlist) {
                     Label("Watchlist", systemImage: "square.stack.fill")
@@ -79,7 +74,7 @@ struct SideBarView: View {
         } detail: {
             NavigationStack {
                 switch selectedView {
-                case .discover: DiscoverView(columns: DrawingConstants.columns)
+                case .explore: ExploreView()
                 case .watchlist:
                     WatchlistView()
                         .environment(\.managedObjectContext, persistence.container.viewContext)
@@ -216,12 +211,4 @@ struct SideBarView_Previews: PreviewProvider {
     static var previews: some View {
         SideBarView()
     }
-}
-
-private struct DrawingConstants {
-#if os(macOS)
-    static let columns = [GridItem(.adaptive(minimum: 160))]
-#else
-    static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
-#endif
 }

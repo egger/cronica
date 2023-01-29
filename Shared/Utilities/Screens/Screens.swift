@@ -9,7 +9,7 @@ import Foundation
 
 enum Screens: String, Identifiable {
     var id: String { rawValue }
-    case home, discover, watchlist
+    case home, explore, watchlist
 #if os(iOS)
     case search
 #endif

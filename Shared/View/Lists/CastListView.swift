@@ -14,14 +14,10 @@ struct CastListView: View {
     var body: some View {
         if !credits.isEmpty {
             VStack(alignment: .leading) {
-#if os(macOS)
-                title
-#else
                 NavigationLink(value: credits) {
-                    title
+                    TitleView(title: "Cast & Crew", subtitle: "", image: "person.3", showChevron: true)
                 }
                 .buttonStyle(.plain)
-#endif
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(credits.prefix(10), id: \.personListID) { person in
@@ -37,9 +33,6 @@ struct CastListView: View {
                 }
             }
         }
-    }
-    private var title: some View {
-        TitleView(title: "Cast & Crew", subtitle: "", image: "person.3", showChevron: true)
     }
 }
 

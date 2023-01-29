@@ -17,9 +17,6 @@ struct PersonDetailsView: View {
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var showImageFullscreen = false
     @State private var showSaveConfirmation = false
-    let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 160 ))
-    ]
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
@@ -43,7 +40,7 @@ struct PersonDetailsView: View {
                         
                         VStack {
                             imageProfile
-                                .padding(.horizontal)
+                                .padding()
                             
                             OverviewBoxView(overview: viewModel.person?.personBiography,
                                             title: name,
@@ -95,6 +92,8 @@ struct PersonDetailsView: View {
             })
 #if os(iOS)
             .searchable(text: $viewModel.query, placement: .automatic)
+#elseif os(macOS)
+            .searchable(text: $viewModel.query)
 #endif
             ConfirmationDialogView(showConfirmation: $showConfirmation)
         }
@@ -104,14 +103,16 @@ struct PersonDetailsView: View {
         Task {
             await self.viewModel.load()
             if viewModel.isLoaded {
-                withAnimation {
-                    isLoading = false
+                DispatchQueue.main.async {
+                    withAnimation {
+                        isLoading = false
+                    }
                 }
             }
         }
     }
     
-    #if os(iOS)
+#if os(iOS)
     private var downloadButton: some View {
         Button {
             guard let imageUrl = viewModel.person?.originalPersonImage else { return }
@@ -127,11 +128,12 @@ struct PersonDetailsView: View {
             Label("Save Image", systemImage: "square.and.arrow.down")
         }
     }
-    #endif
+#endif
     
     @ViewBuilder
     private var search: some View {
-        if viewModel.query != "" {
+        if !viewModel.query.isEmpty {
+#if os(iOS)
             List {
                 switch scope {
                 case .noScope:
@@ -148,30 +150,31 @@ struct PersonDetailsView: View {
                     }
                 }
             }
+#else
+            Table(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) {
+                TableColumn("Title") { item in
+                    SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        .buttonStyle(.plain)
+                        .accessibilityHint(Text(item.itemTitle))
+                }
+            }
+#endif     
         }
     }
     
     private var imageProfile: some View {
-        AsyncImage(url: viewModel.person?.personImage) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else if phase.error != nil {
+        WebImage(url: viewModel.person?.personImage)
+            .resizable()
+            .placeholder {
                 Rectangle().redacted(reason: .placeholder)
-            } else {
-                ZStack {
-                    Rectangle().fill(.gray.gradient)
-                    ProgressView()
-                }
+                    .clipShape(Circle())
             }
-        }
-        .clipShape(Circle())
-        .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-        .shadow(radius: DrawingConstants.imageShadow)
-        .accessibilityHidden(true)
-        .buttonStyle(.plain)
-        .padding([.top, .bottom])
+            .aspectRatio(contentMode: .fill)
+            .transition(.opacity)
+            .clipShape(Circle())
+            .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+            .shadow(radius: DrawingConstants.imageShadow)
+            .accessibilityHidden(true)
     }
 }
 

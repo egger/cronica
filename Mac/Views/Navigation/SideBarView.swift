@@ -25,7 +25,7 @@ struct SideBarView: View {
                     Label("Home", systemImage: "house")
                 }
                 
-                NavigationLink(value: Screens.discover) {
+                NavigationLink(value: Screens.explore) {
                     Label("Explore", systemImage: "film")
                 }
                 
@@ -68,8 +68,8 @@ struct SideBarView: View {
                                 .environment(\.managedObjectContext, persistence.container.viewContext)
                                 .appTheme()
                         }
-                    case .discover:
-                        DiscoverView()
+                    case .explore:
+                        ExploreView()
                             .appTheme()
                     case .watchlist:
                         WatchlistView()
@@ -178,8 +178,4 @@ struct SideBarView_Previews: PreviewProvider {
     static var previews: some View {
         SideBarView()
     }
-}
-
-private struct DrawingConstants {
-    static let columns = [GridItem(.adaptive(minimum: 240))]
 }

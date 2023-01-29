@@ -15,22 +15,42 @@ struct DetailedPeopleList: View {
     var body: some View {
         VStack {
             if query.isEmpty {
+#if os(iOS)
                 List {
                     ForEach(items, id: \.personListID) { item in
                         PersonItemRow(person: item)
                     }
                 }
+#else
+                Table(items) {
+                    TableColumn("Person") { item in
+                        PersonItemRow(person: item)
+                            .buttonStyle(.plain)
+                            .accessibilityHint(Text(item.name))
+                    }
+                }
+#endif
             } else {
                 if !query.isEmpty && filteredItems.isEmpty {
                     Text("No Results")
                         .font(.headline)
                         .foregroundColor(.secondary)
                 } else {
+#if os(iOS)
                     List {
                         ForEach(filteredItems, id: \.personListID) { item in
                             PersonItemRow(person: item)
                         }
                     }
+#else
+                    Table(filteredItems) {
+                        TableColumn("Person") { item in
+                            PersonItemRow(person: item)
+                                .buttonStyle(.plain)
+                                .accessibilityHint(Text(item.name))
+                        }
+                    }
+#endif
                 }
             }
         }

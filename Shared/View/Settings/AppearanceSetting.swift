@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AppearanceSetting: View {
     @StateObject private var store = SettingsStore.shared
-    @AppStorage("newBackgroundStyle") private var newBackgroundStyle = false
     @AppStorage("disableTranslucentBackground") private var disableTranslucent = false
     @State private var isExperimentalFeaturesEnabled = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
@@ -84,32 +83,6 @@ struct AppearanceSetting: View {
                 Label("appearanceTheme", systemImage: "paintbrush.fill")
             }
 #endif
-//            Section {
-//
-//#if os(iOS)
-//                if isExperimentalFeaturesEnabled {
-//                    NavigationLink(destination: FeedbackSettingsView()) {
-//                        Text("appearanceSendFeedback")
-//                    }
-//                }
-//#endif
-//            } header: {
-//                Label("appearanceExperimentalHeader", systemImage: "wand.and.stars.inverse")
-//            } footer: {
-//                if isExperimentalFeaturesEnabled {
-//#if os(macOS)
-//                    HStack {
-//                        Text("appearanceExperimentalFooter")
-//                            .foregroundColor(.secondary)
-//                            .padding(.leading)
-//                        Spacer()
-//                    }
-//#else
-//                    Text("appearanceExperimentalFooter")
-//#endif
-//                }
-//            }
-            
             Section {
                 Toggle(isOn: $disableTranslucent) {
                     InformationalLabel(title: "disableTranslucentTitle")
@@ -123,9 +96,6 @@ struct AppearanceSetting: View {
         }
         .navigationTitle("appearanceTitle")
         .task {
-            if newBackgroundStyle && !disableTelemetry {
-                isExperimentalFeaturesEnabled = true
-            }
             if store.watchlistStyle != .list { disableRowType = true }
         }
 #if os(macOS)

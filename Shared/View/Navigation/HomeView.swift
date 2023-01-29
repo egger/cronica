@@ -18,10 +18,7 @@ struct HomeView: View {
     @State private var showConfirmation = false
     var body: some View {
         ZStack {
-            if !viewModel.isLoaded {
-                ProgressView("Loading")
-                    .unredacted()
-            }
+            if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
             VStack {
                 ScrollView {
                     UpcomingWatchlist()
@@ -147,24 +144,5 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-    }
-}
-
-struct TitleWatchlistDetails: View {
-    var title = "Upcoming"
-    let items: [WatchlistItem]
-    var body: some View {
-        VStack {
-#if os(macOS)
-            WatchListSection(items: items, title: title)
-#else
-            List(items) { item in
-                WatchlistItemRow(content: item)
-            }
-            
-#endif
-        }
-        .navigationTitle(LocalizedStringKey(title))
-        
     }
 }

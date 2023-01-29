@@ -16,24 +16,21 @@ struct EpisodeDetailsView: View {
     @Binding var isWatched: Bool
     @Binding var isInWatchlist: Bool
 #if os(iOS)
-    @State private var isPad: Bool = UIDevice.isIPad
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 #endif
     var body: some View {
         VStack {
             ScrollView {
-#if os(macOS)
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
-                    .frame(width: DrawingConstants.padImageWidth,
-                           height: DrawingConstants.padImageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
+                    .accessibilityHidden(true)
+#if os(iOS)
+                    .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.imageWidth : 360,
+                           height: (horizontalSizeClass == .regular) ? DrawingConstants.imageHeight : 210)
 #else
-                HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
-                    .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-                           height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                    .shadow(radius: DrawingConstants.shadowRadius)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
 #endif
                 
                 if let info = episode.itemInfo {
@@ -68,12 +65,15 @@ struct EpisodeDetailsView: View {
                 
                 AttributionView()
             }
-            .navigationTitle(episode.itemTitle)
             .task {
                 load()
             }
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
+                ItemContentDetailsView(id: item.id,
+                                       title: item.itemTitle,
+                                       type: item.itemContentMedia,
+                                       handleToolbarOnPopup: true)
 #else
                 ItemContentDetails(title: item.itemTitle,
                                 id: item.id,
@@ -87,6 +87,7 @@ struct EpisodeDetailsView: View {
                 DetailedPeopleList(items: item)
             }
 #if os(iOS)
+            .navigationTitle(episode.itemTitle)
             .navigationBarTitleDisplayMode(.inline)
 #endif
         }
@@ -103,10 +104,11 @@ struct EpisodeDetailsView: View {
 private struct DrawingConstants {
     static let titleLineLimit: Int = 1
     static let shadowRadius: CGFloat = 5
-    static let imageWidth: CGFloat = 360
-    static let imageHeight: CGFloat = 210
+    static let imageWidth: CGFloat = 500
+    static let imageHeight: CGFloat = 300
+#if os(iOS)
     static let imageRadius: CGFloat = 8
-    static let padImageWidth: CGFloat = 500
-    static let padImageHeight: CGFloat = 300
-    static let padImageRadius: CGFloat = 12
+#else
+    static let imageRadius: CGFloat = 12
+#endif
 }

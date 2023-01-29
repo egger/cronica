@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct DiscoverView: View {
-    static let tag: Screens? = .discover
+struct ExploreView: View {
+    static let tag: Screens? = .explore
     @State private var showConfirmation = false
     @State private var onChanging = false
     @State private var showFilters = false
@@ -19,7 +19,7 @@ struct DiscoverView: View {
             ScrollView {
                 ScrollViewReader { proxy in
                     VStack {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))], spacing: 20) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns))], spacing: 20) {
                             ForEach(viewModel.items) { item in
                                 CardFrame(item: item, showConfirmation: $showConfirmation)
                                     .buttonStyle(.plain)
@@ -146,6 +146,7 @@ struct DiscoverView: View {
                     Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
                         .labelStyle(.iconOnly)
                 }
+                .keyboardShortcut("f", modifiers: .command)
             }
         }
         .onChange(of: viewModel.selectedMedia) { value in
@@ -182,10 +183,10 @@ struct DiscoverView: View {
     }
 }
 
-struct Previews_DiscoverView_Previews: PreviewProvider {
+struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            DiscoverView()
+            ExploreView()
         }
     }
 }
