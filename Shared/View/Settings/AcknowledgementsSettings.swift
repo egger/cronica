@@ -41,7 +41,14 @@ struct AcknowledgementsSettings: View {
             } header: {
                 Label("settingsAcknowledgments", systemImage: "smiley")
             } footer: {
+#if os(iOS)
                 Text("settingsAcknowledgmentsFooter")
+#else
+                HStack {
+                    Text("settingsAcknowledgmentsFooter")
+                    Spacer()
+                }
+#endif
             }
         }
         .navigationTitle("acknowledgmentsTitle")

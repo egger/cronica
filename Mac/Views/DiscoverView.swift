@@ -2,14 +2,12 @@
 //  DiscoverView.swift
 //  CronicaMac
 //
-//  Created by Alexandre Madeira on 02/11/22.
+//  Created by Alexandre Madeira on 30/01/23.
 //
-
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct DiscoverView: View {
-    static let tag: Screens? = .discover
+    static let tag: Screens? = .explore
     @State private var showConfirmation = false
     @State private var onChanging = false
     @StateObject private var viewModel: DiscoverViewModel
@@ -30,8 +28,9 @@ struct DiscoverView: View {
                     VStack {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(viewModel.items) { item in
-                                ItemContentCardView(item: item, showConfirmation: $showConfirmation)
+                                CardFrame(item: item, showConfirmation: $showConfirmation)
                                     .buttonStyle(.plain)
+                                    .accessibilityLabel(Text(item.itemTitle))
                             }
                             if !viewModel.startPagination || !viewModel.endPagination {
                                 HStack {

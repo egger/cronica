@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("disableTelemetry") private var disableTelemetry = false
-    @State private var updatingItems = false
     var body: some View {
         Form {
             Section {
@@ -25,28 +23,9 @@ struct SettingsView: View {
             
             PrivacySupportSetting()
             
-            Section {
-                NavigationLink(destination: TipJarSetting()) {
-                    Label("tipJarTitle", systemImage: "heart")
-                }
-            }
-            
             CenterHorizontalView { Text("Made in Brazil 🇧🇷") }
         }
         .navigationTitle("Settings")
-    }
-    
-    private func updateItems() {
-        Task {
-            let background = BackgroundManager()
-            withAnimation {
-                self.updatingItems.toggle()
-            }
-            await background.handleAppRefreshContent()
-            withAnimation {
-                self.updatingItems.toggle()
-            }
-        }
     }
 }
 

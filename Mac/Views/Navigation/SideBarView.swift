@@ -69,7 +69,7 @@ struct SideBarView: View {
                                 .appTheme()
                         }
                     case .explore:
-                        ExploreView()
+                        DiscoverView()
                             .appTheme()
                     case .watchlist:
                         WatchlistView()

@@ -19,7 +19,6 @@ class DiscoverViewModel: ObservableObject {
     @Published var isLoaded: Bool = false
     @Published var showErrorDialog: Bool = false
     @Published var hideAddedItems = false
-    @Published var isWatchProviderEnabled = false
     // MARK: Pagination Properties
     @Published var currentPage: Int = 0
     @Published var startPagination: Bool = false
@@ -34,15 +33,9 @@ class DiscoverViewModel: ObservableObject {
     }
     
     func hideItems() {
-        let ids = PersistenceController.shared.fetchAllItemsIDs()
+        let ids = PersistenceController.shared.fetchAllItemsIDs(selectedMedia)
         withAnimation {
             items.removeAll(where: { ids.contains($0.itemNotificationID)})
-//            items.removeAll { item in
-//                if ids.contains(item.itemNotificationID) {
-//                    return true
-//                }
-//                return false
-//            }
         }
     }
     
@@ -71,7 +64,7 @@ class DiscoverViewModel: ObservableObject {
                                                          genres: "\(selectedGenre)",
                                                          sort: selectedSortBy)
             if hideAddedItems {
-                let ids = PersistenceController.shared.fetchAllItemsIDs()
+                let ids = PersistenceController.shared.fetchAllItemsIDs(selectedMedia)
                 items.append(contentsOf: result.filter { !ids.contains($0.itemNotificationID)})
             } else {
                 items.append(contentsOf: result)

@@ -10,7 +10,6 @@ import SwiftUI
 struct AppearanceSetting: View {
     @StateObject private var store = SettingsStore.shared
     @AppStorage("disableTranslucentBackground") private var disableTranslucent = false
-    @State private var isExperimentalFeaturesEnabled = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
     @AppStorage("user_theme") private var currentTheme: AppTheme = .system
     @State private var disableRowType = false
@@ -49,9 +48,9 @@ struct AppearanceSetting: View {
                 }
             }
 #endif
-#if os(iOS) || os(macOS)
-            Section {
 #if os(iOS)
+            Section {
+                
                 Picker(selection: $currentTheme) {
                     ForEach(AppTheme.allCases) { item in
                         Text(item.localizableName).tag(item)
@@ -59,7 +58,7 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalLabel(title: "appearanceAppThemeTitle")
                 }
-#endif
+                
                 Picker(selection: $store.appTheme) {
                     ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
                         HStack {
@@ -73,12 +72,7 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalLabel(title: "appearanceThemeTitle")
                 }
-#if os(macOS)
-                .pickerStyle(.automatic)
-#else
                 .pickerStyle(.navigationLink)
-#endif
-                
             } header: {
                 Label("appearanceTheme", systemImage: "paintbrush.fill")
             }

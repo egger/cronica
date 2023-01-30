@@ -13,7 +13,9 @@ struct FeedbackSettingsView: View {
     @State private var showFeedbackAnimation = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
     @Environment(\.openURL) var openURL
+#if os(macOS) || os(iOS)
     @State private var supportEmail = SupportEmail()
+#endif
     var body: some View {
         ZStack {
             Form {

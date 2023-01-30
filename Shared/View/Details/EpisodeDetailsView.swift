@@ -4,7 +4,6 @@
 //
 //  Created by Alexandre Madeira on 20/06/22.
 //
-
 import SwiftUI
 import SDWebImageSwiftUI
 
@@ -21,16 +20,18 @@ struct EpisodeDetailsView: View {
     var body: some View {
         VStack {
             ScrollView {
+#if os(macOS)
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
+                    .frame(width: DrawingConstants.padImageWidth,
+                           height: DrawingConstants.padImageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
-                    .accessibilityHidden(true)
-#if os(iOS)
-                    .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.imageWidth : 360,
-                           height: (horizontalSizeClass == .regular) ? DrawingConstants.imageHeight : 210)
 #else
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
+                HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
+                    .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
+                           height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                    .shadow(radius: DrawingConstants.shadowRadius)
 #endif
                 
                 if let info = episode.itemInfo {
@@ -65,15 +66,12 @@ struct EpisodeDetailsView: View {
                 
                 AttributionView()
             }
+            .navigationTitle(episode.itemTitle)
             .task {
                 load()
             }
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
-                ItemContentDetailsView(id: item.id,
-                                       title: item.itemTitle,
-                                       type: item.itemContentMedia,
-                                       handleToolbarOnPopup: true)
 #else
                 ItemContentDetails(title: item.itemTitle,
                                 id: item.id,
@@ -87,7 +85,6 @@ struct EpisodeDetailsView: View {
                 DetailedPeopleList(items: item)
             }
 #if os(iOS)
-            .navigationTitle(episode.itemTitle)
             .navigationBarTitleDisplayMode(.inline)
 #endif
         }
@@ -104,11 +101,10 @@ struct EpisodeDetailsView: View {
 private struct DrawingConstants {
     static let titleLineLimit: Int = 1
     static let shadowRadius: CGFloat = 5
-    static let imageWidth: CGFloat = 500
-    static let imageHeight: CGFloat = 300
-#if os(iOS)
+    static let imageWidth: CGFloat = 360
+    static let imageHeight: CGFloat = 210
     static let imageRadius: CGFloat = 8
-#else
-    static let imageRadius: CGFloat = 12
-#endif
+    static let padImageWidth: CGFloat = 500
+    static let padImageHeight: CGFloat = 300
+    static let padImageRadius: CGFloat = 12
 }
