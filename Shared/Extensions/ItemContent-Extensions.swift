@@ -183,7 +183,7 @@ extension ItemContent {
     }
     var itemTheatricalString: String? {
         if let dates = releaseDates?.results {
-            return Utilities.getReleaseDateFormatted(results: dates)
+            return dates.toReleasedDateFormatted()
         }
         if let date = nextEpisodeDate {
             return "\(Utilities.dateString.string(from: date))"

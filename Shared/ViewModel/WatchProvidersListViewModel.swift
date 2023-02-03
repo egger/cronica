@@ -18,7 +18,7 @@ class WatchProvidersListViewModel: ObservableObject {
     
     private func checkLocale() {
         if firstCheck { return }
-        let userLocale = Utilities.userRegion
+        let userLocale = Locale.userRegion
         let providerRegions = WatchProviderOption.allCases
         for region in providerRegions {
             if userLocale.lowercased() == region.rawValue.lowercased() {
@@ -36,113 +36,118 @@ class WatchProvidersListViewModel: ObservableObject {
             if isLoaded { return }
             let providers = try await NetworkService.shared.fetchProviders(id: id, for: media)
             if let results = providers.results {
-                var regionContent: ProviderItem?
-                switch watchRegion {
-                case .br:
-                    regionContent = results.br
-                case .us:
-                    regionContent = results.us
-                case .ae:
-                    regionContent = results.ae
-                case .ar:
-                    regionContent = results.ar
-                case .at:
-                    regionContent = results.at
-                case .au:
-                    regionContent = results.au
-                case .be:
-                    regionContent = results.be
-                case .bg:
-                    regionContent = results.bg
-                case .ca:
-                    regionContent = results.ca
-                case .ch:
-                    regionContent = results.ch
-                case .cz:
-                    regionContent = results.cz
-                case .de:
-                    regionContent = results.de
-                case .dk:
-                    regionContent = results.dk
-                case .ee:
-                    regionContent = results.ee
-                case .es:
-                    regionContent = results.es
-                case .fi:
-                    regionContent = results.fi
-                case .fr:
-                    regionContent = results.fr
-                case .gb:
-                    regionContent = results.gb
-                case .hk:
-                    regionContent = results.hk
-                case .hr:
-                    regionContent = results.hr
-                case .hu:
-                    regionContent = results.hu
-                case .id:
-                    regionContent = results.id
-                case .ie:
-                    regionContent = results.ie
-                case .india:
-                    regionContent = results.resultsIN
-                case .it:
-                    regionContent = results.it
-                case .jp:
-                    regionContent = results.jp
-                case .kr:
-                    regionContent = results.kr
-                case .lt:
-                    regionContent = results.lt
-                case .mx:
-                    regionContent = results.mx
-                case .nl:
-                    regionContent = results.nl
-                case .no:
-                    regionContent = results.no
-                case .nz:
-                    regionContent = results.nz
-                case .ph:
-                    regionContent = results.ph
-                case .pl:
-                    regionContent = results.pl
-                case .pt:
-                    regionContent = results.pt
-                case .rs:
-                    regionContent = results.rs
-                case .se:
-                    regionContent = results.se
-                case .sk:
-                    regionContent = results.sk
-                case .tr:
-                    regionContent = results.tr
-                case .za:
-                    regionContent = results.za
+                let regionContent = filterByRegion(results)
+                if let regionContent {
+                    link = regionContent.itemLink
+                    var content = [WatchProviderContent]()
+                    if let flatrate = regionContent.flatrate {
+                        content.append(contentsOf: flatrate)
+                    }
+                    if let buy =  regionContent.buy {
+                        content.append(contentsOf: buy)
+                    }
+                    items.append(contentsOf: content.sorted { $0.listPriority < $1.listPriority })
                 }
-                link = regionContent?.itemLink
-                var content = [WatchProviderContent]()
-                if let flatrate = regionContent?.flatrate {
-                    content.append(contentsOf: flatrate)
-                }
-                if let buy =  regionContent?.buy {
-                    content.append(contentsOf: buy)
-                }
-                if let free = regionContent?.free {
-                    content.append(contentsOf: free)
-                }
-                items.append(contentsOf: content.sorted { $0.listPriority < $1.listPriority })
                 if !items.isEmpty {
                     withAnimation { isProvidersAvailable = true }
                 }
             }
             isLoaded = true
         } catch {
+            if Task.isCancelled { return }
             let message = """
 Can't load the provider for \(id) with media type of \(media.rawValue).
-Actual region: \(Utilities.userRegion), selected region: \(watchRegion.rawValue).
+Actual region: \(Locale.userRegion), selected region: \(watchRegion.rawValue).
 Error: \(error.localizedDescription)
 """
             CronicaTelemetry.shared.handleMessage(message, for: "WatchProvidersListViewModel.load()")
         }
+    }
+    
+    private func filterByRegion(_ results: Results) -> ProviderItem? {
+        var regionContent: ProviderItem?
+        switch watchRegion {
+        case .br:
+            regionContent = results.br
+        case .us:
+            regionContent = results.us
+        case .ae:
+            regionContent = results.ae
+        case .ar:
+            regionContent = results.ar
+        case .at:
+            regionContent = results.at
+        case .au:
+            regionContent = results.au
+        case .be:
+            regionContent = results.be
+        case .bg:
+            regionContent = results.bg
+        case .ca:
+            regionContent = results.ca
+        case .ch:
+            regionContent = results.ch
+        case .cz:
+            regionContent = results.cz
+        case .de:
+            regionContent = results.de
+        case .dk:
+            regionContent = results.dk
+        case .ee:
+            regionContent = results.ee
+        case .es:
+            regionContent = results.es
+        case .fi:
+            regionContent = results.fi
+        case .fr:
+            regionContent = results.fr
+        case .gb:
+            regionContent = results.gb
+        case .hk:
+            regionContent = results.hk
+        case .hr:
+            regionContent = results.hr
+        case .hu:
+            regionContent = results.hu
+        case .id:
+            regionContent = results.id
+        case .ie:
+            regionContent = results.ie
+        case .india:
+            regionContent = results.resultsIN
+        case .it:
+            regionContent = results.it
+        case .jp:
+            regionContent = results.jp
+        case .kr:
+            regionContent = results.kr
+        case .lt:
+            regionContent = results.lt
+        case .mx:
+            regionContent = results.mx
+        case .nl:
+            regionContent = results.nl
+        case .no:
+            regionContent = results.no
+        case .nz:
+            regionContent = results.nz
+        case .ph:
+            regionContent = results.ph
+        case .pl:
+            regionContent = results.pl
+        case .pt:
+            regionContent = results.pt
+        case .rs:
+            regionContent = results.rs
+        case .se:
+            regionContent = results.se
+        case .sk:
+            regionContent = results.sk
+        case .tr:
+            regionContent = results.tr
+        case .za:
+            regionContent = results.za
+        }
+        return regionContent
     }
 }

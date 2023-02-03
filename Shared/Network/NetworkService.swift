@@ -127,31 +127,28 @@ class NetworkService {
         if let append {
             component.queryItems = [
                 .init(name: "api_key", value: Key.tmdbApi),
-                .init(name: "language", value: Utilities.userLang),
+                .init(name: "language", value: Locale.userLang),
                 .init(name: "page", value: page),
                 .init(name: "append_to_response", value: append)
             ]
         } else {
             component.queryItems = [
                 .init(name: "api_key", value: Key.tmdbApi),
-                .init(name: "language", value: Utilities.userLang),
-                .init(name: "region", value: Utilities.userRegion),
+                .init(name: "language", value: Locale.userLang),
+                .init(name: "region", value: Locale.userRegion),
                 .init(name: "page", value: page)
             ]
         }
         if let query {
             component.queryItems = [
                 .init(name: "api_key", value: Key.tmdbApi),
-                .init(name: "language", value: Utilities.userLang),
+                .init(name: "language", value: Locale.userLang),
                 .init(name: "query", value: query),
                 .init(name: "page", value: page),
                 .init(name: "include_adult", value: "false"),
-                .init(name: "region", value: Utilities.userRegion)
+                .init(name: "region", value: Locale.userRegion)
             ]
         }
-#if DEBUG
-        print("URL created: \(component.url as Any)")
-#endif
         return component.url
     }
     
@@ -167,17 +164,14 @@ class NetworkService {
         component.path = "/3/discover/\(type)"
         component.queryItems = [
             .init(name: "api_key", value: Key.tmdbApi),
-            .init(name: "language", value: Utilities.userLang),
-            .init(name: "region", value: Utilities.userRegion),
+            .init(name: "language", value: Locale.userLang),
+            .init(name: "region", value: Locale.userRegion),
             .init(name: "sort_by", value: sortBy.rawValue),
             .init(name: "include_adult", value: "false"),
             .init(name: "include_video", value: "false"),
             .init(name: "page", value: "\(page)"),
             .init(name: "with_genres", value: genres)
         ]
-#if DEBUG
-        print("URL created: \(component.url as Any)")
-#endif
         return component.url
     }
     

@@ -21,18 +21,19 @@ struct ConfirmationDialogView: View {
                     .padding()
             }
             .background {
-#if os(macOS)
                 Rectangle().fill(.ultraThickMaterial)
-#else
-                Rectangle().fill(.thinMaterial)
-#endif
             }
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .padding()
-            .shadow(radius: 6)
+            .shadow(radius: 8)
             .opacity(showConfirmation ? 1 : 0)
             .scaleEffect(showConfirmation ? 1.1 : 1)
             .animation(.easeInOut, value: showConfirmation)
+            .onTapGesture {
+                withAnimation {
+                    showConfirmation = false
+                }
+            }
         }
     }
 }

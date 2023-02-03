@@ -18,6 +18,10 @@ class NotificationManager: ObservableObject {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .provisional]) { granted, error in
             self.fetchNotificationSettings()
             completion(granted)
+            if let error {
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                      for: "NotificationManager.requestAuthorization")
+            }
         }
     }
     
@@ -38,13 +42,13 @@ class NotificationManager: ObservableObject {
                 self.notificationAllowed = true
             }
         }
-        let identifier: String = notificationContent.itemNotificationID
+        let identifier = notificationContent.itemNotificationID
         let title = notificationContent.itemTitle
         var body: String
         if notificationContent.itemContentMedia == .movie {
             body = NSLocalizedString("The movie will be released today.", comment: "")
         } else {
-            body = NSLocalizedString("New episode available.", comment: "")
+            body = NSLocalizedString("Next episode arrives today.", comment: "")
         }
         var date: Date?
         if notificationContent.itemContentMedia == .movie {
@@ -141,17 +145,6 @@ class NotificationManager: ObservableObject {
         }
         return identifiers
 #endif
-    }
-    
-    func clearOldNotificationId() async {
-        let notifications = await getUpcomingNotificationsId()
-        for notification in notifications {
-            if !notification.contains("@") {
-                removeNotification(identifier: notification)
-                CronicaTelemetry.shared.handleMessage("Old notifications ID cleaned up.",
-                                                      for: "clearOldNotificationId")
-            }
-        }
     }
     
     func fetchDeliveredNotifications() async -> [ItemContent] {

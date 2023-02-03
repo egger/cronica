@@ -18,24 +18,10 @@ struct WatchListSection: View {
 #if os(macOS)
             table
 #else
-            Section {
-                ForEach(items, id: \.notificationID) { item in
-                    WatchlistItemRow(content: item)
-                        .draggable(item)
-                }
-                .onDelete(perform: delete)
-            } header: {
-                Text(NSLocalizedString(title, comment: ""))
-            } footer: {
-                Text("\(items.count) items")
-                    .padding(.bottom)
-            }
+            list
 #endif
         } else {
-            Text("This list is empty.")
-                .font(.headline)
-                .foregroundColor(.secondary)
-                .padding()
+            empty
         }
     }
     
@@ -52,11 +38,11 @@ struct WatchListSection: View {
     }
     
     private var list: some View {
-        List(selection: $multiSelection) {
+        List {
             Section {
-                ForEach(items, id: \.notificationID) { item in
-                    WatchlistItemRow(content: item)
-                        .draggable(item)
+                ForEach(items) {
+                    WatchlistItemRow(content: $0)
+                        .draggable($0)
                 }
                 .onDelete(perform: delete)
             } header: {
@@ -66,13 +52,21 @@ struct WatchListSection: View {
                     .padding(.bottom)
             }
         }
-        .dropDestination(for: ItemContent.self) { items, _  in
-            fetchDroppedItems(for: items)
-            return true
+        .toolbar {
+#if os(iOS)
+            EditButton()
+#endif
         }
     }
     
-    private func fetchDroppedItems(for items: [ItemContent]) {
+    private var empty: some View {
+        Text("This list is empty.")
+            .font(.headline)
+            .foregroundColor(.secondary)
+            .padding()
+    }
+    
+    private func fetchDroppedItems(_ items: [ItemContent]) {
         for item in items {
             Task {
                 let result = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)

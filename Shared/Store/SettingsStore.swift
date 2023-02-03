@@ -29,11 +29,6 @@ class SettingsStore: ObservableObject {
             UserDefaults.standard.set(watchlistStyle.rawValue, forKey: "watchlistStyle")
         }
     }
-    @Published var preferredShareLink: PreferredShareLink {
-        didSet {
-            UserDefaults.standard.set(preferredShareLink.rawValue, forKey: "preferredShareLink")
-        }
-    }
     init() {
         self.gesture = (UserDefaults.standard.object(forKey: "gesture") == nil ? .favorite : DoubleTapGesture(rawValue: UserDefaults.standard.object(forKey: "gesture") as? Int ?? DoubleTapGesture.favorite.rawValue)) ?? .favorite
         
@@ -46,8 +41,5 @@ class SettingsStore: ObservableObject {
 #else
         self.watchlistStyle = (UserDefaults.standard.object(forKey: "watchlistStyle") == nil ? .list : WatchlistItemType(rawValue: UserDefaults.standard.object(forKey: "watchlistStyle") as? Int ?? WatchlistItemType.list.rawValue)) ?? .list
 #endif
-        
-        self.preferredShareLink = (UserDefaults.standard.object(forKey: "preferredShareLink") == nil ? .tmdb : PreferredShareLink(rawValue: UserDefaults.standard.object(forKey: "preferredShareLink") as? Int ?? PreferredShareLink.tmdb.rawValue)) ?? .tmdb
-
     }
 }

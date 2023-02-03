@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct BehaviorSetting: View {
-    @StateObject var store = SettingsStore.shared
+    @StateObject private var store = SettingsStore.shared
     @AppStorage("openInYouTube") private var openInYouTube = false
     @AppStorage("markEpisodeWatchedTap") private var markEpisodeWatchedOnTap = false
     @AppStorage("enableHapticFeedback") private var hapticFeedback = true
     @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
     @AppStorage("selectedWatchProviderRegion") private var watchRegion: WatchProviderOption = .us
+    @AppStorage("primaryLeftSwipe") private var primaryLeftSwipe: SwipeGestureOptions = .markWatch
+    @AppStorage("secondaryLeftSwipe") private var secondaryLeftSwipe: SwipeGestureOptions = .markFavorite
+    @AppStorage("primaryRightSwipe") private var primaryRightSwipe: SwipeGestureOptions = .delete
+    @AppStorage("secondaryRightSwipe") private var secondaryRightSwipe: SwipeGestureOptions = .markArchive
+    @AppStorage("allowFullSwipe") private var allowFullSwipe = false
     var body: some View {
         Form {
 #if os(iOS)
@@ -31,6 +36,44 @@ struct BehaviorSetting: View {
                 }
             } header: {
                 Label("behaviorGestureTitle", systemImage: "hand.tap")
+            }
+#endif
+            
+#if os(iOS)
+            Section {
+                Picker("behaviorPrimaryLeftGesture", selection: $primaryLeftSwipe) {
+                    ForEach(SwipeGestureOptions.allCases) {
+                        Text($0.localizableName).tag($0)
+                    }
+                }
+                Picker("behaviorSecondaryLeftGesture", selection: $secondaryLeftSwipe) {
+                    ForEach(SwipeGestureOptions.allCases) {
+                        Text($0.localizableName).tag($0)
+                    }
+                }
+                Picker("behaviorPrimaryRightGesture", selection: $primaryRightSwipe) {
+                    ForEach(SwipeGestureOptions.allCases) {
+                        Text($0.localizableName).tag($0)
+                    }
+                }
+                Picker("behaviorSecondaryRightGesture", selection: $secondaryRightSwipe) {
+                    ForEach(SwipeGestureOptions.allCases) {
+                        Text($0.localizableName).tag($0)
+                    }
+                }
+                Toggle(isOn: $allowFullSwipe) {
+                    InformationalLabel(title: "behaviorAllowFullSwipeTitle",
+                                       subtitle: "behaviorAllowFullSwipeSubtitle")
+                }
+                Button("resetToDefault") {
+                    primaryLeftSwipe = .markWatch
+                    secondaryLeftSwipe = .markFavorite
+                    primaryRightSwipe = .delete
+                    secondaryRightSwipe = .markArchive
+                    allowFullSwipe = false
+                }
+            } header: {
+                Label("behaviorSwipeTitle", systemImage: "hand.draw")
             }
 #endif
             

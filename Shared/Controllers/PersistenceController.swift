@@ -145,43 +145,48 @@ struct PersistenceController {
     /// Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {
-            let item = try? fetch(for: WatchlistItem.ID(content.id), media: content.itemContentMedia)
-            if let item {
-                item.contentID = content.itemNotificationID
-                item.tmdbID = Int64(content.id)
-                item.title = content.itemTitle
-                item.image = content.cardImageMedium
-                item.largeCardImage = content.cardImageLarge
-                item.mediumPosterImage = content.posterImageMedium
-                item.largePosterImage = content.posterImageLarge
-                item.schedule = content.itemStatus.toInt
-                item.notify = content.itemCanNotify
-                item.formattedDate = content.itemTheatricalString
-                item.genre = content.itemGenre
-                if content.itemContentMedia == .tvShow {
-                    if let episode = content.lastEpisodeToAir {
-                        item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)
-                    }
-                    if let episode = content.nextEpisodeToAir {
-                        item.nextEpisodeNumber = Int64(episode.episodeNumber ?? 1)
-                    }
-                    item.upcomingSeason = content.hasUpcomingSeason
-                    item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
-                } else {
-                    if let theatrical = content.itemTheatricalDate {
-                        item.date = theatrical
+            do {
+                let item = try fetch(for: WatchlistItem.ID(content.id), media: content.itemContentMedia)
+                if let item {
+                    item.contentID = content.itemNotificationID
+                    item.tmdbID = Int64(content.id)
+                    item.title = content.itemTitle
+                    item.image = content.cardImageMedium
+                    item.largeCardImage = content.cardImageLarge
+                    item.mediumPosterImage = content.posterImageMedium
+                    item.largePosterImage = content.posterImageLarge
+                    item.schedule = content.itemStatus.toInt
+                    item.notify = content.itemCanNotify
+                    item.formattedDate = content.itemTheatricalString
+                    item.genre = content.itemGenre
+                    if content.itemContentMedia == .tvShow {
+                        if let episode = content.lastEpisodeToAir {
+                            item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)
+                        }
+                        if let episode = content.nextEpisodeToAir {
+                            item.nextEpisodeNumber = Int64(episode.episodeNumber ?? 1)
+                        }
+                        item.upcomingSeason = content.hasUpcomingSeason
+                        item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                     } else {
-                        item.date = content.itemFallbackDate
+                        if let theatrical = content.itemTheatricalDate {
+                            item.date = theatrical
+                        } else {
+                            item.date = content.itemFallbackDate
+                        }
                     }
+                    if let watched {
+                        item.watched = watched
+                    }
+                    if let favorite {
+                        item.favorite = favorite
+                    }
+                    item.lastValuesUpdated = Date()
                 }
-                if let watched {
-                    item.watched = watched
-                }
-                if let favorite {
-                    item.favorite = favorite
-                }
-                item.lastValuesUpdated = Date()
                 saveContext()
+            } catch {
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                      for: "PersistenceController.update")
             }
         }
     }
@@ -189,14 +194,17 @@ struct PersistenceController {
     /// Deletes a WatchlistItem from Core Data.
     func delete(_ content: WatchlistItem) {
         let viewContext = container.viewContext
-        let item = try? viewContext.existingObject(with: content.objectID)
-        if let item {
+        do {
+            let item = try viewContext.existingObject(with: content.objectID)
             if isNotificationScheduled(for: content) {
                 let notification = NotificationManager.shared
                 notification.removeNotification(identifier: content.notificationID)
             }
             viewContext.delete(item)
             saveContext()
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "PersistenceController.delete")
         }
     }
     

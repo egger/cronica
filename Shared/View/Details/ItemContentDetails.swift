@@ -78,6 +78,7 @@ struct ItemContentDetails: View {
             }
             .task {
                 await viewModel.load()
+                viewModel.registerNotification()
             }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .navigationTitle(title)

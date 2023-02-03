@@ -6,6 +6,153 @@
   
 */
 
+// MARK: Settings
+"settingsBehaviorTitle" = "Behavior";
+"settingsAppearanceTitle" = "Appearance";
+"settingsGeneralTitle" = "General";
+"settingsSyncTitle" = "Synchronization";
+"settingsReviewCronica" = "Review Cronica on App Store";
+"settingsPrivacyPolicy" = "Privacy Policy";
+"settingsDisableTelemetryTitle" = "Disable Crash Reports";
+"settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
+"settingsFeedbackTitle" = "Send Feedback";
+"settingsPrivacySupportTitle" = "Privacy & Support";
+"settingsDeveloperOptions" = "Developer Settings";
+
+// MARK: BehaviorSetting
+"behaviorDoubleTapTitle" = "Double Tap On Cover";
+"behaviorDoubleTapSubtitle" = "Choose what function to perform when double tap the cover image.";
+"behaviorGestureTitle" = "Gestures";
+"behaviorYouTubeTitle" = "Open Trailers in YouTube";
+"behaviorLinkTitle" = "Links";
+"behaviorTitle" = "Behavior";
+"behaviorEpisodeTitle" = "Tap To Mark Episode as Watched";
+"hapticFeedbackTitle" = "Haptic Feedback";
+"hapticFeedbackSubtitle" = "Haptic Feedback is used when adding a title or marking an episode as watched.";
+"behaviorPreferredShareLinkTitle" = "Preferred Share Link";
+"behaviorPreferredShareLinkSubtitle" = "The app will fallback to TMDb if there's no way to provide the IMDb link.";
+"behaviorSwipeTitle" = "Swipe Gestures";
+"behaviorAllowFullSwipeTitle" = "Allow Full Swipe";
+"behaviorAllowFullSwipeSubtitle" = "Full Swipe will activate the primary action";
+"behaviorPrimaryLeftGesture" = "Primary Left Gesture";
+"behaviorSecondaryLeftGesture" = "Secondary Left Gesture";
+"behaviorPrimaryRightGesture" = "Primary Right Gesture";
+"behaviorSecondaryRightGesture" = "Secondary Right Gesture";
+"resetToDefault" = "Reset to Default";
+
+// MARK: AppearanceSetting
+"appearanceRowTypeTitle" = "Watchlist Item's Information";
+"appearanceRowTypeSubtitle" = "Choose what type of information you want to display.";
+"appearanceWatchlist" = "Watchlist";
+"appearanceBackgroundTitle" = "Translucent Background";
+"appearanceBackgroundSubtitle" = "Partially transparent background that allows some light to pass through it.";
+"appearanceSendFeedback" = "Send Feedback";
+"appearanceExperimentalHeader" = "Experimental Visuals";
+"appearanceExperimentalFooter" = "You're trying some experimental features, please, take a moment to send a feedback about it. This will help make Cronica better for you and others.";
+"appearanceTitle" = "Appearance";
+"appearanceThemeTitle" = "App Tint";
+"appearanceTheme" = "Themes";
+"appearanceRowStyleTitle" = "Watchlist's Item Style";
+"appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
+"appearanceAppThemeTitle" = "App Theme";
+"accessibilityTitle" = "Accessibility";
+"disableTranslucentTitle" = "Disable Translucent Background";
+
+// MARK: SyncSetting
+"syncSettingsUpdateWatchlistTitle" = "Update Items";
+"syncSettingsUpdateWatchlistSubtitle" = "Update items with new information, if available on TMDb.";
+"syncSettingsWatchlistTitle" = "Watchlist";
+"syncSettingsTitle" = "Synchronization";
+
+// MARK: AcknowledgementsSettings
+"acknowledgmentsAppIconTitle" = "Icon Designer";
+"acknowledgmentsAppIconSubtitle" = "Akhmad";
+"acknowledgmentsContentProviderTitle" = "Content Provider";
+"acknowledgmentsContentProviderSubtitle" = "TMDb";
+"acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
+"settingsAcknowledgments" = "Acknowledgments";
+"settingsAcknowledgmentsFooter" = "Thanks to everyone who made Cronica possible.";
+"acknowledgmentsTitle" = "Acknowledgments";
+"acknowledgmentsUserTitle" = "Thank you for your feedback and support!";
+
+// MARK: TipJarSetting
+"tipJarTitle" = "Tip Jar";
+"tipJarFooter" = "You can choose to contribute a small, medium, or large amount, and all proceeds will go towards improving and maintaining the app. Cronica will always remain free and ad-free, so this is purely an optional way for users to support the development of the app.";
+"restorePurchases" = "Restore Purchases";
+
+// MARK: AppThemeColors
+"appThemeColorsBlue" = "Blue";
+"appThemeColorsRed" = "Red";
+"appThemeColorsGreen" = "Green";
+"appThemeColorsBrown" = "Brown";
+"appThemeColorsCyan" = "Cyan";
+"appThemeColorsGray" = "Gray";
+"appThemeColorsIndigo" = "Indigo";
+"appThemeColorsMint" = "Mint";
+"appThemeColorsOrange" = "Orange";
+"appThemeColorsPink" = "Pink";
+"appThemeColorsPurple" = "Purple";
+"appThemeColorsTeal" = "Teal";
+"appThemeColorsYellow" = "Yellow";
+
+// MARK: WatchlistItemType
+"watchlistItemTypeList" = "List";
+"watchlistItemTypePoster" = "Poster";
+"watchlistItemTypeCard" = "Card";
+
+// MARK: AppTheme
+"appThemeSystem" = "System";
+"appThemeLight" = "Light";
+"appThemeDark" = "Dark";
+
+// MARK: WatchProviderOption
+"watchProviderBr" = "Brazil";
+"watchProviderUs" = "United States of America";
+"watchProviderAe" = "United Arab Emirates";
+"watchProviderAr" = "Argentina";
+"watchProviderAt" = "Austria";
+"watchProviderAu" = "Australia";
+"watchProviderBe" = "Belgium";
+"watchProviderBg" = "Bulgaria";
+"watchProviderCa" = "Canada";
+"watchProviderCh" = "Switzerland";
+"watchProviderCz" = "Czech Republic";
+"watchProviderDe" = "Germany";
+"watchProviderDk" = "Denmark";
+"watchProviderEe" = "Estonia";
+"watchProviderEs" = "Spain";
+"watchProviderFi" = "Finland";
+"watchProviderFr" = "France";
+"watchProviderGb" = "United Kingdom";
+"watchProviderHk" = "Hong Kong";
+"watchProviderHr" = "Croatia";
+"watchProviderHu" = "Hungary";
+"watchProviderId" = "Indonesia";
+"watchProviderIe" = "Ireland";
+"watchProviderIndia" = "India";
+"watchProviderIt" = "Italy";
+"watchProviderJp" = "Japan";
+"watchProviderKr" = "South Korea";
+"watchProviderLt" = "Lithuania";
+"watchProviderMx" = "Mexico";
+"watchProviderNl" = "Netherlands";
+"watchProviderNo" = "Norway";
+"watchProviderNz" = "New Zealand";
+"watchProviderPh" = "Philippines";
+"watchProviderPl" = "Poland";
+"watchProviderPt" = "Portugal";
+"watchProviderRs" = "Serbia";
+"watchProviderSk" = "Slovakia";
+"watchProviderTr" = "Turkey";
+"watchProviderSe" = "Sweden";
+"watchProviderZa" = "South Africa";
+
+// MARK: Notification content
+"The next episode is set to arrive today." = "The next episode is set to arrive today.";
+"Next episode arrives today." = "Next episode arrives today.";
+"The movie will be released today." = "The movie will be released today.";
+
+
 //MARK: Common
 "Done" = "Done";
 "No details available." = "No details available.";
@@ -24,8 +171,6 @@
 "Popular Movies" = "Popular Movies";
 "Movies" = "Movies";
 "TV Shows" = "TV Shows";
-"The movie will be released today." = "The movie will be released today.";
-"New episode available." = "New episode available.";
 "Sort" = "Sort";
 "Media Type" = "Media Type";
 "Default" = "Optimized";
@@ -59,8 +204,6 @@
 "TMDb" = "TMDb";
 "Coming Soon To Theaters" = "Coming Soon To Theaters";
 "Pins" = "Pins";
-"Write a review" = "Write a review";
-"Share App" = "Share App";
 "Email (optional)" = "Email (optional)";
 "Open in YouTube" = "Open in YouTube";
 "List Filters" = "List Filters";
@@ -81,9 +224,6 @@
 
 //MARK: AttributionView.swift
 "This product uses the TMDb API but is not endorsed or certified by TMDb." = "This product uses the TMDb API but is not endorsed or certified by TMDb.";
-
-//MARK: OverlayView.swift
-"Something went wrong, try again later." = "Something went wrong, try again later.";
 
 //MARK: ContentDetailsView.swift
 "Add to watchlist" = "Add to Watchlist";
@@ -264,30 +404,7 @@
 "Watched" = "Watched";
 "Favorite" = "Favorite";
 
-// MARK: AppThemeColors
-"appThemeColorsBlue" = "Blue";
-"appThemeColorsRed" = "Red";
-"appThemeColorsGreen" = "Green";
-"appThemeColorsBrown" = "Brown";
-"appThemeColorsCyan" = "Cyan";
-"appThemeColorsGray" = "Gray";
-"appThemeColorsIndigo" = "Indigo";
-"appThemeColorsMint" = "Mint";
-"appThemeColorsOrange" = "Orange";
-"appThemeColorsPink" = "Pink";
-"appThemeColorsPurple" = "Purple";
-"appThemeColorsTeal" = "Teal";
-"appThemeColorsYellow" = "Yellow";
 
-// MARK: WatchlistItemType
-"watchlistItemTypeList" = "List";
-"watchlistItemTypePoster" = "Poster";
-"watchlistItemTypeCard" = "Card";
-
-// MARK: AppTheme
-"appThemeSystem" = "System";
-"appThemeLight" = "Light";
-"appThemeDark" = "Dark";
 
 // MARK: WatchlistButtonView
 "removeDialogTitle" = "Are You Sure?";
@@ -298,73 +415,6 @@
 "preferredShareLinkTMDB" = "TMDb";
 "preferredShareLinkIMDB" = "IMDb";
 
-// MARK: Settings
-"settingsBehaviorTitle" = "Behavior";
-"settingsAppearanceTitle" = "Appearance";
-"settingsGeneralTitle" = "General";
-"settingsSyncTitle" = "Synchronization";
-"settingsReviewCronica" = "Review Cronica on App Store";
-"settingsPrivacyPolicy" = "Privacy Policy";
-"settingsDisableTelemetryTitle" = "Disable Crash Reports";
-"settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
-"settingsFeedbackTitle" = "Send Feedback";
-"settingsPrivacySupportTitle" = "Privacy & Support";
-"settingsDeveloperOptions" = "Developer Settings";
-"settingsDeveloperTitle" = "Developed by Alexandre Madeira";
-
-// MARK: BehaviorSetting
-"behaviorDoubleTapTitle" = "Double Tap On Cover";
-"behaviorDoubleTapSubtitle" = "Choose what function to perform when double tap the cover image.";
-"behaviorGestureTitle" = "Gestures";
-"behaviorYouTubeTitle" = "Open Trailers in YouTube";
-"behaviorYouTubeSubtitle" = "Open trailers in YouTube app.";
-"behaviorLinkTitle" = "Links";
-"behaviorTitle" = "Behavior";
-"behaviorEpisodeTitle" = "Tap To Mark Episode as Watched";
-"hapticFeedbackTitle" = "Haptic Feedback";
-"hapticFeedbackSubtitle" = "Haptic Feedback is used when adding a title or marking an episode as watched.";
-"behaviorPreferredShareLinkTitle" = "Preferred Share Link";
-"behaviorPreferredShareLinkSubtitle" = "The app will fallback to TMDb if there's no way to provide the IMDb link.";
-
-// MARK: AppearanceSetting
-"appearanceRowTypeTitle" = "Watchlist Item's Information";
-"appearanceRowTypeSubtitle" = "Choose what type of information you want to display.";
-"appearanceWatchlist" = "Watchlist";
-"appearanceBackgroundTitle" = "Translucent Background";
-"appearanceBackgroundSubtitle" = "Partially transparent background that allows some light to pass through it.";
-"appearanceSendFeedback" = "Send Feedback";
-"appearanceExperimentalHeader" = "Experimental Visuals";
-"appearanceExperimentalFooter" = "You're trying some experimental features, please, take a moment to send a feedback about it. This will help make Cronica better for you and others.";
-"appearanceTitle" = "Appearance";
-"appearanceThemeTitle" = "App Tint";
-"appearanceTheme" = "Themes";
-"appearanceRowStyleTitle" = "Watchlist's Item Style";
-"appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
-"appearanceAppThemeTitle" = "App Theme";
-"accessibilityTitle" = "Accessibility";
-"disableTranslucentTitle" = "Disable Translucent Background";
-
-// MARK: SyncSetting
-"syncSettingsUpdateWatchlistTitle" = "Update Items";
-"syncSettingsUpdateWatchlistSubtitle" = "Update items with new information, if available on TMDb.";
-"syncSettingsWatchlistTitle" = "Watchlist";
-"syncSettingsTitle" = "Synchronization";
-
-// MARK: AcknowledgementsSettings
-"acknowledgmentsAppIconTitle" = "Icon Designer";
-"acknowledgmentsAppIconSubtitle" = "Akhmad";
-"acknowledgmentsContentProviderTitle" = "Content Provider";
-"acknowledgmentsContentProviderSubtitle" = "TMDb";
-"acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
-"settingsAcknowledgments" = "Acknowledgments";
-"settingsAcknowledgmentsFooter" = "Thanks to everyone who made Cronica possible.";
-"acknowledgmentsTitle" = "Acknowledgments";
-"acknowledgmentsUserTitle" = "Thank you for your feedback and support!";
-
-// MARK: TipJarSetting
-"tipJarTitle" = "Tip Jar";
-"tipJarFooter" = "You can choose to contribute a small, medium, or large amount, and all proceeds will go towards improving and maintaining the app. Cronica will always remain free and ad-free, so this is purely an optional way for users to support the development of the app.";
-"restorePurchases" = "Restore Purchases";
 
 //MARK: WelcomeView.swift
 "Welcome to" = "Welcome to";
@@ -402,47 +452,7 @@
 "watchRegionSubtitle" = "Watch Providers will adapt to the selected region.";
 "contentRegionTitle" = "Region";
 
-// MARK: WatchProviderOption
-"watchProviderBr" = "Brazil";
-"watchProviderUs" = "United States of America";
-"watchProviderAe" = "United Arab Emirates";
-"watchProviderAr" = "Argentina";
-"watchProviderAt" = "Austria";
-"watchProviderAu" = "Australia";
-"watchProviderBe" = "Belgium";
-"watchProviderBg" = "Bulgaria";
-"watchProviderCa" = "Canada";
-"watchProviderCh" = "Switzerland";
-"watchProviderCz" = "Czech Republic";
-"watchProviderDe" = "Germany";
-"watchProviderDk" = "Denmark";
-"watchProviderEe" = "Estonia";
-"watchProviderEs" = "Spain";
-"watchProviderFi" = "Finland";
-"watchProviderFr" = "France";
-"watchProviderGb" = "United Kingdom";
-"watchProviderHk" = "Hong Kong";
-"watchProviderHr" = "Croatia";
-"watchProviderHu" = "Hungary";
-"watchProviderId" = "Indonesia";
-"watchProviderIe" = "Ireland";
-"watchProviderIndia" = "India";
-"watchProviderIt" = "Italy";
-"watchProviderJp" = "Japan";
-"watchProviderKr" = "South Korea";
-"watchProviderLt" = "Lithuania";
-"watchProviderMx" = "Mexico";
-"watchProviderNl" = "Netherlands";
-"watchProviderNo" = "Norway";
-"watchProviderNz" = "New Zealand";
-"watchProviderPh" = "Philippines";
-"watchProviderPl" = "Poland";
-"watchProviderPt" = "Portugal";
-"watchProviderRs" = "Serbia";
-"watchProviderSk" = "Slovakia";
-"watchProviderTr" = "Turkey";
-"watchProviderSe" = "Sweden";
-"watchProviderZa" = "South Africa";
+
 
 "sendEmail" = "Send Email";
 "sendEmailFooter" = "If you prefer, you can also send an email for a faster follow-up.";
@@ -453,3 +463,12 @@
 "hideAddedItemsDiscoverFilter" = "Hide Added Items";
 "whereToWatchDiscoverFilter" = "Where To Watch";
 "watchProviderToggleDiscover" = "Only Show From Watch Provider";
+
+
+"swipeGestureWatch" = "Watch";
+"swipeGestureFavorite" = "Favorite";
+"swipeGesturePin" = "Pin";
+"swipeGestureArchive" = "Archive";
+"swipeGestureDelete" = "Delete";
+"swipeGestureShare" = "Share";
+

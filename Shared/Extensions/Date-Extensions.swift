@@ -20,57 +20,50 @@ extension Date {
         if self != new { return true }
         return false
     }
-}
-
-extension Locale {
-    func getUserLang() -> String {
-        let locale = Locale.current
-        guard let langCode = locale.language.languageCode?.identifier,
-              let regionCode = locale.language.region?.identifier else {
-            return "en-US"
-        }
-        return "\(langCode)-\(regionCode)"
-    }
     
-    func getUserRegion() -> String {
-        guard let region = Locale.current.language.region?.identifier else {
-            return "US"
-        }
-        return region
-    }
-}
-
-extension Int {
-    func convertToShortRuntime() -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .abbreviated
-        formatter.allowedUnits = [.hour, .minute]
-        let value = formatter.string(from: TimeInterval(self) * 60)
-        guard let value else {
-            return ""
-        }
-        return value
-    }
+    static let ISO8601Formatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = .withFullDate
+        return formatter
+    }()
     
-    func convertToLongRuntime() -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .full
-        formatter.allowedUnits = [.hour, .minute]
-        let value = formatter.string(from: TimeInterval(self) * 60)
-        guard let value else {
-            return ""
-        }
-        return value
-    }
-}
-
-extension String {
-    func convertStringToDate() -> Date? {
+    static let mediumDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
-        formatter.dateFormat = "y,MM,dd"
-        return formatter.date(from: self)
-    }
+        return formatter
+    }()
 }
 
+extension Date? {
+    /// This function calculates if the given date is less than two months away from today.
+    func isLessThanTwoMonthsAway() -> Bool {
+        if let date = self {
+            let today = Date()
+            let twoMonths = TimeInterval(60 * 24 * 60 * 60)
+            if date < (today + twoMonths) { return true }
+            return false
+        }
+        return false
+    }
+    
+    func hasPassedOneWeek() -> Bool {
+        if let date = self {
+            let today = Date()
+            let week = TimeInterval(7 * 24 * 60 * 60)
+            if today > (date + week) { return true }
+            return false
+        }
+        return false
+    }
+    
+    func areDifferentDates(with new: Date?) -> Bool {
+        if let original = self {
+            if let new {
+                if original != new { return true }
+            }
+            return false
+        }
+        return false
+    }
+}
