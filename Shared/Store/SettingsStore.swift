@@ -17,4 +17,17 @@ class SettingsStore: ObservableObject {
 #else
     @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .list
 #endif
+    @AppStorage("disableTranslucentBackground") var disableTranslucent = false
+    @AppStorage("disableTelemetry") var disableTelemetry = false
+    @AppStorage("user_theme") var currentTheme: AppTheme = .system
+    @AppStorage("openInYouTube") var openInYouTube = false
+    @AppStorage("markEpisodeWatchedTap") var markEpisodeWatchedOnTap = false
+    @AppStorage("enableHapticFeedback") var hapticFeedback = true
+    @AppStorage("enableWatchProviders") var isWatchProviderEnabled = true
+    @AppStorage("selectedWatchProviderRegion") var watchRegion: WatchProviderOption = .us
+    @AppStorage("primaryLeftSwipe") var primaryLeftSwipe: SwipeGestureOptions = .markWatch
+    @AppStorage("secondaryLeftSwipe") var secondaryLeftSwipe: SwipeGestureOptions = .markFavorite
+    @AppStorage("primaryRightSwipe") var primaryRightSwipe: SwipeGestureOptions = .delete
+    @AppStorage("secondaryRightSwipe") var secondaryRightSwipe: SwipeGestureOptions = .markArchive
+    @AppStorage("allowFullSwipe") var allowFullSwipe = false
 }

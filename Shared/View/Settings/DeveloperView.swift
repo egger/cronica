@@ -13,7 +13,7 @@ import SDWebImageSwiftUI
 struct DeveloperView: View {
     @State private var item: ItemContent?
     @State private var person: Person?
-    @State private var itemIdField: String = ""
+    @State private var itemIdField = ""
     @State private var itemMediaType: MediaType = .movie
     @State private var isFetching = false
     @State private var isFetchingAll = false

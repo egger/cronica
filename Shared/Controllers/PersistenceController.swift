@@ -43,7 +43,7 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
 #else
                 CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                                for: "containerError")
+                                                      for: "containerError")
 #endif
             }
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
@@ -55,7 +55,7 @@ struct PersistenceController {
             try container.initializeCloudKitSchema()
         } catch {
             CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                            for: "initializeCloudKitSchema")
+                                                  for: "initializeCloudKitSchema")
         }
 #endif
         return container
@@ -137,7 +137,7 @@ struct PersistenceController {
             }
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                            for: "PersistenceController.fetch(for:)")
+                                                  for: "PersistenceController.fetch(for:)")
             return nil
         }
     }

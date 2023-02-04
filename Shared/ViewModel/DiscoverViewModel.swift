@@ -81,7 +81,7 @@ class DiscoverViewModel: ObservableObject {
         } catch {
             if Task.isCancelled { return }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                            for: "DiscoverViewModel.fetch()")
+                                                  for: "DiscoverViewModel.fetch()")
             showErrorDialog.toggle()
         }
     }

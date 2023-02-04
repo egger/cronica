@@ -52,7 +52,7 @@ struct InformationalToggle_Previews: PreviewProvider {
             } label: {
                 InformationalLabel(title: "Action Title", subtitle: "Action Subtitle", image: "flag")
             }
-
+            
         }
     }
 }

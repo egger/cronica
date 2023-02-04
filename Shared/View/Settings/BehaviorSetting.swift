@@ -9,16 +9,6 @@ import SwiftUI
 
 struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
-    @AppStorage("openInYouTube") private var openInYouTube = false
-    @AppStorage("markEpisodeWatchedTap") private var markEpisodeWatchedOnTap = false
-    @AppStorage("enableHapticFeedback") private var hapticFeedback = true
-    @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
-    @AppStorage("selectedWatchProviderRegion") private var watchRegion: WatchProviderOption = .us
-    @AppStorage("primaryLeftSwipe") private var primaryLeftSwipe: SwipeGestureOptions = .markWatch
-    @AppStorage("secondaryLeftSwipe") private var secondaryLeftSwipe: SwipeGestureOptions = .markFavorite
-    @AppStorage("primaryRightSwipe") private var primaryRightSwipe: SwipeGestureOptions = .delete
-    @AppStorage("secondaryRightSwipe") private var secondaryRightSwipe: SwipeGestureOptions = .markArchive
-    @AppStorage("allowFullSwipe") private var allowFullSwipe = false
     var body: some View {
         Form {
 #if os(iOS)
@@ -31,7 +21,7 @@ struct BehaviorSetting: View {
                     InformationalLabel(title: "behaviorDoubleTapTitle",
                                        subtitle: "behaviorDoubleTapSubtitle")
                 }
-                Toggle(isOn: $markEpisodeWatchedOnTap) {
+                Toggle(isOn: $store.markEpisodeWatchedOnTap) {
                     InformationalLabel(title: "behaviorEpisodeTitle")
                 }
             } header: {
@@ -41,36 +31,36 @@ struct BehaviorSetting: View {
             
 #if os(iOS)
             Section {
-                Picker("behaviorPrimaryLeftGesture", selection: $primaryLeftSwipe) {
+                Picker("behaviorPrimaryLeftGesture", selection: $store.primaryLeftSwipe) {
                     ForEach(SwipeGestureOptions.allCases) {
                         Text($0.localizableName).tag($0)
                     }
                 }
-                Picker("behaviorSecondaryLeftGesture", selection: $secondaryLeftSwipe) {
+                Picker("behaviorSecondaryLeftGesture", selection: $store.secondaryLeftSwipe) {
                     ForEach(SwipeGestureOptions.allCases) {
                         Text($0.localizableName).tag($0)
                     }
                 }
-                Picker("behaviorPrimaryRightGesture", selection: $primaryRightSwipe) {
+                Picker("behaviorPrimaryRightGesture", selection: $store.primaryRightSwipe) {
                     ForEach(SwipeGestureOptions.allCases) {
                         Text($0.localizableName).tag($0)
                     }
                 }
-                Picker("behaviorSecondaryRightGesture", selection: $secondaryRightSwipe) {
+                Picker("behaviorSecondaryRightGesture", selection: $store.secondaryRightSwipe) {
                     ForEach(SwipeGestureOptions.allCases) {
                         Text($0.localizableName).tag($0)
                     }
                 }
-                Toggle(isOn: $allowFullSwipe) {
+                Toggle(isOn: $store.allowFullSwipe) {
                     InformationalLabel(title: "behaviorAllowFullSwipeTitle",
                                        subtitle: "behaviorAllowFullSwipeSubtitle")
                 }
                 Button("resetToDefault") {
-                    primaryLeftSwipe = .markWatch
-                    secondaryLeftSwipe = .markFavorite
-                    primaryRightSwipe = .delete
-                    secondaryRightSwipe = .markArchive
-                    allowFullSwipe = false
+                    store.primaryLeftSwipe = .markWatch
+                    store.secondaryLeftSwipe = .markFavorite
+                    store.primaryRightSwipe = .delete
+                    store.secondaryRightSwipe = .markArchive
+                    store.allowFullSwipe = false
                 }
             } header: {
                 Label("behaviorSwipeTitle", systemImage: "hand.draw")
@@ -79,7 +69,7 @@ struct BehaviorSetting: View {
             
 #if os(iOS)
             Section {
-                Toggle(isOn: $openInYouTube) {
+                Toggle(isOn: $store.openInYouTube) {
                     InformationalLabel(title: "behaviorYouTubeTitle")
                 }
             } header: {
@@ -88,12 +78,12 @@ struct BehaviorSetting: View {
 #endif
             
             Section {
-                Toggle(isOn: $isWatchProviderEnabled) {
+                Toggle(isOn: $store.isWatchProviderEnabled) {
                     InformationalLabel(title: "behaviorWatchProvidersTitle",
                                        subtitle: "behaviorWatchProvidersSubtitle")
                 }
-                if isWatchProviderEnabled {
-                    Picker(selection: $watchRegion) {
+                if store.isWatchProviderEnabled {
+                    Picker(selection: $store.watchRegion) {
                         ForEach(WatchProviderOption.allCases.sorted { $0.localizableTitle < $1.localizableTitle}) { region in
                             Text(region.localizableTitle)
                                 .tag(region)
@@ -113,7 +103,7 @@ struct BehaviorSetting: View {
             
 #if os(iOS)
             Section {
-                Toggle(isOn: $hapticFeedback) {
+                Toggle(isOn: $store.hapticFeedback) {
                     InformationalLabel(title: "hapticFeedbackTitle")
                 }
             } header: {

@@ -13,25 +13,25 @@ struct InformationSectionView: View {
         GroupBox {
             Section {
                 InfoView(title: NSLocalizedString("Run Time",
-                                                     comment: ""),
-                                       content: item?.itemRuntime)
+                                                  comment: ""),
+                         content: item?.itemRuntime)
                 InfoView(title: NSLocalizedString("Release Date",
-                                                     comment: ""),
-                                       content: item?.itemTheatricalString)
+                                                  comment: ""),
+                         content: item?.itemTheatricalString)
                 InfoView(title: NSLocalizedString("Ratings Score", comment: ""),
                          content: item?.itemRating)
                 InfoView(title: NSLocalizedString("Status",
-                                                     comment: ""),
+                                                  comment: ""),
                          content: item?.itemStatus.localizedTitle)
                 InfoView(title: NSLocalizedString("Genre",
-                                                     comment: ""),
-                            content: item?.itemGenre)
+                                                  comment: ""),
+                         content: item?.itemGenre)
                 InfoView(title: NSLocalizedString("Region of Origin",
-                                                     comment: ""),
-                            content: item?.itemCountry)
+                                                  comment: ""),
+                         content: item?.itemCountry)
                 InfoView(title: NSLocalizedString("Production Company",
-                                                     comment: ""),
-                            content: item?.itemCompany)
+                                                  comment: ""),
+                         content: item?.itemCompany)
             }
         } label: {
             Label("Information", systemImage: "info")

@@ -13,6 +13,7 @@ extension Bundle {
         formatter.dateFormat = "y,MM,dd"
         return formatter
     }()
+    
     static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase

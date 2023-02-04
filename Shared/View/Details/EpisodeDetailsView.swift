@@ -44,10 +44,10 @@ struct EpisodeDetailsView: View {
                 }
                 
                 WatchEpisodeButton(episode: episode,
-                                       season: season,
-                                       show: show,
-                                       isWatched: $isWatched,
-                                       inWatchlist: $isInWatchlist)
+                                   season: season,
+                                   show: show,
+                                   isWatched: $isWatched,
+                                   inWatchlist: $isInWatchlist)
                 .tint(isWatched ? .red : .blue)
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
@@ -74,8 +74,8 @@ struct EpisodeDetailsView: View {
 #if os(macOS)
 #else
                 ItemContentDetails(title: item.itemTitle,
-                                id: item.id,
-                                type: item.itemContentMedia)
+                                   id: item.id,
+                                   type: item.itemContentMedia)
 #endif
             }
             .navigationDestination(for: Person.self) { person in

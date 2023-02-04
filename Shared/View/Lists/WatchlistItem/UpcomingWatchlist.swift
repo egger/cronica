@@ -14,14 +14,14 @@ struct UpcomingWatchlist: View {
             NSSortDescriptor(keyPath: \WatchlistItem.date, ascending: true),
         ],
         predicate: NSCompoundPredicate(type: .or, subpredicates: [
-                                        NSCompoundPredicate(type: .and,
-                                                            subpredicates: [
-                                                                NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
-                                                                NSPredicate(format: "notify == %d", true),
-                                                                NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
-                                                            ])
-                                        ,
-                                        NSPredicate(format: "upcomingSeason == %d", true)])
+            NSCompoundPredicate(type: .and,
+                                subpredicates: [
+                                    NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
+                                    NSPredicate(format: "notify == %d", true),
+                                    NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
+                                ])
+            ,
+            NSPredicate(format: "upcomingSeason == %d", true)])
     )
     var items: FetchedResults<WatchlistItem>
     var body: some View {

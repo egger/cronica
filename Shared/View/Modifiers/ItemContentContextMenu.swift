@@ -66,7 +66,7 @@ struct ItemContentContextMenu: ViewModifier {
         } label: {
             Label("addAndMarkWatchedButton", systemImage: "rectangle.badge.checkmark.fill")
         }
-
+        
     }
     
     private var watchlistButton: some View {
@@ -135,7 +135,7 @@ struct ItemContentContextMenu: ViewModifier {
             Label(isArchive ? "Remove from Archive" : "Archive Item",
                   systemImage: isArchive ? "archivebox.fill" : "archivebox")
         }
-
+        
     }
     
     private func updateWatchlist(with item: ItemContent) {

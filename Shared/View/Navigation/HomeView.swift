@@ -123,7 +123,7 @@ struct HomeView: View {
 #if os(iOS)
                 SettingsView(showSettings: $showSettings)
                 
-                    
+                
 #endif
             }
             .sheet(isPresented: $showNotifications) {

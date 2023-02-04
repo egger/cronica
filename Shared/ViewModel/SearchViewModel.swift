@@ -59,7 +59,7 @@ import Combine
             if Task.isCancelled { return }
             stage = .failure
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                            for: "SearchViewModel.search()")
+                                                  for: "SearchViewModel.search()")
         }
     }
     

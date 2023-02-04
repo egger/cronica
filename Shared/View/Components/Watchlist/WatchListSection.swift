@@ -82,34 +82,4 @@ struct WatchListSection: View {
             offsets.map { items[$0] }.forEach(context.delete)
         }
     }
-    
-    private var deleteAllButton: some View {
-        Button(role: .destructive, action: {
-            withAnimation {
-                PersistenceController.shared.delete(items: multiSelection)
-            }
-        }, label: {
-            Label("Remove Selected", systemImage: "trash")
-        })
-    }
-    
-    private var updatePinButton: some View {
-        Button {
-            PersistenceController.shared.updatePin(items: multiSelection)
-        } label: {
-            Label("Pin Items", systemImage: "pin.fill")
-        }
-    }
-    
-    private var updateWatchButton: some View {
-        Button(action: {
-            PersistenceController.shared.updateMarkAs(items: multiSelection)
-        }, label: {
-            if title != "Watched" {
-                Label("Mark selected as watched", systemImage: "checkmark.circle")
-            } else {
-                Label("Mark selected as unwatched", systemImage: "minus.circle")
-            }
-        })
-    }
 }

@@ -82,7 +82,7 @@ class NotificationManager: ObservableObject {
         UNUserNotificationCenter.current().add(request) { error in
             if let error {
                 CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                                for: "scheduleNotification")
+                                                      for: "scheduleNotification")
             }
         }
 #endif

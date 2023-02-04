@@ -34,7 +34,7 @@ struct CardFrame: View {
                             .padding()
                         }
                         .frame(width: DrawingConstants.imageWidth,
-                               height:DrawingConstants.imageHeight)
+                               height: DrawingConstants.imageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     }
                     .overlay {
@@ -99,7 +99,7 @@ struct CardFrame: View {
                     if isInWatchlist && !isWatched {
                         isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
                     }
-                } 
+                }
             }
         }
         .accessibilityLabel(Text(item.itemTitle))

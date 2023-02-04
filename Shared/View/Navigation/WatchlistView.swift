@@ -82,7 +82,7 @@ struct WatchlistView: View {
             } catch {
                 if Task.isCancelled { return }
                 CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                                for: "WatchlistView.task(id: query)")
+                                                      for: "WatchlistView.task(id: query)")
             }
         }
     }

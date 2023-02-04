@@ -33,7 +33,7 @@ struct TabBarView: View {
             .tabItem {
                 Label("Watchlist", systemImage: "square.stack.fill")
             }
-    
+            
             NavigationStack {
                 SearchView()
             }
