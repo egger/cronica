@@ -8,10 +8,15 @@
 import Foundation
 
 extension Bundle {
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y,MM,dd"
+        return formatter
+    }()
     static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .formatted(Utilities.dateFormatter)
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return decoder
     }()
     

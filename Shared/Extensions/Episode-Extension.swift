@@ -6,6 +6,7 @@
 //
 
 import Foundation
+#warning("episode date is one day ahead, check the last of us")
 
 extension Episode {
     var itemTitle: String {
@@ -30,9 +31,11 @@ extension Episode {
     }
     var itemDate: String? {
         if let airDate {
-            let date = Utilities.dateFormatter.date(from: airDate)
+            let date = airDate.convertStringToDate()
+            //let date = Utilities.dateFormatter.date(from: airDate)
             if let date {
-                return Utilities.dateString.string(from: date)
+                return date.convertDateToString()
+                //return Utilities.dateString.string(from: date)
             }
         }
         return nil

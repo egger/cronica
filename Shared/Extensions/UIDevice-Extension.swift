@@ -4,8 +4,7 @@
 //
 //  Created by Alexandre Madeira on 24/03/22.
 //
-#if os(macOS)
-#else
+
 import UIKit
 
 extension UIDevice {
@@ -16,4 +15,3 @@ extension UIDevice {
         UIDevice.current.userInterfaceIdiom == .phone
     }
 }
-#endif

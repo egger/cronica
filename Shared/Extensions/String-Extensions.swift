@@ -15,10 +15,6 @@ extension String {
         formatter.dateFormat = "y,MM,dd"
         return formatter.date(from: self)
     }
-    
-    func toFullDate() -> Date? {
-        return Date.ISO8601Formatter.date(from: self)
-    }
 }
 
 extension String? {
@@ -31,7 +27,7 @@ extension String? {
     
     func toFormattedStringDate() -> String? {
         if let value = self {
-            let date = value.toFullDate()
+            let date = value.convertStringToDate()
             if let date {
                 return Date.mediumDateFormatter.string(from: date)
             }

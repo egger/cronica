@@ -50,14 +50,12 @@ extension ItemContent {
     var itemRuntime: String? {
         if runtime != nil && runtime! > 0 {
             return runtime?.convertToLongRuntime()
-            //return Utilities.durationFormatter.string(from: TimeInterval(runtime!) * 60)
         }
         return nil
     }
     var shortItemRuntime: String? {
         if runtime != nil && runtime! > 0 {
             return runtime?.convertToShortRuntime()
-            //return Utilities.shortDurationFormatter.string(from: TimeInterval(runtime!) * 60)
         }
         return nil
     }
@@ -69,13 +67,13 @@ extension ItemContent {
             return "\(itemGenre) • \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
-            return "\(itemGenre) • \(Utilities.dateString.string(from: date))"
+            return "\(itemGenre) • \(date.convertDateToString())"
         }
         if let shortItemRuntime {
             return "\(itemGenre) • \(shortItemRuntime)"
         }
         if let itemFallbackDate {
-            return "\(itemGenre) • \(Utilities.dateString.string(from: itemFallbackDate))"
+            return "\(itemGenre) • \(itemFallbackDate.convertDateToString())"
         }
         if !itemGenre.isEmpty { return "\(itemGenre)" }
         return ""
@@ -88,7 +86,7 @@ extension ItemContent {
             if voteAverage <= 0.9 {
                 return nil
             } else {
-                return NSLocalizedString("\(voteAverage.rounded())/10", comment: "")
+                return "\(voteAverage.rounded())/10"
             }
         }
         return nil
@@ -136,15 +134,15 @@ extension ItemContent {
             return "\(itemContentMedia.title) • \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
-            return "\(itemContentMedia.title) • \(Utilities.dateString.string(from: date))"
+            return "\(itemContentMedia.title) • \(date.convertDateToString())"
         }
         if let itemFallbackDate {
-            return "\(itemContentMedia.title) • \(Utilities.dateString.string(from: itemFallbackDate))"
+            return "\(itemContentMedia.title) • \(itemFallbackDate.convertDateToString())"
         }
         if let date = lastEpisodeToAir?.airDate {
-            let formattedDate = Utilities.dateFormatter.date(from: date)
+            let formattedDate = date.convertStringToDate()
             if let formattedDate {
-                return "\(itemContentMedia.title) • \(Utilities.dateString.string(from: formattedDate))"
+                return "\(itemContentMedia.title) • \(formattedDate.convertDateToString())"
             }
         }
         return "\(itemContentMedia.title)"
@@ -177,7 +175,7 @@ extension ItemContent {
     }
     var nextEpisodeDate: Date? {
         if let nextEpisodeDate = nextEpisodeToAir?.airDate {
-            return Utilities.dateFormatter.date(from: nextEpisodeDate)
+            return nextEpisodeDate.convertStringToDate()
         }
         return nil
     }
@@ -186,16 +184,16 @@ extension ItemContent {
             return dates.toReleasedDateFormatted()
         }
         if let date = nextEpisodeDate {
-            return "\(Utilities.dateString.string(from: date))"
+            return "\(date.convertDateToString())"
         }
         return nil
     }
     var itemTheatricalDate: Date? {
         if let itemTheatricalString {
-            return Utilities.dateString.date(from: itemTheatricalString)
+            return itemTheatricalString.convertStringToDate()
         }
         if let releaseDate = releaseDate {
-            return Utilities.dateFormatter.date(from: releaseDate)
+            return releaseDate.convertStringToDate()
         }
         return nil
     }
@@ -204,11 +202,11 @@ extension ItemContent {
             return itemTheatricalDate
         }
         if let releaseDate = releaseDate {
-            return Utilities.dateFormatter.date(from: releaseDate)
+            return releaseDate.convertStringToDate()
         }
         if let lastEpisodeToAir {
             if let date = lastEpisodeToAir.airDate {
-                return Utilities.dateFormatter.date(from: date)
+                return date.convertStringToDate()
             }
         }
         return nil

@@ -33,6 +33,12 @@ extension Date {
         formatter.timeStyle = .none
         return formatter
     }()
+    
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y,MM,dd"
+        return formatter
+    }()
 }
 
 extension Date? {
