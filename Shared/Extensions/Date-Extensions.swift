@@ -15,25 +15,6 @@ extension Date {
         return formatter.string(from: self)
     }
     
-    func compareDate(to new: Date?) -> Bool {
-        guard let new else { return false }
-        if self != new { return true }
-        return false
-    }
-    
-    static let ISO8601Formatter: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = .withFullDate
-        return formatter
-    }()
-    
-    static let mediumDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
-    
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "y,MM,dd"

@@ -18,20 +18,19 @@ extension String {
 }
 
 extension String? {
-    static var mediumDateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }
-    
+    /// Format an string using an ISO8601 formatter.
+    /// - Returns: If the string is valid, it will return a string with full date.
     func toFormattedStringDate() -> String? {
+        let releaseDateFormatter: ISO8601DateFormatter = {
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = .withFullDate
+            return formatter
+        }()
         if let value = self {
-            let date = value.convertStringToDate()
+            let date = releaseDateFormatter.date(from: value)
             if let date {
-                return Date.mediumDateFormatter.string(from: date)
+                return date.convertDateToString()
             }
-            return nil
         }
         return nil
     }
