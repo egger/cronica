@@ -69,8 +69,8 @@ struct HomeView: View {
                                 endpoint: endpoint)
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
-                let keys = item.map { (key, value) in key }
-                let value = item.map { (key, value) in value }
+                let keys = item.map { (key, _) in key }
+                let value = item.map { (_, value) in value }
                 TitleWatchlistDetails(title: keys[0], items: value[0])
             }
             .navigationDestination(for: [String:[ItemContent]].self) { item in

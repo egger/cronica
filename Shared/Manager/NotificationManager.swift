@@ -100,9 +100,14 @@ class NotificationManager: ObservableObject {
             media = .tvShow
         }
         let id = identifier.dropLast(2)
-        let item = try? PersistenceController.shared.fetch(for: Int64(id)!, media: media)
-        guard let item else { return }
-        item.notify = false
+        do {
+            let item = try PersistenceController.shared.fetch(for: Int64(id)!, media: media)
+            guard let item else { return }
+            item.notify = false
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "NotificationManager.removeNotificationSchedule")
+        }
     }
     
     func removeDeliveredNotification(identifier: String) {

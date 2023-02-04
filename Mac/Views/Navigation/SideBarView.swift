@@ -35,9 +35,14 @@ struct SideBarView: View {
                 .dropDestination(for: ItemContent.self) { items, _  in
                     for item in items {
                         Task {
-                            let content = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                            guard let content else { return }
-                            PersistenceController.shared.save(content)
+                            do {
+                                let content = try await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
+                                PersistenceController.shared.save(content)
+                            } catch {
+                                if Task.isCancelled { return }
+                                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                                      for: "SideBarView.dropDestination")
+                            }
                         }
                     }
                     return true

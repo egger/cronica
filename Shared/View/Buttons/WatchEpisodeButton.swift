@@ -47,14 +47,19 @@ struct WatchEpisodeButton: View {
     
     private func fetch() async {
         let network = NetworkService.shared
-        let content = try? await network.fetchItem(id: show, type: .tvShow)
-        if let content {
+        do {
+            let content = try await network.fetchItem(id: show, type: .tvShow)
             persistence.save(content)
+            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
+                NotificationManager.shared.schedule(content)
+            }
             DispatchQueue.main.async {
                 withAnimation {
                     inWatchlist = true
                 }
             }
+        } catch {
+            if Task.isCancelled { return }
         }
     }
 }
