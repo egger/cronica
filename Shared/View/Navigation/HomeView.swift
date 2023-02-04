@@ -6,13 +6,11 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct HomeView: View {
     static let tag: Screens? = .home
     @AppStorage("showOnboarding") private var displayOnboard = true
     @StateObject private var viewModel = HomeViewModel()
-    @StateObject private var settings = SettingsStore.shared
     @State private var showSettings = false
     @State private var showNotifications = false
     @State private var showConfirmation = false
@@ -122,8 +120,6 @@ struct HomeView: View {
             .sheet(isPresented: $showSettings) {
 #if os(iOS)
                 SettingsView(showSettings: $showSettings)
-                
-                
 #endif
             }
             .sheet(isPresented: $showNotifications) {

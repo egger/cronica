@@ -41,12 +41,10 @@ struct SearchItemView: View {
                             isWatched = context.isMarkedAsWatched(id: item.id, type: item.media)
                         }
                     }
-                    .modifier(
-                        ItemContentContextMenu(item: item,
-                                               showConfirmation: $showConfirmation,
-                                               isInWatchlist: $isInWatchlist,
-                                               isWatched: $isWatched)
-                    )
+                    .itemContentContextMenu(item: item,
+                                            isWatched: $isWatched,
+                                            showConfirmation: $showConfirmation,
+                                            isInWatchlist: $isInWatchlist)
                     .modifier(
                         SearchItemSwipeGesture(item: item,
                                                showConfirmation: $showConfirmation,
@@ -63,12 +61,10 @@ struct SearchItemView: View {
                                 isWatched = context.isMarkedAsWatched(id: item.id, type: item.media)
                             }
                         }
-                        .modifier(
-                            ItemContentContextMenu(item: item,
-                                                   showConfirmation: $showConfirmation,
-                                                   isInWatchlist: $isInWatchlist,
-                                                   isWatched: $isWatched)
-                        )
+                        .itemContentContextMenu(item: item,
+                                                isWatched: $isWatched,
+                                                showConfirmation: $showConfirmation,
+                                                isInWatchlist: $isInWatchlist)
                         .modifier(
                             SearchItemSwipeGesture(item: item,
                                                    showConfirmation: $showConfirmation,

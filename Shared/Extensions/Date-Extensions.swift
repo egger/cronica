@@ -14,12 +14,6 @@ extension Date {
         formatter.timeStyle = .none
         return formatter.string(from: self)
     }
-    
-    static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y,MM,dd"
-        return formatter
-    }()
 }
 
 extension Date? {
@@ -29,7 +23,6 @@ extension Date? {
             let today = Date()
             let twoMonths = TimeInterval(60 * 24 * 60 * 60)
             if date < (today + twoMonths) { return true }
-            return false
         }
         return false
     }
@@ -39,7 +32,6 @@ extension Date? {
             let today = Date()
             let week = TimeInterval(7 * 24 * 60 * 60)
             if today > (date + week) { return true }
-            return false
         }
         return false
     }
@@ -47,7 +39,6 @@ extension Date? {
     func areDifferentDates(with new: Date?) -> Bool {
         if let original = self, let new {
             if original != new { return true }
-            return false
         }
         return false
     }

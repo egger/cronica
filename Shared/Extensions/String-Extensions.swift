@@ -8,6 +8,11 @@
 import Foundation
 
 extension String {
+    static let releaseDateFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = .withFullDate
+        return formatter
+    }()
     func convertStringToDate() -> Date? {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -21,13 +26,8 @@ extension String? {
     /// Format an string using an ISO8601 formatter.
     /// - Returns: If the string is valid, it will return a string with full date.
     func toFormattedStringDate() -> String? {
-        let releaseDateFormatter: ISO8601DateFormatter = {
-            let formatter = ISO8601DateFormatter()
-            formatter.formatOptions = .withFullDate
-            return formatter
-        }()
         if let value = self {
-            let date = releaseDateFormatter.date(from: value)
+            let date = String.releaseDateFormatter.date(from: value)
             if let date {
                 return date.convertDateToString()
             }

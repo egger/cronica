@@ -83,8 +83,7 @@ struct SearchView: View {
     private var searchResults: some View {
         switch viewModel.stage {
         case .none:
-            VStack {
-            } 
+            VStack { }
         case .searching:
             ProgressView("Searching")
                 .foregroundColor(.secondary)

@@ -53,6 +53,7 @@ struct SearchItem: View {
         }
         .accessibilityElement(children: .combine)
     }
+    
     private var image: some View {
         WebImage(url: item.itemImage)
             .resizable()
@@ -87,28 +88,24 @@ struct SearchItem: View {
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
             .transition(.opacity)
     }
+    
     private var profile: some View {
-        AsyncImage(url: item.itemImage,
-                   transaction: Transaction(animation: .easeInOut)) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-            } else if phase.error != nil {
-                ZStack {
-                    ProgressView()
-                }.background(.secondary)
-            } else {
+        WebImage(url: item.itemImage)
+            .resizable()
+            .placeholder {
                 ZStack {
                     Color.secondary
                     Image(systemName: "person")
                 }
+                .frame(width: DrawingConstants.personImageWidth,
+                       height: DrawingConstants.personImageHeight)
+                .clipShape(Circle())
             }
-        }
-                   .frame(width: DrawingConstants.personImageWidth,
-                          height: DrawingConstants.personImageHeight)
-                   .clipShape(Circle())
+            .aspectRatio(contentMode: .fill)
+            .transition(.opacity)
+            .frame(width: DrawingConstants.personImageWidth,
+                   height: DrawingConstants.personImageHeight)
+            .clipShape(Circle())
     }
 }
 

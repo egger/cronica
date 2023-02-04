@@ -29,7 +29,61 @@ struct EpisodeFrameView: View {
         itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.episodeNumber ?? 1)")!
     }
     var body: some View {
-        Button {
+        VStack {
+            image
+                .contextMenu {
+                    WatchEpisodeButton(episode: episode,
+                                       season: season,
+                                       show: show,
+                                       isWatched: $isWatched,
+                                       inWatchlist: $isInWatchlist)
+                    if let number = episode.episodeNumber {
+                        if number != 1 && !isWatched {
+                            Button("Mark this and previous episodes as watched") {
+                                Task {
+                                    await viewModel.markThisAndPrevious(until: episode.id, show: show)
+                                }
+                            }
+                        }
+                    }
+                    if episodeTap {
+                        Button("Show Details") {
+                            showDetails.toggle()
+                        }
+                    }
+#if os(tvOS)
+                    Button("Cancel") { }
+#else
+                    ShareLink(item: itemLink)
+#endif
+                }
+            HStack {
+                Text("Episode \(episode.episodeNumber ?? 0)")
+                    .textCase(.uppercase)
+                    .fontDesign(.rounded)
+                    .font(.caption2)
+                    .lineLimit(1)
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+            .padding(.top, 1)
+            HStack {
+                Text(episode.itemTitle)
+                    .font(.callout)
+                    .lineLimit(1)
+                Spacer()
+            }
+            HStack {
+                Text(episode.itemOverview)
+                    .font(.caption)
+                    .lineLimit(2)
+                    .foregroundColor(.secondary)
+                    .accessibilityHidden(true)
+                Spacer()
+            }
+            Spacer()
+        }
+        .onTapGesture {
 #if os(macOS)
             markAsWatched()
 #else
@@ -38,104 +92,6 @@ struct EpisodeFrameView: View {
                 return
             }
             showDetails.toggle()
-#endif
-        } label: {
-            VStack {
-                WebImage(url: episode.itemImageMedium)
-                    .placeholder {
-                        ZStack {
-                            Rectangle().fill(.gray.gradient)
-                            VStack {
-                                Text(episode.itemTitle)
-                                    .font(.callout)
-                                    .lineLimit(1)
-                                    .padding(.bottom)
-                                Image(systemName: "tv")
-                                    .font(.title)
-                            }
-                            .padding()
-                            .foregroundColor(.secondary)
-                        }
-                        .frame(width: DrawingConstants.imageWidth,
-                               height: DrawingConstants.imageHeight)
-                        .accessibilityHidden(true)
-                    }
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .clipShape(
-                        RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                         style: .continuous)
-                    )
-                    .overlay {
-                        if isWatched {
-                            ZStack {
-                                Color.black.opacity(0.4)
-                                Image(systemName: "checkmark.circle.fill")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                    .opacity(0.8)
-                            }
-                            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                            .frame(width: DrawingConstants.imageWidth,
-                                   height: DrawingConstants.imageHeight)
-                            .accessibilityHidden(true)
-                        }
-                    }
-                    .applyHoverEffect()
-                HStack {
-                    Text("Episode \(episode.episodeNumber ?? 0)")
-                        .textCase(.uppercase)
-                        .fontDesign(.rounded)
-                        .font(.caption2)
-                        .lineLimit(1)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-                .padding(.top, 1)
-                HStack {
-                    Text(episode.itemTitle)
-                        .font(.callout)
-                        .lineLimit(1)
-                    Spacer()
-                }
-                HStack {
-                    Text(episode.itemOverview)
-                        .font(.caption)
-                        .lineLimit(2)
-                        .foregroundColor(.secondary)
-                        .accessibilityHidden(true)
-                    Spacer()
-                }
-                Spacer()
-            }
-        }
-        .contextMenu {
-            WatchEpisodeButton(episode: episode,
-                               season: season,
-                               show: show,
-                               isWatched: $isWatched,
-                               inWatchlist: $isInWatchlist)
-            if let number = episode.episodeNumber {
-                if number != 1 && !isWatched {
-                    Button("Mark this and previous episodes as watched") {
-                        Task {
-                            await viewModel.markThisAndPrevious(until: episode.id, show: show)
-                        }
-                    }
-                }
-            }
-            if episodeTap {
-                Button("Show Details") {
-                    showDetails.toggle()
-                }
-            }
-#if os(tvOS)
-            Button("Cancel") { }
-#else
-            ShareLink(item: itemLink)
 #endif
         }
         .buttonStyle(.plain)
@@ -166,13 +122,58 @@ struct EpisodeFrameView: View {
         })
     }
     
+    private var image: some View {
+        WebImage(url: episode.itemImageMedium)
+            .placeholder {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    VStack {
+                        Text(episode.itemTitle)
+                            .font(.callout)
+                            .lineLimit(1)
+                            .padding(.bottom)
+                        Image(systemName: "tv")
+                            .font(.title)
+                    }
+                    .padding()
+                    .foregroundColor(.secondary)
+                }
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .accessibilityHidden(true)
+            }
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .transition(.opacity)
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .clipShape(
+                RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                 style: .continuous)
+            )
+            .overlay {
+                if isWatched {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .opacity(0.8)
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                    .accessibilityHidden(true)
+                }
+            }
+            .applyHoverEffect()
+    }
+    
     private func markAsWatched() {
         PersistenceController.shared.updateEpisodeList(show: show,
                                                        season: season,
                                                        episode: episode.id)
-        withAnimation {
-            isWatched.toggle()
-        }
+        withAnimation { isWatched.toggle() }
     }
 }
 
