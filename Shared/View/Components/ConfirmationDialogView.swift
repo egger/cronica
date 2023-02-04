@@ -25,7 +25,7 @@ struct ConfirmationDialogView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .padding()
-            .shadow(radius: 8)
+            .shadow(radius: 12)
             .opacity(showConfirmation ? 1 : 0)
             .scaleEffect(showConfirmation ? 1.1 : 1)
             .animation(.easeInOut, value: showConfirmation)

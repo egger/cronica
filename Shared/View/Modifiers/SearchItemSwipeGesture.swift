@@ -12,7 +12,7 @@ struct SearchItemSwipeGesture: ViewModifier {
     @Binding var showConfirmation: Bool
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
-    @State private var isFavorite: Bool = false
+    @State private var isFavorite = false
     private let context = PersistenceController.shared
     @State private var isPin = false
     func body(content: Content) -> some View {

@@ -12,7 +12,7 @@ struct CardFrame: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     private let context = PersistenceController.shared
-    @State private var isInWatchlist: Bool = false
+    @State private var isInWatchlist = false
     @State private var isWatched = false
     var body: some View {
         NavigationLink(value: item) {

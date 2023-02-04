@@ -12,7 +12,7 @@ struct TranslucentBackground: View {
     var image: URL?
     @AppStorage("disableTranslucentBackground") private var disableTranslucent = false
     var body: some View {
-        if !disableTranslucent  && image != nil {
+        if !disableTranslucent && image != nil {
             ZStack {
                 WebImage(url: image)
                     .resizable()

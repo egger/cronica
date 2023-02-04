@@ -101,16 +101,16 @@ struct ItemContentContextMenu: ViewModifier {
     }
     
     private var favoriteButton: some View {
-        Button(action: {
+        Button {
             context.updateMarkAs(id: item.id, type: item.itemContentMedia, favorite: !isFavorite)
             withAnimation {
                 isFavorite.toggle()
             }
             HapticManager.shared.successHaptic()
-        }, label: {
+        } label: {
             Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: isFavorite ? "heart.slash.circle.fill" : "heart.circle")
-        })
+        }
     }
     
     private var pinButton: some View {
@@ -140,39 +140,55 @@ struct ItemContentContextMenu: ViewModifier {
     
     private func updateWatchlist(with item: ItemContent) {
         if isInWatchlist {
-            withAnimation {
-                isInWatchlist.toggle()
-            }
-            let watchlistItem = try? context.fetch(for: Int64(item.id), media: item.itemContentMedia)
-            if let watchlistItem {
-                if watchlistItem.notify {
-                    NotificationManager.shared.removeNotification(identifier: watchlistItem.notificationID)
+            do {
+                let watchlistItem = try context.fetch(for: Int64(item.id), media: item.itemContentMedia)
+                if let watchlistItem {
+                    if watchlistItem.notify {
+                        NotificationManager.shared.removeNotification(identifier: watchlistItem.notificationID)
+                    }
+                    context.delete(watchlistItem)
+                    withAnimation {
+                        isInWatchlist.toggle()
+                    }
                 }
-                context.delete(watchlistItem)
+            } catch {
+                let message = "Can't remove item from Watchlist, error: \(error.localizedDescription)"
+                CronicaTelemetry.shared.handleMessage(message,
+                                                      for: "ItemContentContextMenu.updateWatchlist")
             }
         } else {
             Task {
-                let content = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                if let content {
+                do {
+                    let content = try await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
                     context.save(content)
-                    if content.itemCanNotify {
-                        NotificationManager.shared.schedule(content)
-                    }
-                } else {
+                    registerNotification(content)
+                    displayConfirmation()
+                } catch {
+                    if Task.isCancelled { return }
+                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                          for: "ItemContentContextMenu.updateWatchlist")
                     context.save(item)
-                    if item.itemCanNotify {
-                        NotificationManager.shared.schedule(item)
-                    }
+                    registerNotification(item)
+                    displayConfirmation()
                 }
             }
+        }
+    }
+    
+    private func registerNotification(_ item: ItemContent) {
+        if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
+            NotificationManager.shared.schedule(item)
+        }
+    }
+    
+    private func displayConfirmation() {
+        withAnimation {
+            showConfirmation.toggle()
+            isInWatchlist.toggle()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
             withAnimation {
-                showConfirmation.toggle()
-                isInWatchlist.toggle()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-                withAnimation {
-                    showConfirmation = false
-                }
+                showConfirmation = false
             }
         }
     }
@@ -183,8 +199,7 @@ private struct ItemContentContextPreview: View {
     let image: URL?
     let overview: String
     var body: some View {
-#if os(watchOS)
-#else
+#if os(iOS)
         ZStack {
             WebImage(url: image)
                 .resizable()
