@@ -11,7 +11,7 @@ struct SideBarView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var showSettings = false
     @State private var showNotifications = false
-    @State private var selectedSearchItem: ItemContent? = nil
+    @State private var selectedSearchItem: ItemContent?
     @State private var scope: SearchItemsScope = .noScope
     private let persistence = PersistenceController.shared
     @State private var showConfirmation = false

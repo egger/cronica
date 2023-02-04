@@ -106,7 +106,7 @@ Can't load the content with id: \(id) and media type: \(type.title), error: \(er
             persistence.save(item)
             if item.itemCanNotify {
                 if item.itemFallbackDate.isLessThanTwoMonthsAway() {
-                    NotificationManager.shared.schedule(notificationContent: item)
+                    NotificationManager.shared.schedule(item)
                 }
                 withAnimation {
                     hasNotificationScheduled.toggle()
@@ -138,7 +138,7 @@ Can't load the content with id: \(id) and media type: \(type.title), error: \(er
     func registerNotification() {
         if isInWatchlist && isNotificationAvailable && !hasNotificationScheduled && type == .tvShow {
             if let content {
-                NotificationManager.shared.schedule(notificationContent: content)
+                NotificationManager.shared.schedule(content)
                 persistence.update(item: content)
             }
         }
@@ -154,6 +154,8 @@ Can't load the content with id: \(id) and media type: \(type.title), error: \(er
             }
             return false
         } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "ItemContentViewModel.isNotificationScheduled")
             return false
         }
     }

@@ -64,10 +64,8 @@ extension Date? {
     }
     
     func areDifferentDates(with new: Date?) -> Bool {
-        if let original = self {
-            if let new {
-                if original != new { return true }
-            }
+        if let original = self, let new {
+            if original != new { return true }
             return false
         }
         return false

@@ -41,7 +41,7 @@ struct ExploreView: View {
                             AttributionView()
                         }
                     }
-                    .onChange(of: onChanging) { value in
+                    .onChange(of: onChanging) { _ in
                         let first = viewModel.items[0]
                         withAnimation {
                             proxy.scrollTo(first.id, anchor: .topLeading)
@@ -59,8 +59,8 @@ struct ExploreView: View {
                         PersonDetailsView(title: person.name, id: person.id)
                     }
                     .navigationDestination(for: [String:[ItemContent]].self) { item in
-                        let keys = item.map { (key, value) in key }
-                        let value = item.map { (key, value) in value }
+                        let keys = item.map { (key, _) in key }
+                        let value = item.map { (_, value) in value }
                         ItemContentCollectionDetails(title: keys[0], items: value[0])
                     }
                     .navigationDestination(for: [Person].self) { items in
@@ -164,7 +164,7 @@ struct ExploreView: View {
                 await load()
             }
         }
-        .onChange(of: viewModel.selectedGenre) { value in
+        .onChange(of: viewModel.selectedGenre) { _ in
             onChanging = true
             Task {
                 await load()

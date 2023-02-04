@@ -33,7 +33,7 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func schedule(notificationContent: ItemContent) {
+    func schedule(_ notificationContent: ItemContent) {
         self.requestAuthorization { granted in
             if !granted {
                 self.notificationAllowed = false

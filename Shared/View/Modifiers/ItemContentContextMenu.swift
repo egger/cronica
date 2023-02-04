@@ -156,12 +156,12 @@ struct ItemContentContextMenu: ViewModifier {
                 if let content {
                     context.save(content)
                     if content.itemCanNotify {
-                        NotificationManager.shared.schedule(notificationContent: content)
+                        NotificationManager.shared.schedule(content)
                     }
                 } else {
                     context.save(item)
                     if item.itemCanNotify {
-                        NotificationManager.shared.schedule(notificationContent: item)
+                        NotificationManager.shared.schedule(item)
                     }
                 }
             }

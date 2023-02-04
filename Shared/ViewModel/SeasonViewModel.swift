@@ -68,10 +68,17 @@ Can't load the season \(season) of the show \(id), error: \(error.localizedDescr
     }
     
     private func saveItemOnList(id: Int) async {
-        let content = try? await network.fetchItem(id: id, type: .tvShow)
-        if let content {
+        do {
+            let content = try await network.fetchItem(id: id, type: .tvShow)
             persistence.save(content)
             isItemInWatchlist = true
+            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
+                NotificationManager.shared.schedule(content)
+            }
+        } catch {
+            if Task.isCancelled { return }
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "SeasonViewModel.saveItemOnList")
         }
     }
 }

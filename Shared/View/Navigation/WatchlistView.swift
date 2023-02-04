@@ -17,7 +17,6 @@ struct WatchlistView: View {
     @State private var query = ""
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
-    @State private var multiSelection = Set<String>()
     @Environment(\.editMode) private var editMode
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared

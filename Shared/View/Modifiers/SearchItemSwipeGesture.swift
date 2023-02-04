@@ -83,17 +83,16 @@ struct SearchItemSwipeGesture: ViewModifier {
             }
         } else {
             Task {
-                let content = try? await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                if let content {
+                do {
+                    let content = try await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
                     context.save(content)
-                    if content.itemCanNotify {
-                        NotificationManager.shared.schedule(notificationContent: content)
-                    }
-                } else {
+                    registerNotification(content)
+                } catch {
+                    if Task.isCancelled { return }
                     context.save(item)
-                    if item.itemCanNotify {
-                        NotificationManager.shared.schedule(notificationContent: item)
-                    }
+                    registerNotification(item)
+                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                          for: "SearchItemSwipeGesture.updateWatchlist")
                 }
                 HapticManager.shared.successHaptic()
             }
@@ -106,6 +105,12 @@ struct SearchItemSwipeGesture: ViewModifier {
                     showConfirmation = false
                 }
             }
+        }
+    }
+    
+    private func registerNotification(_ item: ItemContent) {
+        if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
+            NotificationManager.shared.schedule(item)
         }
     }
 }
