@@ -218,6 +218,9 @@ extension ItemContent {
         if let lastEpisodeToAir, let date = lastEpisodeToAir.airDate {
             return date.toDate()
         }
+        if let nextEpisodeDate {
+            return nextEpisodeDate
+        }
         return nil
     }
     var nextEpisodeDate: Date? {
