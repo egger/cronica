@@ -112,24 +112,6 @@ struct PersonDetailsView: View {
         }
     }
     
-#if os(iOS)
-    private var downloadButton: some View {
-        Button {
-            guard let imageUrl = viewModel.person?.originalPersonImage else { return }
-            Task {
-                let data = await NetworkService.shared.downloadImageData(from: imageUrl)
-                guard let data else { return }
-                let image = UIImage(data: data)
-                guard let image else { return }
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                showSaveConfirmation.toggle()
-            }
-        } label: {
-            Label("Save Image", systemImage: "square.and.arrow.down")
-        }
-    }
-#endif
-    
     @ViewBuilder
     private var search: some View {
         if !viewModel.query.isEmpty {

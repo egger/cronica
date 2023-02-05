@@ -36,7 +36,7 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
 }
 struct ProductionCompany: Codable, Hashable {
     let name: String
-    let id: Int?
+    let id: Int
 }
 struct ProductionCountry: Codable, Hashable {
     let name: String

@@ -47,6 +47,9 @@ struct WatchlistView: View {
         .navigationDestination(for: [Person].self) { items in
             DetailedPeopleList(items: items)
         }
+        .navigationDestination(for: ProductionCompany.self) { item in
+            CompanyDetails(company: item)
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu {

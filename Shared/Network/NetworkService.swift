@@ -48,6 +48,14 @@ class NetworkService {
         return response.results
     }
     
+    func fetchCompanyFilmography(type: MediaType, page: Int, company: Int) async throws -> [ItemContent] {
+        guard let url = urlBuilder(type: type, company: company, page: page) else {
+            throw NetworkError.invalidRequest
+        }
+        let response: ItemContentResponse = try await self.fetch(url: url)
+        return response.results
+    }
+    
     func fetchDiscover(type: MediaType, page: Int, genres: String, sort: DiscoverSortBy) async throws -> [ItemContent] {
         guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres, sortBy: sort) else {
             throw NetworkError.invalidEndpoint
@@ -109,6 +117,26 @@ class NetworkService {
         } catch {
             return nil
         }
+    }
+    
+    
+    func urlBuilder(type: MediaType, company: Int, page: Int) -> URL? {
+        var component = URLComponents()
+        component.scheme = "https"
+        component.host = "api.themoviedb.org"
+        component.path = "/3/discover/\(type.rawValue)"
+        component.queryItems = [
+            .init(name: "api_key", value: Key.tmdbApi),
+            .init(name: "language", value: Locale.userLang),
+            .init(name: "region", value: Locale.userRegion),
+            .init(name: "sort_by", value: DiscoverSortBy.popularityDesc.rawValue),
+            .init(name: "include_adult", value: "false"),
+            .init(name: "include_video", value: "false"),
+            .init(name: "page", value: "\(page)"),
+            .init(name: "with_companies", value: "\(company)")
+        ]
+        print(component.url as Any)
+        return component.url
     }
     
     /// Build a safe URL for the TMDB API Service.

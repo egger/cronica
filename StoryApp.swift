@@ -73,6 +73,9 @@ struct StoryApp: App {
                             let value = item.map { (key, value) in value }
                             ItemContentCollectionDetails(title: keys[0], items: value[0])
                         }
+                        .navigationDestination(for: ProductionCompany.self) { item in
+                            CompanyDetails(company: item)
+                        }
                     }
                     .appTheme()
                     .tint(settings.appTheme.color)

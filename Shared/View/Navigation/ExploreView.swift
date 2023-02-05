@@ -66,6 +66,9 @@ struct ExploreView: View {
                     .navigationDestination(for: [Person].self) { items in
                         DetailedPeopleList(items: items)
                     }
+                    .navigationDestination(for: ProductionCompany.self) { item in
+                        CompanyDetails(company: item)
+                    }
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)

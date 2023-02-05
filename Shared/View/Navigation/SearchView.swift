@@ -62,6 +62,9 @@ struct SearchView: View {
             .navigationDestination(for: [Person].self) { items in
                 DetailedPeopleList(items: items)
             }
+            .navigationDestination(for: ProductionCompany.self) { item in
+                CompanyDetails(company: item)
+            }
             .searchable(text: $viewModel.query,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: Text("Movies, Shows, People"))

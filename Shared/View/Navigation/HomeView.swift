@@ -79,6 +79,9 @@ struct HomeView: View {
             .navigationDestination(for: [Person].self) { items in
                 DetailedPeopleList(items: items)
             }
+            .navigationDestination(for: ProductionCompany.self) { item in
+                CompanyDetails(company: item)
+            }
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
             .navigationTitle("Home")
             .toolbar {

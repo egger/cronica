@@ -84,6 +84,9 @@ struct EpisodeDetailsView: View {
             .navigationDestination(for: [Person].self) { item in
                 DetailedPeopleList(items: item)
             }
+            .navigationDestination(for: ProductionCompany.self) { item in
+                CompanyDetails(company: item)
+            }
         }
         .background {
             TranslucentBackground(image: episode.itemImageLarge)

@@ -29,9 +29,17 @@ struct InformationSectionView: View {
                 InfoView(title: NSLocalizedString("Region of Origin",
                                                   comment: ""),
                          content: item?.itemCountry)
-                InfoView(title: NSLocalizedString("Production Company",
-                                                  comment: ""),
-                         content: item?.itemCompany)
+                if let company = item?.productionCompanies?.first {
+                    NavigationLink(value: company) {
+                        InfoView(title: NSLocalizedString("Production Company",
+                                                          comment: ""),
+                                 content: company.name)
+                    }
+                } else {
+                    InfoView(title: NSLocalizedString("Production Company",
+                                                      comment: ""),
+                             content: item?.itemCompany)
+                }
             }
         } label: {
             Label("Information", systemImage: "info")
