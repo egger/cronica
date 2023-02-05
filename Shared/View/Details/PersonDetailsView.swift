@@ -112,24 +112,6 @@ struct PersonDetailsView: View {
         }
     }
     
-#if os(iOS)
-    private var downloadButton: some View {
-        Button {
-            guard let imageUrl = viewModel.person?.originalPersonImage else { return }
-            Task {
-                let data = await NetworkService.shared.downloadImageData(from: imageUrl)
-                guard let data else { return }
-                let image = UIImage(data: data)
-                guard let image else { return }
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                showSaveConfirmation.toggle()
-            }
-        } label: {
-            Label("Save Image", systemImage: "square.and.arrow.down")
-        }
-    }
-#endif
-    
     @ViewBuilder
     private var search: some View {
         if !viewModel.query.isEmpty {
@@ -153,7 +135,7 @@ struct PersonDetailsView: View {
 #else
             Table(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) {
                 TableColumn("Title") { item in
-                    SearchItemView(item: item, showConfirmation: $showConfirmation)
+                    SearchItemView(item: item, showInformationPopup: $showInformationPopup)
                         .buttonStyle(.plain)
                         .accessibilityHint(Text(item.itemTitle))
                 }

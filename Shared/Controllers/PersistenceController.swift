@@ -43,7 +43,7 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
 #else
                 CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                                for: "containerError")
+                                                      for: "containerError")
 #endif
             }
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
@@ -55,7 +55,7 @@ struct PersistenceController {
             try container.initializeCloudKitSchema()
         } catch {
             CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                            for: "initializeCloudKitSchema")
+                                                  for: "initializeCloudKitSchema")
         }
 #endif
         return container
@@ -99,11 +99,7 @@ struct PersistenceController {
             item.notify = content.itemCanNotify
             item.genre = content.itemGenre
             item.lastValuesUpdated = Date()
-            if let theatrical = content.itemTheatricalDate {
-                item.date = theatrical
-            } else {
-                item.date = content.itemFallbackDate
-            }
+            item.date = content.itemFallbackDate
             item.formattedDate = content.itemTheatricalString
             if content.itemContentMedia == .tvShow {
                 if let episode = content.lastEpisodeToAir?.episodeNumber {
@@ -137,7 +133,7 @@ struct PersistenceController {
             }
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                            for: "PersistenceController.fetch(for:)")
+                                                  for: "PersistenceController.fetch(for:)")
             return nil
         }
     }
@@ -145,43 +141,44 @@ struct PersistenceController {
     /// Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
         if isItemSaved(id: content.id, type: content.itemContentMedia) {
-            let item = try? fetch(for: WatchlistItem.ID(content.id), media: content.itemContentMedia)
-            if let item {
-                item.contentID = content.itemNotificationID
-                item.tmdbID = Int64(content.id)
-                item.title = content.itemTitle
-                item.image = content.cardImageMedium
-                item.largeCardImage = content.cardImageLarge
-                item.mediumPosterImage = content.posterImageMedium
-                item.largePosterImage = content.posterImageLarge
-                item.schedule = content.itemStatus.toInt
-                item.notify = content.itemCanNotify
-                item.formattedDate = content.itemTheatricalString
-                item.genre = content.itemGenre
-                if content.itemContentMedia == .tvShow {
-                    if let episode = content.lastEpisodeToAir {
-                        item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)
-                    }
-                    if let episode = content.nextEpisodeToAir {
-                        item.nextEpisodeNumber = Int64(episode.episodeNumber ?? 1)
-                    }
-                    item.upcomingSeason = content.hasUpcomingSeason
-                    item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
-                } else {
-                    if let theatrical = content.itemTheatricalDate {
-                        item.date = theatrical
+            do {
+                let item = try fetch(for: WatchlistItem.ID(content.id), media: content.itemContentMedia)
+                if let item {
+                    item.contentID = content.itemNotificationID
+                    item.tmdbID = Int64(content.id)
+                    item.title = content.itemTitle
+                    item.image = content.cardImageMedium
+                    item.largeCardImage = content.cardImageLarge
+                    item.mediumPosterImage = content.posterImageMedium
+                    item.largePosterImage = content.posterImageLarge
+                    item.schedule = content.itemStatus.toInt
+                    item.notify = content.itemCanNotify
+                    item.formattedDate = content.itemTheatricalString
+                    item.genre = content.itemGenre
+                    if content.itemContentMedia == .tvShow {
+                        if let episode = content.lastEpisodeToAir {
+                            item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)
+                        }
+                        if let episode = content.nextEpisodeToAir {
+                            item.nextEpisodeNumber = Int64(episode.episodeNumber ?? 1)
+                        }
+                        item.upcomingSeason = content.hasUpcomingSeason
+                        item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                     } else {
                         item.date = content.itemFallbackDate
                     }
+                    if let watched {
+                        item.watched = watched
+                    }
+                    if let favorite {
+                        item.favorite = favorite
+                    }
+                    item.lastValuesUpdated = Date()
                 }
-                if let watched {
-                    item.watched = watched
-                }
-                if let favorite {
-                    item.favorite = favorite
-                }
-                item.lastValuesUpdated = Date()
                 saveContext()
+            } catch {
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                      for: "PersistenceController.update")
             }
         }
     }
@@ -189,35 +186,17 @@ struct PersistenceController {
     /// Deletes a WatchlistItem from Core Data.
     func delete(_ content: WatchlistItem) {
         let viewContext = container.viewContext
-        let item = try? viewContext.existingObject(with: content.objectID)
-        if let item {
+        do {
+            let item = try viewContext.existingObject(with: content.objectID)
             if isNotificationScheduled(for: content) {
                 let notification = NotificationManager.shared
                 notification.removeNotification(identifier: content.notificationID)
             }
             viewContext.delete(item)
             saveContext()
-        }
-    }
-    
-    func delete(items: Set<String>) {
-        var list = [WatchlistItem]()
-        for item in items {
-            let type = item.last ?? "0"
-            var media: MediaType = .movie
-            if type == "1" {
-                media = .tvShow
-            }
-            let id = item.dropLast(2)
-            let content = try? fetch(for: Int64(id)!, media: media)
-            if let content {
-                list.append(content)
-            }
-        }
-        if !list.isEmpty {
-            for item in list {
-                delete(item)
-            }
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "PersistenceController.delete")
         }
     }
     
@@ -264,7 +243,7 @@ struct PersistenceController {
         }
     }
     
-    private func markPinAs(item: WatchlistItem) {
+    private func updatePin(for item: WatchlistItem) {
         item.isPin.toggle()
         saveContext()
     }
@@ -344,17 +323,6 @@ struct PersistenceController {
                     }
                 }
             }
-        }
-        return false
-    }
-    
-    func isItemSaved(id: String) -> Bool {
-        let viewContext = container.viewContext
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        request.predicate = NSPredicate(format: "contentID == %d", id)
-        let numberOfObjects = try? viewContext.count(for: request)
-        if let numberOfObjects {
-            if numberOfObjects > 0 { return true }
         }
         return false
     }

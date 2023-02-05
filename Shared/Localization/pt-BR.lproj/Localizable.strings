@@ -472,3 +472,24 @@
 "hideAddedItemsDiscoverFilter" = "Ocultar Itens Adicionados";
 "whereToWatchDiscoverFilter" = "Onde Assistir";
 "watchProviderToggleDiscover" = "Only Show From Watch Provider";
+
+"swipeGestureWatch" = "Assistido";
+"swipeGestureFavorite" = "Favorito";
+"swipeGesturePin" = "Fixado";
+"swipeGestureArchive" = "Arquivar";
+"swipeGestureDelete" = "Deletar";
+"swipeGestureShare" = "Compartilhar";
+
+
+"behaviorSwipeTitle" = "Gestos de Deslize";
+"behaviorAllowFullSwipeTitle" = "Permitir Deslize Completo";
+"behaviorAllowFullSwipeSubtitle" = "O Deslize Completo ativará a ação principal";
+"behaviorPrimaryLeftGesture" = "Gesto Principal Esquerdo";
+"behaviorSecondaryLeftGesture" = "Gesto Secundário Esquerdo";
+"behaviorPrimaryRightGesture" = "Gesto Principal Direito";
+"behaviorSecondaryRightGesture" = "Gesto Secundário Direito";
+"resetToDefault" = "Redefinir para o Padrão";
+
+// MARK: Notification content
+"The next episode is set to arrive today." = "O próximo episódio está programado para chegar hoje.";
+"Next episode arrives today." = "Próximo episódio chega hoje.";

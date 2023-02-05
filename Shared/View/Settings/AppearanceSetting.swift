@@ -9,9 +9,6 @@ import SwiftUI
 
 struct AppearanceSetting: View {
     @StateObject private var store = SettingsStore.shared
-    @AppStorage("disableTranslucentBackground") private var disableTranslucent = false
-    @AppStorage("disableTelemetry") private var disableTelemetry = false
-    @AppStorage("user_theme") private var currentTheme: AppTheme = .system
     @State private var disableRowType = false
     var body: some View {
         Form {
@@ -24,7 +21,7 @@ struct AppearanceSetting: View {
                     }
                 } label: {
                     InformationalLabel(title: "appearanceRowTypeTitle",
-                                        subtitle: "appearanceRowTypeSubtitle")
+                                       subtitle: "appearanceRowTypeSubtitle")
                 }
                 .disabled(disableRowType)
 #endif
@@ -34,7 +31,7 @@ struct AppearanceSetting: View {
                     }
                 } label: {
                     InformationalLabel(title: "appearanceRowStyleTitle",
-                                        subtitle: "appearanceRowStyleSubtitle")
+                                       subtitle: "appearanceRowStyleSubtitle")
                 }
                 
             } header: {
@@ -51,7 +48,7 @@ struct AppearanceSetting: View {
 #if os(iOS)
             Section {
                 
-                Picker(selection: $currentTheme) {
+                Picker(selection: $store.currentTheme) {
                     ForEach(AppTheme.allCases) { item in
                         Text(item.localizableName).tag(item)
                     }
@@ -78,14 +75,15 @@ struct AppearanceSetting: View {
             }
 #endif
             Section {
-                Toggle(isOn: $disableTranslucent) {
+                Toggle(isOn: $store.disableTranslucent) {
                     InformationalLabel(title: "disableTranslucentTitle")
                 }
             } header: {
                 Label("accessibilityTitle", systemImage: "eyeglasses")
             }
-            .onChange(of: disableTranslucent) { newValue in
-                CronicaTelemetry.shared.handleMessage("accessibilityDisableTranslucent is turned \(newValue)", for: "AppearanceSetting")
+            .onChange(of: store.disableTranslucent) { newValue in
+                CronicaTelemetry.shared.handleMessage("accessibilityDisableTranslucent is turned \(newValue)",
+                                                      for: "AppearanceSetting")
             }
         }
         .navigationTitle("appearanceTitle")

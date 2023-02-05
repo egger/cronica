@@ -49,9 +49,9 @@ struct ItemContentDetails: View {
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
                     SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                tvId: id,
-                                inWatchlist: $viewModel.isInWatchlist,
-                                seasonConfirmation: $showSeasonConfirmation)
+                                   tvId: id,
+                                   inWatchlist: $viewModel.isInWatchlist,
+                                   seasonConfirmation: $showSeasonConfirmation)
                     .padding(0)
                     
                     WatchProvidersList(id: id, type: type)
@@ -78,6 +78,7 @@ struct ItemContentDetails: View {
             }
             .task {
                 await viewModel.load()
+                viewModel.registerNotification()
             }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .navigationTitle(title)
@@ -222,7 +223,7 @@ struct ItemContentDetails: View {
 struct ItemContentDetails_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentDetails(title: ItemContent.previewContent.itemTitle,
-                        id: ItemContent.previewContent.id,
-                        type: MediaType.movie)
+                           id: ItemContent.previewContent.id,
+                           type: MediaType.movie)
     }
 }

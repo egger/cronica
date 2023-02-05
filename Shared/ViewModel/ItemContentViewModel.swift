@@ -65,9 +65,7 @@ class ItemContentViewModel: ObservableObject {
                 if Task.isCancelled { return }
                 showErrorAlert = true
                 content = nil
-                let message = """
-Can't load the content with id: \(id) and media type: \(type.title), error: \(error.localizedDescription)
-"""
+                let message = "ID: \(id), type: \(type.title), error: \(error.localizedDescription)"
                 CronicaTelemetry.shared.handleMessage(message, for: "ItemContentViewModel.load()")
             }
         }
@@ -84,15 +82,19 @@ Can't load the content with id: \(id) and media type: \(type.title), error: \(er
             withAnimation {
                 isInWatchlist.toggle()
             }
-            let watchlistItem = try? persistence.fetch(for: Int64(item.id), media: type)
-            if let watchlistItem {
-                if watchlistItem.notify {
-                    notification.removeNotification(identifier: item.itemNotificationID)
-                    withAnimation {
-                        hasNotificationScheduled.toggle()
+            do {
+                let watchlistItem = try persistence.fetch(for: Int64(item.id), media: type)
+                if let watchlistItem {
+                    if watchlistItem.notify {
+                        notification.removeNotification(identifier: item.itemNotificationID)
+                        withAnimation {
+                            hasNotificationScheduled.toggle()
+                        }
                     }
+                    persistence.delete(watchlistItem)
                 }
-                persistence.delete(watchlistItem)
+            } catch {
+                print(error.localizedDescription)
             }
         } else {
             // Adds the item to Watchlist
@@ -100,8 +102,8 @@ Can't load the content with id: \(id) and media type: \(type.title), error: \(er
                 isInWatchlist.toggle()
             }
             persistence.save(item)
-            if item.itemCanNotify {
-                notification.schedule(notificationContent: item)
+            if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
+                NotificationManager.shared.schedule(item)
                 withAnimation {
                     hasNotificationScheduled.toggle()
                 }
@@ -129,10 +131,28 @@ Can't load the content with id: \(id) and media type: \(type.title), error: \(er
         }
     }
     
+    func registerNotification() {
+        if isInWatchlist && isNotificationAvailable && !hasNotificationScheduled && type == .tvShow {
+            if let content {
+                NotificationManager.shared.schedule(content)
+                persistence.update(item: content)
+            }
+        }
+    }
+    
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
     private func isNotificationScheduled() -> Bool {
-        let item = try? persistence.fetch(for: WatchlistItem.ID(self.id), media: type)
-        return item?.notify ?? false
+        do {
+            let item = try persistence.fetch(for: WatchlistItem.ID(self.id), media: type)
+            if let item {
+                return item.notify
+            }
+            return false
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "ItemContentViewModel.isNotificationScheduled")
+            return false
+        }
     }
 }

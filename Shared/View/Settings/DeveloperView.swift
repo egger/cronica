@@ -13,7 +13,7 @@ import SDWebImageSwiftUI
 struct DeveloperView: View {
     @State private var item: ItemContent?
     @State private var person: Person?
-    @State private var itemIdField: String = ""
+    @State private var itemIdField = ""
     @State private var itemMediaType: MediaType = .movie
     @State private var isFetching = false
     @State private var isFetchingAll = false
@@ -128,7 +128,7 @@ struct DeveloperView: View {
                                 Button("Done") {
                                     self.item = nil
                                 }
-                                Button(action: {
+                                Button {
                                     let watchlist = try? PersistenceController.shared.fetch(for: Int64(itemIdField)!, media: itemMediaType)
                                     if let watchlist {
                                         CronicaTelemetry.shared.handleMessage("WatchlistItem: \(watchlist as Any)",
@@ -136,9 +136,9 @@ struct DeveloperView: View {
                                     }
                                     CronicaTelemetry.shared.handleMessage("ItemContent: \(item as Any)",
                                                                           for: "DeveloperView.printObject")
-                                }, label: {
+                                } label: {
                                     Label("Print object", systemImage: "hammer.circle.fill")
-                                })
+                                }
                             }
                         }
                     }

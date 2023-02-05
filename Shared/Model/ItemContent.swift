@@ -36,6 +36,7 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
 }
 struct ProductionCompany: Codable, Hashable {
     let name: String
+    let id: Int
 }
 struct ProductionCountry: Codable, Hashable {
     let name: String
@@ -52,13 +53,7 @@ struct ItemContentSection: Identifiable, Sendable {
     var id = UUID()
     let results: [ItemContent]
     let endpoint: Endpoints
-    var title: String {
-        endpoint.title
-    }
-    var subtitle: String {
-        endpoint.subtitle
-    }
-    var image: String {
-        endpoint.image
-    }
+    var title: String { endpoint.title }
+    var subtitle: String { endpoint.subtitle }
+    var image: String { endpoint.image }
 }

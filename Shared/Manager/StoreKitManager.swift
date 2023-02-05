@@ -39,9 +39,7 @@ class StoreKitManager: ObservableObject {
         do {
             storeProducts = try await Product.products(for: productDict.values)
         } catch {
-            let message = """
-Can't request products, error: \(error.localizedDescription)
-"""
+            let message = "Can't request products, error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message,
                                                   for: "StoreKitManager.requestProducts()")
         }

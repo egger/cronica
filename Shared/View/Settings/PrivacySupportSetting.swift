@@ -38,7 +38,7 @@ struct PrivacySupportSetting: View {
 #endif
             Toggle(isOn: $disableTelemetry) {
                 InformationalLabel(title: "settingsDisableTelemetryTitle",
-                                    subtitle: "settingsDisableTelemetrySubtitle")
+                                   subtitle: "settingsDisableTelemetrySubtitle")
             }
         } header: {
 #if os(iOS) || os(tvOS)
@@ -47,10 +47,10 @@ struct PrivacySupportSetting: View {
             Label("Privacy", systemImage: "hand.raised")
 #endif
         } footer: {
-            #if os(tvOS)
+#if os(tvOS)
             Text("privacyFooterTV")
                 .padding(.bottom)
-            #endif
+#endif
         }
     }
 }

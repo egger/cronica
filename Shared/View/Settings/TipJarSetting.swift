@@ -67,7 +67,7 @@ private struct TipJarItem: View {
                     .fontWeight(.semibold)
             }
         }
-        .onChange(of: storeKit.purchasedTipJar) { newValue in
+        .onChange(of: storeKit.purchasedTipJar) { _ in
             Task {
                 isPurchased = (try? await storeKit.isPurchased(product)) ?? false
             }

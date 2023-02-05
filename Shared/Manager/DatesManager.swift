@@ -1,13 +1,14 @@
 //
-//  Utilities.swift
+//  DatesManager.swift
 //  Story
 //
-//  Created by Alexandre Madeira on 15/01/22.
+//  Created by Alexandre Madeira on 05/02/23.
 //
 
 import Foundation
 
-class Utilities {
+/// Migrate to extension based formatters and functions to get release dates and format the result.
+class DatesManager {
     static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -25,20 +26,6 @@ class Utilities {
         formatter.timeStyle = .none
         return formatter
     }()
-    static let userLang: String = {
-        let locale = Locale.current
-        guard let langCode = locale.language.languageCode?.identifier,
-              let regionCode = locale.language.region?.identifier else {
-            return "en-US"
-        }
-        return "\(langCode)-\(regionCode)"
-    }()
-    static let userRegion: String = {
-        guard let regionCode = Locale.current.language.region?.identifier else {
-            return "US"
-        }
-        return regionCode
-    }()
     private static var releaseDateFormatter: ISO8601DateFormatter {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = .withFullDate
@@ -46,7 +33,7 @@ class Utilities {
     }
     static func getReleaseDateFormatted(results: [ReleaseDatesResult]) -> String? {
         for result in results {
-            if result.iso31661 == Utilities.userRegion {
+            if result.iso31661 == Locale.userRegion {
                 if result.releaseDates != nil {
                     for date in result.releaseDates! {
                         if date.type != nil && date.type == 3 {

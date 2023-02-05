@@ -48,6 +48,14 @@ class NetworkService {
         return response.results
     }
     
+    func fetchCompanyFilmography(type: MediaType, page: Int, company: Int) async throws -> [ItemContent] {
+        guard let url = urlBuilder(type: type, company: company, page: page) else {
+            throw NetworkError.invalidRequest
+        }
+        let response: ItemContentResponse = try await self.fetch(url: url)
+        return response.results
+    }
+    
     func fetchDiscover(type: MediaType, page: Int, genres: String, sort: DiscoverSortBy) async throws -> [ItemContent] {
         guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres, sortBy: sort) else {
             throw NetworkError.invalidEndpoint
@@ -111,6 +119,26 @@ class NetworkService {
         }
     }
     
+    
+    func urlBuilder(type: MediaType, company: Int, page: Int) -> URL? {
+        var component = URLComponents()
+        component.scheme = "https"
+        component.host = "api.themoviedb.org"
+        component.path = "/3/discover/\(type.rawValue)"
+        component.queryItems = [
+            .init(name: "api_key", value: Key.tmdbApi),
+            .init(name: "language", value: Locale.userLang),
+            .init(name: "region", value: Locale.userRegion),
+            .init(name: "sort_by", value: DiscoverSortBy.popularityDesc.rawValue),
+            .init(name: "include_adult", value: "false"),
+            .init(name: "include_video", value: "false"),
+            .init(name: "page", value: "\(page)"),
+            .init(name: "with_companies", value: "\(company)")
+        ]
+        print(component.url as Any)
+        return component.url
+    }
+    
     /// Build a safe URL for the TMDB API Service.
     ///
     /// Only use it to generate the URL responsible for fetching content, such as details, lists, and search.
@@ -127,30 +155,30 @@ class NetworkService {
         if let append {
             component.queryItems = [
                 .init(name: "api_key", value: Key.tmdbApi),
-                .init(name: "language", value: Utilities.userLang),
+                .init(name: "language", value: Locale.userLang),
                 .init(name: "page", value: page),
                 .init(name: "append_to_response", value: append)
             ]
         } else {
             component.queryItems = [
                 .init(name: "api_key", value: Key.tmdbApi),
-                .init(name: "language", value: Utilities.userLang),
-                .init(name: "region", value: Utilities.userRegion),
+                .init(name: "language", value: Locale.userLang),
+                .init(name: "region", value: Locale.userRegion),
                 .init(name: "page", value: page)
             ]
         }
         if let query {
             component.queryItems = [
                 .init(name: "api_key", value: Key.tmdbApi),
-                .init(name: "language", value: Utilities.userLang),
+                .init(name: "language", value: Locale.userLang),
                 .init(name: "query", value: query),
                 .init(name: "page", value: page),
                 .init(name: "include_adult", value: "false"),
-                .init(name: "region", value: Utilities.userRegion)
+                .init(name: "region", value: Locale.userRegion)
             ]
         }
 #if DEBUG
-        print("URL created: \(component.url as Any)")
+        print("URL: \(component.url as Any)")
 #endif
         return component.url
     }
@@ -167,17 +195,14 @@ class NetworkService {
         component.path = "/3/discover/\(type)"
         component.queryItems = [
             .init(name: "api_key", value: Key.tmdbApi),
-            .init(name: "language", value: Utilities.userLang),
-            .init(name: "region", value: Utilities.userRegion),
+            .init(name: "language", value: Locale.userLang),
+            .init(name: "region", value: Locale.userRegion),
             .init(name: "sort_by", value: sortBy.rawValue),
             .init(name: "include_adult", value: "false"),
             .init(name: "include_video", value: "false"),
             .init(name: "page", value: "\(page)"),
             .init(name: "with_genres", value: genres)
         ]
-#if DEBUG
-        print("URL created: \(component.url as Any)")
-#endif
         return component.url
     }
     
@@ -205,8 +230,8 @@ class NetworkService {
         for video in videos {
             if video.isTrailer {
                 items.append(VideoItem.init(url: urlBuilder(video: video.key),
-                                             thumbnail: fetchThumbnail(for: video.key),
-                                             title: video.name))
+                                            thumbnail: fetchThumbnail(for: video.key),
+                                            title: video.name))
             }
         }
         return items

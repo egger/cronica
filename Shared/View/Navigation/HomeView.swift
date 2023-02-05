@@ -6,13 +6,11 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct HomeView: View {
     static let tag: Screens? = .home
     @AppStorage("showOnboarding") private var displayOnboard = true
     @StateObject private var viewModel = HomeViewModel()
-    @StateObject private var settings = SettingsStore.shared
     @State private var showSettings = false
     @State private var showNotifications = false
     @State private var showConfirmation = false
@@ -69,17 +67,20 @@ struct HomeView: View {
                                 endpoint: endpoint)
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
-                let keys = item.map { (key, value) in key }
-                let value = item.map { (key, value) in value }
+                let keys = item.map { (key, _) in key }
+                let value = item.map { (_, value) in value }
                 TitleWatchlistDetails(title: keys[0], items: value[0])
             }
             .navigationDestination(for: [String:[ItemContent]].self) { item in
-                let keys = item.map { (key, value) in key }
-                let value = item.map { (key, value) in value }
+                let keys = item.map { (key, _) in key }
+                let value = item.map { (_, value) in value }
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
             }
             .navigationDestination(for: [Person].self) { items in
                 DetailedPeopleList(items: items)
+            }
+            .navigationDestination(for: ProductionCompany.self) { item in
+                CompanyDetails(company: item)
             }
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
             .navigationTitle("Home")
@@ -122,8 +123,6 @@ struct HomeView: View {
             .sheet(isPresented: $showSettings) {
 #if os(iOS)
                 SettingsView(showSettings: $showSettings)
-                
-                    
 #endif
             }
             .sheet(isPresented: $showNotifications) {

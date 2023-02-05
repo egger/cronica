@@ -9,37 +9,34 @@ import SwiftUI
 
 struct SearchView: View { 
     static let tag: Screens? = .search
-    @StateObject private var viewModel: SearchViewModel
-    @State private var showConfirmation: Bool = false
+    @StateObject private var viewModel = SearchViewModel()
+    @State private var showInformationPopup: Bool = false
     @State private var scope: SearchItemsScope = .noScope
-    init() {
-        _viewModel = StateObject(wrappedValue: SearchViewModel())
-    }
     var body: some View {
         ZStack {
             List {
                 switch scope {
                 case .noScope:
                     ForEach(viewModel.items) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
                             .draggable(item)
                     }
                     loadableProgressRing
                 case .movies:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
                             .draggable(item)
                     }
                     loadableProgressRing
                 case .shows:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
                             .draggable(item)
                     }
                     loadableProgressRing
                 case .people:
                     ForEach(viewModel.items.filter { $0.media == .person }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
                             .draggable(item)
                     }
                     loadableProgressRing
@@ -58,13 +55,16 @@ struct SearchView: View {
                 }
             }
             .navigationDestination(for: [String:[ItemContent]].self) { item in
-                let keys = item.map { (key, value) in key }
-                let value = item.map { (key, value) in value }
+                let keys = item.map { (key, _) in key }
+                let value = item.map { (_, value) in value }
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
             }
-            .navigationDestination(for: [Person].self, destination: { items in
+            .navigationDestination(for: [Person].self) { items in
                 DetailedPeopleList(items: items)
-            })
+            }
+            .navigationDestination(for: ProductionCompany.self) { item in
+                CompanyDetails(company: item)
+            }
             .searchable(text: $viewModel.query,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: Text("Movies, Shows, People"))
@@ -78,7 +78,7 @@ struct SearchView: View {
                 await viewModel.search(viewModel.query)
             }
             .overlay(searchResults)
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showInformationPopup)
         }
     }
     
@@ -86,10 +86,7 @@ struct SearchView: View {
     private var searchResults: some View {
         switch viewModel.stage {
         case .none:
-            VStack {
-                Spacer()
-                AttributionView()
-            } 
+            VStack { }
         case .searching:
             ProgressView("Searching")
                 .foregroundColor(.secondary)

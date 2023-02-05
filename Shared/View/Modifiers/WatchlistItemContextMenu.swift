@@ -17,6 +17,11 @@ struct WatchlistItemContextMenu: ViewModifier {
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
     @State private var showDeleteConfirmation = false
+    @AppStorage("primaryLeftSwipe") private var primaryLeftSwipe: SwipeGestureOptions = .markWatch
+    @AppStorage("secondaryLeftSwipe") private var secondaryLeftSwipe: SwipeGestureOptions = .markFavorite
+    @AppStorage("primaryRightSwipe") private var primaryRightSwipe: SwipeGestureOptions = .delete
+    @AppStorage("secondaryRightSwipe") private var secondaryRightSwipe: SwipeGestureOptions = .markArchive
+    @AppStorage("allowFullSwipe") private var allowFullSwipe = false
     func body(content: Content) -> some View {
 #if os(watchOS)
         return content
@@ -45,19 +50,13 @@ struct WatchlistItemContextMenu: ViewModifier {
             }
 #else
         return content
-            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                watchedButton
-                    .tint(item.isWatched ? .yellow : .green)
-                    .disabled(item.isInProduction || item.isUpcoming)
-                pinButton
-                    .tint(item.isPin ? .gray : .teal)
-                favoriteButton
-                    .tint(item.isFavorite ? .orange : .purple)
+            .swipeActions(edge: .leading, allowsFullSwipe: allowFullSwipe) {
+                primaryLeftSwipeActions
+                secondaryLeftSwipeActions
             }
-            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                archiveButton
-                    .tint(item.isArchive ? .gray : .indigo)
-                deleteButton
+            .swipeActions(edge: .trailing, allowsFullSwipe: allowFullSwipe) {
+                primaryRightSwipeActions
+                secondaryRightSwipeActions
             }
             .contextMenu {
                 ShareLink(item: item.itemLink)
@@ -71,6 +70,102 @@ struct WatchlistItemContextMenu: ViewModifier {
                 previewView
             }
 #endif
+    }
+    
+    private var share: some View {
+#if os(iOS)
+        ShareLink(item: item.itemUrlProxy)
+#else
+        EmptyView()
+#endif
+    }
+    
+    @ViewBuilder
+    private var primaryLeftSwipeActions: some View {
+        switch primaryLeftSwipe {
+        case .markWatch:
+            watchedButton
+                .tint(item.isWatched ? .yellow : .green)
+        case .markFavorite:
+            favoriteButton
+                .tint(item.isFavorite ? .orange : .purple)
+        case .markPin:
+            pinButton
+                .tint(item.isPin ? .gray : .teal)
+        case .markArchive:
+            archiveButton
+                .tint(item.isArchive ? .gray : .indigo)
+        case .delete:
+            deleteButton
+        case .share:
+            share
+        }
+    }
+    
+    @ViewBuilder
+    private var secondaryLeftSwipeActions: some View {
+        switch secondaryLeftSwipe {
+        case .markWatch:
+            watchedButton
+                .tint(item.isWatched ? .yellow : .green)
+        case .markFavorite:
+            favoriteButton
+                .tint(item.isFavorite ? .orange : .purple)
+        case .markPin:
+            pinButton
+                .tint(item.isPin ? .gray : .teal)
+        case .markArchive:
+            archiveButton
+                .tint(item.isArchive ? .gray : .indigo)
+        case .delete:
+            deleteButton
+        case .share:
+            share
+        }
+    }
+    
+    @ViewBuilder
+    private var primaryRightSwipeActions: some View {
+        switch primaryRightSwipe {
+        case .markWatch:
+            watchedButton
+                .tint(item.isWatched ? .yellow : .green)
+        case .markFavorite:
+            favoriteButton
+                .tint(item.isFavorite ? .orange : .purple)
+        case .markPin:
+            pinButton
+                .tint(item.isPin ? .gray : .teal)
+        case .markArchive:
+            archiveButton
+                .tint(item.isArchive ? .gray : .indigo)
+        case .delete:
+            deleteButton
+        case .share:
+            share
+        }
+    }
+    
+    @ViewBuilder
+    private var secondaryRightSwipeActions: some View {
+        switch secondaryRightSwipe {
+        case .markWatch:
+            watchedButton
+                .tint(item.isWatched ? .yellow : .green)
+        case .markFavorite:
+            favoriteButton
+                .tint(item.isFavorite ? .orange : .purple)
+        case .markPin:
+            pinButton
+                .tint(item.isPin ? .gray : .teal)
+        case .markArchive:
+            archiveButton
+                .tint(item.isArchive ? .gray : .indigo)
+        case .delete:
+            deleteButton
+        case .share:
+            share
+        }
     }
     
     private var previewView: some View {
@@ -154,7 +249,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     }
     
     private var favoriteButton: some View {
-        Button(action: {
+        Button {
             withAnimation {
                 withAnimation {
                     isFavorite.toggle()
@@ -162,21 +257,21 @@ struct WatchlistItemContextMenu: ViewModifier {
                 context.updateMarkAs(id: item.itemId, type: item.itemMedia, favorite: !item.favorite)
             }
             HapticManager.shared.successHaptic()
-        }, label: {
+        } label: {
             Label(item.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: item.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
-        })
+        }
     }
     
     private var pinButton: some View {
-        Button(action: {
+        Button {
             PersistenceController.shared.updatePin(items: [item.notificationID])
             isPin.toggle()
             HapticManager.shared.successHaptic()
-        }, label: {
+        } label: {
             Label(isPin ? "Unpin Item" : "Pin Item",
                   systemImage: isPin ? "pin.slash.fill" : "pin.fill")
-        })
+        }
     }
     
     private var archiveButton: some View {

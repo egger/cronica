@@ -23,9 +23,7 @@ struct TrailerItemView: View {
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                             style: .continuous))
-                .overlay {
-                    overlay
-                }
+                .overlay { overlay }
                 .contextMenu {
                     if let url = trailer.url {
                         ShareLink(item: url)
@@ -50,7 +48,8 @@ struct TrailerItemView: View {
         .accessibilityElement(children: .combine)
         .accessibilityLabel(trailer.title)
     }
-    var placeholder: some View {
+    
+    private var placeholder: some View {
         ZStack {
             Color.secondary
             Image(systemName: "play.fill")
@@ -63,7 +62,8 @@ struct TrailerItemView: View {
         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                     style: .continuous))
     }
-    var overlay: some View {
+    
+    private var overlay: some View {
         ZStack {
             Color.black.opacity(DrawingConstants.overlayOpacity)
             Image(systemName: "play.circle.fill")
@@ -85,7 +85,7 @@ struct TrailerItemView: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 8
     static let imageShadow: CGFloat = 2.5
     static let imageWidth: CGFloat = 220
     static let imageHeight: CGFloat = 120

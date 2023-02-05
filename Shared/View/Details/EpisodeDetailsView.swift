@@ -44,14 +44,14 @@ struct EpisodeDetailsView: View {
                 }
                 
                 WatchEpisodeButton(episode: episode,
-                                       season: season,
-                                       show: show,
-                                       isWatched: $isWatched,
-                                       inWatchlist: $isInWatchlist)
+                                   season: season,
+                                   show: show,
+                                   isWatched: $isWatched,
+                                   inWatchlist: $isInWatchlist)
                 .tint(isWatched ? .red : .blue)
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
-                .padding([.top, .horizontal])
+                .padding(.horizontal)
                 .keyboardShortcut("e", modifiers: [.control])
 #if os(iOS)
                 .buttonBorderShape(.capsule)
@@ -74,8 +74,8 @@ struct EpisodeDetailsView: View {
 #if os(macOS)
 #else
                 ItemContentDetails(title: item.itemTitle,
-                                id: item.id,
-                                type: item.itemContentMedia)
+                                   id: item.id,
+                                   type: item.itemContentMedia)
 #endif
             }
             .navigationDestination(for: Person.self) { person in
@@ -84,9 +84,9 @@ struct EpisodeDetailsView: View {
             .navigationDestination(for: [Person].self) { item in
                 DetailedPeopleList(items: item)
             }
-#if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-#endif
+            .navigationDestination(for: ProductionCompany.self) { item in
+                CompanyDetails(company: item)
+            }
         }
         .background {
             TranslucentBackground(image: episode.itemImageLarge)

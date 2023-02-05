@@ -111,7 +111,7 @@ struct SeasonListView: View {
                 }
                 .padding(0)
                 .task {
-                    load()
+                    await load()
                 }
                 Divider().padding()
             }
@@ -126,10 +126,12 @@ struct SeasonListView: View {
     }
     
     private var markSeasonAsWatched: some View {
-        Button(action: {
+        Button {
             Task {
-                withAnimation {
-                    seasonConfirmation.toggle()
+                DispatchQueue.main.async {
+                    withAnimation {
+                        seasonConfirmation.toggle()
+                    }
                 }
                 await viewModel.markSeasonAsWatched(id: tvId)
                 if !inWatchlist {
@@ -142,9 +144,9 @@ struct SeasonListView: View {
                     }
                 }
             }
-        }, label: {
+        } label: {
             Label("Mark Season as Watched", systemImage: "checkmark.circle.fill")
-        })
+        }
     }
     
     private var emptySeasonView: some View {
@@ -160,23 +162,19 @@ struct SeasonListView: View {
         }
     }
     
-    private func load() {
-        Task {
-            if Task.isCancelled { return }
-            if !hasFirstLoaded {
-                if self.inWatchlist {
-                    let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))
-                    if let lastSeason {
-                        self.selectedSeason = lastSeason
-                        print(lastSeason)
-                        await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)
-                        hasFirstLoaded.toggle()
-                        return
-                    }
+    private func load() async {
+        if !hasFirstLoaded {
+            if self.inWatchlist {
+                let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))
+                if let lastSeason {
+                    self.selectedSeason = lastSeason
+                    await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)
+                    hasFirstLoaded.toggle()
+                    return
                 }
             }
-            await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
         }
+        await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
     }
 }
 

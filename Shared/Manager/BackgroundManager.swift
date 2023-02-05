@@ -54,7 +54,7 @@ class BackgroundManager {
                                                               renewedPredicate])
         request.predicate = orPredicate
         do {
-            let list = try self.context.fetch(request)
+            let list = try context.fetch(request)
             return list
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
@@ -87,13 +87,7 @@ class BackgroundManager {
                 // the need for constant updates are not there.
                 // So, to save resources, they will update less frequently.
                 if item.isReleased || item.isArchive || item.isWatched {
-                    if let lastUpdate = item.lastValuesUpdated {
-                        let now = Date()
-                        let week = TimeInterval(7 * 24 * 60 * 60)
-                        if now > (lastUpdate + week) {
-                            await update(item)
-                        }
-                    } else {
+                    if item.lastValuesUpdated.hasPassedOneWeek() {
                         await update(item)
                     }
                 } else {
@@ -109,13 +103,17 @@ class BackgroundManager {
             if content.itemCanNotify && item.shouldNotify {
                 // If fetched item release date is different than the scheduled one,
                 // then remove the old date and register the new one.
-                if self.compareDates(original: item.itemDate, new: content.itemFallbackDate) {
-                    self.notifications.removeNotification(identifier: content.itemNotificationID)
+                if item.itemDate.areDifferentDates(with: content.itemFallbackDate) {
+                    notifications.removeNotification(identifier: content.itemNotificationID)
                 }
                 if content.itemStatus == .cancelled {
                     notifications.removeNotification(identifier: content.itemNotificationID)
-                } else {
-                    self.notifications.schedule(notificationContent: content)
+                }
+                // In order to avoid passing the limit of local notifications,
+                // the app will only register when it's less than two months away
+                // from release date.
+                if content.itemFallbackDate.isLessThanTwoMonthsAway() {
+                    notifications.schedule(content)
                 }
             }
             PersistenceController.shared.update(item: content)
@@ -125,17 +123,5 @@ class BackgroundManager {
             CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update()")
         }
         
-    }
-    
-    /// Compares two dates and returns a bool if the dates are different.
-    private func compareDates(original: Date?, new: Date?) -> Bool {
-        if let original {
-            if let new {
-                if original != new {
-                    return true
-                }
-            }
-        }
-        return false
     }
 }

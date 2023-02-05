@@ -98,6 +98,10 @@ To get started you'll need to:
     </a>
  </p>
 
+### TestFlight
+<p>
+You can also download the latest beta from <a href="https://testflight.apple.com/join/T8kwk6Gb">TestFlight</a>
+</p>
 
 
 ## Contact

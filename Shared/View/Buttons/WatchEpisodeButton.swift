@@ -37,24 +37,29 @@ struct WatchEpisodeButton: View {
     }
     
     private func handleList() {
+        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
         DispatchQueue.main.async {
             withAnimation {
                 isWatched.toggle()
             }
         }
-        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
     }
     
     private func fetch() async {
         let network = NetworkService.shared
-        let content = try? await network.fetchItem(id: show, type: .tvShow)
-        if let content {
+        do {
+            let content = try await network.fetchItem(id: show, type: .tvShow)
             persistence.save(content)
+            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
+                NotificationManager.shared.schedule(content)
+            }
             DispatchQueue.main.async {
                 withAnimation {
                     inWatchlist = true
                 }
             }
+        } catch {
+            if Task.isCancelled { return }
         }
     }
 }

@@ -12,7 +12,7 @@ struct CardFrame: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
     private let context = PersistenceController.shared
-    @State private var isInWatchlist: Bool = false
+    @State private var isInWatchlist = false
     @State private var isWatched = false
     var body: some View {
         NavigationLink(value: item) {
@@ -34,7 +34,7 @@ struct CardFrame: View {
                             .padding()
                         }
                         .frame(width: DrawingConstants.imageWidth,
-                               height:DrawingConstants.imageHeight)
+                               height: DrawingConstants.imageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     }
                     .overlay {
@@ -99,7 +99,7 @@ struct CardFrame: View {
                     if isInWatchlist && !isWatched {
                         isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
                     }
-                } 
+                }
             }
         }
         .accessibilityLabel(Text(item.itemTitle))
