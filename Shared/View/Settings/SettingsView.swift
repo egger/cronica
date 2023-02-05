@@ -85,9 +85,11 @@ struct SettingsView: View {
                             }
                         }
                     }
-                    .onLongPressGesture(perform: {
-                        displayDeveloperSettings.toggle()
-                    })
+                    .onLongPressGesture {
+                        if Bundle.isTestFlight() {
+                            displayDeveloperSettings.toggle()
+                        }
+                    }
                     .font(animateEasterEgg ? .title3 : .caption)
                     .foregroundColor(animateEasterEgg ? .green : nil)
                     .animation(.easeInOut, value: animateEasterEgg)

@@ -10,13 +10,22 @@ import Foundation
 extension String {
     static let releaseDateFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
+        formatter.timeZone = .current
         formatter.formatOptions = .withFullDate
         return formatter
     }()
     func convertStringToDate() -> Date? {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
+        formatter.dateStyle = .full
+        formatter.timeStyle = .short
+        formatter.timeZone = .current
+        formatter.dateFormat = "MM-dd-yyyy HH:mm"
+        return formatter.date(from: self)
+    }
+    /// Convert dates with format y MM dd
+    func toDate() -> Date? {
+        let formatter = DateFormatter()
+        formatter.timeZone = .current
         formatter.dateFormat = "y,MM,dd"
         return formatter.date(from: self)
     }

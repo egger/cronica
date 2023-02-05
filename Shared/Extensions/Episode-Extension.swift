@@ -8,17 +8,34 @@
 import Foundation
 
 extension Episode {
+    // MARK: Strings
     var itemTitle: String {
-        name ?? "Not Available"
+        if let name { return name }
+        return NSLocalizedString("Not Available", comment: "")
     }
     var itemOverview: String {
         if let overview {
-            if !overview.isEmpty {
-                return overview
-            }
+            if !overview.isEmpty { return overview }
         }
         return NSLocalizedString("Not Available", comment: "")
     }
+    var itemDate: String? {
+        if let airDate, let date = airDate.toDate() {
+            return date.convertDateToString()
+        }
+        return nil
+    }
+    var itemInfo: String? {
+        if let itemDate, let episodeNumber {
+            return "Episode \(episodeNumber) • \(itemDate)"
+        }
+        if let episodeNumber {
+            return NSLocalizedString("Episode \(episodeNumber)", comment: "")
+        }
+        return nil
+    }
+    
+    // MARK: URL
     var itemImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: stillPath)
     }
@@ -28,26 +45,8 @@ extension Episode {
     var itemImageOriginal: URL? {
         return NetworkService.urlBuilder(size: .original, path: stillPath)
     }
-    var itemDate: String? {
-        if let airDate {
-            let date = airDate.convertStringToDate()
-            if let date {
-                return date.convertDateToString()
-            }
-        }
-        return nil
-    }
-    var itemInfo: String? {
-        if let itemDate {
-            if let episodeNumber {
-                return "Episode \(episodeNumber) • \(itemDate)"
-            }
-        }
-        if let episodeNumber {
-            return NSLocalizedString("Episode \(episodeNumber)", comment: "")
-        }
-        return nil
-    }
+    
+    // MARK: Custom
     var itemCast: [Person] {
         var value = [Person]()
         if let crew {

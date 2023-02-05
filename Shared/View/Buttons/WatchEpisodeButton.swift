@@ -37,12 +37,12 @@ struct WatchEpisodeButton: View {
     }
     
     private func handleList() {
+        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
         DispatchQueue.main.async {
             withAnimation {
                 isWatched.toggle()
             }
         }
-        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
     }
     
     private func fetch() async {

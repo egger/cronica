@@ -52,7 +52,8 @@ class NotificationManager: ObservableObject {
         }
         var date: Date?
         if notificationContent.itemContentMedia == .movie {
-            date = notificationContent.itemTheatricalDate
+            date = notificationContent.itemFallbackDate
+            //date = notificationContent.itemTheatricalDate
         } else if notificationContent.itemContentMedia == .tvShow {
             date = notificationContent.nextEpisodeDate
         } else {

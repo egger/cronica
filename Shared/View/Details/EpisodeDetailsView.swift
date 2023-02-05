@@ -51,7 +51,7 @@ struct EpisodeDetailsView: View {
                 .tint(isWatched ? .red : .blue)
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
-                .padding([.top, .horizontal])
+                .padding(.horizontal)
                 .keyboardShortcut("e", modifiers: [.control])
 #if os(iOS)
                 .buttonBorderShape(.capsule)
@@ -84,9 +84,6 @@ struct EpisodeDetailsView: View {
             .navigationDestination(for: [Person].self) { item in
                 DetailedPeopleList(items: item)
             }
-#if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-#endif
         }
         .background {
             TranslucentBackground(image: episode.itemImageLarge)

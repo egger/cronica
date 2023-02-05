@@ -149,6 +149,9 @@ class NetworkService {
                 .init(name: "region", value: Locale.userRegion)
             ]
         }
+#if DEBUG
+        print("URL: \(component.url as Any)")
+#endif
         return component.url
     }
     

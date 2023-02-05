@@ -11,6 +11,7 @@ extension Date {
     func convertDateToString() -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
+        formatter.timeZone = .current
         formatter.timeStyle = .none
         return formatter.string(from: self)
     }

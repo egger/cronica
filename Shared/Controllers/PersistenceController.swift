@@ -208,27 +208,6 @@ struct PersistenceController {
         }
     }
     
-    func delete(items: Set<String>) {
-        var list = [WatchlistItem]()
-        for item in items {
-            let type = item.last ?? "0"
-            var media: MediaType = .movie
-            if type == "1" {
-                media = .tvShow
-            }
-            let id = item.dropLast(2)
-            let content = try? fetch(for: Int64(id)!, media: media)
-            if let content {
-                list.append(content)
-            }
-        }
-        if !list.isEmpty {
-            for item in list {
-                delete(item)
-            }
-        }
-    }
-    
     func updateMarkAs(items: Set<String>) {
         var list = [WatchlistItem]()
         for item in items {
@@ -272,7 +251,7 @@ struct PersistenceController {
         }
     }
     
-    private func markPinAs(item: WatchlistItem) {
+    private func updatePin(for item: WatchlistItem) {
         item.isPin.toggle()
         saveContext()
     }
@@ -352,17 +331,6 @@ struct PersistenceController {
                     }
                 }
             }
-        }
-        return false
-    }
-    
-    func isItemSaved(id: String) -> Bool {
-        let viewContext = container.viewContext
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        request.predicate = NSPredicate(format: "contentID == %d", id)
-        let numberOfObjects = try? viewContext.count(for: request)
-        if let numberOfObjects {
-            if numberOfObjects > 0 { return true }
         }
         return false
     }

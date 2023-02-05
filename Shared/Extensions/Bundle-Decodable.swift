@@ -29,4 +29,12 @@ extension Bundle {
         let result = try Bundle.decoder.decode(T.self, from: data)
         return result
     }
+    
+    static func isTestFlight() -> Bool {
+#if DEBUG || targetEnvironment(simulator)
+        return true
+#else
+        return Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+#endif
+    }
 }

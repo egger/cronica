@@ -65,9 +65,7 @@ class ItemContentViewModel: ObservableObject {
                 if Task.isCancelled { return }
                 showErrorAlert = true
                 content = nil
-                let message = """
-Can't load the content with id: \(id) and media type: \(type.title), error: \(error.localizedDescription)
-"""
+                let message = "ID: \(id), type: \(type.title), error: \(error.localizedDescription)"
                 CronicaTelemetry.shared.handleMessage(message, for: "ItemContentViewModel.load()")
             }
         }
@@ -104,10 +102,8 @@ Can't load the content with id: \(id) and media type: \(type.title), error: \(er
                 isInWatchlist.toggle()
             }
             persistence.save(item)
-            if item.itemCanNotify {
-                if item.itemFallbackDate.isLessThanTwoMonthsAway() {
-                    NotificationManager.shared.schedule(item)
-                }
+            if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
+                NotificationManager.shared.schedule(item)
                 withAnimation {
                     hasNotificationScheduled.toggle()
                 }

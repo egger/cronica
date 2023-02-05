@@ -21,31 +21,31 @@ class SeasonViewModel: ObservableObject {
     func load(id: Int, season: Int, isInWatchlist: Bool) async {
         if Task.isCancelled { return }
         isItemInWatchlist = isInWatchlist
-        withAnimation { isLoading = true }
+        DispatchQueue.main.async {
+            withAnimation { self.isLoading = true }
+        }
         do {
             self.season = try await self.service.fetchSeason(id: id, season: season)
         } catch {
-            let message = """
-Can't load the season \(season) of the show \(id), error: \(error.localizedDescription).
-"""
+            let message = "Season \(season), id: \(id), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load()")
         }
         if !hasFirstLoaded {
             hasFirstLoaded.toggle()
         }
-        withAnimation { isLoading = false }
+        DispatchQueue.main.async {
+            withAnimation { self.isLoading = false }
+        }
     }
     
     func markSeasonAsWatched(id: Int) async {
-        if let season {
-            if let episodes = season.episodes {
-                if !isItemInWatchlist {
-                    await saveItemOnList(id: id)
-                }
-                for episode in episodes {
-                    if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
-                        persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
-                    }
+        if let season, let episodes = season.episodes {
+            if !isItemInWatchlist {
+                await saveItemOnList(id: id)
+            }
+            for episode in episodes {
+                if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
+                    persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
                 }
             }
         }

@@ -11,7 +11,7 @@ struct WatchlistButtonView: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var showConfirmationPopup = false
     var body: some View {
-        Button(action: {
+        Button {
 #if os(watchOS)
             if viewModel.isInWatchlist {
                 showConfirmationPopup = true
@@ -24,11 +24,11 @@ struct WatchlistButtonView: View {
             }
             update()
 #endif
-        }, label: {
+        } label: {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
             .fontDesign(.rounded)
-        })
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
         .disabled(viewModel.isLoading)
