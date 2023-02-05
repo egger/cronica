@@ -33,7 +33,7 @@ class NotificationManager: ObservableObject {
         }
     }
     
-    func schedule(_ notificationContent: ItemContent) {
+    func schedule(_ content: ItemContent) {
         self.requestAuthorization { granted in
             if !granted {
                 self.notificationAllowed = false
@@ -42,22 +42,23 @@ class NotificationManager: ObservableObject {
                 self.notificationAllowed = true
             }
         }
-        let identifier = notificationContent.itemNotificationID
-        let title = notificationContent.itemTitle
+        let identifier = content.itemNotificationID
+        let title = content.itemTitle
         var body: String
-        if notificationContent.itemContentMedia == .movie {
+        if content.itemContentMedia == .movie {
             body = NSLocalizedString("The movie will be released today.", comment: "")
         } else {
             body = NSLocalizedString("Next episode arrives today.", comment: "")
         }
         var date: Date?
-        if notificationContent.itemContentMedia == .movie {
-            date = notificationContent.itemFallbackDate
+        if content.itemContentMedia == .movie {
+            date = content.itemTheatricalDate
+            //date = notificationContent.itemFallbackDate
             //date = notificationContent.itemTheatricalDate
-        } else if notificationContent.itemContentMedia == .tvShow {
-            date = notificationContent.nextEpisodeDate
+        } else if content.itemContentMedia == .tvShow {
+            date = content.nextEpisodeDate
         } else {
-            date = notificationContent.itemFallbackDate
+            date = content.itemFallbackDate
         }
         if let date {
             self.scheduleNotification(identifier: identifier,

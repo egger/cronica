@@ -99,11 +99,7 @@ struct PersistenceController {
             item.notify = content.itemCanNotify
             item.genre = content.itemGenre
             item.lastValuesUpdated = Date()
-            if let theatrical = content.itemTheatricalDate {
-                item.date = theatrical
-            } else {
-                item.date = content.itemFallbackDate
-            }
+            item.date = content.itemFallbackDate
             item.formattedDate = content.itemTheatricalString
             if content.itemContentMedia == .tvShow {
                 if let episode = content.lastEpisodeToAir?.episodeNumber {
@@ -169,11 +165,7 @@ struct PersistenceController {
                         item.upcomingSeason = content.hasUpcomingSeason
                         item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                     } else {
-                        if let theatrical = content.itemTheatricalDate {
-                            item.date = theatrical
-                        } else {
-                            item.date = content.itemFallbackDate
-                        }
+                        item.date = content.itemFallbackDate
                     }
                     if let watched {
                         item.watched = watched

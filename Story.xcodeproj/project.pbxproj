@@ -128,6 +128,10 @@
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
 		B845149328E0C96A00963399 /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845149228E0C96A00963399 /* NotificationListView.swift */; };
 		B84C53FD27B1F1DD00425524 /* WatchlistItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */; };
+		B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
+		B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
+		B84F022C299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
+		B84F022D299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
 		B85344C128FA07B60013E9C7 /* UpcomingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85344C028FA07B60013E9C7 /* UpcomingListView.swift */; };
 		B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
 		B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };
@@ -592,6 +596,7 @@
 		B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extension.swift"; sourceTree = "<group>"; };
 		B845149228E0C96A00963399 /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
 		B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemRow.swift; sourceTree = "<group>"; };
+		B84F0229299026B7007EA8AE /* DatesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesManager.swift; sourceTree = "<group>"; };
 		B85344C028FA07B60013E9C7 /* UpcomingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingListView.swift; sourceTree = "<group>"; };
 		B85C65AB27A6307C0080121E /* PersonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsView.swift; sourceTree = "<group>"; };
 		B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -1455,6 +1460,7 @@
 				B8EC462E27D7AA99009389FC /* NotificationManager.swift */,
 				B892EB1329675B5E002E028E /* StoreKitManager.swift */,
 				B84457C12970D599009CB21F /* HapticManager.swift */,
+				B84F0229299026B7007EA8AE /* DatesManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1842,6 +1848,7 @@
 				B89446C3294FDAE4008974BA /* WatchlistItemType.swift in Sources */,
 				B84457C52970D59E009CB21F /* HapticManager.swift in Sources */,
 				B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */,
+				B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B8105254298DBAF500723E94 /* Locale-Extensions.swift in Sources */,
 				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
 				B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
@@ -1891,6 +1898,7 @@
 				B84457C22970D599009CB21F /* HapticManager.swift in Sources */,
 				B876DE66281B4040005558DD /* Videos.swift in Sources */,
 				B8110EE8279245D100844FEB /* StoryApp.swift in Sources */,
+				B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B84457D52973A402009CB21F /* WatchProvidersListViewModel.swift in Sources */,
 				B8BF632A291402730051915C /* HoverEffectModifier.swift in Sources */,
 				B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */,
@@ -2060,6 +2068,7 @@
 				B8DD5698290CB41C002CAAFD /* EpisodeDetailsView.swift in Sources */,
 				B86E7A05290A90AE00459E41 /* NetworkError.swift in Sources */,
 				B8DD5690290C92A5002CAAFD /* SettingsView.swift in Sources */,
+				B84F022C299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B86E7A09290A90CA00459E41 /* DefaultListTypes.swift in Sources */,
 				B89ECD0A2986A89800F0B197 /* InformationalLabel.swift in Sources */,
 				B8DD5688290C7CC1002CAAFD /* ItemContentHeaderView.swift in Sources */,
@@ -2162,6 +2171,7 @@
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
 				B89446C0294FDACA008974BA /* AppThemeColors.swift in Sources */,
+				B84F022D299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B89429CD297E07C30029646F /* SupportEmail.swift in Sources */,
 				B84457D92973B455009CB21F /* WatchProvidersList.swift in Sources */,
 				B8FB2AA329535057006DAC8E /* CardFrame.swift in Sources */,

@@ -8,6 +8,17 @@
 import Foundation
 
 extension Date {
+    static let toDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y,MM,dd"
+        return formatter
+    }()
+    static let toStringFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
     func convertDateToString() -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

@@ -38,9 +38,6 @@ extension ItemContent {
         }
         return NSLocalizedString("Not Available", comment: "")
     }
-    var itemPopularity: Double {
-        popularity ?? 0.0
-    }
     var itemRuntime: String? {
         if let runtime {
             if runtime > 0 { return runtime.convertToLongRuntime() }
@@ -53,21 +50,33 @@ extension ItemContent {
         }
         return nil
     }
+    var itemNotificationID: String {
+        return "\(id)@\(itemContentMedia.toInt)"
+    }
+    var itemTheatricalString: String? {
+        if let dates = releaseDates?.results {
+            return DatesManager.getReleaseDateFormatted(results: dates)
+        }
+        if let date = nextEpisodeDate {
+            return "\(DatesManager.dateString.string(from: date))"
+        }
+        return nil
+    }
     var itemInfo: String {
-        if let itemTheatricalString, let shortItemRuntime {
-            return "\(itemGenre) • \(itemTheatricalString) • \(shortItemRuntime)"
+        if itemTheatricalString != nil && shortItemRuntime != nil {
+            return "\(itemGenre) • \(itemTheatricalString!) • \(shortItemRuntime!)"
         }
         if let itemTheatricalString {
             return "\(itemGenre) • \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
-            return "\(itemGenre) • \(date.convertDateToString())"
-        }
-        if let itemFallbackDate {
-            return "\(itemGenre) • \(itemFallbackDate.convertDateToString())"
+            return "\(itemGenre) • \(DatesManager.dateString.string(from: date))"
         }
         if let shortItemRuntime {
             return "\(itemGenre) • \(shortItemRuntime)"
+        }
+        if let itemFallbackDate {
+            return "\(itemGenre) • \(DatesManager.dateString.string(from: itemFallbackDate))"
         }
         if !itemGenre.isEmpty { return "\(itemGenre)" }
         return ""
@@ -80,42 +89,57 @@ extension ItemContent {
             if voteAverage <= 0.9 {
                 return nil
             } else {
-                return "\(voteAverage.rounded())/10"
+                return NSLocalizedString("\(voteAverage.rounded())/10", comment: "")
             }
         }
         return nil
     }
-    var itemNotificationID: String {
-        return "\(id)@\(itemContentMedia.toInt)"
+    
+    // MARK: Double
+    var itemPopularity: Double {
+        popularity ?? 0.0
     }
-    var itemSearchDescription: String {
-        if media == .person {
-            return media.title
+    
+    // MARK: Custom
+    var itemStatus: ItemSchedule {
+        if status == "Released" && itemCanNotify { return .soon }
+        switch status {
+        case "Rumored": return .production
+        case "Planned": return .production
+        case "In Production": return .soon
+        case "Post Production": return .soon
+        case "Returning Series": return .renewed
+        case "Released": return .released
+        case "Ended": return .released
+        case "Canceled": return .cancelled
+        default: return .unknown
         }
-        if let itemTheatricalString {
-            return "\(itemContentMedia.title) • \(itemTheatricalString)"
-        }
-        if let date = nextEpisodeDate {
-            return "\(itemContentMedia.title) • \(date.convertDateToString())"
-        }
-        if let itemFallbackDate {
-            return "\(itemContentMedia.title) • \(itemFallbackDate.convertDateToString())"
-        }
-        if let date = lastEpisodeToAir?.airDate, let formattedDate = date.convertStringToDate() {
-            return "\(itemContentMedia.title) • \(formattedDate.convertDateToString())"
-        }
-        return "\(itemContentMedia.title)"
     }
-    var itemTheatricalString: String? {
-        if let dates = releaseDates?.results, let release = dates.toReleasedDateFormatted() {
-            return release.convertDateToString()
+    /// This MediaType value is only used on regular content, such a trending list, filmography.
+    ///
+    /// Change to media to search results.
+    var itemContentMedia: MediaType {
+        if title != nil {
+            return .movie
+        } else {
+            return .tvShow
         }
-        if let date = nextEpisodeDate {
-            return "\(date.convertDateToString())"
-        }
-        return nil
     }
-   
+    /// This MediaType value is only used on search results
+    ///
+    /// Change to itemContentMedia to specify on normal usage.
+    var media: MediaType {
+        switch mediaType {
+        case "tv": return .tvShow
+        case "movie": return .movie
+        case "person": return .person
+        default: return .movie
+        }
+    }
+    var itemTrailers: [VideoItem]? {
+        return NetworkService.fetchVideos(for: videos?.results)
+    }
+    
     // MARK: URL
     var posterImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
@@ -155,11 +179,11 @@ extension ItemContent {
         }
 #endif
     }
-    var itemURL: URL {
-        return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!
-    }
     var itemSearchURL: URL {
         return URL(string: "https://www.themoviedb.org/\(media.rawValue)/\(id)")!
+    }
+    var itemURL: URL {
+        return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!
     }
     
     // MARK: Bool
@@ -168,12 +192,6 @@ extension ItemContent {
         return false
     }
     var itemCanNotify: Bool {
-        if let releaseDate {
-            let date = String.releaseDateFormatter.date(from: releaseDate)
-            if let date {
-                if date > Date() { return true }
-            }
-        }
         if let itemTheatricalDate {
             if itemTheatricalDate > Date() {
                 return true
@@ -197,38 +215,32 @@ extension ItemContent {
     var itemIsAdult: Bool {
         adult ?? false
     }
-    
-    // MARK: Dates
-    var itemTheatricalDate: Date? {
+    var itemSearchDescription: String {
+        if media == .person {
+            return media.title
+        }
+        if itemTheatricalString != nil && shortItemRuntime != nil {
+            return "\(itemContentMedia.title) • \(itemTheatricalString!)"
+        }
         if let itemTheatricalString {
-            return String.releaseDateFormatter.date(from: itemTheatricalString)
+            return "\(itemContentMedia.title) • \(itemTheatricalString)"
         }
-        if let releaseDate {
-            return String.releaseDateFormatter.date(from: releaseDate)
+        if let date = nextEpisodeDate {
+            return "\(itemContentMedia.title) • \(DatesManager.dateString.string(from: date))"
         }
-        return nil
+        if let itemFallbackDate {
+            return "\(itemContentMedia.title) • \(DatesManager.dateString.string(from: itemFallbackDate))"
+        }
+        if let date = lastEpisodeToAir?.airDate {
+            let formattedDate = DatesManager.dateFormatter.date(from: date)
+            if let formattedDate {
+                return "\(itemContentMedia.title) • \(DatesManager.dateString.string(from: formattedDate))"
+            }
+        }
+        return "\(itemContentMedia.title)"
     }
-    var itemFallbackDate: Date? {
-        if let itemTheatricalDate {
-            return itemTheatricalDate
-        }
-        if let releaseDate {
-            return releaseDate.toDate()
-        }
-        if let lastEpisodeToAir, let date = lastEpisodeToAir.airDate {
-            return date.toDate()
-        }
-        if let nextEpisodeDate {
-            return nextEpisodeDate
-        }
-        return nil
-    }
-    var nextEpisodeDate: Date? {
-        if let nextEpisodeDate = nextEpisodeToAir?.airDate {
-            return nextEpisodeDate.toDate()
-        }
-        return nil
-    }
+
+    
     
     // MARK: Int
     var itemSeasons: [Int]? {
@@ -236,45 +248,38 @@ extension ItemContent {
         return Array(1...numberOfSeasons)
     }
     
-    // MARK: Custom
-    var itemStatus: ItemSchedule {
-        if status == "Released" && itemCanNotify { return .soon }
-        switch status {
-        case "Rumored": return .production
-        case "Planned": return .production
-        case "In Production": return .soon
-        case "Post Production": return .soon
-        case "Returning Series": return .renewed
-        case "Released": return .released
-        case "Ended": return .released
-        case "Canceled": return .cancelled
-        default: return .unknown
+    // MARK: Date
+    var nextEpisodeDate: Date? {
+        if let nextEpisodeDate = nextEpisodeToAir?.airDate {
+            return DatesManager.dateFormatter.date(from: nextEpisodeDate)
         }
+        return nil
     }
-    var itemTrailers: [VideoItem]? {
-        return NetworkService.fetchVideos(for: videos?.results)
-    }
-    /// This MediaType value is only used on regular content, such a trending list, filmography.
-    ///
-    /// Change to media to search results.
-    var itemContentMedia: MediaType {
-        if title != nil {
-            return .movie
-        } else {
-            return .tvShow
+    var itemTheatricalDate: Date? {
+        if let itemTheatricalString {
+            return DatesManager.dateString.date(from: itemTheatricalString)
         }
-    }
-    /// This MediaType value is only used on search results
-    ///
-    /// Change to itemContentMedia to specify on normal usage.
-    var media: MediaType {
-        switch mediaType {
-        case "tv": return .tvShow
-        case "movie": return .movie
-        case "person": return .person
-        default: return .movie
+        if let releaseDate = releaseDate {
+            return DatesManager.dateFormatter.date(from: releaseDate)
         }
+        return nil
     }
+    var itemFallbackDate: Date? {
+        if let itemTheatricalDate {
+            return itemTheatricalDate
+        }
+        if let releaseDate = releaseDate {
+            return DatesManager.dateFormatter.date(from: releaseDate)
+        }
+        if let lastEpisodeToAir {
+            if let date = lastEpisodeToAir.airDate {
+                return DatesManager.dateFormatter.date(from: date)
+            }
+        }
+        return nil
+    }
+    
+    // MARK: Preview
     static var previewContents: [ItemContent] {
         let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
