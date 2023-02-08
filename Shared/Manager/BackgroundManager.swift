@@ -86,10 +86,12 @@ class BackgroundManager {
                 // if the item is already released, archive or watched
                 // the need for constant updates are not there.
                 // So, to save resources, they will update less frequently.
-                if item.isReleased || item.isArchive || item.isWatched {
+                if item.isMovie && item.isReleased || item.isArchive || item.isWatched {
                     if item.lastValuesUpdated.hasPassedOneWeek() {
                         await update(item)
                     }
+                } else if item.isTvShow && !item.isArchive {
+                    await update(item)
                 } else {
                     await update(item)
                 }
