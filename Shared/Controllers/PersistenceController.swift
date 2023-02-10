@@ -76,6 +76,7 @@ struct PersistenceController {
         }
     }
     
+    
     /// Adds an WatchlistItem to  Core Data.
     ///
     /// This function will automatically check if the item is saved in the list.

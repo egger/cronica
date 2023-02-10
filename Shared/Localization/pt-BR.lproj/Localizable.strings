@@ -493,3 +493,14 @@
 // MARK: Notification content
 "The next episode is set to arrive today." = "O próximo episódio está programado para chegar hoje.";
 "Next episode arrives today." = "Próximo episódio chega hoje.";
+
+
+"listName" = "Nome da Lista";
+"shareList" = "Compartilhar Lista";
+"listBasicHeader" = "Básico";
+"newCustomListTitle" = "Nova Lista";
+"createList" = "Salvar";
+"newList" = "Nova Lista";
+"createList" = "Criar Nova Lista";
+"yourLists" = "Suas Listas";
+"Lists" = "Listas";

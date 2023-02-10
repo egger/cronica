@@ -24,7 +24,7 @@ struct StoryApp: App {
         WindowGroup {
             ContentView()
                 .fontDesign(.rounded)
-                .tint(settings.appTheme.color)
+                .appTint()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .onOpenURL { url in
                     if widgetItem != nil { widgetItem = nil }
@@ -78,7 +78,6 @@ struct StoryApp: App {
                         }
                     }
                     .appTheme()
-                    .tint(settings.appTheme.color)
                 }
         }
         .onChange(of: scene) { phase in

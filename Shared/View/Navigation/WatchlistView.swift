@@ -12,7 +12,7 @@ struct WatchlistView: View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<WatchlistItem> 
+    private var items: FetchedResults<WatchlistItem>
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
@@ -20,6 +20,9 @@ struct WatchlistView: View {
     @Environment(\.editMode) private var editMode
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
+    @State private var showListSelection = false
+    @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
+    @State private var selectedList: CustomList?
     var body: some View {
         VStack {
             switch settings.watchlistStyle {
@@ -28,7 +31,14 @@ struct WatchlistView: View {
             case .card: frameStyle
             }
         }
-        .navigationTitle("Watchlist")
+        .navigationTitle("")
+        .onChange(of: selectedList, perform: { newValue in
+            if let newValue {
+                navigationTitle = newValue.itemTitle
+            } else {
+                navigationTitle = NSLocalizedString("Watchlist", comment: "")
+            }
+        })
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: WatchlistItem.self) { item in
             ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
@@ -50,7 +60,26 @@ struct WatchlistView: View {
         .navigationDestination(for: ProductionCompany.self) { item in
             CompanyDetails(company: item)
         }
+        .sheet(isPresented: $showListSelection, content: {
+            SelectListView(selectedList: $selectedList,
+                           navigationTitle: $navigationTitle,
+                           showListSelection: $showListSelection)
+            .presentationDetents([.medium])
+        })
         .toolbar {
+            // Acts like a navigationTitle
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text(navigationTitle)
+                    Image(systemName: "chevron.down")
+                        .fontWeight(.bold)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .onTapGesture {
+                    showListSelection.toggle()
+                }
+            }
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu {
                     Picker(selection: $selectedOrder, content: {
@@ -248,5 +277,20 @@ struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
+
+extension CustomList {
+    var itemTitle: String {
+        return title ?? "Not Found"
+    }
+    var itemLastUpdateFormatted: String {
+        if let updatedDate {
+            return updatedDate.convertDateToShortString()
+        }
+        return ""
+    }
+    var itemGlanceInfo: String {
+        return "Last update on \(itemLastUpdateFormatted)"
     }
 }
