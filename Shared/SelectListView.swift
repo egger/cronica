@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectListView: View {
-    @Environment(\.managedObjectContext) var customListViewContext
+    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
         animation: .default)
@@ -25,24 +25,11 @@ struct SelectListView: View {
             Form {
                 Section {
                     List {
-                        HStack {
-                            if selectedList == nil {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .appTint()
-                            } else {
-                                Image(systemName: "circle")
+                        DefaultListRow(selectedList: $selectedList)
+                            .onTapGesture {
+                                selectedList = nil
+                                showListSelection.toggle()
                             }
-                            VStack(alignment: .leading) {
-                                Text("Watchlist")
-                                Text("Default List")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        .onTapGesture {
-                            selectedList = nil
-                            showListSelection.toggle()
-                        }
                         if lists.isEmpty {
                             newList
                         } else {
@@ -54,12 +41,11 @@ struct SelectListView: View {
                                     }
                                     .swipeActions(edge: .leading,
                                                   allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
-                                        Button {
-                                            
+                                        NavigationLink {
+                                            EditCustomList(list: item)
                                         } label: {
                                             Label("Edit", systemImage: "pencil")
                                         }
-                                        .tint(SettingsStore.shared.appTheme.color)
                                     }
                                     .swipeActions(edge: .trailing,
                                                   allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
@@ -106,24 +92,6 @@ struct SelectListView: View {
         }
     }
     
-    private var defaultList: some View {
-        HStack {
-            if selectedList == nil {
-                Image(systemName: "checkmark.circle.fill")
-                    .appTint()
-            } else {
-                Image(systemName: "circle")
-            }
-            VStack(alignment: .leading) {
-                Text("Watchlist")
-                Text("Default List")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-        .disabled(isEditing)
-    }
-    
     private var newList: some View {
         NavigationLink {
             NewCustomListView(presentView: $showListSelection)
@@ -139,6 +107,31 @@ struct SelectListView: View {
 //    }
 //}
 
+private struct DefaultListRow: View {
+    @Binding var selectedList: CustomList?
+    @Environment(\.editMode) private var editMode
+    var body: some View {
+        HStack {
+            if editMode?.wrappedValue.isEditing ?? false {
+                EmptyView()
+            } else {
+                if selectedList == nil {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(SettingsStore.shared.appTheme.color)
+                } else {
+                    Image(systemName: "circle")
+                }
+            }
+            VStack(alignment: .leading) {
+                Text("Watchlist")
+                Text("Default List")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+
 private struct ListRowItem: View {
     let list: CustomList
     @State private var isSelected = false
@@ -151,7 +144,7 @@ private struct ListRowItem: View {
             } else {
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
-                        .appTint()
+                        .foregroundColor(SettingsStore.shared.appTheme.color)
                 } else {
                     Image(systemName: "circle")
                 }
@@ -161,6 +154,7 @@ private struct ListRowItem: View {
                 Text(list.itemGlanceInfo)
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
             }
             Spacer()
             if list.shared {

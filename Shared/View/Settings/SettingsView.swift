@@ -18,7 +18,7 @@ struct SettingsView: View {
             Form {
                 developer
                 general
-                PrivacySupportSetting()
+                privacySupport
                 Button {
                     requestReview()
                 } label: {
@@ -59,8 +59,24 @@ struct SettingsView: View {
             NavigationLink(destination: SyncSetting()) {
                 Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
             }
+            NavigationLink(destination: EmptyView()) {
+                Label("settingsNotificationsTitle", systemImage: "bell.fill")
+            }
         } header: {
             Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
+        }
+    }
+    
+    private var privacySupport: some View {
+        Section {
+            NavigationLink(destination: PrivacySupportSetting()) {
+                Label("Privacy", systemImage: "hand.raised")
+            }
+            NavigationLink(destination: FeedbackSettingsView()) {
+                Label("settingsFeedbackTitle", systemImage: "mail")
+            }
+        } header: {
+            
         }
     }
     

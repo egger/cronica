@@ -19,6 +19,7 @@ class SettingsStore: ObservableObject {
 #endif
     @AppStorage("disableTranslucentBackground") var disableTranslucent = false
     @AppStorage("disableTelemetry") var disableTelemetry = false
+    @AppStorage("deleteConfirmation") var deleteConfirmation = false
     @AppStorage("user_theme") var currentTheme: AppTheme = .system
     @AppStorage("openInYouTube") var openInYouTube = false
     @AppStorage("markEpisodeWatchedTap") var markEpisodeWatchedOnTap = false

@@ -22,6 +22,11 @@ struct WatchlistItemContextMenu: ViewModifier {
     @AppStorage("primaryRightSwipe") private var primaryRightSwipe: SwipeGestureOptions = .delete
     @AppStorage("secondaryRightSwipe") private var secondaryRightSwipe: SwipeGestureOptions = .markArchive
     @AppStorage("allowFullSwipe") private var allowFullSwipe = false
+    @Environment(\.managedObjectContext) var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+        animation: .default)
+    private var lists: FetchedResults<CustomList>
     func body(content: Content) -> some View {
 #if os(watchOS)
         return content
@@ -64,11 +69,74 @@ struct WatchlistItemContextMenu: ViewModifier {
                 favoriteButton
                 pinButton
                 archiveButton
+                addNote
+                addToList
                 Divider()
                 deleteButton
             } preview: {
                 previewView
             }
+#endif
+    }
+    
+    private var addNote: some View {
+#if os(iOS)
+        Button {
+            
+        } label: {
+            if let note = item.note {
+                if !note.isEmpty {
+                    Label("openNote", systemImage: "note.text")
+                }
+            }
+            Label("addNote", systemImage: "note.text.badge.plus")
+        }
+#else
+        EmptyView()
+#endif
+    }
+    
+    private var addToList: some View {
+#if os(iOS)
+        Menu {
+            ForEach(lists) { list in
+                Button {
+                    
+                } label: {
+                    if let addedList = item.list {
+                        if list == addedList {
+                            HStack {
+                                Image(systemName: "checkmark")
+                                Text(list.itemTitle)
+                            }
+                        }
+                    } else {
+                        Text(list.itemTitle)
+                    }
+                    Text(list.itemTitle)
+//                    if let addedList = item.list {
+//                        if let managedObjects = addedList as? Set<CustomList> {
+//                            ForEach(managedObjects, id: \.self) { item in
+//
+//                            }
+//                        }
+//                        if list == addedList {
+//                            HStack {
+//                                Image(systemName: "checkmark")
+//                                Text(list.itemTitle)
+//                            }
+//                        }
+//                    } else {
+//                        Text(list.itemTitle)
+//                    }
+                }
+                
+            }
+        } label: {
+            Label("addToList", systemImage: "rectangle.on.rectangle.angled")
+        }
+#else
+        EmptyView()
 #endif
     }
     
@@ -82,7 +150,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     @ViewBuilder
     private var primaryLeftSwipeActions: some View {
-        switch primaryLeftSwipe {
+        switch SettingsStore.shared.primaryLeftSwipe {
         case .markWatch:
             watchedButton
                 .tint(item.isWatched ? .yellow : .green)
@@ -230,6 +298,7 @@ struct WatchlistItemContextMenu: ViewModifier {
                     }
                 }
         }
+        .appTheme()
 #endif
     }
     

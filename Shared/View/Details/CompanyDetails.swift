@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CompanyDetails: View {
     let company: ProductionCompany
@@ -13,6 +14,7 @@ struct CompanyDetails: View {
     @StateObject private var viewModel = CompanyDetailsViewModel()
     var body: some View {
         ZStack {
+            if !viewModel.isLoaded { ProgressView() }
             VStack {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns))], spacing: 20) {
@@ -37,6 +39,7 @@ struct CompanyDetails: View {
                     .padding()
                 }
             }
+            .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             .navigationTitle(company.name)
             .onAppear {
                 Task {
@@ -75,10 +78,40 @@ struct CompanyDetails: View {
     }
 }
 
-struct CompanyDetails_Previews: PreviewProvider {
-    static private let company = ProductionCompany(name: "PlayStation Productions", id: 125281)
-    static var previews: some View {
-        CompanyDetails(company: company)
+//struct CompanyDetails_Previews: PreviewProvider {
+//    static private let company = ProductionCompany(name: "PlayStation Productions", id: 125281)
+//    static var previews: some View {
+//        CompanyDetails(company: company)
+//    }
+//}
+
+struct CompaniesListView: View {
+    let companies: [ProductionCompany]
+    var body: some View {
+        if companies.isEmpty {
+            
+        } else {
+            List(companies, id: \.self) { item in
+                NavigationLink(value: item) {
+                    HStack {
+                        ZStack {
+                            Rectangle()
+                                .fill(.white.opacity(0.6))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            WebImage(url: item.logoUrl)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 40, height: 20)
+                                .padding()
+                        }
+                        .frame(width: 40, height: 20)
+                        .padding()
+                        Text(item.name)
+                    }
+                }
+            }
+            .navigationTitle("companiesTitle")
+        }
     }
 }
 

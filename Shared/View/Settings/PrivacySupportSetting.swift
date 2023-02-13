@@ -11,6 +11,20 @@ struct PrivacySupportSetting: View {
     @AppStorage("disableTelemetry") private var disableTelemetry = false
     @State private var showPolicy = false
     var body: some View {
+        #if os(iOS)
+        Form {
+            section
+            
+        }
+        .navigationTitle("")
+        #else
+        section
+        #endif
+        
+        
+    }
+    
+    private var section: some View {
         Section {
 #if os(iOS) || os(macOS)
             Button {
@@ -30,7 +44,7 @@ struct PrivacySupportSetting: View {
             .buttonStyle(.link)
 #endif
 #endif
-#if os(iOS) || os(tvOS)
+#if os(tvOS)
             NavigationLink(destination: FeedbackSettingsView()) {
                 Label("settingsFeedbackTitle", systemImage: "mail")
             }

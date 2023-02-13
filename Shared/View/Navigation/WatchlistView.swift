@@ -23,14 +23,48 @@ struct WatchlistView: View {
     @State private var showListSelection = false
     @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
     @State private var selectedList: CustomList?
+    @State private var displayList = false
+    @State private var customListItems = [WatchlistItem]()
     var body: some View {
         VStack {
-            switch settings.watchlistStyle {
-            case .list: listStyle
-            case .poster: posterStyle
-            case .card: frameStyle
+            if displayList {
+                if !customListItems.isEmpty {
+                    WatchListSection(items: customListItems,
+                                     title: "")
+                }
+            } else {
+                switch settings.watchlistStyle {
+                case .list: listStyle
+                case .poster: posterStyle
+                case .card: frameStyle
+                }
             }
         }
+        .onChange(of: selectedList, perform: { newValue in
+            print(newValue as Any)
+            if let newValue {
+                displayList = true
+                if !customListItems.isEmpty {
+                    customListItems = []
+                }
+                if let items = newValue.items {
+                    let arr = items.allObjects
+                    print(arr as Any)
+                    var itemsList = [WatchlistItem]()
+                    for a in arr {
+                        let watch = a as? WatchlistItem
+                        if let watch {
+                            itemsList.append(watch)
+                        }
+                       
+                    }
+                    customListItems.append(contentsOf: itemsList)
+                }
+            } else {
+                displayList = false
+            }
+            
+        })
         .navigationTitle("")
         .onChange(of: selectedList, perform: { newValue in
             if let newValue {
@@ -71,6 +105,7 @@ struct WatchlistView: View {
             ToolbarItem(placement: .principal) {
                 HStack {
                     Text(navigationTitle)
+                        .lineLimit(1)
                     Image(systemName: "chevron.down")
                         .fontWeight(.bold)
                         .font(.caption)
@@ -291,6 +326,14 @@ extension CustomList {
         return ""
     }
     var itemGlanceInfo: String {
+        if let notes {
+            if !notes.isEmpty {
+                return notes
+            }
+        }
+        if let items {
+            return "\(items.count) items"
+        }
         return "Last update on \(itemLastUpdateFormatted)"
     }
 }

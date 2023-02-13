@@ -3,10 +3,11 @@
     <entity name="CustomList" representedClassName="CustomList" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="shared" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="items" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WatchlistItem" inverseName="list" inverseEntity="WatchlistItem"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WatchlistItem" inverseName="list" inverseEntity="WatchlistItem"/>
     </entity>
     <entity name="WatchlistItem" representedClassName="WatchlistItem" syncable="YES" codeGenerationType="class">
         <attribute name="contentID" optional="YES" attributeType="String"/>
@@ -30,6 +31,7 @@
         <attribute name="mediumPosterImage" optional="YES" attributeType="URI"/>
         <attribute name="nextEpisodeNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nextSeasonNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note" attributeType="String" defaultValueString=""/>
         <attribute name="notify" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="schedule" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="shouldNotify" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
@@ -38,6 +40,6 @@
         <attribute name="upcomingSeason" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="watched" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="watchedEpisodes" attributeType="String" defaultValueString=""/>
-        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomList" inverseName="items" inverseEntity="CustomList"/>
+        <relationship name="list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CustomList" inverseName="items" inverseEntity="CustomList"/>
     </entity>
 </model>

@@ -29,13 +29,21 @@ struct InformationSectionView: View {
                 InfoView(title: NSLocalizedString("Region of Origin",
                                                   comment: ""),
                          content: item?.itemCountry)
+                if let companies = item?.itemCompanies, let company = companies.first {
+                    if !companies.isEmpty {
+                        NavigationLink(value: companies) {
+                            InfoView(title: NSLocalizedString("Production Company",
+                                                              comment: ""),
+                                     content: company.name)
+                        }
+                    }
+                }
                 if let company = item?.productionCompanies?.first {
                     NavigationLink(value: company) {
                         InfoView(title: NSLocalizedString("Production Company",
                                                           comment: ""),
                                  content: company.name)
                     }
-                    .buttonStyle(.plain)
                 } else {
                     InfoView(title: NSLocalizedString("Production Company",
                                                       comment: ""),
