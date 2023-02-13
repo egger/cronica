@@ -47,19 +47,7 @@ struct WatchlistView: View {
                 if !customListItems.isEmpty {
                     customListItems = []
                 }
-                if let items = newValue.items {
-                    let arr = items.allObjects
-                    print(arr as Any)
-                    var itemsList = [WatchlistItem]()
-                    for a in arr {
-                        let watch = a as? WatchlistItem
-                        if let watch {
-                            itemsList.append(watch)
-                        }
-                       
-                    }
-                    customListItems.append(contentsOf: itemsList)
-                }
+                customListItems.append(contentsOf: newValue.listItems)
             } else {
                 displayList = false
             }
@@ -105,6 +93,7 @@ struct WatchlistView: View {
             ToolbarItem(placement: .principal) {
                 HStack {
                     Text(navigationTitle)
+                        .fontWeight(.bold)
                         .lineLimit(1)
                     Image(systemName: "chevron.down")
                         .fontWeight(.bold)
@@ -312,28 +301,5 @@ struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
-
-extension CustomList {
-    var itemTitle: String {
-        return title ?? "Not Found"
-    }
-    var itemLastUpdateFormatted: String {
-        if let updatedDate {
-            return updatedDate.convertDateToShortString()
-        }
-        return ""
-    }
-    var itemGlanceInfo: String {
-        if let notes {
-            if !notes.isEmpty {
-                return notes
-            }
-        }
-        if let items {
-            return "\(items.count) items"
-        }
-        return "Last update on \(itemLastUpdateFormatted)"
     }
 }

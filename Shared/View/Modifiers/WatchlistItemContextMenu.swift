@@ -103,32 +103,14 @@ struct WatchlistItemContextMenu: ViewModifier {
                 Button {
                     
                 } label: {
-                    if let addedList = item.list {
-                        if list == addedList {
-                            HStack {
-                                Image(systemName: "checkmark")
-                                Text(list.itemTitle)
-                            }
+                    if item.itemLists.contains(list) {
+                        HStack {
+                            Image(systemName: "checkmark")
+                            Text(list.itemTitle)
                         }
                     } else {
                         Text(list.itemTitle)
                     }
-                    Text(list.itemTitle)
-//                    if let addedList = item.list {
-//                        if let managedObjects = addedList as? Set<CustomList> {
-//                            ForEach(managedObjects, id: \.self) { item in
-//
-//                            }
-//                        }
-//                        if list == addedList {
-//                            HStack {
-//                                Image(systemName: "checkmark")
-//                                Text(list.itemTitle)
-//                            }
-//                        }
-//                    } else {
-//                        Text(list.itemTitle)
-//                    }
                 }
                 
             }
