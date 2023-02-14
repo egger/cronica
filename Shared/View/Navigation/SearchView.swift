@@ -63,7 +63,10 @@ struct SearchView: View {
                 DetailedPeopleList(items: items)
             }
             .navigationDestination(for: ProductionCompany.self) { item in
-                CompanyDetails(company: item)
+                //CompanyDetails(company: item)
+            }
+            .navigationDestination(for: [ProductionCompany].self) { item in
+                //CompaniesListView(companies: item)
             }
             .searchable(text: $viewModel.query,
                         placement: .navigationBarDrawer(displayMode: .always),

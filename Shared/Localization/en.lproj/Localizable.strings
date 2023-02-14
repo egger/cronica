@@ -477,6 +477,7 @@
 "shareList" = "Share List";
 "listBasicHeader" = "Basic";
 "newCustomListTitle" = "New List";
+"listDescription" = "List Description";
 "createList" = "Save";
 "newList" = "New List";
 "createList" = "Create New List";
@@ -487,7 +488,8 @@
 "" = "";
 "" = "";
 "" = "";
-"" = "";
-"" = "";
+"listItemsToAdd" = "Select Items";
+"cantSendFeedback" = "To send feedback in-app, you must disable 'Disable Crash Reports'";
 "addToList" = "Add to List...";
 "addNote" = "Add Note";
+"companiesTitle" = "Companies";

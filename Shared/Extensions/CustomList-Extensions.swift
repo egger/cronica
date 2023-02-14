@@ -28,6 +28,12 @@ extension CustomList {
         }
         return NSLocalizedString("Last update on \(itemLastUpdateFormatted)", comment: "")
     }
+    var itemListHeader: String {
+        if let items {
+            return NSLocalizedString("\(items.count) items", comment: "")
+        }
+        return ""
+    }
     var listItems: Set<WatchlistItem> {
         let set = items as? Set<WatchlistItem> ?? []
         return set

@@ -37,13 +37,6 @@ struct InformationSectionView: View {
                                      content: company.name)
                         }
                     }
-                }
-                if let company = item?.productionCompanies?.first {
-                    NavigationLink(value: company) {
-                        InfoView(title: NSLocalizedString("Production Company",
-                                                          comment: ""),
-                                 content: company.name)
-                    }
                 } else {
                     InfoView(title: NSLocalizedString("Production Company",
                                                       comment: ""),

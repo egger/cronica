@@ -16,17 +16,11 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var isArchive: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
-    @State private var showDeleteConfirmation = false
-    @AppStorage("primaryLeftSwipe") private var primaryLeftSwipe: SwipeGestureOptions = .markWatch
-    @AppStorage("secondaryLeftSwipe") private var secondaryLeftSwipe: SwipeGestureOptions = .markFavorite
-    @AppStorage("primaryRightSwipe") private var primaryRightSwipe: SwipeGestureOptions = .delete
-    @AppStorage("secondaryRightSwipe") private var secondaryRightSwipe: SwipeGestureOptions = .markArchive
-    @AppStorage("allowFullSwipe") private var allowFullSwipe = false
+    private let settings = SettingsStore.shared
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
-        animation: .default)
-    private var lists: FetchedResults<CustomList>
+        animation: .default) private var lists: FetchedResults<CustomList>
     func body(content: Content) -> some View {
 #if os(watchOS)
         return content
@@ -55,11 +49,11 @@ struct WatchlistItemContextMenu: ViewModifier {
             }
 #else
         return content
-            .swipeActions(edge: .leading, allowsFullSwipe: allowFullSwipe) {
+            .swipeActions(edge: .leading, allowsFullSwipe: settings.allowFullSwipe) {
                 primaryLeftSwipeActions
                 secondaryLeftSwipeActions
             }
-            .swipeActions(edge: .trailing, allowsFullSwipe: allowFullSwipe) {
+            .swipeActions(edge: .trailing, allowsFullSwipe: settings.allowFullSwipe) {
                 primaryRightSwipeActions
                 secondaryRightSwipeActions
             }
@@ -69,7 +63,6 @@ struct WatchlistItemContextMenu: ViewModifier {
                 favoriteButton
                 pinButton
                 archiveButton
-                addNote
                 addToList
                 Divider()
                 deleteButton
@@ -79,43 +72,31 @@ struct WatchlistItemContextMenu: ViewModifier {
 #endif
     }
     
-    private var addNote: some View {
-#if os(iOS)
-        Button {
-            
-        } label: {
-            if let note = item.note {
-                if !note.isEmpty {
-                    Label("openNote", systemImage: "note.text")
-                }
-            }
-            Label("addNote", systemImage: "note.text.badge.plus")
-        }
-#else
-        EmptyView()
-#endif
-    }
-    
+    @ViewBuilder
     private var addToList: some View {
-#if os(iOS)
-        Menu {
-            ForEach(lists) { list in
-                Button {
-                    
-                } label: {
-                    if item.itemLists.contains(list) {
-                        HStack {
-                            Image(systemName: "checkmark")
+#if os(iOS) || os(macOS)
+        if !lists.isEmpty {
+            Menu {
+                ForEach(lists) { list in
+                    Button {
+                        context.updateList(for: item.id, type: item.itemMedia, to: list)
+                    } label: {
+                        if item.itemLists.contains(list) {
+                            HStack {
+                                Image(systemName: "checkmark")
+                                Text(list.itemTitle)
+                            }
+                        } else {
                             Text(list.itemTitle)
                         }
-                    } else {
-                        Text(list.itemTitle)
                     }
+                    
                 }
-                
+            } label: {
+                Label("addToList", systemImage: "rectangle.on.rectangle.angled")
             }
-        } label: {
-            Label("addToList", systemImage: "rectangle.on.rectangle.angled")
+        } else {
+            EmptyView()
         }
 #else
         EmptyView()
@@ -132,7 +113,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     @ViewBuilder
     private var primaryLeftSwipeActions: some View {
-        switch SettingsStore.shared.primaryLeftSwipe {
+        switch settings.primaryLeftSwipe {
         case .markWatch:
             watchedButton
                 .tint(item.isWatched ? .yellow : .green)
@@ -154,7 +135,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     @ViewBuilder
     private var secondaryLeftSwipeActions: some View {
-        switch secondaryLeftSwipe {
+        switch settings.secondaryLeftSwipe {
         case .markWatch:
             watchedButton
                 .tint(item.isWatched ? .yellow : .green)
@@ -176,7 +157,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     @ViewBuilder
     private var primaryRightSwipeActions: some View {
-        switch primaryRightSwipe {
+        switch  settings.primaryRightSwipe {
         case .markWatch:
             watchedButton
                 .tint(item.isWatched ? .yellow : .green)
@@ -198,7 +179,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     @ViewBuilder
     private var secondaryRightSwipeActions: some View {
-        switch secondaryRightSwipe {
+        switch settings.secondaryRightSwipe {
         case .markWatch:
             watchedButton
                 .tint(item.isWatched ? .yellow : .green)

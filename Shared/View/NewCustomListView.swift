@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct NewCustomListView: View {
     @Binding var presentView: Bool
     @State private var title = ""
     @State private var note = ""
-    @State private var showMessage = false
-    @State private var shareList = false
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
@@ -31,23 +30,37 @@ struct NewCustomListView: View {
                     }
                     
                     Section {
-                        Toggle("shareList", isOn: $shareList)
-                    } header: {
-                        Label("listShareHeader", systemImage: "person.3")
-                    } footer: {
-                        Text("listShareFooter")
-                    }
-                    
-                    Section {
-                        List(items) { item in
+                        List(items, id: \.notificationID) { item in
                             HStack {
-                                if itemsToAdd.contains(item) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundColor(SettingsStore.shared.appTheme.color)
-                                } else {
-                                    Image(systemName: "circle")
+                                Image(systemName: itemsToAdd.contains(item) ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(itemsToAdd.contains(item) ? SettingsStore.shared.appTheme.color : nil)
+                                WebImage(url: item.image)
+                                    .resizable()
+                                    .placeholder {
+                                        ZStack {
+                                            Rectangle().fill(.gray.gradient)
+                                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
+                                        }
+                                    }
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 70, height: 50)
+                                    .cornerRadius(6)
+                                    .overlay {
+                                        if itemsToAdd.contains(item) {
+                                            ZStack {
+                                                Rectangle().fill(.black.opacity(0.4))
+                                            }
+                                            .cornerRadius(6)
+                                        }
+                                    }
+                                VStack(alignment: .leading) {
+                                    Text(item.itemTitle)
+                                        .lineLimit(1)
+                                        .foregroundColor(itemsToAdd.contains(item) ? .secondary : nil)
+                                    Text(item.itemMedia.title)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
                                 }
-                                Text(item.itemTitle)
                             }
                             .onTapGesture {
                                 if itemsToAdd.contains(item) {
@@ -55,12 +68,10 @@ struct NewCustomListView: View {
                                 } else {
                                     itemsToAdd.insert(item)
                                 }
-                                
                             }
-                            
                         }
                     } header: {
-                        Text("listAdvancedHeader")
+                        Label("listItemsToAdd", systemImage: "rectangle.on.rectangle")
                     }
                 }
                 .navigationTitle("newCustomListTitle")
@@ -71,10 +82,6 @@ struct NewCustomListView: View {
                     }
                     .disabled(title.isEmpty)
                 }
-                
-                ConfirmationDialogView(showConfirmation: $showMessage,
-                                       message: "newCustomListMessage",
-                                       image: "checkmark.circle.fill")
             }
         }
     }
@@ -87,14 +94,13 @@ struct NewCustomListView: View {
         list.title = title
         list.creationDate = Date()
         list.updatedDate = Date()
-        list.shared = shareList
+        list.shared = false
         list.notes = note
         list.items = itemsToAdd as NSSet
         print(list as Any)
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                showMessage = true
             } catch {
                 let message = ""
                 CronicaTelemetry.shared.handleMessage(message, for: "NewCustomListView.save()")
@@ -113,12 +119,13 @@ struct NewCustomListView_Previews: PreviewProvider {
 }
 
 struct EditCustomList: View {
-    var list: CustomList
+    @State var list: CustomList
     @State private var title = ""
     @State private var note = ""
     @State private var shareList = false
     @State private var hasUnsavedChanges = false
     @State private var disableSaveButton = true
+    @Binding var showListSelection: Bool
     var body: some View {
         Form {
             Section {
@@ -126,21 +133,6 @@ struct EditCustomList: View {
                 TextField("listDescription", text: $note)
             } header: {
                 Label("listBasicHeader", systemImage: "pencil")
-            }
-            
-            Section {
-                Toggle("shareList", isOn: $shareList)
-            } header: {
-                Label("listShareHeader", systemImage: "person.3")
-            } footer: {
-                Text("listShareFooter")
-            }
-            
-            Section {
-                List {
-                    
-                    
-                }
             }
         }
         .onAppear {
@@ -152,11 +144,18 @@ struct EditCustomList: View {
             if newValue != list.itemTitle {
                 disableSaveButton = false
             }
-            
+        })
+        .onChange(of: note, perform: { newValue in
+            if newValue != list.notes {
+                disableSaveButton = false
+            }
         })
         .toolbar {
             Button("Save") {
-                
+                PersistenceController.shared.updateListInformation(list: list,
+                                                                   title: title,
+                                                                   description: note)
+                showListSelection = false
             }
             .disabled(disableSaveButton)
         }

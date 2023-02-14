@@ -13,6 +13,7 @@ struct FeedbackSettingsView: View {
     @State private var showFeedbackAnimation = false
     @AppStorage("disableTelemetry") private var disableTelemetry = false
     @Environment(\.openURL) var openURL
+    @StateObject private var settings = SettingsStore.shared
 #if os(macOS) || os(iOS)
     @State private var supportEmail = SupportEmail()
 #endif
@@ -22,7 +23,9 @@ struct FeedbackSettingsView: View {
                 Section {
                     TextField("Feedback", text: $feedback)
                         .lineLimit(4)
+                        .disabled(settings.disableTelemetry)
                     TextField("Email (optional)", text: $email)
+                        .disabled(settings.disableTelemetry)
 #if os(iOS)
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
@@ -38,9 +41,10 @@ struct FeedbackSettingsView: View {
                     Label("Send feedback", systemImage: "envelope")
                 } footer: {
 #if os(iOS)
-                    Text("Send your suggestions to help improve Cronica.")
                     if disableTelemetry {
                         Text("cantSendFeedback")
+                    } else {
+                        Text("Send your suggestions to help improve Cronica.")
                     }
 #endif
                 }

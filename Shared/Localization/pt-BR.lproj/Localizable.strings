@@ -502,9 +502,11 @@
 "createList" = "Salvar";
 "newList" = "Nova Lista";
 "createList" = "Criar Nova Lista";
+"listDescription" = "Descrição da Lista";
 "yourLists" = "Suas Listas";
 "Lists" = "Listas";
-
-
+"listItemsToAdd" = "Selecione Itens";
+"cantSendFeedback" = "Para enviar feedback no aplicativo, você deve desativar 'Desativar Relatórios de Falhas'";
 "addToList" = "Adicionar à Lista...";
 "addNote" = "Adicionar Nota";
+"companiesTitle" = "Empresas";

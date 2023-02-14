@@ -42,7 +42,8 @@ struct SelectListView: View {
                                     .swipeActions(edge: .leading,
                                                   allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                         NavigationLink {
-                                            EditCustomList(list: item)
+                                            EditCustomList(list: item,
+                                                           showListSelection: $showListSelection)
                                         } label: {
                                             Label("Edit", systemImage: "pencil")
                                         }
@@ -50,16 +51,14 @@ struct SelectListView: View {
                                     .swipeActions(edge: .trailing,
                                                   allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                         Button(role: .destructive) {
-                                            
+                                            PersistenceController.shared.delete(item)
                                         } label: {
                                             Label("Delete", systemImage: "trash")
                                         }
                                         .tint(.red)
                                     }
                             }
-                            .onDelete { _ in
-                                
-                            }
+                            .onDelete(perform: delete)
                         }
                     }
                 } header: {
@@ -97,6 +96,12 @@ struct SelectListView: View {
             NewCustomListView(presentView: $showListSelection)
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")
+        }
+    }
+    
+    private func delete(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { lists[$0] }.forEach(PersistenceController.shared.delete)
         }
     }
 }
