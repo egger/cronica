@@ -17,7 +17,9 @@ struct DefaultWatchlist: View {
     @State private var query = ""
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
+#if os(iOS)
     @Environment(\.editMode) private var editMode
+#endif
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -29,21 +31,15 @@ struct DefaultWatchlist: View {
             }
         }
         .toolbar {
+#if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
-                Menu {
-                    Picker(selection: $selectedOrder, content: {
-                        ForEach(DefaultListTypes.allCases) { sort in
-                            Text(sort.title).tag(sort)
-                        }
-                    }, label: {
-                        EmptyView()
-                    })
-                } label: {
-                    Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
-                        .labelStyle(.iconOnly)
-                }
+                filterMenu
             }
+#else
+            filterMenu
+#endif
         }
+#if os(iOS)
         .searchable(text: $query,
                     placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
                     prompt: "Search watchlist")
@@ -65,6 +61,22 @@ struct DefaultWatchlist: View {
                 CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                       for: "WatchlistView.task(id: query)")
             }
+        }
+#endif
+    }
+    
+    private var filterMenu: some View {
+        Menu {
+            Picker(selection: $selectedOrder, content: {
+                ForEach(DefaultListTypes.allCases) { sort in
+                    Text(sort.title).tag(sort)
+                }
+            }, label: {
+                EmptyView()
+            })
+        } label: {
+            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
+                .labelStyle(.iconOnly)
         }
     }
     

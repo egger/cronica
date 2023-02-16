@@ -13,7 +13,9 @@ struct CustomWatchlist: View {
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
     @State private var scope: WatchlistSearchScope = .noScope
+#if os(iOS)
     @Environment(\.editMode) private var editMode
+#endif
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -32,6 +34,7 @@ struct CustomWatchlist: View {
                 items.append(contentsOf: list.listItems.sorted { $0.itemTitle < $1.itemTitle })
             }
         })
+#if os(iOS)
         .searchable(text: $query,
                     placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
                     prompt: "Search watchlist")
@@ -54,6 +57,7 @@ struct CustomWatchlist: View {
                                                       for: "WatchlistView.task(id: query)")
             }
         }
+#endif
     }
     
     

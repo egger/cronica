@@ -10,216 +10,73 @@ import SDWebImageSwiftUI
 
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
-    @Environment(\.managedObjectContext) var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<WatchlistItem>
-    @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
-    @State private var isSearching = false
-    @State private var filteredItems = [WatchlistItem]()
-    @State private var query = ""
-    @State private var scope: WatchlistSearchScope = .noScope
     @StateObject private var settings = SettingsStore.shared
+    @State private var showListSelection = false
+    @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
+    @State private var selectedList: CustomList?
+    @State private var displayList = false
+    @State private var isRotating = 0.0
     var body: some View {
         NavigationStack {
             VStack {
-                switch settings.watchlistStyle {
-                case .list: listStyle
-                case .poster: posterStyle
-                case .card: frameStyle
+                if selectedList != nil {
+                    CustomWatchlist(selectedList: $selectedList)
+                } else {
+                    DefaultWatchlist()
                 }
             }
-            .navigationTitle("Watchlist")
-            .searchable(text: $query, prompt: "Search watchlist")
-            .searchScopes($scope) {
-                ForEach(WatchlistSearchScope.allCases) { scope in
-                    Text(scope.localizableTitle).tag(scope)
+            .navigationTitle("")
+            .onChange(of: selectedList, perform: { newValue in
+                if let newValue {
+                    navigationTitle = newValue.itemTitle
+                } else {
+                    navigationTitle = NSLocalizedString("Watchlist", comment: "")
                 }
+            })
+            .sheet(isPresented: $showListSelection) {
+                SelectListView(selectedList: $selectedList,
+                               navigationTitle: $navigationTitle,
+                               showListSelection: $showListSelection)
+                .frame(width: 480, height: 400, alignment: .center)
             }
-            .autocorrectionDisabled()
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
             }
             .navigationDestination(for: ItemContent.self) { item in
                 ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
             }
-            .navigationDestination(for: [String:[ItemContent]].self, destination: { item in
+            .navigationDestination(for: [String:[ItemContent]].self) { item in
                 let keys = item.map { (key, value) in key }
                 let value = item.map { (key, value) in value }
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
-            })
+            }
             .toolbar {
-                ToolbarItem {
-                    Picker(selection: $selectedOrder, content: {
-                        ForEach(DefaultListTypes.allCases) { sort in
-                            Text(sort.title).tag(sort)
-                        }
-                    }, label: {
-                        Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
-                            .labelStyle(.iconOnly)
-                    })
-                }
-            }
-            .dropDestination(for: ItemContent.self) { items, _  in
-                fetchDroppedItems(for: items)
-                return true
-            }
-            .task(id: query) {
-                do {
-                    isSearching = true
-                    try await Task.sleep(nanoseconds: 300_000_000)
-                    if !filteredItems.isEmpty { filteredItems.removeAll() }
-                    withAnimation {
-                        filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+                // Acts like a navigationTitle
+                ToolbarItem(placement: .navigation) {
+                    HStack {
+                        Text(navigationTitle)
+                            .fontWeight(Font.Weight.semibold)
+                            .lineLimit(1)
+                            .foregroundColor(showListSelection ? .secondary : nil)
+                        Image(systemName: "chevron.down")
+                            .fontWeight(.bold)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .rotationEffect(.degrees(isRotating))
+                            .onChange(of: showListSelection) { value in
+                                
+                                withAnimation {
+                                    if value {
+                                        isRotating = -180.0
+                                    } else {
+                                        isRotating = 0.0
+                                    }
+                                }
+                            }
                     }
-                    isSearching = false
-                } catch {
-                    if Task.isCancelled { return }
-                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                                    for: "WatchlistView.task(id: query)")
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var listStyle: some View {
-        if items.isEmpty {
-            Text("Your list is empty.")
-                .font(.headline)
-                .foregroundColor(.secondary)
-                .padding()
-        } else {
-            if !filteredItems.isEmpty {
-                switch scope {
-                case .noScope:
-                    WatchListSection(items: filteredItems,
-                                     title: "Search results")
-                case .movies:
-                    WatchListSection(items: filteredItems.filter { $0.isMovie },
-                                     title: "Search results")
-                case .shows:
-                    WatchListSection(items: filteredItems.filter { $0.isTvShow },
-                                     title: "Search results")
-                }
-                
-            } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
-                Text("No results")
-            } else {
-                switch selectedOrder {
-                case .released:
-                    WatchListSection(items: items.filter { $0.isReleased },
-                                     title: DefaultListTypes.released.title)
-                case .upcoming:
-                    WatchListSection(items: items.filter { $0.isUpcoming },
-                                     title: DefaultListTypes.upcoming.title)
-                case .production:
-                    WatchListSection(items: items.filter { $0.isInProduction },
-                                     title: DefaultListTypes.production.title)
-                case .favorites:
-                    WatchListSection(items: items.filter { $0.isFavorite },
-                                     title: DefaultListTypes.favorites.title)
-                case .watched:
-                    WatchListSection(items: items.filter { $0.isWatched },
-                                     title: DefaultListTypes.watched.title)
-                case .pin:
-                    WatchListSection(items: items.filter { $0.isPin },
-                                     title: DefaultListTypes.pin.title)
-                case .archive:
-                    WatchListSection(items: items.filter { $0.isArchive },
-                                     title: DefaultListTypes.archive.title)
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var frameStyle: some View {
-        EmptyView()
-        if !filteredItems.isEmpty {
-            WatchlistCardSection(items: filteredItems, title: "Search results")
-        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-            noResults
-        } else {
-            switch selectedOrder {
-            case .released:
-                WatchlistCardSection(items: items.filter { $0.isReleased },
-                                     title: DefaultListTypes.released.title)
-            case .upcoming:
-                WatchlistCardSection(items: items.filter { $0.isUpcoming },
-                                     title: DefaultListTypes.upcoming.title)
-            case .production:
-                WatchlistCardSection(items: items.filter { $0.isInProduction },
-                                     title: DefaultListTypes.production.title)
-            case .watched:
-                WatchlistCardSection(items: items.filter { $0.isWatched },
-                                     title: DefaultListTypes.watched.title)
-            case .favorites:
-                WatchlistCardSection(items: items.filter { $0.isFavorite },
-                                     title: DefaultListTypes.favorites.title)
-            case .pin:
-                WatchlistCardSection(items: items.filter { $0.isPin },
-                                     title: DefaultListTypes.pin.title)
-            case .archive:
-                WatchlistCardSection(items: items.filter { $0.isArchive },
-                                     title: DefaultListTypes.archive.title)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var posterStyle: some View {
-        if !filteredItems.isEmpty {
-            WatchlistPosterSection(items: filteredItems, title: "Search results")
-        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-            noResults
-        } else {
-            switch selectedOrder {
-            case .released:
-                WatchlistPosterSection(items: items.filter { $0.isReleased },
-                                       title: DefaultListTypes.released.title)
-            case .upcoming:
-                WatchlistPosterSection(items: items.filter { $0.isUpcoming },
-                                       title: DefaultListTypes.upcoming.title)
-            case .production:
-                WatchlistPosterSection(items: items.filter { $0.isInProduction },
-                                       title: DefaultListTypes.production.title)
-            case .watched:
-                WatchlistPosterSection(items: items.filter { $0.isWatched },
-                                       title: DefaultListTypes.watched.title)
-            case .favorites:
-                WatchlistPosterSection(items: items.filter { $0.isFavorite },
-                                       title: DefaultListTypes.favorites.title)
-            case .pin:
-                WatchlistPosterSection(items: items.filter { $0.isPin },
-                                       title: DefaultListTypes.pin.title)
-            case .archive:
-                WatchlistPosterSection(items: items.filter { $0.isArchive },
-                                       title: DefaultListTypes.archive.title)
-            }
-        }
-    }
-    
-    private var noResults: some View {
-        CenterHorizontalView {
-            Text("No results")
-                .font(.headline)
-                .foregroundColor(.secondary)
-                .padding()
-        }
-    }
-    
-    private func fetchDroppedItems(for items: [ItemContent]) {
-        Task {
-            for item in items {
-                do {
-                    let content = try await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                    PersistenceController.shared.save(content)
-                } catch {
-                    if Task.isCancelled { return }
-                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                          for: "WatchlistView.fetchDroppedItems")
+                    .onTapGesture {
+                        showListSelection.toggle()
+                    }
                 }
             }
         }

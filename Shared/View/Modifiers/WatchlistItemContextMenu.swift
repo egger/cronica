@@ -83,8 +83,13 @@ struct WatchlistItemContextMenu: ViewModifier {
                     } label: {
                         if item.itemLists.contains(list) {
                             HStack {
+#if os(iOS)
                                 Image(systemName: "checkmark")
+#endif
                                 Text(list.itemTitle)
+#if os(macOS)
+                                Image(systemName: "checkmark")
+#endif
                             }
                         } else {
                             Text(list.itemTitle)
@@ -326,7 +331,12 @@ struct WatchlistItemContextMenu: ViewModifier {
                 context.delete(item)
             }
         }, label: {
+#if os(macOS)
+            Text("Remove")
+                .foregroundColor(.red)
+#else
             Label("Remove", systemImage: "trash")
+#endif
         })
         .tint(.red)
     }

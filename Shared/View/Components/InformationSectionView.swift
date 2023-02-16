@@ -36,6 +36,9 @@ struct InformationSectionView: View {
                                                               comment: ""),
                                      content: company.name)
                         }
+#if os(macOS)
+                        .buttonStyle(.link)
+#endif
                     }
                 } else {
                     InfoView(title: NSLocalizedString("Production Company",

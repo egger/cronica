@@ -13,7 +13,7 @@ struct WatchlistView: View {
     @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
     @State private var selectedList: CustomList?
     @State private var displayList = false
-    @State private var customListItems = [WatchlistItem]()
+    @State private var isRotating = 0.0
     var body: some View {
         VStack {
             if selectedList != nil {
@@ -30,12 +30,20 @@ struct WatchlistView: View {
                 navigationTitle = NSLocalizedString("Watchlist", comment: "")
             }
         })
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+#endif
         .navigationDestination(for: WatchlistItem.self) { item in
+#if os(macOS)
+#else
             ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+#endif
         }
         .navigationDestination(for: ItemContent.self) { item in
+#if os(macOS)
+#else
             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#endif
         }
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)
@@ -67,10 +75,30 @@ struct WatchlistView: View {
                     Text(navigationTitle)
                         .fontWeight(Font.Weight.semibold)
                         .lineLimit(1)
+                        .foregroundColor(showListSelection ? .secondary : nil)
                     Image(systemName: "chevron.down")
                         .fontWeight(.bold)
                         .font(.caption)
                         .foregroundColor(.secondary)
+                        .rotationEffect(.degrees(isRotating))
+                        .task(id: showListSelection, {
+                            withAnimation(Animation.easeInOut(duration: 0.1)) {
+                                if showListSelection {
+                                    isRotating = -180.0
+                                } else {
+                                    isRotating = 0.0
+                                }
+                            }
+                        })
+//                        .onChange(of: showListSelection) { value in
+//                            withAnimation(Animation.easeInOut(duration: 0.1)) {
+//                                if value {
+//                                    isRotating = -180.0
+//                                } else {
+//                                    isRotating = 0.0
+//                                }
+//                            }
+//                        }
                 }
                 .onTapGesture {
                     showListSelection.toggle()

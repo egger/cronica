@@ -16,7 +16,6 @@ struct EpisodeFrameView: View {
     let show: Int
     var itemLink: URL
     private let persistence = PersistenceController.shared
-    @AppStorage("markEpisodeWatchedTap") private var episodeTap = false
     @State private var isWatched = false
     @State private var showDetails = false
     @Binding var isInWatchlist: Bool
@@ -46,7 +45,7 @@ struct EpisodeFrameView: View {
                             }
                         }
                     }
-                    if episodeTap {
+                    if SettingsStore.shared.markEpisodeWatchedOnTap {
                         Button("Show Details") {
                             showDetails.toggle()
                         }
@@ -87,7 +86,7 @@ struct EpisodeFrameView: View {
 #if os(macOS)
             markAsWatched()
 #else
-            if episodeTap {
+            if SettingsStore.shared.markEpisodeWatchedOnTap {
                 markAsWatched()
                 return
             }
@@ -101,8 +100,8 @@ struct EpisodeFrameView: View {
                 isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
             }
         }
-        .sheet(isPresented: $showDetails, content: {
-#if os(iOS) || os(macOS)
+        .sheet(isPresented: $showDetails) {
+#if os(iOS)
             NavigationStack {
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
@@ -115,11 +114,8 @@ struct EpisodeFrameView: View {
                     }
             }
             .appTheme()
-#if os(macOS)
-            .presentationDetents([.medium])
 #endif
-#endif
-        })
+        }
     }
     
     private var image: some View {

@@ -18,9 +18,7 @@ struct CronicaMacApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
-                .tint(settings.appTheme.color)
                 .fontDesign(.rounded)
-                .appTheme()
         }
         
         Settings {

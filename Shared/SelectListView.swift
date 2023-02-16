@@ -18,85 +18,122 @@ struct SelectListView: View {
     @Binding var showListSelection: Bool
     @State private var showAllItems = true
     @State private var showDeleteConfirmation = true
+#if os(iOS)
     @Environment(\.editMode) private var editMode
+#elseif os(macOS)
+    @State private var isCreateNewListPresented = false
+#endif
     @State private var isEditing = false
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    List {
-                        DefaultListRow(selectedList: $selectedList)
-                            .onTapGesture {
-                                selectedList = nil
-                                showListSelection.toggle()
-                            }
-                        if lists.isEmpty {
-                            newList
-                        } else {
-                            ForEach(lists) { item in
-                                ListRowItem(list: item, selectedList: $selectedList)
-                                    .onTapGesture {
-                                        selectedList = item
-                                        showListSelection.toggle()
-                                    }
-                                    .swipeActions(edge: .leading,
-                                                  allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
-                                        NavigationLink {
-                                            EditCustomList(list: item,
-                                                           showListSelection: $showListSelection)
-                                        } label: {
-                                            Label("Edit", systemImage: "pencil")
-                                        }
-                                    }
-                                    .swipeActions(edge: .trailing,
-                                                  allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
-                                        Button(role: .destructive) {
-                                            PersistenceController.shared.delete(item)
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
-                                        }
-                                        .tint(.red)
-                                    }
-                            }
-                            .onDelete(perform: delete)
+#if os(iOS)
+            form
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        doneButton
+                    }
+                    ToolbarItem {
+                        if !lists.isEmpty { newList }
+                    }
+                }
+#elseif os(macOS)
+            form
+                .formStyle(.grouped)
+                .toolbar {
+                    if !isCreateNewListPresented {
+                        ToolbarItem(placement: .automatic) {
+                            if !lists.isEmpty { newList }
                         }
                     }
-                } header: {
-                    HStack {
-                        Label("yourLists", systemImage: "rectangle.on.rectangle.angled")
-                        Spacer()
-                        if !lists.isEmpty { EditButton() }
+                    ToolbarItem(placement: .cancellationAction) {
+                        doneButton
+                            .buttonStyle(.link)
                     }
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Done") {
-                        showListSelection.toggle()
+#endif
+        }
+        
+    }
+    
+    
+    private var form: some View {
+        Form {
+            Section {
+                List {
+                    // default list selector
+                    DefaultListRow(selectedList: $selectedList)
+                        .onTapGesture {
+                            selectedList = nil
+                            showListSelection.toggle()
+                        }
+                    // if empty, offers a more visual way to create new list
+                    if lists.isEmpty { newList }
+                    else  {
+                        ForEach(lists) { item in
+                            ListRowItem(list: item, selectedList: $selectedList)
+                                .onTapGesture {
+                                    selectedList = item
+                                    showListSelection.toggle()
+                                }
+                                .contextMenu {
+                                    deleteButton
+                                }
+                                .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
+                                    NavigationLink {
+                                        EditCustomList(list: item, showListSelection: $showListSelection)
+                                    } label: {
+                                        Label("Edit", systemImage: "pencil")
+                                    }
+                                    
+                                }
+                        }
                     }
                 }
-                ToolbarItem {
-                    if !lists.isEmpty { newList }
+            } header: {
+                HStack {
+                    Label("yourLists", systemImage: "rectangle.on.rectangle.angled")
+                    Spacer()
+#if os(iOS)
+                    if !lists.isEmpty { EditButton() }
+#endif
                 }
             }
         }
-        .appTint()
-        .appTheme()
-        .onChange(of: editMode?.wrappedValue) { newValue in
-            if let newValue {
-                isEditing = newValue.isEditing
-            } else {
-                isEditing = false
-            }
+    }
+    
+    private var deleteButton: some View {
+        Button(role: .destructive) {
+            
+        } label: {
+#if os(macOS)
+            Text("Delete")
+                .foregroundColor(.red)
+#else
+            Label("Delete", systemImage: "trash")
+#endif
+        }
+        .tint(.red)
+    }
+    
+    private var doneButton: some View {
+        Button("Done") {
+            showListSelection.toggle()
         }
     }
     
     private var newList: some View {
         NavigationLink {
+#if os(iOS)
             NewCustomListView(presentView: $showListSelection)
+#else
+            NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection)
+#endif
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")
         }
+#if os(macOS)
+        .buttonStyle(.link)
+#endif
     }
     
     private func delete(offsets: IndexSet) {
@@ -104,6 +141,11 @@ struct SelectListView: View {
             offsets.map { lists[$0] }.forEach(PersistenceController.shared.delete)
         }
     }
+}
+
+enum CustomNavigationMac: String, Identifiable, CaseIterable {
+    var id: String { rawValue }
+    case newList
 }
 
 //struct SelectListView_Previews: PreviewProvider {
@@ -114,19 +156,20 @@ struct SelectListView: View {
 
 private struct DefaultListRow: View {
     @Binding var selectedList: CustomList?
+#if os(iOS)
     @Environment(\.editMode) private var editMode
+#endif
     var body: some View {
         HStack {
+#if os(macOS)
+            checkStage
+#else
             if editMode?.wrappedValue.isEditing ?? false {
                 EmptyView()
             } else {
-                if selectedList == nil {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(SettingsStore.shared.appTheme.color)
-                } else {
-                    Image(systemName: "circle")
-                }
+                checkStage
             }
+#endif
             VStack(alignment: .leading) {
                 Text("Watchlist")
                 Text("Default List")
@@ -135,25 +178,36 @@ private struct DefaultListRow: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private var checkStage: some View {
+        if selectedList == nil {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(SettingsStore.shared.appTheme.color)
+        } else {
+            Image(systemName: "circle")
+        }
+    }
 }
 
 private struct ListRowItem: View {
     let list: CustomList
     @State private var isSelected = false
     @Binding var selectedList: CustomList?
+#if os(iOS)
     @Environment(\.editMode) private var editMode
+#endif
     var body: some View {
         HStack {
+#if os(macOS)
+            checkStage
+#else
             if editMode?.wrappedValue.isEditing ?? false {
                 EmptyView()
             } else {
-                if isSelected {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(SettingsStore.shared.appTheme.color)
-                } else {
-                    Image(systemName: "circle")
-                }
+                checkStage
             }
+#endif
             VStack(alignment: .leading) {
                 Text(list.itemTitle)
                 Text(list.itemGlanceInfo)
@@ -174,6 +228,16 @@ private struct ListRowItem: View {
         }
         .onAppear {
             checkSelection()
+        }
+    }
+    
+    @ViewBuilder
+    private var checkStage: some View {
+        if isSelected {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(SettingsStore.shared.appTheme.color)
+        } else {
+            Image(systemName: "circle")
         }
     }
     

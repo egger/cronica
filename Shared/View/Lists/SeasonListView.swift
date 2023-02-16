@@ -16,7 +16,6 @@ struct SeasonListView: View {
     @State private var selectedSeason: Int = 1
     @State private var hasFirstLoaded = false
     @StateObject private var viewModel: SeasonViewModel
-    @AppStorage("markEpisodeWatchedTap") var episodeTap = false
     @Binding var inWatchlist: Bool
     @Binding var seasonConfirmation: Bool
     private var isMac = false
