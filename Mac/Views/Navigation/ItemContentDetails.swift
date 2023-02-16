@@ -137,8 +137,9 @@ struct ItemContentDetailsView: View {
         .keyboardShortcut("w", modifiers: [.option])
         .disabled(viewModel.isLoading ? true : false)
     }
+    
     private var favoriteButton: some View {
-        Button(action: {
+        Button {
             if viewModel.isFavorite {
                 actionMessageConfirmation = "Removed from Favorites"
                 actionImageConfirmation = "heart.circle.fill"
@@ -155,16 +156,18 @@ struct ItemContentDetailsView: View {
                     actionImageConfirmation = ""
                 }
             }
-        }, label: {
+        } label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
-        })
+        }
         .keyboardShortcut("f", modifiers: [.option])
         .disabled(viewModel.isLoading ? true : false)
     }
+    
     private var shareButton: some View {
         ShareLink(item: itemUrl)
     }
+    
     private var notificationButton: some View {
         Button {
             
@@ -175,6 +178,7 @@ struct ItemContentDetailsView: View {
                 .accessibilityLabel(viewModel.hasNotificationScheduled ? "Notification scheduled." : "No notification scheduled.")
         }
     }
+    
     private var headerView: some View {
         WebImage(url: viewModel.content?.cardImageOriginal)
             .resizable()
@@ -184,6 +188,7 @@ struct ItemContentDetailsView: View {
                     Image(systemName: type == .tvShow ? "tv" : "film")
                         .foregroundColor(.secondary)
                         .font(.title)
+                        .fontWeight(.semibold)
                 }
                 .frame(height: 500)
                 .padding(.zero)
@@ -191,33 +196,35 @@ struct ItemContentDetailsView: View {
             .aspectRatio(contentMode: .fill)
             .overlay {
                 ZStack {
-                    VStack {
-                        Spacer()
-                        ZStack(alignment: .bottom) {
-                            Color.black.opacity(0.8)
-                                .frame(height: 150)
-                                .mask {
-                                    LinearGradient(colors: [Color.black,
-                                                            Color.black.opacity(0.924),
-                                                            Color.black.opacity(0.707),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0)],
-                                                   startPoint: .bottom,
-                                                   endPoint: .top)
-                                }
-                            Rectangle()
-                                .fill(.ultraThinMaterial)
-                                .frame(height: 140)
-                                .mask {
-                                    LinearGradient(colors: [Color.black,
-                                                            Color.black.opacity(0.924),
-                                                            Color.black.opacity(0.707),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0)],
-                                                   startPoint: .bottom,
-                                                   endPoint: .top)
+                    if viewModel.content?.cardImageOriginal != nil {
+                        VStack {
+                            Spacer()
+                            ZStack(alignment: .bottom) {
+                                Color.black.opacity(0.8)
                                     .frame(height: 150)
-                                }
+                                    .mask {
+                                        LinearGradient(colors: [Color.black,
+                                                                Color.black.opacity(0.924),
+                                                                Color.black.opacity(0.707),
+                                                                Color.black.opacity(0.383),
+                                                                Color.black.opacity(0)],
+                                                       startPoint: .bottom,
+                                                       endPoint: .top)
+                                    }
+                                Rectangle()
+                                    .fill(.ultraThinMaterial)
+                                    .frame(height: 140)
+                                    .mask {
+                                        LinearGradient(colors: [Color.black,
+                                                                Color.black.opacity(0.924),
+                                                                Color.black.opacity(0.707),
+                                                                Color.black.opacity(0.383),
+                                                                Color.black.opacity(0)],
+                                                       startPoint: .bottom,
+                                                       endPoint: .top)
+                                        .frame(height: 150)
+                                    }
+                            }
                         }
                     }
                     VStack(alignment: .leading) {

@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct CronicaMacApp: App {
     var persistence = PersistenceController.shared
-    @ObservedObject private var settings = SettingsStore.shared
     init() {
         CronicaTelemetry.shared.setup()
     }
@@ -23,7 +22,6 @@ struct CronicaMacApp: App {
         
         Settings {
             SettingsView()
-                .tint(settings.appTheme.color)
         }
     }
 }

@@ -53,30 +53,7 @@ struct WatchlistView: View {
             .toolbar {
                 // Acts like a navigationTitle
                 ToolbarItem(placement: .navigation) {
-                    HStack {
-                        Text(navigationTitle)
-                            .fontWeight(Font.Weight.semibold)
-                            .lineLimit(1)
-                            .foregroundColor(showListSelection ? .secondary : nil)
-                        Image(systemName: "chevron.down")
-                            .fontWeight(.bold)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .rotationEffect(.degrees(isRotating))
-                            .onChange(of: showListSelection) { value in
-                                
-                                withAnimation {
-                                    if value {
-                                        isRotating = -180.0
-                                    } else {
-                                        isRotating = 0.0
-                                    }
-                                }
-                            }
-                    }
-                    .onTapGesture {
-                        showListSelection.toggle()
-                    }
+                    WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
                 }
             }
         }

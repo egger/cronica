@@ -4,16 +4,14 @@
 //
 //  Created by Alexandre Madeira on 15/01/22.
 //
+
 import SwiftUI
 
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
-    @StateObject private var settings = SettingsStore.shared
     @State private var showListSelection = false
     @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
     @State private var selectedList: CustomList?
-    @State private var displayList = false
-    @State private var isRotating = 0.0
     var body: some View {
         VStack {
             if selectedList != nil {
@@ -23,13 +21,13 @@ struct WatchlistView: View {
             }
         }
         .navigationTitle("")
-        .onChange(of: selectedList, perform: { newValue in
+        .onChange(of: selectedList) { newValue in
             if let newValue {
                 navigationTitle = newValue.itemTitle
             } else {
                 navigationTitle = NSLocalizedString("Watchlist", comment: "")
             }
-        })
+        }
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -62,47 +60,16 @@ struct WatchlistView: View {
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
         }
-        .sheet(isPresented: $showListSelection, content: {
+        .sheet(isPresented: $showListSelection) {
             SelectListView(selectedList: $selectedList,
                            navigationTitle: $navigationTitle,
                            showListSelection: $showListSelection)
             .presentationDetents([.medium])
-        })
+        }
         .toolbar {
             // Acts like a navigationTitle
             ToolbarItem(placement: .principal) {
-                HStack {
-                    Text(navigationTitle)
-                        .fontWeight(Font.Weight.semibold)
-                        .lineLimit(1)
-                        .foregroundColor(showListSelection ? .secondary : nil)
-                    Image(systemName: "chevron.down")
-                        .fontWeight(.bold)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .rotationEffect(.degrees(isRotating))
-                        .task(id: showListSelection, {
-                            withAnimation(Animation.easeInOut(duration: 0.1)) {
-                                if showListSelection {
-                                    isRotating = -180.0
-                                } else {
-                                    isRotating = 0.0
-                                }
-                            }
-                        })
-//                        .onChange(of: showListSelection) { value in
-//                            withAnimation(Animation.easeInOut(duration: 0.1)) {
-//                                if value {
-//                                    isRotating = -180.0
-//                                } else {
-//                                    isRotating = 0.0
-//                                }
-//                            }
-//                        }
-                }
-                .onTapGesture {
-                    showListSelection.toggle()
-                }
+                WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
             }
         }
     }
