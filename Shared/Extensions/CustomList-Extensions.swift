@@ -34,10 +34,6 @@ extension CustomList {
         }
         return ""
     }
-    var listItems: Set<WatchlistItem> {
-        let set = items as? Set<WatchlistItem> ?? []
-        return set
-    }
     var itemsArray: [WatchlistItem] {
         let set = items as? Set<WatchlistItem> ?? []
         return set.sorted {

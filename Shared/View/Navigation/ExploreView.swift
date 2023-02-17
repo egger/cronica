@@ -135,7 +135,7 @@ struct ExploreView: View {
                 .formStyle(.grouped)
 #endif
             }
-            .presentationDetents([.medium])
+            .presentationDetents([.medium, .large])
             .unredacted()
             .appTheme()
         })

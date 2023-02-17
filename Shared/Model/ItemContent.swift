@@ -34,7 +34,7 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
     var videos: Videos?
     var nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
-struct ProductionCompany: Codable, Hashable {
+struct ProductionCompany: Identifiable, Codable, Hashable {
     let name: String
     let id: Int
     let logoPath: String?

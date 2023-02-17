@@ -89,28 +89,24 @@ struct CompaniesListView: View {
     let companies: [ProductionCompany]
     var body: some View {
         if companies.isEmpty {
-            
+            ProgressView()
         } else {
+#if os(iOS)
             List(companies, id: \.self) { item in
                 NavigationLink(value: item) {
-                    HStack {
-                        ZStack {
-                            Rectangle()
-                                .fill(.white.opacity(0.6))
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                            WebImage(url: item.logoUrl)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 40, height: 20)
-                                .padding()
-                        }
-                        .frame(width: 40, height: 20)
-                        .padding()
+                    Text(item.name)
+                }
+            }
+            .navigationTitle("companiesTitle")
+#else
+            Table(companies) {
+                TableColumn("Companies") { item in
+                    NavigationLink(value: item) {
                         Text(item.name)
                     }
                 }
             }
-            .navigationTitle("companiesTitle")
+#endif
         }
     }
 }

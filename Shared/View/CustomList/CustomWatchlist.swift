@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CustomWatchlist: View {
     @Binding var selectedList: CustomList?
-    @State private var items = [WatchlistItem]()
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
     @State private var scope: WatchlistSearchScope = .noScope
@@ -25,12 +24,6 @@ struct CustomWatchlist: View {
             case .list: listStyle
             case .poster: posterStyle
             case .card: frameStyle
-            }
-        }
-        .task(id: selectedList) {
-            if let selectedList {
-                if !items.isEmpty { items = [] }
-                items.append(contentsOf: selectedList.listItems)
             }
         }
         .toolbar {
@@ -57,7 +50,9 @@ struct CustomWatchlist: View {
                 isSearching = true
                 try await Task.sleep(nanoseconds: 300_000_000)
                 if !filteredItems.isEmpty { filteredItems.removeAll() }
-                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+                if let items = selectedList?.itemsArray {
+                    filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+                }
                 isSearching = false
             } catch {
                 if Task.isCancelled { return }
@@ -96,29 +91,29 @@ struct CustomWatchlist: View {
     
     @ViewBuilder
     private var listStyle: some View {
-        if items.isEmpty {
-            if scope != .noScope {
-                empty
-            } else {
-                empty
-            }
-        } else {
-            if !filteredItems.isEmpty {
-                switch scope {
-                case .noScope:
-                    WatchListSection(items: filteredItems,
-                                     title: "Search results")
-                case .movies:
-                    WatchListSection(items: filteredItems.filter { $0.isMovie },
-                                     title: "Search results")
-                case .shows:
-                    WatchListSection(items: filteredItems.filter { $0.isTvShow },
-                                     title: "Search results")
+        if let items = selectedList?.itemsArray {
+            if items.isEmpty {
+                if scope != .noScope {
+                    empty
+                } else {
+                    empty
                 }
-            } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
-                noResults
             } else {
-                if let items = selectedList?.itemsArray {
+                if !filteredItems.isEmpty {
+                    switch scope {
+                    case .noScope:
+                        WatchListSection(items: filteredItems,
+                                         title: "Search results")
+                    case .movies:
+                        WatchListSection(items: filteredItems.filter { $0.isMovie },
+                                         title: "Search results")
+                    case .shows:
+                        WatchListSection(items: filteredItems.filter { $0.isTvShow },
+                                         title: "Search results")
+                    }
+                } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
+                    noResults
+                } else {
                     switch filterType {
                     case .all:
                         WatchListSection(items: items,
@@ -131,53 +126,77 @@ struct CustomWatchlist: View {
                                          title: "")
                     }
                 }
-                
             }
         }
     }
     
     @ViewBuilder
     private var frameStyle: some View {
-        if !filteredItems.isEmpty {
-            switch scope {
-            case .noScope:
-                WatchlistCardSection(items: filteredItems,
-                                     title: "Search results")
-            case .movies:
-                WatchlistCardSection(items: filteredItems.filter { $0.isMovie },
-                                     title: "Search results")
-            case .shows:
-                WatchlistCardSection(items: filteredItems.filter { $0.isTvShow },
-                                     title: "Search results")
+        if let items = selectedList?.itemsArray {
+            if !filteredItems.isEmpty {
+                switch scope {
+                case .noScope:
+                    WatchlistCardSection(items: filteredItems,
+                                         title: "Search results")
+                case .movies:
+                    WatchlistCardSection(items: filteredItems.filter { $0.isMovie },
+                                         title: "Search results")
+                case .shows:
+                    WatchlistCardSection(items: filteredItems.filter { $0.isTvShow },
+                                         title: "Search results")
+                }
+            } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
+                noResults
+            } else {
+                switch filterType {
+                case .all:
+                    WatchlistCardSection(items: items,
+                                         title: selectedList?.itemListHeader ?? "")
+                case .movies:
+                    WatchlistCardSection(items: items.filter { $0.isMovie },
+                                         title: "")
+                case .shows:
+                    WatchlistCardSection(items: items.filter { $0.isTvShow },
+                                         title: "")
+                }
+                
             }
-        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-            noResults
-        } else {
-            WatchlistCardSection(items: items,
-                                 title: selectedList?.itemListHeader ?? "")
         }
+        
     }
     
     @ViewBuilder
     private var posterStyle: some View {
-        if !filteredItems.isEmpty {
-            switch scope {
-            case .noScope:
-                WatchlistPosterSection(items: filteredItems,
-                                       title: "Search results")
-            case .movies:
-                WatchlistPosterSection(items: filteredItems.filter { $0.isMovie },
-                                       title: "Search results")
-            case .shows:
-                WatchlistPosterSection(items: filteredItems.filter { $0.isTvShow },
-                                       title: "Search results")
+        if let items = selectedList?.itemsArray {
+            if !filteredItems.isEmpty {
+                switch scope {
+                case .noScope:
+                    WatchlistPosterSection(items: filteredItems,
+                                           title: "Search results")
+                case .movies:
+                    WatchlistPosterSection(items: filteredItems.filter { $0.isMovie },
+                                           title: "Search results")
+                case .shows:
+                    WatchlistPosterSection(items: filteredItems.filter { $0.isTvShow },
+                                           title: "Search results")
+                }
+            } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
+                noResults
+            } else {
+                switch filterType {
+                case .all:
+                    WatchlistPosterSection(items: items,
+                                           title: selectedList?.itemListHeader ?? "")
+                case .movies:
+                    WatchlistPosterSection(items: items.filter { $0.isMovie },
+                                           title: "")
+                case .shows:
+                    WatchlistPosterSection(items: items.filter { $0.isTvShow },
+                                           title: "")
+                }
             }
-        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-            noResults
-        } else {
-            WatchlistPosterSection(items: items,
-                                   title: selectedList?.itemListHeader ?? "")
         }
+        
     }
     
     private var noResults: some View {
@@ -202,19 +221,3 @@ struct CustomWatchlist: View {
 //        CustomWatchlist()
 //    }
 //}
-
-enum CustomWatchListFilters: String, Identifiable, CaseIterable {
-    var id: String { rawValue }
-    case all, movies, shows
-    
-    var localizableTitle: String {
-        switch self {
-        case .all:
-            return NSLocalizedString("allCustomWatchListFilters", comment: "")
-        case .movies:
-            return NSLocalizedString("moviesCustomWatchListFilters", comment: "")
-        case .shows:
-            return NSLocalizedString("showsCustomWatchListFilters", comment: "")
-        }
-    }
-}

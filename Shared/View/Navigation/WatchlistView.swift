@@ -64,7 +64,7 @@ struct WatchlistView: View {
             SelectListView(selectedList: $selectedList,
                            navigationTitle: $navigationTitle,
                            showListSelection: $showListSelection)
-            .presentationDetents([.medium])
+            .presentationDetents([.medium, .large])
         }
         .toolbar {
             // Acts like a navigationTitle
