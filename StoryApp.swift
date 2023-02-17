@@ -65,19 +65,26 @@ struct StoryApp: App {
                                             id: item.id,
                                             type: item.itemContentMedia)
                         }
-                        .navigationDestination(for: Person.self) { item in
-                            PersonDetailsView(title: item.name, id: item.id)
+                        .navigationDestination(for: Person.self) { person in
+                            PersonDetailsView(title: person.name, id: person.id)
                         }
                         .navigationDestination(for: [String:[ItemContent]].self) { item in
-                            let keys = item.map { (key, value) in key }
-                            let value = item.map { (key, value) in value }
+                            let keys = item.map { (key, _) in key }
+                            let value = item.map { (_, value) in value }
                             ItemContentCollectionDetails(title: keys[0], items: value[0])
+                        }
+                        .navigationDestination(for: [Person].self) { items in
+                            DetailedPeopleList(items: items)
                         }
                         .navigationDestination(for: ProductionCompany.self) { item in
                             CompanyDetails(company: item)
                         }
+                        .navigationDestination(for: [ProductionCompany].self) { item in
+                            CompaniesListView(companies: item)
+                        }
                     }
                     .appTheme()
+                    .appTint()
                 }
         }
         .onChange(of: scene) { phase in

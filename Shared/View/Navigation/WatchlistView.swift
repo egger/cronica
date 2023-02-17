@@ -65,6 +65,7 @@ struct WatchlistView: View {
                            navigationTitle: $navigationTitle,
                            showListSelection: $showListSelection)
             .presentationDetents([.medium, .large])
+            .appTheme()
         }
         .toolbar {
             // Acts like a navigationTitle

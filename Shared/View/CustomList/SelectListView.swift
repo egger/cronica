@@ -78,15 +78,18 @@ struct SelectListView: View {
                                 .contextMenu {
                                     deleteButton
                                 }
-                                .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
+                                .swipeActions(edge: .leading, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                     NavigationLink {
                                         EditCustomList(list: item, showListSelection: $showListSelection)
                                     } label: {
                                         Label("Edit", systemImage: "pencil")
                                     }
-                                    
                                 }
-                        }
+                                .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
+                                    deleteButton
+                                        .tint(.red)
+                                }
+                        }.onDelete(perform: delete)
                     }
                 }
             } header: {

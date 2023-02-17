@@ -170,5 +170,11 @@ extension WatchlistItem: Transferable {
     var itemLists: Set<CustomList> {
         return list as? Set<CustomList> ?? []
     }
+    var listsArray: [CustomList] {
+        let set = list as? Set<CustomList> ?? []
+        return set.sorted {
+            $0.itemTitle < $1.itemTitle
+        }
+    }
 }
 

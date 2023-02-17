@@ -49,6 +49,18 @@ extension PersistenceController {
         }
     }
     
+    func fetchLists(for id: Int, type: MediaType) -> [CustomList] {
+        do {
+            let item = try fetch(for: Int64(id), media: type)
+            if let item {
+                return item.listsArray
+            }
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchLists")
+        }
+        return []
+    }
+    
     func updateListInformation(list: CustomList, title: String? = nil, description: String? = nil) {
         if let title {
             if title != list.title {

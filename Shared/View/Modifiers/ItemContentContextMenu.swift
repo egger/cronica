@@ -17,6 +17,11 @@ struct ItemContentContextMenu: ViewModifier {
     @State private var isPin = false
     @State private var isArchive = false
     private let context = PersistenceController.shared
+    @Environment(\.managedObjectContext) var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+        animation: .default) private var lists: FetchedResults<CustomList>
+    @State private var addedLists = [CustomList]()
     func body(content: Content) -> some View {
 #if os(watchOS)
 #else
@@ -28,6 +33,7 @@ struct ItemContentContextMenu: ViewModifier {
                     favoriteButton
                     pinButton
                     archiveButton
+                    addToList
                     Divider()
                     watchlistButton
                 } else {
@@ -49,8 +55,48 @@ struct ItemContentContextMenu: ViewModifier {
                     isFavorite = context.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia)
                     isPin = context.isItemPinned(id: item.id, type: item.itemContentMedia)
                     isArchive = context.isItemArchived(id: item.id, type: item.itemContentMedia)
+                    if addedLists.isEmpty {
+                        addedLists = context.fetchLists(for: item.id, type: item.itemContentMedia)
+                    }
                 }
             }
+#endif
+    }
+    
+    @ViewBuilder
+    private var addToList: some View {
+#if os(iOS) || os(macOS)
+        if !lists.isEmpty {
+            Menu {
+                ForEach(lists) { list in
+                    Button {
+                        context.updateList(for: WatchlistItem.ID(item.id), type: item.itemContentMedia, to: list)
+                        addedLists.append(list)
+                    } label: {
+                        if addedLists.contains(list) {
+                            HStack {
+#if os(iOS)
+                                Image(systemName: "checkmark")
+#endif
+                                Text(list.itemTitle)
+#if os(macOS)
+                                Image(systemName: "checkmark")
+#endif
+                            }
+                        } else {
+                            Text(list.itemTitle)
+                        }
+                    }
+                    
+                }
+            } label: {
+                Label("addToList", systemImage: "rectangle.on.rectangle.angled")
+            }
+        } else {
+            EmptyView()
+        }
+#else
+        EmptyView()
 #endif
     }
     
