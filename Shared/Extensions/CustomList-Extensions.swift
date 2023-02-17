@@ -38,4 +38,10 @@ extension CustomList {
         let set = items as? Set<WatchlistItem> ?? []
         return set
     }
+    var itemsArray: [WatchlistItem] {
+        let set = items as? Set<WatchlistItem> ?? []
+        return set.sorted {
+            $0.itemTitle < $1.itemTitle
+        }
+    }
 }

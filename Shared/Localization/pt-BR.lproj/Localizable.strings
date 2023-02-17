@@ -510,3 +510,6 @@
 "addToList" = "Adicionar à Lista...";
 "addNote" = "Adicionar Nota";
 "companiesTitle" = "Empresas";
+"allCustomWatchListFilters" = "Tudo";
+"moviesCustomWatchListFilters" = "Filmes";
+"showsCustomWatchListFilters" = "Séries";

@@ -66,6 +66,7 @@ struct DefaultWatchlist: View {
     }
     
     private var filterMenu: some View {
+#if os(iOS)
         Menu {
             Picker(selection: $selectedOrder, content: {
                 ForEach(DefaultListTypes.allCases) { sort in
@@ -78,6 +79,15 @@ struct DefaultWatchlist: View {
             Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
                 .labelStyle(.iconOnly)
         }
+#else
+        Picker(selection: $selectedOrder, content: {
+            ForEach(DefaultListTypes.allCases) { sort in
+                Text(sort.title).tag(sort)
+            }
+        }, label: {
+            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
+        })
+#endif
     }
     
     @ViewBuilder

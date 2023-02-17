@@ -18,6 +18,7 @@ struct CustomWatchlist: View {
 #endif
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
+    @AppStorage("filterTypeCustomList") private var filterType: CustomWatchListFilters = .all
     var body: some View {
         VStack {
             switch settings.watchlistStyle {
@@ -26,14 +27,21 @@ struct CustomWatchlist: View {
             case .card: frameStyle
             }
         }
-        .onChange(of: selectedList, perform: { list in
-            if let list {
-                if !items.isEmpty {
-                    items = []
-                }
-                items.append(contentsOf: list.listItems.sorted { $0.itemTitle < $1.itemTitle })
+        .task(id: selectedList) {
+            if let selectedList {
+                if !items.isEmpty { items = [] }
+                items.append(contentsOf: selectedList.listItems)
             }
-        })
+        }
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarLeading) {
+                filterPicker
+            }
+#else
+            filterPicker
+#endif
+        }
 #if os(iOS)
         .searchable(text: $query,
                     placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
@@ -60,6 +68,31 @@ struct CustomWatchlist: View {
 #endif
     }
     
+    private var filterPicker: some View {
+#if os(iOS)
+        Menu {
+            Picker(selection: $filterType, content: {
+                ForEach(CustomWatchListFilters.allCases) { sort in
+                    Text(sort.localizableTitle).tag(sort)
+                }
+            }, label: {
+                EmptyView()
+            })
+        } label: {
+            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
+                .labelStyle(.iconOnly)
+        }
+#else
+        Picker(selection: $filterType, content: {
+            ForEach(CustomWatchListFilters.allCases) { sort in
+                Text(sort.localizableTitle).tag(sort)
+            }
+        }, label: {
+            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
+                .labelStyle(.iconOnly)
+        })
+#endif
+    }
     
     @ViewBuilder
     private var listStyle: some View {
@@ -85,8 +118,20 @@ struct CustomWatchlist: View {
             } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
                 noResults
             } else {
-                WatchListSection(items: items,
-                                 title: selectedList?.itemListHeader ?? "", showDefaultFooter: false)
+                if let items = selectedList?.itemsArray {
+                    switch filterType {
+                    case .all:
+                        WatchListSection(items: items,
+                                         title: selectedList?.itemListHeader ?? "", showDefaultFooter: false)
+                    case .movies:
+                        WatchListSection(items: items.filter { $0.isMovie },
+                                         title: "")
+                    case .shows:
+                        WatchListSection(items: items.filter { $0.isTvShow },
+                                         title: "")
+                    }
+                }
+                
             }
         }
     }
@@ -157,3 +202,19 @@ struct CustomWatchlist: View {
 //        CustomWatchlist()
 //    }
 //}
+
+enum CustomWatchListFilters: String, Identifiable, CaseIterable {
+    var id: String { rawValue }
+    case all, movies, shows
+    
+    var localizableTitle: String {
+        switch self {
+        case .all:
+            return NSLocalizedString("allCustomWatchListFilters", comment: "")
+        case .movies:
+            return NSLocalizedString("moviesCustomWatchListFilters", comment: "")
+        case .shows:
+            return NSLocalizedString("showsCustomWatchListFilters", comment: "")
+        }
+    }
+}
