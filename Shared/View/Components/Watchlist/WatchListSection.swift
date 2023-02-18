@@ -14,6 +14,7 @@ struct WatchListSection: View {
     @State private var multiSelection = Set<String>()
     @State private var sortOrder = [KeyPathComparator(\WatchlistItem.itemTitle)]
     @State var showDefaultFooter = true
+    var alternativeFooter: String?
     var body: some View {
         if !items.isEmpty {
 #if os(macOS)
@@ -53,7 +54,11 @@ struct WatchListSection: View {
                 if showDefaultFooter {
                     Text("\(items.count) items")
                         .padding(.bottom)
-                } 
+                } else {
+                    if let alternativeFooter {
+                        Text(alternativeFooter)
+                    }
+                }
             }
         }
         .toolbar {

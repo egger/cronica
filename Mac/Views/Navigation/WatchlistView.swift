@@ -50,6 +50,15 @@ struct WatchlistView: View {
                 let value = item.map { (key, value) in value }
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
             }
+            .navigationDestination(for: [Person].self) { items in
+                DetailedPeopleList(items: items)
+            }
+            .navigationDestination(for: ProductionCompany.self) { item in
+                CompanyDetails(company: item)
+            }
+            .navigationDestination(for: [ProductionCompany].self) { item in
+                CompaniesListView(companies: item)
+            }
             .toolbar {
                 // Acts like a navigationTitle
                 ToolbarItem(placement: .navigation) {

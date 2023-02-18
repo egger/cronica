@@ -61,7 +61,7 @@ extension PersistenceController {
         return []
     }
     
-    func updateListInformation(list: CustomList, title: String? = nil, description: String? = nil) {
+    func updateListInformation(list: CustomList, title: String? = nil, description: String? = nil, items: [WatchlistItem]? = nil) {
         if let title {
             if title != list.title {
                 list.title = title
@@ -71,6 +71,15 @@ extension PersistenceController {
             if description != list.notes {
                 list.notes = description
             }
+        }
+        if let items {
+            var set = list.itemsSet
+            for item in set {
+                if items.contains(item) {
+                    set.remove(item)
+                }
+            }
+            list.items = set as NSSet
         }
         saveContext()
     }

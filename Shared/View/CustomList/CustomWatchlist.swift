@@ -117,13 +117,17 @@ struct CustomWatchlist: View {
                     switch filterType {
                     case .all:
                         WatchListSection(items: items,
-                                         title: selectedList?.itemListHeader ?? "", showDefaultFooter: false)
+                                         title: selectedList?.itemListHeader ?? "",
+                                         showDefaultFooter: false,
+                                         alternativeFooter: selectedList?.notes)
                     case .movies:
                         WatchListSection(items: items.filter { $0.isMovie },
-                                         title: "Movies")
+                                         title: "Movies",
+                                         alternativeFooter: selectedList?.notes)
                     case .shows:
                         WatchListSection(items: items.filter { $0.isTvShow },
-                                         title: "TV Shows")
+                                         title: "TV Shows",
+                                         alternativeFooter: selectedList?.notes)
                     }
                 }
             }

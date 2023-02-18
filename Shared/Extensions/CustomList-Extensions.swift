@@ -30,9 +30,12 @@ extension CustomList {
     }
     var itemListHeader: String {
         if let items, let updatedDate {
-            return NSLocalizedString("\(items.count) items • \(updatedDate.convertDateToString())", comment: "")
+            return NSLocalizedString("\(items.count) items • \(updatedDate.convertDateToString())", comment: "") 
         }
         return ""
+    }
+    var itemsSet: Set<WatchlistItem> {
+        return items as? Set<WatchlistItem> ?? []
     }
     var itemsArray: [WatchlistItem] {
         let set = items as? Set<WatchlistItem> ?? []

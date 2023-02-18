@@ -225,12 +225,6 @@ private struct ListRowItem: View {
                     .lineLimit(1)
             }
             Spacer()
-            if list.shared {
-                Image(systemName: "person.3")
-                    .padding(.horizontal)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
         }
         .onChange(of: selectedList) { _ in
             checkSelection()

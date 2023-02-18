@@ -115,10 +115,10 @@ struct ItemContentDetailsView: View {
     private var watchButton: some View {
         Button(action: {
             if viewModel.isWatched {
-                actionMessageConfirmation = "Removed from Watched"
+                actionMessageConfirmation = "removedFromWatched"
                 actionImageConfirmation = "minus.circle"
             } else {
-                actionMessageConfirmation = "Marked as Watched"
+                actionMessageConfirmation = "markedAsWatched"
                 actionImageConfirmation = "checkmark.circle"
             }
             viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
@@ -141,10 +141,10 @@ struct ItemContentDetailsView: View {
     private var favoriteButton: some View {
         Button {
             if viewModel.isFavorite {
-                actionMessageConfirmation = "Removed from Favorites"
+                actionMessageConfirmation = "removedFromFavorites"
                 actionImageConfirmation = "heart.circle.fill"
             } else {
-                actionMessageConfirmation = "Marked as Favorite"
+                actionMessageConfirmation = "markedAsFavorite"
                 actionImageConfirmation = "heart.circle"
             }
             viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
@@ -170,7 +170,7 @@ struct ItemContentDetailsView: View {
     
     private var notificationButton: some View {
         Button {
-            
+             
         } label: {
             Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
                 .opacity(viewModel.isNotificationAvailable ? 1 : 0)

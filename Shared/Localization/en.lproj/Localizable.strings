@@ -152,7 +152,6 @@
 "Next episode arrives today." = "Next episode arrives today.";
 "The movie will be released today." = "The movie will be released today.";
 
-
 //MARK: Common
 "Done" = "Done";
 "No details available." = "No details available.";
@@ -404,17 +403,10 @@
 "Watched" = "Watched";
 "Favorite" = "Favorite";
 
-
-
 // MARK: WatchlistButtonView
 "removeDialogTitle" = "Are You Sure?";
 "confirmDialogAction" = "Confirm";
 "cancelConfirmDialogAction" = "Cancel";
-
-// MARK: PreferredShareLink
-"preferredShareLinkTMDB" = "TMDb";
-"preferredShareLinkIMDB" = "IMDb";
-
 
 //MARK: WelcomeView.swift
 "Welcome to" = "Welcome to";
@@ -435,24 +427,18 @@
 "Always Synced" = "Always Synced";
 "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.";
 
-
-
+//MARK: WatchProviders
 "justWatchSubtitle" = "Provided by JustWatch";
-
-
 "openWatchProviderTitle" = "This will open TMDb website with the links to each service.";
 "confirmOpenWatchProvider" = "Confirm";
 "confirmOpenDontAskAgainProvider" = "Confirm and don't ask again";
 "cancelOpenWatchProvider" = "Cancel";
-
 "watchProviderTitleList" = "How to Watch";
 "behaviorWatchProvidersTitle" = "Watch Providers";
 "behaviorWatchProvidersSubtitle" = "See in what platforms the content is available on.";
 "watchRegionTitle" = "Watch Provider Region";
 "watchRegionSubtitle" = "Watch Providers will adapt to the selected region.";
 "contentRegionTitle" = "Region";
-
-
 
 "sendEmail" = "Send Email";
 "sendEmailFooter" = "If you prefer, you can also send an email for a faster follow-up.";
@@ -464,14 +450,12 @@
 "whereToWatchDiscoverFilter" = "Where To Watch";
 "watchProviderToggleDiscover" = "Only Show From Watch Provider";
 
-
 "swipeGestureWatch" = "Watch";
 "swipeGestureFavorite" = "Favorite";
 "swipeGesturePin" = "Pin";
 "swipeGestureArchive" = "Archive";
 "swipeGestureDelete" = "Delete";
 "swipeGestureShare" = "Share";
-
 
 "listName" = "List Name";
 "shareList" = "Share List";
@@ -483,11 +467,6 @@
 "createList" = "Create New List";
 "yourLists" = "Your Lists";
 "Lists" = "Lists";
-"" = "";
-"" = "";
-"" = "";
-"" = "";
-"" = "";
 "listItemsToAdd" = "Select Items";
 "cantSendFeedback" = "To send feedback in-app, you must disable 'Disable Crash Reports'";
 "addToList" = "Add to List...";
@@ -496,3 +475,11 @@
 "allCustomWatchListFilters" = "All";
 "moviesCustomWatchListFilters" = "Movies";
 "showsCustomWatchListFilters" = "TV Shows";
+"editListRemoveItems" = "Remove Items";
+"%lld items • %@" = "%lld items • %@";
+"Untitled List" = "Untitled List";
+"%lld items" = "%lld items";
+
+"Title" = "Title";
+"Media" = "Media";
+"Person" = "Person";

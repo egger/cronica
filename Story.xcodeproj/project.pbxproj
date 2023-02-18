@@ -84,6 +84,8 @@
 		B82BE4F3299EB3F5005F9990 /* WatchlistTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */; };
 		B82BE4F6299F09CA005F9990 /* CustomWatchListFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4F5299F09CA005F9990 /* CustomWatchListFilters.swift */; };
 		B82BE4F7299F09D7005F9990 /* CustomWatchListFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4F5299F09CA005F9990 /* CustomWatchListFilters.swift */; };
+		B82BE4FB29A188D8005F9990 /* EditCustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4FA29A188D8005F9990 /* EditCustomList.swift */; };
+		B82BE4FC29A188D8005F9990 /* EditCustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4FA29A188D8005F9990 /* EditCustomList.swift */; };
 		B82C267A2795E33900259D98 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* Poster.swift */; };
 		B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */; };
@@ -601,6 +603,7 @@
 		B82BE4E7299BFEF4005F9990 /* PersistenceController-CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceController-CustomList.swift"; sourceTree = "<group>"; };
 		B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTitle.swift; sourceTree = "<group>"; };
 		B82BE4F5299F09CA005F9990 /* CustomWatchListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWatchListFilters.swift; sourceTree = "<group>"; };
+		B82BE4FA29A188D8005F9990 /* EditCustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCustomList.swift; sourceTree = "<group>"; };
 		B82C26792795E33900259D98 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		B82C268E279644E000259D98 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
@@ -1028,6 +1031,7 @@
 			children = (
 				B82BE4E2299BFBC5005F9990 /* CustomWatchlist.swift */,
 				B82BE4DD299BF734005F9990 /* DefaultWatchlist.swift */,
+				B82BE4FA29A188D8005F9990 /* EditCustomList.swift */,
 				B812C7B3299480620096E806 /* NewCustomListView.swift */,
 				B812C7B52996C2DB0096E806 /* SelectListView.swift */,
 				B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */,
@@ -2006,6 +2010,7 @@
 				B82C267A2795E33900259D98 /* Poster.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */,
 				B8C781F0287F4A7500B4C2C2 /* PersonCardView.swift in Sources */,
+				B82BE4FB29A188D8005F9990 /* EditCustomList.swift in Sources */,
 				B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */,
 				B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */,
 				B8BF633C29146AF10051915C /* UpcomingWatchlist.swift in Sources */,
@@ -2305,6 +2310,7 @@
 				B8BF62ED2912F30C0051915C /* EpisodeFrameView.swift in Sources */,
 				B8BF62AF2912DA230051915C /* NetworkService.swift in Sources */,
 				B8BF62F02912F3830051915C /* InformationSectionView.swift in Sources */,
+				B82BE4FC29A188D8005F9990 /* EditCustomList.swift in Sources */,
 				B8BF632B29142C6E0051915C /* EpisodeDetailsView.swift in Sources */,
 				B8BF62F7291307940051915C /* SearchItemView.swift in Sources */,
 				B8BF633F29146DCF0051915C /* HomeView.swift in Sources */,
@@ -2717,7 +2723,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.9;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2750,7 +2756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.9;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2788,7 +2794,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 1.9.9;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = macosx;
@@ -2823,7 +2829,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 1.9.9;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaMac;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = macosx;
