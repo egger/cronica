@@ -158,6 +158,9 @@ struct NewCustomListView_Previews: PreviewProvider {
 }
 
 struct EditCustomList: View {
+#if os(macOS)
+    @Binding var isPresentingNewList: Bool
+#endif
     @State var list: CustomList
     @State private var title = ""
     @State private var note = ""
@@ -165,6 +168,7 @@ struct EditCustomList: View {
     @State private var hasUnsavedChanges = false
     @State private var disableSaveButton = true
     @Binding var showListSelection: Bool
+    @State private var itemsToRemove = Set<String>()
     var body: some View {
         Form {
             Section {
@@ -173,7 +177,61 @@ struct EditCustomList: View {
             } header: {
                 Label("listBasicHeader", systemImage: "pencil")
             }
+            
+            Section {
+                if list.itemsArray.isEmpty {
+                    
+                } else {
+                    List {
+                        ForEach(list.itemsArray, id: \.notificationID) { item in
+                            HStack {
+                                Image(systemName: itemsToRemove.contains(item.notificationID) ? "minus.circle.fill" : "circle")
+                                    .foregroundColor(itemsToRemove.contains(item.notificationID) ? .red : nil)
+                                WebImage(url: item.image)
+                                    .resizable()
+                                    .placeholder {
+                                        ZStack {
+                                            Rectangle().fill(.gray.gradient)
+                                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
+                                        }
+                                    }
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 70, height: 50)
+                                    .cornerRadius(6)
+                                    .overlay {
+                                        if itemsToRemove.contains(item.notificationID) {
+                                            ZStack {
+                                                Rectangle().fill(.black.opacity(0.4))
+                                            }
+                                            .cornerRadius(6)
+                                        }
+                                    }
+                                VStack(alignment: .leading) {
+                                    Text(item.itemTitle)
+                                        .lineLimit(1)
+                                        .foregroundColor(itemsToRemove.contains(item.notificationID) ? .secondary : nil)
+                                    Text(item.itemMedia.title)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .onTapGesture {
+                                if itemsToRemove.contains(item.notificationID) {
+                                    itemsToRemove.remove(item.notificationID)
+                                } else {
+                                    itemsToRemove.insert(item.notificationID)
+                                }
+                            }
+                        }
+                    }
+                }
+            } header: {
+                Label("editListRemoveItems", systemImage: "rectangle.on.rectangle.slash")
+            }
         }
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
         .onAppear {
             title = list.itemTitle
             note = list.notes ?? ""
@@ -189,6 +247,16 @@ struct EditCustomList: View {
                 disableSaveButton = false
             }
         })
+        .onAppear {
+#if os(macOS)
+            isPresentingNewList = true
+#endif
+        }
+        .onDisappear {
+#if os(macOS)
+            isPresentingNewList = false
+#endif
+        }
         .toolbar {
             Button("Save") {
                 PersistenceController.shared.updateListInformation(list: list,
@@ -197,6 +265,9 @@ struct EditCustomList: View {
                 showListSelection = false
             }
             .disabled(disableSaveButton)
+#if os(macOS)
+            .buttonStyle(.link)
+#endif
         }
         .navigationTitle(list.itemTitle)
     }

@@ -55,9 +55,11 @@ struct ItemContentContextMenu: ViewModifier {
                     isFavorite = context.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia)
                     isPin = context.isItemPinned(id: item.id, type: item.itemContentMedia)
                     isArchive = context.isItemArchived(id: item.id, type: item.itemContentMedia)
-                    if addedLists.isEmpty {
-                        addedLists = context.fetchLists(for: item.id, type: item.itemContentMedia)
-                    }
+                }
+            }
+            .onAppear {
+                if addedLists.isEmpty {
+                    addedLists = context.fetchLists(for: item.id, type: item.itemContentMedia)
                 }
             }
 #endif

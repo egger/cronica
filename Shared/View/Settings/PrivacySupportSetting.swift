@@ -59,7 +59,7 @@ struct PrivacySupportSetting: View {
         } header: {
 #if os(tvOS)
             Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
-#else
+#elseif os(macOS)
             Label("Privacy", systemImage: "hand.raised")
 #endif
         } footer: {

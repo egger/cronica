@@ -73,7 +73,7 @@ struct SettingsView: View {
                 Label("settingsFeedbackTitle", systemImage: "mail")
             }
         } header: {
-            
+            Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
         }
     }
     

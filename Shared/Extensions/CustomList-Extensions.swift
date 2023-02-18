@@ -29,8 +29,8 @@ extension CustomList {
         return NSLocalizedString("Last update on \(itemLastUpdateFormatted)", comment: "")
     }
     var itemListHeader: String {
-        if let items {
-            return NSLocalizedString("\(items.count) items", comment: "")
+        if let items, let updatedDate {
+            return NSLocalizedString("\(items.count) items • \(updatedDate.convertDateToString())", comment: "")
         }
         return ""
     }

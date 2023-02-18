@@ -34,7 +34,9 @@ struct TipJarSetting: View {
                 }
                 .disabled(!productsLoaded)
             } header: {
+                #if os(macOS)
                 Label("tipJarTitle", systemImage: "heart")
+                #endif
             } footer: {
                 Text("tipJarFooter")
             }

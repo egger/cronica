@@ -55,7 +55,6 @@ struct SelectListView: View {
         
     }
     
-    
     private var form: some View {
         Form {
             Section {
@@ -76,18 +75,39 @@ struct SelectListView: View {
                                     showListSelection.toggle()
                                 }
                                 .contextMenu {
-                                    deleteButton
+                                    Button(role: .destructive) {
+                                        if selectedList == item { selectedList = nil }
+                                        PersistenceController.shared.delete(item)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+#if os(macOS)
+                                            .foregroundColor(.red)
+#endif
+                                    }
+                                    .tint(.red)
                                 }
                                 .swipeActions(edge: .leading, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                     NavigationLink {
+                                        #if os(iOS)
                                         EditCustomList(list: item, showListSelection: $showListSelection)
+                                        #else
+                                        EditCustomList(isPresentingNewList: $isCreateNewListPresented, list: item, showListSelection: $showListSelection)
+                                        #endif
                                     } label: {
                                         Label("Edit", systemImage: "pencil")
                                     }
                                 }
                                 .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
-                                    deleteButton
-                                        .tint(.red)
+                                    Button(role: .destructive) {
+                                        if selectedList == item { selectedList = nil }
+                                        PersistenceController.shared.delete(item)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+#if os(macOS)
+                                            .foregroundColor(.red)
+#endif
+                                    }
+                                    .tint(.red)
                                 }
                         }.onDelete(perform: delete)
                     }
@@ -102,20 +122,6 @@ struct SelectListView: View {
                 }
             }
         }
-    }
-    
-    private var deleteButton: some View {
-        Button(role: .destructive) {
-            
-        } label: {
-#if os(macOS)
-            Text("Delete")
-                .foregroundColor(.red)
-#else
-            Label("Delete", systemImage: "trash")
-#endif
-        }
-        .tint(.red)
     }
     
     private var doneButton: some View {

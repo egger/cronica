@@ -69,9 +69,15 @@ struct PersonDetailsView: View {
             .autocorrectionDisabled(true)
             .navigationTitle(name)
             .toolbar {
+#if os(iOS)
                 ToolbarItem {
                     ShareLink(item: personUrl)
                 }
+#else
+                ToolbarItem(placement: .status) {
+                    ShareLink(item: personUrl)
+                }
+#endif
             }
             .background {
                 TranslucentBackground(image: viewModel.person?.personImage)

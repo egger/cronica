@@ -38,7 +38,7 @@ struct CustomWatchlist: View {
 #if os(iOS)
         .searchable(text: $query,
                     placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
-                    prompt: "Search watchlist")
+                    prompt: "Search \(selectedList?.itemTitle ?? "List")")
         .searchScopes($scope) {
             ForEach(WatchlistSearchScope.allCases) { scope in
                 Text(scope.localizableTitle).tag(scope)
@@ -120,10 +120,10 @@ struct CustomWatchlist: View {
                                          title: selectedList?.itemListHeader ?? "", showDefaultFooter: false)
                     case .movies:
                         WatchListSection(items: items.filter { $0.isMovie },
-                                         title: "")
+                                         title: "Movies")
                     case .shows:
                         WatchListSection(items: items.filter { $0.isTvShow },
-                                         title: "")
+                                         title: "TV Shows")
                     }
                 }
             }
@@ -154,10 +154,10 @@ struct CustomWatchlist: View {
                                          title: selectedList?.itemListHeader ?? "")
                 case .movies:
                     WatchlistCardSection(items: items.filter { $0.isMovie },
-                                         title: "")
+                                         title: "Movies")
                 case .shows:
                     WatchlistCardSection(items: items.filter { $0.isTvShow },
-                                         title: "")
+                                         title: "TV Shows")
                 }
                 
             }
@@ -189,10 +189,10 @@ struct CustomWatchlist: View {
                                            title: selectedList?.itemListHeader ?? "")
                 case .movies:
                     WatchlistPosterSection(items: items.filter { $0.isMovie },
-                                           title: "")
+                                           title: "Movies")
                 case .shows:
                     WatchlistPosterSection(items: items.filter { $0.isTvShow },
-                                           title: "")
+                                           title: "TV Shows")
                 }
             }
         }
@@ -209,7 +209,7 @@ struct CustomWatchlist: View {
     }
     
     private var empty: some View {
-        Text("Your list is empty.")
+        Text("This list is empty.")
             .font(.headline)
             .foregroundColor(.secondary)
             .padding()
