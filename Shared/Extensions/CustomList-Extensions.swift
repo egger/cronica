@@ -13,7 +13,7 @@ extension CustomList {
     }
     var itemLastUpdateFormatted: String {
         if let updatedDate {
-            return updatedDate.convertDateToShortString()
+            return updatedDate.convertDateToString()
         }
         return ""
     }
@@ -24,15 +24,27 @@ extension CustomList {
             }
         }
         if let items {
-            return NSLocalizedString("\(items.count) items", comment: "")
+            let formatString = NSLocalizedString("items count", comment: "")
+            let result = String(format: formatString, items.count)
+            return result
         }
         return NSLocalizedString("Last update on \(itemLastUpdateFormatted)", comment: "")
     }
-    var itemListHeader: String {
-        if let items, let updatedDate {
-            return NSLocalizedString("\(items.count) items • \(updatedDate.convertDateToString())", comment: "") 
+    var itemCount: String {
+        if let items {
+            let formatString = NSLocalizedString("items count", comment: "")
+            let result = String(format: formatString, items.count)
+            return result
         }
-        return ""
+        return NSLocalizedString("Empty", comment: "")
+    }
+    var itemFooter: String {
+        if let notes {
+            if !notes.isEmpty {
+                return notes
+            }
+        }
+        return itemLastUpdateFormatted
     }
     var itemsSet: Set<WatchlistItem> {
         return items as? Set<WatchlistItem> ?? []

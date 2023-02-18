@@ -52,7 +52,9 @@ struct WatchListSection: View {
                 Text(NSLocalizedString(title, comment: ""))
             } footer: {
                 if showDefaultFooter {
-                    Text("\(items.count) items")
+                    let formatString = NSLocalizedString("items count", comment: "")
+                    let result = String(format: formatString, items.count)
+                    Text(result)
                         .padding(.bottom)
                 } else {
                     if let alternativeFooter {

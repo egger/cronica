@@ -117,17 +117,17 @@ struct CustomWatchlist: View {
                     switch filterType {
                     case .all:
                         WatchListSection(items: items,
-                                         title: selectedList?.itemListHeader ?? "",
+                                         title: selectedList?.itemCount ?? "",
                                          showDefaultFooter: false,
-                                         alternativeFooter: selectedList?.notes)
+                                         alternativeFooter: selectedList?.itemFooter)
                     case .movies:
                         WatchListSection(items: items.filter { $0.isMovie },
                                          title: "Movies",
-                                         alternativeFooter: selectedList?.notes)
+                                         alternativeFooter: selectedList?.itemFooter)
                     case .shows:
                         WatchListSection(items: items.filter { $0.isTvShow },
                                          title: "TV Shows",
-                                         alternativeFooter: selectedList?.notes)
+                                         alternativeFooter: selectedList?.itemFooter)
                     }
                 }
             }
@@ -155,7 +155,7 @@ struct CustomWatchlist: View {
                 switch filterType {
                 case .all:
                     WatchlistCardSection(items: items,
-                                         title: selectedList?.itemListHeader ?? "")
+                                         title: selectedList?.itemCount ?? "")
                 case .movies:
                     WatchlistCardSection(items: items.filter { $0.isMovie },
                                          title: "Movies")
@@ -190,7 +190,7 @@ struct CustomWatchlist: View {
                 switch filterType {
                 case .all:
                     WatchlistPosterSection(items: items,
-                                           title: selectedList?.itemListHeader ?? "")
+                                           title: selectedList?.itemCount ?? "")
                 case .movies:
                     WatchlistPosterSection(items: items.filter { $0.isMovie },
                                            title: "Movies")

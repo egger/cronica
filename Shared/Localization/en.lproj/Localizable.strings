@@ -478,8 +478,10 @@
 "editListRemoveItems" = "Remove Items";
 "%lld items • %@" = "%lld items • %@";
 "Untitled List" = "Untitled List";
-"%lld items" = "%lld items";
+"%llditems" = "%lld items";
+"Default List" = "Default List";
 
 "Title" = "Title";
 "Media" = "Media";
 "Person" = "Person";
+"Save" = "Save";

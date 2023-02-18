@@ -30,15 +30,6 @@ struct WatchlistCardSection: View {
                             Spacer()
                         }
                         .padding(.leading)
-                    } footer: {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text("\(items.count) items")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                                .padding(.bottom)
-                            Spacer()
-                        }
-                        .padding(.leading)
                     }
                 }.padding()
             }

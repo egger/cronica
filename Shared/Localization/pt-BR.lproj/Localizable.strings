@@ -513,4 +513,11 @@
 "allCustomWatchListFilters" = "Tudo";
 "moviesCustomWatchListFilters" = "Filmes";
 "showsCustomWatchListFilters" = "Séries";
-"%lld items" = "%lld items";
+"%d items" = "%d items";
+"%d items • %@" = "%d itens • %@";
+"%d items" = "%d itens";
+"Search %@" = "Buscar %@";
+"Save" = "Salvar";
+"editListRemoveItems" = "Remover Itens";
+"Default List" = "Lista Padrão";
+"Delete" = "Deletar";
