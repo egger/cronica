@@ -17,7 +17,7 @@
 			<key>one</key>
 			<string>1 Item</string>
 			<key>other</key>
-			<string>%d Itens</string>
+			<string>%d Items</string>
 		</dict>
 	</dict>
 </dict>

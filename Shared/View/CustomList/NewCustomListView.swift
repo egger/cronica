@@ -30,49 +30,51 @@ struct NewCustomListView: View {
                 Label("listBasicHeader", systemImage: "pencil")
             }
             
-            Section {
-                List(items, id: \.notificationID) { item in
-                    HStack {
-                        Image(systemName: itemsToAdd.contains(item) ? "checkmark.circle.fill" : "circle")
-                            .foregroundColor(itemsToAdd.contains(item) ? SettingsStore.shared.appTheme.color : nil)
-                        WebImage(url: item.image)
-                            .resizable()
-                            .placeholder {
-                                ZStack {
-                                    Rectangle().fill(.gray.gradient)
-                                    Image(systemName: item.itemMedia == .movie ? "film" : "tv")
-                                }
-                            }
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 70, height: 50)
-                            .cornerRadius(6)
-                            .overlay {
-                                if itemsToAdd.contains(item) {
+            if !items.isEmpty {
+                Section {
+                    List(items, id: \.notificationID) { item in
+                        HStack {
+                            Image(systemName: itemsToAdd.contains(item) ? "checkmark.circle.fill" : "circle")
+                                .foregroundColor(itemsToAdd.contains(item) ? SettingsStore.shared.appTheme.color : nil)
+                            WebImage(url: item.image)
+                                .resizable()
+                                .placeholder {
                                     ZStack {
-                                        Rectangle().fill(.black.opacity(0.4))
+                                        Rectangle().fill(.gray.gradient)
+                                        Image(systemName: item.itemMedia == .movie ? "film" : "tv")
                                     }
-                                    .cornerRadius(6)
                                 }
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 70, height: 50)
+                                .cornerRadius(6)
+                                .overlay {
+                                    if itemsToAdd.contains(item) {
+                                        ZStack {
+                                            Rectangle().fill(.black.opacity(0.4))
+                                        }
+                                        .cornerRadius(6)
+                                    }
+                                }
+                            VStack(alignment: .leading) {
+                                Text(item.itemTitle)
+                                    .lineLimit(1)
+                                    .foregroundColor(itemsToAdd.contains(item) ? .secondary : nil)
+                                Text(item.itemMedia.title)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
                             }
-                        VStack(alignment: .leading) {
-                            Text(item.itemTitle)
-                                .lineLimit(1)
-                                .foregroundColor(itemsToAdd.contains(item) ? .secondary : nil)
-                            Text(item.itemMedia.title)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                        }
+                        .onTapGesture {
+                            if itemsToAdd.contains(item) {
+                                itemsToAdd.remove(item)
+                            } else {
+                                itemsToAdd.insert(item)
+                            }
                         }
                     }
-                    .onTapGesture {
-                        if itemsToAdd.contains(item) {
-                            itemsToAdd.remove(item)
-                        } else {
-                            itemsToAdd.insert(item)
-                        }
-                    }
+                } header: {
+                    Label("listItemsToAdd", systemImage: "rectangle.on.rectangle")
                 }
-            } header: {
-                Label("listItemsToAdd", systemImage: "rectangle.on.rectangle")
             }
         }
         .onAppear {
