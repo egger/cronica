@@ -69,9 +69,15 @@ struct PersonDetailsView: View {
             .autocorrectionDisabled(true)
             .navigationTitle(name)
             .toolbar {
+#if os(iOS)
                 ToolbarItem {
                     ShareLink(item: personUrl)
                 }
+#else
+                ToolbarItem(placement: .status) {
+                    ShareLink(item: personUrl)
+                }
+#endif
             }
             .background {
                 TranslucentBackground(image: viewModel.person?.personImage)
@@ -135,7 +141,7 @@ struct PersonDetailsView: View {
 #else
             Table(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) {
                 TableColumn("Title") { item in
-                    SearchItemView(item: item, showInformationPopup: $showInformationPopup)
+                    SearchItemView(item: item, showConfirmation: $showSaveConfirmation)
                         .buttonStyle(.plain)
                         .accessibilityHint(Text(item.itemTitle))
                 }

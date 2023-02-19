@@ -26,6 +26,13 @@ extension Date {
         formatter.timeStyle = .none
         return formatter.string(from: self)
     }
+    func convertDateToShortString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeZone = .current
+        formatter.timeStyle = .none
+        return formatter.string(from: self)
+    }
 }
 
 extension Date? {

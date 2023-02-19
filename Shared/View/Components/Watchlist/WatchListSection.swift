@@ -13,6 +13,8 @@ struct WatchListSection: View {
     private let context = PersistenceController.shared
     @State private var multiSelection = Set<String>()
     @State private var sortOrder = [KeyPathComparator(\WatchlistItem.itemTitle)]
+    @State var showDefaultFooter = true
+    var alternativeFooter: String?
     var body: some View {
         if !items.isEmpty {
 #if os(macOS)
@@ -29,6 +31,7 @@ struct WatchListSection: View {
         Table(items, sortOrder: $sortOrder) {
             TableColumn("Title") { item in
                 WatchlistItemRow(content: item)
+                    .draggable(item)
                     .buttonStyle(.plain)
             }
             TableColumn("Media", value: \.itemMedia.title)
@@ -48,8 +51,16 @@ struct WatchListSection: View {
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
             } footer: {
-                Text("\(items.count) items")
-                    .padding(.bottom)
+                if showDefaultFooter {
+                    let formatString = NSLocalizedString("items count", comment: "")
+                    let result = String(format: formatString, items.count)
+                    Text(result)
+                        .padding(.bottom)
+                } else {
+                    if let alternativeFooter {
+                        Text(alternativeFooter)
+                    }
+                }
             }
         }
         .toolbar {

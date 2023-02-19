@@ -54,17 +54,19 @@ struct CardFrame: View {
                                     }
                                 }
                                 .background {
-                                    Color.black.opacity(0.5)
-                                        .mask {
-                                            LinearGradient(colors:
-                                                            [Color.black,
-                                                             Color.black.opacity(0.924),
-                                                             Color.black.opacity(0.707),
-                                                             Color.black.opacity(0.383),
-                                                             Color.black.opacity(0)],
-                                                           startPoint: .bottom,
-                                                           endPoint: .top)
-                                        }
+                                    if item.cardImageMedium != nil {
+                                        Color.black.opacity(0.5)
+                                            .mask {
+                                                LinearGradient(colors:
+                                                                [Color.black,
+                                                                 Color.black.opacity(0.924),
+                                                                 Color.black.opacity(0.707),
+                                                                 Color.black.opacity(0.383),
+                                                                 Color.black.opacity(0)],
+                                                               startPoint: .bottom,
+                                                               endPoint: .top)
+                                            }
+                                    }
                                 }
                             }
                         }

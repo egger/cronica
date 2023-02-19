@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct SideBarView: View {
+    @Environment(\.managedObjectContext) var viewContext
     @AppStorage("selectedView") private var selectedView: Screens = .home
     @State private var showNotifications = false
     @StateObject private var searchViewModel = SearchViewModel()
@@ -21,33 +21,19 @@ struct SideBarView: View {
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedView) {
-                NavigationLink(value: Screens.home) {
-                    Label("Home", systemImage: "house")
-                }
-                
-                NavigationLink(value: Screens.explore) {
-                    Label("Explore", systemImage: "film")
-                }
-                
-                NavigationLink(value: Screens.watchlist) {
-                    Label("Watchlist", systemImage: "square.stack.fill")
-                }
-                .dropDestination(for: ItemContent.self) { items, _  in
-                    for item in items {
-                        Task {
-                            do {
-                                let content = try await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                                PersistenceController.shared.save(content)
-                            } catch {
-                                if Task.isCancelled { return }
-                                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                                      for: "SideBarView.dropDestination")
-                            }
-                        }
+                Section {
+                    NavigationLink(value: Screens.home) {
+                        Label("Home", systemImage: "house")
                     }
-                    return true
+
+                    NavigationLink(value: Screens.explore) {
+                        Label("Explore", systemImage: "film")
+                    }
+                    NavigationLink(value: Screens.watchlist) {
+                        Label("Watchlist", systemImage: "square.stack.fill")
+                    }
                 }
-                
+
             }
             .task(id: searchViewModel.query) {
                 if !searchViewModel.query.isEmpty {
@@ -58,9 +44,8 @@ struct SideBarView: View {
                 await searchViewModel.search(searchViewModel.query)
             }
             .searchable(text: $searchViewModel.query,
-                        placement: .sidebar)
+                        placement: .toolbar)
             .disableAutocorrection(true)
-            .navigationTitle("Cronica")
         } detail: {
             ZStack {
                 if isSearching {
@@ -71,15 +56,15 @@ struct SideBarView: View {
                         NavigationStack {
                             HomeView()
                                 .environment(\.managedObjectContext, persistence.container.viewContext)
-                                .appTheme()
                         }
                     case .explore:
-                        DiscoverView()
-                            .appTheme()
+                        NavigationStack {
+                            ExploreView()
+                        }
+                        //DiscoverView()
                     case .watchlist:
                         WatchlistView()
                             .environment(\.managedObjectContext, persistence.container.viewContext)
-                            .appTheme()
                     }
                 }
                 ConfirmationDialogView(showConfirmation: $showConfirmation)
@@ -87,7 +72,7 @@ struct SideBarView: View {
         }
         .navigationSplitViewStyle(.balanced)
     }
-    
+
     @ViewBuilder
     private var search: some View {
         switch searchViewModel.stage {
@@ -179,8 +164,3 @@ struct SideBarView: View {
     }
 }
 
-struct SideBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        SideBarView()
-    }
-}

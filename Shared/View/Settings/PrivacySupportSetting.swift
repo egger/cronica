@@ -11,6 +11,18 @@ struct PrivacySupportSetting: View {
     @AppStorage("disableTelemetry") private var disableTelemetry = false
     @State private var showPolicy = false
     var body: some View {
+#if os(iOS)
+        Form {
+            section
+            
+        }
+        .navigationTitle("Privacy")
+#else
+        section
+#endif
+    }
+    
+    private var section: some View {
         Section {
 #if os(iOS) || os(macOS)
             Button {
@@ -20,7 +32,11 @@ struct PrivacySupportSetting: View {
                 showPolicy.toggle()
 #endif
             } label: {
+#if os(iOS)
+                Text("settingsPrivacyPolicy")
+#else
                 Label("settingsPrivacyPolicy", systemImage: "hand.raised.fingers.spread")
+#endif
             }
 #if os(iOS)
             .fullScreenCover(isPresented: $showPolicy) {
@@ -30,7 +46,7 @@ struct PrivacySupportSetting: View {
             .buttonStyle(.link)
 #endif
 #endif
-#if os(iOS) || os(tvOS)
+#if os(tvOS)
             NavigationLink(destination: FeedbackSettingsView()) {
                 Label("settingsFeedbackTitle", systemImage: "mail")
             }
@@ -41,7 +57,7 @@ struct PrivacySupportSetting: View {
                                    subtitle: "settingsDisableTelemetrySubtitle")
             }
         } header: {
-#if os(iOS) || os(tvOS)
+#if os(tvOS)
             Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
 #elseif os(macOS)
             Label("Privacy", systemImage: "hand.raised")

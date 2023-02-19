@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CompanyDetails: View {
     let company: ProductionCompany
@@ -13,6 +14,7 @@ struct CompanyDetails: View {
     @StateObject private var viewModel = CompanyDetailsViewModel()
     var body: some View {
         ZStack {
+            if !viewModel.isLoaded { ProgressView() }
             VStack {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns))], spacing: 20) {
@@ -37,6 +39,7 @@ struct CompanyDetails: View {
                     .padding()
                 }
             }
+            .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             .navigationTitle(company.name)
             .onAppear {
                 Task {
@@ -75,10 +78,36 @@ struct CompanyDetails: View {
     }
 }
 
-struct CompanyDetails_Previews: PreviewProvider {
-    static private let company = ProductionCompany(name: "PlayStation Productions", id: 125281)
-    static var previews: some View {
-        CompanyDetails(company: company)
+//struct CompanyDetails_Previews: PreviewProvider {
+//    static private let company = ProductionCompany(name: "PlayStation Productions", id: 125281)
+//    static var previews: some View {
+//        CompanyDetails(company: company)
+//    }
+//}
+
+struct CompaniesListView: View {
+    let companies: [ProductionCompany]
+    var body: some View {
+        if companies.isEmpty {
+            ProgressView()
+        } else {
+#if os(iOS)
+            List(companies, id: \.self) { item in
+                NavigationLink(value: item) {
+                    Text(item.name)
+                }
+            }
+            .navigationTitle("companiesTitle")
+#else
+            Table(companies) {
+                TableColumn("Companies") { item in
+                    NavigationLink(value: item) {
+                        Text(item.name)
+                    }
+                }
+            }
+#endif
+        }
     }
 }
 

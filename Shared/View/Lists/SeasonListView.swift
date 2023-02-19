@@ -15,21 +15,9 @@ struct SeasonListView: View {
     var lastSelectedSeason: Int?
     @State private var selectedSeason: Int = 1
     @State private var hasFirstLoaded = false
-    @StateObject private var viewModel: SeasonViewModel
-    @AppStorage("markEpisodeWatchedTap") var episodeTap = false
+    @StateObject private var viewModel = SeasonViewModel()
     @Binding var inWatchlist: Bool
     @Binding var seasonConfirmation: Bool
-    private var isMac = false
-    init(numberOfSeasons: [Int]?, tvId: Int, inWatchlist: Binding<Bool>, seasonConfirmation: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: SeasonViewModel())
-        self.numberOfSeasons = numberOfSeasons
-        self.tvId = tvId
-        self._inWatchlist = inWatchlist
-        self._seasonConfirmation = seasonConfirmation
-#if os(macOS)
-        isMac = true
-#endif
-    }
     var body: some View {
         if let numberOfSeasons {
             VStack {
@@ -49,7 +37,9 @@ struct SeasonListView: View {
                     .padding(.leading)
                     .padding(.bottom, 1)
                     .unredacted()
-                    .frame(maxWidth: isMac ? 300 : nil)
+#if os(macOS)
+                    .frame(maxWidth: 300)
+#endif
                     Spacer()
 #if os(macOS)
                     markSeasonAsWatched

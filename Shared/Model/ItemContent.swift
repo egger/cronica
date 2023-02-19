@@ -34,9 +34,17 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
     var videos: Videos?
     var nextEpisodeToAir, lastEpisodeToAir: Episode?
 }
-struct ProductionCompany: Codable, Hashable {
+struct ProductionCompany: Identifiable, Codable, Hashable {
     let name: String
     let id: Int
+    let logoPath: String?
+    let originCountry: String?
+    let description: String?
+}
+extension ProductionCompany {
+    var logoUrl: URL? {
+        return NetworkService.urlBuilder(size: .medium, path: logoPath)
+    }
 }
 struct ProductionCountry: Codable, Hashable {
     let name: String

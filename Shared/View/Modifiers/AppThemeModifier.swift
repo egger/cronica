@@ -16,3 +16,12 @@ struct AppThemeModifier: ViewModifier {
             .environment(\.colorScheme, currentTheme.overrideTheme ?? systemTheme)
     }
 }
+
+struct AppTintModifier: ViewModifier {
+    static let defaultsKey = "user_theme"
+    @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
+    func body(content: Content) -> some View {
+        content
+            .tint(appTheme.color)
+    }
+}

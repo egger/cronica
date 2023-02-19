@@ -69,6 +69,9 @@ struct ExploreView: View {
                     .navigationDestination(for: ProductionCompany.self) { item in
                         CompanyDetails(company: item)
                     }
+                    .navigationDestination(for: [ProductionCompany].self) { item in
+                        CompaniesListView(companies: item)
+                    }
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
@@ -132,7 +135,7 @@ struct ExploreView: View {
                 .formStyle(.grouped)
 #endif
             }
-            .presentationDetents([.medium])
+            .presentationDetents([.medium, .large])
             .unredacted()
             .appTheme()
         })

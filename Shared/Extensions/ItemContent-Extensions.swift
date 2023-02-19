@@ -139,6 +139,12 @@ extension ItemContent {
     var itemTrailers: [VideoItem]? {
         return NetworkService.fetchVideos(for: videos?.results)
     }
+    var itemCompanies: [ProductionCompany] {
+        if let productionCompanies {
+            return productionCompanies
+        }
+        return []
+    }
     
     // MARK: URL
     var posterImageMedium: URL? {
