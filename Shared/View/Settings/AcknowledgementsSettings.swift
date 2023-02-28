@@ -37,6 +37,16 @@ struct AcknowledgementsSettings: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
+                Button {
+                    openUrl(URL(string: "https://github.com/AvdLee/Roadmap")!)
+                } label: {
+                    InformationalLabel(title: "Roadmap")
+                }
+                Button {
+                    openUrl(URL(string: "https://telemetrydeck.com/")!)
+                } label: {
+                    InformationalLabel(title: "TelemetryDeck")
+                }
                 InformationalLabel(title: "acknowledgmentsUserTitle")
             } header: {
 #if os(macOS) || os(tvOS)

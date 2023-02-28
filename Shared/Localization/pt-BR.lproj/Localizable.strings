@@ -521,3 +521,6 @@
 "editListRemoveItems" = "Remover Itens";
 "Default List" = "Lista Padrão";
 "Delete" = "Deletar";
+"featureRoadmap" = "Próximos Recursos";
+"featureRoadmapHeader" = "Vote nos próximos recursos que você deseja ver primeiro.";
+"featureRoadmapSubtitle" = "Use o ícone 'mais' para sugerir um novo recurso.";

@@ -155,6 +155,9 @@
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
 		B845149328E0C96A00963399 /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845149228E0C96A00963399 /* NotificationListView.swift */; };
+		B84B506829AE698100AE63C7 /* FeatureRoadmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84B506729AE698100AE63C7 /* FeatureRoadmap.swift */; };
+		B84B506929AE698100AE63C7 /* FeatureRoadmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84B506729AE698100AE63C7 /* FeatureRoadmap.swift */; };
+		B84B506C29AE69CB00AE63C7 /* Roadmap in Frameworks */ = {isa = PBXBuildFile; productRef = B84B506B29AE69CB00AE63C7 /* Roadmap */; };
 		B84C53FD27B1F1DD00425524 /* WatchlistItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */; };
 		B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
 		B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
@@ -635,6 +638,7 @@
 		B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person-Extensions.swift"; sourceTree = "<group>"; };
 		B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extension.swift"; sourceTree = "<group>"; };
 		B845149228E0C96A00963399 /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
+		B84B506729AE698100AE63C7 /* FeatureRoadmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRoadmap.swift; sourceTree = "<group>"; };
 		B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemRow.swift; sourceTree = "<group>"; };
 		B84F0229299026B7007EA8AE /* DatesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesManager.swift; sourceTree = "<group>"; };
 		B85344C028FA07B60013E9C7 /* UpcomingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingListView.swift; sourceTree = "<group>"; };
@@ -807,6 +811,7 @@
 				B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */,
 				B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */,
 				B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */,
+				B84B506C29AE69CB00AE63C7 /* Roadmap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1272,6 +1277,7 @@
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B80BBE5D2949677300958876 /* SyncSetting.swift */,
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
+				B84B506729AE698100AE63C7 /* FeatureRoadmap.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1650,6 +1656,7 @@
 			packageProductDependencies = (
 				B87F745D280605CE00E94126 /* TelemetryClient */,
 				B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */,
+				B84B506B29AE69CB00AE63C7 /* Roadmap */,
 			);
 			productName = "Story (iOS)";
 			productReference = B8110EDF279245D100844FEB /* Story.app */;
@@ -1780,6 +1787,7 @@
 			packageReferences = (
 				B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */,
 				B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				B84B506A29AE69CB00AE63C7 /* XCRemoteSwiftPackageReference "Roadmap" */,
 			);
 			productRefGroup = B8110EE0279245D100844FEB /* Products */;
 			projectDirPath = "";
@@ -2053,6 +2061,7 @@
 				B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */,
 				B8FB2A7E29522E58006DAC8E /* WatchlistItemFrame.swift in Sources */,
 				B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */,
+				B84B506829AE698100AE63C7 /* FeatureRoadmap.swift in Sources */,
 				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
 				B82B75A828A84E9A00C3212A /* WatchlistButtonView.swift in Sources */,
 				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
@@ -2257,6 +2266,7 @@
 				B89429CD297E07C30029646F /* SupportEmail.swift in Sources */,
 				B84457D92973B455009CB21F /* WatchProvidersList.swift in Sources */,
 				B8FB2AA329535057006DAC8E /* CardFrame.swift in Sources */,
+				B84B506929AE698100AE63C7 /* FeatureRoadmap.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,
 				B8BF62EF2912F37A0051915C /* ConfirmationDialogView.swift in Sources */,
 				B8AAA6F1296455E2004FDF21 /* AppThemeModifier.swift in Sources */,
@@ -2434,7 +2444,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2467,7 +2477,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2620,7 +2630,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2656,7 +2666,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Story;
 				SDKROOT = iphoneos;
@@ -2875,7 +2885,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2908,7 +2918,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2990,6 +3000,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B84B506A29AE69CB00AE63C7 /* XCRemoteSwiftPackageReference "Roadmap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AvdLee/Roadmap.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TelemetryDeck/SwiftClient";
@@ -3013,6 +3031,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		B84B506B29AE69CB00AE63C7 /* Roadmap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B84B506A29AE69CB00AE63C7 /* XCRemoteSwiftPackageReference "Roadmap" */;
+			productName = Roadmap;
 		};
 		B86E7A17290A910600459E41 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;

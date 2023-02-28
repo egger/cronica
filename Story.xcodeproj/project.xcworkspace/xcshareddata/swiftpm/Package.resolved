@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "roadmap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AvdLee/Roadmap.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c99c8e51f2e5ed585b89dd254f30bc3994768fc4"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",

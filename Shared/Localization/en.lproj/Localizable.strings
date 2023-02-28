@@ -485,3 +485,6 @@
 "Media" = "Media";
 "Person" = "Person";
 "Save" = "Save";
+"featureRoadmap" = "Upcoming Features";
+"featureRoadmapHeader" = "Vote for the next features you want to see first.";
+"featureRoadmapSubtitle" = "Use the 'plus' icon to suggest a new feature.";

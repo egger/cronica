@@ -72,6 +72,11 @@ struct SettingsView: View {
             NavigationLink(destination: FeedbackSettingsView()) {
                 Label("settingsFeedbackTitle", systemImage: "mail")
             }
+#if os(iOS)
+            NavigationLink(destination: FeatureRoadmap()) {
+                Label("featureRoadmap", systemImage: "map")
+            }
+#endif
         } header: {
             Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
         }
@@ -99,9 +104,7 @@ struct SettingsView: View {
                         }
                     }
                     .onLongPressGesture {
-                        if Bundle.isTestFlight() {
-                            displayDeveloperSettings.toggle()
-                        }
+                        displayDeveloperSettings.toggle()
                     }
                     .font(animateEasterEgg ? .title3 : .caption)
                     .foregroundColor(animateEasterEgg ? .green : nil)

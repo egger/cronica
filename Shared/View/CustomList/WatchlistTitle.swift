@@ -17,7 +17,7 @@ struct WatchlistTitle: View {
                 .fontWeight(Font.Weight.semibold)
                 .lineLimit(1)
                 .foregroundColor(showListSelection ? .secondary : nil)
-            Image(systemName: "chevron.down")
+            Image(systemName: "chevron.down.circle.fill")
                 .fontWeight(.bold)
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -31,6 +31,7 @@ struct WatchlistTitle: View {
                         }
                     }
                 }
+                .foregroundColor(showListSelection ? .secondary : nil)
         }
         .onTapGesture {
             showListSelection.toggle()
