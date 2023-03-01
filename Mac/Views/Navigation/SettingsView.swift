@@ -36,12 +36,20 @@ struct SettingsView: View {
                 Label("Privacy", systemImage: "hand.raised.fill")
             }
             
+            Form {
+                FeatureRoadmap()
+            }
+            .formStyle(.grouped)
+            .tabItem {
+                Label("featureRoadmap", systemImage: "map")
+            }
+            
             AcknowledgementsSettings()
                 .tabItem {
                     Label("acknowledgmentsTitle", systemImage: "doc")
                 }
         }
-        .frame(width: 580, height: 320)
+        .frame(width: 640, height: 320)
     }
 }
 

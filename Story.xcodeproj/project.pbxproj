@@ -515,6 +515,7 @@
 		B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
 		B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
 		B8FF4DC127FB56F500C7DE9F /* SFSafariViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DC027FB56F500C7DE9F /* SFSafariViewWrapper.swift */; };
+		B8FF73E629AF85C000F24360 /* Roadmap in Frameworks */ = {isa = PBXBuildFile; productRef = B8FF73E529AF85C000F24360 /* Roadmap */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -839,6 +840,7 @@
 				B8E3ABF029552B6900CA0945 /* CloudKit.framework in Frameworks */,
 				B8BF62A12912D96C0051915C /* SDWebImageSwiftUI in Frameworks */,
 				B8BF629F2912D96C0051915C /* TelemetryClient in Frameworks */,
+				B8FF73E629AF85C000F24360 /* Roadmap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1717,6 +1719,7 @@
 			packageProductDependencies = (
 				B8BF629E2912D96C0051915C /* TelemetryClient */,
 				B8BF62A02912D96C0051915C /* SDWebImageSwiftUI */,
+				B8FF73E529AF85C000F24360 /* Roadmap */,
 			);
 			productName = CronicaMac;
 			productReference = B8BF628C2912D85C0051915C /* Cronica.app */;
@@ -3081,6 +3084,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
 			productName = TelemetryClient;
+		};
+		B8FF73E529AF85C000F24360 /* Roadmap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B84B506A29AE69CB00AE63C7 /* XCRemoteSwiftPackageReference "Roadmap" */;
+			productName = Roadmap;
 		};
 /* End XCSwiftPackageProductDependency section */
 
