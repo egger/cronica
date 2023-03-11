@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="CustomList" representedClassName="CustomList" syncable="YES" codeGenerationType="class">
+    <entity name="CustomList" representedClassName="CustomList" syncable="YES">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
@@ -8,7 +8,7 @@
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WatchlistItem" inverseName="list" inverseEntity="WatchlistItem"/>
     </entity>
-    <entity name="WatchlistItem" representedClassName="WatchlistItem" syncable="YES" codeGenerationType="class">
+    <entity name="WatchlistItem" representedClassName="WatchlistItem" syncable="YES">
         <attribute name="contentID" optional="YES" attributeType="String"/>
         <attribute name="contentType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

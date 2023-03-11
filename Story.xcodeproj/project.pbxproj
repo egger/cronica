@@ -61,6 +61,30 @@
 		B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B52996C2DB0096E806 /* SelectListView.swift */; };
 		B813917F289F4F8D003BEB2E /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
 		B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
+		B81DD92629BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
+		B81DD92729BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
+		B81DD92829BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
+		B81DD92929BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
+		B81DD92A29BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
+		B81DD92B29BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
+		B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
+		B81DD92D29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
+		B81DD92E29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
+		B81DD92F29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
+		B81DD93029BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
+		B81DD93129BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
+		B81DD93429BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */; };
+		B81DD93529BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */; };
+		B81DD93629BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */; };
+		B81DD93729BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */; };
+		B81DD93829BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */; };
+		B81DD93929BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */; };
+		B81DD93A29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
+		B81DD93B29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
+		B81DD93C29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
+		B81DD93D29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
+		B81DD93E29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
+		B81DD93F29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
 		B82B759528A84C8C00C3212A /* CompanionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82B759428A84C8C00C3212A /* CompanionTextView.swift */; };
 		B82B75A028A84D6600C3212A /* FilmographyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82B759F28A84D6600C3212A /* FilmographyListView.swift */; };
 		B82B75A428A84DBA00C3212A /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82B75A328A84DBA00C3212A /* WatchlistView.swift */; };
@@ -599,6 +623,10 @@
 		B812C7B3299480620096E806 /* NewCustomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomListView.swift; sourceTree = "<group>"; };
 		B812C7B52996C2DB0096E806 /* SelectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListView.swift; sourceTree = "<group>"; };
 		B815A15B27BEB7F20062F727 /* ItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContent.swift; sourceTree = "<group>"; };
+		B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WatchlistItem+CoreDataClass.swift"; path = "Shared/Model/WatchlistItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WatchlistItem+CoreDataProperties.swift"; path = "Shared/Model/WatchlistItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CustomList+CoreDataClass.swift"; path = "Shared/Model/CustomList+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CustomList+CoreDataProperties.swift"; path = "Shared/Model/CustomList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B82B759428A84C8C00C3212A /* CompanionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionTextView.swift; sourceTree = "<group>"; };
 		B82B759F28A84D6600C3212A /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
 		B82B75A328A84DBA00C3212A /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
@@ -935,6 +963,10 @@
 		B8110ED2279245D000844FEB = {
 			isa = PBXGroup;
 			children = (
+				B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */,
+				B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */,
+				B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */,
+				B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */,
 				B8D7AEB328B95F5F0053CE5A /* CronicaWidgetExtension.entitlements */,
 				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
 				B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */,
@@ -1901,6 +1933,7 @@
 				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
 				B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B84043BA289B18B200D5CEBF /* UTType-Extensions.swift in Sources */,
+				B81DD92E29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B84043B0289B187000D5CEBF /* Watchlist.xcdatamodeld in Sources */,
 				B84043B1289B187400D5CEBF /* Key.swift in Sources */,
 				B810524A298DBACB00723E94 /* Int-Extensions.swift in Sources */,
@@ -1908,11 +1941,13 @@
 				B89ECD092986A89600F0B197 /* InformationalLabel.swift in Sources */,
 				B8FB2A8C29526074006DAC8E /* DoubleTapGesture.swift in Sources */,
 				B82BE4DA299BF35D005F9990 /* PersistenceController-WatchlistItem.swift in Sources */,
+				B81DD92829BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B89ECD022984531D00F0B197 /* DiscoverSortBy.swift in Sources */,
 				B82B75A428A84DBA00C3212A /* WatchlistView.swift in Sources */,
 				B83C630728E642FB00927AE7 /* AboutSectionView.swift in Sources */,
 				B84043BD289B18C500D5CEBF /* Person.swift in Sources */,
 				B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */,
+				B81DD93C29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B82B75A728A84E9500C3212A /* WatchlistButtonView.swift in Sources */,
 				B8AAA6EA29645561004FDF21 /* AppTheme.swift in Sources */,
 				B873F6D2290AF9C600CC080A /* WatchlistItemContextMenu.swift in Sources */,
@@ -1945,6 +1980,7 @@
 				B84043E4289B3F3800D5CEBF /* PersonView.swift in Sources */,
 				B84043B5289B188B00D5CEBF /* ItemContent-Extensions.swift in Sources */,
 				B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */,
+				B81DD93629BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
 				B88529AB28E35A9F0026D33A /* SeasonListView.swift in Sources */,
 				B8FB2A8629524D9A006DAC8E /* View-Extensions.swift in Sources */,
 				B8D7AEC928B961AD0053CE5A /* ReleaseDate.swift in Sources */,
@@ -1982,6 +2018,7 @@
 				B82BE4E3299BFBC5005F9990 /* CustomWatchlist.swift in Sources */,
 				B8EC45E427D5A010009389FC /* ItemContent-Extensions.swift in Sources */,
 				B8FB2A90295263AB006DAC8E /* AcknowledgementsSettings.swift in Sources */,
+				B81DD92629BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */,
 				B8BF633529146A2A0051915C /* PinItemsList.swift in Sources */,
@@ -2010,6 +2047,7 @@
 				B82BE4F6299F09CA005F9990 /* CustomWatchListFilters.swift in Sources */,
 				B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
+				B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B876DE64281B36A7005558DD /* Season.swift in Sources */,
@@ -2062,6 +2100,7 @@
 				B804E397284FCBCB00F59855 /* CardFrame.swift in Sources */,
 				B87F9D89286145600064947A /* DiscoverViewModel.swift in Sources */,
 				B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */,
+				B81DD93429BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
 				B8FB2A7E29522E58006DAC8E /* WatchlistItemFrame.swift in Sources */,
 				B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */,
 				B84B506829AE698100AE63C7 /* FeatureRoadmap.swift in Sources */,
@@ -2083,6 +2122,7 @@
 				B8B271A627A5A18C00F6463F /* PersistenceController.swift in Sources */,
 				B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */,
 				B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */,
+				B81DD93A29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B82BE4DE299BF734005F9990 /* DefaultWatchlist.swift in Sources */,
 				B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */,
 				B812C7B4299480620096E806 /* NewCustomListView.swift in Sources */,
@@ -2110,6 +2150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B81DD93529BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
+				B81DD92D29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
+				B81DD93B29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
+				B81DD92729BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B85E037027B0371C005C7FDF /* StoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2145,6 +2189,7 @@
 				B86E79F9290A908900459E41 /* WatchlistItem-Extension.swift in Sources */,
 				B86E79F1290A906200459E41 /* Key.swift in Sources */,
 				B8114C8B2938140600930AF4 /* WatchEpisodeButton.swift in Sources */,
+				B81DD93829BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
 				B86E79F3290A906F00459E41 /* PersistenceController.swift in Sources */,
 				B8DD5693290C9962002CAAFD /* EpisodeItemFrame.swift in Sources */,
 				B892EB0D29675582002E028E /* TipJarSetting.swift in Sources */,
@@ -2152,6 +2197,7 @@
 				B810525B298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */,
 				B86E79FC290A909B00459E41 /* NotificationManager.swift in Sources */,
 				B8DD5698290CB41C002CAAFD /* EpisodeDetailsView.swift in Sources */,
+				B81DD93029BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B86E7A05290A90AE00459E41 /* NetworkError.swift in Sources */,
 				B8DD5690290C92A5002CAAFD /* SettingsView.swift in Sources */,
 				B84F022C299026B7007EA8AE /* DatesManager.swift in Sources */,
@@ -2188,6 +2234,7 @@
 				B86E7A13290A90E200459E41 /* PersonDetailsViewModel.swift in Sources */,
 				B8AAA6F0296455E2004FDF21 /* AppThemeModifier.swift in Sources */,
 				B86E79FF290A90A800459E41 /* ReleaseDate.swift in Sources */,
+				B81DD93E29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B8733A8029294C1200CBEF2B /* UpcomingWatchlist.swift in Sources */,
 				B86E7A21290AAEB600459E41 /* ItemContentDetails.swift in Sources */,
 				B86E7A04290A90AE00459E41 /* NetworkService.swift in Sources */,
@@ -2214,6 +2261,7 @@
 				B86E7A00290A90A800459E41 /* Season.swift in Sources */,
 				B86E7A12290A90E200459E41 /* DiscoverViewModel.swift in Sources */,
 				B8DD5684290C7B40002CAAFD /* CastListView.swift in Sources */,
+				B81DD92A29BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2232,6 +2280,7 @@
 				B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */,
 				B8BF632E29142E380051915C /* WelcomeView.swift in Sources */,
 				B8BF633B29146AEB0051915C /* UpcomingWatchlist.swift in Sources */,
+				B81DD93F29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B8BF62DB2912E6360051915C /* ItemContentDetails.swift in Sources */,
 				B810525C298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */,
 				B8BF62C52912DA230051915C /* PersonDetailsViewModel.swift in Sources */,
@@ -2257,6 +2306,8 @@
 				B8FB2AA4295353D5006DAC8E /* WatchlistItemFrame.swift in Sources */,
 				B8BF62C82912DA230051915C /* SeasonViewModel.swift in Sources */,
 				B8BF62FD29130B780051915C /* SearchItemsScope.swift in Sources */,
+				B81DD93929BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
+				B81DD92B29BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B8FB2A8529524D97006DAC8E /* View-Extensions.swift in Sources */,
 				B84457CA297341B6009CB21F /* WatchProviders.swift in Sources */,
 				B8AAA6EC29645561004FDF21 /* AppTheme.swift in Sources */,
@@ -2265,6 +2316,7 @@
 				B8BF62912912D85C0051915C /* ContentView.swift in Sources */,
 				B8BF62AB2912DA230051915C /* NetworkError.swift in Sources */,
 				B89446C0294FDACA008974BA /* AppThemeColors.swift in Sources */,
+				B81DD93129BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B84F022D299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B89429CD297E07C30029646F /* SupportEmail.swift in Sources */,
 				B84457D92973B455009CB21F /* WatchProvidersList.swift in Sources */,
@@ -2367,6 +2419,8 @@
 				B8F6DE652937A144005D1A50 /* Videos.swift in Sources */,
 				B8D7AEC628B961890053CE5A /* NetworkService.swift in Sources */,
 				B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */,
+				B81DD92F29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
+				B81DD92929BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B8D7AEC428B9616C0053CE5A /* ImageSize.swift in Sources */,
 				B8D7AEC228B961650053CE5A /* MediaType.swift in Sources */,
 				B8D7AECA28B961AE0053CE5A /* ReleaseDate.swift in Sources */,
@@ -2375,6 +2429,8 @@
 				B8D7AEC028B961470053CE5A /* ItemContent-Extensions.swift in Sources */,
 				B89ECD032984531E00F0B197 /* DiscoverSortBy.swift in Sources */,
 				B8D7AED428B963110053CE5A /* Season.swift in Sources */,
+				B81DD93729BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
+				B81DD93D29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B810525F298DD05600723E94 /* WatchProviderOption.swift in Sources */,
 				B8D7AEC528B961860053CE5A /* NetworkError.swift in Sources */,
 				B8D7AECF28B962660053CE5A /* Person.swift in Sources */,
