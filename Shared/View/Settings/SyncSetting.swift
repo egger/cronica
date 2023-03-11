@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SyncSetting: View {
     @State private var updatingItems = false
+    @State private var isGeneratingExport = false
     var body: some View {
         Form {
             Section {
@@ -50,7 +51,7 @@ struct SyncSetting: View {
     
     private var importButton: some View {
         Button {
-            
+            importItems()
         } label: {
             InformationalLabel(title: "importTitle",
                                subtitle: "importSubtitle",
@@ -60,12 +61,19 @@ struct SyncSetting: View {
     
     private var exportButton: some View {
         Button {
-            
+            export()
         } label: {
-            InformationalLabel(title: "exportTitle",
-                               subtitle: "exportSubtitle",
-                               image: "arrow.up.doc.fill")
+            if isGeneratingExport {
+                CenterHorizontalView {
+                    ProgressView("generatingExportFile")
+                }
+            } else {
+                InformationalLabel(title: "exportTitle",
+                                   subtitle: "exportSubtitle",
+                                   image: "arrow.up.doc.fill")
+            }
         }
+        .disabled(isGeneratingExport)
     }
     
     private var accountButton: some View {
@@ -88,6 +96,14 @@ struct SyncSetting: View {
                 self.updatingItems.toggle()
             }
         }
+    }
+    
+    private func export() {
+        isGeneratingExport = true
+    }
+    
+    private func importItems() {
+        
     }
 }
 

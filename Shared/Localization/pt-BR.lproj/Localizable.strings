@@ -529,3 +529,4 @@
 "exportTitle" = "Exportar";
 "exportSubtitle" = "Exportar dados para um arquivo JSON";
 "syncSettingsItemsTitle" = "Itens";
+"generatingExportFile" = "Gerando arquivo JSON, por favor aguarde.";

@@ -493,3 +493,4 @@
 "exportTitle" = "Export";
 "exportSubtitle" = "Export data to JSON file";
 "syncSettingsItemsTitle" = "Items";
+"generatingExportFile" =  "Generating JSON file, please wait.";

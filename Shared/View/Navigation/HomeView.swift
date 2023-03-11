@@ -126,6 +126,7 @@ struct HomeView: View {
             .sheet(isPresented: $showSettings) {
 #if os(iOS)
                 SettingsView(showSettings: $showSettings)
+                    .interactiveDismissDisabled()
 #endif
             }
             .sheet(isPresented: $showNotifications) {
