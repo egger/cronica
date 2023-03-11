@@ -30,11 +30,50 @@ struct SyncSetting: View {
             } header: {
                 Label("syncSettingsWatchlistTitle", systemImage: "square.stack")
             }
+            
+            Section {
+                importButton
+                exportButton
+            } header: {
+                Label("syncSettingsItemsTitle", systemImage: "doc.on.doc")
+            }
+            
+//            Section {
+//                accountButton
+//            }
         }
         .navigationTitle("syncSettingsTitle")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
+    }
+    
+    private var importButton: some View {
+        Button {
+            
+        } label: {
+            InformationalLabel(title: "importTitle",
+                               subtitle: "importSubtitle",
+                               image: "arrow.down.doc.fill")
+        }
+    }
+    
+    private var exportButton: some View {
+        Button {
+            
+        } label: {
+            InformationalLabel(title: "exportTitle",
+                               subtitle: "exportSubtitle",
+                               image: "arrow.up.doc.fill")
+        }
+    }
+    
+    private var accountButton: some View {
+        Button {
+            
+        } label: {
+            EmptyView()
+        }
     }
     
     private func updateItems() {

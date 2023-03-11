@@ -524,3 +524,8 @@
 "featureRoadmap" = "Próximos Recursos";
 "featureRoadmapHeader" = "Vote nos próximos recursos que você deseja ver primeiro.";
 "featureRoadmapSubtitle" = "Use o ícone 'mais' para sugerir um novo recurso.";
+"importTitle" = "Importar";
+"importSubtitle" = "Importar dados de um arquivo JSON";
+"exportTitle" = "Exportar";
+"exportSubtitle" = "Exportar dados para um arquivo JSON";
+"syncSettingsItemsTitle" = "Itens";

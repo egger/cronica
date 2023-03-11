@@ -12,13 +12,13 @@ struct FeatureRoadmap: View {
 #if os(macOS)
     let configuration = RoadmapConfiguration(roadmapJSONURL: URL(string: "https://simplejsoncms.com/api/06l23o23ey9")!)
 #else
-    let configuration = RoadmapConfiguration(roadmapJSONURL: URL(string: "https://simplejsoncms.com/api/06l23o23ey9")!,
-                                             style: RoadmapTemplate.clean)
+    let configuration = RoadmapConfiguration(roadmapJSONURL: URL(string: "https://simplejsoncms.com/api/06l23o23ey9")!, style: RoadmapTemplate.clean, allowSearching: true)
 #endif
     var body: some View {
         VStack {
-            headerView
-            RoadmapView(configuration: configuration)
+            RoadmapView(configuration: configuration, header: {
+                headerView
+            })
         }
         .navigationTitle("featureRoadmap")
         .toolbar {
@@ -27,12 +27,6 @@ struct FeatureRoadmap: View {
                 Label("settingsFeedbackTitle", systemImage: "plus.circle")
             }
 #endif
-        }
-        .onAppear {
-            var code: String {
-                Bundle.main.preferredLocalizations.first ?? "en"
-            }
-            print(code)
         }
     }
     
@@ -62,8 +56,6 @@ struct FeatureRoadmap: View {
         .background(Color(uiColor: .secondarySystemBackground))
 #endif
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(radius: 2)
-        .padding()
 #endif
     }
 }
@@ -79,12 +71,12 @@ struct FeatureRoadmap_Previews: PreviewProvider {
 
 extension RoadmapTemplate {
 #if os(iOS)
-    static let clean = RoadmapStyle(icon: Image(systemName: "arrow.up"),
+    static let clean = RoadmapStyle(icon: Image(systemName: "chevron.up"),
                                     titleFont: .system(.headline, weight: .semibold),
                                     numberFont: .system(.body, weight: .semibold),
                                     statusFont: .caption,
-                                    cornerRadius: 10,
-                                    cellColor: Color(uiColor: .secondarySystemGroupedBackground),
+                                    cornerRadius: 16,
+                                    cellColor: Color(uiColor: .tertiarySystemGroupedBackground),
                                     selectedColor: .white,
                                     tint: SettingsStore.shared.appTheme.color)
 #endif

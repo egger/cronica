@@ -6,7 +6,7 @@
       "location" : "https://github.com/AvdLee/Roadmap.git",
       "state" : {
         "branch" : "main",
-        "revision" : "c99c8e51f2e5ed585b89dd254f30bc3994768fc4"
+        "revision" : "3de4838e5edc6d69f0e229a70f7b552f1c48954e"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "3e48cb68d8e668d146dc59c73fb98cb628616236",
-        "version" : "5.13.2"
+        "revision" : "fb50c1d20f24db5322b2f8f379de3618f75fe08e",
+        "version" : "5.15.5"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
       "state" : {
-        "revision" : "ed288667c909c89127ab1b690113a3e397af3098",
-        "version" : "2.2.1"
+        "revision" : "61fefe9c284fd41ddef77d02749e88f00c305196",
+        "version" : "2.2.2"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TelemetryDeck/SwiftClient",
       "state" : {
-        "revision" : "87b866ea6a7c573f3f22176fc0f2529e81e4a247",
-        "version" : "1.2.0"
+        "revision" : "cb34730027fcf560005aad57f2b53506064b228f",
+        "version" : "1.4.3"
       }
     }
   ],

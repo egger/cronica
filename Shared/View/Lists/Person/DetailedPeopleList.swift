@@ -126,5 +126,6 @@ private struct PersonItemRow: View {
             }
         }
         .buttonStyle(.plain)
+        .draggable(person)
     }
 }

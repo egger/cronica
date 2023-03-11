@@ -31,4 +31,6 @@ class SettingsStore: ObservableObject {
     @AppStorage("primaryRightSwipe") var primaryRightSwipe: SwipeGestureOptions = .delete
     @AppStorage("secondaryRightSwipe") var secondaryRightSwipe: SwipeGestureOptions = .markArchive
     @AppStorage("allowFullSwipe") var allowFullSwipe = false
+    @AppStorage("displayCustomListItemsOnWatchlist") var displayCustomOnWatchlist = true
+    @AppStorage("immediatelyDeleteItem") var immediatelyDeletion = false
 }
