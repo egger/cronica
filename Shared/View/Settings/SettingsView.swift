@@ -59,6 +59,9 @@ struct SettingsView: View {
             NavigationLink(destination: SyncSetting()) {
                 Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
             }
+            NavigationLink(destination: NotificationsSettingsView()) {
+                Label("settingsNotificationTitle", systemImage: "bell")
+            }
         } header: {
             Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
         }

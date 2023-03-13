@@ -33,4 +33,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("allowFullSwipe") var allowFullSwipe = false
     @AppStorage("displayCustomListItemsOnWatchlist") var displayCustomOnWatchlist = true
     @AppStorage("immediatelyDeleteItem") var immediatelyDeletion = false
+    @AppStorage("allowNotifications") var allowNotifications = true
+    @AppStorage("notifyMovies") var notifyMovieRelease = true
+    @AppStorage("notifyTVShows") var notifyNewEpisodes = true
 }

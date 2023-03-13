@@ -530,3 +530,9 @@
 "exportSubtitle" = "Exportar dados para um arquivo JSON";
 "syncSettingsItemsTitle" = "Itens";
 "generatingExportFile" = "Gerando arquivo JSON, por favor aguarde.";
+"allowNotification" = "Permitir Notificações";
+"movieNotificationTitle" = "Notificar Lançamentos de Filmes";
+"movieNotificationSubtitle" = "Notificar quando um filme da sua lista for lançado.";
+"episodeNotificationTitle" = "Notificar Novos Episódios";
+"episodeNotificationSubtitle" = "Notificar quando um novo episódio de uma série da sua lista for lançado.";
+"settingsNotificationTitle" = "Notificações";

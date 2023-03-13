@@ -494,3 +494,9 @@
 "exportSubtitle" = "Export data to JSON file";
 "syncSettingsItemsTitle" = "Items";
 "generatingExportFile" =  "Generating JSON file, please wait.";
+"allowNotification" =  "Allow Notifications";
+"movieNotificationTitle" =  "Notify Movies Releases";
+"movieNotificationSubtitle" =  "Notify when a movie on your watchlist is released.";
+"episodeNotificationTitle" = "Notify New Episodes";
+"episodeNotificationSubtitle" = "Notify when a new episode from a TV Show on your watchlist is released.";
+"settingsNotificationTitle" = "Notifications";
