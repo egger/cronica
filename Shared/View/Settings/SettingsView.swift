@@ -51,47 +51,43 @@ struct SettingsView: View {
     private var general: some View {
         Section {
             NavigationLink(destination: BehaviorSetting()) {
-                Label("settingsBehaviorTitle", systemImage: "hand.tap")
+                SettingsLabelWithIcon(title: "settingsBehaviorTitle", icon: "hand.tap", color: .gray)
             }
             NavigationLink(destination: AppearanceSetting()) {
-                Label("settingsAppearanceTitle", systemImage: "moon.stars")
+                SettingsLabelWithIcon(title: "settingsAppearanceTitle", icon: "paintbrush", color: .blue)
             }
             NavigationLink(destination: SyncSetting()) {
-                Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
+                SettingsLabelWithIcon(title: "settingsSyncTitle", icon: "arrow.triangle.2.circlepath", color: .green)
             }
             NavigationLink(destination: NotificationsSettingsView()) {
-                Label("settingsNotificationTitle", systemImage: "bell")
+                SettingsLabelWithIcon(title: "settingsNotificationTitle", icon: "bell", color: .red)
             }
-        } header: {
-            Label("settingsGeneralTitle", systemImage: "wrench.adjustable")
         }
     }
     
     private var privacySupport: some View {
         Section {
             NavigationLink(destination: PrivacySupportSetting()) {
-                Label("Privacy", systemImage: "hand.raised")
+                SettingsLabelWithIcon(title: "Privacy", icon: "hand.raised", color: .blue)
             }
             NavigationLink(destination: FeedbackSettingsView()) {
-                Label("settingsFeedbackTitle", systemImage: "mail")
+                SettingsLabelWithIcon(title: "settingsFeedbackTitle", icon: "envelope.open", color: .teal)
             }
 #if os(iOS)
             NavigationLink(destination: FeatureRoadmap()) {
-                Label("featureRoadmap", systemImage: "map")
+                SettingsLabelWithIcon(title: "featureRoadmap", icon: "map", color: .pink)
             }
 #endif
-        } header: {
-            Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
         }
     }
     
     private var about: some View {
         Section {
             NavigationLink(destination: TipJarSetting()) {
-                Label("tipJarTitle", systemImage: "heart")
+                SettingsLabelWithIcon(title: "tipJarTitle", icon: "heart", color: .red)
             }
             NavigationLink(destination: AcknowledgementsSettings()) {
-                Label("acknowledgmentsTitle", systemImage: "doc")
+                SettingsLabelWithIcon(title: "acknowledgmentsTitle", icon: "doc", color: .yellow)
             }
             CenterHorizontalView {
                 Text("Made in Brazil 🇧🇷")
@@ -113,8 +109,6 @@ struct SettingsView: View {
                     .foregroundColor(animateEasterEgg ? .green : nil)
                     .animation(.easeInOut, value: animateEasterEgg)
             }
-        } header: {
-            Label("About", systemImage: "info.circle")
         }
     }
 }
@@ -123,5 +117,26 @@ struct SettingsView_Previews: PreviewProvider {
     @State private static var dismiss = false
     static var previews: some View {
         SettingsView(showSettings: $dismiss)
+    }
+}
+
+private struct SettingsLabelWithIcon: View {
+    let title: String
+    let icon: String
+    let color: Color
+    var body: some View {
+        HStack {
+            ZStack {
+                Rectangle()
+                    .fill(color.gradient)
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                Image(systemName: icon)
+                    .foregroundColor(.white)
+            }
+            .frame(width: 30, height: 30, alignment: .center)
+            .padding(.trailing, 8)
+            .accessibilityHidden(true)
+            Text(LocalizedStringKey(title))
+        }
     }
 }
