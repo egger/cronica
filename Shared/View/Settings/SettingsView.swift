@@ -13,6 +13,7 @@ struct SettingsView: View {
     @State private var animateEasterEgg = false
     @Binding var showSettings: Bool
     @StateObject private var settings = SettingsStore.shared
+    @State private var query = ""
     var body: some View {
         NavigationStack {
             Form {
@@ -22,9 +23,11 @@ struct SettingsView: View {
                 Button {
                     requestReview()
                 } label: {
-                    Label("settingsReviewCronica", systemImage: "star.fill")
+                    Text("settingsReviewCronica")
                 }
-                ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
+                ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!) {
+                    Text("Share")
+                }
                 about
             }
             .toolbar {
@@ -32,6 +35,7 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            //.searchable(text: $query)
         }
         .appTheme()
         .tint(settings.appTheme.color)
@@ -41,7 +45,7 @@ struct SettingsView: View {
     private var developer: some View {
         if displayDeveloperSettings {
             NavigationLink(destination: DeveloperView()) {
-                Label("settingsDeveloperOptions", systemImage: "hammer")
+                SettingsLabelWithIcon(title: "settingsDeveloperOptions", icon: "hammer", color: .purple)
             }
         } else {
             EmptyView()

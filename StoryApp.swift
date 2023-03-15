@@ -14,11 +14,13 @@ struct StoryApp: App {
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
+    @State private var showWhatsNew = false
     @ObservedObject private var settings = SettingsStore.shared
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
+        checkVersion()
     }
     var body: some Scene {
         WindowGroup {
@@ -91,6 +93,15 @@ struct StoryApp: App {
                 scheduleAppRefresh()
                 scheduleAppMaintenance()
             }
+        }
+    }
+    
+    private func checkVersion() {
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let lastSeenVersion = UserDefaults.standard.string(forKey: UserDefaults.lastSeenAppVersionKey)
+        if currentVersion != lastSeenVersion {
+            showWhatsNew.toggle()
+            UserDefaults.standard.set(currentVersion, forKey: UserDefaults.lastSeenAppVersionKey)
         }
     }
     
