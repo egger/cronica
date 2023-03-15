@@ -34,6 +34,14 @@ class NotificationManager: ObservableObject {
     }
     
     func schedule(_ content: ItemContent) {
+        let settings = SettingsStore.shared
+        let type = content.itemContentMedia
+        if !settings.allowNotifications { return }
+        if type == .movie {
+            if !settings.notifyMovieRelease { return }
+        } else {
+            if !settings.notifyNewEpisodes { return }
+        }
         self.requestAuthorization { granted in
             if !granted {
                 self.notificationAllowed = false

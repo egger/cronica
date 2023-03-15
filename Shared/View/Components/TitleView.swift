@@ -19,7 +19,6 @@ struct TitleView: View {
                     Text(NSLocalizedString(title, comment: ""))
                         .padding([.top, .leading])
                         .fontWeight(.semibold)
-                        .fontDesign(.rounded)
 #if os(tvOS)
                         .font(.callout)
 #else
@@ -39,7 +38,6 @@ struct TitleView: View {
                         Text(NSLocalizedString(subtitle, comment: ""))
                             .foregroundColor(.secondary)
                             .padding(.leading)
-                            .fontDesign(.rounded)
 #if os(tvOS)
                             .font(.caption)
 #else

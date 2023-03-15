@@ -59,7 +59,6 @@ struct EpisodeFrameView: View {
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .textCase(.uppercase)
-                    .fontDesign(.rounded)
                     .font(.caption2)
                     .lineLimit(1)
                     .foregroundColor(.secondary)

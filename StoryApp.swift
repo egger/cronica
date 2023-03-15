@@ -23,7 +23,6 @@ struct StoryApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .fontDesign(.rounded)
                 .appTint()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .onOpenURL { url in

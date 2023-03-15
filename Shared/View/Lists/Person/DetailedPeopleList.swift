@@ -110,13 +110,11 @@ private struct PersonItemRow: View {
                 VStack(alignment: .leading) {
                     Text(person.name)
                         .lineLimit(1)
-                        .fontDesign(.rounded)
                     if let role = person.personRole {
                         Text(role)
                             .lineLimit(1)
                             .font(.caption)
                             .foregroundColor(.secondary)
-                            .fontDesign(.rounded)
                     }
                 }
             }
