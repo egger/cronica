@@ -500,3 +500,13 @@
 "episodeNotificationTitle" = "Notify New Episodes";
 "episodeNotificationSubtitle" = "Notify when a new episode from a TV Show on your watchlist is released.";
 "settingsNotificationTitle" = "Notifications";
+
+"changelogViewTitle" = "What's New";
+"tipJar" = "Tip Jar";
+"tipJarDescription" = "If you love the app, consider supporting through Tip Jar.";
+"featureOneTitle" = "Up Next";
+"featureOneDescription" = "Check out the next episode of your favorite TV series and mark it as watched in a snap.";
+"featureTwoTitle" = "Personalized Recommendations";
+"featureTwoDescription" = "Get tailored movie and TV show recommendations based on what you've watched in Cronica.";
+"featureThreeTitle" = "Fine-Tune Your Experience";
+"featureThreeDescription" = "More settings and improved UI to customize Cronica just the way you like it.";

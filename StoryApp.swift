@@ -14,7 +14,7 @@ struct StoryApp: App {
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
-    @State private var showWhatsNew = false
+    @State private var showWhatsNew = true
     @ObservedObject private var settings = SettingsStore.shared
     init() {
         CronicaTelemetry.shared.setup()
@@ -86,6 +86,12 @@ struct StoryApp: App {
                     }
                     .appTheme()
                     .appTint()
+                }
+                .sheet(isPresented: $showWhatsNew) {
+                    ChangelogView(showChangelog: $showWhatsNew)
+                        .onDisappear {
+                            showWhatsNew = false
+                        }
                 }
         }
         .onChange(of: scene) { phase in

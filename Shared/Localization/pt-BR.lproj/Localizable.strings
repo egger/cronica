@@ -536,3 +536,12 @@
 "episodeNotificationTitle" = "Notificar Novos Episódios";
 "episodeNotificationSubtitle" = "Notificar quando um novo episódio de uma série da sua lista for lançado.";
 "settingsNotificationTitle" = "Notificações";
+"changelogViewTitle" = "Novidades";
+"tipJar" = "Contribuição";
+"tipJarDescription" = "Se você gosta do aplicativo, considere apoiar através da Contribuição.";
+"featureOneTitle" = "Próximo na Lista";
+"featureOneDescription" = "Confira o próximo episódio da sua série favorita e marque como assistido rapidamente.";
+"featureTwoTitle" = "Recomendações Personalizadas";
+"featureTwoDescription" = "Obtenha recomendações personalizadas de filmes e séries com base no que você assistiu no Cronica.";
+"featureThreeTitle" = "Ajuste Fino da Experiência";
+"featureThreeDescription" = "Mais configurações e interface do usuário melhorada para personalizar o Cronica exatamente como você gosta.";
