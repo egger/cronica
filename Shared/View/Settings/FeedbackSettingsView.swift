@@ -38,7 +38,7 @@ struct FeedbackSettingsView: View {
                     .buttonStyle(.link)
 #endif
                 } header: {
-                    Label("Send feedback", systemImage: "envelope")
+                    Text("Send feedback")
                 } footer: {
 #if os(iOS)
                     if disableTelemetry {

@@ -9,6 +9,7 @@ import SwiftUI
 
 class SettingsStore: ObservableObject {
     static var shared = SettingsStore()
+    @AppStorage("showOnboarding") var displayOnboard = true
     @AppStorage("gesture") var gesture: DoubleTapGesture = .favorite
     @AppStorage("rowType") var rowType: WatchlistSubtitleRow = .none
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
@@ -36,4 +37,6 @@ class SettingsStore: ObservableObject {
     @AppStorage("allowNotifications") var allowNotifications = true
     @AppStorage("notifyMovies") var notifyMovieRelease = true
     @AppStorage("notifyTVShows") var notifyNewEpisodes = true
+    @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
+    @AppStorage("isNotificationDisabledInSettings") var isNotificationAccessDisabled = false
 }

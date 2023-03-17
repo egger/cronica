@@ -12,22 +12,37 @@ struct NotificationsSettingsView: View {
     var body: some View {
         Form {
             Section {
-                Toggle("allowNotification", isOn: $settings.allowNotifications)
-                Toggle(isOn: $settings.notifyMovieRelease) {
-                    InformationalLabel(title: "movieNotificationTitle",
-                                       subtitle: "movieNotificationSubtitle")
+                if settings.isNotificationAccessDisabled {
+                    Button("openNotificationInSettings") {
+                        
+                    }
+                } else {
+                    Toggle("allowNotification", isOn: $settings.allowNotifications)
+                    Toggle(isOn: $settings.notifyMovieRelease) {
+                        InformationalLabel(title: "movieNotificationTitle",
+                                           subtitle: "movieNotificationSubtitle")
+                    }
+                    .disabled(!settings.allowNotifications)
+                    Toggle(isOn: $settings.notifyNewEpisodes) {
+                        InformationalLabel(title: "episodeNotificationTitle",
+                                           subtitle: "episodeNotificationSubtitle")
+                    }
+                    .disabled(!settings.allowNotifications)
                 }
-                .disabled(!settings.allowNotifications)
-                Toggle(isOn: $settings.notifyNewEpisodes) {
-                    InformationalLabel(title: "episodeNotificationTitle",
-                                       subtitle: "episodeNotificationSubtitle")
-                }
-                .disabled(!settings.allowNotifications)
             }
             .onChange(of: settings.allowNotifications) { _ in
                 if !settings.allowNotifications {
                     settings.notifyMovieRelease = false
                     settings.notifyNewEpisodes = false
+                }
+            }
+            .task {
+                settings.isNotificationAccessDisabled = !NotificationManager.shared.isNotificationAllowed()
+            }
+            
+            Section {
+                NavigationLink(destination: FeedbackSettingsView()) {
+                    Text("notificationsSettingsFeedbackCall")
                 }
             }
         }

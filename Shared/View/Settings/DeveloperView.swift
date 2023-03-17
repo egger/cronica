@@ -19,6 +19,7 @@ struct DeveloperView: View {
     @State private var isFetchingAll = false
     @State private var showAllItems = false
     @State private var showOnboardingMac = false
+    @State private var showChangelog = true
     private let persistence = PersistenceController.shared
     private let service = NetworkService.shared
     var body: some View {
@@ -68,9 +69,7 @@ struct DeveloperView: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
-            } header: {
-                Label("Fetch a single item.", systemImage: "hammer")
-            }
+            } 
             
             Section {
 #if os(macOS)
@@ -84,9 +83,11 @@ struct DeveloperView: View {
                     label: {
                         Text("Show Onboarding")
                     })
+                
+                NavigationLink(destination: ChangelogView(showChangelog: $showChangelog)) {
+                    Text("What's New")
+                }
 #endif
-            } header: {
-                Text("Presentation")
             }
             
             Section {
@@ -96,8 +97,6 @@ struct DeveloperView: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
-            } header: {
-                Text("Items")
             }
             
         }

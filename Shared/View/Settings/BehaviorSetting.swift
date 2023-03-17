@@ -41,7 +41,7 @@ struct BehaviorSetting: View {
                 InformationalLabel(title: "behaviorEpisodeTitle")
             }
         } header: {
-            Label("behaviorGestureTitle", systemImage: "hand.tap")
+            Text("behaviorGestureTitle")
         }
     }
     
@@ -79,7 +79,7 @@ struct BehaviorSetting: View {
                 store.allowFullSwipe = false
             }
         } header: {
-            Label("behaviorSwipeTitle", systemImage: "hand.draw")
+            Text("behaviorSwipeTitle")
         }
     }
     
@@ -88,9 +88,7 @@ struct BehaviorSetting: View {
             Toggle(isOn: $store.openInYouTube) {
                 InformationalLabel(title: "behaviorYouTubeTitle")
             }
-        } header: {
-            Label("behaviorLinkTitle", systemImage: "link")
-        }
+        } 
     }
     
     private var watchProviders: some View {
@@ -114,8 +112,6 @@ struct BehaviorSetting: View {
                 .pickerStyle(.navigationLink)
 #endif
             }
-        } header: {
-            Label("contentRegionTitle", systemImage: "globe.desk")
         }
     }
     
@@ -124,8 +120,6 @@ struct BehaviorSetting: View {
             Toggle(isOn: $store.hapticFeedback) {
                 InformationalLabel(title: "hapticFeedbackTitle")
             }
-        } header: {
-            Label("accessibilityTitle", systemImage: "figure.roll")
         }
     }
 }

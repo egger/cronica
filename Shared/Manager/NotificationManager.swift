@@ -12,7 +12,6 @@ import SwiftUI
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
     @Published var settings: UNNotificationSettings?
-    @AppStorage("isNotificationAllowed") var notificationAllowed = true
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .provisional]) { granted, error in
@@ -33,6 +32,14 @@ class NotificationManager: ObservableObject {
         }
     }
     
+    func isNotificationAllowed() -> Bool {
+        var isAllowed = false
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            isAllowed = settings.authorizationStatus == .authorized
+        }
+        return isAllowed
+    }
+    
     func schedule(_ content: ItemContent) {
         let settings = SettingsStore.shared
         let type = content.itemContentMedia
@@ -44,10 +51,14 @@ class NotificationManager: ObservableObject {
         }
         self.requestAuthorization { granted in
             if !granted {
-                self.notificationAllowed = false
+                DispatchQueue.main.async {
+                    settings.isNotificationAccessDisabled = true
+                }
                 return
             } else {
-                self.notificationAllowed = true
+                DispatchQueue.main.async {
+                    settings.isNotificationAccessDisabled = false
+                }
             }
         }
         let identifier = content.itemNotificationID

@@ -35,7 +35,7 @@ struct AppearanceSetting: View {
                 }
                 
             } header: {
-                Label("appearanceWatchlist", systemImage: "rectangle.stack")
+                Text("appearanceWatchlist")
             }
             .onChange(of: store.watchlistStyle) { newValue in
                 if newValue != .list {
@@ -71,7 +71,7 @@ struct AppearanceSetting: View {
                 }
                 .pickerStyle(.navigationLink)
             } header: {
-                Label("appearanceTheme", systemImage: "paintbrush.fill")
+                Text("appearanceTheme")
             }
 #endif
             Section {
@@ -79,7 +79,7 @@ struct AppearanceSetting: View {
                     InformationalLabel(title: "disableTranslucentTitle")
                 }
             } header: {
-                Label("accessibilityTitle", systemImage: "eyeglasses")
+                Text("accessibilityTitle")
             }
             .onChange(of: store.disableTranslucent) { newValue in
                 CronicaTelemetry.shared.handleMessage("accessibilityDisableTranslucent is turned \(newValue)",

@@ -54,6 +54,9 @@ class StoreKitManager: ObservableObject {
             await transaction.finish()
             let message = "Transaction of \(transaction.productID) has successfully."
             CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase()")
+            DispatchQueue.main.async {
+                SettingsStore.shared.hasPurchasedTipJar = true
+            }
             return transaction
         case .userCancelled, .pending:
             return nil

@@ -12,13 +12,13 @@ import SwiftUI
 class DiscoverViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published var items = [ItemContent]()
-    @Published var selectedGenre: Int = 28
-    @Published var selectedMedia: MediaType = .movie
+    @AppStorage("exploreViewSelectedGenre") var selectedGenre: Int = 28
+    @AppStorage("exploreViewSelectedMedia") var selectedMedia: MediaType = .movie
     @Published var selectedSortBy: DiscoverSortBy = .popularityDesc
     @Published var selectedWatchProviders = [String]()
     @Published var isLoaded: Bool = false
     @Published var showErrorDialog: Bool = false
-    @Published var hideAddedItems = false
+    @AppStorage("exploreViewHideAddedItems") var hideAddedItems = false
     // MARK: Pagination Properties
     @Published var currentPage: Int = 0
     @Published var startPagination: Bool = false

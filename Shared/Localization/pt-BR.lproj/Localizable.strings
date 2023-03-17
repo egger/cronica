@@ -545,3 +545,6 @@
 "featureTwoDescription" = "Obtenha recomendações personalizadas de filmes e séries com base no que você assistiu no Cronica.";
 "featureThreeTitle" = "Ajuste Fino da Experiência";
 "featureThreeDescription" = "Mais configurações e interface do usuário melhorada para personalizar o Cronica exatamente como você gosta.";
+"thankYouTipJarMessage" = "Obrigado pela sua contribuição! Seu apoio é muito apreciado. 😁";
+"notificationsSettingsFeedbackCall" = "Você tem alguma sugestão? Envie um Feedback";
+"openNotificationInSettings" = "Ative Notificações no aplicativo Ajustes";

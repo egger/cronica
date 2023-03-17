@@ -11,28 +11,33 @@ import StoreKit
 struct TipJarSetting: View {
     @StateObject private var viewModel = StoreKitManager()
     @State private var productsLoaded = false
+    @State private var hasPurchased = false
     var body: some View {
         Form {
             Section {
-                if !productsLoaded { ProgressView() }
-                ForEach(viewModel.storeProducts) { item in
-                    Button {
-                        Task {
-                            try await viewModel.purchase(item)
+                if hasPurchased {
+                    Text("thankYouTipJarMessage")
+                } else {
+                    if !productsLoaded { ProgressView() }
+                    ForEach(viewModel.storeProducts) { item in
+                        Button {
+                            Task {
+                                try await viewModel.purchase(item)
+                            }
+                        } label: {
+                            TipJarItem(storeKit: viewModel, product: item)
                         }
-                    } label: {
-                        TipJarItem(storeKit: viewModel, product: item)
+    #if os(macOS)
+                        .buttonStyle(.plain)
+    #endif
                     }
-#if os(macOS)
-                    .buttonStyle(.plain)
-#endif
-                }
-                Button("restorePurchases") {
-                    Task {
-                        try? await AppStore.sync()
+                    Button("restorePurchases") {
+                        Task {
+                            try? await AppStore.sync()
+                        }
                     }
+                    .disabled(!productsLoaded)
                 }
-                .disabled(!productsLoaded)
             } header: {
                 #if os(macOS)
                 Label("tipJarTitle", systemImage: "heart")
@@ -40,6 +45,9 @@ struct TipJarSetting: View {
             } footer: {
                 Text("tipJarFooter")
             }
+            .task(id: SettingsStore.shared.hasPurchasedTipJar, {
+                hasPurchased = SettingsStore.shared.hasPurchasedTipJar
+            })
         }
         .navigationTitle("tipJarTitle")
         .onChange(of: viewModel.hasLoadedProducts) { hasLoaded in

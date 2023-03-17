@@ -50,7 +50,7 @@ struct AcknowledgementsSettings: View {
                 InformationalLabel(title: "acknowledgmentsUserTitle")
             } header: {
 #if os(macOS) || os(tvOS)
-                Label("settingsAcknowledgments", systemImage: "smiley")
+                Text("settingsAcknowledgments")
 #endif
             } footer: {
 #if os(iOS)
