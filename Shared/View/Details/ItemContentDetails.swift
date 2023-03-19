@@ -112,6 +112,8 @@ struct ItemContentDetails: View {
                 ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
                 .presentationDetents([.medium])
                 .interactiveDismissDisabled()
+                .appTheme()
+                .appTint()
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
