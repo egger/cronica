@@ -22,6 +22,8 @@ struct NewCustomListView: View {
         animation: .default)
     private var items: FetchedResults<WatchlistItem>
     @State private var itemsToAdd = Set<WatchlistItem>()
+    // This allows the SelectedListView to change to the new list when it is created.
+    @Binding var newSelectedList: CustomList?
     var body: some View {
         Form {
             Section {
@@ -141,6 +143,8 @@ struct NewCustomListView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                HapticManager.shared.successHaptic()
+                newSelectedList = list
             } catch {
                 CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "NewCustomListView.save()")
             }
@@ -154,9 +158,10 @@ struct NewCustomListView: View {
 
 struct NewCustomListView_Previews: PreviewProvider {
     @State private static var presentView = true
+    @State private static var list: CustomList? = nil
     static var previews: some View {
 #if os(iOS)
-        NewCustomListView(presentView: $presentView)
+        NewCustomListView(presentView: $presentView, newSelectedList: $list)
 #else
         EmptyView()
 #endif

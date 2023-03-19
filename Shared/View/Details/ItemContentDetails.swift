@@ -261,6 +261,7 @@ private struct ItemContentCustomListSelector: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
         animation: .default)
     private var lists: FetchedResults<CustomList>
+    @State private var selectedList: CustomList?
     var body: some View {
         NavigationStack {
             Form {
@@ -269,7 +270,7 @@ private struct ItemContentCustomListSelector: View {
                         List {
                             if lists.isEmpty { List { newList } }
                             ForEach(lists) { list in
-                                AddToListRow(list: list, item: $item)
+                                AddToListRow(list: list, item: $item, showView: $showView)
                             }
                         }
                     } header: { Text("yourLists") }
@@ -293,7 +294,7 @@ private struct ItemContentCustomListSelector: View {
     private var newList: some View {
         NavigationLink {
 #if os(iOS)
-            NewCustomListView(presentView: $showView, preSelectedItem: item)
+            NewCustomListView(presentView: $showView, preSelectedItem: item, newSelectedList: $selectedList)
 #endif
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")
@@ -305,6 +306,7 @@ private struct AddToListRow: View {
     @State private var isItemAdded = false
     var list: CustomList
     @Binding var item: WatchlistItem?
+    @Binding var showView: Bool
     var body: some View {
         HStack {
             Image(systemName: isItemAdded ? "checkmark.circle.fill" : "circle")
@@ -322,11 +324,14 @@ private struct AddToListRow: View {
             PersistenceController.shared.updateList(for: item.id, type: item.itemMedia, to: list)
             HapticManager.shared.successHaptic()
             withAnimation { isItemAdded.toggle() }
+            showView.toggle()
         }
-        .onAppear {
-            if let item {
-                if list.itemsSet.contains(item) { isItemAdded.toggle() }
-            }
+        .onAppear { isItemInList() }
+    }
+    
+    private func isItemInList() {
+        if let item {
+            if list.itemsSet.contains(item) { isItemAdded.toggle() }
         }
     }
 }

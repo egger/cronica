@@ -133,7 +133,7 @@ struct SelectListView: View {
     private var newList: some View {
         NavigationLink {
 #if os(iOS)
-            NewCustomListView(presentView: $showListSelection)
+            NewCustomListView(presentView: $showListSelection, newSelectedList: $selectedList)
 #else
             NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection)
 #endif
