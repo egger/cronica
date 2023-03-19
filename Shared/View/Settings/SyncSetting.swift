@@ -12,6 +12,7 @@ struct SyncSetting: View {
     @State private var updatingItems = false
     @State private var isGeneratingExport = false
     @State private var showExportShareSheet = false
+    @State private var showFilePicker = false
     @State private var exportUrl: URL?
     @Environment(\.managedObjectContext) private var context
     var body: some View {
@@ -44,10 +45,17 @@ struct SyncSetting: View {
                 CustomShareSheet(url: $exportUrl)
                     .onDisappear { deleteTempFile() }
             }
+            .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.json]) { result in
+                switch result {
+                case .success(let success):
+                    if success.startAccessingSecurityScopedResource() {
+                        importJSON(success)
+                    }
+                case .failure(let failure):
+                    CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
+                }
+            }
             
-//            Section {
-//                accountButton
-//            }
         }
         .navigationTitle("syncSettingsTitle")
 #if os(macOS)
@@ -57,7 +65,7 @@ struct SyncSetting: View {
     
     private var importButton: some View {
         Button {
-            importItems()
+            showFilePicker.toggle()
         } label: {
             Text("importTitle")
         }
@@ -76,14 +84,6 @@ struct SyncSetting: View {
             }
         }
         .disabled(isGeneratingExport)
-    }
-    
-    private var accountButton: some View {
-        Button {
-            
-        } label: {
-            EmptyView()
-        }
     }
     
     private func updateItems() {
@@ -135,8 +135,16 @@ struct SyncSetting: View {
         }
     }
     
-    private func importItems() {
-        
+    private func importJSON(_ url: URL) {
+        do {
+            let jsonData = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            decoder.userInfo[.context] = context
+            let items = try decoder.decode([WatchlistItem].self, from: jsonData)
+            print(items)
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.importJSON")
+        }
     }
 }
 

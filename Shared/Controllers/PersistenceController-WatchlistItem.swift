@@ -209,6 +209,7 @@ extension PersistenceController {
     }
     
     private func markAsArchive(_ item: WatchlistItem) {
+        if item.isTvShow { item.isWatching.toggle() }
         item.isArchive.toggle()
         saveContext()
     }

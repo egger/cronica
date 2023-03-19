@@ -38,5 +38,6 @@ class SettingsStore: ObservableObject {
     @AppStorage("notifyMovies") var notifyMovieRelease = true
     @AppStorage("notifyTVShows") var notifyNewEpisodes = true
     @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
-    @AppStorage("isNotificationDisabledInSettings") var isNotificationAccessDisabled = false
+    @AppStorage("isNotificationDisabledInSettings") var hasNotificationAccess = true
+    @AppStorage("markPreviouslyEpisodesAsWatched") var markPreviouslyEpisodesAsWatched = false
 }

@@ -52,12 +52,12 @@ class NotificationManager: ObservableObject {
         self.requestAuthorization { granted in
             if !granted {
                 DispatchQueue.main.async {
-                    settings.isNotificationAccessDisabled = true
+                    settings.hasNotificationAccess = false
                 }
                 return
             } else {
                 DispatchQueue.main.async {
-                    settings.isNotificationAccessDisabled = false
+                    settings.hasNotificationAccess = true
                 }
             }
         }

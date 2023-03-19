@@ -27,7 +27,7 @@ struct NewCustomListView: View {
                 TextField("listName", text: $title)
                 TextField("listDescription", text: $note)
             } header: {
-                Label("listBasicHeader", systemImage: "pencil")
+                Text("listBasicHeader")
             }
             
             if !items.isEmpty {
@@ -36,6 +36,7 @@ struct NewCustomListView: View {
                         HStack {
                             Image(systemName: itemsToAdd.contains(item) ? "checkmark.circle.fill" : "circle")
                                 .foregroundColor(itemsToAdd.contains(item) ? SettingsStore.shared.appTheme.color : nil)
+                                .padding(.trailing, 4)
                             WebImage(url: item.image)
                                 .resizable()
                                 .placeholder {
@@ -65,6 +66,7 @@ struct NewCustomListView: View {
                             }
                         }
                         .onTapGesture {
+                            // do not remove the withAnimation, it works.
                             if itemsToAdd.contains(item) {
                                 itemsToAdd.remove(item)
                             } else {
@@ -73,7 +75,7 @@ struct NewCustomListView: View {
                         }
                     }
                 } header: {
-                    Label("listItemsToAdd", systemImage: "rectangle.on.rectangle")
+                    Text("listItemsToAdd")
                 }
             }
         }
@@ -116,9 +118,7 @@ struct NewCustomListView: View {
     }
     
     private var cancelButton: some View {
-        Button("Cancel") {
-            presentView = false
-        }
+        Button("Cancel") { presentView = false }
     }
     
     private func save() {
@@ -136,8 +136,7 @@ struct NewCustomListView: View {
             do {
                 try viewContext.save()
             } catch {
-                let message = ""
-                CronicaTelemetry.shared.handleMessage(message, for: "NewCustomListView.save()")
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "NewCustomListView.save()")
             }
         }
         title = ""

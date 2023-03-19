@@ -151,6 +151,7 @@ struct ExploreView: View {
                 } label: {
                     Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
                         .labelStyle(.iconOnly)
+                        .foregroundColor(showFilters ? .secondary : nil)
                 }
                 .keyboardShortcut("f", modifiers: .command)
             }

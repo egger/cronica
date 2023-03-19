@@ -14,6 +14,7 @@ struct BehaviorSetting: View {
 #if os(iOS)
             gesture
             swipeGesture
+            otherOptions
             links
 #endif
             watchProviders
@@ -42,6 +43,14 @@ struct BehaviorSetting: View {
             }
         } header: {
             Text("behaviorGestureTitle")
+        }
+    }
+    
+    private var otherOptions: some View {
+        Section {
+            Toggle(isOn: $store.markPreviouslyEpisodesAsWatched) {
+                InformationalLabel(title: "behaviorMarkPreviouslyEpisodes")
+            }
         }
     }
     

@@ -12,7 +12,7 @@ struct NotificationsSettingsView: View {
     var body: some View {
         Form {
             Section {
-                if settings.isNotificationAccessDisabled {
+                if settings.hasNotificationAccess {
                     Button("openNotificationInSettings") {
                         
                     }
@@ -36,8 +36,8 @@ struct NotificationsSettingsView: View {
                     settings.notifyNewEpisodes = false
                 }
             }
-            .task {
-                settings.isNotificationAccessDisabled = !NotificationManager.shared.isNotificationAllowed()
+            .onAppear {
+                settings.hasNotificationAccess = NotificationManager.shared.isNotificationAllowed()
             }
             
             Section {

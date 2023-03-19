@@ -16,6 +16,7 @@ class ItemContentViewModel: ObservableObject {
     private var id: ItemContent.ID
     private var type: MediaType
     @Published var content: ItemContent?
+    @Published var watchlistItem: WatchlistItem?
     @Published var recommendations = [ItemContent]()
     @Published var credits = [Person]()
     @Published var errorMessage = "Something went wrong, try again later."
@@ -25,6 +26,8 @@ class ItemContentViewModel: ObservableObject {
     @Published var hasNotificationScheduled = false
     @Published var isWatched = false
     @Published var isFavorite = false
+    @Published var isArchive = false
+    @Published var isPin = false
     @Published var isLoading = true
     @Published var showMarkAsButton = false
     init(id: ItemContent.ID, type: MediaType) {
@@ -39,6 +42,9 @@ class ItemContentViewModel: ObservableObject {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
                 if let content {
                     isInWatchlist = persistence.isItemSaved(id: self.id, type: self.type)
+                    if isInWatchlist {
+                        watchlistItem = try? persistence.fetch(for: Int64(id), media: content.itemContentMedia)
+                    }
                     withAnimation {
                         if isInWatchlist {
                             hasNotificationScheduled = isNotificationScheduled()
@@ -98,36 +104,35 @@ class ItemContentViewModel: ObservableObject {
             }
         } else {
             // Adds the item to Watchlist
-            withAnimation {
-                isInWatchlist.toggle()
-            }
+            withAnimation { isInWatchlist.toggle() }
             persistence.save(item)
             if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
                 NotificationManager.shared.schedule(item)
-                withAnimation {
-                    hasNotificationScheduled.toggle()
-                }
+                withAnimation { hasNotificationScheduled.toggle() }
             }
         }
     }
     
-    func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil) {
+    func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil, archive: Bool? = nil) {
         if !isInWatchlist {
             if let content {
                 updateWatchlist(with: content)
             }
         }
         if let watched {
-            withAnimation {
-                isWatched.toggle()
-            }
+            withAnimation { isWatched.toggle() }
             persistence.updateMarkAs(id: id, type: type, watched: watched)
         }
         if let favorite {
-            withAnimation {
-                isFavorite.toggle()
-            }
+            withAnimation { isFavorite.toggle() }
             persistence.updateMarkAs(id: id, type: type, favorite: favorite)
+        }
+        if archive != nil {
+            if let id = content?.itemNotificationID {
+                let set: Set = [id]
+                withAnimation { isArchive.toggle() }
+                persistence.updateArchive(items: set)
+            }
         }
     }
     

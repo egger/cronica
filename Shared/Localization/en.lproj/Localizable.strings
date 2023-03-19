@@ -513,3 +513,16 @@
 "thankYouTipJarMessage" = "Thank you for your purchase! Your support is much appreciated. 😁";
 "notificationsSettingsFeedbackCall" = "Do you have a suggestion? Send a Feedback";
 "openNotificationInSettings" = "Enable Notifications in Settings app";
+
+"defaultWatchlistShowAllItems" = "Show All Items";
+"defaultWatchlistSmartFilters" = "Smart Filters";
+"defaultWatchlistFilters" = "Filters";
+"standardSortByReleaseDateAsc" = "Release Date (Ascending)";
+"standardSortByReleaseDateDsc" = "Release Date (Descending)";
+"standardSortByTitleAsc" = "Title (Ascending)";
+"standardSortByTitleDsc" = "Title (Descending)";
+"standardSortBy" = "Sort By";
+"standardSortByLastModified" = "Last Modified";
+"More Options" = "More Options";
+"addToCustomList" = "Add to List...";
+"behaviorMarkPreviouslyEpisodes" = "Mark all previously episodes when a newer is marked as watched";

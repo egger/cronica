@@ -88,13 +88,13 @@ struct SelectListView: View {
                                 }
                                 .swipeActions(edge: .leading, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                     NavigationLink {
-                                        #if os(iOS)
+#if os(iOS)
                                         EditCustomList(list: item, showListSelection: $showListSelection)
-                                        #else
+#else
                                         EditCustomList(isPresentingNewList: $isCreateNewListPresented, list: item, showListSelection: $showListSelection)
-                                        #endif
+#endif
                                     } label: {
-                                        Label("Edit", systemImage: "pencil")
+                                        Text("Edit")
                                     }
                                 }
                                 .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
@@ -114,7 +114,7 @@ struct SelectListView: View {
                 }
             } header: {
                 HStack {
-                    Label("yourLists", systemImage: "rectangle.on.rectangle.angled")
+                    Text("yourLists")
                     Spacer()
 #if os(iOS)
                     if !lists.isEmpty { EditButton() }

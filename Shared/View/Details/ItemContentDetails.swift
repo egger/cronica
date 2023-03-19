@@ -21,6 +21,7 @@ struct ItemContentDetails: View {
     @State private var showMarkAsConfirmation = false
     @State private var markAsMessage = ""
     @State private var markAsImage = ""
+    @State private var showCustomList = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
@@ -101,20 +102,17 @@ struct ItemContentDetails: View {
                     }
                 }
             }
-            .alert("Error",
-                   isPresented: $viewModel.showErrorAlert,
-                   actions: {
-                Button("Cancel") {
-                    
-                }
-                Button("Retry") {
-                    Task {
-                        await viewModel.load()
-                    }
-                }
-            }, message: {
+            .alert("Error", isPresented: $viewModel.showErrorAlert) {
+                Button("Cancel") { }
+                Button("Retry") { Task { await viewModel.load() } }
+            } message: {
                 Text(viewModel.errorMessage)
-            })
+            }
+            .sheet(isPresented: $showCustomList) {
+                ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
+                .presentationDetents([.medium])
+                .interactiveDismissDisabled()
+            }
             ConfirmationDialogView(showConfirmation: $showConfirmation)
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
                                    message: "Season Marked as Watched", image: "tv.fill")
@@ -123,8 +121,16 @@ struct ItemContentDetails: View {
         }
     }
     
+    private var addToCustomListButton: some View {
+        Button {
+            showCustomList.toggle()
+        } label: {
+            Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")
+        }
+    }
+    
     private var watchButton: some View {
-        Button(action: {
+        Button {
             if UIDevice.isIPad {
                 if viewModel.isFavorite {
                     markAsMessage = "removedFromWatched"
@@ -147,15 +153,15 @@ struct ItemContentDetails: View {
                     }
                 }
             }
-        }, label: {
+        } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
-        })
+        }
         .keyboardShortcut("w", modifiers: [.option])
     }
     
     private var favoriteButton: some View {
-        Button(action: {
+        Button {
             if UIDevice.isIPad {
                 if viewModel.isFavorite {
                     markAsMessage = "removedFromFavorites"
@@ -178,11 +184,27 @@ struct ItemContentDetails: View {
                     }
                 }
             }
-        }, label: {
+        } label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
-        })
+        }
         .keyboardShortcut("f", modifiers: [.option])
+    }
+    
+    private var archiveButton: some View {
+        Button {
+            
+        } label: {
+            
+        }
+    }
+    
+    private var pinButton: some View {
+        Button {
+            
+        } label: {
+            
+        }
     }
     
     private var openInMenu: some View {
@@ -205,17 +227,19 @@ struct ItemContentDetails: View {
     }
     
     private var moreMenu: some View {
-        Menu(content: {
+        Menu {
+            if viewModel.isInWatchlist {
+                addToCustomListButton
+                archiveButton
+                pinButton
+            }
             watchButton
             favoriteButton
             openInMenu
-        }, label: {
-            if horizontalSizeClass == .compact {
-                Label("Mark as", systemImage: "ellipsis")
-            } else {
-                Text("Mark as")
-            }
-        })
+        } label: {
+            Label("More Options", systemImage: "ellipsis.circle")
+                .labelStyle(.iconOnly)
+        }
         .disabled(viewModel.isLoading ? true : false)
     }
 }
@@ -225,5 +249,61 @@ struct ItemContentDetails_Previews: PreviewProvider {
         ItemContentDetails(title: ItemContent.previewContent.itemTitle,
                            id: ItemContent.previewContent.id,
                            type: MediaType.movie)
+    }
+}
+
+private struct ItemContentCustomListSelector: View {
+    @Binding var item: WatchlistItem?
+    @Binding var showView: Bool
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+        animation: .default)
+    private var lists: FetchedResults<CustomList>
+    var body: some View {
+        NavigationStack {
+            Form {
+                if item != nil {
+                    Section {
+                        ForEach(lists) { list in
+                            AddToListRow(list: list, item: $item)
+                        }
+                    }
+                } else {
+                    
+                }
+            }
+            .navigationTitle("addToCustomList")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button("Done") { showView.toggle() }
+            }
+        }
+    }
+}
+
+private struct AddToListRow: View {
+    @State private var isItemAdded = false
+    var list: CustomList
+    @Binding var item: WatchlistItem?
+    var body: some View {
+        HStack {
+            Image(systemName: isItemAdded ? "checkmark.circle.fill" : "circle")
+                .foregroundColor(SettingsStore.shared.appTheme.color)
+                .padding(.horizontal)
+            VStack(alignment: .leading) {
+                Text(list.itemTitle)
+                Text(list.itemGlanceInfo)
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            }
+        }
+        .onTapGesture {
+            withAnimation { isItemAdded.toggle() }
+        }
+        .onAppear {
+            if let item {
+                if list.itemsSet.contains(item) { isItemAdded.toggle() }
+            }
+        }
     }
 }

@@ -17,6 +17,8 @@ struct WatchlistView: View {
         VStack {
             if selectedList != nil {
                 CustomWatchlist(selectedList: $selectedList)
+            } else if lastSelectedList != nil {
+                EmptyView()
             } else {
                 DefaultWatchlist()
             }
