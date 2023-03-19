@@ -35,7 +35,8 @@ class NotificationManager: ObservableObject {
     func isNotificationAllowed() -> Bool {
         var isAllowed = false
         UNUserNotificationCenter.current().getNotificationSettings { settings in
-            isAllowed = settings.authorizationStatus == .authorized
+            if settings.authorizationStatus == .authorized { isAllowed.toggle() }
+            //isAllowed = settings.authorizationStatus == .authorized
         }
         return isAllowed
     }
@@ -72,8 +73,6 @@ class NotificationManager: ObservableObject {
         var date: Date?
         if content.itemContentMedia == .movie {
             date = content.itemTheatricalDate
-            //date = notificationContent.itemFallbackDate
-            //date = notificationContent.itemTheatricalDate
         } else if content.itemContentMedia == .tvShow {
             date = content.nextEpisodeDate
         } else {

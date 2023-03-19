@@ -547,7 +547,7 @@
 "featureThreeDescription" = "Mais configurações e interface do usuário melhorada para personalizar o Cronica exatamente como você gosta.";
 "thankYouTipJarMessage" = "Obrigado pela sua contribuição! Seu apoio é muito apreciado. 😁";
 "notificationsSettingsFeedbackCall" = "Você tem alguma sugestão? Envie um Feedback";
-"openNotificationInSettings" = "Ative Notificações no aplicativo Ajustes";
+"openNotificationInSettings" = "Editar Notificações no aplicativo Configurações";
 "defaultWatchlistShowAllItems" = "Mostrar Todos os Itens";
 "defaultWatchlistSmartFilters" = "Filtros Inteligentes";
 "defaultWatchlistFilters" = "Filtros";
@@ -560,3 +560,4 @@
 "More Options" = "Mais Opções";
 "addToCustomList" = "Adicionar à Lista...";
 "behaviorMarkPreviouslyEpisodes" = "Marque todos os episódios anteriores quando um mais novo for marcado como assistido";
+"changeLanguage" = "Alterar o idioma do aplicativo";

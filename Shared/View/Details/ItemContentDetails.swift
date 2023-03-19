@@ -267,6 +267,8 @@ private struct ItemContentCustomListSelector: View {
                         ForEach(lists) { list in
                             AddToListRow(list: list, item: $item)
                         }
+                    } header: {
+                        Text("yourLists")
                     }
                 } else {
                     
@@ -275,8 +277,23 @@ private struct ItemContentCustomListSelector: View {
             .navigationTitle("addToCustomList")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                Button("Done") { showView.toggle() }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Done") { showView.toggle() }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    newList
+                }
             }
+        }
+    }
+    
+    private var newList: some View {
+        NavigationLink {
+#if os(iOS)
+            NewCustomListView(presentView: $showView, preSelectedItem: item)
+#endif
+        } label: {
+            Label("newList", systemImage: "plus.rectangle.on.rectangle")
         }
     }
 }

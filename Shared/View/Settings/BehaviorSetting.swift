@@ -20,6 +20,15 @@ struct BehaviorSetting: View {
             watchProviders
 #if os(iOS)
             accessibility
+            Button("changeLanguage") {
+                Task {
+                    // Create the URL that deep links to your app's custom settings.
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        // Ask the system to open that URL.
+                        await UIApplication.shared.open(url)
+                    }
+                }
+            }
 #endif
         }
         .navigationTitle("behaviorTitle")

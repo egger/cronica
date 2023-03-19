@@ -512,7 +512,7 @@
 "featureThreeDescription" = "More settings and improved UI to customize Cronica just the way you like it.";
 "thankYouTipJarMessage" = "Thank you for your purchase! Your support is much appreciated. 😁";
 "notificationsSettingsFeedbackCall" = "Do you have a suggestion? Send a Feedback";
-"openNotificationInSettings" = "Enable Notifications in Settings app";
+"openNotificationInSettings" = "Edit Notifications in Settings app";
 
 "defaultWatchlistShowAllItems" = "Show All Items";
 "defaultWatchlistSmartFilters" = "Smart Filters";
@@ -526,3 +526,4 @@
 "More Options" = "More Options";
 "addToCustomList" = "Add to List...";
 "behaviorMarkPreviouslyEpisodes" = "Mark all previously episodes when a newer is marked as watched";
+"changeLanguage" = "Change app language";

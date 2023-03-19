@@ -12,23 +12,18 @@ struct NotificationsSettingsView: View {
     var body: some View {
         Form {
             Section {
-                if settings.hasNotificationAccess {
-                    Button("openNotificationInSettings") {
-                        
-                    }
-                } else {
-                    Toggle("allowNotification", isOn: $settings.allowNotifications)
-                    Toggle(isOn: $settings.notifyMovieRelease) {
-                        InformationalLabel(title: "movieNotificationTitle",
-                                           subtitle: "movieNotificationSubtitle")
-                    }
-                    .disabled(!settings.allowNotifications)
-                    Toggle(isOn: $settings.notifyNewEpisodes) {
-                        InformationalLabel(title: "episodeNotificationTitle",
-                                           subtitle: "episodeNotificationSubtitle")
-                    }
-                    .disabled(!settings.allowNotifications)
+                Toggle("allowNotification", isOn: $settings.allowNotifications)
+                Toggle(isOn: $settings.notifyMovieRelease) {
+                    InformationalLabel(title: "movieNotificationTitle",
+                                       subtitle: "movieNotificationSubtitle")
                 }
+                .disabled(!settings.allowNotifications)
+                Toggle(isOn: $settings.notifyNewEpisodes) {
+                    InformationalLabel(title: "episodeNotificationTitle",
+                                       subtitle: "episodeNotificationSubtitle")
+                }
+                .disabled(!settings.allowNotifications)
+                
             }
             .onChange(of: settings.allowNotifications) { _ in
                 if !settings.allowNotifications {
@@ -38,6 +33,16 @@ struct NotificationsSettingsView: View {
             }
             .onAppear {
                 settings.hasNotificationAccess = NotificationManager.shared.isNotificationAllowed()
+            }
+            
+            Button("openNotificationInSettings") {
+                Task {
+                    // Create the URL that deep links to your app's notification settings.
+                    if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+                        // Ask the system to open that URL.
+                        await UIApplication.shared.open(url)
+                    }
+                }
             }
             
             Section {

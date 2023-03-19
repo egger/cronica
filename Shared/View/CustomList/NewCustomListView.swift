@@ -13,6 +13,7 @@ struct NewCustomListView: View {
     @Binding var isPresentingNewList: Bool
 #endif
     @Binding var presentView: Bool
+    var preSelectedItem: WatchlistItem?
     @State private var title = ""
     @State private var note = ""
     @Environment(\.managedObjectContext) var viewContext
@@ -76,6 +77,11 @@ struct NewCustomListView: View {
                     }
                 } header: {
                     Text("listItemsToAdd")
+                }
+                .onAppear {
+                    if let preSelectedItem {
+                        itemsToAdd.insert(preSelectedItem)
+                    }
                 }
             }
         }
