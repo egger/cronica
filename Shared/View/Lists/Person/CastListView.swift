@@ -15,7 +15,7 @@ struct CastListView: View {
         if !credits.isEmpty {
             VStack(alignment: .leading) {
                 NavigationLink(value: credits) {
-                    TitleView(title: "Cast & Crew", subtitle: "", image: "person.3", showChevron: true)
+                    TitleView(title: "Cast & Crew", showChevron: true)
                 }
                 .buttonStyle(.plain)
                 ScrollView(.horizontal, showsIndicators: false) {

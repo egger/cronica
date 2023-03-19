@@ -13,7 +13,7 @@ struct ItemContentListView: View {
     let items: [ItemContent]?
     let title: String
     let subtitle: String
-    let image: String
+    let image: String?
     @Binding var addedItemConfirmation: Bool
     var displayAsCard = false
     var endpoint: Endpoints?

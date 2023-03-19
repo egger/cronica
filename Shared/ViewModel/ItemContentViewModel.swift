@@ -50,6 +50,8 @@ class ItemContentViewModel: ObservableObject {
                             hasNotificationScheduled = isNotificationScheduled()
                             isWatched = persistence.isMarkedAsWatched(id: self.id, type: type)
                             isFavorite = persistence.isMarkedAsFavorite(id: self.id, type: type)
+                            isArchive = persistence.isItemArchived(id: self.id, type: type)
+                            isPin = persistence.isItemPinned(id: self.id, type: type)
                         }
                         isNotificationAvailable = content.itemCanNotify
                         if content.itemStatus == .released {
@@ -113,7 +115,7 @@ class ItemContentViewModel: ObservableObject {
         }
     }
     
-    func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil, archive: Bool? = nil) {
+    func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil, archive: Bool? = nil, pin: Bool? = nil) {
         if !isInWatchlist {
             if let content {
                 updateWatchlist(with: content)
@@ -132,6 +134,13 @@ class ItemContentViewModel: ObservableObject {
                 let set: Set = [id]
                 withAnimation { isArchive.toggle() }
                 persistence.updateArchive(items: set)
+            }
+        }
+        if pin != nil {
+            if let id = content?.itemNotificationID {
+                let set: Set = [id]
+                withAnimation { isPin.toggle() }
+                persistence.updatePin(items: set)
             }
         }
     }

@@ -57,13 +57,12 @@ struct ItemContentDetails: View {
                     
                     WatchProvidersList(id: id, type: type)
                     
-                    
                     CastListView(credits: viewModel.credits)
                     
                     ItemContentListView(items: viewModel.recommendations,
                                         title: "Recommendations",
                                         subtitle: "You may like",
-                                        image: "list.and.film",
+                                        image: nil,
                                         addedItemConfirmation: $showConfirmation,
                                         displayAsCard: true)
                     
@@ -195,17 +194,19 @@ struct ItemContentDetails: View {
     
     private var archiveButton: some View {
         Button {
-            
+            viewModel.updateMarkAs(archive: true)
         } label: {
-            
+            Label(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
+                  systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox")
         }
     }
     
     private var pinButton: some View {
         Button {
-            
+            viewModel.updateMarkAs(pin: true)
         } label: {
-            
+            Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
+                  systemImage: viewModel.isPin ? "pin.slash.fill" : "pin.fill")
         }
     }
     

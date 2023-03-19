@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TitleView: View {
     let title: String
-    let subtitle: String
-    let image: String
+    var subtitle: String?
+    var image: String?
     var showChevron = false
     var body: some View {
         HStack {
@@ -33,7 +33,7 @@ struct TitleView: View {
                             .accessibilityHidden(true)
                     }
                 }
-                if !subtitle.isEmpty {
+                if let subtitle {
                     HStack {
                         Text(NSLocalizedString(subtitle, comment: ""))
                             .foregroundColor(.secondary)
@@ -47,10 +47,12 @@ struct TitleView: View {
                 }
             }
             Spacer()
-            Image(systemName: image)
-                .foregroundColor(.secondary)
-                .padding([.top, .horizontal])
-                .accessibilityHidden(true)
+            if let image {
+                Image(systemName: image)
+                    .foregroundColor(.secondary)
+                    .padding([.top, .horizontal])
+                    .accessibilityHidden(true)
+            }
         }
         .accessibilityElement(children: .combine)
     }

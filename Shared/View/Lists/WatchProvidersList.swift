@@ -20,7 +20,7 @@ struct WatchProvidersList: View {
             if viewModel.isProvidersAvailable && isWatchProviderEnabled {
                 TitleView(title: "watchProviderTitleList",
                           subtitle: "justWatchSubtitle",
-                          image: "rectangle.stack.badge.play.fill",
+                          image: nil,
                           showChevron: false)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {

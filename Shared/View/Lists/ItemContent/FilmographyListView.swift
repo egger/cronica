@@ -17,7 +17,7 @@ struct FilmographyListView: View {
         if let filmography {
             if !filmography.isEmpty {
                 VStack {
-                    TitleView(title: "Filmography", subtitle: "Know for", image: "list.and.film")
+                    TitleView(title: "Filmography", subtitle: "", image: nil)
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(filmography) { item in
                             Poster(item: item, addedItemConfirmation: $showConfirmation)

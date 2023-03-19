@@ -19,7 +19,7 @@ struct TrailerListView: View {
 #if os(iOS)
                     Divider().padding(.horizontal)
 #endif
-                    TitleView(title: "Trailers", subtitle: "", image: "play.rectangle", showChevron: false)
+                    TitleView(title: "Trailers", subtitle: "", image: nil, showChevron: false)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(trailers) { trailer in
