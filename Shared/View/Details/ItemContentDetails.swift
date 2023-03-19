@@ -264,14 +264,15 @@ private struct ItemContentCustomListSelector: View {
             Form {
                 if item != nil {
                     Section {
-                        ForEach(lists) { list in
-                            AddToListRow(list: list, item: $item)
+                        List {
+                            if lists.isEmpty { List { newList } }
+                            ForEach(lists) { list in
+                                AddToListRow(list: list, item: $item)
+                            }
                         }
-                    } header: {
-                        Text("yourLists")
-                    }
+                    } header: { Text("yourLists") }
                 } else {
-                    
+                    ProgressView()
                 }
             }
             .navigationTitle("addToCustomList")
@@ -281,7 +282,7 @@ private struct ItemContentCustomListSelector: View {
                     Button("Done") { showView.toggle() }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    newList
+                    if !lists.isEmpty { newList }
                 }
             }
         }
@@ -315,6 +316,9 @@ private struct AddToListRow: View {
             }
         }
         .onTapGesture {
+            guard let item else { return }
+            PersistenceController.shared.updateList(for: item.id, type: item.itemMedia, to: list)
+            HapticManager.shared.successHaptic()
             withAnimation { isItemAdded.toggle() }
         }
         .onAppear {
