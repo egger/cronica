@@ -24,9 +24,8 @@ struct DefaultWatchlist: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var showFilter = false
     @State private var isLoading = false
-    @AppStorage("defaultWatchlistShowAllItems") private var showAllItems = false
-    @AppStorage("selectedSortBy") private var selectedSortBy: StandardFilters = .titleAsc
-   // @StateObject private var viewModel = DefaultWatchlistViewModel()
+    @State private var showAllItems = false
+    @State private var selectedSortBy: StandardFilters = .titleAsc
     var body: some View {
         VStack {
             switch settings.watchlistStyle {
@@ -64,6 +63,8 @@ struct DefaultWatchlist: View {
                 }
             }
             .presentationDetents([.medium, .large])
+            .appTheme()
+            .appTint()
         }
         .toolbar {
 #if os(iOS)
@@ -84,9 +85,6 @@ struct DefaultWatchlist: View {
             }
         }
         .onChange(of: showAllItems) { _ in
-            filter()
-        }
-        .onChange(of: selectedOrder) { _ in
             filter()
         }
         .onChange(of: selectedSortBy) { _ in
@@ -143,40 +141,29 @@ struct DefaultWatchlist: View {
             } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
                 noResults
             } else {
-                if isLoading {
-                    ProgressView()
-                } else {
-                    WatchListSection(items: filteredItems,
-                                     title: selectedOrder.title)
-                    .onAppear {
-                        if filteredItems.isEmpty {
-                            filter()
-                        }
-                    }
+                switch selectedOrder {
+                case .released:
+                    WatchListSection(items: items.filter { $0.isReleased },
+                                     title: DefaultListTypes.released.title)
+                case .upcoming:
+                    WatchListSection(items: items.filter { $0.isUpcoming },
+                                     title: DefaultListTypes.upcoming.title)
+                case .production:
+                    WatchListSection(items: items.filter { $0.isInProduction },
+                                     title: DefaultListTypes.production.title)
+                case .favorites:
+                    WatchListSection(items: items.filter { $0.isFavorite },
+                                     title: DefaultListTypes.favorites.title)
+                case .watched:
+                    WatchListSection(items: items.filter { $0.isWatched },
+                                     title: DefaultListTypes.watched.title)
+                case .pin:
+                    WatchListSection(items: items.filter { $0.isPin },
+                                     title: DefaultListTypes.pin.title)
+                case .archive:
+                    WatchListSection(items: items.filter { $0.isArchive },
+                                     title: DefaultListTypes.archive.title)
                 }
-//                switch selectedOrder {
-//                case .released:
-//                    WatchListSection(items: items.filter { $0.isReleased },
-//                                     title: DefaultListTypes.released.title)
-//                case .upcoming:
-//                    WatchListSection(items: items.filter { $0.isUpcoming },
-//                                     title: DefaultListTypes.upcoming.title)
-//                case .production:
-//                    WatchListSection(items: items.filter { $0.isInProduction },
-//                                     title: DefaultListTypes.production.title)
-//                case .favorites:
-//                    WatchListSection(items: items.filter { $0.isFavorite },
-//                                     title: DefaultListTypes.favorites.title)
-//                case .watched:
-//                    WatchListSection(items: items.filter { $0.isWatched },
-//                                     title: DefaultListTypes.watched.title)
-//                case .pin:
-//                    WatchListSection(items: items.filter { $0.isPin },
-//                                     title: DefaultListTypes.pin.title)
-//                case .archive:
-//                    WatchListSection(items: items.filter { $0.isArchive },
-//                                     title: DefaultListTypes.archive.title)
-//                }
             }
         }
     }
@@ -230,26 +217,6 @@ struct DefaultWatchlist: View {
         if showAllItems {
             filteredItems = []
             filteredItems.append(contentsOf: items)
-        } else {
-            if !filteredItems.isEmpty {
-                filteredItems = []
-            }
-            switch selectedOrder {
-            case .released:
-                filteredItems.append(contentsOf: items.filter { $0.isReleased })
-            case .upcoming:
-                filteredItems.append(contentsOf: items.filter { $0.isUpcoming })
-            case .production:
-                filteredItems.append(contentsOf: items.filter { $0.isInProduction })
-            case .watched:
-                filteredItems.append(contentsOf: items.filter { $0.isWatched })
-            case .favorites:
-                filteredItems.append(contentsOf: items.filter { $0.isFavorite })
-            case .pin:
-                filteredItems.append(contentsOf: items.filter { $0.isPin })
-            case .archive:
-                filteredItems.append(contentsOf: items.filter { $0.isArchive })
-            }
         }
         switch selectedSortBy {
         case .releaseDateAsc:
@@ -265,8 +232,6 @@ struct DefaultWatchlist: View {
         }
         isLoading = false
     }
-    
-    
     
     @ViewBuilder
     private var posterStyle: some View {
