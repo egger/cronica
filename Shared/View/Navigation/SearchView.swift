@@ -75,7 +75,7 @@ struct SearchView: View {
                 await viewModel.search(viewModel.query)
             }
             .overlay(searchResults)
-            ConfirmationDialogView(showConfirmation: $showInformationPopup)
+            ConfirmationDialogView(showConfirmation: $showInformationPopup, message: "addedToWatchlist")
         }
     }
     

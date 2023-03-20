@@ -464,7 +464,7 @@
 "watchProviderZa" = "África do Sul";
 
 "sendEmail" = "Enviar Email";
-"sendEmailFooter" = "Se preferir, você também pode enviar um e-mail para um acompanhamento mais rápido.";
+"sendEmailFooter" = "Se preferir, você pode enviar um e-mail para um acompanhamento mais rápido.";
 
 "mediaTypeDiscoverFilterTitle" = "Tipo de Mídia";
 "genreDiscoverFilterTitle" = "Gênero";
@@ -561,3 +561,5 @@
 "addToCustomList" = "Adicionar à Lista...";
 "behaviorMarkPreviouslyEpisodes" = "Marque todos os episódios anteriores quando um mais novo for marcado como assistido";
 "changeLanguage" = "Alterar o idioma do aplicativo";
+"sendEmailFooterBackup" = "Você também pode enviar um e-mail para contact@alexandremadeira.dev usando seu cliente de e-mail.";
+"addedToWatchlist" = "Adicionado à Lista";

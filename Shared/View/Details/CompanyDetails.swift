@@ -73,7 +73,7 @@ struct CompanyDetails: View {
             .navigationDestination(for: ProductionCompany.self) { item in
                 CompanyDetails(company: item)
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
     }
 }

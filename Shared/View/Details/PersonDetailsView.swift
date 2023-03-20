@@ -101,7 +101,7 @@ struct PersonDetailsView: View {
 #elseif os(macOS)
             .searchable(text: $viewModel.query)
 #endif
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
     }
     

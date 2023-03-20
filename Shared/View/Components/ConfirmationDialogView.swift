@@ -11,29 +11,37 @@ import SwiftUI
 /// item is saved on Watchlist.
 struct ConfirmationDialogView: View {
     @Binding var showConfirmation: Bool
-    var message: String = "Added to watchlist"
-    var image: String = "checkmark.circle"
+    var message: String
+    var image: String?
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         VStack {
-            Spacer()
             HStack {
-                Label(NSLocalizedString(message, comment: ""), systemImage: image)
-                    .padding()
+                if let image {
+                    Label(NSLocalizedString(message, comment: ""), systemImage: image)
+                        .padding()
+                } else {
+                    Text(NSLocalizedString(message, comment: ""))
+                        .padding()
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                }
+                
             }
             .background {
-                Rectangle().fill(.ultraThickMaterial)
+                Rectangle().fill(.regularMaterial)
             }
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .padding()
             .shadow(radius: 12)
             .opacity(showConfirmation ? 1 : 0)
             .scaleEffect(showConfirmation ? 1.1 : 1)
-            .animation(.easeInOut, value: showConfirmation)
+            .animation(.linear, value: showConfirmation)
             .onTapGesture {
                 withAnimation {
                     showConfirmation = false
                 }
             }
+            Spacer()
         }
     }
 }
@@ -41,6 +49,6 @@ struct ConfirmationDialogView: View {
 struct ConfirmationDialogView_Previews: PreviewProvider {
     @State private static var showConfirmation = true
     static var previews: some View {
-        ConfirmationDialogView(showConfirmation: $showConfirmation)
+        ConfirmationDialogView(showConfirmation: $showConfirmation, message: "This is a preview")
     }
 }

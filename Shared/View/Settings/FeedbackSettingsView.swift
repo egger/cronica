@@ -16,6 +16,7 @@ struct FeedbackSettingsView: View {
     @StateObject private var settings = SettingsStore.shared
 #if os(macOS) || os(iOS)
     @State private var supportEmail = SupportEmail()
+    @State private var canSendEmail = true
 #endif
     var body: some View {
         ZStack {
@@ -53,14 +54,18 @@ struct FeedbackSettingsView: View {
                     Button {
                         supportEmail.send(openURL: openURL)
                     } label: {
-                        Label("sendEmail", systemImage: "envelope.open.fill")
+                        Text("sendEmail")
                     }
 #if os(macOS)
                     .buttonStyle(.link)
 #endif
                 } footer: {
 #if os(iOS)
-                    Text("sendEmailFooter")
+                    VStack(alignment: .leading) {
+                        Text("sendEmailFooter")
+                        Text("sendEmailFooterBackup")
+                            .textSelection(.enabled)
+                    }
 #else
                     HStack {
                         Text("sendEmailFooter")
@@ -74,8 +79,7 @@ struct FeedbackSettingsView: View {
             .formStyle(.grouped)
 #endif
             ConfirmationDialogView(showConfirmation: $showFeedbackAnimation,
-                                   message: "Feedback sent",
-                                   image: "envelope.badge")
+                                   message: "Feedback sent")
         }
         .navigationTitle("Feedback")
     }

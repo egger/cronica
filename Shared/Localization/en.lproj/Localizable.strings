@@ -441,7 +441,7 @@
 "contentRegionTitle" = "Region";
 
 "sendEmail" = "Send Email";
-"sendEmailFooter" = "If you prefer, you can also send an email for a faster follow-up.";
+"sendEmailFooter" = "If you prefer, you can send an email for a faster follow-up.";
 
 "mediaTypeDiscoverFilterTitle" = "Media Type";
 "genreDiscoverFilterTitle" = "Genre";
@@ -527,3 +527,5 @@
 "addToCustomList" = "Add to List...";
 "behaviorMarkPreviouslyEpisodes" = "Mark all previously episodes when a newer is marked as watched";
 "changeLanguage" = "Change app language";
+"sendEmailFooterBackup" = "You can also send an email to contact@alexandremadeira.dev using your email client.";
+"addedToWatchlist" = "Added to Watchlist";

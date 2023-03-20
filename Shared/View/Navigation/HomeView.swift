@@ -139,7 +139,7 @@ struct HomeView: View {
             .task {
                 await viewModel.load()
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
     }
 }

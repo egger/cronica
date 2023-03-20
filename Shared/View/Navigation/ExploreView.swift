@@ -74,7 +74,7 @@ struct ExploreView: View {
                     }
                 }
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
         .sheet(isPresented: $showFilters, content: {
             NavigationStack {

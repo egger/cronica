@@ -114,7 +114,7 @@ struct ItemContentDetails: View {
                 .appTheme()
                 .appTint()
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
                                    message: "Season Marked as Watched", image: "tv.fill")
             ConfirmationDialogView(showConfirmation: $showMarkAsConfirmation,

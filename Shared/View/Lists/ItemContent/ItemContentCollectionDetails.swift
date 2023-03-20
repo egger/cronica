@@ -31,7 +31,7 @@ struct ItemContentCollectionDetails: View {
                     AttributionView()
                 }
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
     }
 }

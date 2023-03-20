@@ -49,7 +49,7 @@ struct EndpointDetails: View {
                     }
                 }
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
         .task {
             if let endpoint {

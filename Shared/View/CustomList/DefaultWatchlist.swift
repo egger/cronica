@@ -141,28 +141,32 @@ struct DefaultWatchlist: View {
             } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
                 noResults
             } else {
-                switch selectedOrder {
-                case .released:
-                    WatchListSection(items: items.filter { $0.isReleased },
-                                     title: DefaultListTypes.released.title)
-                case .upcoming:
-                    WatchListSection(items: items.filter { $0.isUpcoming },
-                                     title: DefaultListTypes.upcoming.title)
-                case .production:
-                    WatchListSection(items: items.filter { $0.isInProduction },
-                                     title: DefaultListTypes.production.title)
-                case .favorites:
-                    WatchListSection(items: items.filter { $0.isFavorite },
-                                     title: DefaultListTypes.favorites.title)
-                case .watched:
-                    WatchListSection(items: items.filter { $0.isWatched },
-                                     title: DefaultListTypes.watched.title)
-                case .pin:
-                    WatchListSection(items: items.filter { $0.isPin },
-                                     title: DefaultListTypes.pin.title)
-                case .archive:
-                    WatchListSection(items: items.filter { $0.isArchive },
-                                     title: DefaultListTypes.archive.title)
+                if showAllItems {
+                    
+                } else {
+                    switch selectedOrder {
+                    case .released:
+                        WatchListSection(items: items.filter { $0.isReleased },
+                                         title: DefaultListTypes.released.title)
+                    case .upcoming:
+                        WatchListSection(items: items.filter { $0.isUpcoming },
+                                         title: DefaultListTypes.upcoming.title)
+                    case .production:
+                        WatchListSection(items: items.filter { $0.isInProduction },
+                                         title: DefaultListTypes.production.title)
+                    case .favorites:
+                        WatchListSection(items: items.filter { $0.isFavorite },
+                                         title: DefaultListTypes.favorites.title)
+                    case .watched:
+                        WatchListSection(items: items.filter { $0.isWatched },
+                                         title: DefaultListTypes.watched.title)
+                    case .pin:
+                        WatchListSection(items: items.filter { $0.isPin },
+                                         title: DefaultListTypes.pin.title)
+                    case .archive:
+                        WatchListSection(items: items.filter { $0.isArchive },
+                                         title: DefaultListTypes.archive.title)
+                    }
                 }
             }
         }
@@ -210,7 +214,6 @@ struct DefaultWatchlist: View {
             }
         }
     }
-    
     
     func filter() {
         isLoading.toggle()
