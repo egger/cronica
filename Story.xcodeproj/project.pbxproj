@@ -327,6 +327,7 @@
 		B89ECD092986A89600F0B197 /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
 		B89ECD0A2986A89800F0B197 /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
 		B89ECD0C29877C2400F0B197 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89ECD0B29877C2400F0B197 /* DiscoverView.swift */; };
+		B8A2C87729C895CA00FDBB33 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CCA8B429C7F952008D2FFF /* UpNextView.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
@@ -2349,6 +2350,7 @@
 				B84F022D299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B89429CD297E07C30029646F /* SupportEmail.swift in Sources */,
 				B84457D92973B455009CB21F /* WatchProvidersList.swift in Sources */,
+				B8A2C87729C895CA00FDBB33 /* UpNextView.swift in Sources */,
 				B8FB2AA329535057006DAC8E /* CardFrame.swift in Sources */,
 				B84B506929AE698100AE63C7 /* FeatureRoadmap.swift in Sources */,
 				B8BF633829146A460051915C /* PosterWatchlistItem.swift in Sources */,

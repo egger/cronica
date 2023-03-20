@@ -68,7 +68,7 @@ struct DiscoverView: View {
                         PersonDetailsView(title: person.name, id: person.id)
                     }
                 }
-                ConfirmationDialogView(showConfirmation: $showConfirmation)
+                ConfirmationDialogView(showConfirmation: $showConfirmation, message: "markedAsWatched")
             }
             .navigationTitle("Explore")
             .task {

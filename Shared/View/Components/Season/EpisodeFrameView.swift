@@ -102,18 +102,18 @@ struct EpisodeFrameView: View {
             }
         }
         .onAppear {
-            if let episodes = viewModel.season?.episodes {
-                let nextIndex = episode.episodeNumber ?? 0 + 1
-                guard nextIndex < episodes.count else {
-                    return
-                }
-                let nextEpisode = episodes[nextIndex]
-                self.nextEpisode = nextEpisode
-                print("Next episode is: \(nextEpisode)")
-//                let nextEpisode = episodes.firstIndex { item in
-//                    item.episodeNumber == nextIndex
+//            if let episodes = viewModel.season?.episodes {
+//                let nextIndex = episode.episodeNumber ?? 0 + 1
+//                guard nextIndex < episodes.count else {
+//                    return
 //                }
-            }
+//                let nextEpisode = episodes[nextIndex]
+//                self.nextEpisode = nextEpisode
+//                print("Next episode is: \(nextEpisode)")
+////                let nextEpisode = episodes.firstIndex { item in
+////                    item.episodeNumber == nextIndex
+////                }
+//            }
         }
         .sheet(isPresented: $showDetails) {
 #if os(iOS)

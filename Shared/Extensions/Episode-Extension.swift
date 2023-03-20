@@ -45,6 +45,13 @@ extension Episode {
         return seasonNumber
     }
     
+    var isItemReleased: Bool {
+        guard let airDate else { return false }
+        let date = DatesManager.dateFormatter.date(from: airDate)
+        guard let date else { return false }
+        return Date() > date
+    }
+    
     // MARK: URL
     var itemImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: stillPath)

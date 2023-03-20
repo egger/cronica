@@ -100,9 +100,9 @@ struct ItemContentDetailsView: View {
                 }
             }
             .navigationTitle(title)
-            ConfirmationDialogView(showConfirmation: $showConfirmation)
+            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "markedAsWatched")
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
-                                   message: "Season Marked as Watched", image: "tv.fill")
+                                   message: "Season Marked as Watched")
             ConfirmationDialogView(showConfirmation: $showActionConfirmation,
                                    message: actionMessageConfirmation,
                                    image: actionImageConfirmation)

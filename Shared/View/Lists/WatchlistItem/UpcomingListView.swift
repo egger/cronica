@@ -15,7 +15,6 @@ struct UpcomingListView: View {
                 NavigationLink(value: items) {
                     TitleView(title: "Upcoming",
                               subtitle: "From Watchlist",
-                              image: "rectangle.stack",
                               showChevron: true)
                 }
                 .buttonStyle(.plain)

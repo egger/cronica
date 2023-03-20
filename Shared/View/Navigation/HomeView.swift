@@ -25,13 +25,11 @@ struct HomeView: View {
                     ItemContentListView(items: viewModel.trending,
                                         title: "Trending",
                                         subtitle: "Today",
-                                        image: "crown",
                                         addedItemConfirmation: $showConfirmation)
                     ForEach(viewModel.sections) { section in
                         ItemContentListView(items: section.results,
                                             title: section.title,
                                             subtitle: section.subtitle,
-                                            image: section.image,
                                             addedItemConfirmation: $showConfirmation,
                                             endpoint: section.endpoint)
                     }

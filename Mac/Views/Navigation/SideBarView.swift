@@ -67,7 +67,7 @@ struct SideBarView: View {
                             .environment(\.managedObjectContext, persistence.container.viewContext)
                     }
                 }
-                ConfirmationDialogView(showConfirmation: $showConfirmation)
+                ConfirmationDialogView(showConfirmation: $showConfirmation, message: "markedAsWatched")
             }
         }
         .navigationSplitViewStyle(.balanced)

@@ -135,7 +135,7 @@ struct SelectListView: View {
 #if os(iOS)
             NewCustomListView(presentView: $showListSelection, newSelectedList: $selectedList)
 #else
-            NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection)
+            NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection, newSelectedList: $selectedList)
 #endif
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")

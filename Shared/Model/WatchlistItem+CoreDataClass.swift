@@ -49,7 +49,6 @@ public class WatchlistItem: NSManagedObject, Codable {
             watched = try values.decode(Bool.self, forKey: .watched)
             watchedEpisodes = try values.decode(String.self, forKey: .watchedEpisodes)
             markedToDeleteOn = try values.decode(Date.self, forKey: .markedToDeleteOn)
-            nextEpisodeCoverImage = try values.decode(URL.self, forKey: .nextEpisodeCoverImage)
         } catch {
             print(error.localizedDescription)
         }
@@ -88,7 +87,6 @@ public class WatchlistItem: NSManagedObject, Codable {
         try values.encode(watched, forKey: .watched)
         try values.encode(watchedEpisodes, forKey: .watchedEpisodes)
         try values.encode(markedToDeleteOn, forKey: .markedToDeleteOn)
-        try values.encode(nextEpisodeCoverImage, forKey: .nextEpisodeCoverImage)
     }
     
     enum CodingKeys: CodingKey {

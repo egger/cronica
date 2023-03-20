@@ -19,8 +19,7 @@ struct PinItemsList: View {
         if !items.isEmpty {
             HorizontalWatchlistList(items: items.sorted { $0.itemTitle > $1.itemTitle },
                                     title: "My Pins",
-                                    subtitle: "Pinned Items",
-                                    image: "pin")
+                                    subtitle: "Pinned Items")
         }
     }
 }
@@ -35,7 +34,7 @@ private struct HorizontalWatchlistList: View {
     let items: [WatchlistItem]
     let title: String
     let subtitle: String
-    let image: String
+    var image: String?
     var body: some View {
         VStack {
             NavigationLink(value: [title:items]) {

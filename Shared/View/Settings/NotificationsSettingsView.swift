@@ -37,11 +37,13 @@ struct NotificationsSettingsView: View {
             
             Button("openNotificationInSettings") {
                 Task {
+#if os(iOS)
                     // Create the URL that deep links to your app's notification settings.
                     if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
                         // Ask the system to open that URL.
                         await UIApplication.shared.open(url)
                     }
+#endif
                 }
             }
             

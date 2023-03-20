@@ -46,18 +46,24 @@ struct DefaultWatchlist: View {
                                 Text(sort.title).tag(sort)
                             }
                         }
+#if os(iOS)
                         .pickerStyle(.navigationLink)
+#endif
                         .disabled(showAllItems)
                         Picker("standardSortBy", selection: $selectedSortBy) {
                             ForEach(StandardFilters.allCases) { sort in
                                 Text(sort.localizableTitle).tag(sort)
                             }
                         }
+#if os(iOS)
                         .pickerStyle(.navigationLink)
+#endif
                     }
                 }
                 .navigationTitle("defaultWatchlistFilters")
+#if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
+#endif
                 .toolbar {
                     Button("Cancel") { showFilter.toggle() }
                 }
@@ -65,6 +71,10 @@ struct DefaultWatchlist: View {
             .presentationDetents([.medium, .large])
             .appTheme()
             .appTint()
+#if os(macOS)
+            .formStyle(.grouped)
+            .frame(width: 300, height: 240, alignment: .center)
+#endif
         }
         .toolbar {
 #if os(iOS)

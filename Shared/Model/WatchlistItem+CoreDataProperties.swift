@@ -47,11 +47,11 @@ extension WatchlistItem {
     @NSManaged public var watched: Bool
     @NSManaged public var watchedEpisodes: String?
     @NSManaged public var markedToDeleteOn: Date?
-    @NSManaged public var nextEpisodeCoverImage: URL?
     @NSManaged public var list: NSSet?
     @NSManaged public var nextEpisodeUpNext: Int64
     @NSManaged public var nextEpisodeNumberUpNext: Int64
     @NSManaged public var seasonNumberUpNext: Int64
+    @NSManaged public var displayOnUpNext: Bool
 }
 
 // MARK: Generated accessors for list

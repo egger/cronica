@@ -124,6 +124,11 @@ class ItemContentViewModel: ObservableObject {
         if let watched {
             withAnimation { isWatched.toggle() }
             persistence.updateMarkAs(id: id, type: type, watched: watched)
+            if isWatched && type == .tvShow {
+                Task {
+                    await persistence.saveSeasons(for: id)
+                }
+            }
         }
         if let favorite {
             withAnimation { isFavorite.toggle() }

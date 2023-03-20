@@ -20,6 +20,7 @@ extension PersistenceController {
             let item = WatchlistItem(context: container.viewContext)
             item.contentType = content.itemContentMedia.toInt
             item.title = content.itemTitle
+            item.originalTitle = content.originalTitle
             item.id = Int64(content.id)
             item.tmdbID = Int64(content.id)
             item.contentID = content.itemNotificationID
@@ -80,6 +81,7 @@ extension PersistenceController {
                     item.contentID = content.itemNotificationID
                     item.tmdbID = Int64(content.id)
                     item.title = content.itemTitle
+                    item.originalTitle = content.originalTitle
                     item.image = content.cardImageMedium
                     item.largeCardImage = content.cardImageLarge
                     item.mediumPosterImage = content.posterImageMedium
@@ -262,22 +264,86 @@ extension PersistenceController {
     }
     
     func updateMarkAs(id: Int, type: MediaType, watched: Bool? = nil, favorite: Bool? = nil) {
-        let item = try? fetch(for: WatchlistItem.ID(id), media: type)
-        if let item {
-            if let watched {
-                item.watched = watched
+        do {
+            let item = try fetch(for: WatchlistItem.ID(id), media: type)
+            if let item {
+                if let watched {
+                    item.watched = watched
+                }
+                if let favorite {
+                    item.favorite = favorite
+                }
+                saveContext()
             }
-            if let favorite {
-                item.favorite = favorite
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+        }
+    }
+    
+    func saveSeasons(for id: Int) async {
+        do {
+            let network = NetworkService.shared
+            guard let item = try self.fetch(for: Int64(id), media: .tvShow) else { return }
+            let content = try await network.fetchItem(id: item.itemId, type: .tvShow)
+            var allEpisodes = [Episode]()
+            if let seasonNumbers = content.itemSeasons {
+                for season in seasonNumbers {
+                    let result = try await network.fetchSeason(id: item.itemId, season: season)
+                    if let episodes = result.episodes {
+                        allEpisodes.append(contentsOf: episodes)
+                    }
+                }
             }
+            if !allEpisodes.isEmpty {
+                self.updateEpisodeList(to: item, show: item.itemId, episodes: allEpisodes)
+            }
+        } catch {
+            
+        }
+    }
+    
+    func updateEpisodeList(to item: WatchlistItem, show: Int, episodes: [Episode]) {
+        var watched = ""
+        for episode in episodes {
+            watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
+        }
+        item.watchedEpisodes?.append(watched)
+        print("watched episodes = \(watched)")
+        item.isWatching = true
+        saveContext()
+    }
+    
+    func updateEpisodeListUpTo(to item: WatchlistItem, actualEpisode: Episode) async {
+        do {
+            let network = NetworkService.shared
+            var watched = ""
+            let actualSeason = actualEpisode.itemSeasonNumber
+            let actualEpisodeNumber = actualEpisode.itemEpisodeNumber
+            let seasonsToFetch = Array(1...actualEpisodeNumber)
+            for season in seasonsToFetch {
+                let result = try await network.fetchSeason(id: item.itemId, season: season)
+                if let episodes = result.episodes {
+                    for episode in episodes {
+                        if season != actualSeason && episode.itemEpisodeNumber < actualEpisodeNumber+1 {
+                            watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
+                        }
+                    }
+                }
+            }
+            item.watchedEpisodes?.append(watched)
+            print("watched episodes = \(watched)")
+            item.isWatching = true
             saveContext()
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
         }
     }
     
     func updateEpisodeList(show: Int, season: Int, episode: Int, nextEpisode: Episode? = nil) {
         if isItemSaved(id: show, type: .tvShow) {
-            let item = try? fetch(for: WatchlistItem.ID(show), media: .tvShow)
-            if let item {
+            do {
+                let item = try fetch(for: WatchlistItem.ID(show), media: .tvShow)
+                guard let item else { return }
                 if isEpisodeSaved(show: show, season: season, episode: episode) {
                     let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
                     item.watchedEpisodes = watched
@@ -285,17 +351,25 @@ extension PersistenceController {
                     let watched = "-\(episode)@\(season)"
                     item.watchedEpisodes?.append(watched)
                     item.isWatching = true
+                    
                     if let nextEpisode {
                         item.nextEpisodeUpNext = Int64(nextEpisode.id)
                         item.nextEpisodeNumberUpNext = Int64(nextEpisode.episodeNumber ?? 0)
-                        item.nextEpisodeCoverImage = nextEpisode.itemImageLarge
                         item.seasonNumberUpNext = Int64(nextEpisode.seasonNumber ?? 0)
+                        if nextEpisode.isItemReleased {
+                            item.displayOnUpNext = true
+                        } else {
+                            item.displayOnUpNext = false
+                        }
                     }
                     item.lastSelectedSeason = Int64(season)
                     item.lastWatchedEpisode = Int64(episode)
                 }
                 saveContext()
+            } catch {
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
             }
+            
         }
     }
     

@@ -142,6 +142,11 @@ struct ItemContentContextMenu: ViewModifier {
                 isWatched.toggle()
             }
             HapticManager.shared.successHaptic()
+            if isWatched && item.itemContentMedia == .tvShow {
+                Task {
+                    await context.saveSeasons(for: item.id)
+                }
+            }
         }, label: {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")

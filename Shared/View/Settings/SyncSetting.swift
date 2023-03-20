@@ -34,17 +34,22 @@ struct SyncSetting: View {
                 .buttonStyle(.plain)
 #endif
             } header: {
-                Label("syncSettingsWatchlistTitle", systemImage: "square.stack")
+                Text("syncSettingsWatchlistTitle")
             }
             
             Section {
+#if os(iOS)
                 importButton
                 exportButton
+#endif
             }
             .sheet(isPresented: $showExportShareSheet) {
+#if os(iOS)
                 CustomShareSheet(url: $exportUrl)
                     .onDisappear { deleteTempFile() }
+#endif
             }
+#if os(iOS)
             .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.json]) { result in
                 switch result {
                 case .success(let success):
@@ -55,6 +60,7 @@ struct SyncSetting: View {
                     CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
                 }
             }
+#endif
             
         }
         .navigationTitle("syncSettingsTitle")
@@ -63,6 +69,7 @@ struct SyncSetting: View {
 #endif
     }
     
+#if os(iOS)
     private var importButton: some View {
         Button {
             showFilePicker.toggle()
@@ -85,6 +92,7 @@ struct SyncSetting: View {
         }
         .disabled(isGeneratingExport)
     }
+#endif
     
     private func updateItems() {
         Task {
@@ -100,6 +108,7 @@ struct SyncSetting: View {
         }
     }
     
+#if os(iOS)
     private func export() {
         do {
             isGeneratingExport = true
@@ -146,6 +155,7 @@ struct SyncSetting: View {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.importJSON")
         }
     }
+#endif
 }
 
 struct SyncSetting_Previews: PreviewProvider {
@@ -154,6 +164,7 @@ struct SyncSetting_Previews: PreviewProvider {
     }
 }
 
+#if os(iOS)
 struct CustomShareSheet: UIViewControllerRepresentable {
     @Binding var url: URL?
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -166,3 +177,4 @@ struct CustomShareSheet: UIViewControllerRepresentable {
         
     }
 }
+#endif

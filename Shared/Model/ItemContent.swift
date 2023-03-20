@@ -18,7 +18,7 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
     }
     let adult: Bool?
     let id: Int
-    let title, name, overview: String?
+    let title, name, overview, originalTitle: String?
     let posterPath, backdropPath, profilePath: String?
     let releaseDate, status, imdbId: String?
     let runtime, numberOfEpisodes, numberOfSeasons, voteCount: Int?
