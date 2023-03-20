@@ -35,6 +35,16 @@ extension Episode {
         return nil
     }
     
+    var itemEpisodeNumber: Int {
+        guard let episodeNumber else { return 0 }
+        return episodeNumber
+    }
+    
+    var itemSeasonNumber: Int {
+        guard let seasonNumber else { return 0 }
+        return seasonNumber
+    }
+    
     // MARK: URL
     var itemImageMedium: URL? {
         return NetworkService.urlBuilder(size: .medium, path: stillPath)

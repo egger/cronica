@@ -36,6 +36,7 @@ class SeasonViewModel: ObservableObject {
         DispatchQueue.main.async {
             withAnimation { self.isLoading = false }
         }
+        //print(self.season as Any)
     }
     
     func markSeasonAsWatched(id: Int) async {

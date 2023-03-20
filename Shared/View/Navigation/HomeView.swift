@@ -17,8 +17,9 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
-            VStack {
+            VStack(alignment: .leading) {
                 ScrollView {
+                    UpNextView()
                     UpcomingWatchlist()
                     PinItemsList()
                     ItemContentListView(items: viewModel.trending,

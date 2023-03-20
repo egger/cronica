@@ -14,8 +14,7 @@ struct PinItemsList: View {
             NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
         ],
         predicate: NSPredicate(format: "isPin == %d", true)
-    )
-    var items: FetchedResults<WatchlistItem>
+    ) var items: FetchedResults<WatchlistItem>
     var body: some View {
         if !items.isEmpty {
             HorizontalWatchlistList(items: items.sorted { $0.itemTitle > $1.itemTitle },

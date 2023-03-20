@@ -30,6 +30,7 @@ struct FeedbackSettingsView: View {
 #if os(iOS)
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
+                        .textInputAutocapitalization(.never)
 #endif
                     Button("Send") {
                         send()

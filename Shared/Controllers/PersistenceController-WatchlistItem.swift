@@ -274,7 +274,7 @@ extension PersistenceController {
         }
     }
     
-    func updateEpisodeList(show: Int, season: Int, episode: Int) {
+    func updateEpisodeList(show: Int, season: Int, episode: Int, nextEpisode: Episode? = nil) {
         if isItemSaved(id: show, type: .tvShow) {
             let item = try? fetch(for: WatchlistItem.ID(show), media: .tvShow)
             if let item {
@@ -285,6 +285,12 @@ extension PersistenceController {
                     let watched = "-\(episode)@\(season)"
                     item.watchedEpisodes?.append(watched)
                     item.isWatching = true
+                    if let nextEpisode {
+                        item.nextEpisodeUpNext = Int64(nextEpisode.id)
+                        item.nextEpisodeNumberUpNext = Int64(nextEpisode.episodeNumber ?? 0)
+                        item.nextEpisodeCoverImage = nextEpisode.itemImageLarge
+                        item.seasonNumberUpNext = Int64(nextEpisode.seasonNumber ?? 0)
+                    }
                     item.lastSelectedSeason = Int64(season)
                     item.lastWatchedEpisode = Int64(episode)
                 }

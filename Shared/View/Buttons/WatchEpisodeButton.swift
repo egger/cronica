@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WatchEpisodeButton: View {
     let episode: Episode
+    @Binding var nextEpisode: Episode?
     let season: Int
     let show: Int
     @Binding var isWatched: Bool
@@ -37,7 +38,8 @@ struct WatchEpisodeButton: View {
     }
     
     private func handleList() {
-        persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
+        print("handleList \(nextEpisode as Any)")
+        persistence.updateEpisodeList(show: show, season: season, episode: episode.id, nextEpisode: nextEpisode)
         DispatchQueue.main.async {
             withAnimation {
                 isWatched.toggle()

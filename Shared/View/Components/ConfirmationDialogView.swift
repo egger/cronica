@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-/// A popup view the displays a confirmation if a given
-/// item is saved on Watchlist.
+/// A dialog that displays a message inside a container of the top of the view.
+///
+/// The user can tap it to dismiss it faster.
 struct ConfirmationDialogView: View {
     @Binding var showConfirmation: Bool
     var message: String
@@ -27,20 +28,14 @@ struct ConfirmationDialogView: View {
                 }
                 
             }
-            .background {
-                Rectangle().fill(.regularMaterial)
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .background { Rectangle().fill(.regularMaterial) }
+            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
             .padding()
             .shadow(radius: 12)
             .opacity(showConfirmation ? 1 : 0)
             .scaleEffect(showConfirmation ? 1.1 : 1)
             .animation(.linear, value: showConfirmation)
-            .onTapGesture {
-                withAnimation {
-                    showConfirmation = false
-                }
-            }
+            .onTapGesture { withAnimation { showConfirmation = false } }
             Spacer()
         }
     }

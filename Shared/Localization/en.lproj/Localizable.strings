@@ -529,3 +529,5 @@
 "changeLanguage" = "Change app language";
 "sendEmailFooterBackup" = "You can also send an email to contact@alexandremadeira.dev using your email client.";
 "addedToWatchlist" = "Added to Watchlist";
+"upNext" = "Up Next";
+"markAsWatched" = "Mark as watched";

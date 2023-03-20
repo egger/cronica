@@ -40,6 +40,13 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
+    func fetchEpisode(tvID: Int64, season: Int64, episodeNumber: Int64) async throws -> Episode {
+        guard let url = urlBuilder(path: "tv/\(tvID)/season/\(season)/episode/\(episodeNumber)") else {
+            throw NetworkError.invalidRequest
+        }
+        return try await self.fetch(url: url)
+    }
+    
     func fetchItems(from path: String, page: String = "1") async throws -> [ItemContent] {
         guard let url = urlBuilder(path: path, page: page) else {
             throw NetworkError.invalidEndpoint

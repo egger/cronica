@@ -11,3 +11,7 @@ struct Season: Decodable, Identifiable, Hashable {
     let id, seasonNumber: Int
     let airDate: String?
 }
+
+struct Episode: Decodable {
+    var id: Int?
+}
