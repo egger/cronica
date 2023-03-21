@@ -15,7 +15,6 @@ struct StoryApp: App {
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @State private var showWhatsNew = false
-    #warning("Don't forget to proper implement the features that the changelog mention.")
     @ObservedObject private var settings = SettingsStore.shared
     init() {
         CronicaTelemetry.shared.setup()

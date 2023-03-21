@@ -39,7 +39,14 @@ struct WatchEpisodeButton: View {
     
     private func handleList() {
         print("handleList \(nextEpisode as Any)")
-        persistence.updateEpisodeList(show: show, season: season, episode: episode.id, nextEpisode: nextEpisode)
+        if SettingsStore.shared.markPreviouslyEpisodesAsWatched {
+            Task {
+                await persistence.updateEpisodeListUpTo(to: show, actualEpisode: episode)
+            }
+        } else {
+            persistence.updateEpisodeList(show: show, season: season, episode: episode.id, nextEpisode: nextEpisode)
+        }
+        
         DispatchQueue.main.async {
             withAnimation {
                 isWatched.toggle()

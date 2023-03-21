@@ -1,0 +1,532 @@
+/*
+  Localizable.strings
+  Story
+
+  Created by Alexandre Madeira on 03/03/22.
+  
+*/
+
+// MARK: Settings
+"settingsBehaviorTitle" = "Comportamiento";
+"settingsAppearanceTitle" = "Apariencia";
+"settingsGeneralTitle" = "General";
+"settingsSyncTitle" = "Sincronización";
+"settingsReviewCronica" = "Opinar sobre Cronica en la App Store";
+"settingsPrivacyPolicy" = "Política de Privacidad";
+"settingsDisableTelemetryTitle" = "Deshabilitar informes de fallos";
+"settingsDisableTelemetrySubtitle" = "Cronica recopila datos mínimos para minimizar los fallos de la aplicación, estos datos son anónimos. Consulta más detalles en la Política de Privacidad.";
+"settingsFeedbackTitle" = "Enviar comentarios";
+"settingsPrivacySupportTitle" = "Privacidad y Soporte";
+"settingsDeveloperOptions" = "Opciones de Desarrollador";
+
+// MARK: BehaviorSetting
+"behaviorDoubleTapTitle" = "Doble Toca en la Portada";
+"behaviorDoubleTapSubtitle" = "Elige la función a realizar cuando se hace doble toque en la imagen de portada.";
+"behaviorGestureTitle" = "Gestos";
+"behaviorYouTubeTitle" = "Abrir Avances en YouTube";
+"behaviorLinkTitle" = "Enlaces";
+"behaviorTitle" = "Comportamiento";
+"behaviorEpisodeTitle" = "Toca para Marcar el Episodio como Visto";
+"hapticFeedbackTitle" = "Respuesta Háptica";
+"hapticFeedbackSubtitle" = "La retroalimentación háptica se utiliza al agregar un título o marcar un episodio como visto.";
+"behaviorPreferredShareLinkTitle" = "Enlace de compartición preferido";
+"behaviorPreferredShareLinkSubtitle" = "La aplicación utilizará TMDb como alternativa si no hay manera de proporcionar el enlace de IMDb.";
+"behaviorSwipeTitle" = "Gestos de deslizamiento";
+"behaviorAllowFullSwipeTitle" = "Permitir deslizamiento completo";
+"behaviorAllowFullSwipeSubtitle" = "El deslizamiento completo activará la acción principal";
+"behaviorPrimaryLeftGesture" = "Gesto primario izquierdo";
+"behaviorSecondaryLeftGesture" = "Gesto secundario izquierdo";
+"behaviorPrimaryRightGesture" = "Gesto primario derecho";
+"behaviorSecondaryRightGesture" = "Gesto secundario derecho";
+"resetToDefault" = "Restablecer a predeterminado";
+
+// MARK: AppearanceSetting
+"appearanceRowTypeTitle" = "Información del elemento de la lista de seguimiento";
+"appearanceRowTypeSubtitle" = "Elige qué tipo de información quieres mostrar.";
+"appearanceWatchlist" = "Lista de seguimiento";
+"appearanceBackgroundTitle" = "Fondo translúcido";
+"appearanceBackgroundSubtitle" = "Fondo parcialmente transparente que permite que pase algo de luz a través de él.";
+"appearanceSendFeedback" = "Enviar comentarios";
+"appearanceExperimentalHeader" = "Aspectos visuales experimentales";
+"appearanceExperimentalFooter" = "Estás probando algunas funciones experimentales, por favor, tómate un momento para enviar comentarios al respecto. Esto ayudará a mejorar Cronica para ti y otros usuarios.";
+"appearanceTitle" = "Apariencia";
+"appearanceThemeTitle" = "Color de la aplicación";
+"appearanceTheme" = "Temas";
+"appearanceRowStyleTitle" = "Estilo de los elementos de la lista de seguimiento";
+"appearanceRowStyleSubtitle" = "Elige cómo mostrar tu lista de seguimiento";
+"appearanceAppThemeTitle" = "Tema de la aplicación";
+"accessibilityTitle" = "Accesibilidad";
+"disableTranslucentTitle" = "Desactivar fondo translúcido";
+
+// MARK: SyncSetting
+"syncSettingsUpdateWatchlistTitle" = "Actualizar elementos";
+"syncSettingsUpdateWatchlistSubtitle" = "Actualizar los elementos con nueva información, si está disponible en TMDb.";
+"syncSettingsWatchlistTitle" = "Lista de seguimiento";
+"syncSettingsTitle" = "Sincronización";
+
+// MARK: AcknowledgementsSettings
+"acknowledgmentsAppIconTitle" = "Diseñador del icono";
+"acknowledgmentsAppIconSubtitle" = "Akhmad";
+"acknowledgmentsContentProviderTitle" = "Proveedor de contenido";
+"acknowledgmentsContentProviderSubtitle" = "TMDb";
+"acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
+"settingsAcknowledgments" = "Agradecimientos";
+"settingsAcknowledgmentsFooter" = "Gracias a todos los que hicieron posible Cronica.";
+"acknowledgmentsTitle" = "Agradecimientos";
+"acknowledgmentsUserTitle" = "¡Gracias por tus comentarios y apoyo!";
+
+// MARK: TipJarSetting
+"tipJarTitle" = "Bote de propinas";
+"tipJarFooter" = "Puedes elegir contribuir con una cantidad pequeña, mediana o grande, y todas las ganancias se destinarán a mejorar y mantener la aplicación. Cronica siempre será gratuita y sin publicidad, por lo que esta es una forma opcional para que los usuarios apoyen el desarrollo de la aplicación.";
+"restorePurchases" = "Restaurar compras";
+
+// MARK: AppThemeColors
+"appThemeColorsBlue" = "Azul";
+"appThemeColorsRed" = "Rojo";
+"appThemeColorsGreen" = "Verde";
+"appThemeColorsBrown" = "Marrón";
+"appThemeColorsCyan" = "Cian";
+"appThemeColorsGray" = "Gris";
+"appThemeColorsIndigo" = "Índigo";
+"appThemeColorsMint" = "Menta";
+"appThemeColorsOrange" = "Naranja";
+"appThemeColorsPink" = "Rosa";
+"appThemeColorsPurple" = "Morado";
+"appThemeColorsTeal" = "Turquesa";
+"appThemeColorsYellow" = "Amarillo";
+
+// MARK: WatchlistItemType
+"watchlistItemTypeList" = "Lista";
+"watchlistItemTypePoster" = "Póster";
+"watchlistItemTypeCard" = "Tarjeta";
+
+// MARK: AppTheme
+"appThemeSystem" = "Sistema";
+"appThemeLight" = "Claro";
+"appThemeDark" = "Oscuro";
+
+// MARK: WatchProviderOption
+"watchProviderBr" = "Brazil";
+"watchProviderUs" = "United States of America";
+"watchProviderAe" = "United Arab Emirates";
+"watchProviderAr" = "Argentina";
+"watchProviderAt" = "Austria";
+"watchProviderAu" = "Australia";
+"watchProviderBe" = "Belgium";
+"watchProviderBg" = "Bulgaria";
+"watchProviderCa" = "Canada";
+"watchProviderCh" = "Switzerland";
+"watchProviderCz" = "Czech Republic";
+"watchProviderDe" = "Germany";
+"watchProviderDk" = "Denmark";
+"watchProviderEe" = "Estonia";
+"watchProviderEs" = "Spain";
+"watchProviderFi" = "Finland";
+"watchProviderFr" = "France";
+"watchProviderGb" = "United Kingdom";
+"watchProviderHk" = "Hong Kong";
+"watchProviderHr" = "Croatia";
+"watchProviderHu" = "Hungary";
+"watchProviderId" = "Indonesia";
+"watchProviderIe" = "Ireland";
+"watchProviderIndia" = "India";
+"watchProviderIt" = "Italy";
+"watchProviderJp" = "Japan";
+"watchProviderKr" = "South Korea";
+"watchProviderLt" = "Lithuania";
+"watchProviderMx" = "Mexico";
+"watchProviderNl" = "Netherlands";
+"watchProviderNo" = "Norway";
+"watchProviderNz" = "New Zealand";
+"watchProviderPh" = "Philippines";
+"watchProviderPl" = "Poland";
+"watchProviderPt" = "Portugal";
+"watchProviderRs" = "Serbia";
+"watchProviderSk" = "Slovakia";
+"watchProviderTr" = "Turkey";
+"watchProviderSe" = "Sweden";
+"watchProviderZa" = "South Africa";
+
+// MARK: Notification content
+"The next episode is set to arrive today." = "El próximo episodio está programado para llegar hoy.";
+"Next episode arrives today." = "El próximo episodio llega hoy.";
+"The movie will be released today." = "La película será estrenada hoy.";
+
+//MARK: Common
+"Done" = "Hecho";
+"No details available." = "Sin detalles disponibles.";
+"Not Available" = "No disponible";
+"No information available" = "No hay información disponible";
+"No title available" = "Sin título disponible";
+"Up Coming" = "Próximamente";
+"Upcoming Episodes" = "Episodios próximos";
+"Arriving Soon" = "Llegando pronto";
+"Latest Movies" = "Últimas películas";
+"Latest Shows" = "Últimos programas";
+"Upcoming Movies" = "Películas próximas";
+"TV Show" = "Programa de TV";
+"Movie" = "Película";
+"People" = "Personas";
+"Popular Movies" = "Películas populares";
+"Movies" = "Películas";
+"TV Shows" = "Programas de TV";
+"Sort" = "Ordenar";
+"Media Type" = "Tipo de medio";
+"Default" = "Predeterminado";
+"Favorites" = "Favoritos";
+"To Watch" = "Por ver";
+"Unwatched" = "No visto";
+"Watched" = "Visto";
+"Upcoming Movies" = "Próximas películas";
+"Upcoming Seasons" = "Próximas temporadas";
+"Renewed Series" = "Series renovadas";
+"Releasing Soon" = "Próximo estreno";
+"Recently Released" = "Recién estrenado";
+"Remove" = "Eliminar";
+"Added to watchlist" = "Añadido a la lista de seguimiento";
+"Mark as" = "Marcar como";
+"Add to Favorites" = "Agregar a Favoritos";
+"Share" = "Compartir";
+"Mark this and previous episodes as watched" = "Marcar este y los episodios anteriores como vistos";
+"No Episode Available" = "Episodio no disponible";
+"Season Marked as Watched" = "Temporada marcada como vista";
+"No biography available." = "Biografía no disponible.";
+"No information available." = "Información no disponible.";
+"No title available" = "Título no disponible";
+"No Name Found" = "No se encontró el nombre";
+"Not Available" = "No disponible";
+"Remove Selected" = "Eliminar seleccionado";
+"Mark selected as watched" = "Marcar seleccionado como visto";
+"Mark selected as unwatched" = "Marcar seleccionado como no visto";
+"Open in" = "Abrir en";
+"IMDb" = "IMDb";
+"TMDb" = "TMDb";
+"Coming Soon To Theaters" = "Próximamente en cines";
+"Pins" = "Pines";
+"Email (optional)" = "Correo electrónico (opcional)";
+"Open in YouTube" = "Abrir en YouTube";
+"List Filters" = "Filtros de lista";
+"Add to List" = "Agregar a la lista";
+"Remove from List" = "Eliminar de la lista";
+"Pinned Items" = "Elementos anclados";
+"Show Details" = "Mostrar detalles";
+"Archive" = "Archivo";
+"Archive Item" = "Item archivado";
+"Remove from Archive" = "Eliminar del archivo";
+"Be reminded of upcoming Movies & TV Shows." = "Reciba recordatorios de las próximas películas y programas de televisión.";
+"Your smart Watchlist" = "Su lista de seguimiento inteligente";
+"addAndMarkWatchedButton" = "Agregar y marcar como visto";
+"markedAsWatched" = "Marcado como visto";
+"removedFromWatched" = "Eliminado de los vistos";
+"markedAsFavorite" = "Marcado como favorito";
+"removedFromFavorites" = "Eliminado de los favoritos";
+
+//MARK: AttributionView.swift
+"This product uses the TMDb API but is not endorsed or certified by TMDb." = "Este producto utiliza la API de TMDb pero no está respaldado ni certificado por TMDb.";
+
+//MARK: ContentDetailsView.swift
+"Add to watchlist" = "Añadir a la lista de seguimiento";
+"Remove from watchlist" = "Eliminar de la lista de seguimiento";
+"About" = "Acerca de";
+"Trailers" = "Avances";
+"Seasons" = "Temporadas";
+"Recommendations" = "Recomendaciones";
+"You may like" = "Tal vez te guste";
+"Mark as Watched" = "Marcar como visto";
+"Remove from Watched" = "Eliminar de los vistos";
+"Mark as Favorite" = "Marcar como favorito";
+"Remove from Favorites" = "Eliminar de los favoritos";
+"Ratings Score" = "Puntuación de valoraciones";
+
+//MARK: ExploreView.swift
+"Explore" = "Explorar";
+"Action" = "Acción";
+"Adventure" = "Aventura";
+"Animation" = "Animación";
+"Comedy" = "Comedia";
+"Crime" = "Crimen";
+"Documentary" = "Documental";
+"Drama" = "Drama";
+"Family" = "Familia";
+"Fantasy" = "Fantasía";
+"History" = "Historia";
+"Horror" = "Terror";
+"Music" = "Música";
+"Mystery" = "Misterio";
+"Romance" = "Romance";
+"Science Fiction" = "Ciencia Ficción";
+"Thriller" = "Suspense";
+"War" = "Guerra";
+"Action & Adventure" = "Acción y Aventura";
+"Kids" = "Niños";
+"Reality" = "Realidad";
+"Sci-Fi & Fantasy" = "Ciencia Ficción y Fantasía";
+"Genres" = "Géneros";
+"Popular Movies by Genre" = "Películas Populares por Género";
+"Popular TV Shows by Genre" = "Series de TV Populares por Género";
+
+//MARK: InformationSectionView.swift
+"Run Time" = "Duración";
+"Release Date" = "Fecha de Lanzamiento";
+"Status" = "Estado";
+"Genre" = "Género";
+"Region of Origin" = "Región de Origen";
+"Production Company" = "Compañía de Producción";
+"Information" = "Información";
+
+//MARK: ContentView.swift
+"Home" = "Inicio";
+"Watchlist" = "Lista de Reproducción";
+"Search" = "Buscar";
+
+//MARK: SettingsView.swift
+"Support" = "Soporte";
+"Send feedback" = "Enviar Comentarios";
+"Privacy Policy" = "Política de Privacidad";
+"Made in Brazil 🇧🇷" = "Hecho en Brasil 🇧🇷";
+"Gesture" = "Gesto";
+"Double Tap Gesture" = "Gesto de Doble Tocar";
+"The function is performed when double-tap the cover image." = "La función se realiza cuando se toca dos veces la imagen de portada.";
+"Settings" = "Ajustes";
+"Review Cronica" = "Opinar sobre Cronica";
+"Send Feedback" = "Enviar Comentarios";
+"Feedback" = "Comentarios";
+"Send" = "Enviar";
+"Cancel" = "Cancelar";
+"Send your suggestions to help improve Cronica." = "Envíe sus sugerencias para ayudar a mejorar Cronica.";
+"Feedback sent" = "Gracias por sus comentarios.";
+"Sync" = "Sincronizar";
+"Update Items" = "Actualizar Elementos";
+"'Update Items' will update your items with new information available on TMDb, if available." = "'Actualizar Elementos' actualizará sus elementos con la nueva información disponible en TMDb, si está disponible.";
+"Privacy" = "Privacidad";
+"Disable Telemetry" = "Deshabilitar Informe de Errores";
+"privacyfooter" = "Cronica recopila datos mínimos para minimizar los fallos de la aplicación, estos datos son anónimos. Consulte más detalles en la Política de privacidad.";
+"privacyFooterTV" = "Cronica recopila datos mínimos para minimizar los fallos de la aplicación, estos datos son anónimos. Consulte más detalles en la Política de privacidad en https://alexandremadeira.dev/cronica/privacy.";
+"Open Trailers in YouTube App" = "Abrir Avances en la App de YouTube";
+
+//MARK: HomeView.swift
+"Trending" = "Tendencias";
+"This week" = "Esta semana";
+"Today" = "Hoy";
+"My Pins" = "Mis Pines";
+"Your pinned items" = "Tus elementos fijados";
+"Remove Pin" = "Eliminar Pin";
+
+//MARK: WatchlistSectionView.swift
+"Coming Soon" = "Próximamente";
+"From Watchlist" = "De la lista de seguimiento";
+
+//MARK: CastDetailsView.swift
+"Biography" = "Biografía";
+"Cast & Crew" = "Reparto y equipo";
+
+//MARK: SeasonListView.swift
+"Seasons" = "Temporadas";
+"Season %lld" = "Temporada %lld";
+"Episode %lld" = "Episodio %lld";
+"Mark Season as Watched" = "Marcar temporada como vista";
+
+//MARK: FilmographyView.swift
+"Filmography" = "Filmografía";
+"Know for" = "Conocido por";
+
+//MARK: SearchView.swift
+"Search" = "Buscar";
+"Movies, Shows, People" = "Películas, series, personas";
+"Searching" = "Buscando";
+"No Results" = "Sin resultados";
+"All" = "Todo";
+"Shows" = "Series";
+
+//MARK: WatchlistView.swift
+"Your list is empty." = "Tu lista está vacía.";
+"Coming Soon" = "Próximamente";
+"Now Available" = "Disponible";
+"Released" = "Lanzado";
+"Watchlist" = "Lista de seguimiento";
+"Search watchlist" = "Buscar en la lista de seguimiento";
+"In Production" = "En producción";
+"Production" = "Producción";
+"Cancelled" = "Cancelado";
+"Unknown" = "Desconocido";
+"Released Movies" = "Películas lanzadas";
+"Released Shows" = "Series lanzadas";
+"Releases" = "Lanzamientos";
+"Upcoming" = "Próximos";
+"No results" = "Sin resultados";
+"Search results" = "Resultados de la búsqueda";
+"This list is empty." = "Esta lista está vacía.";
+"Sort List" = "Ordenar lista";
+"Results from Watchlist" = "Resultados de la lista de seguimiento";
+"No results from Watchlist" = "Sin resultados de la lista de seguimiento";
+"Results from TMDb" = "Resultados de TMDb";
+"No results from TMDb" = "Sin resultados de TMDb";
+"Pin Item" = "Anclar elemento";
+"Unpin Item" = "Desanclar elemento";
+"Pin Items" = "Anclar elementos";
+
+// MARK: Error
+"Invalid Response" = "Respuesta inválida.";
+"Invalid Request" = "Solicitud inválida.";
+"Invalid Endpoint" = "Endpoint inválido.";
+"Error reading this title" = "Error al leer este título.";
+"Invalid API key: You must be granted a valid key." = "Clave de API inválida.";
+"Internal error: Something went wrong, contact TMDB." = "Error interno: algo salió mal, contacta con TMDb.";
+"The API is undergoing maintenance. Try again later." = "La API está en mantenimiento. Inténtalo de nuevo más tarde.";
+"Error" = "Error";
+"Cancel" = "Cancelar";
+"Retry" = "Reintentar";
+
+// MARK: watchOS
+"Search TMDb" = "Buscar en TMDb";
+"For more details, open the companion app." = "Para obtener más detalles, abre la aplicación para iPhone.";
+
+// MARK: Widget
+"Shows movies and TV Shows trending from TMDb." = "Muestra películas y programas de TV populares en TMDb.";
+
+// MARK: NotificationListView
+"Notifications" = "Notificaciones";
+"Upcoming Notifications" = "Notificaciones próximas";
+"Recent Notifications" = "Notificaciones recientes";
+"No notifications" = "Sin notificaciones";
+"Remove Notification" = "Eliminar notificación";
+"Loading" = "Cargando";
+"%lld upcoming notifications." = "%lld notificaciones próximas.";
+
+// MARK: WatchlistSubtitleRow
+"watchlistSubtitleRowNone" = "Predeterminado";
+"watchlistSubtitleRowGenre" = "Género";
+"watchlistSubtitleRowDate" = "Fecha de lanzamiento";
+
+// MARK: DoubleTapGesture
+"Watched" = "Visto";
+"Favorite" = "Favorito";
+
+// MARK: WatchlistButtonView
+"removeDialogTitle" = "¿Estás seguro?";
+"confirmDialogAction" = "Confirmar";
+"cancelConfirmDialogAction" = "Cancelar";
+
+//MARK: WelcomeView.swift
+"Welcome to" = "Bienvenido a";
+" Cronica" = " Cronica";
+"Continue" = "Continuar";
+"Find" = "Buscar";
+"Search for upcoming movies and tv shows." = "Busca próximas películas y programas de TV.";
+"Never miss out" = "No te pierdas nada";
+"Get notifications about the newest releases." = "Recibe notificaciones sobre los estrenos más recientes.";
+"Organize" = "Organiza";
+"Keep everything organized inside the Watchlist." = "Mantén todo organizado dentro de la lista de seguimiento.";
+"Your Watchlist" = "Tu lista de seguimiento";
+"Add everything you want, the Watchlist automatically organizes it for you." = "Agrega todo lo que quieras, la lista de seguimiento lo organiza automáticamente para ti.";
+"Discover what's next" = "Descubre qué viene después";
+"The Discover will help you find your next favorite title." = "El Descubrir te ayudará a encontrar tu próximo título favorito.";
+"Track your episodes" = "Rastrea tus episodios";
+"Keep track of every episode you've watched." = "Mantén un registro de cada episodio que has visto.";
+"Always Synced" = "Siempre sincronizado";
+"Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "Tu lista de seguimiento siempre está sincronizada con tu Apple Watch, iPad, Mac y Apple TV.";
+
+//MARK: WatchProviders
+"justWatchSubtitle" = "Proporcionado por JustWatch";
+"openWatchProviderTitle" = "Esto abrirá el sitio web de TMDb con los enlaces a cada servicio.";
+"confirmOpenWatchProvider" = "Confirmar";
+"confirmOpenDontAskAgainProvider" = "Confirmar y no volver a preguntar";
+"cancelOpenWatchProvider" = "Cancelar";
+"watchProviderTitleList" = "Cómo ver";
+"behaviorWatchProvidersTitle" = "Proveedores de visualización";
+"behaviorWatchProvidersSubtitle" = "Vea en qué plataformas está disponible el contenido.";
+"watchRegionTitle" = "Región del proveedor de visualización";
+"watchRegionSubtitle" = "Los proveedores de visualización se adaptarán a la región seleccionada.";
+"contentRegionTitle" = "Región";
+
+"sendEmail" = "Send Email";
+"sendEmailFooter" = "If you prefer, you can send an email for a faster follow-up.";
+
+"mediaTypeDiscoverFilterTitle" = "Media Type";
+"genreDiscoverFilterTitle" = "Genre";
+"filterDiscoverTitle" = "Filters";
+"hideAddedItemsDiscoverFilter" = "Hide Added Items";
+"whereToWatchDiscoverFilter" = "Where To Watch";
+"watchProviderToggleDiscover" = "Only Show From Watch Provider";
+
+"swipeGestureWatch" = "Watch";
+"swipeGestureFavorite" = "Favorite";
+"swipeGesturePin" = "Pin";
+"swipeGestureArchive" = "Archive";
+"swipeGestureDelete" = "Delete";
+"swipeGestureShare" = "Share";
+
+"listName" = "Nombre de lista";
+"shareList" = "Compartir lista";
+"listBasicHeader" = "Básico";
+"newCustomListTitle" = "Nueva lista";
+"listDescription" = "Descripción de la lista";
+"createList" = "Guardar";
+"newList" = "Nueva lista";
+"createList" = "Crear nueva lista";
+"yourLists" = "Tus listas";
+"Lists" = "Listas";
+"listItemsToAdd" = "Seleccionar elementos";
+"cantSendFeedback" = "Para enviar comentarios en la aplicación, debes desactivar 'Deshabilitar informes de fallos'";
+"addToList" = "Agregar a lista...";
+"addNote" = "Agregar nota";
+"companiesTitle" = "Compañías";
+"allCustomWatchListFilters" = "Todo";
+"moviesCustomWatchListFilters" = "Películas";
+"showsCustomWatchListFilters" = "Series de TV";
+"editListRemoveItems" = "Eliminar elementos";
+"%lld items • %@" = "%lld elementos • %@";
+"Untitled List" = "Lista sin título";
+"%llditems" = "%lld elementos";
+"Default List" = "Lista predeterminada";
+
+"Title" = "Título";
+"Media" = "Medios";
+"Person" = "Persona";
+"Save" = "Guardar";
+"featureRoadmap" = "Próximas funciones";
+"featureRoadmapHeader" = "Vota por las siguientes funciones que deseas ver primero.";
+"featureRoadmapSubtitle" = "Usa el icono de 'más' para sugerir una nueva función.";
+"importTitle" = "Importar";
+"importSubtitle" = "Importar datos desde un archivo JSON";
+"exportTitle" = "Exportar";
+"exportSubtitle" = "Exportar datos a un archivo JSON";
+"syncSettingsItemsTitle" = "Elementos";
+"generatingExportFile" = "Generando archivo JSON, por favor espera.";
+"allowNotification" = "Permitir Notificaciones";
+"movieNotificationTitle" = "Notificar Lanzamientos de Películas";
+"movieNotificationSubtitle" = "Notificar cuando una película en tu lista de seguimiento sea lanzada.";
+"episodeNotificationTitle" = "Notificar Nuevos Episodios";
+"episodeNotificationSubtitle" = "Notificar cuando se lance un nuevo episodio de una serie en tu lista de seguimiento.";
+"settingsNotificationTitle" = "Notificaciones";
+
+"changelogViewTitle" = "Novedades";
+"tipJar" = "Hucha";
+"tipJarDescription" = "Si te encanta la aplicación, considera apoyar a través de la hucha.";
+"featureOneTitle" = "Lo próximo";
+"featureOneDescription" = "Consulta el próximo episodio de tu serie de televisión favorita y marca como visto en un abrir y cerrar de ojos.";
+"featureTwoTitle" = "Recomendaciones personalizadas";
+"featureTwoDescription" = "Obtén recomendaciones de películas y programas de televisión adaptados a lo que has visto en Cronica.";
+"featureThreeTitle" = "Ajusta tu experiencia";
+"featureThreeDescription" = "Más configuraciones y una interfaz de usuario mejorada para personalizar Cronica justo como te gusta.";
+"thankYouTipJarMessage" = "¡Gracias por tu compra! Tu apoyo es muy apreciado. 😁";
+"notificationsSettingsFeedbackCall" = "¿Tienes una sugerencia? Envía un comentario";
+"openNotificationInSettings" = "Editar notificaciones en la aplicación Configuración";
+
+"defaultWatchlistShowAllItems" = "Show All Items";
+"defaultWatchlistSmartFilters" = "Smart Filters";
+"defaultWatchlistFilters" = "Filters";
+"standardSortByReleaseDateAsc" = "Release Date (Ascending)";
+"standardSortByReleaseDateDsc" = "Release Date (Descending)";
+"standardSortByTitleAsc" = "Title (Ascending)";
+"standardSortByTitleDsc" = "Title (Descending)";
+"standardSortBy" = "Sort By";
+"standardSortByLastModified" = "Last Modified";
+"More Options" = "More Options";
+"addToCustomList" = "Add to List...";
+"behaviorMarkPreviouslyEpisodes" = "Mark all previously episodes when a newer is marked as watched";
+"changeLanguage" = "Change app language";
+"sendEmailFooterBackup" = "You can also send an email to contact@alexandremadeira.dev using your email client.";
+"addedToWatchlist" = "Added to Watchlist";
+"upNext" = "Up Next";
+"markAsWatched" = "Mark as watched";

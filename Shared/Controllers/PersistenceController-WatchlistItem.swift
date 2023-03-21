@@ -313,25 +313,29 @@ extension PersistenceController {
         saveContext()
     }
     
-    func updateEpisodeListUpTo(to item: WatchlistItem, actualEpisode: Episode) async {
+    func updateEpisodeListUpTo(to id: Int, actualEpisode: Episode) async {
         do {
+            let item = try self.fetch(for: Int64(id), media: .tvShow)
+            guard let item else { return }
             let network = NetworkService.shared
             var watched = ""
             let actualSeason = actualEpisode.itemSeasonNumber
-            let actualEpisodeNumber = actualEpisode.itemEpisodeNumber
-            let seasonsToFetch = Array(1...actualEpisodeNumber)
+            let nextEpisode = actualEpisode.itemEpisodeNumber + 1
+            let seasonsToFetch = Array(1...actualSeason)
             for season in seasonsToFetch {
                 let result = try await network.fetchSeason(id: item.itemId, season: season)
                 if let episodes = result.episodes {
                     for episode in episodes {
-                        if season != actualSeason && episode.itemEpisodeNumber < actualEpisodeNumber+1 {
+                        if episode.itemSeasonNumber == actualSeason && episode.itemEpisodeNumber == nextEpisode {
+                            break
+                        } else {
                             watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
                         }
                     }
                 }
             }
             item.watchedEpisodes?.append(watched)
-            print("watched episodes = \(watched)")
+            print("watched episodes up to = \(watched)")
             item.isWatching = true
             saveContext()
         } catch {

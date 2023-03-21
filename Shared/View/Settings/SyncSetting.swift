@@ -15,58 +15,62 @@ struct SyncSetting: View {
     @State private var showFilePicker = false
     @State private var exportUrl: URL?
     @Environment(\.managedObjectContext) private var context
+    @State private var hasImported = false
     var body: some View {
-        Form {
-            Section {
-                Button {
-                    updateItems()
-                } label: {
-                    if updatingItems {
-                        CenterHorizontalView {
-                            ProgressView()
+        ZStack {
+            Form {
+                Section {
+                    Button {
+                        updateItems()
+                    } label: {
+                        if updatingItems {
+                            CenterHorizontalView {
+                                ProgressView()
+                            }
+                        } else {
+                            InformationalLabel(title: "syncSettingsUpdateWatchlistTitle",
+                                               subtitle: "syncSettingsUpdateWatchlistSubtitle")
                         }
-                    } else {
-                        InformationalLabel(title: "syncSettingsUpdateWatchlistTitle",
-                                           subtitle: "syncSettingsUpdateWatchlistSubtitle")
+                    }
+    #if os(macOS)
+                    .buttonStyle(.plain)
+    #endif
+                } header: {
+                    Text("syncSettingsWatchlistTitle")
+                }
+                
+                Section {
+    #if os(iOS)
+                    importButton
+                    exportButton
+    #endif
+                }
+                .sheet(isPresented: $showExportShareSheet) {
+    #if os(iOS)
+                    CustomShareSheet(url: $exportUrl)
+                        .onDisappear { deleteTempFile() }
+    #endif
+                }
+    #if os(iOS)
+                .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.json]) { result in
+                    switch result {
+                    case .success(let success):
+                        if success.startAccessingSecurityScopedResource() {
+                            importJSON(success)
+                        }
+                    case .failure(let failure):
+                        CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
                     }
                 }
-#if os(macOS)
-                .buttonStyle(.plain)
-#endif
-            } header: {
-                Text("syncSettingsWatchlistTitle")
+    #endif
+                
             }
-            
-            Section {
-#if os(iOS)
-                importButton
-                exportButton
-#endif
-            }
-            .sheet(isPresented: $showExportShareSheet) {
-#if os(iOS)
-                CustomShareSheet(url: $exportUrl)
-                    .onDisappear { deleteTempFile() }
-#endif
-            }
-#if os(iOS)
-            .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.json]) { result in
-                switch result {
-                case .success(let success):
-                    if success.startAccessingSecurityScopedResource() {
-                        importJSON(success)
-                    }
-                case .failure(let failure):
-                    CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
-                }
-            }
-#endif
-            
+            .navigationTitle("syncSettingsTitle")
+    #if os(macOS)
+            .formStyle(.grouped)
+    #endif
+            ConfirmationDialogView(showConfirmation: $hasImported, message: "importedSucceeded")
         }
-        .navigationTitle("syncSettingsTitle")
-#if os(macOS)
-        .formStyle(.grouped)
-#endif
     }
     
 #if os(iOS)
@@ -76,6 +80,7 @@ struct SyncSetting: View {
         } label: {
             Text("importTitle")
         }
+        .disabled(hasImported)
     }
     
     private var exportButton: some View {
@@ -147,10 +152,12 @@ struct SyncSetting: View {
     private func importJSON(_ url: URL) {
         do {
             let jsonData = try Data(contentsOf: url)
+            print(jsonData as Any)
             let decoder = JSONDecoder()
-            decoder.userInfo[.context] = context
-            let items = try decoder.decode([WatchlistItem].self, from: jsonData)
-            print(items)
+            decoder.userInfo[.context] = PersistenceController.shared.container.viewContext
+            _ = try decoder.decode([WatchlistItem].self, from: jsonData)
+            try context.save()
+            hasImported.toggle()
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.importJSON")
         }
