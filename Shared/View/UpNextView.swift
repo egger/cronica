@@ -20,7 +20,6 @@ struct UpNextView: View {
     @State private var isLoaded = false
     @State private var episodes = [Episode]()
     @State private var selectedEpisode: Episode?
-    @State private var nextEpisode: Episode?
     @State private var isWatched = false
     @State private var isInWatchlist = true
     @State private var episodeShowID = [String:Int]()
@@ -75,9 +74,6 @@ struct UpNextView: View {
                 .task {
                     let showId = self.episodeShowID["\(item.id)"]
                     selectedEpisodeShowID = showId
-                    if nextEpisode == nil {
-                        nextEpisode = await fetchNextEpisode(for: item)
-                    }
                 }
             }
             .task(id: isWatched) {
