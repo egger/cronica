@@ -194,7 +194,11 @@ private struct UpNextEpisodeCardPrototype: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        Image(systemName: "sparkles.tv.fill")
+                        Image(systemName: "sparkles.tv")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.white.opacity(0.8))
+                            .frame(width: 40, height: 40, alignment: .center)
                     }
                 }
                 .aspectRatio(contentMode: .fill)

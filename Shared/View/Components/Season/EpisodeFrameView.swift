@@ -106,9 +106,7 @@ struct EpisodeFrameView: View {
                     .environmentObject(viewModel)
                     .toolbar {
                         ToolbarItem {
-                            Button("Done") {
-                                showDetails = false
-                            }
+                            Button("Done") { showDetails = false }
                         }
                     }
             }

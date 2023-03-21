@@ -55,6 +55,9 @@ struct TipJarSetting: View {
                 withAnimation { productsLoaded = true }
             }
         }
+        .onAppear {
+            CronicaTelemetry.shared.handleMessage("", for: "tipJarSettingsOpened")
+        }
 #if os(macOS)
         .formStyle(.grouped)
 #endif

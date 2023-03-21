@@ -53,7 +53,7 @@ class StoreKitManager: ObservableObject {
             await updateConsumerUpdateStatus()
             await transaction.finish()
             let message = "Transaction of \(transaction.productID) has successfully."
-            CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase()")
+            CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase.success")
             DispatchQueue.main.async {
                 SettingsStore.shared.hasPurchasedTipJar = true
             }

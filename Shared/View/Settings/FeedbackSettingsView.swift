@@ -52,10 +52,9 @@ struct FeedbackSettingsView: View {
                 }
 #if os(iOS) || os(macOS)
                 Section {
-                    Button {
+                    Button("sendEmail") {
+                        CronicaTelemetry.shared.handleMessage("", for: "FeedbackSettingsView.sendEmail")
                         supportEmail.send(openURL: openURL)
-                    } label: {
-                        Text("sendEmail")
                     }
 #if os(macOS)
                     .buttonStyle(.link)
@@ -82,6 +81,9 @@ struct FeedbackSettingsView: View {
             ConfirmationDialogView(showConfirmation: $showFeedbackAnimation,
                                    message: "Feedback sent")
         }
+        .onAppear {
+            CronicaTelemetry.shared.handleMessage("", for: "FeedbackSettingsView.onAppear")
+        }
         .navigationTitle("Feedback")
     }
     
@@ -99,7 +101,7 @@ struct FeedbackSettingsView: View {
                       Feedback: \(feedback)
                       """
         }
-        CronicaTelemetry.shared.handleMessage(message, for: "Feedback")
+        CronicaTelemetry.shared.handleMessage(message, for: "FeedbackSettingsView.send")
         feedback = ""
         email = ""
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {

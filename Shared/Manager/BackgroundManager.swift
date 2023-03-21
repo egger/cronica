@@ -58,7 +58,7 @@ class BackgroundManager {
             return list
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.fetchItems()")
+                                                  for: "BackgroundManager.fetchItems.failed")
             return []
         }
     }
@@ -74,7 +74,7 @@ class BackgroundManager {
             return list
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.fetchReleasedItems()")
+                                                  for: "BackgroundManager.fetchReleasedItems.failed")
             return []
         }
     }
@@ -122,7 +122,7 @@ class BackgroundManager {
         } catch {
             if Task.isCancelled { return }
             let message = "Could not update, error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update()")
+            CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update.failed")
         }
         
     }

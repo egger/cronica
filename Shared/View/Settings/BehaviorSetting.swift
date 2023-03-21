@@ -138,6 +138,9 @@ struct BehaviorSetting: View {
             Toggle(isOn: $store.hapticFeedback) {
                 InformationalLabel(title: "hapticFeedbackTitle")
             }
+            .onChange(of: store.hapticFeedback) { newValue in
+                CronicaTelemetry.shared.handleMessage("\(newValue)", for: "Haptic Feedback Settings")
+            }
         }
     }
 }
