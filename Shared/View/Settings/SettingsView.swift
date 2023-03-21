@@ -41,12 +41,20 @@ struct SettingsView: View {
     
     @ViewBuilder
     private var developer: some View {
+#if DEBUG || targetEnvironment(simulator)
+        developerButton
+#else
         if displayDeveloperSettings {
-            NavigationLink(destination: DeveloperView()) {
-                SettingsLabelWithIcon(title: "settingsDeveloperOptions", icon: "hammer", color: .purple)
-            }
+            developerButton
         } else {
             EmptyView()
+        }
+#endif
+    }
+    
+    private var developerButton: some View {
+        NavigationLink(destination: DeveloperView()) {
+            SettingsLabelWithIcon(title: "settingsDeveloperOptions", icon: "hammer", color: .purple)
         }
     }
     

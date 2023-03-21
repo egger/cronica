@@ -15,7 +15,6 @@ struct EpisodeFrameView: View {
     let season: Int
     let show: Int
     var itemLink: URL
-    @State private var nextEpisode: Episode?
     private let persistence = PersistenceController.shared
     @State private var isWatched = false
     @State private var showDetails = false
@@ -33,7 +32,6 @@ struct EpisodeFrameView: View {
             image
                 .contextMenu {
                     WatchEpisodeButton(episode: episode,
-                                       nextEpisode: $nextEpisode,
                                        season: season,
                                        show: show,
                                        isWatched: $isWatched,
@@ -101,24 +99,10 @@ struct EpisodeFrameView: View {
                 isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
             }
         }
-        .onAppear {
-//            if let episodes = viewModel.season?.episodes {
-//                let nextIndex = episode.episodeNumber ?? 0 + 1
-//                guard nextIndex < episodes.count else {
-//                    return
-//                }
-//                let nextEpisode = episodes[nextIndex]
-//                self.nextEpisode = nextEpisode
-//                print("Next episode is: \(nextEpisode)")
-////                let nextEpisode = episodes.firstIndex { item in
-////                    item.episodeNumber == nextIndex
-////                }
-//            }
-        }
         .sheet(isPresented: $showDetails) {
 #if os(iOS)
             NavigationStack {
-                EpisodeDetailsView(episode: episode, nextEpisode: $nextEpisode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
+                EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
                     .toolbar {
                         ToolbarItem {

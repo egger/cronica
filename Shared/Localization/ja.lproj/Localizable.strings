@@ -7,103 +7,103 @@
 */
 
 // MARK: Settings
-"settingsBehaviorTitle" = "Behavior";
-"settingsAppearanceTitle" = "Appearance";
-"settingsGeneralTitle" = "General";
-"settingsSyncTitle" = "Synchronization";
-"settingsReviewCronica" = "Review Cronica on App Store";
-"settingsPrivacyPolicy" = "Privacy Policy";
-"settingsDisableTelemetryTitle" = "Disable Crash Reports";
-"settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
-"settingsFeedbackTitle" = "Send Feedback";
-"settingsPrivacySupportTitle" = "Privacy & Support";
-"settingsDeveloperOptions" = "Developer Settings";
+"settingsBehaviorTitle" = "動作";
+"settingsAppearanceTitle" = "外観";
+"settingsGeneralTitle" = "一般";
+"settingsSyncTitle" = "同期";
+"settingsReviewCronica" = "App StoreでCronicaをレビューする";
+"settingsPrivacyPolicy" = "プライバシーポリシー";
+"settingsDisableTelemetryTitle" = "クラッシュレポートを無効にする";
+"settingsDisableTelemetrySubtitle" = "Cronicaは、匿名でアプリクラッシュを最小限に抑えるための最小限のデータを収集します。詳細についてはプライバシーポリシーを参照してください。";
+"settingsFeedbackTitle" = "フィードバックを送信";
+"settingsPrivacySupportTitle" = "プライバシーとサポート";
+"settingsDeveloperOptions" = "開発者オプション";
 
 // MARK: BehaviorSetting
-"behaviorDoubleTapTitle" = "Double Tap On Cover";
-"behaviorDoubleTapSubtitle" = "Choose what function to perform when double tap the cover image.";
-"behaviorGestureTitle" = "Gestures";
-"behaviorYouTubeTitle" = "Open Trailers in YouTube";
-"behaviorLinkTitle" = "Links";
-"behaviorTitle" = "Behavior";
-"behaviorEpisodeTitle" = "Tap To Mark Episode as Watched";
-"hapticFeedbackTitle" = "Haptic Feedback";
-"hapticFeedbackSubtitle" = "Haptic Feedback is used when adding a title or marking an episode as watched.";
-"behaviorPreferredShareLinkTitle" = "Preferred Share Link";
-"behaviorPreferredShareLinkSubtitle" = "The app will fallback to TMDb if there's no way to provide the IMDb link.";
-"behaviorSwipeTitle" = "Swipe Gestures";
-"behaviorAllowFullSwipeTitle" = "Allow Full Swipe";
-"behaviorAllowFullSwipeSubtitle" = "Full Swipe will activate the primary action";
-"behaviorPrimaryLeftGesture" = "Primary Left Gesture";
-"behaviorSecondaryLeftGesture" = "Secondary Left Gesture";
-"behaviorPrimaryRightGesture" = "Primary Right Gesture";
-"behaviorSecondaryRightGesture" = "Secondary Right Gesture";
-"resetToDefault" = "Reset to Default";
+"behaviorDoubleTapTitle" = "カバー画像のダブルタップ";
+"behaviorDoubleTapSubtitle" = "カバー画像をダブルタップしたときに実行する機能を選択してください。";
+"behaviorGestureTitle" = "ジェスチャー";
+"behaviorYouTubeTitle" = "トレーラーをYouTubeで開く";
+"behaviorLinkTitle" = "リンク";
+"behaviorTitle" = "動作";
+"behaviorEpisodeTitle" = "タップしてエピソードを視聴済みにする";
+"hapticFeedbackTitle" = "触覚フィードバック";
+"hapticFeedbackSubtitle" = "タイトルを追加するか、エピソードを視聴済みにするときに触覚フィードバックが使用されます。";
+"behaviorPreferredShareLinkTitle" = "優先共有リンク";
+"behaviorPreferredShareLinkSubtitle" = "IMDbリンクを提供する方法がない場合、アプリはTMDbにフォールバックします。";
+"behaviorSwipeTitle" = "スワイプジェスチャー";
+"behaviorAllowFullSwipeTitle" = "フルスワイプを許可する";
+"behaviorAllowFullSwipeSubtitle" = "フルスワイプは主要なアクションをアクティブにします。";
+"behaviorPrimaryLeftGesture" = "左プライマリジェスチャー";
+"behaviorSecondaryLeftGesture" = "左セカンダリジェスチャー";
+"behaviorPrimaryRightGesture" = "右プライマリジェスチャー";
+"behaviorSecondaryRightGesture" = "右セカンダリジェスチャー";
+"resetToDefault" = "デフォルトにリセット";
 
 // MARK: AppearanceSetting
-"appearanceRowTypeTitle" = "Watchlist Item's Information";
-"appearanceRowTypeSubtitle" = "Choose what type of information you want to display.";
-"appearanceWatchlist" = "Watchlist";
-"appearanceBackgroundTitle" = "Translucent Background";
-"appearanceBackgroundSubtitle" = "Partially transparent background that allows some light to pass through it.";
-"appearanceSendFeedback" = "Send Feedback";
-"appearanceExperimentalHeader" = "Experimental Visuals";
-"appearanceExperimentalFooter" = "You're trying some experimental features, please, take a moment to send a feedback about it. This will help make Cronica better for you and others.";
-"appearanceTitle" = "Appearance";
-"appearanceThemeTitle" = "App Tint";
-"appearanceTheme" = "Themes";
-"appearanceRowStyleTitle" = "Watchlist's Item Style";
-"appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
-"appearanceAppThemeTitle" = "App Theme";
-"accessibilityTitle" = "Accessibility";
-"disableTranslucentTitle" = "Disable Translucent Background";
+"appearanceRowTypeTitle" = "ウォッチリストアイテムの情報";
+"appearanceRowTypeSubtitle" = "表示する情報の種類を選択してください。";
+"appearanceWatchlist" = "ウォッチリスト";
+"appearanceBackgroundTitle" = "透明背景";
+"appearanceBackgroundSubtitle" = "一部透明な背景で、少しの光が通過するようになります。";
+"appearanceSendFeedback" = "フィードバックを送信";
+"appearanceExperimentalHeader" = "実験的なビジュアル";
+"appearanceExperimentalFooter" = "いくつかの実験的な機能を試しています。ご意見をお寄せください。これにより、Cronicaがあなたや他のユーザーにとってより良くなります。";
+"appearanceTitle" = "外観";
+"appearanceThemeTitle" = "アプリの色";
+"appearanceTheme" = "テーマ";
+"appearanceRowStyleTitle" = "ウォッチリストのアイテムスタイル";
+"appearanceRowStyleSubtitle" = "ウォッチリストの表示方法を選択してください。";
+"appearanceAppThemeTitle" = "アプリのテーマ";
+"accessibilityTitle" = "アクセシビリティ";
+"disableTranslucentTitle" = "透明背景を無効にする";
 
 // MARK: SyncSetting
-"syncSettingsUpdateWatchlistTitle" = "Update Items";
-"syncSettingsUpdateWatchlistSubtitle" = "Update items with new information, if available on TMDb.";
-"syncSettingsWatchlistTitle" = "Watchlist";
-"syncSettingsTitle" = "Synchronization";
+"syncSettingsUpdateWatchlistTitle" = "アップデート";
+"syncSettingsUpdateWatchlistSubtitle" = "TMDbで新しい情報が利用可能な場合、アイテムを更新します。";
+"syncSettingsWatchlistTitle" = "ウォッチリスト";
+"syncSettingsTitle" = "同期";
 
 // MARK: AcknowledgementsSettings
-"acknowledgmentsAppIconTitle" = "Icon Designer";
+"acknowledgmentsAppIconTitle" = "アイコンデザイナー";
 "acknowledgmentsAppIconSubtitle" = "Akhmad";
-"acknowledgmentsContentProviderTitle" = "Content Provider";
+"acknowledgmentsContentProviderTitle" = "コンテンツプロバイダー";
 "acknowledgmentsContentProviderSubtitle" = "TMDb";
 "acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
-"settingsAcknowledgments" = "Acknowledgments";
-"settingsAcknowledgmentsFooter" = "Thanks to everyone who made Cronica possible.";
-"acknowledgmentsTitle" = "Acknowledgments";
-"acknowledgmentsUserTitle" = "Thank you for your feedback and support!";
+"settingsAcknowledgments" = "謝辞";
+"settingsAcknowledgmentsFooter" = "Cronicaを可能にしたすべての人々に感謝します。";
+"acknowledgmentsTitle" = "謝辞";
+"acknowledgmentsUserTitle" = "フィードバックとサポートありがとうございます！";
 
 // MARK: TipJarSetting
-"tipJarTitle" = "Tip Jar";
-"tipJarFooter" = "You can choose to contribute a small, medium, or large amount, and all proceeds will go towards improving and maintaining the app. Cronica will always remain free and ad-free, so this is purely an optional way for users to support the development of the app.";
-"restorePurchases" = "Restore Purchases";
+"tipJarTitle" = "チップジャー";
+"tipJarFooter" = "あなたは少額、中額、または大きな金額を寄付することができ、すべての収益はアプリの改善と維持に役立ちます。 Cronicaは常に無料で広告もなく、ユーザーがアプリの開発をサポートするためのオプション的な方法です。";
+"restorePurchases" = "購入を復元";
 
 // MARK: AppThemeColors
-"appThemeColorsBlue" = "Blue";
-"appThemeColorsRed" = "Red";
-"appThemeColorsGreen" = "Green";
-"appThemeColorsBrown" = "Brown";
-"appThemeColorsCyan" = "Cyan";
-"appThemeColorsGray" = "Gray";
-"appThemeColorsIndigo" = "Indigo";
-"appThemeColorsMint" = "Mint";
-"appThemeColorsOrange" = "Orange";
-"appThemeColorsPink" = "Pink";
-"appThemeColorsPurple" = "Purple";
-"appThemeColorsTeal" = "Teal";
-"appThemeColorsYellow" = "Yellow";
+"appThemeColorsBlue" = "青";
+"appThemeColorsRed" = "赤";
+"appThemeColorsGreen" = "緑";
+"appThemeColorsBrown" = "茶色";
+"appThemeColorsCyan" = "シアン";
+"appThemeColorsGray" = "グレー";
+"appThemeColorsIndigo" = "インディゴ";
+"appThemeColorsMint" = "ミント";
+"appThemeColorsOrange" = "オレンジ";
+"appThemeColorsPink" = "ピンク";
+"appThemeColorsPurple" = "紫";
+"appThemeColorsTeal" = "ティール";
+"appThemeColorsYellow" = "黄色";
 
 // MARK: WatchlistItemType
-"watchlistItemTypeList" = "List";
-"watchlistItemTypePoster" = "Poster";
-"watchlistItemTypeCard" = "Card";
+"watchlistItemTypeList" = "リスト";
+"watchlistItemTypePoster" = "ポスター";
+"watchlistItemTypeCard" = "カード";
 
 // MARK: AppTheme
-"appThemeSystem" = "System";
-"appThemeLight" = "Light";
-"appThemeDark" = "Dark";
+"appThemeSystem" = "システム";
+"appThemeLight" = "ライト";
+"appThemeDark" = "ダーク";
 
 // MARK: WatchProviderOption
 "watchProviderBr" = "Brazil";
@@ -148,251 +148,248 @@
 "watchProviderZa" = "South Africa";
 
 // MARK: Notification content
-"The next episode is set to arrive today." = "The next episode is set to arrive today.";
-"Next episode arrives today." = "Next episode arrives today.";
-"The movie will be released today." = "The movie will be released today.";
+"The next episode is set to arrive today." = "今日、次のエピソードが到着する予定です。";
+"Next episode arrives today." = "次のエピソードが今日到着します。";
+"The movie will be released today." = "今日、映画が公開されます。";
 
 //MARK: Common
-"Done" = "Done";
-"No details available." = "No details available.";
-"Not Available" = "Not Available";
-"No information available" = "No information available";
-"No title available" = "No title available";
-"Up Coming" = "Up Coming";
-"Upcoming Episodes" = "Upcoming Episodes";
-"Arriving Soon" = "Arriving Soon";
-"Latest Movies" = "Latest Movies";
-"Latest Shows" = "Latest Shows";
-"Upcoming Movies" = "Upcoming Movies";
-"TV Show" = "TV Show";
-"Movie" = "Movie";
-"People" = "People";
-"Popular Movies" = "Popular Movies";
-"Movies" = "Movies";
-"TV Shows" = "TV Shows";
-"Sort" = "Sort";
-"Media Type" = "Media Type";
-"Default" = "Optimized";
-"Favorites" = "Favorites";
-"To Watch" = "To Watch";
-"Unwatched" = "Unwatched";
-"Watched" = "Watched";
-"Upcoming Movies" = "Upcoming Movies";
-"Upcoming Seasons" = "Upcoming Seasons";
-"Renewed Series" = "Renewed Series";
-"Releasing Soon" = "Releasing Soon";
-"Recently Released" = "Recently Released";
-"Remove" = "Remove";
-"Added to watchlist" = "Added to Watchlist";
-"Mark as" = "Mark as";
-"Add to Favorites" = "Add to Favorites";
-"Share" = "Share";
-"Mark this and previous episodes as watched" = "Mark this and previous episodes as watched";
-"No Episode Available" = "No Episode Available";
-"Season Marked as Watched" = "Season Marked as Watched";
-"No biography available." = "No biography available.";
-"No information available." = "No information available.";
-"No title available" = "No title available";
-"No Name Found" = "No Name Found";
-"Not Available" = "Not Available";
-"Remove Selected" = "Remove Selected";
-"Mark selected as watched" = "Mark selected as watched";
-"Mark selected as unwatched" = "Mark selected as unwatched";
-"Open in" = "Open in";
+"Done" = "完了";
+"No details available." = "詳細はありません。";
+"Not Available" = "利用不可";
+"No information available" = "情報がありません";
+"No title available" = "タイトルがありません";
+"Up Coming" = "近日公開";
+"Upcoming Episodes" = "次回エピソード";
+"Arriving Soon" = "まもなく到着";
+"Latest Movies" = "最新映画";
+"Latest Shows" = "最新シリーズ";
+"Upcoming Movies" = "近日公開映画";
+"TV Show" = "テレビ番組";
+"Movie" = "映画";
+"People" = "人物";
+"Popular Movies" = "人気の映画";
+"Movies" = "映画";
+"TV Shows" = "テレビ番組";
+"Sort" = "並び替え";
+"Media Type" = "メディアの種類";
+"Default" = "既定";
+"Favorites" = "お気に入り";
+"Watched" = "視聴済み";
+"Upcoming Seasons" = "次回シーズン";
+"Renewed Series" = "更新済みシリーズ";
+"Releasing Soon" = "まもなく公開";
+"Recently Released" = "最近公開された";
+"Remove" = "削除する";
+"Added to watchlist" = "ウォッチリストに追加されました";
+"Mark as" = "マークする";
+"Add to Favorites" = "お気に入りに追加する";
+"Share" = "共有する";
+"Mark this and previous episodes as watched" = "このエピソードと以前のエピソードを視聴済みにする";
+"No Episode Available" = "エピソードがありません";
+"Season Marked as Watched" = "シーズンを視聴済みにマークしました";
+"No biography available." = "バイオグラフィーはありません";
+"No information available." = "情報はありません";
+"No title available" = "タイトルがありません";
+"No Name Found" = "名前が見つかりません";
+"Not Available" = "利用不可";
+"Remove Selected" = "選択した項目を削除する";
+"Mark selected as watched" = "選択した項目を視聴済みにする";
+"Mark selected as unwatched" = "選択した項目を未視聴にする";
+"Open in" = "開く";
 "IMDb" = "IMDb";
 "TMDb" = "TMDb";
-"Coming Soon To Theaters" = "Coming Soon To Theaters";
-"Pins" = "Pins";
-"Email (optional)" = "Email (optional)";
-"Open in YouTube" = "Open in YouTube";
-"List Filters" = "List Filters";
-"Add to List" = "Add to List";
-"Remove from List" = "Remove from List";
-"Pinned Items" = "Pinned Items";
-"Show Details" = "Show Details";
-"Archive" = "Archive";
-"Archive Item" = "Archive Item";
-"Remove from Archive" = "Remove from Archive";
-"Be reminded of upcoming Movies & TV Shows." = "Be reminded of upcoming Movies & TV Shows.";
-"Your smart Watchlist" = "Your smart Watchlist";
-"addAndMarkWatchedButton" = "Add and Mark as Watched";
-"markedAsWatched" = "Marked as Watched";
-"removedFromWatched" = "Removed from Watched";
-"markedAsFavorite" = "Marked as Favorite";
-"removedFromFavorites" = "Removed from Favorites";
+"Coming Soon To Theaters" = "近日公開予定";
+"Pins" = "ピン";
+"Email (optional)" = "メールアドレス（オプション）";
+"Open in YouTube" = "YouTube で開く";
+"List Filters" = "リストフィルター";
+"Add to List" = "リストに追加する";
+"Remove from List" = "リストから削除する";
+"Pinned Items" = "ピンされた項目";
+"Show Details" = "詳細を表示する";
+"Archive" = "アーカイブ";
+"Archive Item" = "アーカイブ項目";
+"Remove from Archive" = "アーカイブから削除する";
+"Be reminded of upcoming Movies & TV Shows." = "今後の映画やテレビ番組をリマインダーでお知らせします";
+"Your smart Watchlist" = "スマートウォッチリスト";
+"addAndMarkWatchedButton" = "追加して視聴済みにする";
+"markedAsWatched" = "視聴済みにマークしました";
+"removedFromWatched" = "視聴済みから削除しました";
+"markedAsFavorite" = "お気に入りに追加しました";
+"removedFromFavorites" = "お気に入りから削除しました";
 
 //MARK: AttributionView.swift
-"This product uses the TMDb API but is not endorsed or certified by TMDb." = "This product uses the TMDb API but is not endorsed or certified by TMDb.";
+"This product uses the TMDb API but is not endorsed or certified by TMDb." = "この製品は TMDb API を使用していますが、TMDb の承認や認証を受けたものではありません。";
 
 //MARK: ContentDetailsView.swift
-"Add to watchlist" = "Add to Watchlist";
-"Remove from watchlist" = "Remove from Watchlist";
-"About" = "About";
-"Trailers" = "Trailers";
-"Seasons" = "Seasons";
-"Recommendations" = "Recommendations";
-"You may like" = "You may like";
-"Mark as Watched" = "Mark as Watched";
-"Remove from Watched" = "Remove from Watched";
-"Mark as Favorite" = "Mark as Favorite";
-"Remove from Favorites" = "Remove from Favorites";
-"Ratings Score" = "Ratings Score";
+"Add to watchlist" = "ウォッチリストに追加";
+"Remove from watchlist" = "ウォッチリストから削除";
+"About" = "概要";
+"Trailers" = "予告編";
+"Seasons" = "シーズン";
+"Recommendations" = "おすすめ";
+"You may like" = "あなたにおすすめ";
+"Mark as Watched" = "視聴済みにする";
+"Remove from Watched" = "視聴済みから削除";
+"Mark as Favorite" = "お気に入りにする";
+"Remove from Favorites" = "お気に入りから削除";
+"Ratings Score" = "評価スコア";
 
 //MARK: ExploreView.swift
-"Explore" = "Explore";
-"Action" = "Action";
-"Adventure" = "Adventure";
-"Animation" = "Animation";
-"Comedy" = "Comedy";
-"Crime" = "Crime";
-"Documentary" = "Documentary";
-"Drama" = "Drama";
-"Family" = "Family";
-"Fantasy" = "Fantasy";
-"History" = "History";
-"Horror" = "Horror";
-"Music" = "Music";
-"Mystery" = "Mystery";
-"Romance" = "Romance";
-"Science Fiction" = "Science Fiction";
-"Thriller" = "Thriller";
-"War" = "War";
-"Action & Adventure" = "Action & Adventure";
-"Kids" = "Kids";
-"Reality" = "Reality";
-"Sci-Fi & Fantasy" = "Sci-Fi & Fantasy";
-"Genres" = "Genres";
-"Popular Movies by Genre" = "Popular Movies by Genre";
-"Popular TV Shows by Genre" = "Popular TV Series by Genre";
+"Explore" = "探索";
+"Action" = "アクション";
+"Adventure" = "冒険";
+"Animation" = "アニメーション";
+"Comedy" = "コメディ";
+"Crime" = "犯罪";
+"Documentary" = "ドキュメンタリー";
+"Drama" = "ドラマ";
+"Family" = "家族";
+"Fantasy" = "ファンタジー";
+"History" = "歴史";
+"Horror" = "ホラー";
+"Music" = "音楽";
+"Mystery" = "ミステリー";
+"Romance" = "ロマンス";
+"Science Fiction" = "SF";
+"Thriller" = "スリラー";
+"War" = "戦争";
+"Action & Adventure" = "アクション&アドベンチャー";
+"Kids" = "子供向け";
+"Reality" = "リアリティ番組";
+"Sci-Fi & Fantasy" = "SF&ファンタジー";
+"Genres" = "ジャンル";
+"Popular Movies by Genre" = "人気の映画ジャンル別";
+"Popular TV Shows by Genre" = "人気のテレビシリーズジャンル別";
 
 //MARK: InformationSectionView.swift
-"Run Time" = "Run-Time";
-"Release Date" = "Release Date";
-"Status" = "Status";
-"Genre" = "Genre";
-"Region of Origin" = "Region of Origin";
-"Production Company" = "Production Company";
-"Information" = "Information";
+"Run Time" = "ランタイム";
+"Release Date" = "公開日";
+"Status" = "ステータス";
+"Genre" = "ジャンル";
+"Region of Origin" = "原産地";
+"Production Company" = "制作会社";
+"Information" = "情報";
 
 //MARK: ContentView.swift
-"Home" = "Home";
-"Watchlist" = "Watchlist";
-"Search" = "Search";
+"Home" = "ホーム";
+"Watchlist" = "ウォッチリスト";
+"Search" = "検索";
 "Cronica" = "Cronica";
 
 //MARK: SettingsView.swift
-"Support" = "Support";
-"Send feedback" = "Send Feedback";
-"Privacy Policy" = "Privacy Policy";
-"Made in Brazil 🇧🇷" = "Made in Brazil 🇧🇷";
-"Gesture" = "Gesture";
-"Double Tap Gesture" = "Double Tap Gesture";
-"The function is performed when double-tap the cover image." = "The function is performed when double-tap the cover image.";
-"Settings" = "Settings";
-"Review Cronica" = "Review Cronica";
-"Send Feedback" = "Send Feedback";
-"Feedback" = "Feedback";
-"Send" = "Send";
-"Cancel" = "Cancel";
-"Send your suggestions to help improve Cronica." = "Send your suggestions to help improve Cronica.";
-"Feedback sent" = "Thank you for your feedback.";
-"Sync" = "Sync";
-"Update Items" = "Update Items";
-"'Update Items' will update your items with new information available on TMDb, if available." = "'Update Items' will update your items with new information available on TMDb, if available.";
-"Privacy" = "Privacy";
-"Disable Telemetry" = "Disable Crash Report";
-"privacyfooter" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
-"privacyFooterTV" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy at https://alexandremadeira.dev/cronica/privacy.";
-"Open Trailers in YouTube App" = "Open Trailers in YouTube App";
+"Support" = "サポート";
+"Send feedback" = "フィードバックを送信";
+"Privacy Policy" = "プライバシーポリシー";
+"Made in Brazil 🇧🇷" = "ブラジル製 🇧🇷";
+"Gesture" = "ジェスチャー";
+"Double Tap Gesture" = "ダブルタップジェスチャー";
+"The function is performed when double-tap the cover image." = "表紙画像をダブルタップしたときに機能が実行されます。";
+"Settings" = "設定";
+"Review Cronica" = "Cronicaをレビューする";
+"Send Feedback" = "フィードバックを送信";
+"Feedback" = "フィードバック";
+"Send" = "送信";
+"Cancel" = "キャンセル";
+"Send your suggestions to help improve Cronica." = "Cronicaの改善に役立つ提案を送信してください。";
+"Feedback sent" = "フィードバックをありがとうございました。";
+"Sync" = "同期";
+"Update Items" = "アップデートするアイテム";
+"'Update Items' will update your items with new information available on TMDb, if available." = "'Update Items' は、利用可能な場合にTMDbから新しい情報でアイテムを更新します。";
+"Privacy" = "プライバシー";
+"Disable Telemetry" = "クラッシュレポートを無効にする";
+"privacyfooter" = "Cronicaは、最小限のデータを収集してアプリのクラッシュを最小限に抑えます。このデータは匿名です。詳細については、プライバシーポリシーを参照してください。";
+"privacyFooterTV" = "Cronicaは、最小限のデータを収集してアプリのクラッシュを最小限に抑えます。このデータは匿名です。詳細については、https://alexandremadeira.dev/cronica/privacy のプライバシーポリシーを参照してください。";
+"Open Trailers in YouTube App" = "YouTubeアプリでトレーラーを開く";
 
 //MARK: HomeView.swift
-"Trending" = "Trending";
-"This week" = "This week";
-"Today" = "Today";
-"My Pins" = "My Pins";
-"Your pinned items" = "Your pinned items";
-"Remove Pin" = "Remove Pin";
+"Trending" = "トレンド";
+"This week" = "今週";
+"Today" = "今日";
+"My Pins" = "私のピン";
+"Your pinned items" = "あなたのピン留めされたアイテム";
+"Remove Pin" = "ピンを削除する";
 
 //MARK: WatchlistSectionView.swift
-"Coming Soon" = "Coming Soon";
-"From Watchlist" = "From Watchlist";
+"Coming Soon" = "近日公開";
+"From Watchlist" = "ウォッチリストから";
 
 //MARK: CastDetailsView.swift
-"Biography" = "Biography";
-"Cast & Crew" = "Cast & Crew";
+"Biography" = "略歴";
+"Cast & Crew" = "キャスト＆クルー";
 
 //MARK: SeasonListView.swift
-"Seasons" = "Seasons";
-"Season %lld" = "Season %lld";
-"Episode %lld" = "EPISODE %lld";
-"Mark Season as Watched" = "Mark Season as Watched";
+"Seasons" = "シーズン";
+"Season %lld" = "シーズン %lld";
+"Episode %lld" = "エピソード %lld";
+"Mark Season as Watched" = "シーズンを視聴済みにする";
 
 //MARK: FilmographyView.swift
-"Filmography" = "Filmography";
-"Know for" = "Know for";
+"Filmography" = "フィルモグラフィー";
+"Know for" = "代表作品";
 
 //MARK: SearchView.swift
-"Search" = "Search";
-"Movies, Shows, People" = "Movies, Shows, People";
-"Searching" = "Searching";
-"No Results" = "No Results";
-"All" = "All";
-"Shows" = "Shows";
+"Search" = "検索";
+"Movies, Shows, People" = "映画、テレビ番組、人物";
+"Searching" = "検索中";
+"No Results" = "結果なし";
+"All" = "すべて";
+"Shows" = "テレビ番組";
 
 //MARK: WatchlistView.swift
-"Your list is empty." = "Your list is empty.";
-"Coming Soon" = "Coming Soon";
-"Now Available" = "Now Available";
-"Released" = "Released";
-"Watchlist" = "Watchlist";
-"Search watchlist" = "Search Watchlist";
-"In Production" = "In Production";
-"Production" = "Production";
-"Cancelled" = "Cancelled";
-"Unknown" = "Unknown";
-"Released Movies" = "Released Movies";
-"Released Shows" = "Released Shows";
-"Releases" = "Releases";
-"Upcoming" = "Upcoming";
-"No results" = "No results";
-"Search results" = "Search results"; 
-"This list is empty." = "This list is empty.";
-"Sort List" = "Sort List";
-"Results from Watchlist" = "Results from Watchlist";
-"No results from Watchlist" = "No results from Watchlist";
-"Results from TMDb" = "Results from TMDb";
-"No results from TMDb" = "No results from TMDb";
-"Pin Item" = "Pin Item";
-"Unpin Item" = "Unpin Item";
-"Pin Items" = "Pin Items";
+"Your list is empty." = "あなたのリストは空です。";
+"Coming Soon" = "近日公開";
+"Now Available" = "現在利用可能";
+"Released" = "公開済み";
+"Watchlist" = "ウォッチリスト";
+"Search watchlist" = "ウォッチリストを検索";
+"In Production" = "製作中";
+"Production" = "製作";
+"Cancelled" = "キャンセルされました";
+"Unknown" = "不明";
+"Released Movies" = "公開済みの映画";
+"Released Shows" = "公開済みの番組";
+"Releases" = "公開";
+"Upcoming" = "近日公開";
+"No results" = "結果なし";
+"Search results" = "検索結果";
+"This list is empty." = "このリストは空です。";
+"Sort List" = "リストを並べ替える";
+"Results from Watchlist" = "ウォッチリストの結果";
+"No results from Watchlist" = "ウォッチリストの結果がありません";
+"Results from TMDb" = "TMDbの結果";
+"No results from TMDb" = "TMDbの結果がありません";
+"Pin Item" = "アイテムをピン留めする";
+"Unpin Item" = "アイテムのピン留めを解除する";
+"Pin Items" = "アイテムをピン留めする";
 
 // MARK: Error
-"Invalid Response" = "Invalid Response.";
-"Invalid Request" = "Invalid Request.";
-"Invalid Endpoint" = "Invalid Endpoint.";
-"Error reading this title" = "Error reading this title.";
-"Invalid API key: You must be granted a valid key." = "Invalid API key.";
-"Internal error: Something went wrong, contact TMDB." = "Internal error: Something went wrong, contact TMDb.";
-"The API is undergoing maintenance. Try again later." = "The API is undergoing maintenance. Try again later.";
-"Error" = "Error";
-"Cancel" = "Cancel";
-"Retry" = "Retry";
+"Invalid Response" = "無効なレスポンスです。";
+"Invalid Request" = "無効なリクエストです。";
+"Invalid Endpoint" = "エンドポイントが無効です。";
+"Error reading this title" = "タイトルの読み込みエラーです。";
+"Invalid API key: You must be granted a valid key." = "APIキーが無効です。有効なAPIキーが必要です。";
+"Internal error: Something went wrong, contact TMDB." = "内部エラー：何らかの問題が発生しました。TMDbにお問い合わせください。";
+"The API is undergoing maintenance. Try again later." = "APIはメンテナンス中です。後でもう一度お試しください。";
+"Error" = "エラー";
+"Cancel" = "キャンセル";
+"Retry" = "再試行";
 
 // MARK: watchOS
-"Search TMDb" = "Search TMDb";
-"For more details, open the companion app." = "For more details, open the iPhone app.";
+"Search TMDb" = "TMDbで検索";
+"For more details, open the companion app." = "詳細については、iPhoneアプリを開いてください。";
 
 // MARK: Widget
-"Shows movies and TV Shows trending from TMDb." = "Shows movies and TV Shows trending from TMDb.";
+"Shows movies and TV Shows trending from TMDb." = "TMDb からトレンド中の映画やテレビ番組を表示します。";
 
 // MARK: NotificationListView
-"Notifications" = "Notifications";
-"Upcoming Notifications" = "Upcoming Notifications";
-"Recent Notifications" = "Recent Notifications";
-"No notifications" = "No notifications";
-"Remove Notification" = "Remove Notification";
-"Loading" = "Loading";
-"%lld upcoming notifications." = "%lld upcoming notifications.";
+"Notifications" = "通知";
+"Upcoming Notifications" = "今後の通知";
+"Recent Notifications" = "最近の通知";
+"No notifications" = "通知なし";
+"Remove Notification" = "通知を削除";
+"Loading" = "読み込み中";
+"%lld upcoming notifications." = "今後の通知が%lld件あります。";
 
 // MARK: WatchlistSubtitleRow
 "watchlistSubtitleRowNone" = "Default";

@@ -28,10 +28,7 @@ struct UpNextView: View {
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
-                NavigationLink(value: episodes) {
-                    TitleView(title: "upNext", showChevron: false)
-                }
-                .buttonStyle(.plain)
+                TitleView(title: "upNext")
                 if !isLoaded {
                     CenterHorizontalView { ProgressView() }
                         .frame(height: 80)
@@ -47,69 +44,11 @@ struct UpNextView: View {
                                     .padding(.bottom)
                                     .onTapGesture {
                                         if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Task { await markAsWatched(for: episode) }
+                                            Task { await markAsWatched(episode) }
                                         } else {
                                             selectedEpisode = episode
                                         }
                                         
-                                    }
-                                    .contextMenu {
-                                        Button {
-                                            Task { await markAsWatched(for: episode) }
-                                        } label: {
-                                            Label("markAsWatched", systemImage: "rectangle.badge.checkmark.fill")
-                                        }
-                                    } preview: {
-                                        ZStack {
-                                            WebImage(url: episode.itemImageLarge)
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .overlay {
-                                                    VStack {
-                                                        Spacer()
-                                                        ZStack(alignment: .bottom) {
-                                                            Color.black.opacity(0.4)
-                                                                .frame(height: 70)
-                                                                .mask {
-                                                                    LinearGradient(colors: [Color.black,
-                                                                                            Color.black.opacity(0.924),
-                                                                                            Color.black.opacity(0.707),
-                                                                                            Color.black.opacity(0.383),
-                                                                                            Color.black.opacity(0)],
-                                                                                   startPoint: .bottom,
-                                                                                   endPoint: .top)
-                                                                }
-                                                            Rectangle()
-                                                                .fill(.ultraThinMaterial)
-                                                                .frame(height: 70)
-                                                                .mask {
-                                                                    VStack(spacing: 0) {
-                                                                        LinearGradient(colors: [Color.black.opacity(0),
-                                                                                                Color.black.opacity(0.383),
-                                                                                                Color.black.opacity(0.707),
-                                                                                                Color.black.opacity(0.924),
-                                                                                                Color.black],
-                                                                                       startPoint: .top,
-                                                                                       endPoint: .bottom)
-                                                                        .frame(height: 70)
-                                                                        Rectangle()
-                                                                    }
-                                                                }
-                                                            HStack {
-                                                                Text(episode.itemTitle)
-                                                                    .font(.title3)
-                                                                    .foregroundColor(.white)
-                                                                    .fontWeight(.semibold)
-                                                                    .lineLimit(1)
-                                                                    .padding()
-                                                                Spacer()
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            
-                                        }
-                                        .frame(width: 320, height: 180)
                                     }
                             }
                         }
@@ -122,7 +61,7 @@ struct UpNextView: View {
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
                     if let show = selectedEpisodeShowID {
-                        EpisodeDetailsView(episode: item, nextEpisode: $nextEpisode, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
+                        EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                             .toolbar {
                                 Button("Done") { selectedEpisode = nil }
                             }
@@ -174,56 +113,95 @@ struct UpNextView: View {
         }
     }
     
-    private func markAsWatched(for episode: Episode) async {
-        do {
-            let showId = self.episodeShowID["\(episode.id)"]
-            guard let showId else { return }
-            let network = NetworkService.shared
-            let season = try await network.fetchSeason(id: showId, season: episode.itemSeasonNumber)
-            guard let episodes = season.episodes else { return }
-            let nextEpisodeCount = episode.itemEpisodeNumber+1
-            if episodes.count < nextEpisodeCount { return }
-            else {
-                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
-                let persistence = PersistenceController.shared
-                persistence.updateEpisodeList(show: showId,
-                                              season: episode.itemSeasonNumber,
-                                              episode: episode.id,
-                                              nextEpisode: nextEpisode[0])
-                HapticManager.shared.successHaptic()
-                self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode[0].id)")
+    private func markAsWatched(_ episode: Episode) async {
+        let showId = self.episodeShowID["\(episode.id)"]
+        guard let showId else { return }
+        let persistence = PersistenceController.shared
+        let nextEpisode = await fetchNextEpisode(for: episode)
+        persistence.updateEpisodeList(show: showId,
+                                      season: episode.itemSeasonNumber,
+                                      episode: episode.id,
+                                      nextEpisode: nextEpisode)
+        if let nextEpisode {
+            withAnimation {
                 DispatchQueue.main.async {
-                    withAnimation {
-                        self.episodes.removeAll(where: { $0.id == episode.id })
-                        self.episodes.insert(nextEpisode[0], at: 0)
-                    }
+                    self.episodes.insert(nextEpisode, at: 0)
+                    self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
                 }
             }
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
         }
+        withAnimation {
+            DispatchQueue.main.async {
+                self.episodes.removeAll(where: { $0.id == episode.id })
+            }
+        }
+        HapticManager.shared.successHaptic()
+//        do {
+//            let showId = self.episodeShowID["\(episode.id)"]
+//            guard let showId else { return }
+//            let network = NetworkService.shared
+//            let season = try await network.fetchSeason(id: showId, season: episode.itemSeasonNumber)
+//            guard let episodes = season.episodes else { return }
+//            let nextEpisodeCount = episode.itemEpisodeNumber+1
+//            if episodes.count < nextEpisodeCount { return }
+//            else {
+//                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
+//                let persistence = PersistenceController.shared
+//                persistence.updateEpisodeList(show: showId,
+//                                              season: episode.itemSeasonNumber,
+//                                              episode: episode.id,
+//                                              nextEpisode: nextEpisode[0])
+//                HapticManager.shared.successHaptic()
+//                self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode[0].id)")
+//                DispatchQueue.main.async {
+//                    withAnimation {
+//                        self.episodes.removeAll(where: { $0.id == episode.id })
+//                        self.episodes.insert(nextEpisode[0], at: 0)
+//                    }
+//                }
+//            }
+//        } catch {
+//            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+//        }
     }
     
     private func handleWatched(_ episode: Episode) async {
-        do {
-            let showId = self.episodeShowID["\(episode.id)"]
-            guard let showId else { return }
-            let network = NetworkService.shared
-            let season = try await network.fetchSeason(id: showId, season: episode.itemSeasonNumber)
-            guard let episodes = season.episodes else { return }
-            let nextEpisodeCount = episode.itemEpisodeNumber+1
-            if episodes.count < nextEpisodeCount { return }
-            else {
-                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
-                withAnimation {
-                    self.episodes.insert(nextEpisode[0], at: 0)
-                    self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode[0].id)")
-                    self.episodes.removeAll(where: { $0.id == episode.id })
+        let showId = self.episodeShowID["\(episode.id)"]
+        guard let showId else { return }
+        let nextEpisode = await fetchNextEpisode(for: episode)
+        if let nextEpisode {
+            withAnimation {
+                DispatchQueue.main.async {
+                    self.episodes.insert(nextEpisode, at: 0)
+                    self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
                 }
             }
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
         }
+        withAnimation {
+            DispatchQueue.main.async {
+                self.episodes.removeAll(where: { $0.id == episode.id })
+            }
+        }
+//        do {
+//
+////            let showId = self.episodeShowID["\(episode.id)"]
+////            guard let showId else { return }
+////            let network = NetworkService.shared
+////            let season = try await network.fetchSeason(id: showId, season: episode.itemSeasonNumber)
+////            guard let episodes = season.episodes else { return }
+////            let nextEpisodeCount = episode.itemEpisodeNumber+1
+////            if episodes.count < nextEpisodeCount { return }
+////            else {
+////                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
+////                withAnimation {
+////                    self.episodes.insert(nextEpisode[0], at: 0)
+////                    self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode[0].id)")
+////                    self.episodes.removeAll(where: { $0.id == episode.id })
+////                }
+////            }
+//        } catch {
+//            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+//        }
     }
     
     private func fetchNextEpisode(for actual: Episode) async -> Episode? {
@@ -234,13 +212,22 @@ struct UpNextView: View {
             let season = try await network.fetchSeason(id: showId, season: actual.itemSeasonNumber)
             guard let episodes = season.episodes else { return nil }
             let nextEpisodeCount = actual.itemEpisodeNumber+1
-            if episodes.count < nextEpisodeCount { return nil }
+            if episodes.count < nextEpisodeCount {
+                let nextSeasonNumber = actual.itemSeasonNumber + 1
+                let nextSeason = try await network.fetchSeason(id: showId, season: nextSeasonNumber)
+                guard let episodes = nextSeason.episodes else { return nil }
+                let nextEpisode = episodes[0]
+                if nextEpisode.isItemReleased {
+                    return nextEpisode
+                }
+                return nil
+            }
             else {
                 let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
                 return nextEpisode[0]
             }
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchNextEpisode")
             return nil
         }
     }

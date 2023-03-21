@@ -34,7 +34,6 @@ public class WatchlistItem: NSManagedObject, Codable {
             shouldNotify = try values.decode(Bool.self, forKey: .shouldNotify)
         } catch {
             print(error.localizedDescription)
-            //CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "WatchlistItem.decoder")
         }
     }
     

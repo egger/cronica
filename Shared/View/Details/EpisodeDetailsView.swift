@@ -9,7 +9,6 @@ import SDWebImageSwiftUI
 
 struct EpisodeDetailsView: View {
     let episode: Episode
-    @Binding var nextEpisode: Episode?
     let season: Int
     let show: Int
     private let persistence = PersistenceController.shared
@@ -45,7 +44,6 @@ struct EpisodeDetailsView: View {
                 }
                 
                 WatchEpisodeButton(episode: episode,
-                                   nextEpisode: $nextEpisode,
                                    season: season,
                                    show: show,
                                    isWatched: $isWatched,

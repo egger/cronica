@@ -78,11 +78,9 @@ struct AppearanceSetting: View {
                 Toggle(isOn: $store.disableTranslucent) {
                     InformationalLabel(title: "disableTranslucentTitle")
                 }
-            } header: {
-                Text("accessibilityTitle")
             }
             .onChange(of: store.disableTranslucent) { newValue in
-                CronicaTelemetry.shared.handleMessage("accessibilityDisableTranslucent is turned \(newValue)",
+                CronicaTelemetry.shared.handleMessage("disableTranslucent is turned \(newValue)",
                                                       for: "AppearanceSetting")
             }
         }
