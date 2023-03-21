@@ -48,16 +48,13 @@ struct UpNextView: View {
                                         } else {
                                             selectedEpisode = episode
                                         }
-                                        
                                     }
                             }
                         }
                     }
                 }
             }
-            .task {
-                await load()
-            }
+            .task { await load() }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
                     if let show = selectedEpisodeShowID {
@@ -81,7 +78,6 @@ struct UpNextView: View {
                     if nextEpisode == nil {
                         nextEpisode = await fetchNextEpisode(for: item)
                     }
-                    print(showId as Any)
                 }
             }
             .task(id: isWatched) {
@@ -136,33 +132,6 @@ struct UpNextView: View {
             }
         }
         HapticManager.shared.successHaptic()
-//        do {
-//            let showId = self.episodeShowID["\(episode.id)"]
-//            guard let showId else { return }
-//            let network = NetworkService.shared
-//            let season = try await network.fetchSeason(id: showId, season: episode.itemSeasonNumber)
-//            guard let episodes = season.episodes else { return }
-//            let nextEpisodeCount = episode.itemEpisodeNumber+1
-//            if episodes.count < nextEpisodeCount { return }
-//            else {
-//                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
-//                let persistence = PersistenceController.shared
-//                persistence.updateEpisodeList(show: showId,
-//                                              season: episode.itemSeasonNumber,
-//                                              episode: episode.id,
-//                                              nextEpisode: nextEpisode[0])
-//                HapticManager.shared.successHaptic()
-//                self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode[0].id)")
-//                DispatchQueue.main.async {
-//                    withAnimation {
-//                        self.episodes.removeAll(where: { $0.id == episode.id })
-//                        self.episodes.insert(nextEpisode[0], at: 0)
-//                    }
-//                }
-//            }
-//        } catch {
-//            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
-//        }
     }
     
     private func handleWatched(_ episode: Episode) async {
@@ -182,26 +151,6 @@ struct UpNextView: View {
                 self.episodes.removeAll(where: { $0.id == episode.id })
             }
         }
-//        do {
-//
-////            let showId = self.episodeShowID["\(episode.id)"]
-////            guard let showId else { return }
-////            let network = NetworkService.shared
-////            let season = try await network.fetchSeason(id: showId, season: episode.itemSeasonNumber)
-////            guard let episodes = season.episodes else { return }
-////            let nextEpisodeCount = episode.itemEpisodeNumber+1
-////            if episodes.count < nextEpisodeCount { return }
-////            else {
-////                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
-////                withAnimation {
-////                    self.episodes.insert(nextEpisode[0], at: 0)
-////                    self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode[0].id)")
-////                    self.episodes.removeAll(where: { $0.id == episode.id })
-////                }
-////            }
-//        } catch {
-//            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
-//        }
     }
     
     private func fetchNextEpisode(for actual: Episode) async -> Episode? {
