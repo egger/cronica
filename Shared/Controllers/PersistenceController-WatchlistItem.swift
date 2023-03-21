@@ -99,41 +99,28 @@ extension PersistenceController {
                         }
                         item.upcomingSeason = content.hasUpcomingSeason
                         item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
-                        if item.isWatching && !item.isArchive {
-                            let upNextActualSeason = Int(item.seasonNumberUpNext)
-                            if let contentLastSeason = content.itemSeasons?.last {
-                                if upNextActualSeason <= contentLastSeason {
-                                    Task {
-                                        do {
-                                            let network = NetworkService.shared
-                                            let season = try await network.fetchSeason(id: content.id, season: upNextActualSeason)
-                                            let nextEpisodeNumber = Int(item.nextEpisodeUpNext)
-                                            if let episodes = season.episodes {
-                                                if episodes.count < nextEpisodeNumber {
-                                                    let nextSeasonNumber = upNextActualSeason + 1
-                                                    let newSeason = try await network.fetchSeason(id: content.id, season: nextSeasonNumber)
-                                                    if let episodes = newSeason.episodes {
-                                                        let episode = episodes[0]
-                                                        if episode.isItemReleased {
-                                                            item.displayOnUpNext = true
-                                                            item.nextEpisodeNumberUpNext = Int64(episode.itemEpisodeNumber)
-                                                        }
-                                                    }
-                                                } else {
-                                                    if nextEpisodeNumber > 0 {
-                                                        let episode = episodes[nextEpisodeNumber]
-                                                        if episode.isItemReleased {
-                                                            item.displayOnUpNext = true
-                                                            item.nextEpisodeNumberUpNext = Int64(episode.itemEpisodeNumber)
-                                                        }
-                                                    }
+                        if item.isWatching && !item.isArchive && !item.displayOnUpNext {
+                            if item.nextEpisodeUpNext != 0 && item.seasonNumberUpNext != 0 {
+                                Task {
+                                    let network = NetworkService.shared
+                                    let season = try? await network.fetchSeason(id: content.id, season: Int(item.seasonNumberUpNext))
+                                    if let episodes = season?.episodes {
+                                        if episodes.count < item.nextEpisodeUpNext {
+                                            let nextSeasonNumber = Int(item.seasonNumberUpNext) + 1
+                                            let newSeason = try? await network.fetchSeason(id: content.id, season: nextSeasonNumber)
+                                            if let episodes = newSeason?.episodes {
+                                                let firstEpisode = episodes[0]
+                                                if firstEpisode.isItemReleased {
+                                                    item.displayOnUpNext = true
+                                                    item.seasonNumberUpNext = Int64(nextSeasonNumber)
+                                                    item.nextEpisodeNumberUpNext = Int64(firstEpisode.itemEpisodeNumber)
                                                 }
-                                                
                                             }
-                                        } catch {
-                                            if Task.isCancelled { return }
-                                            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                                                  for: "FailedToUpdateUpNext")
+                                        } else {
+                                            let episode = episodes[Int(item.nextEpisodeUpNext)]
+                                            if episode.isItemReleased {
+                                                item.displayOnUpNext = true
+                                            }
                                         }
                                     }
                                 }
@@ -348,7 +335,6 @@ extension PersistenceController {
             watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
         }
         item.watchedEpisodes?.append(watched)
-        print("watched episodes = \(watched)")
         item.isWatching = true
         saveContext()
     }
@@ -405,6 +391,8 @@ extension PersistenceController {
                         } else {
                             item.displayOnUpNext = false
                         }
+                    } else {
+                        item.displayOnUpNext = false
                     }
                     item.lastSelectedSeason = Int64(season)
                     item.lastWatchedEpisode = Int64(episode)

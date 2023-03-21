@@ -531,3 +531,5 @@
 "addedToWatchlist" = "Added to Watchlist";
 "upNext" = "Up Next";
 "markAsWatched" = "Mark as watched";
+"recommendationsTitle" = "Recommendations";
+"recommendationsSubtitle" = "Based on your watched content";

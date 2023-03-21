@@ -28,30 +28,25 @@ struct UpNextView: View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
                 TitleView(title: "upNext")
-                if !isLoaded {
-                    CenterHorizontalView { ProgressView() }
-                        .frame(height: 80)
-                } else {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack {
-                            ForEach(episodes) { episode in
-                                UpNextEpisodeCardPrototype(episode: episode)
-                                    .padding([.leading, .trailing], 4)
-                                    .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
-                                    .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)
-                                    .padding(.top, 8)
-                                    .padding(.bottom)
-                                    .onTapGesture {
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Task { await markAsWatched(episode) }
-                                        } else {
-                                            selectedEpisode = episode
-                                        }
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(episodes) { episode in
+                            UpNextEpisodeCard(episode: episode)
+                                .padding([.leading, .trailing], 4)
+                                .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
+                                .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)
+                                .padding(.top, 8)
+                                .padding(.bottom)
+                                .onTapGesture {
+                                    if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                        Task { await markAsWatched(episode) }
+                                    } else {
+                                        selectedEpisode = episode
                                     }
-                            }
+                                }
                         }
                     }
-                }
+                }.redacted(reason: isLoaded ? [] : .placeholder)
             }
             .task { await load() }
             .sheet(item: $selectedEpisode) { item in
@@ -93,14 +88,20 @@ struct UpNextView: View {
                     let result = try await NetworkService.shared.fetchEpisode(tvID: item.id,
                                                                               season: item.seasonNumberUpNext,
                                                                               episodeNumber: item.nextEpisodeNumberUpNext)
-                    episodes.append(result)
-                    episodeShowID.updateValue(item.itemId, forKey: "\(result.id)")
+                    if result.isItemReleased {
+                        DispatchQueue.main.async {
+                            withAnimation(.easeInOut) {
+                                episodes.append(result)
+                                episodeShowID.updateValue(item.itemId, forKey: "\(result.id)")
+                            }
+                        }
+                    }
                 } catch {
-                    CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+                    CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "UpNextView.load")
                 }
             }
             DispatchQueue.main.async {
-                self.isLoaded = true
+                withAnimation { self.isLoaded = true }
             }
         }
     }
@@ -115,15 +116,17 @@ struct UpNextView: View {
                                       episode: episode.id,
                                       nextEpisode: nextEpisode)
         if let nextEpisode {
-            withAnimation {
+            if nextEpisode.isItemReleased {
                 DispatchQueue.main.async {
-                    self.episodes.insert(nextEpisode, at: 0)
-                    self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
+                    withAnimation(.easeInOut) {
+                        self.episodes.insert(nextEpisode, at: 0)
+                        self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
+                    }
                 }
             }
         }
-        withAnimation {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut) {
                 self.episodes.removeAll(where: { $0.id == episode.id })
             }
         }
@@ -135,15 +138,17 @@ struct UpNextView: View {
         guard let showId else { return }
         let nextEpisode = await fetchNextEpisode(for: episode)
         if let nextEpisode {
-            withAnimation {
+            if nextEpisode.isItemReleased {
                 DispatchQueue.main.async {
-                    self.episodes.insert(nextEpisode, at: 0)
-                    self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
+                    withAnimation(.easeInOut) {
+                        self.episodes.insert(nextEpisode, at: 0)
+                        self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
+                    }
                 }
             }
         }
-        withAnimation {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut) {
                 self.episodes.removeAll(where: { $0.id == episode.id })
             }
         }
@@ -185,10 +190,10 @@ struct UpNextView_Previews: PreviewProvider {
     }
 }
 
-private struct UpNextEpisodeCardPrototype: View {
+private struct UpNextEpisodeCard: View {
     let episode: Episode
     var body: some View {
-        VStack(alignment: .leading) {
+        ZStack {
             WebImage(url: episode.itemImageLarge)
                 .resizable()
                 .placeholder {
@@ -202,19 +207,62 @@ private struct UpNextEpisodeCardPrototype: View {
                     }
                 }
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 240, height: 140)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .shadow(radius: 2.5)
+                .frame(width: 280, height: 160)
                 .transition(.opacity)
-            Text("Episode \(episode.itemEpisodeNumber), Season \(episode.itemSeasonNumber)")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .textCase(.uppercase)
-                .lineLimit(1)
-            Text(episode.itemTitle)
-                .font(.callout)
-                .lineLimit(1)
+            
+            VStack(alignment: .leading) {
+                Spacer()
+                ZStack(alignment: .bottom) {
+                    Color.black.opacity(0.4)
+                        .frame(height: 50)
+                        .mask {
+                            LinearGradient(colors: [Color.black,
+                                                    Color.black.opacity(0.924),
+                                                    Color.black.opacity(0.707),
+                                                    Color.black.opacity(0.383),
+                                                    Color.black.opacity(0)],
+                                           startPoint: .bottom,
+                                           endPoint: .top)
+                        }
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .frame(height: 70)
+                        .mask {
+                            VStack(spacing: 0) {
+                                LinearGradient(colors: [Color.black.opacity(0),
+                                                        Color.black.opacity(0.383),
+                                                        Color.black.opacity(0.707),
+                                                        Color.black.opacity(0.924),
+                                                        Color.black],
+                                               startPoint: .top,
+                                               endPoint: .bottom)
+                                .frame(height: 50)
+                                Rectangle()
+                            }
+                        }
+                    
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(episode.itemTitle)
+                                .font(.callout)
+                                .foregroundColor(.white)
+                                .fontWeight(.semibold)
+                                .lineLimit(1)
+                            Text("E\(episode.itemEpisodeNumber), S\(episode.itemSeasonNumber)")
+                                .font(.caption)
+                                .textCase(.uppercase)
+                                .foregroundColor(.white.opacity(0.8))
+                                .lineLimit(1)
+                        }
+                        Spacer()
+                    }
+                    .padding(.bottom, 8)
+                    .padding(.leading)
+                }
+            }
         }
-        .frame(width: 240, height: 170)
+        .frame(width: 280, height: 160)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(radius: 2.5)
     }
 }

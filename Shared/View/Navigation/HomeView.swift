@@ -33,6 +33,11 @@ struct HomeView: View {
                                             addedItemConfirmation: $showConfirmation,
                                             endpoint: section.endpoint)
                     }
+                    ItemContentListView(items: viewModel.recommendations,
+                                        title: "recommendationsTitle",
+                                        subtitle: "recommendationsSubtitle",
+                                        addedItemConfirmation: $showConfirmation,
+                                        displayAsCard: false)
                     AttributionView()
                 }
                 .refreshable { viewModel.reload() }

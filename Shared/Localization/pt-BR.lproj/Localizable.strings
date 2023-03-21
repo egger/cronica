@@ -565,3 +565,5 @@
 "addedToWatchlist" = "Adicionado à Lista";
 "upNext" = "A seguir";
 "markAsWatched" = "Marque como assistido";
+"recommendationsTitle" = "Recomendações";
+"recommendationsSubtitle" = "Com base no seu conteúdo assistido";

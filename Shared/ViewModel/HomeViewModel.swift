@@ -14,6 +14,7 @@ class HomeViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published var trending: [ItemContent] = []
     @Published var sections: [ItemContentSection] = []
+    @Published var recommendations = [ItemContent]()
     @Published var isLoaded: Bool = false
     
     func load() async {
@@ -35,6 +36,7 @@ class HomeViewModel: ObservableObject {
                 let result = await self.fetchSections()
                 sections.append(contentsOf: result)
             }
+            await fetchRecommendations()
             withAnimation {
                 isLoaded = true
             }
@@ -76,6 +78,44 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
 """
             CronicaTelemetry.shared.handleMessage(message, for: "HomeViewModel.load()")
             return nil
+        }
+    }
+    
+    private func fetchRecommendations() async {
+        var watched = [WatchlistItem]()
+        var recommendationsFetched = [ItemContent]()
+        var watchedIds: Set<Int> = []
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let watchedPredicate = NSPredicate(format: "watched == %d", true)
+        request.predicate = NSCompoundPredicate(type: .or,
+                                                subpredicates: [watchedPredicate])
+        do {
+            let list = try context.fetch(request)
+            if !list.isEmpty {
+                for item in list {
+                    watchedIds.insert(item.itemId)
+                }
+                let content = list.shuffled()
+                watched.append(contentsOf: content.prefix(5))
+                if !watched.isEmpty {
+                    for item in watched {
+                        let result = try await service.fetchItems(from: "\(item.itemMedia.rawValue)/\(item.itemId)/recommendations")
+                        recommendationsFetched.append(contentsOf: result)
+                    }
+                    if !watched.isEmpty {
+                        var filtered: Set<ItemContent> = []
+                        let filteredWatched = recommendationsFetched.filter { !watchedIds.contains($0.id) }
+                        for item in filteredWatched { filtered.insert(item) }
+                        self.recommendations.append(contentsOf: filtered)
+                    }
+                }
+            }
+            
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "BackgroundManager.fetchReleasedItems.failed")
+            
         }
     }
 }
