@@ -55,15 +55,8 @@ public class WatchlistItem: NSManagedObject, Codable {
     }
     
     enum CodingKeys: CodingKey {
-        case contentID, contentType, date, favorite, formattedDate, genre, id, image,
-             imdbID, isArchive, isPin, isWatching,
-             largeCardImage, largePosterImage, lastEpisodeNumber,
-             lastSelectedSeason, lastValuesUpdated,
-             lastWatchedEpisode, mediumPosterImage,
-             nextEpisodeNumber, nextSeasonNumber, notify,
-             originalTitle, schedule, shouldNotify, title,
-             tmdbID, upcomingSeason, watched, watchedEpisodes, markedToDeleteOn, nextEpisodeId,
-             nextEpisodeCoverImage, list
+        case title, contentID, id, image, watchedEpisodes, watched, favorite, contentType, schedule, largeCardImage,
+             largePosterImage, mediumPosterImage, shouldNotify
     }
 }
 

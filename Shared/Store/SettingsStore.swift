@@ -32,12 +32,9 @@ class SettingsStore: ObservableObject {
     @AppStorage("primaryRightSwipe") var primaryRightSwipe: SwipeGestureOptions = .delete
     @AppStorage("secondaryRightSwipe") var secondaryRightSwipe: SwipeGestureOptions = .markArchive
     @AppStorage("allowFullSwipe") var allowFullSwipe = false
-    @AppStorage("displayCustomListItemsOnWatchlist") var displayCustomOnWatchlist = true
-    @AppStorage("immediatelyDeleteItem") var immediatelyDeletion = false
     @AppStorage("allowNotifications") var allowNotifications = true
     @AppStorage("notifyMovies") var notifyMovieRelease = true
     @AppStorage("notifyTVShows") var notifyNewEpisodes = true
     @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
-    @AppStorage("isNotificationDisabledInSettings") var hasNotificationAccess = true
     @AppStorage("markPreviouslyEpisodesAsWatched") var markPreviouslyEpisodesAsWatched = false
 }

@@ -52,15 +52,8 @@ class NotificationManager: ObservableObject {
         }
         self.requestAuthorization { granted in
             if !granted {
-                DispatchQueue.main.async {
-                    settings.hasNotificationAccess = false
-                }
                 return
-            } else {
-                DispatchQueue.main.async {
-                    settings.hasNotificationAccess = true
-                }
-            }
+            } 
         }
         let identifier = content.itemNotificationID
         let title = content.itemTitle

@@ -28,7 +28,6 @@
         <attribute name="lastSelectedSeason" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastValuesUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lastWatchedEpisode" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="markedToDeleteOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="mediumPosterImage" optional="YES" attributeType="URI"/>
         <attribute name="nextEpisodeNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nextEpisodeNumberUpNext" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

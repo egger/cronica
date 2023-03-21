@@ -31,9 +31,6 @@ struct NotificationsSettingsView: View {
                     settings.notifyNewEpisodes = false
                 }
             }
-            .onAppear {
-                settings.hasNotificationAccess = NotificationManager.shared.isNotificationAllowed()
-            }
             
             Button("openNotificationInSettings") {
                 Task {
