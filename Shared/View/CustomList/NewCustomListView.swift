@@ -102,11 +102,9 @@ struct NewCustomListView: View {
 #if os(macOS)
             ToolbarItem(placement: .automatic) {
                 createList
-                    .buttonStyle(.link)
             }
             ToolbarItem(placement: .cancellationAction) {
                 cancelButton
-                    .buttonStyle(.link)
             }
 #else
             createList

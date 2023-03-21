@@ -119,9 +119,6 @@ struct EditCustomList: View {
                 showListSelection = false
             }
             .disabled(disableSaveButton)
-#if os(macOS)
-            .buttonStyle(.link)
-#endif
         }
         .navigationTitle(list.itemTitle)
     }

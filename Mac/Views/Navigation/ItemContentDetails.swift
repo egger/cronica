@@ -20,6 +20,7 @@ struct ItemContentDetailsView: View {
     @State private var actionImageConfirmation = ""
     @State private var showActionConfirmation = false
     var handleToolbarOnPopup = false
+    @State private var showCustomList = false
     init(id: Int, title: String, type: MediaType, handleToolbarOnPopup: Bool = false) {
         self.id = id
         self.title = title

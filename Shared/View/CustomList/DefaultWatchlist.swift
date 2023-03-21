@@ -76,7 +76,7 @@ struct DefaultWatchlist: View {
             .appTint()
 #if os(macOS)
             .formStyle(.grouped)
-            .frame(width: 300, height: 240, alignment: .center)
+            .frame(width: 380, height: 220, alignment: .center)
 #endif
         }
         .toolbar {

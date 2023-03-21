@@ -122,8 +122,13 @@ struct ItemContentContextMenu: ViewModifier {
             if !isInWatchlist { HapticManager.shared.successHaptic() }
             updateWatchlist(with: item)
         } label: {
+#if os(macOS)
+            Text(isInWatchlist ? "Remove from watchlist": "Add to watchlist")
+                .foregroundColor(isInWatchlist ? .red : nil)
+#else
             Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: isInWatchlist ? "minus.square" : "plus.square")
+#endif
         }
     }
     

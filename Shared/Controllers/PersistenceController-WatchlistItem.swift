@@ -100,12 +100,12 @@ extension PersistenceController {
                         item.upcomingSeason = content.hasUpcomingSeason
                         item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                         if item.isWatching && !item.isArchive && !item.displayOnUpNext {
-                            if item.nextEpisodeUpNext != 0 && item.seasonNumberUpNext != 0 {
+                            if item.nextEpisodeNumberUpNext != 0 && item.seasonNumberUpNext != 0 {
                                 Task {
                                     let network = NetworkService.shared
                                     let season = try? await network.fetchSeason(id: content.id, season: Int(item.seasonNumberUpNext))
                                     if let episodes = season?.episodes {
-                                        if episodes.count < item.nextEpisodeUpNext {
+                                        if episodes.count < item.nextEpisodeNumberUpNext {
                                             let nextSeasonNumber = Int(item.seasonNumberUpNext) + 1
                                             let newSeason = try? await network.fetchSeason(id: content.id, season: nextSeasonNumber)
                                             if let episodes = newSeason?.episodes {
@@ -117,7 +117,7 @@ extension PersistenceController {
                                                 }
                                             }
                                         } else {
-                                            let episode = episodes[Int(item.nextEpisodeUpNext)]
+                                            let episode = episodes[Int(item.nextEpisodeNumberUpNext)]
                                             if episode.isItemReleased {
                                                 item.displayOnUpNext = true
                                             }
@@ -383,7 +383,6 @@ extension PersistenceController {
                     item.isWatching = true
                     
                     if let nextEpisode {
-                        item.nextEpisodeUpNext = Int64(nextEpisode.id)
                         item.nextEpisodeNumberUpNext = Int64(nextEpisode.episodeNumber ?? 0)
                         item.seasonNumberUpNext = Int64(nextEpisode.seasonNumber ?? 0)
                         if nextEpisode.isItemReleased {

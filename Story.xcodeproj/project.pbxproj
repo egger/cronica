@@ -328,6 +328,8 @@
 		B89ECD0A2986A89800F0B197 /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
 		B89ECD0C29877C2400F0B197 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89ECD0B29877C2400F0B197 /* DiscoverView.swift */; };
 		B8A2C87729C895CA00FDBB33 /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CCA8B429C7F952008D2FFF /* UpNextView.swift */; };
+		B8A2C88129CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
+		B8A2C88229CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
@@ -742,6 +744,7 @@
 		B89ECCFE2984530700F0B197 /* DiscoverSortBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSortBy.swift; sourceTree = "<group>"; };
 		B89ECD052985F11100F0B197 /* TitleWatchlistDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWatchlistDetails.swift; sourceTree = "<group>"; };
 		B89ECD0B29877C2400F0B197 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentCustomListSelector.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
 		B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extensions.swift"; sourceTree = "<group>"; };
 		B8AAA6E829645561004FDF21 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -1048,6 +1051,7 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */,
 				B82BE4F4299EB7B0005F9990 /* CustomList */,
 				B8F6DE662937F88A005D1A50 /* Buttons */,
 				B8F6DE682937F92A005D1A50 /* Containers */,
@@ -1058,7 +1062,6 @@
 				B8F6DE642937A023005D1A50 /* Details */,
 				B8C3354928170AC90055389D /* Lists */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
-				B818483B29C2897A00650763 /* ChangelogView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1431,6 +1434,7 @@
 		B8C781F3287F58B700B4C2C2 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				B818483B29C2897A00650763 /* ChangelogView.swift */,
 				B8779374281E2CE700174F32 /* ExploreView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
 				B8CC952027CFEBEC00B6757C /* SearchView.swift */,
@@ -2134,6 +2138,7 @@
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
 				B80BBE5B294966FC00958876 /* InformationalLabel.swift in Sources */,
+				B8A2C88129CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */,
 				B8AAA6EE296455E2004FDF21 /* AppThemeModifier.swift in Sources */,
 				B8423E2F2793B61B0012259B /* CardView.swift in Sources */,
 				B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */,
@@ -2299,6 +2304,7 @@
 				B8BF62C72912DA230051915C /* SearchViewModel.swift in Sources */,
 				B8BF62C32912DA230051915C /* Bundle-Decodable.swift in Sources */,
 				B8FB2A962952B11F006DAC8E /* Poster.swift in Sources */,
+				B8A2C88229CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */,
 				B8BF62D62912E3790051915C /* ItemContentContextMenu.swift in Sources */,
 				B8BF62B92912DA230051915C /* UTType-Extensions.swift in Sources */,
 				B8BF632E29142E380051915C /* WelcomeView.swift in Sources */,

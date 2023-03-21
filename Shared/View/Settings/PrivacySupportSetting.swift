@@ -25,17 +25,11 @@ struct PrivacySupportSetting: View {
     private var section: some View {
         Section {
 #if os(iOS) || os(macOS)
-            Button {
+            Button("settingsPrivacyPolicy") {
 #if os(macOS)
                 NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
 #else
                 showPolicy.toggle()
-#endif
-            } label: {
-#if os(iOS)
-                Text("settingsPrivacyPolicy")
-#else
-                Label("settingsPrivacyPolicy", systemImage: "hand.raised.fingers.spread")
 #endif
             }
 #if os(iOS)

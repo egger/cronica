@@ -47,7 +47,6 @@ struct SelectListView: View {
                     }
                     ToolbarItem(placement: .cancellationAction) {
                         doneButton
-                            .buttonStyle(.link)
                     }
                 }
 #endif
@@ -140,9 +139,6 @@ struct SelectListView: View {
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")
         }
-#if os(macOS)
-        .buttonStyle(.link)
-#endif
     }
     
     private func delete(offsets: IndexSet) {

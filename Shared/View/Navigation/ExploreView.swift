@@ -123,9 +123,6 @@ struct ExploreView: View {
                 .toolbar {
                     ToolbarItem {
                         Button("Cancel") { showFilters = false }
-#if os(macOS)
-                            .buttonStyle(.link)
-#endif
                     }
                 }
 #if os(iOS)
