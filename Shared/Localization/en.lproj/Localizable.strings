@@ -533,3 +533,11 @@
 "markAsWatched" = "Mark as watched";
 "recommendationsTitle" = "Recommendations";
 "recommendationsSubtitle" = "Based on your watched content";
+"allItems" = "All Items";
+"mediaTypeFiltersNoFilter" = "All";
+"mediaTypeFiltersMovies" = "Movies";
+"mediaTypeFiltersTvShows" = "TV Shows";
+"mediaTypeFilter" = "Filter by media";
+"allItemsMovies" = "All Movies";
+"allItemsTVShows" = "All TV Shows";
+"importedSucceeded" = "Imported Successfully";

@@ -70,6 +70,9 @@ struct UpNextView: View {
                     let showId = self.episodeShowID["\(item.id)"]
                     selectedEpisodeShowID = showId
                 }
+#if os(macOS)
+                    .frame(width: 800, height: 500)
+#endif
             }
             .task(id: isWatched) {
                 if isWatched {

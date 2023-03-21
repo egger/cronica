@@ -23,9 +23,8 @@ struct DefaultWatchlist: View {
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
     @State private var showFilter = false
-    @State private var isLoading = false
     @State private var showAllItems = false
-    @State private var selectedSortBy: StandardFilters = .titleAsc
+    @State private var mediaTypeFilter: MediaTypeFilters = .noFilter
     var body: some View {
         VStack {
             switch settings.watchlistStyle {
@@ -39,6 +38,15 @@ struct DefaultWatchlist: View {
                 Form {
                     Section {
                         Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
+                        Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
+                            ForEach(MediaTypeFilters.allCases) { sort in
+                                Text(sort.localizableTitle).tag(sort)
+                            }
+                        }
+                        .disabled(!showAllItems)
+#if os(iOS)
+                        .pickerStyle(.navigationLink)
+#endif
                     }
                     Section {
                         Picker("defaultWatchlistSmartFilters", selection: $selectedOrder) {
@@ -50,11 +58,6 @@ struct DefaultWatchlist: View {
                         .pickerStyle(.navigationLink)
 #endif
                         .disabled(showAllItems)
-                        Picker("standardSortBy", selection: $selectedSortBy) {
-                            ForEach(StandardFilters.allCases) { sort in
-                                Text(sort.localizableTitle).tag(sort)
-                            }
-                        }
 #if os(iOS)
                         .pickerStyle(.navigationLink)
 #endif
@@ -93,12 +96,6 @@ struct DefaultWatchlist: View {
             ForEach(WatchlistSearchScope.allCases) { scope in
                 Text(scope.localizableTitle).tag(scope)
             }
-        }
-        .onChange(of: showAllItems) { _ in
-            filter()
-        }
-        .onChange(of: selectedSortBy) { _ in
-            filter()
         }
         .disableAutocorrection(true)
         .task(id: query) {
@@ -152,6 +149,14 @@ struct DefaultWatchlist: View {
                 noResults
             } else {
                 if showAllItems {
+                    switch mediaTypeFilter {
+                    case .noFilter:
+                        WatchListSection(items: items.filter { $0.title != nil }, title: "allItems")
+                    case .movies:
+                        WatchListSection(items: items.filter { $0.itemMedia == .movie }, title: "allItemsMovies")
+                    case .tvShows:
+                        WatchListSection(items: items.filter { $0.itemMedia == .tvShow }, title: "allItemsTVShows")
+                    }
                     
                 } else {
                     switch selectedOrder {
@@ -199,51 +204,44 @@ struct DefaultWatchlist: View {
         } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
             noResults
         } else {
-            switch selectedOrder {
-            case .released:
-                WatchlistCardSection(items: items.filter { $0.isReleased },
-                                     title: DefaultListTypes.released.title)
-            case .upcoming:
-                WatchlistCardSection(items: items.filter { $0.isUpcoming },
-                                     title: DefaultListTypes.upcoming.title)
-            case .production:
-                WatchlistCardSection(items: items.filter { $0.isInProduction },
-                                     title: DefaultListTypes.production.title)
-            case .watched:
-                WatchlistCardSection(items: items.filter { $0.isWatched },
-                                     title: DefaultListTypes.watched.title)
-            case .favorites:
-                WatchlistCardSection(items: items.filter { $0.isFavorite },
-                                     title: DefaultListTypes.favorites.title)
-            case .pin:
-                WatchlistCardSection(items: items.filter { $0.isPin },
-                                     title: DefaultListTypes.pin.title)
-            case .archive:
-                WatchlistCardSection(items: items.filter { $0.isArchive },
-                                     title: DefaultListTypes.archive.title)
+            if showAllItems {
+                switch mediaTypeFilter {
+                case .noFilter:
+                    WatchlistCardSection(items: items.filter { $0.title != nil },
+                                         title: "allItems")
+                case .movies:
+                    WatchlistCardSection(items: items.filter { $0.isMovie },
+                                         title: "allItemsMovies")
+                case .tvShows:
+                    WatchlistCardSection(items: items.filter { $0.isTvShow },
+                                         title: "allItemsTVShows")
+                }
+            } else {
+                switch selectedOrder {
+                case .released:
+                    WatchlistCardSection(items: items.filter { $0.isReleased },
+                                         title: DefaultListTypes.released.title)
+                case .upcoming:
+                    WatchlistCardSection(items: items.filter { $0.isUpcoming },
+                                         title: DefaultListTypes.upcoming.title)
+                case .production:
+                    WatchlistCardSection(items: items.filter { $0.isInProduction },
+                                         title: DefaultListTypes.production.title)
+                case .watched:
+                    WatchlistCardSection(items: items.filter { $0.isWatched },
+                                         title: DefaultListTypes.watched.title)
+                case .favorites:
+                    WatchlistCardSection(items: items.filter { $0.isFavorite },
+                                         title: DefaultListTypes.favorites.title)
+                case .pin:
+                    WatchlistCardSection(items: items.filter { $0.isPin },
+                                         title: DefaultListTypes.pin.title)
+                case .archive:
+                    WatchlistCardSection(items: items.filter { $0.isArchive },
+                                         title: DefaultListTypes.archive.title)
+                }
             }
         }
-    }
-    
-    func filter() {
-        isLoading.toggle()
-        if showAllItems {
-            filteredItems = []
-            filteredItems.append(contentsOf: items)
-        }
-        switch selectedSortBy {
-        case .releaseDateAsc:
-            filteredItems.sort { $0.itemDate ?? Date.distantPast < $1.itemDate ?? Date.distantPast }
-        case .releaseDateDsc:
-            filteredItems.sort { $0.itemDate ?? Date.distantPast > $1.itemDate ?? Date.distantPast }
-        case .titleAsc:
-            filteredItems.sort { $0.itemTitle < $1.itemTitle }
-        case .titleDsc:
-            filteredItems.sort { $0.itemTitle > $1.itemTitle }
-        case .lastModified:
-            filteredItems.sort { $0.lastValuesUpdated ?? Date() < $1.lastValuesUpdated ?? Date() }
-        }
-        isLoading = false
     }
     
     @ViewBuilder
@@ -263,29 +261,44 @@ struct DefaultWatchlist: View {
         } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
             noResults
         } else {
-            switch selectedOrder {
-            case .released:
-                WatchlistPosterSection(items: items.filter { $0.isReleased },
-                                       title: DefaultListTypes.released.title)
-            case .upcoming:
-                WatchlistPosterSection(items: items.filter { $0.isUpcoming },
-                                       title: DefaultListTypes.upcoming.title)
-            case .production:
-                WatchlistPosterSection(items: items.filter { $0.isInProduction },
-                                       title: DefaultListTypes.production.title)
-            case .watched:
-                WatchlistPosterSection(items: items.filter { $0.isWatched },
-                                       title: DefaultListTypes.watched.title)
-            case .favorites:
-                WatchlistPosterSection(items: items.filter { $0.isFavorite },
-                                       title: DefaultListTypes.favorites.title)
-            case .pin:
-                WatchlistPosterSection(items: items.filter { $0.isPin },
-                                       title: DefaultListTypes.pin.title)
-            case .archive:
-                WatchlistPosterSection(items: items.filter { $0.isArchive },
-                                       title: DefaultListTypes.archive.title)
+            if showAllItems {
+                switch mediaTypeFilter {
+                case .noFilter:
+                    WatchlistPosterSection(items: items.filter { $0.title != nil },
+                                           title: "allItems")
+                case .movies:
+                    WatchlistPosterSection(items: items.filter { $0.isMovie },
+                                           title: "allItemsMovies")
+                case .tvShows:
+                    WatchlistPosterSection(items: items.filter { $0.isTvShow },
+                                           title: "allItemsTVShows")
+                }
+            } else {
+                switch selectedOrder {
+                case .released:
+                    WatchlistPosterSection(items: items.filter { $0.isReleased },
+                                           title: DefaultListTypes.released.title)
+                case .upcoming:
+                    WatchlistPosterSection(items: items.filter { $0.isUpcoming },
+                                           title: DefaultListTypes.upcoming.title)
+                case .production:
+                    WatchlistPosterSection(items: items.filter { $0.isInProduction },
+                                           title: DefaultListTypes.production.title)
+                case .watched:
+                    WatchlistPosterSection(items: items.filter { $0.isWatched },
+                                           title: DefaultListTypes.watched.title)
+                case .favorites:
+                    WatchlistPosterSection(items: items.filter { $0.isFavorite },
+                                           title: DefaultListTypes.favorites.title)
+                case .pin:
+                    WatchlistPosterSection(items: items.filter { $0.isPin },
+                                           title: DefaultListTypes.pin.title)
+                case .archive:
+                    WatchlistPosterSection(items: items.filter { $0.isArchive },
+                                           title: DefaultListTypes.archive.title)
+                }
             }
+           
         }
     }
     
@@ -331,4 +344,17 @@ enum StandardFilters: String, Identifiable, CaseIterable {
     }
 }
 
-
+enum MediaTypeFilters: String, Identifiable, CaseIterable {
+    var id: String { rawValue }
+    case noFilter, movies, tvShows
+    var localizableTitle: String {
+        switch self {
+        case .noFilter:
+            return NSLocalizedString("mediaTypeFiltersNoFilter", comment: "")
+        case .movies:
+            return NSLocalizedString("mediaTypeFiltersMovies", comment: "")
+        case .tvShows:
+            return NSLocalizedString("mediaTypeFiltersTvShows", comment: "")
+        }
+    }
+}

@@ -567,3 +567,11 @@
 "markAsWatched" = "Marque como assistido";
 "recommendationsTitle" = "Recomendações";
 "recommendationsSubtitle" = "Com base no seu conteúdo assistido";
+"allItems" = "Todos os Itens";
+"mediaTypeFiltersNoFilter" = "Tudo";
+"mediaTypeFiltersMovies" = "Filmes";
+"mediaTypeFiltersTvShows" = "Séries";
+"mediaTypeFilter" = "Filtrar por mídia";
+"allItemsMovies" = "Todos os Filmes";
+"allItemsTVShows" = "Todas as Séries";
+"importedSucceeded" = "Importado com sucesso";

@@ -518,8 +518,6 @@
 		B8F6DE652937A144005D1A50 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
 		B8F6DE672937F8AE005D1A50 /* WatchEpisodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECD28AA8A92003025BC /* WatchEpisodeButton.swift */; };
 		B8F6DE6A2937F944005D1A50 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
-		B8F9E56829C63C2400EFA8C5 /* DefaultWatchlistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F9E56729C63C2400EFA8C5 /* DefaultWatchlistViewModel.swift */; };
-		B8F9E56929C63C2800EFA8C5 /* DefaultWatchlistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F9E56729C63C2400EFA8C5 /* DefaultWatchlistViewModel.swift */; };
 		B8FB2A7B29522D85006DAC8E /* WatchlistItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */; };
 		B8FB2A7C29522DC3006DAC8E /* WatchlistItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */; };
 		B8FB2A7E29522E58006DAC8E /* WatchlistItemFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A7D29522E58006DAC8E /* WatchlistItemFrame.swift */; };
@@ -824,7 +822,6 @@
 		B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetails.swift; sourceTree = "<group>"; };
 		B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentCollectionDetails.swift; sourceTree = "<group>"; };
 		B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVerticalView.swift; sourceTree = "<group>"; };
-		B8F9E56729C63C2400EFA8C5 /* DefaultWatchlistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWatchlistViewModel.swift; sourceTree = "<group>"; };
 		B8FB2A7D29522E58006DAC8E /* WatchlistItemFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemFrame.swift; sourceTree = "<group>"; };
 		B8FB2A7F295235E2006DAC8E /* WatchlistCardSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCardSection.swift; sourceTree = "<group>"; };
 		B8FB2A8129524C37006DAC8E /* WatchlistItemPoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemPoster.swift; sourceTree = "<group>"; };
@@ -972,6 +969,7 @@
 				B89ECD052985F11100F0B197 /* TitleWatchlistDetails.swift */,
 				B85344C028FA07B60013E9C7 /* UpcomingListView.swift */,
 				B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */,
+				B8CCA8B429C7F952008D2FFF /* UpNextView.swift */,
 			);
 			path = WatchlistItem;
 			sourceTree = "<group>";
@@ -1061,7 +1059,6 @@
 				B8C3354928170AC90055389D /* Lists */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
 				B818483B29C2897A00650763 /* ChangelogView.swift */,
-				B8CCA8B429C7F952008D2FFF /* UpNextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1283,7 +1280,6 @@
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
 				B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */,
 				B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */,
-				B8F9E56729C63C2400EFA8C5 /* DefaultWatchlistViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2044,7 +2040,6 @@
 				B8FB2A90295263AB006DAC8E /* AcknowledgementsSettings.swift in Sources */,
 				B81DD92629BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
-				B8F9E56829C63C2400EFA8C5 /* DefaultWatchlistViewModel.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */,
 				B8BF633529146A2A0051915C /* PinItemsList.swift in Sources */,
 				B8CC952A27D02C5700B6757C /* ItemContentDetails.swift in Sources */,
@@ -2380,7 +2375,6 @@
 				B8BF62CD2912DAA20051915C /* SideBarView.swift in Sources */,
 				B8BF62F52912FFC10051915C /* CastListView.swift in Sources */,
 				B8BF62AA2912DA230051915C /* DefaultListTypes.swift in Sources */,
-				B8F9E56929C63C2800EFA8C5 /* DefaultWatchlistViewModel.swift in Sources */,
 				B8BF6332291468F30051915C /* NotificationListView.swift in Sources */,
 				B82BE4EB299BFEF4005F9990 /* PersistenceController-CustomList.swift in Sources */,
 				B8F6DE6229379F58005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
