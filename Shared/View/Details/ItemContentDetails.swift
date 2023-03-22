@@ -124,6 +124,9 @@ struct ItemContentDetails: View {
     
     private var addToCustomListButton: some View {
         Button {
+            if viewModel.watchlistItem == nil {
+                viewModel.fetchSavedItem()
+            }
             showCustomList.toggle()
         } label: {
             Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")

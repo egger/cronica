@@ -174,4 +174,9 @@ class ItemContentViewModel: ObservableObject {
             return false
         }
     }
+    
+    func fetchSavedItem() {
+        guard let content else { return }
+        watchlistItem = try? persistence.fetch(for: Int64(id), media: content.itemContentMedia)
+    }
 }

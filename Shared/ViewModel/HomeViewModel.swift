@@ -39,8 +39,8 @@ class HomeViewModel: ObservableObject {
             if recommendations.isEmpty {
                 await fetchRecommendations()
             }
-            withAnimation {
-                isLoaded = true
+            DispatchQueue.main.async {
+                withAnimation { self.isLoaded = true }
             }
         }
     }
@@ -50,9 +50,7 @@ class HomeViewModel: ObservableObject {
         trending.removeAll()
         sections.removeAll()
         recommendations.removeAll()
-        Task {
-            await load()
-        }
+        Task { await load() }
     }
     
     private func fetchSections() async -> [ItemContentSection] {
@@ -116,8 +114,9 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
             }
             
         } catch {
+            if Task.isCancelled { return }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.fetchReleasedItems.failed")
+                                                  for: "HomeViewModel.fetchRecommendations")
             
         }
     }

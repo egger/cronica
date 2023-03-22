@@ -49,7 +49,7 @@ extension Episode {
         guard let airDate else { return false }
         let date = DatesManager.dateFormatter.date(from: airDate)
         guard let date else { return false }
-        return Date() > date
+        return Date() >= date
     }
     
     // MARK: URL

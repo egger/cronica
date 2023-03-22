@@ -153,12 +153,6 @@ enum CustomNavigationMac: String, Identifiable, CaseIterable {
     case newList
 }
 
-//struct SelectListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SelectListView()
-//    }
-//}
-
 private struct DefaultListRow: View {
     @Binding var selectedList: CustomList?
 #if os(iOS)
