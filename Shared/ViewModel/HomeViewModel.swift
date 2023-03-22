@@ -36,7 +36,9 @@ class HomeViewModel: ObservableObject {
                 let result = await self.fetchSections()
                 sections.append(contentsOf: result)
             }
-            await fetchRecommendations()
+            if recommendations.isEmpty {
+                await fetchRecommendations()
+            }
             withAnimation {
                 isLoaded = true
             }
@@ -47,6 +49,7 @@ class HomeViewModel: ObservableObject {
         withAnimation { isLoaded = false }
         trending.removeAll()
         sections.removeAll()
+        recommendations.removeAll()
         Task {
             await load()
         }

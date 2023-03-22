@@ -12,13 +12,10 @@ struct WatchlistView: View {
     @State private var showListSelection = false
     @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
     @State private var selectedList: CustomList?
-    @AppStorage("lastCustomListSelected") private var lastSelectedList: String?
     var body: some View {
         VStack {
             if selectedList != nil {
                 CustomWatchlist(selectedList: $selectedList)
-            } else if lastSelectedList != nil {
-                EmptyView()
             } else {
                 DefaultWatchlist()
             }
@@ -27,12 +24,8 @@ struct WatchlistView: View {
         .onChange(of: selectedList) { newValue in
             if let newValue {
                 navigationTitle = newValue.itemTitle
-                if let id = newValue.id {
-                    lastSelectedList = "\(id)"
-                }
             } else {
                 navigationTitle = NSLocalizedString("Watchlist", comment: "")
-                lastSelectedList = nil
             }
         }
 #if os(iOS)

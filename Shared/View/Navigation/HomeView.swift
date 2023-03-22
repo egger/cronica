@@ -14,12 +14,13 @@ struct HomeView: View {
     @State private var showSettings = false
     @State private var showNotifications = false
     @State private var showConfirmation = false
+    @State private var reloadUpNext = false
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
             VStack(alignment: .leading) {
                 ScrollView {
-                    UpNextView()
+                    UpNextView(shouldReload: $reloadUpNext)
                     UpcomingWatchlist()
                     PinItemsList()
                     ItemContentListView(items: viewModel.trending,
@@ -40,7 +41,10 @@ struct HomeView: View {
                                         displayAsCard: false)
                     AttributionView()
                 }
-                .refreshable { viewModel.reload() }
+                .refreshable {
+                    reloadUpNext = true
+                    viewModel.reload()
+                }
             }
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)

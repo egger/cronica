@@ -15,7 +15,10 @@ struct UpNextView: View {
         sortDescriptors: [
             NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
         ],
-        predicate: NSPredicate(format: "displayOnUpNext == %d", true)
+        predicate: NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(format: "displayOnUpNext == %d", true),
+            NSPredicate(format: "isArchive == %d", false)
+        ])
     ) var items: FetchedResults<WatchlistItem>
     @State private var isLoaded = false
     @State private var episodes = [Episode]()
@@ -24,6 +27,7 @@ struct UpNextView: View {
     @State private var isInWatchlist = true
     @State private var episodeShowID = [String:Int]()
     @State private var selectedEpisodeShowID: Int?
+    @Binding var shouldReload: Bool
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
@@ -49,6 +53,24 @@ struct UpNextView: View {
                 }.redacted(reason: isLoaded ? [] : .placeholder)
             }
             .task { await load() }
+            .onChange(of: shouldReload) { reload in
+                if reload {
+                    isLoaded = false
+                    DispatchQueue.main.async {
+                        withAnimation(.easeInOut) {
+                            episodes.removeAll()
+                        }
+                    }
+                    Task {
+                        await load()
+                        DispatchQueue.main.async {
+                            withAnimation(.easeInOut) {
+                                shouldReload = false
+                            }
+                        }
+                    }
+                }
+            }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
                     if let show = selectedEpisodeShowID {
@@ -83,7 +105,7 @@ struct UpNextView: View {
             }
         }
     }
-    
+
     private func load() async {
         if !isLoaded {
             for item in items {
@@ -183,13 +205,6 @@ struct UpNextView: View {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchNextEpisode")
             return nil
         }
-    }
-}
-
-
-struct UpNextView_Previews: PreviewProvider {
-    static var previews: some View {
-        UpNextView()
     }
 }
 

@@ -23,8 +23,8 @@ struct DefaultWatchlist: View {
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
     @State private var showFilter = false
-    @State private var showAllItems = false
-    @State private var mediaTypeFilter: MediaTypeFilters = .noFilter
+    @AppStorage("watchlistShowAllItems") private var showAllItems = false
+    @AppStorage("watchlistMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .noFilter
     var body: some View {
         VStack {
             switch settings.watchlistStyle {

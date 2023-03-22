@@ -116,7 +116,7 @@ struct ItemContentDetails: View {
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
-                                   message: "Season Marked as Watched", image: "tv.fill")
+                                   message: "Season Marked as Watched")
             ConfirmationDialogView(showConfirmation: $showMarkAsConfirmation,
                                    message: markAsMessage, image: markAsImage)
         }

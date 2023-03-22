@@ -52,7 +52,6 @@ struct ItemContentDetailsView: View {
                     ItemContentListView(items: viewModel.recommendations,
                                         title: "Recommendations",
                                         subtitle: "You may like",
-                                        image: "list.and.film",
                                         addedItemConfirmation: $showConfirmation,
                                         displayAsCard: true)
                     

@@ -1051,7 +1051,6 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */,
 				B82BE4F4299EB7B0005F9990 /* CustomList */,
 				B8F6DE662937F88A005D1A50 /* Buttons */,
 				B8F6DE682937F92A005D1A50 /* Containers */,
@@ -1093,6 +1092,7 @@
 				B82BE4E2299BFBC5005F9990 /* CustomWatchlist.swift */,
 				B82BE4DD299BF734005F9990 /* DefaultWatchlist.swift */,
 				B82BE4FA29A188D8005F9990 /* EditCustomList.swift */,
+				B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */,
 				B812C7B3299480620096E806 /* NewCustomListView.swift */,
 				B812C7B52996C2DB0096E806 /* SelectListView.swift */,
 				B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */,
@@ -2896,7 +2896,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 350;
 				DEVELOPMENT_ASSET_PATHS = "\"Mac/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2931,7 +2931,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 350;
 				DEVELOPMENT_ASSET_PATHS = "\"Mac/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_HARDENED_RUNTIME = YES;

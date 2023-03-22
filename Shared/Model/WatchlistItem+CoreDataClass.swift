@@ -32,6 +32,7 @@ public class WatchlistItem: NSManagedObject, Codable {
             largePosterImage = try values.decode(URL?.self, forKey: .largePosterImage)
             mediumPosterImage = try values.decode(URL?.self, forKey: .mediumPosterImage)
             shouldNotify = try values.decode(Bool.self, forKey: .shouldNotify)
+            isArchive = try values.decode(Bool.self, forKey: .isArchive)
         } catch {
             print(error.localizedDescription)
         }
@@ -52,11 +53,12 @@ public class WatchlistItem: NSManagedObject, Codable {
         try values.encode(largePosterImage, forKey: .largePosterImage)
         try values.encode(mediumPosterImage, forKey: .mediumPosterImage)
         try values.encode(shouldNotify, forKey: .shouldNotify)
+        try values.encode(isArchive, forKey: .isArchive)
     }
     
     enum CodingKeys: CodingKey {
         case title, contentID, id, image, watchedEpisodes, watched, favorite, contentType, schedule, largeCardImage,
-             largePosterImage, mediumPosterImage, shouldNotify
+             largePosterImage, mediumPosterImage, shouldNotify, isArchive
     }
 }
 
