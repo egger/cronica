@@ -81,17 +81,6 @@ struct EpisodeFrameView: View {
             }
             Spacer()
         }
-        .onTapGesture {
-#if os(macOS)
-            markAsWatched()
-#else
-            if SettingsStore.shared.markEpisodeWatchedOnTap {
-                markAsWatched()
-                return
-            }
-            showDetails.toggle()
-#endif
-        }
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .task {
@@ -100,7 +89,6 @@ struct EpisodeFrameView: View {
             }
         }
         .sheet(isPresented: $showDetails) {
-#if os(iOS)
             NavigationStack {
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
@@ -111,7 +99,7 @@ struct EpisodeFrameView: View {
                     }
             }
             .appTheme()
-#endif
+            .presentationDetents([.large])
         }
     }
     
@@ -147,11 +135,11 @@ struct EpisodeFrameView: View {
             .overlay {
                 if isWatched {
                     ZStack {
-                        Color.black.opacity(0.4)
+                        Color.black.opacity(0.3)
                         Image(systemName: "checkmark.circle.fill")
                             .font(.title2)
                             .foregroundColor(.white)
-                            .opacity(0.8)
+                            .opacity(0.6)
                     }
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .frame(width: DrawingConstants.imageWidth,
@@ -159,14 +147,69 @@ struct EpisodeFrameView: View {
                     .accessibilityHidden(true)
                 }
             }
+            .onTapGesture {
+#if os(macOS)
+                markAsWatched()
+#else
+                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                    markAsWatched()
+                    return
+                }
+                showDetails.toggle()
+#endif
+            }
             .applyHoverEffect()
     }
     
     private func markAsWatched() {
+        Task {
+            if !viewModel.isItemInWatchlist {
+                await addToWatchlist()
+            }
+            let nextEpisodeNumber = episode.itemEpisodeNumber + 1
+            guard let episodes = viewModel.season?.episodes else  {
+                save()
+                return
+            }
+            print("Episodes count: \(episodes.count)")
+            print("Next episode: \(nextEpisodeNumber)")
+            print("Next episode content: \(episodes[nextEpisodeNumber])")
+            if episode.itemEpisodeNumber <= episodes.count {
+                var nextEpisode: Episode?
+                // An array always start at 0, so the episode number value will always represent the next item in the array
+                nextEpisode = episodes[episode.itemEpisodeNumber]
+                save(nextEpisode)
+            } else {
+                let nextSeason = try await NetworkService.shared.fetchSeason(id: show, season: season + 1)
+                guard let nextEpisode = nextSeason.episodes?.first else {
+                    save()
+                    return
+                }
+                save(nextEpisode)
+            }
+        }
+    }
+    
+    private func save(_ nextEpisode: Episode? = nil) {
         PersistenceController.shared.updateEpisodeList(show: show,
                                                        season: season,
-                                                       episode: episode.id)
+                                                       episode: episode.id,
+                                                       nextEpisode: nextEpisode)
         withAnimation { isWatched.toggle() }
+    }
+    
+    private func addToWatchlist() async {
+        do {
+            let item = try await NetworkService.shared.fetchItem(id: show, type: .tvShow)
+            PersistenceController.shared.save(item)
+            DispatchQueue.main.async {
+                withAnimation {
+                    viewModel.isItemInWatchlist.toggle()
+                }
+            }
+        } catch {
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "EpisodeFrameView.addToWatchlist")
+        }
     }
 }
 

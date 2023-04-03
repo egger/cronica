@@ -376,6 +376,7 @@ extension PersistenceController {
                 if isEpisodeSaved(show: show, season: season, episode: episode) {
                     let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
                     item.watchedEpisodes = watched
+                    item.isWatching = true
                 } else {
                     let watched = "-\(episode)@\(season)"
                     item.watchedEpisodes?.append(watched)
@@ -399,7 +400,6 @@ extension PersistenceController {
             } catch {
                 CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
             }
-            
         }
     }
     

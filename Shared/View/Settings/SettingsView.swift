@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(\.requestReview) var requestReview
-    @AppStorage("displayDeveloperSettings") private var displayDeveloperSettings = false
-    @State private var animateEasterEgg = false
     @Binding var showSettings: Bool
+    @Environment(\.requestReview) var requestReview
+    @State private var animateEasterEgg = false
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         NavigationStack {
@@ -35,7 +34,7 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .appTheme()
-        .tint(settings.appTheme.color)
+        .appTint()
     }
     
     @ViewBuilder
@@ -43,7 +42,7 @@ struct SettingsView: View {
 #if DEBUG || targetEnvironment(simulator)
         developerButton
 #else
-        if displayDeveloperSettings {
+        if settings.displayDeveloperSettings {
             developerButton
         } else {
             EmptyView()
@@ -82,11 +81,9 @@ struct SettingsView: View {
             NavigationLink(destination: FeedbackSettingsView()) {
                 SettingsLabelWithIcon(title: "settingsFeedbackTitle", icon: "envelope.open", color: .teal)
             }
-#if os(iOS)
             NavigationLink(destination: FeatureRoadmap()) {
                 SettingsLabelWithIcon(title: "featureRoadmap", icon: "map", color: .pink)
             }
-#endif
         }
     }
     
@@ -112,7 +109,7 @@ struct SettingsView: View {
                         }
                     }
                     .onLongPressGesture {
-                        displayDeveloperSettings.toggle()
+                        withAnimation { settings.displayDeveloperSettings.toggle() }
                     }
                     .font(animateEasterEgg ? .title3 : .caption)
                     .foregroundColor(animateEasterEgg ? .green : nil)

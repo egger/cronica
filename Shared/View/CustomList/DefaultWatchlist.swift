@@ -97,6 +97,9 @@ struct DefaultWatchlist: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
+        .onChange(of: selectedOrder) { _ in
+            withAnimation { showFilter.toggle() }
+        }
         .disableAutocorrection(true)
         .task(id: query) {
             do {
