@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct SearchView: View { 
     static let tag: Screens? = .search
     @StateObject private var viewModel = SearchViewModel()
@@ -117,9 +118,12 @@ struct SearchView: View {
         }
     }
 }
+#endif
 
+#if os(iOS)
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
     }
 }
+#endif

@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+#if os(iOS)
     @State private var isPad: Bool = UIDevice.isIPad
+#endif
     var body: some View {
+#if os(iOS)
         if isPad {
             SideBarView()
         } else {
             TabBarView()
         }
+#elseif os(macOS)
+        MacSideBarView()
+#endif   
     }
 }
 

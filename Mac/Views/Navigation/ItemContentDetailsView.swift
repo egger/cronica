@@ -8,6 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+#if os(macOS)
 struct ItemContentDetailsView: View {
     let id: Int
     let title: String
@@ -276,14 +277,17 @@ struct ItemContentDetailsView: View {
             .transition(.scale)
     }
 }
+#endif
 
-struct ItemContentDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentDetailsView(id: ItemContent.previewContent.id,
-                               title: ItemContent.previewContent.itemTitle,
-                               type: ItemContent.previewContent.itemContentMedia)
-    }
-}
+//#if os(macOS)
+//struct ItemContentDetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MacItemContentDetailsView(id: ItemContent.previewContent.id,
+//                               title: ItemContent.previewContent.itemTitle,
+//                               type: ItemContent.previewContent.itemContentMedia)
+//    }
+//}
+//#endif
 
 struct GlanceInfo: View {
     var info: String?

@@ -8,6 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+#if os(iOS)
 struct ItemContentDetails: View {
     var title: String
     var id: Int
@@ -249,7 +250,9 @@ struct ItemContentDetails: View {
         .disabled(viewModel.isLoading ? true : false)
     }
 }
+#endif
 
+#if os(iOS)
 struct ItemContentDetails_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentDetails(title: ItemContent.previewContent.itemTitle,
@@ -257,5 +260,4 @@ struct ItemContentDetails_Previews: PreviewProvider {
                            type: MediaType.movie)
     }
 }
-
-
+#endif

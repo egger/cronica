@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct SettingsView: View {
     @Binding var showSettings: Bool
     @Environment(\.requestReview) var requestReview
@@ -119,12 +120,13 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    @State private static var dismiss = false
-    static var previews: some View {
-        SettingsView(showSettings: $dismiss)
-    }
-}
+
+//struct SettingsView_Previews: PreviewProvider {
+//    @State private static var dismiss = false
+//    static var previews: some View {
+//        SettingsView(showSettings: $dismiss)
+//    }
+//}
 
 private struct SettingsLabelWithIcon: View {
     let title: String
@@ -146,3 +148,4 @@ private struct SettingsLabelWithIcon: View {
         }
     }
 }
+#endif

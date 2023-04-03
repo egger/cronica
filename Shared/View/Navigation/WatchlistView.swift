@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
     @State private var showListSelection = false
@@ -75,10 +76,13 @@ struct WatchlistView: View {
         }
     }
 }
+#endif
 
+#if os(iOS)
 struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
+#endif

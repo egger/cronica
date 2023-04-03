@@ -7,6 +7,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+#if os(iOS)
 struct CoverImageView: View {
     @StateObject private var store = SettingsStore.shared
     @EnvironmentObject var viewModel: ItemContentViewModel
@@ -84,7 +85,9 @@ struct CoverImageView: View {
         }
     }
 }
+#endif
 
+#if os(iOS)
 private struct CoverImagePlaceholder: View {
     let title: String
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -114,6 +117,7 @@ private struct CoverImagePlaceholder: View {
         .accessibility(hidden: true)
     }
 }
+#endif
 
 private struct DrawingConstants {
     static let shadowRadius: CGFloat = 5
@@ -124,3 +128,4 @@ private struct DrawingConstants {
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12
 }
+

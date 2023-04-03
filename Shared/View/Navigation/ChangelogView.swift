@@ -57,7 +57,9 @@ struct ChangelogView: View {
                 NavigationStack {
                     TipJarSetting()
                         .navigationTitle("tipJar")
+                    #if os(iOS)
                         .navigationBarTitleDisplayMode(.inline)
+                    #endif
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {

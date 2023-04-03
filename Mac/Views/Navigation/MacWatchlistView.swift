@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct WatchlistView: View {
+struct MacWatchlistView: View {
     static let tag: Screens? = .watchlist
     @StateObject private var settings = SettingsStore.shared
     @State private var showListSelection = false
@@ -40,10 +40,10 @@ struct WatchlistView: View {
                 .frame(width: 480, height: 400, alignment: .center)
             }
             .navigationDestination(for: WatchlistItem.self) { item in
-                ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
+//                ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
             }
             .navigationDestination(for: ItemContent.self) { item in
-                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+//                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
             }
             .navigationDestination(for: [String:[ItemContent]].self) { item in
                 let keys = item.map { (key, value) in key }
@@ -69,8 +69,8 @@ struct WatchlistView: View {
     }
 }
 
-struct WatchlistView_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistView()
-    }
-}
+//struct WatchlistView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WatchlistView()
+//    }
+//}

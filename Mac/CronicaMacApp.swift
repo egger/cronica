@@ -21,7 +21,7 @@ struct CronicaMacApp: App {
         }
         
         Settings {
-            SettingsView()
+           // SettingsView()
         }
     }
 }

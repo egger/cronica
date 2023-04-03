@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct SideBarView: View {
+#if os(macOS)
+struct MacSideBarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @AppStorage("selectedView") private var selectedView: Screens = .home
     @State private var showNotifications = false
@@ -63,7 +64,7 @@ struct SideBarView: View {
                         }
                         //DiscoverView()
                     case .watchlist:
-                        WatchlistView()
+                        MacWatchlistView()
                             .environment(\.managedObjectContext, persistence.container.viewContext)
                     }
                 }
@@ -163,4 +164,4 @@ struct SideBarView: View {
         }
     }
 }
-
+#endif

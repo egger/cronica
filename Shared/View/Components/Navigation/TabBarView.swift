@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
@@ -49,3 +50,4 @@ struct TabBarView_Previews: PreviewProvider {
         TabBarView()
     }
 }
+#endif

@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+#if os(macOS)
+struct MacSettingsView: View {
     var body: some View {
         TabView {
             BehaviorSetting()
@@ -44,17 +45,25 @@ struct SettingsView: View {
                 Label("featureRoadmap", systemImage: "map")
             }
             
+            TipJarSetting()
+                .tabItem {
+                    Label("tipJar", systemImage: "heart")
+                }
+            
             AcknowledgementsSettings()
                 .tabItem {
                     Label("acknowledgmentsTitle", systemImage: "doc")
                 }
         }
-        .frame(width: 640, height: 320)
+        .frame(minWidth: 720, idealWidth: 720, minHeight: 320, idealHeight: 320)
     }
 }
+#endif
 
+#if os(macOS)
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        MacSettingsView()
     }
 }
+#endif
