@@ -289,6 +289,7 @@
 		B8F6D6DE29DB433200B9190B /* TVSeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5694290C9CA5002CAAFD /* TVSeasonListView.swift */; };
 		B8F6D6DF29DB433200B9190B /* TVSearchItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */; };
 		B8F6D6E029DB433200B9190B /* TVWatchlistItemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5699290DDB74002CAAFD /* TVWatchlistItemCard.swift */; };
+		B8F6D6E429DB575B00B9190B /* SettingsLabelWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */; };
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */; };
 		B8F6DE652937A144005D1A50 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
@@ -566,6 +567,7 @@
 		B8EC462E27D7AA99009389FC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBoxView.swift; sourceTree = "<group>"; };
+		B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelWithIcon.swift; sourceTree = "<group>"; };
 		B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetails.swift; sourceTree = "<group>"; };
 		B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentCollectionDetails.swift; sourceTree = "<group>"; };
 		B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVerticalView.swift; sourceTree = "<group>"; };
@@ -1002,6 +1004,7 @@
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
 				B84B506729AE698100AE63C7 /* FeatureRoadmap.swift */,
 				B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */,
+				B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1577,6 +1580,7 @@
 				B84043CC289B294600D5CEBF /* SearchItem.swift in Sources */,
 				B8779377281E319D00174F32 /* TabBarView.swift in Sources */,
 				B8105265298F58E100723E94 /* CompanyDetails.swift in Sources */,
+				B8F6D6E429DB575B00B9190B /* SettingsLabelWithIcon.swift in Sources */,
 				B892EB1429675B5E002E028E /* StoreKitManager.swift in Sources */,
 				B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */,
 				B82BE4D9299BF35D005F9990 /* PersistenceController-WatchlistItem.swift in Sources */,

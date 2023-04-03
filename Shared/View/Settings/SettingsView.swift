@@ -7,13 +7,14 @@
 
 import SwiftUI
 
+/// Renders the Settings UI for each OS, support iOS, macOS, and tvOS.
 struct SettingsView: View {
 #if os(iOS)
     @Binding var showSettings: Bool
     @Environment(\.requestReview) var requestReview
-#endif
     @State private var animateEasterEgg = false
     @StateObject private var settings = SettingsStore.shared
+#endif
     var body: some View {
 #if os(iOS)
         iOSSettings
@@ -191,7 +192,6 @@ struct SettingsView: View {
 #endif
 }
 
-
 struct SettingsView_Previews: PreviewProvider {
     @State private static var dismiss = false
     static var previews: some View {
@@ -200,26 +200,5 @@ struct SettingsView_Previews: PreviewProvider {
 #else
         SettingsView()
 #endif
-    }
-}
-
-private struct SettingsLabelWithIcon: View {
-    let title: String
-    let icon: String
-    let color: Color
-    var body: some View {
-        HStack {
-            ZStack {
-                Rectangle()
-                    .fill(color.gradient)
-                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
-                Image(systemName: icon)
-                    .foregroundColor(.white)
-            }
-            .frame(width: 30, height: 30, alignment: .center)
-            .padding(.trailing, 8)
-            .accessibilityHidden(true)
-            Text(LocalizedStringKey(title))
-        }
     }
 }
