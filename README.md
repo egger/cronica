@@ -30,6 +30,9 @@ To provide release notifications, the app takes advantage of local notifications
 Thanks to CloudKit and SwiftUI, Cronica also can run on every Apple device, and the information will automatically sync.
 
 ## Project Organization
+> **I've made some changes to the app structure in the latest commits. These changes will make it easier for me to quickly port new iOS features to the macOS and tvOS versions of the app, while also allowing us to share the same App Store page.**
+
+> **If you're interested, you can check out the commit the last ['Commit with the old structure'](https://github.com/MadeiraAlexandre/Cronica/tree/d594a9c2b1b68ec98ca9075c2504fff6574ce172) and follow the project organization outlined below:**
 - Files related to Models, ViewModels, Network, Error, and Localization live inside the Shared folder.
 - The iOS and iPadOS apps are fully inside the Shared folder.
 - The tvOS app shares resources with Shared folder and it's unique UI elements lives only on AppleTV folder.
