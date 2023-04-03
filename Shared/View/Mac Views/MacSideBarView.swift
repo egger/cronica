@@ -10,7 +10,7 @@ import SwiftUI
 #if os(macOS)
 struct MacSideBarView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @AppStorage("selectedView") private var selectedView: Screens = .home
+    @SceneStorage("selectedView") private var selectedView: Screens = .home
     @State private var showNotifications = false
     @StateObject private var searchViewModel = SearchViewModel()
     @State private var showConfirmation = false
@@ -34,7 +34,6 @@ struct MacSideBarView: View {
                         Label("Watchlist", systemImage: "square.stack.fill")
                     }
                 }
-
             }
             .task(id: searchViewModel.query) {
                 if !searchViewModel.query.isEmpty {

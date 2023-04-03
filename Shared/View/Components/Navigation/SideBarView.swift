@@ -8,7 +8,7 @@ import SwiftUI
 
 #if os(iOS)
 struct SideBarView: View {
-    @AppStorage("selectedView") private var selectedView: Screens?
+    @SceneStorage("selectedView") private var selectedView: Screens?
     @StateObject private var viewModel = SearchViewModel()
     @State private var showSettings = false
     @State private var showNotifications = false
@@ -33,7 +33,7 @@ struct SideBarView: View {
                 NavigationLink(value: Screens.watchlist) {
                     Label("Watchlist", systemImage: "square.stack.fill")
                 }
-                .tag(MacWatchlistView.tag)
+                .tag(WatchlistView.tag)
                 .dropDestination(for: ItemContent.self) { items, _  in
                     for item in items {
                         PersistenceController.shared.save(item)
@@ -77,7 +77,7 @@ struct SideBarView: View {
                 switch selectedView {
                 case .explore: ExploreView()
                 case .watchlist:
-                    MacWatchlistView()
+                    WatchlistView()
                         .environment(\.managedObjectContext, persistence.container.viewContext)
                 default: HomeView()
                 }
