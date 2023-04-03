@@ -27,6 +27,9 @@ class NetworkService {
     }
     
     func fetchItem(id: ItemContent.ID, type: MediaType) async throws -> ItemContent {
+        if id == 0 {
+            throw NetworkError.contentRemoved
+        }
         guard let url = urlBuilder(path: "\(type.rawValue)/\(id)", append: type.append) else {
             throw NetworkError.invalidEndpoint
         }

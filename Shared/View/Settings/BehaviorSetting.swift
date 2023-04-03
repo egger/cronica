@@ -11,8 +11,8 @@ struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
     var body: some View {
         Form {
-#if os(iOS)
             gesture
+#if os(iOS)
             swipeGesture
             otherOptions
             links
@@ -39,6 +39,7 @@ struct BehaviorSetting: View {
     
     private var gesture: some View {
         Section {
+#if os(iOS)
             Picker(selection: $store.gesture) {
                 ForEach(DoubleTapGesture.allCases) { item in
                     Text(item.title).tag(item)
@@ -47,6 +48,7 @@ struct BehaviorSetting: View {
                 InformationalLabel(title: "behaviorDoubleTapTitle",
                                    subtitle: "behaviorDoubleTapSubtitle")
             }
+#endif
             Toggle(isOn: $store.markEpisodeWatchedOnTap) {
                 InformationalLabel(title: "behaviorEpisodeTitle")
             }

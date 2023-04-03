@@ -86,9 +86,15 @@ struct EpisodeDetailsView: View {
                 CompanyDetails(company: item)
             }
             .toolbar {
+#if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {
                     ShareLink(item: URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!)
                 }
+#else
+                ToolbarItem(placement: .automatic) {
+                    ShareLink(item: URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!)
+                }
+#endif
             }
         }
         .background {

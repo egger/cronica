@@ -10,7 +10,7 @@ import SwiftUI
 
 enum NetworkError: Error, CustomNSError {
     case invalidResponse, invalidRequest, invalidEndpoint, decodingError
-    case invalidApi, internalError, maintenanceApi
+    case invalidApi, internalError, maintenanceApi, contentRemoved
     var localizedName: LocalizedStringKey {
         switch self {
         case .invalidResponse:
@@ -27,6 +27,8 @@ enum NetworkError: Error, CustomNSError {
             return "Internal error: Something went wrong, contact TMDB."
         case .maintenanceApi:
             return "The API is undergoing maintenance. Try again later."
+        case .contentRemoved:
+            return "This content has been removed from TMDB, you can delete it."
         }
     }
 }

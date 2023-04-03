@@ -56,7 +56,6 @@
 		B8114C8B2938140600930AF4 /* WatchEpisodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECD28AA8A92003025BC /* WatchEpisodeButton.swift */; };
 		B8114C8C2938164400930AF4 /* WatchlistItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */; };
 		B8114C8D29381A3F00930AF4 /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
-		B811D86429D724020051AC64 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812529728A407120062B0C9 /* DefaultListTypes.swift */; };
 		B812C7B4299480620096E806 /* NewCustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B3299480620096E806 /* NewCustomListView.swift */; };
 		B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B52996C2DB0096E806 /* SelectListView.swift */; };
@@ -2442,7 +2441,6 @@
 				B89ECD002984531700F0B197 /* DiscoverSortBy.swift in Sources */,
 				B84457C42970D59D009CB21F /* HapticManager.swift in Sources */,
 				B8BF62CF2912DDBC0051915C /* SettingsView.swift in Sources */,
-				B811D86429D724020051AC64 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

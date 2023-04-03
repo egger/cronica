@@ -100,6 +100,9 @@ struct EpisodeFrameView: View {
             }
             .appTheme()
             .presentationDetents([.large])
+#if os(macOS)
+            .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#endif
         }
     }
     
@@ -148,15 +151,11 @@ struct EpisodeFrameView: View {
                 }
             }
             .onTapGesture {
-#if os(macOS)
-                markAsWatched()
-#else
                 if SettingsStore.shared.markEpisodeWatchedOnTap {
                     markAsWatched()
                     return
                 }
                 showDetails.toggle()
-#endif
             }
             .applyHoverEffect()
     }
