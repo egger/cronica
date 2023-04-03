@@ -7,12 +7,50 @@
 
 import SwiftUI
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
     var persistence = PersistenceController.shared
     var body: some View {
+#if os(iOS)
+        iOSBarView
+#elseif os(tvOS)
+        tvOSBarView
+#endif
+    }
+    
+    #if os(tvOS)
+    private var tvOSBarView: some View {
+        NavigationStack {
+            TabView {
+                TVHomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                            .labelStyle(.titleOnly)
+                    }
+                TVWatchlistView()
+                    .tabItem {
+                        Label("Watchlist", systemImage: "square.stack.fill")
+                            .labelStyle(.titleOnly)
+                    }
+                TVSearchView()
+                    .tabItem {
+                        Label("Search", systemImage: "magnifyingglass")
+                            .labelStyle(.iconOnly)
+                    }
+                SettingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gearshape")
+                            .labelStyle(.iconOnly)
+                    }
+            }
+        }
+    }
+    #endif
+    
+    #if os(iOS)
+    private var iOSBarView: some View {
         TabView(selection: $selectedView) {
             NavigationStack {
                 HomeView()
@@ -43,6 +81,7 @@ struct TabBarView: View {
         }
         .appTheme()
     }
+    #endif
 }
 
 struct TabBarView_Previews: PreviewProvider {

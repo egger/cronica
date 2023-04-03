@@ -23,7 +23,7 @@ struct ContentView: View {
 #elseif os(macOS)
         MacSideBarView()
 #elseif os(tvOS)
-        TVTabView()
+        TabBarView()
 #endif   
     }
 }

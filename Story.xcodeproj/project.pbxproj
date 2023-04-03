@@ -277,7 +277,6 @@
 		B8F6D6D129DB433200B9190B /* TVInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5689290C7D14002CAAFD /* TVInfoSection.swift */; };
 		B8F6D6D229DB433200B9190B /* TVPersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD567E290C759E002CAAFD /* TVPersonDetailsView.swift */; };
 		B8F6D6D429DB433200B9190B /* TVItemContentOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5680290C77B0002CAAFD /* TVItemContentOverview.swift */; };
-		B8F6D6D529DB433200B9190B /* TVTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E79E5290A8F2700459E41 /* TVTabView.swift */; };
 		B8F6D6D629DB433200B9190B /* TVItemContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD567A290C39DF002CAAFD /* TVItemContentList.swift */; };
 		B8F6D6D729DB433200B9190B /* TVItemContentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A20290AAEB600459E41 /* TVItemContentDetails.swift */; };
 		B8F6D6D829DB433200B9190B /* TVHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A25290AC2C600459E41 /* TVHomeView.swift */; };
@@ -454,7 +453,6 @@
 		B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSectionView.swift; sourceTree = "<group>"; };
 		B86E587827A48E5A005DBF38 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		B86E589027A4BE75005DBF38 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		B86E79E5290A8F2700459E41 /* TVTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVTabView.swift; sourceTree = "<group>"; };
 		B86E7A1B290A91E200459E41 /* TVWatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVWatchlistView.swift; sourceTree = "<group>"; };
 		B86E7A20290AAEB600459E41 /* TVItemContentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemContentDetails.swift; sourceTree = "<group>"; };
 		B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemContextMenu.swift; sourceTree = "<group>"; };
@@ -1199,7 +1197,6 @@
 				B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */,
 				B86E7A2B290AEEFE00459E41 /* TVSearchView.swift */,
 				B8DD5694290C9CA5002CAAFD /* TVSeasonListView.swift */,
-				B86E79E5290A8F2700459E41 /* TVTabView.swift */,
 				B8DD5699290DDB74002CAAFD /* TVWatchlistItemCard.swift */,
 				B8DD569B290DDD9C002CAAFD /* TVWatchlistItemListView.swift */,
 				B86E7A1B290A91E200459E41 /* TVWatchlistView.swift */,
@@ -1654,7 +1651,6 @@
 				B8F6D6C929DB25A700B9190B /* MacWatchlistView.swift in Sources */,
 				B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
 				B8F6D6DA29DB433200B9190B /* TVEpisodeDetailsView.swift in Sources */,
-				B8F6D6D529DB433200B9190B /* TVTabView.swift in Sources */,
 				B804E397284FCBCB00F59855 /* CardFrame.swift in Sources */,
 				B87F9D89286145600064947A /* DiscoverViewModel.swift in Sources */,
 				B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */,
