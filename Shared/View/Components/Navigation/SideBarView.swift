@@ -82,6 +82,7 @@ struct SideBarView: View {
                 }
             }
         }
+        .appTheme()
         .sheet(isPresented: $showSettings) {
             SettingsView(showSettings: $showSettings)
         }

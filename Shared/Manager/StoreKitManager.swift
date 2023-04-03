@@ -7,7 +7,6 @@
 
 import StoreKit
 
-
 class StoreKitManager: ObservableObject {
     @Published var storeProducts = [Product]()
     @Published var purchasedTipJar = [Product]()

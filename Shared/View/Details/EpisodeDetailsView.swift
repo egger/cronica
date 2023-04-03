@@ -67,9 +67,7 @@ struct EpisodeDetailsView: View {
                 AttributionView()
             }
             .navigationTitle(episode.itemTitle)
-            .task {
-                load()
-            }
+            .task { load() }
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
 #else
@@ -86,6 +84,11 @@ struct EpisodeDetailsView: View {
             }
             .navigationDestination(for: ProductionCompany.self) { item in
                 CompanyDetails(company: item)
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    ShareLink(item: URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!)
+                }
             }
         }
         .background {

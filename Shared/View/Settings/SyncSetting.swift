@@ -64,6 +64,7 @@ struct SyncSetting: View {
                 }
     #endif
                 
+                
             }
             .navigationTitle("syncSettingsTitle")
     #if os(macOS)
@@ -185,3 +186,5 @@ struct CustomShareSheet: UIViewControllerRepresentable {
     }
 }
 #endif
+
+

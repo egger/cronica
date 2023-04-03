@@ -14,7 +14,7 @@ struct ItemContentDetails: View {
     var type: MediaType
     let itemUrl: URL
     @StateObject private var viewModel: ItemContentViewModel
-    @StateObject private var store: SettingsStore
+    @StateObject private var store = SettingsStore.shared
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
@@ -25,7 +25,6 @@ struct ItemContentDetails: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
-        _store = StateObject(wrappedValue: SettingsStore())
         self.title = title
         self.id = id
         self.type = type
@@ -95,6 +94,7 @@ struct ItemContentDetails: View {
                         if UIDevice.isIPad {
                             watchButton
                             favoriteButton
+                            addToCustomListButton
                         } else {
                             moreMenu
                         }

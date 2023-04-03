@@ -17,6 +17,8 @@ struct CronicaTelemetry {
     )
     static let shared = CronicaTelemetry()
     
+    private init() { }
+    
     func setup() {
 #if targetEnvironment(simulator)
 #else
@@ -36,7 +38,8 @@ struct CronicaTelemetry {
 #if targetEnvironment(simulator) || DEBUG
         logger.warning("\(message), for: \(id)")
 #else
-        if disableTelemetry { return }
+        let settings = SettingsStore.shared
+        if settings.disableTelemetry { return }
         TelemetryManager.send("\(id)", with: ["Message":"\(message)"])
 #endif
     }

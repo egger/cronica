@@ -541,3 +541,8 @@
 "allItemsMovies" = "All Movies";
 "allItemsTVShows" = "All TV Shows";
 "importedSucceeded" = "Imported Successfully";
+"tmdbAccountButtonSignIn" = "Sign In";
+"tmdbAccountButtonSignOut" = "Sign Out";
+"tmdbAccountHeader" = "Sync with TMDb";
+"tmdbAccountFooter" = "Manage and keep your lists synced with your TMDb account";
+"tmdbAccountListsManager" = "Manage your lists";

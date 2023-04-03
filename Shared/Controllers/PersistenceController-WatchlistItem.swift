@@ -361,7 +361,6 @@ extension PersistenceController {
                 }
             }
             item.watchedEpisodes?.append(watched)
-            print("watched episodes up to = \(watched)")
             item.isWatching = true
             saveContext()
         } catch {

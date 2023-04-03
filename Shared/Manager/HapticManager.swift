@@ -9,11 +9,10 @@ import SwiftUI
 
 struct HapticManager {
     static var shared = HapticManager()
-    @AppStorage("enableHapticFeedback") private var hapticFeedback = true
     
     func successHaptic() {
 #if os(iOS)
-        if hapticFeedback {
+        if SettingsStore.shared.hapticFeedback {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
         }

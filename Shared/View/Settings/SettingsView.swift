@@ -24,9 +24,8 @@ struct SettingsView: View {
                 } label: {
                     Text("settingsReviewCronica")
                 }
-                ShareLink(item: URL(string: "https://apps.apple.com/app/cronica/id1614950275")!) {
-                    Text("Share")
-                }
+                ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
+                    .labelStyle(.titleOnly)
                 about
             }
             .toolbar {

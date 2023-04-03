@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct PrivacySupportSetting: View {
-    @AppStorage("disableTelemetry") private var disableTelemetry = false
+    @StateObject private var settings = SettingsStore.shared
     @State private var showPolicy = false
     var body: some View {
 #if os(iOS)
         Form {
             section
-            
+            Section {
+                Toggle(isOn: $settings.disableTelemetry) {
+                    InformationalLabel(title: "settingsDisableTelemetryTitle",
+                                       subtitle: "settingsDisableTelemetrySubtitle")
+                }
+            }
         }
         .navigationTitle("Privacy")
 #else
@@ -46,10 +51,6 @@ struct PrivacySupportSetting: View {
             }
             .disabled(disableTelemetry)
 #endif
-            Toggle(isOn: $disableTelemetry) {
-                InformationalLabel(title: "settingsDisableTelemetryTitle",
-                                   subtitle: "settingsDisableTelemetrySubtitle")
-            }
         } header: {
 #if os(tvOS)
             Label("settingsPrivacySupportTitle", systemImage: "hand.wave")

@@ -20,7 +20,7 @@ struct StoryApp: App {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
-        checkVersion()
+        //checkVersion()
     }
     var body: some Scene {
         WindowGroup {

@@ -17,6 +17,7 @@ struct ConfirmationDialogView: View {
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         VStack {
+            Spacer()
             HStack {
                 if let image {
                     Label(NSLocalizedString(message, comment: ""), systemImage: image)
@@ -25,6 +26,7 @@ struct ConfirmationDialogView: View {
                     Text(NSLocalizedString(message, comment: ""))
                         .padding()
                         .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .fontWeight(.semibold)
                 }
                 
             }
@@ -36,8 +38,11 @@ struct ConfirmationDialogView: View {
             .scaleEffect(showConfirmation ? 1.1 : 1)
             .animation(.linear, value: showConfirmation)
             .onTapGesture { withAnimation { showConfirmation = false } }
-            Spacer()
         }
+    }
+    
+    private func handlePresentation() {
+        
     }
 }
 

@@ -100,6 +100,7 @@ class BackgroundManager {
     }
     
     private func update(_ item: WatchlistItem) async {
+        if item.id == 0 { return }
         do {
             let content = try await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
             if content.itemCanNotify && item.shouldNotify {
@@ -121,9 +122,8 @@ class BackgroundManager {
             PersistenceController.shared.update(item: content)
         } catch {
             if Task.isCancelled { return }
-            let message = "Could not update, error: \(error.localizedDescription)"
+            let message = "Could not update item: \(item.notificationID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update.failed")
         }
-        
     }
 }

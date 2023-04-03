@@ -8,6 +8,7 @@
 import SwiftUI
 
 class SettingsStore: ObservableObject {
+    private init() { }
     static var shared = SettingsStore()
     @AppStorage("showOnboarding") var displayOnboard = true
     @AppStorage("gesture") var gesture: DoubleTapGesture = .favorite

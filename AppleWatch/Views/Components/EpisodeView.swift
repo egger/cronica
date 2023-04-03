@@ -21,7 +21,7 @@ struct EpisodeView: View {
         self.season = season
         self.show = show
         self._isInWatchlist = isInWatchlist
-        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.episodeNumber ?? 1)")!
+        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!
     }
     var body: some View {
         HStack {
@@ -62,7 +62,7 @@ struct EpisodeView: View {
                 Text(episode.itemTitle)
                     .lineLimit(DrawingConstants.lineLimit)
                     .font(.callout)
-                Text("Episode \(episode.episodeNumber ?? 0)")
+                Text("E\(episode.itemEpisodeNumber)")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
@@ -72,15 +72,13 @@ struct EpisodeView: View {
         .padding(.horizontal)
         .accessibilityElement(children: .combine)
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            Button(action: {
-                withAnimation {
-                    isWatched.toggle()
-                }
+            Button {
+                withAnimation { isWatched.toggle() }
                 persistence.updateEpisodeList(show: self.show, season: self.season, episode: self.episode.id)
-            }, label: {
+            } label: {
                 Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                       systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-            })
+            }
             .tint(isWatched ? .orange : .green)
         }
         .task {
