@@ -17,6 +17,13 @@ struct PrivacySupportSetting: View {
             privacyOptionsSection
         }
         .navigationTitle("Privacy")
+#elseif os(tvOS)
+        Section {
+            privacyOptionsSection
+        } footer: {
+            Text("privacyFooterTV")
+                .padding(.bottom)
+        }
 #else
         section
         privacyOptionsSection

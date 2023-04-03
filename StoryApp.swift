@@ -116,7 +116,7 @@ struct StoryApp: App {
         
 #if os(macOS)
             Settings {
-                MacSettingsView()
+                SettingsView()
             }
 #endif
     }

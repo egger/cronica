@@ -27,7 +27,7 @@ struct TVTabView: View {
                         Label("Search", systemImage: "magnifyingglass")
                             .labelStyle(.iconOnly)
                     }
-                TVSettingsView()
+                SettingsView()
                     .tabItem {
                         Label("Settings", systemImage: "gearshape")
                             .labelStyle(.iconOnly)
