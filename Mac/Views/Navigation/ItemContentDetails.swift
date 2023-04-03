@@ -91,6 +91,12 @@ struct ItemContentDetailsView: View {
                                 notificationButton
                                 watchButton
                                 favoriteButton
+                                addToCustomListButton
+                                    .sheet(isPresented: $showCustomList) {
+                                        ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
+                                        .presentationDetents([.medium])
+                                        .frame(width: 500, height: 600, alignment: .center)
+                                    }
                                 shareButton
                             }
                             shareButton
@@ -176,6 +182,17 @@ struct ItemContentDetailsView: View {
                 .opacity(viewModel.isNotificationAvailable ? 1 : 0)
                 .accessibilityHidden(true)
                 .accessibilityLabel(viewModel.hasNotificationScheduled ? "Notification scheduled." : "No notification scheduled.")
+        }
+    }
+    
+    private var addToCustomListButton: some View {
+        Button {
+            if viewModel.watchlistItem == nil {
+                viewModel.fetchSavedItem()
+            }
+            showCustomList.toggle()
+        } label: {
+            Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")
         }
     }
     

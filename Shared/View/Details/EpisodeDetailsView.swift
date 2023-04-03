@@ -26,6 +26,7 @@ struct EpisodeDetailsView: View {
                            height: DrawingConstants.padImageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
+                    .padding(.top)
 #else
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
                     .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,

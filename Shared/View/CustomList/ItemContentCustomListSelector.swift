@@ -31,6 +31,9 @@ struct ItemContentCustomListSelector: View {
                     ProgressView()
                 }
             }
+            #if os(macOS)
+            .formStyle(.grouped)
+            #endif
             .navigationTitle("addToCustomList")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -44,10 +47,10 @@ struct ItemContentCustomListSelector: View {
                     if !lists.isEmpty { newList }
                 }
 #elseif os(macOS)
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Done") { showView.toggle() }
                 }
-                ToolbarItem(placement: .secondaryAction) {
+                ToolbarItem(placement: .automatic) {
                     if !lists.isEmpty { newList }
                 }
 #endif
@@ -59,6 +62,11 @@ struct ItemContentCustomListSelector: View {
         NavigationLink {
 #if os(iOS)
             NewCustomListView(presentView: $showView, preSelectedItem: item, newSelectedList: $selectedList)
+#else
+            NewCustomListView(isPresentingNewList: $showView,
+                              presentView: $showView,
+                              preSelectedItem: item,
+                              newSelectedList: $selectedList)
 #endif
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")

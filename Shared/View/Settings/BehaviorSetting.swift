@@ -14,9 +14,9 @@ struct BehaviorSetting: View {
             gesture
 #if os(iOS)
             swipeGesture
-            otherOptions
             links
 #endif
+            otherOptions
             watchProviders
 #if os(iOS)
             accessibility

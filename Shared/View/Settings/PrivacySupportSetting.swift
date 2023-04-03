@@ -14,17 +14,22 @@ struct PrivacySupportSetting: View {
 #if os(iOS)
         Form {
             section
-            Section {
-                Toggle(isOn: $settings.disableTelemetry) {
-                    InformationalLabel(title: "settingsDisableTelemetryTitle",
-                                       subtitle: "settingsDisableTelemetrySubtitle")
-                }
-            }
+            privacyOptionsSection
         }
         .navigationTitle("Privacy")
 #else
         section
+        privacyOptionsSection
 #endif
+    }
+    
+    private var privacyOptionsSection: some View {
+        Section {
+            Toggle(isOn: $settings.disableTelemetry) {
+                InformationalLabel(title: "settingsDisableTelemetryTitle",
+                                   subtitle: "settingsDisableTelemetrySubtitle")
+            }
+        }
     }
     
     private var section: some View {
