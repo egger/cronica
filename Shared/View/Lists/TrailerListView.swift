@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct TrailerListView: View {
     var trailers: [VideoItem]?
     @State var selectedItem: VideoItem? = nil
@@ -65,3 +65,4 @@ struct TrailerListView: View {
         }
     }
 }
+#endif

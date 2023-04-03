@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct ItemContentCustomListSelector: View {
     @Binding var item: WatchlistItem?
     @Binding var showView: Bool
@@ -107,3 +107,4 @@ private struct AddToListRow: View {
         }
     }
 }
+#endif

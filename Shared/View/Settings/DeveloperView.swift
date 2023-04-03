@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS)
 /// This view should be used only on development phase.
 /// Do not utilize this on the TestFlight/App Store version.
 struct DeveloperView: View {
@@ -273,3 +273,4 @@ private struct ShowAllItemsView: View {
         }
     }
 }
+#endif

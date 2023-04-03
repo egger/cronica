@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct UpNextView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
@@ -286,3 +286,4 @@ private struct UpNextEpisodeCard: View {
         .shadow(radius: 2.5)
     }
 }
+#endif

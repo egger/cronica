@@ -4,7 +4,7 @@
 //
 //  Created by Alexandre Madeira on 28/02/23.
 //
-
+#if os(iOS) || os(macOS)
 import SwiftUI
 import Roadmap
 
@@ -81,3 +81,4 @@ extension RoadmapTemplate {
                                     tint: SettingsStore.shared.appTheme.color)
 #endif
 }
+#endif

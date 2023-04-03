@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct CustomWatchlist: View {
     @Binding var selectedList: CustomList?
     @State private var filteredItems = [WatchlistItem]()
@@ -225,3 +225,4 @@ struct CustomWatchlist: View {
 //        CustomWatchlist()
 //    }
 //}
+#endif

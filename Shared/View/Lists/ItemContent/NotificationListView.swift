@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct NotificationListView: View {
     @Binding var showNotification: Bool
     @State private var hasLoaded = false
@@ -195,3 +195,4 @@ private struct DrawingConstants {
     static let imageRadius: CGFloat = 4
     static let textLimit: Int = 1
 }
+#endif

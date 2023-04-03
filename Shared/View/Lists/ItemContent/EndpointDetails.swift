@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct EndpointDetails: View {
     let title: String
     var endpoint: Endpoints?
@@ -86,9 +86,10 @@ private class EndpointDetailsModel: ObservableObject {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let columns: CGFloat = 160
 #else
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160 
 #endif
 }
+#endif

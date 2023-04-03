@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 /// A View that displays a season picker, and load every episode in a given
 /// season on change of the picker.
 struct SeasonListView: View {
@@ -174,3 +174,4 @@ struct SeasonListView_Previews: PreviewProvider {
         SeasonListView(numberOfSeasons: Array(1...8), tvId: 1419, inWatchlist: $preview, seasonConfirmation: $preview)
     }
 }
+#endif

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct InformationSectionView: View {
     let item: ItemContent?
     var body: some View {
@@ -79,3 +79,4 @@ private struct InfoView: View {
         }
     }
 }
+#endif

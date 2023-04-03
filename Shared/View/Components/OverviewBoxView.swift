@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 /// Displays the overview of a movie, tv show, or episode.
 /// It can also display biography.
 struct OverviewBoxView: View {
@@ -49,3 +49,4 @@ struct OverviewBoxView_Previews: PreviewProvider {
                         type: .movie)
     }
 }
+#endif

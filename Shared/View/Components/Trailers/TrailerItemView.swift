@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct TrailerItemView: View {
     let trailer: VideoItem
     var body: some View {
@@ -94,3 +94,4 @@ private struct DrawingConstants {
     static let overlayHeight: CGFloat = 40
     static let lineLimits: Int = 1
 }
+#endif

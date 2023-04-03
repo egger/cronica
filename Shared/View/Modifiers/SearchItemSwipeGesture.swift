@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct SearchItemSwipeGesture: ViewModifier {
     let item: ItemContent
     @Binding var showConfirmation: Bool
@@ -114,3 +114,4 @@ struct SearchItemSwipeGesture: ViewModifier {
         }
     }
 }
+#endif

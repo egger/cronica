@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct PersonSearchImage: View {
     let item: ItemContent
     var body: some View {
@@ -55,4 +55,4 @@ private struct DrawingConstants {
     static let posterRadius: CGFloat = 8
     static let shadowRadius: CGFloat = 2
 }
-
+#endif

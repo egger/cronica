@@ -51,7 +51,9 @@ struct WelcomeView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(Color.blue.gradient)
+#if os(iOS) || os(macOS)
                     .controlSize(.large)
+#endif
                     .shadow(radius: 5)
                     .padding()
                     Button("Privacy Policy") {

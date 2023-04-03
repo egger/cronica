@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct DefaultWatchlist: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
@@ -361,3 +361,4 @@ enum MediaTypeFilters: String, Identifiable, CaseIterable {
         }
     }
 }
+#endif

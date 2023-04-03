@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct SelectListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
@@ -246,3 +246,4 @@ private struct ListRowItem: View {
         }
     }
 }
+#endif

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct HomeView: View {
     static let tag: Screens? = .home
     @AppStorage("showOnboarding") private var displayOnboard = true
@@ -157,3 +157,4 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
+#endif

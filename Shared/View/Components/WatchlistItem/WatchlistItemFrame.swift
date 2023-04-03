@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct WatchlistItemFrame: View {
     let content: WatchlistItem
     @State private var isWatched: Bool = false
@@ -83,7 +83,7 @@ struct WatchlistItemFrame_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
     static let imageRadius: CGFloat = 12
@@ -96,3 +96,4 @@ private struct DrawingConstants {
     static let imageShadow: CGFloat = 2.5
     static let placeholderForegroundColor: Color = .white.opacity(0.8)
 }
+#endif

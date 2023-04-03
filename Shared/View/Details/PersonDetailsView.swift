@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct PersonDetailsView: View {
     let name: String
     let personUrl: URL
@@ -174,7 +174,7 @@ struct CastDetailsView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let imageWidth: CGFloat = 250
     static let imageHeight: CGFloat = 250
 #else
@@ -183,3 +183,4 @@ private struct DrawingConstants {
 #endif
     static let imageShadow: CGFloat = 6
 }
+#endif

@@ -89,6 +89,7 @@ struct EpisodeFrameView: View {
             }
         }
         .sheet(isPresented: $showDetails) {
+#if os(iOS) || os(macOS)
             NavigationStack {
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                     .environmentObject(viewModel)
@@ -102,6 +103,7 @@ struct EpisodeFrameView: View {
             .presentationDetents([.large])
 #if os(macOS)
             .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#endif
 #endif
         }
     }

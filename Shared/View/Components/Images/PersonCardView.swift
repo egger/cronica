@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 /// This view is responsible for displaying a given person
 /// in a card view, with its name, role, and image.
 struct PersonCardView: View {
@@ -124,3 +124,4 @@ private struct DrawingConstants {
     static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
 }
+#endif

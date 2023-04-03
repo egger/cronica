@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct ExploreView: View {
     static let tag: Screens? = .explore
     @State private var showConfirmation = false
@@ -196,9 +196,10 @@ struct ExploreView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let columns: CGFloat = 240
 #else
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
 #endif
 }
+#endif

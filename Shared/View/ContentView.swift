@@ -15,11 +15,15 @@ struct ContentView: View {
 #if os(iOS)
         if isPad {
             SideBarView()
+                .appTint()
         } else {
             TabBarView()
+                .appTint()
         }
 #elseif os(macOS)
         MacSideBarView()
+#elseif os(tvOS)
+        TVTabView()
 #endif   
     }
 }

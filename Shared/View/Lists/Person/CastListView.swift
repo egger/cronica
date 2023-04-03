@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 /// A horizontal list that displays a limited number of
 /// cast people in an ItemContent.
 struct CastListView: View {
@@ -50,3 +50,4 @@ private struct DrawingConstants {
     static let lineLimit: Int = 1
     static let padding: CGFloat = 16
 }
+#endif

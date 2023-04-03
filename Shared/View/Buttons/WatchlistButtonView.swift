@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct WatchlistButtonView: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var showConfirmationPopup = false
@@ -48,3 +48,4 @@ struct WatchlistButtonView: View {
         }
     }
 }
+#endif

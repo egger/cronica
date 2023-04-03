@@ -25,7 +25,6 @@ struct StoryApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .appTint()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .onOpenURL { url in
                     if widgetItem != nil { widgetItem = nil }
@@ -100,10 +99,12 @@ struct StoryApp: App {
                     .appTint()
                 }
                 .sheet(isPresented: $showWhatsNew) {
+#if os(iOS) || os(macOS)
                     ChangelogView(showChangelog: $showWhatsNew)
                         .onDisappear {
                             showWhatsNew = false
                         }
+#endif
                 }
         }
         .onChange(of: scene) { phase in

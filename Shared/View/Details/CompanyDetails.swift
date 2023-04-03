@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct CompanyDetails: View {
     let company: ProductionCompany
     @State private var showConfirmation = false
@@ -150,9 +150,10 @@ class CompanyDetailsViewModel: ObservableObject {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let columns: CGFloat = 240
 #else
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
 #endif
 }
+#endif

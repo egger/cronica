@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct PinItemsList: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
@@ -59,3 +59,4 @@ private struct HorizontalWatchlistList: View {
         }
     }
 }
+#endif

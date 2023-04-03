@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct ItemContentCollectionDetails: View {
     let title: String
     let items: [ItemContent]
@@ -44,9 +44,10 @@ struct ItemContentCollectionDetails_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let columns = [GridItem(.adaptive(minimum: 160))]
 #else
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
 #endif
 }
+#endif

@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(macOS)
 struct MacWatchlistView: View {
     static let tag: Screens? = .watchlist
     @StateObject private var settings = SettingsStore.shared
@@ -74,3 +74,4 @@ struct MacWatchlistView: View {
 //        WatchlistView()
 //    }
 //}
+#endif

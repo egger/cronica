@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct WatchListSection: View {
     let items: [WatchlistItem]
     var title: String
@@ -94,3 +94,4 @@ struct WatchListSection: View {
         }
     }
 }
+#endif

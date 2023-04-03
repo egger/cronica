@@ -6,7 +6,7 @@
 //
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct EpisodeDetailsView: View {
     let episode: Episode
     let season: Int
@@ -118,3 +118,4 @@ private struct DrawingConstants {
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12
 }
+#endif

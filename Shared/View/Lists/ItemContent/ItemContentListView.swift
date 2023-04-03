@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 /// Display a list of ItemContent within PosterView, with a TitleView indicating
 /// its origin.
 struct ItemContentListView: View {
@@ -77,3 +77,4 @@ struct ItemContentListView_Previews: PreviewProvider {
                             addedItemConfirmation: $show)
     }
 }
+#endif

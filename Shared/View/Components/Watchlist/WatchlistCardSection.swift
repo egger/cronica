@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct WatchlistCardSection: View {
     private let context = PersistenceController.shared
     let items: [WatchlistItem]
@@ -57,9 +57,10 @@ struct WatchlistCardSection_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let columns: CGFloat = 240
 #else
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
 #endif
 }
+#endif

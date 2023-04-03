@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct PosterWatchlistItem: View {
     let item: WatchlistItem
     @State private var isPin = false
@@ -80,3 +80,4 @@ private struct DrawingConstants {
     static let posterRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2
 }
+#endif

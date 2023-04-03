@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct DetailedPeopleList: View {
     let items: [Person]
     @State private var query = ""
@@ -127,3 +127,4 @@ private struct PersonItemRow: View {
         .draggable(person)
     }
 }
+#endif

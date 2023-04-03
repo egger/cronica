@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct ChangelogView: View {
     @Binding var showChangelog: Bool
     @State private var showTipJar = false
@@ -146,3 +146,4 @@ private struct ChangelogItemView: View {
         .padding(.horizontal)
     }
 }
+#endif

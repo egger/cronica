@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct SearchItemView: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
@@ -84,3 +84,4 @@ struct SearchItemView_Previews: PreviewProvider {
         SearchItemView(item: ItemContent.previewContent, showConfirmation: $show)
     }
 }
+#endif

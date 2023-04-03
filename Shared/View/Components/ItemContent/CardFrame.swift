@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(iOS) || os(macOS)
 struct CardFrame: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
@@ -116,11 +116,11 @@ struct CardFrame_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(tvOS)
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
     static let imageRadius: CGFloat = 12
-#else
+#elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 240 : 160
     static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
     static let imageRadius: CGFloat = UIDevice.isIPad ? 12 : 8
@@ -129,3 +129,4 @@ private struct DrawingConstants {
     static let titleLineLimit: Int = 1
     static let placeholderForegroundColor: Color = .white.opacity(0.8)
 }
+#endif
