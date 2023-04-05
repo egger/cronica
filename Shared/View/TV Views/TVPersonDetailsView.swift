@@ -15,6 +15,7 @@ struct TVPersonDetailsView: View {
     let name: String
     @State private var isLoading = true
     @StateObject private var viewModel: PersonDetailsViewModel
+    @State private var showConfirmation = false
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
@@ -51,6 +52,7 @@ struct TVPersonDetailsView: View {
                     if !viewModel.credits.isEmpty {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(viewModel.credits) { item in
+                                //CardFrame(item: item, showConfirmation: $showConfirmation)
                                 TVItemContentCardView(item: item)
                             }
                         }

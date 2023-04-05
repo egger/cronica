@@ -21,6 +21,9 @@ struct WatchEpisodeButton: View {
         } label: {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
+#if os(tvOS)
+            .padding()
+#endif
         }
     }
     

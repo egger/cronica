@@ -13,6 +13,7 @@ struct TVEpisodeDetailsView: View {
     let id: Int
     let season: Int
     @State private var isWatched = false
+    @State private var showOverview = false
     @Binding var inWatchlist: Bool
     var body: some View {
         ZStack {
@@ -21,6 +22,18 @@ struct TVEpisodeDetailsView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 1920, height: 1080)
             VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(episode.itemTitle)
+                            .lineLimit(1)
+                            .font(.title3)
+                        GlanceInfo(info: episode.itemInfo)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.top, 100)
+                    .padding(.leading)
+                    Spacer()
+                }
                 Spacer()
                 ZStack {
                     Color.black.opacity(0.4)
@@ -35,7 +48,7 @@ struct TVEpisodeDetailsView: View {
                                            endPoint: .top)
                         }
                     Rectangle()
-                        .fill(.ultraThinMaterial)
+                        .fill(.regularMaterial)
                         .frame(height: 600)
                         .mask {
                             VStack(spacing: 0) {
@@ -59,16 +72,6 @@ struct TVEpisodeDetailsView: View {
                 Spacer()
                 HStack(alignment: .bottom) {
                     VStack {
-                        Text(episode.itemTitle)
-                            .lineLimit(1)
-                            .font(.title3)
-                        GlanceInfo(info: episode.itemInfo)
-                            .padding([.bottom, .top], 6)
-                        //TVItemContentOverview(overview: episode.itemOverview)
-                    }
-                    .frame(maxWidth: 900)
-                    Spacer()
-                    VStack {
                         HStack {
                             WatchEpisodeButton(episode: episode,
                                                    season: season,
@@ -77,6 +80,22 @@ struct TVEpisodeDetailsView: View {
                                                    inWatchlist: $inWatchlist)
                         }
                     }
+                    Spacer()
+                    VStack {
+                        Button {
+                            showOverview.toggle()
+                        } label: {
+                            VStack(alignment: .leading) {
+                                Text(episode.itemOverview)
+                                    .lineLimit(4)
+                                    .font(.callout)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .frame(maxWidth: 900)
+                    Spacer()
+                    
                 }
                 .padding()
             }

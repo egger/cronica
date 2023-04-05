@@ -24,13 +24,11 @@ struct TVHomeView: View {
                     TVPinItemsList()
                     TVItemContentList(items: viewModel.trending,
                                     title: "Trending",
-                                    subtitle: "Today",
-                                    image: "crown")
+                                    subtitle: "Today")
                     ForEach(viewModel.sections) { section in
                         TVItemContentList(items: section.results,
                                         title: section.title,
-                                        subtitle: section.subtitle,
-                                        image: section.image)
+                                        subtitle: section.subtitle)
                     }
                     AttributionView()
                 }
@@ -40,6 +38,9 @@ struct TVHomeView: View {
             }
             .navigationDestination(for: Person.self) { item in
                 TVPersonDetailsView(title: item.name, id: item.id)
+            }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }
             .task {
                 await viewModel.load()

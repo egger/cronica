@@ -71,9 +71,9 @@ struct AppearanceSetting: View {
                 }
                 .pickerStyle(.navigationLink)
                 
-                NavigationLink(destination: EmptyView()) {
-                    Text("App Icon")
-                }
+//                NavigationLink(destination: EmptyView()) {
+//                    Text("App Icon")
+//                }
             } header: {
                 Text("appearanceTheme")
             }

@@ -74,6 +74,9 @@ class StoreKitManager: ObservableObject {
     }
     
     func isPurchased(_ product: Product) async throws -> Bool {
+        if purchasedTipJar.contains(product) {
+            SettingsStore.shared.hasPurchasedTipJar = true
+        }
         return purchasedTipJar.contains(product)
     }
     

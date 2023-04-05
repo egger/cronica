@@ -11,11 +11,10 @@ struct TVItemContentList: View {
     let items: [ItemContent]
     let title: String
     let subtitle: String
-    let image: String
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
-                TitleView(title: title, subtitle: subtitle, image: image)
+                TitleView(title: title, subtitle: subtitle)
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(items) { item in
@@ -28,9 +27,6 @@ struct TVItemContentList: View {
                         }
                     }
                 }
-            }
-            .navigationDestination(for: ItemContent.self) { item in
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }
             .padding()
         }

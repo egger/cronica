@@ -14,7 +14,7 @@ struct TipJarSetting: View {
     var body: some View {
         Form {
             Section {
-                if viewModel.hasUserPurchased {
+                if viewModel.hasUserPurchased || SettingsStore.shared.hasPurchasedTipJar {
                     Text("thankYouTipJarMessage")
                 } else {
                     if !productsLoaded { ProgressView() }

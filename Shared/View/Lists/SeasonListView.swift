@@ -15,6 +15,7 @@ struct SeasonListView: View {
     var lastSelectedSeason: Int?
     @State private var selectedSeason: Int = 1
     @State private var hasFirstLoaded = false
+    @State private var previouslySelectedSeason: Int = 0
     @StateObject private var viewModel = SeasonViewModel()
     @Binding var inWatchlist: Bool
     @Binding var seasonConfirmation: Bool
@@ -157,26 +158,19 @@ struct SeasonListView: View {
     }
     
     private func load() async {
-        if !hasFirstLoaded {
-            if self.inWatchlist {
-                let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))
-                guard let lastSeason else { return }
-                self.selectedSeason = lastSeason
-                await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)
-                hasFirstLoaded = true
-                viewModel.currentSeasonNumber = lastSeason
-                return
-            }
-        } else {
-            if viewModel.currentSeasonNumber != self.selectedSeason {
-                await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
-                viewModel.currentSeasonNumber = self.selectedSeason
-            }
+        if !hasFirstLoaded && self.inWatchlist {
+            let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))
+            guard let lastSeason else { return }
+            self.selectedSeason = lastSeason
+            await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)
+            hasFirstLoaded = true
+            previouslySelectedSeason = lastSeason
+            return
         }
-    }
-    
-    private func changeSeason() async {
-        
+        if previouslySelectedSeason != self.selectedSeason {
+            await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
+            previouslySelectedSeason = self.selectedSeason
+        }
     }
     
 }

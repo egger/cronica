@@ -14,7 +14,6 @@ class SeasonViewModel: ObservableObject {
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
     private var hasFirstLoaded = false
-    @Published var currentSeasonNumber = 0
     @Published var season: Season?
     @Published var isLoading = true
     @Published var isItemInWatchlist = false
@@ -29,7 +28,7 @@ class SeasonViewModel: ObservableObject {
             self.season = try await self.service.fetchSeason(id: id, season: season)
         } catch {
             let message = "Season \(season), id: \(id), error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load()")
+            CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load.failed")
         }
         if !hasFirstLoaded {
             hasFirstLoaded.toggle()
@@ -37,7 +36,6 @@ class SeasonViewModel: ObservableObject {
         DispatchQueue.main.async {
             withAnimation { self.isLoading = false }
         }
-        //print(self.season as Any)
     }
     
     func markSeasonAsWatched(id: Int) async {
@@ -80,7 +78,7 @@ class SeasonViewModel: ObservableObject {
         } catch {
             if Task.isCancelled { return }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "SeasonViewModel.saveItemOnList")
+                                                  for: "SeasonViewModel.saveItemOnList.failed")
         }
     }
 }

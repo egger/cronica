@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+
 #if os(tvOS)
 struct TVWatchlistView: View {
     static let tag: Screens? = .watchlist
@@ -59,6 +60,9 @@ struct TVWatchlistView: View {
             }
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+            }
+            .navigationDestination(for: ItemContent.self) { item in
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }
             .sheet(isPresented: $showFilters) {
                 VStack {

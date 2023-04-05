@@ -382,7 +382,7 @@
 		B8110ED8279245D000844FEB /* StoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryApp.swift; sourceTree = "<group>"; };
 		B8110ED9279245D000844FEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B8110EDA279245D100844FEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B8110EDF279245D100844FEB /* Story.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Story.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8110EDF279245D100844FEB /* Cronica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cronica.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8110F162792764B00844FEB /* Story (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Story (iOS).entitlements"; sourceTree = "<group>"; };
 		B812529728A407120062B0C9 /* DefaultListTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListTypes.swift; sourceTree = "<group>"; };
 		B812C7B3299480620096E806 /* NewCustomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomListView.swift; sourceTree = "<group>"; };
@@ -424,8 +424,6 @@
 		B84043E3289B3F3800D5CEBF /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		B841A45929DA0F73009BFF5B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		B841A45A29DA0F73009BFF5B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		B8423E2E2793B61B0012259B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		B84457C12970D599009CB21F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
@@ -728,7 +726,7 @@
 		B8110EE0279245D100844FEB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B8110EDF279245D100844FEB /* Story.app */,
+				B8110EDF279245D100844FEB /* Cronica.app */,
 				B85E036D27B0371C005C7FDF /* StoryTests.xctest */,
 				B806C4DE2899BE2800A5330E /* Cronica.app */,
 				B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */,
@@ -1332,7 +1330,7 @@
 				B84B506B29AE69CB00AE63C7 /* Roadmap */,
 			);
 			productName = "Story (iOS)";
-			productReference = B8110EDF279245D100844FEB /* Story.app */;
+			productReference = B8110EDF279245D100844FEB /* Cronica.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B85E036C27B0371C005C7FDF /* StoryTests */ = {
@@ -1407,7 +1405,6 @@
 				en,
 				Base,
 				"pt-BR",
-				fr,
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
@@ -1801,7 +1798,6 @@
 			children = (
 				B82BE50229A18A55005F9990 /* pt-BR */,
 				B82BE50429A18A5A005F9990 /* en */,
-				B841A45A29DA0F73009BFF5B /* fr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -1811,7 +1807,6 @@
 			children = (
 				B8CC954C27D1310B00B6757C /* en */,
 				B8CC954F27D132F700B6757C /* pt-BR */,
-				B841A45929DA0F73009BFF5B /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2034,7 +2029,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 2.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
-				PRODUCT_NAME = Story;
+				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
@@ -2075,7 +2070,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 2.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
-				PRODUCT_NAME = Story;
+				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;

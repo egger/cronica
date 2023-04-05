@@ -92,12 +92,14 @@ struct ItemContentDetailsView: View {
                                 notificationButton
                                 watchButton
                                 favoriteButton
-                                addToCustomListButton
-                                    .sheet(isPresented: $showCustomList) {
-                                        ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
-                                        .presentationDetents([.medium])
-                                        .frame(width: 500, height: 600, alignment: .center)
-                                    }
+                                if viewModel.isInWatchlist {
+                                    addToCustomListButton
+                                        .sheet(isPresented: $showCustomList) {
+                                            ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
+                                            .presentationDetents([.medium])
+                                            .frame(width: 500, height: 600, alignment: .center)
+                                        }
+                                }
                                 shareButton
                             }
                             shareButton

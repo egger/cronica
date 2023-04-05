@@ -32,8 +32,7 @@ struct ItemContentDetails: View {
                                        id: self.id, inWatchlist: $viewModel.isInWatchlist)
                         TVItemContentList(items: viewModel.recommendations,
                                         title: "Recommendations",
-                                        subtitle: "You may like",
-                                        image: "film.stack")
+                                        subtitle: "")
                         TVCastListView(credits: viewModel.credits)
                         TVInfoSection(item: viewModel.content)
                             .padding([.top, .bottom])

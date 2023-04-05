@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct CardFrame: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
@@ -79,13 +79,16 @@ struct CardFrame: View {
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.imageShadow)
                     .applyHoverEffect()
-                    .draggable(item)
                     .modifier(
                         ItemContentContextMenu(item: item,
                                                showConfirmation: $showConfirmation,
                                                isInWatchlist: $isInWatchlist,
                                                isWatched: $isWatched)
                     )
+#if os(iOS) || os(macOS)
+                    .draggable(item)
+#endif
+#if os(iOS) || os(macOS)
                 HStack {
                     Text(item.itemTitle)
                         .font(.caption)
@@ -94,6 +97,7 @@ struct CardFrame: View {
                     Spacer()
                 }
                 .frame(width: DrawingConstants.imageWidth)
+#endif
             }
             .task {
                 withAnimation {
@@ -105,6 +109,9 @@ struct CardFrame: View {
             }
         }
         .accessibilityLabel(Text(item.itemTitle))
+#if os(tvOS)
+        .buttonStyle(.card)
+#endif
     }
 }
 
@@ -116,17 +123,22 @@ struct CardFrame_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(tvOS)
+#if os(macOS)
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
     static let imageRadius: CGFloat = 12
+    static let titleLineLimit: Int = 1
+#elseif os(tvOS)
+    static let imageWidth: CGFloat = 440
+    static let imageHeight: CGFloat = 240
+    static let imageRadius: CGFloat = 8
+    static let titleLineLimit: Int = 1
 #elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 240 : 160
     static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
     static let imageRadius: CGFloat = UIDevice.isIPad ? 12 : 8
+    static let titleLineLimit: Int = 1
 #endif
     static let imageShadow: CGFloat = 2.5
-    static let titleLineLimit: Int = 1
     static let placeholderForegroundColor: Color = .white.opacity(0.8)
 }
-#endif
