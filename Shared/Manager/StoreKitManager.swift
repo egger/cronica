@@ -6,10 +6,13 @@
 //
 
 import StoreKit
+import SwiftUI
 
+@MainActor
 class StoreKitManager: ObservableObject {
     @Published var storeProducts = [Product]()
     @Published var purchasedTipJar = [Product]()
+    @Published var hasUserPurchased = false
     var hasLoadedProducts = false
     private let productDict: [String:String]
     var updateListenerTask: Task<Void, Error>? = nil
@@ -44,7 +47,7 @@ class StoreKitManager: ObservableObject {
         }
     }
     
-    func purchase(_ product: Product) async throws -> Transaction? {
+    func purchase(_ product: Product) async throws -> StoreKit.Transaction? {
         let result = try await product.purchase()
         switch result {
         case .success(let verification):
@@ -52,9 +55,15 @@ class StoreKitManager: ObservableObject {
             await updateConsumerUpdateStatus()
             await transaction.finish()
             let message = "Transaction of \(transaction.productID) has successfully."
-            CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase.success")
+            let isTestFlight = Bundle.isTestFlight()
+            if !isTestFlight {
+                CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase.success")
+            }
             DispatchQueue.main.async {
                 SettingsStore.shared.hasPurchasedTipJar = true
+                withAnimation {
+                    self.hasUserPurchased = true
+                }
             }
             return transaction
         case .userCancelled, .pending:
@@ -72,7 +81,7 @@ class StoreKitManager: ObservableObject {
         return Task.detached {
             for await result in Transaction.updates {
                 do {
-                    let transaction = try self.checkVerified(result)
+                    let transaction = try await self.checkVerified(result)
                     await self.updateConsumerUpdateStatus()
                     await transaction.finish()
                 } catch {
@@ -92,7 +101,6 @@ class StoreKitManager: ObservableObject {
         }
     }
     
-    @MainActor
     private func updateConsumerUpdateStatus() async {
         var purchasedTipJar = [Product]()
         for await result in Transaction.currentEntitlements {
@@ -103,7 +111,7 @@ class StoreKitManager: ObservableObject {
                 }
             } catch {
                 CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                      for: "StoreKitManager.updateConsumerUpdateStatus()")
+                                                      for: "StoreKitManager.updateConsumerUpdateStatus.failed")
             }
         }
         self.purchasedTipJar = purchasedTipJar

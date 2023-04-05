@@ -118,8 +118,15 @@ struct PosterPlaceholder: View {
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let posterWidth: CGFloat = 220
+    static let posterHeight: CGFloat = 320
+    static let posterRadius: CGFloat = 12
+    static let shadowRadius: CGFloat = 2
+#else
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
     static let posterRadius: CGFloat = 8
     static let shadowRadius: CGFloat = 2
+#endif
 }

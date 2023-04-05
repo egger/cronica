@@ -7,16 +7,14 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct PersonSearchImage: View {
     let item: ItemContent
     var body: some View {
         NavigationLink(value: item) {
             WebImage(url: item.itemImage, options: .highPriority)
                 .resizable()
-                .placeholder {
-                    PersonSearchImagePlaceholder()
-                }
+                .placeholder { placeholder }
                 .aspectRatio(contentMode: .fill)
                 .transition(.opacity)
                 .frame(width: DrawingConstants.posterWidth,
@@ -25,15 +23,13 @@ struct PersonSearchImage: View {
                                             style: .continuous))
                 .shadow(radius: DrawingConstants.shadowRadius)
                 .padding(.zero)
-                .contextMenu {
-                    ShareLink(item: item.itemSearchURL)
-                }
+#if os(macOS) || os(iOS)
+                .contextMenu { ShareLink(item: item.itemSearchURL) }
+#endif
         }
     }
-}
-
-private struct PersonSearchImagePlaceholder: View {
-    var body: some View {
+    
+    private var placeholder: some View {
         ZStack {
             Rectangle().fill(.gray.gradient)
             Image(systemName: "person")
@@ -55,4 +51,18 @@ private struct DrawingConstants {
     static let posterRadius: CGFloat = 8
     static let shadowRadius: CGFloat = 2
 }
-#endif
+
+
+struct PosterSearchItem: View {
+    let item: ItemContent
+    @Binding var showConfirmation: Bool
+    var body: some View {
+        if item.media == .person {
+            PersonSearchImage(item: item)
+                .buttonStyle(.plain)
+        } else {
+            Poster(item: item, addedItemConfirmation: $showConfirmation)
+                .buttonStyle(.plain)
+        }
+    }
+}

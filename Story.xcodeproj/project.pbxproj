@@ -268,7 +268,6 @@
 		B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */; };
 		B8F6D6C629DB259C00B9190B /* MacSideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62CC2912DAA20051915C /* MacSideBarView.swift */; };
 		B8F6D6C829DB25A300B9190B /* ItemContentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */; };
-		B8F6D6C929DB25A700B9190B /* MacWatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62EA2912F2730051915C /* MacWatchlistView.swift */; };
 		B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B8F6D6CD29DB433200B9190B /* TVWatchlistItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569B290DDD9C002CAAFD /* TVWatchlistItemListView.swift */; };
 		B8F6D6CE29DB433200B9190B /* TVItemContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5687290C7CC1002CAAFD /* TVItemContentHeaderView.swift */; };
@@ -289,6 +288,7 @@
 		B8F6D6DF29DB433200B9190B /* TVSearchItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */; };
 		B8F6D6E029DB433200B9190B /* TVWatchlistItemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5699290DDB74002CAAFD /* TVWatchlistItemCard.swift */; };
 		B8F6D6E429DB575B00B9190B /* SettingsLabelWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */; };
+		B8F6D6E629DB5D8F00B9190B /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6D6E529DB5D8F00B9190B /* SearchResultView.swift */; };
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */; };
 		B8F6DE652937A144005D1A50 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
@@ -513,7 +513,6 @@
 		B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTelemetry.swift; sourceTree = "<group>"; };
 		B8BF62CC2912DAA20051915C /* MacSideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSideBarView.swift; sourceTree = "<group>"; };
 		B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentDetailsView.swift; sourceTree = "<group>"; };
-		B8BF62EA2912F2730051915C /* MacWatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacWatchlistView.swift; sourceTree = "<group>"; };
 		B8BF63262914013D0051915C /* HoverEffectModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverEffectModifier.swift; sourceTree = "<group>"; };
 		B8BF633329146A1F0051915C /* PinItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinItemsList.swift; sourceTree = "<group>"; };
 		B8BF633729146A460051915C /* PosterWatchlistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterWatchlistItem.swift; sourceTree = "<group>"; };
@@ -566,6 +565,7 @@
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBoxView.swift; sourceTree = "<group>"; };
 		B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelWithIcon.swift; sourceTree = "<group>"; };
+		B8F6D6E529DB5D8F00B9190B /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetails.swift; sourceTree = "<group>"; };
 		B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentCollectionDetails.swift; sourceTree = "<group>"; };
 		B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVerticalView.swift; sourceTree = "<group>"; };
@@ -1174,7 +1174,7 @@
 				B80982BC292AA6B00020716F /* PersonSearchImage.swift */,
 				B8BF62CC2912DAA20051915C /* MacSideBarView.swift */,
 				B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */,
-				B8BF62EA2912F2730051915C /* MacWatchlistView.swift */,
+				B8F6D6E529DB5D8F00B9190B /* SearchResultView.swift */,
 			);
 			path = "Mac Views";
 			sourceTree = "<group>";
@@ -1542,6 +1542,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8389ED228AB46E3003025BC /* WatchlistSearchScope.swift in Sources */,
+				B8F6D6E629DB5D8F00B9190B /* SearchResultView.swift in Sources */,
 				B8110EEA279245D100844FEB /* ContentView.swift in Sources */,
 				B84457C22970D599009CB21F /* HapticManager.swift in Sources */,
 				B818483C29C2897A00650763 /* ChangelogView.swift in Sources */,
@@ -1648,7 +1649,6 @@
 				B8FF4DC127FB56F500C7DE9F /* SFSafariViewWrapper.swift in Sources */,
 				B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
-				B8F6D6C929DB25A700B9190B /* MacWatchlistView.swift in Sources */,
 				B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
 				B8F6D6DA29DB433200B9190B /* TVEpisodeDetailsView.swift in Sources */,
 				B804E397284FCBCB00F59855 /* CardFrame.swift in Sources */,

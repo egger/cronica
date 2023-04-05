@@ -61,10 +61,13 @@ struct MacSideBarView: View {
                         NavigationStack {
                             ExploreView()
                         }
-                        //DiscoverView()
                     case .watchlist:
-                        MacWatchlistView()
-                            .environment(\.managedObjectContext, persistence.container.viewContext)
+                        NavigationStack {
+                            WatchlistView()
+                                .environment(\.managedObjectContext, persistence.container.viewContext)
+                        }
+//                        MacWatchlistView()
+//                            .environment(\.managedObjectContext, persistence.container.viewContext)
                     }
                 }
                 ConfirmationDialogView(showConfirmation: $showConfirmation, message: "markedAsWatched")

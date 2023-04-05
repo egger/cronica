@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-#if os(iOS) || os(tvOS)
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @SceneStorage("selectedView") var selectedView: Screens?
@@ -20,36 +19,45 @@ struct TabBarView: View {
 #endif
     }
     
-    #if os(tvOS)
+#if os(tvOS)
     private var tvOSBarView: some View {
-        NavigationStack {
-            TabView {
+        TabView {
+            NavigationStack {
                 TVHomeView()
-                    .tabItem {
-                        Label("Home", systemImage: "house")
-                            .labelStyle(.titleOnly)
-                    }
+            }
+            .tabItem {
+                Label("Home", systemImage: "house")
+                    .labelStyle(.titleOnly)
+            }
+            
+            NavigationStack {
                 TVWatchlistView()
-                    .tabItem {
-                        Label("Watchlist", systemImage: "square.stack.fill")
-                            .labelStyle(.titleOnly)
-                    }
+            }
+            .tabItem {
+                Label("Watchlist", systemImage: "square.stack.fill")
+                    .labelStyle(.titleOnly)
+            }
+            
+            NavigationStack {
                 TVSearchView()
-                    .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
-                            .labelStyle(.iconOnly)
-                    }
+            }
+            .tabItem {
+                Label("Search", systemImage: "magnifyingglass")
+                    .labelStyle(.iconOnly)
+            }
+            
+            NavigationStack {
                 SettingsView()
-                    .tabItem {
-                        Label("Settings", systemImage: "gearshape")
-                            .labelStyle(.iconOnly)
-                    }
+            }
+            .tabItem {
+                Label("Settings", systemImage: "gearshape")
+                    .labelStyle(.iconOnly)
             }
         }
     }
-    #endif
+#endif
     
-    #if os(iOS)
+#if os(iOS)
     private var iOSBarView: some View {
         TabView(selection: $selectedView) {
             NavigationStack {
@@ -81,7 +89,7 @@ struct TabBarView: View {
         }
         .appTheme()
     }
-    #endif
+#endif
 }
 
 struct TabBarView_Previews: PreviewProvider {
@@ -89,4 +97,3 @@ struct TabBarView_Previews: PreviewProvider {
         TabBarView()
     }
 }
-#endif

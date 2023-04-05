@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-#if os(iOS)
+#if os(iOS) || os(macOS)
 struct WatchlistView: View {
     static let tag: Screens? = .watchlist
     @State private var showListSelection = false
@@ -34,12 +34,14 @@ struct WatchlistView: View {
 #endif
         .navigationDestination(for: WatchlistItem.self) { item in
 #if os(macOS)
+            ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
 #else
             ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
 #endif
         }
         .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
+            ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
 #else
             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 #endif
@@ -66,19 +68,29 @@ struct WatchlistView: View {
                            navigationTitle: $navigationTitle,
                            showListSelection: $showListSelection)
             .presentationDetents([.medium, .large])
+#if os(iOS)
             .appTheme()
+#elseif os(macOS)
+            .frame(width: 480, height: 400, alignment: .center)
+#endif
         }
         .toolbar {
             // Acts like a navigationTitle
+#if os(iOS)
             ToolbarItem(placement: .principal) {
                 WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
             }
+#elseif os(macOS)
+            ToolbarItem(placement: .navigation) {
+                WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
+            }
+#endif
         }
     }
 }
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(macOS)
 struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()

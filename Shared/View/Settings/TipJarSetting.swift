@@ -11,11 +11,10 @@ import StoreKit
 struct TipJarSetting: View {
     @StateObject private var viewModel = StoreKitManager()
     @State private var productsLoaded = false
-    @State private var hasPurchased = false
     var body: some View {
         Form {
             Section {
-                if hasPurchased {
+                if viewModel.hasUserPurchased {
                     Text("thankYouTipJarMessage")
                 } else {
                     if !productsLoaded { ProgressView() }
@@ -27,9 +26,9 @@ struct TipJarSetting: View {
                         } label: {
                             TipJarItem(storeKit: viewModel, product: item)
                         }
-    #if os(macOS)
+#if os(macOS)
                         .buttonStyle(.plain)
-    #endif
+#endif
                     }
                     Button("restorePurchases") {
                         Task {
@@ -39,15 +38,12 @@ struct TipJarSetting: View {
                     .disabled(!productsLoaded)
                 }
             } header: {
-                #if os(macOS)
+#if os(macOS)
                 Label("tipJarTitle", systemImage: "heart")
-                #endif
+#endif
             } footer: {
                 Text("tipJarFooter")
             }
-            .task(id: SettingsStore.shared.hasPurchasedTipJar, {
-                hasPurchased = SettingsStore.shared.hasPurchasedTipJar
-            })
         }
         .navigationTitle("tipJarTitle")
         .onChange(of: viewModel.hasLoadedProducts) { hasLoaded in
@@ -56,7 +52,9 @@ struct TipJarSetting: View {
             }
         }
         .onAppear {
-            CronicaTelemetry.shared.handleMessage("", for: "tipJarSettingsOpened")
+            if !SettingsStore.shared.hasPurchasedTipJar {
+                CronicaTelemetry.shared.handleMessage("", for: "tipJarSettingsOpened")
+            }
         }
 #if os(macOS)
         .formStyle(.grouped)
