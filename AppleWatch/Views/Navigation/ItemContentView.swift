@@ -31,10 +31,10 @@ struct ItemContentView: View {
                     )
                     .padding()
                 
-//                WatchlistButtonView()
-//                    .environmentObject(viewModel)
-//                    .padding()
-//                
+                WatchlistButtonView()
+                    .environmentObject(viewModel)
+                    .padding()
+                
                 SeasonButton(numberOfSeasons: viewModel.content?.itemSeasons, id: id, isInWatchlist: $viewModel.isInWatchlist)
                     .padding([.horizontal, .bottom])
                 

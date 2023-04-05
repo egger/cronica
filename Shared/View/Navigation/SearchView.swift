@@ -13,6 +13,7 @@ struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var showInformationPopup: Bool = false
     @State private var scope: SearchItemsScope = .noScope
+    @State private var currentlyQuery = String()
     var body: some View {
         ZStack {
             List {
@@ -73,7 +74,10 @@ struct SearchView: View {
             }
             .disableAutocorrection(true)
             .task(id: viewModel.query) {
-                await viewModel.search(viewModel.query)
+                if currentlyQuery != viewModel.query {
+                    currentlyQuery = viewModel.query
+                    await viewModel.search(viewModel.query)
+                }
             }
             .overlay(searchResults)
             ConfirmationDialogView(showConfirmation: $showInformationPopup, message: "addedToWatchlist")
