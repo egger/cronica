@@ -81,6 +81,7 @@ struct SeasonListView: View {
                                         .buttonStyle(.plain)
                                     }
                                     .onAppear {
+                                        if hasFirstLoaded { return }
                                         let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
                                         guard let lastWatchedEpisode else { return }
                                         withAnimation {
@@ -100,7 +101,10 @@ struct SeasonListView: View {
                     }
                 }
                 .padding(0)
-                .task {
+                .onAppear {
+                    Task { await load() }
+                }
+                .task(id: selectedSeason) {
                     await load()
                 }
                 Divider().padding()
@@ -156,16 +160,25 @@ struct SeasonListView: View {
         if !hasFirstLoaded {
             if self.inWatchlist {
                 let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))
-                if let lastSeason {
-                    self.selectedSeason = lastSeason
-                    await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)
-                    hasFirstLoaded.toggle()
-                    return
-                }
+                guard let lastSeason else { return }
+                self.selectedSeason = lastSeason
+                await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)
+                hasFirstLoaded = true
+                viewModel.currentSeasonNumber = lastSeason
+                return
+            }
+        } else {
+            if viewModel.currentSeasonNumber != self.selectedSeason {
+                await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
+                viewModel.currentSeasonNumber = self.selectedSeason
             }
         }
-        await self.viewModel.load(id: self.tvId, season: self.selectedSeason, isInWatchlist: inWatchlist)
     }
+    
+    private func changeSeason() async {
+        
+    }
+    
 }
 
 struct SeasonListView_Previews: PreviewProvider {

@@ -14,6 +14,7 @@ class SeasonViewModel: ObservableObject {
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
     private var hasFirstLoaded = false
+    @Published var currentSeasonNumber = 0
     @Published var season: Season?
     @Published var isLoading = true
     @Published var isItemInWatchlist = false
