@@ -1,5 +1,5 @@
 //
-//  SideBarView.swift
+//  SideBar.swift
 //  CronicaMac
 //
 //  Created by Alexandre Madeira on 02/11/22.
@@ -8,7 +8,8 @@
 import SwiftUI
 
 #if os(macOS)
-struct MacSideBarView: View {
+/// The view responsible for the sidebar on macOS
+struct SideBar: View {
     @Environment(\.managedObjectContext) var viewContext
     @SceneStorage("selectedView") private var selectedView: Screens = .home
     @State private var showNotifications = false

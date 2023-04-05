@@ -279,16 +279,6 @@ struct ItemContentDetailsView: View {
 }
 #endif
 
-//#if os(macOS)
-//struct ItemContentDetailsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MacItemContentDetailsView(id: ItemContent.previewContent.id,
-//                               title: ItemContent.previewContent.itemTitle,
-//                               type: ItemContent.previewContent.itemContentMedia)
-//    }
-//}
-//#endif
-
 struct GlanceInfo: View {
     var info: String?
     var body: some View {

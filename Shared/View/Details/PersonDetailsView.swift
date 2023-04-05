@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+
 #if os(iOS) || os(macOS)
 struct PersonDetailsView: View {
     let name: String
@@ -26,28 +27,36 @@ struct PersonDetailsView: View {
         ZStack {
             VStack {
                 ScrollView {
+#if os(tvOS)
+                    imageProfile.padding()
+#else
                     ViewThatFits {
                         HStack {
                             imageProfile
                                 .padding([.horizontal, .top])
                             
-                            OverviewBoxView(overview: viewModel.person?.personBiography,
-                                            title: name,
-                                            type: .person)
-                            .frame(width: 500)
-                            .padding(.horizontal)
+                            if viewModel.person?.hasBiography ?? false {
+                                OverviewBoxView(overview: viewModel.person?.personBiography,
+                                                title: name,
+                                                type: .person)
+                                .frame(width: 500)
+                                .padding(.horizontal)
+                            }
                         }
                         
                         VStack {
                             imageProfile
                                 .padding()
                             
-                            OverviewBoxView(overview: viewModel.person?.personBiography,
-                                            title: name,
-                                            type: .person)
-                            .padding()
+                            if viewModel.person?.hasBiography ?? false {
+                                OverviewBoxView(overview: viewModel.person?.personBiography,
+                                                title: name,
+                                                type: .person)
+                                .padding()
+                            }
                         }
                     }
+#endif
                     
                     FilmographyListView(filmography: viewModel.credits,
                                         showConfirmation: $showConfirmation)
@@ -73,7 +82,7 @@ struct PersonDetailsView: View {
                 ToolbarItem {
                     ShareLink(item: personUrl)
                 }
-#else
+#elseif os(macOS)
                 ToolbarItem(placement: .status) {
                     ShareLink(item: personUrl)
                 }
@@ -83,23 +92,16 @@ struct PersonDetailsView: View {
                 TranslucentBackground(image: viewModel.person?.personImage)
             }
             .alert("Error",
-                   isPresented: $viewModel.showErrorAlert,
-                   actions: {
-                Button("Cancel") {
-                    
-                }
+                   isPresented: $viewModel.showErrorAlert) {
+                Button("Cancel") { }
                 Button("Retry") {
-                    Task {
-                        await viewModel.load()
-                    }
+                    Task { await viewModel.load() }
                 }
-            }, message: {
+            } message: {
                 Text(viewModel.errorMessage)
-            })
+            }
 #if os(iOS)
             .searchable(text: $viewModel.query, placement: .automatic)
-#elseif os(macOS)
-            .searchable(text: $viewModel.query)
 #endif
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }

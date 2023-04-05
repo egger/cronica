@@ -30,7 +30,7 @@ struct TVItemContentList: View {
                 }
             }
             .navigationDestination(for: ItemContent.self) { item in
-                TVItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }
             .padding()
         }

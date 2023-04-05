@@ -64,7 +64,7 @@ struct TVEpisodeDetailsView: View {
                             .font(.title3)
                         GlanceInfo(info: episode.itemInfo)
                             .padding([.bottom, .top], 6)
-                        TVItemContentOverview(overview: episode.itemOverview)
+                        //TVItemContentOverview(overview: episode.itemOverview)
                     }
                     .frame(maxWidth: 900)
                     Spacer()

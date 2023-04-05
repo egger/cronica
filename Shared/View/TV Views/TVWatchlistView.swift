@@ -21,16 +21,22 @@ struct TVWatchlistView: View {
         ScrollView {
             VStack {
                 HStack {
-                    Text(selectedOrder.title)
-                        .font(.title3)
-                        .padding()
+                    VStack(alignment: .leading) {
+                        Text("Watchlist")
+                            .font(.title3)
+                        Text(selectedOrder.title)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
                     Spacer()
-                    Button(action: {
+                    Button {
                         showFilters.toggle()
-                    }, label: {
-                        Label("List Filters",
+                    } label: {
+                        Label("Filters",
                               systemImage: "line.3.horizontal.decrease.circle")
-                    })
+                        .labelStyle(.iconOnly)
+                    }
                     .buttonStyle(.bordered)
                     .padding()
                 }
@@ -52,7 +58,7 @@ struct TVWatchlistView: View {
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
-                TVItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
             }
             .sheet(isPresented: $showFilters) {
                 VStack {
@@ -61,8 +67,14 @@ struct TVWatchlistView: View {
                             selectedOrder = list
                             showFilters.toggle()
                         } label: {
-                            Text(list.title)
-                                .frame(maxWidth: 400)
+                            HStack {
+                                Image(systemName: list == selectedOrder ? "checkmark.circle.fill" : "circle")
+                                    .padding(.trailing)
+                                Spacer()
+                                Text(list.title)
+                                    .padding(.trailing)
+                            }
+                            .frame(maxWidth: 400)
                         }
                         .buttonStyle(.bordered)
                     }

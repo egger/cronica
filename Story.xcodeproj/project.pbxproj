@@ -266,16 +266,14 @@
 		B8EC6ABC28AC67CD0054DC76 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
 		B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 		B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */; };
-		B8F6D6C629DB259C00B9190B /* MacSideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62CC2912DAA20051915C /* MacSideBarView.swift */; };
+		B8F6D6C629DB259C00B9190B /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62CC2912DAA20051915C /* SideBar.swift */; };
 		B8F6D6C829DB25A300B9190B /* ItemContentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */; };
 		B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B8F6D6CD29DB433200B9190B /* TVWatchlistItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569B290DDD9C002CAAFD /* TVWatchlistItemListView.swift */; };
-		B8F6D6CE29DB433200B9190B /* TVItemContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5687290C7CC1002CAAFD /* TVItemContentHeaderView.swift */; };
 		B8F6D6CF29DB433200B9190B /* TVWatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A1B290A91E200459E41 /* TVWatchlistView.swift */; };
 		B8F6D6D029DB433200B9190B /* TVCastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5683290C7B40002CAAFD /* TVCastListView.swift */; };
 		B8F6D6D129DB433200B9190B /* TVInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5689290C7D14002CAAFD /* TVInfoSection.swift */; };
 		B8F6D6D229DB433200B9190B /* TVPersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD567E290C759E002CAAFD /* TVPersonDetailsView.swift */; };
-		B8F6D6D429DB433200B9190B /* TVItemContentOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5680290C77B0002CAAFD /* TVItemContentOverview.swift */; };
 		B8F6D6D629DB433200B9190B /* TVItemContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD567A290C39DF002CAAFD /* TVItemContentList.swift */; };
 		B8F6D6D729DB433200B9190B /* TVItemContentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A20290AAEB600459E41 /* TVItemContentDetails.swift */; };
 		B8F6D6D829DB433200B9190B /* TVHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A25290AC2C600459E41 /* TVHomeView.swift */; };
@@ -510,7 +508,7 @@
 		B8B271A527A5A18C00F6463F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemSwipeGesture.swift; sourceTree = "<group>"; };
 		B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTelemetry.swift; sourceTree = "<group>"; };
-		B8BF62CC2912DAA20051915C /* MacSideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSideBarView.swift; sourceTree = "<group>"; };
+		B8BF62CC2912DAA20051915C /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentDetailsView.swift; sourceTree = "<group>"; };
 		B8BF63262914013D0051915C /* HoverEffectModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverEffectModifier.swift; sourceTree = "<group>"; };
 		B8BF633329146A1F0051915C /* PinItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinItemsList.swift; sourceTree = "<group>"; };
@@ -544,10 +542,8 @@
 		B8DD5675290C3839002CAAFD /* TVItemContentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemContentCardView.swift; sourceTree = "<group>"; };
 		B8DD567A290C39DF002CAAFD /* TVItemContentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemContentList.swift; sourceTree = "<group>"; };
 		B8DD567E290C759E002CAAFD /* TVPersonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVPersonDetailsView.swift; sourceTree = "<group>"; };
-		B8DD5680290C77B0002CAAFD /* TVItemContentOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemContentOverview.swift; sourceTree = "<group>"; };
 		B8DD5683290C7B40002CAAFD /* TVCastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVCastListView.swift; sourceTree = "<group>"; };
 		B8DD5685290C7BB4002CAAFD /* TVPersonCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVPersonCircleView.swift; sourceTree = "<group>"; };
-		B8DD5687290C7CC1002CAAFD /* TVItemContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemContentHeaderView.swift; sourceTree = "<group>"; };
 		B8DD5689290C7D14002CAAFD /* TVInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVInfoSection.swift; sourceTree = "<group>"; };
 		B8DD5692290C9962002CAAFD /* TVEpisodeItemFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVEpisodeItemFrame.swift; sourceTree = "<group>"; };
 		B8DD5694290C9CA5002CAAFD /* TVSeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSeasonListView.swift; sourceTree = "<group>"; };
@@ -826,8 +822,8 @@
 		B83F1E9728BACFB0008E151D /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				B8779376281E319D00174F32 /* TabBarView.swift */,
-				B83F1E9828BAD24C008E151D /* SideBarView.swift */,
+				B88B88C129DDC9E400497058 /* macOS */,
+				B88B88C029DDC9DB00497058 /* iOS */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -970,6 +966,39 @@
 				B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */,
 			);
 			path = Season;
+			sourceTree = "<group>";
+		};
+		B88B88C029DDC9DB00497058 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B8779376281E319D00174F32 /* TabBarView.swift */,
+				B83F1E9828BAD24C008E151D /* SideBarView.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		B88B88C129DDC9E400497058 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B8BF62CC2912DAA20051915C /* SideBar.swift */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		B88B88C229DDCA5300497058 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		B88B88C329DDEA7100497058 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				B86E7A20290AAEB600459E41 /* TVItemContentDetails.swift */,
+			);
+			path = tvOS;
 			sourceTree = "<group>";
 		};
 		B89446B7294FDA94008974BA /* Settings */ = {
@@ -1170,8 +1199,6 @@
 			isa = PBXGroup;
 			children = (
 				B80982BC292AA6B00020716F /* PersonSearchImage.swift */,
-				B8BF62CC2912DAA20051915C /* MacSideBarView.swift */,
-				B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */,
 			);
 			path = "Mac Views";
 			sourceTree = "<group>";
@@ -1185,10 +1212,7 @@
 				B86E7A25290AC2C600459E41 /* TVHomeView.swift */,
 				B8DD5689290C7D14002CAAFD /* TVInfoSection.swift */,
 				B8DD5675290C3839002CAAFD /* TVItemContentCardView.swift */,
-				B86E7A20290AAEB600459E41 /* TVItemContentDetails.swift */,
-				B8DD5687290C7CC1002CAAFD /* TVItemContentHeaderView.swift */,
 				B8DD567A290C39DF002CAAFD /* TVItemContentList.swift */,
-				B8DD5680290C77B0002CAAFD /* TVItemContentOverview.swift */,
 				B8DD5685290C7BB4002CAAFD /* TVPersonCircleView.swift */,
 				B8DD567E290C759E002CAAFD /* TVPersonDetailsView.swift */,
 				B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */,
@@ -1204,6 +1228,8 @@
 		B8F6DE642937A023005D1A50 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				B88B88C329DDEA7100497058 /* tvOS */,
+				B88B88C229DDCA5300497058 /* macOS */,
 				B8105264298F58E100723E94 /* CompanyDetails.swift */,
 				B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */,
 				B8CC952927D02C5700B6757C /* ItemContentDetails.swift */,
@@ -1585,7 +1611,6 @@
 				B8FB2A8429524D6E006DAC8E /* View-Extensions.swift in Sources */,
 				B8F6D6DC29DB433200B9190B /* TVPersonCircleView.swift in Sources */,
 				B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */,
-				B8F6D6CE29DB433200B9190B /* TVItemContentHeaderView.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* WatchlistItemRow.swift in Sources */,
 				B89ECD062985F11100F0B197 /* TitleWatchlistDetails.swift in Sources */,
 				B82BE4F6299F09CA005F9990 /* CustomWatchListFilters.swift in Sources */,
@@ -1600,7 +1625,7 @@
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B89446BF294FDACA008974BA /* AppThemeColors.swift in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
-				B8F6D6C629DB259C00B9190B /* MacSideBarView.swift in Sources */,
+				B8F6D6C629DB259C00B9190B /* SideBar.swift in Sources */,
 				B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */,
 				B86E7A24290AB6C500459E41 /* WatchlistItemContextMenu.swift in Sources */,
 				B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */,
@@ -1666,7 +1691,6 @@
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
 				B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
-				B8F6D6D429DB433200B9190B /* TVItemContentOverview.swift in Sources */,
 				B80BBE5B294966FC00958876 /* InformationalLabel.swift in Sources */,
 				B8A2C88129CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */,
 				B8F6D6D129DB433200B9190B /* TVInfoSection.swift in Sources */,

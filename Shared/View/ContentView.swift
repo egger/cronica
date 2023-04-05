@@ -21,7 +21,7 @@ struct ContentView: View {
                 .appTint()
         }
 #elseif os(macOS)
-        MacSideBarView()
+        SideBar()
 #elseif os(tvOS)
         TabBarView()
 #endif   

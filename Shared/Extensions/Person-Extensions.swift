@@ -17,6 +17,11 @@ extension Person {
     var originalPersonImage: URL? {
         return NetworkService.urlBuilder(size: .original, path: profilePath)
     }
+    var hasBiography: Bool {
+        guard let biography else { return false }
+        if !biography.isEmpty { return true }
+        return false
+    }
     var personBiography: String {
         if let biography {
             if biography.isEmpty {

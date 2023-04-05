@@ -70,6 +70,10 @@ struct AppearanceSetting: View {
                     InformationalLabel(title: "appearanceThemeTitle")
                 }
                 .pickerStyle(.navigationLink)
+                
+                NavigationLink(destination: EmptyView()) {
+                    Text("App Icon")
+                }
             } header: {
                 Text("appearanceTheme")
             }

@@ -37,7 +37,7 @@ struct TVSearchView: View {
                                 if item.media == .person {
                                     TVPersonDetailsView(title: item.itemTitle, id: item.id)
                                 } else {
-                                    TVItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                                 }
                             } label: {
                                 TVSearchItemContentView(item: item)

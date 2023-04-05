@@ -36,7 +36,7 @@ struct TVHomeView: View {
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
-                TVItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+                ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
             }
             .navigationDestination(for: Person.self) { item in
                 TVPersonDetailsView(title: item.name, id: item.id)
