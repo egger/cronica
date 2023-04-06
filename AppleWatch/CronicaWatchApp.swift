@@ -9,7 +9,7 @@ import SwiftUI
 import TelemetryClient
 
 @main
-struct CronicaWatch_Watch_AppApp: App {
+struct CronicaWatchApp: App {
     var persistence = PersistenceController.shared
     init() {
         CronicaTelemetry.shared.setup()

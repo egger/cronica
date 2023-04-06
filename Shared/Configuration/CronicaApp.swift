@@ -1,5 +1,5 @@
 //
-//  StoryApp.swift
+//  CronicaApp.swift
 //  Shared
 //
 //  Created by Alexandre Madeira on 14/01/22.
@@ -8,7 +8,7 @@ import SwiftUI
 import BackgroundTasks
 
 @main
-struct StoryApp: App {
+struct CronicaApp: App {
     var persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
@@ -20,7 +20,7 @@ struct StoryApp: App {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
-        //checkVersion()
+        checkVersion()
     }
     var body: some Scene {
         WindowGroup {
@@ -135,7 +135,7 @@ struct StoryApp: App {
             return
         } else {
             if currentVersion != lastSeenVersion {
-                showWhatsNew.toggle()
+                //showWhatsNew.toggle()
                 UserDefaults.standard.set(currentVersion, forKey: UserDefaults.lastSeenAppVersionKey)
             }
         }

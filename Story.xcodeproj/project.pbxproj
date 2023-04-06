@@ -35,7 +35,7 @@
 		B810525E298DD05600723E94 /* WatchProviderOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* WatchProviderOption.swift */; };
 		B810525F298DD05600723E94 /* WatchProviderOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* WatchProviderOption.swift */; };
 		B8105265298F58E100723E94 /* CompanyDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8105264298F58E100723E94 /* CompanyDetails.swift */; };
-		B8110EE8279245D100844FEB /* StoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* StoryApp.swift */; };
+		B8110EE8279245D100844FEB /* CronicaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* CronicaApp.swift */; };
 		B8110EEA279245D100844FEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED9279245D000844FEB /* ContentView.swift */; };
 		B8110EEC279245D100844FEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8110EDA279245D100844FEB /* Assets.xcassets */; };
 		B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812529728A407120062B0C9 /* DefaultListTypes.swift */; };
@@ -376,7 +376,7 @@
 		B8105252298DBAF500723E94 /* Locale-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale-Extensions.swift"; sourceTree = "<group>"; };
 		B8105258298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReleaseDatesResult-Extensions.swift"; sourceTree = "<group>"; };
 		B8105264298F58E100723E94 /* CompanyDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetails.swift; sourceTree = "<group>"; };
-		B8110ED8279245D000844FEB /* StoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryApp.swift; sourceTree = "<group>"; };
+		B8110ED8279245D000844FEB /* CronicaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaApp.swift; sourceTree = "<group>"; };
 		B8110ED9279245D000844FEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B8110EDA279245D100844FEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8110EDF279245D100844FEB /* Cronica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cronica.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -417,7 +417,7 @@
 		B84043CB289B294600D5CEBF /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentView.swift; sourceTree = "<group>"; };
 		B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CronicaWatch Watch App.entitlements"; sourceTree = "<group>"; };
-		B84043DF289B372B00D5CEBF /* CronicaWatch-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "CronicaWatch-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B84043DF289B372B00D5CEBF /* CronicaWatch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CronicaWatch-Info.plist"; path = "AppleWatch/Configuration/CronicaWatch-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B84043E3289B3F3800D5CEBF /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -516,7 +516,7 @@
 		B8CC952927D02C5700B6757C /* ItemContentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentDetails.swift; sourceTree = "<group>"; };
 		B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentViewModel.swift; sourceTree = "<group>"; };
 		B8CC953227D05D1000B6757C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Story--iOS--Info.plist"; sourceTree = "<group>"; };
+		B8CC953527D05E4A00B6757C /* Cronica--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Cronica--Info.plist"; sourceTree = "<group>"; };
 		B8CC954C27D1310B00B6757C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B8CC954F27D132F700B6757C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B8CCA8B429C7F952008D2FFF /* UpNextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextView.swift; sourceTree = "<group>"; };
@@ -618,8 +618,7 @@
 		B806C4DF2899BE2800A5330E /* AppleWatch */ = {
 			isa = PBXGroup;
 			children = (
-				B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */,
-				B84043DF289B372B00D5CEBF /* CronicaWatch-Watch-App-Info.plist */,
+				B88AA91D29DF714900F80EE4 /* Configuration */,
 				B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */,
 				B806C4E42899BE2900A5330E /* Assets.xcassets */,
 				B806C4E62899BE2900A5330E /* Preview Content */,
@@ -685,10 +684,6 @@
 		B8110ED2279245D000844FEB = {
 			isa = PBXGroup;
 			children = (
-				B8D7AEB328B95F5F0053CE5A /* CronicaWidgetExtension.entitlements */,
-				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
-				B8CC953527D05E4A00B6757C /* Story--iOS--Info.plist */,
-				B8110ED8279245D000844FEB /* StoryApp.swift */,
 				B806C4DF2899BE2800A5330E /* AppleWatch */,
 				B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */,
 				B88B88FC29DF194A00497058 /* CronicaTests */,
@@ -956,6 +951,24 @@
 			path = Season;
 			sourceTree = "<group>";
 		};
+		B88AA91C29DF702200F80EE4 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				B8D7AEB328B95F5F0053CE5A /* CronicaWidgetExtension.entitlements */,
+				B8D7AEAF28B95F5F0053CE5A /* Info.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		B88AA91D29DF714900F80EE4 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */,
+				B84043DF289B372B00D5CEBF /* CronicaWatch-Info.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		B88B88C029DDC9DB00497058 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -1099,13 +1112,13 @@
 		B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */ = {
 			isa = PBXGroup;
 			children = (
+				B88AA91C29DF702200F80EE4 /* Configuration */,
 				B8D7AEE128BA5B170053CE5A /* Placeholder */,
 				B8D7AED528B9634F0053CE5A /* Views */,
 				B8D7AEBD28B9610C0053CE5A /* Extensions */,
 				B8D7AEB728B95F770053CE5A /* Model */,
 				B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */,
 				B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */,
-				B8D7AEAF28B95F5F0053CE5A /* Info.plist */,
 				B86AAD0B28BD2D6B00D135B1 /* PlaceholderMedia.xcassets */,
 			);
 			path = CronicaWidget;
@@ -1148,6 +1161,9 @@
 		B8E7651927B738D200D9B731 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
+				B8CC953527D05E4A00B6757C /* Cronica--Info.plist */,
+				B8110ED8279245D000844FEB /* CronicaApp.swift */,
 				B86E587827A48E5A005DBF38 /* Key.swift */,
 				B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */,
 			);
@@ -1568,7 +1584,7 @@
 				B876DE66281B4040005558DD /* Videos.swift in Sources */,
 				B82BE4F2299EB3F5005F9990 /* WatchlistTitle.swift in Sources */,
 				B818483729C286C300650763 /* UserDefaults-Extensions.swift in Sources */,
-				B8110EE8279245D100844FEB /* StoryApp.swift in Sources */,
+				B8110EE8279245D100844FEB /* CronicaApp.swift in Sources */,
 				B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B84457D52973A402009CB21F /* WatchProvidersListViewModel.swift in Sources */,
 				B8BF632A291402730051915C /* HoverEffectModifier.swift in Sources */,
@@ -1817,14 +1833,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "AppleWatch/CronicaWatch Watch App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "AppleWatch/Configuration/CronicaWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "CronicaWatch-Watch-App-Info.plist";
+				INFOPLIST_FILE = "AppleWatch/Configuration/CronicaWatch-Info.plist";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.alexandremadeira.Story;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -1850,14 +1866,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "AppleWatch/CronicaWatch Watch App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "AppleWatch/Configuration/CronicaWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "CronicaWatch-Watch-App-Info.plist";
+				INFOPLIST_FILE = "AppleWatch/Configuration/CronicaWatch-Info.plist";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.alexandremadeira.Story;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -2007,13 +2023,13 @@
 				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]" = MacAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Story--iOS--Info.plist";
+				INFOPLIST_FILE = "Shared/Configuration/Cronica--Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Cronica;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
@@ -2050,13 +2066,13 @@
 				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]" = MacAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Story (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Story--iOS--Info.plist";
+				INFOPLIST_FILE = "Shared/Configuration/Cronica--Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Cronica;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
@@ -2135,13 +2151,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = CronicaWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CronicaWidget/Info.plist;
+				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CronicaWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -2169,13 +2185,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = CronicaWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CronicaWidget/Info.plist;
+				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CronicaWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
