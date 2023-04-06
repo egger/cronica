@@ -96,12 +96,12 @@ struct WatchlistView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
+                    Button {
                         showPicker = true
-                    }, label: {
+                    } label: {
                         Label("Sort List",
                               systemImage: "line.3.horizontal.decrease.circle.fill")
-                    })
+                    }
                     .buttonStyle(.bordered)
                     .tint(.blue)
                     .padding(.bottom)
@@ -128,12 +128,17 @@ struct WatchlistView: View {
                     VStack {
                         ScrollView {
                             ForEach(DefaultListTypes.allCases) { list in
-                                Button(action: {
+                                Button {
                                     selectedOrder = list
                                     showPicker = false
-                                }, label: {
-                                    Text(list.title)
-                                })
+                                } label: {
+                                    HStack {
+                                        if selectedOrder == list {
+                                            Image(systemName: "checkmark.circle.fill")
+                                        }
+                                        Text(list.title)
+                                    }
+                                }
                             }
                         }
                     }

@@ -28,17 +28,14 @@ struct EpisodeListView: View {
                     if let episodes = viewModel.season?.episodes {
                         List {
                             ForEach(episodes) { episode in
-                                NavigationLink(
-                                    destination: {
-                                        EpisodeDetailsView(episode: episode,
-                                                           season: seasonNumber,
-                                                           show: id)
-                                    }, label: {
-                                        EpisodeView(episode: episode,
-                                                    season: seasonNumber,
-                                                    show: id,
-                                                    isInWatchlist: $inWatchlist)
-                                    })
+                                NavigationLink(destination: EpisodeDetailsView(episode: episode,
+                                                                               season: seasonNumber,
+                                                                               show: id)) {
+                                    EpisodeView(episode: episode,
+                                                season: seasonNumber,
+                                                show: id,
+                                                isInWatchlist: $inWatchlist)
+                                }
                             }
                         }
                         .onAppear {
@@ -52,9 +49,7 @@ struct EpisodeListView: View {
                 }
             }
             .navigationTitle("Season \(seasonNumber)")
-            .task {
-                load()
-            }
+            .task { load() }
         }
     }
     

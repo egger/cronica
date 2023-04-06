@@ -35,8 +35,10 @@ struct ItemContentView: View {
                     .environmentObject(viewModel)
                     .padding()
                 
-                SeasonButton(numberOfSeasons: viewModel.content?.itemSeasons, id: id, isInWatchlist: $viewModel.isInWatchlist)
-                    .padding([.horizontal, .bottom])
+                if let seasons = viewModel.content?.itemSeasons {
+                    NavigationLink("Seasons", destination:  SeasonListView(numberOfSeasons: seasons, id: id, isInWatchlist: $viewModel.isInWatchlist))
+                        .padding([.horizontal, .bottom])
+                }   
                 
                 watchButton
                     .padding([.horizontal, .bottom])
