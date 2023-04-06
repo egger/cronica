@@ -546,3 +546,6 @@
 "tmdbAccountHeader" = "Sync with TMDb";
 "tmdbAccountFooter" = "Manage and keep your lists synced with your TMDb account";
 "tmdbAccountListsManager" = "Manage your lists";
+"appearanceAppIcon" = "App Icon";
+"Classical" = "Classical";
+"Ticket" = "Ticket";

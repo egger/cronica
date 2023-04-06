@@ -9,6 +9,9 @@ import SwiftUI
 
 struct AppearanceSetting: View {
     @StateObject private var store = SettingsStore.shared
+#if os(iOS)
+    @StateObject private var icons = IconModel()
+#endif
     @State private var disableRowType = false
     var body: some View {
         Form {
@@ -47,7 +50,6 @@ struct AppearanceSetting: View {
 #endif
 #if os(iOS)
             Section {
-                
                 Picker(selection: $store.currentTheme) {
                     ForEach(AppTheme.allCases) { item in
                         Text(item.localizableName).tag(item)
@@ -70,6 +72,15 @@ struct AppearanceSetting: View {
                     InformationalLabel(title: "appearanceThemeTitle")
                 }
                 .pickerStyle(.navigationLink)
+                
+                NavigationLink(destination: AppIconListView()) {
+                    HStack {
+                        Text("appearanceAppIcon")
+                        Spacer()
+                        Text(icons.selectedAppIcon.description)
+                            .foregroundColor(.secondary)
+                    }
+                }
                 
             } header: {
                 Text("appearanceTheme")
@@ -100,3 +111,37 @@ struct AppearanceSetting_Previews: PreviewProvider {
         AppearanceSetting()
     }
 }
+
+#if os(iOS)
+private struct AppIconListView: View {
+    @StateObject private var viewModel = IconModel()
+    var body: some View {
+        VStack {
+            List {
+                ForEach(Icon.allCases) { icon in
+                    HStack {
+                        Image(uiImage: icon.preview)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(10)
+                            .padding(.trailing)
+                        Text(icon.description)
+                        if viewModel.selectedAppIcon == icon {
+                            Spacer()
+                            Image(systemName: "checkmark.circle.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(SettingsStore.shared.appTheme.color)
+                        }
+                    }
+                    .onTapGesture {
+                        withAnimation { viewModel.updateAppIcon(to: icon) }
+                    }
+                }
+            }
+        }
+        .navigationTitle("appearanceAppIcon")
+    }
+}
+#endif

@@ -99,33 +99,6 @@ extension PersistenceController {
                         }
                         item.upcomingSeason = content.hasUpcomingSeason
                         item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
-                        if item.isWatching && !item.isArchive && !item.displayOnUpNext {
-                            if item.nextEpisodeNumberUpNext != 0 && item.seasonNumberUpNext != 0 {
-                                Task {
-                                    let network = NetworkService.shared
-                                    let season = try? await network.fetchSeason(id: content.id, season: Int(item.seasonNumberUpNext))
-                                    if let episodes = season?.episodes {
-                                        if episodes.count < item.nextEpisodeNumberUpNext {
-                                            let nextSeasonNumber = Int(item.seasonNumberUpNext) + 1
-                                            let newSeason = try? await network.fetchSeason(id: content.id, season: nextSeasonNumber)
-                                            if let episodes = newSeason?.episodes {
-                                                let firstEpisode = episodes[0]
-                                                if firstEpisode.isItemReleased {
-                                                    item.displayOnUpNext = true
-                                                    item.seasonNumberUpNext = Int64(nextSeasonNumber)
-                                                    item.nextEpisodeNumberUpNext = Int64(firstEpisode.itemEpisodeNumber)
-                                                }
-                                            }
-                                        } else {
-                                            let episode = episodes[Int(item.nextEpisodeNumberUpNext)]
-                                            if episode.isItemReleased {
-                                                item.displayOnUpNext = true
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     } else {
                         item.date = content.itemFallbackDate
                     }
