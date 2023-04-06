@@ -57,16 +57,8 @@ struct PrivacySupportSetting: View {
             .buttonStyle(.link)
 #endif
 #endif
-#if os(tvOS)
-            NavigationLink(destination: FeedbackSettingsView()) {
-                Label("settingsFeedbackTitle", systemImage: "mail")
-            }
-            .disabled(settings.disableTelemetry)
-#endif
         } header: {
-#if os(tvOS)
-            Label("settingsPrivacySupportTitle", systemImage: "hand.wave")
-#elseif os(macOS)
+#if os(macOS) || os(tvOS)
             Label("Privacy", systemImage: "hand.raised")
 #endif
         } footer: {

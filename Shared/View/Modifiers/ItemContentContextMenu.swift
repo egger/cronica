@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 06/06/22.
 //
 
-@preconcurrency import SwiftUI
+import SwiftUI
 import SDWebImageSwiftUI
 
 struct ItemContentContextMenu: ViewModifier {
@@ -42,9 +42,6 @@ struct ItemContentContextMenu: ViewModifier {
                     addAndMarkWatchedButton
                     watchlistButton
                 }
-#if os(tvOS)
-                Button("Cancel") { }
-#endif
             } preview: {
                 ItemContentContextPreview(title: item.itemTitle,
                                           image: item.cardImageLarge,
@@ -122,12 +119,11 @@ struct ItemContentContextMenu: ViewModifier {
             if !isInWatchlist { HapticManager.shared.successHaptic() }
             updateWatchlist(with: item)
         } label: {
-#if os(macOS)
-            Text(isInWatchlist ? "Remove from watchlist": "Add to watchlist")
-                .foregroundColor(isInWatchlist ? .red : nil)
-#else
             Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: isInWatchlist ? "minus.square" : "plus.square")
+#if os(macOS)
+            .foregroundColor(isInWatchlist ? .red : nil)
+            .labelStyle(.titleOnly)
 #endif
         }
     }

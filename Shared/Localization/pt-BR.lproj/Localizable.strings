@@ -256,13 +256,6 @@
 "Unpin Item" = "Desafixar Item";
 "Pin Items" = "Fixar Itens";
 
-//MARK: Developer Settings
-"Watchlist Mode" = "Modo da lista";
-"Legacy" = "Legado";
-"New" = "Novo";
-"Developer Settings" = "Desenvolvedor";
-"Print object" = "Print object";
-
 // MARK: Error
 "Invalid Response" = "Resposta Inválida.";
 "Invalid Request" = "Solicitação Inválida.";
@@ -291,24 +284,16 @@
 "Loading" = "Carregando";
 "%lld upcoming notifications." = "%lld notificações futuras.";
 
-
-
 // MARK: AppearanceSetting
 "appearanceRowTypeTitle" = "Informações do item da Lista";
 "appearanceRowTypeSubtitle" = "Escolha que tipo de informação você deseja exibir.";
 "appearanceWatchlist" = "Lista";
-"appearanceBackgroundTitle" = "Fundo Translúcido";
-"appearanceBackgroundSubtitle" = "Fundo parcialmente transparente que permite que alguma luz passe por ele.";
-"appearanceSendFeedback" = "Enviar Feedback";
-"appearanceExperimentalHeader" = "Visuais Experimentais";
-"appearanceExperimentalFooter" = "Você está testando alguns recursos experimentais, por favor, reserve um momento para enviar um feedback sobre isso. Isso ajudará a tornar a Cronica melhor para você e para os outros.";
 "appearanceTitle" = "Aparência";
 "appearanceThemeTitle" = "Cor de Destaque";
 "appearanceTheme" = "Temas";
 "appearanceRowStyleTitle" = "Estilo do Item da Lista";
 "appearanceRowStyleSubtitle" = "Escolha como exibir sua Lista";
 "appearanceAppThemeTitle" = "Tema do aplicativo";
-"accessibilityTitle" = "Acessibilidade";
 "disableTranslucentTitle" = "Desativar Fundo Translúcido";
 
 // MARK: BehaviorSetting
@@ -321,9 +306,6 @@
 "behaviorTitle" = "Comportamento";
 "behaviorEpisodeTitle" = "Toque para marcar o episódio como assistido";
 "hapticFeedbackTitle" = "Feedback Tátil";
-"hapticFeedbackSubtitle" = "O Feedback Tátil é usado ao adicionar um título ou marcar um episódio como assistido.";
-"behaviorPreferredShareLinkTitle" = "Link de Compartilhamento";
-"behaviorPreferredShareLinkSubtitle" = "O aplicativo reverterá para o TMDb se não houver como fornecer o link do IMDb.";
 
 // MARK: WatchlistSubtitleRow
 "watchlistSubtitleRowNone" = "Padrão";

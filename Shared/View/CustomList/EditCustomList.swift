@@ -25,7 +25,7 @@ struct EditCustomList: View {
                 TextField("listName", text: $title)
                 TextField("listDescription", text: $note)
             } header: {
-                Label("listBasicHeader", systemImage: "pencil")
+                Text("listBasicHeader")
             }
             
             Section {
@@ -74,7 +74,7 @@ struct EditCustomList: View {
                     }
                 }
             } header: {
-                Label("editListRemoveItems", systemImage: "rectangle.on.rectangle.slash")
+                Text("editListRemoveItems")
             }
         }
 #if os(macOS)

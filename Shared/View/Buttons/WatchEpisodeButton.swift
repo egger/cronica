@@ -46,7 +46,6 @@ struct WatchEpisodeButton: View {
             }
         } else {
             let nextEpisode = await fetchNextEpisode()
-            print("handleList \(nextEpisode as Any)")
             persistence.updateEpisodeList(show: show, season: season, episode: episode.id, nextEpisode: nextEpisode)
         }
         

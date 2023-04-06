@@ -327,38 +327,4 @@ struct DefaultWatchlist_Previews: PreviewProvider {
         DefaultWatchlist()
     }
 }
-
-enum StandardFilters: String, Identifiable, CaseIterable {
-    var id: String { rawValue }
-    case releaseDateAsc, releaseDateDsc, titleAsc, titleDsc, lastModified
-    var localizableTitle: String {
-        switch self {
-        case .releaseDateAsc:
-            return NSLocalizedString("standardSortByReleaseDateAsc", comment: "")
-        case .releaseDateDsc:
-            return NSLocalizedString("standardSortByReleaseDateDsc", comment: "")
-        case .titleAsc:
-            return NSLocalizedString("standardSortByTitleAsc", comment: "")
-        case .titleDsc:
-            return NSLocalizedString("standardSortByTitleDsc", comment: "")
-        case .lastModified:
-            return NSLocalizedString("standardSortByLastModified", comment: "")
-        }
-    }
-}
-
-enum MediaTypeFilters: String, Identifiable, CaseIterable {
-    var id: String { rawValue }
-    case noFilter, movies, tvShows
-    var localizableTitle: String {
-        switch self {
-        case .noFilter:
-            return NSLocalizedString("mediaTypeFiltersNoFilter", comment: "")
-        case .movies:
-            return NSLocalizedString("mediaTypeFiltersMovies", comment: "")
-        case .tvShows:
-            return NSLocalizedString("mediaTypeFiltersTvShows", comment: "")
-        }
-    }
-}
 #endif

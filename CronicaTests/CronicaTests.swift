@@ -79,6 +79,22 @@ final class CronicaTests: XCTestCase {
         }
     }
     
+    func testMarkAsPin() {
+        for item in ItemContent.previewContents {
+            let watchlistItem: Set<String> = [item.itemNotificationID]
+            persistence.updatePin(items: watchlistItem)
+            XCTAssertTrue(persistence.isItemPinned(id: item.id, type: item.itemContentMedia))
+        }
+    }
+    
+    func testRemoveFromPins() {
+        for item in ItemContent.previewContents {
+            let watchlistItem: Set<String> = [item.itemNotificationID]
+            persistence.updatePin(items: watchlistItem)
+            XCTAssertFalse(persistence.isItemPinned(id: item.id, type: item.itemContentMedia))
+        }
+    }
+    
     func testRemoveItemsFromWatchlist() {
         for item in ItemContent.previewContents {
             let watchlistItem = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia)

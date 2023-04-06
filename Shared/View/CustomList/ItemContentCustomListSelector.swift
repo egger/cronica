@@ -31,9 +31,9 @@ struct ItemContentCustomListSelector: View {
                     ProgressView()
                 }
             }
-            #if os(macOS)
+#if os(macOS)
             .formStyle(.grouped)
-            #endif
+#endif
             .navigationTitle("addToCustomList")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)

@@ -28,9 +28,6 @@
 "behaviorTitle" = "Behavior";
 "behaviorEpisodeTitle" = "Tap To Mark Episode as Watched";
 "hapticFeedbackTitle" = "Haptic Feedback";
-"hapticFeedbackSubtitle" = "Haptic Feedback is used when adding a title or marking an episode as watched.";
-"behaviorPreferredShareLinkTitle" = "Preferred Share Link";
-"behaviorPreferredShareLinkSubtitle" = "The app will fallback to TMDb if there's no way to provide the IMDb link.";
 "behaviorSwipeTitle" = "Swipe Gestures";
 "behaviorAllowFullSwipeTitle" = "Allow Full Swipe";
 "behaviorAllowFullSwipeSubtitle" = "Full Swipe will activate the primary action";
@@ -44,18 +41,13 @@
 "appearanceRowTypeTitle" = "Watchlist Item's Information";
 "appearanceRowTypeSubtitle" = "Choose what type of information you want to display.";
 "appearanceWatchlist" = "Watchlist";
-"appearanceBackgroundTitle" = "Translucent Background";
-"appearanceBackgroundSubtitle" = "Partially transparent background that allows some light to pass through it.";
 "appearanceSendFeedback" = "Send Feedback";
-"appearanceExperimentalHeader" = "Experimental Visuals";
-"appearanceExperimentalFooter" = "You're trying some experimental features, please, take a moment to send a feedback about it. This will help make Cronica better for you and others.";
 "appearanceTitle" = "Appearance";
 "appearanceThemeTitle" = "App Tint";
 "appearanceTheme" = "Themes";
 "appearanceRowStyleTitle" = "Watchlist's Item Style";
 "appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
 "appearanceAppThemeTitle" = "App Theme";
-"accessibilityTitle" = "Accessibility";
 "disableTranslucentTitle" = "Disable Translucent Background";
 
 // MARK: SyncSetting
@@ -439,24 +431,20 @@
 "watchRegionTitle" = "Watch Provider Region";
 "watchRegionSubtitle" = "Watch Providers will adapt to the selected region.";
 "contentRegionTitle" = "Region";
-
 "sendEmail" = "Send Email";
 "sendEmailFooter" = "If you prefer, you can send an email for a faster follow-up.";
-
 "mediaTypeDiscoverFilterTitle" = "Media Type";
 "genreDiscoverFilterTitle" = "Genre";
 "filterDiscoverTitle" = "Filters";
 "hideAddedItemsDiscoverFilter" = "Hide Added Items";
 "whereToWatchDiscoverFilter" = "Where To Watch";
 "watchProviderToggleDiscover" = "Only Show From Watch Provider";
-
 "swipeGestureWatch" = "Watch";
 "swipeGestureFavorite" = "Favorite";
 "swipeGesturePin" = "Pin";
 "swipeGestureArchive" = "Archive";
 "swipeGestureDelete" = "Delete";
 "swipeGestureShare" = "Share";
-
 "listName" = "List Name";
 "shareList" = "Share List";
 "listBasicHeader" = "Basic";
@@ -470,7 +458,6 @@
 "listItemsToAdd" = "Select Items";
 "cantSendFeedback" = "To send feedback in-app, you must disable 'Disable Crash Reports'";
 "addToList" = "Add to List...";
-"addNote" = "Add Note";
 "companiesTitle" = "Companies";
 "allCustomWatchListFilters" = "All";
 "moviesCustomWatchListFilters" = "Movies";
@@ -480,7 +467,6 @@
 "Untitled List" = "Untitled List";
 "%llditems" = "%lld items";
 "Default List" = "Default List";
-
 "Title" = "Title";
 "Media" = "Media";
 "Person" = "Person";
@@ -489,9 +475,7 @@
 "featureRoadmapHeader" = "Vote for the next features you want to see first.";
 "featureRoadmapSubtitle" = "Use the 'plus' icon to suggest a new feature.";
 "importTitle" = "Import";
-"importSubtitle" = "Import data from JSON file";
 "exportTitle" = "Export";
-"exportSubtitle" = "Export data to JSON file";
 "syncSettingsItemsTitle" = "Items";
 "generatingExportFile" =  "Generating JSON file, please wait.";
 "allowNotification" =  "Allow Notifications";
@@ -500,7 +484,6 @@
 "episodeNotificationTitle" = "Notify New Episodes";
 "episodeNotificationSubtitle" = "Notify when a new episode from a TV Show on your watchlist is released.";
 "settingsNotificationTitle" = "Notifications";
-
 "changelogViewTitle" = "What's New";
 "tipJar" = "Tip Jar";
 "tipJarDescription" = "If you love the app, consider supporting through Tip Jar.";
@@ -513,16 +496,9 @@
 "thankYouTipJarMessage" = "Thank you for your purchase! Your support is much appreciated. 😁";
 "notificationsSettingsFeedbackCall" = "Do you have a suggestion? Send a Feedback";
 "openNotificationInSettings" = "Edit Notifications in Settings app";
-
 "defaultWatchlistShowAllItems" = "Show All Items";
 "defaultWatchlistSmartFilters" = "Smart Filters";
 "defaultWatchlistFilters" = "Filters";
-"standardSortByReleaseDateAsc" = "Release Date (Ascending)";
-"standardSortByReleaseDateDsc" = "Release Date (Descending)";
-"standardSortByTitleAsc" = "Title (Ascending)";
-"standardSortByTitleDsc" = "Title (Descending)";
-"standardSortBy" = "Sort By";
-"standardSortByLastModified" = "Last Modified";
 "More Options" = "More Options";
 "addToCustomList" = "Add to List...";
 "behaviorMarkPreviouslyEpisodes" = "Mark all previously episodes when a newer is marked as watched";
@@ -541,11 +517,6 @@
 "allItemsMovies" = "All Movies";
 "allItemsTVShows" = "All TV Shows";
 "importedSucceeded" = "Imported Successfully";
-"tmdbAccountButtonSignIn" = "Sign In";
-"tmdbAccountButtonSignOut" = "Sign Out";
-"tmdbAccountHeader" = "Sync with TMDb";
-"tmdbAccountFooter" = "Manage and keep your lists synced with your TMDb account";
-"tmdbAccountListsManager" = "Manage your lists";
 "appearanceAppIcon" = "App Icon";
 "Classical" = "Classical";
 "Ticket" = "Ticket";

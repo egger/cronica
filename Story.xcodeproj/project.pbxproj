@@ -172,6 +172,7 @@
 		B886D232284D512F00FFE96A /* ConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */; };
 		B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
 		B88AA91B29DF588600F80EE4 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B88AA91A29DF588600F80EE4 /* SDWebImageSwiftUI */; };
+		B88AA92329DF781000F80EE4 /* MediaTypeFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */; };
 		B88B88C729DE55B500497058 /* AppAlternateIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88B88C629DE55B500497058 /* AppAlternateIcons.swift */; };
 		B88B88FE29DF194A00497058 /* CronicaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88B88FD29DF194A00497058 /* CronicaTests.swift */; };
 		B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57827FC999F006BE5E1 /* HeroImage.swift */; };
@@ -470,6 +471,7 @@
 		B88529B228E371650026D33A /* EpisodeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListView.swift; sourceTree = "<group>"; };
 		B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationDialogView.swift; sourceTree = "<group>"; };
 		B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentContextMenu.swift; sourceTree = "<group>"; };
+		B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeFilters.swift; sourceTree = "<group>"; };
 		B88B88C629DE55B500497058 /* AppAlternateIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlternateIcons.swift; sourceTree = "<group>"; };
 		B88B88FB29DF194A00497058 /* CronicaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88B88FD29DF194A00497058 /* CronicaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTests.swift; sourceTree = "<group>"; };
@@ -618,9 +620,9 @@
 		B806C4DF2899BE2800A5330E /* AppleWatch */ = {
 			isa = PBXGroup;
 			children = (
-				B88AA91D29DF714900F80EE4 /* Configuration */,
 				B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */,
 				B806C4E42899BE2900A5330E /* Assets.xcassets */,
+				B88AA91D29DF714900F80EE4 /* Configuration */,
 				B806C4E62899BE2900A5330E /* Preview Content */,
 				B84043CE289B2A0B00D5CEBF /* Views */,
 			);
@@ -878,6 +880,7 @@
 				B84457CF2973739F009CB21F /* Screens */,
 				B89446B7294FDA94008974BA /* Settings */,
 				B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */,
+				B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1031,14 +1034,14 @@
 				B80BBE572949665A00958876 /* AppearanceSetting.swift */,
 				B8FB2A8D29526341006DAC8E /* BehaviorSetting.swift */,
 				B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */,
+				B84B506729AE698100AE63C7 /* FeatureRoadmap.swift */,
 				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
+				B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */,
 				B80BBE6029496A7D00958876 /* PrivacySupportSetting.swift */,
+				B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */,
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B80BBE5D2949677300958876 /* SyncSetting.swift */,
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
-				B84B506729AE698100AE63C7 /* FeatureRoadmap.swift */,
-				B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */,
-				B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1635,6 +1638,7 @@
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B876DE64281B36A7005558DD /* Season.swift in Sources */,
 				B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */,
+				B88AA92329DF781000F80EE4 /* MediaTypeFilters.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B89446BF294FDACA008974BA /* AppThemeColors.swift in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,

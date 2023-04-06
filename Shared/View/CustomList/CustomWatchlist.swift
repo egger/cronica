@@ -219,10 +219,4 @@ struct CustomWatchlist: View {
             .padding()
     }
 }
-
-//struct CustomWatchlist_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CustomWatchlist()
-//    }
-//}
 #endif

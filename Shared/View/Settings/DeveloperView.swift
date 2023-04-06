@@ -100,7 +100,7 @@ struct DeveloperView: View {
             }
             
         }
-        .navigationTitle("settingsDeveloperOptions")
+        .navigationTitle("Developer Options")
         .sheet(isPresented: $showOnboardingMac, content: {
             NavigationStack {
                 WelcomeView()
@@ -159,11 +159,6 @@ struct DeveloperView: View {
                                 Button("Done") {
                                     self.person = nil
                                 }
-                                Button(action: {
-                                    print("Print object '\(item.name)': \(item as Any)")
-                                }, label: {
-                                    Label("Print object", systemImage: "hammer.circle.fill")
-                                })
                             }
                         }
                     }

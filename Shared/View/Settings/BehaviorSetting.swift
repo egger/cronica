@@ -141,7 +141,7 @@ struct BehaviorSetting: View {
                 InformationalLabel(title: "hapticFeedbackTitle")
             }
             .onChange(of: store.hapticFeedback) { newValue in
-                CronicaTelemetry.shared.handleMessage("\(newValue)", for: "Haptic Feedback Settings")
+                CronicaTelemetry.shared.handleMessage("\(newValue)", for: "haptic.Feedback.Settings")
             }
         }
     }

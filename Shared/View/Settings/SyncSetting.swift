@@ -32,26 +32,26 @@ struct SyncSetting: View {
                                                subtitle: "syncSettingsUpdateWatchlistSubtitle")
                         }
                     }
-    #if os(macOS)
+#if os(macOS)
                     .buttonStyle(.plain)
-    #endif
+#endif
                 } header: {
                     Text("syncSettingsWatchlistTitle")
                 }
                 
                 Section {
-    #if os(iOS)
+#if os(iOS)
                     importButton
                     exportButton
-    #endif
+#endif
                 }
                 .sheet(isPresented: $showExportShareSheet) {
-    #if os(iOS)
+#if os(iOS)
                     CustomShareSheet(url: $exportUrl)
                         .onDisappear { deleteTempFile() }
-    #endif
+#endif
                 }
-    #if os(iOS)
+#if os(iOS)
                 .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.json]) { result in
                     switch result {
                     case .success(let success):
@@ -62,14 +62,14 @@ struct SyncSetting: View {
                         CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
                     }
                 }
-    #endif
+#endif
                 
                 
             }
             .navigationTitle("syncSettingsTitle")
-    #if os(macOS)
+#if os(macOS)
             .formStyle(.grouped)
-    #endif
+#endif
             ConfirmationDialogView(showConfirmation: $hasImported, message: "importedSucceeded")
         }
     }
@@ -136,7 +136,7 @@ struct SyncSetting: View {
             isGeneratingExport = false
         } catch {
             isGeneratingExport = false
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.export()")
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.export.failed")
         }
     }
     
@@ -146,7 +146,7 @@ struct SyncSetting: View {
                 try FileManager.default.removeItem(at: exportUrl)
             }
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.deleteTempFile()")
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.deleteTempFile.failed")
         }
     }
     
@@ -160,7 +160,7 @@ struct SyncSetting: View {
             try context.save()
             hasImported.toggle()
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.importJSON")
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.importJSON.failed")
         }
     }
 #endif

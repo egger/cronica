@@ -93,7 +93,7 @@ struct AppearanceSetting: View {
             }
             .onChange(of: store.disableTranslucent) { newValue in
                 CronicaTelemetry.shared.handleMessage("\(newValue)",
-                                                      for: "Translucent UI Settings")
+                                                      for: "translucent.UI.Settings")
             }
         }
         .navigationTitle("appearanceTitle")
