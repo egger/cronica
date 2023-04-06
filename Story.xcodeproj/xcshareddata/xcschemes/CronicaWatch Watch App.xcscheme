@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8110EDE279245D100844FEB"
-               BuildableName = "Story.app"
+               BuildableName = "Cronica.app"
                BlueprintName = "Story (iOS)"
                ReferencedContainer = "container:Story.xcodeproj">
             </BuildableReference>
@@ -42,6 +42,17 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B88B88CB29DE82A500497058"
+               BuildableName = "CronicaTests.xctest"
+               BlueprintName = "CronicaTests"
+               ReferencedContainer = "container:Story.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
