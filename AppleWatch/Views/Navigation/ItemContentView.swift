@@ -84,8 +84,6 @@ struct ItemContentView_Previews: PreviewProvider {
 
 private struct DrawingConstants {
     static let imageRadius: CGFloat = 8
-    static let imageWidth: CGFloat = 240
-    static let imageHeight: CGFloat = 120
     static let lineLimit: Int = 1
 }
 
