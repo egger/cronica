@@ -89,6 +89,8 @@ struct SideBarView: View {
         }
         .sheet(isPresented: $showNotifications) {
             NotificationListView(showNotification: $showNotifications)
+                .appTheme()
+                .appTint()
         }
         .sheet(item: $selectedSearchItem) { item in
             if item.media == .person {

@@ -50,29 +50,21 @@ struct StoryApp: App {
                 }
                 .sheet(item: $widgetItem) { item in
                     NavigationStack {
-                        #if os(iOS)
+#if os(iOS)
                         ItemContentDetails(title: item.itemTitle,
-                                        id: item.id,
-                                        type: item.itemContentMedia)
+                                           id: item.id,
+                                           type: item.itemContentMedia)
                         .toolbar {
-                            #if os(macOS)
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button("Done") {
-                                    widgetItem = nil
-                                }
-                            }
-                            #else
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button("Done") {
                                     widgetItem = nil
                                 }
                             }
-                            #endif
                         }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle,
-                                            id: item.id,
-                                            type: item.itemContentMedia)
+                                               id: item.id,
+                                               type: item.itemContentMedia)
                         }
                         .navigationDestination(for: Person.self) { person in
                             PersonDetailsView(title: person.name, id: person.id)
@@ -91,12 +83,27 @@ struct StoryApp: App {
                         .navigationDestination(for: [ProductionCompany].self) { item in
                             CompaniesListView(companies: item)
                         }
-                        #elseif os(macOS)
-                        EmptyView()
-                        #endif
+#elseif os(macOS)
+                        ItemContentDetailsView(id: item.id,
+                                               title: item.itemTitle,
+                                               type: item.itemContentMedia,
+                                               handleToolbarOnPopup: true)
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Done") {
+                                    widgetItem = nil
+                                }
+                            }
+                        }
+#endif
                     }
+#if os(macOS)
+                    .presentationDetents([.large])
+                    .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#else
                     .appTheme()
                     .appTint()
+#endif
                 }
                 .sheet(isPresented: $showWhatsNew) {
 #if os(iOS) || os(macOS)
@@ -115,9 +122,9 @@ struct StoryApp: App {
         }
         
 #if os(macOS)
-            Settings {
-                SettingsView()
-            }
+        Settings {
+            SettingsView()
+        }
 #endif
     }
     
@@ -135,23 +142,23 @@ struct StoryApp: App {
     }
     
     private func registerRefreshBGTask() {
-        #if os(iOS)
+#if os(iOS)
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundIdentifier, using: nil) { task in
             self.handleAppRefresh(task: task as? BGAppRefreshTask ?? nil)
         }
-        #endif
+#endif
     }
     
     private func registerAppMaintenanceBGTask() {
-        #if os(iOS)
+#if os(iOS)
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundProcessingIdentifier, using: nil) { task in
             self.handleAppMaintenance(task: task as? BGProcessingTask ?? nil)
         }
-        #endif
+#endif
     }
     
     private func scheduleAppRefresh() {
-        #if os(iOS)
+#if os(iOS)
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
         do {
@@ -162,11 +169,11 @@ Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)
 """
             CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppRefresh()")
         }
-        #endif
+#endif
     }
     
     private func scheduleAppMaintenance() {
-        #if os(iOS)
+#if os(iOS)
         let lastMaintenanceDate = BackgroundManager.shared.lastMaintenance ?? .distantPast
         let now = Date()
         let twoDays = TimeInterval(2 * 24 * 60 * 60)
@@ -184,10 +191,10 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
 """
             CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppMaintenance()")
         }
-        #endif
+#endif
     }
     
-    #if os(iOS)
+#if os(iOS)
     // Fetch the latest updates from api.
     private func handleAppRefresh(task: BGAppRefreshTask?) {
         if let task {
@@ -205,12 +212,12 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
             }
             task.setTaskCompleted(success: true)
             CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                                            for: "handleAppRefreshBGTask")
+                                                  for: "handleAppRefreshBGTask")
         }
     }
-    #endif
+#endif
     
-    #if os(iOS)
+#if os(iOS)
     private func handleAppMaintenance(task: BGProcessingTask?) {
         guard let task else { return }
         scheduleAppMaintenance()
@@ -227,7 +234,7 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
         task.setTaskCompleted(success: true)
         BackgroundManager.shared.lastMaintenance = Date()
         CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                                        for: "handleAppMaintenance")
+                                              for: "handleAppMaintenance")
     }
-    #endif
+#endif
 }
