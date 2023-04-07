@@ -48,6 +48,32 @@ struct AppearanceSetting: View {
                 }
             }
 #endif
+            
+            Section {
+                Picker(selection: $store.exploreDisplayType) {
+                    ForEach(ExplorePreferredDisplayType.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                } label: {
+                    InformationalLabel(title: "appearanceExploreDisplayType")
+                }
+            } header: {
+                Text("appearanceExplore")
+            }
+            
+            Section {
+                Picker(selection: $store.listsDisplayType) {
+                    ForEach(ItemContentListPreferredDisplayType.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                } label: {
+                    InformationalLabel(title: "appearanceListsDisplayType")
+                }
+
+            } header: {
+                Text("appearanceLists")
+            }
+            
 #if os(iOS)
             Section {
                 Picker(selection: $store.currentTheme) {
@@ -108,7 +134,10 @@ struct AppearanceSetting: View {
 
 struct AppearanceSetting_Previews: PreviewProvider {
     static var previews: some View {
-        AppearanceSetting()
+        NavigationStack {
+            AppearanceSetting()
+                .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 

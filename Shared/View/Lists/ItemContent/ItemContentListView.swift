@@ -17,6 +17,7 @@ struct ItemContentListView: View {
     @Binding var addedItemConfirmation: Bool
     var displayAsCard = false
     var endpoint: Endpoints?
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         if let items {
             if !items.isEmpty {
@@ -35,9 +36,34 @@ struct ItemContentListView: View {
                         }
                         .buttonStyle(.plain)
                     }
-                    ScrollView(.horizontal, showsIndicators: false, content: {
-                        LazyHStack {
-                            if displayAsCard {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        switch settings.listsDisplayType {
+                        case .standard:
+                            LazyHStack {
+                                if displayAsCard {
+                                    ForEach(items) { item in
+                                        CardFrame(item: item, showConfirmation: $addedItemConfirmation)
+                                            .padding([.leading, .trailing], 4)
+                                            .buttonStyle(.plain)
+                                            .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                                            .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                                            .padding(.top, 8)
+                                            .padding(.bottom)
+                                    }
+                                } else {
+                                    ForEach(items) { item in
+                                        Poster(item: item,
+                                               addedItemConfirmation: $addedItemConfirmation)
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                                        .padding(.top, 8)
+                                        .padding(.bottom)
+                                    }
+                                }
+                            }
+                        case .card:
+                            LazyHStack {
                                 ForEach(items) { item in
                                     CardFrame(item: item, showConfirmation: $addedItemConfirmation)
                                         .padding([.leading, .trailing], 4)
@@ -47,7 +73,9 @@ struct ItemContentListView: View {
                                         .padding(.top, 8)
                                         .padding(.bottom)
                                 }
-                            } else {
+                            }
+                        case .poster:
+                            LazyHStack {
                                 ForEach(items) { item in
                                     Poster(item: item,
                                            addedItemConfirmation: $addedItemConfirmation)
@@ -59,7 +87,7 @@ struct ItemContentListView: View {
                                 }
                             }
                         }
-                    })
+                    }
                 }
                 if displayAsCard { Divider().padding(.horizontal) }
             }

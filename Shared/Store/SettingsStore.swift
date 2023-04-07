@@ -39,4 +39,6 @@ class SettingsStore: ObservableObject {
     @AppStorage("notifyTVShows") var notifyNewEpisodes = true
     @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
     @AppStorage("markPreviouslyEpisodesAsWatched") var markPreviouslyEpisodesAsWatched = false
+    @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .card
+    @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .standard
 }

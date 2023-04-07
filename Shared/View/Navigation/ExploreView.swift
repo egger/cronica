@@ -13,6 +13,7 @@ struct ExploreView: View {
     @State private var onChanging = false
     @State private var showFilters = false
     @StateObject private var viewModel = DiscoverViewModel()
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         ZStack {
             if !viewModel.isLoaded {  ProgressView().unredacted() }
@@ -21,8 +22,13 @@ struct ExploreView: View {
                     VStack {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns))], spacing: 20) {
                             ForEach(viewModel.items) { item in
-                                CardFrame(item: item, showConfirmation: $showConfirmation)
-                                    .buttonStyle(.plain)
+                                if settings.exploreDisplayType == .card {
+                                    CardFrame(item: item, showConfirmation: $showConfirmation)
+                                        .buttonStyle(.plain)
+                                } else {
+                                    Poster(item: item, addedItemConfirmation: $showConfirmation)
+                                        .buttonStyle(.plain)
+                                }
                             }
                             if viewModel.isLoaded && !viewModel.endPagination {
                                 CenterHorizontalView {

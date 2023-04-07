@@ -49,6 +49,10 @@
 "appearanceRowStyleSubtitle" = "Choose how to display your Watchlist";
 "appearanceAppThemeTitle" = "App Theme";
 "disableTranslucentTitle" = "Disable Translucent Background";
+"appearanceExploreDisplayType" = "Explore's Display Preference";
+"appearanceExplore" = "Explore";
+"appearanceListsDisplayType" = "Lists' Display Preference";
+"appearanceLists" = "Lists";
 
 // MARK: SyncSetting
 "syncSettingsUpdateWatchlistTitle" = "Update Items";
@@ -520,3 +524,8 @@
 "appearanceAppIcon" = "App Icon";
 "Classical" = "Classical";
 "Ticket" = "Ticket";
+"explorePreferredDisplayTypeCard" = "Card";
+"explorePreferredDisplayTypePoster" = "Poster";
+"itemContentListPreferredDisplayTypeStandard" = "Default";
+"itemContentListPreferredDisplayTypeCard" = "Card";
+"itemContentListPreferredDisplayTypePoster" = "Poster";

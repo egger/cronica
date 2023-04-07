@@ -295,6 +295,10 @@
 "appearanceRowStyleSubtitle" = "Escolha como exibir sua Lista";
 "appearanceAppThemeTitle" = "Tema do aplicativo";
 "disableTranslucentTitle" = "Desativar Fundo Translúcido";
+"appearanceExploreDisplayType" = "Preferência de Exibição do Descubra";
+"appearanceExplore" = "Descubra";
+"appearanceListsDisplayType" = "Preferência de Exibição de Listas";
+"appearanceLists" = "Listas";
 
 // MARK: BehaviorSetting
 "behaviorDoubleTapTitle" = "Toque Duplo Na Capa";
@@ -565,3 +569,8 @@
 "appearanceAppIcon" = "Ícone do aplicativo.";
 "Classical" = "Clássico";
 "Ticket" = "Ingresso";
+"explorePreferredDisplayTypeCard" = "Card";
+"explorePreferredDisplayTypePoster" = "Poster";
+"itemContentListPreferredDisplayTypeStandard" = "Padrão";
+"itemContentListPreferredDisplayTypeCard" = "Card";
+"itemContentListPreferredDisplayTypePoster" = "Poster";
