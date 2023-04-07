@@ -11,19 +11,20 @@ struct ItemContentCollectionDetails: View {
     let title: String
     let items: [ItemContent]
     @State private var showConfirmation = false
+    @State private var settings = SettingsStore.shared
     var body: some View {
         ZStack {
             ScrollView {
                 VStack {
                     LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                         ForEach(items) { item in
-#if os(macOS)
-                            Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
-#else
-                            CardFrame(item: item, showConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
-#endif
+                            if settings.listsDisplayType == .poster {
+                                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            } else {
+                                CardFrame(item: item, showConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            }
                         }
                     }
                     .padding()

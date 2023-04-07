@@ -35,6 +35,7 @@ private struct HorizontalWatchlistList: View {
     let title: String
     let subtitle: String
     var image: String?
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
             NavigationLink(value: [title:items]) {
@@ -45,16 +46,31 @@ private struct HorizontalWatchlistList: View {
             }
             .buttonStyle(.plain)
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack {
-                    ForEach(items) { item in
-                        PosterWatchlistItem(item: item)
-                            .padding([.leading, .trailing], 4)
-                            .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
-                            .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
-                            .padding(.top, 8)
-                            .padding(.bottom)
+                if settings.listsDisplayType == .card {
+                    LazyHStack {
+                        ForEach(items) { item in
+                            WatchlistItemFrame(content: item)
+                                .padding([.leading, .trailing], 4)
+                                .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                                .padding(.top, 8)
+                                .padding(.bottom)
+                                .buttonStyle(.plain)
+                        }
+                    }
+                } else {
+                    LazyHStack {
+                        ForEach(items) { item in
+                            PosterWatchlistItem(item: item)
+                                .padding([.leading, .trailing], 4)
+                                .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                                .padding(.top, 8)
+                                .padding(.bottom)
+                        }
                     }
                 }
+               
             }
         }
     }

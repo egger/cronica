@@ -11,6 +11,7 @@ struct EndpointDetails: View {
     let title: String
     var endpoint: Endpoints?
     @StateObject private var viewModel = EndpointDetailsModel()
+    @StateObject private var settings = SettingsStore.shared
     @State private var showConfirmation = false
     var body: some View {
         ZStack {
@@ -19,13 +20,13 @@ struct EndpointDetails: View {
                 VStack {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))], spacing: 20) {
                         ForEach(viewModel.items) { item in
-#if os(macOS)
-                            Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
-#else
-                            CardFrame(item: item, showConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
-#endif
+                            if settings.listsDisplayType == .poster {
+                                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            } else {
+                                CardFrame(item: item, showConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            }
                         }
                         if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
                             CenterHorizontalView {

@@ -12,6 +12,7 @@ struct CompanyDetails: View {
     let company: ProductionCompany
     @State private var showConfirmation = false
     @StateObject private var viewModel = CompanyDetailsViewModel()
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView() }
@@ -19,8 +20,13 @@ struct CompanyDetails: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns))], spacing: 20) {
                         ForEach(viewModel.items) { item in
-                            CardFrame(item: item, showConfirmation: $showConfirmation)
-                                .buttonStyle(.plain)
+                            if settings.listsDisplayType == .poster {
+                                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            } else {
+                                CardFrame(item: item, showConfirmation: $showConfirmation)
+                                    .buttonStyle(.plain)
+                            }
                         }
                         if viewModel.isLoaded && !viewModel.endPagination {
                             CenterHorizontalView {

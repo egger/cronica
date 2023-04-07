@@ -69,7 +69,7 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalLabel(title: "appearanceListsDisplayType")
                 }
-
+                
             } header: {
                 Text("appearanceLists")
             }
@@ -136,7 +136,9 @@ struct AppearanceSetting_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             AppearanceSetting()
+#if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
+#endif
         }
     }
 }
