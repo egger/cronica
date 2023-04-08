@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct ExploreView: View {
     static let tag: Screens? = .explore
     @State private var showConfirmation = false
@@ -20,14 +20,40 @@ struct ExploreView: View {
             ScrollView {
                 ScrollViewReader { proxy in
                     VStack {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns))], spacing: 20) {
+#if os(tvOS)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Explore")
+                                    .font(.title3)
+                                Text(viewModel.selectedMedia.title)
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding()
+                            Spacer()
+                            Button {
+                                showFilters.toggle()
+                            } label: {
+                                Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                                    .labelStyle(.iconOnly)
+                            }
+                        }
+                        .padding(.horizontal)
+#endif
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: settings.exploreDisplayType == .poster ? DrawingConstants.posterColumns : DrawingConstants.columns))], spacing: 20) {
                             ForEach(viewModel.items) { item in
                                 if settings.exploreDisplayType == .card {
                                     CardFrame(item: item, showConfirmation: $showConfirmation)
                                         .buttonStyle(.plain)
+#if os(tvOS)
+                                        .padding(.bottom)
+#endif
                                 } else {
                                     Poster(item: item, addedItemConfirmation: $showConfirmation)
                                         .buttonStyle(.plain)
+#if os(tvOS)
+                                        .padding(.bottom)
+#endif
                                 }
                             }
                             if viewModel.isLoaded && !viewModel.endPagination {
@@ -62,21 +88,36 @@ struct ExploreView: View {
 #endif
                     }
                     .navigationDestination(for: Person.self) { person in
+#if os(tvOS)
+#else
                         PersonDetailsView(title: person.name, id: person.id)
+#endif
                     }
                     .navigationDestination(for: [String:[ItemContent]].self) { item in
                         let keys = item.map { (key, _) in key }
                         let value = item.map { (_, value) in value }
+#if os(tvOS)
+#else
                         ItemContentCollectionDetails(title: keys[0], items: value[0])
+#endif
                     }
                     .navigationDestination(for: [Person].self) { items in
+#if os(tvOS)
+#else
                         DetailedPeopleList(items: items)
+#endif
                     }
                     .navigationDestination(for: ProductionCompany.self) { item in
+#if os(tvOS)
+#else
                         CompanyDetails(company: item)
+#endif
                     }
                     .navigationDestination(for: [ProductionCompany].self) { item in
+#if os(tvOS)
+#else
                         CompaniesListView(companies: item)
+#endif
                     }
                 }
             }
@@ -142,22 +183,36 @@ struct ExploreView: View {
             .unredacted()
             .appTheme()
         })
+#if os(iOS) || os(macOS)
         .navigationTitle("Explore")
+#endif
         .task {
             await load()
         }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
         .toolbar {
+#if os(iOS) || os(macOS)
             ToolbarItem {
-                Button {
-                    showFilters.toggle()
-                } label: {
-                    Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                        .labelStyle(.iconOnly)
-                        .foregroundColor(showFilters ? .secondary : nil)
+                HStack {
+                    Button {
+                        showFilters.toggle()
+                    } label: {
+                        Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                            .labelStyle(.iconOnly)
+                            .foregroundColor(showFilters ? .secondary : nil)
+                    }
+                    .keyboardShortcut("f", modifiers: .command)
+#if os(macOS)
+                    styleOptions
+#endif
                 }
-                .keyboardShortcut("f", modifiers: .command)
             }
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarLeading) {
+                styleOptions
+            }
+#endif
+#endif
         }
         .onChange(of: viewModel.selectedMedia) { value in
             onChanging = true
@@ -182,6 +237,23 @@ struct ExploreView: View {
         }
     }
     
+#if os(iOS) || os(macOS)
+    private var styleOptions: some View {
+        Menu {
+            Picker(selection: $settings.exploreDisplayType) {
+                ForEach(ExplorePreferredDisplayType.allCases) { item in
+                    Text(item.title).tag(item)
+                }
+            } label: {
+                Label("exploreDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+            }
+        } label: {
+            Label("exploreDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+    }
+#endif
+    
     private func load() async {
         if onChanging {
             viewModel.restartFetch = true
@@ -202,10 +274,14 @@ struct ExploreView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(tvOS)
+#if os(macOS)
+    static let posterColumns: CGFloat = 160
     static let columns: CGFloat = 240
+#elseif os(tvOS)
+    static let posterColumns: CGFloat = 260
+    static let columns: CGFloat = 440
 #else
+    static let posterColumns: CGFloat = 160
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
 #endif
 }
-#endif

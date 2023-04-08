@@ -26,6 +26,7 @@ struct TVItemContentList: View {
                                 .padding([.top, .bottom])
                         }
                     }
+                    .padding(.vertical)
                 }
             }
             .padding()

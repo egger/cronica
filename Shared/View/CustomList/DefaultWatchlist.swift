@@ -82,10 +82,16 @@ struct DefaultWatchlist: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
-                filterButton
+                HStack {
+                    filterButton
+                    styleButton
+                }
             }
 #else
-            filterButton
+            HStack {
+                filterButton
+                styleButton
+            }
 #endif
         }
 #if os(iOS)
@@ -124,6 +130,21 @@ struct DefaultWatchlist: View {
             Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
                 .labelStyle(.iconOnly)
                 .foregroundColor(showFilter ? .secondary : nil)
+        }
+    }
+    
+    private var styleButton: some View {
+        Menu {
+            Picker(selection: $settings.watchlistStyle) {
+                ForEach(WatchlistItemType.allCases) { item in
+                    Text(item.localizableName).tag(item)
+                }
+            } label: {
+                Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+            }
+        } label: {
+            Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+                .labelStyle(.iconOnly)
         }
     }
     

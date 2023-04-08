@@ -24,12 +24,17 @@ struct TabBarView: View {
         TabView {
             NavigationStack {
                 HomeView()
-                //TVHomeView()
             }
             .tabItem {
                 Label("Home", systemImage: "house")
                     .labelStyle(.titleOnly)
             }
+            
+            NavigationStack {
+                ExploreView()
+            }
+            .tag(ExploreView.tag)
+            .tabItem { Label("Explore", systemImage: "film").labelStyle(.titleOnly) }
             
             NavigationStack {
                 TVWatchlistView()
@@ -44,7 +49,7 @@ struct TabBarView: View {
             }
             .tabItem {
                 Label("Search", systemImage: "magnifyingglass")
-                    .labelStyle(.iconOnly)
+                    .labelStyle(.titleOnly)
             }
             
             NavigationStack {

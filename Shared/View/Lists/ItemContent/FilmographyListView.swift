@@ -14,7 +14,7 @@ struct FilmographyListView: View {
         GridItem(.adaptive(minimum: 160))
     ]
     var body: some View {
-        if let filmography {
+        if let filmography { 
             if !filmography.isEmpty {
                 VStack {
                     TitleView(title: "Filmography", subtitle: "", image: nil)

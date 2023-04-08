@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct TVPersonCircleView: View {
     let person: Person
+    @State private var isOnHover = false
     var body: some View {
         NavigationLink(value: person) {
             WebImage(url: person.personImage)
@@ -34,8 +35,8 @@ struct TVPersonCircleView: View {
                        height: DrawingConstants.profileHeight)
                 .transition(.opacity)
         }
-        .buttonStyle(.plain)
         .clipShape(Circle())
+        .buttonStyle(.plain)
     }
 }
 

@@ -9,18 +9,25 @@ import SwiftUI
 
 struct HomeView: View {
     static let tag: Screens? = .home
+#if os(tvOS)
+    @AppStorage("showOnboarding") private var displayOnboard = false
+#else
     @AppStorage("showOnboarding") private var displayOnboard = true
+#endif
     @StateObject private var viewModel = HomeViewModel()
     @State private var showSettings = false
     @State private var showNotifications = false
     @State private var showConfirmation = false
     @State private var reloadUpNext = false
+    @State private var showWhatsNew = false
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
             VStack(alignment: .leading) {
                 ScrollView {
+                    #if os(iOS) || os(macOS)
                     UpNextView(shouldReload: $reloadUpNext)
+                    #endif
                     UpcomingWatchlist()
                     PinItemsList()
                     ItemContentListView(items: viewModel.trending,
@@ -37,14 +44,24 @@ struct HomeView: View {
                     ItemContentListView(items: viewModel.recommendations,
                                         title: "recommendationsTitle",
                                         subtitle: "recommendationsSubtitle",
-                                        addedItemConfirmation: $showConfirmation,
-                                        displayAsCard: false)
+                                        addedItemConfirmation: $showConfirmation)
                     AttributionView()
                 }
                 .refreshable {
                     reloadUpNext = true
                     viewModel.reload()
                 }
+            }
+            .onAppear {
+                checkVersion()
+            }
+            .sheet(isPresented: $showWhatsNew) {
+#if os(iOS) || os(macOS)
+                ChangelogView(showChangelog: $showWhatsNew)
+                    .onDisappear {
+                        showWhatsNew = false
+                    }
+#endif
             }
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
@@ -172,6 +189,19 @@ struct HomeView: View {
                 await viewModel.load()
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
+        }
+    }
+    
+    private func checkVersion() {
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let lastSeenVersion = UserDefaults.standard.string(forKey: UserDefaults.lastSeenAppVersionKey)
+        if SettingsStore.shared.displayOnboard {
+            return
+        } else {
+            if currentVersion != lastSeenVersion {
+                //showWhatsNew.toggle()
+                UserDefaults.standard.set(currentVersion, forKey: UserDefaults.lastSeenAppVersionKey)
+            }
         }
     }
 }

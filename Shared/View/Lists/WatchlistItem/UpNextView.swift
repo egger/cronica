@@ -44,8 +44,8 @@ struct UpNextView: View {
                             .padding([.leading, .trailing], 4)
                             .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
                             .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)
-                            .padding(.top, 8)
                             .padding(.bottom)
+                            .padding(.top, 8)
                             .buttonStyle(.card)
 #else
                             UpNextEpisodeCard(episode: episode)
@@ -64,7 +64,8 @@ struct UpNextView: View {
 #endif
                         }
                     }
-                }.redacted(reason: isLoaded ? [] : .placeholder)
+                }
+                .redacted(reason: isLoaded ? [] : .placeholder)
             }
             .task { await load() }
             .onChange(of: shouldReload) { reload in
@@ -104,8 +105,10 @@ struct UpNextView: View {
                     }
                 }
                 .presentationDetents([.medium, .large])
+#if os(iOS)
                 .appTheme()
                 .appTint()
+#endif
                 .task {
                     let showId = self.episodeShowID["\(item.id)"]
                     selectedEpisodeShowID = showId
@@ -307,8 +310,10 @@ private struct UpNextEpisodeCard: View {
 
 private struct DrawingConstants {
 #if os(tvOS)
-    static let imageWidth: CGFloat = 460
-    static let imageHeight: CGFloat = 260
+    static let imageWidth: CGFloat = 660
+    static let imageHeight: CGFloat = 360
+    //    static let imageWidth: CGFloat = 460
+    //    static let imageHeight: CGFloat = 260
 #else
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160

@@ -99,7 +99,7 @@ struct AppearanceSetting: View {
                 }
                 .pickerStyle(.navigationLink)
                 
-                NavigationLink(destination: AppIconListView()) {
+                NavigationLink(destination: AppIconListView(viewModel: icons)) {
                     HStack {
                         Text("appearanceAppIcon")
                         Spacer()
@@ -145,7 +145,7 @@ struct AppearanceSetting_Previews: PreviewProvider {
 
 #if os(iOS)
 private struct AppIconListView: View {
-    @StateObject private var viewModel = IconModel()
+    @ObservedObject var viewModel = IconModel()
     var body: some View {
         VStack {
             List {
@@ -169,6 +169,9 @@ private struct AppIconListView: View {
                     .onTapGesture {
                         withAnimation { viewModel.updateAppIcon(to: icon) }
                     }
+                }
+                NavigationLink(destination: FeedbackSettingsView()) {
+                    InformationalLabel(title: "appIconFeedbackTitle")
                 }
             }
         }

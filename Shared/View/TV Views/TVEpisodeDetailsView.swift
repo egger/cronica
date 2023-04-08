@@ -22,18 +22,6 @@ struct TVEpisodeDetailsView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 1920, height: 1080)
             VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(episode.itemTitle)
-                            .lineLimit(1)
-                            .font(.title3)
-                        GlanceInfo(info: episode.itemInfo)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.top, 100)
-                    .padding(.leading)
-                    Spacer()
-                }
                 Spacer()
                 ZStack {
                     Color.black.opacity(0.4)
@@ -70,16 +58,21 @@ struct TVEpisodeDetailsView: View {
             .frame(width: 1920, height: 1080)
             VStack(alignment: .leading) {
                 Spacer()
+                HStack {
+                    Text(episode.itemTitle)
+                        .lineLimit(1)
+                        .font(.title3)
+                    Spacer()
+                }
                 HStack(alignment: .bottom) {
                     VStack {
-                        HStack {
-                            WatchEpisodeButton(episode: episode,
-                                                   season: season,
-                                                   show: id,
-                                                   isWatched: $isWatched,
-                                                   inWatchlist: $inWatchlist)
-                        }
+                        WatchEpisodeButton(episode: episode,
+                                               season: season,
+                                               show: id,
+                                               isWatched: $isWatched,
+                                               inWatchlist: $inWatchlist)
                     }
+                    .padding()
                     Spacer()
                     VStack {
                         Button {
@@ -89,13 +82,24 @@ struct TVEpisodeDetailsView: View {
                                 Text(episode.itemOverview)
                                     .lineLimit(4)
                                     .font(.callout)
+                                    .frame(maxWidth: 700)
                             }
                         }
                         .buttonStyle(.plain)
                     }
-                    .frame(maxWidth: 900)
+                    .padding()
                     Spacer()
-                    
+                    VStack(alignment: .leading) {
+                        #if os(tvOS)
+                        HStack {
+                            InfoSegmentView(title: "Episode", info: "\(episode.itemEpisodeNumber)")
+                            InfoSegmentView(title: "Season", info: "\(episode.itemSeasonNumber)")
+                        }
+                        InfoSegmentView(title: "Release", info: episode.itemDate)
+                        #endif
+                    }
+                    .padding()
+                    Spacer()
                 }
                 .padding()
             }

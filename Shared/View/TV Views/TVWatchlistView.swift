@@ -72,9 +72,10 @@ struct TVWatchlistView: View {
                             showFilters.toggle()
                         } label: {
                             HStack {
-                                Image(systemName: list == selectedOrder ? "checkmark.circle.fill" : "circle")
-                                    .padding(.trailing)
-                                Spacer()
+                                if list == selectedOrder {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .padding(.trailing)
+                                }
                                 Text(list.title)
                                     .padding(.trailing)
                             }
@@ -104,6 +105,7 @@ private struct WatchlistSection: View {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(items) { item in
                     TVWatchlistItemCard(item: item)
+                        .padding(.bottom)
                 }
             }
             .padding(.top)

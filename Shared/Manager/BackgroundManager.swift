@@ -120,7 +120,7 @@ class BackgroundManager {
                 }
             }
             PersistenceController.shared.update(item: content)
-            if !item.isArchive && item.isWatching && !item.displayOnUpNext {
+            if !item.isArchive && item.isWatching && !item.displayOnUpNext && item.isTvShow {
                 await self.fetchNextEpisodeUpNext(for: item)
             }
         } catch {
@@ -132,6 +132,7 @@ class BackgroundManager {
     
     private func fetchNextEpisodeUpNext(for show: WatchlistItem) async {
         do {
+            guard let watchedEpisodes = show.watchedEpisodes else { return }
             let network = NetworkService.shared
             let season = try await network.fetchSeason(id: show.itemId, season: Int(show.seasonNumberUpNext))
             guard let episodes = season.episodes else { return }
@@ -139,18 +140,23 @@ class BackgroundManager {
             if episodes.count <= Int(show.nextEpisodeNumber) {
                 // In an array, the first item is always numbered as 0. So, if the next episode is numbered as 8, we need to subtract 1 from the episode list to get the correct index value for the next episode. This is because the app always saves the next episode number as the one immediately after the one the user has watched. For example, if the user has watched episode 7, the app will save the next episode number as 8.
                 nextEpisode = episodes[Int(show.nextEpisodeNumber - 1)]
-                if nextEpisode?.isItemReleased ?? false  {
-                    show.displayOnUpNext = true
+                if let nextEpisode {
+                    let episodeId = nextEpisode.id
+                    if !watchedEpisodes.contains("\(episodeId)") && nextEpisode.isItemReleased {
+                        show.displayOnUpNext = true
+                    }
                 }
+                
             } else {
                 let nextSeason = try await network.fetchSeason(id: show.itemId, season: Int(show.seasonNumberUpNext + 1))
                 if let nextSeasonEpisodes = nextSeason.episodes {
                     nextEpisode = nextSeasonEpisodes.first
                     guard let nextEpisode else { return }
-                    if nextEpisode.isItemReleased {
-                        show.displayOnUpNext = true
+                    let episodeId = nextEpisode.id
+                    if !watchedEpisodes.contains("\(episodeId)") && nextEpisode.isItemReleased {
                         show.seasonNumberUpNext = Int64(nextEpisode.itemSeasonNumber)
                         show.nextEpisodeNumberUpNext = Int64(nextEpisode.itemEpisodeNumber)
+                        show.displayOnUpNext = true
                     }
                 }
             }
@@ -160,7 +166,7 @@ class BackgroundManager {
             }
         } catch {
             if Task.isCancelled { return }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchNextEpisodeUpNext.failed")
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "BackgroundManager.fetchNextEpisodeUpNext.failed")
         }
     }
 }

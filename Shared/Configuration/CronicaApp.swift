@@ -14,13 +14,11 @@ struct CronicaApp: App {
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
-    @State private var showWhatsNew = false
     @ObservedObject private var settings = SettingsStore.shared
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
-        checkVersion()
     }
     var body: some Scene {
         WindowGroup {
@@ -105,14 +103,6 @@ struct CronicaApp: App {
                     .appTint()
 #endif
                 }
-                .sheet(isPresented: $showWhatsNew) {
-#if os(iOS) || os(macOS)
-                    ChangelogView(showChangelog: $showWhatsNew)
-                        .onDisappear {
-                            showWhatsNew = false
-                        }
-#endif
-                }
         }
         .onChange(of: scene) { phase in
             if phase == .background {
@@ -126,19 +116,6 @@ struct CronicaApp: App {
             SettingsView()
         }
 #endif
-    }
-    
-    private func checkVersion() {
-        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        let lastSeenVersion = UserDefaults.standard.string(forKey: UserDefaults.lastSeenAppVersionKey)
-        if SettingsStore.shared.displayOnboard {
-            return
-        } else {
-            if currentVersion != lastSeenVersion {
-                //showWhatsNew.toggle()
-                UserDefaults.standard.set(currentVersion, forKey: UserDefaults.lastSeenAppVersionKey)
-            }
-        }
     }
     
     private func registerRefreshBGTask() {

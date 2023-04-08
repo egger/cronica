@@ -31,6 +31,7 @@ struct FeedbackSettingsView: View {
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
 #endif
                     Button("Send") {
                         send()

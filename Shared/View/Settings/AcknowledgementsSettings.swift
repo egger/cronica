@@ -68,6 +68,18 @@ struct AcknowledgementsSettings: View {
                 }
 #endif
             }
+            
+            Section {
+                Button {
+                    openUrl(URL(string: "https://github.com/MadeiraAlexandre/Cronica")!)
+                } label: {
+                    InformationalLabel(title: "cronicaGitHub")
+                }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
+                
+            }
         }
         .navigationTitle("acknowledgmentsTitle")
 #if os(macOS)

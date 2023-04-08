@@ -529,3 +529,7 @@
 "itemContentListPreferredDisplayTypeStandard" = "Default";
 "itemContentListPreferredDisplayTypeCard" = "Card";
 "itemContentListPreferredDisplayTypePoster" = "Poster";
+"appIconFeedbackTitle" = "Have an ideia for an icon? Send a feedback";
+"exploreDisplayTypePicker" = "Display Style";
+"watchlistDisplayTypePicker" = "Display Style";
+"cronicaGitHub" = "Cronica GitHub Repo";
