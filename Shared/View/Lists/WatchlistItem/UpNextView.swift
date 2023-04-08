@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct UpNextView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
@@ -35,6 +35,19 @@ struct UpNextView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(episodes) { episode in
+#if os(tvOS)
+                            Button {
+                                selectedEpisode = episode
+                            } label: {
+                                UpNextEpisodeCard(episode: episode)
+                            }
+                            .padding([.leading, .trailing], 4)
+                            .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
+                            .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)
+                            .padding(.top, 8)
+                            .padding(.bottom)
+                            .buttonStyle(.card)
+#else
                             UpNextEpisodeCard(episode: episode)
                                 .padding([.leading, .trailing], 4)
                                 .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
@@ -48,6 +61,7 @@ struct UpNextView: View {
                                         selectedEpisode = episode
                                     }
                                 }
+#endif
                         }
                     }
                 }.redacted(reason: isLoaded ? [] : .placeholder)
@@ -74,12 +88,16 @@ struct UpNextView: View {
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
                     if let show = selectedEpisodeShowID {
+#if os(tvOS)
+                        TVEpisodeDetailsView(episode: item, id: show, season: item.itemSeasonNumber, inWatchlist: $isInWatchlist)
+#else
                         EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
                             .toolbar {
                                 Button("Done") { selectedEpisode = nil }
                             }
 #if os(iOS)
                             .navigationBarTitleDisplayMode(.inline)
+#endif
 #endif
                     } else {
                         ProgressView()
@@ -93,7 +111,7 @@ struct UpNextView: View {
                     selectedEpisodeShowID = showId
                 }
 #if os(macOS)
-                    .frame(width: 800, height: 500)
+                .frame(width: 800, height: 500)
 #endif
             }
             .task(id: isWatched) {
@@ -105,7 +123,7 @@ struct UpNextView: View {
             }
         }
     }
-
+    
     private func load() async {
         if !isLoaded {
             for item in items {
@@ -227,7 +245,7 @@ private struct UpNextEpisodeCard: View {
                     }
                 }
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 280, height: 160)
+                .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
                 .transition(.opacity)
             
             VStack(alignment: .leading) {
@@ -281,9 +299,21 @@ private struct UpNextEpisodeCard: View {
                 }
             }
         }
-        .frame(width: 280, height: 160)
+        .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .shadow(radius: 2.5)
     }
 }
+
+private struct DrawingConstants {
+#if os(tvOS)
+    static let imageWidth: CGFloat = 460
+    static let imageHeight: CGFloat = 260
+#else
+    static let imageWidth: CGFloat = 280
+    static let imageHeight: CGFloat = 160
 #endif
+    static let imageRadius: CGFloat = 12
+    static let titleLineLimit: Int = 1
+    static let imageShadow: CGFloat = 2.5
+}

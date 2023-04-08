@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct PinItemsList: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
@@ -38,6 +38,10 @@ private struct HorizontalWatchlistList: View {
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
+#if os(tvOS)
+            TitleView(title: title,
+                      subtitle: subtitle)
+#else
             NavigationLink(value: [title:items]) {
                 TitleView(title: title,
                           subtitle: subtitle,
@@ -45,6 +49,7 @@ private struct HorizontalWatchlistList: View {
                           showChevron: true)
             }
             .buttonStyle(.plain)
+#endif
             ScrollView(.horizontal, showsIndicators: false) {
                 if settings.listsDisplayType == .card {
                     LazyHStack {
@@ -69,10 +74,12 @@ private struct HorizontalWatchlistList: View {
                                 .padding(.bottom)
                         }
                     }
+#if os(tvOS)
+                    .padding(.vertical)
+                    .padding(.horizontal)
+#endif
                 }
-               
             }
         }
     }
 }
-#endif

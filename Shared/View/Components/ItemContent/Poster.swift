@@ -80,7 +80,11 @@ struct Poster: View {
                 .draggable(item)
 #endif
         }
+#if os(tvOS)
+        .buttonStyle(.card)
+#else
         .buttonStyle(.plain)
+#endif
         .accessibility(label: Text(item.itemTitle))
     }
 }
@@ -119,8 +123,8 @@ struct PosterPlaceholder: View {
 
 private struct DrawingConstants {
 #if os(tvOS)
-    static let posterWidth: CGFloat = 220
-    static let posterHeight: CGFloat = 320
+    static let posterWidth: CGFloat = 260
+    static let posterHeight: CGFloat = 380
     static let posterRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2
 #else

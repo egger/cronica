@@ -23,7 +23,8 @@ struct TabBarView: View {
     private var tvOSBarView: some View {
         TabView {
             NavigationStack {
-                TVHomeView()
+                HomeView()
+                //TVHomeView()
             }
             .tabItem {
                 Label("Home", systemImage: "house")

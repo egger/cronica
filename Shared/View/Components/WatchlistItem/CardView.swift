@@ -12,13 +12,6 @@ struct CardView: View {
     let item: WatchlistItem
     private let notification = NotificationManager.shared
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var isTV = false
-    init(item: WatchlistItem) {
-        self.item = item
-#if os(tvOS)
-        isTV = true
-#endif
-    }
     var body: some View {
         if item.image != nil {
             NavigationLink(value: item) {
@@ -104,8 +97,8 @@ struct CardView: View {
                             
                         }
                     }
-                    .frame(width: isTV ? 560 : DrawingConstants.cardWidth,
-                           height: isTV ? 240 : DrawingConstants.cardHeight)
+                    .frame(width: DrawingConstants.cardWidth,
+                           height: DrawingConstants.cardHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
                     .contextMenu {
@@ -135,7 +128,7 @@ struct CardView: View {
         if item.notify {
             notification.removeNotification(identifier: item.notificationID)
         }
-        withAnimation {
+        withAnimation(.easeInOut) {
             viewContext.delete(item)
             if viewContext.hasChanges { try? viewContext.save() }
         }
@@ -149,8 +142,13 @@ struct CardView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let cardWidth: CGFloat = 460
+    static let cardHeight: CGFloat = 260
+#else
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160
+#endif
     static let cardRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1

@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct WatchlistItemFrame: View {
     let content: WatchlistItem
     @State private var isWatched: Bool = false
@@ -23,10 +23,12 @@ struct WatchlistItemFrame: View {
                                           isFavorite: $isFavorite,
                                           isPin: $isPin,
                                           isArchive: $isArchive)
+#if os(iOS) || os(macOS)
                     .draggable(content) {
                         WebImage(url: content.largeCardImage)
                             .resizable()
                     }
+#endif
                 HStack {
                     Text(content.itemTitle)
                         .font(.caption)
@@ -96,4 +98,4 @@ private struct DrawingConstants {
     static let imageShadow: CGFloat = 2.5
     static let placeholderForegroundColor: Color = .white.opacity(0.8)
 }
-#endif
+

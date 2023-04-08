@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct HomeView: View {
     static let tag: Screens? = .home
     @AppStorage("showOnboarding") private var displayOnboard = true
@@ -56,7 +56,11 @@ struct HomeView: View {
 #endif
             }
             .navigationDestination(for: Person.self) { person in
+#if os(tvOS)
+                TVPersonDetailsView(title: person.name, id: person.id)
+#else
                 PersonDetailsView(title: person.name, id: person.id)
+#endif
             }
             .navigationDestination(for: WatchlistItem.self) { item in
 #if os(macOS)
@@ -71,8 +75,11 @@ struct HomeView: View {
                 TitleWatchlistDetails(items: item)
             }
             .navigationDestination(for: Endpoints.self) { endpoint in
+#if os(tvOS)
+#else
                 EndpointDetails(title: endpoint.title,
                                 endpoint: endpoint)
+#endif
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
                 let keys = item.map { (key, _) in key }
@@ -82,19 +89,33 @@ struct HomeView: View {
             .navigationDestination(for: [String:[ItemContent]].self) { item in
                 let keys = item.map { (key, _) in key }
                 let value = item.map { (_, value) in value }
+#if os(tvOS)
+#else
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
+#endif
             }
             .navigationDestination(for: [Person].self) { items in
+#if os(tvOS)
+#else
                 DetailedPeopleList(items: items)
+#endif
             }
             .navigationDestination(for: ProductionCompany.self) { item in
+#if os(tvOS)
+#else
                 CompanyDetails(company: item)
+#endif
             }
             .navigationDestination(for: [ProductionCompany].self) { item in
+#if os(tvOS)
+#else
                 CompaniesListView(companies: item)
+#endif
             }
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
+#if os(iOS) || os(macOS)
             .navigationTitle("Home")
+#endif
             .toolbar {
 #if os(macOS)
                 ToolbarItem(placement: .navigation) {
@@ -104,7 +125,7 @@ struct HomeView: View {
                         Label("Notifications", systemImage: "bell")
                     }
                 }
-#else
+#elseif os(iOS)
                 if UIDevice.isIPhone {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack {
@@ -138,10 +159,13 @@ struct HomeView: View {
 #endif
             }
             .sheet(isPresented: $showNotifications) {
+#if os(tvOS)
+#else
                 NotificationListView(showNotification: $showNotifications)
                     .appTheme()
 #if os(macOS)
                     .frame(width: 800, height: 500)
+#endif
 #endif
             }
             .task {
@@ -157,4 +181,3 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
-#endif

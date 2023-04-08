@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 /// Display a list of ItemContent within PosterView, with a TitleView indicating
 /// its origin.
 struct ItemContentListView: View {
@@ -25,6 +25,9 @@ struct ItemContentListView: View {
                     Divider().padding(.horizontal)
                 }
                 VStack {
+#if os(tvOS)
+                    TitleView(title: title, subtitle: subtitle)
+#else
                     if let endpoint {
                         NavigationLink(value: endpoint) {
                             TitleView(title: title, subtitle: subtitle, image: image, showChevron: true)
@@ -36,6 +39,7 @@ struct ItemContentListView: View {
                         }
                         .buttonStyle(.plain)
                     }
+#endif
                     ScrollView(.horizontal, showsIndicators: false) {
                         switch settings.listsDisplayType {
                         case .standard:
@@ -62,6 +66,9 @@ struct ItemContentListView: View {
                                     }
                                 }
                             }
+#if os(tvOS)
+                    .padding()
+#endif
                         case .card:
                             LazyHStack {
                                 ForEach(items) { item in
@@ -105,4 +112,4 @@ struct ItemContentListView_Previews: PreviewProvider {
                             addedItemConfirmation: $show)
     }
 }
-#endif
+

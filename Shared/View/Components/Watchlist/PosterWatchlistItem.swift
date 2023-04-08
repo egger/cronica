@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct PosterWatchlistItem: View {
     let item: WatchlistItem
     @State private var isPin = false
@@ -50,7 +50,9 @@ struct PosterWatchlistItem: View {
                 .shadow(radius: DrawingConstants.shadowRadius)
                 .padding(.zero)
                 .applyHoverEffect()
+#if os(iOS) || os(macOS)
                 .draggable(item)
+#endif
                 .modifier(WatchlistItemContextMenu(item: item,
                                                    isWatched: $isWatched,
                                                    isFavorite: $isFavorite,
@@ -63,7 +65,11 @@ struct PosterWatchlistItem: View {
                     isArchive = item.isArchive
                 }
         }
+#if os(tvOS)
+        .buttonStyle(.card)
+#else
         .buttonStyle(.plain)
+#endif
         .accessibilityLabel(Text(item.itemTitle))
     }
 }
@@ -75,9 +81,13 @@ struct PosterWatchlistItem_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let posterWidth: CGFloat = 260
+    static let posterHeight: CGFloat = 380
+#else
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
+#endif
     static let posterRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2
 }
-#endif
