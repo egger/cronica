@@ -52,7 +52,6 @@ struct TVPersonDetailsView: View {
                     if !viewModel.credits.isEmpty {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(viewModel.credits) { item in
-                                //CardFrame(item: item, showConfirmation: $showConfirmation)
                                 TVItemContentCardView(item: item)
                             }
                         }

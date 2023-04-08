@@ -29,9 +29,6 @@ struct SettingsView: View {
     private var tvOSSettings: some View {
         Form {
             Section {
-                NavigationLink(destination: AppearanceSetting()) {
-                    Label("settingsAppearanceTitle", systemImage: "moon.stars")
-                }
                 NavigationLink(destination: SyncSetting()) {
                     Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
                 }

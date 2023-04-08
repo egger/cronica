@@ -34,8 +34,7 @@ struct ItemContentDetails: View {
                                         title: "Recommendations",
                                         subtitle: "")
                         TVCastListView(credits: viewModel.credits)
-                        TVInfoSection(item: viewModel.content)
-                            .padding([.top, .bottom])
+                            .padding(.bottom)
                         AttributionView()
                     }
                 }
@@ -43,9 +42,6 @@ struct ItemContentDetails: View {
                 .redacted(reason: viewModel.isLoading ? .placeholder : [])
             }
             .ignoresSafeArea()
-            .background {
-                TranslucentBackground(image: viewModel.content?.cardImageLarge)
-            }
         }
     }
     
@@ -142,7 +138,9 @@ struct ItemContentDetails: View {
                                     Text(overview)
                                         .lineLimit(4)
                                         .font(.callout)
+                                    
                                 }
+                                .frame(maxWidth: 900)
                             }
                             .buttonStyle(.plain)
                         }
@@ -157,12 +155,50 @@ struct ItemContentDetails: View {
                         }
                     })
                     .padding()
-                    .frame(maxWidth: 900)
+                    Spacer()
+                    VStack(alignment: .leading) {
+                        if let item = viewModel.content {
+                            InfoSegmentView(title: NSLocalizedString("Run Time",
+                                                                     comment: ""), info: item.itemRuntime)
+                            InfoSegmentView(title: NSLocalizedString("Release Date",
+                                                                     comment: ""),
+                                            info: item.itemTheatricalString)
+                            InfoSegmentView(title: NSLocalizedString("Genre",
+                                                                     comment: ""),
+                                            info: item.itemGenre)
+                            InfoSegmentView(title: NSLocalizedString("Region of Origin",
+                                                                     comment: ""),
+                                            info: item.itemCountry)
+                            InfoSegmentView(title: NSLocalizedString("Production Company",
+                                                                     comment: ""),
+                                            info: item.itemCompany)
+                        }
+                        
+                    }
+                    .padding()
                     Spacer()
                 }
                 .padding()
             }
             .padding()
+        }
+    }
+}
+
+private struct InfoSegmentView: View {
+    let title: String
+    let info: String?
+    var body: some View {
+        if let info {
+            VStack(alignment: .leading) {
+                Text(title)
+                    .lineLimit(1)
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                Text(info)
+                    .lineLimit(1)
+                    .font(.body)
+            }
         }
     }
 }
