@@ -37,7 +37,8 @@ struct TabBarView: View {
             .tabItem { Label("Explore", systemImage: "film").labelStyle(.titleOnly) }
             
             NavigationStack {
-                DefaultWatchlist()
+                WatchlistView()
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .tabItem {
                 Label("Watchlist", systemImage: "square.stack.fill")

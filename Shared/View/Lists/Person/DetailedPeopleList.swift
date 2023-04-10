@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct DetailedPeopleList: View {
     let items: [Person]
     @State private var query = ""
@@ -15,13 +15,13 @@ struct DetailedPeopleList: View {
     var body: some View {
         VStack {
             if query.isEmpty {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
                 List {
                     ForEach(items, id: \.personListID) { item in
                         PersonItemRow(person: item)
                     }
                 }
-#else
+#elseif os(macOS)
                 Table(items) {
                     TableColumn("Person") { item in
                         PersonItemRow(person: item)
@@ -36,7 +36,7 @@ struct DetailedPeopleList: View {
                         .font(.headline)
                         .foregroundColor(.secondary)
                 } else {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
                     List {
                         ForEach(filteredItems, id: \.personListID) { item in
                             PersonItemRow(person: item)
@@ -120,11 +120,14 @@ private struct PersonItemRow: View {
             }
             .frame(height: 70)
             .contextMenu {
+                #if os(macOS) || os(iOS)
                 ShareLink(item: person.itemURL)
+                #endif
             }
         }
         .buttonStyle(.plain)
+#if os(macOS) || os(iOS)
         .draggable(person)
+#endif
     }
 }
-#endif

@@ -26,7 +26,7 @@ struct SelectListView: View {
     @State private var isEditing = false
     var body: some View {
         NavigationStack {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
             form
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -36,7 +36,7 @@ struct SelectListView: View {
                         if !lists.isEmpty { newList }
                     }
                 }
-#elseif os(macOS)
+#else
             form
                 .formStyle(.grouped)
                 .toolbar {

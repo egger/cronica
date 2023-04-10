@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct CustomWatchlist: View {
     @Binding var selectedList: CustomList?
     @State private var filteredItems = [WatchlistItem]()
@@ -20,11 +20,15 @@ struct CustomWatchlist: View {
     @AppStorage("filterTypeCustomList") private var filterType: CustomWatchListFilters = .all
     var body: some View {
         VStack {
+#if os(tvOS)
+            frameStyle
+#else
             switch settings.watchlistStyle {
             case .list: listStyle
             case .poster: posterStyle
             case .card: frameStyle
             }
+#endif
         }
         .toolbar {
 #if os(iOS)
@@ -89,6 +93,7 @@ struct CustomWatchlist: View {
 #endif
     }
     
+#if os(iOS) || os(macOS)
     @ViewBuilder
     private var listStyle: some View {
         if let items = selectedList?.itemsArray {
@@ -133,6 +138,7 @@ struct CustomWatchlist: View {
             }
         }
     }
+#endif
     
     @ViewBuilder
     private var frameStyle: some View {
@@ -219,4 +225,3 @@ struct CustomWatchlist: View {
             .padding()
     }
 }
-#endif
