@@ -29,12 +29,14 @@ struct WatchlistItemFrame: View {
                             .resizable()
                     }
 #endif
+#if os(iOS) || os(macOS)
                 HStack {
                     Text(content.itemTitle)
                         .font(.caption)
                         .lineLimit(DrawingConstants.titleLineLimit)
                     Spacer()
                 }
+#endif
             }
             .frame(width: DrawingConstants.imageWidth)
             .task {
@@ -44,6 +46,9 @@ struct WatchlistItemFrame: View {
                 isArchive = content.isArchive
             }
         }
+#if os(tvOS)
+        .buttonStyle(.card)
+#endif
     }
     private var image: some View {
         WebImage(url: content.largeCardImage)
@@ -57,6 +62,53 @@ struct WatchlistItemFrame: View {
                                         style: .continuous))
             .shadow(radius: DrawingConstants.imageShadow)
             .applyHoverEffect()
+#if os(tvOS)
+            .overlay {
+                ZStack(alignment: .bottom) {
+                    VStack {
+                        Spacer()
+                        ZStack {
+                            Color.black.opacity(0.4)
+                                .frame(height: 50)
+                                .mask {
+                                    LinearGradient(colors: [Color.black,
+                                                            Color.black.opacity(0.924),
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0)],
+                                                   startPoint: .bottom,
+                                                   endPoint: .top)
+                                }
+                            Rectangle()
+                                .fill(.ultraThinMaterial)
+                                .frame(height: 70)
+                                .mask {
+                                    VStack(spacing: 0) {
+                                        LinearGradient(colors: [Color.black.opacity(0),
+                                                                Color.black.opacity(0.383),
+                                                                Color.black.opacity(0.707),
+                                                                Color.black.opacity(0.924),
+                                                                Color.black],
+                                                       startPoint: .top,
+                                                       endPoint: .bottom)
+                                        .frame(height: 50)
+                                        Rectangle()
+                                    }
+                                }
+                        }
+                    }
+                    HStack {
+                        Text(content.itemTitle)
+                            .font(.callout)
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                            .padding([.leading, .bottom])
+                        Spacer()
+                    }
+                    
+                }
+            }
+#endif
     }
     private var placeholder: some View {
         ZStack {
@@ -85,14 +137,18 @@ struct WatchlistItemFrame_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(tvOS)
+#if os(macOS)
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
     static let imageRadius: CGFloat = 12
-#else
+#elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 240 : 160
     static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
     static let imageRadius: CGFloat = 8
+#elseif os(tvOS)
+    static let imageWidth: CGFloat = 460
+    static let imageHeight: CGFloat = 260
+    static let imageRadius: CGFloat = 12
 #endif
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5

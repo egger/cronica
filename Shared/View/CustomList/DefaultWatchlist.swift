@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct DefaultWatchlist: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
@@ -27,11 +27,34 @@ struct DefaultWatchlist: View {
     @AppStorage("watchlistMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .noFilter
     var body: some View {
         VStack {
+#if os(tvOS)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Watchlist")
+                        .font(.title3)
+                    if showAllItems {
+                        Text(mediaTypeFilter.localizableTitle)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                    } else {
+                        Text(selectedOrder.title)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding()
+                Spacer()
+                filterButton
+            }
+            .padding(.horizontal)
+            frameStyle
+#else
             switch settings.watchlistStyle {
             case .list: listStyle
             case .poster: posterStyle
             case .card: frameStyle
             }
+#endif
         }
         .sheet(isPresented: $showFilter) {
             NavigationStack {
@@ -72,8 +95,10 @@ struct DefaultWatchlist: View {
                 }
             }
             .presentationDetents([.medium, .large])
+#if os(iOS)
             .appTheme()
             .appTint()
+#endif
 #if os(macOS)
             .formStyle(.grouped)
             .frame(width: 380, height: 220, alignment: .center)
@@ -87,7 +112,7 @@ struct DefaultWatchlist: View {
                     styleButton
                 }
             }
-#else
+#elseif os(macOS)
             HStack {
                 filterButton
                 styleButton
@@ -133,6 +158,7 @@ struct DefaultWatchlist: View {
         }
     }
     
+#if os(iOS) || os(macOS)
     private var styleButton: some View {
         Menu {
             Picker(selection: $settings.watchlistStyle) {
@@ -147,7 +173,9 @@ struct DefaultWatchlist: View {
                 .labelStyle(.iconOnly)
         }
     }
+#endif
     
+#if os(iOS) || os(macOS)
     @ViewBuilder
     private var listStyle: some View {
         if items.isEmpty {
@@ -210,6 +238,7 @@ struct DefaultWatchlist: View {
             }
         }
     }
+#endif
     
     @ViewBuilder
     private var frameStyle: some View {
@@ -322,7 +351,7 @@ struct DefaultWatchlist: View {
                                            title: DefaultListTypes.archive.title)
                 }
             }
-           
+            
         }
     }
     
@@ -348,4 +377,3 @@ struct DefaultWatchlist_Previews: PreviewProvider {
         DefaultWatchlist()
     }
 }
-#endif

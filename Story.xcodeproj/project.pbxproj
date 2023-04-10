@@ -274,7 +274,6 @@
 		B8F6D6C829DB25A300B9190B /* ItemContentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF62DA2912E6360051915C /* ItemContentDetailsView.swift */; };
 		B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B8F6D6CD29DB433200B9190B /* TVWatchlistItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569B290DDD9C002CAAFD /* TVWatchlistItemListView.swift */; };
-		B8F6D6CF29DB433200B9190B /* TVWatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A1B290A91E200459E41 /* TVWatchlistView.swift */; };
 		B8F6D6D029DB433200B9190B /* TVCastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5683290C7B40002CAAFD /* TVCastListView.swift */; };
 		B8F6D6D229DB433200B9190B /* TVPersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD567E290C759E002CAAFD /* TVPersonDetailsView.swift */; };
 		B8F6D6D629DB433200B9190B /* TVItemContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD567A290C39DF002CAAFD /* TVItemContentList.swift */; };
@@ -286,7 +285,6 @@
 		B8F6D6DD29DB433200B9190B /* TVItemContentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5675290C3839002CAAFD /* TVItemContentCardView.swift */; };
 		B8F6D6DE29DB433200B9190B /* TVSeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5694290C9CA5002CAAFD /* TVSeasonListView.swift */; };
 		B8F6D6DF29DB433200B9190B /* TVSearchItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */; };
-		B8F6D6E029DB433200B9190B /* TVWatchlistItemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD5699290DDB74002CAAFD /* TVWatchlistItemCard.swift */; };
 		B8F6D6E429DB575B00B9190B /* SettingsLabelWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */; };
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */; };
@@ -447,7 +445,6 @@
 		B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSectionView.swift; sourceTree = "<group>"; };
 		B86E587827A48E5A005DBF38 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		B86E589027A4BE75005DBF38 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		B86E7A1B290A91E200459E41 /* TVWatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVWatchlistView.swift; sourceTree = "<group>"; };
 		B86E7A20290AAEB600459E41 /* TVItemContentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemContentDetails.swift; sourceTree = "<group>"; };
 		B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemContextMenu.swift; sourceTree = "<group>"; };
 		B86E7A2B290AEEFE00459E41 /* TVSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSearchView.swift; sourceTree = "<group>"; };
@@ -549,7 +546,6 @@
 		B8DD5692290C9962002CAAFD /* TVEpisodeItemFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVEpisodeItemFrame.swift; sourceTree = "<group>"; };
 		B8DD5694290C9CA5002CAAFD /* TVSeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSeasonListView.swift; sourceTree = "<group>"; };
 		B8DD5697290CB41C002CAAFD /* TVEpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVEpisodeDetailsView.swift; sourceTree = "<group>"; };
-		B8DD5699290DDB74002CAAFD /* TVWatchlistItemCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVWatchlistItemCard.swift; sourceTree = "<group>"; };
 		B8DD569B290DDD9C002CAAFD /* TVWatchlistItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVWatchlistItemListView.swift; sourceTree = "<group>"; };
 		B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterHorizontalView.swift; sourceTree = "<group>"; };
 		B8E3ABEF29552B6900CA0945 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -1238,9 +1234,7 @@
 				B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */,
 				B86E7A2B290AEEFE00459E41 /* TVSearchView.swift */,
 				B8DD5694290C9CA5002CAAFD /* TVSeasonListView.swift */,
-				B8DD5699290DDB74002CAAFD /* TVWatchlistItemCard.swift */,
 				B8DD569B290DDD9C002CAAFD /* TVWatchlistItemListView.swift */,
-				B86E7A1B290A91E200459E41 /* TVWatchlistView.swift */,
 			);
 			path = "TV Views";
 			sourceTree = "<group>";
@@ -1603,8 +1597,6 @@
 				B82BE4E3299BFBC5005F9990 /* CustomWatchlist.swift in Sources */,
 				B8EC45E427D5A010009389FC /* ItemContent-Extensions.swift in Sources */,
 				B8FB2A90295263AB006DAC8E /* AcknowledgementsSettings.swift in Sources */,
-				B8F6D6E029DB433200B9190B /* TVWatchlistItemCard.swift in Sources */,
-				B8F6D6CF29DB433200B9190B /* TVWatchlistView.swift in Sources */,
 				B81DD92629BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B8C335472815ED140055389D /* WatchListSection.swift in Sources */,
 				B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */,
@@ -2053,7 +2045,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2096,7 +2088,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;

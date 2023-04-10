@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct WatchlistCardSection: View {
     private let context = PersistenceController.shared
     let items: [WatchlistItem]
@@ -16,6 +16,11 @@ struct WatchlistCardSection: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))],
                           spacing: 20) {
+#if os(tvOS)
+                    ForEach(items, id: \.notificationID) { item in
+                        WatchlistItemFrame(content: item)
+                    }
+#else
                     Section {
                         ForEach(items, id: \.notificationID) { item in
                             WatchlistItemFrame(content: item)
@@ -31,6 +36,7 @@ struct WatchlistCardSection: View {
                         }
                         .padding(.leading)
                     }
+#endif
                 }.padding()
             }
         } else {
@@ -57,10 +63,11 @@ struct WatchlistCardSection_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(tvOS)
+#if os(macOS)
     static let columns: CGFloat = 240
+#elseif os(tvOS)
+    static let columns: CGFloat = 460
 #else
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
 #endif
 }
-#endif

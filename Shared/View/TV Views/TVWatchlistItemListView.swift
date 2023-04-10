@@ -19,7 +19,7 @@ struct TVWatchlistItemListView: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(items) { item in
-                            TVWatchlistItemCard(item: item)
+                            WatchlistItemFrame(content: item)
                                 .padding([.leading, .trailing], 4)
                                 .buttonStyle(.plain)
                                 .padding(.leading, item.id == items.first!.id ? 16 : 0)

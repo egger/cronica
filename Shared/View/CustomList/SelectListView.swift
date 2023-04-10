@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct SelectListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
@@ -85,11 +85,12 @@ struct SelectListView: View {
                                     }
                                     .tint(.red)
                                 }
+#if os(iOS) || os(macOS)
                                 .swipeActions(edge: .leading, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                     NavigationLink {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
                                         EditCustomList(list: item, showListSelection: $showListSelection)
-#else
+#elseif os(macOS)
                                         EditCustomList(isPresentingNewList: $isCreateNewListPresented, list: item, showListSelection: $showListSelection)
 #endif
                                     } label: {
@@ -108,6 +109,7 @@ struct SelectListView: View {
                                     }
                                     .tint(.red)
                                 }
+#endif
                         }.onDelete(perform: delete)
                     }
                 }
@@ -131,9 +133,9 @@ struct SelectListView: View {
     
     private var newList: some View {
         NavigationLink {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
             NewCustomListView(presentView: $showListSelection, newSelectedList: $selectedList)
-#else
+#elseif os(macOS)
             NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection, newSelectedList: $selectedList)
 #endif
         } label: {
@@ -162,7 +164,7 @@ private struct DefaultListRow: View {
         HStack {
 #if os(macOS)
             checkStage
-#else
+#elseif os(iOS)
             if editMode?.wrappedValue.isEditing ?? false {
                 EmptyView()
             } else {
@@ -200,7 +202,7 @@ private struct ListRowItem: View {
         HStack {
 #if os(macOS)
             checkStage
-#else
+#elseif os(iOS)
             if editMode?.wrappedValue.isEditing ?? false {
                 EmptyView()
             } else {
@@ -246,4 +248,3 @@ private struct ListRowItem: View {
         }
     }
 }
-#endif

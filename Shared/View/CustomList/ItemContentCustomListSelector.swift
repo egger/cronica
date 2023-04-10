@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct ItemContentCustomListSelector: View {
     @Binding var item: WatchlistItem?
     @Binding var showView: Bool
@@ -60,9 +60,9 @@ struct ItemContentCustomListSelector: View {
     
     private var newList: some View {
         NavigationLink {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
             NewCustomListView(presentView: $showView, preSelectedItem: item, newSelectedList: $selectedList)
-#else
+#elseif os(macOS)
             NewCustomListView(isPresentingNewList: $showView,
                               presentView: $showView,
                               preSelectedItem: item,
@@ -107,4 +107,3 @@ private struct AddToListRow: View {
         }
     }
 }
-#endif

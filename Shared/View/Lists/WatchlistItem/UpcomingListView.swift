@@ -27,7 +27,7 @@ struct UpcomingListView: View {
                     LazyHStack {
                         ForEach(items) { item in
 #if os(tvOS)
-                            TVWatchlistItemCard(item: item)
+                            WatchlistItemFrame(content: item)
                                 .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
                                 .buttonStyle(.plain)

@@ -37,7 +37,7 @@ struct TabBarView: View {
             .tabItem { Label("Explore", systemImage: "film").labelStyle(.titleOnly) }
             
             NavigationStack {
-                TVWatchlistView()
+                DefaultWatchlist()
             }
             .tabItem {
                 Label("Watchlist", systemImage: "square.stack.fill")
