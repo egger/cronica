@@ -53,7 +53,7 @@ To get started you'll need to:
 ### iOS/iPadOS
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/iPhone.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." minWidth="220" maxWidth="440" height="340">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/iPad.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." minWidth="220" maxWidth="440" height="340">
 </p>
 <p align="center">
 <a href="https://apple.co/38SXpVJ">
