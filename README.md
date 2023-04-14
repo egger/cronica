@@ -18,7 +18,7 @@
 
 
 <p align="center">
-    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Screenshots/iPhone.webp?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
+    <img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/iPhone.webp" alt="Cronica Home view Screenshot" minWidth="220" maxWidth="440" height="380">
 </p>
 
 ## About
@@ -53,7 +53,7 @@ To get started you'll need to:
 ### iOS/iPadOS
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/iPad.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." minWidth="220" maxWidth="440" height="340">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/iPad.webp" alt="Cronica running on iPad displaying the details page for the TV Show Kaguya-sama: Love Is War." minWidth="220" maxWidth="440" height="340">
 </p>
 <p align="center">
 <a href="https://apple.co/38SXpVJ">
