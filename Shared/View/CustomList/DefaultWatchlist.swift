@@ -28,25 +28,6 @@ struct DefaultWatchlist: View {
     var body: some View {
         VStack {
 #if os(tvOS)
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Watchlist")
-                        .font(.title3)
-                    if showAllItems {
-                        Text(mediaTypeFilter.localizableTitle)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    } else {
-                        Text(selectedOrder.title)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    }
-                }
-                .padding()
-                Spacer()
-                filterButton
-            }
-            .padding(.horizontal)
             frameStyle
 #else
             switch settings.watchlistStyle {
@@ -111,6 +92,10 @@ struct DefaultWatchlist: View {
                     filterButton
                     styleButton
                 }
+            }
+#elseif os(tvOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                filterButton
             }
 #elseif os(macOS)
             HStack {

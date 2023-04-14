@@ -11,7 +11,7 @@ import UIKit
 enum Icon: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case primary = "AppIcon"
-    case ticket = "AppIcon-Ticket"
+    case ticket = "AppIcon2"
     
     var iconName: String? {
         switch self {
@@ -23,9 +23,9 @@ enum Icon: String, CaseIterable, Identifiable {
     var description: String {
         switch self {
         case .primary:
-            return NSLocalizedString("Classical", comment: "")
-        case .ticket:
             return NSLocalizedString("Ticket", comment: "")
+        case .ticket:
+            return NSLocalizedString("Classical", comment: "")
         }
     }
     

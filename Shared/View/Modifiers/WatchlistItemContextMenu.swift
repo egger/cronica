@@ -45,7 +45,6 @@ struct WatchlistItemContextMenu: ViewModifier {
                 pinButton
                 archiveButton
                 deleteButton
-                Button("Cancel") { }
             }
 #else
         return content

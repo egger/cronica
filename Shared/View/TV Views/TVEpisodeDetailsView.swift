@@ -64,13 +64,14 @@ struct TVEpisodeDetailsView: View {
                         .font(.title3)
                     Spacer()
                 }
+                .padding(.horizontal)
                 HStack(alignment: .bottom) {
                     VStack {
                         WatchEpisodeButton(episode: episode,
-                                               season: season,
-                                               show: id,
-                                               isWatched: $isWatched,
-                                               inWatchlist: $inWatchlist)
+                                           season: season,
+                                           show: id,
+                                           isWatched: $isWatched,
+                                           inWatchlist: $inWatchlist)
                     }
                     .padding()
                     Spacer()
@@ -89,16 +90,22 @@ struct TVEpisodeDetailsView: View {
                     }
                     .padding()
                     Spacer()
-                    VStack(alignment: .leading) {
-                        #if os(tvOS)
-                        HStack {
-                            InfoSegmentView(title: "Episode", info: "\(episode.itemEpisodeNumber)")
-                            InfoSegmentView(title: "Season", info: "\(episode.itemSeasonNumber)")
+                    Button {
+                        
+                    } label: {
+                        VStack(alignment: .leading) {
+#if os(tvOS)
+                            HStack {
+                                InfoSegmentView(title: "Episode", info: "\(episode.itemEpisodeNumber)")
+                                InfoSegmentView(title: "Season", info: "\(episode.itemSeasonNumber)")
+                            }
+                            InfoSegmentView(title: "Release", info: episode.itemDate)
+#endif
                         }
-                        InfoSegmentView(title: "Release", info: episode.itemDate)
-                        #endif
+                        .padding()
                     }
-                    .padding()
+                    .buttonStyle(.plain)
+                    
                     Spacer()
                 }
                 .padding()

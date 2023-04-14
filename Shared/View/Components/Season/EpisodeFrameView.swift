@@ -56,6 +56,7 @@ struct EpisodeFrameView: View {
                     ShareLink(item: itemLink)
 #endif
                 }
+            #if os(iOS) || os(macOS)
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .textCase(.uppercase)
@@ -79,6 +80,7 @@ struct EpisodeFrameView: View {
                     .accessibilityHidden(true)
                 Spacer()
             }
+            #endif
             Spacer()
         }
         .buttonStyle(.plain)
@@ -106,6 +108,9 @@ struct EpisodeFrameView: View {
 #endif
 #endif
         }
+        #if os(tvOS)
+        .frame(maxWidth: 360)
+        #endif
     }
     
     private var image: some View {

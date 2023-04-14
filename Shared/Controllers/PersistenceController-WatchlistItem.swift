@@ -269,6 +269,9 @@ extension PersistenceController {
             if let item {
                 if let watched {
                     item.watched = watched
+                    if item.isTvShow && watched {
+                        item.displayOnUpNext = false
+                    }
                 }
                 if let favorite {
                     item.favorite = favorite
@@ -337,7 +340,8 @@ extension PersistenceController {
             item.isWatching = true
             saveContext()
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+            if Task.isCancelled { return }
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updateEpisodeListUpTo")
         }
     }
     
@@ -358,20 +362,16 @@ extension PersistenceController {
                     if let nextEpisode {
                         item.nextEpisodeNumberUpNext = Int64(nextEpisode.episodeNumber ?? 0)
                         item.seasonNumberUpNext = Int64(nextEpisode.seasonNumber ?? 0)
-                        if nextEpisode.isItemReleased {
-                            item.displayOnUpNext = true
-                        } else {
-                            item.displayOnUpNext = false
-                        }
-                    } else {
-                        item.displayOnUpNext = false
                     }
                     item.lastSelectedSeason = Int64(season)
                     item.lastWatchedEpisode = Int64(episode)
+                    item.displayOnUpNext = true
                 }
                 saveContext()
             } catch {
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+                if Task.isCancelled { return }
+                let message = "\(error.localizedDescription), item id: \(show)"
+                CronicaTelemetry.shared.handleMessage(message, for: "updateEpisodeList")
             }
         }
     }
@@ -439,6 +439,7 @@ extension PersistenceController {
             }
             return ids
         } catch {
+            if Task.isCancelled { return [] }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                   for: "BackgroundManager.fetchAllItemsIDs()")
             return []

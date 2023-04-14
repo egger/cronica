@@ -31,41 +31,43 @@ struct UpNextView: View {
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
-                TitleView(title: "upNext")
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(episodes) { episode in
+                if !episodes.isEmpty {
+                    TitleView(title: "upNext")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEach(episodes) { episode in
 #if os(tvOS)
-                            Button {
-                                selectedEpisode = episode
-                            } label: {
-                                UpNextEpisodeCard(episode: episode)
-                            }
-                            .padding([.leading, .trailing], 4)
-                            .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
-                            .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)
-                            .padding(.bottom)
-                            .padding(.top, 8)
-                            .buttonStyle(.card)
-#else
-                            UpNextEpisodeCard(episode: episode)
+                                Button {
+                                    selectedEpisode = episode
+                                } label: {
+                                    UpNextEpisodeCard(episode: episode)
+                                }
                                 .padding([.leading, .trailing], 4)
                                 .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
                                 .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)
-                                .padding(.top, 8)
                                 .padding(.bottom)
-                                .onTapGesture {
-                                    if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                        Task { await markAsWatched(episode) }
-                                    } else {
-                                        selectedEpisode = episode
+                                .padding(.top, 8)
+                                .buttonStyle(.card)
+#else
+                                UpNextEpisodeCard(episode: episode)
+                                    .padding([.leading, .trailing], 4)
+                                    .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
+                                    .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)
+                                    .padding(.top, 8)
+                                    .padding(.bottom)
+                                    .onTapGesture {
+                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                            Task { await markAsWatched(episode) }
+                                        } else {
+                                            selectedEpisode = episode
+                                        }
                                     }
-                                }
 #endif
+                            }
                         }
                     }
+                    .redacted(reason: isLoaded ? [] : .placeholder)
                 }
-                .redacted(reason: isLoaded ? [] : .placeholder)
             }
             .task { await load() }
             .onChange(of: shouldReload) { reload in
@@ -134,7 +136,10 @@ struct UpNextView: View {
                     let result = try await NetworkService.shared.fetchEpisode(tvID: item.id,
                                                                               season: item.seasonNumberUpNext,
                                                                               episodeNumber: item.nextEpisodeNumberUpNext)
-                    if result.isItemReleased {
+                    let isWatched = PersistenceController.shared.isEpisodeSaved(show: item.itemId,
+                                                                                    season: result.itemSeasonNumber,
+                                                                                    episode: result.id)
+                    if result.isItemReleased && !isWatched {
                         DispatchQueue.main.async {
                             withAnimation(.easeInOut) {
                                 episodes.append(result)
@@ -215,20 +220,28 @@ struct UpNextView: View {
                 guard let episodes = nextSeason.episodes else { return nil }
                 let nextEpisode = episodes[0]
                 if nextEpisode.isItemReleased {
+                    if PersistenceController.shared.isEpisodeSaved(show: showId,
+                                                                   season: nextEpisode.itemSeasonNumber,
+                                                                   episode: nextEpisode.id) { return nil }
                     return nextEpisode
                 }
                 return nil
             }
             else {
-                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
-                return nextEpisode[0]
+                let nextEpisodeArray = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
+                let nextEpisode = nextEpisodeArray[0]
+                if PersistenceController.shared.isEpisodeSaved(show: showId,
+                                                               season: nextEpisode.itemSeasonNumber,
+                                                               episode: nextEpisode.id) { return nil }
+                return nextEpisode
             }
         } catch {
             if Task.isCancelled { return nil }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "UpNextView.fetchNextEpisode")
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "UpNextView.fetchNextEpisode.failed")
             return nil
         }
     }
+    
 }
 
 private struct UpNextEpisodeCard: View {
@@ -312,8 +325,6 @@ private struct DrawingConstants {
 #if os(tvOS)
     static let imageWidth: CGFloat = 660
     static let imageHeight: CGFloat = 360
-    //    static let imageWidth: CGFloat = 460
-    //    static let imageHeight: CGFloat = 260
 #else
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160

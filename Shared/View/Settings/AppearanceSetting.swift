@@ -99,12 +99,14 @@ struct AppearanceSetting: View {
                 }
                 .pickerStyle(.navigationLink)
                 
-                NavigationLink(destination: AppIconListView(viewModel: icons)) {
-                    HStack {
-                        Text("appearanceAppIcon")
-                        Spacer()
-                        Text(icons.selectedAppIcon.description)
-                            .foregroundColor(.secondary)
+                if UIDevice.isIPhone {
+                    NavigationLink(destination: AppIconListView(viewModel: icons)) {
+                        HStack {
+                            Text("appearanceAppIcon")
+                            Spacer()
+                            Text(icons.selectedAppIcon.description)
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
                 

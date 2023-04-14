@@ -25,9 +25,9 @@ struct HomeView: View {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
             VStack(alignment: .leading) {
                 ScrollView {
-                    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
                     UpNextView(shouldReload: $reloadUpNext)
-                    #endif
+#endif
                     UpcomingWatchlist()
                     PinItemsList()
                     ItemContentListView(items: viewModel.trending,

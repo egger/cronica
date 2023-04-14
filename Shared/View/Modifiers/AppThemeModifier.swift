@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppThemeModifier: ViewModifier {
     static let defaultsKey = "user_theme"
+    @StateObject private var settings = SettingsStore.shared
     @AppStorage(Self.defaultsKey) private var currentTheme: AppTheme = .system
     @Environment(\.colorScheme) var systemTheme
     func body(content: Content) -> some View {

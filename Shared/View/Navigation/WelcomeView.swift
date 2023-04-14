@@ -77,7 +77,6 @@ struct WelcomeView: View {
             SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
         }
 #endif
-        
     }
 }
 

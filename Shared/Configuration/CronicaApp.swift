@@ -98,7 +98,7 @@ struct CronicaApp: App {
 #if os(macOS)
                     .presentationDetents([.large])
                     .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
-#else
+#elseif os(iOS)
                     .appTheme()
                     .appTint()
 #endif
@@ -144,7 +144,7 @@ struct CronicaApp: App {
             let message = """
 Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)
 """
-            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppRefresh()")
+            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppRefresh.error")
         }
 #endif
     }
@@ -166,7 +166,7 @@ Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)
             let message = """
 Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
 """
-            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppMaintenance()")
+            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppMaintenance.error")
         }
 #endif
     }
@@ -189,7 +189,7 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
             }
             task.setTaskCompleted(success: true)
             CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                                  for: "handleAppRefreshBGTask")
+                                                  for: "handleAppRefreshBGTask.success")
         }
     }
 #endif
@@ -211,7 +211,7 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
         task.setTaskCompleted(success: true)
         BackgroundManager.shared.lastMaintenance = Date()
         CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                              for: "handleAppMaintenance")
+                                              for: "handleAppMaintenance.success")
     }
 #endif
 }

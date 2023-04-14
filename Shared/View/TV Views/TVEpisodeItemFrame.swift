@@ -69,7 +69,7 @@ struct TVEpisodeItemFrame: View {
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 200
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 12 
     static let titleLineLimit: Int = 1
 }
  

@@ -269,3 +269,10 @@ private struct ShowAllItemsView: View {
     }
 }
 #endif
+
+//private struct DeveloperWatchlistItemOptions: View {
+//    @State var item: WatchlistItem
+//    var body: some View {
+//        //Toggle(<#T##title: StringProtocol##StringProtocol#>, isOn: <#T##Binding<Bool>#>)
+//    }
+//}
