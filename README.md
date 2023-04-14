@@ -18,7 +18,7 @@
 
 
 <p align="center">
-    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Screenshots/CronicaHome.png?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
+    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Screenshots/iPhone.webp?raw=true" alt="Cronica Screenshot" minWidth="220" maxWidth="560" minHeight="120" maxHeight="500">
 </p>
 
 ## About
