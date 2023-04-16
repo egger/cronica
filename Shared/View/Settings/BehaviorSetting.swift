@@ -9,6 +9,9 @@ import SwiftUI
 
 struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
+#if os(macOS)
+    @State private var showWatchProvidersSelector = false
+#endif
     var body: some View {
         Form {
             gesture
@@ -134,11 +137,24 @@ struct BehaviorSetting: View {
 #else
                 .pickerStyle(.navigationLink)
 #endif
-#if os(iOS) || os(macOS)
+#if os(iOS)
                 NavigationLink("selectedWatchProvider", destination: WatchProviderSelectorSetting())
+#elseif os(macOS)
+                Button("selectedWatchProvider") {
+                    showWatchProvidersSelector.toggle()
+                }.buttonStyle(.link)
 #endif
             }
         }
+#if os(macOS)
+        .sheet(isPresented: $showWatchProvidersSelector) {
+            NavigationStack {
+                WatchProviderSelectorSetting(showView: $showWatchProvidersSelector)
+            }
+            .presentationDetents([.large])
+            .frame(width: 400, height: 500, alignment: .center)
+        }
+#endif
     }
     
     private var accessibility: some View {

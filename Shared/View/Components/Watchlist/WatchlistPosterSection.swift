@@ -15,7 +15,7 @@ struct WatchlistPosterSection: View {
     var body: some View {
         if !items.isEmpty {
             ScrollView {
-                LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
+                LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                           spacing: settings.isCompactUI ? 10 : 20) {
                     Section {
                         ForEach(items, id: \.notificationID) { item in
@@ -68,5 +68,6 @@ private struct DrawingConstants {
     static let columns  = [GridItem(.adaptive(minimum: 160))]
     static let spacing: CGFloat = 20
 #endif
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let compactColumns = [GridItem(.adaptive(minimum: 80))]
 }

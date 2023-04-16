@@ -12,6 +12,9 @@ struct WatchProviderSelectorSetting: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var providers = [WatchProviderContent]()
     @State private var isLoading = true
+#if os(macOS)
+    @Binding var showView: Bool
+#endif
     var body: some View {
         Form {
             Toggle(isOn: $settings.isSelectedWatchProviderEnabled) {
@@ -28,7 +31,7 @@ struct WatchProviderSelectorSetting: View {
             }
         }
         .navigationTitle("selectedWatchProvider")
-        .onChange(of: settings.isSelectedWatchProviderEnabled) { _ in 
+        .onChange(of: settings.isSelectedWatchProviderEnabled) { _ in
             if settings.isSelectedWatchProviderEnabled {
                 Task { await load() }
             } else {
@@ -40,6 +43,12 @@ struct WatchProviderSelectorSetting: View {
                 Task { await load() }
             }
         }
+#if os(macOS)
+        .formStyle(.grouped)
+        .toolbar {
+            Button("Done") { showView.toggle() }
+        }
+#endif
     }
     
     private func load() async {
@@ -64,13 +73,13 @@ struct WatchProviderSelectorSetting: View {
         }
     }
 }
-
+#if os(iOS)
 struct WatchProviderSelectorSetting_Previews: PreviewProvider {
     static var previews: some View {
         WatchProviderSelectorSetting()
     }
 }
-
+#endif
 private struct WatchProviderItemSelector: View {
     let item: WatchProviderContent
     @StateObject private var settings = SettingsStore.shared

@@ -89,7 +89,7 @@ struct CompanyDetails: View {
     
     @ViewBuilder
     private var posterStyle: some View {
-        LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
+        LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(viewModel.items) { item in
                 Poster(item: item, addedItemConfirmation: $showConfirmation)
@@ -191,5 +191,6 @@ private struct DrawingConstants {
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
 #endif
     static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
 }
 #endif
