@@ -20,7 +20,7 @@ struct WatchProviderSelectorSetting: View {
             }
             if settings.isSelectedWatchProviderEnabled {
                 Section {
-                    List(providers, id: \.self) { item in
+                    List(providers, id: \.itemID) { item in
                         WatchProviderItemSelector(item: item)
                     }
                 }
@@ -47,18 +47,14 @@ struct WatchProviderSelectorSetting: View {
         if providers.isEmpty {
             do {
                 let network = NetworkService.shared
-                let moviesProviders = try await network.fetchWatchProviderServices(for: .movie, region: SettingsStore.shared.watchRegion.rawValue)
-                let showProviders = try await network.fetchWatchProviderServices(for: .tvShow, region: SettingsStore.shared.watchRegion.rawValue)
-                var result = [WatchProviderContent]()
-                let combined = moviesProviders.results + showProviders.results
-                for item in combined {
+                let providers = try await network.fetchWatchProviderServices(for: .movie, region: SettingsStore.shared.watchRegion.rawValue)
+                var result = Set<WatchProviderContent>()
+                for item in providers.results {
                     if !result.contains(where: { $0.itemId == item.itemId }) {
-                        result.append(item)
+                        result.insert(item)
                     }
                 }
-                var set = Set<WatchProviderContent>()
-                for item in combined { set.insert(item) }
-                providers.append(contentsOf: set.sorted { $0.providerTitle < $1.providerTitle})
+                self.providers.append(contentsOf: result.sorted { $0.providerTitle < $1.providerTitle})
                 withAnimation { isLoading = false }
             } catch {
                 if Task.isCancelled { return }
@@ -83,6 +79,7 @@ private struct WatchProviderItemSelector: View {
         HStack {
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                 .foregroundColor(isSelected ? SettingsStore.shared.appTheme.color : nil)
+                .fontWeight(.semibold)
                 .padding(.trailing)
             WebImage(url: item.providerImage)
                 .resizable()
@@ -92,16 +89,16 @@ private struct WatchProviderItemSelector: View {
             Text(item.providerTitle)
         }
         .onTapGesture {
-            if settings.selectedWatchProviders.contains("@\(item.itemId)-\(item.providerTitle)") {
-                let selected = settings.selectedWatchProviders.replacingOccurrences(of: "@\(item.itemId)-\(item.providerTitle)", with: "")
+            if settings.selectedWatchProviders.contains(item.itemID) {
+                let selected = settings.selectedWatchProviders.replacingOccurrences(of: item.itemID, with: "")
                 settings.selectedWatchProviders = selected
             } else {
-                settings.selectedWatchProviders.append("@\(item.itemId)-\(item.providerTitle)")
+                settings.selectedWatchProviders.append(item.itemID)
             }
             print(settings.selectedWatchProviders)
         }
         .task(id: settings.selectedWatchProviders) {
-            if settings.selectedWatchProviders.contains("@\(item.itemId)-\(item.providerTitle)")  {
+            if settings.selectedWatchProviders.contains(item.itemID)  {
                 if !isSelected {
                     withAnimation { isSelected = true }
                 }

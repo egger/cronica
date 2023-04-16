@@ -44,8 +44,7 @@ class WatchProvidersListViewModel: ObservableObject {
                     if let flatrate = regionContent.flatrate {
                         if settings.isSelectedWatchProviderEnabled {
                             for item in flatrate {
-                                let id = "@\(item.itemId)-\(item.providerTitle)"
-                                if settings.selectedWatchProviders.contains(id) {
+                                if settings.selectedWatchProviders.contains(item.itemID) {
                                     content.append(item)
                                 }
                             }
@@ -57,8 +56,7 @@ class WatchProvidersListViewModel: ObservableObject {
                     if let buy =  regionContent.buy {
                         if settings.isSelectedWatchProviderEnabled {
                             for item in buy {
-                                let id = "@\(item.itemId)-\(item.providerTitle)"
-                                if settings.selectedWatchProviders.contains(id) {
+                                if settings.selectedWatchProviders.contains(item.itemID) {
                                     content.append(item)
                                 }
                             }

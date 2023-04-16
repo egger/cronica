@@ -182,6 +182,9 @@ extension WatchProviderContent {
     var listPriority: Int {
         return displayPriority ?? 10
     }
+    var itemID: String {
+        return "@\(itemId)-\(providerTitle)"
+    }
 }
 
 struct WatchProviderResultContent: Codable {

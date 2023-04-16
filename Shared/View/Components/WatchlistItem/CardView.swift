@@ -107,11 +107,11 @@ struct CardView: View {
                         ShareLink(item: item.itemLink)
 #endif
                         Divider()
-                        Button(role: .destructive, action: {
+                        Button(role: .destructive) {
                             remove(item: item)
-                        }, label: {
+                        } label: {
                             Label("Remove from watchlist", systemImage: "trash")
-                        })
+                        }
                     }
                     .padding([.leading, .trailing], 4)
                     .transition(.opacity)

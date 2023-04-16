@@ -85,11 +85,11 @@ private struct DrawingConstants {
     static let compactPosterWidth: CGFloat = 80
     static let posterHeight: CGFloat = 240
     static let compactPosterHeight: CGFloat = 140
+    static let compactPosterRadius: CGFloat = 4
 #if os(macOS)
     static let posterRadius: CGFloat = 12
 #else
     static let posterRadius: CGFloat = 8
-    static let compactPosterRadius: CGFloat = 4
 #endif
     static let shadowRadius: CGFloat = 2
 }

@@ -67,6 +67,6 @@ private struct DrawingConstants {
 #else
     static let columns  = [GridItem(.adaptive(minimum: 160))]
     static let spacing: CGFloat = 20
-    static let compactColumns = [GridItem(.adaptive(minimum: 80))]
 #endif
+    static let compactColumns = [GridItem(.adaptive(minimum: 80))]
 }

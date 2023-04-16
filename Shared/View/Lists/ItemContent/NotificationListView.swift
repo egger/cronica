@@ -29,14 +29,13 @@ struct NotificationListView: View {
                                 Section {
                                     ForEach(deliveredItems.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
                                         ItemContentItemView(item: item, subtitle: item.itemContentMedia.title)
-                                            .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
-                                                Button(role: .destructive,
-                                                       action: {
+                                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                                Button(role: .destructive) {
                                                     removeDelivered(id: item.itemNotificationID, for: item.id)
-                                                }, label: {
+                                                } label: {
                                                     Label("Remove Notification", systemImage: "bell.slash.circle.fill")
-                                                })
-                                            })
+                                                }
+                                            }
                                     }
                                     .onDelete(perform: deleteDelivered)
                                 } header: {
@@ -48,14 +47,13 @@ struct NotificationListView: View {
                                 Section {
                                     ForEach(items.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
                                         ItemContentItemView(item: item, subtitle: item.itemSearchDescription)
-                                            .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
-                                                Button(role: .destructive,
-                                                       action: {
+                                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                                Button(role: .destructive) {
                                                     removeNotification(id: item.itemNotificationID, for: item.id)
-                                                }, label: {
+                                                } label: {
                                                     Label("Remove Notification", systemImage: "bell.slash.circle.fill")
-                                                })
-                                            })
+                                                }
+                                            }
                                     }
                                     .onDelete(perform: delete)
                                 } header: {
@@ -107,9 +105,7 @@ struct NotificationListView: View {
                 Task {
                     items = await NotificationManager.shared.fetchUpcomingNotifications() ?? []
                     deliveredItems = await NotificationManager.shared.fetchDeliveredNotifications()
-                    withAnimation {
-                        hasLoaded = true
-                    }
+                    withAnimation { hasLoaded = true }
                 }
             }
         }
@@ -117,12 +113,12 @@ struct NotificationListView: View {
     
     private func removeNotification(id: String, for content: Int) {
         NotificationManager.shared.removeNotification(identifier: id)
-        items.removeAll(where: { $0.id == content })
+        withAnimation { items.removeAll(where: { $0.id == content }) }
     }
     
     private func removeDelivered(id: String, for content: Int) {
         NotificationManager.shared.removeDeliveredNotification(identifier: id)
-        items.removeAll(where: { $0.id == content })
+        withAnimation { items.removeAll(where: { $0.id == content }) }
     }
     
     private func delete(offsets: IndexSet) {
@@ -152,6 +148,10 @@ struct NotificationListView_Previews: PreviewProvider {
 private struct ItemContentItemView: View {
     let item: ItemContent
     let subtitle: String
+    @State private var isWatched = false
+    @State private var showConfirmation = false
+    @State private var isInWatchlist = true
+    private let persistence = PersistenceController.shared
     var body: some View {
         NavigationLink(value: item) {
             HStack {
@@ -184,6 +184,13 @@ private struct ItemContentItemView: View {
                         Spacer()
                     }
                 }
+            }
+            .itemContentContextMenu(item: item,
+                                    isWatched: $isWatched,
+                                    showConfirmation: $showConfirmation,
+                                    isInWatchlist: $isInWatchlist)
+            .task {
+                isWatched = persistence.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
             }
         }
     }

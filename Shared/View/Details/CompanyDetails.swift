@@ -189,7 +189,7 @@ private struct DrawingConstants {
     static let columns: CGFloat = 240
 #else
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
-    static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
 #endif
+    static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
 }
 #endif
