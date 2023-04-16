@@ -246,6 +246,7 @@ struct UpNextView: View {
 
 private struct UpNextEpisodeCard: View {
     let episode: Episode
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         ZStack {
             WebImage(url: episode.itemImageLarge)
@@ -261,7 +262,8 @@ private struct UpNextEpisodeCard: View {
                     }
                 }
                 .aspectRatio(contentMode: .fill)
-                .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+                .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
+                       height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
                 .transition(.opacity)
             
             VStack(alignment: .leading) {
@@ -315,8 +317,9 @@ private struct UpNextEpisodeCard: View {
                 }
             }
         }
-        .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
+               height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
         .shadow(radius: 2.5)
     }
 }
@@ -328,6 +331,8 @@ private struct DrawingConstants {
 #else
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
+    static let compactImageWidth: CGFloat = 200
+    static let compactImageHeight: CGFloat = 120
 #endif
     static let imageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1

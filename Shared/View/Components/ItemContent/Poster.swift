@@ -14,71 +14,14 @@ struct Poster: View {
     @State private var isInWatchlist = false
     @State private var isWatched = false
     @Binding var addedItemConfirmation: Bool
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         NavigationLink(value: item) {
-            WebImage(url: item.posterImageMedium, options: .highPriority)
-                .resizable()
-                .placeholder {
-                    PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
-                }
-                .aspectRatio(contentMode: .fill)
-                .overlay {
-                    if isInWatchlist {
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Spacer()
-                                if isWatched {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundColor(.white.opacity(0.8))
-                                        .padding()
-                                } else {
-                                    Image(systemName: "square.stack.fill")
-                                        .foregroundColor(.white.opacity(0.8))
-                                        .padding()
-                                }
-                            }
-                            .background {
-                                if item.posterImageMedium != nil {
-                                    Color.black.opacity(0.5)
-                                        .mask {
-                                            LinearGradient(colors:
-                                                            [Color.black,
-                                                             Color.black.opacity(0.924),
-                                                             Color.black.opacity(0.707),
-                                                             Color.black.opacity(0.383),
-                                                             Color.black.opacity(0)],
-                                                           startPoint: .bottom,
-                                                           endPoint: .top)
-                                        }
-                                }
-                            }
-                        }
-                    }
-                }
-                .transition(.opacity)
-                .frame(width: DrawingConstants.posterWidth,
-                       height: DrawingConstants.posterHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
-                                            style: .continuous))
-                .shadow(radius: DrawingConstants.shadowRadius)
-                .padding(.zero)
-                .applyHoverEffect()
-                .itemContentContextMenu(item: item,
-                                        isWatched: $isWatched,
-                                        showConfirmation: $addedItemConfirmation,
-                                        isInWatchlist: $isInWatchlist)
-                .task {
-                    withAnimation {
-                        isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
-                        if isInWatchlist && !isWatched {
-                            isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
-                        }
-                    }
-                }
-#if os(iOS) || os(macOS)
-                .draggable(item)
-#endif
+            if settings.isCompactUI {
+                compact
+            } else {
+                image
+            }
         }
 #if os(tvOS)
         .buttonStyle(.card)
@@ -86,6 +29,88 @@ struct Poster: View {
         .buttonStyle(.plain)
 #endif
         .accessibility(label: Text(item.itemTitle))
+    }
+    
+    private var image: some View {
+        WebImage(url: item.posterImageMedium, options: .highPriority)
+            .resizable()
+            .placeholder {
+                PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
+            }
+            .aspectRatio(contentMode: .fill)
+            .overlay {
+                if isInWatchlist {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            if isWatched {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding()
+                            } else {
+                                Image(systemName: "square.stack.fill")
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding()
+                            }
+                        }
+                        .background {
+                            if item.posterImageMedium != nil {
+                                Color.black.opacity(0.5)
+                                    .mask {
+                                        LinearGradient(colors:
+                                                        [Color.black,
+                                                         Color.black.opacity(0.924),
+                                                         Color.black.opacity(0.707),
+                                                         Color.black.opacity(0.383),
+                                                         Color.black.opacity(0)],
+                                                       startPoint: .bottom,
+                                                       endPoint: .top)
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+            .transition(.opacity)
+            .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
+                   height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
+            .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
+                                        style: .continuous))
+            .shadow(radius: DrawingConstants.shadowRadius)
+            .padding(.zero)
+            .applyHoverEffect()
+            .itemContentContextMenu(item: item,
+                                    isWatched: $isWatched,
+                                    showConfirmation: $addedItemConfirmation,
+                                    isInWatchlist: $isInWatchlist)
+            .task {
+                withAnimation {
+                    isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                    if isInWatchlist && !isWatched {
+                        isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+                    }
+                }
+            }
+#if os(iOS) || os(macOS)
+            .draggable(item)
+#endif
+    }
+    
+    private var compact: some View {
+        VStack(alignment: .leading) {
+            image
+            HStack {
+                Text(item.itemTitle)
+                    .lineLimit(2)
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .accessibilityHidden(true)
+                Spacer()
+            }
+            Spacer()
+        }
+        .frame(maxWidth: DrawingConstants.compactPosterWidth)
     }
 }
 
@@ -99,22 +124,30 @@ struct Poster_Previews: PreviewProvider {
 struct PosterPlaceholder: View {
     var title: String
     let type: MediaType
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         ZStack {
             Rectangle().fill(.gray.gradient)
             VStack {
-                Text(title)
-                    .foregroundColor(.white.opacity(0.8))
-                    .lineLimit(1)
-                    .padding()
-                Image(systemName: type == .tvShow ? "tv" : "film")
-                    .font(.title)
-                    .foregroundColor(.white.opacity(0.8))
+                if settings.isCompactUI {
+                    Image(systemName: type == .tvShow ? "tv" : "film")
+                        .font(.title3)
+                        .foregroundColor(.white.opacity(0.8))
+                } else {
+                    Text(title)
+                        .foregroundColor(.white.opacity(0.8))
+                        .lineLimit(1)
+                        .padding()
+                    Image(systemName: type == .tvShow ? "tv" : "film")
+                        .font(.title)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                
             }
             .padding()
         }
-        .frame(width: DrawingConstants.posterWidth,
-               height: DrawingConstants.posterHeight)
+        .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
+               height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
                                     style: .continuous))
         .shadow(radius: DrawingConstants.shadowRadius)
@@ -129,8 +162,11 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 2
 #else
     static let posterWidth: CGFloat = 160
+    static let compactPosterWidth: CGFloat = 80
     static let posterHeight: CGFloat = 240
+    static let compactPosterHeight: CGFloat = 140
     static let posterRadius: CGFloat = 8
+    static let compactPosterRadius: CGFloat = 4
     static let shadowRadius: CGFloat = 2
 #endif
 }

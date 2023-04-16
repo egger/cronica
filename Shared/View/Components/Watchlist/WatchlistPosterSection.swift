@@ -11,11 +11,12 @@ struct WatchlistPosterSection: View {
     private let context = PersistenceController.shared
     let items: [WatchlistItem]
     let title: String
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         if !items.isEmpty {
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160 ))],
-                          spacing: 20) {
+                LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
+                          spacing: settings.isCompactUI ? 10 : 20) {
                     Section {
                         ForEach(items, id: \.notificationID) { item in
                             WatchlistItemPoster(content: item)
@@ -31,7 +32,7 @@ struct WatchlistPosterSection: View {
                         }
                         .padding(.leading)
                     } 
-                }.padding()
+                }.padding(.all, settings.isCompactUI ? 10 : nil)
             }
         } else {
             CenterHorizontalView {
@@ -54,4 +55,18 @@ struct WatchlistPosterSection_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistPosterSection(items: [.example], title: "Preview")
     }
+}
+
+private struct DrawingConstants {
+#if os(macOS)
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
+    static let columns = [GridItem(.adaptive(minimum: 240))]
+#elseif os(tvOS)
+    static let posterColumns: CGFloat = 260
+    static let columns = [GridItem(.adaptive(minimum: 440))]
+#else
+    static let columns  = [GridItem(.adaptive(minimum: 160))]
+    static let spacing: CGFloat = 20
+    static let compactColumns = [GridItem(.adaptive(minimum: 80))]
+#endif
 }

@@ -44,7 +44,7 @@ struct TitleView: View {
 #else
                             .font(.callout)
 #endif
-                    }
+                    } 
                 }
             }
             Spacer()

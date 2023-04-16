@@ -170,6 +170,7 @@
 		B88529B328E371650026D33A /* EpisodeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529B228E371650026D33A /* EpisodeListView.swift */; };
 		B886D232284D512F00FFE96A /* ConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */; };
 		B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
+		B887B0AC29EC149600E98DED /* WatchProviderSelectorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */; };
 		B88AA91B29DF588600F80EE4 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B88AA91A29DF588600F80EE4 /* SDWebImageSwiftUI */; };
 		B88AA92329DF781000F80EE4 /* MediaTypeFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */; };
 		B88B88C729DE55B500497058 /* AppAlternateIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88B88C629DE55B500497058 /* AppAlternateIcons.swift */; };
@@ -470,6 +471,7 @@
 		B88529B228E371650026D33A /* EpisodeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListView.swift; sourceTree = "<group>"; };
 		B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationDialogView.swift; sourceTree = "<group>"; };
 		B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentContextMenu.swift; sourceTree = "<group>"; };
+		B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviderSelectorSetting.swift; sourceTree = "<group>"; };
 		B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeFilters.swift; sourceTree = "<group>"; };
 		B88B88C629DE55B500497058 /* AppAlternateIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlternateIcons.swift; sourceTree = "<group>"; };
 		B88B88FB29DF194A00497058 /* CronicaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1045,6 +1047,7 @@
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B80BBE5D2949677300958876 /* SyncSetting.swift */,
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
+				B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1667,6 +1670,7 @@
 				B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */,
 				B8B94CEC28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B8105244298D2E7700723E94 /* SwipeGestureOptions.swift in Sources */,
+				B887B0AC29EC149600E98DED /* WatchProviderSelectorSetting.swift in Sources */,
 				B8C0215A29E0D527006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */,
 				B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */,
 				B89429CC297E076E0029646F /* SupportEmail.swift in Sources */,
@@ -1852,7 +1856,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -1885,7 +1889,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2045,7 +2049,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2088,7 +2092,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2170,7 +2174,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2204,7 +2208,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

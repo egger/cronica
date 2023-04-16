@@ -12,6 +12,7 @@ struct CardView: View {
     let item: WatchlistItem
     private let notification = NotificationManager.shared
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         if item.image != nil {
             NavigationLink(value: item) {
@@ -97,8 +98,8 @@ struct CardView: View {
                             
                         }
                     }
-                    .frame(width: DrawingConstants.cardWidth,
-                           height: DrawingConstants.cardHeight)
+                    .frame(width: settings.isCompactUI ? DrawingConstants.compactCardWidth : DrawingConstants.cardWidth,
+                           height: settings.isCompactUI ? DrawingConstants.compactCardHeight : DrawingConstants.cardHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
                     .contextMenu {
@@ -148,6 +149,8 @@ private struct DrawingConstants {
 #else
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160
+    static let compactCardWidth: CGFloat = 200
+    static let compactCardHeight: CGFloat = 120
 #endif
     static let cardRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2.5

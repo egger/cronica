@@ -16,24 +16,40 @@ struct ItemContentCollectionDetails: View {
         ZStack {
             ScrollView {
                 VStack {
-                    LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                        ForEach(items) { item in
-                            if settings.listsDisplayType == .poster {
-                                Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                    .buttonStyle(.plain)
-                            } else {
-                                CardFrame(item: item, showConfirmation: $showConfirmation)
-                                    .buttonStyle(.plain)
-                            }
-                        }
+                    if settings.listsDisplayType == .poster {
+                        posterStyle
+                    } else {
+                        cardStyle
                     }
-                    .padding()
-                    .navigationTitle(LocalizedStringKey(title))
                     AttributionView()
                 }
+                .navigationTitle(LocalizedStringKey(title))
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
+    }
+    
+    @ViewBuilder
+    private var cardStyle: some View {
+        LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+            ForEach(items) { item in
+                CardFrame(item: item, showConfirmation: $showConfirmation)
+                    .buttonStyle(.plain)
+            }
+        }
+        .padding()
+    }
+    
+    @ViewBuilder
+    private var posterStyle: some View {
+        LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
+                  spacing: settings.isCompactUI ? 10 : 20) {
+            ForEach(items) { item in
+                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                    .buttonStyle(.plain)
+            }
+        }
+        .padding(.all, settings.isCompactUI ? 10 : nil)
     }
 }
 
@@ -49,6 +65,7 @@ private struct DrawingConstants {
     static let columns = [GridItem(.adaptive(minimum: 160))]
 #else
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
+    static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
 #endif
 }
 #endif

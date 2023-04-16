@@ -45,4 +45,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .card
 #endif
     @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .standard
+    @AppStorage("preferCompactUI") var isCompactUI = false
+    @AppStorage("selectedWatchProviderEnabled") var isSelectedWatchProviderEnabled = false
+    @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""
 }

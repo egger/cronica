@@ -533,3 +533,8 @@
 "exploreDisplayTypePicker" = "Display Style";
 "watchlistDisplayTypePicker" = "Display Style";
 "cronicaGitHub" = "Cronica GitHub Repo";
+"appearanceCompactUI" = "Compact UI";
+"appearanceCompactUISubtitle" = "Reduce some UI elements size to accommodate more items on the screen.";
+"selectedWatchProvider" = "Streaming Services";
+"selectedWatchProviderTitle" = "Preferred Streaming Services";
+"selectedWatchProviderSubtitle" = "Only show 'Watch Provider' if the title is available on one of your preferred services.";

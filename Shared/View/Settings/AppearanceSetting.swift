@@ -75,6 +75,16 @@ struct AppearanceSetting: View {
             }
             
 #if os(iOS)
+            if UIDevice.isIPhone {
+                Section {
+                    Toggle(isOn: $store.isCompactUI) {
+                        InformationalLabel(title: "appearanceCompactUI", subtitle: "appearanceCompactUISubtitle")
+                    }
+                }
+            }
+#endif
+            
+#if os(iOS)
             Section {
                 Picker(selection: $store.currentTheme) {
                     ForEach(AppTheme.allCases) { item in

@@ -66,8 +66,9 @@ private struct HorizontalWatchlistList: View {
                 } else {
                     LazyHStack {
                         ForEach(items) { item in
-                            PosterWatchlistItem(item: item)
-                                .padding([.leading, .trailing], 4)
+                            //PosterWatchlistItem(item: item)
+                            WatchlistItemPoster(content: item)
+                                .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                                 .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
                                 .padding(.top, 8)

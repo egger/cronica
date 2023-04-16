@@ -27,6 +27,7 @@ class SeasonViewModel: ObservableObject {
         do {
             self.season = try await self.service.fetchSeason(id: id, season: season)
         } catch {
+            if Task.isCancelled { return }
             let message = "Season \(season), id: \(id), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load.failed")
         }

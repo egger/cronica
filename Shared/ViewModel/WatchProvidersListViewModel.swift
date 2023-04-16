@@ -15,6 +15,7 @@ class WatchProvidersListViewModel: ObservableObject {
     @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
     @AppStorage("selectedWatchProviderRegion") private var watchRegion: WatchProviderOption = .us
     @AppStorage("firstLocaleCheck") private var firstCheck = false
+    private var settings = SettingsStore.shared
     
     private func checkLocale() {
         if firstCheck { return }
@@ -41,12 +42,34 @@ class WatchProvidersListViewModel: ObservableObject {
                     link = regionContent.itemLink
                     var content = [WatchProviderContent]()
                     if let flatrate = regionContent.flatrate {
-                        content.append(contentsOf: flatrate)
+                        if settings.isSelectedWatchProviderEnabled {
+                            for item in flatrate {
+                                let id = "@\(item.itemId)-\(item.providerTitle)"
+                                if settings.selectedWatchProviders.contains(id) {
+                                    content.append(item)
+                                }
+                            }
+                        } else {
+                            content.append(contentsOf: flatrate)
+                        }
+                        
                     }
                     if let buy =  regionContent.buy {
-                        content.append(contentsOf: buy)
+                        if settings.isSelectedWatchProviderEnabled {
+                            for item in buy {
+                                let id = "@\(item.itemId)-\(item.providerTitle)"
+                                if settings.selectedWatchProviders.contains(id) {
+                                    content.append(item)
+                                }
+                            }
+                        } else {
+                            content.append(contentsOf: buy)
+                        }
+                        
                     }
+                    
                     items.append(contentsOf: content.sorted { $0.listPriority < $1.listPriority })
+                    
                 }
                 if !items.isEmpty {
                     withAnimation { isProvidersAvailable = true }

@@ -45,58 +45,54 @@ struct ItemContentListView: View {
                         case .standard:
                             LazyHStack {
                                 if displayAsCard {
-                                    ForEach(items) { item in
-                                        CardFrame(item: item, showConfirmation: $addedItemConfirmation)
-                                            .padding([.leading, .trailing], 4)
-                                            .buttonStyle(.plain)
-                                            .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                            .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                            .padding(.top, 8)
-                                            .padding(.bottom)
-                                    }
+                                    cardStyle
                                 } else {
-                                    ForEach(items) { item in
-                                        Poster(item: item,
-                                               addedItemConfirmation: $addedItemConfirmation)
-                                        .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                        .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                        .padding(.top, 8)
-                                        .padding(.bottom)
-                                    }
+                                    posterStyle
                                 }
                             }
 #if os(tvOS)
                     .padding()
 #endif
-                        case .card:
-                            LazyHStack {
-                                ForEach(items) { item in
-                                    CardFrame(item: item, showConfirmation: $addedItemConfirmation)
-                                        .padding([.leading, .trailing], 4)
-                                        .buttonStyle(.plain)
-                                        .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                        .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                        .padding(.top, 8)
-                                        .padding(.bottom)
-                                }
-                            }
-                        case .poster:
-                            LazyHStack {
-                                ForEach(items) { item in
-                                    Poster(item: item,
-                                           addedItemConfirmation: $addedItemConfirmation)
-                                    .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                    .padding(.top, 8)
-                                    .padding(.bottom)
-                                }
-                            }
+                        case .card: cardStyle
+                        case .poster: posterStyle
                         }
                     }
                 }
                 if displayAsCard { Divider().padding(.horizontal) }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var cardStyle: some View {
+        if let items {
+            LazyHStack {
+                ForEach(items) { item in
+                    CardFrame(item: item, showConfirmation: $addedItemConfirmation)
+                        .padding([.leading, .trailing], 4)
+                        .buttonStyle(.plain)
+                        .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                        .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                        .padding(.top, 8)
+                        .padding(.bottom)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var posterStyle: some View {
+        if let items {
+            LazyHStack {
+                ForEach(items) { item in
+                    Poster(item: item,
+                           addedItemConfirmation: $addedItemConfirmation)
+                    .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
+                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                    .padding(.top, settings.isCompactUI ? 4 : 8)
+                    .padding(.bottom, settings.isCompactUI ? 4 : nil)
+                }
             }
         }
     }

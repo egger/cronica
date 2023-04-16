@@ -126,11 +126,15 @@ struct BehaviorSetting: View {
                 } label: {
                     InformationalLabel(title: "watchRegionTitle", subtitle: "watchRegionSubtitle")
                 }
+                .onChange(of: store.watchRegion) { _ in
+                    if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
+                }
 #if os(macOS)
                 .pickerStyle(.automatic)
 #else
                 .pickerStyle(.navigationLink)
 #endif
+                NavigationLink("selectedWatchProvider", destination: WatchProviderSelectorSetting())
             }
         }
     }

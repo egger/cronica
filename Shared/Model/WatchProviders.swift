@@ -170,6 +170,12 @@ extension WatchProviderContent {
     var providerTitle: String {
         providerName ?? NSLocalizedString("Not Available", comment: "")
     }
+    var itemId: Int {
+        providerId ?? 1000
+    }
+    var itemPriority: Int {
+        providerId ?? 100
+    }
     var providerImage: URL? {
         return NetworkService.urlBuilder(size: .original, path: logoPath)
     }
@@ -178,3 +184,6 @@ extension WatchProviderContent {
     }
 }
 
+struct WatchProviderResultContent: Codable {
+    var results: [WatchProviderContent]
+}

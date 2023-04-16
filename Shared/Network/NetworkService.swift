@@ -90,6 +90,17 @@ class NetworkService {
         return try await self.fetch(url: url)
     }
     
+#if os(iOS) || os(macOS)
+    func fetchWatchProviderServices(for type: MediaType, region: String) async throws -> WatchProviderResultContent {
+        let url = URL(string: "https://api.themoviedb.org/3/watch/providers/\(type.rawValue)?api_key=\(Key.tmdbApi)&watch_region=\(region)")
+        guard let url
+        else {
+            throw NetworkError.invalidRequest
+        }
+        return try await self.fetch(url: url)
+    }
+#endif
+    
     func search(query: String, page: String) async throws -> [ItemContent] {
         guard let url = urlBuilder(path: "search/multi", query: query, page: page) else {
             throw NetworkError.invalidEndpoint

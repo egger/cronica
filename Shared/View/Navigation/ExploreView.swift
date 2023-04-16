@@ -40,35 +40,12 @@ struct ExploreView: View {
                         }
                         .padding(.horizontal)
 #endif
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: settings.exploreDisplayType == .poster ? DrawingConstants.posterColumns : DrawingConstants.columns))], spacing: 20) {
-                            ForEach(viewModel.items) { item in
-                                if settings.exploreDisplayType == .card {
-                                    CardFrame(item: item, showConfirmation: $showConfirmation)
-                                        .buttonStyle(.plain)
-#if os(tvOS)
-                                        .padding(.bottom)
-#endif
-                                } else {
-                                    Poster(item: item, addedItemConfirmation: $showConfirmation)
-                                        .buttonStyle(.plain)
-#if os(tvOS)
-                                        .padding(.bottom)
-#endif
-                                }
-                            }
-                            if viewModel.isLoaded && !viewModel.endPagination {
-                                CenterHorizontalView {
-                                    ProgressView()
-                                        .padding()
-                                        .onAppear {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                                viewModel.loadMoreItems()
-                                            }
-                                        }
-                                }
-                            }
+                        
+                        switch settings.exploreDisplayType {
+                        case .poster: posterStyle
+                        case .card: cardStyle
                         }
-                        .padding()
+                        
                         if !viewModel.items.isEmpty {
                             AttributionView()
                         }
@@ -237,6 +214,57 @@ struct ExploreView: View {
         }
     }
     
+    @ViewBuilder
+    private var cardStyle: some View {
+        LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+            ForEach(viewModel.items) { item in
+                CardFrame(item: item, showConfirmation: $showConfirmation)
+                    .buttonStyle(.plain)
+#if os(tvOS)
+                    .padding(.bottom)
+#endif
+            }
+            if viewModel.isLoaded && !viewModel.endPagination {
+                CenterHorizontalView {
+                    ProgressView()
+                        .padding()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                viewModel.loadMoreItems()
+                            }
+                        }
+                }
+            }
+        }
+        .padding()
+    }
+    
+    @ViewBuilder
+    private var posterStyle: some View {
+        LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
+                  spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
+            ForEach(viewModel.items) { item in
+                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                    .buttonStyle(.plain)
+#if os(tvOS)
+                    .padding(.bottom)
+#endif
+            }
+            if viewModel.isLoaded && !viewModel.endPagination {
+                CenterHorizontalView {
+                    ProgressView()
+                        .padding()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                viewModel.loadMoreItems()
+                            }
+                        }
+                }
+            }
+        }
+        .padding(.all, settings.isCompactUI ? 10 : nil)
+    }
+    
 #if os(iOS) || os(macOS)
     private var styleOptions: some View {
         Menu {
@@ -275,13 +303,16 @@ struct ExploreView_Previews: PreviewProvider {
 
 private struct DrawingConstants {
 #if os(macOS)
-    static let posterColumns: CGFloat = 160
-    static let columns: CGFloat = 240
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
+    static let columns = [GridItem(.adaptive(minimum: 240))]
 #elseif os(tvOS)
     static let posterColumns: CGFloat = 260
-    static let columns: CGFloat = 440
+    static let columns = [GridItem(.adaptive(minimum: 440))]
 #else
-    static let posterColumns: CGFloat = 160
-    static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
+    static let posterColumns  = [GridItem(.adaptive(minimum: 160))]
+    static let spacing: CGFloat = 20
+    static let compactPosterColumns = [GridItem(.adaptive(minimum: 80))]
+    static let compactSpacing: CGFloat = 20
+    static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
 #endif
 }
