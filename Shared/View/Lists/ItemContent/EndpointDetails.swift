@@ -119,10 +119,10 @@ private class EndpointDetailsModel: ObservableObject {
 
 private struct DrawingConstants {
 #if os(macOS) || os(tvOS)
-    static let columns: CGFloat = 160
+    static let columns = [GridItem(.adaptive(minimum: 160))]
 #else
     static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
-    static let compactColumns = [GridItem(.adaptive(minimum: 80))]
 #endif
+    static let compactColumns = [GridItem(.adaptive(minimum: 80))]
 }
 #endif

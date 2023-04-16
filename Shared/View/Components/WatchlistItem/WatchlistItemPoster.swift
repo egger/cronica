@@ -23,6 +23,7 @@ struct WatchlistItemPoster: View {
                 image
             }
         }
+        .buttonStyle(.plain)
         .accessibilityLabel(Text(content.itemTitle))
     }
     

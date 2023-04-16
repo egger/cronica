@@ -169,7 +169,7 @@ struct PersonDetailsView: View {
 #else
             Table(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) {
                 TableColumn("Title") { item in
-                    SearchItemView(item: item, showConfirmation: $showSaveConfirmation)
+                    SearchItemView(item: item, showConfirmation: $showConfirmation)
                         .buttonStyle(.plain)
                         .accessibilityHint(Text(item.itemTitle))
                 }

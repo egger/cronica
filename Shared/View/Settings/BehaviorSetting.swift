@@ -108,7 +108,7 @@ struct BehaviorSetting: View {
             Toggle(isOn: $store.openInYouTube) {
                 InformationalLabel(title: "behaviorYouTubeTitle")
             }
-        } 
+        }
     }
     
     private var watchProviders: some View {
@@ -134,7 +134,9 @@ struct BehaviorSetting: View {
 #else
                 .pickerStyle(.navigationLink)
 #endif
+#if os(iOS) || os(macOS)
                 NavigationLink("selectedWatchProvider", destination: WatchProviderSelectorSetting())
+#endif
             }
         }
     }
