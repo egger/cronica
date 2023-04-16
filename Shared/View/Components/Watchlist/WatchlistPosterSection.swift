@@ -62,12 +62,12 @@ private struct DrawingConstants {
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let columns = [GridItem(.adaptive(minimum: 240))]
 #elseif os(tvOS)
-    static let posterColumns: CGFloat = 260
+    static let posterColumns = [GridItem(.adaptive(minimum: 260))]
     static let columns = [GridItem(.adaptive(minimum: 440))]
 #else
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let columns  = [GridItem(.adaptive(minimum: 160))]
     static let spacing: CGFloat = 20
 #endif
-    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let compactColumns = [GridItem(.adaptive(minimum: 80))]
 }
