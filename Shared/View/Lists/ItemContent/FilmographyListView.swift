@@ -39,7 +39,7 @@ struct FilmographyListView: View {
                 ForEach(filmography) { item in
                     Poster(item: item, addedItemConfirmation: $showConfirmation)
                 }
-            }
+            }.padding(.all, settings.isCompactUI ? 10 : nil)
         }
     }
     

@@ -17,7 +17,6 @@ struct PersonDetailsView: View {
     @State private var showConfirmation = false
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var showImageFullscreen = false
-    @State private var showSaveConfirmation = false
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
@@ -60,7 +59,6 @@ struct PersonDetailsView: View {
                     
                     FilmographyListView(filmography: viewModel.credits,
                                         showConfirmation: $showConfirmation)
-                    .padding(.horizontal)
                     
                     AttributionView()
                         .padding([.top, .bottom])
@@ -102,6 +100,34 @@ struct PersonDetailsView: View {
             }
 #if os(iOS)
             .searchable(text: $viewModel.query, placement: .automatic)
+            .fullScreenCover(isPresented: $showImageFullscreen) {
+                NavigationStack {
+                    ZStack {
+                        Rectangle().fill(.black).ignoresSafeArea(.all)
+                        VStack {
+                            WebImage(url: viewModel.person?.originalPersonImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding()
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                showImageFullscreen.toggle()
+                            } label: {
+                                Label("Back", systemImage: "chevron.left")
+                                    .imageScale(.large)
+                                    .foregroundColor(.black)
+                                    .labelStyle(.iconOnly)
+                            }
+                            .tint(.white)
+                            .buttonStyle(.borderedProminent)
+                            .padding()
+                        }
+                    }
+                }
+            }
 #endif
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
@@ -165,6 +191,11 @@ struct PersonDetailsView: View {
             .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
             .shadow(radius: DrawingConstants.imageShadow)
             .accessibilityHidden(true)
+            .onTapGesture {
+#if os(iOS)
+                showImageFullscreen.toggle()
+#endif
+            }
     }
 }
 

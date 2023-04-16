@@ -146,18 +146,18 @@ struct HomeView: View {
                 if UIDevice.isIPhone {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack {
-                            Button(action: {
+                            Button {
                                 showNotifications.toggle()
-                            }, label: {
+                            } label: {
                                 Label("Notifications",
                                       systemImage: "bell")
-                            })
+                            }
                             
-                            Button(action: {
+                            Button {
                                 showSettings.toggle()
-                            }, label: {
+                            } label: {
                                 Label("Settings", systemImage: "gearshape")
-                            })
+                            }
                         }
                     }
                 }

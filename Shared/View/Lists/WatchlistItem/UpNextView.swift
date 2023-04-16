@@ -17,7 +17,8 @@ struct UpNextView: View {
         ],
         predicate: NSCompoundPredicate(type: .and, subpredicates: [
             NSPredicate(format: "displayOnUpNext == %d", true),
-            NSPredicate(format: "isArchive == %d", false)
+            NSPredicate(format: "isArchive == %d", false),
+            NSPredicate(format: "watched == %d", false)
         ])
     ) var items: FetchedResults<WatchlistItem>
     @State private var isLoaded = false
@@ -127,6 +128,10 @@ struct UpNextView: View {
                 }
             }
         }
+    }
+    
+    private func checkForItems() {
+        
     }
     
     private func load() async {
@@ -331,9 +336,9 @@ private struct DrawingConstants {
 #else
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
+#endif
     static let compactImageWidth: CGFloat = 200
     static let compactImageHeight: CGFloat = 120
-#endif
     static let imageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5
