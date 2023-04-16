@@ -97,7 +97,7 @@ To get started you'll need to:
 ### QR Code
 <p align="center">
     <a href="https://apple.co/38SXpVJ">
-            <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/d15209c4e281948b35db08fcd41ac5f0/4ab4af64ddd50c272495eae4245f6a8e.png" alt="App Store QR Code" minWidth="250" minHeight="250" width="300" height="300">
+            <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/5ca3ba169cdec742cc5e32287e7167e0/2af0b32529e05debc3de4aed62551429.png" alt="App Store QR Code" minWidth="250" minHeight="250" width="300" height="300">
     </a>
  </p>
 
