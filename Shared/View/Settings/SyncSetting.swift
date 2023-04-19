@@ -44,6 +44,8 @@ struct SyncSetting: View {
                     importButton
                     exportButton
 #endif
+                } footer: {
+                    Text("importExportWarning")
                 }
                 .sheet(isPresented: $showExportShareSheet) {
 #if os(iOS)
@@ -186,5 +188,3 @@ struct CustomShareSheet: UIViewControllerRepresentable {
     }
 }
 #endif
-
-

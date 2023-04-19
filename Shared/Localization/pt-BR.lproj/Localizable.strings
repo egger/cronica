@@ -583,3 +583,4 @@
 "selectedWatchProvider" = "Serviços de Streaming";
 "selectedWatchProviderTitle" = "Serviços de Streaming Preferenciais";
 "selectedWatchProviderSubtitle" = "Só mostre 'Onde Assistir' se o título estiver disponível em um dos seus serviços preferidos.";
+"importExportWarning" = "Exportar/Importar está em fase beta, use apenas para exportar seus dados ou para importar se estiver mudando sua conta do iCloud, não há lógica no momento para evitar duplicação. Uma atualização futura fornecerá uma experiência melhor para todos.";
