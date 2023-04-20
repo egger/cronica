@@ -45,9 +45,9 @@ struct SyncSetting: View {
                     exportButton
 #endif
                 } footer: {
-                    #if os(iOS)
+#if os(iOS)
                     Text("importExportWarning")
-                    #endif
+#endif
                 }
                 .sheet(isPresented: $showExportShareSheet) {
 #if os(iOS)
