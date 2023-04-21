@@ -11,77 +11,22 @@ struct WatchlistView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<WatchlistItem>
-    @State private var query = ""
-    @State private var filteredItems = [WatchlistItem]()
+        animation: .default) private var items: FetchedResults<WatchlistItem>
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
+    @State private var selectedList: DefaultListTypes?
+    @State private var selectedCustomList: CustomList?
+    @State private var query = ""
     @State private var showPicker = false
-    @StateObject private var searchVM = SearchViewModel()
-    @State private var isInWatchlist = false
+    @State private var showSearch = false
     var body: some View {
         NavigationStack {
             VStack {
-                if !query.isEmpty {
-                    List {
-                        Section {
-                            if !filteredItems.isEmpty {
-                                ForEach(filteredItems) { item in
-                                    NavigationLink(value: item) {
-                                        WatchlistItemRow(content: item)
-                                    }
-                                }
-                            } else {
-                                Text("No results from Watchlist")
-                            }
-                        } header: {
-                            Text("Results from Watchlist")
-                        }
-                        Section {
-                            if !searchVM.items.isEmpty {
-                                ForEach(searchVM.items) { item in
-                                    NavigationLink(value: item) {
-                                        SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isInWatchlist)
-                                    }
-                                }
-                            } else {
-                                Text("No results from TMDb")
-                            }
-                        } header: {
-                            Text("Results from TMDb")
-                        }
-                    }
-                } else if items.isEmpty {
-                    Text("Your list is empty.")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                        .padding()
+                if selectedList != nil {
+                    defaultList
+                } else if selectedCustomList != nil {
+                    customList
                 } else {
-                    List {
-                        switch selectedOrder {
-                        case .released:
-                            WatchlistSectionView(items: items.filter { $0.isReleased },
-                                                 title: "Released")
-                        case .upcoming:
-                            WatchlistSectionView(items: items.filter { $0.isUpcoming },
-                                                 title: "Upcoming")
-                        case .production:
-                            WatchlistSectionView(items: items.filter { $0.isInProduction },
-                                                 title: "In Production")
-                        case .watched:
-                            WatchlistSectionView(items: items.filter { $0.isWatched },
-                                                 title: "Watched")
-                        case .favorites:
-                            WatchlistSectionView(items: items.filter { $0.isFavorite },
-                                                 title: "Favorites")
-                        case .pin:
-                            WatchlistSectionView(items: items.filter { $0.isPin },
-                                                 title: "Pins")
-                        case .archive:
-                            WatchlistSectionView(items: items.filter { $0.isArchive },
-                                                 title: "Archive")
-                        }
-                    }
+                    EmptyListView()
                 }
             }
             .navigationTitle("Watchlist")
@@ -90,9 +35,7 @@ struct WatchlistView: View {
             .task(id: query) {
                 if query.isEmpty { return }
                 if Task.isCancelled { return }
-                if !filteredItems.isEmpty { filteredItems.removeAll() }
-                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-                await searchVM.search(query)
+                showSearch = true
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -124,32 +67,37 @@ struct WatchlistView: View {
                 }
             }
             .sheet(isPresented: $showPicker) {
-                NavigationStack {
-                    VStack {
-                        ScrollView {
-                            ForEach(DefaultListTypes.allCases) { list in
-                                Button {
-                                    selectedOrder = list
-                                    showPicker = false
-                                } label: {
-                                    HStack {
-                                        if selectedOrder == list {
-                                            Image(systemName: "checkmark.circle.fill")
-                                        }
-                                        Text(list.title)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .navigationTitle("Sort List")
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button("Done") { showPicker = false }
-                        }
-                    }
+                WatchlistSelectorView(showView: $showPicker,
+                                      selectedList: $selectedList,
+                                      selectedCustomList: $selectedCustomList)
+            }
+            .onAppear {
+                if selectedList == nil && selectedCustomList == nil {
+                    selectedList = selectedOrder
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var defaultList: some View {
+        if !query.isEmpty {
+            SearchView(query: $query)
+        } else if items.isEmpty {
+            EmptyListView()
+        } else {
+            DefaultListView()
+        }
+    }
+    
+    @ViewBuilder
+    private var customList: some View {
+        if !query.isEmpty {
+            SearchView(query: $query)
+        } else if items.isEmpty {
+            EmptyListView()
+        } else {
+            CustomListView(list: $selectedCustomList)
         }
     }
 }
@@ -160,21 +108,22 @@ struct WatchlistView_Previews: PreviewProvider {
     }
 }
 
-private struct WatchlistSectionView: View {
-    let items: [WatchlistItem]
-    let title: String
+private struct CustomListView: View {
+    @Binding var list: CustomList?
     var body: some View {
-        if !items.isEmpty {
-            Section {
-                ForEach(items) { item in
-                    WatchlistItemRow(content: item)
+        if let list {
+            List {
+                Section {
+                    ForEach(list.itemsArray) { item in
+                        WatchlistItemRow(content: item)
+                    }
+                } header: {
+                    Text(list.itemTitle)
+                        .lineLimit(1)
                 }
-            } header: {
-                Text(NSLocalizedString(title, comment: ""))
             }
-            .padding(.bottom)
         } else {
-            Text("No results")
+            EmptyListView()
         }
     }
 }

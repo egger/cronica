@@ -22,7 +22,8 @@ struct FilmographyListView: View {
             if !filmography.isEmpty {
                 VStack {
                     TitleView(title: "Filmography", subtitle: "", image: nil)
-                    switch settings.exploreDisplayType {
+                    switch settings.listsDisplayType {
+                    case .standard: posterStyle
                     case .poster: posterStyle
                     case .card: cardStyle
                     }

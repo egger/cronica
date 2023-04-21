@@ -53,6 +53,13 @@ struct ItemContentCustomListSelector: View {
                 ToolbarItem(placement: .automatic) {
                     if !lists.isEmpty { newList }
                 }
+#elseif os(watchOS)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done") { showView.toggle() }
+                }
+                ToolbarItem(placement: .automatic) {
+                    if !lists.isEmpty { newList }
+                }
 #endif
             }
         }
@@ -60,7 +67,7 @@ struct ItemContentCustomListSelector: View {
     
     private var newList: some View {
         NavigationLink {
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(watchOS)
             NewCustomListView(presentView: $showView, preSelectedItem: item, newSelectedList: $selectedList)
 #elseif os(macOS)
             NewCustomListView(isPresentingNewList: $showView,

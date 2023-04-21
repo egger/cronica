@@ -95,7 +95,7 @@ struct UpNextView: View {
 #if os(tvOS)
                         TVEpisodeDetailsView(episode: item, id: show, season: item.itemSeasonNumber, inWatchlist: $isInWatchlist)
 #else
-                        EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
+                        EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist, isUpNext: true)
                             .toolbar {
                                 Button("Done") { selectedEpisode = nil }
                             }
@@ -115,6 +115,10 @@ struct UpNextView: View {
                 .task {
                     let showId = self.episodeShowID["\(item.id)"]
                     selectedEpisodeShowID = showId
+                }
+                .onDisappear {
+                    selectedEpisode = nil
+                    selectedEpisodeShowID = nil
                 }
 #if os(macOS)
                 .frame(width: 800, height: 500)

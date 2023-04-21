@@ -539,3 +539,4 @@
 "selectedWatchProviderTitle" = "Bevorzugte Streaming-Dienste";
 "selectedWatchProviderSubtitle" = "Zeigen Sie 'Watch Provider' nur an, wenn der Titel auf einem Ihrer bevorzugten Dienste verfügbar ist.";
 "importExportWarning" = "Exportieren/Importieren ist in der Beta-Phase, verwenden Sie es nur, um Ihre Daten zu exportieren oder zu importieren, wenn Sie Ihr iCloud-Konto wechseln. Es gibt derzeit keine Logik, um Duplikate zu vermeiden. Ein zukünftiges Update wird allen eine bessere Erfahrung bieten.";
+"tvShowDetails" = "Details zur Serie";

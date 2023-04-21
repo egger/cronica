@@ -14,6 +14,7 @@ struct ItemContentView: View {
     let url: URL
     let image: URL?
     @StateObject private var viewModel: ItemContentViewModel
+    @State private var showCustomListSheet = false
     init(id: Int, title: String, type: MediaType, image: URL?) {
         self.id = id
         self.title = title
@@ -46,6 +47,9 @@ struct ItemContentView: View {
                 ShareLink(item: url)
                     .padding([.horizontal, .bottom])
                 
+                customListButton
+                    .padding([.horizontal, .bottom])
+                
                 AboutSectionView(about: viewModel.content?.itemOverview)
                 
                 CompanionTextView()
@@ -58,18 +62,35 @@ struct ItemContentView: View {
         }
         .navigationTitle(title)
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        .sheet(isPresented: $showCustomListSheet) {
+            ItemContentCustomListSelector(item: $viewModel.watchlistItem,
+                                          showView: $showCustomListSheet)
+        }
     }
+    
     private var watchButton: some View {
-        Button(action: {
+        Button {
             viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
-        }, label: {
+        } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
-        })
+        }
         .buttonStyle(.bordered)
         .tint(viewModel.isWatched ? .yellow : .green)
         .controlSize(.large)
         .disabled(viewModel.isLoading)
+    }
+    
+    private var customListButton: some View {
+        Button {
+            if viewModel.watchlistItem == nil {
+                viewModel.fetchSavedItem()
+            }
+            showCustomListSheet.toggle()
+        } label: {
+            Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")
+        }
+        .disabled(!viewModel.isInWatchlist)
     }
 }
 
@@ -87,3 +108,14 @@ private struct DrawingConstants {
     static let lineLimit: Int = 1
 }
 
+private struct AddToCustomList {
+    @Binding var showView: Bool
+    @Binding var item: WatchlistItem?
+    var body: some View {
+        NavigationStack {
+            Form {
+                
+            }
+        }
+    }
+}

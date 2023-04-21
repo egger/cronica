@@ -14,6 +14,8 @@ struct EpisodeDetailsView: View {
     private let persistence = PersistenceController.shared
     @Binding var isWatched: Bool
     @Binding var isInWatchlist: Bool
+    var isUpNext = false
+    @State private var showItem: ItemContent?
 #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 #endif
@@ -58,6 +60,21 @@ struct EpisodeDetailsView: View {
                 .buttonBorderShape(.capsule)
 #endif
                 
+                if let showItem {
+                    NavigationLink(value: showItem) {
+                        Label("tvShowDetails", systemImage: "chevron.forward")
+                            .foregroundColor(.white)
+                            .frame(minWidth: 100)
+                    }
+                    .tint(.black)
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .padding([.horizontal, .top])
+#if os(iOS)
+                .buttonBorderShape(.capsule)
+#endif
+                }
+                
                 OverviewBoxView(overview: episode.itemOverview,
                                 title: episode.itemTitle,
                                 type: .tvShow)
@@ -69,6 +86,13 @@ struct EpisodeDetailsView: View {
             }
             .navigationTitle(episode.itemTitle)
             .task { load() }
+            .onAppear {
+                if isUpNext {
+                    Task {
+                        showItem = try? await NetworkService.shared.fetchItem(id: show, type: .tvShow)
+                    }
+                }
+            }
             .navigationDestination(for: ItemContent.self) { item in
 #if os(macOS)
 #else

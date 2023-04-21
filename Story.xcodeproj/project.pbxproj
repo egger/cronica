@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B801070829F24499008A4551 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
+		B801070929F244DE008A4551 /* NewCustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B3299480620096E806 /* NewCustomListView.swift */; };
+		B801070B29F255AE008A4551 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801070A29F255AE008A4551 /* SearchView.swift */; };
+		B801070D29F255F3008A4551 /* DefaultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801070C29F255F3008A4551 /* DefaultListView.swift */; };
+		B801070F29F25615008A4551 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801070E29F25615008A4551 /* EmptyListView.swift */; };
+		B801071129F2562C008A4551 /* WatchlistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801071029F2562C008A4551 /* WatchlistSectionView.swift */; };
+		B801071329F2566B008A4551 /* WatchlistSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801071229F2566B008A4551 /* WatchlistSelectorView.swift */; };
 		B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
 		B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E392284EC4A500F59855 /* CoverImageView.swift */; };
 		B804E395284EDC2B00F59855 /* ItemContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E394284EDC2B00F59855 /* ItemContentListView.swift */; };
@@ -357,6 +364,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B801070A29F255AE008A4551 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B801070C29F255F3008A4551 /* DefaultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListView.swift; sourceTree = "<group>"; };
+		B801070E29F25615008A4551 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
+		B801071029F2562C008A4551 /* WatchlistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSectionView.swift; sourceTree = "<group>"; };
+		B801071229F2566B008A4551 /* WatchlistSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSelectorView.swift; sourceTree = "<group>"; };
 		B80318A729256AE700714B3E /* FeedbackSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSettingsView.swift; sourceTree = "<group>"; };
 		B804E392284EC4A500F59855 /* CoverImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageView.swift; sourceTree = "<group>"; };
 		B804E394284EDC2B00F59855 /* ItemContentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentListView.swift; sourceTree = "<group>"; };
@@ -774,6 +786,9 @@
 				B82B759428A84C8C00C3212A /* CompanionTextView.swift */,
 				B88529B028E371350026D33A /* EpisodeView.swift */,
 				B83C630628E642FB00927AE7 /* AboutSectionView.swift */,
+				B801070E29F25615008A4551 /* EmptyListView.swift */,
+				B801071029F2562C008A4551 /* WatchlistSectionView.swift */,
+				B801071229F2566B008A4551 /* WatchlistSelectorView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -913,6 +928,8 @@
 				B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */,
 				B84043E3289B3F3800D5CEBF /* PersonView.swift */,
 				B82B75A328A84DBA00C3212A /* WatchlistView.swift */,
+				B801070A29F255AE008A4551 /* SearchView.swift */,
+				B801070C29F255F3008A4551 /* DefaultListView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1506,8 +1523,10 @@
 				B8B94CF028EB8B8200EDEC85 /* CronicaTelemetry.swift in Sources */,
 				B810525A298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */,
 				B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */,
+				B801070B29F255AE008A4551 /* SearchView.swift in Sources */,
 				B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */,
 				B8F6DE672937F8AE005D1A50 /* WatchEpisodeButton.swift in Sources */,
+				B801070D29F255F3008A4551 /* DefaultListView.swift in Sources */,
 				B84457C8297341B4009CB21F /* WatchProviders.swift in Sources */,
 				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
 				B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
@@ -1537,12 +1556,14 @@
 				B84457C52970D59E009CB21F /* HapticManager.swift in Sources */,
 				B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */,
 				B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */,
+				B801071329F2566B008A4551 /* WatchlistSelectorView.swift in Sources */,
 				B8105254298DBAF500723E94 /* Locale-Extensions.swift in Sources */,
 				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
 				B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
 				B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */,
 				B82B759528A84C8C00C3212A /* CompanionTextView.swift in Sources */,
 				B8BF6329291402720051915C /* HoverEffectModifier.swift in Sources */,
+				B801071129F2562C008A4551 /* WatchlistSectionView.swift in Sources */,
 				B84043B8289B18AA00D5CEBF /* WatchlistItem-Extension.swift in Sources */,
 				B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */,
 				B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */,
@@ -1555,6 +1576,7 @@
 				B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */,
 				B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */,
 				B83E3EDB299AB9FB00A3A28B /* CustomList-Extensions.swift in Sources */,
+				B801070829F24499008A4551 /* ItemContentCustomListSelector.swift in Sources */,
 				B84043E7289B417500D5CEBF /* TitleView.swift in Sources */,
 				B899F21328B0391C00272484 /* DefaultListTypes.swift in Sources */,
 				B84043E5289B3F4000D5CEBF /* PersonDetailsViewModel.swift in Sources */,
@@ -1570,6 +1592,7 @@
 				B84043C1289B18D700D5CEBF /* NetworkError.swift in Sources */,
 				B88529B328E371650026D33A /* EpisodeListView.swift in Sources */,
 				B82BE4E9299BFEF4005F9990 /* PersistenceController-CustomList.swift in Sources */,
+				B801070929F244DE008A4551 /* NewCustomListView.swift in Sources */,
 				B810524F298DBADF00723E94 /* String-Extensions.swift in Sources */,
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
@@ -1577,6 +1600,7 @@
 				B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */,
 				B88529B128E371350026D33A /* EpisodeView.swift in Sources */,
 				B84043B7289B18A300D5CEBF /* Person-Extensions.swift in Sources */,
+				B801070F29F25615008A4551 /* EmptyListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

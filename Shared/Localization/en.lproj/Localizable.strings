@@ -529,7 +529,7 @@
 "itemContentListPreferredDisplayTypeStandard" = "Default";
 "itemContentListPreferredDisplayTypeCard" = "Card";
 "itemContentListPreferredDisplayTypePoster" = "Poster";
-"appIconFeedbackTitle" = "Have an ideia for an icon? Send a feedback";
+"appIconFeedbackTitle" = "Have an idea for an icon? Send a feedback";
 "exploreDisplayTypePicker" = "Display Style";
 "watchlistDisplayTypePicker" = "Display Style";
 "cronicaGitHub" = "Cronica GitHub Repo";
@@ -539,3 +539,4 @@
 "selectedWatchProviderTitle" = "Preferred Streaming Services";
 "selectedWatchProviderSubtitle" = "Only show 'Watch Provider' if the title is available on one of your preferred services.";
 "importExportWarning" = "Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all.";
+"tvShowDetails" = "TV Show 's Details";
