@@ -122,7 +122,7 @@ struct ItemContentDetailsView: View {
     }
     
     private var watchButton: some View {
-        Button(action: {
+        Button {
             if viewModel.isWatched {
                 actionMessageConfirmation = "removedFromWatched"
                 actionImageConfirmation = "minus.circle"
@@ -139,10 +139,10 @@ struct ItemContentDetailsView: View {
                     actionImageConfirmation = ""
                 }
             }
-        }, label: {
+        } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
-        })
+        }
         .keyboardShortcut("w", modifiers: [.option])
         .disabled(viewModel.isLoading ? true : false)
     }

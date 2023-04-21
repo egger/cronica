@@ -67,7 +67,9 @@ struct SyncSetting: View {
                     }
                 }
 #endif
-                
+                if #available(iOS 16.4, *)  {
+                    accountSection
+                }
                 
             }
             .navigationTitle("syncSettingsTitle")
@@ -76,6 +78,11 @@ struct SyncSetting: View {
 #endif
             ConfirmationDialogView(showConfirmation: $hasImported, message: "importedSucceeded")
         }
+    }
+    
+    @available(iOS 16.4, *)
+    private var accountSection: some View {
+        AccountSettingsView()
     }
     
 #if os(iOS)
