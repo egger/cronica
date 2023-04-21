@@ -25,10 +25,13 @@ class TMDBAccountManager {
     
     func checkAccessStatus() -> Bool {
         let data = KeychainHelper.standard.read(service: "access-token", account: "cronicaTMDB-Sync")
-        guard let data else { return false }
+        let IdData = KeychainHelper.standard.read(service: "access-id", account: "cronicaTMDB-Sync")
+        guard let data, let IdData else { return false }
         let accessToken = String(data: data, encoding: .utf8)
-        guard let accessToken else { return false }
+        let accessId = String(data: IdData, encoding: .utf8)
+        guard let accessToken, let accessId else { return false }
         print(accessToken)
+        print(accessId)
         return true
     }
     
@@ -120,4 +123,16 @@ struct AccessTokenTMDB: Codable {
     var success: Bool?
     var statusCode: Int?
     var accountId: String?
+}
+
+struct TMDBList: Codable {
+    var page: Int?
+    var totalResults: Int?
+    var totalPages: Int?
+    var results: [TMDBListResult]?
+}
+
+struct TMDBListResult: Codable, Identifiable {
+    let id: Int
+    var name: String?
 }

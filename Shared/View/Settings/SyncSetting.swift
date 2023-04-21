@@ -67,9 +67,15 @@ struct SyncSetting: View {
                     }
                 }
 #endif
+#if os(iOS)
                 if #available(iOS 16.4, *)  {
                     accountSection
                 }
+#elseif os(macOS)
+                if #available(macOS 13.3, *) {
+                    accountSection
+                }
+#endif
                 
             }
             .navigationTitle("syncSettingsTitle")
@@ -81,6 +87,8 @@ struct SyncSetting: View {
     }
     
     @available(iOS 16.4, *)
+    @available(macOS 13.3, *)
+    @available(tvOS 16.4, *)
     private var accountSection: some View {
         AccountSettingsView()
     }

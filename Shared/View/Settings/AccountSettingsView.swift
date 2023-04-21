@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import AuthenticationServices
 import Foundation
 import Security
 
 @available(iOS 16.4, *)
+@available(tvOS 16.4, *)
+@available(macOS 13.3, *)
 struct AccountSettingsView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     private var tmdbAccount = TMDBAccountManager.shared
@@ -71,6 +71,8 @@ struct AccountSettingsView: View {
 }
 
 @available(iOS 16.4, *)
+@available(macOS 13.3, *)
+@available(tvOS 16.4, *)
 struct AccountSettings_Previews: PreviewProvider {
     static var previews: some View {
         AccountSettingsView()
