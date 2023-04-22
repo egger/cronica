@@ -74,6 +74,8 @@ struct TMDBListDetails: View {
         list.title = self.list.itemTitle
         list.creationDate = Date()
         list.updatedDate = Date()
+        list.isSyncEnabledTMDB = true
+        list.tmdbListId = Int64(self.list.id)
         var itemsToAdd = Set<WatchlistItem>()
         for item in items {
             persistence.save(item)
@@ -89,8 +91,9 @@ struct TMDBListDetails: View {
                 try viewContext.save()
                 HapticManager.shared.successHaptic()
             } catch {
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "NewCustomListView.save()")
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "TMDBListDetails.importList.failed")
             }
         }
+        self.syncList = true
     }
 }

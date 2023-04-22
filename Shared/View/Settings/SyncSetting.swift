@@ -75,6 +75,10 @@ struct SyncSetting: View {
                 if #available(macOS 13.3, *) {
                     accountSection
                 }
+                #elseif os(tvOS)
+                if #available(tvOS 16.4, *) {
+                    accountSection
+                }
 #endif
                 
             }

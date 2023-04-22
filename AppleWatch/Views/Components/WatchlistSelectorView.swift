@@ -40,24 +40,27 @@ struct WatchlistSelectorView: View {
                         Text("defaultWatchlistSmartFilters")
                     }
                     
-                    Section {
-                        ForEach(lists) { list in
-                            Button {
-                                selectedList = nil
-                                selectedCustomList = list
-                                showView = false
-                            } label: {
-                                HStack {
-                                    if selectedCustomList == list {
-                                        Image(systemName: "checkmark.circle.fill")
+                    if !lists.isEmpty {
+                        Section {
+                            ForEach(lists) { list in
+                                Button {
+                                    selectedList = nil
+                                    selectedCustomList = list
+                                    showView = false
+                                } label: {
+                                    HStack {
+                                        if selectedCustomList == list {
+                                            Image(systemName: "checkmark.circle.fill")
+                                        }
+                                        Text(list.itemTitle)
                                     }
-                                    Text(list.itemTitle)
                                 }
                             }
+                        } header: {
+                            Text("yourLists")
                         }
-                    } header: {
-                        Text("yourLists")
                     }
+                    
                 }
             }
             .toolbar {
