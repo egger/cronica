@@ -17,38 +17,12 @@ struct TMDBListDetails: View {
     var body: some View {
         Form {
             Section {
-                Toggle("syncTMDBList", isOn: $syncList)
                 if syncList {
-                    Button("chooseLocalList") {
+                    Button("syncNow") {
                         
                     }
-                }
-                Button("importListTMDB") {
-                    let persistence = PersistenceController.shared
-                    let viewContext = persistence.container.viewContext
-                    let list = CustomList(context: viewContext)
-                    list.id = UUID()
-                    list.title = self.list.itemTitle
-                    list.creationDate = Date()
-                    list.updatedDate = Date()
-                    var itemsToAdd = Set<WatchlistItem>()
-                    for item in items {
-                        persistence.save(item)
-                        let savedItem = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia)
-                        if let savedItem {
-                            itemsToAdd.insert(savedItem)
-                        }
-                    }
-                    list.items = itemsToAdd as NSSet
-                    print(list as Any)
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                            HapticManager.shared.successHaptic()
-                        } catch {
-                            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "NewCustomListView.save()")
-                        }
-                    }
+                } else {
+                    Button("importListTMDB") { importList() }
                 }
             } header: {
                 Text("tmdbListSyncConfig")
@@ -88,6 +62,34 @@ struct TMDBListDetails: View {
                     items = content
                 }
                 isLoading = false
+            }
+        }
+    }
+    
+    private func importList() {
+        let persistence = PersistenceController.shared
+        let viewContext = persistence.container.viewContext
+        let list = CustomList(context: viewContext)
+        list.id = UUID()
+        list.title = self.list.itemTitle
+        list.creationDate = Date()
+        list.updatedDate = Date()
+        var itemsToAdd = Set<WatchlistItem>()
+        for item in items {
+            persistence.save(item)
+            let savedItem = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia)
+            if let savedItem {
+                itemsToAdd.insert(savedItem)
+            }
+        }
+        list.items = itemsToAdd as NSSet
+        print(list as Any)
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                HapticManager.shared.successHaptic()
+            } catch {
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "NewCustomListView.save()")
             }
         }
     }

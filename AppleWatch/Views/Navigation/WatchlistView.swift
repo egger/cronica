@@ -107,23 +107,3 @@ struct WatchlistView_Previews: PreviewProvider {
         WatchlistView()
     }
 }
-
-private struct CustomListView: View {
-    @Binding var list: CustomList?
-    var body: some View {
-        if let list {
-            List {
-                Section {
-                    ForEach(list.itemsArray) { item in
-                        WatchlistItemRow(content: item)
-                    }
-                } header: {
-                    Text(list.itemTitle)
-                        .lineLimit(1)
-                }
-            }
-        } else {
-            EmptyListView()
-        }
-    }
-}
