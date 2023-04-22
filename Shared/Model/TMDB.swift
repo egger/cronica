@@ -39,3 +39,15 @@ extension TMDBListResult {
         return name ?? NSLocalizedString("Not Found", comment: "")
     }
 }
+
+struct DetailedTMDBList: Identifiable, Codable {
+    var id: Int
+    var runtime: Int?
+    var results: [ItemContent]?
+}
+
+struct TMDBWatchlist: Codable {
+    var page: Int?
+    var totalPages: Int?
+    var results: [ItemContent]?
+}

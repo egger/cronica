@@ -550,3 +550,6 @@
 "Confirm" = "Confirm";
 "tmdbLists" = "Your TMDB's Lists";
 "syncTMDBList" = "Keep this list in sync";
+"importListTMDB" = "Import this list";
+"tmdbListSyncConfig" = "Configuration";
+"importTMDBWatchlist" = "Import Watchlist from TMDB";

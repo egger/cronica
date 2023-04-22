@@ -7,8 +7,6 @@
 
 import SwiftUI
 import AuthenticationServices
-import Foundation
-import Security
 
 @available(iOS 16.4, *)
 @available(tvOS 16.4, *)
@@ -18,6 +16,7 @@ struct AccountSettingsView: View {
     @State private var tmdbAccount = TMDBAccountManager.shared
     @State private var hasAccess = false
     @State private var showSignOutConfirmation = false
+    @State private var isImporting = false
     var body: some View {
         Section {
             tmdbAccountButton
@@ -25,6 +24,7 @@ struct AccountSettingsView: View {
                 NavigationLink(destination: TMDBListsView(viewModel: $tmdbAccount)) {
                     Text("tmdbAccountListsManager")
                 }
+                importWatchlist
             }
             
         } header: {
@@ -54,6 +54,28 @@ struct AccountSettingsView: View {
         }
     }
     
+    private var importWatchlist: some View {
+        Button {
+            Task {
+                withAnimation { self.isImporting = true }
+                let movies = await tmdbAccount.fetchWatchlist(type: .movie)
+                let shows = await tmdbAccount.fetchWatchlist(type: .tvShow)
+                guard let moviesResult = movies?.results, let showsResult = shows?.results else { return }
+                let result = moviesResult + showsResult
+                for item in result {
+                    PersistenceController.shared.save(item)
+                }
+                withAnimation { self.isImporting = false }
+            }
+        } label: {
+            if isImporting {
+               ProgressView()
+            } else {
+                Text("importTMDBWatchlist")
+            }
+        }
+    }
+    
     private func SignIn() {
         Task {
             let url = await tmdbAccount.requestToken()
@@ -77,137 +99,5 @@ struct AccountSettingsView: View {
 struct AccountSettings_Previews: PreviewProvider {
     static var previews: some View {
         AccountSettingsView()
-    }
-}
-
-final class KeychainHelper {
-    static let standard = KeychainHelper()
-    private init() { }
-    
-    func save(_ data: Data, service: String, account: String) {
-        let query = [
-            kSecValueData: data,
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-        ] as [CFString : Any] as CFDictionary
-        
-        let status = SecItemAdd(query, nil)
-        
-        if status != errSecSuccess {
-            CronicaTelemetry.shared.handleMessage("\(status)", for: "KeychainHelper.save")
-        }
-    }
-    
-    func read(service: String, account: String) -> Data? {
-        let query = [
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-            kSecClass: kSecClassGenericPassword,
-            kSecReturnData: true
-        ] as [CFString : Any] as CFDictionary
-        
-        var result: AnyObject?
-        SecItemCopyMatching(query, &result)
-        
-        return (result as? Data)
-    }
-    
-    func delete(service: String, account: String) {
-        
-        let query = [
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-            kSecClass: kSecClassGenericPassword,
-        ] as [CFString : Any] as CFDictionary
-        
-        // Delete item from keychain
-        SecItemDelete(query)
-    }
-}
-
-struct TMDBListsView: View {
-    @Binding var viewModel: TMDBAccountManager
-    @State private var lists = [TMDBListResult]()
-    var body: some View {
-        VStack {
-            List {
-                ForEach(lists) { list in
-                    NavigationLink(destination: TMDBListDetails(list: list, viewModel: $viewModel)) {
-                        Text(list.itemTitle)
-                    }
-                }
-            }
-        }
-        .navigationTitle("tmdbLists")
-        .onAppear {
-            if lists.isEmpty {
-                Task {
-                    let fetchedLists = await viewModel.fetchLists()
-                    if let result = fetchedLists?.results {
-                        lists = result
-                    }
-                }
-            }
-        }
-    }
-}
-
-struct TMDBListDetails: View {
-    let list: TMDBListResult
-    @Binding var viewModel: TMDBAccountManager
-    @State private var syncList = false
-    @State private var detailedList: DetailedTMDBList?
-    @State private var items = [ItemContent]()
-    @State private var isLoading = true
-    var body: some View {
-        Form {
-            Section {
-                Toggle("syncTMDBList", isOn: $syncList)
-                if syncList {
-                    Button("chooseLocalList") {
-                        
-                    }
-                }
-                Button("importList") {
-                    
-                }
-            } header: {
-                Text("tmdbListSyncConfig")
-            }
-            
-            if isLoading {
-                ProgressView()
-            } else {
-                Section {
-                    if items.isEmpty {
-                        Text("emptyList")
-                    } else {
-                        ForEach(items) { item in
-#if os(iOS)
-                            NavigationLink(destination: ItemContentDetails(title: item.itemTitle,
-                                                                           id: item.id,
-                                                                           type: item.itemContentMedia)) {
-                                Text(item.itemTitle)
-                            }
-#else
-                            Text(item.itemTitle)
-#endif
-                        }
-                    }
-                }
-            }
-        }
-        .navigationTitle(list.itemTitle)
-        .onAppear {
-            Task {
-                detailedList = await viewModel.fetchList(id: list.id)
-                if !items.isEmpty { return }
-                if let content = detailedList?.results {
-                    items = content
-                }
-                isLoading = false
-            }
-        }
     }
 }

@@ -163,10 +163,30 @@ class TMDBAccountManager {
         return nil
     }
     
-}
-
-struct DetailedTMDBList: Identifiable, Codable {
-    var id: Int
-    var runtime: Int?
-    var results: [ItemContent]?
+    func fetchWatchlist(type: MediaType) async -> TMDBWatchlist? {
+        if userAccessToken.isEmpty || userAccessId.isEmpty {
+            _ = checkAccessStatus()
+        }
+        do {
+            let headers = [
+                "content-type": contentTypeHeader,
+                "authorization": "Bearer \(userAccessToken)"
+            ]
+            var request = URLRequest(url: URL(string: "https://api.themoviedb.org/4/account/\(userAccessId)/\(type.rawValue)/watchlist")!,
+                                     cachePolicy: .useProtocolCachePolicy,
+                                     timeoutInterval: 10.0)
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = headers
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let content =  try decoder.decode(TMDBWatchlist.self, from: data)
+            return content
+        } catch {
+            if Task.isCancelled { return nil }
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "")
+        }
+        return nil
+    }
+    
 }
