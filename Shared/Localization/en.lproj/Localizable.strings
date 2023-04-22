@@ -548,3 +548,5 @@
 "tmdbAccountHeaderSignedIn" = "Manage your TMDB's lists";
 "removeTMDBAccount" = "Disconnect TMDB Account?";
 "Confirm" = "Confirm";
+"tmdbLists" = "Your TMDB's Lists";
+"syncTMDBList" = "Keep this list in sync";

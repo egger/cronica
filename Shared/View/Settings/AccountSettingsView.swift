@@ -15,17 +15,18 @@ import Security
 @available(macOS 13.3, *)
 struct AccountSettingsView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
-    private var tmdbAccount = TMDBAccountManager.shared
+    @State private var tmdbAccount = TMDBAccountManager.shared
     @State private var hasAccess = false
     @State private var showSignOutConfirmation = false
     var body: some View {
         Section {
             tmdbAccountButton
             if hasAccess {
-                NavigationLink(destination: EmptyView()) {
+                NavigationLink(destination: TMDBListsView(viewModel: $tmdbAccount)) {
                     Text("tmdbAccountListsManager")
                 }
             }
+            
         } header: {
             hasAccess ? Text("tmdbAccountHeaderSignedIn") : Text("tmdbAccountHeader")
         } footer: {
@@ -122,5 +123,91 @@ final class KeychainHelper {
         
         // Delete item from keychain
         SecItemDelete(query)
+    }
+}
+
+struct TMDBListsView: View {
+    @Binding var viewModel: TMDBAccountManager
+    @State private var lists = [TMDBListResult]()
+    var body: some View {
+        VStack {
+            List {
+                ForEach(lists) { list in
+                    NavigationLink(destination: TMDBListDetails(list: list, viewModel: $viewModel)) {
+                        Text(list.itemTitle)
+                    }
+                }
+            }
+        }
+        .navigationTitle("tmdbLists")
+        .onAppear {
+            if lists.isEmpty {
+                Task {
+                    let fetchedLists = await viewModel.fetchLists()
+                    if let result = fetchedLists?.results {
+                        lists = result
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct TMDBListDetails: View {
+    let list: TMDBListResult
+    @Binding var viewModel: TMDBAccountManager
+    @State private var syncList = false
+    @State private var detailedList: DetailedTMDBList?
+    @State private var items = [ItemContent]()
+    @State private var isLoading = true
+    var body: some View {
+        Form {
+            Section {
+                Toggle("syncTMDBList", isOn: $syncList)
+                if syncList {
+                    Button("chooseLocalList") {
+                        
+                    }
+                }
+                Button("importList") {
+                    
+                }
+            } header: {
+                Text("tmdbListSyncConfig")
+            }
+            
+            if isLoading {
+                ProgressView()
+            } else {
+                Section {
+                    if items.isEmpty {
+                        Text("emptyList")
+                    } else {
+                        ForEach(items) { item in
+#if os(iOS)
+                            NavigationLink(destination: ItemContentDetails(title: item.itemTitle,
+                                                                           id: item.id,
+                                                                           type: item.itemContentMedia)) {
+                                Text(item.itemTitle)
+                            }
+#else
+                            Text(item.itemTitle)
+#endif
+                        }
+                    }
+                }
+            }
+        }
+        .navigationTitle(list.itemTitle)
+        .onAppear {
+            Task {
+                detailedList = await viewModel.fetchList(id: list.id)
+                if !items.isEmpty { return }
+                if let content = detailedList?.results {
+                    items = content
+                }
+                isLoading = false
+            }
+        }
     }
 }

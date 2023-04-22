@@ -149,6 +149,9 @@
 		B85FD9AB29F326440088B5CC /* DeveloperSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9AA29F326440088B5CC /* DeveloperSettingsStore.swift */; };
 		B85FD9AC29F326440088B5CC /* DeveloperSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9AA29F326440088B5CC /* DeveloperSettingsStore.swift */; };
 		B85FD9AE29F3324F0088B5CC /* TMDBAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9AD29F3324F0088B5CC /* TMDBAccountManager.swift */; };
+		B85FD9B129F33A880088B5CC /* TMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9B029F33A880088B5CC /* TMDB.swift */; };
+		B85FD9B229F33A880088B5CC /* TMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9B029F33A880088B5CC /* TMDB.swift */; };
+		B85FD9B329F33A910088B5CC /* TMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9B029F33A880088B5CC /* TMDB.swift */; };
 		B86AAD0A28BD1CDD00D135B1 /* DeveloperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */; };
 		B86AAD0D28BD2E2600D135B1 /* PlaceholderMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86AAD0B28BD2D6B00D135B1 /* PlaceholderMedia.xcassets */; };
 		B86DD41A28BAABCC002C8427 /* HeroImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57827FC999F006BE5E1 /* HeroImage.swift */; };
@@ -459,6 +462,7 @@
 		B85FD9A829F324730088B5CC /* AccountSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsView.swift; sourceTree = "<group>"; };
 		B85FD9AA29F326440088B5CC /* DeveloperSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperSettingsStore.swift; sourceTree = "<group>"; };
 		B85FD9AD29F3324F0088B5CC /* TMDBAccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBAccountManager.swift; sourceTree = "<group>"; };
+		B85FD9B029F33A880088B5CC /* TMDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDB.swift; sourceTree = "<group>"; };
 		B862F24729EEE1EA000AEC18 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B862F24829EEE1EA000AEC18 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperView.swift; sourceTree = "<group>"; };
@@ -764,6 +768,7 @@
 				B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */,
 				B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */,
 				B84457C6297341AF009CB21F /* WatchProviders.swift */,
+				B85FD9B029F33A880088B5CC /* TMDB.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1585,6 +1590,7 @@
 				B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */,
 				B810525E298DD05600723E94 /* WatchProviderOption.swift in Sources */,
 				B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */,
+				B85FD9B229F33A880088B5CC /* TMDB.swift in Sources */,
 				B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */,
 				B83E3EDB299AB9FB00A3A28B /* CustomList-Extensions.swift in Sources */,
 				B801070829F24499008A4551 /* ItemContentCustomListSelector.swift in Sources */,
@@ -1777,6 +1783,7 @@
 				B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B85344C128FA07B60013E9C7 /* UpcomingListView.swift in Sources */,
+				B85FD9B129F33A880088B5CC /* TMDB.swift in Sources */,
 				B876DE5C281B2B04005558DD /* Screens.swift in Sources */,
 				B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */,
 				B886D232284D512F00FFE96A /* ConfirmationDialogView.swift in Sources */,
@@ -1806,6 +1813,7 @@
 				B8105257298DC0AD00723E94 /* Locale-Extensions.swift in Sources */,
 				B8D7AED828B963720053CE5A /* ItemContentList.swift in Sources */,
 				B8F6DE652937A144005D1A50 /* Videos.swift in Sources */,
+				B85FD9B329F33A910088B5CC /* TMDB.swift in Sources */,
 				B8D7AEC628B961890053CE5A /* NetworkService.swift in Sources */,
 				B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */,
 				B81DD92F29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
@@ -2088,7 +2096,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.9;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2131,7 +2139,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.9;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
