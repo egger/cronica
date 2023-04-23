@@ -35,6 +35,7 @@ struct ItemContentRow: View {
             
             VStack(alignment: .leading) {
                 Text(item.itemTitle)
+                    .lineLimit(1)
                 Text(item.itemContentMedia.title)
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -48,10 +49,14 @@ struct ItemContentRow: View {
                     Spacer()
                 }
                 .padding(.trailing)
+            } else {
+                Spacer()
             }
         }
         .task {
-            isItemAdded = PersistenceController.shared.isItemSaved(id: item.id, type: item.itemContentMedia)
+            withAnimation {
+                self.isItemAdded = PersistenceController.shared.isItemSaved(id: item.id, type: item.itemContentMedia)
+            }
             if isItemAdded {
                 isWatched = PersistenceController.shared.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
             }

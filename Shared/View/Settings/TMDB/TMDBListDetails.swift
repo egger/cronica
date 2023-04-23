@@ -14,23 +14,30 @@ struct TMDBListDetails: View {
     @State private var detailedList: DetailedTMDBList?
     @State private var items = [ItemContent]()
     @State private var isLoading = true
+    @FetchRequest(
+        entity: CustomList.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \CustomList.title, ascending: true),
+        ],
+        predicate: NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(format: "isSyncEnabledTMDB == %d", true),
+        ])
+    ) var customLists: FetchedResults<CustomList>
     var body: some View {
         Form {
-            Section {
-                if syncList {
-                    Button("syncNow") {
-                        
-                    }
-                } else {
-                    Button("importListTMDB") { importList() }
-                }
-            } header: {
-                Text("tmdbListSyncConfig")
-            }
-            
             if isLoading {
-                ProgressView()
+                CenterHorizontalView { ProgressView("Loading") }
             } else {
+                Section {
+                    if syncList {
+                        Button("syncNow") { sync() }
+                    } else {
+                        Button("importListTMDB") { importList() }
+                    }
+                } header: {
+                    Text("tmdbListSyncConfig")
+                }
+                
                 Section {
                     if items.isEmpty {
                         Text("emptyList")
@@ -47,6 +54,8 @@ struct TMDBListDetails: View {
 #endif
                         }
                     }
+                } header: {
+                    Text("Items")
                 }
             }
         }
@@ -61,7 +70,16 @@ struct TMDBListDetails: View {
                 if let content = detailedList?.results {
                     items = content
                 }
-                isLoading = false
+                guard let listID = detailedList?.id else {
+                    withAnimation { self.isLoading = false }
+                    return
+                }
+                for item in customLists {
+                    if item.tmdbListId == Int64(listID) {
+                        syncList = true
+                    }
+                }
+                withAnimation { self.isLoading = false }
             }
         }
     }
@@ -95,5 +113,9 @@ struct TMDBListDetails: View {
             }
         }
         self.syncList = true
+    }
+    
+    private func sync() {
+        
     }
 }

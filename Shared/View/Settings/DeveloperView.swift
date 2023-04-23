@@ -20,6 +20,8 @@ struct DeveloperView: View {
     @State private var showAllItems = false
     @State private var showOnboardingMac = false
     @State private var showChangelog = true
+    @State private var userAccessId = String()
+    @State private var userAccessToken = String()
     private let persistence = PersistenceController.shared
     private let service = NetworkService.shared
     var body: some View {
@@ -97,6 +99,23 @@ struct DeveloperView: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
+            }
+            
+            Section {
+                Text("User Access ID (TMDB): \(userAccessId)")
+                    .textSelection(.enabled)
+                Text("User Access Token (TMDB): \(userAccessToken)")
+                    .textSelection(.enabled)
+            }
+            .onAppear {
+                let data = KeychainHelper.standard.read(service: "access-token", account: "cronicaTMDB-Sync")
+                let IdData = KeychainHelper.standard.read(service: "access-id", account: "cronicaTMDB-Sync")
+                guard let data, let IdData else { return }
+                let accessToken = String(data: data, encoding: .utf8)
+                let accessId = String(data: IdData, encoding: .utf8)
+                guard let accessToken, let accessId else { return }
+                userAccessToken = accessToken
+                userAccessId = accessId
             }
             
         }
@@ -269,10 +288,3 @@ private struct ShowAllItemsView: View {
     }
 }
 #endif
-
-//private struct DeveloperWatchlistItemOptions: View {
-//    @State var item: WatchlistItem
-//    var body: some View {
-//        //Toggle(<#T##title: StringProtocol##StringProtocol#>, isOn: <#T##Binding<Bool>#>)
-//    }
-//}

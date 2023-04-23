@@ -35,6 +35,9 @@ struct CustomWatchlist: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 filterPicker
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                syncButton
+            }
 #else
             filterPicker
 #endif
@@ -65,6 +68,22 @@ struct CustomWatchlist: View {
             }
         }
 #endif
+    }
+    
+    @ViewBuilder
+    private var syncButton: some View {
+        if let selectedList {
+            if selectedList.isSyncEnabledTMDB {
+                Section {
+                    Button {
+                        
+                    } label: {
+                        Label("syncNowTMDB", systemImage: "arrow.clockwise.circle.fill")
+                            .labelStyle(.iconOnly)
+                    }
+                }
+            }
+        }
     }
     
     private var filterPicker: some View {

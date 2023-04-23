@@ -732,23 +732,23 @@
 		B8110ED7279245D000844FEB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				B8B981E329F42B000001CF0B /* Helpers */,
 				B892EB0F296755A2002E028E /* ProductList.plist */,
+				B892EB0929675265002E028E /* Cronica.storekit */,
 				B8110EDA279245D100844FEB /* Assets.xcassets */,
 				B87B5CD32799AF3600632648 /* Attribution.xcassets */,
 				B8E7651927B738D200D9B731 /* Configuration */,
 				B8B271A827A5A19100F6463F /* Controllers */,
+				B845132C27ECB33E00F0D4A4 /* Enums */,
 				B845132B27EC1B1600F0D4A4 /* Extensions */,
+				B8B981E329F42B000001CF0B /* Helpers */,
 				B8CC954E27D132CB00B6757C /* Localization */,
 				B8EC463D27D84C45009389FC /* Manager */,
 				B8110F0E2792677F00844FEB /* Model */,
 				B8423E372794811F0012259B /* Network */,
 				B87B5CCE27999CCB00632648 /* Preview Data */,
 				B8ADAF6D282C42A9001D72EF /* Store */,
-				B845132C27ECB33E00F0D4A4 /* Enums */,
 				B8110F0F2792678400844FEB /* View */,
 				B87B5CD22799AB5D00632648 /* ViewModel */,
-				B892EB0929675265002E028E /* Cronica.storekit */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
