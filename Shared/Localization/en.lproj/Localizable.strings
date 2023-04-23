@@ -544,7 +544,7 @@
 "tmdbAccountFooter" = "Sign-In with TMDB to sync your lists.";
 "tmdbAccountButtonSignOut" = "Sign Out";
 "tmdbAccountButtonSignIn" = "Sign In";
-"tmdbAccountListsManager" = "Manage your TMDB's lists.";
+"tmdbAccountListsManager" = "Manage your TMDB's lists";
 "tmdbAccountHeaderSignedIn" = "Manage your TMDB's lists";
 "removeTMDBAccount" = "Disconnect TMDB Account?";
 "Confirm" = "Confirm";
@@ -555,3 +555,4 @@
 "importTMDBWatchlist" = "Import Watchlist from TMDB";
 "syncNow" = "Sync Now with TMDB";
 "Loading" = "Loading";
+"watchlistTMDB" = "TMDB's Watchlist";

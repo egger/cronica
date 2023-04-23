@@ -544,7 +544,7 @@
 "tmdbAccountFooter" = "Mit TMDB anmelden, um Ihre Listen zu synchronisieren.";
 "tmdbAccountButtonSignOut" = "Abmelden";
 "tmdbAccountButtonSignIn" = "Anmelden";
-"tmdbAccountListsManager" = "Verwalten Sie Ihre Listen auf TMDB.";
+"tmdbAccountListsManager" = "Verwalten Sie Ihre Listen auf TMDB";
 "tmdbAccountHeaderSignedIn" = "Verwalten Sie Ihre Listen auf TMDB";
 "removeTMDBAccount" = "TMDB-Konto trennen?";
 "Confirm" = "Bestätigen";
@@ -555,3 +555,4 @@
 "importTMDBWatchlist" = "Watchlist von TMDB importieren";
 "syncNow" = "Jetzt mit TMDB synchronisieren";
 "Loading" = "Laden";
+"watchlistTMDB" = "TMDB Watchlist";

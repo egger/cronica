@@ -16,16 +16,15 @@ struct AccountSettingsView: View {
     @State private var tmdbAccount = TMDBAccountManager.shared
     @State private var hasAccess = false
     @State private var showSignOutConfirmation = false
-    @State private var isImporting = false
     var body: some View {
         Section {
-            tmdbAccountButton
             if hasAccess {
                 NavigationLink(destination: TMDBListsView(viewModel: $tmdbAccount)) {
                     Text("tmdbAccountListsManager")
                 }
                 importWatchlist
             }
+            tmdbAccountButton
             
         } header: {
             hasAccess ? Text("tmdbAccountHeaderSignedIn") : Text("tmdbAccountHeader")
@@ -55,24 +54,8 @@ struct AccountSettingsView: View {
     }
     
     private var importWatchlist: some View {
-        Button {
-            Task {
-                withAnimation { self.isImporting = true }
-                let movies = await tmdbAccount.fetchWatchlist(type: .movie)
-                let shows = await tmdbAccount.fetchWatchlist(type: .tvShow)
-                guard let moviesResult = movies?.results, let showsResult = shows?.results else { return }
-                let result = moviesResult + showsResult
-                for item in result {
-                    PersistenceController.shared.save(item)
-                }
-                withAnimation { self.isImporting = false }
-            }
-        } label: {
-            if isImporting {
-               ProgressView()
-            } else {
-                Text("importTMDBWatchlist")
-            }
+        NavigationLink(destination: TMDBWatchlistView(viewModel: $tmdbAccount)) {
+            Text("watchlistTMDB")
         }
     }
     
@@ -99,5 +82,87 @@ struct AccountSettingsView: View {
 struct AccountSettings_Previews: PreviewProvider {
     static var previews: some View {
         AccountSettingsView()
+    }
+}
+
+struct TMDBWatchlistView: View {
+    @State private var isImporting = false
+    @Binding var viewModel: TMDBAccountManager
+    @State private var settings = SettingsStore.shared
+    @State private var items = [ItemContent]()
+    @State private var hasLoaded = false
+    var body: some View {
+        Form {
+            if !hasLoaded {
+                CenterHorizontalView { ProgressView("Loading") }
+            } else {
+                if !settings.userImportedTMDB {
+                    Section {
+                        importButton
+                    }
+                } else {
+                    Section {
+                        syncButton
+                    }
+                }
+                
+                Section {
+                    if items.isEmpty {
+                        CenterHorizontalView { Text("emptyList") }
+                    } else {
+                        ForEach(items) { item in
+                            ItemContentRow(item: item)
+                        }
+                    }
+                } header: {
+                    Text("itemsTMDB")
+                }
+                
+            }
+        }
+        .navigationTitle("watchlistTMDB")
+        .task {
+            await load()
+        }
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
+    }
+    
+    private func load() async {
+        if hasLoaded { return }
+        let movies = await viewModel.fetchWatchlist(type: .movie)
+        let shows = await viewModel.fetchWatchlist(type: .tvShow)
+        guard let moviesResult = movies?.results, let showsResult = shows?.results else { return }
+        let result = moviesResult + showsResult
+        items = result
+        withAnimation { self.hasLoaded = true }
+    }
+    
+    private var importButton: some View {
+        Button {
+            Task {
+                withAnimation { self.isImporting = true }
+                for item in items {
+                    PersistenceController.shared.save(item)
+                }
+                withAnimation { self.isImporting = false }
+                settings.userImportedTMDB = true
+            }
+        } label: {
+            if isImporting {
+               ProgressView()
+            } else {
+                Text("importTMDBWatchlist")
+            }
+        }
+    }
+    
+    private var syncButton: some View {
+        Button {
+            
+        } label: {
+            Text("syncNow")
+        }
     }
 }

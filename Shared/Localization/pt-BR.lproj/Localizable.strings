@@ -589,7 +589,7 @@
 "tmdbAccountFooter" = "Entre com o TMDB para sincronizar suas listas.";
 "tmdbAccountButtonSignOut" = "Sair";
 "tmdbAccountButtonSignIn" = "Entrar";
-"tmdbAccountListsManager" = "Gerencie suas listas do TMDB.";
+"tmdbAccountListsManager" = "Gerencie suas listas do TMDB";
 "tmdbAccountHeaderSignedIn" = "Gerenciar suas listas do TMDB";
 "removeTMDBAccount" = "Desconectar conta do TMDB?";
 "Confirm" = "Confirmar";
@@ -600,3 +600,4 @@
 "importTMDBWatchlist" = "Importar Watchlist do TMDB";
 "syncNow" = "Sincronizar agora com o TMDB";
 "Loading" = "Carregando";
+"watchlistTMDB" = "Watchlist do TMDB";

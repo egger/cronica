@@ -48,4 +48,5 @@ class SettingsStore: ObservableObject {
     @AppStorage("preferCompactUI") var isCompactUI = false
     @AppStorage("selectedWatchProviderEnabled") var isSelectedWatchProviderEnabled = false
     @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""
+    @AppStorage("userHasImportedFromTMDB") var userImportedTMDB = false
 }
