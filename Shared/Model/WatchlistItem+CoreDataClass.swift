@@ -33,6 +33,14 @@ public class WatchlistItem: NSManagedObject, Codable {
             mediumPosterImage = try values.decode(URL?.self, forKey: .mediumPosterImage)
             shouldNotify = try values.decode(Bool.self, forKey: .shouldNotify)
             isArchive = try values.decode(Bool.self, forKey: .isArchive)
+            nextEpisodeNumber = try values.decode(Int64.self, forKey: .nextEpisodeNumber)
+            nextSeasonNumber = try values.decode(Int64.self, forKey: .nextSeasonNumber)
+            nextEpisodeNumberUpNext = try values.decode(Int64.self, forKey: .nextEpisodeNumberUpNext)
+            seasonNumberUpNext = try values.decode(Int64.self, forKey: .seasonNumberUpNext)
+            displayOnUpNext = try values.decode(Bool.self, forKey: .displayOnUpNext)
+            isPin = try values.decode(Bool.self, forKey: .isPin)
+            lastEpisodeNumber = try values.decode(Int64.self, forKey: .lastEpisodeNumber)
+            lastSelectedSeason = try values.decode(Int64.self, forKey: .lastSelectedSeason)
         } catch {
             print(error.localizedDescription)
         }
@@ -54,11 +62,19 @@ public class WatchlistItem: NSManagedObject, Codable {
         try values.encode(mediumPosterImage, forKey: .mediumPosterImage)
         try values.encode(shouldNotify, forKey: .shouldNotify)
         try values.encode(isArchive, forKey: .isArchive)
+        try values.encode(nextEpisodeNumber, forKey: .nextEpisodeNumber)
+        try values.encode(nextSeasonNumber, forKey: .nextSeasonNumber)
+        try values.encode(nextEpisodeNumberUpNext, forKey: .nextEpisodeNumberUpNext)
+        try values.encode(seasonNumberUpNext, forKey: .seasonNumberUpNext)
+        try values.encode(displayOnUpNext, forKey: .displayOnUpNext)
+        try values.encode(isPin, forKey: .isPin)
+        try values.encode(lastEpisodeNumber, forKey: .lastEpisodeNumber)
+        try values.encode(lastSelectedSeason, forKey: .lastSelectedSeason)
     }
     
     enum CodingKeys: CodingKey {
         case title, contentID, id, image, watchedEpisodes, watched, favorite, contentType, schedule, largeCardImage,
-             largePosterImage, mediumPosterImage, shouldNotify, isArchive
+             largePosterImage, mediumPosterImage, shouldNotify, isArchive, nextEpisodeNumber, nextSeasonNumber, nextEpisodeNumberUpNext, seasonNumberUpNext, displayOnUpNext, isPin, lastEpisodeNumber, lastSelectedSeason
     }
 }
 

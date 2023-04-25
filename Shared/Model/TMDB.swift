@@ -51,3 +51,17 @@ struct TMDBWatchlist: Codable {
     var totalPages: Int?
     var results: [ItemContent]?
 }
+
+struct TMDBItemContent: Codable {
+    var media_type: String
+    var media_id: Int
+}
+
+struct TMDBItem: Codable {
+    var items: [TMDBItemContent]
+}
+
+struct TMDBv3: Codable {
+    var success: Bool?
+    var sessionId: String?
+}

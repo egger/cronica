@@ -13,67 +13,72 @@ import AuthenticationServices
 @available(macOS 13.3, *)
 struct AccountSettingsView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
-    @State private var tmdbAccount = TMDBAccountManager.shared
-    @State private var hasAccess = false
+    @State private var viewModel = AccountManager.shared
     @State private var showSignOutConfirmation = false
+    @State private var isFetching = false
+    @State var userIsLoggedIn = false
     var body: some View {
         Section {
-            if hasAccess {
-                NavigationLink(destination: TMDBListsView(viewModel: $tmdbAccount)) {
-                    Text("tmdbAccountListsManager")
+            if isFetching {
+                CenterHorizontalView { ProgressView() }
+            } else {
+                if userIsLoggedIn {
+                    NavigationLink("AccountSettingsViewListsManager", destination: TMDBListsView())
+                    NavigationLink("AccountSettingsViewWatchlist", destination: TMDBWatchlistView())
                 }
-                importWatchlist
+                accountButton
             }
-            tmdbAccountButton
-            
         } header: {
-            hasAccess ? Text("tmdbAccountHeaderSignedIn") : Text("tmdbAccountHeader")
+            userIsLoggedIn ? Text("AccountSettingsViewHeaderSignIn") : Text("AccountSettingsViewFooterHeader")
         } footer: {
-            if !hasAccess {
-                Text("tmdbAccountFooter")
-            }
+#if os(iOS)
+            if !userIsLoggedIn { Text("AccountSettingsViewFooter") }
+#endif
         }
         .alert("removeTMDBAccount", isPresented: $showSignOutConfirmation) {
             Button("Confirm", role: .destructive) {
-                tmdbAccount.removeUserAccess()
-                hasAccess = false
+                Task {
+                    withAnimation { self.userIsLoggedIn = false }
+                    await viewModel.logOut()
+                }
             }
         }
-    }
-    
-    private var tmdbAccountButton: some View {
-        Button {
-            hasAccess ? SignOut() : SignIn()
-        } label: {
-            Text(hasAccess ? "tmdbAccountButtonSignOut" : "tmdbAccountButtonSignIn")
-                .tint(hasAccess ? .red : nil)
-        }
         .task {
-            hasAccess = tmdbAccount.checkAccessStatus()
+            withAnimation { userIsLoggedIn = viewModel.checkAccessStatus() }
         }
     }
     
-    private var importWatchlist: some View {
-        NavigationLink(destination: TMDBWatchlistView(viewModel: $tmdbAccount)) {
-            Text("watchlistTMDB")
+    private var accountButton: some View {
+        Button(role: userIsLoggedIn ? .destructive : nil) {
+            userIsLoggedIn ? SignOut() : SignIn()
+        } label: {
+            Text(userIsLoggedIn ? "AccountSettingsViewSignOut" : "AccountSettingsViewSignIn")
+                .tint(userIsLoggedIn ? .red : nil)
         }
     }
     
     private func SignIn() {
         Task {
-            let url = await tmdbAccount.requestToken()
-            guard let url else { return }
-            let _ = try await webAuthenticationSession.authenticate(using: url,
-                                                                    callbackURLScheme: "cronica",
-                                                                    preferredBrowserSession: .shared)
-            await tmdbAccount.requestAccess()
-            hasAccess.toggle()
+            do {
+                DispatchQueue.main.async { withAnimation { self.isFetching = true } }
+                let url = await viewModel.requestToken()
+                guard let url else { return }
+                let _ = try await webAuthenticationSession.authenticate(using: url,
+                                                                        callbackURLScheme: "cronica",
+                                                                        preferredBrowserSession: .shared)
+                try await viewModel.requestAccess()
+                await viewModel.createV3Session()
+                DispatchQueue.main.async { withAnimation { self.isFetching = false } }
+                DispatchQueue.main.async { withAnimation { self.userIsLoggedIn = true } }
+            } catch {
+                if Task.isCancelled { return }
+                CronicaTelemetry.shared.handleMessage("Failed to SignIn", for: "AccountSettings.failed")
+                DispatchQueue.main.async { withAnimation { self.isFetching = false } }
+            }
         }
     }
     
-    private func SignOut() {
-        showSignOutConfirmation.toggle()
-    }
+    private func SignOut() { showSignOutConfirmation.toggle() }
 }
 
 @available(iOS 16.4, *)
@@ -82,87 +87,5 @@ struct AccountSettingsView: View {
 struct AccountSettings_Previews: PreviewProvider {
     static var previews: some View {
         AccountSettingsView()
-    }
-}
-
-struct TMDBWatchlistView: View {
-    @State private var isImporting = false
-    @Binding var viewModel: TMDBAccountManager
-    @State private var settings = SettingsStore.shared
-    @State private var items = [ItemContent]()
-    @State private var hasLoaded = false
-    var body: some View {
-        Form {
-            if !hasLoaded {
-                CenterHorizontalView { ProgressView("Loading") }
-            } else {
-                if !settings.userImportedTMDB {
-                    Section {
-                        importButton
-                    }
-                } else {
-                    Section {
-                        syncButton
-                    }
-                }
-                
-                Section {
-                    if items.isEmpty {
-                        CenterHorizontalView { Text("emptyList") }
-                    } else {
-                        ForEach(items) { item in
-                            ItemContentRow(item: item)
-                        }
-                    }
-                } header: {
-                    Text("itemsTMDB")
-                }
-                
-            }
-        }
-        .navigationTitle("watchlistTMDB")
-        .task {
-            await load()
-        }
-#if os(macOS)
-        .formStyle(.grouped)
-#endif
-    }
-    
-    private func load() async {
-        if hasLoaded { return }
-        let movies = await viewModel.fetchWatchlist(type: .movie)
-        let shows = await viewModel.fetchWatchlist(type: .tvShow)
-        guard let moviesResult = movies?.results, let showsResult = shows?.results else { return }
-        let result = moviesResult + showsResult
-        items = result
-        withAnimation { self.hasLoaded = true }
-    }
-    
-    private var importButton: some View {
-        Button {
-            Task {
-                withAnimation { self.isImporting = true }
-                for item in items {
-                    PersistenceController.shared.save(item)
-                }
-                withAnimation { self.isImporting = false }
-                settings.userImportedTMDB = true
-            }
-        } label: {
-            if isImporting {
-               ProgressView()
-            } else {
-                Text("importTMDBWatchlist")
-            }
-        }
-    }
-    
-    private var syncButton: some View {
-        Button {
-            
-        } label: {
-            Text("syncNow")
-        }
     }
 }

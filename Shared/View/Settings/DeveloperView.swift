@@ -22,6 +22,7 @@ struct DeveloperView: View {
     @State private var showChangelog = true
     @State private var userAccessId = String()
     @State private var userAccessToken = String()
+    @State private var v3SessionID = String()
     private let persistence = PersistenceController.shared
     private let service = NetworkService.shared
     var body: some View {
@@ -106,16 +107,25 @@ struct DeveloperView: View {
                     .textSelection(.enabled)
                 Text("User Access Token (TMDB): \(userAccessToken)")
                     .textSelection(.enabled)
+                Text("Session ID (TMDB): \(v3SessionID)")
+                    .textSelection(.enabled)
             }
             .onAppear {
                 let data = KeychainHelper.standard.read(service: "access-token", account: "cronicaTMDB-Sync")
                 let IdData = KeychainHelper.standard.read(service: "access-id", account: "cronicaTMDB-Sync")
-                guard let data, let IdData else { return }
+                let sessionID = KeychainHelper.standard.read(service: "session-id", account: "cronicaTMDB-Sync")
+                guard let data else { return }
                 let accessToken = String(data: data, encoding: .utf8)
-                let accessId = String(data: IdData, encoding: .utf8)
-                guard let accessToken, let accessId else { return }
+                guard let accessToken else { return }
                 userAccessToken = accessToken
+                guard let IdData else { return }
+                let accessId = String(data: IdData, encoding: .utf8)
+                guard let accessId else { return }
                 userAccessId = accessId
+                guard let sessionID else { return }
+                let idV3 = String(data: sessionID, encoding: .utf8)
+                guard let idV3 else { return }
+                v3SessionID = idV3
             }
             
         }

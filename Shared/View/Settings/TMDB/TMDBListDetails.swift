@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TMDBListDetails: View {
     let list: TMDBListResult
-    @Binding var viewModel: TMDBAccountManager
+    @State var viewModel = ExternalWatchlistManager.shared
     @State private var syncList = false
     @State private var detailedList: DetailedTMDBList?
     @State private var items = [ItemContent]()
@@ -22,7 +22,11 @@ struct TMDBListDetails: View {
         predicate: NSCompoundPredicate(type: .and, subpredicates: [
             NSPredicate(format: "isSyncEnabledTMDB == %d", true),
         ])
-    ) var customLists: FetchedResults<CustomList>
+    ) private var customLists: FetchedResults<CustomList>
+    @State private var selectedCustomList: CustomList?
+    @State private var isSyncing = false
+    @State private var isImportingList = false
+    @State private var itemsToSync = [TMDBItemContent]()
     var body: some View {
         Form {
             if isLoading {
@@ -30,9 +34,9 @@ struct TMDBListDetails: View {
             } else {
                 Section {
                     if syncList {
-                        Button("syncNow") { sync() }
+                        syncButton
                     } else {
-                        Button("importListTMDB") { importList() }
+                        importButton
                     }
                 } header: {
                     Text("tmdbListSyncConfig")
@@ -57,6 +61,8 @@ struct TMDBListDetails: View {
                 } header: {
                     Text("Items")
                 }
+                .redacted(reason: isSyncing ? .placeholder : [])
+                .redacted(reason: isImportingList ? .placeholder : [])
             }
         }
         .navigationTitle(list.itemTitle)
@@ -77,6 +83,7 @@ struct TMDBListDetails: View {
                 for item in customLists {
                     if item.tmdbListId == Int64(listID) {
                         syncList = true
+                        selectedCustomList = item
                     }
                 }
                 withAnimation { self.isLoading = false }
@@ -84,38 +91,92 @@ struct TMDBListDetails: View {
         }
     }
     
-    private func importList() {
-        let persistence = PersistenceController.shared
-        let viewContext = persistence.container.viewContext
-        let list = CustomList(context: viewContext)
-        list.id = UUID()
-        list.title = self.list.itemTitle
-        list.creationDate = Date()
-        list.updatedDate = Date()
-        list.isSyncEnabledTMDB = true
-        list.tmdbListId = Int64(self.list.id)
-        var itemsToAdd = Set<WatchlistItem>()
-        for item in items {
-            persistence.save(item)
-            let savedItem = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia)
-            if let savedItem {
-                itemsToAdd.insert(savedItem)
+    private var importButton: some View {
+        Button {
+            Task { await importList() }
+        } label: {
+            if isImportingList {
+                CenterHorizontalView { ProgressView() }
+            } else {
+                Text("importTMDBList")
             }
         }
-        list.items = itemsToAdd as NSSet
-        print(list as Any)
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-                HapticManager.shared.successHaptic()
-            } catch {
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "TMDBListDetails.importList.failed")
-            }
-        }
-        self.syncList = true
     }
     
-    private func sync() {
-        
+    private var syncButton: some View {
+        Button {
+            Task { await sync() }
+        } label: {
+            if isSyncing {
+                CenterHorizontalView { ProgressView("syncInProgress") }
+            } else {
+                Text("syncNow")
+            }
+        }
+    }
+    
+    private func importList() async {
+        do {
+            DispatchQueue.main.async { withAnimation { isImportingList = true } }
+            let persistence = PersistenceController.shared
+            let network = NetworkService.shared
+            let viewContext = persistence.container.viewContext
+            let list = CustomList(context: viewContext)
+            list.id = UUID()
+            list.title = self.list.itemTitle
+            list.creationDate = Date()
+            list.updatedDate = Date()
+            list.isSyncEnabledTMDB = true
+            list.tmdbListId = Int64(self.list.id)
+            var itemsToAdd = Set<WatchlistItem>()
+            for item in items {
+                let content = try await network.fetchItem(id: item.id, type: item.itemContentMedia)
+                persistence.save(content)
+                let savedItem = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia)
+                if let savedItem {
+                    itemsToAdd.insert(savedItem)
+                }
+            }
+            list.items = itemsToAdd as NSSet
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                    HapticManager.shared.successHaptic()
+                } catch {
+                    CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "TMDBListDetails.importList.failed")
+                }
+            }
+            DispatchQueue.main.async { withAnimation { isImportingList = false } }
+            DispatchQueue.main.async { withAnimation { self.syncList = true } }
+        } catch {
+            if Task.isCancelled { return }
+        }
+    }
+    
+    private func checkForSync() {
+        var itemsToAdd = [TMDBItemContent]()
+        guard let selectedCustomList else { return }
+        for item in selectedCustomList.itemsArray {
+            if !items.contains(where: { $0.id == item.itemId}) {
+                let content = TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)
+                itemsToAdd.append(content)
+            }
+        }
+        itemsToSync = itemsToAdd
+    }
+    
+    private func sync() async {
+        if itemsToSync.isEmpty { return }
+        withAnimation { self.isSyncing = true }
+        let itemsToUpdate = TMDBItem(items: itemsToSync)
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = [.sortedKeys]
+            let jsonData = try encoder.encode(itemsToUpdate)
+            await viewModel.updateList(list.id, with: jsonData)
+        } catch {
+            print(error.localizedDescription)
+        }
+        withAnimation { self.isSyncing = false }
     }
 }

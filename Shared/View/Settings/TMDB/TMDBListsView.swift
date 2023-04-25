@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TMDBListsView: View {
-    @Binding var viewModel: TMDBAccountManager
+    @State private var viewModel = ExternalWatchlistManager.shared
     @State private var lists = [TMDBListResult]()
     @State private var isLoading = true
     var body: some View {
@@ -49,7 +49,7 @@ struct TMDBListsView: View {
         Section {
             List {
                 ForEach(lists) { list in
-                    NavigationLink(destination: TMDBListDetails(list: list, viewModel: $viewModel)) {
+                    NavigationLink(destination: TMDBListDetails(list: list)) {
                         Text(list.itemTitle)
                     }
                 }

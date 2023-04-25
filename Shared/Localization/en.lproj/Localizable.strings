@@ -540,12 +540,12 @@
 "selectedWatchProviderSubtitle" = "Only show 'Watch Provider' if the title is available on one of your preferred services.";
 "importExportWarning" = "Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all.";
 "tvShowDetails" = "TV Show Details";
-"tmdbAccountHeader" = "Sign-In with TMDB";
-"tmdbAccountFooter" = "Sign-In with TMDB to sync your lists.";
-"tmdbAccountButtonSignOut" = "Sign Out";
-"tmdbAccountButtonSignIn" = "Sign In";
-"tmdbAccountListsManager" = "Manage your TMDB's lists";
-"tmdbAccountHeaderSignedIn" = "Manage your TMDB's lists";
+"AccountSettingsViewFooterHeader" = "Connect your TMDB account";
+"AccountSettingsViewFooter" = "Connect your TMDB account to import and sync your watchlist and lists.";
+"AccountSettingsViewSignOut" = "Disconnect";
+"AccountSettingsViewSignIn" = "Connect";
+"AccountSettingsViewListsManager" = "Your TMDB lists";
+"AccountSettingsViewHeaderSignIn" = "Manage your TMDB's lists";
 "removeTMDBAccount" = "Disconnect TMDB Account?";
 "Confirm" = "Confirm";
 "tmdbLists" = "Your TMDB's Lists";
@@ -555,4 +555,6 @@
 "importTMDBWatchlist" = "Import Watchlist from TMDB";
 "syncNow" = "Sync Now with TMDB";
 "Loading" = "Loading";
-"watchlistTMDB" = "TMDB's Watchlist";
+"AccountSettingsViewWatchlist" = "TMDB Watchlist";
+"Hello, %@." = "Hello, %@.";
+"importingTMDB" = "Importing your Watchlist, please wait.";
