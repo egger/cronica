@@ -92,13 +92,13 @@ class ExternalWatchlistManager {
         return nil
     }
     
-    func fetchWatchlist(type: MediaType) async -> TMDBWatchlist? {
+    func fetchWatchlist(type: MediaType, page: Int) async -> TMDBWatchlist? {
         do {
             let headers = [
                 "content-type": contentTypeHeader,
                 "authorization": "Bearer \(userAccessToken)"
             ]
-            var request = URLRequest(url: URL(string: "https://api.themoviedb.org/4/account/\(userAccessId)/\(type.rawValue)/watchlist")!,
+            var request = URLRequest(url: URL(string: "https://api.themoviedb.org/4/account/\(userAccessId)/\(type.rawValue)/watchlist?page=\(page)&sort_by=created_at.asc")!,
                                      cachePolicy: .useProtocolCachePolicy,
                                      timeoutInterval: 10.0)
             request.httpMethod = "GET"
@@ -131,7 +131,56 @@ class ExternalWatchlistManager {
             
             let (_, _) = try await URLSession.shared.data(for: request)
         } catch {
-            if Task.isCancelled { return  }
+            if Task.isCancelled { return }
         }
+    }
+    
+    func updateWatchlist(with items: Data) async {
+        do {
+            let headers = [
+                "content-type": contentTypeHeader
+            ]
+            guard let url = URL(string: "https://api.themoviedb.org/3/account/\(userAccessId)/watchlist?api_key=\(Key.tmdbApi)&session_id=\(userSessionId)") else { return }
+            var request = URLRequest(url: url,
+                                     cachePolicy: .useProtocolCachePolicy,
+                                     timeoutInterval: 10.0)
+            request.httpMethod = "POST"
+            request.allHTTPHeaderFields = headers
+            request.httpBody = items
+            
+            let (_, response) = try await URLSession.shared.data(for: request)
+            print("Watchlist update response is: \(response)")
+        } catch {
+            if Task.isCancelled { return }
+        }
+    }
+    
+    func publishList(_ list: CustomList, isPublic: Bool = false) async -> Int? {
+        do {
+            let headers = [
+                "authorization": "Bearer \(userAccessToken)",
+                "content-type": contentTypeHeader
+            ]
+            let parameters = [
+                "name": "\(list.itemTitle)",
+                "iso_639_1": "en",
+                "public": "\(isPublic)"
+            ]
+            guard let url = URL(string: "https://api.themoviedb.org/4/list") else { return nil }
+            let postData = try JSONSerialization.data(withJSONObject: parameters)
+            var request = URLRequest(url: url,
+                                     cachePolicy: .useProtocolCachePolicy,
+                                     timeoutInterval: 10.0)
+            request.httpMethod = "POST"
+            request.allHTTPHeaderFields = headers
+            request.httpBody = postData
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let content =  try decoder.decode(TMDBNewList.self, from: data)
+            return content.id
+        } catch {
+            if Task.isCancelled { return nil }
+        }
+        return nil
     }
 }

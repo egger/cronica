@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct TMDBWatchlistView: View {
     @State private var isImporting = false
@@ -13,21 +14,22 @@ struct TMDBWatchlistView: View {
     @State private var settings = SettingsStore.shared
     @State private var items = [ItemContent]()
     @State private var hasLoaded = false
+    @State private var isSyncing = false
+    @State private var page = 1
+    @State private var isEndPagination = false
     var body: some View {
         Form {
             if !hasLoaded {
                 CenterHorizontalView { ProgressView("Loading") }
             } else {
-                if !settings.userImportedTMDB {
-                    Section {
+                Section {
+                    if !settings.userImportedTMDB {
                         importButton
-                    }
-                } else {
-                    Section {
+                    } else {
                         syncButton
                     }
                 }
-                
+               
                 Section {
                     if items.isEmpty {
                         CenterHorizontalView { Text("emptyList") }
@@ -35,6 +37,14 @@ struct TMDBWatchlistView: View {
                         List {
                             ForEach(items) { item in
                                 ItemContentRow(item: item)
+                            }
+                            if !isEndPagination {
+                                ProgressView()
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                            Task { await fetch() }
+                                        }
+                                    }
                             }
                         }
                         .redacted(reason: isImporting ? .placeholder : [])
@@ -56,11 +66,7 @@ struct TMDBWatchlistView: View {
     
     private func load() async {
         if hasLoaded { return }
-        let movies = await viewModel.fetchWatchlist(type: .movie)
-        let shows = await viewModel.fetchWatchlist(type: .tvShow)
-        guard let moviesResult = movies?.results, let showsResult = shows?.results else { return }
-        let result = moviesResult + showsResult
-        items = result
+        await fetch()
         withAnimation { self.hasLoaded = true }
     }
     
@@ -69,7 +75,7 @@ struct TMDBWatchlistView: View {
             Task { await saveWatchlist() }
         } label: {
             if isImporting {
-               ProgressView("importingTMDB")
+                CenterHorizontalView { ProgressView("importingTMDB") }
             } else {
                 Text("importTMDBWatchlist")
             }
@@ -93,9 +99,54 @@ struct TMDBWatchlistView: View {
     
     private var syncButton: some View {
         Button {
-            
+            Task { await publishItems() }
         } label: {
-            Text("syncNow")
+            if isSyncing {
+                CenterHorizontalView { ProgressView("syncingWatchlistTMDB") }
+            } else {
+                Text("syncWatchlist")
+            }
         }
     }
+    
+    private func publishItems() async {
+        do {
+            let context = PersistenceController.shared.container.newBackgroundContext()
+            let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+            let list = try context.fetch(request)
+            if list.isEmpty { return }
+            DispatchQueue.main.async { withAnimation { self.isSyncing = true } }
+            for item in list {
+                if !items.contains(where: { $0.id == item.itemId }) {
+                    let content = TMDBWatchlistItemV3(media_type: item.itemMedia.rawValue,
+                                                      media_id: item.itemId,
+                                                      watchlist: true)
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = [.sortedKeys]
+                    let data = try encoder.encode(content)
+                    await viewModel.updateWatchlist(with: data)
+                }
+            }
+            await fetch(shouldReload: true)
+            DispatchQueue.main.async { withAnimation { self.isSyncing = false } }
+        } catch {
+            if Task.isCancelled { return }
+        }
+    }
+    
+    
+    private func fetch(shouldReload: Bool = false) async {
+        if shouldReload {
+            self.page = 1
+            self.items = []
+        }
+        if !self.items.isEmpty { self.page += 1 }
+        let movies = await viewModel.fetchWatchlist(type: .movie, page: page)
+        let shows = await viewModel.fetchWatchlist(type: .tvShow, page: page)
+        guard let moviesResult = movies?.results, let showsResult = shows?.results else { return }
+        let result = moviesResult + showsResult
+        if result.isEmpty { self.isEndPagination = true }
+        items.append(contentsOf: result.sorted(by: { $0.itemTitle < $1.itemTitle }))
+    }
+    
 }

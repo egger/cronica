@@ -27,6 +27,7 @@ struct TMDBListDetails: View {
     @State private var isSyncing = false
     @State private var isImportingList = false
     @State private var itemsToSync = [TMDBItemContent]()
+    @State private var itemsToAddToCustomList = [ItemContent]()
     @State private var hasLoaded = false
     var body: some View {
         Form {
@@ -40,8 +41,6 @@ struct TMDBListDetails: View {
                     } else {
                         importButton
                     }
-                } header: {
-                    Text("tmdbListSyncConfig")
                 }
                 
                 Section {

@@ -52,6 +52,12 @@ struct TMDBWatchlist: Codable {
     var results: [ItemContent]?
 }
 
+extension TMDBWatchlist {
+    var itemTotalPages: Int {
+        totalPages ?? 1
+    }
+}
+
 struct TMDBItemContent: Codable {
     var media_type: String
     var media_id: Int
@@ -64,4 +70,14 @@ struct TMDBItem: Codable {
 struct TMDBv3: Codable {
     var success: Bool?
     var sessionId: String?
+}
+
+struct TMDBWatchlistItemV3: Codable {
+    var media_type: String
+    var media_id: Int
+    var watchlist: Bool
+}
+
+struct TMDBNewList: Codable {
+    var id: Int
 }
