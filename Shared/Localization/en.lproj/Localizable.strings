@@ -556,6 +556,12 @@
 "syncNow" = "Sync Now with TMDB";
 "Loading" = "Loading";
 "AccountSettingsViewWatchlist" = "TMDB Watchlist";
-"Hello, %@." = "Hello, %@.";
 "importingTMDB" = "Importing your Watchlist, please wait.";
 "needToSync %lld" = "There's %lld items available to sync";
+"itemsTMDB" = "Your Watchlist Items";
+"syncingWatchlistTMDB" = "Syncing your Watchlist, please wait.";
+"syncWatchlist" = "Sync Watchlist";
+"deleteList" = "Delete List";
+"listDeleted" = "This List has been successfully deleted.";
+"areYouSure" = "Are you sure?";
+"deleteConfirmationMessage" = "This action can't be undone.\nThis will not delete the local list, just the one on TMDb.";

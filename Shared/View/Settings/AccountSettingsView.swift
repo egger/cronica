@@ -17,23 +17,39 @@ struct AccountSettingsView: View {
     @State private var showSignOutConfirmation = false
     @State private var isFetching = false
     @State var userIsLoggedIn = false
+#if os(macOS)
+    @State private var showListManager = false
+    @State private var showWatchlistManager = false
+#endif
     var body: some View {
         Section {
             if isFetching {
                 CenterHorizontalView { ProgressView() }
             } else {
                 if userIsLoggedIn {
+#if os(iOS) || os(tvOS)
                     NavigationLink("AccountSettingsViewListsManager", destination: TMDBListsView())
                     NavigationLink("AccountSettingsViewWatchlist", destination: TMDBWatchlistView())
+#elseif os(macOS)
+                    Button("AccountSettingsViewListsManager") { showListManager.toggle() }.buttonStyle(.link)
+                    Button("AccountSettingsViewWatchlist") { showWatchlistManager.toggle() }.buttonStyle(.link)
+#endif
                 }
                 accountButton
             }
         } header: {
             userIsLoggedIn ? Text("AccountSettingsViewHeaderSignIn") : Text("AccountSettingsViewFooterHeader")
         } footer: {
+            if !userIsLoggedIn {
 #if os(iOS)
-            if !userIsLoggedIn { Text("AccountSettingsViewFooter") }
+                Text("AccountSettingsViewFooter")
+#elseif os(macOS)
+                HStack {
+                    Text("AccountSettingsViewFooter")
+                    Spacer()
+                }
 #endif
+            }
         }
         .alert("removeTMDBAccount", isPresented: $showSignOutConfirmation) {
             Button("Confirm", role: .destructive) {
@@ -46,6 +62,28 @@ struct AccountSettingsView: View {
         .task {
             withAnimation { userIsLoggedIn = viewModel.checkAccessStatus() }
         }
+#if os(macOS)
+        .sheet(isPresented: $showListManager) {
+            NavigationStack {
+                TMDBListsView()
+                    .toolbar {
+                        Button("Done") { showListManager.toggle() }
+                    }
+            }
+            .presentationDetents([.large])
+            .frame(width: 400, height: 600)
+        }
+        .sheet(isPresented: $showWatchlistManager) {
+            NavigationStack {
+                TMDBWatchlistView()
+                    .toolbar {
+                        Button("Done") { showWatchlistManager.toggle() }
+                    }
+            }
+            .presentationDetents([.large])
+            .frame(width: 400, height: 600)
+        }
+#endif
     }
     
     private var accountButton: some View {
@@ -54,7 +92,13 @@ struct AccountSettingsView: View {
         } label: {
             Text(userIsLoggedIn ? "AccountSettingsViewSignOut" : "AccountSettingsViewSignIn")
                 .tint(userIsLoggedIn ? .red : nil)
+#if os(macOS)
+                .foregroundColor(userIsLoggedIn ? .red : nil)
+#endif
         }
+#if os(macOS)
+        .buttonStyle(.link)
+#endif
     }
     
     private func SignIn() {

@@ -29,54 +29,68 @@ struct TMDBListDetails: View {
     @State private var itemsToSync = [TMDBItemContent]()
     @State private var itemsToAddToCustomList = [ItemContent]()
     @State private var hasLoaded = false
+    @State private var deleteConfirmation = false
+    @State private var isDeleted = false
     var body: some View {
         Form {
             if isLoading {
                 CenterHorizontalView { ProgressView("Loading") }
             } else {
-                Section {
-                    if syncList {
-                        syncWarning
-                        syncButton
-                    } else {
-                        importButton
+                if isDeleted {
+                    CenterVerticalView {
+                        Text("listDeleted")
+                            .font(.title2)
+                            .foregroundColor(.secondary)
                     }
-                }
-                
-                Section {
-                    if items.isEmpty {
-                        Text("emptyList")
-                    } else {
-                        ForEach(items) { item in
-#if os(iOS)
-                            NavigationLink(destination: ItemContentDetails(title: item.itemTitle,
-                                                                           id: item.id,
-                                                                           type: item.itemContentMedia)) {
-                                ItemContentRow(item: item)
-                            }
-#else
-                            Text(item.itemTitle)
-#endif
+                } else {
+                    Section {
+                        if syncList {
+                            syncWarning
+                            syncButton
+                            deleteButton
+                        } else {
+                            importButton
                         }
                     }
-                } header: {
-                    Text("Items")
+                    .alert("areYouSure", isPresented: $deleteConfirmation) {
+                        Button("Confirm", role: .destructive) {
+                            delete()
+                        }
+                    } message: {
+                        Text("deleteConfirmationMessage")
+                    }
+
+                    
+                    Section {
+                        if items.isEmpty {
+                            Text("emptyList")
+                        } else {
+                            ForEach(items) { item in
+    #if os(iOS)
+                                NavigationLink(destination: ItemContentDetails(title: item.itemTitle,
+                                                                               id: item.id,
+                                                                               type: item.itemContentMedia)) {
+                                    ItemContentRow(item: item)
+                                }
+    #else
+                                Text(item.itemTitle)
+    #endif
+                            }
+                        }
+                    } header: {
+                        Text("Items")
+                    }
+                    .redacted(reason: isSyncing ? .placeholder : [])
+                    .redacted(reason: isImportingList ? .placeholder : [])
                 }
-                .redacted(reason: isSyncing ? .placeholder : [])
-                .redacted(reason: isImportingList ? .placeholder : [])
             }
         }
         .navigationTitle(list.itemTitle)
-        .onAppear {
-            Task { await load() }
-        }
+        .onAppear { Task { await load() } }
     }
     
     private func load() async {
-        detailedList = await viewModel.fetchList(id: list.id)
-        if let detailedList {
-            print("Detailed list from TMDBListDetails: \(detailedList)")
-        }
+        detailedList = await viewModel.fetchListDetails(for: list.id)
         if !items.isEmpty { return }
         if let content = detailedList?.results {
             items = content
@@ -110,6 +124,15 @@ struct TMDBListDetails: View {
         }
     }
     
+    private var deleteButton: some View {
+        Button {
+            deleteConfirmation.toggle()
+        } label: {
+            Text("deleteList")
+                .foregroundColor(.red)
+        }
+    }
+    
     private var syncButton: some View {
         Button {
             Task { await sync() }
@@ -118,6 +141,30 @@ struct TMDBListDetails: View {
                 CenterHorizontalView { ProgressView("syncInProgress") }
             } else {
                 Text("syncNow")
+            }
+        }
+#if os(macOS)
+        .buttonStyle(.link)
+#endif
+    }
+    
+    private func delete() {
+        Task {
+            if let selectedCustomList {
+                selectedCustomList.isSyncEnabledTMDB = false
+                selectedCustomList.tmdbListId = 0
+                let viewContext = PersistenceController.shared.container.viewContext
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        if Task.isCancelled { return }
+                    }
+                }
+            }
+            let deletionStatus = await viewModel.deleteList(list.id)
+            DispatchQueue.main.async {
+                withAnimation { isDeleted = deletionStatus }
             }
         }
     }

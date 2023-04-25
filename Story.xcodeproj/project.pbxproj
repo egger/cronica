@@ -212,6 +212,8 @@
 		B89ECD092986A89600F0B197 /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
 		B8A2C88129CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
+		B8A4511729F855CB0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
+		B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8AAA6E929645561004FDF21 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AAA6E829645561004FDF21 /* AppTheme.swift */; };
@@ -1250,10 +1252,10 @@
 				B87F746228064D3800E94126 /* BackgroundManager.swift */,
 				B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */,
 				B84F0229299026B7007EA8AE /* DatesManager.swift */,
+				B897AE5C29F7315800044B1E /* ExternalWatchlistManager.swift */,
 				B84457C12970D599009CB21F /* HapticManager.swift */,
 				B8EC462E27D7AA99009389FC /* NotificationManager.swift */,
 				B892EB1329675B5E002E028E /* StoreKitManager.swift */,
-				B897AE5C29F7315800044B1E /* ExternalWatchlistManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1647,6 +1649,7 @@
 				B88529B328E371650026D33A /* EpisodeListView.swift in Sources */,
 				B82BE4E9299BFEF4005F9990 /* PersistenceController-CustomList.swift in Sources */,
 				B801070929F244DE008A4551 /* NewCustomListView.swift in Sources */,
+				B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */,
 				B810524F298DBADF00723E94 /* String-Extensions.swift in Sources */,
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
@@ -1751,6 +1754,7 @@
 				B8B94CEC28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B8B981ED29F42BCD0001CF0B /* TMDBListsView.swift in Sources */,
 				B8105244298D2E7700723E94 /* SwipeGestureOptions.swift in Sources */,
+				B8A4511729F855CB0027E3E2 /* CenterVerticalView.swift in Sources */,
 				B887B0AC29EC149600E98DED /* WatchProviderSelectorSetting.swift in Sources */,
 				B8C0215A29E0D527006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */,
 				B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */,

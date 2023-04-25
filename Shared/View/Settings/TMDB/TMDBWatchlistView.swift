@@ -17,6 +17,7 @@ struct TMDBWatchlistView: View {
     @State private var isSyncing = false
     @State private var page = 1
     @State private var isEndPagination = false
+    @State private var selectedItem: ItemContent?
     var body: some View {
         Form {
             if !hasLoaded {
@@ -29,14 +30,19 @@ struct TMDBWatchlistView: View {
                         syncButton
                     }
                 }
-               
+                
                 Section {
                     if items.isEmpty {
                         CenterHorizontalView { Text("emptyList") }
                     } else {
                         List {
                             ForEach(items) { item in
-                                ItemContentRow(item: item)
+                                Button {
+                                    selectedItem = item
+                                } label: {
+                                    ItemContentRow(item: item)
+                                }
+                                .buttonStyle(.plain)
                             }
                             if !isEndPagination {
                                 ProgressView()
@@ -52,10 +58,32 @@ struct TMDBWatchlistView: View {
                 } header: {
                     Text("itemsTMDB")
                 }
+                .sheet(item: $selectedItem) { item in
+                    NavigationStack {
+#if os(iOS)
+                        ItemContentDetails(title: item.itemTitle,
+                                           id: item.id,
+                                           type: item.itemContentMedia)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) { doneButton }
+                        }
+#elseif os(macOS)
+                        ItemContentDetailsView(id: item.id,
+                                               title: item.itemTitle,
+                                               type: item.itemContentMedia,
+                                               handleToolbarOnPopup: true)
+                        .toolbar { doneButton }
+#endif
+                    }
+                    .presentationDetents([.large])
+#if os(macOS)
+                    .frame(width: 600, height: 400, alignment: .center)
+#endif
+                }
                 
             }
         }
-        .navigationTitle("watchlistTMDB")
+        .navigationTitle("AccountSettingsViewWatchlist")
         .task {
             await load()
         }
@@ -80,12 +108,22 @@ struct TMDBWatchlistView: View {
                 Text("importTMDBWatchlist")
             }
         }
+#if os(macOS)
+        .buttonStyle(.link)
+#endif
+    }
+    
+    private var doneButton: some View {
+        Button("Done") { selectedItem = nil }
     }
     
     private func saveWatchlist() async {
         do {
             withAnimation { self.isImporting = true }
             let network = NetworkService.shared
+            while (isEndPagination == false) {
+                await fetch()
+            }
             for item in items {
                 let content = try await network.fetchItem(id: item.id, type: item.itemContentMedia)
                 PersistenceController.shared.save(content)
@@ -107,6 +145,9 @@ struct TMDBWatchlistView: View {
                 Text("syncWatchlist")
             }
         }
+#if os(macOS)
+        .buttonStyle(.link)
+#endif
     }
     
     private func publishItems() async {
