@@ -558,3 +558,4 @@
 "AccountSettingsViewWatchlist" = "TMDB Watchlist";
 "Hello, %@." = "Hello, %@.";
 "importingTMDB" = "Importing your Watchlist, please wait.";
+"needToSync %lld" = "There's %lld items available to sync";

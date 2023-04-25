@@ -27,6 +27,7 @@ struct TMDBListDetails: View {
     @State private var isSyncing = false
     @State private var isImportingList = false
     @State private var itemsToSync = [TMDBItemContent]()
+    @State private var hasLoaded = false
     var body: some View {
         Form {
             if isLoading {
@@ -34,6 +35,7 @@ struct TMDBListDetails: View {
             } else {
                 Section {
                     if syncList {
+                        syncWarning
                         syncButton
                     } else {
                         importButton
@@ -67,28 +69,34 @@ struct TMDBListDetails: View {
         }
         .navigationTitle(list.itemTitle)
         .onAppear {
-            Task {
-                detailedList = await viewModel.fetchList(id: list.id)
-                if let detailedList {
-                    print("Detailed list from TMDBListDetails: \(detailedList)")
-                }
-                if !items.isEmpty { return }
-                if let content = detailedList?.results {
-                    items = content
-                }
-                guard let listID = detailedList?.id else {
-                    withAnimation { self.isLoading = false }
-                    return
-                }
-                for item in customLists {
-                    if item.tmdbListId == Int64(listID) {
-                        syncList = true
-                        selectedCustomList = item
-                    }
-                }
-                withAnimation { self.isLoading = false }
-            }
+            Task { await load() }
         }
+    }
+    
+    private func load() async {
+        detailedList = await viewModel.fetchList(id: list.id)
+        if let detailedList {
+            print("Detailed list from TMDBListDetails: \(detailedList)")
+        }
+        if !items.isEmpty { return }
+        if let content = detailedList?.results {
+            items = content
+        }
+        if !hasLoaded {
+            guard let listID = detailedList?.id else {
+                DispatchQueue.main.async { withAnimation { self.isLoading = false } }
+                return
+            }
+            for item in customLists {
+                if item.tmdbListId == Int64(listID) {
+                    syncList = true
+                    selectedCustomList = item
+                }
+            }
+            DispatchQueue.main.async { withAnimation { self.isLoading = false } }
+            hasLoaded = true
+        }
+        checkForSync()
     }
     
     private var importButton: some View {
@@ -112,6 +120,14 @@ struct TMDBListDetails: View {
             } else {
                 Text("syncNow")
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var syncWarning: some View {
+        if !itemsToSync.isEmpty {
+            Text("needToSync \(itemsToSync.count)")
+                .foregroundColor(.red)
         }
     }
     
@@ -167,16 +183,18 @@ struct TMDBListDetails: View {
     
     private func sync() async {
         if itemsToSync.isEmpty { return }
-        withAnimation { self.isSyncing = true }
+        DispatchQueue.main.async { withAnimation { self.isSyncing = true } }
         let itemsToUpdate = TMDBItem(items: itemsToSync)
         do {
             let encoder = JSONEncoder()
             encoder.outputFormatting = [.sortedKeys]
             let jsonData = try encoder.encode(itemsToUpdate)
             await viewModel.updateList(list.id, with: jsonData)
+            self.items = []
+            await load()
         } catch {
-            print(error.localizedDescription)
+            if Task.isCancelled { return }
         }
-        withAnimation { self.isSyncing = false }
+        DispatchQueue.main.async { withAnimation { self.isSyncing = false } }
     }
 }
