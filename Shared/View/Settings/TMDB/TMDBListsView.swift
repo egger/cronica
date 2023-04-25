@@ -20,23 +20,20 @@ struct TMDBListsView: View {
             }
         }
         .navigationTitle("tmdbLists")
-        .onAppear {
-            if lists.isEmpty {
-                Task {
-                    let fetchedLists = await viewModel.fetchLists()
-                    if let fetchedLists {
-                        print("fetched lists from TMDBListsView: \(fetchedLists)")
-                    }
-                    if let result = fetchedLists?.results {
-                        lists = result
-                        withAnimation { self.isLoading = false }
-                    }
-                }
-            }
+        .task {
+            await load()
         }
 #if os(macOS)
         .formStyle(.grouped)
 #endif
+    }
+    
+    private func load() async {
+        let fetchedLists = await viewModel.fetchLists()
+        if let result = fetchedLists?.results {
+            lists = result
+            withAnimation { self.isLoading = false }
+        }
     }
     
     private var loadingSection: some View {
@@ -48,9 +45,16 @@ struct TMDBListsView: View {
     private var listsSection: some View {
         Section {
             List {
-                ForEach(lists) { list in
-                    NavigationLink(destination: TMDBListDetails(list: list)) {
-                        Text(list.itemTitle)
+                if lists.isEmpty {
+                    CenterHorizontalView {
+                        Text("emptyLists")
+                            .foregroundColor(.secondary)
+                    }
+                } else {
+                    ForEach(lists) { list in
+                        NavigationLink(destination: TMDBListDetails(list: list)) {
+                            Text(list.itemTitle)
+                        }
                     }
                 }
             }

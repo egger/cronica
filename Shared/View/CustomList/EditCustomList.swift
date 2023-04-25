@@ -13,12 +13,15 @@ struct EditCustomList: View {
     @Binding var isPresentingNewList: Bool
 #endif
     @State var list: CustomList
-    @State private var title = ""
-    @State private var note = ""
+    @State private var title = String()
+    @State private var note = String()
     @State private var hasUnsavedChanges = false
     @State private var disableSaveButton = true
     @Binding var showListSelection: Bool
     @State private var itemsToRemove = Set<WatchlistItem>()
+    @State private var showPublishConfirmation = false
+    @State private var canPublish = false
+    @State private var isPublishing = false
     var body: some View {
         Form {
             Section {
@@ -26,6 +29,27 @@ struct EditCustomList: View {
                 TextField("listDescription", text: $note)
             } header: {
                 Text("listBasicHeader")
+            }
+            
+            if canPublish {
+                Section {
+                    Button {
+                        showPublishConfirmation.toggle()
+                    } label: {
+                        if isPublishing {
+                            CenterHorizontalView { ProgressView() }
+                        } else {
+                            Text("publishListToTMDB")
+                        }
+                    }
+                }
+                .alert("publishListToTMDB", isPresented: $showPublishConfirmation) {
+                    Button("publishPublic") { publishToTMDB(isPublic: true) }
+                    Button("publishPrivate") { publishToTMDB() }
+                    Button("Cancel") { showPublishConfirmation = false }
+                } message: {
+                    Text("publishTMDBMessage")
+                }
             }
             
             Section {
@@ -83,22 +107,25 @@ struct EditCustomList: View {
         .onAppear {
             title = list.itemTitle
             note = list.notes ?? ""
+            if SettingsStore.shared.connectedTMDB && !list.isSyncEnabledTMDB {
+                canPublish = true
+            }
         }
-        .onChange(of: title, perform: { newValue in
+        .onChange(of: title) { newValue in
             if newValue != list.itemTitle {
                 disableSaveButton = false
             }
-        })
-        .onChange(of: note, perform: { newValue in
+        }
+        .onChange(of: note) { newValue in
             if newValue != list.notes {
                 disableSaveButton = false
             }
-        })
-        .onChange(of: itemsToRemove, perform: { _ in
+        }
+        .onChange(of: itemsToRemove) { _ in
             if !itemsToRemove.isEmpty {
                 if disableSaveButton != false { disableSaveButton = false }
             }
-        })
+        }
         .onAppear {
 #if os(macOS)
             isPresentingNewList = true
@@ -110,16 +137,52 @@ struct EditCustomList: View {
 #endif
         }
         .toolbar {
-            Button("Save") {
-                let items = itemsToRemove.sorted { $0.itemTitle > $1.itemTitle }
-                PersistenceController.shared.updateListInformation(list: list,
-                                                                   title: title,
-                                                                   description: note,
-                                                                   items: items)
-                showListSelection = false
-            }
-            .disabled(disableSaveButton)
+            Button("Save", action: save).disabled(disableSaveButton)
         }
         .navigationTitle(list.itemTitle)
+    }
+    
+    private func save() {
+        let items = itemsToRemove.sorted { $0.itemTitle > $1.itemTitle }
+        PersistenceController.shared.updateListInformation(list: list,
+                                                           title: title,
+                                                           description: note,
+                                                           items: items)
+        showListSelection = false
+    }
+    
+    private func publishToTMDB(isPublic: Bool = false) {
+        Task {
+            DispatchQueue.main.async {
+                withAnimation { isPublishing.toggle() }
+            }
+            // Create and publish the new list
+            let external = ExternalWatchlistManager.shared
+            let title = list.itemTitle
+            let id = await external.publishList(title: title, isPublic: isPublic)
+            guard let id else { return }
+            
+            // Gets the items to update the list
+            var itemsToAdd = [TMDBItemContent]()
+            for item in list.itemsArray {
+                let content = TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)
+                itemsToAdd.append(content)
+            }
+            let itemsToPublish = TMDBItem(items: itemsToAdd)
+            
+            // Encode the items and update the new list
+            do {
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = [.sortedKeys]
+                let jsonData = try encoder.encode(itemsToPublish)
+                await external.updateList(id, with: jsonData)
+            } catch {
+                if Task.isCancelled { return }
+            }
+            
+            DispatchQueue.main.async {
+                withAnimation { isPublishing.toggle() }
+            }
+        }
     }
 }

@@ -40,6 +40,12 @@ class AccountManager: ObservableObject {
         let accessId = String(data: IdData, encoding: .utf8)
         guard let accessId else { return }
         userAccessId = accessId
+        let settings = SettingsStore.shared
+        if !settings.connectedTMDB {
+            DispatchQueue.main.async {
+                settings.connectedTMDB = true
+            }
+        }
         guard let session else { return }
         let sessionId = String(data: session, encoding: .utf8)
         guard let sessionId else { return }
@@ -179,6 +185,7 @@ class AccountManager: ObservableObject {
     }
     
     func logOut() async {
+        DispatchQueue.main.async { SettingsStore.shared.connectedTMDB = false }
         await self.logOutV3()
         await self.logOutV4()
         KeychainHelper.standard.delete(service: "access-token", account: "cronicaTMDB-Sync")

@@ -565,3 +565,8 @@
 "listDeleted" = "This List has been successfully deleted.";
 "areYouSure" = "Are you sure?";
 "deleteConfirmationMessage" = "This action can't be undone.\nThis will not delete the local list, just the one on TMDb.";
+"emptyLists" = "Empty";
+"publishListToTMDB" = "Publish List on TMDb";
+"publishPublic" = "Public";
+"publishPrivate" = "Private";
+"publishTMDBMessage" = "This will create a new list with the same title and items of this local list on TMDb.\nSelect the privacy level that you want:";
