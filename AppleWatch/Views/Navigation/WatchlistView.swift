@@ -86,7 +86,7 @@ struct WatchlistView: View {
         } else if items.isEmpty {
             EmptyListView()
         } else {
-            DefaultListView()
+            DefaultListView(selectedOrder: $selectedList)
         }
     }
     

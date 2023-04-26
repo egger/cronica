@@ -49,12 +49,8 @@ struct WatchlistItemNoteView: View {
             ToolbarItem(placement: .navigationBarLeading) { doneButton }
             ToolbarItem(placement: .navigationBarTrailing) { saveButton }
 #elseif os(macOS)
-            ToolbarItem(placement: .confirmationAction) {
-                saveButton
-            }
-            ToolbarItem(placement: .cancellationAction) {
-                doneButton
-            }
+            ToolbarItem(placement: .confirmationAction) { saveButton }
+            ToolbarItem(placement: .cancellationAction) { doneButton }
 #endif
         }
 #if os(macOS)
