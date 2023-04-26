@@ -60,14 +60,6 @@
 "Pins" = "Fixados";
 "Write a review" = "Escreva uma avaliação";
 "Share App" = "Compartilhar aplicativo";
-"Experimental" = "Experimental";
-"Developer" = "Desenvolvedor";
-"Developer Tools" = "Ferramentas de Desenvolvedor";
-"Item ID" = "Item ID";
-"Select the Media Type" = "Selecione o Tipo de Mídia";
-"Fetch" = "Buscar";
-"Show Onboarding" = "Mostrar Boas-Vindas";
-"Show All Items" = "Mostrar Todos os Itens";
 "Email (optional)" = "E-mail (opcional)";
 "Open in YouTube" = "Abrir no YouTube";
 "List Filters" = "Filtros de Lista";
@@ -331,7 +323,6 @@
 "settingsDisableTelemetrySubtitle" = "Veja mais detalhes na Política de Privacidade.";
 "settingsFeedbackTitle" = "Enviar Feedback";
 "settingsPrivacySupportTitle" = "Privacidade e Suporte";
-"settingsDeveloperOptions" = "Configurações do Desenvolvedor";
 "settingsDeveloperTitle" = "Desenvolvido por Alexandre Madeira";
 
 // MARK: SyncSetting
@@ -385,10 +376,6 @@
 "removeDialogTitle" = "Você Tem Certeza?";
 "confirmDialogAction" = "Confirmar";
 "cancelConfirmDialogAction" = "Cancelar";
-
-// MARK: PreferredShareLink
-"preferredShareLinkTMDB" = "TMDb";
-"preferredShareLinkIMDB" = "IMDb";
 
 
 "justWatchSubtitle" = "Fornecido pelo JustWatch";
@@ -585,46 +572,46 @@
 "selectedWatchProviderSubtitle" = "Só mostre 'Onde Assistir' se o título estiver disponível em um dos seus serviços preferidos.";
 "importExportWarning" = "Exportar/Importar está em fase beta, use apenas para exportar seus dados ou para importar se estiver mudando sua conta do iCloud, não há lógica no momento para evitar duplicação. Uma atualização futura fornecerá uma experiência melhor para todos.";
 "tvShowDetails" = "Detalhes da Série";
-"AccountSettingsViewFooterHeader" = "Conecte sua conta do TMDB";
-"AccountSettingsViewFooter" = "Conecte sua conta do TMDB para importar e sincronizar sua lista de filmes e suas listas.";
+
+// MARK: TMDb Sync
+"AccountSettingsViewFooterHeader" = "Conecte sua conta TMDb";
+"AccountSettingsViewFooter" = "Conecte sua conta TMDb para importar e sincronizar sua lista de filmes e séries e outras listas.";
 "AccountSettingsViewSignOut" = "Desconectar";
 "AccountSettingsViewSignIn" = "Conectar";
-"AccountSettingsViewListsManager" = "Suas listas do TMDB";
-"AccountSettingsViewHeaderSignIn" = "Gerencie suas listas do TMDB";
-"removeTMDBAccount" = "Desconectar conta do TMDB?";
+"AccountSettingsViewListsManager" = "Suas listas TMDb";
+"AccountSettingsViewHeaderSignIn" = "Gerencie suas listas TMDb";
+"removeTMDBAccount" = "Desconectar conta TMDb?";
 "Confirm" = "Confirmar";
-"tmdbLists" = "Suas listas do TMDB";
-"syncTMDBList" = "Manter essa lista sincronizada";
-"importTMDBList" = "Importar essa lista";
+"tmdbLists" = "Suas listas TMDb";
+"syncTMDBList" = "Manter esta lista sincronizada";
+"importTMDBList" = "Importar esta lista";
 "tmdbListSyncConfig" = "Configuração";
-"importTMDBWatchlist" = "Importar lista de filmes do TMDB";
-"syncNow" = "Sincronizar agora com o TMDB";
+"importTMDBWatchlist" = "Importar lista de filmes e séries do TMDb";
+"syncNow" = "Sincronizar agora com o TMDb";
 "Loading" = "Carregando";
-"AccountSettingsViewWatchlist" = "Lista do TMDB";
-"importingTMDB" = "Importando sua lista, por favor aguarde.";
+"AccountSettingsViewWatchlist" = "Lista de filmes e séries do TMDb";
+"importingTMDB" = "Importando sua lista de filmes e séries, aguarde.";
 "needToSync %lld" = "Existem %lld itens disponíveis para sincronizar";
-"itemsTMDB" = "Itens da sua lista";
-"syncingWatchlistTMDB" = "Sincronizando sua lista, por favor aguarde.";
-"syncWatchlist" = "Sincronizar lista";
+"itemsTMDB" = "Seus itens na lista";
+"syncingWatchlistTMDB" = "Sincronizando sua lista de filmes e séries, aguarde.";
+"syncWatchlist" = "Sincronizar lista de filmes e séries";
 "deleteList" = "Excluir lista";
 "listDeleted" = "Esta lista foi excluída com sucesso.";
 "areYouSure" = "Você tem certeza?";
-"deleteConfirmationMessage" = "Esta ação não pode ser desfeita.\nIsso não irá excluir a lista local, apenas a lista no TMDb.";
+"deleteConfirmationMessage" = "Esta ação não pode ser desfeita.\nEsta ação não excluirá a lista local, apenas a lista no TMDb.";
 "emptyLists" = "Vazio";
-"publishListToTMDB" = "Publicar lista no TMDB";
-"publishPublic" = "Público";
-"publishPrivate" = "Privado";
+"publishListToTMDB" = "Publicar lista no TMDb";
+"publishPublic" = "Pública";
+"publishPrivate" = "Privada";
 "publishTMDBMessage" = "Isso criará uma nova lista com o mesmo título e itens desta lista local no TMDb.\nSelecione o nível de privacidade que você deseja:";
+
+
 "editNotes" = "Editar notas";
 "createNote" = "Adicionar nota";
 "reviewTitle" = "Análise";
 "reviewOf %@" = "Análise de: %@";
-"showRemoveConfirmation" = "Pedir confirmação ao remover itens";
 "Season" = "Temporada";
-"E%lld, S%lld" = "E%lld, T%lld";
-"Rating" = "Pontuação";
-"Notes" = "Avaliação";
-"Episode %lld • %@" = "Episode %lld • %@";
-"Episode" = "Episódio";
-"enablePreferredLaunchScreen" = "Ativar tela de início preferencial";
-"preferredLaunchScreen" = "Tela de Início Preferencial";
+"Rating" = "Avaliação";
+"Notes" = "Notas";
+"enablePreferredLaunchScreen" = "Ativar tela de lançamento preferida";
+"preferredLaunchScreen" = "Tela de lançamento preferida";

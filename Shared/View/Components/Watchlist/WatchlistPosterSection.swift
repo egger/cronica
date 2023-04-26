@@ -27,10 +27,17 @@ struct WatchlistPosterSection: View {
                         HStack(alignment: .firstTextBaseline) {
                             Text(NSLocalizedString(title, comment: ""))
                                 .foregroundColor(.secondary)
-                                .font(.callout)
+                                .font(.footnote)
+                                .textCase(.uppercase)
                             Spacer()
+                            let formatString = NSLocalizedString("items count", comment: "")
+                            let result = String(format: formatString, items.count)
+                            Text(result)
+                                .foregroundColor(.secondary)
+                                .font(.footnote)
+                                .textCase(.uppercase)
                         }
-                        .padding(.leading)
+                        .padding(.horizontal)
                     } 
                 }.padding(.all, settings.isCompactUI ? 10 : nil)
             }

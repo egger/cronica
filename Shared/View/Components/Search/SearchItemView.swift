@@ -12,6 +12,8 @@ struct SearchItemView: View {
     @Binding var showConfirmation: Bool
     @State private var isInWatchlist = false
     @State private var isWatched = false
+    @State private var canReview = false
+    @State private var showNote = false
     private let context = PersistenceController.shared
     var isSidebar = false
     var body: some View {
@@ -44,7 +46,9 @@ struct SearchItemView: View {
                     .itemContentContextMenu(item: item,
                                             isWatched: $isWatched,
                                             showConfirmation: $showConfirmation,
-                                            isInWatchlist: $isInWatchlist)
+                                            isInWatchlist: $isInWatchlist,
+                                            canReview: $canReview,
+                                            showNote: $showNote)
                     .modifier(
                         SearchItemSwipeGesture(item: item,
                                                showConfirmation: $showConfirmation,
@@ -59,12 +63,15 @@ struct SearchItemView: View {
                             isInWatchlist = context.isItemSaved(id: item.id, type: item.media)
                             if isInWatchlist {
                                 isWatched = context.isMarkedAsWatched(id: item.id, type: item.media)
+                                canReview = true
                             }
                         }
                         .itemContentContextMenu(item: item,
                                                 isWatched: $isWatched,
                                                 showConfirmation: $showConfirmation,
-                                                isInWatchlist: $isInWatchlist)
+                                                isInWatchlist: $isInWatchlist,
+                                                canReview: $canReview,
+                                                showNote: $showNote)
                         .modifier(
                             SearchItemSwipeGesture(item: item,
                                                    showConfirmation: $showConfirmation,

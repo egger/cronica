@@ -540,22 +540,24 @@
 "selectedWatchProviderSubtitle" = "Zeigen Sie 'Watch Provider' nur an, wenn der Titel auf einem Ihrer bevorzugten Dienste verfügbar ist.";
 "importExportWarning" = "Exportieren/Importieren ist in der Beta-Phase, verwenden Sie es nur, um Ihre Daten zu exportieren oder zu importieren, wenn Sie Ihr iCloud-Konto wechseln. Es gibt derzeit keine Logik, um Duplikate zu vermeiden. Ein zukünftiges Update wird allen eine bessere Erfahrung bieten.";
 "tvShowDetails" = "Details zur Serie";
-"AccountSettingsViewFooterHeader" = "Verbinde dein TMDB-Konto";
-"AccountSettingsViewFooter" = "Verbinde dein TMDB-Konto, um deine Watchlist und Listen zu importieren und zu synchronisieren.";
+
+// MARK: TMDb Sync
+"AccountSettingsViewFooterHeader" = "Verbinde dein TMDb-Konto";
+"AccountSettingsViewFooter" = "Verbinde dein TMDb-Konto, um deine Watchlist und Listen zu importieren und zu synchronisieren.";
 "AccountSettingsViewSignOut" = "Trennen";
 "AccountSettingsViewSignIn" = "Verbinden";
-"AccountSettingsViewListsManager" = "Deine TMDB-Listen";
-"AccountSettingsViewHeaderSignIn" = "Verwalte deine TMDB-Listen";
-"removeTMDBAccount" = "TMDB-Konto trennen?";
+"AccountSettingsViewListsManager" = "Deine TMDb-Listen";
+"AccountSettingsViewHeaderSignIn" = "Verwalte deine TMDb-Listen";
+"removeTMDBAccount" = "TMDb-Konto trennen?";
 "Confirm" = "Bestätigen";
-"tmdbLists" = "Deine TMDB-Listen";
+"tmdbLists" = "Deine TMDb-Listen";
 "syncTMDBList" = "Diese Liste synchronisieren";
 "importTMDBList" = "Diese Liste importieren";
 "tmdbListSyncConfig" = "Konfiguration";
-"importTMDBWatchlist" = "Watchlist von TMDB importieren";
-"syncNow" = "Jetzt mit TMDB synchronisieren";
+"importTMDBWatchlist" = "Watchlist von TMDb importieren";
+"syncNow" = "Jetzt mit TMDb synchronisieren";
 "Loading" = "Laden";
-"AccountSettingsViewWatchlist" = "TMDB Watchlist";
+"AccountSettingsViewWatchlist" = "TMDb Watchlist";
 "importingTMDB" = "Importiere deine Watchlist, bitte warten.";
 "needToSync %lld" = "Es gibt %lld Elemente zum Synchronisieren";
 "itemsTMDB" = "Deine Watchlist-Elemente";
@@ -564,17 +566,18 @@
 "deleteList" = "Liste löschen";
 "listDeleted" = "Diese Liste wurde erfolgreich gelöscht.";
 "areYouSure" = "Bist du sicher?";
-"deleteConfirmationMessage" = "Diese Aktion kann nicht rückgängig gemacht werden.\nDies löscht nur die Liste auf TMDB, nicht lokal.";
+"deleteConfirmationMessage" = "Diese Aktion kann nicht rückgängig gemacht werden.\nDadurch wird nur die Liste auf TMDb gelöscht, nicht die lokale Liste.";
 "emptyLists" = "Leer";
-"publishListToTMDB" = "Liste auf TMDB veröffentlichen";
+"publishListToTMDB" = "Liste auf TMDb veröffentlichen";
 "publishPublic" = "Öffentlich";
 "publishPrivate" = "Privat";
-"publishTMDBMessage" = "Dies erstellt eine neue Liste mit demselben Titel und denselben Elementen wie diese lokale Liste auf TMDB.\nWähle die gewünschte Datenschutzeinstellung:";
+"publishTMDBMessage" = "Dadurch wird eine neue Liste mit demselben Titel und denselben Elementen wie diese lokale Liste auf TMDb erstellt.\nWähle das Datenschutzniveau aus, das du möchtest:";
+
 "editNotes" = "Notizen bearbeiten";
 "createNote" = "Notiz hinzufügen";
 "reviewTitle" = "Rezension";
 "reviewOf %@" = "Rezension von: %@";
-"showRemoveConfirmation" = "Bestätigung bei Entfernung anfordern";
+"showRemoveConfirmation" = "Bestätigung für das Entfernen von Elementen anzeigen";
 "Season" = "Staffel";
 "Rating" = "Bewertung";
 "Notes" = "Notizen";

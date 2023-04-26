@@ -14,6 +14,8 @@ struct TVItemContentCardView: View {
     @State private var isInWatchlist: Bool = false
     @State private var isWatched = false
     @State private var showConfirmation = false
+    @State private var canReview = false
+    @State private var showNote = false
     var body: some View {
         NavigationLink(value: item) {
             WebImage(url: item.cardImageLarge)
@@ -108,7 +110,9 @@ struct TVItemContentCardView: View {
             ItemContentContextMenu(item: item,
                                    showConfirmation: $showConfirmation,
                                    isInWatchlist: $isInWatchlist,
-                                   isWatched: $isWatched)
+                                   isWatched: $isWatched,
+                                   canReview: $canReview,
+                                   showNote: $showNote)
         )
     }
 }

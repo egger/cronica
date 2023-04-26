@@ -25,11 +25,15 @@ extension View {
     func itemContentContextMenu(item: ItemContent,
                                 isWatched: Binding<Bool>,
                                 showConfirmation: Binding<Bool>,
-                                isInWatchlist: Binding<Bool>) -> some View {
+                                isInWatchlist: Binding<Bool>,
+                                canReview: Binding<Bool>,
+                                showNote: Binding<Bool>) -> some View {
         modifier(ItemContentContextMenu(item: item,
                                         showConfirmation: showConfirmation,
                                         isInWatchlist: isInWatchlist,
-                                        isWatched: isWatched))
+                                        isWatched: isWatched,
+                                        canReview: canReview,
+                                        showNote: showNote))
     }
     
     func applyHoverEffect() -> some View {

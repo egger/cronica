@@ -13,6 +13,8 @@ struct ItemContentRow: View {
     @State private var isItemAdded = false
     @State private var isWatched = false
     @State private var showConfirmation = false
+    @State private var canReview = false
+    @State private var showNote = false
     var body: some View {
         HStack {
             WebImage(url: item.cardImageSmall)
@@ -59,12 +61,17 @@ struct ItemContentRow: View {
             }
             if isItemAdded {
                 isWatched = PersistenceController.shared.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+                canReview = true
+            } else {
+                if canReview { canReview = false }
             }
         }
         .itemContentContextMenu(item: item,
                                 isWatched: $isWatched,
                                 showConfirmation: $showConfirmation,
-                                isInWatchlist: $isItemAdded)
+                                isInWatchlist: $isItemAdded,
+                                canReview: $canReview,
+                                showNote: $showNote)
     }
 }
 

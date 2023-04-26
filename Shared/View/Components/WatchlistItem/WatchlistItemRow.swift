@@ -53,7 +53,7 @@ struct WatchlistItemRow: View {
                 isPin = content.isPin
                 isArchive = content.isArchive
             }
-            .sheet(isPresented: $showNote, content: {
+            .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
                     WatchlistItemNoteView(item: content, showView: $showNote)
@@ -63,7 +63,7 @@ struct WatchlistItemRow: View {
                 .frame(width: 400, height: 400, alignment: .center)
 #endif
 #endif
-            })
+            }
             .accessibilityElement(children: .combine)
             .watchlistContextMenu(item: content,
                                   isWatched: $isWatched,

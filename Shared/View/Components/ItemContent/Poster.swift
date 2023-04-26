@@ -13,6 +13,8 @@ struct Poster: View {
     private let context = PersistenceController.shared
     @State private var isInWatchlist = false
     @State private var isWatched = false
+    @State private var canReview = false
+    @State private var showNote = false
     @Binding var addedItemConfirmation: Bool
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -83,14 +85,34 @@ struct Poster: View {
             .itemContentContextMenu(item: item,
                                     isWatched: $isWatched,
                                     showConfirmation: $addedItemConfirmation,
-                                    isInWatchlist: $isInWatchlist)
+                                    isInWatchlist: $isInWatchlist,
+                                    canReview: $canReview,
+                                    showNote: $showNote)
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
                     if isInWatchlist && !isWatched {
                         isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+                        canReview = true
+                    } else {
+                        if canReview { canReview = false }
                     }
                 }
+            }
+            .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+                NavigationStack {
+                    if let content = try? context.fetch(for: Int64(item.id), media: item.itemContentMedia) {
+                        WatchlistItemNoteView(item: content, showView: $showNote)
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 400, height: 400, alignment: .center)
+#endif
+#endif
             }
 #if os(iOS) || os(macOS)
             .draggable(item)
@@ -115,9 +137,8 @@ struct Poster: View {
 }
 
 struct Poster_Previews: PreviewProvider {
-    @State static var show = false
     static var previews: some View {
-        Poster(item: .previewContent, addedItemConfirmation: $show)
+        Poster(item: .previewContent, addedItemConfirmation: .constant(false))
     }
 }
 

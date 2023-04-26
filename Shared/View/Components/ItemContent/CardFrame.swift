@@ -14,6 +14,8 @@ struct CardFrame: View {
     private let context = PersistenceController.shared
     @State private var isInWatchlist = false
     @State private var isWatched = false
+    @State private var canReview = false
+    @State private var showNote = false
     var body: some View {
         NavigationLink(value: item) {
             VStack {
@@ -83,7 +85,9 @@ struct CardFrame: View {
                         ItemContentContextMenu(item: item,
                                                showConfirmation: $showConfirmation,
                                                isInWatchlist: $isInWatchlist,
-                                               isWatched: $isWatched)
+                                               isWatched: $isWatched,
+                                               canReview: $canReview,
+                                               showNote: $showNote)
                     )
 #if os(iOS) || os(macOS)
                     .draggable(item)
@@ -104,8 +108,26 @@ struct CardFrame: View {
                     isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
                     if isInWatchlist && !isWatched {
                         isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+                        canReview = true
+                    } else {
+                        if canReview { canReview = false }
                     }
                 }
+            }
+            .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+                NavigationStack {
+                    if let content = try? context.fetch(for: Int64(item.id), media: item.itemContentMedia) {
+                        WatchlistItemNoteView(item: content, showView: $showNote)
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 400, height: 400, alignment: .center)
+#endif
+#endif
             }
         }
         .accessibilityLabel(Text(item.itemTitle))
@@ -116,9 +138,8 @@ struct CardFrame: View {
 }
 
 struct CardFrame_Previews: PreviewProvider {
-    @State private static var show = false
     static var previews: some View {
-        CardFrame(item: .previewContent, showConfirmation: $show)
+        CardFrame(item: .previewContent, showConfirmation: .constant(false))
     }
 }
 

@@ -6,7 +6,9 @@
 //
 import SwiftUI
 import BackgroundTasks
+#if os(iOS)
 import NotificationCenter
+#endif
 
 @main
 struct CronicaApp: App {
@@ -17,20 +19,26 @@ struct CronicaApp: App {
     @State private var widgetItem: ItemContent?
     @State private var notificationItem: ItemContent?
     @ObservedObject private var settings = SettingsStore.shared
+#if os(iOS)
     @ObservedObject private var notificationDelegate = NotificationDelegate()
+#endif
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
+#if os(iOS)
         UNUserNotificationCenter.current().delegate = notificationDelegate
+#endif
     }
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
+#if os(iOS)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { item in
                     fetchNotificationItem()
                 }
+#endif
                 .onOpenURL { url in
                     if widgetItem != nil { widgetItem = nil }
                     if notificationItem != nil { notificationItem = nil }
@@ -183,6 +191,7 @@ struct CronicaApp: App {
 #endif
     }
     
+#if os(iOS)
     private func fetchNotificationItem() {
         guard let id = notificationDelegate.notificationID else { return }
         if notificationItem != nil { notificationItem = nil }
@@ -207,6 +216,8 @@ struct CronicaApp: App {
             }
         }
     }
+#endif
+    
     
     private func registerRefreshBGTask() {
 #if os(iOS)
@@ -306,6 +317,7 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
 #endif
 }
 
+#if os(iOS)
 class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, ObservableObject {
     
     var notificationID: String?
@@ -318,3 +330,4 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Observab
         completionHandler()
     }
 }
+#endif

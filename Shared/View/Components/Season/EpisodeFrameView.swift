@@ -172,7 +172,6 @@ struct EpisodeFrameView: View {
             if !viewModel.isItemInWatchlist {
                 await addToWatchlist()
             }
-            let nextEpisodeNumber = episode.itemEpisodeNumber + 1
             guard let episodes = viewModel.season?.episodes else  {
                 save()
                 return

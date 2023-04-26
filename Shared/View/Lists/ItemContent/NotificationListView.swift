@@ -151,6 +151,8 @@ private struct ItemContentItemView: View {
     @State private var isWatched = false
     @State private var showConfirmation = false
     @State private var isInWatchlist = true
+    @State private var canReview = true
+    @State private var showNote = false
     private let persistence = PersistenceController.shared
     var body: some View {
         NavigationLink(value: item) {
@@ -188,9 +190,26 @@ private struct ItemContentItemView: View {
             .itemContentContextMenu(item: item,
                                     isWatched: $isWatched,
                                     showConfirmation: $showConfirmation,
-                                    isInWatchlist: $isInWatchlist)
+                                    isInWatchlist: $isInWatchlist,
+                                    canReview: $canReview,
+                                    showNote: $showNote)
             .task {
                 isWatched = persistence.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+            }
+            .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+                NavigationStack {
+                    if let content = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia) {
+                        WatchlistItemNoteView(item: content, showView: $showNote)
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 400, height: 400, alignment: .center)
+#endif
+#endif
             }
         }
     }

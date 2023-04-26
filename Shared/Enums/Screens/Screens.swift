@@ -22,8 +22,10 @@ enum Screens: String, Identifiable, CaseIterable {
             return NSLocalizedString("Explore", comment: "")
         case .watchlist:
             return NSLocalizedString("Watchlist", comment: "")
+#if os(iOS)
         case .search:
             return NSLocalizedString("Search", comment: "")
+#endif
         }
     }
 }

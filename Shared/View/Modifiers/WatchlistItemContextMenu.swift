@@ -22,7 +22,6 @@ struct WatchlistItemContextMenu: ViewModifier {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
         animation: .default) private var lists: FetchedResults<CustomList>
-    @State private var showRemoveConfirmation = false
     func body(content: Content) -> some View {
 #if os(watchOS)
         return content
@@ -70,9 +69,6 @@ struct WatchlistItemContextMenu: ViewModifier {
                 deleteButton
             } preview: {
                 previewView
-            }
-            .alert("areYouSure", isPresented: $showRemoveConfirmation) {
-                Button("Confirm", role: .destructive) { remove() }
             }
 #endif
     }

@@ -22,8 +22,8 @@ struct ItemContentContextMenu: ViewModifier {
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
         animation: .default) private var lists: FetchedResults<CustomList>
     @State private var addedLists = [CustomList]()
-    @State private var canReview = false
-    @State private var showRemoveConfirmation = false
+    @Binding var canReview: Bool
+    @Binding var showNote: Bool
     func body(content: Content) -> some View {
 #if os(watchOS)
 #else
@@ -36,6 +36,7 @@ struct ItemContentContextMenu: ViewModifier {
                     pinButton
                     archiveButton
                     addToList
+                    reviewButton
                     Divider()
                     watchlistButton
                 } else {
@@ -61,10 +62,6 @@ struct ItemContentContextMenu: ViewModifier {
                 if addedLists.isEmpty {
                     addedLists = context.fetchLists(for: item.id, type: item.itemContentMedia)
                 }
-            }
-            .alert("areYouSure", isPresented: $showRemoveConfirmation) {
-                Button("Confirm", role: .destructive) { remove() }
-                Button("Cancel") { showRemoveConfirmation.toggle() }
             }
 #endif
     }
@@ -197,6 +194,17 @@ struct ItemContentContextMenu: ViewModifier {
                   systemImage: isArchive ? "archivebox.fill" : "archivebox")
         }
         
+    }
+    
+    @ViewBuilder
+    private var reviewButton: some View {
+        if canReview {
+            Button {
+                showNote.toggle()
+            } label: {
+                Label("reviewTitle", systemImage: "note.text")
+            }
+        }
     }
     
     private func updateWatchlist() {
