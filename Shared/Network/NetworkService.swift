@@ -156,7 +156,9 @@ class NetworkService {
             .init(name: "page", value: "\(page)"),
             .init(name: "with_companies", value: "\(company)")
         ]
+#if DEBUG
         print(component.url as Any)
+#endif
         return component.url
     }
     

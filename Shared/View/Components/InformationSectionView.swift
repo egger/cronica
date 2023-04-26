@@ -23,9 +23,8 @@ struct InformationSectionView: View {
                 InfoView(title: NSLocalizedString("Status",
                                                   comment: ""),
                          content: item?.itemStatus.localizedTitle)
-                InfoView(title: NSLocalizedString("Genre",
-                                                  comment: ""),
-                         content: item?.itemGenre)
+                InfoView(title: NSLocalizedString("Genres", comment: ""),
+                         content: item?.itemGenres)
                 InfoView(title: NSLocalizedString("Region of Origin",
                                                   comment: ""),
                          content: item?.itemCountry)

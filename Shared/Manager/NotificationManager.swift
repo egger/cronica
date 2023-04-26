@@ -12,15 +12,12 @@ import SwiftUI
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
     @Published var settings: UNNotificationSettings?
+    private init() { }
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .provisional]) { granted, error in
             self.fetchNotificationSettings()
             completion(granted)
-            if let error {
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                      for: "NotificationManager.requestAuthorization")
-            }
         }
     }
     
@@ -36,7 +33,6 @@ class NotificationManager: ObservableObject {
         var isAllowed = false
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             if settings.authorizationStatus == .authorized { isAllowed.toggle() }
-            //isAllowed = settings.authorizationStatus == .authorized
         }
         return isAllowed
     }
@@ -85,6 +81,7 @@ class NotificationManager: ObservableObject {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
         notificationContent.body = message
+        notificationContent.userInfo = ["contentID":"\(identifier)"]
         notificationContent.sound = UNNotificationSound.default
         let dateComponent: DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
                                                                             from: date)
@@ -92,12 +89,7 @@ class NotificationManager: ObservableObject {
         let request = UNNotificationRequest(identifier: identifier,
                                             content: notificationContent,
                                             trigger: trigger)
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error {
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                      for: "scheduleNotification")
-            }
-        }
+        UNUserNotificationCenter.current().add(request)
 #endif
     }
     
@@ -210,7 +202,9 @@ class NotificationManager: ObservableObject {
         var identifiers = [String]()
         let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
         for item in notifications {
-            identifiers.append(item.identifier)
+            if item.identifier.contains("@") {
+                identifiers.append(item.identifier)
+            }
         }
         var items = [ItemContent]()
         if identifiers.isEmpty {

@@ -27,7 +27,8 @@ extension Episode {
     }
     var itemInfo: String? {
         if let itemDate, let episodeNumber {
-            return "Episode \(episodeNumber) • \(itemDate)"
+            let localizedString = NSLocalizedString("Episode", comment: "")
+            return "\(localizedString) \(episodeNumber) • \(itemDate)"
         }
         if let episodeNumber {
             return NSLocalizedString("Episode \(episodeNumber)", comment: "")

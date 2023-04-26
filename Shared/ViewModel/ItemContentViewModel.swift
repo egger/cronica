@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 class ItemContentViewModel: ObservableObject {
     private let service = NetworkService.shared
-    private let notification = NotificationManager()
+    private let notification = NotificationManager.shared
     private let persistence = PersistenceController.shared
     private var id: ItemContent.ID
     private var type: MediaType
@@ -102,7 +102,8 @@ class ItemContentViewModel: ObservableObject {
                     persistence.delete(watchlistItem)
                 }
             } catch {
-                print(error.localizedDescription)
+                CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
+                                                      for: "ItemContentViewModel.updateWatchlist.failed")
             }
         } else {
             // Adds the item to Watchlist

@@ -13,11 +13,15 @@ struct WatchlistButtonView: View {
     var body: some View {
         Button {
             if viewModel.isInWatchlist {
+#if os(watchOS)
                 if SettingsStore.shared.showRemoveConfirmation {
                     showConfirmationPopup = true
                 } else {
                     update()
                 }
+#else
+                update()
+#endif       
             } else {
                 HapticManager.shared.successHaptic()
                 update()

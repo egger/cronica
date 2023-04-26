@@ -576,3 +576,7 @@
 "reviewOf %@" = "Rezension von: %@";
 "showRemoveConfirmation" = "Bestätigung bei Entfernung anfordern";
 "Season" = "Staffel";
+"Rating" = "Bewertung";
+"Notes" = "Notizen";
+"enablePreferredLaunchScreen" = "Bevorzugten Startbildschirm aktivieren";
+"preferredLaunchScreen" = "Bevorzugter Startbildschirm";

@@ -112,7 +112,6 @@ private class EndpointDetailsModel: ObservableObject {
             withAnimation { isLoading = false }
         } catch {
             if Task.isCancelled { return }
-            print(error.localizedDescription)
         }
     }
 }

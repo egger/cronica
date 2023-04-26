@@ -137,7 +137,6 @@ struct NewCustomListView: View {
         list.updatedDate = Date()
         list.notes = note
         list.items = itemsToAdd as NSSet
-        print(list as Any)
         if viewContext.hasChanges {
             do {
                 try viewContext.save()

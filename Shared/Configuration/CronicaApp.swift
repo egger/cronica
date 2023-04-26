@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import BackgroundTasks
+import NotificationCenter
 
 @main
 struct CronicaApp: App {
@@ -14,18 +15,25 @@ struct CronicaApp: App {
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
+    @State private var notificationItem: ItemContent?
     @ObservedObject private var settings = SettingsStore.shared
+    @ObservedObject private var notificationDelegate = NotificationDelegate()
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
+        UNUserNotificationCenter.current().delegate = notificationDelegate
     }
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { item in
+                    fetchNotificationItem()
+                }
                 .onOpenURL { url in
                     if widgetItem != nil { widgetItem = nil }
+                    if notificationItem != nil { notificationItem = nil }
                     let typeInt = url.absoluteString.first!
                     let idString: String = url.absoluteString
                     let formattedIdString = String(idString.dropFirst())
@@ -103,6 +111,63 @@ struct CronicaApp: App {
                     .appTint()
 #endif
                 }
+                .sheet(item: $notificationItem) { item in
+                    NavigationStack {
+#if os(iOS)
+                        ItemContentDetails(title: item.itemTitle,
+                                           id: item.id,
+                                           type: item.itemContentMedia)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Done") {
+                                    notificationItem = nil
+                                }
+                            }
+                        }
+                        .navigationDestination(for: ItemContent.self) { item in
+                            ItemContentDetails(title: item.itemTitle,
+                                               id: item.id,
+                                               type: item.itemContentMedia)
+                        }
+                        .navigationDestination(for: Person.self) { person in
+                            PersonDetailsView(title: person.name, id: person.id)
+                        }
+                        .navigationDestination(for: [String:[ItemContent]].self) { item in
+                            let keys = item.map { (key, _) in key }
+                            let value = item.map { (_, value) in value }
+                            ItemContentCollectionDetails(title: keys[0], items: value[0])
+                        }
+                        .navigationDestination(for: [Person].self) { items in
+                            DetailedPeopleList(items: items)
+                        }
+                        .navigationDestination(for: ProductionCompany.self) { item in
+                            CompanyDetails(company: item)
+                        }
+                        .navigationDestination(for: [ProductionCompany].self) { item in
+                            CompaniesListView(companies: item)
+                        }
+#elseif os(macOS)
+                        ItemContentDetailsView(id: item.id,
+                                               title: item.itemTitle,
+                                               type: item.itemContentMedia,
+                                               handleToolbarOnPopup: true)
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Done") {
+                                    notificationItem = nil
+                                }
+                            }
+                        }
+#endif
+                    }
+#if os(macOS)
+                    .presentationDetents([.large])
+                    .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#elseif os(iOS)
+                    .appTheme()
+                    .appTint()
+#endif
+                }
         }
         .onChange(of: scene) { phase in
             if phase == .background {
@@ -116,6 +181,31 @@ struct CronicaApp: App {
             SettingsView()
         }
 #endif
+    }
+    
+    private func fetchNotificationItem() {
+        guard let id = notificationDelegate.notificationID else { return }
+        if notificationItem != nil { notificationItem = nil }
+        if widgetItem != nil { widgetItem = nil }
+        let typeInt = id.first!
+        let idString: String = id
+        let formattedIdString = String(idString.dropFirst())
+        let contentId = Int(formattedIdString)!
+        var type: MediaType
+        if typeInt == "0" {
+            type = .movie
+        } else {
+            type = .tvShow
+        }
+        Task {
+            do {
+                notificationItem = try await NetworkService.shared.fetchItem(id: contentId, type: type)
+            } catch {
+                let message = "Item ID: \(contentId). Item Type: \(type.rawValue)."
+                CronicaTelemetry.shared.handleMessage("\(message)\(error.localizedDescription)",
+                                                      for: "CronicaApp.fetchNotificationItem.failed")
+            }
+        }
     }
     
     private func registerRefreshBGTask() {
@@ -214,4 +304,17 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
                                               for: "handleAppMaintenance.success")
     }
 #endif
+}
+
+class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, ObservableObject {
+    
+    var notificationID: String?
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        // Get the ID of the notification from its userInfo dictionary
+        notificationID = response.notification.request.content.userInfo["notificationID"] as? String
+        
+        completionHandler()
+    }
 }

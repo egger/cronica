@@ -28,6 +28,18 @@ extension ItemContent {
         if let genre = genres?.first?.name { return genre }
         return NSLocalizedString("Not Available", comment: "")
     }
+    var itemGenres: String {
+        guard let genres = genres else { return String() }
+        var genreTitles = [String]()
+        for genre in genres {
+            if let title = genre.name {
+                genreTitles.append(title)
+            }
+        }
+        if genreTitles.isEmpty { return String() }
+        let output = genreTitles.joined(separator: ", ")
+        return output
+    }
     var itemCountry: String {
         if let country = productionCountries?.first?.name { return country }
         return NSLocalizedString("Not Available", comment: "")
@@ -53,6 +65,9 @@ extension ItemContent {
     var itemNotificationID: String {
         return "\(id)@\(itemContentMedia.toInt)"
     }
+    var itemNotificationContentID: String {
+        return "\(itemContentMedia.toInt)\(id)"
+    }
     var itemTheatricalString: String? {
         if let dates = releaseDates?.results {
             return DatesManager.getReleaseDateFormatted(results: dates)
@@ -64,21 +79,21 @@ extension ItemContent {
     }
     var itemInfo: String {
         if itemTheatricalString != nil && shortItemRuntime != nil {
-            return "\(itemGenre) • \(itemTheatricalString!) • \(shortItemRuntime!)"
+            return "\(itemGenres) • \(itemTheatricalString!) • \(shortItemRuntime!)"
         }
         if let itemTheatricalString {
-            return "\(itemGenre) • \(itemTheatricalString)"
+            return "\(itemGenres) • \(itemTheatricalString)"
         }
         if let date = nextEpisodeDate {
-            return "\(itemGenre) • \(DatesManager.dateString.string(from: date))"
+            return "\(itemGenres) • \(DatesManager.dateString.string(from: date))"
         }
         if let shortItemRuntime {
-            return "\(itemGenre) • \(shortItemRuntime)"
+            return "\(itemGenres) • \(shortItemRuntime)"
         }
         if let itemFallbackDate {
-            return "\(itemGenre) • \(DatesManager.dateString.string(from: itemFallbackDate))"
+            return "\(itemGenres) • \(DatesManager.dateString.string(from: itemFallbackDate))"
         }
-        if !itemGenre.isEmpty { return "\(itemGenre)" }
+        if !itemGenres.isEmpty { return "\(itemGenres)" }
         return ""
     }
     var itemUrlProxy: String {
@@ -245,8 +260,6 @@ extension ItemContent {
         }
         return "\(itemContentMedia.title)"
     }
-
-    
     
     // MARK: Int
     var itemSeasons: [Int]? {

@@ -201,11 +201,7 @@ struct ItemContentContextMenu: ViewModifier {
     
     private func updateWatchlist() {
         if isInWatchlist {
-            if SettingsStore.shared.showRemoveConfirmation {
-                showRemoveConfirmation.toggle()
-            } else {
-                remove()
-            }
+            remove()
         } else {
             add()
         }

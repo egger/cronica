@@ -337,11 +337,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     private var deleteButton: some View {
         Button(role: .destructive) {
-            if settings.showRemoveConfirmation {
-                showRemoveConfirmation.toggle()
-            } else {
-                remove()
-            }
+            remove()
         } label: {
 #if os(macOS)
             Text("Remove")

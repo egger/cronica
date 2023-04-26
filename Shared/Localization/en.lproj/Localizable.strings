@@ -578,3 +578,5 @@
 "Season" = "Season";
 "Rating" = "Rating";
 "Notes" = "Notes";
+"enablePreferredLaunchScreen" = "Enable Preferred Launch Screen";
+"preferredLaunchScreen" = "Preferred Launch Screen";

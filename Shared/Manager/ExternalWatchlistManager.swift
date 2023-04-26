@@ -86,8 +86,7 @@ class ExternalWatchlistManager {
             request.allHTTPHeaderFields = headers
             request.httpBody = items
             
-            let (_, response) = try await URLSession.shared.data(for: request)
-            print("Watchlist update response is: \(response)")
+            let (_, _) = try await URLSession.shared.data(for: request)
         } catch {
             if Task.isCancelled { return }
         }

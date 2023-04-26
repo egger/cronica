@@ -177,9 +177,6 @@ struct EpisodeFrameView: View {
                 save()
                 return
             }
-            print("Episodes count: \(episodes.count)")
-            print("Next episode: \(nextEpisodeNumber)")
-            print("Next episode content: \(episodes[nextEpisodeNumber])")
             if episode.itemEpisodeNumber <= episodes.count {
                 var nextEpisode: Episode?
                 // An array always start at 0, so the episode number value will always represent the next item in the array

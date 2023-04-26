@@ -176,7 +176,6 @@ struct SyncSetting: View {
     private func importJSON(_ url: URL) {
         do {
             let jsonData = try Data(contentsOf: url)
-            print(jsonData as Any)
             let decoder = JSONDecoder()
             decoder.userInfo[.context] = PersistenceController.shared.container.viewContext
             _ = try decoder.decode([WatchlistItem].self, from: jsonData)

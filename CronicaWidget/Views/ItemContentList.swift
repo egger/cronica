@@ -35,9 +35,6 @@ struct ItemContentList: View {
                         .shadow(radius: 1)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                         .padding(.leading, item.id == items.first!.id ? 0 : 6)
-                        .onAppear {
-                            print("Normal size")
-                        }
                 }
             }
             HStack {
@@ -48,9 +45,6 @@ struct ItemContentList: View {
                                height: DrawingConstants.smallImageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                         .padding(.leading, item.id == items.first!.id ? 0 : 4)
-                        .onAppear {
-                            print("Small size")
-                        }
                 }
             }
         }

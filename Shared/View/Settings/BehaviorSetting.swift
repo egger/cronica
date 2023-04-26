@@ -65,7 +65,19 @@ struct BehaviorSetting: View {
             Toggle(isOn: $store.markPreviouslyEpisodesAsWatched) {
                 InformationalLabel(title: "behaviorMarkPreviouslyEpisodes")
             }
-            Toggle("showRemoveConfirmation", isOn: $store.showRemoveConfirmation)
+#if os(iOS)
+            if UIDevice.isIPhone {
+                Toggle("enablePreferredLaunchScreen", isOn: $store.isPreferredLaunchScreenEnabled)
+                Picker(selection: $store.preferredLaunchScreen) {
+                    ForEach(Screens.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                } label: {
+                    Text("preferredLaunchScreen")
+                }
+                .disabled(!store.isPreferredLaunchScreenEnabled)
+            }
+#endif
         }
     }
     

@@ -624,3 +624,7 @@
 "E%lld, S%lld" = "E%lld, T%lld";
 "Rating" = "Pontuação";
 "Notes" = "Avaliação";
+"Episode %lld • %@" = "Episode %lld • %@";
+"Episode" = "Episódio";
+"enablePreferredLaunchScreen" = "Ativar tela de início preferencial";
+"preferredLaunchScreen" = "Tela de Início Preferencial";

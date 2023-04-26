@@ -104,7 +104,6 @@ private struct WatchProviderItemSelector: View {
             } else {
                 settings.selectedWatchProviders.append(item.itemID)
             }
-            print(settings.selectedWatchProviders)
         }
         .task(id: settings.selectedWatchProviders) {
             if settings.selectedWatchProviders.contains(item.itemID)  {
