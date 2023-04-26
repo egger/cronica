@@ -126,6 +126,9 @@ struct CardFrame: View {
                 .presentationDetents([.medium, .large])
 #if os(macOS)
                 .frame(width: 400, height: 400, alignment: .center)
+#elseif os(iOS)
+                .appTheme()
+                .appTint()
 #endif
 #endif
             }

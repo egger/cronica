@@ -781,11 +781,11 @@
 				B840D2CD279B24C900A07C71 /* Person.swift */,
 				B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */,
 				B876DE63281B36A7005558DD /* Season.swift */,
+				B85FD9B029F33A880088B5CC /* TMDB.swift */,
 				B876DE65281B4040005558DD /* Videos.swift */,
 				B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */,
 				B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */,
 				B84457C6297341AF009CB21F /* WatchProviders.swift */,
-				B85FD9B029F33A880088B5CC /* TMDB.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -915,10 +915,10 @@
 				B8105258298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift */,
 				B810524D298DBADF00723E94 /* String-Extensions.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
+				B818483629C286C300650763 /* UserDefaults-Extensions.swift */,
 				B806C4F0289B139000A5330E /* UTType-Extensions.swift */,
 				B8FB2A8329524D6E006DAC8E /* View-Extensions.swift */,
 				B878E83427BC85BC0021A981 /* WatchlistItem-Extension.swift */,
-				B818483629C286C300650763 /* UserDefaults-Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

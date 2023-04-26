@@ -46,10 +46,10 @@ struct WatchlistView: View {
 #endif
         }
         .navigationDestination(for: Person.self) { person in
-            #if os(tvOS)
-            #else
+#if os(tvOS)
+#else
             PersonDetailsView(title: person.name, id: person.id)
-            #endif
+#endif
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
             let keys = item.map { (key, _) in key }
@@ -57,25 +57,25 @@ struct WatchlistView: View {
 #if os(tvOS)
 #else
             ItemContentCollectionDetails(title: keys[0], items: value[0])
-            #endif
+#endif
         }
         .navigationDestination(for: [Person].self) { items in
 #if os(tvOS)
 #else
             DetailedPeopleList(items: items)
-            #endif
+#endif
         }
         .navigationDestination(for: ProductionCompany.self) { item in
 #if os(tvOS)
 #else
             CompanyDetails(company: item)
-            #endif
+#endif
         }
         .navigationDestination(for: [ProductionCompany].self) { item in
 #if os(tvOS)
 #else
             CompaniesListView(companies: item)
-            #endif
+#endif
         }
         .sheet(isPresented: $showListSelection) {
             SelectListView(selectedList: $selectedList,
@@ -98,7 +98,7 @@ struct WatchlistView: View {
             ToolbarItem(placement: .navigation) {
                 WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
             }
-            #elseif os(tvOS)
+#elseif os(tvOS)
             ToolbarItem(placement: .navigation) {
                 Button {
                     showListSelection.toggle()

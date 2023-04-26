@@ -36,5 +36,6 @@ struct WatchlistTitle: View {
         .onTapGesture {
             showListSelection.toggle()
         }
+        .accessibilityLabel("\(navigationTitle), tap to open list options.")
     }
 }

@@ -72,6 +72,7 @@ struct UpNextView: View {
                                             selectedEpisode = episode
                                         }
                                     }
+                                    .accessibilityLabel("Episode \(episode.itemEpisodeNumber), \(episode.itemTitle)")
 #endif
                             }
                         }
