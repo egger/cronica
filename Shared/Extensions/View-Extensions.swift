@@ -12,12 +12,14 @@ extension View {
                               isWatched: Binding<Bool>,
                               isFavorite: Binding<Bool>,
                               isPin: Binding<Bool>,
-                              isArchive: Binding<Bool>) -> some View {
+                              isArchive: Binding<Bool>,
+                              showNote: Binding<Bool>) -> some View {
         modifier(WatchlistItemContextMenu(item: item,
                                           isWatched: isWatched,
                                           isFavorite: isFavorite,
                                           isPin: isPin,
-                                          isArchive: isArchive))
+                                          isArchive: isArchive,
+                                          showNote: showNote))
     }
     
     func itemContentContextMenu(item: ItemContent,

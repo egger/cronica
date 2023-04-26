@@ -6,24 +6,22 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS) || os(watchOS)
+
 struct WatchlistButtonView: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var showConfirmationPopup = false
     var body: some View {
         Button {
-#if os(watchOS)
             if viewModel.isInWatchlist {
-                showConfirmationPopup = true
+                if SettingsStore.shared.showRemoveConfirmation {
+                    showConfirmationPopup = true
+                } else {
+                    update()
+                }
             } else {
+                HapticManager.shared.successHaptic()
                 update()
             }
-#else
-            if !viewModel.isInWatchlist {
-                HapticManager.shared.successHaptic()
-            }
-            update()
-#endif
         } label: {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
@@ -34,18 +32,15 @@ struct WatchlistButtonView: View {
         .tint(viewModel.isInWatchlist ? .red : .blue)
 #if os(iOS)
         .buttonBorderShape(.capsule)
-#elseif os(watchOS)
+#endif
         .alert("removeDialogTitle", isPresented: $showConfirmationPopup) {
             Button("confirmDialogAction") { update() }
             Button("cancelConfirmDialogAction") {  showConfirmationPopup = false }
         }
-#endif
     }
     
     private func update() {
-        if let item = viewModel.content {
-            viewModel.updateWatchlist(with: item)
-        }
+        guard let item = viewModel.content else { return }
+        viewModel.updateWatchlist(with: item)
     }
 }
-#endif

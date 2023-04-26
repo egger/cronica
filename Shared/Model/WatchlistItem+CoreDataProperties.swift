@@ -50,6 +50,8 @@ extension WatchlistItem {
     @NSManaged public var nextEpisodeNumberUpNext: Int64
     @NSManaged public var seasonNumberUpNext: Int64
     @NSManaged public var displayOnUpNext: Bool
+    @NSManaged public var userNotes: String
+    @NSManaged public var userRating: Int64
 }
 
 // MARK: Generated accessors for list

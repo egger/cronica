@@ -53,6 +53,17 @@ struct Genre: Codable, Identifiable, Hashable {
     let id: Int
     let name: String?
 }
+
+extension Genre {
+    var isGenreAvailable: Bool {
+        if name != nil { return true }
+        return false
+    }
+    var itemTitle: String {
+        name ?? NSLocalizedString("Not Found", comment: "")
+    }
+}
+
 struct ItemContentResponse: Identifiable, Codable, Hashable {
     let id: String?
     let results: [ItemContent]

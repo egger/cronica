@@ -23,7 +23,7 @@ extension CustomList {
     @NSManaged public var updatedDate: Date?
     @NSManaged public var items: NSSet?
     @NSManaged public var isSyncEnabledTMDB: Bool
-    @NSManaged public var tmdbListId: Int64
+    @NSManaged public var idOnTMDb: Int64
 
 }
 

@@ -14,6 +14,7 @@ struct WatchlistItemFrame: View {
     @State private var isFavorite: Bool = false
     @State private var isPin = false
     @State private var isArchive = false
+    @State private var showNote = false
     var body: some View {
         NavigationLink(value: content) {
             VStack {
@@ -22,7 +23,8 @@ struct WatchlistItemFrame: View {
                                           isWatched: $isWatched,
                                           isFavorite: $isFavorite,
                                           isPin: $isPin,
-                                          isArchive: $isArchive)
+                                          isArchive: $isArchive,
+                                          showNote: $showNote)
 #if os(iOS) || os(macOS)
                     .draggable(content) {
                         WebImage(url: content.largeCardImage)
@@ -49,6 +51,15 @@ struct WatchlistItemFrame: View {
 #if os(tvOS)
         .buttonStyle(.card)
 #endif
+        .sheet(isPresented: $showNote) {
+            NavigationStack {
+                WatchlistItemNoteView(item: content, showView: $showNote)
+            }
+            .presentationDetents([.medium, .large])
+#if os(macOS)
+            .frame(width: 400, height: 400, alignment: .center)
+#endif
+        }
     }
     private var image: some View {
         WebImage(url: content.largeCardImage)

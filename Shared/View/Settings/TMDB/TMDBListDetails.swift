@@ -47,10 +47,10 @@ struct TMDBListDetails: View {
                         if syncList {
                             syncWarning
                             syncButton
-                            deleteButton
                         } else {
                             importButton
                         }
+                        deleteButton
                     }
                     .alert("areYouSure", isPresented: $deleteConfirmation) {
                         Button("Confirm", role: .destructive) {
@@ -101,7 +101,7 @@ struct TMDBListDetails: View {
                 return
             }
             for item in customLists {
-                if item.tmdbListId == Int64(listID) {
+                if item.idOnTMDb == Int64(listID) {
                     syncList = true
                     selectedCustomList = item
                 }
@@ -152,7 +152,7 @@ struct TMDBListDetails: View {
         Task {
             if let selectedCustomList {
                 selectedCustomList.isSyncEnabledTMDB = false
-                selectedCustomList.tmdbListId = 0
+                selectedCustomList.idOnTMDb = 0
                 let viewContext = PersistenceController.shared.container.viewContext
                 if viewContext.hasChanges {
                     do {
@@ -189,7 +189,7 @@ struct TMDBListDetails: View {
             list.creationDate = Date()
             list.updatedDate = Date()
             list.isSyncEnabledTMDB = true
-            list.tmdbListId = Int64(self.list.id)
+            list.idOnTMDb = Int64(self.list.id)
             var itemsToAdd = Set<WatchlistItem>()
             for item in items {
                 let content = try await network.fetchItem(id: item.id, type: item.itemContentMedia)

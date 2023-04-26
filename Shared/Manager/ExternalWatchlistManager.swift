@@ -147,7 +147,7 @@ class ExternalWatchlistManager {
     ///   - list: The list title and list description will be used to create the new list.
     ///   - isPublic: Define the privacy level of the list, it is private by default.
     /// - Returns: If the list is successfully created, it will return the new list ID of the newly created list.
-    func publishList(title: String, isPublic: Bool = false) async -> Int? {
+    func publishList(title: String, description: String, isPublic: Bool) async -> Int? {
         do {
             let headers = [
                 "authorization": "Bearer \(userAccessToken)",
@@ -155,6 +155,7 @@ class ExternalWatchlistManager {
             ]
             let parameters = [
                 "name": "\(title)",
+                "description": description,
                 "iso_639_1": "en",
                 "public": "\(isPublic)"
             ]

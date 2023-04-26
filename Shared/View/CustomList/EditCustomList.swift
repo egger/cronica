@@ -159,7 +159,8 @@ struct EditCustomList: View {
             // Create and publish the new list
             let external = ExternalWatchlistManager.shared
             let title = list.itemTitle
-            let id = await external.publishList(title: title, isPublic: isPublic)
+            let description = list.notes ?? String()
+            let id = await external.publishList(title: title, description: description, isPublic: isPublic)
             guard let id else { return }
             
             // Gets the items to update the list
@@ -180,8 +181,19 @@ struct EditCustomList: View {
                 if Task.isCancelled { return }
             }
             
+            list.isSyncEnabledTMDB = true
+            list.idOnTMDb = Int64(id)
+            
+            let context = PersistenceController.shared.container.viewContext
+            if context.hasChanges {
+                try? context.save()
+            }
+            
             DispatchQueue.main.async {
-                withAnimation { isPublishing.toggle() }
+                withAnimation {
+                    isPublishing.toggle()
+                    canPublish.toggle()
+                }
             }
         }
     }

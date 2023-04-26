@@ -22,6 +22,8 @@ struct ItemContentContextMenu: ViewModifier {
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
         animation: .default) private var lists: FetchedResults<CustomList>
     @State private var addedLists = [CustomList]()
+    @State private var canReview = false
+    @State private var showRemoveConfirmation = false
     func body(content: Content) -> some View {
 #if os(watchOS)
 #else
@@ -49,6 +51,7 @@ struct ItemContentContextMenu: ViewModifier {
             }
             .task {
                 if isInWatchlist {
+                    canReview = true
                     isFavorite = context.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia)
                     isPin = context.isItemPinned(id: item.id, type: item.itemContentMedia)
                     isArchive = context.isItemArchived(id: item.id, type: item.itemContentMedia)
@@ -58,6 +61,10 @@ struct ItemContentContextMenu: ViewModifier {
                 if addedLists.isEmpty {
                     addedLists = context.fetchLists(for: item.id, type: item.itemContentMedia)
                 }
+            }
+            .alert("areYouSure", isPresented: $showRemoveConfirmation) {
+                Button("Confirm") { remove() }
+                Button("Cancel") { showRemoveConfirmation.toggle() }
             }
 #endif
     }
@@ -101,7 +108,7 @@ struct ItemContentContextMenu: ViewModifier {
     
     private var addAndMarkWatchedButton: some View {
         Button {
-            updateWatchlist(with: item)
+            updateWatchlist()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: true)
                 withAnimation {
@@ -117,7 +124,7 @@ struct ItemContentContextMenu: ViewModifier {
     private var watchlistButton: some View {
         Button(role: isInWatchlist ? .destructive : nil) {
             if !isInWatchlist { HapticManager.shared.successHaptic() }
-            updateWatchlist(with: item)
+            updateWatchlist()
         } label: {
             Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: isInWatchlist ? "minus.square" : "plus.square")
@@ -137,7 +144,7 @@ struct ItemContentContextMenu: ViewModifier {
     }
     
     private var watchedButton: some View {
-        Button(action: {
+        Button {
             context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: !isWatched)
             withAnimation {
                 isWatched.toggle()
@@ -148,10 +155,10 @@ struct ItemContentContextMenu: ViewModifier {
                     await context.saveSeasons(for: item.id)
                 }
             }
-        }, label: {
+        } label: {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-        })
+        }
     }
     
     private var favoriteButton: some View {
@@ -192,39 +199,51 @@ struct ItemContentContextMenu: ViewModifier {
         
     }
     
-    private func updateWatchlist(with item: ItemContent) {
+    private func updateWatchlist() {
         if isInWatchlist {
-            do {
-                let watchlistItem = try context.fetch(for: Int64(item.id), media: item.itemContentMedia)
-                if let watchlistItem {
-                    if watchlistItem.notify {
-                        NotificationManager.shared.removeNotification(identifier: watchlistItem.notificationID)
-                    }
-                    context.delete(watchlistItem)
-                    withAnimation {
-                        isInWatchlist.toggle()
-                    }
-                }
-            } catch {
-                let message = "Can't remove item from Watchlist, error: \(error.localizedDescription)"
-                CronicaTelemetry.shared.handleMessage(message,
-                                                      for: "ItemContentContextMenu.updateWatchlist")
+            if SettingsStore.shared.showRemoveConfirmation {
+                showRemoveConfirmation.toggle()
+            } else {
+                remove()
             }
         } else {
-            Task {
-                do {
-                    let content = try await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
-                    context.save(content)
-                    registerNotification(content)
-                    displayConfirmation()
-                } catch {
-                    if Task.isCancelled { return }
-                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                          for: "ItemContentContextMenu.updateWatchlist")
-                    context.save(item)
-                    registerNotification(item)
-                    displayConfirmation()
+            add()
+        }
+    }
+    
+    private func remove() {
+        do {
+            let watchlistItem = try context.fetch(for: Int64(item.id), media: item.itemContentMedia)
+            if let watchlistItem {
+                if watchlistItem.notify {
+                    NotificationManager.shared.removeNotification(identifier: watchlistItem.notificationID)
                 }
+                context.delete(watchlistItem)
+                withAnimation {
+                    isInWatchlist.toggle()
+                }
+            }
+        } catch {
+            let message = "Can't remove item from Watchlist, error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message,
+                                                  for: "ItemContentContextMenu.updateWatchlist")
+        }
+    }
+    
+    private func add() {
+        Task {
+            do {
+                let content = try await NetworkService.shared.fetchItem(id: item.id, type: item.itemContentMedia)
+                context.save(content)
+                registerNotification(content)
+                displayConfirmation()
+            } catch {
+                if Task.isCancelled { return }
+                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                      for: "ItemContentContextMenu.updateWatchlist")
+                context.save(item)
+                registerNotification(item)
+                displayConfirmation()
             }
         }
     }

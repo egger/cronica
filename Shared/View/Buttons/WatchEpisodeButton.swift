@@ -14,7 +14,6 @@ struct WatchEpisodeButton: View {
     @Binding var isWatched: Bool
     @Binding var inWatchlist: Bool
     private let persistence = PersistenceController.shared
-    @State private var errorMessage = false
     var body: some View {
         Button {
             update()

@@ -51,6 +51,15 @@ struct UpNextView: View {
                                 .buttonStyle(.card)
 #else
                                 UpNextEpisodeCard(episode: episode)
+                                    .contextMenu {
+                                        Button {
+                                            Task {
+                                                await markAsWatched(episode)
+                                            }
+                                        } label: {
+                                            Label("Mark as Watched", systemImage: "rectangle.fill.badge.checkmark")
+                                        }
+                                    }
                                     .padding([.leading, .trailing], 4)
                                     .padding(.leading, episode.id == self.episodes.first!.id ? 16 : 0)
                                     .padding(.trailing, episode.id == self.episodes.last!.id ? 16 : 0)

@@ -16,6 +16,7 @@ struct WatchlistItemRow: View {
     @State private var isArchive = false
     @AppStorage("showGenreOnWatchlist") private var showGenre = false
     @StateObject private var settings = SettingsStore.shared
+    @State private var showNote = false
     var body: some View {
         NavigationLink(value: content) {
             HStack {
@@ -52,12 +53,24 @@ struct WatchlistItemRow: View {
                 isPin = content.isPin
                 isArchive = content.isArchive
             }
+            .sheet(isPresented: $showNote, content: {
+#if os(iOS) || os(macOS)
+                NavigationStack {
+                    WatchlistItemNoteView(item: content, showView: $showNote)
+                }
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 400, height: 400, alignment: .center)
+#endif
+#endif
+            })
             .accessibilityElement(children: .combine)
             .watchlistContextMenu(item: content,
                                   isWatched: $isWatched,
                                   isFavorite: $isFavorite,
                                   isPin: $isPin,
-                                  isArchive: $isArchive)
+                                  isArchive: $isArchive,
+                                  showNote: $showNote)
         }
     }
     

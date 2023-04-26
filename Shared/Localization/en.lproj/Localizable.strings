@@ -550,7 +550,7 @@
 "Confirm" = "Confirm";
 "tmdbLists" = "Your TMDB's Lists";
 "syncTMDBList" = "Keep this list in sync";
-"importListTMDB" = "Import this list";
+"importTMDBList" = "Import this list";
 "tmdbListSyncConfig" = "Configuration";
 "importTMDBWatchlist" = "Import Watchlist from TMDB";
 "syncNow" = "Sync Now with TMDB";
@@ -570,3 +570,8 @@
 "publishPublic" = "Public";
 "publishPrivate" = "Private";
 "publishTMDBMessage" = "This will create a new list with the same title and items of this local list on TMDb.\nSelect the privacy level that you want:";
+"editNotes" = "Edit Notes";
+"createNote" = "Add Note";
+"reviewTitle" = "Review";
+"reviewOf %@" = "Review of: %@";
+"showRemoveConfirmation" = "Ask for confirmation when removing items";

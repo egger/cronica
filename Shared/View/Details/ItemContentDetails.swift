@@ -23,6 +23,7 @@ struct ItemContentDetails: View {
     @State private var markAsMessage = ""
     @State private var markAsImage = ""
     @State private var showCustomList = false
+    @State private var showUserNotes = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
@@ -114,6 +115,14 @@ struct ItemContentDetails: View {
                 .interactiveDismissDisabled()
                 .appTheme()
                 .appTint()
+            }
+            .sheet(isPresented: $showUserNotes) {
+                NavigationStack {
+                    if let item = viewModel.watchlistItem {
+                        WatchlistItemNoteView(item: item, showView: $showUserNotes)
+                    }
+                }
+                .presentationDetents([.medium, .large])
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
             ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
@@ -239,6 +248,7 @@ struct ItemContentDetails: View {
                 addToCustomListButton
                 archiveButton
                 pinButton
+                userNotesButton
             }
             watchButton
             favoriteButton
@@ -248,6 +258,14 @@ struct ItemContentDetails: View {
                 .labelStyle(.iconOnly)
         }
         .disabled(viewModel.isLoading ? true : false)
+    }
+    
+    private var userNotesButton: some View {
+        Button {
+            showUserNotes.toggle()
+        } label: {
+            Label("reviewTitle", systemImage: "note.text")
+        }
     }
 }
 #endif

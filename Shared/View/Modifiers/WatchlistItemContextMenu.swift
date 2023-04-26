@@ -14,6 +14,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var isFavorite: Bool
     @Binding var isPin: Bool
     @Binding var isArchive: Bool
+    @Binding var showNote: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
     private let settings = SettingsStore.shared
@@ -63,12 +64,21 @@ struct WatchlistItemContextMenu: ViewModifier {
                 pinButton
                 archiveButton
                 addToList
+                userNotesButton
                 Divider()
                 deleteButton
             } preview: {
                 previewView
             }
 #endif
+    }
+    
+    private var userNotesButton: some View {
+        Button {
+            showNote.toggle()
+        } label: {
+            Label("reviewTitle", systemImage: "note.text")
+        }
     }
     
     @ViewBuilder

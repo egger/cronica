@@ -15,6 +15,7 @@ struct WatchlistItemPoster: View {
     @State private var isPin = false
     @State private var isArchive = false
     @StateObject private var settings = SettingsStore.shared
+    @State private var showNote = false
     var body: some View {
         NavigationLink(value: content) {
             if settings.isCompactUI {
@@ -25,6 +26,15 @@ struct WatchlistItemPoster: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(Text(content.itemTitle))
+        .sheet(isPresented: $showNote) {
+            NavigationStack {
+                WatchlistItemNoteView(item: content, showView: $showNote)
+            }
+            .presentationDetents([.medium, .large])
+#if os(macOS)
+            .frame(width: 400, height: 400, alignment: .center)
+#endif
+        }
     }
     
     private var image: some View {
@@ -46,7 +56,8 @@ struct WatchlistItemPoster: View {
                                   isWatched: $isWatched,
                                   isFavorite: $isFavorite,
                                   isPin: $isPin,
-                                  isArchive: $isArchive)
+                                  isArchive: $isArchive,
+                                  showNote: $showNote)
             .task {
                 isWatched = content.isWatched
                 isFavorite = content.isFavorite

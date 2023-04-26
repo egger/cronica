@@ -155,6 +155,10 @@ extension WatchlistItem: Transferable {
             return false
         }
     }
+    var itemHasNote: Bool {
+        if userNotes.isEmpty { return false }
+        return true
+    }
     static var example: WatchlistItem {
         let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext

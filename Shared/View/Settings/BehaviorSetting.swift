@@ -65,6 +65,7 @@ struct BehaviorSetting: View {
             Toggle(isOn: $store.markPreviouslyEpisodesAsWatched) {
                 InformationalLabel(title: "behaviorMarkPreviouslyEpisodes")
             }
+            Toggle("showRemoveConfirmation", isOn: $store.showRemoveConfirmation)
         }
     }
     

@@ -41,6 +41,8 @@ public class WatchlistItem: NSManagedObject, Codable {
             isPin = try values.decode(Bool.self, forKey: .isPin)
             lastEpisodeNumber = try values.decode(Int64.self, forKey: .lastEpisodeNumber)
             lastSelectedSeason = try values.decode(Int64.self, forKey: .lastSelectedSeason)
+            userNotes = try values.decode(String.self, forKey: .userNotes)
+            userRating = try values.decode(Int64.self, forKey: .userRating)
         } catch {
             print(error.localizedDescription)
         }
@@ -70,11 +72,16 @@ public class WatchlistItem: NSManagedObject, Codable {
         try values.encode(isPin, forKey: .isPin)
         try values.encode(lastEpisodeNumber, forKey: .lastEpisodeNumber)
         try values.encode(lastSelectedSeason, forKey: .lastSelectedSeason)
+        try values.encode(userNotes, forKey: .userNotes)
+        try values.encode(userRating, forKey: .userRating)
     }
     
     enum CodingKeys: CodingKey {
-        case title, contentID, id, image, watchedEpisodes, watched, favorite, contentType, schedule, largeCardImage,
-             largePosterImage, mediumPosterImage, shouldNotify, isArchive, nextEpisodeNumber, nextSeasonNumber, nextEpisodeNumberUpNext, seasonNumberUpNext, displayOnUpNext, isPin, lastEpisodeNumber, lastSelectedSeason
+        case title, contentID, id, image, watchedEpisodes, watched, favorite, contentType,
+             schedule, largeCardImage, largePosterImage, mediumPosterImage, shouldNotify,
+             isArchive, nextEpisodeNumber, nextSeasonNumber, nextEpisodeNumberUpNext,
+             seasonNumberUpNext, displayOnUpNext, isPin, lastEpisodeNumber, lastSelectedSeason,
+             userNotes, userRating
     }
 }
 

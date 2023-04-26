@@ -49,7 +49,13 @@ struct WatchListSection: View {
                 }
                 .onDelete(perform: delete)
             } header: {
-                Text(NSLocalizedString(title, comment: ""))
+                HStack {
+                    Text(NSLocalizedString(title, comment: ""))
+                    Spacer()
+                    let formatString = NSLocalizedString("items count", comment: "")
+                    let result = String(format: formatString, items.count)
+                    Text(result)
+                }
             } footer: {
                 if showDefaultFooter {
                     let formatString = NSLocalizedString("items count", comment: "")
