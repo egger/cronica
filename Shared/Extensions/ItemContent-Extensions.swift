@@ -79,7 +79,7 @@ extension ItemContent {
     }
     var itemInfo: String {
         if itemTheatricalString != nil && shortItemRuntime != nil {
-            return "\(itemGenres) • \(itemTheatricalString!) • \(shortItemRuntime!)"
+            return "\(itemGenre) • \(itemTheatricalString!) • \(shortItemRuntime!)"
         }
         if let itemTheatricalString {
             return "\(itemGenres) • \(itemTheatricalString)"

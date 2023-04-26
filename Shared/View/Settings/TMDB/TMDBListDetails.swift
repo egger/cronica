@@ -125,9 +125,9 @@ struct TMDBListDetails: View {
                 Text("importTMDBList")
             }
         }
-        #if os(macOS)
+#if os(macOS)
         .buttonStyle(.link)
-        #endif
+#endif
     }
     
     private var deleteButton: some View {
@@ -138,7 +138,7 @@ struct TMDBListDetails: View {
                 .foregroundColor(.red)
         }
 #if os(macOS)
-.buttonStyle(.link)
+        .buttonStyle(.link)
 #endif
     }
     
