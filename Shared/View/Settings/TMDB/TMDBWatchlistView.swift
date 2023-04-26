@@ -187,7 +187,7 @@ struct TMDBWatchlistView: View {
         guard let moviesResult = movies?.results, let showsResult = shows?.results else { return }
         let result = moviesResult + showsResult
         if result.isEmpty { self.isEndPagination = true }
-        items.append(contentsOf: result.sorted(by: { $0.itemTitle < $1.itemTitle }))
+        items.append(contentsOf: result)
     }
     
 }

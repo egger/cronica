@@ -20,16 +20,17 @@ struct WatchlistItemNoteView: View {
                     RatingView(rating: $rating)
                 }
             } header: {
-                Text("Rating")
+                Text("Rating") 
 #if os(macOS)
                     .foregroundColor(.secondary)
                     .font(.callout)
 #endif
             }
             Section {
+#if os(iOS) || os(macOS)
                 TextEditor(text: $note)
                     .frame(minHeight: 150)
-                    .autocorrectionDisabled()
+#endif
             } header: {
                 Text("Notes")
 #if os(macOS)

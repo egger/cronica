@@ -63,7 +63,7 @@ struct ItemContentContextMenu: ViewModifier {
                 }
             }
             .alert("areYouSure", isPresented: $showRemoveConfirmation) {
-                Button("Confirm") { remove() }
+                Button("Confirm", role: .destructive) { remove() }
                 Button("Cancel") { showRemoveConfirmation.toggle() }
             }
 #endif

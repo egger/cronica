@@ -27,7 +27,9 @@ struct WatchlistButtonView: View {
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
         }
         .buttonStyle(.borderedProminent)
+        #if os(iOS) || os(macOS)
         .controlSize(.large)
+        #endif
         .disabled(viewModel.isLoading)
         .tint(viewModel.isInWatchlist ? .red : .blue)
 #if os(iOS)

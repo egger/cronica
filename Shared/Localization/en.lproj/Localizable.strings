@@ -575,3 +575,6 @@
 "reviewTitle" = "Review";
 "reviewOf %@" = "Review of: %@";
 "showRemoveConfirmation" = "Ask for confirmation when removing items";
+"Season" = "Season";
+"Rating" = "Rating";
+"Notes" = "Notes";

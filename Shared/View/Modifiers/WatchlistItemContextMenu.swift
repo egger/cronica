@@ -22,6 +22,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
         animation: .default) private var lists: FetchedResults<CustomList>
+    @State private var showRemoveConfirmation = false
     func body(content: Content) -> some View {
 #if os(watchOS)
         return content
@@ -69,6 +70,9 @@ struct WatchlistItemContextMenu: ViewModifier {
                 deleteButton
             } preview: {
                 previewView
+            }
+            .alert("areYouSure", isPresented: $showRemoveConfirmation) {
+                Button("Confirm", role: .destructive) { remove() }
             }
 #endif
     }
@@ -280,7 +284,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     }
     
     private var watchedButton: some View {
-        Button(action: {
+        Button {
             withAnimation {
                 withAnimation {
                     isWatched.toggle()
@@ -288,10 +292,10 @@ struct WatchlistItemContextMenu: ViewModifier {
                 context.updateMarkAs(id: item.itemId, type: item.itemMedia, watched: !item.watched)
             }
             HapticManager.shared.successHaptic()
-        }, label: {
+        } label: {
             Label(item.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: item.isWatched ? "minus.circle" : "checkmark.circle")
-        })
+        }
     }
     
     private var favoriteButton: some View {
@@ -332,21 +336,29 @@ struct WatchlistItemContextMenu: ViewModifier {
     }
     
     private var deleteButton: some View {
-        Button(role: .destructive, action: {
-            if item.notify {
-                notification.removeNotification(identifier: item.notificationID)
+        Button(role: .destructive) {
+            if settings.showRemoveConfirmation {
+                showRemoveConfirmation.toggle()
+            } else {
+                remove()
             }
-            withAnimation {
-                context.delete(item)
-            }
-        }, label: {
+        } label: {
 #if os(macOS)
             Text("Remove")
                 .foregroundColor(.red)
 #else
             Label("Remove", systemImage: "trash")
 #endif
-        })
+        }
         .tint(.red)
+    }
+    
+    private func remove() {
+        if item.notify {
+            notification.removeNotification(identifier: item.notificationID)
+        }
+        withAnimation {
+            context.delete(item)
+        }
     }
 }

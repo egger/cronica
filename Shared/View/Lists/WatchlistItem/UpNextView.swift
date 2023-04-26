@@ -143,10 +143,6 @@ struct UpNextView: View {
         }
     }
     
-    private func checkForItems() {
-        
-    }
-    
     private func load() async {
         if !isLoaded {
             for item in items {

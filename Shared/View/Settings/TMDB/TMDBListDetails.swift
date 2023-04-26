@@ -201,12 +201,8 @@ struct TMDBListDetails: View {
             }
             list.items = itemsToAdd as NSSet
             if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                    HapticManager.shared.successHaptic()
-                } catch {
-                    CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "TMDBListDetails.importList.failed")
-                }
+                try viewContext.save()
+                HapticManager.shared.successHaptic()
             }
             DispatchQueue.main.async { withAnimation { isImportingList = false } }
             DispatchQueue.main.async { withAnimation { self.syncList = true } }

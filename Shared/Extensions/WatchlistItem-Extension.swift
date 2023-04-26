@@ -51,15 +51,15 @@ extension WatchlistItem: Transferable {
         switch itemMedia {
         case .tvShow:
             if upcomingSeason {
-                if let formattedDate {
-                    return "\(NSLocalizedString("Season", comment: "")) \(nextSeasonNumber) • \(formattedDate)"
+                guard let formattedDate else {
+                    return NSLocalizedString("Season \(nextSeasonNumber)", comment: "")
                 }
-                return NSLocalizedString("Season \(nextSeasonNumber)", comment: "")
+                let season = NSLocalizedString("Season", comment: "")
+                return "\(season) \(nextSeasonNumber) • \(formattedDate)"
             }
         default:
-            if let formattedDate {
-                return formattedDate
-            }
+            guard let formattedDate else { return nil }
+            return formattedDate
         }
         return nil
     }
