@@ -59,22 +59,22 @@ struct TMDBListDetails: View {
                     } message: {
                         Text("deleteConfirmationMessage")
                     }
-
+                    
                     
                     Section {
                         if items.isEmpty {
                             Text("emptyList")
                         } else {
                             ForEach(items) { item in
-    #if os(iOS)
+#if os(iOS)
                                 NavigationLink(destination: ItemContentDetails(title: item.itemTitle,
                                                                                id: item.id,
                                                                                type: item.itemContentMedia)) {
                                     ItemContentRow(item: item)
                                 }
-    #else
-                                Text(item.itemTitle)
-    #endif
+#else
+                                ItemContentRow(item: item)
+#endif
                             }
                         }
                     } header: {
@@ -87,6 +87,9 @@ struct TMDBListDetails: View {
         }
         .navigationTitle(list.itemTitle)
         .onAppear { Task { await load() } }
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
     
     private func load() async {
@@ -122,6 +125,9 @@ struct TMDBListDetails: View {
                 Text("importTMDBList")
             }
         }
+        #if os(macOS)
+        .buttonStyle(.link)
+        #endif
     }
     
     private var deleteButton: some View {
@@ -131,6 +137,9 @@ struct TMDBListDetails: View {
             Text("deleteList")
                 .foregroundColor(.red)
         }
+#if os(macOS)
+.buttonStyle(.link)
+#endif
     }
     
     private var syncButton: some View {
