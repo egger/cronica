@@ -84,6 +84,10 @@
 		B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */; };
 		B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
+		B8370A972A02DF2B00643261 /* NewListItemSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8370A962A02DF2B00643261 /* NewListItemSelectorRow.swift */; };
+		B8370A982A02DF7200643261 /* NewListItemSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8370A962A02DF2B00643261 /* NewListItemSelectorRow.swift */; };
+		B8370A992A02E5CB00643261 /* ExternalWatchlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B897AE5C29F7315800044B1E /* ExternalWatchlistManager.swift */; };
+		B8370A9A2A02E65200643261 /* TMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9B029F33A880088B5CC /* TMDB.swift */; };
 		B8389ECE28AA8A92003025BC /* WatchEpisodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECD28AA8A92003025BC /* WatchEpisodeButton.swift */; };
 		B8389ED028AB46C5003025BC /* SearchItemsScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */; };
 		B8389ED228AB46E3003025BC /* WatchlistSearchScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */; };
@@ -437,6 +441,7 @@
 		B82C26792795E33900259D98 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		B82C268E279644E000259D98 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
+		B8370A962A02DF2B00643261 /* NewListItemSelectorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListItemSelectorRow.swift; sourceTree = "<group>"; };
 		B8389ECD28AA8A92003025BC /* WatchEpisodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchEpisodeButton.swift; sourceTree = "<group>"; };
 		B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemsScope.swift; sourceTree = "<group>"; };
 		B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSearchScope.swift; sourceTree = "<group>"; };
@@ -845,6 +850,7 @@
 				B812C7B3299480620096E806 /* NewCustomListView.swift */,
 				B812C7B52996C2DB0096E806 /* SelectListView.swift */,
 				B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */,
+				B8370A962A02DF2B00643261 /* NewListItemSelectorRow.swift */,
 			);
 			path = CustomList;
 			sourceTree = "<group>";
@@ -1617,6 +1623,7 @@
 				B8105254298DBAF500723E94 /* Locale-Extensions.swift in Sources */,
 				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
 				B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
+				B8370A982A02DF7200643261 /* NewListItemSelectorRow.swift in Sources */,
 				B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */,
 				B82B759528A84C8C00C3212A /* CompanionTextView.swift in Sources */,
 				B8BF6329291402720051915C /* HoverEffectModifier.swift in Sources */,
@@ -1626,6 +1633,7 @@
 				B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */,
 				B8C0215B29E0D56C006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */,
 				B8FB2A8B2952606A006DAC8E /* AppThemeColors.swift in Sources */,
+				B8370A992A02E5CB00643261 /* ExternalWatchlistManager.swift in Sources */,
 				B86DD41A28BAABCC002C8427 /* HeroImage.swift in Sources */,
 				B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */,
 				B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */,
@@ -1652,6 +1660,7 @@
 				B801070929F244DE008A4551 /* NewCustomListView.swift in Sources */,
 				B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */,
 				B810524F298DBADF00723E94 /* String-Extensions.swift in Sources */,
+				B8370A9A2A02E65200643261 /* TMDB.swift in Sources */,
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
 				B89446C5294FDAE7008974BA /* WatchlistSubtitleRow.swift in Sources */,
@@ -1819,6 +1828,7 @@
 				B8B981EB29F42B9B0001CF0B /* TMDBListDetails.swift in Sources */,
 				B8CCA8B529C7F952008D2FFF /* UpNextView.swift in Sources */,
 				B82BE4DE299BF734005F9990 /* DefaultWatchlist.swift in Sources */,
+				B8370A972A02DF2B00643261 /* NewListItemSelectorRow.swift in Sources */,
 				B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */,
 				B812C7B4299480620096E806 /* NewCustomListView.swift in Sources */,
 				B8DD56A1290DE2FD002CAAFD /* CenterHorizontalView.swift in Sources */,

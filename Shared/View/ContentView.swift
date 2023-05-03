@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
 #if os(iOS)
-    @State private var isPad: Bool = UIDevice.isIPad
+    @State private var isPad = UIDevice.isIPad
 #endif
     var body: some View {
 #if os(iOS)

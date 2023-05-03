@@ -40,11 +40,13 @@ struct ItemContentDetailsView: View {
                     
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
-                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                tvId: id,
-                                inWatchlist: $viewModel.isInWatchlist,
-                                seasonConfirmation: $showSeasonConfirmation)
-                    .padding(.zero)
+                    if let seasons = viewModel.content?.itemSeasons {
+                        SeasonListView(numberOfSeasons: seasons,
+                                       tvId: id,
+                                       inWatchlist: $viewModel.isInWatchlist,
+                                       seasonConfirmation: $showSeasonConfirmation)
+                        .padding(.zero)
+                    }
                     
                     WatchProvidersList(id: id, type: type)
                     
@@ -130,7 +132,7 @@ struct ItemContentDetailsView: View {
                 actionMessageConfirmation = "markedAsWatched"
                 actionImageConfirmation = "checkmark.circle"
             }
-            viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
+            viewModel.update(.watched)
             showActionConfirmation.toggle()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
                 withAnimation {
@@ -156,7 +158,7 @@ struct ItemContentDetailsView: View {
                 actionMessageConfirmation = "markedAsFavorite"
                 actionImageConfirmation = "heart.circle"
             }
-            viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
+            viewModel.update(.favorite)
             showActionConfirmation.toggle()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
                 withAnimation {

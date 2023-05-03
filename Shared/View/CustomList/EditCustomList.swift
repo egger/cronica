@@ -143,11 +143,16 @@ struct EditCustomList: View {
     }
     
     private func save() {
-        let items = itemsToRemove.sorted { $0.itemTitle > $1.itemTitle }
-        PersistenceController.shared.updateListInformation(list: list,
-                                                           title: title,
-                                                           description: note,
-                                                           items: items)
+        let persistence = PersistenceController.shared
+        if list.title != title {
+            persistence.updateListTitle(of: list, with: title)
+        }
+        if list.notes != note {
+            persistence.updateListNotes(of: list, with: note)
+        }
+        if !itemsToRemove.isEmpty {
+            persistence.removeItemsFromList(of: list, with: itemsToRemove)
+        }
         showListSelection = false
     }
     

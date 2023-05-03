@@ -60,18 +60,30 @@ extension PersistenceController {
         }
     }
     
-    func updateListInformation(list: CustomList, title: String? = nil, description: String? = nil, items: [WatchlistItem]? = nil) {
-        if let title {
-            if title != list.title {
-                list.title = title
-            }
+    func updateListTitle(of list: CustomList, with title: String) {
+        do {
+            list.title = title
+            try save()
+        } catch {
+            
         }
-        if let description {
-            if description != list.notes {
-                list.notes = description
-            }
+    }
+    
+    func updateListNotes(of list: CustomList, with notes: String) {
+        do {
+            list.notes = notes
+            try save()
+        } catch {
+            
         }
-        if let items {
+    }
+    
+    /// Remove a set of items from a CustomList.
+    /// - Parameters:
+    ///   - list: The CustomList that will have items removed from.
+    ///   - items: The WatchlistItems to be removed from the given list.
+    func removeItemsFromList(of list: CustomList, with items: Set<WatchlistItem>) {
+        do {
             var set = list.itemsSet
             for item in set {
                 if items.contains(item) {
@@ -79,7 +91,30 @@ extension PersistenceController {
                 }
             }
             list.items = set as NSSet
+            try save()
+        } catch {
+            
         }
-        try? save()
+    }
+    
+    func createList(title: String, description: String, items: Set<WatchlistItem>, idOnTMDb: Int? = nil) -> CustomList? {
+        do {
+            let viewContext = container.viewContext
+            let list = CustomList(context: viewContext)
+            list.id = UUID()
+            list.title = title
+            if let idOnTMDb {
+                list.isSyncEnabledTMDB = true
+                list.idOnTMDb = Int64(idOnTMDb)
+            }
+            list.creationDate = Date()
+            list.updatedDate = Date()
+            list.notes = description
+            list.items = items as NSSet
+            try save()
+            return list
+        } catch {
+            return nil
+        }
     }
 }

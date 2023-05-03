@@ -98,13 +98,14 @@ struct TVSeasonListView: View {
         Task {
             if !hasFirstLoaded {
                 if self.inWatchlist {
-                    let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.id))
-                    if let lastSeason {
-                        self.selectedSeason = lastSeason
-                        await self.viewModel.load(id: self.id, season: lastSeason, isInWatchlist: inWatchlist)
-                        hasFirstLoaded.toggle()
-                        return
-                    }
+//                    let lastSeason = PersistenceController.shared.fetchLastWatchedEpisode(for: <#T##Int64#>)
+//                    let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.id))
+//                    if let lastSeason {
+//                        self.selectedSeason = lastSeason
+//                        await self.viewModel.load(id: self.id, season: lastSeason, isInWatchlist: inWatchlist)
+//                        hasFirstLoaded.toggle()
+//                        return
+//                    }
                 }
             }
             await self.viewModel.load(id: self.id, season: self.selectedSeason, isInWatchlist: inWatchlist)

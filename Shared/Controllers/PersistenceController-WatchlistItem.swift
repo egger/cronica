@@ -383,9 +383,7 @@ extension PersistenceController {
             if isItemSaved(id: contentId) {
                 let item = try fetch(for: contentId)
                 guard let item, let watched = item.watchedEpisodes else { return false }
-                if watched.contains("-\(episode)@\(season)") {
-                    return true
-                }
+                if watched.contains("-\(episode)@\(season)") { return true }
             }
             return false
         } catch {

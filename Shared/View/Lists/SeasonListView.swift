@@ -107,10 +107,9 @@ struct SeasonListView: View {
 #endif
             Spacer()
 #if os(macOS)
-            markSeasonAsWatched
-                .unredacted()
-                .disabled(viewModel.isLoading)
-                .padding()
+//            markSeasonAsWatched
+//                .disabled(viewModel.isLoading)
+//                .padding()
 #else
             Menu {
                 markSeasonAsWatchedButton

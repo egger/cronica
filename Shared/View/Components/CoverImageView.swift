@@ -19,6 +19,7 @@ struct CoverImageView: View {
     @Binding var isArchive: Bool
     let title: String
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var animationImage = ""
     var body: some View {
         VStack {
             HeroImage(url: viewModel.content?.cardImageLarge,
@@ -27,36 +28,12 @@ struct CoverImageView: View {
             .overlay {
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
-                    switch store.gesture {
-                    case .favorite:
-                        Image(systemName: isFavorite ? "heart.slash.fill" : "heart.fill")
-                            .symbolRenderingMode(.multicolor)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
-                            .scaleEffect(animateGesture ? 1.1 : 1)
-                    case .watched:
-                        Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
-                            .foregroundColor(isWatched ? Color.red : Color.green)
-                            .scaleEffect(animateGesture ? 1.1 : 1)
-                    case .pin:
-                        Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
-                            .foregroundColor(isWatched ? Color.red : Color.green)
-                            .scaleEffect(animateGesture ? 1.1 : 1)
-                    case .archive:
-                        Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
-                            .foregroundColor(isWatched ? Color.red : Color.green)
-                            .scaleEffect(animateGesture ? 1.1 : 1)
-                    }
+                    Image(systemName: animationImage)
+                        .symbolRenderingMode(.multicolor)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .scaleEffect(animateGesture ? 1.1 : 1)
                 }
                 .opacity(animateGesture ? 1 : 0)
             }
@@ -68,15 +45,8 @@ struct CoverImageView: View {
             .accessibilityElement(children: .combine)
             .accessibility(hidden: true)
             .onTapGesture(count: 2) {
-                withAnimation {
-                    animateGesture.toggle()
-                }
+                animate(for: store.gesture)
                 viewModel.update(store.gesture)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                    withAnimation {
-                        animateGesture = false
-                    }
-                }
             }
             .task {
                 isFavorite = viewModel.isFavorite
@@ -88,6 +58,20 @@ struct CoverImageView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
+        }
+    }
+    
+    private func animate(for type: UpdateItemProperties) {
+        switch type {
+        case .watched: animationImage = isWatched ? "minus.circle.fill" : "checkmark.circle"
+        case .favorite: animationImage = isFavorite ? "heart.slash.fill" : "heart.fill"
+        case .pin: animationImage = isPin ? "pin.slash" : "pin"
+        case .archive: animationImage = isArchive ? "archivebox.fill" : "archivebox"
+        }
+        withAnimation { animateGesture.toggle() }
+        HapticManager.shared.successHaptic()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            withAnimation { animateGesture = false }
         }
     }
 }

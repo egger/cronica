@@ -100,9 +100,9 @@ struct TVItemContentCardView: View {
         .buttonStyle(.card)
         .task {
             withAnimation {
-                isInWatchlist = context.isItemSaved(id: item.id, type: item.itemContentMedia)
+                isInWatchlist = context.isItemSaved(id: item.itemNotificationID)
                 if isInWatchlist && !isWatched {
-                    isWatched = context.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+                    isWatched = context.isMarkedAsWatched(id: item.itemNotificationID)
                 }
             }
         }

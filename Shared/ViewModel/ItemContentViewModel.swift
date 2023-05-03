@@ -201,4 +201,13 @@ class ItemContentViewModel: ObservableObject {
 enum UpdateItemProperties: String, Identifiable, CaseIterable {
     var id: String { rawValue }
     case watched, favorite, pin, archive
+    
+    var title: String {
+        switch self {
+        case .watched: return NSLocalizedString("Watched", comment: "")
+        case .favorite: return NSLocalizedString("Favorite", comment: "")
+        case .pin: return NSLocalizedString("Pin", comment: "")
+        case .archive: return NSLocalizedString("Archive", comment: "")
+        }
+    }
 }
