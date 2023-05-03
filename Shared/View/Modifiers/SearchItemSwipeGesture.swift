@@ -43,7 +43,7 @@ struct SearchItemSwipeGesture: ViewModifier {
     
     private var watchedButton: some View {
         Button(action: {
-            context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: !isWatched)
+            //context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: !isWatched)
             withAnimation {
                 isWatched.toggle()
             }
@@ -57,7 +57,7 @@ struct SearchItemSwipeGesture: ViewModifier {
     
     private var favoriteButton: some View {
         Button(action: {
-            context.updateMarkAs(id: item.id, type: item.itemContentMedia, favorite: !isFavorite)
+            //context.updateMarkAs(id: item.id, type: item.itemContentMedia, favorite: !isFavorite)
             withAnimation {
                 isFavorite.toggle()
             }
@@ -74,7 +74,7 @@ struct SearchItemSwipeGesture: ViewModifier {
             withAnimation {
                 isInWatchlist.toggle()
             }
-            let watchlistItem = try? context.fetch(for: Int64(item.id), media: item.itemContentMedia)
+            let watchlistItem = try? context.fetch(for: item.itemNotificationID)
             if let watchlistItem {
                 if watchlistItem.notify {
                     NotificationManager.shared.removeNotification(identifier: watchlistItem.notificationID)

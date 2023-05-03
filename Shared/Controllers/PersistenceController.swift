@@ -7,7 +7,6 @@
 
 import CoreData
 import CloudKit
-import Combine
 
 /// An environment singleton responsible for managing Watchlist Core Data stack, including handling saving,
 /// tracking watchlists, and dealing with sample data.
@@ -67,12 +66,9 @@ struct PersistenceController {
         }
     }
     
-    // MARK: CRUD
-    /// Save viewContext only if it has changes.
-    func saveContext() {
-        let viewContext = container.viewContext
-        if viewContext.hasChanges {
-            try? viewContext.save()
+    func save() throws {
+        if container.viewContext.hasChanges {
+            try container.viewContext.save()
         }
     }
 }

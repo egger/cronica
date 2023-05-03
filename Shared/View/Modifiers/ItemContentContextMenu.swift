@@ -104,19 +104,27 @@ struct ItemContentContextMenu: ViewModifier {
     }
     
     private var addAndMarkWatchedButton: some View {
-        Button {
-            updateWatchlist()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: true)
-                withAnimation {
-                    isWatched.toggle()
-                }
-            }
-        } label: {
+        Button(action: addAndMarkAsWatched) {
             Label("addAndMarkWatchedButton", systemImage: "rectangle.badge.checkmark.fill")
         }
-        
     }
+    
+    
+    private func addAndMarkAsWatched() {
+        do {
+            updateWatchlist()
+            let content = try context.fetch(for: item.itemNotificationID)
+            guard let content else { return }
+            context.updateWatched(for: content)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation { isWatched.toggle() }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
     
     private var watchlistButton: some View {
         Button(role: isInWatchlist ? .destructive : nil) {
@@ -141,59 +149,84 @@ struct ItemContentContextMenu: ViewModifier {
     }
     
     private var watchedButton: some View {
-        Button {
-            context.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: !isWatched)
-            withAnimation {
-                isWatched.toggle()
-            }
-            HapticManager.shared.successHaptic()
-            if isWatched && item.itemContentMedia == .tvShow {
-                Task {
-                    await context.saveSeasons(for: item.id)
-                }
-            }
-        } label: {
+        Button(action: updateWatched) {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")
         }
     }
     
+    
+    
+    
+    
     private var favoriteButton: some View {
-        Button {
-            context.updateMarkAs(id: item.id, type: item.itemContentMedia, favorite: !isFavorite)
-            withAnimation {
-                isFavorite.toggle()
-            }
-            HapticManager.shared.successHaptic()
-        } label: {
+        Button(action: updateFavorite) {
             Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: isFavorite ? "heart.slash.circle.fill" : "heart.circle")
         }
     }
     
-    private var pinButton: some View {
-        Button {
-            context.updatePin(items: [item.itemNotificationID])
-            withAnimation {
-                isPin.toggle()
-            }
+    private func updateWatched() {
+        do {
+            guard let item = try context.fetch(for: item.itemNotificationID) else { return }
+            context.updateWatched(for: item)
+            withAnimation { isWatched.toggle() }
             HapticManager.shared.successHaptic()
-        } label: {
+            if item.itemMedia == .tvShow { updateSeasons() }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func updateFavorite() {
+        do {
+            guard let item = try context.fetch(for: item.itemNotificationID) else { return }
+            context.updateFavorite(for: item)
+            withAnimation { isFavorite.toggle() }
+            HapticManager.shared.successHaptic()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func updatePin() {
+        do {
+            guard let item = try context.fetch(for: item.itemNotificationID) else { return }
+            context.updatePin(for: item)
+            withAnimation { isPin.toggle() }
+            HapticManager.shared.successHaptic()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func updateArchive() {
+        do {
+            guard let item = try context.fetch(for: item.itemNotificationID) else { return }
+            context.updateArchive(for: item)
+            withAnimation { isArchive.toggle() }
+            HapticManager.shared.successHaptic()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func updateSeasons() {
+        
+    }
+    
+    private var pinButton: some View {
+        Button(action: updatePin) {
             Label(isPin ? "Unpin Item" : "Pin Item",
                   systemImage: isPin ? "pin.slash" : "pin")
         }
     }
     
     private var archiveButton: some View {
-        Button {
-            context.updateArchive(items: [item.itemNotificationID])
-            isArchive.toggle()
-            HapticManager.shared.successHaptic()
-        } label: {
+        Button(action: updateArchive) {
             Label(isArchive ? "Remove from Archive" : "Archive Item",
                   systemImage: isArchive ? "archivebox.fill" : "archivebox")
         }
-        
     }
     
     @ViewBuilder
@@ -217,7 +250,7 @@ struct ItemContentContextMenu: ViewModifier {
     
     private func remove() {
         do {
-            let watchlistItem = try context.fetch(for: Int64(item.id), media: item.itemContentMedia)
+            let watchlistItem = try context.fetch(for: item.itemNotificationID)
             if let watchlistItem {
                 if watchlistItem.notify {
                     NotificationManager.shared.removeNotification(identifier: watchlistItem.notificationID)

@@ -11,10 +11,12 @@ import SDWebImageSwiftUI
 struct CoverImageView: View {
     @StateObject private var store = SettingsStore.shared
     @EnvironmentObject var viewModel: ItemContentViewModel
-    @State private var isPad: Bool = UIDevice.isIPad
-    @State private var animateGesture: Bool = false
-    @State private var isFavorite = false
-    @State private var isWatched = false
+    @State private var isPad = UIDevice.isIPad
+    @State private var animateGesture = false
+    @Binding var isFavorite: Bool
+    @Binding var isWatched: Bool
+    @Binding var isPin: Bool
+    @Binding var isArchive: Bool
     let title: String
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
@@ -40,6 +42,20 @@ struct CoverImageView: View {
                             .frame(width: 120, height: 120, alignment: .center)
                             .foregroundColor(isWatched ? Color.red : Color.green)
                             .scaleEffect(animateGesture ? 1.1 : 1)
+                    case .pin:
+                        Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 120, height: 120, alignment: .center)
+                            .foregroundColor(isWatched ? Color.red : Color.green)
+                            .scaleEffect(animateGesture ? 1.1 : 1)
+                    case .archive:
+                        Image(systemName: isWatched ? "minus.circle.fill" : "checkmark.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 120, height: 120, alignment: .center)
+                            .foregroundColor(isWatched ? Color.red : Color.green)
+                            .scaleEffect(animateGesture ? 1.1 : 1)
                     }
                 }
                 .opacity(animateGesture ? 1 : 0)
@@ -55,17 +71,7 @@ struct CoverImageView: View {
                 withAnimation {
                     animateGesture.toggle()
                 }
-                if store.gesture == .favorite {
-                    viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
-                        isFavorite.toggle()
-                    }
-                } else {
-                    viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
-                        isWatched.toggle()
-                    }
-                }
+                viewModel.update(store.gesture)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                     withAnimation {
                         animateGesture = false

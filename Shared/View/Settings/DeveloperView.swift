@@ -17,7 +17,6 @@ struct DeveloperView: View {
     @State private var itemMediaType: MediaType = .movie
     @State private var isFetching = false
     @State private var isFetchingAll = false
-    @State private var showAllItems = false
     @State private var showOnboardingMac = false
     @State private var showChangelog = true
     @State private var userAccessId = String()
@@ -94,15 +93,6 @@ struct DeveloperView: View {
             }
             
             Section {
-                Button("Show All Items") {
-                    showAllItems.toggle()
-                }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
-            }
-            
-            Section {
                 Text("User Access ID (TMDB): \(userAccessId)")
                     .textSelection(.enabled)
                 Text("User Access Token (TMDB): \(userAccessToken)")
@@ -157,7 +147,7 @@ struct DeveloperView: View {
                                     self.item = nil
                                 }
                                 Button {
-                                    let watchlist = try? PersistenceController.shared.fetch(for: Int64(itemIdField)!, media: itemMediaType)
+                                    let watchlist = try? PersistenceController.shared.fetch(for: item.itemNotificationID)
                                     if let watchlist {
                                         CronicaTelemetry.shared.handleMessage("WatchlistItem: \(watchlist as Any)",
                                                                               for: "DeveloperView.printObject")
@@ -204,22 +194,6 @@ struct DeveloperView: View {
                     .navigationDestination(for: Person.self) { item in
                         PersonDetailsView(title: item.name, id: item.id)
                     }
-            }
-        }
-        .sheet(isPresented: $showAllItems) {
-            NavigationStack {
-                ShowAllItemsView()
-                    .toolbar {
-                        ToolbarItem {
-                            Button("Done") {
-                                showAllItems.toggle()
-                            }
-                        }
-                    }
-#if os(macOS)
-                    .frame(width: 500, height: 500, alignment: .center)
-                    .environment(\.managedObjectContext, persistence.container.viewContext)
-#endif
             }
         }
 #if os(macOS)

@@ -10,7 +10,6 @@ import SwiftUI
 
 @MainActor
 class SeasonViewModel: ObservableObject {
-    private let service = NetworkService.shared
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
     private var hasFirstLoaded = false
@@ -25,7 +24,7 @@ class SeasonViewModel: ObservableObject {
             withAnimation { self.isLoading = true }
         }
         do {
-            self.season = try await self.service.fetchSeason(id: id, season: season)
+            self.season = try await self.network.fetchSeason(id: id, season: season)
         } catch {
             if Task.isCancelled { return }
             let message = "Season \(season), id: \(id), error: \(error.localizedDescription)"
@@ -39,15 +38,11 @@ class SeasonViewModel: ObservableObject {
         }
     }
     
-    func markSeasonAsWatched(id: Int) async {
-        if let season, let episodes = season.episodes {
-            if !isItemInWatchlist {
-                await saveItemOnList(id: id)
-            }
-            for episode in episodes {
-                if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
-                    persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
-                }
+    func markSeasonAsWatched(id: Int) {
+        guard let season, let episodes = season.episodes else { return }
+        for episode in episodes {
+            if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
+                persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
             }
         }
     }

@@ -285,7 +285,7 @@ struct WatchlistItemContextMenu: ViewModifier {
                 withAnimation {
                     isWatched.toggle()
                 }
-                context.updateMarkAs(id: item.itemId, type: item.itemMedia, watched: !item.watched)
+                context.updateWatched(for: item)
             }
             HapticManager.shared.successHaptic()
         } label: {
@@ -300,7 +300,7 @@ struct WatchlistItemContextMenu: ViewModifier {
                 withAnimation {
                     isFavorite.toggle()
                 }
-                context.updateMarkAs(id: item.itemId, type: item.itemMedia, favorite: !item.favorite)
+                context.updateFavorite(for: item)
             }
             HapticManager.shared.successHaptic()
         } label: {
@@ -311,7 +311,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     private var pinButton: some View {
         Button {
-            PersistenceController.shared.updatePin(items: [item.notificationID])
+            PersistenceController.shared.updatePin(for: item)
             isPin.toggle()
             HapticManager.shared.successHaptic()
         } label: {
@@ -322,7 +322,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     private var archiveButton: some View {
         Button {
-            PersistenceController.shared.updateArchive(items: [item.notificationID])
+            PersistenceController.shared.updateArchive(for: item)
             isArchive.toggle()
             HapticManager.shared.successHaptic()
         } label: {
@@ -354,3 +354,19 @@ struct WatchlistItemContextMenu: ViewModifier {
         }
     }
 }
+
+struct PinButton: View {
+    @Binding var item: WatchlistItem
+    @Binding var isPin: Bool
+    var body: some View {
+        Button {
+            PersistenceController.shared.updatePin(for: item)
+            isPin.toggle()
+            HapticManager.shared.successHaptic()
+        } label: {
+            Label(isPin ? "Unpin Item" : "Pin Item",
+                  systemImage: isPin ? "pin.slash.fill" : "pin.fill")
+        }
+    }
+}
+ 

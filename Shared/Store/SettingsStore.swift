@@ -12,7 +12,7 @@ class SettingsStore: ObservableObject {
     static var shared = SettingsStore()
     @AppStorage("showOnboarding") var displayOnboard = true
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings = false
-    @AppStorage("gesture") var gesture: DoubleTapGesture = .favorite
+    @AppStorage("gesture") var gesture: UpdateItemProperties = .favorite
     @AppStorage("rowType") var rowType: WatchlistSubtitleRow = .none
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
 #if os(macOS)

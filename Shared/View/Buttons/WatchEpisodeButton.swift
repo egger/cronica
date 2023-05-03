@@ -15,9 +15,7 @@ struct WatchEpisodeButton: View {
     @Binding var inWatchlist: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
-        Button {
-            update()
-        } label: {
+        Button(action: update) {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
 #if os(tvOS)
@@ -30,28 +28,30 @@ struct WatchEpisodeButton: View {
         if !inWatchlist {
             Task {
                 await fetch()
-                await handleList()
+                handleList()
             }
         } else {
-            Task { await handleList() }
+            handleList()
         }
-        HapticManager.shared.successHaptic()
     }
     
-    private func handleList() async {
-        if SettingsStore.shared.markPreviouslyEpisodesAsWatched {
+    private func handleList() {
+        do {
+            let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+            let item = try persistence.fetch(for: contentId)
+            guard let item else { return }
+            persistence.updateWatchedEpisodes(for: item, with: episode)
+            DispatchQueue.main.async {
+                withAnimation { isWatched.toggle() }
+            }
+            HapticManager.shared.successHaptic()
             Task {
-                await persistence.updateEpisodeListUpTo(to: show, actualEpisode: episode)
+                let nextEpisode = await fetchNextEpisode()
+                guard let nextEpisode else { return }
+                persistence.updateUpNext(item, episode: nextEpisode)
             }
-        } else {
-            let nextEpisode = await fetchNextEpisode()
-            persistence.updateEpisodeList(show: show, season: season, episode: episode.id, nextEpisode: nextEpisode)
-        }
-        
-        DispatchQueue.main.async {
-            withAnimation {
-                isWatched.toggle()
-            }
+        } catch {
+            CronicaTelemetry.shared.handleMessage("", for: "")
         }
     }
     
@@ -95,6 +95,7 @@ struct WatchEpisodeButton: View {
                 return nextEpisode[0]
             }
         } catch {
+            if Task.isCancelled { return nil }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchNextEpisode")
             return nil
         }

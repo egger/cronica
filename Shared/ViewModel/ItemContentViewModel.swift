@@ -40,35 +40,34 @@ class ItemContentViewModel: ObservableObject {
         if content == nil {
             do {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
-                if let content {
-                    isInWatchlist = persistence.isItemSaved(id: self.id, type: self.type)
-                    if isInWatchlist {
-                        watchlistItem = try? persistence.fetch(for: Int64(id), media: content.itemContentMedia)
-                    }
-                    withAnimation {
-                        if isInWatchlist {
-                            hasNotificationScheduled = isNotificationScheduled()
-                            isWatched = persistence.isMarkedAsWatched(id: self.id, type: type)
-                            isFavorite = persistence.isMarkedAsFavorite(id: self.id, type: type)
-                            isArchive = persistence.isItemArchived(id: self.id, type: type)
-                            isPin = persistence.isItemPinned(id: self.id, type: type)
-                        }
-                        isNotificationAvailable = content.itemCanNotify
-                        if content.itemStatus == .released {
-                            showMarkAsButton = true
-                        }
-                    }
-                    if recommendations.isEmpty {
-                        recommendations.append(contentsOf: content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity } ?? [])
-                    }
-                    if credits.isEmpty {
-                        let cast = content.credits?.cast ?? []
-                        let crew = content.credits?.crew ?? []
-                        let combined = cast + crew
-                        credits.append(contentsOf: combined)
-                    }
-                    isLoading = false
+                guard let content else { return }
+                isInWatchlist = persistence.isItemSaved(id: content.itemNotificationID)
+                if isInWatchlist {
+                    watchlistItem = try persistence.fetch(for: content.itemNotificationID)
                 }
+                withAnimation {
+                    if isInWatchlist {
+                        hasNotificationScheduled = isNotificationScheduled()
+                        isWatched = persistence.isMarkedAsWatched(id: content.itemNotificationID)
+                        isFavorite = persistence.isMarkedAsFavorite(id: self.id, type: type)
+                        isArchive = persistence.isItemArchived(id: self.id, type: type)
+                        isPin = persistence.isItemPinned(id: self.id, type: type)
+                    }
+                    isNotificationAvailable = content.itemCanNotify
+                    if content.itemStatus == .released {
+                        showMarkAsButton = true
+                    }
+                }
+                if recommendations.isEmpty {
+                    recommendations.append(contentsOf: content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity } ?? [])
+                }
+                if credits.isEmpty {
+                    let cast = content.credits?.cast ?? []
+                    let crew = content.credits?.crew ?? []
+                    let combined = cast + crew
+                    credits.append(contentsOf: combined)
+                }
+                isLoading = false
             } catch {
                 if Task.isCancelled { return }
                 showErrorAlert = true
@@ -78,7 +77,7 @@ class ItemContentViewModel: ObservableObject {
             }
         }
     }
-    
+      
     /// Automatically saves or delete an item from Watchlist and it's respective notification, if applicable.
     ///
     /// If an item already exists in Watchlist, it'll remove it from there and delete the scheduled notification.
@@ -91,16 +90,15 @@ class ItemContentViewModel: ObservableObject {
                 isInWatchlist.toggle()
             }
             do {
-                let watchlistItem = try persistence.fetch(for: Int64(item.id), media: type)
-                if let watchlistItem {
-                    if watchlistItem.notify {
-                        notification.removeNotification(identifier: item.itemNotificationID)
-                        withAnimation {
-                            hasNotificationScheduled.toggle()
-                        }
+                let watchlistItem = try persistence.fetch(for: item.itemNotificationID)
+                guard let watchlistItem else { return }
+                if watchlistItem.notify {
+                    notification.removeNotification(identifier: item.itemNotificationID)
+                    withAnimation {
+                        hasNotificationScheduled.toggle()
                     }
-                    persistence.delete(watchlistItem)
                 }
+                persistence.delete(watchlistItem)
             } catch {
                 CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
                                                       for: "ItemContentViewModel.updateWatchlist.failed")
@@ -112,41 +110,6 @@ class ItemContentViewModel: ObservableObject {
             if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
                 NotificationManager.shared.schedule(item)
                 withAnimation { hasNotificationScheduled.toggle() }
-            }
-        }
-    }
-    
-    func updateMarkAs(markAsWatched watched: Bool? = nil, markAsFavorite favorite: Bool? = nil, archive: Bool? = nil, pin: Bool? = nil) {
-        if !isInWatchlist {
-            if let content {
-                updateWatchlist(with: content)
-            }
-        }
-        if let watched {
-            withAnimation { isWatched.toggle() }
-            persistence.updateMarkAs(id: id, type: type, watched: watched)
-            if isWatched && type == .tvShow {
-                Task {
-                    await persistence.saveSeasons(for: id)
-                }
-            }
-        }
-        if let favorite {
-            withAnimation { isFavorite.toggle() }
-            persistence.updateMarkAs(id: id, type: type, favorite: favorite)
-        }
-        if archive != nil {
-            if let id = content?.itemNotificationID {
-                let set: Set = [id]
-                withAnimation { isArchive.toggle() }
-                persistence.updateArchive(items: set)
-            }
-        }
-        if pin != nil {
-            if let id = content?.itemNotificationID {
-                let set: Set = [id]
-                withAnimation { isPin.toggle() }
-                persistence.updatePin(items: set)
             }
         }
     }
@@ -164,11 +127,10 @@ class ItemContentViewModel: ObservableObject {
     /// and might not be an actual representation if the item will notify the user.
     private func isNotificationScheduled() -> Bool {
         do {
-            let item = try persistence.fetch(for: WatchlistItem.ID(self.id), media: type)
-            if let item {
-                return item.notify
-            }
-            return false
+            guard let content else { return false }
+            let item = try persistence.fetch(for: content.itemNotificationID)
+            guard let notify = item?.notify else { return false }
+            return notify
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                   for: "ItemContentViewModel.isNotificationScheduled")
@@ -177,7 +139,66 @@ class ItemContentViewModel: ObservableObject {
     }
     
     func fetchSavedItem() {
-        guard let content else { return }
-        watchlistItem = try? persistence.fetch(for: Int64(id), media: content.itemContentMedia)
+        do {
+            guard let content else { return }
+            watchlistItem = try persistence.fetch(for: content.itemNotificationID)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
+    
+    func update(_ property: UpdateItemProperties) {
+        do {
+            guard let content, let item = try persistence.fetch(for: content.itemNotificationID) else { return }
+            if !isInWatchlist { updateWatchlist(with: content) }
+            switch property {
+            case .watched:
+                persistence.updateWatched(for: item)
+                withAnimation { isWatched.toggle() }
+                Task { await updateSeasons() }
+            case .favorite:
+                persistence.updateFavorite(for: item)
+                withAnimation { isFavorite.toggle() }
+            case .pin:
+                persistence.updatePin(for: item)
+                withAnimation { isPin.toggle() }
+            case .archive:
+                persistence.updateArchive(for: item)
+                withAnimation { isArchive.toggle() }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func updateSeasons() async {
+        do {
+            if type != .tvShow { return }
+            guard let content, let item = try persistence.fetch(for: content.itemNotificationID) else { return }
+            if !isWatched {
+                /// if item is removed from watched, then all watched episodes will also be removed.
+                persistence.removeWatchedEpisodes(for: item)
+            } else {
+                /// if item is marked as watched, all episodes will also be marked as watched.
+                guard let seasons = content.seasons else { return }
+                var episodes = [Episode]()
+                for season in seasons {
+                    let result = try await service.fetchSeason(id: content.id, season: season.seasonNumber)
+                    if let items = result.episodes {
+                        episodes.append(contentsOf: items)
+                    }
+                }
+                if !episodes.isEmpty {
+                    persistence.updateEpisodeList(to: item, show: item.itemId, episodes: episodes)
+                }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+enum UpdateItemProperties: String, Identifiable, CaseIterable {
+    var id: String { rawValue }
+    case watched, favorite, pin, archive
 }

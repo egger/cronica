@@ -13,7 +13,7 @@ extension PersistenceController {
         do {
             let item = try viewContext.existingObject(with: list.objectID)
             viewContext.delete(item)
-            saveContext()
+            try save()
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                   for: "PersistenceController.delete")
@@ -22,26 +22,25 @@ extension PersistenceController {
     
     func updateList(for id: WatchlistItem.ID, type: MediaType, to list: CustomList) {
         do {
-            let item = try fetch(for: id, media: type)
-            if let item {
-                if item.itemLists.contains(list) {
-                    var original = item.itemLists
-                    original.remove(list)
-                    let converted = original as NSSet
-                    item.list = converted
-                    saveContext()
-                    return
-                } else {
-                    var set = Set<CustomList>()
-                    set.insert(list)
-                    let original = item.itemLists
-                    for item in original {
-                        set.insert(item)
-                    }
-                    let converted = set as NSSet
-                    item.list = converted
-                    saveContext()
+            let contentID = "\(id)@\(type.toInt)"
+            let item = try fetch(for: contentID)
+            guard let item else { return }
+            if item.itemLists.contains(list) {
+                var original = item.itemLists
+                original.remove(list)
+                let converted = original as NSSet
+                item.list = converted
+                try save()
+            } else {
+                var set = Set<CustomList>()
+                set.insert(list)
+                let original = item.itemLists
+                for item in original {
+                    set.insert(item)
                 }
+                let converted = set as NSSet
+                item.list = converted
+                try save()
             }
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
@@ -51,14 +50,14 @@ extension PersistenceController {
     
     func fetchLists(for id: Int, type: MediaType) -> [CustomList] {
         do {
-            let item = try fetch(for: Int64(id), media: type)
-            if let item {
-                return item.listsArray
-            }
+            let contentID = "\(id)@\(type.toInt)"
+            let item = try fetch(for: contentID)
+            guard let item else { return [] }
+            return item.listsArray
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchLists")
+            return []
         }
-        return []
     }
     
     func updateListInformation(list: CustomList, title: String? = nil, description: String? = nil, items: [WatchlistItem]? = nil) {
@@ -81,6 +80,6 @@ extension PersistenceController {
             }
             list.items = set as NSSet
         }
-        saveContext()
+        try? save()
     }
 }

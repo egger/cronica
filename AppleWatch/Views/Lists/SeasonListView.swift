@@ -33,11 +33,10 @@ struct SeasonListView: View {
                     }
                 }
                 .onAppear {
-                    let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(id))
+                    let contentId = "\(id)@\(MediaType.tvShow.toInt)"
+                    let lastSeason = PersistenceController.shared.getLastSelectedSeason(contentId)
                     guard let lastSeason else { return }
-                    withAnimation {
-                        proxy.scrollTo(lastSeason, anchor: .topLeading)
-                    }
+                    withAnimation { proxy.scrollTo(lastSeason, anchor: .topLeading) }
                 }
             }
             .navigationTitle("Seasons")

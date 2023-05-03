@@ -37,7 +37,11 @@ struct ItemContentDetails: View {
             if viewModel.isLoading { ProgressView() }
             VStack {
                 ScrollView {
-                    CoverImageView(title: title)
+                    CoverImageView(isFavorite: $viewModel.isFavorite,
+                                   isWatched: $viewModel.isWatched,
+                                   isPin: $viewModel.isPin,
+                                   isArchive: $viewModel.isArchive,
+                                   title: title)
                         .environmentObject(viewModel)
                     
                     WatchlistButtonView()
@@ -50,11 +54,14 @@ struct ItemContentDetails: View {
                     
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
-                    SeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                   tvId: id,
-                                   inWatchlist: $viewModel.isInWatchlist,
-                                   seasonConfirmation: $showSeasonConfirmation)
-                    .padding(0)
+                    if let seasons = viewModel.content?.itemSeasons {
+                        SeasonListView(numberOfSeasons: seasons,
+                                       tvId: id,
+                                       inWatchlist: $viewModel.isInWatchlist,
+                                       seasonConfirmation: $showSeasonConfirmation)
+                        .padding(0)
+                    }
+                    
                     
                     WatchProvidersList(id: id, type: type)
                     
@@ -155,7 +162,7 @@ struct ItemContentDetails: View {
                 }
             }
             
-            viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
+            //viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
             
             if UIDevice.isIPad {
                 showMarkAsConfirmation.toggle()
@@ -186,7 +193,7 @@ struct ItemContentDetails: View {
                 }
             }
             
-            viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
+            //viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
             
             if UIDevice.isIPad {
                 showMarkAsConfirmation.toggle()
@@ -207,7 +214,7 @@ struct ItemContentDetails: View {
     
     private var archiveButton: some View {
         Button {
-            viewModel.updateMarkAs(archive: true)
+            //viewModel.updateMarkAs(archive: true)
         } label: {
             Label(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox")
@@ -216,7 +223,7 @@ struct ItemContentDetails: View {
     
     private var pinButton: some View {
         Button {
-            viewModel.updateMarkAs(pin: true)
+            //viewModel.updateMarkAs(pin: true)
         } label: {
             Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
                   systemImage: viewModel.isPin ? "pin.slash.fill" : "pin.fill")
@@ -224,21 +231,17 @@ struct ItemContentDetails: View {
     }
     
     private var openInMenu: some View {
-        Menu {
+        Menu("Open in") {
             if viewModel.content?.hasIMDbUrl ?? false {
                 Button("IMDb") {
-                    if let url = viewModel.content?.imdbUrl {
-                        UIApplication.shared.open(url)
-                    }
-                }
-            }
-            Button("TMDb") {
-                if let url = viewModel.content?.itemURL {
+                    guard let url = viewModel.content?.imdbUrl else { return }
                     UIApplication.shared.open(url)
                 }
             }
-        } label: {
-            Text("Open in")
+            Button("TMDb") {
+                guard let url = viewModel.content?.itemURL else { return }
+                UIApplication.shared.open(url)
+            }
         }
     }
     

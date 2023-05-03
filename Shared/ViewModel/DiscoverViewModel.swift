@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 @MainActor
 class DiscoverViewModel: ObservableObject {
@@ -33,7 +34,7 @@ class DiscoverViewModel: ObservableObject {
     }
     
     func hideItems() {
-        let ids = PersistenceController.shared.fetchAllItemsIDs(selectedMedia)
+        let ids = fetchAllItemsIDs(selectedMedia)
         withAnimation {
             items.removeAll(where: { ids.contains($0.itemNotificationID)})
         }
@@ -64,7 +65,7 @@ class DiscoverViewModel: ObservableObject {
                                                          genres: "\(selectedGenre)",
                                                          sort: selectedSortBy)
             if hideAddedItems {
-                let ids = PersistenceController.shared.fetchAllItemsIDs(selectedMedia)
+                let ids = fetchAllItemsIDs(selectedMedia)
                 items.append(contentsOf: result.filter { !ids.contains($0.itemNotificationID)})
             } else {
                 items.append(contentsOf: result)
@@ -83,6 +84,26 @@ class DiscoverViewModel: ObservableObject {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                   for: "DiscoverViewModel.fetch()")
             showErrorDialog.toggle()
+        }
+    }
+    
+    private func fetchAllItemsIDs(_ media: MediaType) -> [String] {
+        let persistence = PersistenceController.shared
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let typePredicate = NSPredicate(format: "contentType == %d", media.toInt)
+        request.predicate = typePredicate
+        do {
+            let list = try persistence.container.viewContext.fetch(request)
+            var ids = [String]()
+            for item in list {
+                ids.append(item.notificationID)
+            }
+            return ids
+        } catch {
+            if Task.isCancelled { return [] }
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "BackgroundManager.fetchAllItemsIDs()")
+            return []
         }
     }
     

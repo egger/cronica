@@ -38,9 +38,9 @@ struct SearchItemView: View {
                 SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                     .draggable(item)
                     .task {
-                        isInWatchlist = context.isItemSaved(id: item.id, type: item.media)
+                        isInWatchlist = context.isItemSaved(id: item.itemNotificationID)
                         if isInWatchlist {
-                            isWatched = context.isMarkedAsWatched(id: item.id, type: item.media)
+                            isWatched = context.isMarkedAsWatched(id: item.itemNotificationID)
                         }
                     }
                     .itemContentContextMenu(item: item,
@@ -60,9 +60,9 @@ struct SearchItemView: View {
                     SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                         .draggable(item)
                         .task {
-                            isInWatchlist = context.isItemSaved(id: item.id, type: item.media)
+                            isInWatchlist = context.isItemSaved(id: item.itemNotificationID)
                             if isInWatchlist {
-                                isWatched = context.isMarkedAsWatched(id: item.id, type: item.media)
+                                isWatched = context.isMarkedAsWatched(id: item.itemNotificationID)
                                 canReview = true
                             }
                         }

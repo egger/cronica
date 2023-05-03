@@ -194,12 +194,12 @@ private struct ItemContentItemView: View {
                                     canReview: $canReview,
                                     showNote: $showNote)
             .task {
-                isWatched = persistence.isMarkedAsWatched(id: item.id, type: item.itemContentMedia)
+                isWatched = persistence.isMarkedAsWatched(id: item.itemNotificationID)
             }
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    if let content = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia) {
+                    if let content = try? persistence.fetch(for: item.itemNotificationID) {
                         WatchlistItemNoteView(item: content, showView: $showNote)
                     } else {
                         ProgressView()

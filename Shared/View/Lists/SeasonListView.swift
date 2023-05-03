@@ -10,7 +10,7 @@ import SwiftUI
 /// A View that displays a season picker, and load every episode in a given
 /// season on change of the picker.
 struct SeasonListView: View {
-    var numberOfSeasons: [Int]?
+    var numberOfSeasons: [Int]
     var tvId: Int
     var lastSelectedSeason: Int?
     @State private var selectedSeason: Int = 1
@@ -20,128 +20,119 @@ struct SeasonListView: View {
     @Binding var inWatchlist: Bool
     @Binding var seasonConfirmation: Bool
     var body: some View {
-        if let numberOfSeasons {
-            VStack {
-                HStack {
-                    Picker("Seasons", selection: $selectedSeason) {
-                        ForEach(numberOfSeasons, id: \.self) { season in
-                            Text("Season \(season)").tag(season)
-                        }
-                    }
-                    .pickerStyle(.menu)
-                    .onChange(of: selectedSeason) { season in
-                        Task {
-                            if Task.isCancelled { return }
-                            await viewModel.load(id: self.tvId, season: season, isInWatchlist: inWatchlist)
-                        }
-                    }
-                    .padding(.leading)
-                    .padding(.bottom, 1)
-                    .unredacted()
-#if os(macOS)
-                    .frame(maxWidth: 300)
-#endif
-                    Spacer()
-#if os(macOS)
-                    markSeasonAsWatched
-                        .unredacted()
-                        .disabled(viewModel.isLoading)
-                        .padding()
-#else
-                    Menu {
-                        markSeasonAsWatched
-                    } label: {
-                        Label("More", systemImage: "ellipsis.circle")
-                            .labelStyle(.iconOnly)
-                    }
-                    .padding(.horizontal)
-#endif
-                }
-                ScrollView(.horizontal, showsIndicators: false) {
-                    if viewModel.isLoading {
-                        CenterHorizontalView { ProgressView() }.padding()
-                    } else {
-                        if let season = viewModel.season?.episodes {
-                            if season.isEmpty {
-                                emptySeasonView
-                            } else {
-                                ScrollViewReader { proxy in
-                                    LazyHStack {
-                                        ForEach(season) { item in
-                                            EpisodeFrameView(episode: item,
-                                                             season: selectedSeason,
-                                                             show: tvId,
-                                                             isInWatchlist: $inWatchlist)
-                                            .environmentObject(viewModel)
-                                            .frame(width: 160)
-                                            .padding([.leading, .trailing], 4)
-                                            .padding(.leading, item.id == season.first!.id ? 16 : 0)
-                                            .padding(.trailing, item.id == season.last!.id ? 16 : 0)
-                                        }
-                                        .padding(0)
-                                        .buttonStyle(.plain)
-                                    }
-                                    .onAppear {
-                                        if hasFirstLoaded { return }
-                                        let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
-                                        guard let lastWatchedEpisode else { return }
-                                        withAnimation {
-                                            proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
-                                        }
-                                    }
-                                    .onChange(of: selectedSeason) { _ in
-                                        if !hasFirstLoaded { return }
-                                        let first = season.first ?? nil
-                                        guard let first else { return }
-                                        withAnimation { proxy.scrollTo(first.id, anchor: .topLeading) }
+        VStack {
+            seasonHeader
+            ScrollView(.horizontal, showsIndicators: false) {
+                if viewModel.isLoading {
+                    CenterHorizontalView { ProgressView() }.padding()
+                } else {
+                    if let season = viewModel.season?.episodes {
+                        if season.isEmpty {
+                            emptySeasonView
+                        } else {
+                            ScrollViewReader { proxy in
+                                LazyHStack {
+                                    ForEach(season) { item in
+                                        EpisodeFrameView(episode: item,
+                                                         season: selectedSeason,
+                                                         show: tvId,
+                                                         isInWatchlist: $inWatchlist)
+                                        .environmentObject(viewModel)
+                                        .frame(width: 160)
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == season.first!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == season.last!.id ? 16 : 0)
                                     }
                                     .padding(0)
+                                    .buttonStyle(.plain)
                                 }
+                                .onAppear {
+                                    if hasFirstLoaded { return }
+                                    let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(tvId))
+                                    guard let lastWatchedEpisode else { return }
+                                    withAnimation {
+                                        proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
+                                    }
+                                }
+                                .onChange(of: selectedSeason) { _ in
+                                    if !hasFirstLoaded { return }
+                                    let first = season.first ?? nil
+                                    guard let first else { return }
+                                    withAnimation { proxy.scrollTo(first.id, anchor: .topLeading) }
+                                }
+                                .padding(0)
                             }
                         }
                     }
                 }
-                .padding(0)
-                .onAppear {
-                    Task { await load() }
-                }
-                .task(id: selectedSeason) {
-                    await load()
-                }
-                Divider().padding()
-            }
-            .onChange(of: viewModel.isItemInWatchlist) { value in
-                if value != inWatchlist {
-                    inWatchlist = value
-                }
             }
             .padding(0)
-            .redacted(reason: viewModel.isLoading ? .placeholder : [] )
+            .onAppear {
+                Task { await load() }
+            }
+            .task(id: selectedSeason) {
+                await load()
+            }
+            Divider().padding()
+        }
+        .onChange(of: viewModel.isItemInWatchlist) { value in
+            if value != inWatchlist {
+                inWatchlist = value
+            }
+        }
+        .padding(0)
+        .redacted(reason: viewModel.isLoading ? .placeholder : [] )
+    }
+    
+    
+    private var seasonHeader: some View {
+        HStack {
+            Picker("Seasons", selection: $selectedSeason) {
+                ForEach(numberOfSeasons, id: \.self) { season in
+                    Text("Season \(season)").tag(season)
+                }
+            }
+            .pickerStyle(.menu)
+            .onChange(of: selectedSeason) { season in
+                Task {
+                    if Task.isCancelled { return }
+                    await viewModel.load(id: self.tvId, season: season, isInWatchlist: inWatchlist)
+                }
+            }
+            .padding(.leading)
+            .padding(.bottom, 1)
+            .unredacted()
+#if os(macOS)
+            .frame(maxWidth: 300)
+#endif
+            Spacer()
+#if os(macOS)
+            markSeasonAsWatched
+                .unredacted()
+                .disabled(viewModel.isLoading)
+                .padding()
+#else
+            Menu {
+                markSeasonAsWatchedButton
+            } label: {
+                Label("More", systemImage: "ellipsis.circle")
+                    .labelStyle(.iconOnly)
+            }
+            .padding(.horizontal)
+#endif
         }
     }
     
-    private var markSeasonAsWatched: some View {
-        Button {
-            Task {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        seasonConfirmation.toggle()
-                    }
-                }
-                await viewModel.markSeasonAsWatched(id: tvId)
-                if !inWatchlist {
-                    inWatchlist = viewModel.isItemInWatchlist
-                }
-                HapticManager.shared.successHaptic()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                    withAnimation {
-                        seasonConfirmation = false
-                    }
-                }
-            }
-        } label: {
+    private var markSeasonAsWatchedButton: some View {
+        Button(action: markSeasonAsWatched) {
             Label("Mark Season as Watched", systemImage: "checkmark.circle.fill")
         }
+        .disabled(!inWatchlist)
+    }
+    
+    private func markSeasonAsWatched() {
+        viewModel.markSeasonAsWatched(id: tvId)
+        HapticManager.shared.successHaptic()
     }
     
     private var emptySeasonView: some View {
@@ -159,7 +150,8 @@ struct SeasonListView: View {
     
     private func load() async {
         if !hasFirstLoaded && self.inWatchlist {
-            let lastSeason = PersistenceController.shared.fetchLastSelectedSeason(for: Int64(self.tvId))
+            let contentId = "\(tvId)@\(MediaType.tvShow.toInt)"
+            let lastSeason = PersistenceController.shared.getLastSelectedSeason(contentId)
             guard let lastSeason else { return }
             self.selectedSeason = lastSeason
             await self.viewModel.load(id: self.tvId, season: lastSeason, isInWatchlist: inWatchlist)

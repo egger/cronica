@@ -59,25 +59,27 @@ struct WatchlistItemNoteView: View {
     }
     
     private var doneButton: some View {
-        Button("Cancel") { showView.toggle() }
+        Button("Cancel", action: dismiss)
     }
     
     private var saveButton: some View {
-        Button("Save") {
-            item.userNotes = note
-            item.userRating = Int64(rating)
-            let context = PersistenceController.shared.container.viewContext
-            if context.hasChanges { try? context.save() }
-            showView.toggle()
-        }
+        Button("Save", action: save)
+    }
+    
+    private func save() {
+        PersistenceController.shared.updateReview(for: item, rating: rating, notes: note)
+        dismiss()
+    }
+    
+    private func dismiss() {
+        showView.toggle()
     }
 }
 
 struct WatchlistItemNoteView_Previews: PreviewProvider {
-    @State private static var showView = false
     static var previews: some View {
         NavigationStack {
-            WatchlistItemNoteView(item: .example, showView: $showView)
+            WatchlistItemNoteView(item: .example, showView: .constant(true))
         }
     }
 }
