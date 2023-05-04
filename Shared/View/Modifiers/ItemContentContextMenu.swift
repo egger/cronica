@@ -34,7 +34,8 @@ struct ItemContentContextMenu: ViewModifier {
                     watchedButton
                     favoriteButton
                     pinButton
-                    archiveButton
+                    ArchiveButton(id: item.itemNotificationID,
+                                  isArchive: $isArchive)
                     addToList
                     reviewButton
                     Divider()
@@ -53,9 +54,9 @@ struct ItemContentContextMenu: ViewModifier {
             .task {
                 if isInWatchlist {
                     canReview = true
-                    isFavorite = context.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia)
-                    isPin = context.isItemPinned(id: item.id, type: item.itemContentMedia)
-                    isArchive = context.isItemArchived(id: item.id, type: item.itemContentMedia)
+                    isFavorite = context.isMarkedAsFavorite(id: item.itemNotificationID)
+                    isPin = context.isItemPinned(id: item.itemNotificationID)
+                    isArchive = context.isItemArchived(id: item.itemNotificationID)
                 }
             }
             .onAppear {
@@ -124,8 +125,6 @@ struct ItemContentContextMenu: ViewModifier {
         }
     }
     
-    
-    
     private var watchlistButton: some View {
         Button(role: isInWatchlist ? .destructive : nil) {
             if !isInWatchlist { HapticManager.shared.successHaptic() }
@@ -154,10 +153,6 @@ struct ItemContentContextMenu: ViewModifier {
                   systemImage: isWatched ? "minus.circle" : "checkmark.circle")
         }
     }
-    
-    
-    
-    
     
     private var favoriteButton: some View {
         Button(action: updateFavorite) {
@@ -200,16 +195,16 @@ struct ItemContentContextMenu: ViewModifier {
         }
     }
     
-    private func updateArchive() {
-        do {
-            guard let item = try context.fetch(for: item.itemNotificationID) else { return }
-            context.updateArchive(for: item)
-            withAnimation { isArchive.toggle() }
-            HapticManager.shared.successHaptic()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+//    private func updateArchive() {
+//        do {
+//            guard let item = try context.fetch(for: item.itemNotificationID) else { return }
+//            context.updateArchive(for: item)
+//            withAnimation { isArchive.toggle() }
+//            HapticManager.shared.successHaptic()
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
     
     private func updateSeasons() {
         
@@ -222,12 +217,12 @@ struct ItemContentContextMenu: ViewModifier {
         }
     }
     
-    private var archiveButton: some View {
-        Button(action: updateArchive) {
-            Label(isArchive ? "Remove from Archive" : "Archive Item",
-                  systemImage: isArchive ? "archivebox.fill" : "archivebox")
-        }
-    }
+//    private var archiveButton: some View {
+//        Button(action: updateArchive) {
+//            Label(isArchive ? "Remove from Archive" : "Archive Item",
+//                  systemImage: isArchive ? "archivebox.fill" : "archivebox")
+//        }
+//    }
     
     @ViewBuilder
     private var reviewButton: some View {

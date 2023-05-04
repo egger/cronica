@@ -55,11 +55,7 @@ struct ItemContentDetails: View {
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
                     if let seasons = viewModel.content?.itemSeasons {
-                        SeasonListView(numberOfSeasons: seasons,
-                                       tvId: id,
-                                       inWatchlist: $viewModel.isInWatchlist,
-                                       seasonConfirmation: $showSeasonConfirmation)
-                        .padding(0)
+                        SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
                     }
                     
                     

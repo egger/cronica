@@ -12,7 +12,7 @@ struct ExploreView: View {
     @State private var showConfirmation = false
     @State private var onChanging = false
     @State private var showFilters = false
-    @StateObject private var viewModel = DiscoverViewModel()
+    @StateObject private var viewModel = ExploreViewModel()
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         ZStack {

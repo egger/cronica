@@ -17,3 +17,11 @@ struct ItemContentResponse: Identifiable, Decodable, Hashable {
     let id: String?
     let results: [ItemContent]
 }
+struct ItemContentKeyword: Identifiable, Codable, Hashable {
+    let id: Int
+    let name: String
+}
+
+struct Keywords: Hashable, Codable {
+    let keywords: [ItemContentKeyword]
+}

@@ -16,47 +16,41 @@ struct EpisodeFrameView: View {
     let show: Int
     var itemLink: URL
     private let persistence = PersistenceController.shared
+    @EnvironmentObject var viewModel: SeasonViewModel
     @State private var isWatched = false
     @State private var showDetails = false
-    @Binding var isInWatchlist: Bool
-    @EnvironmentObject var viewModel: SeasonViewModel
-    init(episode: Episode, season: Int, show: Int, isInWatchlist: Binding<Bool>) {
+    init(episode: Episode, season: Int, show: Int) {
         self.episode = episode
         self.season = season
         self.show = show
-        self._isInWatchlist = isInWatchlist
         itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.episodeNumber ?? 1)")!
     }
     var body: some View {
+        component
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .combine)
+            .task {
+                withAnimation {
+                    isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+                }
+            }
+        
+    }
+    
+    
+    private var component: some View {
         VStack {
             image
                 .contextMenu {
                     WatchEpisodeButton(episode: episode,
                                        season: season,
                                        show: show,
-                                       isWatched: $isWatched,
-                                       inWatchlist: $isInWatchlist)
-                    if let number = episode.episodeNumber {
-                        if number != 1 && !isWatched {
-                            Button("Mark this and previous episodes as watched") {
-                                Task {
-                                    await viewModel.markThisAndPrevious(until: episode.id, show: show)
-                                }
-                            }
-                        }
-                    }
-                    if SettingsStore.shared.markEpisodeWatchedOnTap {
-                        Button("Show Details") {
-                            showDetails.toggle()
-                        }
-                    }
-#if os(tvOS)
-                    Button("Cancel") { }
-#else
+                                       isWatched: $isWatched)
+#if os(iOS) || os(macOS)
                     ShareLink(item: itemLink)
 #endif
                 }
-            #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
             HStack {
                 Text("Episode \(episode.episodeNumber ?? 0)")
                     .textCase(.uppercase)
@@ -80,37 +74,9 @@ struct EpisodeFrameView: View {
                     .accessibilityHidden(true)
                 Spacer()
             }
-            #endif
+#endif
             Spacer()
         }
-        .buttonStyle(.plain)
-        .accessibilityElement(children: .combine)
-        .task {
-            withAnimation {
-                isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
-            }
-        }
-        .sheet(isPresented: $showDetails) {
-#if os(iOS) || os(macOS)
-            NavigationStack {
-                EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist)
-                    .environmentObject(viewModel)
-                    .toolbar {
-                        ToolbarItem {
-                            Button("Done") { showDetails = false }
-                        }
-                    }
-            }
-            .appTheme()
-            .presentationDetents([.large])
-#if os(macOS)
-            .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
-#endif
-#endif
-        }
-        #if os(tvOS)
-        .frame(maxWidth: 360)
-        #endif
     }
     
     private var image: some View {
@@ -157,14 +123,31 @@ struct EpisodeFrameView: View {
                     .accessibilityHidden(true)
                 }
             }
+            .applyHoverEffect()
             .onTapGesture {
-                if SettingsStore.shared.markEpisodeWatchedOnTap {
-                    markAsWatched()
-                    return
-                }
                 showDetails.toggle()
             }
-            .applyHoverEffect()
+            .sheet(isPresented: $showDetails) {
+    #if os(iOS) || os(macOS)
+                NavigationStack {
+                    EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
+                        .environmentObject(viewModel)
+                        .toolbar {
+                            ToolbarItem {
+                                Button("Done") { showDetails = false }
+                            }
+                        }
+                }
+                .appTheme()
+                .presentationDetents([.large])
+    #if os(macOS)
+                .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+    #endif
+    #endif
+            }
+            #if os(tvOS)
+            .frame(maxWidth: 360)
+            #endif
     }
     
     private func markAsWatched() {
@@ -227,3 +210,6 @@ private struct DrawingConstants {
 #endif
     static let titleLineLimit: Int = 1
 }
+
+
+

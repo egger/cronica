@@ -49,9 +49,9 @@ class ItemContentViewModel: ObservableObject {
                     if isInWatchlist {
                         hasNotificationScheduled = isNotificationScheduled()
                         isWatched = persistence.isMarkedAsWatched(id: content.itemNotificationID)
-                        isFavorite = persistence.isMarkedAsFavorite(id: self.id, type: type)
-                        isArchive = persistence.isItemArchived(id: self.id, type: type)
-                        isPin = persistence.isItemPinned(id: self.id, type: type)
+                        isFavorite = persistence.isMarkedAsFavorite(id: content.itemNotificationID)
+                        isArchive = persistence.isItemArchived(id: content.itemNotificationID)
+                        isPin = persistence.isItemPinned(id: content.itemNotificationID)
                     }
                     isNotificationAvailable = content.itemCanNotify
                     if content.itemStatus == .released {
@@ -86,17 +86,13 @@ class ItemContentViewModel: ObservableObject {
     func updateWatchlist(with item: ItemContent) {
         if isInWatchlist {
             // Removes item from Watchlist
-            withAnimation {
-                isInWatchlist.toggle()
-            }
+            withAnimation { isInWatchlist.toggle() }
             do {
                 let watchlistItem = try persistence.fetch(for: item.itemNotificationID)
                 guard let watchlistItem else { return }
                 if watchlistItem.notify {
                     notification.removeNotification(identifier: item.itemNotificationID)
-                    withAnimation {
-                        hasNotificationScheduled.toggle()
-                    }
+                    withAnimation { hasNotificationScheduled.toggle() }
                 }
                 persistence.delete(watchlistItem)
             } catch {

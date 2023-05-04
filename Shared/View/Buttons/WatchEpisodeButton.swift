@@ -12,8 +12,8 @@ struct WatchEpisodeButton: View {
     let season: Int
     let show: Int
     @Binding var isWatched: Bool
-    @Binding var inWatchlist: Bool
     private let persistence = PersistenceController.shared
+    @State private var isItemSaved = false
     var body: some View {
         Button(action: update) {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
@@ -25,7 +25,8 @@ struct WatchEpisodeButton: View {
     }
     
     private func update() {
-        if !inWatchlist {
+        checkIfItemIsSaved()
+        if !isItemSaved {
             Task {
                 await fetch()
                 handleList()
@@ -33,6 +34,12 @@ struct WatchEpisodeButton: View {
         } else {
             handleList()
         }
+    }
+    
+    private func checkIfItemIsSaved() {
+        let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+        let isShowSaved = persistence.isItemSaved(id: contentId)
+        isItemSaved = isShowSaved
     }
     
     private func handleList() {
@@ -65,7 +72,7 @@ struct WatchEpisodeButton: View {
             }
             DispatchQueue.main.async {
                 withAnimation {
-                    inWatchlist = true
+                    isItemSaved = true
                 }
             }
         } catch {

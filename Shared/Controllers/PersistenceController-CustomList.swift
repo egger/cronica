@@ -8,6 +8,27 @@
 import Foundation
 
 extension PersistenceController {
+    func createList(title: String, description: String, items: Set<WatchlistItem>, idOnTMDb: Int? = nil) -> CustomList? {
+        do {
+            let viewContext = container.viewContext
+            let list = CustomList(context: viewContext)
+            list.id = UUID()
+            list.title = title
+            if let idOnTMDb {
+                list.isSyncEnabledTMDB = true
+                list.idOnTMDb = Int64(idOnTMDb)
+            }
+            list.creationDate = Date()
+            list.updatedDate = Date()
+            list.notes = description
+            list.items = items as NSSet
+            try save()
+            return list
+        } catch {
+            return nil
+        }
+    }
+    
     func delete(_ list: CustomList) {
         let viewContext = container.viewContext
         do {
@@ -48,17 +69,7 @@ extension PersistenceController {
         }
     }
     
-    func fetchLists(for id: Int, type: MediaType) -> [CustomList] {
-        do {
-            let contentID = "\(id)@\(type.toInt)"
-            let item = try fetch(for: contentID)
-            guard let item else { return [] }
-            return item.listsArray
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchLists")
-            return []
-        }
-    }
+    
     
     func updateListTitle(of list: CustomList, with title: String) {
         do {
@@ -97,24 +108,15 @@ extension PersistenceController {
         }
     }
     
-    func createList(title: String, description: String, items: Set<WatchlistItem>, idOnTMDb: Int? = nil) -> CustomList? {
+    func fetchLists(for id: Int, type: MediaType) -> [CustomList] {
         do {
-            let viewContext = container.viewContext
-            let list = CustomList(context: viewContext)
-            list.id = UUID()
-            list.title = title
-            if let idOnTMDb {
-                list.isSyncEnabledTMDB = true
-                list.idOnTMDb = Int64(idOnTMDb)
-            }
-            list.creationDate = Date()
-            list.updatedDate = Date()
-            list.notes = description
-            list.items = items as NSSet
-            try save()
-            return list
+            let contentID = "\(id)@\(type.toInt)"
+            let item = try fetch(for: contentID)
+            guard let item else { return [] }
+            return item.listsArray
         } catch {
-            return nil
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchLists")
+            return []
         }
     }
 }

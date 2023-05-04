@@ -17,24 +17,23 @@ class SeasonViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var isItemInWatchlist = false
     
-    func load(id: Int, season: Int, isInWatchlist: Bool) async {
-        if Task.isCancelled { return }
-        isItemInWatchlist = isInWatchlist
-        DispatchQueue.main.async {
-            withAnimation { self.isLoading = true }
-        }
+    func load(id: Int, season: Int) async {
         do {
+            if Task.isCancelled { return }
+            DispatchQueue.main.async {
+                withAnimation { self.isLoading = true }
+            }
             self.season = try await self.network.fetchSeason(id: id, season: season)
+            DispatchQueue.main.async {
+                withAnimation { self.isLoading = false }
+            }
         } catch {
             if Task.isCancelled { return }
             let message = "Season \(season), id: \(id), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load.failed")
-        }
-        if !hasFirstLoaded {
-            hasFirstLoaded.toggle()
-        }
-        DispatchQueue.main.async {
-            withAnimation { self.isLoading = false }
+            DispatchQueue.main.async {
+                withAnimation { self.isLoading = false }
+            }
         }
     }
     

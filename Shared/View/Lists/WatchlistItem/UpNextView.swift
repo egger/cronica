@@ -100,39 +100,39 @@ struct UpNextView: View {
                 }
             }
             .sheet(item: $selectedEpisode) { item in
-                NavigationStack {
-                    if let show = selectedEpisodeShowID {
-#if os(tvOS)
-                        TVEpisodeDetailsView(episode: item, id: show, season: item.itemSeasonNumber, inWatchlist: $isInWatchlist)
-#else
-                        EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist, isUpNext: true)
-                            .toolbar {
-                                Button("Done") { selectedEpisode = nil }
-                            }
-#if os(iOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-#endif
-                    } else {
-                        ProgressView()
-                    }
-                }
-                .presentationDetents([.medium, .large])
-#if os(iOS)
-                .appTheme()
-                .appTint()
-#endif
-                .task {
-                    let showId = self.episodeShowID["\(item.id)"]
-                    selectedEpisodeShowID = showId
-                }
-                .onDisappear {
-                    selectedEpisode = nil
-                    selectedEpisodeShowID = nil
-                }
-#if os(macOS)
-                .frame(width: 800, height: 500)
-#endif
+//                NavigationStack {
+//                    if let show = selectedEpisodeShowID {
+//#if os(tvOS)
+//                        TVEpisodeDetailsView(episode: item, id: show, season: item.itemSeasonNumber, inWatchlist: $isInWatchlist)
+//#else
+////                        EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isInWatchlist: $isInWatchlist, isUpNext: true)
+//                            .toolbar {
+//                                Button("Done") { selectedEpisode = nil }
+//                            }
+//#if os(iOS)
+//                            .navigationBarTitleDisplayMode(.inline)
+//#endif
+//#endif
+//                    } else {
+//                        ProgressView()
+//                    }
+//                }
+//                .presentationDetents([.medium, .large])
+//#if os(iOS)
+//                .appTheme()
+//                .appTint()
+//#endif
+//                .task {
+//                    let showId = self.episodeShowID["\(item.id)"]
+//                    selectedEpisodeShowID = showId
+//                }
+//                .onDisappear {
+//                    selectedEpisode = nil
+//                    selectedEpisodeShowID = nil
+//                }
+//#if os(macOS)
+//                .frame(width: 800, height: 500)
+//#endif
             }
             .task(id: isWatched) {
                 if isWatched {

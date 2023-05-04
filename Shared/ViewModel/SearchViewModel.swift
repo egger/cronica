@@ -48,7 +48,8 @@ import Combine
             endPagination = false
             let result = try await service.search(query: trimmedQuery, page: "1")
             page += 1
-            items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+            let filtered = await filter(for: result)
+            items.append(contentsOf: filtered.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
             if self.items.isEmpty {
                 stage = .empty
                 return
@@ -72,8 +73,9 @@ import Combine
             do {
                 let result = try await service.search(query: trimmedQuery, page: "\(page)")
                 if result.isEmpty { endPagination.toggle() }
+                let filtered = await filter(for: result)
                 withAnimation {
-                    self.items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+                    self.items.append(contentsOf: filtered.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
                 }
                 self.page += 1
             } catch {
@@ -84,6 +86,26 @@ import Combine
                 )
             }
         }
+    }
+    
+    private func filter(for items: [ItemContent]) async -> [ItemContent] {
+        var result = [ItemContent]()
+        for item in items {
+            let contentKeywords = try? await service.fetchKeywords(type: item.itemContentMedia, id: item.id)
+            if let contentKeywords {
+                var keywordsArray = [Int]()
+                let _: [()] = contentKeywords.map { item in
+                    keywordsArray.append(item.id)
+                }
+                let containsNSFW = !Set(keywordsArray).isDisjoint(with: nsfwKeywords)
+                if !containsNSFW {
+                    result.append(item)
+                }
+            } else {
+                result.append(item)
+            }
+        }
+        return result
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  DiscoverViewModel.swift
+//  ExploreView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 20/06/22.
@@ -10,7 +10,7 @@ import SwiftUI
 import CoreData
 
 @MainActor
-class DiscoverViewModel: ObservableObject {
+class ExploreViewModel: ObservableObject {
     private let service: NetworkService = NetworkService.shared
     @Published var items = [ItemContent]()
     @AppStorage("exploreViewSelectedGenre") var selectedGenre: Int = 28

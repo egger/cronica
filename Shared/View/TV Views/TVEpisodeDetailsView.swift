@@ -67,11 +67,11 @@ struct TVEpisodeDetailsView: View {
                 .padding(.horizontal)
                 HStack(alignment: .bottom) {
                     VStack {
-                        WatchEpisodeButton(episode: episode,
-                                           season: season,
-                                           show: id,
-                                           isWatched: $isWatched,
-                                           inWatchlist: $inWatchlist)
+//                        WatchEpisodeButton(episode: episode,
+//                                           season: season,
+//                                           show: id,
+//                                           isWatched: $isWatched,
+//                                           inWatchlist: $inWatchlist)
                     }
                     .padding()
                     Spacer()

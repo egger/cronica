@@ -222,10 +222,9 @@ extension PersistenceController {
     }
     
     /// Returns a boolean indicating the status of 'favorite' on a given item.
-    func isMarkedAsFavorite(id: ItemContent.ID, type: MediaType) -> Bool {
+    func isMarkedAsFavorite(id: String) -> Bool {
         do {
-            let contentId = "\(id)@\(type.toInt)"
-            let item = try fetch(for: contentId)
+            let item = try fetch(for: id)
             guard let item else { return false }
             return item.favorite
         } catch {
@@ -233,10 +232,9 @@ extension PersistenceController {
         }
     }
     
-    func isItemPinned(id: ItemContent.ID, type: MediaType) -> Bool {
+    func isItemPinned(id: String) -> Bool {
         do {
-            let contentId = "\(id)@\(type.toInt)"
-            let item = try fetch(for: contentId)
+            let item = try fetch(for: id)
             guard let item else { return false }
             return item.isPin
         } catch {
@@ -244,10 +242,9 @@ extension PersistenceController {
         }
     }
     
-    func isItemArchived(id: ItemContent.ID, type: MediaType) -> Bool {
+    func isItemArchived(id: String) -> Bool {
         do {
-            let contentId = "\(id)@\(type.toInt)"
-            let item = try fetch(for: contentId)
+            let item = try fetch(for: id)
             guard let item else { return false }
             return item.isArchive
         } catch {
@@ -264,9 +261,15 @@ extension PersistenceController {
             }
             item.watchedEpisodes?.append(watched)
             item.isWatching = true
+            if let lastWatched = episodes.last {
+                item.lastSelectedSeason = Int64(lastWatched.itemSeasonNumber)
+                item.lastWatchedEpisode = Int64(lastWatched.id)
+            }
             try save()
         } catch {
-            
+            if Task.isCancelled { return }
+            let message = "\(error.localizedDescription), item id: \(show)"
+            CronicaTelemetry.shared.handleMessage(message, for: "updateEpisodeList")
         }
     }
       

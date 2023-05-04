@@ -45,6 +45,7 @@ struct HomeView: View {
                                         title: "recommendationsTitle",
                                         subtitle: "recommendationsSubtitle",
                                         addedItemConfirmation: $showConfirmation)
+                    .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                     AttributionView()
                 }
                 .refreshable {

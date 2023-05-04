@@ -13,7 +13,7 @@ struct EpisodeDetailsView: View {
     let show: Int
     private let persistence = PersistenceController.shared
     @Binding var isWatched: Bool
-    @Binding var isInWatchlist: Bool
+    @State private var isInWatchlist = false
     var isUpNext = false
     @State private var showItem: ItemContent?
 #if os(iOS)
@@ -35,6 +35,7 @@ struct EpisodeDetailsView: View {
                            height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
+                
 #endif
                 
                 if let info = episode.itemInfo {
@@ -49,8 +50,7 @@ struct EpisodeDetailsView: View {
                 WatchEpisodeButton(episode: episode,
                                    season: season,
                                    show: show,
-                                   isWatched: $isWatched,
-                                   inWatchlist: $isInWatchlist)
+                                   isWatched: $isWatched)
                 .tint(isWatched ? .red : .blue)
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
@@ -71,7 +71,7 @@ struct EpisodeDetailsView: View {
                     .controlSize(.large)
                     .padding([.horizontal, .top])
 #if os(iOS)
-                .buttonBorderShape(.capsule)
+                    .buttonBorderShape(.capsule)
 #endif
                 }
                 
@@ -85,6 +85,9 @@ struct EpisodeDetailsView: View {
                 AttributionView()
             }
             .navigationTitle(episode.itemTitle)
+#if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+#endif
             .task { load() }
             .onAppear {
                 if isUpNext {
@@ -92,34 +95,6 @@ struct EpisodeDetailsView: View {
                         showItem = try? await NetworkService.shared.fetchItem(id: show, type: .tvShow)
                     }
                 }
-            }
-            .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-#else
-                ItemContentDetails(title: item.itemTitle,
-                                   id: item.id,
-                                   type: item.itemContentMedia)
-#endif
-            }
-            .navigationDestination(for: Person.self) { person in
-                PersonDetailsView(title: person.name, id: person.id)
-            }
-            .navigationDestination(for: [Person].self) { item in
-                DetailedPeopleList(items: item)
-            }
-            .navigationDestination(for: ProductionCompany.self) { item in
-                CompanyDetails(company: item)
-            }
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarLeading) {
-                    ShareLink(item: URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!)
-                }
-#else
-                ToolbarItem(placement: .automatic) {
-                    ShareLink(item: URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!)
-                }
-#endif
             }
         }
         .background {
@@ -129,6 +104,12 @@ struct EpisodeDetailsView: View {
     
     private func load() {
         isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+    }
+    
+    private func checkIfItemIsSaved() {
+        let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+        let isShowSaved = persistence.isItemSaved(id: contentId)
+        isInWatchlist = isShowSaved
     }
 }
 

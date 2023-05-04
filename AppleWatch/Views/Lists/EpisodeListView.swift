@@ -55,7 +55,7 @@ struct EpisodeListView: View {
     
     private func load() {
         Task {
-            await self.viewModel.load(id: self.id, season: self.seasonNumber, isInWatchlist: inWatchlist)
+            await self.viewModel.load(id: self.id, season: self.seasonNumber)
             self.isLoading = false
         }
     }
