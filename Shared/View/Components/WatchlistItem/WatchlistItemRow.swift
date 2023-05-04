@@ -56,7 +56,7 @@ struct WatchlistItemRow: View {
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    WatchlistItemNoteView(item: content, showView: $showNote)
+                    WatchlistItemNoteView(id: content.notificationID, showView: $showNote)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)

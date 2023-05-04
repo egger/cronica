@@ -191,7 +191,6 @@ private struct ItemContentItemView: View {
                                     isWatched: $isWatched,
                                     showConfirmation: $showConfirmation,
                                     isInWatchlist: $isInWatchlist,
-                                    canReview: $canReview,
                                     showNote: $showNote)
             .task {
                 isWatched = persistence.isMarkedAsWatched(id: item.itemNotificationID)
@@ -199,11 +198,7 @@ private struct ItemContentItemView: View {
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    if let content = try? persistence.fetch(for: item.itemNotificationID) {
-                        WatchlistItemNoteView(item: content, showView: $showNote)
-                    } else {
-                        ProgressView()
-                    }
+                    WatchlistItemNoteView(id: item.itemNotificationID, showView: $showNote)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)

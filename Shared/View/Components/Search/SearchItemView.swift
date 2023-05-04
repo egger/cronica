@@ -47,7 +47,6 @@ struct SearchItemView: View {
                                             isWatched: $isWatched,
                                             showConfirmation: $showConfirmation,
                                             isInWatchlist: $isInWatchlist,
-                                            canReview: $canReview,
                                             showNote: $showNote)
                     .modifier(
                         SearchItemSwipeGesture(item: item,
@@ -70,7 +69,6 @@ struct SearchItemView: View {
                                                 isWatched: $isWatched,
                                                 showConfirmation: $showConfirmation,
                                                 isInWatchlist: $isInWatchlist,
-                                                canReview: $canReview,
                                                 showNote: $showNote)
                         .modifier(
                             SearchItemSwipeGesture(item: item,

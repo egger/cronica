@@ -41,10 +41,9 @@ extension PersistenceController {
         }
     }
     
-    func updateList(for id: WatchlistItem.ID, type: MediaType, to list: CustomList) {
+    func updateList(for id: String, to list: CustomList) {
         do {
-            let contentID = "\(id)@\(type.toInt)"
-            let item = try fetch(for: contentID)
+            let item = try fetch(for: id)
             guard let item else { return }
             if item.itemLists.contains(list) {
                 var original = item.itemLists
@@ -108,10 +107,9 @@ extension PersistenceController {
         }
     }
     
-    func fetchLists(for id: Int, type: MediaType) -> [CustomList] {
+    func fetchLists(for id: String) -> [CustomList] {
         do {
-            let contentID = "\(id)@\(type.toInt)"
-            let item = try fetch(for: contentID)
+            let item = try fetch(for: id)
             guard let item else { return [] }
             return item.listsArray
         } catch {

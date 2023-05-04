@@ -122,7 +122,7 @@ struct ItemContentDetails: View {
             .sheet(isPresented: $showUserNotes) {
                 NavigationStack {
                     if let item = viewModel.watchlistItem {
-                        WatchlistItemNoteView(item: item, showView: $showUserNotes)
+                        WatchlistItemNoteView(id: item.notificationID, showView: $showUserNotes)
                     }
                 }
                 .presentationDetents([.medium, .large])

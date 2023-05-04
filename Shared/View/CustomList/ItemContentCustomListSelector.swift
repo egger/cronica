@@ -100,7 +100,7 @@ private struct AddToListRow: View {
         }
         .onTapGesture {
             guard let item else { return }
-            PersistenceController.shared.updateList(for: item.id, type: item.itemMedia, to: list)
+            PersistenceController.shared.updateList(for: item.notificationID, to: list)
             HapticManager.shared.successHaptic()
             withAnimation { isItemAdded.toggle() }
             showView.toggle()

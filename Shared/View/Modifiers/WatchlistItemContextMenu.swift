@@ -88,7 +88,7 @@ struct WatchlistItemContextMenu: ViewModifier {
             Menu {
                 ForEach(lists) { list in
                     Button {
-                        context.updateList(for: item.id, type: item.itemMedia, to: list)
+                        context.updateList(for: item.notificationID, to: list)
                     } label: {
                         if item.itemLists.contains(list) {
                             HStack {
@@ -355,18 +355,3 @@ struct WatchlistItemContextMenu: ViewModifier {
     }
 }
 
-struct PinButton: View {
-    @Binding var item: WatchlistItem
-    @Binding var isPin: Bool
-    var body: some View {
-        Button {
-            PersistenceController.shared.updatePin(for: item)
-            isPin.toggle()
-            HapticManager.shared.successHaptic()
-        } label: {
-            Label(isPin ? "Unpin Item" : "Pin Item",
-                  systemImage: isPin ? "pin.slash.fill" : "pin.fill")
-        }
-    }
-}
- 

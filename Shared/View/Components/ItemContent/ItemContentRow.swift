@@ -70,7 +70,6 @@ struct ItemContentRow: View {
                                 isWatched: $isWatched,
                                 showConfirmation: $showConfirmation,
                                 isInWatchlist: $isItemAdded,
-                                canReview: $canReview,
                                 showNote: $showNote)
     }
 }

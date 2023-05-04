@@ -86,7 +86,6 @@ struct Poster: View {
                                     isWatched: $isWatched,
                                     showConfirmation: $addedItemConfirmation,
                                     isInWatchlist: $isInWatchlist,
-                                    canReview: $canReview,
                                     showNote: $showNote)
             .task {
                 withAnimation {
@@ -102,11 +101,7 @@ struct Poster: View {
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    if let content = try? context.fetch(for: item.itemNotificationID) {
-                        WatchlistItemNoteView(item: content, showView: $showNote)
-                    } else {
-                        ProgressView()
-                    }
+                    WatchlistItemNoteView(id: item.itemNotificationID, showView: $showNote)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)

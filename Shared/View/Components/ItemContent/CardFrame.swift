@@ -81,14 +81,11 @@ struct CardFrame: View {
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.imageShadow)
                     .applyHoverEffect()
-                    .modifier(
-                        ItemContentContextMenu(item: item,
-                                               showConfirmation: $showConfirmation,
-                                               isInWatchlist: $isInWatchlist,
-                                               isWatched: $isWatched,
-                                               canReview: $canReview,
-                                               showNote: $showNote)
-                    )
+                    .itemContentContextMenu(item: item,
+                                            isWatched: $isWatched,
+                                            showConfirmation: $showConfirmation,
+                                            isInWatchlist: $isInWatchlist,
+                                            showNote: $showNote)
 #if os(iOS) || os(macOS)
                     .draggable(item)
 #endif
@@ -117,11 +114,7 @@ struct CardFrame: View {
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    if let content = try? context.fetch(for: item.itemNotificationID) {
-                        WatchlistItemNoteView(item: content, showView: $showNote)
-                    } else {
-                        ProgressView()
-                    }
+                    WatchlistItemNoteView(id: item.itemNotificationID, showView: $showNote)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)
