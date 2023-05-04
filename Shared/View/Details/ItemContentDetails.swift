@@ -19,9 +19,9 @@ struct ItemContentDetails: View {
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
-    @State private var showMarkAsConfirmation = false
-    @State private var markAsMessage = ""
-    @State private var markAsImage = ""
+    @State private var showNotificationUI = false
+    @State private var notificationMessage = ""
+    @State private var notificationImage = ""
     @State private var showCustomList = false
     @State private var showUserNotes = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -128,10 +128,8 @@ struct ItemContentDetails: View {
                 .presentationDetents([.medium, .large])
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
-            ConfirmationDialogView(showConfirmation: $showSeasonConfirmation,
-                                   message: "Season Marked as Watched")
-            ConfirmationDialogView(showConfirmation: $showMarkAsConfirmation,
-                                   message: markAsMessage, image: markAsImage)
+            ConfirmationDialogView(showConfirmation: $showNotificationUI,
+                                   message: notificationMessage, image: notificationImage)
         }
     }
     
@@ -148,28 +146,8 @@ struct ItemContentDetails: View {
     
     private var watchButton: some View {
         Button {
-            if UIDevice.isIPad {
-                if viewModel.isFavorite {
-                    markAsMessage = "removedFromWatched"
-                    markAsImage = "minus.circle"
-                } else {
-                    markAsMessage = "markedAsWatched"
-                    markAsImage = "checkmark.circle"
-                }
-            }
-            
-            //viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
-            
-            if UIDevice.isIPad {
-                showMarkAsConfirmation.toggle()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-                    withAnimation {
-                        showMarkAsConfirmation = false
-                        markAsMessage = ""
-                        markAsImage = ""
-                    }
-                }
-            }
+            animate(for: .watched)
+            viewModel.update(.watched)
         } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
@@ -179,28 +157,8 @@ struct ItemContentDetails: View {
     
     private var favoriteButton: some View {
         Button {
-            if UIDevice.isIPad {
-                if viewModel.isFavorite {
-                    markAsMessage = "removedFromFavorites"
-                    markAsImage = "heart.circle.fill"
-                } else {
-                    markAsMessage = "markedAsFavorite"
-                    markAsImage = "heart.circle"
-                }
-            }
-            
-            //viewModel.updateMarkAs(markAsFavorite: !viewModel.isFavorite)
-            
-            if UIDevice.isIPad {
-                showMarkAsConfirmation.toggle()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-                    withAnimation {
-                        showMarkAsConfirmation = false
-                        markAsMessage = ""
-                        markAsImage = ""
-                    }
-                }
-            }
+            animate(for: .favorite)
+            viewModel.update(.favorite)
         } label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
@@ -210,7 +168,8 @@ struct ItemContentDetails: View {
     
     private var archiveButton: some View {
         Button {
-            //viewModel.updateMarkAs(archive: true)
+            animate(for: .archive)
+            viewModel.update(.archive)
         } label: {
             Label(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox")
@@ -219,7 +178,8 @@ struct ItemContentDetails: View {
     
     private var pinButton: some View {
         Button {
-            //viewModel.updateMarkAs(pin: true)
+            animate(for: .pin)
+            viewModel.update(.pin)
         } label: {
             Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
                   systemImage: viewModel.isPin ? "pin.slash.fill" : "pin.fill")
@@ -264,6 +224,31 @@ struct ItemContentDetails: View {
             showUserNotes.toggle()
         } label: {
             Label("reviewTitle", systemImage: "note.text")
+        }
+    }
+    
+    private func animate(for action: UpdateItemProperties) {
+        switch action {
+        case .watched:
+            notificationMessage = viewModel.isWatched ? "removedFromWatched" : "markedAsWatched"
+            notificationImage = viewModel.isWatched ? "minus.circle" : "checkmark.circle.fill"
+        case .favorite:
+            notificationMessage = viewModel.isFavorite ? "removedFromFavorites" : "markedAsFavorite"
+            notificationImage = viewModel.isFavorite ? "heart.slash.fill" : "heart.circle.fill"
+        case .pin:
+            notificationMessage = viewModel.isPin ? "removedFromPin" : "markedAsPin"
+            notificationImage = viewModel.isPin ? "pin.slash.fill" : "pin.fill"
+        case .archive:
+            notificationMessage = viewModel.isArchive ? "removedFromArchive" : "markedAsArchive"
+            notificationImage = viewModel.isArchive ? "archivebox.fill" : "archivebox"
+        }
+        withAnimation { showNotificationUI.toggle() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+            withAnimation {
+                showNotificationUI = false
+                notificationMessage = ""
+                notificationImage = ""
+            }
         }
     }
 }

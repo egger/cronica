@@ -299,6 +299,11 @@
 		B8E6EF652A044BA6000A3617 /* WatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF642A044BA6000A3617 /* WatchlistButton.swift */; };
 		B8E6EF672A044E5A000A3617 /* ContextMenuPreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF662A044E5A000A3617 /* ContextMenuPreviewImage.swift */; };
 		B8E6EF692A044F82000A3617 /* CustomListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF682A044F82000A3617 /* CustomListButton.swift */; };
+		B8E6EF6C2A04556F000A3617 /* ArchiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF5C2A04479C000A3617 /* ArchiveButton.swift */; };
+		B8E6EF6E2A045574000A3617 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF602A0449FB000A3617 /* FavoriteButton.swift */; };
+		B8E6EF6F2A045577000A3617 /* PinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF5E2A044919000A3617 /* PinButton.swift */; };
+		B8E6EF702A04557A000A3617 /* WatchedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF622A044AE5000A3617 /* WatchedButton.swift */; };
+		B8E6EF712A04557C000A3617 /* WatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E6EF642A044BA6000A3617 /* WatchlistButton.swift */; };
 		B8EC45E427D5A010009389FC /* ItemContent-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC45E327D5A010009389FC /* ItemContent-Extensions.swift */; };
 		B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* NotificationManager.swift */; };
 		B8EC6ABC28AC67CD0054DC76 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
@@ -759,7 +764,6 @@
 		B8110ED7279245D000844FEB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				B8E6EF582A0350C8000A3617 /* Buttons */,
 				B892EB0F296755A2002E028E /* ProductList.plist */,
 				B892EB0929675265002E028E /* Cronica.storekit */,
 				B8110EDA279245D100844FEB /* Assets.xcassets */,
@@ -1301,6 +1305,7 @@
 		B8EC463E27D84C62009389FC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B8E6EF582A0350C8000A3617 /* Buttons */,
 				B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */,
 				B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */,
 				B804E392284EC4A500F59855 /* CoverImageView.swift */,
@@ -1617,12 +1622,14 @@
 				B801070B29F255AE008A4551 /* SearchView.swift in Sources */,
 				B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */,
 				B8F6DE672937F8AE005D1A50 /* WatchEpisodeButton.swift in Sources */,
+				B8E6EF6E2A045574000A3617 /* FavoriteButton.swift in Sources */,
 				B801070D29F255F3008A4551 /* DefaultListView.swift in Sources */,
 				B8B981E629F42B090001CF0B /* KeychainHelper.swift in Sources */,
 				B84457C8297341B4009CB21F /* WatchProviders.swift in Sources */,
 				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
 				B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B8C0215829E0D2B0006E9D82 /* SettingsStore.swift in Sources */,
+				B8E6EF702A04557A000A3617 /* WatchedButton.swift in Sources */,
 				B84043BA289B18B200D5CEBF /* UTType-Extensions.swift in Sources */,
 				B8B981EF29F433340001CF0B /* CustomListView.swift in Sources */,
 				B81DD92E29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
@@ -1638,6 +1645,7 @@
 				B82B75A428A84DBA00C3212A /* WatchlistView.swift in Sources */,
 				B83C630728E642FB00927AE7 /* AboutSectionView.swift in Sources */,
 				B84043BD289B18C500D5CEBF /* Person.swift in Sources */,
+				B8E6EF6C2A04556F000A3617 /* ArchiveButton.swift in Sources */,
 				B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */,
 				B81DD93C29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B82B75A728A84E9500C3212A /* WatchlistButtonView.swift in Sources */,
@@ -1648,6 +1656,7 @@
 				B89446C3294FDAE4008974BA /* WatchlistItemType.swift in Sources */,
 				B84457C52970D59E009CB21F /* HapticManager.swift in Sources */,
 				B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */,
+				B8E6EF712A04557C000A3617 /* WatchlistButton.swift in Sources */,
 				B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B801071329F2566B008A4551 /* WatchlistSelectorView.swift in Sources */,
 				B8105254298DBAF500723E94 /* Locale-Extensions.swift in Sources */,
@@ -1677,6 +1686,7 @@
 				B84043E5289B3F4000D5CEBF /* PersonDetailsViewModel.swift in Sources */,
 				B84043E4289B3F3800D5CEBF /* PersonView.swift in Sources */,
 				B84043B5289B188B00D5CEBF /* ItemContent-Extensions.swift in Sources */,
+				B8E6EF6F2A045577000A3617 /* PinButton.swift in Sources */,
 				B84043C2289B18DA00D5CEBF /* NetworkService.swift in Sources */,
 				B818483829C286C300650763 /* UserDefaults-Extensions.swift in Sources */,
 				B81DD93629BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,

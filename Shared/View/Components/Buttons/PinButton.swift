@@ -13,8 +13,7 @@ struct PinButton: View {
     private let persistence = PersistenceController.shared
     var body: some View {
         Button(action: updatePin) {
-            Label(isPin ? "Unpin Item" : "Pin Item",
-                  systemImage: isPin ? "pin.slash" : "pin")
+            Label(isPin ? "Unpin Item" : "Pin Item", systemImage: isPin ? "pin.slash" : "pin")
         }
     }
     
@@ -25,14 +24,14 @@ struct PinButton: View {
             withAnimation { isPin.toggle() }
             HapticManager.shared.successHaptic()
         } catch {
-            print(error.localizedDescription)
+            let message = "Can't update pin for: \(id), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PinButton.updatePin.failed")
         }
     }
 }
 
 struct PinButton_Previews: PreviewProvider {
     static var previews: some View {
-        PinButton(id: ItemContent.previewContent.itemNotificationID,
-                  isPin: .constant(false))
+        PinButton(id: ItemContent.previewContent.itemNotificationID, isPin: .constant(false))
     }
 }
