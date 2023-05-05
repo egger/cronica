@@ -10,14 +10,13 @@ import SwiftUI
 struct CustomListButton: View {
     let id: String
     @Environment(\.managedObjectContext) var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
-        animation: .default) private var lists: FetchedResults<CustomList>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+                  animation: .default) private var lists: FetchedResults<CustomList>
     @State private var addedLists = [CustomList]()
     private let context = PersistenceController.shared
     var body: some View {
         if !lists.isEmpty {
-            #if os(iOS) || os(macOS) || os(watchOS)
+#if os(iOS) || os(macOS) || os(watchOS)
             Menu {
                 ForEach(lists) { list in
                     Button {
@@ -48,7 +47,7 @@ struct CustomListButton: View {
                     addedLists = context.fetchLists(for: id)
                 }
             }
-            #endif
+#endif
         } else {
             EmptyView()
         }
@@ -57,6 +56,6 @@ struct CustomListButton: View {
 
 struct CustomListButton_Previews: PreviewProvider {
     static var previews: some View {
-        CustomListButton(id: ItemContent.previewContent.itemNotificationID)
+        CustomListButton(id: ItemContent.example.itemNotificationID)
     }
 }

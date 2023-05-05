@@ -16,7 +16,7 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for item in ItemContent.previewContents {
+        for item in ItemContent.examples {
             let newItem = WatchlistItem(context: viewContext)
             newItem.title = item.itemTitle
             newItem.id = Int64(item.id)

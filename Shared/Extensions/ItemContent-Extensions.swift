@@ -299,11 +299,11 @@ extension ItemContent {
     }
     
     // MARK: Preview
-    static var previewContents: [ItemContent] {
+    static var examples: [ItemContent] {
         let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
     }
-    static var previewContent: ItemContent {
-        previewContents[0]
+    static var example: ItemContent {
+        examples[0]
     }
 }

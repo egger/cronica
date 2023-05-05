@@ -104,7 +104,7 @@ private struct DrawingConstants {
 }
 
 struct WatchProvidersList_Previews: PreviewProvider {
-    private static let example = ItemContent.previewContent
+    private static let example = ItemContent.example
     static var previews: some View {
         WatchProvidersList(id: example.id, type: example.itemContentMedia)
     }

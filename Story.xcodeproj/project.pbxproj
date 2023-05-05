@@ -262,7 +262,7 @@
 		B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */; };
 		B8CC953327D05D1000B6757C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC953227D05D1000B6757C /* HomeViewModel.swift */; };
 		B8CC954A27D1310B00B6757C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
-		B8CCA8B529C7F952008D2FFF /* UpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CCA8B429C7F952008D2FFF /* UpNextView.swift */; };
+		B8CCA8B529C7F952008D2FFF /* UpNextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CCA8B429C7F952008D2FFF /* UpNextListView.swift */; };
 		B8D7AEA828B95F5E0053CE5A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD442F284AD42300778275 /* WidgetKit.framework */; };
 		B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD4431284AD42300778275 /* SwiftUI.framework */; };
 		B8D7AEAC28B95F5E0053CE5A /* CronicaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */; };
@@ -578,7 +578,7 @@
 		B8CC953527D05E4A00B6757C /* Cronica--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Cronica--Info.plist"; sourceTree = "<group>"; };
 		B8CC954C27D1310B00B6757C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B8CC954F27D132F700B6757C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		B8CCA8B429C7F952008D2FFF /* UpNextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextView.swift; sourceTree = "<group>"; };
+		B8CCA8B429C7F952008D2FFF /* UpNextListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextListView.swift; sourceTree = "<group>"; };
 		B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CronicaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaWidget.swift; sourceTree = "<group>"; };
 		B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -732,7 +732,7 @@
 				B89ECD052985F11100F0B197 /* TitleWatchlistDetails.swift */,
 				B85344C028FA07B60013E9C7 /* UpcomingListView.swift */,
 				B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */,
-				B8CCA8B429C7F952008D2FFF /* UpNextView.swift */,
+				B8CCA8B429C7F952008D2FFF /* UpNextListView.swift */,
 				B824E4392A05416E00E385CE /* UpNextItem.swift */,
 			);
 			path = WatchlistItem;
@@ -1849,7 +1849,7 @@
 				B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */,
 				B81DD93A29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B8B981EB29F42B9B0001CF0B /* TMDBListDetails.swift in Sources */,
-				B8CCA8B529C7F952008D2FFF /* UpNextView.swift in Sources */,
+				B8CCA8B529C7F952008D2FFF /* UpNextListView.swift in Sources */,
 				B82BE4DE299BF734005F9990 /* DefaultWatchlist.swift in Sources */,
 				B8370A972A02DF2B00643261 /* NewListItemSelectorRow.swift in Sources */,
 				B8320BC2286115AC00BCDCC2 /* EpisodeDetailsView.swift in Sources */,

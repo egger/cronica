@@ -100,7 +100,7 @@ struct ReviewView: View {
 struct WatchlistItemNoteView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ReviewView(id: ItemContent.previewContent.itemNotificationID, showView: .constant(true))
+            ReviewView(id: ItemContent.example.itemNotificationID, showView: .constant(true))
         }
     }
 }

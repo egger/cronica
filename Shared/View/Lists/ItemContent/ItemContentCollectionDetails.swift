@@ -56,7 +56,7 @@ struct ItemContentCollectionDetails: View {
 struct ItemContentCollectionDetails_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentCollectionDetails(title: "Preview Items",
-                                     items: ItemContent.previewContents)
+                                     items: ItemContent.examples)
     }
 }
 

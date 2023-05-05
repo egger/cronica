@@ -19,20 +19,16 @@ struct FavoriteButton: View {
     }
     
     private func updateFavorite() {
-        do {
-            guard let item = try persistence.fetch(for: id) else { return }
-            persistence.updateFavorite(for: item)
-            withAnimation { isFavorite.toggle() }
-            HapticManager.shared.successHaptic()
-        } catch {
-            print(error.localizedDescription)
-        }
+        guard let item = try? persistence.fetch(for: id) else { return }
+        persistence.updateFavorite(for: item)
+        withAnimation { isFavorite.toggle() }
+        HapticManager.shared.successHaptic()
     }
 }
 
 struct FavoriteButton_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteButton(id: ItemContent.previewContent.itemNotificationID,
+        FavoriteButton(id: ItemContent.example.itemNotificationID,
                        isFavorite: .constant(true))
     }
 }

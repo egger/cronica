@@ -91,17 +91,14 @@ struct TabBarView: View {
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .tag(WatchlistView.tag)
-            .tabItem {
-                Label("Watchlist", systemImage: "square.stack.fill")
-            }
+            .tabItem { Label("Watchlist", systemImage: "square.stack.fill") }
             
-            NavigationStack {
-                SearchView()
-            }
+            NavigationStack { SearchView() }
             .tag(SearchView.tag)
             .tabItem { Label("Search", systemImage: "magnifyingglass") }
             
             SettingsView(showSettings: .constant(true))
+                .tag(SettingsView.tag)
                 .tabItem { Label("Settings", systemImage: "gearshape") }
         }
         .appTheme()

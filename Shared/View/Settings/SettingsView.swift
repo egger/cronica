@@ -14,6 +14,7 @@ struct SettingsView: View {
     @Environment(\.requestReview) var requestReview
     @State private var animateEasterEgg = false
     @StateObject private var settings = SettingsStore.shared
+    static let tag: Screens? = .settings
 #endif
     var body: some View {
 #if os(iOS)
@@ -54,23 +55,23 @@ struct SettingsView: View {
             Form {
                 // Developer section
                 if settings.displayDeveloperSettings {
-                    NavigationLink(destination: DeveloperView()) {
+                    NavigationLink(value: SettingsScreens.developer) {
                         SettingsLabelWithIcon(title: "Developer Options", icon: "hammer", color: .purple)
                     }
                 }
                 
                 // General section
                 Section {
-                    NavigationLink(destination: BehaviorSetting()) {
+                    NavigationLink(value: SettingsScreens.behavior) {
                         SettingsLabelWithIcon(title: "settingsBehaviorTitle", icon: "hand.tap", color: .gray)
                     }
-                    NavigationLink(destination: AppearanceSetting()) {
+                    NavigationLink(value: SettingsScreens.appearance) {
                         SettingsLabelWithIcon(title: "settingsAppearanceTitle", icon: "paintbrush", color: .blue)
                     }
-                    NavigationLink(destination: SyncSetting()) {
+                    NavigationLink(value: SettingsScreens.sync) {
                         SettingsLabelWithIcon(title: "settingsSyncTitle", icon: "arrow.triangle.2.circlepath", color: .green)
                     }
-                    NavigationLink(destination: NotificationsSettingsView()) {
+                    NavigationLink(value: SettingsScreens.notifications) {
                         SettingsLabelWithIcon(title: "settingsNotificationTitle", icon: "bell", color: .red)
                     }
                 }
@@ -130,6 +131,21 @@ struct SettingsView: View {
                 if UIDevice.isIPad { Button("Done") { showSettings = false } }
             }
             .navigationTitle("Settings")
+            .navigationDestination(for: SettingsScreens.self) { settings in
+                switch settings {
+                case .acknowledgements: AcknowledgementsSettings()
+                case .appearance: AppearanceSetting()
+                case .behavior: BehaviorSetting()
+                case .developer: DeveloperView()
+                case .feedback: FeedbackSettingsView()
+                case .notifications: NotificationsSettingsView()
+                case .privacy: PrivacySupportSetting()
+                case .roadmap: FeatureRoadmap()
+                case .sync: SyncSetting()
+                case .tipJar: TipJarSetting()
+                default: BehaviorSetting()
+                }
+            }
         }
         .appTheme()
         .appTint()

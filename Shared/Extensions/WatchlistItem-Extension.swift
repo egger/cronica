@@ -163,9 +163,9 @@ extension WatchlistItem: Transferable {
         let controller = PersistenceController(inMemory: true)
         let viewContext = controller.container.viewContext
         let item = WatchlistItem(context: viewContext)
-        item.title = ItemContent.previewContent.itemTitle
-        item.id = Int64(ItemContent.previewContent.id)
-        item.image = ItemContent.previewContent.cardImageMedium
+        item.title = ItemContent.example.itemTitle
+        item.id = Int64(ItemContent.example.id)
+        item.image = ItemContent.example.cardImageMedium
         item.contentType = 0
         item.notify = false
         return item

@@ -19,90 +19,101 @@ final class CronicaTests: XCTestCase {
     }
     
     func testAddItemsToWatchlist() {
-        for item in ItemContent.previewContents {
+        for item in ItemContent.examples {
             persistence.save(item)
         }
-        for item in ItemContent.previewContents {
-            XCTAssertTrue(persistence.isItemSaved(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            XCTAssertTrue(persistence.isItemSaved(id: item.itemNotificationID))
         }
     }
     
     func testMarkAsWatched() {
-        for item in ItemContent.previewContents {
-            persistence.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: true, favorite: nil)
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updateWatched(for: item)
         }
-        for item in ItemContent.previewContents {
-            XCTAssertTrue(persistence.isMarkedAsWatched(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            XCTAssertTrue(persistence.isMarkedAsWatched(id: item.itemNotificationID))
         }
     }
     
     func testRemoveFromWatched() {
-        for item in ItemContent.previewContents {
-            persistence.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: false, favorite: nil)
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updateWatched(for: item)
         }
-        for item in ItemContent.previewContents {
-            XCTAssertFalse(persistence.isMarkedAsWatched(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            XCTAssertFalse(persistence.isMarkedAsWatched(id: item.itemNotificationID))
         }
     }
     
     func testMarkAsFavorite() {
-        for item in ItemContent.previewContents {
-            persistence.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: nil, favorite: true)
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updateFavorite(for: item)
         }
-        for item in ItemContent.previewContents {
-            XCTAssertTrue(persistence.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            XCTAssertTrue(persistence.isMarkedAsFavorite(id: item.itemNotificationID))
         }
     }
     
     func testRemoveFromFavorite() {
-        for item in ItemContent.previewContents {
-            persistence.updateMarkAs(id: item.id, type: item.itemContentMedia, watched: nil, favorite: false)
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updateFavorite(for: item)
         }
-        for item in ItemContent.previewContents {
-            XCTAssertFalse(persistence.isMarkedAsFavorite(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            XCTAssertFalse(persistence.isMarkedAsFavorite(id: item.itemNotificationID))
         }
     }
     
     func testMarkAsArchive() {
-        for item in ItemContent.previewContents {
-            let watchlistItem: Set<String> = [item.itemNotificationID]
-            persistence.updateArchive(items: watchlistItem)
-            XCTAssertTrue(persistence.isItemArchived(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updateArchive(for: item)
+        }
+        for item in ItemContent.examples {
+            XCTAssertTrue(persistence.isItemArchived(id: item.itemNotificationID))
         }
     }
     
     func testRemoveFromArchive() {
-        for item in ItemContent.previewContents {
-            let watchlistItem: Set<String> = [item.itemNotificationID]
-            persistence.updateArchive(items: watchlistItem)
-            XCTAssertFalse(persistence.isItemArchived(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updateArchive(for: item)
+        }
+        for item in ItemContent.examples {
+            XCTAssertFalse(persistence.isItemArchived(id: item.itemNotificationID))
         }
     }
     
     func testMarkAsPin() {
-        for item in ItemContent.previewContents {
-            let watchlistItem: Set<String> = [item.itemNotificationID]
-            persistence.updatePin(items: watchlistItem)
-            XCTAssertTrue(persistence.isItemPinned(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updatePin(for: item)
+        }
+        for item in ItemContent.examples {
+            XCTAssertTrue(persistence.isItemPinned(id: item.itemNotificationID))
         }
     }
     
     func testRemoveFromPins() {
-        for item in ItemContent.previewContents {
-            let watchlistItem: Set<String> = [item.itemNotificationID]
-            persistence.updatePin(items: watchlistItem)
-            XCTAssertFalse(persistence.isItemPinned(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.updatePin(for: item)
+        }
+        for item in ItemContent.examples {
+            XCTAssertFalse(persistence.isItemPinned(id: item.itemNotificationID))
         }
     }
     
     func testRemoveItemsFromWatchlist() {
-        for item in ItemContent.previewContents {
-            let watchlistItem = try? persistence.fetch(for: Int64(item.id), media: item.itemContentMedia)
-            guard let watchlistItem else { return }
-            persistence.delete(watchlistItem)
+        for item in ItemContent.examples {
+            guard let item = try? persistence.fetch(for: item.itemNotificationID) else { return }
+            persistence.delete(item)
         }
-        for item in ItemContent.previewContents {
-            XCTAssertFalse(persistence.isItemSaved(id: item.id, type: item.itemContentMedia))
+        for item in ItemContent.examples {
+            XCTAssertFalse(persistence.isItemSaved(id: item.itemNotificationID))
         }
     }
     

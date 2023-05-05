@@ -192,7 +192,7 @@ struct CardFrame: View {
 
 struct CardFrame_Previews: PreviewProvider {
     static var previews: some View {
-        CardFrame(item: .previewContent, showConfirmation: .constant(false))
+        CardFrame(item: .example, showConfirmation: .constant(false))
     }
 }
 

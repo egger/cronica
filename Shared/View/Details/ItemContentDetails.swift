@@ -302,8 +302,8 @@ struct ItemContentDetails: View {
 #if os(iOS)
 struct ItemContentDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentDetails(title: ItemContent.previewContent.itemTitle,
-                           id: ItemContent.previewContent.id,
+        ItemContentDetails(title: ItemContent.example.itemTitle,
+                           id: ItemContent.example.id,
                            type: MediaType.movie)
     }
 }

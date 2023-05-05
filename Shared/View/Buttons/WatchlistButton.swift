@@ -97,7 +97,7 @@ struct WatchlistButton: View {
 
 struct WatchlistButton_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistButton(id: ItemContent.previewContent.itemNotificationID,
+        WatchlistButton(id: ItemContent.example.itemNotificationID,
                         isInWatchlist: .constant(true), showConfirmation: .constant(false))
     }
 }

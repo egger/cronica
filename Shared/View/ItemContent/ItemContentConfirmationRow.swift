@@ -77,7 +77,7 @@ struct ItemContentConfirmationRow: View {
 
 struct ItemContentRow_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentConfirmationRow(item: .previewContent)
+        ItemContentConfirmationRow(item: .example)
     }
 }
 

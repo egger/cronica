@@ -18,20 +18,15 @@ struct PinButton: View {
     }
     
     private func updatePin() {
-        do {
-            guard let item = try persistence.fetch(for: id) else { return }
-            persistence.updatePin(for: item)
-            withAnimation { isPin.toggle() }
-            HapticManager.shared.successHaptic()
-        } catch {
-            let message = "Can't update pin for: \(id), error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message, for: "PinButton.updatePin.failed")
-        }
+        guard let item = try? persistence.fetch(for: id) else { return }
+        persistence.updatePin(for: item)
+        withAnimation { isPin.toggle() }
+        HapticManager.shared.successHaptic()
     }
 }
 
 struct PinButton_Previews: PreviewProvider {
     static var previews: some View {
-        PinButton(id: ItemContent.previewContent.itemNotificationID, isPin: .constant(false))
+        PinButton(id: ItemContent.example.itemNotificationID, isPin: .constant(false))
     }
 }

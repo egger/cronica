@@ -1,5 +1,5 @@
 //
-//  UpNextView.swift
+//  UpNextListView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 19/03/23.
@@ -9,18 +9,14 @@ import SwiftUI
 import CoreData
 import SDWebImageSwiftUI
 
-struct UpNextView: View {
+struct UpNextListView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true),
-        ],
-        predicate: NSCompoundPredicate(type: .and, subpredicates: [
-            NSPredicate(format: "displayOnUpNext == %d", true),
-            NSPredicate(format: "isArchive == %d", false),
-            NSPredicate(format: "watched == %d", false)
-        ])
-    ) var items: FetchedResults<WatchlistItem>
+        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
+        predicate: NSCompoundPredicate(type: .and, subpredicates: [ NSPredicate(format: "displayOnUpNext == %d", true),
+                                                                    NSPredicate(format: "isArchive == %d", false),
+                                                                    NSPredicate(format: "watched == %d", false)])
+    ) private var items: FetchedResults<WatchlistItem>
     @State private var isLoaded = false
     @State private var listItems = [UpNextEpisode]()
     @State private var selectedEpisode: Episode?
@@ -49,26 +45,13 @@ struct UpNextView: View {
                                             ShareLink("shareShow", item: url)
                                         }
 #endif
-                                        Button {
-                                            Task {
-                                                await markAsWatched(item.episode)
-                                            }
-                                        } label: {
-                                            Label("Mark as Watched", systemImage: "rectangle.fill.badge.checkmark")
-                                        }
                                     }
                                     .padding([.leading, .trailing], 4)
                                     .padding(.leading, item.id == self.listItems.first!.id ? 16 : 0)
                                     .padding(.trailing, item.id == self.listItems.last!.id ? 16 : 0)
                                     .padding(.top, 8)
                                     .padding(.bottom)
-                                    .onTapGesture {
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Task { await markAsWatched(item.episode) }
-                                        } else {
-                                            selectedEpisode = item.episode
-                                        }
-                                    }
+                                    .onTapGesture { selectedEpisode = item.episode }
                                     .accessibilityLabel("Episode \(item.episode.itemEpisodeNumber), \(item.episode.itemTitle)")
                             }
                         }
@@ -111,7 +94,7 @@ struct UpNextView: View {
                         ProgressView()
                     }
                 }
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
 #if os(iOS)
                 .appTheme()
                 .appTint()
@@ -138,34 +121,28 @@ struct UpNextView: View {
         }
     }
     
-    
     private func getNextEpisode(of actual: Episode) async -> Episode? {
-        do {
-            guard let showID = self.episodeShowID["\(actual.id)"] else { return nil }
-            let season = try await network.fetchSeason(id: showID, season: actual.itemSeasonNumber)
-            guard let episodes = season.episodes else { return nil }
-            let episodeCount = actual.itemEpisodeNumber + 1
-            if episodes.count < episodeCount {
-                let nextSeasonNumber = actual.itemSeasonNumber + 1
-                let nextSeason = try await network.fetchSeason(id: showID, season: nextSeasonNumber)
-                guard let nextSeasonEpisodes = nextSeason.episodes else { return nil }
-                let nextEpisode = nextSeasonEpisodes[0]
-                if nextEpisode.isItemReleased {
-                    if persistence.isEpisodeSaved(show: showID, season: nextSeasonNumber, episode: nextEpisode.id) { return nil }
-                    return nextEpisode
-                }
-            } else {
-                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == episodeCount }
-                if nextEpisode.isEmpty { return nil }
-                let episode = nextEpisode[0]
-                if persistence.isEpisodeSaved(show: showID, season: episode.itemSeasonNumber, episode: episode.id) { return nil }
-                return episode
+        guard let showID = self.episodeShowID["\(actual.id)"] else { return nil }
+        let season = try? await network.fetchSeason(id: showID, season: actual.itemSeasonNumber)
+        guard let episodes = season?.episodes else { return nil }
+        let episodeCount = actual.itemEpisodeNumber + 1
+        if episodes.count < episodeCount {
+            let nextSeasonNumber = actual.itemSeasonNumber + 1
+            let nextSeason = try? await network.fetchSeason(id: showID, season: nextSeasonNumber)
+            guard let nextSeasonEpisodes = nextSeason?.episodes else { return nil }
+            let nextEpisode = nextSeasonEpisodes[0]
+            if nextEpisode.isItemReleased {
+                if persistence.isEpisodeSaved(show: showID, season: nextSeasonNumber, episode: nextEpisode.id) { return nil }
+                return nextEpisode
             }
-            return nil
-        } catch {
-            if Task.isCancelled { return nil }
-            return nil
+        } else {
+            let nextEpisode = episodes.filter { $0.itemEpisodeNumber == episodeCount }
+            if nextEpisode.isEmpty { return nil }
+            let episode = nextEpisode[0]
+            if persistence.isEpisodeSaved(show: showID, season: episode.itemSeasonNumber, episode: episode.id) { return nil }
+            return episode
         }
+        return nil
     }
     
     private func load() async {
@@ -186,11 +163,6 @@ struct UpNextView: View {
                                                 backupImage: item.image,
                                                 episode: result)
                     
-                    
-                    
-                    
-                    
-                    
                     DispatchQueue.main.async {
                         withAnimation(.easeInOut) {
                             listItems.append(content)
@@ -203,21 +175,6 @@ struct UpNextView: View {
                 withAnimation { self.isLoaded = true }
             }
         }
-    }
-    
-    private func markAsWatched(_ episode: Episode) async {
-        let showId = self.episodeShowID["\(episode.id)"]
-        guard let showId else { return }
-        let nextEpisode = await getNextEpisode(of: episode)
-        persistence.updateEpisodeList(show: showId, season: episode.itemSeasonNumber, episode: episode.id)
-        persistence.updateEpisodeList(show: showId,
-                                      season: episode.itemSeasonNumber,
-                                      episode: episode.id,
-                                      nextEpisode: nextEpisode)
-        
-        // Handles the Up Next list
-        await handleWatched(episode)
-        HapticManager.shared.successHaptic()
     }
     
     private func handleWatched(_ episode: Episode) async {

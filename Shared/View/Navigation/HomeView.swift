@@ -27,7 +27,7 @@ struct HomeView: View {
             VStack(alignment: .leading) {
                 ScrollView {
 #if os(iOS) || os(macOS)
-                    UpNextView(shouldReload: $reloadUpNext)
+                    UpNextListView(shouldReload: $reloadUpNext)
 #endif
                     UpcomingWatchlist()
                     PinItemsList()

@@ -101,7 +101,7 @@ struct ItemContentListView: View {
 struct ItemContentListView_Previews: PreviewProvider {
     @State private static var show = false
     static var previews: some View {
-        ItemContentListView(items: ItemContent.previewContents,
+        ItemContentListView(items: ItemContent.examples,
                             title: "Favorites",
                             subtitle: "Favorites Movies",
                             image: "heart",

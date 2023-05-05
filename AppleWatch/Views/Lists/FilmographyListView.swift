@@ -44,6 +44,6 @@ struct FilmographyListView: View {
 
 struct FilmographyListView_Previews: PreviewProvider {
     static var previews: some View {
-        FilmographyListView(items: ItemContent.previewContents)
+        FilmographyListView(items: ItemContent.examples)
     }
 }

@@ -64,7 +64,7 @@ struct FilmographyListView: View {
 struct FilmographyListView_Previews: PreviewProvider {
     @State private static var show = false
     static var previews: some View {
-        FilmographyListView(filmography: ItemContent.previewContents, showConfirmation: $show)
+        FilmographyListView(filmography: ItemContent.examples, showConfirmation: $show)
     }
 }
 

@@ -35,6 +35,6 @@ struct AboutSectionView: View {
 
 struct AboutSectionView_Previews: PreviewProvider {
     static var previews: some View {
-        AboutSectionView(about: ItemContent.previewContent.itemOverview)
+        AboutSectionView(about: ItemContent.example.itemOverview)
     }
 }

@@ -50,7 +50,7 @@ struct HeroImage: View {
 
 struct HeroImage_Previews: PreviewProvider {
     static var previews: some View {
-        HeroImage(url: ItemContent.previewContent.cardImageLarge,
-                  title: ItemContent.previewContent.itemTitle)
+        HeroImage(url: ItemContent.example.cardImageLarge,
+                  title: ItemContent.example.itemTitle)
     }
 }

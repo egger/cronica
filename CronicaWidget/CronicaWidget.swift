@@ -11,11 +11,11 @@ import SDWebImageSwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> ItemContentEntry {
-        ItemContentEntry(date: Date(), item: ItemContent.previewContents)
+        ItemContentEntry(date: Date(), item: ItemContent.examples)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (ItemContentEntry) -> ()) {
-        let entry = ItemContentEntry(date: Date(), item: ItemContent.previewContents)
+        let entry = ItemContentEntry(date: Date(), item: ItemContent.examples)
         completion(entry)
     }
 

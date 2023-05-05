@@ -81,6 +81,6 @@ private struct DrawingConstants {
 
 struct ItemContentItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentRow(item: .previewContent)
+        ItemContentRow(item: .example)
     }
 }

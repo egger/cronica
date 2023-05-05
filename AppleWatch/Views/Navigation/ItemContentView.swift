@@ -97,10 +97,10 @@ struct ItemContentView: View {
 
 struct ItemContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentView(id: ItemContent.previewContent.id,
-                        title: ItemContent.previewContent.itemTitle,
-                        type: ItemContent.previewContent.itemContentMedia,
-                        image: ItemContent.previewContent.cardImageMedium)
+        ItemContentView(id: ItemContent.example.id,
+                        title: ItemContent.example.itemTitle,
+                        type: ItemContent.example.itemContentMedia,
+                        image: ItemContent.example.cardImageMedium)
     }
 }
 

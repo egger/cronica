@@ -90,7 +90,7 @@ struct TVSearchItemContentView: View {
 
 struct SearchItemContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TVSearchItemContentView(item: ItemContent.previewContent)
+        TVSearchItemContentView(item: ItemContent.example)
     }
 }
 

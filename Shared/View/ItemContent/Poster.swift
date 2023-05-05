@@ -136,7 +136,7 @@ struct Poster: View {
 
 struct Poster_Previews: PreviewProvider {
     static var previews: some View {
-        Poster(item: .previewContent, addedItemConfirmation: .constant(false))
+        Poster(item: .example, addedItemConfirmation: .constant(false))
     }
 }
 

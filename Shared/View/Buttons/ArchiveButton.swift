@@ -19,19 +19,15 @@ struct ArchiveButton: View {
     }
     
     private func updateArchive() {
-        do {
-            guard let item = try persistence.fetch(for: id) else { return }
-            persistence.updateArchive(for: item)
-            withAnimation { isArchive.toggle() }
-            HapticManager.shared.successHaptic()
-        } catch {
-            print(error.localizedDescription)
-        }
+        guard let item = try? persistence.fetch(for: id) else { return }
+        persistence.updateArchive(for: item)
+        withAnimation { isArchive.toggle() }
+        HapticManager.shared.successHaptic()
     }
 }
 
 struct ArchiveButton_Previews: PreviewProvider {
     static var previews: some View {
-        ArchiveButton(id: ItemContent.previewContent.itemNotificationID, isArchive: .constant(false))
+        ArchiveButton(id: ItemContent.example.itemNotificationID, isArchive: .constant(false))
     }
 }

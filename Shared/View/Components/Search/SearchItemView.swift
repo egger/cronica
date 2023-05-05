@@ -82,7 +82,7 @@ struct SearchItemView: View {
 struct SearchItemView_Previews: PreviewProvider {
     @State private static var show: Bool = false
     static var previews: some View {
-        SearchItemView(item: ItemContent.previewContent, showConfirmation: $show)
+        SearchItemView(item: ItemContent.example, showConfirmation: $show)
     }
 }
 #endif
