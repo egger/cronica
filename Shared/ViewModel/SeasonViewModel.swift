@@ -36,7 +36,7 @@ class SeasonViewModel: ObservableObject {
             }
         }
     }
-    
+}
 //    func markSeasonAsWatched(id: Int) {
 //        guard let season, let episodes = season.episodes else { return }
 //        for episode in episodes {
@@ -76,4 +76,3 @@ class SeasonViewModel: ObservableObject {
 //                                                  for: "SeasonViewModel.saveItemOnList.failed")
 //        }
 //    }
-}

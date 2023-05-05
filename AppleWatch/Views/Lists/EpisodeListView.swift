@@ -11,40 +11,27 @@ struct EpisodeListView: View {
     let seasonNumber: Int
     let id: Int
     @Binding var inWatchlist: Bool
-    @StateObject private var viewModel: SeasonViewModel
+    @StateObject private var viewModel = SeasonViewModel()
     @State private var isLoading = true
-    init(seasonNumber: Int, id: Int, inWatchlist: Binding<Bool>) {
-        self.seasonNumber = seasonNumber
-        self.id = id
-        self._inWatchlist = inWatchlist
-        _viewModel = StateObject(wrappedValue: SeasonViewModel())
-    }
+    @State private var episodes = [Episode]()
     var body: some View {
         ScrollViewReader { proxy in
             VStack {
                 if isLoading {
                     ProgressView("Loading")
                 } else {
-                    if let episodes = viewModel.season?.episodes {
-                        List {
-                            ForEach(episodes) { episode in
-                                NavigationLink(destination: EpisodeDetailsView(episode: episode,
-                                                                               season: seasonNumber,
-                                                                               show: id)) {
-                                    EpisodeView(episode: episode,
-                                                season: seasonNumber,
-                                                show: id,
-                                                isInWatchlist: $inWatchlist)
-                                }
+                    List {
+                        ForEach(episodes) { episode in
+                            NavigationLink(value: [id:episode]) {
+                                EpisodeView(episode: episode,
+                                            season: seasonNumber,
+                                            show: id)
                             }
                         }
-                        .onAppear {
-                            let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: id)
-                            guard let lastWatchedEpisode else { return }
-                            withAnimation {
-                                proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
-                            }
-                        }
+                    }
+                    .onAppear {
+                        guard let lastWatched = PersistenceController.shared.fetchLastWatchedEpisode(for: id) else { return }
+                        withAnimation { proxy.scrollTo(lastWatched, anchor: .topLeading) }
                     }
                 }
             }
@@ -57,6 +44,8 @@ struct EpisodeListView: View {
         Task {
             await self.viewModel.load(id: self.id, season: self.seasonNumber)
             self.isLoading = false
+            guard let content = viewModel.season?.episodes else { return }
+            self.episodes = content
         }
     }
 }

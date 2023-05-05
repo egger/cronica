@@ -39,7 +39,7 @@ struct Provider: TimelineProvider {
                 let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
                 completion(timeline)
             } catch {
-                print("❌ error: \(error.localizedDescription)")
+                print("Error: \(error.localizedDescription)")
             }
         }
     }

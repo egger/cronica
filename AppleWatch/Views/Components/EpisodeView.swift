@@ -12,17 +12,8 @@ struct EpisodeView: View {
     let episode: Episode
     let season: Int
     let show: Int
-    var itemLink: URL
     private let persistence = PersistenceController.shared
     @State private var isWatched: Bool = false
-    @Binding var isInWatchlist: Bool
-    init(episode: Episode, season: Int, show: Int, isInWatchlist: Binding<Bool>) {
-        self.episode = episode
-        self.season = season
-        self.show = show
-        self._isInWatchlist = isInWatchlist
-        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!
-    }
     var body: some View {
         HStack {
             WebImage(url: episode.itemImageMedium)

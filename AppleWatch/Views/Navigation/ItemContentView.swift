@@ -36,8 +36,8 @@ struct ItemContentView: View {
                     .environmentObject(viewModel)
                     .padding()
                 
-                if let seasons = viewModel.content?.itemSeasons {
-                    NavigationLink("Seasons", destination:  SeasonListView(numberOfSeasons: seasons, id: id, isInWatchlist: $viewModel.isInWatchlist))
+                if let seasons = viewModel.content?.seasons {
+                    NavigationLink("Seasons", destination:  SeasonListView(numberOfSeasons: seasons, id: id))
                         .padding([.horizontal, .bottom])
                 }   
                 
@@ -57,21 +57,29 @@ struct ItemContentView: View {
                 AttributionView()
             }
         }
-        .task {
-            await viewModel.load()
-        }
+        .task { await viewModel.load() }
         .navigationTitle(title)
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .sheet(isPresented: $showCustomListSheet) {
             ItemContentCustomListSelector(item: $viewModel.watchlistItem,
                                           showView: $showCustomListSheet)
         }
+        .navigationDestination(for: [Season].self) { seasons in
+            SeasonListView(numberOfSeasons: seasons, id: id)
+        }
+        .navigationDestination(for: Season.self) { season in
+            EpisodeListView(seasonNumber: season.seasonNumber, id: id, inWatchlist: $viewModel.isInWatchlist)
+        }
+        .navigationDestination(for: [Int:Episode].self) { item in
+            let keys = item.map { (key, _) in key }
+            let value = item.map { (_, value) in value }
+            EpisodeDetailsView(episode: value.first!, season: keys.first!, show: id)
+        }
     }
     
     private var watchButton: some View {
         Button {
-            
-            //viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
+            viewModel.update(.watched)
         } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
