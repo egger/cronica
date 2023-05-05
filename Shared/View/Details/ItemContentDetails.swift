@@ -97,9 +97,14 @@ struct ItemContentDetails: View {
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
                         if UIDevice.isIPad {
-                            watchButton
-                            favoriteButton
-                            addToCustomListButton
+                            if viewModel.isInWatchlist {
+                                watchButton
+                                favoriteButton
+                                archiveButton
+                                pinButton
+                                addToCustomListButton
+                                openInMenu
+                            }
                         } else {
                             moreMenu
                         }
@@ -122,7 +127,7 @@ struct ItemContentDetails: View {
             .sheet(isPresented: $showUserNotes) {
                 NavigationStack {
                     if let item = viewModel.watchlistItem {
-                        WatchlistItemNoteView(id: item.notificationID, showView: $showUserNotes)
+                        ReviewView(id: item.notificationID, showView: $showUserNotes)
                     }
                 }
                 .presentationDetents([.medium, .large])
@@ -187,7 +192,7 @@ struct ItemContentDetails: View {
     }
     
     private var openInMenu: some View {
-        Menu("Open in") {
+        Menu {
             if viewModel.content?.hasIMDbUrl ?? false {
                 Button("IMDb") {
                     guard let url = viewModel.content?.imdbUrl else { return }
@@ -197,6 +202,12 @@ struct ItemContentDetails: View {
             Button("TMDb") {
                 guard let url = viewModel.content?.itemURL else { return }
                 UIApplication.shared.open(url)
+            }
+        } label: {
+            if UIDevice.isIPad {
+                Label("Open in", systemImage: "ellipsis.circle")
+            } else {
+                Text("Open in")
             }
         }
     }

@@ -7,43 +7,32 @@
 
 import SwiftUI
 
-struct WatchlistItemNoteView: View {
+struct ReviewView: View {
     let id: String
     @State var item: WatchlistItem?
     @Binding var showView: Bool
     @State private var note = String()
     @State private var rating = 0
     @State private var isLoading = true
+    @State private var canSave = false
     let persistence = PersistenceController.shared
     var body: some View {
         Form {
             if isLoading {
-                ProgressView()
+                Section {
+                    CenterHorizontalView { ProgressView().padding() }
+                }
             } else {
                 if let item {
-                    Text("reviewOf \(item.itemTitle)")
-                    Section {
+                    Section("About") { Text("reviewOf \(item.itemTitle)") }
+                    Section("Rating") {
                         CenterHorizontalView {
                             RatingView(rating: $rating)
                         }
-                    } header: {
-                        Text("Rating")
-#if os(macOS)
-                            .foregroundColor(.secondary)
-                            .font(.callout)
-#endif
                     }
-                    Section {
-#if os(iOS) || os(macOS)
+                    Section("Notes") {
                         TextEditor(text: $note)
                             .frame(minHeight: 150)
-#endif
-                    } header: {
-                        Text("Notes")
-#if os(macOS)
-                            .foregroundColor(.secondary)
-                            .font(.callout)
-#endif
                     }
                 } else {
                     ProgressView()
@@ -52,6 +41,18 @@ struct WatchlistItemNoteView: View {
         }
         .navigationTitle("reviewTitle")
         .onAppear { load() }
+        .onChange(of: rating) { newValue in
+            guard let item else { return }
+            if newValue != Int(item.userRating) {
+                if !canSave { canSave = true }
+            }
+        }
+        .onChange(of: note) { newValue in
+            guard let item else { return }
+            if newValue != item.userNotes {
+                if !canSave { canSave = true }
+            }
+        }
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) { doneButton }
@@ -82,7 +83,7 @@ struct WatchlistItemNoteView: View {
     }
     
     private var saveButton: some View {
-        Button("Save", action: save)
+        Button("Save", action: save).disabled(!canSave)
     }
     
     private func save() {
@@ -97,7 +98,7 @@ struct WatchlistItemNoteView: View {
 struct WatchlistItemNoteView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            WatchlistItemNoteView(id: ItemContent.previewContent.itemNotificationID, showView: .constant(true))
+            ReviewView(id: ItemContent.previewContent.itemNotificationID, showView: .constant(true))
         }
     }
 }

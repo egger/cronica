@@ -28,7 +28,7 @@ struct WatchlistItemPoster: View {
         .accessibilityLabel(Text(content.itemTitle))
         .sheet(isPresented: $showNote) {
             NavigationStack {
-                WatchlistItemNoteView(id: content.notificationID, showView: $showNote)
+                ReviewView(id: content.notificationID, showView: $showNote)
             }
             .presentationDetents([.medium, .large])
 #if os(macOS)

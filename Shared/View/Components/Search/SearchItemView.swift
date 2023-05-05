@@ -21,16 +21,12 @@ struct SearchItemView: View {
             if isSidebar {
                 SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                     .draggable(item)
-                    .contextMenu {
-                        ShareLink(item: item.itemSearchURL)
-                    }
+                    .contextMenu { ShareLink(item: item.itemSearchURL) }
             } else {
                 NavigationLink(value: item) {
                     SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                         .draggable(item)
-                        .contextMenu {
-                            ShareLink(item: item.itemSearchURL)
-                        }
+                        .contextMenu { ShareLink(item: item.itemSearchURL) }
                 }
             }
         } else {

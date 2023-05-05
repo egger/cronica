@@ -40,7 +40,7 @@ struct TMDBWatchlistView: View {
                                 Button {
                                     selectedItem = item
                                 } label: {
-                                    ItemContentRow(item: item)
+                                    ItemContentConfirmationRow(item: item)
                                 }
                                 .buttonStyle(.plain)
                             }

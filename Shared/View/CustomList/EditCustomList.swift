@@ -22,11 +22,13 @@ struct EditCustomList: View {
     @State private var showPublishConfirmation = false
     @State private var canPublish = false
     @State private var isPublishing = false
+    @State private var pinOnHome = false
     var body: some View {
         Form {
             Section {
                 TextField("listName", text: $title)
                 TextField("listDescription", text: $note)
+                Toggle("pinOnHome", isOn: $pinOnHome)
             } header: {
                 Text("listBasicHeader")
             }
@@ -107,6 +109,7 @@ struct EditCustomList: View {
         .onAppear {
             title = list.itemTitle
             note = list.notes ?? ""
+            pinOnHome = list.isPin
             if SettingsStore.shared.connectedTMDB && !list.isSyncEnabledTMDB {
                 canPublish = true
             }
@@ -120,6 +123,9 @@ struct EditCustomList: View {
             if newValue != list.notes {
                 disableSaveButton = false
             }
+        }
+        .onChange(of: pinOnHome) { newValue in
+            if newValue != list.isPin { disableSaveButton = false }
         }
         .onChange(of: itemsToRemove) { _ in
             if !itemsToRemove.isEmpty {
@@ -152,6 +158,9 @@ struct EditCustomList: View {
         }
         if !itemsToRemove.isEmpty {
             persistence.removeItemsFromList(of: list, with: itemsToRemove)
+        }
+        if list.isPin != pinOnHome {
+            persistence.updatePinOnHome(of: list)
         }
         showListSelection = false
     }

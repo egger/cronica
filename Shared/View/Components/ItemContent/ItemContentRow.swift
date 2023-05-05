@@ -1,8 +1,8 @@
 //
-//  ItemContentRow.swift
+//  ItemContentItemView.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 22/04/23.
+//  Created by Alexandre Madeira on 04/05/23.
 //
 
 import SwiftUI
@@ -10,73 +10,65 @@ import SDWebImageSwiftUI
 
 struct ItemContentRow: View {
     let item: ItemContent
-    @State private var isItemAdded = false
     @State private var isWatched = false
     @State private var showConfirmation = false
-    @State private var canReview = false
+    @State private var isInWatchlist = true
+    @State private var canReview = true
     @State private var showNote = false
+    private let persistence = PersistenceController.shared
     var body: some View {
-        HStack {
-            WebImage(url: item.cardImageSmall)
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                        Image(systemName: item.itemContentMedia == .movie ? "film" : "tv")
-                            .foregroundColor(.white.opacity(0.8))
+        NavigationLink(value: item) {
+            HStack {
+                WebImage(url: item.cardImageMedium)
+                    .placeholder {
+                        ZStack {
+                            Color.secondary
+                            Image(systemName: "film")
+                        }
+                        .frame(width: DrawingConstants.imageWidth,
+                               height: DrawingConstants.imageHeight)
                     }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(item.itemTitle)
+                            .lineLimit(DrawingConstants.textLimit)
+                    }
+                    HStack {
+                        Text(item.itemSearchDescription)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
                 }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .transition(.opacity)
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-            
-            VStack(alignment: .leading) {
-                Text(item.itemTitle)
-                    .lineLimit(1)
-                Text(item.itemContentMedia.title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
             }
-            
-            if isItemAdded {
-                Spacer()
-                VStack {
-                    Spacer()
-                    Image(systemName: "checkmark.circle.fill")
-                    Spacer()
+            .itemContentContextMenu(item: item,
+                                    isWatched: $isWatched,
+                                    showConfirmation: $showConfirmation,
+                                    isInWatchlist: $isInWatchlist,
+                                    showNote: $showNote)
+            .task {
+                isWatched = persistence.isMarkedAsWatched(id: item.itemNotificationID)
+            }
+            .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+                NavigationStack {
+                    ReviewView(id: item.itemNotificationID, showView: $showNote)
                 }
-                .padding(.trailing)
-            } else {
-                Spacer()
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 400, height: 400, alignment: .center)
+#endif
+#endif
             }
         }
-        .task {
-            withAnimation {
-                self.isItemAdded = PersistenceController.shared.isItemSaved(id: item.itemNotificationID)
-            }
-            if isItemAdded {
-                isWatched = PersistenceController.shared.isMarkedAsWatched(id: item.itemNotificationID)
-                canReview = true
-            } else {
-                if canReview { canReview = false }
-            }
-        }
-        .itemContentContextMenu(item: item,
-                                isWatched: $isWatched,
-                                showConfirmation: $showConfirmation,
-                                isInWatchlist: $isItemAdded,
-                                showNote: $showNote)
-    }
-}
-
-struct ItemContentRow_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentRow(item: .previewContent)
     }
 }
 
@@ -85,4 +77,10 @@ private struct DrawingConstants {
     static let imageHeight: CGFloat = 50
     static let imageRadius: CGFloat = 4
     static let textLimit: Int = 1
+}
+
+struct ItemContentItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        ItemContentRow(item: .previewContent)
+    }
 }

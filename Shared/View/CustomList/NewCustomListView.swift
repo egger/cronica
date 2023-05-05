@@ -24,6 +24,7 @@ struct NewCustomListView: View {
     @Binding var newSelectedList: CustomList?
     @State private var searchQuery = String()
     @State private var publishOnTMDB = false
+    @State private var pinOnHome = false
     var body: some View {
         Form {
             Section("listBasicHeader") {
@@ -32,6 +33,7 @@ struct NewCustomListView: View {
                 if SettingsStore.shared.connectedTMDB {
                     Toggle("publishOnTMDB", isOn: $publishOnTMDB)
                 }
+                Toggle("pinOnHome", isOn: $pinOnHome)
             }
             
             if !items.isEmpty {
@@ -89,7 +91,8 @@ struct NewCustomListView: View {
         let list = PersistenceController.shared.createList(title: title,
                                                            description: note,
                                                            items: itemsToAdd,
-                                                           idOnTMDb: idOnTMDb)
+                                                           idOnTMDb: idOnTMDb,
+                                                           isPin: pinOnHome)
         HapticManager.shared.successHaptic()
         newSelectedList = list
         title = ""

@@ -70,10 +70,10 @@ struct TMDBListDetails: View {
                                 NavigationLink(destination: ItemContentDetails(title: item.itemTitle,
                                                                                id: item.id,
                                                                                type: item.itemContentMedia)) {
-                                    ItemContentRow(item: item)
+                                    ItemContentConfirmationRow(item: item)
                                 }
 #else
-                                ItemContentRow(item: item)
+                                ItemContentConfirmationRow(item: item)
 #endif
                             }
                         }

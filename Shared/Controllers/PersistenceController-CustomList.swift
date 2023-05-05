@@ -8,7 +8,7 @@
 import Foundation
 
 extension PersistenceController {
-    func createList(title: String, description: String, items: Set<WatchlistItem>, idOnTMDb: Int? = nil) -> CustomList? {
+    func createList(title: String, description: String, items: Set<WatchlistItem>, idOnTMDb: Int? = nil, isPin: Bool) -> CustomList? {
         do {
             let viewContext = container.viewContext
             let list = CustomList(context: viewContext)
@@ -22,6 +22,7 @@ extension PersistenceController {
             list.updatedDate = Date()
             list.notes = description
             list.items = items as NSSet
+            list.isPin = isPin
             try save()
             return list
         } catch {
@@ -68,8 +69,6 @@ extension PersistenceController {
         }
     }
     
-    
-    
     func updateListTitle(of list: CustomList, with title: String) {
         do {
             list.title = title
@@ -82,6 +81,15 @@ extension PersistenceController {
     func updateListNotes(of list: CustomList, with notes: String) {
         do {
             list.notes = notes
+            try save()
+        } catch {
+            
+        }
+    }
+    
+    func updatePinOnHome(of list: CustomList) {
+        do {
+            list.isPin.toggle()
             try save()
         } catch {
             

@@ -30,6 +30,7 @@ struct HomeView: View {
 #endif
                     UpcomingWatchlist()
                     PinItemsList()
+                    CustomListPinned()
                     ItemContentListView(items: viewModel.trending,
                                         title: "Trending",
                                         subtitle: "Today",

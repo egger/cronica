@@ -114,7 +114,7 @@ struct CardFrame: View {
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    WatchlistItemNoteView(id: item.itemNotificationID, showView: $showNote)
+                    ReviewView(id: item.itemNotificationID, showView: $showNote)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)

@@ -30,7 +30,7 @@ struct PinItemsList_Previews: PreviewProvider {
     }
 }
 
-private struct HorizontalWatchlistList: View {
+struct HorizontalWatchlistList: View {
     let items: [WatchlistItem]
     let title: String
     let subtitle: String
