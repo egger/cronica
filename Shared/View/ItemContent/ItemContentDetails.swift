@@ -62,7 +62,7 @@ struct ItemContentDetails: View {
                 ToolbarItem {
                     HStack {
                         notificationStatus
-                        ShareLink(item: itemUrl)
+                        shareButton
                             .disabled(viewModel.isLoading ? true : false)
                         if UIDevice.isIPad {
                             if viewModel.isInWatchlist {
