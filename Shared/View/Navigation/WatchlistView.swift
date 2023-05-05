@@ -105,7 +105,7 @@ struct WatchlistView: View {
                 } label: {
                     WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.card)
             }
 #endif
         }

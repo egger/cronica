@@ -68,6 +68,14 @@ struct SelectListView: View {
                     if lists.isEmpty { newList }
                     else  {
                         ForEach(lists) { item in
+#if os(tvOS)
+                            Button {
+                                selectedList = item
+                                showListSelection.toggle()
+                            } label: {
+                                ListRowItem(list: item, selectedList: $selectedList)
+                            }
+#else
                             ListRowItem(list: item, selectedList: $selectedList)
                                 .onTapGesture {
                                     selectedList = item
@@ -110,6 +118,7 @@ struct SelectListView: View {
                                     .tint(.red)
                                 }
 #endif
+#endif
                         }.onDelete(perform: delete)
                     }
                 }
@@ -126,12 +135,13 @@ struct SelectListView: View {
     }
     
     private var doneButton: some View {
-        Button("Done") {
-            showListSelection.toggle()
-        }
+        Button("Done") { showListSelection.toggle() }
     }
     
     private var newList: some View {
+#if os(tvOS)
+        EmptyView()
+#else
         NavigationLink {
 #if os(iOS) || os(tvOS)
             NewCustomListView(presentView: $showListSelection, newSelectedList: $selectedList)
@@ -141,6 +151,7 @@ struct SelectListView: View {
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")
         }
+#endif
     }
     
     private func delete(offsets: IndexSet) {

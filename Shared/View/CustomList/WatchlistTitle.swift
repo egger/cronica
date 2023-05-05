@@ -14,9 +14,15 @@ struct WatchlistTitle: View {
     var body: some View {
         HStack {
             Text(navigationTitle)
+#if os(tvOS)
+                .font(.title3)
+                .padding()
+#else
                 .fontWeight(Font.Weight.semibold)
+#endif
                 .lineLimit(1)
                 .foregroundColor(showListSelection ? .secondary : nil)
+            #if os(iOS) || os(macOS)
             Image(systemName: "chevron.down.circle.fill")
                 .fontWeight(.bold)
                 .font(.caption)
@@ -32,6 +38,7 @@ struct WatchlistTitle: View {
                     }
                 }
                 .foregroundColor(showListSelection ? .secondary : nil)
+            #endif
         }
         .onTapGesture {
             showListSelection.toggle()

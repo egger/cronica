@@ -40,6 +40,9 @@ struct NewCustomListView: View {
                 Section("listItemsToAdd") {
                     List(items, id: \.notificationID) {
                         NewListItemSelectorRow(item: $0, selectedItems: $itemsToAdd)
+                        #if os(tvOS)
+                            .buttonStyle(.plain)
+                        #endif
                     }
                 }
                 .onAppear {
