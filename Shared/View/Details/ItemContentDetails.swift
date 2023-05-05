@@ -24,7 +24,8 @@ struct ItemContentDetails: View {
     @State private var notificationImage = ""
     @State private var showCustomList = false
     @State private var showUserNotes = false
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+#if os(macOS)
+#endif
     init(title: String, id: Int, type: MediaType) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         self.title = title
@@ -34,43 +35,21 @@ struct ItemContentDetails: View {
     }
     var body: some View {
         ZStack {
-            if viewModel.isLoading { ProgressView() }
-            VStack {
-                ScrollView {
-                    ViewThatFits {
-                        horizontalHeader
-                        verticalHeader
-                    }
-                    
-                    TrailerListView(trailers: viewModel.content?.itemTrailers)
-                    
-                    if let seasons = viewModel.content?.itemSeasons {
-                        SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
-                    }
-                    
-                    
-                    WatchProvidersList(id: id, type: type)
-                    
-                    CastListView(credits: viewModel.credits)
-                    
-                    ItemContentListView(items: viewModel.recommendations,
-                                        title: "Recommendations",
-                                        subtitle: "You may like",
-                                        image: nil,
-                                        addedItemConfirmation: $showConfirmation,
-                                        displayAsCard: true)
-                    
-                    InformationSectionView(item: viewModel.content)
-                        .padding()
-                    
-                    AttributionView()
-                        .padding([.top, .bottom])
-                }
+            if viewModel.isLoading { ProgressView().padding() }
+            ScrollView {
+#if os(macOS)
+                macOS
+#elseif os(iOS)
+                iOS
+#endif
             }
             .background {
+#if os(iOS)
                 if UIDevice.isIPhone {
                     TranslucentBackground(image: viewModel.content?.cardImageLarge)
                 }
+                
+#endif
             }
             .task {
                 await viewModel.load()
@@ -78,8 +57,8 @@ struct ItemContentDetails: View {
             }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .navigationTitle(title)
-            .navigationBarTitleDisplayMode(.large)
             .toolbar {
+#if os(iOS)
                 ToolbarItem {
                     HStack {
                         Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
@@ -102,6 +81,8 @@ struct ItemContentDetails: View {
                         }
                     }
                 }
+#else
+#endif
             }
             .alert("Error", isPresented: $viewModel.showErrorAlert) {
                 Button("Cancel") { }
@@ -111,10 +92,10 @@ struct ItemContentDetails: View {
             }
             .sheet(isPresented: $showCustomList) {
                 ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
-                .presentationDetents([.medium])
-                .interactiveDismissDisabled()
-                .appTheme()
-                .appTint()
+                    .presentationDetents([.medium])
+                    .interactiveDismissDisabled()
+                    .appTheme()
+                    .appTint()
             }
             .sheet(isPresented: $showUserNotes) {
                 NavigationStack {
@@ -130,6 +111,102 @@ struct ItemContentDetails: View {
         }
     }
     
+    
+    var macOS: some View {
+        VStack {
+            LargerHeader(title: title, type: type)
+                .environmentObject(viewModel)
+            
+            TrailerListView(trailers: viewModel.content?.itemTrailers)
+            
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonList(showID: id, numberOfSeasons: seasons).padding(.zero)
+            }
+            
+            WatchProvidersList(id: id, type: type)
+            
+            CastListView(credits: viewModel.credits)
+            
+            ItemContentListView(items: viewModel.recommendations,
+                                title: "Recommendations",
+                                subtitle: "You may like",
+                                addedItemConfirmation: $showConfirmation,
+                                displayAsCard: true)
+            
+            InformationSectionView(item: viewModel.content)
+                .padding()
+            
+            AttributionView()
+        }
+    }
+    
+#if os(iOS)
+    var iOS: some View {
+        VStack {
+            
+            if UIDevice.isIPad {
+                LargerHeader(title: title, type: type)
+                    .environmentObject(viewModel)
+            } else {
+                CoverImageView(isFavorite: $viewModel.isFavorite,
+                               isWatched: $viewModel.isWatched,
+                               isPin: $viewModel.isPin,
+                               isArchive: $viewModel.isArchive,
+                               title: title)
+                .environmentObject(viewModel)
+                DetailWatchlistButton()
+                    .keyboardShortcut("l", modifiers: [.option])
+                    .environmentObject(viewModel)
+                
+                OverviewBoxView(overview: viewModel.content?.itemOverview,
+                                title: title)
+                .padding()
+                
+            }
+            
+            TrailerListView(trailers: viewModel.content?.itemTrailers)
+            
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
+            }
+            
+            WatchProvidersList(id: id, type: type)
+            
+            CastListView(credits: viewModel.credits)
+            
+            ItemContentListView(items: viewModel.recommendations,
+                                title: "Recommendations",
+                                subtitle: "You may like",
+                                image: nil,
+                                addedItemConfirmation: $showConfirmation,
+                                displayAsCard: true)
+            
+            InformationSectionView(item: viewModel.content)
+                .padding()
+            
+            AttributionView()
+                .padding([.top, .bottom])
+        }
+    }
+#endif
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private var verticalHeader: some View {
         VStack {
             CoverImageView(isFavorite: $viewModel.isFavorite,
@@ -137,7 +214,7 @@ struct ItemContentDetails: View {
                            isPin: $viewModel.isPin,
                            isArchive: $viewModel.isArchive,
                            title: title)
-                .environmentObject(viewModel)
+            .environmentObject(viewModel)
             
             DetailWatchlistButton()
                 .keyboardShortcut("l", modifiers: [.option])
@@ -157,7 +234,7 @@ struct ItemContentDetails: View {
                                isPin: $viewModel.isPin,
                                isArchive: $viewModel.isArchive,
                                title: title)
-                    .environmentObject(viewModel)
+                .environmentObject(viewModel)
                 
                 DetailWatchlistButton()
                     .keyboardShortcut("l", modifiers: [.option])
@@ -304,48 +381,7 @@ struct ItemContentDetails_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentDetails(title: ItemContent.example.itemTitle,
                            id: ItemContent.example.id,
-                           type: MediaType.movie)
+                           type: .movie)
     }
 }
 #endif
-
-
-struct LargerCoverImage: View {
-    let title: String
-    let subtitle: String
-    let overview: String
-    let backdrop: URL?
-    let poster: URL?
-    var body: some View {
-        HStack {
-            CenterVerticalView {
-                WebImage(url: poster)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            }
-            Spacer()
-            CenterVerticalView {
-                VStack {
-                    Text(title)
-                    Text(subtitle)
-                        .foregroundColor(.secondary)
-                        .padding(.bottom)
-                    Text(overview)
-                        .lineLimit(2)
-                }
-            }
-        }
-        .background {
-            ZStack {
-                WebImage(url: backdrop)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                Rectangle().fill(.black.opacity(0.8))
-            }
-            .ignoresSafeArea(.all)
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .padding()
-        .shadow(radius: 5)
-    }
-}

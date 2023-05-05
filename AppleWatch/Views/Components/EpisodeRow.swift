@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct EpisodeView: View {
+struct EpisodeRow: View {
     let episode: Episode
     let season: Int
     let show: Int
@@ -49,6 +49,7 @@ struct EpisodeView: View {
                                height: DrawingConstants.imageHeight)
                     }
                 }
+                .padding(.trailing)
             VStack(alignment: .leading) {
                 Text(episode.itemTitle)
                     .lineLimit(DrawingConstants.lineLimit)

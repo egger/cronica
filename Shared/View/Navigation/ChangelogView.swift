@@ -113,9 +113,8 @@ struct ChangelogView: View {
 }
 
 struct ChangelogView_Previews: PreviewProvider {
-    @State private static var show = false
     static var previews: some View {
-        ChangelogView(showChangelog: $show)
+        ChangelogView(showChangelog: .constant(false))
     }
 }
 

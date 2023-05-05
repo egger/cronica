@@ -113,12 +113,13 @@ struct CompanyDetails: View {
     }
 }
 
-//struct CompanyDetails_Previews: PreviewProvider {
-//    static private let company = ProductionCompany(name: "PlayStation Productions", id: 125281)
-//    static var previews: some View {
-//        CompanyDetails(company: company)
-//    }
-//}
+struct CompanyDetails_Previews: PreviewProvider {
+    static private let company = ProductionCompany(name: "PlayStation Productions",
+                                                   id: 125281, logoPath: nil, originCountry: nil, description: nil)
+    static var previews: some View {
+        CompanyDetails(company: company)
+    }
+}
 
 struct CompaniesListView: View {
     let companies: [ProductionCompany]

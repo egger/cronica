@@ -35,8 +35,6 @@ struct UpcomingWatchlist_Previews: PreviewProvider {
     }
 }
 
-
-
 struct CustomListPinned: View {
     @FetchRequest(
         entity: CustomList.entity(),

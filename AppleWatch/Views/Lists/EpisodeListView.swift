@@ -22,7 +22,7 @@ struct EpisodeListView: View {
                     List {
                         ForEach(episodes) { episode in
                             NavigationLink(value: [id:episode]) {
-                                EpisodeView(episode: episode,
+                                EpisodeRow(episode: episode,
                                             season: seasonNumber,
                                             show: id)
                             }

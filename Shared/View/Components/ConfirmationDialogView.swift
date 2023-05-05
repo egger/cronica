@@ -47,8 +47,7 @@ struct ConfirmationDialogView: View {
 }
 
 struct ConfirmationDialogView_Previews: PreviewProvider {
-    @State private static var showConfirmation = true
     static var previews: some View {
-        ConfirmationDialogView(showConfirmation: $showConfirmation, message: "This is a preview")
+        ConfirmationDialogView(showConfirmation: .constant(true), message: "This is a preview")
     }
 }

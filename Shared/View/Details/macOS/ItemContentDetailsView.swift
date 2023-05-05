@@ -29,7 +29,7 @@ struct ItemContentDetailsView: View {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         self.itemUrl = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
         self.handleToolbarOnPopup = handleToolbarOnPopup
-       
+        
     }
     var body: some View {
         ZStack {
@@ -42,7 +42,7 @@ struct ItemContentDetailsView: View {
                     
                     if let seasons = viewModel.content?.itemSeasons {
                         SeasonList(showID: id, numberOfSeasons: seasons)
-                        .padding(.zero)
+                            .padding(.zero)
                     }
                     
                     WatchProvidersList(id: id, type: type)
@@ -95,8 +95,8 @@ struct ItemContentDetailsView: View {
                                     addToCustomListButton
                                         .sheet(isPresented: $showCustomList) {
                                             ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
-                                            .presentationDetents([.medium])
-                                            .frame(width: 500, height: 600, alignment: .center)
+                                                .presentationDetents([.medium])
+                                                .frame(width: 500, height: 600, alignment: .center)
                                         }
                                 }
                                 shareButton
@@ -178,7 +178,7 @@ struct ItemContentDetailsView: View {
     
     private var notificationButton: some View {
         Button {
-             
+            
         } label: {
             Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
                 .opacity(viewModel.isNotificationAvailable ? 1 : 0)
@@ -198,7 +198,37 @@ struct ItemContentDetailsView: View {
         }
     }
     
-    private var headerView: some View {
+    
+}
+#endif
+
+struct GlanceInfo: View {
+    var info: String?
+    var body: some View {
+        if let info {
+            Text(info)
+                .font(.callout)
+        }
+    }
+}
+
+
+struct LargerHeader: View {
+    let title: String
+    let type: MediaType
+    @EnvironmentObject var viewModel: ItemContentViewModel
+    var body: some View {
+#if os(macOS)
+        image
+#else
+        image
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .padding()
+            .shadow(radius: 5)
+#endif
+    }
+    
+    private var image: some View {
         WebImage(url: viewModel.content?.cardImageOriginal)
             .resizable()
             .placeholder {
@@ -248,44 +278,90 @@ struct ItemContentDetailsView: View {
                     }
                     VStack(alignment: .leading) {
                         Spacer()
-                        HStack(alignment: .bottom) {
-                            VStack {
-                                Text(title)
-                                    .lineLimit(1)
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                                GlanceInfo(info: viewModel.content?.itemInfo)
-                                    .padding(.bottom, 6)
-                                    .foregroundColor(.white.opacity(0.8))
-                                DetailWatchlistButton()
-                                    .environmentObject(viewModel)
-                            }
-                            .frame(maxWidth: 600)
-                            .padding(.horizontal)
-                            Spacer()
-                            OverviewBoxView(overview: viewModel.content?.itemOverview,
-                                            title: "About",
-                                            type: .movie)
-                            .foregroundColor(.white)
-                            .padding([.horizontal, .top])
-                            .frame(maxWidth: 500)
-                            Spacer()
+#if os(macOS)
+                        informations
+                            .padding()
+#else
+                        ViewThatFits {
+                            informations.padding()
+                            compactInfo.padding(.bottom)
                         }
-                        .padding()
+#endif
                     }
                 }
             }
             .transition(.scale)
     }
-}
+    
+    private var informations: some View {
+        HStack(alignment: .bottom) {
+            VStack {
+                Text(title)
+                    .lineLimit(1)
+                    .font(.title)
+                    .foregroundColor(.white)
+                GlanceInfo(info: viewModel.content?.itemInfo)
+                    .padding(.bottom, 6)
+                    .foregroundColor(.white.opacity(0.8))
+                DetailWatchlistButton()
+                    .environmentObject(viewModel)
+            }
+            .frame(maxWidth: 600)
+            .padding(.horizontal)
+            Spacer()
+#if os(iOS)
+            OverviewBoxView(overview: viewModel.content?.itemOverview,
+                            title: "About",
+                            type: type)
+            .groupBoxStyle(TransparentGroupBox())
+            .padding([.horizontal, .top])
+            .frame(maxWidth: 500)
+#else
+            OverviewBoxView(overview: viewModel.content?.itemOverview,
+                            title: "About",
+                            type: .movie)
+            .foregroundColor(.white)
+            .padding([.horizontal, .top])
+            .frame(maxWidth: 500)
 #endif
+            Spacer()
+        }
+    }
+    
+    private var compactInfo: some View {
+        CenterHorizontalView {
+            VStack {
+                GlanceInfo(info: viewModel.content?.itemInfo)
+                    .padding(.bottom, 6)
+                    .foregroundColor(.white.opacity(0.8))
+                DetailWatchlistButton()
+                    .environmentObject(viewModel)
+            }
+        }
+    }
+}
 
-struct GlanceInfo: View {
-    var info: String?
-    var body: some View {
-        if let info {
-            Text(info)
-                .font(.callout)
+
+struct TransparentGroupBox: GroupBoxStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack {
+            HStack {
+                configuration.label
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            configuration.content
+                .foregroundColor(.white)
+        }
+        .padding()
+        .background {
+            ZStack {
+                Rectangle().fill(.black.opacity(0.2))
+                Rectangle().fill(.ultraThinMaterial)
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
     }
 }
