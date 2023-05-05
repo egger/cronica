@@ -37,20 +37,10 @@ struct ItemContentDetails: View {
             if viewModel.isLoading { ProgressView() }
             VStack {
                 ScrollView {
-                    CoverImageView(isFavorite: $viewModel.isFavorite,
-                                   isWatched: $viewModel.isWatched,
-                                   isPin: $viewModel.isPin,
-                                   isArchive: $viewModel.isArchive,
-                                   title: title)
-                        .environmentObject(viewModel)
-                    
-                    WatchlistButtonView()
-                        .keyboardShortcut("l", modifiers: [.option])
-                        .environmentObject(viewModel)
-                    
-                    OverviewBoxView(overview: viewModel.content?.itemOverview,
-                                    title: title)
-                    .padding()
+                    ViewThatFits {
+                        horizontalHeader
+                        verticalHeader
+                    }
                     
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
@@ -78,7 +68,9 @@ struct ItemContentDetails: View {
                 }
             }
             .background {
-                TranslucentBackground(image: viewModel.content?.cardImageLarge)
+                if UIDevice.isIPhone {
+                    TranslucentBackground(image: viewModel.content?.cardImageLarge)
+                }
             }
             .task {
                 await viewModel.load()
@@ -135,6 +127,48 @@ struct ItemContentDetails: View {
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
             ConfirmationDialogView(showConfirmation: $showNotificationUI,
                                    message: notificationMessage, image: notificationImage)
+        }
+    }
+    
+    private var verticalHeader: some View {
+        VStack {
+            CoverImageView(isFavorite: $viewModel.isFavorite,
+                           isWatched: $viewModel.isWatched,
+                           isPin: $viewModel.isPin,
+                           isArchive: $viewModel.isArchive,
+                           title: title)
+                .environmentObject(viewModel)
+            
+            DetailWatchlistButton()
+                .keyboardShortcut("l", modifiers: [.option])
+                .environmentObject(viewModel)
+            
+            OverviewBoxView(overview: viewModel.content?.itemOverview,
+                            title: title)
+            .padding()
+        }
+    }
+    
+    private var horizontalHeader: some View {
+        HStack {
+            VStack {
+                CoverImageView(isFavorite: $viewModel.isFavorite,
+                               isWatched: $viewModel.isWatched,
+                               isPin: $viewModel.isPin,
+                               isArchive: $viewModel.isArchive,
+                               title: title)
+                    .environmentObject(viewModel)
+                
+                DetailWatchlistButton()
+                    .keyboardShortcut("l", modifiers: [.option])
+                    .environmentObject(viewModel)
+            }
+            .padding(.horizontal)
+            
+            OverviewBoxView(overview: viewModel.content?.itemOverview,
+                            title: title)
+            .frame(minWidth: 400, idealWidth: 500, maxWidth: 500, alignment: .center)
+            .padding(.trailing)
         }
     }
     
@@ -274,3 +308,44 @@ struct ItemContentDetails_Previews: PreviewProvider {
     }
 }
 #endif
+
+
+struct LargerCoverImage: View {
+    let title: String
+    let subtitle: String
+    let overview: String
+    let backdrop: URL?
+    let poster: URL?
+    var body: some View {
+        HStack {
+            CenterVerticalView {
+                WebImage(url: poster)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            }
+            Spacer()
+            CenterVerticalView {
+                VStack {
+                    Text(title)
+                    Text(subtitle)
+                        .foregroundColor(.secondary)
+                        .padding(.bottom)
+                    Text(overview)
+                        .lineLimit(2)
+                }
+            }
+        }
+        .background {
+            ZStack {
+                WebImage(url: backdrop)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                Rectangle().fill(.black.opacity(0.8))
+            }
+            .ignoresSafeArea(.all)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding()
+        .shadow(radius: 5)
+    }
+}

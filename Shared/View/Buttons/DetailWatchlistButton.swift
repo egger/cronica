@@ -1,5 +1,5 @@
 //
-//  WatchlistButtonView.swift
+//  DetailWatchlistButton.swift
 //  CronicaWatch Watch App
 //
 //  Created by Alexandre Madeira on 13/08/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WatchlistButtonView: View {
+struct DetailWatchlistButton: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var showConfirmationPopup = false
     var body: some View {

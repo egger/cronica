@@ -39,7 +39,7 @@ struct EpisodeListView: View {
                             }
                         }
                         .onAppear {
-                            let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: Int64(id))
+                            let lastWatchedEpisode = PersistenceController.shared.fetchLastWatchedEpisode(for: id)
                             guard let lastWatchedEpisode else { return }
                             withAnimation {
                                 proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)

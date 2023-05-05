@@ -32,7 +32,7 @@ struct ItemContentView: View {
                     )
                     .padding()
                 
-                WatchlistButtonView()
+                DetailWatchlistButton()
                     .environmentObject(viewModel)
                     .padding()
                 

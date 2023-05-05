@@ -37,43 +37,43 @@ class SeasonViewModel: ObservableObject {
         }
     }
     
-    func markSeasonAsWatched(id: Int) {
-        guard let season, let episodes = season.episodes else { return }
-        for episode in episodes {
-            if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
-                persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
-            }
-        }
-    }
+//    func markSeasonAsWatched(id: Int) {
+//        guard let season, let episodes = season.episodes else { return }
+//        for episode in episodes {
+//            if !persistence.isEpisodeSaved(show: id, season: season.seasonNumber, episode: episode.id) {
+//                persistence.updateEpisodeList(show: id, season: season.seasonNumber, episode: episode.id)
+//            }
+//        }
+//    }
     
-    func markThisAndPrevious(until id: Int, show: Int) async {
-        if !isItemInWatchlist {
-            await saveItemOnList(id: show)
-        }
-        if let season {
-            if let episodes = season.episodes {
-                for episode in episodes {
-                    if !persistence.isEpisodeSaved(show: show, season: season.seasonNumber, episode: episode.id) {
-                        persistence.updateEpisodeList(show: show, season: season.seasonNumber, episode: episode.id)
-                    }
-                    if episode.id == id { return }
-                }
-            }
-        }
-    }
+//    func markThisAndPrevious(until id: Int, show: Int) async {
+//        if !isItemInWatchlist {
+//            await saveItemOnList(id: show)
+//        }
+//        if let season {
+//            if let episodes = season.episodes {
+//                for episode in episodes {
+//                    if !persistence.isEpisodeSaved(show: show, season: season.seasonNumber, episode: episode.id) {
+//                        persistence.updateEpisodeList(show: show, season: season.seasonNumber, episode: episode.id)
+//                    }
+//                    if episode.id == id { return }
+//                }
+//            }
+//        }
+//    }
     
-    private func saveItemOnList(id: Int) async {
-        do {
-            let content = try await network.fetchItem(id: id, type: .tvShow)
-            persistence.save(content)
-            isItemInWatchlist = true
-            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
-                NotificationManager.shared.schedule(content)
-            }
-        } catch {
-            if Task.isCancelled { return }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "SeasonViewModel.saveItemOnList.failed")
-        }
-    }
+//    private func saveItemOnList(id: Int) async {
+//        do {
+//            let content = try await network.fetchItem(id: id, type: .tvShow)
+//            persistence.save(content)
+//            isItemInWatchlist = true
+//            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
+//                NotificationManager.shared.schedule(content)
+//            }
+//        } catch {
+//            if Task.isCancelled { return }
+//            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+//                                                  for: "SeasonViewModel.saveItemOnList.failed")
+//        }
+//    }
 }

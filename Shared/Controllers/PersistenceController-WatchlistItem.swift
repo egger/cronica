@@ -316,6 +316,7 @@ extension PersistenceController {
                 item.watchedEpisodes?.append(watched)
                 item.lastSelectedSeason = Int64(episode.itemSeasonNumber)
                 item.lastWatchedEpisode = Int64(episode.id)
+                print("watched: \(item.lastWatchedEpisode)")
             }
             item.isWatching = true
             try save()
@@ -367,7 +368,7 @@ extension PersistenceController {
         }
     }
     
-    func fetchLastWatchedEpisode(for id: Int64) -> Int? {
+    func fetchLastWatchedEpisode(for id: Int) -> Int? {
         do {
             let contentId = "\(id)@\(MediaType.tvShow.toInt)"
             let item = try fetch(for: contentId)
