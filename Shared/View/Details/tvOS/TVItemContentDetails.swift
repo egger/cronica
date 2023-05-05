@@ -37,7 +37,7 @@ struct ItemContentDetails: View {
                                             image: nil,
                                             addedItemConfirmation: .constant(false),
                                             displayAsCard: true)
-                        TVCastListView(credits: viewModel.credits)
+                        CastListView(credits: viewModel.credits)
                             .padding(.bottom)
                         AttributionView()
                     }

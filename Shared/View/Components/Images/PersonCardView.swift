@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 /// This view is responsible for displaying a given person
 /// in a card view, with its name, role, and image.
 struct PersonCardView: View {
@@ -80,11 +80,16 @@ struct PersonCardView: View {
                     }
                     .transition(.opacity)
             }
+#if os(iOS) || os(macOS)
             .draggable(person)
             .contextMenu {
                 ShareLink(item: person.itemURL)
             }
+#endif
         }
+#if os(tvOS)
+        .buttonStyle(.card)
+#endif
     }
     private var name: some View {
         VStack {
@@ -118,10 +123,14 @@ struct PersonCardView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let profileWidth: CGFloat = 240
+    static let profileHeight: CGFloat = 360
+#else
     static let profileWidth: CGFloat = 140
     static let profileHeight: CGFloat = 200
+#endif
     static let shadowRadius: CGFloat = 2.5
     static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
 }
-#endif

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 /// A horizontal list that displays a limited number of
 /// cast people in an ItemContent.
 struct CastListView: View {
@@ -14,10 +14,14 @@ struct CastListView: View {
     var body: some View {
         if !credits.isEmpty {
             VStack(alignment: .leading) {
+#if os(tvOS)
+                TitleView(title: "Cast & Crew")
+#else
                 NavigationLink(value: credits) {
                     TitleView(title: "Cast & Crew", showChevron: true)
                 }
                 .buttonStyle(.plain)
+#endif
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(credits.prefix(10), id: \.personListID) { person in
@@ -25,6 +29,9 @@ struct CastListView: View {
                                 .padding(.leading, person.id == self.credits.first!.id ? DrawingConstants.padding : 0)
                                 .buttonStyle(.plain)
                                 .applyHoverEffect()
+#if os(tvOS)
+                                .padding(.vertical)
+#endif
                         }
                     }
                     .padding(.bottom)
@@ -32,6 +39,9 @@ struct CastListView: View {
                     .padding(.trailing)
                 }
             }
+#if os(tvOS)
+            .padding()
+#endif
         }
     }
 }
@@ -50,4 +60,3 @@ private struct DrawingConstants {
     static let lineLimit: Int = 1
     static let padding: CGFloat = 16
 }
-#endif
