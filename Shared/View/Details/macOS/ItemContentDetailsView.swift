@@ -41,10 +41,7 @@ struct ItemContentDetailsView: View {
                     TrailerListView(trailers: viewModel.content?.itemTrailers)
                     
                     if let seasons = viewModel.content?.itemSeasons {
-                        SeasonListView(numberOfSeasons: seasons,
-                                       tvId: id,
-                                       inWatchlist: $viewModel.isInWatchlist,
-                                       seasonConfirmation: $showSeasonConfirmation)
+                        SeasonList(showID: id, numberOfSeasons: seasons)
                         .padding(.zero)
                     }
                     
@@ -260,7 +257,7 @@ struct ItemContentDetailsView: View {
                                 GlanceInfo(info: viewModel.content?.itemInfo)
                                     .padding(.bottom, 6)
                                     .foregroundColor(.white.opacity(0.8))
-                                WatchlistButtonView()
+                                DetailWatchlistButton()
                                     .environmentObject(viewModel)
                             }
                             .frame(maxWidth: 600)
