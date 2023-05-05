@@ -6,9 +6,12 @@
 //
 import SwiftUI
 
-#if os(iOS)
 struct SideBarView: View {
+#if os(iOS)
     @SceneStorage("selectedView") private var selectedView: Screens?
+#else
+    @SceneStorage("selectedView") private var selectedView: Screens = .home
+#endif
     @StateObject private var viewModel = SearchViewModel()
     @State private var showSettings = false
     @State private var showNotifications = false
@@ -17,6 +20,8 @@ struct SideBarView: View {
     private let persistence = PersistenceController.shared
     @State private var showConfirmation = false
     @State private var isInWatchlist = false
+    @State private var isSearching = false
+    private let columns: [GridItem] = [GridItem(.adaptive(minimum: 160))]
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedView) {
@@ -43,20 +48,33 @@ struct SideBarView: View {
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
+#if os(iOS)
             .searchable(text: $viewModel.query,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: "Movies, Shows, People")
-            .disableAutocorrection(true)
             .searchScopes($scope) {
                 ForEach(SearchItemsScope.allCases) { scope in
                     Text(scope.localizableTitle).tag(scope)
                 }
             }
+            .overlay(search)
+#elseif os(macOS)
+            .searchable(text: $viewModel.query, placement: .toolbar, prompt: "Movies, Shows, People")
+#endif
+            .disableAutocorrection(true)
+            
             .task(id: viewModel.query) {
+#if os(macOS)
+                if !viewModel.query.isEmpty {
+                    isSearching = true
+                } else {
+                    isSearching = false
+                }
+#endif
                 await viewModel.search(viewModel.query)
             }
-            .overlay(searchOverlay)
             .toolbar {
+#if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
                         Button(action: {
@@ -71,8 +89,32 @@ struct SideBarView: View {
                         })
                     }
                 }
+#endif
             }
         } detail: {
+#if os(macOS)
+            ZStack {
+                if isSearching {
+                    search
+                } else {
+                    switch selectedView {
+                    case .home:
+                        NavigationStack {
+                            HomeView()
+                                .environment(\.managedObjectContext, persistence.container.viewContext)
+                        }
+                    case .explore:
+                        NavigationStack { ExploreView() }
+                    case .watchlist:
+                        NavigationStack {
+                            WatchlistView()
+                                .environment(\.managedObjectContext, persistence.container.viewContext)
+                        }
+                    }
+                }
+                ConfirmationDialogView(showConfirmation: $showConfirmation, message: "markedAsWatched")
+            }
+#else
             NavigationStack {
                 switch selectedView {
                 case .explore: ExploreView()
@@ -82,26 +124,36 @@ struct SideBarView: View {
                 default: HomeView()
                 }
             }
+#endif
         }
+        .navigationSplitViewStyle(.balanced)
+#if os(iOS)
         .appTheme()
+#endif
         .sheet(isPresented: $showSettings) {
+#if os(iOS)
             SettingsView(showSettings: $showSettings)
+#endif
         }
         .sheet(isPresented: $showNotifications) {
             NotificationListView(showNotification: $showNotifications)
+#if os(iOS)
                 .appTheme()
                 .appTint()
+#endif
         }
         .sheet(item: $selectedSearchItem) { item in
             if item.media == .person {
                 NavigationStack {
                     PersonDetailsView(title: item.itemTitle, id: item.id)
                         .toolbar {
+#if os(iOS)
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button("Done") {
                                     selectedSearchItem = nil
                                 }
                             }
+#endif
                         }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
@@ -114,11 +166,13 @@ struct SideBarView: View {
                 NavigationStack {
                     ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                         .toolbar {
+#if os(iOS)
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button("Done") {
                                     selectedSearchItem = nil
                                 }
                             }
+#endif
                         }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
@@ -131,8 +185,9 @@ struct SideBarView: View {
         }
     }
     
+#if os(iOS)
     @ViewBuilder
-    private var searchOverlay: some View {
+    private var search: some View {
         switch viewModel.stage {
         case .none: EmptyView()
         case .searching:
@@ -206,16 +261,108 @@ struct SideBarView: View {
                     }
                 }
             }
+#if os(iOS)
             .listStyle(.insetGrouped)
+#endif
         }
     }
-}
 #endif
+    
+#if os(macOS)
+    @ViewBuilder
+    private var search: some View {
+        switch viewModel.stage {
+        case .none: EmptyView()
+        case .searching:
+            NavigationStack {
+                VStack {
+                    ProgressView("Searching")
+                        .foregroundColor(.secondary)
+                        .padding()
+                }
+                .background {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .ignoresSafeArea(.all)
+                }
+                .navigationTitle("Search")
+            }
+        case .empty:
+            NavigationStack {
+                VStack {
+                    Label("No Results", systemImage: "minus.magnifyingglass")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                }
+                .background {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .ignoresSafeArea(.all)
+                }
+                .navigationTitle("Search")
+            }
+        case .failure:
+            NavigationStack {
+                VStack {
+                    Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                }
+                .background {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .ignoresSafeArea(.all)
+                }
+                .navigationTitle("Search")
+            }
+        case .success:
+            NavigationStack {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        VStack {
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(viewModel.items) { item in
+                                    if item.media == .person {
+                                        PersonSearchImage(item: item)
+                                    } else {
+                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                                if viewModel.startPagination && !viewModel.endPagination {
+                                    CenterHorizontalView {
+                                        ProgressView()
+                                            .padding()
+                                            .onAppear {
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    withAnimation {
+                                                        viewModel.loadMoreItems()
+                                                    }
+                                                }
+                                            }
+                                    }
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    .navigationDestination(for: ItemContent.self) { item in
+                        if item.media == .person {
+                            PersonDetailsView(title: item.itemTitle, id: item.id)
+                        } else {
+                            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                        }
+                    }
+                }
+                .navigationTitle("Search")
+            }
+        }
+    }
+#endif
+}
 
-#if os(iOS)
 struct SideBarView_Previews: PreviewProvider {
     static var previews: some View {
         SideBarView()
     }
 }
-#endif
