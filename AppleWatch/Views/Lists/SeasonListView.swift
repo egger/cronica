@@ -11,11 +11,13 @@ struct SeasonListView: View {
     var numberOfSeasons: [Season]
     var id: Int
     var body: some View {
-        ScrollViewReader { proxy in
-            VStack {
+        VStack {
+            ScrollViewReader { proxy in
                 List {
                     ForEach(numberOfSeasons, id: \.self) { season in
-                        NavigationLink("Season \(season.seasonNumber)", value: season)
+                        if season.seasonNumber != 0 {
+                            NavigationLink("Season \(season.seasonNumber)", value: season)
+                        }
                     }
                 }
                 .onAppear {
@@ -25,7 +27,7 @@ struct SeasonListView: View {
                     withAnimation { proxy.scrollTo(lastSeason, anchor: .topLeading) }
                 }
             }
-            .navigationTitle("Seasons")
         }
+        .navigationTitle("Seasons")
     }
 }

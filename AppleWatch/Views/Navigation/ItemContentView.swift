@@ -37,7 +37,7 @@ struct ItemContentView: View {
                     .padding()
                 
                 if let seasons = viewModel.content?.seasons {
-                    NavigationLink("Seasons", destination:  SeasonListView(numberOfSeasons: seasons, id: id))
+                    NavigationLink("Seasons", value: seasons)
                         .padding([.horizontal, .bottom])
                 }   
                 
@@ -68,7 +68,7 @@ struct ItemContentView: View {
             SeasonListView(numberOfSeasons: seasons, id: id)
         }
         .navigationDestination(for: Season.self) { season in
-            EpisodeListView(seasonNumber: season.seasonNumber, id: id, inWatchlist: $viewModel.isInWatchlist)
+            EpisodeListView(seasonNumber: season.seasonNumber, id: id)
         }
         .navigationDestination(for: [Int:Episode].self) { item in
             let keys = item.map { (key, _) in key }

@@ -22,6 +22,9 @@ struct WatchlistItemRow: View {
             HStack {
                 image
                     .applyHoverEffect()
+                #if os(watchOS)
+                    .padding(.top)
+                #endif
                 VStack(alignment: .leading) {
                     HStack {
                         Text(content.itemTitle)

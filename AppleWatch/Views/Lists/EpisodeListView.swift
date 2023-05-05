@@ -10,7 +10,6 @@ import SwiftUI
 struct EpisodeListView: View {
     let seasonNumber: Int
     let id: Int
-    @Binding var inWatchlist: Bool
     @StateObject private var viewModel = SeasonViewModel()
     @State private var isLoading = true
     @State private var episodes = [Episode]()
