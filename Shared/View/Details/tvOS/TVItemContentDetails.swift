@@ -31,9 +31,12 @@ struct ItemContentDetails: View {
                         if let seasons = viewModel.content?.itemSeasons {
                             SeasonList(showID: id, numberOfSeasons: seasons)
                         }
-                        TVItemContentList(items: viewModel.recommendations,
-                                        title: "Recommendations",
-                                        subtitle: "")
+                        ItemContentListView(items: viewModel.recommendations,
+                                            title: "Recommendations",
+                                            subtitle: "",
+                                            image: nil,
+                                            addedItemConfirmation: .constant(false),
+                                            displayAsCard: true)
                         TVCastListView(credits: viewModel.credits)
                             .padding(.bottom)
                         AttributionView()

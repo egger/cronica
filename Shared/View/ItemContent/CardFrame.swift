@@ -14,7 +14,6 @@ struct CardFrame: View {
     private let context = PersistenceController.shared
     @State private var isInWatchlist = false
     @State private var isWatched = false
-    @State private var canReview = false
     @State private var showNote = false
     var body: some View {
         NavigationLink(value: item) {
@@ -40,6 +39,66 @@ struct CardFrame: View {
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     }
                     .overlay {
+#if os(tvOS)
+                        if isInWatchlist {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Text(item.itemTitle)
+                                        .font(.caption)
+                                        .lineLimit(1)
+                                        .padding()
+                                    Spacer()
+                                    if isWatched {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundColor(.white.opacity(0.8))
+                                            .padding()
+                                    } else {
+                                        Image(systemName: "square.stack.fill")
+                                            .foregroundColor(.white.opacity(0.8))
+                                            .padding()
+                                    }
+                                }
+                                .background {
+                                    Color.black.opacity(0.5)
+                                        .mask {
+                                            LinearGradient(colors:
+                                                            [Color.black,
+                                                             Color.black.opacity(0.924),
+                                                             Color.black.opacity(0.707),
+                                                             Color.black.opacity(0.383),
+                                                             Color.black.opacity(0)],
+                                                           startPoint: .bottom,
+                                                           endPoint: .top)
+                                        }
+                                }
+                            }
+                        } else {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Text(item.itemTitle)
+                                        .font(.caption)
+                                        .lineLimit(1)
+                                        .padding()
+                                    Spacer()
+                                }
+                                .background {
+                                    Color.black.opacity(0.5)
+                                        .mask {
+                                            LinearGradient(colors:
+                                                            [Color.black,
+                                                             Color.black.opacity(0.924),
+                                                             Color.black.opacity(0.707),
+                                                             Color.black.opacity(0.383),
+                                                             Color.black.opacity(0)],
+                                                           startPoint: .bottom,
+                                                           endPoint: .top)
+                                        }
+                                }
+                            }
+                        }
+#else
                         if isInWatchlist {
                             VStack {
                                 Spacer()
@@ -72,6 +131,7 @@ struct CardFrame: View {
                                 }
                             }
                         }
+#endif
                     }
                     .aspectRatio(contentMode: .fill)
                     .transition(.opacity)
@@ -105,10 +165,7 @@ struct CardFrame: View {
                     isInWatchlist = context.isItemSaved(id: item.itemNotificationID)
                     if isInWatchlist && !isWatched {
                         isWatched = context.isMarkedAsWatched(id: item.itemNotificationID)
-                        canReview = true
-                    } else {
-                        if canReview { canReview = false }
-                    }
+                    } 
                 }
             }
             .sheet(isPresented: $showNote) {

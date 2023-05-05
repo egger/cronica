@@ -8,7 +8,6 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-
 struct PersonDetailsView: View {
     let name: String
     let personUrl: URL
