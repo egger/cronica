@@ -28,8 +28,9 @@ struct ItemContentDetails: View {
                     .redacted(reason: viewModel.isLoading ? .placeholder : [])
                 VStack {
                     ScrollView {
-                        TVSeasonListView(numberOfSeasons: viewModel.content?.itemSeasons,
-                                       id: self.id, inWatchlist: $viewModel.isInWatchlist)
+                        if let seasons = viewModel.content?.itemSeasons {
+                            SeasonList(showID: id, numberOfSeasons: seasons)
+                        }
                         TVItemContentList(items: viewModel.recommendations,
                                         title: "Recommendations",
                                         subtitle: "")

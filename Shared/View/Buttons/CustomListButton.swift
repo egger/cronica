@@ -17,6 +17,7 @@ struct CustomListButton: View {
     private let context = PersistenceController.shared
     var body: some View {
         if !lists.isEmpty {
+            #if os(iOS) || os(macOS) || os(watchOS)
             Menu {
                 ForEach(lists) { list in
                     Button {
@@ -47,6 +48,7 @@ struct CustomListButton: View {
                     addedLists = context.fetchLists(for: id)
                 }
             }
+            #endif
         } else {
             EmptyView()
         }

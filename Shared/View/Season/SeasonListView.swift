@@ -34,7 +34,11 @@ struct SeasonList: View {
                     Text("Season \(season)").tag(season)
                 }
             }
+#if os(tvOS)
+            .pickerStyle(.navigationLink)
+#else
             .pickerStyle(.menu)
+#endif
             .onChange(of: selectedSeason) { _ in
                 load()
             }
@@ -43,8 +47,22 @@ struct SeasonList: View {
             .unredacted()
 #if os(macOS)
             .frame(maxWidth: 300)
+#elseif os(tvOS)
+            .frame(maxWidth: 600)
 #endif
             Spacer()
+#if os(iOS) || os(macOS)
+            Menu {
+                Button("markThisSeasonAsWatched", action: markSeasonAsWatched)
+                if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(selectedSeason)") {
+                    ShareLink(item: url)
+                }
+            } label: {
+                Label("More", systemImage: "ellipsis.circle")
+                    .labelStyle(.iconOnly)
+            }
+            .padding(.horizontal)
+#endif
         }
     }
     
@@ -62,7 +80,11 @@ struct SeasonList: View {
                                 LazyHStack {
                                     ForEach(season) { item in
                                         EpisodeFrameView(episode: item, season: selectedSeason, show: showID)
+#if os(tvOS)
+                                            .frame(width: 360)
+#else
                                             .frame(width: 160)
+#endif
                                             .padding([.leading, .trailing], 4)
                                             .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                             .padding(.trailing, item.id == season.last!.id ? 16 : 0)
@@ -75,7 +97,6 @@ struct SeasonList: View {
                                 if !hasFirstLoaded { return }
                                 let lastWatchedEpisode = persistence.fetchLastWatchedEpisode(for: showID)
                                 guard let lastWatchedEpisode else { return }
-                                print("last watched is: \(lastWatchedEpisode)")
                                 withAnimation {
                                     proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
                                 }
@@ -144,6 +165,15 @@ struct SeasonList: View {
             let message = "Season \(season), id: \(showID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load.failed")
             withAnimation { isLoading = false }
+        }
+    }
+    
+    private func markSeasonAsWatched() {
+        guard let episodes = season?.episodes else { return }
+        for episode in episodes {
+            if !persistence.isEpisodeSaved(show: showID, season: episode.itemSeasonNumber, episode: episode.id) {
+                persistence.updateEpisodeList(show: showID, season: episode.itemSeasonNumber, episode: episode.id)
+            }
         }
     }
 }

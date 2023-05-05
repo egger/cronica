@@ -23,22 +23,27 @@ struct EpisodeFrameView: View {
         self.episode = episode
         self.season = season
         self.show = show
-        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.episodeNumber ?? 1)")!
+        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!
     }
     var body: some View {
-        component
-            .buttonStyle(.plain)
-            .accessibilityElement(children: .combine)
-            .task {
-                withAnimation {
-                    isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
-                }
+#if os(tvOS)
+        VStack {
+            Button {
+                showDetails.toggle()
+            } label: {
+                image
+                    .accessibilityElement(children: .combine)
+                    .task {
+                        withAnimation {
+                            isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+                        }
+                    }
             }
-        
-    }
-    
-    
-    private var component: some View {
+            .buttonStyle(.card)
+            information
+        }
+        .padding(.top)
+#else
         VStack {
             image
                 .contextMenu {
@@ -50,9 +55,22 @@ struct EpisodeFrameView: View {
                     ShareLink(item: itemLink)
 #endif
                 }
-#if os(iOS) || os(macOS)
+            information
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .task {
+            withAnimation {
+                isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+            }
+        }
+#endif
+    }
+    
+    private var information: some View {
+        VStack {
             HStack {
-                Text("Episode \(episode.episodeNumber ?? 0)")
+                Text("Episode \(episode.itemEpisodeNumber)")
                     .textCase(.uppercase)
                     .font(.caption2)
                     .lineLimit(1)
@@ -74,7 +92,6 @@ struct EpisodeFrameView: View {
                     .accessibilityHidden(true)
                 Spacer()
             }
-#endif
             Spacer()
         }
     }
@@ -128,7 +145,7 @@ struct EpisodeFrameView: View {
                 showDetails.toggle()
             }
             .sheet(isPresented: $showDetails) {
-    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
                 NavigationStack {
                     EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
                         .environmentObject(viewModel)
@@ -140,14 +157,16 @@ struct EpisodeFrameView: View {
                 }
                 .appTheme()
                 .presentationDetents([.large])
-    #if os(macOS)
+#if os(macOS)
                 .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
-    #endif
-    #endif
+#endif
+#else
+                TVEpisodeDetailsView(episode: episode, id: show, season: season)
+#endif
             }
-            #if os(tvOS)
+#if os(tvOS)
             .frame(maxWidth: 360)
-            #endif
+#endif
     }
     
     private func markAsWatched() {
@@ -210,6 +229,3 @@ private struct DrawingConstants {
 #endif
     static let titleLineLimit: Int = 1
 }
-
-
-

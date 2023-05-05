@@ -14,7 +14,6 @@ struct TVEpisodeDetailsView: View {
     let season: Int
     @State private var isWatched = false
     @State private var showOverview = false
-    @Binding var inWatchlist: Bool
     var body: some View {
         ZStack {
             WebImage(url: episode.itemImageOriginal)
@@ -67,11 +66,10 @@ struct TVEpisodeDetailsView: View {
                 .padding(.horizontal)
                 HStack(alignment: .bottom) {
                     VStack {
-//                        WatchEpisodeButton(episode: episode,
-//                                           season: season,
-//                                           show: id,
-//                                           isWatched: $isWatched,
-//                                           inWatchlist: $inWatchlist)
+                        WatchEpisodeButton(episode: episode,
+                                           season: season,
+                                           show: id,
+                                           isWatched: $isWatched)
                     }
                     .padding()
                     Spacer()

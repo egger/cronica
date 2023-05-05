@@ -111,7 +111,6 @@ struct TVItemContentCardView: View {
                                    showConfirmation: $showConfirmation,
                                    isInWatchlist: $isInWatchlist,
                                    isWatched: $isWatched,
-                                   canReview: $canReview,
                                    showNote: $showNote)
         )
     }
