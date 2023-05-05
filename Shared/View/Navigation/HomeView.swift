@@ -20,6 +20,7 @@ struct HomeView: View {
     @State private var showConfirmation = false
     @State private var reloadUpNext = false
     @State private var showWhatsNew = false
+    @State private var hasNotifications = false
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
@@ -148,13 +149,13 @@ struct HomeView: View {
                                 showNotifications.toggle()
                             } label: {
                                 Label("Notifications",
-                                      systemImage: "bell")
+                                      systemImage: hasNotifications ? "bell.badge.fill" : "bell")
                             }
-                            
-                            Button {
-                                showSettings.toggle()
-                            } label: {
-                                Label("Settings", systemImage: "gearshape")
+                            .onAppear {
+                                Task {
+                                    let notifications = await NotificationManager.shared.hasDeliveredItems()
+                                    hasNotifications = notifications
+                                }
                             }
                         }
                     }

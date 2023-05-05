@@ -838,6 +838,7 @@
 				B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */,
 				B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
+				B8DD5697290CB41C002CAAFD /* TVEpisodeDetailsView.swift */,
 			);
 			path = Season;
 			sourceTree = "<group>";
@@ -1345,7 +1346,6 @@
 		B8F6D6CC29DB40D300B9190B /* TV Views */ = {
 			isa = PBXGroup;
 			children = (
-				B8DD5697290CB41C002CAAFD /* TVEpisodeDetailsView.swift */,
 				B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */,
 				B86E7A2B290AEEFE00459E41 /* TVSearchView.swift */,
 			);

@@ -100,6 +100,9 @@ struct TabBarView: View {
             }
             .tag(SearchView.tag)
             .tabItem { Label("Search", systemImage: "magnifyingglass") }
+            
+            SettingsView(showSettings: .constant(true))
+                .tabItem { Label("Settings", systemImage: "gearshape") }
         }
         .appTheme()
     }

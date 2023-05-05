@@ -170,6 +170,12 @@ class NotificationManager: ObservableObject {
         return items
     }
     
+    func hasDeliveredItems() async -> Bool {
+        let notifications = await getDeliveredNotificationsId()
+        if notifications.isEmpty { return false }
+        return true
+    }
+    
     func fetchUpcomingNotifications() async throws -> [WatchlistItem] {
         var items = [WatchlistItem]()
         let notifications = await getUpcomingNotificationsId()

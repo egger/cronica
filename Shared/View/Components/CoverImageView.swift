@@ -20,11 +20,12 @@ struct CoverImageView: View {
     let title: String
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var animationImage = ""
+    @State private var isAdult = false
     var body: some View {
         VStack {
             HeroImage(url: viewModel.content?.cardImageLarge,
                       title: title,
-                      blurImage: viewModel.content?.itemIsAdult ?? false)
+                      blurImage: isAdult)
             .overlay {
                 ZStack {
                     Rectangle().fill(.ultraThinMaterial)
@@ -51,6 +52,10 @@ struct CoverImageView: View {
             .task {
                 isFavorite = viewModel.isFavorite
                 isWatched = viewModel.isWatched
+            }
+            .onAppear {
+                guard let isAdult = viewModel.content?.itemIsAdult else { return }
+                self.isAdult = isAdult
             }
             
             if let info = viewModel.content?.itemInfo {

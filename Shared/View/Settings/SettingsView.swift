@@ -127,10 +127,9 @@ struct SettingsView: View {
                 }
             }
             .toolbar {
-                Button("Done") { showSettings = false }
+                if UIDevice.isIPad { Button("Done") { showSettings = false } }
             }
             .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
         }
         .appTheme()
         .appTint()
