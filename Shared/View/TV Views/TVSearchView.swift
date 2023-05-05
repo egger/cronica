@@ -59,7 +59,7 @@ struct TVSearchView: View {
         }
         .navigationDestination(for: ItemContent.self) { item in
             if item.media == .person {
-                TVPersonDetailsView(title: item.itemTitle, id: item.id)
+                PersonDetailsView(title: item.itemTitle, id: item.id)
             } else {
                 ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
             }

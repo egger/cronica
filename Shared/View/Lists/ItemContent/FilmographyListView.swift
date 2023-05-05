@@ -18,15 +18,19 @@ struct FilmographyListView: View {
         GridItem(.adaptive(minimum: DrawingConstants.columns))
     ]
     var body: some View {
-        if let filmography { 
+        if let filmography {
             if !filmography.isEmpty {
                 VStack {
                     TitleView(title: "Filmography", subtitle: "", image: nil)
+#if os(tvOS)
+                    cardStyle
+#else
                     switch settings.listsDisplayType {
                     case .standard: posterStyle
                     case .poster: posterStyle
                     case .card: cardStyle
                     }
+#endif
                 }
             }
         }

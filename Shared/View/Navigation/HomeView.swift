@@ -75,11 +75,7 @@ struct HomeView: View {
 #endif
             }
             .navigationDestination(for: Person.self) { person in
-#if os(tvOS)
-                TVPersonDetailsView(title: person.name, id: person.id)
-#else
                 PersonDetailsView(title: person.name, id: person.id)
-#endif
             }
             .navigationDestination(for: WatchlistItem.self) { item in
 #if os(macOS)

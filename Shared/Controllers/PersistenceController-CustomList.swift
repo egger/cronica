@@ -74,7 +74,7 @@ extension PersistenceController {
             list.title = title
             try save()
         } catch {
-            
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updateListTitle")
         }
     }
     
@@ -83,7 +83,7 @@ extension PersistenceController {
             list.notes = notes
             try save()
         } catch {
-            
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updateListNotes")
         }
     }
     
@@ -92,7 +92,7 @@ extension PersistenceController {
             list.isPin.toggle()
             try save()
         } catch {
-            
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updatePinOnHome")
         }
     }
     
@@ -111,7 +111,7 @@ extension PersistenceController {
             list.items = set as NSSet
             try save()
         } catch {
-            
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "removeItemsFromList")
         }
     }
     

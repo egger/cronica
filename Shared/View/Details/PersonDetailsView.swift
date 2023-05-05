@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-#if os(iOS) || os(macOS)
+
 struct PersonDetailsView: View {
     let name: String
     let personUrl: URL
@@ -67,14 +67,18 @@ struct PersonDetailsView: View {
             }
             .task { load() }
             .redacted(reason: isLoading ? .placeholder : [])
+#if os(iOS)
             .overlay(search)
             .searchScopes($scope) {
                 ForEach(WatchlistSearchScope.allCases) { scope in
                     Text(scope.localizableTitle).tag(scope)
                 }
             }
+#endif
             .autocorrectionDisabled(true)
+#if os(iOS) || os(macOS)
             .navigationTitle(name)
+#endif
             .toolbar {
 #if os(iOS)
                 ToolbarItem {
@@ -146,6 +150,7 @@ struct PersonDetailsView: View {
         }
     }
     
+#if os(iOS)
     @ViewBuilder
     private var search: some View {
         if !viewModel.query.isEmpty {
@@ -174,9 +179,10 @@ struct PersonDetailsView: View {
                         .accessibilityHint(Text(item.itemTitle))
                 }
             }
-#endif     
+#endif
         }
     }
+#endif
     
     private var imageProfile: some View {
         WebImage(url: viewModel.person?.personImage)
@@ -216,4 +222,3 @@ private struct DrawingConstants {
 #endif
     static let imageShadow: CGFloat = 6
 }
-#endif
