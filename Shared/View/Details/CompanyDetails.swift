@@ -121,26 +121,23 @@ struct CompanyDetails_Previews: PreviewProvider {
 struct CompaniesListView: View {
     let companies: [ProductionCompany]
     var body: some View {
-        if companies.isEmpty {
-            ProgressView()
-        } else {
-#if os(iOS)
-            List(companies, id: \.self) { item in
-                NavigationLink(value: item) {
-                    Text(item.name)
-                }
-            }
-            .navigationTitle("companiesTitle")
-#elseif os(macOS)
-            Table(companies) {
-                TableColumn("Companies") { item in
-                    NavigationLink(value: item) {
-                        Text(item.name)
+        Form {
+            if companies.isEmpty {
+                CenterHorizontalView { ProgressView().padding() }
+            } else {
+                Section {
+                    List(companies, id: \.self) { item in
+                        NavigationLink(value: item) {
+                            Text(item.name)
+                        }
                     }
                 }
             }
-#endif
         }
+        .navigationTitle("companiesTitle")
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
 }
 

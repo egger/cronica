@@ -35,6 +35,7 @@ struct ItemContentDetails: View {
     }
     var body: some View {
         ZStack {
+            #if os(macOS) || os(iOS)
             if viewModel.isLoading { ProgressView().padding() }
             ScrollView {
 #if os(macOS)
@@ -143,6 +144,9 @@ struct ItemContentDetails: View {
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
             ConfirmationDialogView(showConfirmation: $showNotificationUI,
                                    message: notificationMessage, image: notificationImage)
+            #elseif os(tvOS)
+            tvOS
+            #endif
         }
     }
     
@@ -175,6 +179,35 @@ struct ItemContentDetails: View {
         }
     }
 #endif
+    
+    #if os(tvOS)
+    private var tvOS: some View {
+        ScrollView {
+            TVHeader(title: title, type: type)
+                .environmentObject(viewModel)
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
+            VStack {
+                ScrollView {
+                    if let seasons = viewModel.content?.itemSeasons {
+                        SeasonList(showID: id, numberOfSeasons: seasons)
+                    }
+                    ItemContentListView(items: viewModel.recommendations,
+                                        title: "Recommendations",
+                                        subtitle: "",
+                                        image: nil,
+                                        addedItemConfirmation: .constant(false),
+                                        displayAsCard: true)
+                    CastListView(credits: viewModel.credits)
+                        .padding(.bottom)
+                    AttributionView()
+                }
+            }
+            .task { await viewModel.load() }
+            .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        }
+        .ignoresSafeArea()
+    }
+    #endif
     
 #if os(iOS)
     var iOS: some View {

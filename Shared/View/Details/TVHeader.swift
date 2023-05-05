@@ -1,55 +1,19 @@
 //
-//  ItemContentDetails.swift
-//  CronicaTV
+//  TVHeader.swift
+//  Story (iOS)
 //
-//  Created by Alexandre Madeira on 27/10/22.
+//  Created by Alexandre Madeira on 05/05/23.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-#if os(tvOS)
-struct ItemContentDetailsTV: View {
-    var title: String
-    var id: Int
-    var type: MediaType
-    @StateObject private var viewModel: ItemContentViewModel
+struct TVHeader: View {
+    @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var showOverview = false
-    init(title: String, id: Int, type: MediaType) {
-        _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
-        self.title = title
-        self.id = id
-        self.type = type
-    }
+    let title: String
+    let type: MediaType
     var body: some View {
-        ZStack {
-            ScrollView {
-                header
-                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
-                VStack {
-                    ScrollView {
-                        if let seasons = viewModel.content?.itemSeasons {
-                            SeasonList(showID: id, numberOfSeasons: seasons)
-                        }
-                        ItemContentListView(items: viewModel.recommendations,
-                                            title: "Recommendations",
-                                            subtitle: "",
-                                            image: nil,
-                                            addedItemConfirmation: .constant(false),
-                                            displayAsCard: true)
-                        CastListView(credits: viewModel.credits)
-                            .padding(.bottom)
-                        AttributionView()
-                    }
-                }
-                .task { await viewModel.load() }
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            }
-            .ignoresSafeArea()
-        }
-    }
-    
-    private var header: some View {
         ZStack {
             if viewModel.isLoading { ProgressView("Loading").unredacted() }
             WebImage(url: viewModel.content?.cardImageOriginal)
@@ -122,8 +86,8 @@ struct ItemContentDetailsTV: View {
                             } label: {
                                 Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                                       systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
-                                    .padding([.top, .bottom])
-                                    .frame(minWidth: 480)
+                                .padding([.top, .bottom])
+                                .frame(minWidth: 480)
                             }
                             .buttonStyle(.borderedProminent)
                             .frame(width: 480)
@@ -185,22 +149,3 @@ struct ItemContentDetailsTV: View {
         }
     }
 }
-
-struct InfoSegmentView: View {
-    let title: String
-    let info: String?
-    var body: some View {
-        if let info {
-            VStack(alignment: .leading) {
-                Text(NSLocalizedString(title, comment: ""))
-                    .lineLimit(1)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                Text(info)
-                    .lineLimit(1)
-                    .font(.body)
-            }
-        }
-    }
-}
-#endif
