@@ -60,6 +60,7 @@ struct EpisodeDetailsView: View {
                 .buttonBorderShape(.capsule)
 #endif
                 
+#if os(iOS)
                 if let showItem {
                     NavigationLink(value: showItem) {
                         Label("tvShowDetails", systemImage: "chevron.forward")
@@ -70,10 +71,9 @@ struct EpisodeDetailsView: View {
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
                     .padding([.horizontal, .top])
-#if os(iOS)
                     .buttonBorderShape(.capsule)
-#endif
                 }
+#endif
                 
                 OverviewBoxView(overview: episode.itemOverview,
                                 title: episode.itemTitle,

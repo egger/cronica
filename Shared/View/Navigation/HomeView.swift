@@ -148,15 +148,21 @@ struct HomeView: View {
                             Button {
                                 showNotifications.toggle()
                             } label: {
-                                Label("Notifications",
-                                      systemImage: hasNotifications ? "bell.badge.fill" : "bell")
+                                Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                                .imageScale(.medium)
                             }
+                            .buttonStyle(.bordered)
+                            .clipShape(Circle())
+                            .tint(.secondary)
+                            .shadow(radius: 2)
                             .onAppear {
                                 Task {
                                     let notifications = await NotificationManager.shared.hasDeliveredItems()
                                     hasNotifications = notifications
                                 }
                             }
+                            .accessibilityLabel("Notifications")
+                            .padding()
                         }
                     }
                 }
@@ -174,8 +180,7 @@ struct HomeView: View {
 #endif
             }
             .sheet(isPresented: $showNotifications) {
-#if os(tvOS)
-#else
+#if os(iOS) || os(macOS)
                 NotificationListView(showNotification: $showNotifications)
                     .appTheme()
 #if os(macOS)

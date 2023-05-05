@@ -13,6 +13,7 @@ struct WatchEpisodeButton: View {
     let show: Int
     @Binding var isWatched: Bool
     private let persistence = PersistenceController.shared
+    private let network = NetworkService.shared
     @State private var isItemSaved = false
     var body: some View {
         Button(action: update) {
@@ -58,23 +59,19 @@ struct WatchEpisodeButton: View {
                 persistence.updateUpNext(item, episode: nextEpisode)
             }
         } catch {
-            CronicaTelemetry.shared.handleMessage("", for: "")
+            let message = "Error '\(error.localizedDescription)' when saving: \(episode)."
+            CronicaTelemetry.shared.handleMessage(message, for: "WatchEpisodeButton")
         }
     }
     
     private func fetch() async {
-        let network = NetworkService.shared
         do {
             let content = try await network.fetchItem(id: show, type: .tvShow)
             persistence.save(content)
             if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
                 NotificationManager.shared.schedule(content)
             }
-            DispatchQueue.main.async {
-                withAnimation {
-                    isItemSaved = true
-                }
-            }
+            isItemSaved = true
         } catch {
             if Task.isCancelled { return }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "WatchEpisodeButton.fetch")
@@ -83,7 +80,6 @@ struct WatchEpisodeButton: View {
     
     private func fetchNextEpisode() async -> Episode? {
         do {
-            let network = NetworkService.shared
             let season = try await network.fetchSeason(id: show, season: season)
             guard let episodes = season.episodes else { return nil }
             let nextEpisodeCount = episode.itemEpisodeNumber+1

@@ -289,8 +289,7 @@ extension PersistenceController {
                     item.isWatching = true
                     
                     if let nextEpisode {
-                        item.nextEpisodeNumberUpNext = Int64(nextEpisode.episodeNumber ?? 0)
-                        item.seasonNumberUpNext = Int64(nextEpisode.seasonNumber ?? 0)
+                        updateUpNext(item, episode: nextEpisode)
                     }
                     item.lastSelectedSeason = Int64(season)
                     item.lastWatchedEpisode = Int64(episode)

@@ -148,7 +148,6 @@ struct EpisodeFrameView: View {
 #if os(iOS) || os(macOS)
                 NavigationStack {
                     EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
-                        .environmentObject(viewModel)
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") { showDetails = false }
