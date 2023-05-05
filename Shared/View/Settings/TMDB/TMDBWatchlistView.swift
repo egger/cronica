@@ -60,20 +60,17 @@ struct TMDBWatchlistView: View {
                 }
                 .sheet(item: $selectedItem) { item in
                     NavigationStack {
-#if os(iOS)
                         ItemContentDetails(title: item.itemTitle,
                                            id: item.id,
-                                           type: item.itemContentMedia)
+                                           type: item.itemContentMedia,
+                                           handleToolbar: true)
                         .toolbar {
+#if os(iOS)
                             ToolbarItem(placement: .navigationBarLeading) { doneButton }
-                        }
-#elseif os(macOS)
-                        ItemContentDetailsView(id: item.id,
-                                               title: item.itemTitle,
-                                               type: item.itemContentMedia,
-                                               handleToolbarOnPopup: true)
-                        .toolbar { doneButton }
+#else
+                            doneButton
 #endif
+                        }
                     }
                     .presentationDetents([.large])
 #if os(macOS)

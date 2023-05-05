@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct ItemContentCollectionDetails: View {
     let title: String
     let items: [ItemContent]
@@ -68,4 +68,3 @@ private struct DrawingConstants {
 #endif
     static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
 }
-#endif

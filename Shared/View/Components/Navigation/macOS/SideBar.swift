@@ -67,8 +67,6 @@ struct SideBar: View {
                             WatchlistView()
                                 .environment(\.managedObjectContext, persistence.container.viewContext)
                         }
-//                        MacWatchlistView()
-//                            .environment(\.managedObjectContext, persistence.container.viewContext)
                     }
                 }
                 ConfirmationDialogView(showConfirmation: $showConfirmation, message: "markedAsWatched")
@@ -158,7 +156,7 @@ struct SideBar: View {
                         if item.media == .person {
                             PersonDetailsView(title: item.itemTitle, id: item.id)
                         } else {
-                            ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
+                            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                         }
                     }
                 }

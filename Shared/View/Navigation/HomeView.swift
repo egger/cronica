@@ -67,32 +67,23 @@ struct HomeView: View {
 #endif
             }
             .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
-#else
                 ItemContentDetails(title: item.itemTitle,
                                    id: item.id,
                                    type: item.itemContentMedia)
-#endif
             }
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
             }
             .navigationDestination(for: WatchlistItem.self) { item in
-#if os(macOS)
-                ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
-#else
                 ItemContentDetails(title: item.itemTitle,
                                    id: item.itemId,
                                    type: item.itemMedia)
-#endif
             }
             .navigationDestination(for: [WatchlistItem].self) { item in
                 TitleWatchlistDetails(items: item)
             }
             .navigationDestination(for: Endpoints.self) { endpoint in
-#if os(tvOS)
-#else
+#if os(iOS) || os(macOS)
                 EndpointDetails(title: endpoint.title,
                                 endpoint: endpoint)
 #endif

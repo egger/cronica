@@ -57,18 +57,10 @@ struct ExploreView: View {
                         }
                     }
                     .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-                        ItemContentDetailsView(id: item.id, title: item.itemTitle,
-                                               type: item.itemContentMedia, handleToolbarOnPopup: true)
-#else
-                        ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-#endif
+                        ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
                     }
                     .navigationDestination(for: Person.self) { person in
-#if os(tvOS)
-#else
                         PersonDetailsView(title: person.name, id: person.id)
-#endif
                     }
                     .navigationDestination(for: [String:[ItemContent]].self) { item in
                         let keys = item.map { (key, _) in key }
@@ -85,10 +77,7 @@ struct ExploreView: View {
 #endif
                     }
                     .navigationDestination(for: ProductionCompany.self) { item in
-#if os(tvOS)
-#else
                         CompanyDetails(company: item)
-#endif
                     }
                     .navigationDestination(for: [ProductionCompany].self) { item in
 #if os(tvOS)

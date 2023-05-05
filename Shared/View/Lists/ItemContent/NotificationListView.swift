@@ -33,18 +33,13 @@ struct NotificationListView: View {
 #endif
             .toolbar {
 #if os(iOS)
-                ToolbarItem(placement: .navigationBarLeading) { Button("Done", action: dismiss) }
+                ToolbarItem(placement: .navigationBarTrailing) { Button("Done", action: dismiss) }
 #else
                 Button("Done", action: dismiss)
 #endif
             }
             .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-                ItemContentDetailsView(id: item.id, title: item.itemTitle,
-                                       type: item.itemContentMedia, handleToolbarOnPopup: true)
-#else
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-#endif
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
             }
             .navigationDestination(for: Person.self) { item in
                 PersonDetailsView(title: item.name, id: item.id)

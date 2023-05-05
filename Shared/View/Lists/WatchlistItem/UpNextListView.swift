@@ -79,6 +79,7 @@ struct UpNextListView: View {
                 }
             }
             .sheet(item: $selectedEpisode) { item in
+#if os(iOS) || os(macOS)
                 NavigationStack {
                     if let show = selectedEpisodeShowID {
                         EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isUpNext: true)
@@ -110,6 +111,7 @@ struct UpNextListView: View {
 #if os(macOS)
                 .frame(width: 800, height: 500)
 #endif
+                #endif
             }
             .task(id: isWatched) {
                 if isWatched {

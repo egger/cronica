@@ -64,16 +64,17 @@ struct CronicaApp: App {
                 }
                 .sheet(item: $widgetItem) { item in
                     NavigationStack {
-#if os(iOS)
                         ItemContentDetails(title: item.itemTitle,
                                            id: item.id,
-                                           type: item.itemContentMedia)
+                                           type: item.itemContentMedia, handleToolbar: true)
                         .toolbar {
+#if os(iOS)
                             ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") {
-                                    widgetItem = nil
-                                }
+                                Button("Done") { widgetItem = nil }
                             }
+#else
+                            Button("Done") { widgetItem = nil }
+#endif
                         }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle,
@@ -97,19 +98,6 @@ struct CronicaApp: App {
                         .navigationDestination(for: [ProductionCompany].self) { item in
                             CompaniesListView(companies: item)
                         }
-#elseif os(macOS)
-                        ItemContentDetailsView(id: item.id,
-                                               title: item.itemTitle,
-                                               type: item.itemContentMedia,
-                                               handleToolbarOnPopup: true)
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button("Done") {
-                                    widgetItem = nil
-                                }
-                            }
-                        }
-#endif
                     }
 #if os(macOS)
                     .presentationDetents([.large])
@@ -121,16 +109,17 @@ struct CronicaApp: App {
                 }
                 .sheet(item: $notificationItem) { item in
                     NavigationStack {
-#if os(iOS)
                         ItemContentDetails(title: item.itemTitle,
                                            id: item.id,
-                                           type: item.itemContentMedia)
+                                           type: item.itemContentMedia, handleToolbar: true)
                         .toolbar {
+                            #if os(iOS)
                             ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") {
-                                    notificationItem = nil
-                                }
+                                Button("Done") { notificationItem = nil }
                             }
+                            #else
+                            Button("Done") { notificationItem = nil }
+                            #endif
                         }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle,
@@ -154,19 +143,6 @@ struct CronicaApp: App {
                         .navigationDestination(for: [ProductionCompany].self) { item in
                             CompaniesListView(companies: item)
                         }
-#elseif os(macOS)
-                        ItemContentDetailsView(id: item.id,
-                                               title: item.itemTitle,
-                                               type: item.itemContentMedia,
-                                               handleToolbarOnPopup: true)
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button("Done") {
-                                    notificationItem = nil
-                                }
-                            }
-                        }
-#endif
                     }
 #if os(macOS)
                     .presentationDetents([.large])

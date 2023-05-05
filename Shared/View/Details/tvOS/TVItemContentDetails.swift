@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 #if os(tvOS)
-struct ItemContentDetails: View {
+struct ItemContentDetailsTV: View {
     var title: String
     var id: Int
     var type: MediaType

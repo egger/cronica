@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
-#if os(iOS)
 struct ItemContentDetails: View {
     var title: String
     var id: Int
     var type: MediaType
-    let itemUrl: URL
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store = SettingsStore.shared
     @State private var showConfirmation = false
@@ -25,13 +22,16 @@ struct ItemContentDetails: View {
     @State private var showCustomList = false
     @State private var showUserNotes = false
 #if os(macOS)
+    var handleToolbarOnPopup: Bool = false
 #endif
-    init(title: String, id: Int, type: MediaType) {
+    init(title: String, id: Int, type: MediaType, handleToolbar: Bool = false) {
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
         self.title = title
         self.id = id
         self.type = type
-        self.itemUrl = URL(string: "https://www.themoviedb.org/\(type.rawValue)/\(id)")!
+#if os(macOS)
+        self.handleToolbarOnPopup = handleToolbar
+#endif
     }
     var body: some View {
         ZStack {
@@ -48,7 +48,6 @@ struct ItemContentDetails: View {
                 if UIDevice.isIPhone {
                     TranslucentBackground(image: viewModel.content?.cardImageLarge)
                 }
-                
 #endif
             }
             .task {
@@ -61,10 +60,7 @@ struct ItemContentDetails: View {
 #if os(iOS)
                 ToolbarItem {
                     HStack {
-                        Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
-                            .opacity(viewModel.isNotificationAvailable ? 1 : 0)
-                            .foregroundColor(.accentColor)
-                            .accessibilityHidden(true)
+                        notificationStatus
                         ShareLink(item: itemUrl)
                             .disabled(viewModel.isLoading ? true : false)
                         if UIDevice.isIPad {
@@ -81,7 +77,46 @@ struct ItemContentDetails: View {
                         }
                     }
                 }
-#else
+#elseif os(macOS)
+                if handleToolbarOnPopup {
+                    ToolbarItem(placement: .status) {
+                        ViewThatFits {
+                            HStack {
+                                Button { } label: {
+                                    notificationStatus
+                                }
+                                watchButton
+                                favoriteButton
+                                shareButton
+                            }
+                            shareButton
+                        }
+                        
+                    }
+                } else {
+                    ToolbarItem {
+                        ViewThatFits {
+                            HStack {
+                                Button { } label: {
+                                    notificationStatus
+                                }
+                                watchButton
+                                favoriteButton
+                                if viewModel.isInWatchlist {
+                                    addToCustomListButton
+                                        .sheet(isPresented: $showCustomList) {
+                                            ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
+                                                .presentationDetents([.medium])
+                                                .frame(width: 500, height: 600, alignment: .center)
+                                        }
+                                }
+                                shareButton
+                            }
+                            shareButton
+                        }
+                        
+                    }
+                }
 #endif
             }
             .alert("Error", isPresented: $viewModel.showErrorAlert) {
@@ -111,7 +146,7 @@ struct ItemContentDetails: View {
         }
     }
     
-    
+#if os(iOS) || os(macOS)
     var macOS: some View {
         VStack {
             LargerHeader(title: title, type: type)
@@ -139,11 +174,11 @@ struct ItemContentDetails: View {
             AttributionView()
         }
     }
+#endif
     
 #if os(iOS)
     var iOS: some View {
         VStack {
-            
             if UIDevice.isIPad {
                 LargerHeader(title: title, type: type)
                     .environmentObject(viewModel)
@@ -190,23 +225,7 @@ struct ItemContentDetails: View {
     }
 #endif
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+#if os(iOS)
     private var verticalHeader: some View {
         VStack {
             CoverImageView(isFavorite: $viewModel.isFavorite,
@@ -225,28 +244,13 @@ struct ItemContentDetails: View {
             .padding()
         }
     }
+#endif
     
-    private var horizontalHeader: some View {
-        HStack {
-            VStack {
-                CoverImageView(isFavorite: $viewModel.isFavorite,
-                               isWatched: $viewModel.isWatched,
-                               isPin: $viewModel.isPin,
-                               isArchive: $viewModel.isArchive,
-                               title: title)
-                .environmentObject(viewModel)
-                
-                DetailWatchlistButton()
-                    .keyboardShortcut("l", modifiers: [.option])
-                    .environmentObject(viewModel)
-            }
-            .padding(.horizontal)
-            
-            OverviewBoxView(overview: viewModel.content?.itemOverview,
-                            title: title)
-            .frame(minWidth: 400, idealWidth: 500, maxWidth: 500, alignment: .center)
-            .padding(.trailing)
-        }
+    private var notificationStatus: some View {
+        Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
+            .opacity(viewModel.isNotificationAvailable ? 1 : 0)
+            .foregroundColor(.accentColor)
+            .accessibilityHidden(true)
     }
     
     private var addToCustomListButton: some View {
@@ -268,7 +272,9 @@ struct ItemContentDetails: View {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
         }
+#if os(iOS) || os(macOS)
         .keyboardShortcut("w", modifiers: [.option])
+#endif
     }
     
     private var favoriteButton: some View {
@@ -279,7 +285,9 @@ struct ItemContentDetails: View {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
         }
+#if os(iOS) || os(macOS)
         .keyboardShortcut("f", modifiers: [.option])
+#endif
     }
     
     private var archiveButton: some View {
@@ -302,6 +310,7 @@ struct ItemContentDetails: View {
         }
     }
     
+#if os(iOS)
     private var openInMenu: some View {
         Menu {
             if viewModel.content?.hasIMDbUrl ?? false {
@@ -322,7 +331,9 @@ struct ItemContentDetails: View {
             }
         }
     }
+#endif
     
+#if os(iOS) || os(macOS)
     private var moreMenu: some View {
         Menu {
             if viewModel.isInWatchlist {
@@ -333,13 +344,16 @@ struct ItemContentDetails: View {
             }
             watchButton
             favoriteButton
+#if os(iOS)
             openInMenu
+#endif
         } label: {
             Label("More Options", systemImage: "ellipsis.circle")
                 .labelStyle(.iconOnly)
         }
         .disabled(viewModel.isLoading ? true : false)
     }
+#endif
     
     private var userNotesButton: some View {
         Button {
@@ -347,6 +361,15 @@ struct ItemContentDetails: View {
         } label: {
             Label("reviewTitle", systemImage: "note.text")
         }
+    }
+    
+    @ViewBuilder
+    private var shareButton: some View {
+#if os(iOS) || os(macOS)
+        if let url = viewModel.content?.itemURL {
+            ShareLink(item: url)
+        }
+#endif
     }
     
     private func animate(for action: UpdateItemProperties) {
@@ -374,9 +397,7 @@ struct ItemContentDetails: View {
         }
     }
 }
-#endif
 
-#if os(iOS)
 struct ItemContentDetails_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentDetails(title: ItemContent.example.itemTitle,
@@ -384,4 +405,3 @@ struct ItemContentDetails_Previews: PreviewProvider {
                            type: .movie)
     }
 }
-#endif

@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct CompanyDetails: View {
     let company: ProductionCompany
     @State private var showConfirmation = false
@@ -33,17 +33,14 @@ struct CompanyDetails: View {
                 }
             }
             .toolbar {
+#if os(iOS) || os(macOS)
                 if let url = URL(string: "https://www.themoviedb.org/company/\(company.id)/") {
                     ShareLink(item: url)
                 }
+#endif
             }
             .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-                ItemContentDetailsView(id: item.id, title: item.itemTitle,
-                                       type: item.itemContentMedia, handleToolbarOnPopup: true)
-#else
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-#endif
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
             }
             .navigationDestination(for: Person.self) { person in
                 PersonDetailsView(title: person.name, id: person.id)
@@ -134,7 +131,7 @@ struct CompaniesListView: View {
                 }
             }
             .navigationTitle("companiesTitle")
-#else
+#elseif os(macOS)
             Table(companies) {
                 TableColumn("Companies") { item in
                     NavigationLink(value: item) {
@@ -194,4 +191,3 @@ private struct DrawingConstants {
     static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
 }
-#endif
