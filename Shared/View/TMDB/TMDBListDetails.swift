@@ -203,7 +203,7 @@ struct TMDBListDetails: View {
             for item in items {
                 let content = try await network.fetchItem(id: item.id, type: item.itemContentMedia)
                 persistence.save(content)
-                let savedItem = try persistence.fetch(for: item.itemNotificationID)
+                let savedItem = try persistence.fetch(for: item.itemContentID)
                 if let savedItem {
                     itemsToAdd.insert(savedItem)
                 }

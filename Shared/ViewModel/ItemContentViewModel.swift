@@ -41,17 +41,17 @@ class ItemContentViewModel: ObservableObject {
             do {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
                 guard let content else { return }
-                isInWatchlist = persistence.isItemSaved(id: content.itemNotificationID)
+                isInWatchlist = persistence.isItemSaved(id: content.itemContentID)
                 if isInWatchlist {
-                    watchlistItem = try persistence.fetch(for: content.itemNotificationID)
+                    watchlistItem = try persistence.fetch(for: content.itemContentID)
                 }
                 withAnimation {
                     if isInWatchlist {
                         hasNotificationScheduled = isNotificationScheduled()
-                        isWatched = persistence.isMarkedAsWatched(id: content.itemNotificationID)
-                        isFavorite = persistence.isMarkedAsFavorite(id: content.itemNotificationID)
-                        isArchive = persistence.isItemArchived(id: content.itemNotificationID)
-                        isPin = persistence.isItemPinned(id: content.itemNotificationID)
+                        isWatched = persistence.isMarkedAsWatched(id: content.itemContentID)
+                        isFavorite = persistence.isMarkedAsFavorite(id: content.itemContentID)
+                        isArchive = persistence.isItemArchived(id: content.itemContentID)
+                        isPin = persistence.isItemPinned(id: content.itemContentID)
                     }
                     isNotificationAvailable = content.itemCanNotify
                     if content.itemStatus == .released {
@@ -88,10 +88,10 @@ class ItemContentViewModel: ObservableObject {
             // Removes item from Watchlist
             withAnimation { isInWatchlist.toggle() }
             do {
-                let watchlistItem = try persistence.fetch(for: item.itemNotificationID)
+                let watchlistItem = try persistence.fetch(for: item.itemContentID)
                 guard let watchlistItem else { return }
                 if watchlistItem.notify {
-                    notification.removeNotification(identifier: item.itemNotificationID)
+                    notification.removeNotification(identifier: item.itemContentID)
                     withAnimation { hasNotificationScheduled.toggle() }
                 }
                 persistence.delete(watchlistItem)
@@ -124,7 +124,7 @@ class ItemContentViewModel: ObservableObject {
     private func isNotificationScheduled() -> Bool {
         do {
             guard let content else { return false }
-            let item = try persistence.fetch(for: content.itemNotificationID)
+            let item = try persistence.fetch(for: content.itemContentID)
             guard let notify = item?.notify else { return false }
             return notify
         } catch {
@@ -137,7 +137,7 @@ class ItemContentViewModel: ObservableObject {
     func fetchSavedItem() {
         do {
             guard let content else { return }
-            watchlistItem = try persistence.fetch(for: content.itemNotificationID)
+            watchlistItem = try persistence.fetch(for: content.itemContentID)
         } catch {
             print(error.localizedDescription)
         }
@@ -145,7 +145,7 @@ class ItemContentViewModel: ObservableObject {
     
     func update(_ property: UpdateItemProperties) {
         do {
-            guard let content, let item = try persistence.fetch(for: content.itemNotificationID) else { return }
+            guard let content, let item = try persistence.fetch(for: content.itemContentID) else { return }
             if !isInWatchlist { updateWatchlist(with: content) }
             switch property {
             case .watched:
@@ -170,7 +170,7 @@ class ItemContentViewModel: ObservableObject {
     private func updateSeasons() async {
         do {
             if type != .tvShow { return }
-            guard let content, let item = try persistence.fetch(for: content.itemNotificationID) else { return }
+            guard let content, let item = try persistence.fetch(for: content.itemContentID) else { return }
             if !isWatched {
                 /// if item is removed from watched, then all watched episodes will also be removed.
                 persistence.removeWatchedEpisodes(for: item)

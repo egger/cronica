@@ -20,12 +20,12 @@ struct SearchItemSwipeGesture: ViewModifier {
         return content
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 if isInWatchlist {
-                    WatchedButton(id: item.itemNotificationID, isWatched: $isWatched)
+                    WatchedButton(id: item.itemContentID, isWatched: $isWatched)
                         .tint(isWatched ? .yellow : .green)
-                    FavoriteButton(id: item.itemNotificationID, isFavorite: $isFavorite)
+                    FavoriteButton(id: item.itemContentID, isFavorite: $isFavorite)
                         .tint(isFavorite ? .orange : .blue)
                 } else {
-                    WatchlistButton(id: item.itemNotificationID,
+                    WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
                                     showConfirmation: $showConfirmation)
                     .tint(.blue)
@@ -33,7 +33,7 @@ struct SearchItemSwipeGesture: ViewModifier {
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 if isInWatchlist {
-                    WatchlistButton(id: item.itemNotificationID,
+                    WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
                                     showConfirmation: $showConfirmation)
                 }

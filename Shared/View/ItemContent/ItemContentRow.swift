@@ -55,12 +55,12 @@ struct ItemContentRow: View {
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote)
             .task {
-                isWatched = persistence.isMarkedAsWatched(id: item.itemNotificationID)
+                isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
             }
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    ReviewView(id: item.itemNotificationID, showView: $showNote)
+                    ReviewView(id: item.itemContentID, showView: $showNote)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)

@@ -78,9 +78,9 @@ struct TVSearchItemContentView: View {
             .task {
                 if item.media != .person {
                     withAnimation {
-                        isInWatchlist = context.isItemSaved(id: item.itemNotificationID)
+                        isInWatchlist = context.isItemSaved(id: item.itemContentID)
                         if isInWatchlist && !isWatched {
-                            isWatched = context.isMarkedAsWatched(id: item.itemNotificationID)
+                            isWatched = context.isMarkedAsWatched(id: item.itemContentID)
                         }
                     }
                 }

@@ -51,7 +51,7 @@ class NotificationManager: ObservableObject {
                 return
             } 
         }
-        let identifier = content.itemNotificationID
+        let identifier = content.itemContentID
         let title = content.itemTitle
         var body: String
         if content.itemContentMedia == .movie {
@@ -162,7 +162,8 @@ class NotificationManager: ObservableObject {
                 media = .tvShow
             }
             let id = notification.dropLast(2)
-            let item = try? await NetworkService.shared.fetchItem(id: Int(id)!, type: media)
+            guard let contentID = Int(id) else { return [] }
+            let item = try? await NetworkService.shared.fetchItem(id: contentID, type: media)
             if let item {
                 items.append(item)
             }

@@ -25,9 +25,9 @@ struct FilmographyListView: View {
                             NavigationLink(value: item) {
                                 SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
                                     .task {
-                                        isInWatchlist = context.isItemSaved(id: item.itemNotificationID)
+                                        isInWatchlist = context.isItemSaved(id: item.itemContentID)
                                         if isInWatchlist {
-                                            isWatched = context.isMarkedAsWatched(id: item.itemNotificationID)
+                                            isWatched = context.isMarkedAsWatched(id: item.itemContentID)
                                         }
                                     }
                             }

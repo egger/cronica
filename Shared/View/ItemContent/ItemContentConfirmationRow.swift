@@ -58,10 +58,10 @@ struct ItemContentConfirmationRow: View {
         }
         .task {
             withAnimation {
-                self.isItemAdded = PersistenceController.shared.isItemSaved(id: item.itemNotificationID)
+                self.isItemAdded = PersistenceController.shared.isItemSaved(id: item.itemContentID)
             }
             if isItemAdded {
-                isWatched = PersistenceController.shared.isMarkedAsWatched(id: item.itemNotificationID)
+                isWatched = PersistenceController.shared.isMarkedAsWatched(id: item.itemContentID)
                 canReview = true
             } else {
                 if canReview { canReview = false }

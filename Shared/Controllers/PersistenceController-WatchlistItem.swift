@@ -14,14 +14,14 @@ extension PersistenceController {
     /// - Parameter content: The content that is used to populate the new WatchlistItem.
     func save(_ content: ItemContent) {
         do {
-            if !self.isItemSaved(id: content.itemNotificationID) {
+            if !self.isItemSaved(id: content.itemContentID) {
                 let item = WatchlistItem(context: container.viewContext)
                 item.contentType = content.itemContentMedia.toInt
                 item.title = content.itemTitle
                 item.originalTitle = content.originalTitle
                 item.id = Int64(content.id)
                 item.tmdbID = Int64(content.id)
-                item.contentID = content.itemNotificationID
+                item.contentID = content.itemContentID
                 item.imdbID = content.imdbId
                 item.image = content.cardImageMedium
                 item.largeCardImage = content.cardImageLarge
@@ -67,11 +67,11 @@ extension PersistenceController {
     
     /// Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent) {
-        if isItemSaved(id: content.itemNotificationID) {
+        if isItemSaved(id: content.itemContentID) {
             do {
-                let item = try fetch(for: content.itemNotificationID)
+                let item = try fetch(for: content.itemContentID)
                 guard let item else { return }
-                item.contentID = content.itemNotificationID
+                item.contentID = content.itemContentID
                 item.tmdbID = Int64(content.id)
                 item.title = content.itemTitle
                 item.originalTitle = content.originalTitle

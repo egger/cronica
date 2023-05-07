@@ -107,10 +107,10 @@ class BackgroundManager {
                 // If fetched item release date is different than the scheduled one,
                 // then remove the old date and register the new one.
                 if item.itemDate.areDifferentDates(with: content.itemFallbackDate) {
-                    notifications.removeNotification(identifier: content.itemNotificationID)
+                    notifications.removeNotification(identifier: content.itemContentID)
                 }
                 if content.itemStatus == .cancelled {
-                    notifications.removeNotification(identifier: content.itemNotificationID)
+                    notifications.removeNotification(identifier: content.itemContentID)
                 }
                 // In order to avoid passing the limit of local notifications,
                 // the app will only register when it's less than two months away

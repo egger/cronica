@@ -88,6 +88,13 @@
 		B81941A92A0834B70057DA04 /* EndpointDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941A72A0834B70057DA04 /* EndpointDetailsViewModel.swift */; };
 		B81941AB2A0835D40057DA04 /* PosterPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941AA2A0835D40057DA04 /* PosterPlaceholder.swift */; };
 		B81941AC2A0835D40057DA04 /* PosterPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941AA2A0835D40057DA04 /* PosterPlaceholder.swift */; };
+		B81941AF2A0839560057DA04 /* ChangelogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941AE2A0839560057DA04 /* ChangelogItemView.swift */; };
+		B81941B02A0839560057DA04 /* ChangelogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941AE2A0839560057DA04 /* ChangelogItemView.swift */; };
+		B81941B12A08398F0057DA04 /* ChangelogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818483B29C2897A00650763 /* ChangelogView.swift */; };
+		B81941B22A0839A50057DA04 /* TipJarSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB0B29675582002E028E /* TipJarSetting.swift */; };
+		B81941B32A0839B00057DA04 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB1329675B5E002E028E /* StoreKitManager.swift */; };
+		B81941B62A083A460057DA04 /* InformationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941B52A083A460057DA04 /* InformationContainerView.swift */; };
+		B81941B82A083A610057DA04 /* InformationContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941B72A083A610057DA04 /* InformationContainerItem.swift */; };
 		B81DD92629BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
 		B81DD92829BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
 		B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
@@ -469,6 +476,9 @@
 		B81941A42A0833450057DA04 /* AddToListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListRow.swift; sourceTree = "<group>"; };
 		B81941A72A0834B70057DA04 /* EndpointDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetailsViewModel.swift; sourceTree = "<group>"; };
 		B81941AA2A0835D40057DA04 /* PosterPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPlaceholder.swift; sourceTree = "<group>"; };
+		B81941AE2A0839560057DA04 /* ChangelogItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogItemView.swift; sourceTree = "<group>"; };
+		B81941B52A083A460057DA04 /* InformationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationContainerView.swift; sourceTree = "<group>"; };
+		B81941B72A083A610057DA04 /* InformationContainerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationContainerItem.swift; sourceTree = "<group>"; };
 		B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomList+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -810,6 +820,7 @@
 			isa = PBXGroup;
 			children = (
 				B819416F2A073B900057DA04 /* Buttons */,
+				B81941AD2A08394D0057DA04 /* Changelog */,
 				B824E4482A05A87600E385CE /* Company */,
 				B8EC463E27D84C62009389FC /* Components */,
 				B8F6DE682937F92A005D1A50 /* Containers */,
@@ -817,6 +828,7 @@
 				B824E4382A04A77800E385CE /* ItemContent */,
 				B8389ECB28A9BD31003025BC /* Modifiers */,
 				B8C781F3287F58B700B4C2C2 /* Navigation */,
+				B81941B42A083A370057DA04 /* Onboard */,
 				B824E4462A05A76900E385CE /* Person */,
 				B824E4342A048DA500E385CE /* Review */,
 				B883C1BF28637FB700906EF1 /* Search */,
@@ -852,6 +864,25 @@
 				B824E43F2A059E2400E385CE /* TransparentGroupBox.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		B81941AD2A08394D0057DA04 /* Changelog */ = {
+			isa = PBXGroup;
+			children = (
+				B81941AE2A0839560057DA04 /* ChangelogItemView.swift */,
+				B818483B29C2897A00650763 /* ChangelogView.swift */,
+			);
+			path = Changelog;
+			sourceTree = "<group>";
+		};
+		B81941B42A083A370057DA04 /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				B81941B72A083A610057DA04 /* InformationContainerItem.swift */,
+				B81941B52A083A460057DA04 /* InformationContainerView.swift */,
+				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,
+			);
+			path = Onboard;
 			sourceTree = "<group>";
 		};
 		B824E4342A048DA500E385CE /* Review */ = {
@@ -1212,7 +1243,6 @@
 		B8C781F3287F58B700B4C2C2 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				B818483B29C2897A00650763 /* ChangelogView.swift */,
 				B8110ED9279245D000844FEB /* ContentView.swift */,
 				B8779374281E2CE700174F32 /* ExploreView.swift */,
 				B8ED4C3C27B4B9680045C68F /* HomeView.swift */,
@@ -1220,7 +1250,6 @@
 				B83F1E9828BAD24C008E151D /* SideBarView.swift */,
 				B8779376281E319D00174F32 /* TabBarView.swift */,
 				B8423E2B2793B4C10012259B /* WatchlistView.swift */,
-				B8991C7C27E4B5D2001055CB /* WelcomeView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1568,6 +1597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B81941B02A0839560057DA04 /* ChangelogItemView.swift in Sources */,
 				B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */,
 				B8C0215729E0D2A7006E9D82 /* WatchlistItemContextMenu.swift in Sources */,
 				B8FB2A7C29522DC3006DAC8E /* WatchlistItemRow.swift in Sources */,
@@ -1588,6 +1618,7 @@
 				B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B8C0215829E0D2B0006E9D82 /* SettingsStore.swift in Sources */,
 				B84043BA289B18B200D5CEBF /* UTType-Extensions.swift in Sources */,
+				B81941B32A0839B00057DA04 /* StoreKitManager.swift in Sources */,
 				B8B981EF29F433340001CF0B /* CustomListView.swift in Sources */,
 				B81DD92E29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B84043B0289B187000D5CEBF /* Watchlist.xcdatamodeld in Sources */,
@@ -1598,6 +1629,7 @@
 				B89ECD092986A89600F0B197 /* InformationalLabel.swift in Sources */,
 				B8FB2A8C29526074006DAC8E /* DoubleTapGesture.swift in Sources */,
 				B82BE4DA299BF35D005F9990 /* PersistenceController-WatchlistItem.swift in Sources */,
+				B81941B12A08398F0057DA04 /* ChangelogView.swift in Sources */,
 				B81DD92829BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B89ECD022984531D00F0B197 /* DiscoverSortBy.swift in Sources */,
 				B82B75A428A84DBA00C3212A /* WatchlistView.swift in Sources */,
@@ -1630,6 +1662,7 @@
 				B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */,
 				B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */,
 				B8C0215B29E0D56C006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */,
+				B81941B22A0839A50057DA04 /* TipJarSetting.swift in Sources */,
 				B819418E2A0822C30057DA04 /* UpNextEpisode.swift in Sources */,
 				B824E4492A05A9AE00E385CE /* AttributionView.swift in Sources */,
 				B8FB2A8B2952606A006DAC8E /* AppThemeColors.swift in Sources */,
@@ -1737,6 +1770,7 @@
 				B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
+				B81941B62A083A460057DA04 /* InformationContainerView.swift in Sources */,
 				B81941842A073BA00057DA04 /* CustomListButton.swift in Sources */,
 				B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
@@ -1759,6 +1793,7 @@
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,
 				B80BBE5E2949677300958876 /* SyncSetting.swift in Sources */,
 				B82C267A2795E33900259D98 /* Poster.swift in Sources */,
+				B81941B82A083A610057DA04 /* InformationContainerItem.swift in Sources */,
 				B86E586D27A46A5E005DBF38 /* InformationSectionView.swift in Sources */,
 				B8C781F0287F4A7500B4C2C2 /* PersonCardView.swift in Sources */,
 				B82BE4FB29A188D8005F9990 /* EditCustomList.swift in Sources */,
@@ -1818,6 +1853,7 @@
 				B84B506829AE698100AE63C7 /* FeatureRoadmap.swift in Sources */,
 				B81941932A0823380057DA04 /* SmallerUpNextCard.swift in Sources */,
 				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
+				B81941AF2A0839560057DA04 /* ChangelogItemView.swift in Sources */,
 				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
 				B85FD9A929F324730088B5CC /* AccountSettingsView.swift in Sources */,
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,

@@ -36,7 +36,7 @@ class ExploreViewModel: ObservableObject {
     func hideItems() {
         let ids = fetchAllItemsIDs(selectedMedia)
         withAnimation {
-            items.removeAll(where: { ids.contains($0.itemNotificationID)})
+            items.removeAll(where: { ids.contains($0.itemContentID)})
         }
     }
     
@@ -66,7 +66,7 @@ class ExploreViewModel: ObservableObject {
                                                          sort: selectedSortBy)
             if hideAddedItems {
                 let ids = fetchAllItemsIDs(selectedMedia)
-                items.append(contentsOf: result.filter { !ids.contains($0.itemNotificationID)})
+                items.append(contentsOf: result.filter { !ids.contains($0.itemContentID)})
             } else {
                 items.append(contentsOf: result)
             }

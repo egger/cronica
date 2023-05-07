@@ -18,6 +18,7 @@ struct CronicaApp: App {
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @State private var notificationItem: ItemContent?
+    @State private var selectedItem: ItemContent?
     @ObservedObject private var settings = SettingsStore.shared
 #if os(iOS)
     @ObservedObject private var notificationDelegate = NotificationDelegate()
@@ -35,34 +36,19 @@ struct CronicaApp: App {
             ContentView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
 #if os(iOS)
-                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { item in
-                    fetchNotificationItem()
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                    Task {
+                        guard let id = notificationDelegate.notificationID else { return }
+                        await fetchContent(for: id)
+                    }
                 }
 #endif
                 .onOpenURL { url in
-                    if widgetItem != nil { widgetItem = nil }
-                    if notificationItem != nil { notificationItem = nil }
-                    let typeInt = url.absoluteString.first!
-                    let idString: String = url.absoluteString
-                    let formattedIdString = String(idString.dropFirst())
-                    let id = Int(formattedIdString)!
-                    var type: MediaType
-                    if typeInt == "0" {
-                        type = .movie
-                    } else {
-                        type = .tvShow
-                    }
                     Task {
-                        do {
-                            widgetItem = try await NetworkService.shared.fetchItem(id: id, type: type)
-                        } catch {
-                            let message = "Item ID: \(id). Item Type: \(type.rawValue)."
-                            CronicaTelemetry.shared.handleMessage("\(message)\(error.localizedDescription)",
-                                                                  for: "CronicaWidgetLoadItem")
-                        }
+                        await fetchContent(for: url.absoluteString)
                     }
                 }
-                .sheet(item: $widgetItem) { item in
+                .sheet(item: $selectedItem) { item in
                     NavigationStack {
                         ItemContentDetails(title: item.itemTitle,
                                            id: item.id,
@@ -70,55 +56,10 @@ struct CronicaApp: App {
                         .toolbar {
 #if os(iOS)
                             ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") { widgetItem = nil }
+                                Button("Done") { selectedItem = nil }
                             }
 #else
-                            Button("Done") { widgetItem = nil }
-#endif
-                        }
-                        .navigationDestination(for: ItemContent.self) { item in
-                            ItemContentDetails(title: item.itemTitle,
-                                               id: item.id,
-                                               type: item.itemContentMedia)
-                        }
-                        .navigationDestination(for: Person.self) { person in
-                            PersonDetailsView(title: person.name, id: person.id)
-                        }
-                        .navigationDestination(for: [String:[ItemContent]].self) { item in
-                            let keys = item.map { (key, _) in key }
-                            let value = item.map { (_, value) in value }
-                            ItemContentCollectionDetails(title: keys[0], items: value[0])
-                        }
-                        .navigationDestination(for: [Person].self) { items in
-                            DetailedPeopleList(items: items)
-                        }
-                        .navigationDestination(for: ProductionCompany.self) { item in
-                            CompanyDetails(company: item)
-                        }
-                        .navigationDestination(for: [ProductionCompany].self) { item in
-                            CompaniesListView(companies: item)
-                        }
-                    }
-#if os(macOS)
-                    .presentationDetents([.large])
-                    .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
-#elseif os(iOS)
-                    .appTheme()
-                    .appTint()
-#endif
-                }
-                .sheet(item: $notificationItem) { item in
-                    NavigationStack {
-                        ItemContentDetails(title: item.itemTitle,
-                                           id: item.id,
-                                           type: item.itemContentMedia, handleToolbar: true)
-                        .toolbar {
-#if os(iOS)
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") { notificationItem = nil }
-                            }
-#else
-                            Button("Done") { notificationItem = nil }
+                            Button("Done") { selectedItem = nil }
 #endif
                         }
                         .navigationDestination(for: ItemContent.self) { item in
@@ -167,33 +108,19 @@ struct CronicaApp: App {
 #endif
     }
     
-#if os(iOS)
-    private func fetchNotificationItem() {
-        guard let id = notificationDelegate.notificationID else { return }
-        if notificationItem != nil { notificationItem = nil }
-        if widgetItem != nil { widgetItem = nil }
-        let typeInt = id.first!
-        let idString: String = id
-        let formattedIdString = String(idString.dropFirst())
-        let contentId = Int(formattedIdString)!
-        var type: MediaType
-        if typeInt == "0" {
-            type = .movie
-        } else {
-            type = .tvShow
+    private func fetchContent(for id: String) async {
+        if selectedItem != nil { selectedItem = nil }
+        let type = id.last ?? "0"
+        var media: MediaType = .movie
+        if type == "1" {
+            media = .tvShow
         }
-        Task {
-            do {
-                notificationItem = try await NetworkService.shared.fetchItem(id: contentId, type: type)
-            } catch {
-                let message = "Item ID: \(contentId). Item Type: \(type.rawValue)."
-                CronicaTelemetry.shared.handleMessage("\(message)\(error.localizedDescription)",
-                                                      for: "CronicaApp.fetchNotificationItem.failed")
-            }
-        }
+        let contentID = id.dropLast(2)
+        guard let contentIDNumber = Int(contentID) else { return }
+        let item = try? await NetworkService.shared.fetchItem(id: contentIDNumber, type: media)
+        guard let item else { return }
+        selectedItem = item
     }
-#endif
-    
     
     private func registerRefreshBGTask() {
 #if os(iOS)

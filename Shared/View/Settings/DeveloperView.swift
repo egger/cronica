@@ -134,7 +134,7 @@ struct DeveloperView: View {
                                 }
                                 Menu {
                                     Button {
-                                        let watchlist = try? PersistenceController.shared.fetch(for: item.itemNotificationID)
+                                        let watchlist = try? PersistenceController.shared.fetch(for: item.itemContentID)
                                         if let watchlist {
                                             CronicaTelemetry.shared.handleMessage("WatchlistItem: \(watchlist as Any)",
                                                                                   for: "DeveloperView.printObject")

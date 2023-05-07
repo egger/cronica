@@ -89,9 +89,9 @@ struct Poster: View {
                                     showNote: $showNote)
             .task {
                 withAnimation {
-                    isInWatchlist = context.isItemSaved(id: item.itemNotificationID)
+                    isInWatchlist = context.isItemSaved(id: item.itemContentID)
                     if isInWatchlist && !isWatched {
-                        isWatched = context.isMarkedAsWatched(id: item.itemNotificationID)
+                        isWatched = context.isMarkedAsWatched(id: item.itemContentID)
                         canReview = true
                     } else {
                         if canReview { canReview = false }
@@ -101,7 +101,7 @@ struct Poster: View {
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
-                    ReviewView(id: item.itemNotificationID, showView: $showNote)
+                    ReviewView(id: item.itemContentID, showView: $showNote)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)

@@ -169,7 +169,7 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
                 }
             }
         }
-        let filteredWatched = result.filter { !watchedItems.contains($0.itemNotificationID) }
+        let filteredWatched = result.filter { !watchedItems.contains($0.itemContentID) }
         return filteredWatched
     }
 }

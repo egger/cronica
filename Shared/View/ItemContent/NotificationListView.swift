@@ -56,7 +56,7 @@ struct NotificationListView: View {
                     ItemContentRow(item: item)
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button(role: .destructive) {
-                                removeDelivered(id: item.itemNotificationID, for: item.id)
+                                removeDelivered(id: item.itemContentID, for: item.id)
                             } label: {
                                 Label("Remove Notification", systemImage: "bell.slash.circle.fill")
                             }

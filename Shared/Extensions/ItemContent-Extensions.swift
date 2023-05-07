@@ -62,11 +62,11 @@ extension ItemContent {
         }
         return nil
     }
-    var itemNotificationID: String {
+//    var itemNotificationID: String {
+//        return "\(id)@\(itemContentMedia.toInt)"
+//    }
+    var itemContentID: String {
         return "\(id)@\(itemContentMedia.toInt)"
-    }
-    var itemNotificationContentID: String {
-        return "\(itemContentMedia.toInt)\(id)"
     }
     var itemTheatricalString: String? {
         if let dates = releaseDates?.results {

@@ -21,8 +21,15 @@ extension ItemContent {
         if title != nil { return .movie }
         return .tvShow
     }
-    var itemUrlId: String {
-        return "\(itemMedia.toInt)\(id)"
+    private var itemContentMedia: MediaType {
+        if title != nil {
+            return .movie
+        } else {
+            return .tvShow
+        }
+    }
+    var itemContentID: String {
+        return "\(id)@\(itemContentMedia.toInt)"
     }
     static let placeholder = ItemContent(id: 639933,
                                          title: "The Northman",

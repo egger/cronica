@@ -26,11 +26,11 @@ struct ItemContentContextMenu: ViewModifier {
                 ShareLink(item: item.itemURL)
 #endif
                 if isInWatchlist {
-                    WatchedButton(id: item.itemNotificationID, isWatched: $isWatched)
-                    FavoriteButton(id: item.itemNotificationID, isFavorite: $isFavorite)
-                    PinButton(id: item.itemNotificationID, isPin: $isPin)
-                    ArchiveButton(id: item.itemNotificationID, isArchive: $isArchive)
-                    CustomListButton(id: item.itemNotificationID)
+                    WatchedButton(id: item.itemContentID, isWatched: $isWatched)
+                    FavoriteButton(id: item.itemContentID, isFavorite: $isFavorite)
+                    PinButton(id: item.itemContentID, isPin: $isPin)
+                    ArchiveButton(id: item.itemContentID, isArchive: $isArchive)
+                    CustomListButton(id: item.itemContentID)
                     Button {
                         showNote.toggle()
                     } label: {
@@ -41,7 +41,7 @@ struct ItemContentContextMenu: ViewModifier {
                 if !isInWatchlist {
                     addAndMarkWatchedButton
                 }
-                WatchlistButton(id: item.itemNotificationID,
+                WatchlistButton(id: item.itemContentID,
                                 isInWatchlist: $isInWatchlist,
                                 showConfirmation: $showConfirmation)
             } preview: {
@@ -51,9 +51,9 @@ struct ItemContentContextMenu: ViewModifier {
             }
             .task {
                 if isInWatchlist {
-                    isFavorite = context.isMarkedAsFavorite(id: item.itemNotificationID)
-                    isPin = context.isItemPinned(id: item.itemNotificationID)
-                    isArchive = context.isItemArchived(id: item.itemNotificationID)
+                    isFavorite = context.isMarkedAsFavorite(id: item.itemContentID)
+                    isPin = context.isItemPinned(id: item.itemContentID)
+                    isArchive = context.isItemArchived(id: item.itemContentID)
                 }
             }
 #endif
@@ -73,7 +73,7 @@ struct ItemContentContextMenu: ViewModifier {
                 return
             }
             context.save(item)
-            let content = try? context.fetch(for: item.itemNotificationID)
+            let content = try? context.fetch(for: item.itemContentID)
             guard let content else { return }
             context.updateWatched(for: content)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
