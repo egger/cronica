@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 class UpNextViewModel: ObservableObject {
-    @Published var episodeShowID = [String:Int]()
+    @Published private var episodeShowID = [String:Int]()
     @Published var isLoaded = false
     @Published var items = [UpNextEpisode]()
     private let network = NetworkService.shared
@@ -71,6 +71,16 @@ class UpNextViewModel: ObservableObject {
                 withAnimation { self.isLoaded = true }
             }
         }
+    }
+    
+    func reload(_ items: FetchedResults<WatchlistItem>) async {
+        withAnimation { self.isLoaded = false }
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut) {
+                self.items.removeAll()
+            }
+        }
+        Task { await load(items) }
     }
     
     func handleWatched(_ episode: Episode) async {

@@ -43,26 +43,19 @@ struct UpNextListView: View {
                 }
             }
             .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
-            .navigationDestination(for: [UpNextEpisode].self) { item in
-                DetailedUpNextView()
-                    .environmentObject(viewModel)
+            .navigationDestination(for: [UpNextEpisode].self) { _ in
+                DetailedUpNextView().environmentObject(viewModel)
             }
             .task {
                 await viewModel.load(items)
             }
             .onChange(of: shouldReload) { reload in
                 if reload {
-                    viewModel.isLoaded = false
-                    DispatchQueue.main.async {
-                        withAnimation(.easeInOut) {
-                            viewModel.items.removeAll()
-                        }
-                    }
                     Task {
-                        await viewModel.load(items)
+                        await viewModel.reload(items)
                         DispatchQueue.main.async {
                             withAnimation(.easeInOut) {
-                                shouldReload = false
+                                self.shouldReload = false
                             }
                         }
                     }
@@ -75,9 +68,7 @@ struct UpNextListView: View {
                                        show: item.showID,
                                        isWatched: $isWatched,
                                        isUpNext: true)
-                    .toolbar {
-                        Button("Done") { selectedEpisode = nil }
-                    }
+                    .toolbar { Button("Done") { selectedEpisode = nil } }
                 }
 #if os(macOS)
                 .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
@@ -85,9 +76,9 @@ struct UpNextListView: View {
             }
             .task(id: isWatched) {
                 if isWatched {
-                    guard let episode = selectedEpisode?.episode else { return }
-                    await viewModel.handleWatched(episode)
-                     selectedEpisode = nil
+                    guard let selectedEpisode else { return }
+                    await viewModel.handleWatched(selectedEpisode.episode)
+                    self.selectedEpisode = nil
                 }
             }
         }
