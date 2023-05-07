@@ -140,39 +140,6 @@ struct Poster_Previews: PreviewProvider {
     }
 }
 
-struct PosterPlaceholder: View {
-    var title: String
-    let type: MediaType
-    @StateObject private var settings = SettingsStore.shared
-    var body: some View {
-        ZStack {
-            Rectangle().fill(.gray.gradient)
-            VStack {
-                if settings.isCompactUI {
-                    Image(systemName: type == .tvShow ? "tv" : "film")
-                        .font(.title3)
-                        .foregroundColor(.white.opacity(0.8))
-                } else {
-                    Text(title)
-                        .foregroundColor(.white.opacity(0.8))
-                        .lineLimit(1)
-                        .padding()
-                    Image(systemName: type == .tvShow ? "tv" : "film")
-                        .font(.title)
-                        .foregroundColor(.white.opacity(0.8))
-                }
-                
-            }
-            .padding()
-        }
-        .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
-               height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
-                                    style: .continuous))
-        .shadow(radius: DrawingConstants.shadowRadius)
-    }
-}
-
 private struct DrawingConstants {
 #if os(tvOS)
     static let posterWidth: CGFloat = 260

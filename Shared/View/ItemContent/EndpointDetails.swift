@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct EndpointDetails: View {
     let title: String
     var endpoint: Endpoints?
-    @StateObject private var viewModel = EndpointDetailsModel()
+    @StateObject private var viewModel = EndpointDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
     @State private var showConfirmation = false
     var body: some View {
@@ -92,30 +92,6 @@ struct EndpointDetails: View {
     }
 }
 
-@MainActor
-private class EndpointDetailsModel: ObservableObject {
-    @Published var items = [ItemContent]()
-    private var page = 1
-    @Published var startPagination: Bool = false
-    @Published var endPagination: Bool = false
-    @Published var isLoading = true
-    
-    func loadMoreItems(for endpoint: Endpoints) async {
-        do {
-            let result = try await NetworkService.shared.fetchItems(from: "\(endpoint.type.rawValue)/\(endpoint.rawValue)", page: String(page))
-            items.append(contentsOf: result)
-            if !items.isEmpty {
-                page += 1
-                startPagination = false
-            }
-            if result.isEmpty { endPagination = true }
-            withAnimation { isLoading = false }
-        } catch {
-            if Task.isCancelled { return }
-        }
-    }
-}
-
 private struct DrawingConstants {
 #if os(macOS) || os(tvOS)
     static let columns = [GridItem(.adaptive(minimum: 160))]
@@ -124,4 +100,3 @@ private struct DrawingConstants {
 #endif
     static let compactColumns = [GridItem(.adaptive(minimum: 80))]
 }
-#endif

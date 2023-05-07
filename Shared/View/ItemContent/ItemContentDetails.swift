@@ -35,7 +35,7 @@ struct ItemContentDetails: View {
     }
     var body: some View {
         ZStack {
-            #if os(macOS) || os(iOS)
+#if os(macOS) || os(iOS)
             if viewModel.isLoading { ProgressView().padding() }
             ScrollView {
 #if os(macOS)
@@ -144,9 +144,9 @@ struct ItemContentDetails: View {
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
             ConfirmationDialogView(showConfirmation: $showNotificationUI,
                                    message: notificationMessage, image: notificationImage)
-            #elseif os(tvOS)
+#elseif os(tvOS)
             tvOS
-            #endif
+#endif
         }
     }
     
@@ -180,7 +180,7 @@ struct ItemContentDetails: View {
     }
 #endif
     
-    #if os(tvOS)
+#if os(tvOS)
     private var tvOS: some View {
         ScrollView {
             TVHeader(title: title, type: type)
@@ -207,7 +207,7 @@ struct ItemContentDetails: View {
         }
         .ignoresSafeArea()
     }
-    #endif
+#endif
     
 #if os(iOS)
     var iOS: some View {

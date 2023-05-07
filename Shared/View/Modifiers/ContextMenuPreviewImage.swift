@@ -13,7 +13,6 @@ struct ContextMenuPreviewImage: View {
     let image: URL?
     let overview: String
     var body: some View {
-#if os(iOS)
         ZStack {
             WebImage(url: image)
                 .resizable()
@@ -82,7 +81,6 @@ struct ContextMenuPreviewImage: View {
                     }
                 }
         }
-#endif
     }
 }
 

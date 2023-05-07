@@ -66,16 +66,19 @@ struct ItemContentContextMenu: ViewModifier {
     }
     
     private func addAndMarkAsWatched() {
-        do {
-            //updateWatchlist()
-            let content = try context.fetch(for: item.itemNotificationID)
+        Task {
+            let item = try? await NetworkService.shared.fetchItem(id: self.item.id, type: self.item.itemContentMedia)
+            guard let item else {
+                context.save(self.item)
+                return
+            }
+            context.save(item)
+            let content = try? context.fetch(for: item.itemNotificationID)
             guard let content else { return }
             context.updateWatched(for: content)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 withAnimation { isWatched.toggle() }
             }
-        } catch {
-            print(error.localizedDescription)
         }
     }
 }
