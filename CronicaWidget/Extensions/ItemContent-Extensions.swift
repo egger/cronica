@@ -21,11 +21,23 @@ extension ItemContent {
         if title != nil { return .movie }
         return .tvShow
     }
-    var itemUrlId: String {
-        return "\(itemMedia.toInt)\(id)"
+    private var itemContentMedia: MediaType {
+        if title != nil {
+            return .movie
+        } else {
+            return .tvShow
+        }
     }
-    static let placeholder = ItemContent(id: 639933, title: "The Northman", name: nil, posterPath: "/8p9zXB7M78nZpm215zHfqpknMeM.jpg", backdropPath: "/cIjmEgK67974md4Z9Xe6350sAS2.jpg", data: nil)
-    static var previewContents: [ItemContent] {
+    var itemContentID: String {
+        return "\(id)@\(itemContentMedia.toInt)"
+    }
+    static let placeholder = ItemContent(id: 639933,
+                                         title: "The Northman",
+                                         name: nil,
+                                         posterPath: "/8p9zXB7M78nZpm215zHfqpknMeM.jpg",
+                                         backdropPath: "/cIjmEgK67974md4Z9Xe6350sAS2.jpg",
+                                         data: nil)
+    static var examples: [ItemContent] {
         let data: ItemContentResponse? = try? Bundle.main.decode(from: "DataPlaceholder")
         if let results = data?.results {
             var items = [ItemContent]()

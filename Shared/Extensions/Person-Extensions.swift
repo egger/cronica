@@ -48,7 +48,7 @@ extension Person {
         return "\(id)"
     }
     static var example: [Person] {
-        return ItemContent.previewContent.credits!.cast
+        return ItemContent.example.credits!.cast
     }
     static var previewCast: Person {
         return example[2]

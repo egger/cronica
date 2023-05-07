@@ -62,11 +62,8 @@ extension ItemContent {
         }
         return nil
     }
-    var itemNotificationID: String {
+    var itemContentID: String {
         return "\(id)@\(itemContentMedia.toInt)"
-    }
-    var itemNotificationContentID: String {
-        return "\(itemContentMedia.toInt)\(id)"
     }
     var itemTheatricalString: String? {
         if let dates = releaseDates?.results {
@@ -299,11 +296,11 @@ extension ItemContent {
     }
     
     // MARK: Preview
-    static var previewContents: [ItemContent] {
+    static var examples: [ItemContent] {
         let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
         return data!.results
     }
-    static var previewContent: ItemContent {
-        previewContents[0]
+    static var example: ItemContent {
+        examples[0]
     }
 }

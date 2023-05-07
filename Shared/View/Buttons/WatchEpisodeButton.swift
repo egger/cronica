@@ -12,12 +12,11 @@ struct WatchEpisodeButton: View {
     let season: Int
     let show: Int
     @Binding var isWatched: Bool
-    @Binding var inWatchlist: Bool
     private let persistence = PersistenceController.shared
+    private let network = NetworkService.shared
+    @State private var isItemSaved = false
     var body: some View {
-        Button {
-            update()
-        } label: {
+        Button(action: update) {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
 #if os(tvOS)
@@ -27,47 +26,52 @@ struct WatchEpisodeButton: View {
     }
     
     private func update() {
-        if !inWatchlist {
+        checkIfItemIsSaved()
+        if !isItemSaved {
             Task {
                 await fetch()
-                await handleList()
+                handleList()
             }
         } else {
-            Task { await handleList() }
+            handleList()
         }
-        HapticManager.shared.successHaptic()
     }
     
-    private func handleList() async {
-        if SettingsStore.shared.markPreviouslyEpisodesAsWatched {
+    private func checkIfItemIsSaved() {
+        let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+        let isShowSaved = persistence.isItemSaved(id: contentId)
+        isItemSaved = isShowSaved
+    }
+    
+    private func handleList() {
+        do {
+            let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+            let item = try persistence.fetch(for: contentId)
+            guard let item else { return }
+            persistence.updateWatchedEpisodes(for: item, with: episode)
+            DispatchQueue.main.async {
+                withAnimation { isWatched.toggle() }
+            }
+            HapticManager.shared.successHaptic()
             Task {
-                await persistence.updateEpisodeListUpTo(to: show, actualEpisode: episode)
+                let nextEpisode = await fetchNextEpisode()
+                guard let nextEpisode else { return }
+                persistence.updateUpNext(item, episode: nextEpisode)
             }
-        } else {
-            let nextEpisode = await fetchNextEpisode()
-            persistence.updateEpisodeList(show: show, season: season, episode: episode.id, nextEpisode: nextEpisode)
-        }
-        
-        DispatchQueue.main.async {
-            withAnimation {
-                isWatched.toggle()
-            }
+        } catch {
+            let message = "Error '\(error.localizedDescription)' when saving: \(episode)."
+            CronicaTelemetry.shared.handleMessage(message, for: "WatchEpisodeButton")
         }
     }
     
     private func fetch() async {
-        let network = NetworkService.shared
         do {
             let content = try await network.fetchItem(id: show, type: .tvShow)
             persistence.save(content)
             if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
                 NotificationManager.shared.schedule(content)
             }
-            DispatchQueue.main.async {
-                withAnimation {
-                    inWatchlist = true
-                }
-            }
+            isItemSaved = true
         } catch {
             if Task.isCancelled { return }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "WatchEpisodeButton.fetch")
@@ -76,7 +80,6 @@ struct WatchEpisodeButton: View {
     
     private func fetchNextEpisode() async -> Episode? {
         do {
-            let network = NetworkService.shared
             let season = try await network.fetchSeason(id: show, season: season)
             guard let episodes = season.episodes else { return nil }
             let nextEpisodeCount = episode.itemEpisodeNumber+1
@@ -95,6 +98,7 @@ struct WatchEpisodeButton: View {
                 return nextEpisode[0]
             }
         } catch {
+            if Task.isCancelled { return nil }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchNextEpisode")
             return nil
         }

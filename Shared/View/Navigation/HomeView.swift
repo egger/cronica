@@ -20,16 +20,18 @@ struct HomeView: View {
     @State private var showConfirmation = false
     @State private var reloadUpNext = false
     @State private var showWhatsNew = false
+    @State private var hasNotifications = false
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
             VStack(alignment: .leading) {
                 ScrollView {
 #if os(iOS) || os(macOS)
-                    UpNextView(shouldReload: $reloadUpNext)
+                    UpNextListView(shouldReload: $reloadUpNext)
 #endif
                     UpcomingWatchlist()
                     PinItemsList()
+                    CustomListPinned()
                     ItemContentListView(items: viewModel.trending,
                                         title: "Trending",
                                         subtitle: "Today",
@@ -45,6 +47,7 @@ struct HomeView: View {
                                         title: "recommendationsTitle",
                                         subtitle: "recommendationsSubtitle",
                                         addedItemConfirmation: $showConfirmation)
+                    .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                     AttributionView()
                 }
                 .refreshable {
@@ -54,6 +57,12 @@ struct HomeView: View {
             }
             .onAppear {
                 checkVersion()
+#if os(iOS) || os(macOS)
+                Task {
+                    let notifications = await NotificationManager.shared.hasDeliveredItems()
+                    hasNotifications = notifications
+                }
+#endif
             }
             .sheet(isPresented: $showWhatsNew) {
 #if os(iOS) || os(macOS)
@@ -64,36 +73,23 @@ struct HomeView: View {
 #endif
             }
             .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
-#else
                 ItemContentDetails(title: item.itemTitle,
                                    id: item.id,
                                    type: item.itemContentMedia)
-#endif
             }
             .navigationDestination(for: Person.self) { person in
-#if os(tvOS)
-                TVPersonDetailsView(title: person.name, id: person.id)
-#else
                 PersonDetailsView(title: person.name, id: person.id)
-#endif
             }
             .navigationDestination(for: WatchlistItem.self) { item in
-#if os(macOS)
-                ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
-#else
                 ItemContentDetails(title: item.itemTitle,
                                    id: item.itemId,
                                    type: item.itemMedia)
-#endif
             }
             .navigationDestination(for: [WatchlistItem].self) { item in
                 TitleWatchlistDetails(items: item)
             }
             .navigationDestination(for: Endpoints.self) { endpoint in
-#if os(tvOS)
-#else
+#if os(iOS) || os(macOS)
                 EndpointDetails(title: endpoint.title,
                                 endpoint: endpoint)
 #endif
@@ -139,26 +135,24 @@ struct HomeView: View {
                     Button {
                         showNotifications.toggle()
                     } label: {
-                        Label("Notifications", systemImage: "bell")
+                        Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                            .imageScale(.medium)
                     }
                 }
 #elseif os(iOS)
                 if UIDevice.isIPhone {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        HStack {
-                            Button {
-                                showNotifications.toggle()
-                            } label: {
-                                Label("Notifications",
-                                      systemImage: "bell")
-                            }
-                            
-                            Button {
-                                showSettings.toggle()
-                            } label: {
-                                Label("Settings", systemImage: "gearshape")
-                            }
+                        Button {
+                            showNotifications.toggle()
+                        } label: {
+                            Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                                .imageScale(.medium)
                         }
+                        .buttonStyle(.bordered)
+                        .clipShape(Circle())
+                        .tint(.secondary)
+                        .shadow(radius: 2)
+                        .accessibilityLabel("Notifications")
                     }
                 }
 #endif
@@ -175,8 +169,7 @@ struct HomeView: View {
 #endif
             }
             .sheet(isPresented: $showNotifications) {
-#if os(tvOS)
-#else
+#if os(iOS) || os(macOS)
                 NotificationListView(showNotification: $showNotifications)
                     .appTheme()
 #if os(macOS)

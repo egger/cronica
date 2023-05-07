@@ -141,6 +141,9 @@ struct DefaultWatchlist: View {
                 .labelStyle(.iconOnly)
                 .foregroundColor(showFilter ? .secondary : nil)
         }
+        #if os(tvOS)
+        .buttonStyle(.bordered)
+        #endif
     }
     
 #if os(iOS) || os(macOS)
@@ -336,7 +339,6 @@ struct DefaultWatchlist: View {
                                            title: DefaultListTypes.archive.title)
                 }
             }
-            
         }
     }
     

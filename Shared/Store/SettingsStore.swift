@@ -12,7 +12,7 @@ class SettingsStore: ObservableObject {
     static var shared = SettingsStore()
     @AppStorage("showOnboarding") var displayOnboard = true
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings = false
-    @AppStorage("gesture") var gesture: DoubleTapGesture = .favorite
+    @AppStorage("gesture") var gesture: UpdateItemProperties = .favorite
     @AppStorage("rowType") var rowType: WatchlistSubtitleRow = .none
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
 #if os(macOS)
@@ -38,7 +38,6 @@ class SettingsStore: ObservableObject {
     @AppStorage("notifyMovies") var notifyMovieRelease = true
     @AppStorage("notifyTVShows") var notifyNewEpisodes = true
     @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
-    @AppStorage("markPreviouslyEpisodesAsWatched") var markPreviouslyEpisodesAsWatched = false
 #if os(tvOS)
     @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .poster
 #else

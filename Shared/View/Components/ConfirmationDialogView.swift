@@ -26,29 +26,24 @@ struct ConfirmationDialogView: View {
                     Text(NSLocalizedString(message, comment: ""))
                         .padding()
                         .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .fontWeight(.semibold)
+                        .fontWeight(.regular)
                 }
                 
             }
-            .background { Rectangle().fill(.regularMaterial) }
+            .background { Rectangle().fill(.thickMaterial) }
             .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
             .padding()
-            .shadow(radius: 12)
+            .shadow(radius: 16)
             .opacity(showConfirmation ? 1 : 0)
-            .scaleEffect(showConfirmation ? 1.1 : 1)
+            .scaleEffect(showConfirmation ? 1.2 : 1)
             .animation(.linear, value: showConfirmation)
             .onTapGesture { withAnimation { showConfirmation = false } }
         }
     }
-    
-    private func handlePresentation() {
-        
-    }
 }
 
 struct ConfirmationDialogView_Previews: PreviewProvider {
-    @State private static var showConfirmation = true
     static var previews: some View {
-        ConfirmationDialogView(showConfirmation: $showConfirmation, message: "This is a preview")
+        ConfirmationDialogView(showConfirmation: .constant(true), message: "This is a preview")
     }
 }

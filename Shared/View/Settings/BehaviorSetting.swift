@@ -44,7 +44,7 @@ struct BehaviorSetting: View {
         Section {
 #if os(iOS)
             Picker(selection: $store.gesture) {
-                ForEach(DoubleTapGesture.allCases) { item in
+                ForEach(UpdateItemProperties.allCases) { item in
                     Text(item.title).tag(item)
                 }
             } label: {
@@ -62,9 +62,6 @@ struct BehaviorSetting: View {
     
     private var otherOptions: some View {
         Section {
-            Toggle(isOn: $store.markPreviouslyEpisodesAsWatched) {
-                InformationalLabel(title: "behaviorMarkPreviouslyEpisodes")
-            }
 #if os(iOS)
             if UIDevice.isIPhone {
                 Toggle("enablePreferredLaunchScreen", isOn: $store.isPreferredLaunchScreenEnabled)

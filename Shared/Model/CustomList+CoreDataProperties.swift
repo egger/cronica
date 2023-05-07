@@ -24,6 +24,7 @@ extension CustomList {
     @NSManaged public var items: NSSet?
     @NSManaged public var isSyncEnabledTMDB: Bool
     @NSManaged public var idOnTMDb: Int64
+    @NSManaged public var isPin: Bool
 
 }
 

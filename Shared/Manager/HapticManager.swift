@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HapticManager {
     static var shared = HapticManager()
+    private init() { }
     
     func successHaptic() {
 #if os(iOS)
@@ -16,6 +17,13 @@ struct HapticManager {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
         }
+#endif
+    }
+    
+    func selectionHaptic() {
+#if os(iOS)
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
 #endif
     }
 }

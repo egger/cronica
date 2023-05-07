@@ -51,7 +51,7 @@ class NotificationManager: ObservableObject {
                 return
             } 
         }
-        let identifier = content.itemNotificationID
+        let identifier = content.itemContentID
         let title = content.itemTitle
         var body: String
         if content.itemContentMedia == .movie {
@@ -99,14 +99,8 @@ class NotificationManager: ObservableObject {
     
     func removeNotificationSchedule(identifier: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-        let type = identifier.last ?? "0"
-        var media: MediaType = .movie
-        if type == "1" {
-            media = .tvShow
-        }
-        let id = identifier.dropLast(2)
         do {
-            let item = try PersistenceController.shared.fetch(for: Int64(id)!, media: media)
+            let item = try PersistenceController.shared.fetch(for: identifier)
             guard let item else { return }
             item.notify = false
         } catch {
@@ -168,7 +162,8 @@ class NotificationManager: ObservableObject {
                 media = .tvShow
             }
             let id = notification.dropLast(2)
-            let item = try? await NetworkService.shared.fetchItem(id: Int(id)!, type: media)
+            guard let contentID = Int(id) else { return [] }
+            let item = try? await NetworkService.shared.fetchItem(id: contentID, type: media)
             if let item {
                 items.append(item)
             }
@@ -176,18 +171,18 @@ class NotificationManager: ObservableObject {
         return items
     }
     
+    func hasDeliveredItems() async -> Bool {
+        let notifications = await getDeliveredNotificationsId()
+        if notifications.isEmpty { return false }
+        return true
+    }
+    
     func fetchUpcomingNotifications() async throws -> [WatchlistItem] {
         var items = [WatchlistItem]()
         let notifications = await getUpcomingNotificationsId()
         for notification in notifications {
-            let type = notification.last ?? "0"
-            var media: MediaType = .movie
-            if type == "1" {
-                media = .tvShow
-            }
-            let id = notification.dropLast(2)
             do {
-                let item = try PersistenceController.shared.fetch(for: Int64(id)!, media: media)
+                let item = try PersistenceController.shared.fetch(for: notification)
                 if let item {
                     items.append(item)
                 }

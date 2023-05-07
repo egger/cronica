@@ -55,7 +55,7 @@ private struct PosterImage: View {
     let item: ItemContent
     @State private var showPlaceholder = false
     var body: some View {
-        Link(destination: URL(string: item.itemUrlId)!) {
+        Link(destination: URL(string: item.itemContentID)!) {
             if let placeholder = item.placeholderImagePath {
                 Image(placeholder)
                     .resizable()

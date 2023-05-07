@@ -51,7 +51,6 @@ struct SelectListView: View {
                 }
 #endif
         }
-        
     }
     
     private var form: some View {
@@ -61,6 +60,7 @@ struct SelectListView: View {
                     // default list selector
                     DefaultListRow(selectedList: $selectedList)
                         .onTapGesture {
+                            HapticManager.shared.selectionHaptic()
                             selectedList = nil
                             showListSelection.toggle()
                         }
@@ -68,6 +68,15 @@ struct SelectListView: View {
                     if lists.isEmpty { newList }
                     else  {
                         ForEach(lists) { item in
+#if os(tvOS)
+                            Button {
+                                HapticManager.shared.selectionHaptic()
+                                selectedList = item
+                                showListSelection.toggle()
+                            } label: {
+                                ListRowItem(list: item, selectedList: $selectedList)
+                            }
+#else
                             ListRowItem(list: item, selectedList: $selectedList)
                                 .onTapGesture {
                                     selectedList = item
@@ -110,6 +119,7 @@ struct SelectListView: View {
                                     .tint(.red)
                                 }
 #endif
+#endif
                         }.onDelete(perform: delete)
                     }
                 }
@@ -126,12 +136,13 @@ struct SelectListView: View {
     }
     
     private var doneButton: some View {
-        Button("Done") {
-            showListSelection.toggle()
-        }
+        Button("Done") { showListSelection.toggle() }
     }
     
     private var newList: some View {
+#if os(tvOS)
+        EmptyView()
+#else
         NavigationLink {
 #if os(iOS) || os(tvOS)
             NewCustomListView(presentView: $showListSelection, newSelectedList: $selectedList)
@@ -141,6 +152,7 @@ struct SelectListView: View {
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")
         }
+#endif
     }
     
     private func delete(offsets: IndexSet) {
@@ -153,98 +165,4 @@ struct SelectListView: View {
 enum CustomNavigationMac: String, Identifiable, CaseIterable {
     var id: String { rawValue }
     case newList
-}
-
-private struct DefaultListRow: View {
-    @Binding var selectedList: CustomList?
-#if os(iOS)
-    @Environment(\.editMode) private var editMode
-#endif
-    var body: some View {
-        HStack {
-#if os(macOS)
-            checkStage
-#elseif os(iOS)
-            if editMode?.wrappedValue.isEditing ?? false {
-                EmptyView()
-            } else {
-                checkStage
-            }
-#endif
-            VStack(alignment: .leading) {
-                Text("Watchlist")
-                Text("Default List")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var checkStage: some View {
-        if selectedList == nil {
-            Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(SettingsStore.shared.appTheme.color)
-        } else {
-            Image(systemName: "circle")
-        }
-    }
-}
-
-private struct ListRowItem: View {
-    let list: CustomList
-    @State private var isSelected = false
-    @Binding var selectedList: CustomList?
-#if os(iOS)
-    @Environment(\.editMode) private var editMode
-#endif
-    var body: some View {
-        HStack {
-#if os(macOS)
-            checkStage
-#elseif os(iOS)
-            if editMode?.wrappedValue.isEditing ?? false {
-                EmptyView()
-            } else {
-                checkStage
-            }
-#endif
-            VStack(alignment: .leading) {
-                Text(list.itemTitle)
-                Text(list.itemGlanceInfo)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-            }
-            Spacer()
-        }
-        .onChange(of: selectedList) { _ in
-            checkSelection()
-        }
-        .onAppear {
-            checkSelection()
-        }
-    }
-    
-    @ViewBuilder
-    private var checkStage: some View {
-        if isSelected {
-            Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(SettingsStore.shared.appTheme.color)
-        } else {
-            Image(systemName: "circle")
-        }
-    }
-    
-    private func checkSelection() {
-        if let selectedList {
-            if selectedList == list {
-                isSelected = true
-            } else {
-                isSelected = false
-            }
-        } else {
-            isSelected = false
-        }
-    }
 }

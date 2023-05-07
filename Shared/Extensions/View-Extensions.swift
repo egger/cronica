@@ -26,13 +26,11 @@ extension View {
                                 isWatched: Binding<Bool>,
                                 showConfirmation: Binding<Bool>,
                                 isInWatchlist: Binding<Bool>,
-                                canReview: Binding<Bool>,
                                 showNote: Binding<Bool>) -> some View {
         modifier(ItemContentContextMenu(item: item,
                                         showConfirmation: showConfirmation,
                                         isInWatchlist: isInWatchlist,
                                         isWatched: isWatched,
-                                        canReview: canReview,
                                         showNote: showNote))
     }
     

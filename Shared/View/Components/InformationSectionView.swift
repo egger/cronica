@@ -54,7 +54,7 @@ struct InformationSectionView: View {
 
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationSectionView(item: ItemContent.previewContent)
+        InformationSectionView(item: ItemContent.example)
     }
 }
 

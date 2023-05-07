@@ -17,17 +17,16 @@ struct DeveloperView: View {
     @State private var itemMediaType: MediaType = .movie
     @State private var isFetching = false
     @State private var isFetchingAll = false
-    @State private var showAllItems = false
-    @State private var showOnboardingMac = false
-    @State private var showChangelog = true
+    @State private var showChangelog = false
     @State private var userAccessId = String()
     @State private var userAccessToken = String()
     @State private var v3SessionID = String()
     private let persistence = PersistenceController.shared
     private let service = NetworkService.shared
+    @State private var showOnboarding = false
     var body: some View {
         Form {
-            Section {
+            Section("Network") {
                 TextField("Item ID", text: $itemIdField)
 #if os(iOS)
                     .keyboardType(.numberPad)
@@ -72,37 +71,30 @@ struct DeveloperView: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
-            } 
+            }
             
-            Section {
-#if os(macOS)
+            Section("Presentation") {
                 Button("Show Onboarding") {
-                    showOnboardingMac.toggle()
+                    showOnboarding.toggle()
                 }
-                .buttonStyle(.link)
-#else
-                NavigationLink(
-                    destination: WelcomeView(),
-                    label: {
-                        Text("Show Onboarding")
-                    })
-                
-                NavigationLink(destination: ChangelogView(showChangelog: $showChangelog)) {
-                    Text("What's New")
-                }
-#endif
-            }
-            
-            Section {
-                Button("Show All Items") {
-                    showAllItems.toggle()
-                }
+                .sheet(isPresented: $showOnboarding) {
+                    NavigationStack {
+                        WelcomeView()
+                            .interactiveDismissDisabled(false)
+                    }
 #if os(macOS)
-                .buttonStyle(.link)
+                    .frame(width: 500, height: 700, alignment: .center)
 #endif
+                }
+                Button("Show Changelog") {
+                    showChangelog.toggle()
+                }
+                .sheet(isPresented: $showChangelog) {
+                    ChangelogView(showChangelog: $showChangelog)
+                }
             }
             
-            Section {
+            Section("TMDB") {
                 Text("User Access ID (TMDB): \(userAccessId)")
                     .textSelection(.enabled)
                 Text("User Access Token (TMDB): \(userAccessToken)")
@@ -130,45 +122,40 @@ struct DeveloperView: View {
             
         }
         .navigationTitle("Developer Options")
-        .sheet(isPresented: $showOnboardingMac, content: {
-            NavigationStack {
-                WelcomeView()
-                    .frame(width: 500, height: 700, alignment: .center)
-            }
-        })
         .sheet(item: $item) { item in
-#if os(macOS)
             NavigationStack {
-                ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia, handleToolbarOnPopup: true)
-                    .frame(width: 800, height: 500, alignment: .center)
+                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
                     .toolbar {
-                        Button("Done") {
-                            self.item = nil
-                        }
-                    }
-            }
-#else
-            NavigationStack {
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                    .toolbar {
+#if os(iOS)
                         ToolbarItem(placement: .navigationBarLeading) {
                             HStack {
                                 Button("Done") {
                                     self.item = nil
                                 }
-                                Button {
-                                    let watchlist = try? PersistenceController.shared.fetch(for: Int64(itemIdField)!, media: itemMediaType)
-                                    if let watchlist {
-                                        CronicaTelemetry.shared.handleMessage("WatchlistItem: \(watchlist as Any)",
+                                Menu {
+                                    Button {
+                                        let watchlist = try? PersistenceController.shared.fetch(for: item.itemContentID)
+                                        if let watchlist {
+                                            CronicaTelemetry.shared.handleMessage("WatchlistItem: \(watchlist as Any)",
+                                                                                  for: "DeveloperView.printObject")
+                                        }
+                                        CronicaTelemetry.shared.handleMessage("ItemContent: \(item as Any)",
                                                                               for: "DeveloperView.printObject")
+                                    } label: {
+                                        Label("Send Object to Developer", systemImage: "hammer.circle.fill")
                                     }
-                                    CronicaTelemetry.shared.handleMessage("ItemContent: \(item as Any)",
-                                                                          for: "DeveloperView.printObject")
                                 } label: {
-                                    Label("Print object", systemImage: "hammer.circle.fill")
+                                    Image(systemName: "hammer")
                                 }
                             }
                         }
+#else
+                        .toolbar {
+                            Button("Done") {
+                                self.item = nil
+                            }
+                        }
+#endif
                     }
                     .navigationDestination(for: ItemContent.self) { item in
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
@@ -177,7 +164,6 @@ struct DeveloperView: View {
                         PersonDetailsView(title: item.name, id: item.id)
                     }
             }
-#endif
         }
         .sheet(item: $person) { item in
             NavigationStack {
@@ -204,22 +190,6 @@ struct DeveloperView: View {
                     .navigationDestination(for: Person.self) { item in
                         PersonDetailsView(title: item.name, id: item.id)
                     }
-            }
-        }
-        .sheet(isPresented: $showAllItems) {
-            NavigationStack {
-                ShowAllItemsView()
-                    .toolbar {
-                        ToolbarItem {
-                            Button("Done") {
-                                showAllItems.toggle()
-                            }
-                        }
-                    }
-#if os(macOS)
-                    .frame(width: 500, height: 500, alignment: .center)
-                    .environment(\.managedObjectContext, persistence.container.viewContext)
-#endif
             }
         }
 #if os(macOS)
@@ -269,15 +239,11 @@ private struct ShowAllItemsView: View {
         }
         .searchable(text: $query)
         .task(id: query) {
-            do {
-                isSearching = true
-                try await Task.sleep(nanoseconds: 300_000_000)
-                if !filteredItems.isEmpty { filteredItems.removeAll() }
-                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-                isSearching = false
-            } catch {
-                print(error.localizedDescription)
-            }
+            isSearching = true
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            if !filteredItems.isEmpty { filteredItems.removeAll() }
+            filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+            isSearching = false
         }
         .navigationTitle("All Items")
         .navigationDestination(for: WatchlistItem.self) { item in

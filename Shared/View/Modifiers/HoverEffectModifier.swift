@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HoverEffectModifier: ViewModifier {
     func body(content: Content) -> some View {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
         return content
             .hoverEffect(.automatic)
 #else

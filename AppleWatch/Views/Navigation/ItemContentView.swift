@@ -32,12 +32,12 @@ struct ItemContentView: View {
                     )
                     .padding()
                 
-                WatchlistButtonView()
+                DetailWatchlistButton()
                     .environmentObject(viewModel)
                     .padding()
                 
-                if let seasons = viewModel.content?.itemSeasons {
-                    NavigationLink("Seasons", destination:  SeasonListView(numberOfSeasons: seasons, id: id, isInWatchlist: $viewModel.isInWatchlist))
+                if let seasons = viewModel.content?.seasons {
+                    NavigationLink("Seasons", value: seasons)
                         .padding([.horizontal, .bottom])
                 }   
                 
@@ -57,20 +57,29 @@ struct ItemContentView: View {
                 AttributionView()
             }
         }
-        .task {
-            await viewModel.load()
-        }
+        .task { await viewModel.load() }
         .navigationTitle(title)
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .sheet(isPresented: $showCustomListSheet) {
             ItemContentCustomListSelector(item: $viewModel.watchlistItem,
                                           showView: $showCustomListSheet)
         }
+        .navigationDestination(for: [Season].self) { seasons in
+            SeasonListView(numberOfSeasons: seasons, id: id)
+        }
+        .navigationDestination(for: Season.self) { season in
+            EpisodeListView(seasonNumber: season.seasonNumber, id: id)
+        }
+        .navigationDestination(for: [Int:Episode].self) { item in
+            let keys = item.map { (key, _) in key }
+            let value = item.map { (_, value) in value }
+            EpisodeDetailsView(episode: value.first!, season: keys.first!, show: id)
+        }
     }
     
     private var watchButton: some View {
         Button {
-            viewModel.updateMarkAs(markAsWatched: !viewModel.isWatched)
+            viewModel.update(.watched)
         } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
@@ -96,10 +105,10 @@ struct ItemContentView: View {
 
 struct ItemContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentView(id: ItemContent.previewContent.id,
-                        title: ItemContent.previewContent.itemTitle,
-                        type: ItemContent.previewContent.itemContentMedia,
-                        image: ItemContent.previewContent.cardImageMedium)
+        ItemContentView(id: ItemContent.example.id,
+                        title: ItemContent.example.itemTitle,
+                        type: ItemContent.example.itemContentMedia,
+                        image: ItemContent.example.cardImageMedium)
     }
 }
 

@@ -107,10 +107,10 @@ class BackgroundManager {
                 // If fetched item release date is different than the scheduled one,
                 // then remove the old date and register the new one.
                 if item.itemDate.areDifferentDates(with: content.itemFallbackDate) {
-                    notifications.removeNotification(identifier: content.itemNotificationID)
+                    notifications.removeNotification(identifier: content.itemContentID)
                 }
                 if content.itemStatus == .cancelled {
-                    notifications.removeNotification(identifier: content.itemNotificationID)
+                    notifications.removeNotification(identifier: content.itemContentID)
                 }
                 // In order to avoid passing the limit of local notifications,
                 // the app will only register when it's less than two months away
@@ -122,7 +122,7 @@ class BackgroundManager {
             PersistenceController.shared.update(item: content)
         } catch {
             if Task.isCancelled { return }
-            let message = "Could not update item: \(item.notificationID), error: \(error.localizedDescription)"
+            let message = "Could not update item: \(item.itemContentID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update.failed")
         }
     }

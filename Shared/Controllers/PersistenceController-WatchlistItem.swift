@@ -9,108 +9,96 @@ import Foundation
 import CoreData
 
 extension PersistenceController {
-    /// Adds an WatchlistItem to  Core Data.
-    ///
-    /// This function will automatically check if the item is saved in the list.
-    ///
-    /// If the item is saved, it will not create another instance of it.
-    /// - Parameter content: The item to be added, or updated.
+    // MARK: Basic CRUD
+    /// Creates a new WatchlistItem and saves it.
+    /// - Parameter content: The content that is used to populate the new WatchlistItem.
     func save(_ content: ItemContent) {
-        if !self.isItemSaved(id: content.id, type: content.itemContentMedia) {
-            let item = WatchlistItem(context: container.viewContext)
-            item.contentType = content.itemContentMedia.toInt
-            item.title = content.itemTitle
-            item.originalTitle = content.originalTitle
-            item.id = Int64(content.id)
-            item.tmdbID = Int64(content.id)
-            item.contentID = content.itemNotificationID
-            item.imdbID = content.imdbId
-            item.image = content.cardImageMedium
-            item.largeCardImage = content.cardImageLarge
-            item.mediumPosterImage = content.posterImageMedium
-            item.largePosterImage = content.posterImageLarge
-            item.schedule = content.itemStatus.toInt
-            item.notify = content.itemCanNotify
-            item.genre = content.itemGenre
-            item.lastValuesUpdated = Date()
-            item.date = content.itemFallbackDate
-            item.formattedDate = content.itemTheatricalString
-            if content.itemContentMedia == .tvShow {
-                if let episode = content.lastEpisodeToAir?.episodeNumber {
-                    item.nextEpisodeNumber = Int64(episode)
+        do {
+            if !self.isItemSaved(id: content.itemContentID) {
+                let item = WatchlistItem(context: container.viewContext)
+                item.contentType = content.itemContentMedia.toInt
+                item.title = content.itemTitle
+                item.originalTitle = content.originalTitle
+                item.id = Int64(content.id)
+                item.tmdbID = Int64(content.id)
+                item.contentID = content.itemContentID
+                item.imdbID = content.imdbId
+                item.image = content.cardImageMedium
+                item.largeCardImage = content.cardImageLarge
+                item.mediumPosterImage = content.posterImageMedium
+                item.largePosterImage = content.posterImageLarge
+                item.schedule = content.itemStatus.toInt
+                item.notify = content.itemCanNotify
+                item.genre = content.itemGenre
+                item.lastValuesUpdated = Date()
+                item.date = content.itemFallbackDate
+                item.formattedDate = content.itemTheatricalString
+                if content.itemContentMedia == .tvShow {
+                    if let episode = content.lastEpisodeToAir?.episodeNumber {
+                        item.nextEpisodeNumber = Int64(episode)
+                    }
+                    item.upcomingSeason = content.hasUpcomingSeason
+                    item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                 }
-                item.upcomingSeason = content.hasUpcomingSeason
-                item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
+                try save()
             }
-            saveContext()
+        } catch {
+            let message = "Failed to create item: \(content), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.save.failed")
         }
     }
     
-    /// Fetch an item from Watchlist Core Data stack.
-    /// - Parameters:
-    ///   - id: The ID for the desired item.
-    ///   - media: The MediaType for the desired item.
-    /// - Returns: If the item exists, it will return an WatchlistItem, else it will return nil.
-    func fetch(for id: Int64, media: MediaType) throws -> WatchlistItem? {
-        let viewContext = container.viewContext
+    func fetch(for id: String) throws -> WatchlistItem? {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        let idPredicate = NSPredicate(format: "id == %d", id)
-        let typePredicate = NSPredicate(format: "contentType == %d", media.toInt)
-        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [idPredicate, typePredicate])
-        request.predicate = compoundPredicate
+        let idPredicate = NSPredicate(format: "contentID == %@", id)
+        request.predicate = idPredicate
         do {
-            let items = try viewContext.fetch(request)
+            let items = try container.viewContext.fetch(request)
             if !items.isEmpty {
                 return items[0]
-            } else {
-                return nil
             }
+            return nil
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "PersistenceController.fetch(for:)")
+            let message = "Can't fetch content: \(id), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.fetch(for:)")
             return nil
         }
     }
     
     /// Updates a WatchlistItem on Core Data.
-    func update(item content: ItemContent, isWatched watched: Bool? = nil, isFavorite favorite: Bool? = nil) {
-        if isItemSaved(id: content.id, type: content.itemContentMedia) {
+    func update(item content: ItemContent) {
+        if isItemSaved(id: content.itemContentID) {
             do {
-                let item = try fetch(for: WatchlistItem.ID(content.id), media: content.itemContentMedia)
-                if let item {
-                    item.contentID = content.itemNotificationID
-                    item.tmdbID = Int64(content.id)
-                    item.title = content.itemTitle
-                    item.originalTitle = content.originalTitle
-                    item.image = content.cardImageMedium
-                    item.largeCardImage = content.cardImageLarge
-                    item.mediumPosterImage = content.posterImageMedium
-                    item.largePosterImage = content.posterImageLarge
-                    item.schedule = content.itemStatus.toInt
-                    item.notify = content.itemCanNotify
-                    item.formattedDate = content.itemTheatricalString
-                    item.genre = content.itemGenre
-                    if content.itemContentMedia == .tvShow {
-                        if let episode = content.lastEpisodeToAir {
-                            item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)
-                        }
-                        if let episode = content.nextEpisodeToAir {
-                            item.nextEpisodeNumber = Int64(episode.episodeNumber ?? 1)
-                        }
-                        item.upcomingSeason = content.hasUpcomingSeason
-                        item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
-                    } else {
-                        item.date = content.itemFallbackDate
+                let item = try fetch(for: content.itemContentID)
+                guard let item else { return }
+                item.contentID = content.itemContentID
+                item.tmdbID = Int64(content.id)
+                item.title = content.itemTitle
+                item.originalTitle = content.originalTitle
+                item.image = content.cardImageMedium
+                item.largeCardImage = content.cardImageLarge
+                item.mediumPosterImage = content.posterImageMedium
+                item.largePosterImage = content.posterImageLarge
+                item.schedule = content.itemStatus.toInt
+                item.notify = content.itemCanNotify
+                item.formattedDate = content.itemTheatricalString
+                item.genre = content.itemGenre
+                if content.itemContentMedia == .tvShow {
+                    if let episode = content.lastEpisodeToAir {
+                        item.lastEpisodeNumber = Int64(episode.episodeNumber ?? 1)
                     }
-                    if let watched {
-                        item.watched = watched
+                    if let episode = content.nextEpisodeToAir {
+                        item.nextEpisodeNumber = Int64(episode.episodeNumber ?? 1)
                     }
-                    if let favorite {
-                        item.favorite = favorite
+                    item.upcomingSeason = content.hasUpcomingSeason
+                    item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
+                } else {
+                    if let date = content.itemFallbackDate {
+                        item.date = date
                     }
-                    item.lastValuesUpdated = Date()
                 }
-                saveContext()
+                item.lastValuesUpdated = Date()
+                try save()
             } catch {
                 CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                       for: "PersistenceController.update")
@@ -125,230 +113,173 @@ extension PersistenceController {
             let item = try viewContext.existingObject(with: content.objectID)
             if isNotificationScheduled(for: content) {
                 let notification = NotificationManager.shared
-                notification.removeNotification(identifier: content.notificationID)
+                notification.removeNotification(identifier: content.itemContentID)
             }
             viewContext.delete(item)
-            saveContext()
+            try save()
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                   for: "PersistenceController.delete")
         }
     }
     
-    func updateMarkAs(items: Set<String>) {
-        var list = [WatchlistItem]()
-        for item in items {
-            let type = item.last ?? "0"
-            var media: MediaType = .movie
-            if type == "1" {
-                media = .tvShow
-            }
-            let id = item.dropLast(2)
-            let content = try? fetch(for: Int64(id)!, media: media)
-            if let content {
-                list.append(content)
-            }
-        }
-        if !list.isEmpty {
-            for item in list {
-                updateMarkAs(id: item.itemId, type: item.itemMedia, watched: !item.watched)
-            }
+    // MARK: Properties updates
+    func updateWatched(for item: WatchlistItem) {
+        do {
+            item.watched.toggle()
+            try save()
+        } catch {
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateWatched.failed")
         }
     }
     
-    func updatePin(items: Set<String>) {
-        var list = [WatchlistItem]()
-        for item in items {
-            let type = item.last ?? "0"
-            var media: MediaType = .movie
-            if type == "1" {
-                media = .tvShow
-            }
-            let id = item.dropLast(2)
-            let content = try? fetch(for: Int64(id)!, media: media)
-            if let content {
-                list.append(content)
-            }
-        }
-        if !list.isEmpty {
-            for item in list {
-                item.isPin.toggle()
-            }
-            saveContext()
+    func updateFavorite(for item: WatchlistItem) {
+        do {
+            item.favorite.toggle()
+            try save()
+        } catch {
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateFavorite.failed")
         }
     }
     
-    private func updatePin(for item: WatchlistItem) {
-        item.isPin.toggle()
-        saveContext()
+    func updatePin(for item: WatchlistItem) {
+        do {
+            item.isPin.toggle()
+            try save()
+        } catch {
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updatePin.failed")
+        }
     }
     
-    func updateArchive(items: Set<String>) {
-        var list = [WatchlistItem]()
-        for item in items {
-            let type = item.last ?? "0"
-            var media: MediaType = .movie
-            if type == "1" {
-                media = .tvShow
-            }
-            let id = item.dropLast(2)
-            let content = try? fetch(for: Int64(id)!, media: media)
-            if let content {
-                list.append(content)
-            }
-        }
-        if !list.isEmpty {
-            for item in list {
+    func updateArchive(for item: WatchlistItem) {
+        do {
+            item.isArchive.toggle()
+            if !item.isArchive {
                 // Removes notification (if available) for an item before setting it as archive.
-                if !item.isArchive {
-                    NotificationManager.shared.removeNotification(identifier: item.notificationID)
-                }
-                item.isArchive.toggle()
+                NotificationManager.shared.removeNotification(identifier: item.itemContentID)
                 item.shouldNotify.toggle()
             }
-            saveContext()
+            if item.isTvShow {
+                item.isWatching = false
+                item.displayOnUpNext = false
+            }
+            try save()
+        } catch {
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateArchive.failed")
         }
     }
     
-    private func markAsArchive(_ item: WatchlistItem) {
-        if item.isTvShow { item.isWatching.toggle() }
-        item.isArchive.toggle()
-        saveContext()
-    }
-    
-    /// Updates the "watched" and/or the "favorite" property of an array of WatchlistItem in Core Data.
-    func updateMarkAs(items: Set<WatchlistItem>, favorite: Bool? = nil, watched: Bool? = nil) {
-        for item in items {
-            if let favorite {
-                updateMarkAs(id: item.itemId, type: item.itemMedia, favorite: favorite)
-            }
-            if let watched {
-                updateMarkAs(id: item.itemId, type: item.itemMedia, watched: watched)
-            }
+    func updateReview(for item: WatchlistItem, rating: Int, notes: String) {
+        do {
+            item.userNotes = notes
+            item.userRating = Int64(rating)
+            try save()
+        } catch {
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateReview.failed")
         }
     }
     
+    // MARK: Properties read
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
     func isNotificationScheduled(for content: WatchlistItem) -> Bool {
-        let item = try? fetch(for: content.id, media: content.itemMedia)
-        if let item {
-            return item.notify
+        do {
+            let item = try fetch(for: content.itemContentID)
+            guard let notify = item?.notify else { return  false }
+            return notify
+        } catch {
+            return false
         }
-        return false
     }
     
-    /// Search if an item is added to the list.
-    /// - Parameters:
-    ///   - id: The ID used to fetch Watchlist list.
-    ///   - type: The Media Type of the content.
-    /// - Returns: Returns true if the content is already added to the Watchlist.
-    func isItemSaved(id: ItemContent.ID, type: MediaType) -> Bool {
-        let viewContext = container.viewContext
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", WatchlistItem.ID(id))
-        let numberOfObjects = try? viewContext.count(for: request)
-        if let numberOfObjects {
+    func isItemSaved(id: String) -> Bool {
+        do {
+            let viewContext = container.viewContext
+            let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+            request.predicate = NSPredicate(format: "contentID == %@", id)
+            let numberOfObjects = try viewContext.count(for: request)
             if numberOfObjects > 0 {
-                let item = try? fetch(for: WatchlistItem.ID(id), media: type)
-                if let item {
-                    if item.itemMedia != type {
-                        return false
-                    } else {
-                        return true
-                    }
-                }
+                return true
             }
-        }
-        return false
-    }
-    
-    func updateMarkAs(id: Int, type: MediaType, watched: Bool? = nil, favorite: Bool? = nil) {
-        do {
-            let item = try fetch(for: WatchlistItem.ID(id), media: type)
-            if let item {
-                if let watched {
-                    item.watched = watched
-                    if item.isTvShow && watched {
-                        item.displayOnUpNext = false
-                    }
-                }
-                if let favorite {
-                    item.favorite = favorite
-                }
-                saveContext()
-            }
+            return false
         } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "")
+            return false
         }
     }
     
-    func saveSeasons(for id: Int) async {
+    /// Returns a boolean indicating the status of 'watched' on a given item.
+    func isMarkedAsWatched(id: String) -> Bool {
         do {
-            let network = NetworkService.shared
-            guard let item = try self.fetch(for: Int64(id), media: .tvShow) else { return }
-            let content = try await network.fetchItem(id: item.itemId, type: .tvShow)
-            var allEpisodes = [Episode]()
-            if let seasonNumbers = content.itemSeasons {
-                for season in seasonNumbers {
-                    let result = try await network.fetchSeason(id: item.itemId, season: season)
-                    if let episodes = result.episodes {
-                        allEpisodes.append(contentsOf: episodes)
-                    }
-                }
-            }
-            if !allEpisodes.isEmpty {
-                self.updateEpisodeList(to: item, show: item.itemId, episodes: allEpisodes)
-            }
+            let item = try fetch(for: id)
+            guard let item else { return false }
+            return item.watched
         } catch {
-            
+            return false
         }
     }
     
+    /// Returns a boolean indicating the status of 'favorite' on a given item.
+    func isMarkedAsFavorite(id: String) -> Bool {
+        do {
+            let item = try fetch(for: id)
+            guard let item else { return false }
+            return item.favorite
+        } catch {
+            return false
+        }
+    }
+    
+    func isItemPinned(id: String) -> Bool {
+        do {
+            let item = try fetch(for: id)
+            guard let item else { return false }
+            return item.isPin
+        } catch {
+            return false
+        }
+    }
+    
+    func isItemArchived(id: String) -> Bool {
+        do {
+            let item = try fetch(for: id)
+            guard let item else { return false }
+            return item.isArchive
+        } catch {
+            return false
+        }
+    }
+    
+    // MARK: Episode
     func updateEpisodeList(to item: WatchlistItem, show: Int, episodes: [Episode]) {
-        var watched = ""
-        for episode in episodes {
-            watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
-        }
-        item.watchedEpisodes?.append(watched)
-        item.isWatching = true
-        saveContext()
-    }
-    
-    func updateEpisodeListUpTo(to id: Int, actualEpisode: Episode) async {
         do {
-            let item = try self.fetch(for: Int64(id), media: .tvShow)
-            guard let item else { return }
-            let network = NetworkService.shared
             var watched = ""
-            let actualSeason = actualEpisode.itemSeasonNumber
-            let nextEpisode = actualEpisode.itemEpisodeNumber + 1
-            let seasonsToFetch = Array(1...actualSeason)
-            for season in seasonsToFetch {
-                let result = try await network.fetchSeason(id: item.itemId, season: season)
-                if let episodes = result.episodes {
-                    for episode in episodes {
-                        if episode.itemSeasonNumber == actualSeason && episode.itemEpisodeNumber == nextEpisode {
-                            break
-                        } else {
-                            watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
-                        }
-                    }
-                }
+            for episode in episodes {
+                watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
             }
             item.watchedEpisodes?.append(watched)
             item.isWatching = true
-            saveContext()
+            if let lastWatched = episodes.last {
+                item.lastSelectedSeason = Int64(lastWatched.itemSeasonNumber)
+                item.lastWatchedEpisode = Int64(lastWatched.id)
+            }
+            try save()
         } catch {
             if Task.isCancelled { return }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updateEpisodeListUpTo")
+            let message = "\(error.localizedDescription), item id: \(show)"
+            CronicaTelemetry.shared.handleMessage(message, for: "updateEpisodeList")
         }
     }
-    
+      
     func updateEpisodeList(show: Int, season: Int, episode: Int, nextEpisode: Episode? = nil) {
-        if isItemSaved(id: show, type: .tvShow) {
+        let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+        if isItemSaved(id: contentId) {
             do {
-                let item = try fetch(for: WatchlistItem.ID(show), media: .tvShow)
+                let item = try fetch(for: contentId)
                 guard let item else { return }
                 if isEpisodeSaved(show: show, season: season, episode: episode) {
                     let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
@@ -360,14 +291,13 @@ extension PersistenceController {
                     item.isWatching = true
                     
                     if let nextEpisode {
-                        item.nextEpisodeNumberUpNext = Int64(nextEpisode.episodeNumber ?? 0)
-                        item.seasonNumberUpNext = Int64(nextEpisode.seasonNumber ?? 0)
+                        updateUpNext(item, episode: nextEpisode)
                     }
                     item.lastSelectedSeason = Int64(season)
                     item.lastWatchedEpisode = Int64(episode)
                     item.displayOnUpNext = true
                 }
-                saveContext()
+                try save()
             } catch {
                 if Task.isCancelled { return }
                 let message = "\(error.localizedDescription), item id: \(show)"
@@ -376,73 +306,80 @@ extension PersistenceController {
         }
     }
     
-    func fetchLastSelectedSeason(for id: Int64) -> Int? {
-        let item = try? fetch(for: id, media: .tvShow)
-        guard let item else { return nil }
-        if item.lastSelectedSeason == 0 { return 1 }
-        return Int(item.lastSelectedSeason)
+    func updateWatchedEpisodes(for item: WatchlistItem, with episode: Episode) {
+        if isEpisodeSaved(show: item.itemId, season: episode.itemSeasonNumber, episode: episode.id) {
+            let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode.id)@\(episode.itemSeasonNumber)",
+                                                                     with: "")
+            item.watchedEpisodes = watched
+        } else {
+            let watched = "-\(episode.id)@\(episode.itemSeasonNumber)"
+            item.watchedEpisodes?.append(watched)
+            item.lastSelectedSeason = Int64(episode.itemSeasonNumber)
+            item.lastWatchedEpisode = Int64(episode.id)
+        }
+        item.isWatching = true
+        try? save()
     }
     
-    func fetchLastWatchedEpisode(for id: Int64) -> Int? {
-        let item = try? fetch(for: id, media: .tvShow)
-        guard let item else { return nil }
-        if !item.isWatching { return nil }
-        if item.lastWatchedEpisode == 0 { return nil }
-        return Int(item.lastWatchedEpisode)
+    func removeFromUpNext(_ item: WatchlistItem) {
+        item.displayOnUpNext = false
+        try? save()
+    }
+    
+    func updateUpNext(_ item: WatchlistItem, episode: Episode) {
+        do {
+            item.nextEpisodeNumberUpNext = Int64(episode.itemEpisodeNumber)
+            item.seasonNumberUpNext = Int64(episode.itemSeasonNumber)
+            item.displayOnUpNext = true
+            try save()
+        } catch {
+            let message = "Item ID: \(item.itemContentID), episode: \(episode)"
+            CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateUpNext.failed")
+        }
+    }
+    
+    func removeWatchedEpisodes(for item: WatchlistItem) {
+        item.watchedEpisodes = String()
+        item.displayOnUpNext = false
+        item.isWatching = false
+        try? save()
+    }
+    
+    func getLastSelectedSeason(_ id: String) -> Int? {
+        do {
+            let item = try fetch(for: id)
+            guard let item else { return nil }
+            if item.lastSelectedSeason == 0 { return 1 }
+            return Int(item.lastSelectedSeason)
+        } catch {
+            return nil
+        }
+    }
+    
+    func fetchLastWatchedEpisode(for id: Int) -> Int? {
+        do {
+            let contentId = "\(id)@\(MediaType.tvShow.toInt)"
+            let item = try fetch(for: contentId)
+            guard let item else { return nil }
+            if !item.isWatching { return nil }
+            if item.lastWatchedEpisode == 0 { return nil }
+            return Int(item.lastWatchedEpisode)
+        } catch {
+            return nil
+        }
     }
     
     func isEpisodeSaved(show: Int, season: Int, episode: Int) -> Bool {
-        if isItemSaved(id: show, type: .tvShow) {
-            let item = try? fetch(for: WatchlistItem.ID(show), media: .tvShow)
-            if let item {
-                if let watched = item.watchedEpisodes {
-                    if watched.contains("-\(episode)@\(season)") {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-    
-    /// Returns a boolean indicating the status of 'watched' on a given item.
-    func isMarkedAsWatched(id: ItemContent.ID, type: MediaType) -> Bool {
-        let item = try? fetch(for: WatchlistItem.ID(id), media: type)
-        return item?.watched ?? false
-    }
-    
-    /// Returns a boolean indicating the status of 'favorite' on a given item.
-    func isMarkedAsFavorite(id: ItemContent.ID, type: MediaType) -> Bool {
-        let item = try? fetch(for: WatchlistItem.ID(id), media: type)
-        return item?.favorite ?? false
-    }
-    
-    func isItemPinned(id: ItemContent.ID, type: MediaType) -> Bool {
-        let item = try? fetch(for: WatchlistItem.ID(id), media: type)
-        return item?.isPin ?? false
-    }
-    
-    func isItemArchived(id: ItemContent.ID, type: MediaType) -> Bool {
-        let item = try? fetch(for: WatchlistItem.ID(id), media: type)
-        return item?.isArchive ?? false
-    }
-    
-    func fetchAllItemsIDs(_ media: MediaType) -> [String] {
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        let typePredicate = NSPredicate(format: "contentType == %d", media.toInt)
-        request.predicate = typePredicate
         do {
-            let list = try container.viewContext.fetch(request)
-            var ids = [String]()
-            for item in list {
-                ids.append(item.notificationID)
+            let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+            if isItemSaved(id: contentId) {
+                let item = try fetch(for: contentId)
+                guard let item, let watched = item.watchedEpisodes else { return false }
+                if watched.contains("-\(episode)@\(season)") { return true }
             }
-            return ids
+            return false
         } catch {
-            if Task.isCancelled { return [] }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.fetchAllItemsIDs()")
-            return []
+            return false
         }
     }
 }

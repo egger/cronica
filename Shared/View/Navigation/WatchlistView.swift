@@ -32,24 +32,13 @@ struct WatchlistView: View {
         .navigationBarTitleDisplayMode(.inline)
 #endif
         .navigationDestination(for: WatchlistItem.self) { item in
-#if os(macOS)
-            ItemContentDetailsView(id: item.itemId, title: item.itemTitle, type: item.itemMedia)
-#else
             ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
-#endif
         }
         .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-            ItemContentDetailsView(id: item.id, title: item.itemTitle, type: item.itemContentMedia)
-#else
             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-#endif
         }
         .navigationDestination(for: Person.self) { person in
-#if os(tvOS)
-#else
             PersonDetailsView(title: person.name, id: person.id)
-#endif
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
             let keys = item.map { (key, _) in key }
@@ -105,18 +94,16 @@ struct WatchlistView: View {
                 } label: {
                     WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.bordered)
             }
 #endif
         }
     }
 }
 
-#if os(iOS) || os(macOS)
 struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
-#endif

@@ -75,4 +75,7 @@ extension Episode {
         }
         return value.sorted { $0.itemPopularity > $1.itemPopularity }
     }
+    var itemNotificationID: String {
+        return "\(id)@\(MediaType.tvShow.toInt)"
+    }
 }

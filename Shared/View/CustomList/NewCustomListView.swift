@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct NewCustomListView: View {
 #if os(macOS)
@@ -19,66 +18,32 @@ struct NewCustomListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<WatchlistItem>
+        animation: .default) private var items: FetchedResults<WatchlistItem>
     @State private var itemsToAdd = Set<WatchlistItem>()
     // This allows the SelectedListView to change to the new list when it is created.
     @Binding var newSelectedList: CustomList?
+    @State private var searchQuery = String()
+    @State private var publishOnTMDB = false
+    @State private var pinOnHome = false
     var body: some View {
         Form {
-            Section {
+            Section("listBasicHeader") {
                 TextField("listName", text: $title)
                 TextField("listDescription", text: $note)
-            } header: {
-                Text("listBasicHeader")
+                if SettingsStore.shared.connectedTMDB {
+                    Toggle("publishOnTMDB", isOn: $publishOnTMDB)
+                }
+                Toggle("pinOnHome", isOn: $pinOnHome)
             }
             
             if !items.isEmpty {
-                Section {
-                    List(items, id: \.notificationID) { item in
-                        HStack {
-                            Image(systemName: itemsToAdd.contains(item) ? "checkmark.circle.fill" : "circle")
-                                .foregroundColor(itemsToAdd.contains(item) ? SettingsStore.shared.appTheme.color : nil)
-                                .padding(.trailing, 4)
-                            WebImage(url: item.image)
-                                .resizable()
-                                .placeholder {
-                                    ZStack {
-                                        Rectangle().fill(.gray.gradient)
-                                        Image(systemName: item.itemMedia == .movie ? "film" : "tv")
-                                    }
-                                }
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 70, height: 50)
-                                .cornerRadius(6)
-                                .overlay {
-                                    if itemsToAdd.contains(item) {
-                                        ZStack {
-                                            Rectangle().fill(.black.opacity(0.4))
-                                        }
-                                        .cornerRadius(6)
-                                    }
-                                }
-                            VStack(alignment: .leading) {
-                                Text(item.itemTitle)
-                                    .lineLimit(1)
-                                    .foregroundColor(itemsToAdd.contains(item) ? .secondary : nil)
-                                Text(item.itemMedia.title)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        .onTapGesture {
-                            // do not remove the withAnimation, it works.
-                            if itemsToAdd.contains(item) {
-                                itemsToAdd.remove(item)
-                            } else {
-                                itemsToAdd.insert(item)
-                            }
-                        }
+                Section("listItemsToAdd") {
+                    List(items, id: \.itemContentID) {
+                        NewListItemSelectorRow(item: $0, selectedItems: $itemsToAdd)
+                        #if os(tvOS)
+                            .buttonStyle(.plain)
+                        #endif
                     }
-                } header: {
-                    Text("listItemsToAdd")
                 }
                 .onAppear {
                     if let preSelectedItem {
@@ -87,25 +52,15 @@ struct NewCustomListView: View {
                 }
             }
         }
-        .onAppear {
 #if os(macOS)
-            isPresentingNewList = true
+        .onAppear { isPresentingNewList = true }
+        .onDisappear { isPresentingNewList = false }
 #endif
-        }
-        .onDisappear {
-#if os(macOS)
-            isPresentingNewList = false
-#endif
-        }
         .navigationTitle("newCustomListTitle")
         .toolbar {
 #if os(macOS)
-            ToolbarItem(placement: .automatic) {
-                createList
-            }
-            ToolbarItem(placement: .cancellationAction) {
-                cancelButton
-            }
+            ToolbarItem(placement: .automatic) { createList }
+            ToolbarItem(placement: .cancellationAction) { cancelButton }
 #else
             createList
 #endif
@@ -116,11 +71,7 @@ struct NewCustomListView: View {
     }
     
     private var createList: some View {
-        Button("createList") {
-            save()
-            presentView = false
-        }
-        .disabled(title.isEmpty)
+        Button("createList", action: save).disabled(title.isEmpty)
     }
     
     private var cancelButton: some View {
@@ -129,38 +80,63 @@ struct NewCustomListView: View {
     
     private func save() {
         if title.isEmpty { return }
-        let viewContext = PersistenceController.shared.container.viewContext
-        let list = CustomList(context: viewContext)
-        list.id = UUID()
-        list.title = title
-        list.creationDate = Date()
-        list.updatedDate = Date()
-        list.notes = note
-        list.items = itemsToAdd as NSSet
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-                HapticManager.shared.successHaptic()
-                newSelectedList = list
-            } catch {
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "NewCustomListView.save()")
+        if publishOnTMDB {
+            Task {
+                let idOnTMDb = await handlePublish()
+                handleSave(idOnTMDb: idOnTMDb)
             }
+        } else {
+            handleSave(idOnTMDb: nil)
         }
+    }
+    
+    private func handleSave(idOnTMDb: Int?) {
+        let list = PersistenceController.shared.createList(title: title,
+                                                           description: note,
+                                                           items: itemsToAdd,
+                                                           idOnTMDb: idOnTMDb,
+                                                           isPin: pinOnHome)
+        HapticManager.shared.successHaptic()
+        newSelectedList = list
         title = ""
-#if os(iOS)
         presentView = false
-#endif
+    }
+    
+    private func handlePublish() async -> Int? {
+        let external = ExternalWatchlistManager.shared
+        let id = await external.publishList(title: title, description: note, isPublic: false)
+        guard let id else { return nil }
+        
+        // Gets the items to update the list
+        var itemsToAdd = [TMDBItemContent]()
+        for item in self.itemsToAdd {
+            let content = TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)
+            itemsToAdd.append(content)
+        }
+        let itemsToPublish = TMDBItem(items: itemsToAdd)
+        
+        // Encode the items and update the new list
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = [.sortedKeys]
+            let jsonData = try encoder.encode(itemsToPublish)
+            await external.updateList(id, with: jsonData)
+            return id
+        } catch {
+            if Task.isCancelled { return nil }
+        }
+        return nil
     }
 }
 
 struct NewCustomListView_Previews: PreviewProvider {
-    @State private static var presentView = true
-    @State private static var list: CustomList? = nil
     static var previews: some View {
-#if os(iOS)
-        NewCustomListView(presentView: $presentView, newSelectedList: $list)
-#else
-        EmptyView()
+#if os(iOS) || os(watchOS) || os(tvOS)
+        NewCustomListView(presentView: .constant(true), newSelectedList: .constant(nil))
+#elseif os(macOS)
+        NewCustomListView(isPresentingNewList: .constant(false),
+                          presentView: .constant(true),
+                          newSelectedList: .constant(nil))
 #endif
     }
 }

@@ -74,6 +74,16 @@ class NetworkService {
         return response.results
     }
     
+    func fetchKeywords(type: MediaType, id: Int) async throws -> [ItemContentKeyword] {
+    
+        guard let url = URL(string: "https://api.themoviedb.org/3/\(type.rawValue)/\(id)/keywords?api_key=\(Key.tmdbApi)")
+        else {
+            throw NetworkError.invalidRequest
+        }
+        let response: Keywords = try await self.fetch(url: url)
+        return response.keywords
+    }
+    
     func fetchPerson(id: Person.ID) async throws -> Person {
         guard let url = urlBuilder(path: "person/\(id)", append: "\(MediaType.person.append)")
         else {
