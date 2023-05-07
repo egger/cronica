@@ -119,7 +119,7 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
             let list = try context.fetch(request)
             if !list.isEmpty {
                 for item in list {
-                    watchedIds.insert(item.notificationID)
+                    watchedIds.insert(item.itemContentID)
                 }
             }
             return watchedIds

@@ -127,7 +127,7 @@ struct CardView: View {
     
     private func remove(item: WatchlistItem) {
         if item.notify {
-            notification.removeNotification(identifier: item.notificationID)
+            notification.removeNotification(identifier: item.itemContentID)
         }
         withAnimation(.easeInOut) {
             viewContext.delete(item)

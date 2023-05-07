@@ -135,7 +135,7 @@ extension WatchlistItem: Transferable {
         if itemSchedule == .production { return true }
         return false
     }
-    var notificationID: String {
+    var itemContentID: String {
         return "\(itemId)@\(itemMedia.toInt)"
     }
     var itemGenre: String {

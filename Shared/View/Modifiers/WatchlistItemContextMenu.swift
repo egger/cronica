@@ -22,7 +22,7 @@ struct WatchlistItemContextMenu: ViewModifier {
 #if os(watchOS)
         return content
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                WatchedButton(id: item.notificationID, isWatched: $isWatched)
+                WatchedButton(id: item.itemContentID, isWatched: $isWatched)
                     .tint(item.isWatched ? .yellow : .green)
                     .disabled(item.isInProduction || item.isUpcoming)
                 pinButton
@@ -72,24 +72,24 @@ struct WatchlistItemContextMenu: ViewModifier {
     }
     
     private var watchedButton: some View {
-        WatchedButton(id: item.notificationID, isWatched: $isWatched)
+        WatchedButton(id: item.itemContentID, isWatched: $isWatched)
     }
     
     private var favoriteButton: some View {
-        FavoriteButton(id: item.notificationID, isFavorite: $isFavorite)
+        FavoriteButton(id: item.itemContentID, isFavorite: $isFavorite)
     }
     
     private var pinButton: some View {
-        PinButton(id: item.notificationID, isPin: $isPin)
+        PinButton(id: item.itemContentID, isPin: $isPin)
     }
     
     private var archiveButton: some View {
-        ArchiveButton(id: item.notificationID, isArchive: $isArchive)
+        ArchiveButton(id: item.itemContentID, isArchive: $isArchive)
     }
     
 #if os(iOS) || os(macOS)
     private var customListButton: some View {
-        CustomListButton(id: item.notificationID)
+        CustomListButton(id: item.itemContentID)
     }
 #endif
     
@@ -170,7 +170,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     }
     
     private func remove() {
-        if item.notify { notification.removeNotification(identifier: item.notificationID) }
+        if item.notify { notification.removeNotification(identifier: item.itemContentID) }
         withAnimation { context.delete(item) }
     }
 }

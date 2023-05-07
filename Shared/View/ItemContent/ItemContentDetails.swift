@@ -136,7 +136,7 @@ struct ItemContentDetails: View {
             .sheet(isPresented: $showUserNotes) {
                 NavigationStack {
                     if let item = viewModel.watchlistItem {
-                        ReviewView(id: item.notificationID, showView: $showUserNotes)
+                        ReviewView(id: item.itemContentID, showView: $showUserNotes)
                     }
                 }
                 .presentationDetents([.medium, .large])

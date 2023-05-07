@@ -113,7 +113,7 @@ extension PersistenceController {
             let item = try viewContext.existingObject(with: content.objectID)
             if isNotificationScheduled(for: content) {
                 let notification = NotificationManager.shared
-                notification.removeNotification(identifier: content.notificationID)
+                notification.removeNotification(identifier: content.itemContentID)
             }
             viewContext.delete(item)
             try save()
@@ -129,7 +129,7 @@ extension PersistenceController {
             item.watched.toggle()
             try save()
         } catch {
-            let message = "Can't update item: \(item.notificationID), error: \(error.localizedDescription)"
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateWatched.failed")
         }
     }
@@ -139,7 +139,7 @@ extension PersistenceController {
             item.favorite.toggle()
             try save()
         } catch {
-            let message = "Can't update item: \(item.notificationID), error: \(error.localizedDescription)"
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateFavorite.failed")
         }
     }
@@ -149,7 +149,7 @@ extension PersistenceController {
             item.isPin.toggle()
             try save()
         } catch {
-            let message = "Can't update item: \(item.notificationID), error: \(error.localizedDescription)"
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updatePin.failed")
         }
     }
@@ -159,7 +159,7 @@ extension PersistenceController {
             item.isArchive.toggle()
             if !item.isArchive {
                 // Removes notification (if available) for an item before setting it as archive.
-                NotificationManager.shared.removeNotification(identifier: item.notificationID)
+                NotificationManager.shared.removeNotification(identifier: item.itemContentID)
                 item.shouldNotify.toggle()
             }
             if item.isTvShow {
@@ -168,7 +168,7 @@ extension PersistenceController {
             }
             try save()
         } catch {
-            let message = "Can't update item: \(item.notificationID), error: \(error.localizedDescription)"
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateArchive.failed")
         }
     }
@@ -179,7 +179,7 @@ extension PersistenceController {
             item.userRating = Int64(rating)
             try save()
         } catch {
-            let message = "Can't update item: \(item.notificationID), error: \(error.localizedDescription)"
+            let message = "Can't update item: \(item.itemContentID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateReview.failed")
         }
     }
@@ -189,7 +189,7 @@ extension PersistenceController {
     /// and might not be an actual representation if the item will notify the user.
     func isNotificationScheduled(for content: WatchlistItem) -> Bool {
         do {
-            let item = try fetch(for: content.notificationID)
+            let item = try fetch(for: content.itemContentID)
             guard let notify = item?.notify else { return  false }
             return notify
         } catch {
@@ -342,7 +342,7 @@ extension PersistenceController {
             item.displayOnUpNext = true
             try save()
         } catch {
-            let message = "Item ID: \(item.notificationID), episode: \(episode)"
+            let message = "Item ID: \(item.itemContentID), episode: \(episode)"
             CronicaTelemetry.shared.handleMessage(message, for: "PersistenceController.updateUpNext.failed")
         }
     }

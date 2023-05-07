@@ -96,7 +96,7 @@ class ExploreViewModel: ObservableObject {
             let list = try persistence.container.viewContext.fetch(request)
             var ids = [String]()
             for item in list {
-                ids.append(item.notificationID)
+                ids.append(item.itemContentID)
             }
             return ids
         } catch {

@@ -38,7 +38,7 @@ struct NewCustomListView: View {
             
             if !items.isEmpty {
                 Section("listItemsToAdd") {
-                    List(items, id: \.notificationID) {
+                    List(items, id: \.itemContentID) {
                         NewListItemSelectorRow(item: $0, selectedItems: $itemsToAdd)
                         #if os(tvOS)
                             .buttonStyle(.plain)

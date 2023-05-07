@@ -18,7 +18,7 @@ struct WatchlistPosterSection: View {
                 LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                           spacing: settings.isCompactUI ? 10 : 20) {
                     Section {
-                        ForEach(items, id: \.notificationID) { item in
+                        ForEach(items, id: \.itemContentID) { item in
                             WatchlistItemPoster(content: item)
                                 .buttonStyle(.plain)
                         }

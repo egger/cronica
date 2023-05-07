@@ -57,7 +57,7 @@ struct EditCustomList: View {
             Section {
                 if !list.itemsArray.isEmpty {
                     List {
-                        ForEach(list.itemsArray, id: \.notificationID) { item in
+                        ForEach(list.itemsArray, id: \.itemContentID) { item in
                             HStack {
                                 Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
                                     .foregroundColor(itemsToRemove.contains(item) ? .red : nil)

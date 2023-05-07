@@ -122,7 +122,7 @@ class BackgroundManager {
             PersistenceController.shared.update(item: content)
         } catch {
             if Task.isCancelled { return }
-            let message = "Could not update item: \(item.notificationID), error: \(error.localizedDescription)"
+            let message = "Could not update item: \(item.itemContentID), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update.failed")
         }
     }

@@ -62,9 +62,6 @@ extension ItemContent {
         }
         return nil
     }
-//    var itemNotificationID: String {
-//        return "\(id)@\(itemContentMedia.toInt)"
-//    }
     var itemContentID: String {
         return "\(id)@\(itemContentMedia.toInt)"
     }

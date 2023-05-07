@@ -17,12 +17,12 @@ struct WatchlistCardSection: View {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))],
                           spacing: 20) {
 #if os(tvOS)
-                    ForEach(items, id: \.notificationID) { item in
+                    ForEach(items, id: \.itemContentID) { item in
                         WatchlistItemFrame(content: item)
                     }
 #else
                     Section {
-                        ForEach(items, id: \.notificationID) { item in
+                        ForEach(items, id: \.itemContentID) { item in
                             WatchlistItemFrame(content: item)
                                 .buttonStyle(.plain)
                         }
