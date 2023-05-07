@@ -82,38 +82,6 @@ struct CoverImageView: View {
 }
 #endif
 
-#if os(iOS)
-private struct CoverImagePlaceholder: View {
-    let title: String
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    var body: some View {
-        ZStack {
-#if os(watchOS)
-            Rectangle().fill(.secondary)
-#else
-            Rectangle().fill(.thickMaterial)
-#endif
-            VStack {
-                Text(title)
-                    .font(.callout)
-                    .lineLimit(1)
-                    .padding()
-                Image(systemName: "film")
-            }
-            .padding()
-            .foregroundColor(.secondary)
-        }
-        .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
-               height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-        .shadow(radius: DrawingConstants.shadowRadius)
-        .padding([.top, .bottom])
-        .accessibilityElement(children: .combine)
-        .accessibility(hidden: true)
-    }
-}
-#endif
-
 private struct DrawingConstants {
     static let shadowRadius: CGFloat = 5
     static let imageWidth: CGFloat = 360
