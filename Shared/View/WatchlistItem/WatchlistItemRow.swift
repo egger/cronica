@@ -14,7 +14,6 @@ struct WatchlistItemRow: View {
     @State private var isFavorite: Bool = false
     @State private var isPin = false
     @State private var isArchive = false
-    @AppStorage("showGenreOnWatchlist") private var showGenre = false
     @StateObject private var settings = SettingsStore.shared
     @State private var showNote = false
     var body: some View {
@@ -22,9 +21,9 @@ struct WatchlistItemRow: View {
             HStack {
                 image
                     .applyHoverEffect()
-                #if os(watchOS)
+#if os(watchOS)
                     .padding(.top)
-                #endif
+#endif
                 VStack(alignment: .leading) {
                     HStack {
                         Text(content.itemTitle)

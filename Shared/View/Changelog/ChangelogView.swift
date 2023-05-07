@@ -40,7 +40,9 @@ struct ChangelogView: View {
                             Text("Continue")
                                 .frame(minWidth: 200)
                         }
+#if os(iOS) || os(macOS)
                         .controlSize(.large)
+#endif
                         .buttonStyle(.borderedProminent)
                         .tint(SettingsStore.shared.appTheme.color.gradient)
                         .padding(.horizontal)
@@ -57,9 +59,9 @@ struct ChangelogView: View {
                 NavigationStack {
                     TipJarSetting()
                         .navigationTitle("tipJar")
-                    #if os(iOS)
+#if os(iOS)
                         .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") {
@@ -83,7 +85,9 @@ struct ChangelogView: View {
                     Text("Continue")
                         .frame(minWidth: 100)
                 }
+#if os(iOS) || os(macOS)
                 .controlSize(.large)
+#endif
                 .buttonStyle(.borderedProminent)
                 .tint(SettingsStore.shared.appTheme.color.gradient)
                 .padding(.horizontal)
@@ -96,7 +100,9 @@ struct ChangelogView: View {
                     Text("tipJar")
                         .frame(minWidth: 100)
                 }
+#if os(iOS) || os(macOS)
                 .controlSize(.large)
+#endif
                 .buttonStyle(.bordered)
                 .fixedSize()
                 .padding(.trailing)
