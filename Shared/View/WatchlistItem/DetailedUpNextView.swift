@@ -15,7 +15,7 @@ struct DetailedUpNextView: View {
         ScrollView {
             VStack {
                 LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                    ForEach(viewModel.listItems) { item in
+                    ForEach(viewModel.items) { item in
                         SmallerUpNextCard(item: item)
                             .onTapGesture {
                                 selectedEpisode = item

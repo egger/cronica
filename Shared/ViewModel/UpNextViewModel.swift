@@ -11,7 +11,7 @@ import SwiftUI
 class UpNextViewModel: ObservableObject {
     @Published var episodeShowID = [String:Int]()
     @Published var isLoaded = false
-    @Published var listItems = [UpNextEpisode]()
+    @Published var items = [UpNextEpisode]()
     private let network = NetworkService.shared
     private let persistence = PersistenceController.shared
     
@@ -60,7 +60,7 @@ class UpNextViewModel: ObservableObject {
                         
                         DispatchQueue.main.async {
                             withAnimation(.easeInOut) {
-                                self.listItems.append(content)
+                                self.items.append(content)
                                 self.episodeShowID.updateValue(item.itemId, forKey: "\(result.id)")
                             }
                         }
@@ -88,7 +88,7 @@ class UpNextViewModel: ObservableObject {
                                             episode: nextEpisode)
                 DispatchQueue.main.async {
                     withAnimation(.easeInOut) {
-                        self.listItems.insert(content, at: 0)
+                        self.items.insert(content, at: 0)
                         self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
                     }
                 }
@@ -96,7 +96,7 @@ class UpNextViewModel: ObservableObject {
         }
         DispatchQueue.main.async {
             withAnimation(.easeInOut) {
-                self.listItems.removeAll(where: { $0.episode.id == episode.id })
+                self.items.removeAll(where: { $0.episode.id == episode.id })
             }
         }
     }

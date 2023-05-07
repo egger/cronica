@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct UpNextListView: View {
     @FetchRequest(
@@ -23,18 +22,18 @@ struct UpNextListView: View {
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
-                if !viewModel.listItems.isEmpty {
-                    NavigationLink(value: viewModel.listItems) {
+                if !viewModel.items.isEmpty {
+                    NavigationLink(value: viewModel.items) {
                         TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
                     }
                     .buttonStyle(.plain)
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(viewModel.listItems) { item in
+                            ForEach(viewModel.items) { item in
                                 UpNextItem(item: item)
                                     .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == viewModel.listItems.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == viewModel.listItems.last!.id ? 16 : 0)
+                                    .padding(.leading, item.id == viewModel.items.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == viewModel.items.last!.id ? 16 : 0)
                                     .padding(.top, 8)
                                     .padding(.bottom)
                                     .onTapGesture { selectedEpisode = item }
@@ -56,7 +55,7 @@ struct UpNextListView: View {
                     viewModel.isLoaded = false
                     DispatchQueue.main.async {
                         withAnimation(.easeInOut) {
-                            viewModel.listItems.removeAll()
+                            viewModel.items.removeAll()
                         }
                     }
                     Task {
