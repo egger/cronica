@@ -70,6 +70,12 @@
 		B81941862A073BA00057DA04 /* DetailWatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941772A073BA00057DA04 /* DetailWatchlistButton.swift */; };
 		B81941872A073BA00057DA04 /* DetailWatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941772A073BA00057DA04 /* DetailWatchlistButton.swift */; };
 		B81941892A081B840057DA04 /* HorizontalWatchlistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941882A081B840057DA04 /* HorizontalWatchlistList.swift */; };
+		B819418D2A0822C30057DA04 /* UpNextEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819418C2A0822C30057DA04 /* UpNextEpisode.swift */; };
+		B819418E2A0822C30057DA04 /* UpNextEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819418C2A0822C30057DA04 /* UpNextEpisode.swift */; };
+		B81941902A0822E50057DA04 /* DetailedUpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819418F2A0822E50057DA04 /* DetailedUpNextView.swift */; };
+		B81941932A0823380057DA04 /* SmallerUpNextCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941922A0823380057DA04 /* SmallerUpNextCard.swift */; };
+		B81941962A0823670057DA04 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941952A0823670057DA04 /* UpNextViewModel.swift */; };
+		B81941972A0823670057DA04 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941952A0823670057DA04 /* UpNextViewModel.swift */; };
 		B81DD92629BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
 		B81DD92829BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
 		B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
@@ -440,6 +446,10 @@
 		B81941762A073BA00057DA04 /* CustomListButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomListButton.swift; path = ../../../../../../../../../Desktop/Buttons/CustomListButton.swift; sourceTree = "<group>"; };
 		B81941772A073BA00057DA04 /* DetailWatchlistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailWatchlistButton.swift; path = ../../../../../../../../../Desktop/Buttons/DetailWatchlistButton.swift; sourceTree = "<group>"; };
 		B81941882A081B840057DA04 /* HorizontalWatchlistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalWatchlistList.swift; sourceTree = "<group>"; };
+		B819418C2A0822C30057DA04 /* UpNextEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextEpisode.swift; sourceTree = "<group>"; };
+		B819418F2A0822E50057DA04 /* DetailedUpNextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedUpNextView.swift; sourceTree = "<group>"; };
+		B81941922A0823380057DA04 /* SmallerUpNextCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallerUpNextCard.swift; sourceTree = "<group>"; };
+		B81941952A0823670057DA04 /* UpNextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextViewModel.swift; sourceTree = "<group>"; };
 		B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomList+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -772,6 +782,7 @@
 				B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */,
 				B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */,
 				B84457C6297341AF009CB21F /* WatchProviders.swift */,
+				B819418C2A0822C30057DA04 /* UpNextEpisode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1035,6 +1046,7 @@
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
 				B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */,
 				B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */,
+				B81941952A0823670057DA04 /* UpNextViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1328,6 +1340,8 @@
 				B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */,
 				B8FB2A8829524FAD006DAC8E /* WatchlistPosterSection.swift */,
 				B8C335462815ED140055389D /* WatchListSection.swift */,
+				B819418F2A0822E50057DA04 /* DetailedUpNextView.swift */,
+				B81941922A0823380057DA04 /* SmallerUpNextCard.swift */,
 			);
 			path = WatchlistItem;
 			sourceTree = "<group>";
@@ -1564,6 +1578,7 @@
 				B84043BD289B18C500D5CEBF /* Person.swift in Sources */,
 				B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */,
 				B81DD93C29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
+				B81941972A0823670057DA04 /* UpNextViewModel.swift in Sources */,
 				B8AAA6EA29645561004FDF21 /* AppTheme.swift in Sources */,
 				B8DD56A2290DE2FE002CAAFD /* CenterHorizontalView.swift in Sources */,
 				B8C0215629E0D29C006E9D82 /* ExplorePreferredDisplayType.swift in Sources */,
@@ -1587,6 +1602,7 @@
 				B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */,
 				B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */,
 				B8C0215B29E0D56C006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */,
+				B819418E2A0822C30057DA04 /* UpNextEpisode.swift in Sources */,
 				B824E4492A05A9AE00E385CE /* AttributionView.swift in Sources */,
 				B8FB2A8B2952606A006DAC8E /* AppThemeColors.swift in Sources */,
 				B8370A992A02E5CB00643261 /* ExternalWatchlistManager.swift in Sources */,
@@ -1691,6 +1707,7 @@
 				B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B876DE64281B36A7005558DD /* Season.swift in Sources */,
+				B81941902A0822E50057DA04 /* DetailedUpNextView.swift in Sources */,
 				B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */,
 				B88AA92329DF781000F80EE4 /* MediaTypeFilters.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
@@ -1751,6 +1768,7 @@
 				B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */,
 				B88B88C729DE55B500497058 /* AppAlternateIcons.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
+				B81941962A0823670057DA04 /* UpNextViewModel.swift in Sources */,
 				B897AE5B29F72E9400044B1E /* TMDBWatchlistView.swift in Sources */,
 				B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */,
 				B804E397284FCBCB00F59855 /* CardFrame.swift in Sources */,
@@ -1762,6 +1780,7 @@
 				B8FB2A7E29522E58006DAC8E /* WatchlistItemFrame.swift in Sources */,
 				B806C4F1289B139000A5330E /* UTType-Extensions.swift in Sources */,
 				B84B506829AE698100AE63C7 /* FeatureRoadmap.swift in Sources */,
+				B81941932A0823380057DA04 /* SmallerUpNextCard.swift in Sources */,
 				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
 				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
 				B85FD9A929F324730088B5CC /* AccountSettingsView.swift in Sources */,
@@ -1770,6 +1789,7 @@
 				B8733A7829293ABB00CBEF2B /* TranslucentBackground.swift in Sources */,
 				B84457D32973987E009CB21F /* WatchProviderOption.swift in Sources */,
 				B8F6D6DF29DB433200B9190B /* TVSearchItemContentView.swift in Sources */,
+				B819418D2A0822C30057DA04 /* UpNextEpisode.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
 				B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */,
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
