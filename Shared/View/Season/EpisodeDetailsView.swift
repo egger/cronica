@@ -81,6 +81,7 @@ struct EpisodeDetailsView: View {
                                            season: season,
                                            show: show,
                                            isWatched: $isWatched)
+                        .padding(.horizontal)
                     }
                     .padding()
                     Spacer()
@@ -99,21 +100,14 @@ struct EpisodeDetailsView: View {
                     }
                     .padding()
                     Spacer()
-                    Button {
-                        
-                    } label: {
-                        VStack(alignment: .leading) {
-#if os(tvOS)
-                            HStack {
-                                InfoSegmentView(title: "Episode", info: "\(episode.itemEpisodeNumber)")
-                                InfoSegmentView(title: "Season", info: "\(episode.itemSeasonNumber)")
-                            }
-                            InfoSegmentView(title: "Release", info: episode.itemDate)
-#endif
+                    VStack(alignment: .leading) {
+                        HStack {
+                            InfoSegmentView(title: "Episode", info: "\(episode.itemEpisodeNumber)")
+                            InfoSegmentView(title: "Season", info: "\(episode.itemSeasonNumber)")
                         }
-                        .padding()
+                        InfoSegmentView(title: "Release", info: episode.itemDate)
                     }
-                    .buttonStyle(.plain)
+                    .padding()
                     
                     Spacer()
                 }

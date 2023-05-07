@@ -57,6 +57,12 @@ struct HomeView: View {
             }
             .onAppear {
                 checkVersion()
+#if os(iOS) || os(macOS)
+                Task {
+                    let notifications = await NotificationManager.shared.hasDeliveredItems()
+                    hasNotifications = notifications
+                }
+#endif
             }
             .sheet(isPresented: $showWhatsNew) {
 #if os(iOS) || os(macOS)
@@ -129,7 +135,8 @@ struct HomeView: View {
                     Button {
                         showNotifications.toggle()
                     } label: {
-                        Label("Notifications", systemImage: "bell")
+                        Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                            .imageScale(.medium)
                     }
                 }
 #elseif os(iOS)
@@ -145,12 +152,6 @@ struct HomeView: View {
                         .clipShape(Circle())
                         .tint(.secondary)
                         .shadow(radius: 2)
-                        .onAppear {
-                            Task {
-                                let notifications = await NotificationManager.shared.hasDeliveredItems()
-                                hasNotifications = notifications
-                            }
-                        }
                         .accessibilityLabel("Notifications")
                     }
                 }

@@ -121,9 +121,7 @@ struct CustomWatchlist: View {
                 } else {
                     switch filterType {
                     case .all:
-                        WatchListSection(items: items,
-                                         title: selectedList?.itemCount ?? "",
-                                         showDefaultFooter: false,
+                        WatchListSection(items: items, title: "", showDefaultFooter: false,
                                          alternativeFooter: selectedList?.itemFooter)
                     case .movies:
                         WatchListSection(items: items.filter { $0.isMovie },
@@ -160,8 +158,7 @@ struct CustomWatchlist: View {
             } else {
                 switch filterType {
                 case .all:
-                    WatchlistCardSection(items: items,
-                                         title: selectedList?.itemCount ?? "")
+                    WatchlistCardSection(items: items, title: "")
                 case .movies:
                     WatchlistCardSection(items: items.filter { $0.isMovie },
                                          title: "Movies")

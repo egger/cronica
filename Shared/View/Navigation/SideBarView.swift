@@ -78,16 +78,16 @@ struct SideBarView: View {
 #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
-                        Button(action: {
+                        Button {
                             showNotifications.toggle()
-                        }, label: {
+                        } label: {
                             Label("Notifications", systemImage: "bell")
-                        })
-                        Button(action: {
+                        }
+                        Button {
                             showSettings.toggle()
-                        }, label: {
+                        } label: {
                             Label("Settings", systemImage: "gearshape")
-                        })
+                        }
                     }
                 }
 #endif
@@ -113,7 +113,6 @@ struct SideBarView: View {
                         }
                     }
                 }
-                ConfirmationDialogView(showConfirmation: $showConfirmation, message: "markedAsWatched")
             }
 #else
             NavigationStack {

@@ -50,9 +50,6 @@ struct ItemContentListView: View {
                                     posterStyle
                                 }
                             }
-#if os(tvOS)
-                    .padding()
-#endif
                         case .card: cardStyle
                         case .poster: posterStyle
                         }
@@ -94,6 +91,10 @@ struct ItemContentListView: View {
                     .padding(.bottom, settings.isCompactUI ? 4 : nil)
                 }
             }
+#if os(tvOS)
+                    .padding(.vertical)
+                    .padding(.horizontal)
+#endif
         }
     }
 }

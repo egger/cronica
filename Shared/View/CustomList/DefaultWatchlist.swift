@@ -141,6 +141,9 @@ struct DefaultWatchlist: View {
                 .labelStyle(.iconOnly)
                 .foregroundColor(showFilter ? .secondary : nil)
         }
+        #if os(tvOS)
+        .buttonStyle(.bordered)
+        #endif
     }
     
 #if os(iOS) || os(macOS)
@@ -336,7 +339,6 @@ struct DefaultWatchlist: View {
                                            title: DefaultListTypes.archive.title)
                 }
             }
-            
         }
     }
     
@@ -353,25 +355,6 @@ struct DefaultWatchlist: View {
                 .font(.headline)
                 .foregroundColor(.secondary)
                 .padding()
-        }
-    }
-    
-    private func filter(_ filter: DefaultListTypes, orderBy sortOrder: String, media: MediaTypeFilters = .noFilter) {
-        switch filter {
-        case .released:
-            filteredItems = items.filter { $0.isReleased }
-        case .upcoming:
-            filteredItems = items.filter { $0.isUpcoming }
-        case .production:
-            filteredItems = items.filter { $0.isInProduction }
-        case .watched:
-            filteredItems = items.filter { $0.isWatched }
-        case .favorites:
-            filteredItems = items.filter { $0.isFavorite }
-        case .pin:
-            filteredItems = items.filter { $0.isPin }
-        case .archive:
-            filteredItems = items.filter { $0.isArchive }
         }
     }
 }

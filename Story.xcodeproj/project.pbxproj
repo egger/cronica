@@ -69,6 +69,7 @@
 		B81941852A073BA00057DA04 /* CustomListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941762A073BA00057DA04 /* CustomListButton.swift */; };
 		B81941862A073BA00057DA04 /* DetailWatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941772A073BA00057DA04 /* DetailWatchlistButton.swift */; };
 		B81941872A073BA00057DA04 /* DetailWatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941772A073BA00057DA04 /* DetailWatchlistButton.swift */; };
+		B81941892A081B840057DA04 /* HorizontalWatchlistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941882A081B840057DA04 /* HorizontalWatchlistList.swift */; };
 		B81DD92629BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
 		B81DD92829BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
 		B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */; };
@@ -438,6 +439,7 @@
 		B81941752A073BA00057DA04 /* WatchlistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchlistButton.swift; path = ../../../../../../../../../Desktop/Buttons/WatchlistButton.swift; sourceTree = "<group>"; };
 		B81941762A073BA00057DA04 /* CustomListButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomListButton.swift; path = ../../../../../../../../../Desktop/Buttons/CustomListButton.swift; sourceTree = "<group>"; };
 		B81941772A073BA00057DA04 /* DetailWatchlistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailWatchlistButton.swift; path = ../../../../../../../../../Desktop/Buttons/DetailWatchlistButton.swift; sourceTree = "<group>"; };
+		B81941882A081B840057DA04 /* HorizontalWatchlistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalWatchlistList.swift; sourceTree = "<group>"; };
 		B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B81DD92529BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B81DD93229BD14EE009F73F3 /* CustomList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomList+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1313,6 +1315,7 @@
 			isa = PBXGroup;
 			children = (
 				B8423E2E2793B61B0012259B /* CardView.swift */,
+				B81941882A081B840057DA04 /* HorizontalWatchlistList.swift */,
 				B8BF633329146A1F0051915C /* PinItemsList.swift */,
 				B89ECD052985F11100F0B197 /* TitleWatchlistDetails.swift */,
 				B85344C028FA07B60013E9C7 /* UpcomingListView.swift */,
@@ -1695,6 +1698,7 @@
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B81941802A073BA00057DA04 /* ArchiveButton.swift in Sources */,
 				B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */,
+				B81941892A081B840057DA04 /* HorizontalWatchlistList.swift in Sources */,
 				B86E7A24290AB6C500459E41 /* WatchlistItemContextMenu.swift in Sources */,
 				B88789D229F8A44C00680FD3 /* RatingView.swift in Sources */,
 				B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */,

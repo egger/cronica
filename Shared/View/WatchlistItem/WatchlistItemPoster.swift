@@ -24,7 +24,11 @@ struct WatchlistItemPoster: View {
                 image
             }
         }
+        #if os(tvOS)
+        .buttonStyle(.card)
+        #else
         .buttonStyle(.plain)
+        #endif
         .accessibilityLabel(Text(content.itemTitle))
         .sheet(isPresented: $showNote) {
             NavigationStack {
@@ -96,12 +100,18 @@ struct WatchlistItemPoster_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
+#if os(iOS) || os(macOS)
     static let posterWidth: CGFloat = 160
-    static let compactPosterWidth: CGFloat = 80
     static let posterHeight: CGFloat = 240
+#endif
+    static let compactPosterWidth: CGFloat = 80
     static let compactPosterHeight: CGFloat = 140
     static let compactPosterRadius: CGFloat = 4
 #if os(macOS)
+    static let posterRadius: CGFloat = 12
+#elseif os(tvOS)
+    static let posterWidth: CGFloat = 260
+    static let posterHeight: CGFloat = 380
     static let posterRadius: CGFloat = 12
 #else
     static let posterRadius: CGFloat = 8
