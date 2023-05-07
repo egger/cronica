@@ -24,6 +24,7 @@ struct RatingView: View {
                 image(for: number)
                     .foregroundColor(number > rating ? offColor : onColor)
                     .onTapGesture {
+                        HapticManager.shared.selectionHaptic()
                         withAnimation { rating = number }
                     }
             }

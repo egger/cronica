@@ -40,10 +40,6 @@ struct ConfirmationDialogView: View {
             .onTapGesture { withAnimation { showConfirmation = false } }
         }
     }
-    
-    private func handlePresentation() {
-        
-    }
 }
 
 struct ConfirmationDialogView_Previews: PreviewProvider {

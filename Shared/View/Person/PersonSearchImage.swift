@@ -8,6 +8,8 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+/// A rectangular shape for displaying Person images in Search, it is currently used
+/// for displaying people in Search for macOS. This is a simpler view from the Cast List.
 struct PersonSearchImage: View {
     let item: ItemContent
     var body: some View {
