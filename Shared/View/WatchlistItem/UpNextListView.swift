@@ -19,7 +19,7 @@ struct UpNextListView: View {
     ) private var items: FetchedResults<WatchlistItem>
     @State private var isLoaded = false
     @State private var listItems = [UpNextEpisode]()
-    @State private var selectedEpisode: Episode?
+    @State private var selectedEpisode: UpNextEpisode?
     @State private var isWatched = false
     @State private var isInWatchlist = true
     @State private var episodeShowID = [String:Int]()
@@ -54,7 +54,7 @@ struct UpNextListView: View {
                                     .padding(.trailing, item.id == self.listItems.last!.id ? 16 : 0)
                                     .padding(.top, 8)
                                     .padding(.bottom)
-                                    .onTapGesture { selectedEpisode = item.episode }
+                                    .onTapGesture { selectedEpisode = item }
                                     .accessibilityLabel("Episode \(item.episode.itemEpisodeNumber), \(item.episode.itemTitle)")
                             }
                         }
@@ -89,44 +89,24 @@ struct UpNextListView: View {
                 }
             }
             .sheet(item: $selectedEpisode) { item in
-#if os(iOS) || os(macOS)
                 NavigationStack {
-                    if let show = selectedEpisodeShowID {
-                        EpisodeDetailsView(episode: item, season: item.itemSeasonNumber, show: show, isWatched: $isWatched, isUpNext: true)
-                            .toolbar {
-                                Button("Done") { selectedEpisode = nil }
-                            }
-                            .navigationDestination(for: ItemContent.self) { item in
-#if os(iOS)
-                                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-#endif
-                            }
-                    } else {
-                        ProgressView()
+                    EpisodeDetailsView(episode: item.episode,
+                                       season: item.episode.itemSeasonNumber,
+                                       show: item.showID,
+                                       isWatched: $isWatched,
+                                       isUpNext: true)
+                    .toolbar {
+                        Button("Done") { selectedEpisode = nil }
                     }
                 }
-                .presentationDetents([.large])
-#if os(iOS)
-                .appTheme()
-                .appTint()
-#endif
-                .task {
-                    let showId = self.episodeShowID["\(item.id)"]
-                    selectedEpisodeShowID = showId
-                }
-                .onDisappear {
-                    selectedEpisode = nil
-                    selectedEpisodeShowID = nil
-                }
 #if os(macOS)
-                .frame(width: 800, height: 500)
-#endif
+                .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
 #endif
             }
             .task(id: isWatched) {
                 if isWatched {
-                    guard let selectedEpisode else { return }
-                    await handleWatched(selectedEpisode)
+                    guard let episode = selectedEpisode?.episode else { return }
+                    await handleWatched(episode)
                     self.selectedEpisode = nil
                 }
             }
@@ -365,6 +345,9 @@ struct DetailedUpNextView: View {
                         Button("Done") { selectedEpisode = nil }
                     }
                 }
+#if os(macOS)
+                .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#endif
             }
             .task(id: isWatched) {
                 if isWatched {
@@ -469,10 +452,16 @@ struct SmallerUpNextCard: View {
 }
 
 private struct DrawingConstants {
+#if os(iOS)
     static let imageWidth: CGFloat = 160
     static let imageHeight: CGFloat = 100
+    static let columns = [GridItem(.adaptive(minimum: 160))]
+#else
+    static let imageWidth: CGFloat = 280
+    static let imageHeight: CGFloat = 160
+    static let columns = [GridItem(.adaptive(minimum: 280))]
+#endif
     static let imageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5
-    static let columns = [GridItem(.adaptive(minimum: 160))]
 }
