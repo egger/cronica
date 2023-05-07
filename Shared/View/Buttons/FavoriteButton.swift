@@ -28,7 +28,7 @@ struct FavoriteButton: View {
 
 struct FavoriteButton_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteButton(id: ItemContent.example.itemNotificationID,
+        FavoriteButton(id: ItemContent.example.itemContentID,
                        isFavorite: .constant(true))
     }
 }

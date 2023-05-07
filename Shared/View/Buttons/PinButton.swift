@@ -27,6 +27,6 @@ struct PinButton: View {
 
 struct PinButton_Previews: PreviewProvider {
     static var previews: some View {
-        PinButton(id: ItemContent.example.itemNotificationID, isPin: .constant(false))
+        PinButton(id: ItemContent.example.itemContentID, isPin: .constant(false))
     }
 }

@@ -48,7 +48,7 @@ struct WatchedButton: View {
 
 struct WatchedButton_Previews: PreviewProvider {
     static var previews: some View {
-        WatchedButton(id: ItemContent.example.itemNotificationID,
+        WatchedButton(id: ItemContent.example.itemContentID,
                       isWatched: .constant(true))
     }
 }

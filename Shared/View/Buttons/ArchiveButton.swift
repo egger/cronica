@@ -28,6 +28,6 @@ struct ArchiveButton: View {
 
 struct ArchiveButton_Previews: PreviewProvider {
     static var previews: some View {
-        ArchiveButton(id: ItemContent.example.itemNotificationID, isArchive: .constant(false))
+        ArchiveButton(id: ItemContent.example.itemContentID, isArchive: .constant(false))
     }
 }

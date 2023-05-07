@@ -16,7 +16,7 @@ struct CustomListButton: View {
     private let context = PersistenceController.shared
     var body: some View {
         if !lists.isEmpty {
-#if os(iOS) || os(macOS) || os(watchOS)
+#if os(iOS) || os(macOS)
             Menu {
                 ForEach(lists) { list in
                     Button {
@@ -56,6 +56,6 @@ struct CustomListButton: View {
 
 struct CustomListButton_Previews: PreviewProvider {
     static var previews: some View {
-        CustomListButton(id: ItemContent.example.itemNotificationID)
+        CustomListButton(id: ItemContent.example.itemContentID)
     }
 }
