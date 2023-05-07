@@ -848,6 +848,7 @@
 		B824E4382A04A77800E385CE /* ItemContent */ = {
 			isa = PBXGroup;
 			children = (
+				B804E392284EC4A500F59855 /* CoverImageView.swift */,
 				B804E396284FCBCB00F59855 /* CardFrame.swift */,
 				B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */,
 				B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */,
@@ -1278,7 +1279,6 @@
 			isa = PBXGroup;
 			children = (
 				B886D231284D512F00FFE96A /* ConfirmationDialogView.swift */,
-				B804E392284EC4A500F59855 /* CoverImageView.swift */,
 				B824E43D2A059E0900E385CE /* GlanceInfo.swift */,
 				B890C57827FC999F006BE5E1 /* HeroImage.swift */,
 				B80BBE5A294966FC00958876 /* InformationalLabel.swift */,

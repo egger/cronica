@@ -16,70 +16,51 @@ struct UpNextListView: View {
                                                                     NSPredicate(format: "isArchive == %d", false),
                                                                     NSPredicate(format: "watched == %d", false)])
     ) private var items: FetchedResults<WatchlistItem>
-    @State private var isLoaded = false
-    @State private var listItems = [UpNextEpisode]()
-    @State private var selectedEpisode: UpNextEpisode?
     @State private var isWatched = false
-    @State private var isInWatchlist = true
-    @State private var episodeShowID = [String:Int]()
-    @State private var selectedEpisodeShowID: Int?
     @Binding var shouldReload: Bool
-    private let network = NetworkService.shared
-    private let persistence = PersistenceController.shared
     @State private var viewModel = UpNextViewModel()
+    @State private var selectedEpisode: UpNextEpisode?
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
-                if !listItems.isEmpty {
-                    NavigationLink(value: listItems) {
+                if !viewModel.listItems.isEmpty {
+                    NavigationLink(value: viewModel.listItems) {
                         TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
                     }
                     .buttonStyle(.plain)
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(listItems) { item in
+                            ForEach(viewModel.listItems) { item in
                                 UpNextItem(item: item)
-                                    .contextMenu {
-#if os(iOS) || os(macOS)
-                                        if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
-                                            ShareLink("shareEpisode", item: url)
-                                        }
-                                        if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
-                                            ShareLink("shareShow", item: url)
-                                        }
-#endif
-                                    }
                                     .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == self.listItems.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == self.listItems.last!.id ? 16 : 0)
+                                    .padding(.leading, item.id == viewModel.listItems.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == viewModel.listItems.last!.id ? 16 : 0)
                                     .padding(.top, 8)
                                     .padding(.bottom)
                                     .onTapGesture { selectedEpisode = item }
-                                    .accessibilityLabel("Episode \(item.episode.itemEpisodeNumber), \(item.episode.itemTitle)")
                             }
                         }
                     }
-                    .redacted(reason: isLoaded ? [] : .placeholder)
                 }
             }
+            .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             .navigationDestination(for: [UpNextEpisode].self) { item in
-                DetailedUpNextView(list: $listItems, episodeShowID: $episodeShowID)
+                DetailedUpNextView()
+                    .environmentObject(viewModel)
             }
             .task {
-                print("Up Next items: \(items)")
-                await load()
-                
+                await viewModel.load(items)
             }
             .onChange(of: shouldReload) { reload in
                 if reload {
-                    isLoaded = false
+                    viewModel.isLoaded = false
                     DispatchQueue.main.async {
                         withAnimation(.easeInOut) {
-                            listItems.removeAll()
+                            viewModel.listItems.removeAll()
                         }
                     }
                     Task {
-                        await load()
+                        await viewModel.load(items)
                         DispatchQueue.main.async {
                             withAnimation(.easeInOut) {
                                 shouldReload = false
@@ -106,105 +87,9 @@ struct UpNextListView: View {
             .task(id: isWatched) {
                 if isWatched {
                     guard let episode = selectedEpisode?.episode else { return }
-                    await handleWatched(episode)
-                    self.selectedEpisode = nil
+                    await viewModel.handleWatched(episode)
+                     selectedEpisode = nil
                 }
-            }
-        }
-    }
-    
-    private func checkForNewEpisodes() {
-        var loadedIDs = [Int64]()
-        for item in episodeShowID {
-            let value = item.value
-            loadedIDs.append(Int64(value))
-            if !items.contains(where: { $0.id == Int64(value) }) {
-                
-            }
-        }
-    }
-    
-    private func getNextEpisode(of actual: Episode) async -> Episode? {
-        guard let showID = self.episodeShowID["\(actual.id)"] else { return nil }
-        let season = try? await network.fetchSeason(id: showID, season: actual.itemSeasonNumber)
-        guard let episodes = season?.episodes else { return nil }
-        let episodeCount = actual.itemEpisodeNumber + 1
-        if episodes.count < episodeCount {
-            let nextSeasonNumber = actual.itemSeasonNumber + 1
-            let nextSeason = try? await network.fetchSeason(id: showID, season: nextSeasonNumber)
-            guard let nextSeasonEpisodes = nextSeason?.episodes else { return nil }
-            let nextEpisode = nextSeasonEpisodes[0]
-            if nextEpisode.isItemReleased {
-                if persistence.isEpisodeSaved(show: showID, season: nextSeasonNumber, episode: nextEpisode.id) { return nil }
-                return nextEpisode
-            }
-        } else {
-            let nextEpisode = episodes.filter { $0.itemEpisodeNumber == episodeCount }
-            if nextEpisode.isEmpty { return nil }
-            let episode = nextEpisode[0]
-            if persistence.isEpisodeSaved(show: showID, season: episode.itemSeasonNumber, episode: episode.id) { return nil }
-            return episode
-        }
-        return nil
-    }
-    
-    private func load() async {
-        if !isLoaded {
-            for item in items {
-                let result = try? await network.fetchEpisode(tvID: item.id,
-                                                             season: item.seasonNumberUpNext,
-                                                             episodeNumber: item.nextEpisodeNumberUpNext)
-                if let result {
-                    let isWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                               season: result.itemSeasonNumber,
-                                                               episode: result.id)
-                    
-                    if result.isItemReleased && !isWatched {
-                        let content = UpNextEpisode(id: result.id,
-                                                    showTitle: item.itemTitle,
-                                                    showID: item.itemId,
-                                                    backupImage: item.image,
-                                                    episode: result)
-                        
-                        DispatchQueue.main.async {
-                            withAnimation(.easeInOut) {
-                                listItems.append(content)
-                                episodeShowID.updateValue(item.itemId, forKey: "\(result.id)")
-                            }
-                        }
-                    }
-                }
-            }
-            DispatchQueue.main.async {
-                withAnimation { self.isLoaded = true }
-            }
-        }
-    }
-    
-    private func handleWatched(_ episode: Episode) async {
-        let showId = self.episodeShowID["\(episode.id)"]
-        guard let showId else { return }
-        let nextEpisode = await getNextEpisode(of: episode)
-        let item = try? await network.fetchItem(id: showId, type: .tvShow)
-        guard let item else { return }
-        if let nextEpisode {
-            if nextEpisode.isItemReleased {
-                let content = UpNextEpisode(id: nextEpisode.id,
-                                            showTitle: item.itemTitle,
-                                            showID: showId,
-                                            backupImage: item.cardImageLarge,
-                                            episode: nextEpisode)
-                DispatchQueue.main.async {
-                    withAnimation(.easeInOut) {
-                        self.listItems.insert(content, at: 0)
-                        self.episodeShowID.updateValue(showId, forKey: "\(nextEpisode.id)")
-                    }
-                }
-            }
-        }
-        DispatchQueue.main.async {
-            withAnimation(.easeInOut) {
-                self.listItems.removeAll(where: { $0.episode.id == episode.id })
             }
         }
     }

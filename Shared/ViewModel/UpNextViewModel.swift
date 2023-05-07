@@ -9,9 +9,9 @@ import SwiftUI
 
 @MainActor
 class UpNextViewModel: ObservableObject {
-    @Published private var episodeShowID = [String:Int]()
-    @Published private var isLoaded = false
-    @Published private var listItems = [UpNextEpisode]()
+    @Published var episodeShowID = [String:Int]()
+    @Published var isLoaded = false
+    @Published var listItems = [UpNextEpisode]()
     private let network = NetworkService.shared
     private let persistence = PersistenceController.shared
     
@@ -39,7 +39,7 @@ class UpNextViewModel: ObservableObject {
         return nil
     }
     
-    private func load(_ items: [WatchlistItem]) async {
+    func load(_ items: FetchedResults<WatchlistItem>) async {
         if !isLoaded {
             for item in items {
                 let result = try? await network.fetchEpisode(tvID: item.id,
@@ -73,7 +73,7 @@ class UpNextViewModel: ObservableObject {
         }
     }
     
-    private func handleWatched(_ episode: Episode) async {
+    func handleWatched(_ episode: Episode) async {
         let showId = self.episodeShowID["\(episode.id)"]
         guard let showId else { return }
         let nextEpisode = await getNextEpisode(of: episode)
