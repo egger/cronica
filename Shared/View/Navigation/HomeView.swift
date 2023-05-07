@@ -135,26 +135,23 @@ struct HomeView: View {
 #elseif os(iOS)
                 if UIDevice.isIPhone {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        HStack {
-                            Button {
-                                showNotifications.toggle()
-                            } label: {
-                                Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                        Button {
+                            showNotifications.toggle()
+                        } label: {
+                            Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
                                 .imageScale(.medium)
-                            }
-                            .buttonStyle(.bordered)
-                            .clipShape(Circle())
-                            .tint(.secondary)
-                            .shadow(radius: 2)
-                            .onAppear {
-                                Task {
-                                    let notifications = await NotificationManager.shared.hasDeliveredItems()
-                                    hasNotifications = notifications
-                                }
-                            }
-                            .accessibilityLabel("Notifications")
-                            .padding()
                         }
+                        .buttonStyle(.bordered)
+                        .clipShape(Circle())
+                        .tint(.secondary)
+                        .shadow(radius: 2)
+                        .onAppear {
+                            Task {
+                                let notifications = await NotificationManager.shared.hasDeliveredItems()
+                                hasNotifications = notifications
+                            }
+                        }
+                        .accessibilityLabel("Notifications")
                     }
                 }
 #endif

@@ -13,7 +13,6 @@ class WatchProvidersListViewModel: ObservableObject {
     @Published var link: URL?
     private var isLoaded = false
     @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
-    @AppStorage("selectedWatchProviderRegion") private var watchRegion: WatchProviderOption = .us
     @AppStorage("firstLocaleCheck") private var firstCheck = false
     private var settings = SettingsStore.shared
     
@@ -23,7 +22,7 @@ class WatchProvidersListViewModel: ObservableObject {
         let providerRegions = WatchProviderOption.allCases
         for region in providerRegions {
             if userLocale.lowercased() == region.rawValue.lowercased() {
-                watchRegion = region
+                settings.watchRegion = region
             }
         }
         firstCheck = true
@@ -78,16 +77,20 @@ class WatchProvidersListViewModel: ObservableObject {
             if Task.isCancelled { return }
             let message = """
 Can't load the provider for \(id) with media type of \(media.rawValue).
-Actual region: \(Locale.userRegion), selected region: \(watchRegion.rawValue).
+Actual region: \(Locale.userRegion), selected region: \(settings.watchRegion.rawValue).
 Error: \(error.localizedDescription)
 """
             CronicaTelemetry.shared.handleMessage(message, for: "WatchProvidersListViewModel.load()")
         }
     }
     
+    private func filter() {
+        
+    }
+    
     private func filterByRegion(_ results: Results) -> ProviderItem? {
         var regionContent: ProviderItem?
-        switch watchRegion {
+        switch settings.watchRegion {
         case .br:
             regionContent = results.br
         case .us:

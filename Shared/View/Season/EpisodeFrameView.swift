@@ -14,17 +14,11 @@ struct EpisodeFrameView: View {
     let episode: Episode
     let season: Int
     let show: Int
-    var itemLink: URL
     private let persistence = PersistenceController.shared
     @EnvironmentObject var viewModel: SeasonViewModel
     @State private var isWatched = false
     @State private var showDetails = false
-    init(episode: Episode, season: Int, show: Int) {
-        self.episode = episode
-        self.season = season
-        self.show = show
-        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)")!
-    }
+    private let network = NetworkService.shared
     var body: some View {
 #if os(tvOS)
         VStack {
@@ -51,8 +45,15 @@ struct EpisodeFrameView: View {
                                        season: season,
                                        show: show,
                                        isWatched: $isWatched)
+                    
 #if os(iOS) || os(macOS)
-                    ShareLink(item: itemLink)
+                    if let url = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)") {
+                        ShareLink(item: url)
+                    }
+                    Divider()
+                    if !isWatched {
+                        Button("markThisAndPreviously", action: markThisAndAllPreviously)
+                    }
 #endif
                 }
             information
@@ -142,10 +143,16 @@ struct EpisodeFrameView: View {
             }
             .applyHoverEffect()
             .onTapGesture {
-                showDetails.toggle()
+                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                    markAsWatched()
+                } else {
+                    showDetails.toggle()
+                }
             }
             .sheet(isPresented: $showDetails) {
-#if os(iOS) || os(macOS)
+#if os(tvOS)
+                EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
+#else
                 NavigationStack {
                     EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
                         .toolbar {
@@ -159,31 +166,32 @@ struct EpisodeFrameView: View {
 #if os(macOS)
                 .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
 #endif
-#else
-                TVEpisodeDetailsView(episode: episode, id: show, season: season)
 #endif
             }
-#if os(tvOS)
-            .frame(maxWidth: 360)
-#endif
     }
     
     private func markAsWatched() {
         Task {
-            if !viewModel.isItemInWatchlist {
+            let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+            let isItemInWatchlist = persistence.isItemSaved(id: contentId)
+            if !isItemInWatchlist {
                 await addToWatchlist()
             }
-            guard let episodes = viewModel.season?.episodes else  {
+            guard let season = try? await NetworkService.shared.fetchSeason(id: show, season: season) else {
                 save()
                 return
             }
-            if episode.itemEpisodeNumber <= episodes.count {
+            guard let episodes = season.episodes else  {
+                save()
+                return
+            }
+            if episode.itemEpisodeNumber < episodes.count {
                 var nextEpisode: Episode?
                 // An array always start at 0, so the episode number value will always represent the next item in the array
                 nextEpisode = episodes[episode.itemEpisodeNumber]
                 save(nextEpisode)
             } else {
-                let nextSeason = try await NetworkService.shared.fetchSeason(id: show, season: season + 1)
+                let nextSeason = try await NetworkService.shared.fetchSeason(id: show, season: self.season + 1)
                 guard let nextEpisode = nextSeason.episodes?.first else {
                     save()
                     return
@@ -212,6 +220,33 @@ struct EpisodeFrameView: View {
             }
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "EpisodeFrameView.addToWatchlist")
+        }
+    }
+    
+    private func markThisAndAllPreviously() {
+        Task {
+            var allEpisodes = [Episode]()
+            var currentFetchedSeason = 1
+            while (currentFetchedSeason <= season) {
+                let seasonContent = try? await network.fetchSeason(id: show, season: currentFetchedSeason)
+                if currentFetchedSeason == season {
+                    if let episodes = seasonContent?.episodes {
+                        for episode in episodes {
+                            if episode.itemEpisodeNumber <= self.episode.itemEpisodeNumber {
+                                allEpisodes.append(episode)
+                            }
+                        }
+                    }
+                } else {
+                    if let episodes = seasonContent?.episodes {
+                        allEpisodes.append(contentsOf: episodes)
+                    }
+                }
+                currentFetchedSeason += 1
+            }
+            let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+            guard let listItem = try persistence.fetch(for: contentId) else { return }
+            persistence.updateEpisodeList(to: listItem, show: show, episodes: allEpisodes)
         }
     }
 }

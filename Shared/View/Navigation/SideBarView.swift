@@ -6,6 +6,7 @@
 //
 import SwiftUI
 
+#if os(iOS) || os(macOS)
 struct SideBarView: View {
 #if os(iOS)
     @SceneStorage("selectedView") private var selectedView: Screens?
@@ -136,10 +137,12 @@ struct SideBarView: View {
 #endif
         }
         .sheet(isPresented: $showNotifications) {
+#if os(iOS) || os(macOS)
             NotificationListView(showNotification: $showNotifications)
 #if os(iOS)
                 .appTheme()
                 .appTint()
+#endif
 #endif
         }
         .sheet(item: $selectedSearchItem) { item in
@@ -366,3 +369,4 @@ struct SideBarView_Previews: PreviewProvider {
         SideBarView()
     }
 }
+#endif

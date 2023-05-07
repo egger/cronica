@@ -583,3 +583,11 @@
 "Notes" = "Notes";
 "enablePreferredLaunchScreen" = "Enable Preferred Launch Screen";
 "preferredLaunchScreen" = "Preferred Launch Screen";
+
+
+"upNextSubtitle" = "Your Next Episodes";
+"pinnedList" = "Pinned List";
+"markThisSeasonAsWatched" = "Mark This Season as Watched";
+"pinOnHome" = "Pin This List on Home";
+"markThisAndPreviously" = "Mark This Episode and All Previously as Watched";
+"publishOnTMDB" = "Publish on TMDb";

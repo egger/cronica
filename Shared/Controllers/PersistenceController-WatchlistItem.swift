@@ -93,7 +93,9 @@ extension PersistenceController {
                     item.upcomingSeason = content.hasUpcomingSeason
                     item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
                 } else {
-                    item.date = content.itemFallbackDate
+                    if let date = content.itemFallbackDate {
+                        item.date = date
+                    }
                 }
                 item.lastValuesUpdated = Date()
                 try save()

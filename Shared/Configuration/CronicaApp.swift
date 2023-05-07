@@ -113,13 +113,13 @@ struct CronicaApp: App {
                                            id: item.id,
                                            type: item.itemContentMedia, handleToolbar: true)
                         .toolbar {
-                            #if os(iOS)
+#if os(iOS)
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button("Done") { notificationItem = nil }
                             }
-                            #else
+#else
                             Button("Done") { notificationItem = nil }
-                            #endif
+#endif
                         }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle,

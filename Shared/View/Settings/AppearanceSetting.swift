@@ -94,21 +94,6 @@ struct AppearanceSetting: View {
                     InformationalLabel(title: "appearanceAppThemeTitle")
                 }
                 
-                Picker(selection: $store.appTheme) {
-                    ForEach(AppThemeColors.allCases.sorted { $0.localizableName < $1.localizableName }) { item in
-                        HStack {
-                            Circle()
-                                .fill(item.color)
-                                .frame(width: 25)
-                            Text(item.localizableName)
-                        }
-                        .tag(item)
-                    }
-                } label: {
-                    InformationalLabel(title: "appearanceThemeTitle")
-                }
-                .pickerStyle(.navigationLink)
-                
                 if UIDevice.isIPhone {
                     NavigationLink(destination: AppIconListView(viewModel: icons)) {
                         HStack {
@@ -124,14 +109,13 @@ struct AppearanceSetting: View {
                 Text("appearanceTheme")
             }
 #endif
+            
+            Section("accentColor") { accentColor }
+            
             Section {
                 Toggle(isOn: $store.disableTranslucent) {
                     InformationalLabel(title: "disableTranslucentTitle")
                 }
-            }
-            .onChange(of: store.disableTranslucent) { newValue in
-                CronicaTelemetry.shared.handleMessage("\(newValue)",
-                                                      for: "translucent.UI.Settings")
             }
         }
         .navigationTitle("appearanceTitle")
@@ -142,6 +126,46 @@ struct AppearanceSetting: View {
         .formStyle(.grouped)
 #endif
     }
+    
+    private var accentColor: some View {
+        VStack(alignment: .leading) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(AppThemeColors.allCases, content: colorButton)
+                }
+                .padding(.vertical, 6)
+            }
+        }
+    }
+    
+    private func colorButton(for item: AppThemeColors) -> some View {
+        ZStack {
+            Circle()
+                .fill(item.color)
+            if store.appTheme == item {
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .imageScale(.large)
+                    .foregroundColor(.white.opacity(0.6))
+                    .fontWeight(.black)
+                    
+            }
+        }
+        .frame(width: 30)
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(item == store.appTheme ? [.isButton, .isSelected] : .isButton )
+        .accessibilityLabel(item.localizableName)
+        .padding(.horizontal, 4)
+        .onTapGesture {
+            withAnimation {
+                store.appTheme = item
+            }
+        }
+    }
+    
+    #if os(iOS)
+    #endif
 }
 
 struct AppearanceSetting_Previews: PreviewProvider {
@@ -191,3 +215,4 @@ private struct AppIconListView: View {
     }
 }
 #endif
+
