@@ -135,61 +135,49 @@ class ItemContentViewModel: ObservableObject {
     }
     
     func fetchSavedItem() {
-        do {
-            guard let content else { return }
-            watchlistItem = try persistence.fetch(for: content.itemContentID)
-        } catch {
-            print(error.localizedDescription)
-        }
+        guard let content else { return }
+        watchlistItem = try? persistence.fetch(for: content.itemContentID)
     }
     
     func update(_ property: UpdateItemProperties) {
-        do {
-            guard let content, let item = try persistence.fetch(for: content.itemContentID) else { return }
-            if !isInWatchlist { updateWatchlist(with: content) }
-            switch property {
-            case .watched:
-                persistence.updateWatched(for: item)
-                withAnimation { isWatched.toggle() }
-                Task { await updateSeasons() }
-            case .favorite:
-                persistence.updateFavorite(for: item)
-                withAnimation { isFavorite.toggle() }
-            case .pin:
-                persistence.updatePin(for: item)
-                withAnimation { isPin.toggle() }
-            case .archive:
-                persistence.updateArchive(for: item)
-                withAnimation { isArchive.toggle() }
-            }
-        } catch {
-            print(error.localizedDescription)
+        guard let content, let item = try? persistence.fetch(for: content.itemContentID) else { return }
+        if !isInWatchlist { updateWatchlist(with: content) }
+        switch property {
+        case .watched:
+            persistence.updateWatched(for: item)
+            withAnimation { isWatched.toggle() }
+            Task { await updateSeasons() }
+        case .favorite:
+            persistence.updateFavorite(for: item)
+            withAnimation { isFavorite.toggle() }
+        case .pin:
+            persistence.updatePin(for: item)
+            withAnimation { isPin.toggle() }
+        case .archive:
+            persistence.updateArchive(for: item)
+            withAnimation { isArchive.toggle() }
         }
     }
     
     private func updateSeasons() async {
-        do {
-            if type != .tvShow { return }
-            guard let content, let item = try persistence.fetch(for: content.itemContentID) else { return }
-            if !isWatched {
-                /// if item is removed from watched, then all watched episodes will also be removed.
-                persistence.removeWatchedEpisodes(for: item)
-            } else {
-                /// if item is marked as watched, all episodes will also be marked as watched.
-                guard let seasons = content.seasons else { return }
-                var episodes = [Episode]()
-                for season in seasons {
-                    let result = try await service.fetchSeason(id: content.id, season: season.seasonNumber)
-                    if let items = result.episodes {
-                        episodes.append(contentsOf: items)
-                    }
-                }
-                if !episodes.isEmpty {
-                    persistence.updateEpisodeList(to: item, show: item.itemId, episodes: episodes)
+        if type != .tvShow { return }
+        guard let content, let item = try? persistence.fetch(for: content.itemContentID) else { return }
+        if !isWatched {
+            /// if item is removed from watched, then all watched episodes will also be removed.
+            persistence.removeWatchedEpisodes(for: item)
+        } else {
+            /// if item is marked as watched, all episodes will also be marked as watched.
+            guard let seasons = content.seasons else { return }
+            var episodes = [Episode]()
+            for season in seasons {
+                let result = try? await service.fetchSeason(id: content.id, season: season.seasonNumber)
+                if let items = result?.episodes {
+                    episodes.append(contentsOf: items)
                 }
             }
-        } catch {
-            print(error.localizedDescription)
+            if !episodes.isEmpty {
+                persistence.updateEpisodeList(to: item, show: item.itemId, episodes: episodes)
+            }
         }
     }
 }

@@ -307,32 +307,23 @@ extension PersistenceController {
     }
     
     func updateWatchedEpisodes(for item: WatchlistItem, with episode: Episode) {
-        do {
-            if isEpisodeSaved(show: item.itemId, season: episode.itemSeasonNumber, episode: episode.id) {
-                let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode.id)@\(episode.itemSeasonNumber)",
-                                                                         with: "")
-                item.watchedEpisodes = watched
-            } else {
-                let watched = "-\(episode.id)@\(episode.itemSeasonNumber)"
-                item.watchedEpisodes?.append(watched)
-                item.lastSelectedSeason = Int64(episode.itemSeasonNumber)
-                item.lastWatchedEpisode = Int64(episode.id)
-                print("watched: \(item.lastWatchedEpisode)")
-            }
-            item.isWatching = true
-            try save()
-        } catch {
-            print(error.localizedDescription)
+        if isEpisodeSaved(show: item.itemId, season: episode.itemSeasonNumber, episode: episode.id) {
+            let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode.id)@\(episode.itemSeasonNumber)",
+                                                                     with: "")
+            item.watchedEpisodes = watched
+        } else {
+            let watched = "-\(episode.id)@\(episode.itemSeasonNumber)"
+            item.watchedEpisodes?.append(watched)
+            item.lastSelectedSeason = Int64(episode.itemSeasonNumber)
+            item.lastWatchedEpisode = Int64(episode.id)
         }
+        item.isWatching = true
+        try? save()
     }
     
     func removeFromUpNext(_ item: WatchlistItem) {
-        do {
-            item.displayOnUpNext = false
-            try save()
-        } catch {
-            print(error.localizedDescription)
-        }
+        item.displayOnUpNext = false
+        try? save()
     }
     
     func updateUpNext(_ item: WatchlistItem, episode: Episode) {
@@ -348,14 +339,10 @@ extension PersistenceController {
     }
     
     func removeWatchedEpisodes(for item: WatchlistItem) {
-        do {
-            item.watchedEpisodes = String()
-            item.displayOnUpNext = false
-            item.isWatching = false
-            try save()
-        } catch {
-            print(error.localizedDescription)
-        }
+        item.watchedEpisodes = String()
+        item.displayOnUpNext = false
+        item.isWatching = false
+        try? save()
     }
     
     func getLastSelectedSeason(_ id: String) -> Int? {

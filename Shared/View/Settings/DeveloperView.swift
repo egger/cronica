@@ -239,15 +239,11 @@ private struct ShowAllItemsView: View {
         }
         .searchable(text: $query)
         .task(id: query) {
-            do {
-                isSearching = true
-                try await Task.sleep(nanoseconds: 300_000_000)
-                if !filteredItems.isEmpty { filteredItems.removeAll() }
-                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-                isSearching = false
-            } catch {
-                print(error.localizedDescription)
-            }
+            isSearching = true
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            if !filteredItems.isEmpty { filteredItems.removeAll() }
+            filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
+            isSearching = false
         }
         .navigationTitle("All Items")
         .navigationDestination(for: WatchlistItem.self) { item in
