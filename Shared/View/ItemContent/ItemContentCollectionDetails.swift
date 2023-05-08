@@ -62,7 +62,7 @@ struct ItemContentCollectionDetails_Previews: PreviewProvider {
 
 private struct DrawingConstants {
 #if os(macOS) || os(tvOS)
-    static let columns = [GridItem(.adaptive(minimum: 160))]
+    static let columns = [GridItem(.adaptive(minimum: 240))]
 #else
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
 #endif

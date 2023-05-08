@@ -50,6 +50,7 @@ struct ItemContentDetails: View {
             .task {
                 await viewModel.load()
                 viewModel.registerNotification()
+                viewModel.checkIfAdded()
             }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .navigationTitle(title)

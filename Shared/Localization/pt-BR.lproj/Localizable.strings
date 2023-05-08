@@ -615,7 +615,7 @@
 "Notes" = "Notas";
 "enablePreferredLaunchScreen" = "Ativar tela de lançamento preferida";
 "preferredLaunchScreen" = "Tela de lançamento preferida";
-
+"syncInProgress" = "Sincronização em andamento";
 "upNextSubtitle" = "Seus próximos episódios";
 "pinnedList" = "Lista fixada";
 "markThisSeasonAsWatched" = "Marcar esta temporada como assistida";

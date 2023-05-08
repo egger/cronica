@@ -31,7 +31,9 @@ struct EpisodeDetailsView: View {
                 )
                 .padding()
                 
-                watchButton
+                WatchEpisodeButton(episode: episode, season: season, show: show, isWatched: $isWatched)
+                    .buttonStyle(.borderedProminent)
+                    .tint(isWatched ? .orange : .green)
                     .padding([.bottom, .horizontal])
                 
                 ShareLink(item: itemLink)
@@ -48,20 +50,6 @@ struct EpisodeDetailsView: View {
         .task {
             isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
         }
-    }
-    
-    private var watchButton: some View {
-        Button {
-            withAnimation {
-                isWatched.toggle()
-            }
-            persistence.updateEpisodeList(show: self.show, season: self.season, episode: self.episode.id)
-        } label: {
-            Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
-        }
-        .buttonStyle(.borderedProminent)
-        .tint(isWatched ? .orange : .green)
     }
 }
 

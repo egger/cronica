@@ -583,7 +583,7 @@
 "Notes" = "Notizen";
 "enablePreferredLaunchScreen" = "Bevorzugten Startbildschirm aktivieren";
 "preferredLaunchScreen" = "Bevorzugter Startbildschirm";
-
+"syncInProgress" = "Synchronisierung im Gange";
 "upNextSubtitle" = "Deine nächsten Episoden";
 "pinnedList" = "Fixierte Liste";
 "markThisSeasonAsWatched" = "Diese Staffel als gesehen markieren";

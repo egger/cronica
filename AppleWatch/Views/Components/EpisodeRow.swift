@@ -64,14 +64,8 @@ struct EpisodeRow: View {
         .padding(.horizontal)
         .accessibilityElement(children: .combine)
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            Button {
-                withAnimation { isWatched.toggle() }
-                persistence.updateEpisodeList(show: self.show, season: self.season, episode: self.episode.id)
-            } label: {
-                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: isWatched ? "minus.circle" : "checkmark.circle")
-            }
-            .tint(isWatched ? .orange : .green)
+            WatchEpisodeButton(episode: episode, season: season, show: show, isWatched: $isWatched)
+                .tint(isWatched ? .orange : .green)
         }
         .task {
             isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)

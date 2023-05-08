@@ -110,12 +110,35 @@ class ItemContentViewModel: ObservableObject {
         }
     }
     
+    func checkIfAdded() {
+        guard let content else { return }
+        if !isInWatchlist {
+            let isSaved = persistence.isItemSaved(id: content.itemContentID) 
+            if isSaved {
+                withAnimation {
+                    isInWatchlist = true
+                }
+            }
+        } else {
+            let isSaved = persistence.isItemSaved(id: content.itemContentID)
+            if !isSaved {
+                withAnimation {
+                    isInWatchlist = false
+                }
+            }
+        }
+    }
+    
     func registerNotification() {
         if isInWatchlist && isNotificationAvailable && !hasNotificationScheduled && type == .tvShow {
             if let content {
                 NotificationManager.shared.schedule(content)
                 persistence.update(item: content)
             }
+        }
+        if isInWatchlist && isNotificationAvailable && type == .movie {
+            guard let content else { return }
+            NotificationManager.shared.schedule(content)
         }
     }
     
@@ -140,8 +163,9 @@ class ItemContentViewModel: ObservableObject {
     }
     
     func update(_ property: UpdateItemProperties) {
-        guard let content, let item = try? persistence.fetch(for: content.itemContentID) else { return }
+        guard let content else { return }
         if !isInWatchlist { updateWatchlist(with: content) }
+        guard let item = try? persistence.fetch(for: content.itemContentID) else { return }
         switch property {
         case .watched:
             persistence.updateWatched(for: item)

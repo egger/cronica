@@ -22,6 +22,9 @@ struct ArchiveButton: View {
         guard let item = try? persistence.fetch(for: id) else { return }
         persistence.updateArchive(for: item)
         withAnimation { isArchive.toggle() }
+        if isArchive {
+            NotificationManager.shared.removeNotification(identifier: id)
+        }
         HapticManager.shared.successHaptic()
     }
 }
