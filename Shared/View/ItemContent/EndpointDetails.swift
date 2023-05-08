@@ -66,6 +66,7 @@ struct EndpointDetails: View {
     
     @ViewBuilder
     private var posterStyle: some View {
+#if os(iOS)
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(viewModel.items) { item in
@@ -87,16 +88,42 @@ struct EndpointDetails: View {
                         }
                 }
             }
-        }
-        .padding(.all, settings.isCompactUI ? 10 : nil)
+        }.padding(.all, settings.isCompactUI ? 10 : nil)
+#elseif os(macOS)
+        LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
+            ForEach(viewModel.items) { item in
+                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                    .buttonStyle(.plain)
+            }
+            if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
+                CenterHorizontalView {
+                    ProgressView()
+                        .padding()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                Task {
+                                    if let endpoint {
+                                        await viewModel.loadMoreItems(for: endpoint)
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
+        }.padding()
+#endif
     }
 }
 
 private struct DrawingConstants {
 #if os(macOS) || os(tvOS)
-    static let columns = [GridItem(.adaptive(minimum: 160))]
+    static let columns = [GridItem(.adaptive(minimum: 240))]
 #else
     static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
 #endif
     static let compactColumns = [GridItem(.adaptive(minimum: 80))]
+#if os(macOS)
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
+    static let cardColumns = [GridItem(.adaptive(minimum: 240))]
+#endif
 }

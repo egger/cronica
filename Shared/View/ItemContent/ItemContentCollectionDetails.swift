@@ -42,14 +42,23 @@ struct ItemContentCollectionDetails: View {
     
     @ViewBuilder
     private var posterStyle: some View {
+#if os(iOS)
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(items) { item in
                 Poster(item: item, addedItemConfirmation: $showConfirmation)
                     .buttonStyle(.plain)
             }
+        }.padding(.all, settings.isCompactUI ? 10 : nil)
+#elseif os(macOS)
+        LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
+            ForEach(items) { item in
+                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                    .buttonStyle(.plain)
+            }
         }
-        .padding(.all, settings.isCompactUI ? 10 : nil)
+        .padding()
+#endif
     }
 }
 
@@ -67,4 +76,8 @@ private struct DrawingConstants {
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
 #endif
     static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
+#if os(macOS)
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
+    static let cardColumns = [GridItem(.adaptive(minimum: 240))]
+#endif
 }
