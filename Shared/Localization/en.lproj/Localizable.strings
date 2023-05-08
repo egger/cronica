@@ -594,3 +594,8 @@
 "shareEpisode" = "Share Episode";
 "shareShow" = "Share TV Show";
 "accentColor" = "Accent Color";
+"showDetails" = "Show Details";
+"removedFromPin" = "Removed from Pin";
+"markedAsPin" = "Marked as Pin";
+"removedFromArchive" = "Removed from Archive";
+"markedAsArchive" = "Marked as Archive";

@@ -583,3 +583,18 @@
 "Notes" = "Notizen";
 "enablePreferredLaunchScreen" = "Bevorzugten Startbildschirm aktivieren";
 "preferredLaunchScreen" = "Bevorzugter Startbildschirm";
+
+"upNextSubtitle" = "Deine nächsten Episoden";
+"pinnedList" = "Fixierte Liste";
+"markThisSeasonAsWatched" = "Diese Staffel als gesehen markieren";
+"pinOnHome" = "Diese Liste auf Startseite pinnen";
+"markThisAndPreviously" = "Diese und alle vorherigen Episoden als gesehen markieren";
+"publishOnTMDB" = "Auf TMDb veröffentlichen";
+"shareEpisode" = "Episode teilen";
+"shareShow" = "Serie teilen";
+"accentColor" = "Akzentfarbe";
+"showDetails" = "Details anzeigen";
+"removedFromPin" = "Aus Fixierung entfernt";
+"markedAsPin" = "Als fixiert markiert";
+"removedFromArchive" = "Aus Archiv entfernt";
+"markedAsArchive" = "Als archiviert markiert";

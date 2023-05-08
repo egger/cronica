@@ -16,6 +16,7 @@ struct SeasonList: View {
     @State private var isLoading = true
     @State private var previouslySelectedSeason = 1
     @State private var season: Season?
+    @State private var checkIfWatched = false
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
     var body: some View {
@@ -79,7 +80,8 @@ struct SeasonList: View {
                             VStack {
                                 LazyHStack {
                                     ForEach(season) { item in
-                                        EpisodeFrameView(episode: item, season: selectedSeason, show: showID)
+                                        EpisodeFrameView(episode: item, season: selectedSeason, show: showID,
+                                                         checkedIfWatched: $checkIfWatched)
 #if os(tvOS)
                                             .frame(width: 360)
 #else
@@ -175,5 +177,6 @@ struct SeasonList: View {
                 persistence.updateEpisodeList(show: showID, season: episode.itemSeasonNumber, episode: episode.id)
             }
         }
+        checkIfWatched = true
     }
 }

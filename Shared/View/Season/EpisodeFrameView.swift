@@ -19,6 +19,7 @@ struct EpisodeFrameView: View {
     @State private var isWatched = false
     @State private var showDetails = false
     private let network = NetworkService.shared
+    @Binding var checkedIfWatched: Bool
     var body: some View {
 #if os(tvOS)
         VStack {
@@ -45,6 +46,11 @@ struct EpisodeFrameView: View {
                                        season: season,
                                        show: show,
                                        isWatched: $isWatched)
+                    if SettingsStore.shared.markEpisodeWatchedOnTap {
+                        Button("showDetails") {
+                            showDetails.toggle()
+                        }
+                    }
                     
 #if os(iOS) || os(macOS)
                     if let url = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)") {
@@ -63,6 +69,15 @@ struct EpisodeFrameView: View {
         .task {
             withAnimation {
                 isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+            }
+        }
+        .onChange(of: checkedIfWatched) { check in
+            if check {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    withAnimation {
+                        isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+                    }
+                }
             }
         }
 #endif
@@ -224,6 +239,7 @@ struct EpisodeFrameView: View {
             let contentId = "\(show)@\(MediaType.tvShow.toInt)"
             guard let listItem = try persistence.fetch(for: contentId) else { return }
             persistence.updateEpisodeList(to: listItem, show: show, episodes: allEpisodes)
+            checkedIfWatched = true
         }
     }
 }

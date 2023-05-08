@@ -615,3 +615,18 @@
 "Notes" = "Notas";
 "enablePreferredLaunchScreen" = "Ativar tela de lançamento preferida";
 "preferredLaunchScreen" = "Tela de lançamento preferida";
+
+"upNextSubtitle" = "Seus próximos episódios";
+"pinnedList" = "Lista fixada";
+"markThisSeasonAsWatched" = "Marcar esta temporada como assistida";
+"pinOnHome" = "Fixar esta lista na tela inicial";
+"markThisAndPreviously" = "Marcar este episódio e todos os anteriores como assistidos";
+"publishOnTMDB" = "Publicar no TMDb";
+"shareEpisode" = "Compartilhar episódio";
+"shareShow" = "Compartilhar Série";
+"accentColor" = "Cor de destaque";
+"showDetails" = "Mostrar detalhes";
+"removedFromPin" = "Removido da fixação";
+"markedAsPin" = "Marcado como fixado";
+"removedFromArchive" = "Removido do arquivo";
+"markedAsArchive" = "Marcado como arquivado";
