@@ -87,16 +87,6 @@ struct UpNextItem: View {
         .shadow(radius: 2.5)
         .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
         .accessibilityAddTraits(.isButton)
-        .contextMenu {
-#if os(iOS) || os(macOS)
-            if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
-                ShareLink("shareEpisode", item: url)
-            }
-            if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
-                ShareLink("shareShow", item: url)
-            }
-#endif
-        }
     }
 }
 

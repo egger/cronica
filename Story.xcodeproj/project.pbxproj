@@ -57,8 +57,6 @@
 		B819418D2A0822C30057DA04 /* UpNextEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819418C2A0822C30057DA04 /* UpNextEpisode.swift */; };
 		B819418E2A0822C30057DA04 /* UpNextEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819418C2A0822C30057DA04 /* UpNextEpisode.swift */; };
 		B81941932A0823380057DA04 /* SmallerUpNextCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941922A0823380057DA04 /* SmallerUpNextCard.swift */; };
-		B81941962A0823670057DA04 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941952A0823670057DA04 /* UpNextViewModel.swift */; };
-		B81941972A0823670057DA04 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941952A0823670057DA04 /* UpNextViewModel.swift */; };
 		B819419A2A08308F0057DA04 /* CompaniesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941992A08308F0057DA04 /* CompaniesListView.swift */; };
 		B819419D2A0830B40057DA04 /* CompanyDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819419C2A0830B40057DA04 /* CompanyDetailsViewModel.swift */; };
 		B819419F2A0831EF0057DA04 /* DefaultListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819419E2A0831EF0057DA04 /* DefaultListRow.swift */; };
@@ -206,6 +204,8 @@
 		B86E7A24290AB6C500459E41 /* WatchlistItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */; };
 		B86F7ABD2A087FF900AA4855 /* UpNextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F7ABC2A087FF900AA4855 /* UpNextListView.swift */; };
 		B86F7ABF2A08806100AA4855 /* DetailedUpNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F7ABE2A08806100AA4855 /* DetailedUpNextView.swift */; };
+		B86F7AC12A0941D800AA4855 /* EpisodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F7AC02A0941D800AA4855 /* EpisodeHelper.swift */; };
+		B86F7AC22A0941D800AA4855 /* EpisodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F7AC02A0941D800AA4855 /* EpisodeHelper.swift */; };
 		B8733A7829293ABB00CBEF2B /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B876DE50281B1B81005558DD /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE4F281B1B81005558DD /* MediaType.swift */; };
 		B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE51281B1BA5005558DD /* ItemSchedule.swift */; };
@@ -459,7 +459,6 @@
 		B81941882A081B840057DA04 /* HorizontalWatchlistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalWatchlistList.swift; sourceTree = "<group>"; };
 		B819418C2A0822C30057DA04 /* UpNextEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextEpisode.swift; sourceTree = "<group>"; };
 		B81941922A0823380057DA04 /* SmallerUpNextCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallerUpNextCard.swift; sourceTree = "<group>"; };
-		B81941952A0823670057DA04 /* UpNextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextViewModel.swift; sourceTree = "<group>"; };
 		B81941992A08308F0057DA04 /* CompaniesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesListView.swift; sourceTree = "<group>"; };
 		B819419C2A0830B40057DA04 /* CompanyDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsViewModel.swift; sourceTree = "<group>"; };
 		B819419E2A0831EF0057DA04 /* DefaultListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListRow.swift; sourceTree = "<group>"; };
@@ -550,6 +549,7 @@
 		B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSearchItemContentView.swift; sourceTree = "<group>"; };
 		B86F7ABC2A087FF900AA4855 /* UpNextListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpNextListView.swift; sourceTree = "<group>"; };
 		B86F7ABE2A08806100AA4855 /* DetailedUpNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedUpNextView.swift; sourceTree = "<group>"; };
+		B86F7AC02A0941D800AA4855 /* EpisodeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeHelper.swift; sourceTree = "<group>"; };
 		B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentBackground.swift; sourceTree = "<group>"; };
 		B876DE4F281B1B81005558DD /* MediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
 		B876DE51281B1BA5005558DD /* ItemSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSchedule.swift; sourceTree = "<group>"; };
@@ -890,9 +890,9 @@
 			isa = PBXGroup;
 			children = (
 				B86F7ABE2A08806100AA4855 /* DetailedUpNextView.swift */,
-				B86F7ABC2A087FF900AA4855 /* UpNextListView.swift */,
 				B81941922A0823380057DA04 /* SmallerUpNextCard.swift */,
 				B824E4392A05416E00E385CE /* UpNextItem.swift */,
+				B86F7ABC2A087FF900AA4855 /* UpNextListView.swift */,
 			);
 			path = "Up Next";
 			sourceTree = "<group>";
@@ -919,8 +919,8 @@
 		B824E4382A04A77800E385CE /* ItemContent */ = {
 			isa = PBXGroup;
 			children = (
-				B804E392284EC4A500F59855 /* CoverImageView.swift */,
 				B804E396284FCBCB00F59855 /* CardFrame.swift */,
+				B804E392284EC4A500F59855 /* CoverImageView.swift */,
 				B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */,
 				B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */,
 				B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */,
@@ -1124,7 +1124,6 @@
 				B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */,
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
 				B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */,
-				B81941952A0823670057DA04 /* UpNextViewModel.swift */,
 				B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */,
 			);
 			path = ViewModel;
@@ -1236,6 +1235,7 @@
 		B8B981E329F42B000001CF0B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B86F7AC02A0941D800AA4855 /* EpisodeHelper.swift */,
 				B8B981E429F42B060001CF0B /* KeychainHelper.swift */,
 			);
 			path = Helpers;
@@ -1643,7 +1643,6 @@
 				B84043BD289B18C500D5CEBF /* Person.swift in Sources */,
 				B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */,
 				B81DD93C29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
-				B81941972A0823670057DA04 /* UpNextViewModel.swift in Sources */,
 				B8AAA6EA29645561004FDF21 /* AppTheme.swift in Sources */,
 				B81941CB2A0861D70057DA04 /* PinButton.swift in Sources */,
 				B8DD56A2290DE2FE002CAAFD /* CenterHorizontalView.swift in Sources */,
@@ -1676,6 +1675,7 @@
 				B8FB2A8B2952606A006DAC8E /* AppThemeColors.swift in Sources */,
 				B8370A992A02E5CB00643261 /* ExternalWatchlistManager.swift in Sources */,
 				B86DD41A28BAABCC002C8427 /* HeroImage.swift in Sources */,
+				B86F7AC22A0941D800AA4855 /* EpisodeHelper.swift in Sources */,
 				B81941AC2A0835D40057DA04 /* PosterPlaceholder.swift in Sources */,
 				B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */,
 				B81941D12A0861D70057DA04 /* ArchiveButton.swift in Sources */,
@@ -1738,6 +1738,7 @@
 				B81941C22A0861C80057DA04 /* WatchlistButton.swift in Sources */,
 				B8BF632A291402730051915C /* HoverEffectModifier.swift in Sources */,
 				B81941C62A0861C80057DA04 /* PinButton.swift in Sources */,
+				B86F7AC12A0941D800AA4855 /* EpisodeHelper.swift in Sources */,
 				B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */,
 				B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */,
 				B82BE4E3299BFBC5005F9990 /* CustomWatchlist.swift in Sources */,
@@ -1846,7 +1847,6 @@
 				B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */,
 				B88B88C729DE55B500497058 /* AppAlternateIcons.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
-				B81941962A0823670057DA04 /* UpNextViewModel.swift in Sources */,
 				B897AE5B29F72E9400044B1E /* TMDBWatchlistView.swift in Sources */,
 				B86F7ABD2A087FF900AA4855 /* UpNextListView.swift in Sources */,
 				B8F6DE6329379F70005D1A50 /* ItemContentCollectionDetails.swift in Sources */,

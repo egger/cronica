@@ -510,7 +510,7 @@
 "sendEmailFooterBackup" = "You can also send an email to contact@alexandremadeira.dev using your email client.";
 "addedToWatchlist" = "Added to Watchlist";
 "upNext" = "Up Next";
-"markAsWatched" = "Mark as watched";
+"markAsWatched" = "Mark as Watched";
 "recommendationsTitle" = "Recommendations";
 "recommendationsSubtitle" = "Based on your watched content";
 "allItems" = "All Items";
@@ -591,3 +591,6 @@
 "pinOnHome" = "Pin This List on Home";
 "markThisAndPreviously" = "Mark This Episode and All Previously as Watched";
 "publishOnTMDB" = "Publish on TMDb";
+"shareEpisode" = "Share Episode";
+"shareShow" = "Share TV Show";
+"accentColor" = "Accent Color";

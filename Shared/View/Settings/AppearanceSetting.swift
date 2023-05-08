@@ -85,6 +85,10 @@ struct AppearanceSetting: View {
 #endif
             
 #if os(iOS)
+            Section("accentColor") { accentColor }
+#endif
+            
+#if os(iOS)
             Section {
                 Picker(selection: $store.currentTheme) {
                     ForEach(AppTheme.allCases) { item in
@@ -109,8 +113,6 @@ struct AppearanceSetting: View {
                 Text("appearanceTheme")
             }
 #endif
-            
-            Section("accentColor") { accentColor }
             
             Section {
                 Toggle(isOn: $store.disableTranslucent) {

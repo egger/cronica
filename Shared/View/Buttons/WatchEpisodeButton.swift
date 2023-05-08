@@ -79,28 +79,7 @@ struct WatchEpisodeButton: View {
     }
     
     private func fetchNextEpisode() async -> Episode? {
-        do {
-            let season = try await network.fetchSeason(id: show, season: season)
-            guard let episodes = season.episodes else { return nil }
-            let nextEpisodeCount = episode.itemEpisodeNumber+1
-            if episodes.count < nextEpisodeCount {
-                let nextSeasonNumber = self.season + 1
-                let nextSeason = try await network.fetchSeason(id: show, season: nextSeasonNumber)
-                guard let episodes = nextSeason.episodes else { return nil }
-                let nextEpisode = episodes[0]
-                if nextEpisode.isItemReleased {
-                    return nextEpisode
-                }
-                return nil
-            }
-            else {
-                let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
-                return nextEpisode[0]
-            }
-        } catch {
-            if Task.isCancelled { return nil }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchNextEpisode")
-            return nil
-        }
+        let episode = await EpisodeHelper().fetchNextEpisode(for: self.episode, show: show)
+        return episode
     }
 }

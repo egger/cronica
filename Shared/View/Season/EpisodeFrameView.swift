@@ -133,7 +133,6 @@ struct EpisodeFrameView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.title2)
                             .foregroundColor(.white)
-                            .opacity(0.6)
                     }
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .frame(width: DrawingConstants.imageWidth,
@@ -177,36 +176,14 @@ struct EpisodeFrameView: View {
             if !isItemInWatchlist {
                 await addToWatchlist()
             }
-            guard let season = try? await NetworkService.shared.fetchSeason(id: show, season: season) else {
-                save()
-                return
-            }
-            guard let episodes = season.episodes else  {
-                save()
-                return
-            }
-            if episode.itemEpisodeNumber < episodes.count {
-                var nextEpisode: Episode?
-                // An array always start at 0, so the episode number value will always represent the next item in the array
-                nextEpisode = episodes[episode.itemEpisodeNumber]
-                save(nextEpisode)
-            } else {
-                let nextSeason = try await NetworkService.shared.fetchSeason(id: show, season: self.season + 1)
-                guard let nextEpisode = nextSeason.episodes?.first else {
-                    save()
-                    return
-                }
-                save(nextEpisode)
+            persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
+            withAnimation { isWatched.toggle() }
+            let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: episode, show: show)
+            if let nextEpisode {
+                guard let item = try? persistence.fetch(for: contentId) else { return }
+                persistence.updateUpNext(item, episode: nextEpisode)
             }
         }
-    }
-    
-    private func save(_ nextEpisode: Episode? = nil) {
-        PersistenceController.shared.updateEpisodeList(show: show,
-                                                       season: season,
-                                                       episode: episode.id,
-                                                       nextEpisode: nextEpisode)
-        withAnimation { isWatched.toggle() }
     }
     
     private func addToWatchlist() async {

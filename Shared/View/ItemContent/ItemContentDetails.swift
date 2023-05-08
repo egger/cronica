@@ -150,7 +150,7 @@ struct ItemContentDetails: View {
         }
     }
     
-#if os(iOS) || os(macOS)
+#if os(macOS)
     var macOS: some View {
         VStack {
             LargerHeader(title: title, type: type)
@@ -212,25 +212,19 @@ struct ItemContentDetails: View {
 #if os(iOS)
     var iOS: some View {
         VStack {
-            if UIDevice.isIPad {
-                LargerHeader(title: title, type: type)
-                    .environmentObject(viewModel)
-            } else {
-                CoverImageView(isFavorite: $viewModel.isFavorite,
-                               isWatched: $viewModel.isWatched,
-                               isPin: $viewModel.isPin,
-                               isArchive: $viewModel.isArchive,
-                               title: title)
+            CoverImageView(isFavorite: $viewModel.isFavorite,
+                           isWatched: $viewModel.isWatched,
+                           isPin: $viewModel.isPin,
+                           isArchive: $viewModel.isArchive,
+                           title: title)
+            .environmentObject(viewModel)
+            DetailWatchlistButton()
+                .keyboardShortcut("l", modifiers: [.option])
                 .environmentObject(viewModel)
-                DetailWatchlistButton()
-                    .keyboardShortcut("l", modifiers: [.option])
-                    .environmentObject(viewModel)
-                
-                OverviewBoxView(overview: viewModel.content?.itemOverview,
-                                title: title)
-                .padding()
-                
-            }
+            
+            OverviewBoxView(overview: viewModel.content?.itemOverview,
+                            title: title)
+            .padding()
             
             TrailerListView(trailers: viewModel.content?.itemTrailers)
             
