@@ -45,11 +45,7 @@ struct ItemContentDetails: View {
 #endif
             }
             .background {
-#if os(iOS)
-                if UIDevice.isIPhone {
-                    TranslucentBackground(image: viewModel.content?.cardImageLarge)
-                }
-#endif
+                TranslucentBackground(image: viewModel.content?.cardImageLarge)
             }
             .task {
                 await viewModel.load()
