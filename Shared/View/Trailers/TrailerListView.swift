@@ -36,7 +36,7 @@ struct TrailerListView: View {
                     }
                     Divider().padding(.horizontal)
                 }
-                .sheet(item: $selectedItem) { item in
+                .fullScreenCover(item: $selectedItem) { item in
                     if let url = item.url {
 #if os(iOS)
                         SFSafariViewWrapper(url: url)
