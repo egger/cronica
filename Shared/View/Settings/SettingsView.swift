@@ -84,9 +84,9 @@ struct SettingsView: View {
                     NavigationLink(destination: FeedbackSettingsView()) {
                         SettingsLabelWithIcon(title: "settingsFeedbackTitle", icon: "envelope.open", color: .teal)
                     }
-                    NavigationLink(destination: FeatureRoadmap()) {
-                        SettingsLabelWithIcon(title: "featureRoadmap", icon: "map", color: .pink)
-                    }
+//                    NavigationLink(destination: FeatureRoadmap()) {
+//                        SettingsLabelWithIcon(title: "featureRoadmap", icon: "map", color: .pink)
+//                    }
                 }
                 
                 Button {
@@ -181,13 +181,14 @@ struct SettingsView: View {
                 Label("Privacy", systemImage: "hand.raised.fill")
             }
             
-            Form {
-                FeatureRoadmap()
-            }
-            .formStyle(.grouped)
-            .tabItem {
-                Label("featureRoadmap", systemImage: "map")
-            }
+            #warning("check count api to reenable this feature")
+//            Form {
+//                FeatureRoadmap()
+//            }
+//            .formStyle(.grouped)
+//            .tabItem {
+//                Label("featureRoadmap", systemImage: "map")
+//            }
             
             TipJarSetting()
                 .tabItem {

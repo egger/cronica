@@ -33,7 +33,10 @@ struct CustomWatchlist: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
-                filterPicker
+                HStack {
+                    filterPicker
+                    styleButton
+                }
             }
 #else
             filterPicker
@@ -66,6 +69,23 @@ struct CustomWatchlist: View {
         }
 #endif
     }
+    
+#if os(iOS) || os(macOS)
+    private var styleButton: some View {
+        Menu {
+            Picker(selection: $settings.watchlistStyle) {
+                ForEach(WatchlistItemType.allCases) { item in
+                    Text(item.localizableName).tag(item)
+                }
+            } label: {
+                Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+            }
+        } label: {
+            Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+    }
+#endif
     
     private var filterPicker: some View {
 #if os(iOS)

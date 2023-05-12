@@ -90,8 +90,8 @@ class ItemContentViewModel: ObservableObject {
             do {
                 let watchlistItem = try persistence.fetch(for: item.itemContentID)
                 guard let watchlistItem else { return }
-                if watchlistItem.notify {
-                    notification.removeNotification(identifier: item.itemContentID)
+                notification.removeNotification(identifier: item.itemContentID)
+                if isNotificationAvailable {
                     withAnimation { hasNotificationScheduled.toggle() }
                 }
                 persistence.delete(watchlistItem)

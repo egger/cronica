@@ -47,8 +47,16 @@ struct ItemContentView: View {
                 ShareLink(item: url)
                     .padding([.horizontal, .bottom])
                 
-                customListButton
-                    .padding([.horizontal, .bottom])
+                if viewModel.isInWatchlist {
+                    customListButton
+                        .padding([.horizontal, .bottom])
+                    favoriteButton
+                        .padding([.horizontal, .bottom])
+                    pinButton
+                        .padding([.horizontal, .bottom])
+                    archiveButton
+                        .padding([.horizontal, .bottom])
+                }
                 
                 AboutSectionView(about: viewModel.content?.itemOverview)
                 
@@ -100,6 +108,42 @@ struct ItemContentView: View {
             Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")
         }
         .disabled(!viewModel.isInWatchlist)
+    }
+    
+    private var favoriteButton: some View {
+        Button {
+            viewModel.update(.favorite)
+        } label: {
+            Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                  systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .disabled(viewModel.isLoading)
+    }
+    
+    private var archiveButton: some View {
+        Button {
+            viewModel.update(.archive)
+        } label: {
+            Label(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
+                  systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox")
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .disabled(viewModel.isLoading)
+    }
+    
+    private var pinButton: some View {
+        Button {
+            viewModel.update(.pin)
+        } label: {
+            Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
+                  systemImage: viewModel.isPin ? "pin.slash.fill" : "pin.fill")
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .disabled(viewModel.isLoading)
     }
 }
 

@@ -79,6 +79,12 @@ struct NotificationListView: View {
             Section("Upcoming Notifications") {
                 ForEach(items.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
                     ItemContentRow(item: item)
+                        .onAppear {
+                            let isStillSaved = PersistenceController.shared.isItemSaved(id: item.itemContentID)
+                            if !isStillSaved {
+                                NotificationManager.shared.removeNotification(identifier: item.itemContentID)
+                            }
+                        }
                 }
             }
         }

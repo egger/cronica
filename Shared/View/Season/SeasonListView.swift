@@ -52,7 +52,7 @@ struct SeasonList: View {
             .frame(maxWidth: 600)
 #endif
             Spacer()
-#if os(iOS) || os(macOS)
+#if os(iOS) 
             Menu {
                 Button("markThisSeasonAsWatched", action: markSeasonAsWatched)
                 if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(selectedSeason)") {

@@ -85,11 +85,7 @@ struct AppearanceSetting: View {
 #endif
             
 #if os(iOS)
-            Section("accentColor") { accentColor }
-#endif
-            
-#if os(iOS)
-            Section {
+            Section("appearanceAppThemeTitle") {
                 Picker(selection: $store.currentTheme) {
                     ForEach(AppTheme.allCases) { item in
                         Text(item.localizableName).tag(item)
@@ -97,20 +93,16 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalLabel(title: "appearanceAppThemeTitle")
                 }
-                
-                if UIDevice.isIPhone {
-                    NavigationLink(destination: AppIconListView(viewModel: icons)) {
-                        HStack {
-                            Text("appearanceAppIcon")
-                            Spacer()
-                            Text(icons.selectedAppIcon.description)
-                                .foregroundColor(.secondary)
-                        }
-                    }
+                .pickerStyle(.segmented)
+                .padding(.vertical, 6)
+            }
+            
+            Section("accentColor") { accentColor }
+            
+            if UIDevice.isIPhone {
+                Section("appearanceAppIcon") {
+                    iconsGrid
                 }
-                
-            } header: {
-                Text("appearanceTheme")
             }
 #endif
             
@@ -131,11 +123,16 @@ struct AppearanceSetting: View {
     
     private var accentColor: some View {
         VStack(alignment: .leading) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(AppThemeColors.allCases, content: colorButton)
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(AppThemeColors.allCases, content: colorButton)
+                    }
+                    .padding(.vertical, 6)
+                    .onAppear {
+                        withAnimation { proxy.scrollTo(store.appTheme, anchor: .topLeading) }
+                    }
                 }
-                .padding(.vertical, 6)
             }
         }
     }
@@ -151,7 +148,7 @@ struct AppearanceSetting: View {
                     .imageScale(.large)
                     .foregroundColor(.white.opacity(0.6))
                     .fontWeight(.black)
-                    
+                
             }
         }
         .frame(width: 30)
@@ -166,8 +163,28 @@ struct AppearanceSetting: View {
         }
     }
     
-    #if os(iOS)
-    #endif
+#if os(iOS)
+    private var iconsGrid: some View {
+        HStack {
+            ForEach(Icon.allCases) { icon in
+                Image(uiImage: icon.preview)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(store.appTheme.color, lineWidth: icons.selectedAppIcon == icon ? 6 : 0)
+                    )
+                    .frame(width: 60, height: 60)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .padding(.trailing)
+                    .onTapGesture {
+                        withAnimation { icons.updateAppIcon(to: icon) }
+                    }
+            }
+        }
+        .padding(.vertical, 4)
+    }
+#endif
 }
 
 struct AppearanceSetting_Previews: PreviewProvider {
@@ -180,41 +197,3 @@ struct AppearanceSetting_Previews: PreviewProvider {
         }
     }
 }
-
-#if os(iOS)
-private struct AppIconListView: View {
-    @ObservedObject var viewModel = IconModel()
-    var body: some View {
-        VStack {
-            List {
-                ForEach(Icon.allCases) { icon in
-                    HStack {
-                        Image(uiImage: icon.preview)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(10)
-                            .padding(.trailing)
-                        Text(icon.description)
-                        if viewModel.selectedAppIcon == icon {
-                            Spacer()
-                            Image(systemName: "checkmark.circle.fill")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(SettingsStore.shared.appTheme.color)
-                        }
-                    }
-                    .onTapGesture {
-                        withAnimation { viewModel.updateAppIcon(to: icon) }
-                    }
-                }
-                NavigationLink(destination: FeedbackSettingsView()) {
-                    InformationalLabel(title: "appIconFeedbackTitle")
-                }
-            }
-        }
-        .navigationTitle("appearanceAppIcon")
-    }
-}
-#endif
-

@@ -58,7 +58,7 @@ struct ItemContentDetails: View {
 #if os(iOS)
                 ToolbarItem {
                     HStack {
-                        notificationStatus
+                        //notificationStatus
                         shareButton
                             .disabled(viewModel.isLoading ? true : false)
                         if UIDevice.isIPad {
@@ -80,9 +80,9 @@ struct ItemContentDetails: View {
                     ToolbarItem(placement: .status) {
                         ViewThatFits {
                             HStack {
-                                Button { } label: {
-                                    notificationStatus
-                                }
+//                                Button { } label: {
+//                                    notificationStatus
+//                                }
                                 watchButton
                                 favoriteButton
                                 shareButton
@@ -95,9 +95,9 @@ struct ItemContentDetails: View {
                     ToolbarItem {
                         ViewThatFits {
                             HStack {
-                                Button { } label: {
-                                    notificationStatus
-                                }
+//                                Button { } label: {
+//                                    notificationStatus
+//                                }
                                 watchButton
                                 favoriteButton
                                 if viewModel.isInWatchlist {

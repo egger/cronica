@@ -72,6 +72,9 @@ struct ChangelogView: View {
                 }
                 .presentationDetents([.medium])
                 .interactiveDismissDisabled()
+#if os(macOS)
+                .frame(minWidth: 400, idealWidth: 600, maxWidth: nil, minHeight: 500, idealHeight: 500, maxHeight: nil, alignment: .center)
+#endif
             }
         }
     }

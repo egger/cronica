@@ -42,7 +42,7 @@ struct CustomListButton: View {
             } label: {
                 Label("addToList", systemImage: "rectangle.on.rectangle.angled")
             }
-            .onAppear {
+            .task {
                 if addedLists.isEmpty {
                     addedLists = context.fetchLists(for: id)
                 }

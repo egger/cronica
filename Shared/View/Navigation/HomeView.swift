@@ -70,6 +70,11 @@ struct HomeView: View {
                     .onDisappear {
                         showWhatsNew = false
                     }
+#if os(macOS)
+                    .frame(minWidth: 400, idealWidth: 600, maxWidth: nil, minHeight: 500, idealHeight: 500, maxHeight: nil, alignment: .center)
+#elseif os(iOS)
+                    .appTheme()
+#endif
 #endif
             }
             .navigationDestination(for: ItemContent.self) { item in
@@ -191,7 +196,7 @@ struct HomeView: View {
             return
         } else {
             if currentVersion != lastSeenVersion {
-                //showWhatsNew.toggle()
+                showWhatsNew.toggle()
                 UserDefaults.standard.set(currentVersion, forKey: UserDefaults.lastSeenAppVersionKey)
             }
         }
