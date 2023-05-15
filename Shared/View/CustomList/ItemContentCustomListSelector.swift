@@ -8,61 +8,68 @@
 import SwiftUI
 
 struct ItemContentCustomListSelector: View {
-    @Binding var item: WatchlistItem?
+    @State private var item: WatchlistItem?
+    let contentID: String
     @Binding var showView: Bool
+    let title: String
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
         animation: .default)
     private var lists: FetchedResults<CustomList>
     @State private var selectedList: CustomList?
+    @State private var isLoading = false
     var body: some View {
-        NavigationStack {
-            Form {
-                if item != nil {
-                    Section {
-                        List {
-                            if lists.isEmpty { List { newList } }
-                            ForEach(lists) { list in
-                                AddToListRow(list: list, item: $item, showView: $showView)
-                            }
+        Form {
+            if isLoading {
+                CenterHorizontalView { ProgressView("Loading").padding() }
+            } else {
+                Section {
+                    List {
+                        if lists.isEmpty { List { newList } }
+                        ForEach(lists) { list in
+                            AddToListRow(list: list, item: $item, showView: $showView)
                         }
-                    } header: { Text("yourLists") }
-                } else {
-                    ProgressView()
-                }
-            }
-#if os(macOS)
-            .formStyle(.grouped)
-#endif
-            .navigationTitle("addToCustomList")
-#if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Done") { showView.toggle() }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if !lists.isEmpty { newList }
-                }
-#elseif os(macOS)
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { showView.toggle() }
-                }
-                ToolbarItem(placement: .automatic) {
-                    if !lists.isEmpty { newList }
-                }
-#elseif os(watchOS)
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { showView.toggle() }
-                }
-                ToolbarItem(placement: .automatic) {
-                    if !lists.isEmpty { newList }
-                }
-#endif
+                    }
+                } header: { Text(title) } 
             }
         }
+        .onAppear(perform: load)
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
+        .navigationTitle("addToCustomList")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Done") { showView.toggle() }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if !lists.isEmpty { newList }
+            }
+#elseif os(macOS)
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Done") { showView.toggle() }
+            }
+            ToolbarItem(placement: .automatic) {
+                if !lists.isEmpty { newList }
+            }
+#elseif os(watchOS)
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Done") { showView.toggle() }
+            }
+            ToolbarItem(placement: .automatic) {
+                if !lists.isEmpty { newList }
+            }
+#endif
+        }
+    }
+    
+    private func load() {
+        guard let content = try? PersistenceController.shared.fetch(for: contentID) else { return }
+        self.item = content
     }
     
     private var newList: some View {

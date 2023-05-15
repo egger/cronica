@@ -15,6 +15,7 @@ struct CardFrame: View {
     @State private var isInWatchlist = false
     @State private var isWatched = false
     @State private var showNote = false
+    @State private var showCustomListView = false
     var body: some View {
         NavigationLink(value: item) {
             VStack {
@@ -145,7 +146,7 @@ struct CardFrame: View {
                                             isWatched: $isWatched,
                                             showConfirmation: $showConfirmation,
                                             isInWatchlist: $isInWatchlist,
-                                            showNote: $showNote)
+                                            showNote: $showNote, showCustomList: $showCustomListView)
 #if os(iOS) || os(macOS)
                     .draggable(item)
 #endif
@@ -180,6 +181,20 @@ struct CardFrame: View {
                 .appTheme()
                 .appTint()
 #endif
+#endif
+            }
+            .sheet(isPresented: $showCustomListView) {
+                NavigationStack {
+                    ItemContentCustomListSelector(contentID: item.itemContentID,
+                                                  showView: $showCustomListView,
+                                                  title: item.itemTitle)
+                }
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 500, height: 600, alignment: .center)
+#else
+                .appTheme()
+                .appTint()
 #endif
             }
         }

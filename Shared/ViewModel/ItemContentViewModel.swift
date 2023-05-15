@@ -22,8 +22,8 @@ class ItemContentViewModel: ObservableObject {
     @Published var errorMessage = "Something went wrong, try again later."
     @Published var showErrorAlert = false
     @Published var isInWatchlist = false
-    @Published var isNotificationAvailable = false
-    @Published var hasNotificationScheduled = false
+    private var isNotificationAvailable = false
+    private var hasNotificationScheduled = false
     @Published var isWatched = false
     @Published var isFavorite = false
     @Published var isArchive = false
@@ -91,9 +91,6 @@ class ItemContentViewModel: ObservableObject {
                 let watchlistItem = try persistence.fetch(for: item.itemContentID)
                 guard let watchlistItem else { return }
                 notification.removeNotification(identifier: item.itemContentID)
-                if isNotificationAvailable {
-                    withAnimation { hasNotificationScheduled.toggle() }
-                }
                 persistence.delete(watchlistItem)
             } catch {
                 CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
@@ -105,7 +102,6 @@ class ItemContentViewModel: ObservableObject {
             persistence.save(item)
             if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
                 NotificationManager.shared.schedule(item)
-                withAnimation { hasNotificationScheduled.toggle() }
             }
         }
     }

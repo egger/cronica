@@ -17,6 +17,7 @@ struct ItemContentContextMenu: ViewModifier {
     @State private var isArchive = false
     private let context = PersistenceController.shared
     @Binding var showNote: Bool
+    @Binding var showCustomListView: Bool
     func body(content: Content) -> some View {
 #if os(watchOS)
 #else
@@ -30,7 +31,7 @@ struct ItemContentContextMenu: ViewModifier {
                     FavoriteButton(id: item.itemContentID, isFavorite: $isFavorite)
                     PinButton(id: item.itemContentID, isPin: $isPin)
                     ArchiveButton(id: item.itemContentID, isArchive: $isArchive)
-                    CustomListButton(id: item.itemContentID)
+                    CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
                     Button {
                         showNote.toggle()
                     } label: {

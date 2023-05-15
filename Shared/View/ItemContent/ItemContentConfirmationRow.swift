@@ -16,6 +16,7 @@ struct ItemContentConfirmationRow: View {
     @State private var showConfirmation = false
     @State private var canReview = false
     @State private var showNote = false
+    @State private var showCustomListView = false
     var body: some View {
         HStack {
             WebImage(url: item.cardImageSmall)
@@ -71,7 +72,8 @@ struct ItemContentConfirmationRow: View {
                                 isWatched: $isWatched,
                                 showConfirmation: $showConfirmation,
                                 isInWatchlist: $isItemAdded,
-                                showNote: $showNote)
+                                showNote: $showNote,
+                                showCustomList: $showCustomListView)
     }
 }
 

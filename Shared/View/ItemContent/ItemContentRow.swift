@@ -15,6 +15,7 @@ struct ItemContentRow: View {
     @State private var isInWatchlist = true
     @State private var canReview = true
     @State private var showNote = false
+    @State private var showCustomListView = false
     private let persistence = PersistenceController.shared
     var body: some View {
         NavigationLink(value: item) {
@@ -53,7 +54,8 @@ struct ItemContentRow: View {
                                     isWatched: $isWatched,
                                     showConfirmation: $showConfirmation,
                                     isInWatchlist: $isInWatchlist,
-                                    showNote: $showNote)
+                                    showNote: $showNote,
+                                    showCustomList: $showCustomListView)
             .task {
                 isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
             }
@@ -67,6 +69,18 @@ struct ItemContentRow: View {
                 .frame(width: 400, height: 400, alignment: .center)
 #endif
 #endif
+            }
+            .sheet(isPresented: $showCustomListView) {
+                NavigationStack {
+                    ItemContentCustomListSelector(contentID: item.itemContentID, showView: $showCustomListView, title: item.itemTitle)
+                }
+                .presentationDetents([.medium, .large])
+    #if os(macOS)
+                .frame(width: 500, height: 600, alignment: .center)
+    #else
+                .appTheme()
+                .appTint()
+    #endif
             }
         }
     }

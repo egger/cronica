@@ -32,20 +32,14 @@ struct SideBarView: View {
                 .tag(HomeView.tag)
                 
                 NavigationLink(value: Screens.explore) {
-                    Label("Explore", systemImage: "film")
+                    Label("Explore", systemImage: "popcorn")
                 }
                 .tag(ExploreView.tag)
                 
                 NavigationLink(value: Screens.watchlist) {
-                    Label("Watchlist", systemImage: "square.stack.fill")
+                    Label("Watchlist", systemImage: "square.stack")
                 }
                 .tag(WatchlistView.tag)
-                .dropDestination(for: ItemContent.self) { items, _  in
-                    for item in items {
-                        PersistenceController.shared.save(item)
-                    }
-                    return true
-                }
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")

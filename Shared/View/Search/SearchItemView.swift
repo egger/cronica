@@ -14,6 +14,7 @@ struct SearchItemView: View {
     @State private var isWatched = false
     @State private var canReview = false
     @State private var showNote = false
+    @State private var showCustomListView = false
     private let context = PersistenceController.shared
     var isSidebar = false
     var body: some View {
@@ -43,13 +44,41 @@ struct SearchItemView: View {
                                             isWatched: $isWatched,
                                             showConfirmation: $showConfirmation,
                                             isInWatchlist: $isInWatchlist,
-                                            showNote: $showNote)
+                                            showNote: $showNote,
+                                            showCustomList: $showCustomListView)
                     .modifier(
                         SearchItemSwipeGesture(item: item,
                                                showConfirmation: $showConfirmation,
                                                isInWatchlist: $isInWatchlist,
                                                isWatched: $isWatched)
                     )
+                    .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+                        NavigationStack {
+                            ReviewView(id: item.itemContentID, showView: $showNote)
+                        }
+                        .presentationDetents([.medium, .large])
+#if os(macOS)
+                        .frame(width: 400, height: 400, alignment: .center)
+#elseif os(iOS)
+                        .appTheme()
+                        .appTint()
+#endif
+#endif
+                    }
+                    .sheet(isPresented: $showCustomListView) {
+                        NavigationStack {
+                            ItemContentCustomListSelector(contentID: item.itemContentID, showView: $showCustomListView, title: item.itemTitle)
+                        }
+                        .presentationDetents([.medium, .large])
+                        .presentationDragIndicator(.visible)
+#if os(macOS)
+                        .frame(width: 500, height: 600, alignment: .center)
+#else
+                        .appTheme()
+                        .appTint()
+#endif
+                    }
             } else {
                 NavigationLink(value: item) {
                     SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
@@ -65,13 +94,41 @@ struct SearchItemView: View {
                                                 isWatched: $isWatched,
                                                 showConfirmation: $showConfirmation,
                                                 isInWatchlist: $isInWatchlist,
-                                                showNote: $showNote)
+                                                showNote: $showNote,
+                                                showCustomList: $showCustomListView)
                         .modifier(
                             SearchItemSwipeGesture(item: item,
                                                    showConfirmation: $showConfirmation,
                                                    isInWatchlist: $isInWatchlist,
                                                    isWatched: $isWatched)
                         )
+                        .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+                            NavigationStack {
+                                ReviewView(id: item.itemContentID, showView: $showNote)
+                            }
+                            .presentationDetents([.medium, .large])
+#if os(macOS)
+                            .frame(width: 400, height: 400, alignment: .center)
+#elseif os(iOS)
+                            .appTheme()
+                            .appTint()
+#endif
+#endif
+                        }
+                        .sheet(isPresented: $showCustomListView) {
+                            NavigationStack {
+                                ItemContentCustomListSelector(contentID: item.itemContentID, showView: $showCustomListView, title: item.itemTitle)
+                            }
+                            .presentationDetents([.medium, .large])
+                            .presentationDragIndicator(.visible)
+#if os(macOS)
+                            .frame(width: 500, height: 600, alignment: .center)
+#else
+                            .appTheme()
+                            .appTint()
+#endif
+                        }
                 }
             }
             

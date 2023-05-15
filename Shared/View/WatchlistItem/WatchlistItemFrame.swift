@@ -15,6 +15,7 @@ struct WatchlistItemFrame: View {
     @State private var isPin = false
     @State private var isArchive = false
     @State private var showNote = false
+    @State private var showCustomListView = false
     var body: some View {
         NavigationLink(value: content) {
             VStack {
@@ -24,7 +25,8 @@ struct WatchlistItemFrame: View {
                                           isFavorite: $isFavorite,
                                           isPin: $isPin,
                                           isArchive: $isArchive,
-                                          showNote: $showNote)
+                                          showNote: $showNote,
+                                          showCustomList: $showCustomListView)
 #if os(iOS) || os(macOS)
                     .draggable(content) {
                         WebImage(url: content.largeCardImage)
@@ -61,6 +63,18 @@ struct WatchlistItemFrame: View {
 #elseif os(iOS)
                 .appTheme()
                 .appTint()
+#endif
+        }
+        .sheet(isPresented: $showCustomListView) {
+            NavigationStack {
+                ItemContentCustomListSelector(contentID: content.itemContentID, showView: $showCustomListView, title: content.itemTitle)
+            }
+            .presentationDetents([.medium, .large])
+#if os(macOS)
+            .frame(width: 500, height: 600, alignment: .center)
+#else
+            .appTheme()
+            .appTint()
 #endif
         }
     }

@@ -13,25 +13,29 @@ extension View {
                               isFavorite: Binding<Bool>,
                               isPin: Binding<Bool>,
                               isArchive: Binding<Bool>,
-                              showNote: Binding<Bool>) -> some View {
+                              showNote: Binding<Bool>,
+                              showCustomList: Binding<Bool>) -> some View {
         modifier(WatchlistItemContextMenu(item: item,
                                           isWatched: isWatched,
                                           isFavorite: isFavorite,
                                           isPin: isPin,
                                           isArchive: isArchive,
-                                          showNote: showNote))
+                                          showNote: showNote,
+                                          showCustomListView: showCustomList))
     }
     
     func itemContentContextMenu(item: ItemContent,
                                 isWatched: Binding<Bool>,
                                 showConfirmation: Binding<Bool>,
                                 isInWatchlist: Binding<Bool>,
-                                showNote: Binding<Bool>) -> some View {
+                                showNote: Binding<Bool>,
+                                showCustomList: Binding<Bool>) -> some View {
         modifier(ItemContentContextMenu(item: item,
                                         showConfirmation: showConfirmation,
                                         isInWatchlist: isInWatchlist,
                                         isWatched: isWatched,
-                                        showNote: showNote))
+                                        showNote: showNote,
+                                        showCustomListView: showCustomList))
     }
     
     func applyHoverEffect() -> some View {

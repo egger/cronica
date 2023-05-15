@@ -58,7 +58,6 @@ struct ItemContentDetails: View {
 #if os(iOS)
                 ToolbarItem {
                     HStack {
-                        //notificationStatus
                         shareButton
                             .disabled(viewModel.isLoading ? true : false)
                         if UIDevice.isIPad {
@@ -80,9 +79,6 @@ struct ItemContentDetails: View {
                     ToolbarItem(placement: .status) {
                         ViewThatFits {
                             HStack {
-//                                Button { } label: {
-//                                    notificationStatus
-//                                }
                                 watchButton
                                 favoriteButton
                                 shareButton
@@ -95,18 +91,10 @@ struct ItemContentDetails: View {
                     ToolbarItem {
                         ViewThatFits {
                             HStack {
-//                                Button { } label: {
-//                                    notificationStatus
-//                                }
                                 watchButton
                                 favoriteButton
                                 if viewModel.isInWatchlist {
                                     addToCustomListButton
-                                        .sheet(isPresented: $showCustomList) {
-                                            ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
-                                                .presentationDetents([.medium])
-                                                .frame(width: 500, height: 600, alignment: .center)
-                                        }
                                 }
                                 shareButton
                             }
@@ -124,19 +112,29 @@ struct ItemContentDetails: View {
                 Text(viewModel.errorMessage)
             }
             .sheet(isPresented: $showCustomList) {
-                ItemContentCustomListSelector(item: $viewModel.watchlistItem, showView: $showCustomList)
-                    .presentationDetents([.medium])
-                    .interactiveDismissDisabled()
-                    .appTheme()
-                    .appTint()
-            }
-            .sheet(isPresented: $showUserNotes) {
                 NavigationStack {
-                    if let item = viewModel.watchlistItem {
-                        ReviewView(id: item.itemContentID, showView: $showUserNotes)
+                    if let contentID = viewModel.content?.itemContentID {
+                        ItemContentCustomListSelector(contentID: contentID,
+                                                      showView: $showCustomList,
+                                                      title: title)
                     }
                 }
                 .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+#if os(macOS)
+                .frame(width: 500, height: 600, alignment: .center)
+#else
+                .appTheme()
+                .appTint()
+#endif
+            }
+            .sheet(isPresented: $showUserNotes) {
+                if let contentID = viewModel.content?.itemContentID {
+                    NavigationStack {
+                        ReviewView(id: contentID, showView: $showUserNotes)
+                    }
+                    .presentationDetents([.medium, .large])
+                }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
             ConfirmationDialogView(showConfirmation: $showNotificationUI,
@@ -269,13 +267,6 @@ struct ItemContentDetails: View {
         }
     }
 #endif
-    
-    private var notificationStatus: some View {
-        Image(systemName: viewModel.hasNotificationScheduled ? "bell.fill" : "bell")
-            .opacity(viewModel.isNotificationAvailable ? 1 : 0)
-            .foregroundColor(.accentColor)
-            .accessibilityHidden(true)
-    }
     
     private var addToCustomListButton: some View {
         Button {

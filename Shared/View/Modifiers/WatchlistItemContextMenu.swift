@@ -15,6 +15,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var isPin: Bool
     @Binding var isArchive: Bool
     @Binding var showNote: Bool
+    @Binding var showCustomListView: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
     private let settings = SettingsStore.shared
@@ -66,7 +67,7 @@ struct WatchlistItemContextMenu: ViewModifier {
             } preview: {
                 ContextMenuPreviewImage(title: item.itemTitle,
                                         image: item.itemImage,
-                                        overview: "")
+                                        overview: item.itemPreviewOverview)
             }
 #endif
     }
@@ -89,7 +90,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
 #if os(iOS) || os(macOS)
     private var customListButton: some View {
-        CustomListButton(id: item.itemContentID)
+        CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
     }
 #endif
     

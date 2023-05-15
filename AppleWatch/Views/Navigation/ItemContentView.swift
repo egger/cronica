@@ -69,8 +69,12 @@ struct ItemContentView: View {
         .navigationTitle(title)
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .sheet(isPresented: $showCustomListSheet) {
-            ItemContentCustomListSelector(item: $viewModel.watchlistItem,
-                                          showView: $showCustomListSheet)
+            if let contentID = viewModel.content?.itemContentID {
+                NavigationStack {
+                    ItemContentCustomListSelector(contentID: contentID,
+                                                  showView: $showCustomListSheet, title: title)
+                }
+            }
         }
         .navigationDestination(for: [Season].self) { seasons in
             SeasonListView(numberOfSeasons: seasons, id: id)

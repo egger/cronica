@@ -41,14 +41,14 @@ struct TabBarView: View {
                 ExploreView()
             }
             .tag(ExploreView.tag)
-            .tabItem { Label("Explore", systemImage: "film").labelStyle(.titleOnly) }
+            .tabItem { Label("Explore", systemImage: "popcorn").labelStyle(.titleOnly) }
             
             NavigationStack {
                 WatchlistView()
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .tabItem {
-                Label("Watchlist", systemImage: "square.stack.fill")
+                Label("Watchlist", systemImage: "square.stack")
                     .labelStyle(.titleOnly)
             }
             
@@ -84,14 +84,14 @@ struct TabBarView: View {
                 ExploreView()
             }
             .tag(ExploreView.tag)
-            .tabItem { Label("Explore", systemImage: "film") }
+            .tabItem { Label("Explore", systemImage: "popcorn") }
             
             NavigationStack {
                 WatchlistView()
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .tag(WatchlistView.tag)
-            .tabItem { Label("Watchlist", systemImage: "square.stack.fill") }
+            .tabItem { Label("Watchlist", systemImage: "square.stack") }
             
             NavigationStack { SearchView() }
             .tag(SearchView.tag)

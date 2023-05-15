@@ -15,6 +15,7 @@ struct Poster: View {
     @State private var isWatched = false
     @State private var canReview = false
     @State private var showNote = false
+    @State private var showCustomListView = false
     @Binding var addedItemConfirmation: Bool
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -86,7 +87,8 @@ struct Poster: View {
                                     isWatched: $isWatched,
                                     showConfirmation: $addedItemConfirmation,
                                     isInWatchlist: $isInWatchlist,
-                                    showNote: $showNote)
+                                    showNote: $showNote,
+                                    showCustomList: $showCustomListView)
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.itemContentID)
@@ -110,6 +112,21 @@ struct Poster: View {
                 .appTheme()
                 .appTint()
 #endif
+#endif
+            }
+            .sheet(isPresented: $showCustomListView) {
+                NavigationStack {
+                    ItemContentCustomListSelector(contentID: item.itemContentID,
+                                                  showView: $showCustomListView,
+                                                  title: item.itemTitle)
+                }
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+#if os(macOS)
+                .frame(width: 500, height: 600, alignment: .center)
+#else
+                .appTheme()
+                .appTint()
 #endif
             }
 #if os(iOS) || os(macOS)

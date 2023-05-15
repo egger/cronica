@@ -16,6 +16,7 @@ struct WatchlistItemRow: View {
     @State private var isArchive = false
     @StateObject private var settings = SettingsStore.shared
     @State private var showNote = false
+    @State private var showCustomListView = false
     var body: some View {
         NavigationLink(value: content) {
             HStack {
@@ -69,13 +70,26 @@ struct WatchlistItemRow: View {
 #endif
 #endif
             }
+            .sheet(isPresented: $showCustomListView) {
+                NavigationStack {
+                    ItemContentCustomListSelector(contentID: content.itemContentID, showView: $showCustomListView, title: content.itemTitle)
+                }
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 500, height: 600, alignment: .center)
+#else
+                .appTheme()
+                .appTint()
+#endif
+            }
             .accessibilityElement(children: .combine)
             .watchlistContextMenu(item: content,
                                   isWatched: $isWatched,
                                   isFavorite: $isFavorite,
                                   isPin: $isPin,
                                   isArchive: $isArchive,
-                                  showNote: $showNote)
+                                  showNote: $showNote,
+                                  showCustomList: $showCustomListView)
         }
     }
     

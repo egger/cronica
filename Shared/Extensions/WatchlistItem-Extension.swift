@@ -141,6 +141,12 @@ extension WatchlistItem: Transferable {
     var itemGenre: String {
         genre ?? "Not Available"
     }
+    var itemPreviewOverview: String {
+        if let genre {
+            return "\(itemMedia.title), \(genre)"
+        }
+        return "\(itemMedia.title)"
+    }
     var itemDate: Date? {
         guard let date else { return nil }
         return date
