@@ -36,13 +36,13 @@ struct TrailerListView: View {
                     }
                     Divider().padding(.horizontal)
                 }
+#if os(iOS)
                 .fullScreenCover(item: $selectedItem) { item in
                     if let url = item.url {
-#if os(iOS)
                         SFSafariViewWrapper(url: url)
-#endif
                     }
                 }
+#endif
             }
         }
     }

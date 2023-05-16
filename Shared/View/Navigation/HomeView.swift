@@ -26,9 +26,7 @@ struct HomeView: View {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
             VStack(alignment: .leading) {
                 ScrollView {
-#if os(iOS) || os(macOS)
                     UpNextListView(shouldReload: $reloadUpNext)
-#endif
                     UpcomingWatchlist()
                     PinItemsList()
                     CustomListPinned()
@@ -94,10 +92,8 @@ struct HomeView: View {
                 TitleWatchlistDetails(items: item)
             }
             .navigationDestination(for: Endpoints.self) { endpoint in
-#if os(iOS) || os(macOS)
                 EndpointDetails(title: endpoint.title,
                                 endpoint: endpoint)
-#endif
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
                 let keys = item.map { (key, _) in key }
@@ -107,28 +103,16 @@ struct HomeView: View {
             .navigationDestination(for: [String:[ItemContent]].self) { item in
                 let keys = item.map { (key, _) in key }
                 let value = item.map { (_, value) in value }
-#if os(tvOS)
-#else
                 ItemContentCollectionDetails(title: keys[0], items: value[0])
-#endif
             }
             .navigationDestination(for: [Person].self) { items in
-#if os(tvOS)
-#else
                 DetailedPeopleList(items: items)
-#endif
             }
             .navigationDestination(for: ProductionCompany.self) { item in
-#if os(tvOS)
-#else
                 CompanyDetails(company: item)
-#endif
             }
             .navigationDestination(for: [ProductionCompany].self) { item in
-#if os(tvOS)
-#else
                 CompaniesListView(companies: item)
-#endif
             }
             .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
 #if os(iOS) || os(macOS)

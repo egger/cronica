@@ -146,8 +146,6 @@ struct DefaultWatchlist: View {
                 isSearching = false
             } catch {
                 if Task.isCancelled { return }
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                      for: "WatchlistView.task(id: query)")
             }
         }
 #endif

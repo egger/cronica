@@ -26,13 +26,30 @@ struct UpNextListView: View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
                 if !episodes.isEmpty {
+#if os(tvOS)
+                    TitleView(title: "upNext", subtitle: "upNextSubtitle")
+#else
                     NavigationLink(value: episodes) {
                         TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
                     }
                     .buttonStyle(.plain)
+#endif
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             ForEach(episodes) { item in
+#if os(tvOS)
+                                Button {
+                                    selectedEpisode = item
+                                } label: {
+                                    UpNextItem(item: item)
+                                }
+                                .buttonStyle(.card)
+                                .padding([.leading, .trailing], 4)
+                                .padding(.leading, item.id == episodes.first!.id ? 16 : 0)
+                                .padding(.trailing, item.id == episodes.last!.id ? 16 : 0)
+                                .padding(.top, 8)
+                                .padding(.bottom)
+#else
                                 UpNextItem(item: item)
                                     .contextMenu {
                                         Button("markAsWatched") {
@@ -65,8 +82,12 @@ struct UpNextListView: View {
                                             selectedEpisode = item
                                         }
                                     }
+#endif
                             }
                         }
+                        #if os(tvOS)
+                        .padding()
+                        #endif
                     }
                 }
             }
