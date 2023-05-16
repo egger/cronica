@@ -43,28 +43,16 @@ struct WatchlistView: View {
         .navigationDestination(for: [String:[ItemContent]].self) { item in
             let keys = item.map { (key, _) in key }
             let value = item.map { (_, value) in value }
-#if os(tvOS)
-#else
             ItemContentCollectionDetails(title: keys[0], items: value[0])
-#endif
         }
         .navigationDestination(for: [Person].self) { items in
-#if os(tvOS)
-#else
             DetailedPeopleList(items: items)
-#endif
         }
         .navigationDestination(for: ProductionCompany.self) { item in
-#if os(tvOS)
-#else
             CompanyDetails(company: item)
-#endif
         }
         .navigationDestination(for: [ProductionCompany].self) { item in
-#if os(tvOS)
-#else
             CompaniesListView(companies: item)
-#endif
         }
         .sheet(isPresented: $showListSelection) {
             SelectListView(selectedList: $selectedList,
@@ -86,15 +74,6 @@ struct WatchlistView: View {
 #elseif os(macOS)
             ToolbarItem(placement: .navigation) {
                 WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
-            }
-#elseif os(tvOS)
-            ToolbarItem(placement: .navigation) {
-                Button {
-                    showListSelection.toggle()
-                } label: {
-                    WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
-                }
-                .buttonStyle(.bordered)
             }
 #endif
         }

@@ -13,7 +13,7 @@ struct DetailWatchlistButton: View {
     var body: some View {
         Button {
             if viewModel.isInWatchlist {
-#if os(watchOS)
+#if os(watchOS) || os(tvOS)
                 if SettingsStore.shared.showRemoveConfirmation {
                     showConfirmationPopup = true
                 } else {
@@ -29,13 +29,19 @@ struct DetailWatchlistButton: View {
         } label: {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
+            #if os(tvOS)
+            .padding([.top, .bottom])
+            .frame(minWidth: 480)
+            #endif
         }
         .buttonStyle(.borderedProminent)
 #if os(iOS) || os(macOS)
         .controlSize(.large)
 #endif
         .disabled(viewModel.isLoading)
+#if os(iOS) || os(macOS) || os(watchOS)
         .tint(viewModel.isInWatchlist ? .red : .blue)
+#endif
 #if os(iOS)
         .buttonBorderShape(.capsule)
 #endif

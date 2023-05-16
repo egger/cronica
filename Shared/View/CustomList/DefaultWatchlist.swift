@@ -28,6 +28,30 @@ struct DefaultWatchlist: View {
     var body: some View {
         VStack {
 #if os(tvOS)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Watchlist")
+                        .font(.title3)
+                    if showAllItems {
+                        Text(mediaTypeFilter.localizableTitle)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                    } else {
+                        Text(selectedOrder.title)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding()
+                Spacer()
+                Button {
+                    showFilter.toggle()
+                } label: {
+                    Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                        .labelStyle(.iconOnly)
+                }
+            }
+            .padding(.horizontal)
             frameStyle
 #else
             switch settings.watchlistStyle {
@@ -93,10 +117,6 @@ struct DefaultWatchlist: View {
                     styleButton
                 }
             }
-#elseif os(tvOS)
-            ToolbarItem(placement: .navigationBarTrailing) {
-                filterButton
-            }
 #elseif os(macOS)
             HStack {
                 filterButton
@@ -141,9 +161,9 @@ struct DefaultWatchlist: View {
                 .labelStyle(.iconOnly)
                 .foregroundColor(showFilter ? .secondary : nil)
         }
-        #if os(tvOS)
+#if os(tvOS)
         .buttonStyle(.bordered)
-        #endif
+#endif
     }
     
 #if os(iOS) || os(macOS)

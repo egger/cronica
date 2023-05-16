@@ -49,7 +49,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""
     @AppStorage("userHasImportedFromTMDB") var userImportedTMDB = false
     @AppStorage("isUserConnectedWithTMDB") var connectedTMDB = false
-#if os(watchOS)
+#if os(watchOS) || os(tvOS)
     @AppStorage("showRemoveConfirmation") var showRemoveConfirmation = true
 #endif
 #if os(iOS)

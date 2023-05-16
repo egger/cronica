@@ -69,16 +69,8 @@ struct TVHeader: View {
                 HStack(alignment: .center) {
                     VStack {
                         VStack {
-                            Button {
-                                if let item = viewModel.content {
-                                    viewModel.updateWatchlist(with: item)
-                                }
-                            } label: {
-                                Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                                      systemImage: viewModel.isInWatchlist ? "minus.square" : "plus.square")
-                                .padding([.top, .bottom])
-                                .frame(minWidth: 480)
-                            }
+                            DetailWatchlistButton()
+                                .environmentObject(viewModel)
                             .buttonStyle(.borderedProminent)
                             .frame(width: 480)
                             Button {
