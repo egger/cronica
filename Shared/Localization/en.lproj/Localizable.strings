@@ -599,3 +599,5 @@
 "markedAsPin" = "Marked as Pin";
 "removedFromArchive" = "Removed from Archive";
 "markedAsArchive" = "Marked as Archive";
+
+"contentRegionTitleSettings" = "Content & Region";

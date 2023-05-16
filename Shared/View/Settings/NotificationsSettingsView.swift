@@ -43,12 +43,6 @@ struct NotificationsSettingsView: View {
 #endif
                 }
             }
-            
-            Section {
-                NavigationLink(destination: FeedbackSettingsView()) {
-                    Text("notificationsSettingsFeedbackCall")
-                }
-            }
         }
         .navigationTitle("settingsNotificationTitle")
 #if os(macOS)

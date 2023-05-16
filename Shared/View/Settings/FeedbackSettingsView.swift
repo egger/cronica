@@ -11,7 +11,6 @@ struct FeedbackSettingsView: View {
     @State private var email = ""
     @State private var feedback = ""
     @State private var showFeedbackAnimation = false
-    @AppStorage("disableTelemetry") private var disableTelemetry = false
     @Environment(\.openURL) var openURL
     @StateObject private var settings = SettingsStore.shared
 #if os(macOS) || os(iOS)
@@ -21,34 +20,20 @@ struct FeedbackSettingsView: View {
     var body: some View {
         ZStack {
             Form {
-                Section {
+                Section("Send feedback") {
                     TextField("Feedback", text: $feedback)
                         .lineLimit(4)
-                        .disabled(settings.disableTelemetry)
                     TextField("Email (optional)", text: $email)
-                        .disabled(settings.disableTelemetry)
 #if os(iOS)
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
 #endif
-                    Button("Send") {
-                        send()
-                    }
-                    .disabled(feedback.isEmpty || disableTelemetry)
+                    Button("Send", action: send)
+                        .disabled(feedback.isEmpty)
 #if os(macOS)
-                    .buttonStyle(.link)
-#endif
-                } header: {
-                    Text("Send feedback")
-                } footer: {
-#if os(iOS)
-                    if disableTelemetry {
-                        Text("cantSendFeedback")
-                    } else {
-                        Text("Send your suggestions to help improve Cronica.")
-                    }
+                        .buttonStyle(.link)
 #endif
                 }
 #if os(iOS) || os(macOS)
@@ -58,18 +43,11 @@ struct FeedbackSettingsView: View {
                     .buttonStyle(.link)
 #endif
                 } footer: {
-#if os(iOS)
                     VStack(alignment: .leading) {
                         Text("sendEmailFooter")
                         Text("sendEmailFooterBackup")
                             .textSelection(.enabled)
                     }
-#else
-                    HStack {
-                        Text("sendEmailFooter")
-                        Spacer()
-                    }
-#endif
                 }
 #endif
             }
@@ -96,7 +74,7 @@ struct FeedbackSettingsView: View {
                       Feedback: \(feedback)
                       """
         }
-        CronicaTelemetry.shared.handleMessage(message, for: "FeedbackSettingsView.send")
+        CronicaTelemetry.shared.handleMessage(message, for: "Feedback")
         feedback = ""
         email = ""
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {

@@ -114,15 +114,4 @@ extension PersistenceController {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "removeItemsFromList")
         }
     }
-    
-    func fetchLists(for id: String) -> [CustomList] {
-        do {
-            let item = try fetch(for: id)
-            guard let item else { return [] }
-            return item.listsArray
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "fetchLists")
-            return []
-        }
-    }
 }

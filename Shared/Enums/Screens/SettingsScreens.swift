@@ -9,5 +9,5 @@ import Foundation
 
 enum SettingsScreens: String, CaseIterable, Identifiable {
     var id: String { rawValue }
-    case acknowledgements, appearance, behavior, developer, roadmap, feedback, notifications, privacy, sync, tipJar, settings
+    case acknowledgements, appearance, behavior, developer, roadmap, feedback, notifications, sync, tipJar, settings
 }

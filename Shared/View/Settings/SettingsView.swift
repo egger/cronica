@@ -15,6 +15,7 @@ struct SettingsView: View {
     @State private var animateEasterEgg = false
     @StateObject private var settings = SettingsStore.shared
     static let tag: Screens? = .settings
+    @State private var showPolicy = false
 #endif
     var body: some View {
 #if os(iOS)
@@ -49,6 +50,36 @@ struct SettingsView: View {
     }
 #endif
     
+    private var privacy: some View {
+        Section {
+#if os(iOS) || os(macOS)
+            Button("settingsPrivacyPolicy") {
+#if os(macOS)
+                NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+#else
+                showPolicy.toggle()
+#endif
+            }
+#if os(iOS)
+            .fullScreenCover(isPresented: $showPolicy) {
+                SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+            }
+#elseif os(macOS)
+            .buttonStyle(.link)
+#endif
+#endif
+        } header: {
+#if os(macOS) || os(tvOS)
+            Label("Privacy", systemImage: "hand.raised")
+#endif
+        } footer: {
+#if os(tvOS)
+            Text("privacyFooterTV")
+                .padding(.bottom)
+#endif
+        }
+    }
+    
 #if os(iOS)
     private var iOSSettings: some View {
         NavigationStack {
@@ -74,13 +105,15 @@ struct SettingsView: View {
                     NavigationLink(value: SettingsScreens.notifications) {
                         SettingsLabelWithIcon(title: "settingsNotificationTitle", icon: "bell", color: .red)
                     }
+                    NavigationLink(destination: ContentRegionSettings()) {
+                        SettingsLabelWithIcon(title: "contentRegionTitleSettings", icon: "globe.desk", color: .black)
+                    }
                 }
+                
+                privacy
                 
                 // Privacy and support section
                 Section {
-                    NavigationLink(destination: PrivacySupportSetting()) {
-                        SettingsLabelWithIcon(title: "Privacy", icon: "hand.raised", color: .blue)
-                    }
                     NavigationLink(destination: FeedbackSettingsView()) {
                         SettingsLabelWithIcon(title: "settingsFeedbackTitle", icon: "envelope.open", color: .teal)
                     }
@@ -88,6 +121,7 @@ struct SettingsView: View {
 //                        SettingsLabelWithIcon(title: "featureRoadmap", icon: "map", color: .pink)
 //                    }
                 }
+                
                 
                 Button {
                     requestReview()
@@ -105,6 +139,9 @@ struct SettingsView: View {
                     NavigationLink(destination: AcknowledgementsSettings()) {
                         SettingsLabelWithIcon(title: "acknowledgmentsTitle", icon: "doc", color: .yellow)
                     }
+                }
+                
+                Section {
                     CenterHorizontalView {
                         Text("Made in Brazil 🇧🇷")
                             .onTapGesture {
@@ -131,6 +168,7 @@ struct SettingsView: View {
                 if UIDevice.isIPad { Button("Done") { showSettings = false } }
             }
             .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: SettingsScreens.self) { settings in
                 switch settings {
                 case .acknowledgements: AcknowledgementsSettings()
@@ -139,7 +177,6 @@ struct SettingsView: View {
                 case .developer: DeveloperView()
                 case .feedback: FeedbackSettingsView()
                 case .notifications: NotificationsSettingsView()
-                case .privacy: PrivacySupportSetting()
                 case .roadmap: FeatureRoadmap()
                 case .sync: SyncSetting()
                 case .tipJar: TipJarSetting()

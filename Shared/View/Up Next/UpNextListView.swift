@@ -20,6 +20,7 @@ struct UpNextListView: View {
     @State private var selectedEpisode: UpNextEpisode?
     @State var isLoaded = false
     @State var episodes = [UpNextEpisode]()
+    @State private var scrollToInitial = false
     private let network = NetworkService.shared
     private let persistence = PersistenceController.shared
     var body: some View {
@@ -34,60 +35,62 @@ struct UpNextListView: View {
                     }
                     .buttonStyle(.plain)
 #endif
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack {
-                            ForEach(episodes) { item in
-#if os(tvOS)
-                                Button {
-                                    selectedEpisode = item
-                                } label: {
-                                    UpNextItem(item: item)
-                                }
-                                .buttonStyle(.card)
-                                .padding([.leading, .trailing], 4)
-                                .padding(.leading, item.id == episodes.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == episodes.last!.id ? 16 : 0)
-                                .padding(.top, 8)
-                                .padding(.bottom)
-#else
-                                UpNextItem(item: item)
-                                    .contextMenu {
-                                        Button("markAsWatched") {
-                                            Task { await markAsWatched(item) }
-                                        }
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Button("showDetails") {
-                                                selectedEpisode = item
-                                            }
-                                        }
-#if os(iOS) || os(macOS)
-                                        Divider()
-                                        if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
-                                            ShareLink("shareEpisode", item: url)
-                                        }
-                                        if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
-                                            ShareLink("shareShow", item: url)
-                                        }
-#endif
+                    ScrollViewReader { proxy in
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack {
+                                ForEach(episodes) { item in
+    #if os(tvOS)
+                                    Button {
+                                        selectedEpisode = item
+                                    } label: {
+                                        UpNextItem(item: item)
                                     }
+                                    .buttonStyle(.card)
                                     .padding([.leading, .trailing], 4)
                                     .padding(.leading, item.id == episodes.first!.id ? 16 : 0)
                                     .padding(.trailing, item.id == episodes.last!.id ? 16 : 0)
                                     .padding(.top, 8)
                                     .padding(.bottom)
-                                    .onTapGesture {
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Task { await markAsWatched(item) }
-                                        } else {
-                                            selectedEpisode = item
+    #else
+                                    UpNextItem(item: item)
+                                        .contextMenu {
+                                            Button("markAsWatched") {
+                                                Task { await markAsWatched(item) }
+                                            }
+                                            if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                Button("showDetails") {
+                                                    selectedEpisode = item
+                                                }
+                                            }
+    #if os(iOS) || os(macOS)
+                                            Divider()
+                                            if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
+                                                ShareLink("shareEpisode", item: url)
+                                            }
+                                            if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
+                                                ShareLink("shareShow", item: url)
+                                            }
+    #endif
                                         }
-                                    }
-#endif
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == episodes.first!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == episodes.last!.id ? 16 : 0)
+                                        .padding(.top, 8)
+                                        .padding(.bottom)
+                                        .onTapGesture {
+                                            if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                Task { await markAsWatched(item) }
+                                            } else {
+                                                selectedEpisode = item
+                                            }
+                                        }
+    #endif
+                                }
                             }
+                            #if os(tvOS)
+                            .padding()
+                            #endif
                         }
-                        #if os(tvOS)
-                        .padding()
-                        #endif
                     }
                 }
             }
@@ -193,6 +196,7 @@ struct UpNextListView: View {
                 DispatchQueue.main.async {
                     withAnimation(.easeInOut) {
                         self.episodes.insert(content, at: 0)
+                        self.scrollToInitial = true
                     }
                 }
             }

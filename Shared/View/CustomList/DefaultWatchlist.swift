@@ -11,8 +11,7 @@ struct DefaultWatchlist: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<WatchlistItem>
+        animation: .default) private var items: FetchedResults<WatchlistItem>
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
@@ -63,49 +62,16 @@ struct DefaultWatchlist: View {
         }
         .sheet(isPresented: $showFilter) {
             NavigationStack {
-                Form {
-                    Section {
-                        Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
-                        Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
-                            ForEach(MediaTypeFilters.allCases) { sort in
-                                Text(sort.localizableTitle).tag(sort)
-                            }
-                        }
-                        .disabled(!showAllItems)
-#if os(iOS)
-                        .pickerStyle(.navigationLink)
-#endif
-                    }
-                    Section {
-                        Picker("defaultWatchlistSmartFilters", selection: $selectedOrder) {
-                            ForEach(DefaultListTypes.allCases) { sort in
-                                Text(sort.title).tag(sort)
-                            }
-                        }
-#if os(iOS)
-                        .pickerStyle(.navigationLink)
-#endif
-                        .disabled(showAllItems)
-#if os(iOS)
-                        .pickerStyle(.navigationLink)
-#endif
-                    }
-                }
-                .navigationTitle("defaultWatchlistFilters")
-#if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-#endif
-                .toolbar {
-                    Button("Cancel") { showFilter.toggle() }
-                }
+                WatchListFilter(selectedOrder: $selectedOrder,
+                                showAllItems: $showAllItems,
+                                mediaTypeFilter: $mediaTypeFilter,
+                                showView: $showFilter)
             }
             .presentationDetents([.medium, .large])
 #if os(iOS)
             .appTheme()
             .appTint()
-#endif
-#if os(macOS)
-            .formStyle(.grouped)
+#elseif os(macOS)
             .frame(width: 380, height: 220, alignment: .center)
 #endif
         }

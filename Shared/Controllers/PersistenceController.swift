@@ -40,9 +40,6 @@ struct PersistenceController {
             if let error = error as NSError? {
 #if DEBUG
                 fatalError("Unresolved error \(error), \(error.userInfo)")
-#else
-                CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                      for: "containerError")
 #endif
             }
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
@@ -53,8 +50,7 @@ struct PersistenceController {
         do {
             try container.initializeCloudKitSchema()
         } catch {
-            CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                  for: "initializeCloudKitSchema")
+            print("initializeCloudKitSchema: \(error.localizedDescription)")
         }
 #endif
         return container

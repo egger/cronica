@@ -145,9 +145,7 @@ struct CronicaApp: App {
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
-            let message = """
-Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)
-"""
+            let message = "Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppRefresh.error")
         }
 #endif
@@ -167,9 +165,7 @@ Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
-            let message = """
-Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
-"""
+            let message = "Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppMaintenance.error")
         }
 #endif
@@ -192,8 +188,6 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
                 }
             }
             task.setTaskCompleted(success: true)
-            CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                                  for: "handleAppRefreshBGTask.success")
         }
     }
 #endif
@@ -214,8 +208,6 @@ Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)
         }
         task.setTaskCompleted(success: true)
         BackgroundManager.shared.lastMaintenance = Date()
-        CronicaTelemetry.shared.handleMessage("identifier: \(task.identifier)",
-                                              for: "handleAppMaintenance.success")
     }
 #endif
 }

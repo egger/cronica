@@ -15,7 +15,6 @@ struct AppearanceSetting: View {
     @State private var disableRowType = false
     var body: some View {
         Form {
-#if os(iOS) || os(macOS)
             Section {
 #if os(iOS)
                 Picker(selection: $store.rowType) {
@@ -47,7 +46,6 @@ struct AppearanceSetting: View {
                     disableRowType = false
                 }
             }
-#endif
             
             Section {
                 Picker(selection: $store.exploreDisplayType) {
