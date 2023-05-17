@@ -10,7 +10,6 @@ import SwiftUI
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @AppStorage("selectedView") var selectedView: Screens?
-    @State private var showSettings = true
     var persistence = PersistenceController.shared
     var body: some View {
 #if os(iOS)
@@ -29,44 +28,19 @@ struct TabBarView: View {
 #if os(tvOS)
     private var tvOSBarView: some View {
         TabView {
-            NavigationStack {
-                HomeView()
-            }
-            .tabItem {
-                Label("Home", systemImage: "house")
-                    .labelStyle(.titleOnly)
-            }
             
-            NavigationStack {
-                ExploreView()
-            }
-            .tag(ExploreView.tag)
-            .tabItem { Label("Explore", systemImage: "popcorn").labelStyle(.titleOnly) }
+            NavigationStack { ExploreView() }
+                .tag(ExploreView.tag)
+                .tabItem { Label("Explore", systemImage: "popcorn") }
             
             NavigationStack {
                 WatchlistView()
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
-            .tabItem {
-                Label("Watchlist", systemImage: "square.stack")
-                    .labelStyle(.titleOnly)
-            }
+            .tabItem { Label("Watchlist", systemImage: "square.stack") }
             
-            NavigationStack {
-                TVSearchView()
-            }
-            .tabItem {
-                Label("Search", systemImage: "magnifyingglass")
-                    .labelStyle(.titleOnly)
-            }
-            
-            NavigationStack {
-                SettingsView()
-            }
-            .tabItem {
-                Label("Settings", systemImage: "gearshape")
-                    .labelStyle(.iconOnly)
-            }
+            NavigationStack { TVSearchView() }
+                .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.iconOnly) }
         }
     }
 #endif
@@ -74,17 +48,13 @@ struct TabBarView: View {
 #if os(iOS)
     private var iOSBarView: some View {
         TabView(selection: $selectedView) {
-            NavigationStack {
-                HomeView()
-            }
-            .tag(HomeView.tag)
-            .tabItem { Label("Home", systemImage: "house") }
+            NavigationStack { HomeView() }
+                .tag(HomeView.tag)
+                .tabItem { Label("Home", systemImage: "house") }
             
-            NavigationStack {
-                ExploreView()
-            }
-            .tag(ExploreView.tag)
-            .tabItem { Label("Explore", systemImage: "popcorn") }
+            NavigationStack { ExploreView() }
+                .tag(ExploreView.tag)
+                .tabItem { Label("Explore", systemImage: "popcorn") }
             
             NavigationStack {
                 WatchlistView()
@@ -94,8 +64,8 @@ struct TabBarView: View {
             .tabItem { Label("Watchlist", systemImage: "square.stack") }
             
             NavigationStack { SearchView() }
-            .tag(SearchView.tag)
-            .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                .tag(SearchView.tag)
+                .tabItem { Label("Search", systemImage: "magnifyingglass") }
             
             SettingsView(showSettings: .constant(true))
                 .tag(SettingsView.tag)

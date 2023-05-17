@@ -24,9 +24,9 @@ struct CronicaTelemetry {
         TelemetryManager.initialize(with: configuration)
     }
     
-    /// This function send a message using TelemetryDeck Service if in production, else it'll send a log message.
+    /// Send a signal using TelemetryDeck service.
     ///
-    /// This function will respect user setting for sending the messages to the developer.
+    /// If it is running in Simulator or Debug, it will also send a warning on logger.
     func handleMessage(_ message: String, for id: String) {
 #if targetEnvironment(simulator) || DEBUG
         logger.warning("\(message), for: \(id)")

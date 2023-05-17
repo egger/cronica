@@ -128,7 +128,9 @@ struct UpNextListView: View {
                                        show: item.showID,
                                        isWatched: $isWatched,
                                        isUpNext: true)
+#if os(macOS) || os(iOS)
                     .toolbar { Button("Done") { selectedEpisode = nil } }
+#endif
                     .navigationDestination(for: ItemContent.self) { item in
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     }

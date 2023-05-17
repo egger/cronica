@@ -22,33 +22,8 @@ struct SettingsView: View {
         iOSSettings
 #elseif os(macOS)
         macOSSettings
-#elseif os(tvOS)
-        tvOSSettings
 #endif
     }
-    
-#if os(tvOS)
-    private var tvOSSettings: some View {
-        Form {
-            Section {
-                NavigationLink(destination: SyncSetting()) {
-                    Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
-                }
-            }
-            
-            PrivacySupportSetting()
-            
-            Section {
-                NavigationLink(destination: TipJarSetting()) {
-                    Label("tipJar", systemImage: "heart")
-                }
-            }
-            
-            CenterHorizontalView { Text("Made in Brazil 🇧🇷") }
-        }
-        .navigationTitle("Settings")
-    }
-#endif
     
     private var privacy: some View {
         Section {
@@ -211,7 +186,7 @@ struct SettingsView: View {
                 }
             
             Form {
-                PrivacySupportSetting()
+                //PrivacySupportSetting()
             }
             .formStyle(.grouped)
             .tabItem {

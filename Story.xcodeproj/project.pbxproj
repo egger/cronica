@@ -122,7 +122,6 @@
 		B82BE4E8299BFEF4005F9990 /* PersistenceController-CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4E7299BFEF4005F9990 /* PersistenceController-CustomList.swift */; };
 		B82BE4E9299BFEF4005F9990 /* PersistenceController-CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4E7299BFEF4005F9990 /* PersistenceController-CustomList.swift */; };
 		B82BE4F2299EB3F5005F9990 /* WatchlistTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */; };
-		B82BE4F6299F09CA005F9990 /* CustomWatchListFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4F5299F09CA005F9990 /* CustomWatchListFilters.swift */; };
 		B82BE4FB29A188D8005F9990 /* EditCustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BE4FA29A188D8005F9990 /* EditCustomList.swift */; };
 		B82BE50029A18A55005F9990 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = B82BE50329A18A55005F9990 /* Localizable.stringsdict */; };
 		B82C267A2795E33900259D98 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C26792795E33900259D98 /* Poster.swift */; };
@@ -497,7 +496,6 @@
 		B82BE4E2299BFBC5005F9990 /* CustomWatchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWatchlist.swift; sourceTree = "<group>"; };
 		B82BE4E7299BFEF4005F9990 /* PersistenceController-CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceController-CustomList.swift"; sourceTree = "<group>"; };
 		B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTitle.swift; sourceTree = "<group>"; };
-		B82BE4F5299F09CA005F9990 /* CustomWatchListFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWatchListFilters.swift; sourceTree = "<group>"; };
 		B82BE4FA29A188D8005F9990 /* EditCustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCustomList.swift; sourceTree = "<group>"; };
 		B82BE50229A18A55005F9990 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		B82BE50429A18A5A005F9990 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -1055,7 +1053,6 @@
 			children = (
 				B812529728A407120062B0C9 /* DefaultListTypes.swift */,
 				B876DE5B281B2B04005558DD /* Screens.swift */,
-				B82BE4F5299F09CA005F9990 /* CustomWatchListFilters.swift */,
 				B8C0215C29E121C1006E9D82 /* SettingsScreens.swift */,
 			);
 			path = Screens;
@@ -1781,7 +1778,6 @@
 				B81941A52A0833450057DA04 /* AddToListRow.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* WatchlistItemRow.swift in Sources */,
 				B89ECD062985F11100F0B197 /* TitleWatchlistDetails.swift in Sources */,
-				B82BE4F6299F09CA005F9990 /* CustomWatchListFilters.swift in Sources */,
 				B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,

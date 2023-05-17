@@ -185,14 +185,13 @@ struct ItemContentDetails: View {
                 ScrollView {
                     if let seasons = viewModel.content?.itemSeasons {
                         SeasonList(showID: id, numberOfSeasons: seasons)
-                            .padding(.horizontal)
                     }
                     ItemContentListView(items: viewModel.recommendations,
                                         title: "Recommendations",
                                         subtitle: "",
                                         image: nil,
                                         addedItemConfirmation: .constant(false),
-                                        displayAsCard: true)
+                                        displayAsCard: false)
                     .padding(.horizontal)
                     CastListView(credits: viewModel.credits)
                         .padding(.bottom)

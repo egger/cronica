@@ -32,7 +32,11 @@ struct SeasonList: View {
         HStack {
             Picker("Seasons", selection: $selectedSeason) {
                 ForEach(numberOfSeasons, id: \.self) { season in
+                    #if os(tvOS)
+                    Text("S\(season)").tag(season)
+                    #else
                     Text("Season \(season)").tag(season)
+                    #endif
                 }
             }
 #if os(tvOS)
@@ -49,7 +53,7 @@ struct SeasonList: View {
 #if os(macOS)
             .frame(maxWidth: 300)
 #elseif os(tvOS)
-            .frame(maxWidth: 600)
+            .frame(maxWidth: 400)
 #endif
             Spacer()
 #if os(iOS) 

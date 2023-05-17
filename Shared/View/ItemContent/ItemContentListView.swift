@@ -87,14 +87,17 @@ struct ItemContentListView: View {
                     .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                     .padding(.leading, item.id == items.first!.id ? 16 : 0)
                     .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                    #if os(tvOS)
+                    .padding(.vertical)
+                    #else
                     .padding(.top, settings.isCompactUI ? 4 : 8)
                     .padding(.bottom, settings.isCompactUI ? 4 : nil)
+                    #endif
                 }
             }
-#if os(tvOS)
-                    .padding(.vertical)
-                    .padding(.horizontal)
-#endif
+            #if os(tvOS)
+            .padding(.vertical)
+            #endif
         }
     }
 }
