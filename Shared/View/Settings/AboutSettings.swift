@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AboutSettings: View {
-    @State private var animateEasterEgg = false
+#if os(iOS)
+    @Environment(\.requestReview) var requestReview
+#endif
     @StateObject private var settings = SettingsStore.shared
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     var body: some View {
@@ -31,9 +33,23 @@ struct AboutSettings: View {
                 }
             }
             
-            #if os(macOS)
+#if os(iOS)
+            Button {
+                requestReview()
+            } label: {
+                Text("settingsReviewCronica")
+            }
+#endif
+            
+            if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
+                ShareLink(item: appUrl).labelStyle(.titleOnly)
+            }
+            
+#if os(macOS)
             privacy
-            #endif
+#endif
+            
+            FeedbackSettingsView()
             
             Section {
                 Button {

@@ -172,7 +172,7 @@ private struct DrawingConstants {
 #elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 240 : 160
     static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 12
 #elseif os(tvOS)
     static let imageWidth: CGFloat = 460
     static let imageHeight: CGFloat = 260

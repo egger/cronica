@@ -15,7 +15,6 @@ struct HomeView: View {
     @AppStorage("showOnboarding") private var displayOnboard = true
 #endif
     @StateObject private var viewModel = HomeViewModel()
-    @State private var showSettings = false
     @State private var showNotifications = false
     @State private var showConfirmation = false
     @State private var reloadUpNext = false
@@ -150,11 +149,6 @@ struct HomeView: View {
                 WelcomeView()
 #if os(macOS)
                     .frame(width: 500, height: 700, alignment: .center)
-#endif
-            }
-            .sheet(isPresented: $showSettings) {
-#if os(iOS)
-                SettingsView(showSettings: $showSettings)
 #endif
             }
             .sheet(isPresented: $showNotifications) {

@@ -219,5 +219,5 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = UIDevice.isIPad ? 250 : 150
     static let imageHeight: CGFloat = UIDevice.isIPad ? 250 : 150
 #endif
-    static let imageShadow: CGFloat = 6
+    static let imageShadow: CGFloat = 12
 }

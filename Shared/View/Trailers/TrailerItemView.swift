@@ -35,6 +35,7 @@ struct TrailerItemView: View {
                     }
                 }
                 .applyHoverEffect()
+                .shadow(radius: 2.5)
             HStack {
                 Text(trailer.title)
                     .lineLimit(DrawingConstants.lineLimits)

@@ -89,6 +89,7 @@ private struct WatchProviderItem: View {
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                .shadow(radius: 2.5)
                 .applyHoverEffect()
             Text(item.providerTitle)
                 .font(.caption)

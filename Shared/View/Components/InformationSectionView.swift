@@ -64,11 +64,13 @@ struct InformationSectionView: View {
     }
 }
 
+
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
         InformationSectionView(item: ItemContent.example)
     }
 }
+#endif
 
 struct InfoView: View {
     let title: String
@@ -90,4 +92,3 @@ struct InfoView: View {
         }
     }
 }
-#endif

@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-#if os(iOS) || os(macOS)
+/// The Details view for ItemContent for iPadOS and macOS, built with larger screen in mind.
 struct ItemContentPadView: View {
     let id: Int
     let title: String
@@ -28,7 +28,9 @@ struct ItemContentPadView: View {
                 SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
             }
             
+#if os(iOS) || os(macOS)
             TrailerListView(trailers: viewModel.content?.itemTrailers)
+#endif
             
             WatchProvidersList(id: id, type: type)
             
@@ -111,6 +113,7 @@ struct ItemContentPadView: View {
                 }
                 .frame(maxWidth: 400)
                 .padding(.bottom)
+#if os(iOS) || os(macOS)
                 .popover(isPresented: $showOverview) {
                     if let overview = viewModel.content?.itemOverview {
                         VStack {
@@ -122,6 +125,7 @@ struct ItemContentPadView: View {
                         .frame(minWidth: 200, maxWidth: 400, minHeight: 200, maxHeight: 300, alignment: .center)
                     }
                 }
+#endif
                 
                 // Actions
                 HStack {
@@ -135,11 +139,13 @@ struct ItemContentPadView: View {
                     .tint(viewModel.isInWatchlist ? .red.opacity(0.8) : .black.opacity(0.8))
                     .disabled(viewModel.isLoading)
                     .buttonStyle(.borderedProminent)
+#if os(iOS) || os(macOS)
                     .controlSize(.large)
+                    .keyboardShortcut("l", modifiers: [.option])
+#endif
 #if os(iOS)
                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 #endif
-                    .keyboardShortcut("l", modifiers: [.option])
                     .applyHoverEffect()
                     
                     if viewModel.isInWatchlist {
@@ -151,7 +157,9 @@ struct ItemContentPadView: View {
                                     .foregroundColor(.primary)
                             }
                             .labelStyle(.iconOnly)
+#if os(iOS) || os(macOS)
                             .controlSize(.large)
+#endif
                             .buttonStyle(.bordered)
 #if os(iOS)
                             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
@@ -173,7 +181,9 @@ struct ItemContentPadView: View {
                                 .appTint()
 #endif
                             }
+#if os(macOS) || os(iOS)
                             .keyboardShortcut("k", modifiers: [.option])
+#endif
                         }
                     }
                 }
@@ -257,4 +267,3 @@ private struct QuickInformationView: View {
         }
     }
 }
-#endif

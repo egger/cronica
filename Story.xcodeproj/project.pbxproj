@@ -264,7 +264,6 @@
 		B8A75FBF2A16B15C00D6C321 /* ItemContentPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */; };
 		B8A75FC22A17212200D6C321 /* ItemContentTVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */; };
 		B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */; };
-		B8A75FC62A17249F00D6C321 /* ItemContentMacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC52A17249F00D6C321 /* ItemContentMacView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8AAA6E929645561004FDF21 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AAA6E829645561004FDF21 /* AppTheme.swift */; };
@@ -595,7 +594,6 @@
 		B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPadView.swift; sourceTree = "<group>"; };
 		B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentTVView.swift; sourceTree = "<group>"; };
 		B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPhoneView.swift; sourceTree = "<group>"; };
-		B8A75FC52A17249F00D6C321 /* ItemContentMacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentMacView.swift; sourceTree = "<group>"; };
 		B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extensions.swift"; sourceTree = "<group>"; };
 		B8AAA6E829645561004FDF21 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		B8AAA6ED296455E2004FDF21 /* AppThemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeModifier.swift; sourceTree = "<group>"; };
@@ -1203,7 +1201,6 @@
 		B8A75FC02A17209500D6C321 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
-				B8A75FC52A17249F00D6C321 /* ItemContentMacView.swift */,
 				B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */,
 				B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */,
 				B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */,
@@ -1807,7 +1804,6 @@
 				B88789D229F8A44C00680FD3 /* RatingView.swift in Sources */,
 				B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */,
 				B845149328E0C96A00963399 /* NotificationListView.swift in Sources */,
-				B8A75FC62A17249F00D6C321 /* ItemContentMacView.swift in Sources */,
 				B8FB2A8E29526341006DAC8E /* BehaviorSetting.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */,
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,

@@ -124,11 +124,6 @@ struct SideBarView: View {
 #if os(iOS)
         .appTheme()
 #endif
-        .sheet(isPresented: $showSettings) {
-#if os(iOS)
-            SettingsView(showSettings: $showSettings)
-#endif
-        }
         .sheet(isPresented: $showNotifications) {
 #if os(iOS) || os(macOS)
             NotificationListView(showNotification: $showNotifications)

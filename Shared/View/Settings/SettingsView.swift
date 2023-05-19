@@ -10,9 +10,6 @@ import SwiftUI
 /// Renders the Settings UI for each OS, support iOS, macOS, and tvOS.
 struct SettingsView: View {
 #if os(iOS)
-    @Binding var showSettings: Bool
-    @Environment(\.requestReview) var requestReview
-    
     @StateObject private var settings = SettingsStore.shared
     static let tag: Screens? = .settings
     @State private var showPolicy = false
@@ -85,21 +82,9 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section {
+                Section("Privacy") {
                     privacy
-                    NavigationLink(destination: FeedbackSettingsView()) {
-                        SettingsLabelWithIcon(title: "settingsFeedbackTitle", icon: "envelope.open", color: .teal)
-                    }
                 }
-                
-                
-                Button {
-                    requestReview()
-                } label: {
-                    Text("settingsReviewCronica")
-                }
-                ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
-                    .labelStyle(.titleOnly)
                 
                 Section {
                     NavigationLink(destination: TipJarSetting()) {
@@ -119,7 +104,6 @@ struct SettingsView: View {
                 case .appearance: AppearanceSetting()
                 case .behavior: BehaviorSetting()
                 case .developer: DeveloperView()
-                case .feedback: FeedbackSettingsView()
                 case .notifications: NotificationsSettingsView()
                 case .sync: SyncSetting()
                 case .tipJar: TipJarSetting()
@@ -133,10 +117,6 @@ struct SettingsView: View {
 #if os(macOS)
     private var macOSSettings: some View {
         TabView {
-            if SettingsStore.shared.displayDeveloperSettings {
-                DeveloperView()
-                    .tabItem { Label("Developer Options", systemImage: "hammer") }
-            }
             BehaviorSetting()
                 .tabItem { Label("settingsBehaviorTitle", systemImage: "cursorarrow.click") }
             
@@ -145,9 +125,6 @@ struct SettingsView: View {
             
             SyncSetting()
                 .tabItem { Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath") }
-            
-            FeedbackSettingsView()
-                .tabItem { Label("Feedback", systemImage: "envelope.open.fill") }
             
             TipJarSetting()
                 .tabItem { Label("tipJar", systemImage: "heart") }
@@ -162,12 +139,7 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
-    @State private static var dismiss = false
     static var previews: some View {
-#if os(iOS)
-        SettingsView(showSettings: $dismiss)
-#else
         SettingsView()
-#endif
     }
 }

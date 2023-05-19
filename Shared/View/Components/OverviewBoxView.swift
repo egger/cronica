@@ -43,20 +43,15 @@ struct OverviewBoxView: View {
         .accessibilityElement(children: .combine)
         .contextMenu { if let overview { ShareLink(item: overview) } }
 #if os(macOS)
-        .sheet(isPresented: $showSheet) {
-            NavigationStack {
-                CenterVerticalView {
-                    Text(overview ?? "No Overview")
-                }
-                .toolbar {
-                    Button("Done") { showSheet.toggle() }
-                }
-                .navigationTitle(title)
+        .popover(isPresented: $showSheet) {
+            ScrollView {
+                Text(overview ?? "No Overview")
+                    .unredacted()
+                    .padding()
             }
-            .presentationDetents([.medium])
-            .frame(width: 500, height: 500, alignment: .center)
+            .frame(width: 400, height: 200, alignment: .center)
         }
-        #elseif os(iOS)
+#elseif os(iOS)
         .groupBoxStyle(TransparentGroupBox())
 #endif
     }

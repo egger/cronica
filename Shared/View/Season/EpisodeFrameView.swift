@@ -182,6 +182,7 @@ struct EpisodeFrameView: View {
 #endif
 #endif
             }
+            .shadow(radius: 2.5)
     }
     
     private func markAsWatched() {
@@ -248,11 +249,10 @@ private struct DrawingConstants {
 #if os(tvOS)
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 200
-    static let imageRadius: CGFloat = 12
 #else
-    static let imageWidth: CGFloat = 160
-    static let imageHeight: CGFloat = 100
-    static let imageRadius: CGFloat = 8
+    static let imageWidth: CGFloat = 180
+    static let imageHeight: CGFloat = 120
 #endif
+    static let imageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1
 }

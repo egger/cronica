@@ -24,7 +24,7 @@ struct EpisodeDetailsView: View {
         details
     }
     
-    #if os(tvOS)
+#if os(tvOS)
     private var details: some View {
         ZStack {
             WebImage(url: episode.itemImageOriginal)
@@ -116,9 +116,9 @@ struct EpisodeDetailsView: View {
             .padding()
         }
     }
-    #endif
+#endif
     
-    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
     private var details: some View {
         VStack {
             ScrollView {
@@ -158,6 +158,7 @@ struct EpisodeDetailsView: View {
                 .keyboardShortcut("e", modifiers: [.control])
 #if os(iOS)
                 .buttonBorderShape(.capsule)
+                .shadow(radius: 5)
 #endif
                 
 #if os(iOS)
@@ -172,6 +173,7 @@ struct EpisodeDetailsView: View {
                     .controlSize(.large)
                     .padding([.horizontal, .top])
                     .buttonBorderShape(.capsule)
+                    .shadow(radius: 5)
                 }
 #endif
                 
@@ -223,11 +225,7 @@ struct EpisodeDetailsView: View {
             CompaniesListView(companies: item)
         }
     }
-    #endif
-    
-    
-    
-    
+#endif
     
     private func load() {
         isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
@@ -242,10 +240,10 @@ struct EpisodeDetailsView: View {
 
 private struct DrawingConstants {
     static let titleLineLimit: Int = 1
-    static let shadowRadius: CGFloat = 5
+    static let shadowRadius: CGFloat = 12
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 12
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12

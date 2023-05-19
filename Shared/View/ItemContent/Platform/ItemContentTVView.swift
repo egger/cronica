@@ -26,7 +26,6 @@ struct ItemContentTVView: View {
                     ItemContentListView(items: viewModel.recommendations,
                                         title: "Recommendations",
                                         subtitle: "",
-                                        image: nil,
                                         addedItemConfirmation: .constant(false),
                                         displayAsCard: false)
                     .padding(.horizontal)
@@ -37,6 +36,9 @@ struct ItemContentTVView: View {
             }
             .task { await viewModel.load() }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        }
+        .background {
+            TranslucentBackground(image: viewModel.content?.cardImageLarge)
         }
         .ignoresSafeArea()
     }
