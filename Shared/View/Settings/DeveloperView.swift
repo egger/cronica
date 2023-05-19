@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS)
 /// This view should be used only on development phase.
 /// Do not utilize this on the TestFlight/App Store version.
 struct DeveloperView: View {
@@ -31,13 +30,13 @@ struct DeveloperView: View {
 #if os(iOS)
                     .keyboardType(.numberPad)
 #endif
-                Picker(selection: $itemMediaType, content: {
+                Picker(selection: $itemMediaType) {
                     ForEach(MediaType.allCases) { media in
                         Text(media.title).tag(media)
                     }
-                }, label: {
+                } label: {
                     Text("Select the Media Type")
-                })
+                }
                 Button {
                     Task {
                         if !itemIdField.isEmpty {
@@ -68,9 +67,6 @@ struct DeveloperView: View {
                         Text("Fetch")
                     }
                 }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
             }
             
             Section("Presentation") {
@@ -150,11 +146,7 @@ struct DeveloperView: View {
                             }
                         }
 #else
-                        .toolbar {
-                            Button("Done") {
-                                self.item = nil
-                            }
-                        }
+                        Button("Done") { self.item = nil }
 #endif
                     }
                     .navigationDestination(for: ItemContent.self) { item in
@@ -170,22 +162,13 @@ struct DeveloperView: View {
                 PersonDetailsView(title: item.name, id: item.id)
                     .toolbar {
                         ToolbarItem {
-                            HStack {
-                                Button("Done") {
-                                    self.person = nil
-                                }
+                            Button("Done") {
+                                self.person = nil
                             }
                         }
                     }
                     .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-                        ItemContentDetailsView(id: item.id,
-                                               title: item.itemTitle,
-                                               type: item.itemContentMedia,
-                                               handleToolbarOnPopup: true)
-#else
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-#endif
                     }
                     .navigationDestination(for: Person.self) { item in
                         PersonDetailsView(title: item.name, id: item.id)
@@ -203,64 +186,3 @@ struct DeveloperView_Previews: PreviewProvider {
         DeveloperView()
     }
 }
-
-private struct ShowAllItemsView: View {
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<WatchlistItem>
-    @State private var query = ""
-    @State private var isSearching = false
-    @State private var filteredItems = [WatchlistItem]()
-    var body: some View {
-        VStack {
-            List {
-                if isSearching {
-                    ProgressView("Searching")
-                } else if !filteredItems.isEmpty {
-                    Section {
-                        ForEach(filteredItems) { item in
-                            WatchlistItemRow(content: item)
-                        }
-                    } header: {
-                        Text("Filtered items - \(filteredItems.count)")
-                    }
-                } else {
-                    Section {
-                        ForEach(items) { item in
-                            WatchlistItemRow(content: item)
-                        }
-                    } header: {
-                        Text("All items - \(items.count)")
-                    }
-                }
-                
-            }
-        }
-        .searchable(text: $query)
-        .task(id: query) {
-            isSearching = true
-            try? await Task.sleep(nanoseconds: 300_000_000)
-            if !filteredItems.isEmpty { filteredItems.removeAll() }
-            filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-            isSearching = false
-        }
-        .navigationTitle("All Items")
-        .navigationDestination(for: WatchlistItem.self) { item in
-#if os(macOS)
-#else
-            ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
-#endif
-        }
-        .navigationDestination(for: ItemContent.self) { item in
-#if os(macOS)
-#else
-            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-#endif
-        }
-        .navigationDestination(for: Person.self) { person in
-            PersonDetailsView(title: person.name, id: person.id)
-        }
-    }
-}
-#endif

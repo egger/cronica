@@ -31,7 +31,7 @@ struct SeasonList: View {
     
     private var header: some View {
         HStack {
-            Picker("Seasons", selection: $selectedSeason) {
+            Picker(selection: $selectedSeason) {
                 ForEach(numberOfSeasons, id: \.self) { season in
 #if os(tvOS)
                     Text("S\(season)").tag(season)
@@ -39,9 +39,15 @@ struct SeasonList: View {
                     Text("Season \(season)").tag(season)
 #endif
                 }
+            } label: {
+#if os(iOS)
+                Text("Seasons")
+#endif
             }
 #if os(tvOS)
             .pickerStyle(.navigationLink)
+#elseif os(macOS)
+            .pickerStyle(.automatic)
 #else
             .pickerStyle(.menu)
 #endif
@@ -52,7 +58,7 @@ struct SeasonList: View {
             .padding(.bottom, 1)
             .unredacted()
 #if os(macOS)
-            .frame(maxWidth: 300)
+            .frame(maxWidth: 200)
 #elseif os(tvOS)
             .frame(maxWidth: 400)
 #endif
@@ -88,13 +94,13 @@ struct SeasonList: View {
                                         EpisodeFrameView(episode: item, season: selectedSeason, show: showID,
                                                          checkedIfWatched: $checkIfWatched)
 #if os(tvOS)
-                                            .frame(width: 360)
+                                        .frame(width: 360)
 #else
-                                            .frame(width: 160)
+                                        .frame(width: 160)
 #endif
-                                            .padding([.leading, .trailing], 4)
-                                            .padding(.leading, item.id == season.first!.id ? 16 : 0)
-                                            .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == season.first!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == season.last!.id ? 16 : 0)
                                     }
                                 }
                                 .padding(.top, 8)

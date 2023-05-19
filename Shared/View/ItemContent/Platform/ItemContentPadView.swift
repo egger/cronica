@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-#if os(iOS)
+#if os(iOS) || os(macOS)
 struct ItemContentPadView: View {
     let id: Int
     let title: String
@@ -43,7 +43,11 @@ struct ItemContentPadView: View {
             
             AttributionView().padding([.top, .bottom])
         }
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+#elseif os(macOS)
+        .navigationTitle(title)
+#endif
     }
     
     private var header: some View {
@@ -88,7 +92,7 @@ struct ItemContentPadView: View {
                 .shadow(radius: 12)
                 .padding()
                 .accessibility(hidden: true)
-                
+            
             
             VStack(alignment: .leading) {
                 Text(title)
@@ -115,7 +119,7 @@ struct ItemContentPadView: View {
                                     .padding()
                             }
                         }
-                        .frame(width: 400, height: 300, alignment: .center)
+                        .frame(minWidth: 200, maxWidth: 400, minHeight: 200, maxHeight: 300, alignment: .center)
                     }
                 }
                 
@@ -132,10 +136,12 @@ struct ItemContentPadView: View {
                     .disabled(viewModel.isLoading)
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
+#if os(iOS)
                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .hoverEffect()
+#endif
                     .keyboardShortcut("l", modifiers: [.option])
-                   
+                    .applyHoverEffect()
+                    
                     if viewModel.isInWatchlist {
                         if let id = viewModel.content?.itemContentID {
                             Button {
@@ -147,9 +153,11 @@ struct ItemContentPadView: View {
                             .labelStyle(.iconOnly)
                             .controlSize(.large)
                             .buttonStyle(.bordered)
+#if os(iOS)
                             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+#endif
                             .padding(.leading, 6)
-                            .hoverEffect()
+                            .applyHoverEffect()
                             .sheet(isPresented: $showCustomList) {
                                 NavigationStack {
                                     ItemContentCustomListSelector(contentID: id,
@@ -158,6 +166,12 @@ struct ItemContentPadView: View {
                                 }
                                 .presentationDetents([.medium, .large])
                                 .presentationDragIndicator(.visible)
+#if os(macOS)
+                                .frame(width: 500, height: 600, alignment: .center)
+#else
+                                .appTheme()
+                                .appTint()
+#endif
                             }
                             .keyboardShortcut("k", modifiers: [.option])
                         }

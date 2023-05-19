@@ -60,7 +60,6 @@ struct SettingsView: View {
         }
     }
     
-    
 #if os(iOS)
     private var details: some View {
         NavigationStack {
@@ -86,7 +85,6 @@ struct SettingsView: View {
                     }
                 }
                 
-                // Privacy and support section
                 Section {
                     privacy
                     NavigationLink(destination: FeedbackSettingsView()) {
@@ -103,7 +101,6 @@ struct SettingsView: View {
                 ShareLink(item: URL(string: "https://apple.co/3TV9SLP")!)
                     .labelStyle(.titleOnly)
                 
-                // About section
                 Section {
                     NavigationLink(destination: TipJarSetting()) {
                         SettingsLabelWithIcon(title: "tipJarTitle", icon: "heart", color: .red)
@@ -136,52 +133,29 @@ struct SettingsView: View {
 #if os(macOS)
     private var macOSSettings: some View {
         TabView {
+            if SettingsStore.shared.displayDeveloperSettings {
+                DeveloperView()
+                    .tabItem { Label("Developer Options", systemImage: "hammer") }
+            }
             BehaviorSetting()
-                .tabItem {
-                    Label("settingsBehaviorTitle", systemImage: "cursorarrow.click")
-                }
+                .tabItem { Label("settingsBehaviorTitle", systemImage: "cursorarrow.click") }
+            
             AppearanceSetting()
-                .tabItem {
-                    Label("settingsAppearanceTitle", systemImage: "moon.stars")
-                }
+                .tabItem { Label("settingsAppearanceTitle", systemImage: "moon.stars") }
+            
             SyncSetting()
-                .tabItem {
-                    Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath")
-                }
+                .tabItem { Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath") }
             
             FeedbackSettingsView()
-                .tabItem {
-                    Label("Feedback", systemImage: "envelope.open.fill")
-                }
-            
-            Form {
-                //PrivacySupportSetting()
-            }
-            .formStyle(.grouped)
-            .tabItem {
-                Label("Privacy", systemImage: "hand.raised.fill")
-            }
-            
-            #warning("check count api to reenable this feature")
-//            Form {
-//                FeatureRoadmap()
-//            }
-//            .formStyle(.grouped)
-//            .tabItem {
-//                Label("featureRoadmap", systemImage: "map")
-//            }
+                .tabItem { Label("Feedback", systemImage: "envelope.open.fill") }
             
             TipJarSetting()
-                .tabItem {
-                    Label("tipJar", systemImage: "heart")
-                }
+                .tabItem { Label("tipJar", systemImage: "heart") }
             
-            AcknowledgementsSettings()
-                .tabItem {
-                    Label("acknowledgmentsTitle", systemImage: "doc")
-                }
+            AboutSettings()
+                .tabItem { Label("aboutTitle", systemImage: "info.circle") }
         }
-        .frame(minWidth: 720, idealWidth: 720, minHeight: 320, idealHeight: 320)
+        .frame(minWidth: 600, idealWidth: 620, minHeight: 320, idealHeight: 320)
         .tabViewStyle(.automatic)
     }
 #endif

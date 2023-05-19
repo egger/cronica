@@ -39,7 +39,7 @@ struct ItemContentDetails: View {
             if viewModel.isLoading { ProgressView().padding() }
             ScrollView {
 #if os(macOS)
-                ItemContentMacView(title: title, type: type, id: id, showConfirmation: $showConfirmation)
+                ItemContentPadView(id: id, title: title, type: type, showConfirmation: $showConfirmation)
                     .environmentObject(viewModel)
 #elseif os(iOS)
                 if UIDevice.isIPad {
@@ -90,9 +90,6 @@ struct ItemContentDetails: View {
                                 favoriteButton
                                 archiveButton
                                 pinButton
-                                if viewModel.isInWatchlist {
-                                    addToCustomListButton
-                                }
                                 shareButton
                             }
                             shareButton
@@ -233,7 +230,13 @@ struct ItemContentDetails: View {
     private var moreMenu: some View {
         Menu {
             if viewModel.isInWatchlist {
+                #if os(iOS)
+                if UIDevice.isIPhone {
+                    addToCustomListButton
+                }
+                #else
                 addToCustomListButton
+                #endif
                 archiveButton
                 pinButton
                 userNotesButton

@@ -20,6 +20,7 @@ struct BehaviorSetting: View {
             links
 #endif
             otherOptions
+            watchProviders
 #if os(iOS)
             
             Button("changeLanguage") {
@@ -51,7 +52,6 @@ struct BehaviorSetting: View {
     
     private var gesture: some View {
         Section {
-#if os(iOS)
             Picker(selection: $store.gesture) {
                 ForEach(UpdateItemProperties.allCases) { item in
                     Text(item.title).tag(item)
@@ -60,7 +60,6 @@ struct BehaviorSetting: View {
                 InformationalLabel(title: "behaviorDoubleTapTitle",
                                    subtitle: "behaviorDoubleTapSubtitle")
             }
-#endif
             Toggle(isOn: $store.markEpisodeWatchedOnTap) {
                 InformationalLabel(title: "behaviorEpisodeTitle")
             }

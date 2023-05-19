@@ -43,10 +43,13 @@ struct FeedbackSettingsView: View {
                     .buttonStyle(.link)
 #endif
                 } footer: {
-                    VStack(alignment: .leading) {
-                        Text("sendEmailFooter")
-                        Text("sendEmailFooterBackup")
-                            .textSelection(.enabled)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("sendEmailFooter")
+                            Text("sendEmailFooterBackup")
+                                .textSelection(.enabled)
+                        }
+                        Spacer()
                     }
                 }
 #endif

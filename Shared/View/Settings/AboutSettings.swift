@@ -19,9 +19,9 @@ struct AboutSettings: View {
                         Image("Cronica")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .circular))
-                            .shadow(radius: 5)
+                            .frame(width: 120, height: 120, alignment: .center)
+                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .shadow(radius: 2.5)
                         Text("Developed by Alexandre Madeira")
                             .font(.caption2)
                             .foregroundColor(.secondary)
@@ -30,6 +30,11 @@ struct AboutSettings: View {
                     }
                 }
             }
+            
+            #if os(macOS)
+            privacy
+            #endif
+            
             Section {
                 Button {
                     openUrl("https://www.fiverr.com/akhmad437")
@@ -73,7 +78,7 @@ struct AboutSettings: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
-            } 
+            }
             
             Section {
                 Button {
@@ -92,7 +97,7 @@ struct AboutSettings: View {
                     Text("Version \(appVersion ?? "")")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
-                        .onLongPressGesture {
+                        .onTapGesture(count: 2) {
                             settings.displayDeveloperSettings.toggle()
                         }
                 }
@@ -103,6 +108,20 @@ struct AboutSettings: View {
         .formStyle(.grouped)
 #endif
     }
+    
+#if os(macOS)
+    private var privacy: some View {
+        Section {
+            Button("settingsPrivacyPolicy") {
+                guard let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") else { return }
+                NSWorkspace.shared.open(url)
+            }
+            .buttonStyle(.link)
+        } header: {
+            Label("Privacy", systemImage: "hand.raised")
+        }
+    }
+#endif
     
     private func openUrl(_ url: String) {
         guard let url = URL(string: url) else { return }
