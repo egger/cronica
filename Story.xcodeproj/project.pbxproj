@@ -108,7 +108,6 @@
 		B824E43C2A059DF500E385CE /* LargerHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E43B2A059DF500E385CE /* LargerHeader.swift */; };
 		B824E43E2A059E0900E385CE /* GlanceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E43D2A059E0900E385CE /* GlanceInfo.swift */; };
 		B824E4402A059E2400E385CE /* TransparentGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E43F2A059E2400E385CE /* TransparentGroupBox.swift */; };
-		B824E4422A05A3F600E385CE /* TVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E4412A05A3F600E385CE /* TVHeader.swift */; };
 		B824E4442A05A4C500E385CE /* InfoSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E4432A05A4C500E385CE /* InfoSegmentView.swift */; };
 		B824E4492A05A9AE00E385CE /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
 		B824E44A2A05A9AF00E385CE /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
@@ -264,6 +263,8 @@
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
 		B8A4511729F855CB0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
 		B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
+		B8A75FBF2A16B15C00D6C321 /* ItemContentPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */; };
+		B8A75FC22A17212200D6C321 /* ItemContentTVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8AAA6E929645561004FDF21 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AAA6E829645561004FDF21 /* AppTheme.swift */; };
@@ -486,7 +487,6 @@
 		B824E43B2A059DF500E385CE /* LargerHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargerHeader.swift; sourceTree = "<group>"; };
 		B824E43D2A059E0900E385CE /* GlanceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceInfo.swift; sourceTree = "<group>"; };
 		B824E43F2A059E2400E385CE /* TransparentGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentGroupBox.swift; sourceTree = "<group>"; };
-		B824E4412A05A3F600E385CE /* TVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVHeader.swift; sourceTree = "<group>"; };
 		B824E4432A05A4C500E385CE /* InfoSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSegmentView.swift; sourceTree = "<group>"; };
 		B82B759428A84C8C00C3212A /* CompanionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionTextView.swift; sourceTree = "<group>"; };
 		B82B759F28A84D6600C3212A /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
@@ -595,6 +595,8 @@
 		B89ECD052985F11100F0B197 /* TitleWatchlistDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWatchlistDetails.swift; sourceTree = "<group>"; };
 		B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentCustomListSelector.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
+		B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPadView.swift; sourceTree = "<group>"; };
+		B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentTVView.swift; sourceTree = "<group>"; };
 		B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extensions.swift"; sourceTree = "<group>"; };
 		B8AAA6E829645561004FDF21 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		B8AAA6ED296455E2004FDF21 /* AppThemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeModifier.swift; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 		B824E4382A04A77800E385CE /* ItemContent */ = {
 			isa = PBXGroup;
 			children = (
+				B8A75FC02A17209500D6C321 /* Platform */,
 				B804E396284FCBCB00F59855 /* CardFrame.swift */,
 				B804E392284EC4A500F59855 /* CoverImageView.swift */,
 				B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */,
@@ -1201,6 +1204,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		B8A75FC02A17209500D6C321 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */,
+				B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
 		B8ADAF6D282C42A9001D72EF /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -1365,7 +1377,6 @@
 				B81941AA2A0835D40057DA04 /* PosterPlaceholder.swift */,
 				B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */,
 				B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */,
-				B824E4412A05A3F600E385CE /* TVHeader.swift */,
 				B8F6D6CC29DB40D300B9190B /* TV Views */,
 			);
 			path = Components;
@@ -1778,6 +1789,7 @@
 				B81941A52A0833450057DA04 /* AddToListRow.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* WatchlistItemRow.swift in Sources */,
 				B89ECD062985F11100F0B197 /* TitleWatchlistDetails.swift in Sources */,
+				B8A75FC22A17212200D6C321 /* ItemContentTVView.swift in Sources */,
 				B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
@@ -1824,7 +1836,6 @@
 				B8B981ED29F42BCD0001CF0B /* TMDBListsView.swift in Sources */,
 				B8105244298D2E7700723E94 /* SwipeGestureOptions.swift in Sources */,
 				B8A4511729F855CB0027E3E2 /* CenterVerticalView.swift in Sources */,
-				B824E4422A05A3F600E385CE /* TVHeader.swift in Sources */,
 				B887B0AC29EC149600E98DED /* WatchProviderSelectorSetting.swift in Sources */,
 				B8C0215A29E0D527006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */,
 				B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */,
@@ -1841,6 +1852,7 @@
 				B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */,
 				B8FB2A8229524C37006DAC8E /* WatchlistItemPoster.swift in Sources */,
 				B8105259298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */,
+				B8A75FBF2A16B15C00D6C321 /* ItemContentPadView.swift in Sources */,
 				B8FB2A8929524FAD006DAC8E /* WatchlistPosterSection.swift in Sources */,
 				B892EB0C29675582002E028E /* TipJarSetting.swift in Sources */,
 				B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */,

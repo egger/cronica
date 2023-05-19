@@ -21,9 +21,6 @@ struct ItemContentListView: View {
     var body: some View {
         if let items {
             if !items.isEmpty {
-                if displayAsCard {
-                    Divider().padding(.horizontal)
-                }
                 VStack {
 #if os(tvOS)
                     TitleView(title: title, subtitle: subtitle)
@@ -55,7 +52,6 @@ struct ItemContentListView: View {
                         }
                     }
                 }
-                if displayAsCard { Divider().padding(.horizontal) }
             }
         }
     }

@@ -16,9 +16,6 @@ struct TrailerListView: View {
         if let trailers {
             if !trailers.isEmpty {
                 VStack {
-#if os(iOS)
-                    Divider().padding(.horizontal)
-#endif
                     TitleView(title: "Trailers", subtitle: "", image: nil, showChevron: false)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
@@ -30,11 +27,10 @@ struct TrailerListView: View {
                                     .padding(.horizontal, 4)
                                     .padding(.leading, trailer.id == self.trailers?.first!.id ? 16 : 0)
                                     .padding(.trailing, trailer.id == self.trailers?.last!.id ? 16 : 0)
+                                    .padding(.top, 8)
                             }
                         }
-                        .padding(.top, 8)
                     }
-                    Divider().padding(.horizontal)
                 }
 #if os(iOS)
                 .fullScreenCover(item: $selectedItem) { item in

@@ -23,20 +23,21 @@ struct SeasonList: View {
         VStack {
             header
             list
-            Divider().padding()
         }
-        .onAppear(perform: load)
+        .task {
+            load()
+        }
     }
     
     private var header: some View {
         HStack {
             Picker("Seasons", selection: $selectedSeason) {
                 ForEach(numberOfSeasons, id: \.self) { season in
-                    #if os(tvOS)
+#if os(tvOS)
                     Text("S\(season)").tag(season)
-                    #else
+#else
                     Text("Season \(season)").tag(season)
-                    #endif
+#endif
                 }
             }
 #if os(tvOS)
@@ -95,9 +96,8 @@ struct SeasonList: View {
                                             .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                             .padding(.trailing, item.id == season.last!.id ? 16 : 0)
                                     }
-                                    .padding(0)
-                                    .buttonStyle(.plain)
                                 }
+                                .padding(.top, 8)
                             }
                             .onAppear {
                                 if !hasFirstLoaded { return }

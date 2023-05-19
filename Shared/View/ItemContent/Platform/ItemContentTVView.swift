@@ -1,19 +1,47 @@
 //
-//  TVHeader.swift
+//  ItemContentTVView.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 05/05/23.
+//  Created by Alexandre Madeira on 19/05/23.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct TVHeader: View {
-    @EnvironmentObject var viewModel: ItemContentViewModel
-    @State private var showOverview = false
+struct ItemContentTVView: View {
     let title: String
     let type: MediaType
+    let id: Int
+    @EnvironmentObject var viewModel: ItemContentViewModel
+    @State private var showOverview = false
     var body: some View {
+        ScrollView {
+            header
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
+            VStack {
+                ScrollView {
+                    if let seasons = viewModel.content?.itemSeasons {
+                        SeasonList(showID: id, numberOfSeasons: seasons)
+                    }
+                    ItemContentListView(items: viewModel.recommendations,
+                                        title: "Recommendations",
+                                        subtitle: "",
+                                        image: nil,
+                                        addedItemConfirmation: .constant(false),
+                                        displayAsCard: false)
+                    .padding(.horizontal)
+                    CastListView(credits: viewModel.credits)
+                        .padding(.bottom)
+                    AttributionView()
+                }
+            }
+            .task { await viewModel.load() }
+            .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        }
+        .ignoresSafeArea()
+    }
+    
+    private var header: some View {
         ZStack {
             if viewModel.isLoading { ProgressView("Loading").unredacted() }
             WebImage(url: viewModel.content?.cardImageOriginal)
@@ -139,5 +167,11 @@ struct TVHeader: View {
             }
             .padding()
         }
+    }
+}
+
+struct ItemContentTVView_Previews: PreviewProvider {
+    static var previews: some View {
+        ItemContentTVView(title: "Preview", type: .movie, id: ItemContent.example.id)
     }
 }

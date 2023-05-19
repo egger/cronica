@@ -27,11 +27,7 @@ struct TranslucentBackground: View {
                     .padding(.zero)
                     .transition(.opacity)
                 Rectangle()
-#if os(iOS)
-                    .fill(.regularMaterial)
-#else
                     .fill(.ultraThickMaterial)
-#endif
                     .ignoresSafeArea()
                     .padding(.zero)
             }

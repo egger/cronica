@@ -33,7 +33,8 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
     let mediaType: String?
     var videos: Videos?
     var nextEpisodeToAir, lastEpisodeToAir: Episode?
-    let keywords: Keywords?
+    let originalName, firstAirDate, homepage: String?
+    
 }
 struct ProductionCompany: Identifiable, Codable, Hashable {
     let name: String

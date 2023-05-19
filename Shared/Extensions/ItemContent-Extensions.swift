@@ -258,6 +258,20 @@ extension ItemContent {
         return "\(itemContentMedia.title)"
     }
     
+
+    var originalItemTitle: String? {
+        if let originalTitle { return originalTitle }
+        if let originalName { return originalName }
+        return nil
+    }
+    
+    var itemInfoTVShow: String? {
+        if let numberOfSeasons, let numberOfEpisodes {
+            return NSLocalizedString("\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes", comment: "")
+        }
+        return nil
+    }
+    
     // MARK: Int
     var itemSeasons: [Int]? {
         guard let numberOfSeasons else { return nil }
@@ -271,6 +285,16 @@ extension ItemContent {
         }
         return nil
     }
+    
+    var itemFirstAirDate: String? {
+        if let firstAirDate {
+            let date = DatesManager.dateFormatter.date(from: firstAirDate)
+            guard let date else { return nil }
+            return DatesManager.dateString.string(from: date)
+        }
+        return nil
+    }
+    
     var itemTheatricalDate: Date? {
         if let itemTheatricalString {
             return DatesManager.dateString.date(from: itemTheatricalString)

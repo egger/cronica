@@ -32,7 +32,7 @@ extension VideosResult {
     }
     var isTrailer: Bool {
         if official {
-            if type.lowercased() == "trailer" || type.lowercased() == "teaser" {
+            if type.lowercased() == "trailer" {
                 return isYouTube
             }
         }

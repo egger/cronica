@@ -262,9 +262,11 @@ class NetworkService {
         var items: [VideoItem] = []
         for video in videos {
             if video.isTrailer {
-                items.append(VideoItem.init(url: urlBuilder(video: video.key),
-                                            thumbnail: fetchThumbnail(for: video.key),
-                                            title: video.name))
+                if video.isTrailer {
+                    items.append(VideoItem.init(url: urlBuilder(video: video.key),
+                                                thumbnail: fetchThumbnail(for: video.key),
+                                                title: video.name))
+                }
             }
         }
         return items

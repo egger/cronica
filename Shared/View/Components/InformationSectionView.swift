@@ -58,7 +58,7 @@ struct InformationBoxView_Previews: PreviewProvider {
     }
 }
 
-private struct InfoView: View {
+struct InfoView: View {
     let title: String
     let content: String?
     var body: some View {

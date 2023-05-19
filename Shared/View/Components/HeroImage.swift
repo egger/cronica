@@ -11,7 +11,6 @@ import SDWebImageSwiftUI
 struct HeroImage: View {
     let url: URL?
     let title: String
-    var blurImage: Bool = false
     var type: MediaType = .movie
     var body: some View {
         WebImage(url: url, options: .highPriority)
@@ -19,18 +18,6 @@ struct HeroImage: View {
             .placeholder { placeholder }
             .aspectRatio(contentMode: .fill)
             .transition(.opacity)
-            .overlay {
-                if blurImage {
-#if os(watchOS)
-                    Rectangle().fill(.secondary)
-#else
-                    Rectangle().fill(.ultraThinMaterial)
-#endif
-                    Image(systemName: "eye.slash.fill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 30))
-                }
-            }
     }
     private var placeholder: some View {
         ZStack {

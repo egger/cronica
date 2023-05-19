@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 struct ItemContentDetails: View {
     var title: String
     var id: Int
@@ -41,7 +41,12 @@ struct ItemContentDetails: View {
 #if os(macOS)
                 macOS
 #elseif os(iOS)
-                iOS
+                if UIDevice.isIPad {
+                    ItemContentPadView(id: id, title: title, type: type, showConfirmation: $showConfirmation)
+                        .environmentObject(viewModel)
+                } else {
+                    iOS
+                }
 #endif
             }
             .background {
@@ -53,25 +58,13 @@ struct ItemContentDetails: View {
                 viewModel.checkIfAdded()
             }
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            .navigationTitle(title)
             .toolbar {
 #if os(iOS)
                 ToolbarItem {
                     HStack {
                         shareButton
                             .disabled(viewModel.isLoading ? true : false)
-                        if UIDevice.isIPad {
-                            if viewModel.isInWatchlist {
-                                watchButton
-                                favoriteButton
-                                archiveButton
-                                pinButton
-                                addToCustomListButton
-                                openInMenu
-                            }
-                        } else {
-                            moreMenu
-                        }
+                        moreMenu
                     }
                 }
 #elseif os(macOS)
@@ -93,6 +86,8 @@ struct ItemContentDetails: View {
                             HStack {
                                 watchButton
                                 favoriteButton
+                                archiveButton
+                                pinButton
                                 if viewModel.isInWatchlist {
                                     addToCustomListButton
                                 }
@@ -140,7 +135,8 @@ struct ItemContentDetails: View {
             ConfirmationDialogView(showConfirmation: $showNotificationUI,
                                    message: notificationMessage, image: notificationImage)
 #elseif os(tvOS)
-            tvOS
+            ItemContentTVView(title: title, type: type, id: id)
+                .environmentObject(viewModel)
 #endif
         }
     }
@@ -172,52 +168,19 @@ struct ItemContentDetails: View {
             
             AttributionView()
         }
+        .navigationTitle(title)
     }
 #endif
-    
-#if os(tvOS)
-    private var tvOS: some View {
-        ScrollView {
-            TVHeader(title: title, type: type)
-                .environmentObject(viewModel)
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            VStack {
-                ScrollView {
-                    if let seasons = viewModel.content?.itemSeasons {
-                        SeasonList(showID: id, numberOfSeasons: seasons)
-                    }
-                    ItemContentListView(items: viewModel.recommendations,
-                                        title: "Recommendations",
-                                        subtitle: "",
-                                        image: nil,
-                                        addedItemConfirmation: .constant(false),
-                                        displayAsCard: false)
-                    .padding(.horizontal)
-                    CastListView(credits: viewModel.credits)
-                        .padding(.bottom)
-                    AttributionView()
-                }
-            }
-            .task { await viewModel.load() }
-            .redacted(reason: viewModel.isLoading ? .placeholder : [])
-        }
-        .ignoresSafeArea()
-    }
-#endif
-    
+     
 #if os(iOS)
     var iOS: some View {
         VStack {
-            CoverImageView(isFavorite: $viewModel.isFavorite,
-                           isWatched: $viewModel.isWatched,
-                           isPin: $viewModel.isPin,
-                           isArchive: $viewModel.isArchive,
-                           title: title)
-            .environmentObject(viewModel)
+            CoverImageView(title: title)
+                .environmentObject(viewModel)
             DetailWatchlistButton()
                 .keyboardShortcut("l", modifiers: [.option])
                 .environmentObject(viewModel)
-            
+
             OverviewBoxView(overview: viewModel.content?.itemOverview,
                             title: title)
             .padding()
@@ -245,27 +208,8 @@ struct ItemContentDetails: View {
             AttributionView()
                 .padding([.top, .bottom])
         }
-    }
-#endif
-    
-#if os(iOS)
-    private var verticalHeader: some View {
-        VStack {
-            CoverImageView(isFavorite: $viewModel.isFavorite,
-                           isWatched: $viewModel.isWatched,
-                           isPin: $viewModel.isPin,
-                           isArchive: $viewModel.isArchive,
-                           title: title)
-            .environmentObject(viewModel)
-            
-            DetailWatchlistButton()
-                .keyboardShortcut("l", modifiers: [.option])
-                .environmentObject(viewModel)
-            
-            OverviewBoxView(overview: viewModel.content?.itemOverview,
-                            title: title)
-            .padding()
-        }
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.automatic)
     }
 #endif
     
@@ -329,6 +273,12 @@ struct ItemContentDetails: View {
 #if os(iOS)
     private var openInMenu: some View {
         Menu {
+            if let homepage = viewModel.content?.homepage {
+                Button("Official Website") {
+                    guard let url = URL(string: homepage) else { return }
+                    UIApplication.shared.open(url)
+                }
+            }
             if viewModel.content?.hasIMDbUrl ?? false {
                 Button("IMDb") {
                     guard let url = viewModel.content?.imdbUrl else { return }
@@ -416,8 +366,10 @@ struct ItemContentDetails: View {
 
 struct ItemContentDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentDetails(title: ItemContent.example.itemTitle,
-                           id: ItemContent.example.id,
-                           type: .movie)
+        NavigationStack {
+            ItemContentDetails(title: ItemContent.example.itemTitle,
+                               id: ItemContent.example.id,
+                               type: .movie)
+        }
     }
 }
