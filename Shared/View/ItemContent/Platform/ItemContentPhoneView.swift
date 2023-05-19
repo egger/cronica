@@ -72,8 +72,7 @@ struct ItemContentPhoneView: View {
             .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
             .shadow(radius: DrawingConstants.shadowRadius)
-            .padding(.top)
-            .padding(.bottom, 4)
+            .padding(.vertical)
             .accessibilityElement(children: .combine)
             .accessibility(hidden: true)
             .onTapGesture(count: 2) {
@@ -111,9 +110,9 @@ struct ItemContentPhoneView_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-    static let shadowRadius: CGFloat = 5
+    static let shadowRadius: CGFloat = 12
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 12
 }
 #endif

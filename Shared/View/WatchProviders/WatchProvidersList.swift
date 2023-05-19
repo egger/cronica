@@ -43,6 +43,7 @@ struct WatchProvidersList: View {
                             .hoverEffect()
 #endif
                         }
+                        .padding(.bottom)
                     }
                 }
             }

@@ -61,11 +61,10 @@ struct SettingsView: View {
     }
     
     
-    #if os(iOS)
+#if os(iOS)
     private var details: some View {
-        NavigationSplitView {
-            List(selection: $selectedView) {
-                
+        NavigationStack {
+            Form {
                 if settings.displayDeveloperSettings {
                     NavigationLink(value: SettingsScreens.developer) {
                         SettingsLabelWithIcon(title: "Developer Options", icon: "hammer", color: .purple)
@@ -85,9 +84,6 @@ struct SettingsView: View {
                     NavigationLink(value: SettingsScreens.notifications) {
                         SettingsLabelWithIcon(title: "settingsNotificationTitle", icon: "bell", color: .red)
                     }
-//                    NavigationLink(destination: ContentRegionSettings()) {
-//                        SettingsLabelWithIcon(title: "contentRegionTitleSettings", icon: "globe.desk", color: .black)
-//                    }
                 }
                 
                 // Privacy and support section
@@ -96,9 +92,6 @@ struct SettingsView: View {
                     NavigationLink(destination: FeedbackSettingsView()) {
                         SettingsLabelWithIcon(title: "settingsFeedbackTitle", icon: "envelope.open", color: .teal)
                     }
-//                    NavigationLink(destination: FeatureRoadmap()) {
-//                        SettingsLabelWithIcon(title: "featureRoadmap", icon: "map", color: .pink)
-//                    }
                 }
                 
                 
@@ -123,36 +116,22 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .listStyle(.insetGrouped)
-        } detail: {
-            ZStack {
-                switch selectedView {
-                case .about:
-                    AcknowledgementsSettings()
-                case .appearance:
-                    AppearanceSetting()
-                case .behavior:
-                    BehaviorSetting()
-                case .developer:
-                    DeveloperView()
-                case .roadmap:
-                    FeatureRoadmap()
-                case .feedback:
-                    FeedbackSettingsView()
-                case .notifications:
-                    NotificationsSettingsView()
-                case .sync:
-                    SyncSetting()
-                case .tipJar:
-                    TipJarSetting()
-                default:
-                    BehaviorSetting()
+            .navigationDestination(for: SettingsScreens.self) { settings in
+                switch settings {
+                case .about: AboutSettings()
+                case .appearance: AppearanceSetting()
+                case .behavior: BehaviorSetting()
+                case .developer: DeveloperView()
+                case .feedback: FeedbackSettingsView()
+                case .notifications: NotificationsSettingsView()
+                case .sync: SyncSetting()
+                case .tipJar: TipJarSetting()
+                default: BehaviorSetting()
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
-    #endif
+#endif
     
 #if os(macOS)
     private var macOSSettings: some View {

@@ -7,14 +7,32 @@
 
 import SwiftUI
 
-struct AcknowledgementsSettings: View {
+struct AboutSettings: View {
     @State private var animateEasterEgg = false
     @StateObject private var settings = SettingsStore.shared
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     var body: some View {
         Form {
             Section {
+                CenterHorizontalView {
+                    VStack {
+                        Image("Cronica")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .circular))
+                            .shadow(radius: 5)
+                        Text("Developed by Alexandre Madeira")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .textCase(.uppercase)
+                            .padding(.top)
+                    }
+                }
+            }
+            Section {
                 Button {
-                    openUrl(URL(string: "https://www.fiverr.com/akhmad437")!)
+                    openUrl("https://www.fiverr.com/akhmad437")
                 } label: {
                     InformationalLabel(title: "acknowledgmentsAppIconTitle",
                                        subtitle: "acknowledgmentsAppIconSubtitle")
@@ -23,7 +41,7 @@ struct AcknowledgementsSettings: View {
                 .buttonStyle(.link)
 #endif
                 Button {
-                    openUrl(URL(string: "https://www.themoviedb.org")!)
+                    openUrl("https://www.themoviedb.org")
                 } label: {
                     InformationalLabel(title: "acknowledgmentsContentProviderTitle",
                                        subtitle: "acknowledgmentsContentProviderSubtitle")
@@ -32,7 +50,7 @@ struct AcknowledgementsSettings: View {
                 .buttonStyle(.link)
 #endif
                 Button {
-                    openUrl(URL(string: "https://github.com/SDWebImage/SDWebImageSwiftUI")!)
+                    openUrl("https://github.com/SDWebImage/SDWebImageSwiftUI")
                 } label: {
                     InformationalLabel(title: "acknowledgmentsSDWebImage")
                 }
@@ -40,7 +58,7 @@ struct AcknowledgementsSettings: View {
                 .buttonStyle(.link)
 #endif
                 Button {
-                    openUrl(URL(string: "https://github.com/AvdLee/Roadmap")!)
+                    openUrl("https://github.com/AvdLee/Roadmap")
                 } label: {
                     InformationalLabel(title: "Roadmap")
                 }
@@ -48,7 +66,7 @@ struct AcknowledgementsSettings: View {
                 .buttonStyle(.link)
 #endif
                 Button {
-                    openUrl(URL(string: "https://telemetrydeck.com/")!)
+                    openUrl("https://telemetrydeck.com/")
                 } label: {
                     InformationalLabel(title: "TelemetryDeck")
                 }
@@ -59,7 +77,7 @@ struct AcknowledgementsSettings: View {
             
             Section {
                 Button {
-                    openUrl(URL(string: "https://github.com/MadeiraAlexandre/Cronica")!)
+                    openUrl("https://github.com/MadeiraAlexandre/Cronica")
                 } label: {
                     InformationalLabel(title: "cronicaGitHub")
                 }
@@ -71,24 +89,12 @@ struct AcknowledgementsSettings: View {
             
             Section {
                 CenterHorizontalView {
-                    Text("Made in Brazil 🇧🇷")
-                        .onTapGesture {
-                            Task {
-                                withAnimation {
-                                    self.animateEasterEgg.toggle()
-                                }
-                                try? await Task.sleep(nanoseconds: 1_500_000_000)
-                                withAnimation {
-                                    self.animateEasterEgg.toggle()
-                                }
-                            }
-                        }
+                    Text("Version \(appVersion ?? "")")
+                        .foregroundColor(.secondary)
+                        .textCase(.uppercase)
                         .onLongPressGesture {
-                            withAnimation { settings.displayDeveloperSettings.toggle() }
+                            settings.displayDeveloperSettings.toggle()
                         }
-                        .font(animateEasterEgg ? .title3 : .caption)
-                        .foregroundColor(animateEasterEgg ? .green : nil)
-                        .animation(.easeInOut, value: animateEasterEgg)
                 }
             }
         }
@@ -98,7 +104,8 @@ struct AcknowledgementsSettings: View {
 #endif
     }
     
-    private func openUrl(_ url: URL) {
+    private func openUrl(_ url: String) {
+        guard let url = URL(string: url) else { return }
 #if os(macOS)
         NSWorkspace.shared.open(url)
 #else
@@ -107,8 +114,8 @@ struct AcknowledgementsSettings: View {
     }
 }
 
-struct AcknowledgementsSettings_Previews: PreviewProvider {
+struct AboutSettings_Previews: PreviewProvider {
     static var previews: some View {
-        AcknowledgementsSettings()
+        AboutSettings()
     }
 }

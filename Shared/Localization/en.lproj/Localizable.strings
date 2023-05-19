@@ -600,4 +600,14 @@
 "removedFromArchive" = "Removed from Archive";
 "markedAsArchive" = "Marked as Archive";
 
-"contentRegionTitleSettings" = "Content & Region";
+"aboutTitle" = "About";
+"Version %@" = "Version %@";
+"TelemetryDeck" = "TelemetryDeck";
+"Roadmap" = "Roadmap";
+"Developed by Alexandre Madeira" = "Developed by Alexandre Madeira";
+"Official Website" = "Official Website";
+"%lld/10" = "%lld/10";
+"First Air Date" = "First Air Date";
+"%lld Seasons • %lld Episodes" = "%lld Seasons • %lld Episodes";
+"Overview" = "Overview";
+"Original Title" = "Original Title";

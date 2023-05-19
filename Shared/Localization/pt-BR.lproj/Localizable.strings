@@ -630,3 +630,15 @@
 "markedAsPin" = "Marcado como fixado";
 "removedFromArchive" = "Removido do arquivo";
 "markedAsArchive" = "Marcado como arquivado";
+
+"aboutTitle" = "Sobre";
+"Version %@" = "Versão %@";
+"TelemetryDeck" = "TelemetryDeck";
+"Roadmap" = "Roadmap";
+"Developed by Alexandre Madeira" = "Desenvolvido por Alexandre Madeira";
+"Official Website" = "Website Oficial";
+"%lld/10" = "%lld/10";
+"First Air Date" = "Data de Estreia";
+"%lld Seasons • %lld Episodes" = "%lld Temporadas • %lld Episódios";
+"Overview" = "Visão Geral";
+"Original Title" = "Título Original";

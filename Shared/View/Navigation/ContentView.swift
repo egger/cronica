@@ -8,15 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-#if os(iOS)
-    @State private var isPad = UIDevice.isIPad
-#endif
     var body: some View {
 #if os(iOS) || os(tvOS)
         TabBarView()
-//#if os(iOS)
-//            .appTint()
-//#endif
 #elseif os(macOS)
         SideBarView()
 #endif   
