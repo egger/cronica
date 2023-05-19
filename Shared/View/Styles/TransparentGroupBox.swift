@@ -13,20 +13,20 @@ struct TransparentGroupBox: GroupBoxStyle {
             HStack {
                 configuration.label
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                 Spacer()
             }
             
             configuration.content
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
         }
         .padding()
         .background {
             ZStack {
-                Rectangle().fill(.black.opacity(0.2))
-                Rectangle().fill(.ultraThinMaterial)
+                Rectangle().fill(.background)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .shadow(radius: 1)
         }
     }
 }

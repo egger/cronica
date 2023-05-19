@@ -15,7 +15,6 @@
 		B801071129F2562C008A4551 /* WatchlistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801071029F2562C008A4551 /* WatchlistSectionView.swift */; };
 		B801071329F2566B008A4551 /* WatchlistSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801071229F2566B008A4551 /* WatchlistSelectorView.swift */; };
 		B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80318A729256AE700714B3E /* FeedbackSettingsView.swift */; };
-		B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E392284EC4A500F59855 /* CoverImageView.swift */; };
 		B804E395284EDC2B00F59855 /* ItemContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E394284EDC2B00F59855 /* ItemContentListView.swift */; };
 		B804E397284FCBCB00F59855 /* CardFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B804E396284FCBCB00F59855 /* CardFrame.swift */; };
 		B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */; };
@@ -427,7 +426,6 @@
 		B801071029F2562C008A4551 /* WatchlistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSectionView.swift; sourceTree = "<group>"; };
 		B801071229F2566B008A4551 /* WatchlistSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSelectorView.swift; sourceTree = "<group>"; };
 		B80318A729256AE700714B3E /* FeedbackSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSettingsView.swift; sourceTree = "<group>"; };
-		B804E392284EC4A500F59855 /* CoverImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageView.swift; sourceTree = "<group>"; };
 		B804E394284EDC2B00F59855 /* ItemContentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentListView.swift; sourceTree = "<group>"; };
 		B804E396284FCBCB00F59855 /* CardFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFrame.swift; sourceTree = "<group>"; };
 		B806C4DE2899BE2800A5330E /* Cronica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cronica.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -925,7 +923,6 @@
 			children = (
 				B8A75FC02A17209500D6C321 /* Platform */,
 				B804E396284FCBCB00F59855 /* CardFrame.swift */,
-				B804E392284EC4A500F59855 /* CoverImageView.swift */,
 				B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */,
 				B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */,
 				B8F6DE6129379F58005D1A50 /* ItemContentCollectionDetails.swift */,
@@ -1926,7 +1923,6 @@
 				B85FD9B129F33A880088B5CC /* TMDB.swift in Sources */,
 				B876DE5C281B2B04005558DD /* Screens.swift in Sources */,
 				B8E6EF672A044E5A000A3617 /* ContextMenuPreviewImage.swift in Sources */,
-				B804E393284EC4A500F59855 /* CoverImageView.swift in Sources */,
 				B886D232284D512F00FFE96A /* ConfirmationDialogView.swift in Sources */,
 				B8105253298DBAF500723E94 /* Locale-Extensions.swift in Sources */,
 				B8389ED028AB46C5003025BC /* SearchItemsScope.swift in Sources */,

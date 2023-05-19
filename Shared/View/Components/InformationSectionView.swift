@@ -12,6 +12,15 @@ struct InformationSectionView: View {
     var body: some View {
         GroupBox {
             Section {
+                InfoView(title: NSLocalizedString("Original Title",
+                                                  comment: ""),
+                         content: item?.originalItemTitle)
+                InfoView(title: NSLocalizedString("Overview",
+                                                  comment: ""),
+                         content: item?.itemInfoTVShow)
+                InfoView(title: NSLocalizedString("First Air Date",
+                                                  comment: ""),
+                         content: item?.itemFirstAirDate)
                 InfoView(title: NSLocalizedString("Run Time",
                                                   comment: ""),
                          content: item?.itemRuntime)
@@ -49,6 +58,9 @@ struct InformationSectionView: View {
             Label("Information", systemImage: "info")
                 .unredacted()
         }
+        #if os(iOS)
+        .groupBoxStyle(TransparentGroupBox())
+        #endif
     }
 }
 

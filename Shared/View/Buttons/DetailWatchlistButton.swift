@@ -44,6 +44,7 @@ struct DetailWatchlistButton: View {
 #endif
 #if os(iOS)
         .buttonBorderShape(.capsule)
+        .shadow(radius: 2.5)
 #endif
         .alert("removeDialogTitle", isPresented: $showConfirmationPopup) {
             Button("confirmDialogAction") { update() }

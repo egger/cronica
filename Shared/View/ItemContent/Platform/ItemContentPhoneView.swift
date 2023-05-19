@@ -13,22 +13,26 @@ struct ItemContentPhoneView: View {
     let id: Int
     @Binding var showConfirmation: Bool
     @EnvironmentObject var viewModel: ItemContentViewModel
+    @StateObject private var store = SettingsStore.shared
+    @State private var animateGesture = false
+    @State private var animationImage = ""
     var body: some View {
         VStack {
-            CoverImageView(title: title)
-                .environmentObject(viewModel)
+            cover
+            
             DetailWatchlistButton()
                 .keyboardShortcut("l", modifiers: [.option])
                 .environmentObject(viewModel)
 
             OverviewBoxView(overview: viewModel.content?.itemOverview,
-                            title: title)
-            .padding()
+                            title: title).padding()
             
             TrailerListView(trailers: viewModel.content?.itemTrailers)
             
             if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
+                SeasonList(showID: id, numberOfSeasons: seasons)
+                    .padding([.top, .horizontal], 0)
+                    .padding(.bottom)
             }
             
             WatchProvidersList(id: id, type: type)
@@ -38,18 +42,65 @@ struct ItemContentPhoneView: View {
             ItemContentListView(items: viewModel.recommendations,
                                 title: "Recommendations",
                                 subtitle: "You may like",
-                                image: nil,
                                 addedItemConfirmation: $showConfirmation,
                                 displayAsCard: true)
             
-            InformationSectionView(item: viewModel.content)
-                .padding()
+            InformationSectionView(item: viewModel.content).padding()
             
-            AttributionView()
-                .padding([.top, .bottom])
+            AttributionView().padding([.top, .bottom])
         }
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.automatic)
+    }
+    
+    private var cover: some View {
+        VStack {
+            HeroImage(url: viewModel.content?.cardImageLarge,
+                      title: title)
+            .overlay {
+                ZStack {
+                    Rectangle().fill(.ultraThinMaterial)
+                    Image(systemName: animationImage)
+                        .symbolRenderingMode(.multicolor)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .scaleEffect(animateGesture ? 1.1 : 1)
+                }
+                .opacity(animateGesture ? 1 : 0)
+            }
+            .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+            .shadow(radius: DrawingConstants.shadowRadius)
+            .padding(.top)
+            .padding(.bottom, 4)
+            .accessibilityElement(children: .combine)
+            .accessibility(hidden: true)
+            .onTapGesture(count: 2) {
+                animate(for: store.gesture)
+                viewModel.update(store.gesture)
+            }
+            if let info = viewModel.content?.itemInfo {
+                Text(info)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.bottom)
+            }
+        }
+    }
+    
+    private func animate(for type: UpdateItemProperties) {
+        switch type {
+        case .watched: animationImage = viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle"
+        case .favorite: animationImage = viewModel.isFavorite ? "heart.slash.fill" : "heart.fill"
+        case .pin: animationImage = viewModel.isPin ? "pin.slash" : "pin"
+        case .archive: animationImage = viewModel.isArchive ? "archivebox.fill" : "archivebox"
+        }
+        withAnimation { animateGesture.toggle() }
+        HapticManager.shared.successHaptic()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            withAnimation { animateGesture = false }
+        }
     }
 }
 
@@ -57,5 +108,12 @@ struct ItemContentPhoneView_Previews: PreviewProvider {
     static var previews: some View {
         ItemContentPhoneView(title: "Preview", type: .movie, id: ItemContent.example.id, showConfirmation: .constant(false))
     }
+}
+
+private struct DrawingConstants {
+    static let shadowRadius: CGFloat = 5
+    static let imageWidth: CGFloat = 360
+    static let imageHeight: CGFloat = 210
+    static let imageRadius: CGFloat = 8
 }
 #endif

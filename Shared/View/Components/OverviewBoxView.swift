@@ -56,6 +56,8 @@ struct OverviewBoxView: View {
             .presentationDetents([.medium])
             .frame(width: 500, height: 500, alignment: .center)
         }
+        #elseif os(iOS)
+        .groupBoxStyle(TransparentGroupBox())
 #endif
     }
 }
