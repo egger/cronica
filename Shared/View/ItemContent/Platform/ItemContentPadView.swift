@@ -142,6 +142,7 @@ struct ItemContentPadView: View {
                                 showCustomList.toggle()
                             } label: {
                                 Label("addToList", systemImage: "rectangle.on.rectangle.angled")
+                                    .foregroundColor(.primary)
                             }
                             .labelStyle(.iconOnly)
                             .controlSize(.large)

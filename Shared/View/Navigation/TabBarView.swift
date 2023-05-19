@@ -12,21 +12,21 @@ struct TabBarView: View {
     @AppStorage("selectedView") var selectedView: Screens?
     var persistence = PersistenceController.shared
     var body: some View {
+        details
 #if os(iOS)
-        iOSBarView
             .onAppear {
                 let settings = SettingsStore.shared
                 if settings.isPreferredLaunchScreenEnabled {
                     selectedView = settings.preferredLaunchScreen
                 }
             }
-#elseif os(tvOS)
-        tvOSBarView
+            .appTint()
+            .appTheme()
 #endif
     }
     
 #if os(tvOS)
-    private var tvOSBarView: some View {
+    private var details: some View {
         TabView {
             
             NavigationStack { ExploreView() }
@@ -46,7 +46,7 @@ struct TabBarView: View {
 #endif
     
 #if os(iOS)
-    private var iOSBarView: some View {
+    private var details: some View {
         TabView(selection: $selectedView) {
             NavigationStack { HomeView() }
                 .tag(HomeView.tag)

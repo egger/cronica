@@ -12,14 +12,19 @@ struct SettingsView: View {
 #if os(iOS)
     @Binding var showSettings: Bool
     @Environment(\.requestReview) var requestReview
-    @State private var animateEasterEgg = false
+    
     @StateObject private var settings = SettingsStore.shared
     static let tag: Screens? = .settings
     @State private var showPolicy = false
+#if os(iOS)
+    @SceneStorage("selectedView") private var selectedView: SettingsScreens?
+#else
+    @SceneStorage("selectedView") private var selectedView: SettingsScreens = .behavior
+#endif
 #endif
     var body: some View {
 #if os(iOS)
-        iOSSettings
+        details
 #elseif os(macOS)
         macOSSettings
 #endif
@@ -55,18 +60,18 @@ struct SettingsView: View {
         }
     }
     
-#if os(iOS)
-    private var iOSSettings: some View {
-        NavigationStack {
-            Form {
-                // Developer section
+    
+    #if os(iOS)
+    private var details: some View {
+        NavigationSplitView {
+            List(selection: $selectedView) {
+                
                 if settings.displayDeveloperSettings {
                     NavigationLink(value: SettingsScreens.developer) {
                         SettingsLabelWithIcon(title: "Developer Options", icon: "hammer", color: .purple)
                     }
                 }
                 
-                // General section
                 Section {
                     NavigationLink(value: SettingsScreens.behavior) {
                         SettingsLabelWithIcon(title: "settingsBehaviorTitle", icon: "hand.tap", color: .gray)
@@ -80,15 +85,14 @@ struct SettingsView: View {
                     NavigationLink(value: SettingsScreens.notifications) {
                         SettingsLabelWithIcon(title: "settingsNotificationTitle", icon: "bell", color: .red)
                     }
-                    NavigationLink(destination: ContentRegionSettings()) {
-                        SettingsLabelWithIcon(title: "contentRegionTitleSettings", icon: "globe.desk", color: .black)
-                    }
+//                    NavigationLink(destination: ContentRegionSettings()) {
+//                        SettingsLabelWithIcon(title: "contentRegionTitleSettings", icon: "globe.desk", color: .black)
+//                    }
                 }
-                
-                privacy
                 
                 // Privacy and support section
                 Section {
+                    privacy
                     NavigationLink(destination: FeedbackSettingsView()) {
                         SettingsLabelWithIcon(title: "settingsFeedbackTitle", icon: "envelope.open", color: .teal)
                     }
@@ -111,58 +115,44 @@ struct SettingsView: View {
                     NavigationLink(destination: TipJarSetting()) {
                         SettingsLabelWithIcon(title: "tipJarTitle", icon: "heart", color: .red)
                     }
-                    NavigationLink(destination: AcknowledgementsSettings()) {
-                        SettingsLabelWithIcon(title: "acknowledgmentsTitle", icon: "doc", color: .yellow)
+                    
+                    NavigationLink(value: SettingsScreens.about) {
+                        SettingsLabelWithIcon(title: "aboutTitle", icon: "info.circle", color: .teal)
                     }
                 }
-                
-                Section {
-                    CenterHorizontalView {
-                        Text("Made in Brazil 🇧🇷")
-                            .onTapGesture {
-                                Task {
-                                    withAnimation {
-                                        self.animateEasterEgg.toggle()
-                                    }
-                                    try? await Task.sleep(nanoseconds: 1_500_000_000)
-                                    withAnimation {
-                                        self.animateEasterEgg.toggle()
-                                    }
-                                }
-                            }
-                            .onLongPressGesture {
-                                withAnimation { settings.displayDeveloperSettings.toggle() }
-                            }
-                            .font(animateEasterEgg ? .title3 : .caption)
-                            .foregroundColor(animateEasterEgg ? .green : nil)
-                            .animation(.easeInOut, value: animateEasterEgg)
-                    }
-                }
-            }
-            .toolbar {
-                if UIDevice.isIPad { Button("Done") { showSettings = false } }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(for: SettingsScreens.self) { settings in
-                switch settings {
-                case .acknowledgements: AcknowledgementsSettings()
-                case .appearance: AppearanceSetting()
-                case .behavior: BehaviorSetting()
-                case .developer: DeveloperView()
-                case .feedback: FeedbackSettingsView()
-                case .notifications: NotificationsSettingsView()
-                case .roadmap: FeatureRoadmap()
-                case .sync: SyncSetting()
-                case .tipJar: TipJarSetting()
-                default: BehaviorSetting()
+            .listStyle(.insetGrouped)
+        } detail: {
+            ZStack {
+                switch selectedView {
+                case .about:
+                    AcknowledgementsSettings()
+                case .appearance:
+                    AppearanceSetting()
+                case .behavior:
+                    BehaviorSetting()
+                case .developer:
+                    DeveloperView()
+                case .roadmap:
+                    FeatureRoadmap()
+                case .feedback:
+                    FeedbackSettingsView()
+                case .notifications:
+                    NotificationsSettingsView()
+                case .sync:
+                    SyncSetting()
+                case .tipJar:
+                    TipJarSetting()
+                default:
+                    BehaviorSetting()
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .appTheme()
-        .appTint()
     }
-#endif
+    #endif
     
 #if os(macOS)
     private var macOSSettings: some View {

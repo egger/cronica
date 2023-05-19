@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AcknowledgementsSettings: View {
+    @State private var animateEasterEgg = false
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         Form {
             Section {
@@ -53,21 +55,7 @@ struct AcknowledgementsSettings: View {
 #if os(macOS)
                 .buttonStyle(.link)
 #endif
-                InformationalLabel(title: "acknowledgmentsUserTitle")
-            } header: {
-#if os(macOS) || os(tvOS)
-                Text("settingsAcknowledgments")
-#endif
-            } footer: {
-#if os(iOS)
-                Text("settingsAcknowledgmentsFooter")
-#else
-                HStack {
-                    Text("settingsAcknowledgmentsFooter")
-                    Spacer()
-                }
-#endif
-            }
+            } 
             
             Section {
                 Button {
@@ -80,8 +68,31 @@ struct AcknowledgementsSettings: View {
 #endif
                 
             }
+            
+            Section {
+                CenterHorizontalView {
+                    Text("Made in Brazil 🇧🇷")
+                        .onTapGesture {
+                            Task {
+                                withAnimation {
+                                    self.animateEasterEgg.toggle()
+                                }
+                                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                                withAnimation {
+                                    self.animateEasterEgg.toggle()
+                                }
+                            }
+                        }
+                        .onLongPressGesture {
+                            withAnimation { settings.displayDeveloperSettings.toggle() }
+                        }
+                        .font(animateEasterEgg ? .title3 : .caption)
+                        .foregroundColor(animateEasterEgg ? .green : nil)
+                        .animation(.easeInOut, value: animateEasterEgg)
+                }
+            }
         }
-        .navigationTitle("acknowledgmentsTitle")
+        .navigationTitle("aboutTitle")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
