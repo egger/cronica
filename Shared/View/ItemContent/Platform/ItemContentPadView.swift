@@ -223,9 +223,11 @@ private struct QuickInformationView: View {
             InfoView(title: NSLocalizedString("Original Title",
                                               comment: ""),
                      content: item?.originalItemTitle)
-            InfoView(title: NSLocalizedString("Overview",
-                                              comment: ""),
-                     content: item?.itemInfoTVShow)
+            if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
+                InfoView(title: NSLocalizedString("Overview",
+                                                  comment: ""),
+                         content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+            }
             InfoView(title: NSLocalizedString("First Air Date",
                                               comment: ""),
                      content: item?.itemFirstAirDate)

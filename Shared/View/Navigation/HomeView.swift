@@ -174,7 +174,7 @@ struct HomeView: View {
             return
         } else {
             if currentVersion != lastSeenVersion {
-                showWhatsNew.toggle()
+               // showWhatsNew.toggle()
                 UserDefaults.standard.set(currentVersion, forKey: UserDefaults.lastSeenAppVersionKey)
             }
         }

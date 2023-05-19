@@ -9,24 +9,30 @@ import SwiftUI
 #if os(iOS) || os(macOS)
 struct InformationSectionView: View {
     let item: ItemContent?
+    let type: MediaType
     var body: some View {
         GroupBox {
             Section {
                 InfoView(title: NSLocalizedString("Original Title",
                                                   comment: ""),
                          content: item?.originalItemTitle)
-                InfoView(title: NSLocalizedString("Overview",
-                                                  comment: ""),
-                         content: item?.itemInfoTVShow)
-                InfoView(title: NSLocalizedString("First Air Date",
-                                                  comment: ""),
-                         content: item?.itemFirstAirDate)
+                if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
+                    InfoView(title: NSLocalizedString("Overview",
+                                                      comment: ""),
+                             content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+                }
                 InfoView(title: NSLocalizedString("Run Time",
                                                   comment: ""),
                          content: item?.itemRuntime)
-                InfoView(title: NSLocalizedString("Release Date",
-                                                  comment: ""),
-                         content: item?.itemTheatricalString)
+                if type == .movie {
+                    InfoView(title: NSLocalizedString("Release Date",
+                                                      comment: ""),
+                             content: item?.itemTheatricalString)
+                } else {
+                    InfoView(title: NSLocalizedString("First Air Date",
+                                                      comment: ""),
+                             content: item?.itemFirstAirDate)
+                }
                 InfoView(title: NSLocalizedString("Ratings Score", comment: ""),
                          content: item?.itemRating)
                 InfoView(title: NSLocalizedString("Status",
@@ -40,9 +46,22 @@ struct InformationSectionView: View {
                 if let companies = item?.itemCompanies, let company = companies.first {
                     if !companies.isEmpty {
                         NavigationLink(value: companies) {
-                            InfoView(title: NSLocalizedString("Production Company",
-                                                              comment: ""),
-                                     content: company.name)
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text("Production Company")
+                                            .font(.caption)
+                                        Image(systemName: "chevron.right")
+                                            .font(.caption)
+                                    }
+                                    Text(company.name)
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
+                                .accessibilityElement(children: .combine)
+                                Spacer()
+                            }
+                            .padding([.horizontal, .top], 2)
                         }
 #if os(macOS)
                         .buttonStyle(.link)
@@ -67,7 +86,7 @@ struct InformationSectionView: View {
 
 struct InformationBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationSectionView(item: ItemContent.example)
+        InformationSectionView(item: ItemContent.example, type: .movie)
     }
 }
 #endif

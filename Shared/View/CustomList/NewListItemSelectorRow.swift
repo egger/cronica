@@ -37,13 +37,13 @@ struct NewListItemSelectorRow: View {
                     }
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 70, height: 50)
-                    .cornerRadius(6)
+                    .cornerRadius(8)
                     .overlay {
                         if isSelected {
                             ZStack {
                                 Rectangle().fill(.black.opacity(0.4))
                             }
-                            .cornerRadius(6)
+                            .cornerRadius(8)
                         }
                     }
                 VStack(alignment: .leading) {

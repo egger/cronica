@@ -31,9 +31,9 @@ struct ConfirmationDialogView: View {
                 
             }
             .background { Rectangle().fill(.thickMaterial) }
-            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .padding()
-            .shadow(radius: 16)
+            .shadow(radius: 18)
             .opacity(showConfirmation ? 1 : 0)
             .scaleEffect(showConfirmation ? 1.2 : 1)
             .animation(.linear, value: showConfirmation)

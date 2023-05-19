@@ -89,7 +89,7 @@ struct ItemContentRow: View {
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 70
     static let imageHeight: CGFloat = 50
-    static let imageRadius: CGFloat = 4
+    static let imageRadius: CGFloat = 6
     static let textLimit: Int = 1
 }
 

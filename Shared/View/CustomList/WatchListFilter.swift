@@ -48,6 +48,9 @@ struct WatchListFilter: View {
         .toolbar {
             Button("Cancel") { showView.toggle() }
         }
+        #if os(macOS)
+        .formStyle(.grouped)
+        #endif
     }
 }
 

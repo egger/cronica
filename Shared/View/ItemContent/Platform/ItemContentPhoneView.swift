@@ -27,13 +27,13 @@ struct ItemContentPhoneView: View {
             OverviewBoxView(overview: viewModel.content?.itemOverview,
                             title: title).padding()
             
-            TrailerListView(trailers: viewModel.content?.itemTrailers)
-            
             if let seasons = viewModel.content?.itemSeasons {
                 SeasonList(showID: id, numberOfSeasons: seasons)
                     .padding([.top, .horizontal], 0)
                     .padding(.bottom)
             }
+            
+            TrailerListView(trailers: viewModel.content?.itemTrailers)
             
             WatchProvidersList(id: id, type: type)
             
@@ -45,7 +45,7 @@ struct ItemContentPhoneView: View {
                                 addedItemConfirmation: $showConfirmation,
                                 displayAsCard: true)
             
-            InformationSectionView(item: viewModel.content).padding()
+            InformationSectionView(item: viewModel.content, type: type).padding()
             
             AttributionView().padding([.top, .bottom])
         }

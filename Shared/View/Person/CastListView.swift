@@ -26,7 +26,11 @@ struct CastListView: View {
                     LazyHStack {
                         ForEach(credits.prefix(10), id: \.personListID) { person in
                             PersonCardView(person: person)
-                                .padding(.leading, person.id == self.credits.first!.id ? DrawingConstants.padding : 0)
+                                .padding([.leading, .trailing], 4)
+                                .buttonStyle(.plain)
+                                .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
+                                .padding(.top, 8)
+                                .padding(.bottom)
                                 .buttonStyle(.plain)
                                 .applyHoverEffect()
 #if os(tvOS)

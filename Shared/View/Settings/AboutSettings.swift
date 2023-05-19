@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct AboutSettings: View {
 #if os(iOS)
     @Environment(\.requestReview) var requestReview
@@ -154,3 +154,4 @@ struct AboutSettings_Previews: PreviewProvider {
         AboutSettings()
     }
 }
+#endif
