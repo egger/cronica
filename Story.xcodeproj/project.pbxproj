@@ -105,7 +105,6 @@
 		B81DD94129BE226E009F73F3 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */; };
 		B824E4362A04945400E385CE /* ItemContentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E4352A04945400E385CE /* ItemContentRow.swift */; };
 		B824E43A2A05416E00E385CE /* UpNextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E4392A05416E00E385CE /* UpNextItem.swift */; };
-		B824E43C2A059DF500E385CE /* LargerHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E43B2A059DF500E385CE /* LargerHeader.swift */; };
 		B824E43E2A059E0900E385CE /* GlanceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E43D2A059E0900E385CE /* GlanceInfo.swift */; };
 		B824E4402A059E2400E385CE /* TransparentGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E43F2A059E2400E385CE /* TransparentGroupBox.swift */; };
 		B824E4442A05A4C500E385CE /* InfoSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E4432A05A4C500E385CE /* InfoSegmentView.swift */; };
@@ -265,6 +264,8 @@
 		B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
 		B8A75FBF2A16B15C00D6C321 /* ItemContentPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */; };
 		B8A75FC22A17212200D6C321 /* ItemContentTVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */; };
+		B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */; };
+		B8A75FC62A17249F00D6C321 /* ItemContentMacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC52A17249F00D6C321 /* ItemContentMacView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8AAA6E929645561004FDF21 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AAA6E829645561004FDF21 /* AppTheme.swift */; };
@@ -484,7 +485,6 @@
 		B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsView.swift; sourceTree = "<group>"; };
 		B824E4352A04945400E385CE /* ItemContentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentRow.swift; sourceTree = "<group>"; };
 		B824E4392A05416E00E385CE /* UpNextItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextItem.swift; sourceTree = "<group>"; };
-		B824E43B2A059DF500E385CE /* LargerHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargerHeader.swift; sourceTree = "<group>"; };
 		B824E43D2A059E0900E385CE /* GlanceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceInfo.swift; sourceTree = "<group>"; };
 		B824E43F2A059E2400E385CE /* TransparentGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentGroupBox.swift; sourceTree = "<group>"; };
 		B824E4432A05A4C500E385CE /* InfoSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSegmentView.swift; sourceTree = "<group>"; };
@@ -597,6 +597,8 @@
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
 		B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPadView.swift; sourceTree = "<group>"; };
 		B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentTVView.swift; sourceTree = "<group>"; };
+		B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPhoneView.swift; sourceTree = "<group>"; };
+		B8A75FC52A17249F00D6C321 /* ItemContentMacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentMacView.swift; sourceTree = "<group>"; };
 		B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extensions.swift"; sourceTree = "<group>"; };
 		B8AAA6E829645561004FDF21 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		B8AAA6ED296455E2004FDF21 /* AppThemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeModifier.swift; sourceTree = "<group>"; };
@@ -1207,7 +1209,9 @@
 		B8A75FC02A17209500D6C321 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
+				B8A75FC52A17249F00D6C321 /* ItemContentMacView.swift */,
 				B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */,
+				B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */,
 				B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */,
 			);
 			path = Platform;
@@ -1372,7 +1376,6 @@
 				B80BBE5A294966FC00958876 /* InformationalLabel.swift */,
 				B86E586C27A46A5E005DBF38 /* InformationSectionView.swift */,
 				B824E4432A05A4C500E385CE /* InfoSegmentView.swift */,
-				B824E43B2A059DF500E385CE /* LargerHeader.swift */,
 				B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */,
 				B81941AA2A0835D40057DA04 /* PosterPlaceholder.swift */,
 				B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */,
@@ -1811,6 +1814,7 @@
 				B88789D229F8A44C00680FD3 /* RatingView.swift in Sources */,
 				B812529828A407120062B0C9 /* DefaultListTypes.swift in Sources */,
 				B845149328E0C96A00963399 /* NotificationListView.swift in Sources */,
+				B8A75FC62A17249F00D6C321 /* ItemContentMacView.swift in Sources */,
 				B8FB2A8E29526341006DAC8E /* BehaviorSetting.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */,
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,
@@ -1876,6 +1880,7 @@
 				B81941932A0823380057DA04 /* SmallerUpNextCard.swift in Sources */,
 				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
 				B81941AF2A0839560057DA04 /* ChangelogItemView.swift in Sources */,
+				B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */,
 				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
 				B85FD9A929F324730088B5CC /* AccountSettingsView.swift in Sources */,
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,
@@ -1889,7 +1894,6 @@
 				B840D2CE279B24C900A07C71 /* Person.swift in Sources */,
 				B80BBE5B294966FC00958876 /* InformationalLabel.swift in Sources */,
 				B8A2C88129CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */,
-				B824E43C2A059DF500E385CE /* LargerHeader.swift in Sources */,
 				B8AAA6EE296455E2004FDF21 /* AppThemeModifier.swift in Sources */,
 				B8423E2F2793B61B0012259B /* CardView.swift in Sources */,
 				B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */,

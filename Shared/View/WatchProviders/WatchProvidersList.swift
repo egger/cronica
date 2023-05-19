@@ -34,12 +34,14 @@ struct WatchProvidersList: View {
                             } label: {
                                 WatchProviderItem(item: item)
                             }
-                            .hoverEffect()
                             .buttonStyle(.plain)
                             .padding(.leading, item.self == viewModel.items.first!.self ? 16 : 0)
                             .padding(.trailing, item.self == viewModel.items.last!.self ? 16 : 0)
                             .padding(.horizontal, 6)
                             .padding(.top, 8)
+#if os(iOS)
+                            .hoverEffect()
+#endif
                         }
                     }
                 }

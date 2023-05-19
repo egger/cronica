@@ -1,26 +1,46 @@
 //
-//  LargerHeader.swift
+//  ItemContentMacView.swift
 //  Story (iOS)
 //
-//  Created by Alexandre Madeira on 05/05/23.
+//  Created by Alexandre Madeira on 19/05/23.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct LargerHeader: View {
+#if os(macOS)
+struct ItemContentMacView: View {
     let title: String
     let type: MediaType
+    let id: Int
+    @Binding var showConfirmation: Bool
     @EnvironmentObject var viewModel: ItemContentViewModel
     var body: some View {
-#if os(macOS)
-        image
-#else
-        image
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .padding()
-            .shadow(radius: 5)
-#endif
+        VStack {
+            image
+            
+            TrailerListView(trailers: viewModel.content?.itemTrailers)
+            
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonList(showID: id, numberOfSeasons: seasons).padding(.zero)
+            }
+            
+            WatchProvidersList(id: id, type: type)
+            
+            CastListView(credits: viewModel.credits)
+            
+            ItemContentListView(items: viewModel.recommendations,
+                                title: "Recommendations",
+                                subtitle: "You may like",
+                                addedItemConfirmation: $showConfirmation,
+                                displayAsCard: true)
+            
+            InformationSectionView(item: viewModel.content)
+                .padding()
+            
+            AttributionView()
+        }
+        .navigationTitle(title)
     }
     
     private var image: some View {
@@ -135,3 +155,10 @@ struct LargerHeader: View {
         }
     }
 }
+
+struct ItemContentMacView_Previews: PreviewProvider {
+    static var previews: some View {
+        ItemContentMacView(title: "Preview", type: .movie, id: ItemContent.example.id, showConfirmation: .constant(false))
+    }
+}
+#endif

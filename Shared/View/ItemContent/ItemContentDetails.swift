@@ -39,13 +39,15 @@ struct ItemContentDetails: View {
             if viewModel.isLoading { ProgressView().padding() }
             ScrollView {
 #if os(macOS)
-                macOS
+                ItemContentMacView(title: title, type: type, id: id, showConfirmation: $showConfirmation)
+                    .environmentObject(viewModel)
 #elseif os(iOS)
                 if UIDevice.isIPad {
                     ItemContentPadView(id: id, title: title, type: type, showConfirmation: $showConfirmation)
                         .environmentObject(viewModel)
                 } else {
-                    iOS
+                    ItemContentPhoneView(title: title, type: type, id: id, showConfirmation: $showConfirmation)
+                        .environmentObject(viewModel)
                 }
 #endif
             }
@@ -140,78 +142,6 @@ struct ItemContentDetails: View {
 #endif
         }
     }
-    
-#if os(macOS)
-    var macOS: some View {
-        VStack {
-            LargerHeader(title: title, type: type)
-                .environmentObject(viewModel)
-            
-            TrailerListView(trailers: viewModel.content?.itemTrailers)
-            
-            if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, numberOfSeasons: seasons).padding(.zero)
-            }
-            
-            WatchProvidersList(id: id, type: type)
-            
-            CastListView(credits: viewModel.credits)
-            
-            ItemContentListView(items: viewModel.recommendations,
-                                title: "Recommendations",
-                                subtitle: "You may like",
-                                addedItemConfirmation: $showConfirmation,
-                                displayAsCard: true)
-            
-            InformationSectionView(item: viewModel.content)
-                .padding()
-            
-            AttributionView()
-        }
-        .navigationTitle(title)
-    }
-#endif
-     
-#if os(iOS)
-    var iOS: some View {
-        VStack {
-            CoverImageView(title: title)
-                .environmentObject(viewModel)
-            DetailWatchlistButton()
-                .keyboardShortcut("l", modifiers: [.option])
-                .environmentObject(viewModel)
-
-            OverviewBoxView(overview: viewModel.content?.itemOverview,
-                            title: title)
-            .padding()
-            
-            TrailerListView(trailers: viewModel.content?.itemTrailers)
-            
-            if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
-            }
-            
-            WatchProvidersList(id: id, type: type)
-            
-            CastListView(credits: viewModel.credits)
-            
-            ItemContentListView(items: viewModel.recommendations,
-                                title: "Recommendations",
-                                subtitle: "You may like",
-                                image: nil,
-                                addedItemConfirmation: $showConfirmation,
-                                displayAsCard: true)
-            
-            InformationSectionView(item: viewModel.content)
-                .padding()
-            
-            AttributionView()
-                .padding([.top, .bottom])
-        }
-        .navigationTitle(title)
-        .navigationBarTitleDisplayMode(.automatic)
-    }
-#endif
     
     private var addToCustomListButton: some View {
         Button {
