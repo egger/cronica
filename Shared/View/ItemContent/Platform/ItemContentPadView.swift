@@ -85,7 +85,11 @@ struct ItemContentPadView: View {
                     .opacity(animateGesture ? 1 : 0)
                 }
                 .aspectRatio(contentMode: .fill)
+#if os(macOS)
                 .frame(width: 340, height: 500)
+#else
+                .frame(width: 300, height: 460)
+#endif
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .onTapGesture(count: 2) {
                     animate(for: store.gesture)
@@ -188,13 +192,15 @@ struct ItemContentPadView: View {
                     }
                 }
             }
-            .frame(minWidth: 400, maxWidth: 500)
+            .frame(width: 360)
             
             ViewThatFits {
                 QuickInformationView(item: viewModel.content)
-                    .frame(minWidth: 200)
+                    .frame(width: 260)
                     .padding(.trailing)
-                EmptyView()
+                VStack {
+                    Text("")
+                }
             }
             
             Spacer()
