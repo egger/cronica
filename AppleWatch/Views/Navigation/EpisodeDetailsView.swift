@@ -11,15 +11,8 @@ struct EpisodeDetailsView: View {
     let episode: Episode
     let season: Int
     let show: Int
-    var itemLink: URL
     private let persistence = PersistenceController.shared
-    @State var isWatched = false
-    init(episode: Episode, season: Int, show: Int) {
-        self.episode = episode
-        self.season = season
-        self.show = show
-        itemLink = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.episodeNumber ?? 1)")!
-    }
+    @State private var isWatched = false
     var body: some View {
         VStack {
             ScrollView {
@@ -32,12 +25,13 @@ struct EpisodeDetailsView: View {
                 .padding()
                 
                 WatchEpisodeButton(episode: episode, season: season, show: show, isWatched: $isWatched)
-                    .buttonStyle(.borderedProminent)
-                    .tint(isWatched ? .orange : .green)
                     .padding([.bottom, .horizontal])
+                    .onAppear(perform: load)
                 
-                ShareLink(item: itemLink)
-                    .padding([.bottom, .horizontal])
+                if let url = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)") {
+                    ShareLink(item: url)
+                        .padding([.bottom, .horizontal])
+                }
                 
                 AboutSectionView(about: episode.itemOverview)
                 
@@ -47,9 +41,12 @@ struct EpisodeDetailsView: View {
             }
         }
         .navigationTitle(episode.itemTitle)
-        .task {
-            isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
-        }
+    }
+    
+    private func load() {
+        isWatched = persistence.isEpisodeSaved(show: show,
+                                                 season: episode.itemSeasonNumber,
+                                                 episode: episode.id)
     }
 }
 

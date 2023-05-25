@@ -260,18 +260,18 @@ struct UpNextListView: View {
         }
         HapticManager.shared.successHaptic()
         let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: content.episode, show: content.showID)
-        if let nextEpisode {
-            if nextEpisode.isItemReleased {
-                let content = UpNextEpisode(id: nextEpisode.id,
-                                            showTitle: content.showTitle,
-                                            showID: content.showID,
-                                            backupImage: content.backupImage,
-                                            episode: nextEpisode)
-                persistence.updateUpNext(item, episode: nextEpisode)
-                DispatchQueue.main.async {
-                    withAnimation(.easeInOut) {
-                        self.episodes.insert(content, at: 0)
-                    }
+        guard let nextEpisode else { return }
+        persistence.updateUpNext(item, episode: nextEpisode)
+        if nextEpisode.isItemReleased {
+            let content = UpNextEpisode(id: nextEpisode.id,
+                                        showTitle: content.showTitle,
+                                        showID: content.showID,
+                                        backupImage: content.backupImage,
+                                        episode: nextEpisode)
+            
+            DispatchQueue.main.async {
+                withAnimation(.easeInOut) {
+                    self.episodes.insert(content, at: 0)
                 }
             }
         }

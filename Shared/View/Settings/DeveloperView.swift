@@ -16,7 +16,6 @@ struct DeveloperView: View {
     @State private var itemMediaType: MediaType = .movie
     @State private var isFetching = false
     @State private var isFetchingAll = false
-    @State private var showChangelog = false
     @State private var userAccessId = String()
     @State private var userAccessToken = String()
     @State private var v3SessionID = String()
@@ -81,12 +80,6 @@ struct DeveloperView: View {
 #if os(macOS)
                     .frame(width: 500, height: 700, alignment: .center)
 #endif
-                }
-                Button("Show Changelog") {
-                    showChangelog.toggle()
-                }
-                .sheet(isPresented: $showChangelog) {
-                    ChangelogView(showChangelog: $showChangelog)
                 }
             }
             

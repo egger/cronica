@@ -23,6 +23,10 @@ struct WatchEpisodeButton: View {
             .padding()
 #endif
         }
+#if os(watchOS)
+        .buttonStyle(.borderedProminent)
+        .tint(isWatched ? .orange : .green)
+#endif
     }
     
     private func update() {

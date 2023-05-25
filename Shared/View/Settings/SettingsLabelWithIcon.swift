@@ -16,7 +16,7 @@ struct SettingsLabelWithIcon: View {
         HStack {
             ZStack {
                 Rectangle()
-                    .fill(color.gradient)
+                    .fill(color)
                     .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                 Image(systemName: icon)
                     .foregroundColor(.white)

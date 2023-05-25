@@ -19,6 +19,7 @@ struct SettingsView: View {
     @SceneStorage("selectedView") private var selectedView: SettingsScreens = .behavior
 #endif
 #endif
+    @State private var showWhatsNew = false
     var body: some View {
 #if os(iOS)
         details
@@ -82,17 +83,26 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section("Privacy") {
+                Section {
                     privacy
                 }
                 
                 Section {
+                    Button {
+                        showWhatsNew.toggle()
+                    } label: {
+                        SettingsLabelWithIcon(title: "What's New", icon: "sparkles", color: .yellow)
+                    }
+                    .buttonStyle(.plain)
+                    .sheet(isPresented: $showWhatsNew) {
+                        ChangelogView(showChangelog: $showWhatsNew)
+                    }
                     NavigationLink(destination: TipJarSetting()) {
                         SettingsLabelWithIcon(title: "tipJarTitle", icon: "heart", color: .red)
                     }
                     
                     NavigationLink(value: SettingsScreens.about) {
-                        SettingsLabelWithIcon(title: "aboutTitle", icon: "info.circle", color: .teal)
+                        SettingsLabelWithIcon(title: "aboutTitle", icon: "info.circle", color: .black)
                     }
                 }
             }
