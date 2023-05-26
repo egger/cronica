@@ -79,7 +79,12 @@ struct ItemContentPhoneView: View {
                 animate(for: store.gesture)
                 viewModel.update(store.gesture)
             }
-            if let info = viewModel.content?.itemInfo {
+            if let genres = viewModel.content?.itemGenres {
+                Text(genres)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            if let info = viewModel.content?.itemQuickInfo {
                 Text(info)
                     .font(.caption)
                     .foregroundColor(.secondary)

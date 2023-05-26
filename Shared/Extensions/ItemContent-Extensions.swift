@@ -93,6 +93,24 @@ extension ItemContent {
         if !itemGenres.isEmpty { return "\(itemGenres)" }
         return ""
     }
+    var itemQuickInfo: String {
+        if itemTheatricalString != nil && shortItemRuntime != nil {
+            return "\(itemTheatricalString!) • \(shortItemRuntime!)"
+        }
+        if let itemTheatricalString {
+            return "\(itemTheatricalString)"
+        }
+        if let date = nextEpisodeDate {
+            return "\(DatesManager.dateString.string(from: date))"
+        }
+        if let shortItemRuntime {
+            return "\(shortItemRuntime)"
+        }
+        if let itemFallbackDate {
+            return "\(DatesManager.dateString.string(from: itemFallbackDate))"
+        }
+        return ""
+    }
     var itemUrlProxy: String {
         return  "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)"
     }
