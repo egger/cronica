@@ -63,11 +63,6 @@ struct WatchlistSelectorView: View {
                     
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { showView.toggle() }
-                }
-            }
         }
     }
 }

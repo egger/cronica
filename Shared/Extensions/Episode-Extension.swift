@@ -17,7 +17,7 @@ extension Episode {
         if let overview {
             if !overview.isEmpty { return overview }
         }
-        return NSLocalizedString("Not Available", comment: "")
+        return String()
     }
     var itemDate: String? {
         if let airDate, let date = airDate.toDate() {

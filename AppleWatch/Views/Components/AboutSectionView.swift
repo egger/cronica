@@ -12,22 +12,32 @@ struct AboutSectionView: View {
     @State private var showOverview = false
     var body: some View {
         if let about {
-            Divider().padding(.horizontal)
-            Section {
-                Text(about)
-                    .lineLimit(showOverview ? nil : 4)
-            } header: {
-                HStack {
-                    Label("About", systemImage: "film")
-                        .foregroundColor(.secondary)
-                    Spacer()
+            if !about.isEmpty {
+                Section {
+                    VStack(alignment: .leading) {
+                        Text(about)
+                            .lineLimit(4)
+                        Text("See More")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .padding(.top, 4)
+                    }
+                } header: {
+                    HStack {
+                        Text("About")
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                    }
+                }
+                .padding()
+                .onTapGesture { withAnimation { showOverview.toggle() } }
+                .sheet(isPresented: $showOverview) {
+                    ScrollView {
+                        Text(about)
+                            .padding()
+                    }
                 }
             }
-            .padding()
-            .onTapGesture {
-                withAnimation { showOverview.toggle() }
-            }
-            Divider().padding(.horizontal)
         }
     }
 }

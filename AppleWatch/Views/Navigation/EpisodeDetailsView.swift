@@ -41,6 +41,11 @@ struct EpisodeDetailsView: View {
             }
         }
         .navigationTitle(episode.itemTitle)
+        .background {
+            if #available(watchOS 10, *) {
+                TranslucentBackground(image: episode.itemImageMedium)
+            }
+        }
     }
     
     private func load() {

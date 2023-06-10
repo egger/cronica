@@ -38,16 +38,19 @@ struct WatchlistView: View {
                 showSearch = true
             }
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        showPicker = true
-                    } label: {
-                        Label("Sort List",
-                              systemImage: "line.3.horizontal.decrease.circle.fill")
+                if #available(watchOS 10, *) {
+                    ToolbarItem(placement: .bottomBar) {
+                        filterButton
+                            .labelStyle(.iconOnly)
+                            .clipShape(Circle())
+                            .shadow(radius: 5)
+                            .opacity(showPicker ? 0 : 1)
+                            .opacity(showSearch ? 0 : 1)
                     }
-                    .buttonStyle(.bordered)
-                    .tint(.blue)
-                    .padding(.bottom)
+                } else {
+                    ToolbarItem(placement: .primaryAction) {
+                        filterButton
+                    }
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
@@ -77,6 +80,16 @@ struct WatchlistView: View {
                 }
             }
         }
+    }
+    
+    private var filterButton: some View {
+        Button {
+            withAnimation { showPicker = true }
+        } label: {
+            Label("Sort List", systemImage: "line.3.horizontal.decrease")
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(.accentColor)
     }
     
     @ViewBuilder

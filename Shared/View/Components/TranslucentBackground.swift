@@ -26,10 +26,19 @@ struct TranslucentBackground: View {
                     .ignoresSafeArea()
                     .padding(.zero)
                     .transition(.opacity)
+#if os(watchOS)
+                if #available(watchOS 10, *) {
+                    Rectangle()
+                        .fill(.ultraThickMaterial)
+                        .ignoresSafeArea()
+                        .padding(.zero)
+                }
+#else
                 Rectangle()
                     .fill(.ultraThickMaterial)
                     .ignoresSafeArea()
                     .padding(.zero)
+#endif
             }
         }
     }
