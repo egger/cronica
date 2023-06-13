@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> ItemContentEntry {

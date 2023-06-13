@@ -25,6 +25,8 @@ struct AboutSettings: View {
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                             .shadow(radius: 5)
                         Text("Developed by Alexandre Madeira")
+                            .fontWeight(.semibold)
+                            .fontDesign(.monospaced)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                             .textCase(.uppercase)
@@ -51,31 +53,29 @@ struct AboutSettings: View {
             
             FeedbackSettingsView()
             
-            Section {
+            Section("Design") {
                 Button {
                     openUrl("https://www.fiverr.com/akhmad437")
                 } label: {
                     InformationalLabel(title: "acknowledgmentsAppIconTitle",
                                        subtitle: "acknowledgmentsAppIconSubtitle")
                 }
-                
+            }
+            
+            Section("Translation") {
                 Button {
-                    openUrl("https://www.themoviedb.org")
+                    openUrl("https://twitter.com/simonboer16")
                 } label: {
-                    InformationalLabel(title: "acknowledgmentsContentProviderTitle",
-                                       subtitle: "acknowledgmentsContentProviderSubtitle")
+                    InformationalLabel(title: "German",
+                                       subtitle: "Simon Boer")
                 }
-                
+            }
+            
+            Section("Libraries") {
                 Button {
                     openUrl("https://github.com/SDWebImage/SDWebImageSwiftUI")
                 } label: {
                     InformationalLabel(title: "acknowledgmentsSDWebImage")
-                }
-                
-                Button {
-                    openUrl("https://github.com/AvdLee/Roadmap")
-                } label: {
-                    InformationalLabel(title: "Roadmap")
                 }
                 
                 Button {
@@ -85,7 +85,15 @@ struct AboutSettings: View {
                 }
             }
             
-            Section {
+            Section("acknowledgmentsContentProviderTitle") {
+                Button {
+                    openUrl("https://www.themoviedb.org")
+                } label: {
+                    InformationalLabel(title: "acknowledgmentsContentProviderSubtitle")
+                }
+            }
+            
+            Section("Source Code") {
                 Button {
                     openUrl("https://github.com/MadeiraAlexandre/Cronica")
                 } label: {
@@ -95,12 +103,17 @@ struct AboutSettings: View {
             }
             
             Section {
+                if settings.displayDeveloperSettings {
+                    NavigationLink(value: SettingsScreens.developer) {
+                        SettingsLabelWithIcon(title: "Developer Options", icon: "hammer", color: .purple)
+                    }
+                }
                 CenterHorizontalView {
                     Text("Version \(appVersion ?? "")")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
                         .onTapGesture(count: 2) {
-                            settings.displayDeveloperSettings.toggle()
+                            withAnimation { settings.displayDeveloperSettings.toggle() }
                         }
                 }
             }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import TelemetryClient
 
 @main
 struct CronicaWatchApp: App {

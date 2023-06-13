@@ -326,7 +326,6 @@
 		B8D7AECF28B962660053CE5A /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AECD28B962490053CE5A /* Person.swift */; };
 		B8D7AED428B963110053CE5A /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AED128B963000053CE5A /* Season.swift */; };
 		B8D7AED828B963720053CE5A /* ItemContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AED628B963700053CE5A /* ItemContentList.swift */; };
-		B8D7AEDA28B963930053CE5A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8D7AED928B963930053CE5A /* SDWebImageSwiftUI */; };
 		B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8D7AEDB28B967180053CE5A /* TelemetryClient */; };
 		B8D7AEE328BA64DF0053CE5A /* DataPlaceholder.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */; };
 		B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
@@ -701,7 +700,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8D7AEDA28B963930053CE5A /* SDWebImageSwiftUI in Frameworks */,
 				B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */,
 				B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */,
 				B8D7AEA828B95F5E0053CE5A /* WidgetKit.framework in Frameworks */,
@@ -1494,7 +1492,6 @@
 			);
 			name = CronicaWidgetExtension;
 			packageProductDependencies = (
-				B8D7AED928B963930053CE5A /* SDWebImageSwiftUI */,
 				B8D7AEDB28B967180053CE5A /* TelemetryClient */,
 			);
 			productName = CronicaWidgetExtension;
@@ -2484,11 +2481,6 @@
 			productName = TelemetryClient;
 		};
 		B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
-		};
-		B8D7AED928B963930053CE5A /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;

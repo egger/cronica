@@ -25,12 +25,16 @@ struct ItemContentCustomListSelector: View {
             } else {
                 Section {
                     List {
+#if os(watchOS)
+                        newList
+#else
                         if lists.isEmpty { List { newList } }
+#endif
                         ForEach(lists) { list in
                             AddToListRow(list: list, item: $item, showView: $showView)
                         }
                     }
-                } header: { Text(title) } 
+                } header: { Text(title) }
             }
         }
         .onAppear(perform: load)
@@ -58,10 +62,13 @@ struct ItemContentCustomListSelector: View {
             }
 #elseif os(watchOS)
             ToolbarItem(placement: .cancellationAction) {
-                Button("Done") { showView.toggle() }
-            }
-            ToolbarItem(placement: .automatic) {
-                if !lists.isEmpty { newList }
+                Button {
+                    showView.toggle()
+                } label: {
+                    Label("Dismiss", systemImage: "xmark")
+                        .labelStyle(.iconOnly)
+                }
+                
             }
 #endif
         }

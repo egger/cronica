@@ -60,11 +60,6 @@ struct SettingsView: View {
     private var details: some View {
         NavigationStack {
             Form {
-                if settings.displayDeveloperSettings {
-                    NavigationLink(value: SettingsScreens.developer) {
-                        SettingsLabelWithIcon(title: "Developer Options", icon: "hammer", color: .purple)
-                    }
-                }
                 
                 Section {
                     NavigationLink(value: SettingsScreens.behavior) {
@@ -105,7 +100,6 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: SettingsScreens.self) { settings in
                 switch settings {
                 case .about: AboutSettings()

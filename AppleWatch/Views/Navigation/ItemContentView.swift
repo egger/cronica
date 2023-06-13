@@ -41,6 +41,10 @@ struct ItemContentView: View {
                         .padding([.horizontal, .bottom])
                 }
                 
+                if viewModel.isInWatchlist {
+                    customListButton.padding([.horizontal, .bottom])
+                }
+                
                 HStack {
                     if viewModel.isInWatchlist {
                         Button {
@@ -54,7 +58,6 @@ struct ItemContentView: View {
                             VStack {
                                 ScrollView {
                                     watchButton.padding(.bottom)
-                                    customListButton.padding(.bottom)
                                     favoriteButton.padding(.bottom)
                                     pinButton.padding(.bottom)
                                     archiveButton.padding(.bottom)

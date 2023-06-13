@@ -33,7 +33,11 @@ struct NewCustomListView: View {
                 if SettingsStore.shared.connectedTMDB {
                     Toggle("publishOnTMDB", isOn: $publishOnTMDB)
                 }
+#if os(watchOS)
+                createList
+#else
                 Toggle("pinOnHome", isOn: $pinOnHome)
+#endif
             }
             
             if !items.isEmpty {
@@ -61,7 +65,7 @@ struct NewCustomListView: View {
 #if os(macOS)
             ToolbarItem(placement: .automatic) { createList }
             ToolbarItem(placement: .cancellationAction) { cancelButton }
-#else
+#elseif os(iOS)
             createList
 #endif
         }
