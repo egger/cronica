@@ -115,8 +115,9 @@ struct WatchlistView: View {
     }
 }
 
-struct WatchlistView_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistView()
-    }
+@available(iOS 17, *)
+@available(macOS 14, *)
+@available(watchOS 10, *)
+#Preview {
+    WatchlistView()
 }

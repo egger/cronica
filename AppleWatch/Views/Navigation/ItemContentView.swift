@@ -163,28 +163,15 @@ struct ItemContentView: View {
     }
 }
 
-struct ItemContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentView(id: ItemContent.example.id,
-                        title: ItemContent.example.itemTitle,
-                        type: ItemContent.example.itemContentMedia,
-                        image: ItemContent.example.cardImageMedium)
-    }
-}
-
 private struct DrawingConstants {
     static let imageRadius: CGFloat = 8
     static let lineLimit: Int = 1
 }
 
-private struct AddToCustomList {
-    @Binding var showView: Bool
-    @Binding var item: WatchlistItem?
-    var body: some View {
-        NavigationStack {
-            Form {
-                
-            }
-        }
-    }
+@available(watchOS 10, *)
+#Preview {
+    ItemContentView(id: ItemContent.example.id,
+                    title: ItemContent.example.itemTitle,
+                    type: ItemContent.example.itemContentMedia,
+                    image: ItemContent.example.cardImageMedium)
 }

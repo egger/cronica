@@ -39,7 +39,6 @@ struct ItemContentPadView: View {
             ItemContentListView(items: viewModel.recommendations,
                                 title: "Recommendations",
                                 subtitle: "You may like",
-                                image: nil,
                                 addedItemConfirmation: $showConfirmation,
                                 displayAsCard: true)
             
@@ -224,21 +223,21 @@ private struct QuickInformationView: View {
     let item: ItemContent?
     var body: some View {
         VStack(alignment: .leading) {
-            InfoView(title: NSLocalizedString("Original Title",
+            infoView(title: NSLocalizedString("Original Title",
                                               comment: ""),
                      content: item?.originalItemTitle)
             if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
-                InfoView(title: NSLocalizedString("Overview",
+                infoView(title: NSLocalizedString("Overview",
                                                   comment: ""),
                          content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
             }
-            InfoView(title: NSLocalizedString("First Air Date",
+            infoView(title: NSLocalizedString("First Air Date",
                                               comment: ""),
                      content: item?.itemFirstAirDate)
-            InfoView(title: NSLocalizedString("Region of Origin",
+            infoView(title: NSLocalizedString("Region of Origin",
                                               comment: ""),
                      content: item?.itemCountry)
-            InfoView(title: NSLocalizedString("Genres", comment: ""),
+            infoView(title: NSLocalizedString("Genres", comment: ""),
                      content: item?.itemGenres)
             if let companies = item?.itemCompanies, let company = companies.first {
                 if !companies.isEmpty {
@@ -263,13 +262,33 @@ private struct QuickInformationView: View {
                     .buttonStyle(.plain)
                 }
             } else {
-                InfoView(title: NSLocalizedString("Production Company",
+                infoView(title: NSLocalizedString("Production Company",
                                                   comment: ""),
                          content: item?.itemCompany)
             }
-            InfoView(title: NSLocalizedString("Status",
+            infoView(title: NSLocalizedString("Status",
                                               comment: ""),
                      content: item?.itemStatus.localizedTitle)
+        }
+    }
+    
+    @ViewBuilder
+    private func infoView(title: String, content: String?) -> some View {
+        if let content {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.caption)
+                    Text(content)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                Spacer()
+            }
+            .padding([.horizontal, .top], 2)
+        } else {
+            EmptyView()
         }
     }
 }

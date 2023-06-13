@@ -10,7 +10,6 @@ import SwiftUI
 struct TitleView: View {
     let title: String
     var subtitle: String?
-    var image: String?
     var showChevron = false
     var body: some View {
         HStack {
@@ -48,12 +47,6 @@ struct TitleView: View {
                 }
             }
             Spacer()
-            if let image {
-                Image(systemName: image)
-                    .foregroundColor(.secondary)
-                    .padding([.top, .horizontal])
-                    .accessibilityHidden(true)
-            }
         }
         .accessibilityElement(children: .combine)
     }
@@ -61,6 +54,6 @@ struct TitleView: View {
 
 struct TitleView_Previews: PreviewProvider {
     static var previews: some View {
-        TitleView(title: "Coming Soon", subtitle: "From Watchlist", image: "rectangle.stack")
+        TitleView(title: "Coming Soon", subtitle: "From Watchlist")
     }
 }

@@ -13,7 +13,6 @@ struct ItemContentListView: View {
     let items: [ItemContent]?
     let title: String
     let subtitle: String
-    var image: String?
     @Binding var addedItemConfirmation: Bool
     var displayAsCard = false
     var endpoint: Endpoints?
@@ -27,12 +26,12 @@ struct ItemContentListView: View {
 #else
                     if let endpoint {
                         NavigationLink(value: endpoint) {
-                            TitleView(title: title, subtitle: subtitle, image: image, showChevron: true)
+                            TitleView(title: title, subtitle: subtitle, showChevron: true)
                         }
                         .buttonStyle(.plain)
                     } else {
                         NavigationLink(value: [title: items]) {
-                            TitleView(title: title, subtitle: subtitle, image: image, showChevron: true)
+                            TitleView(title: title, subtitle: subtitle, showChevron: true)
                         }
                         .buttonStyle(.plain)
                     }
@@ -103,7 +102,6 @@ struct ItemContentListView_Previews: PreviewProvider {
         ItemContentListView(items: ItemContent.examples,
                             title: "Favorites",
                             subtitle: "Favorites Movies",
-                            image: "heart",
                             addedItemConfirmation: .constant(false))
     }
 }

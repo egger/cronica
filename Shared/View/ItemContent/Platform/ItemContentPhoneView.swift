@@ -29,7 +29,7 @@ struct ItemContentPhoneView: View {
             
             if let seasons = viewModel.content?.itemSeasons {
                 SeasonList(showID: id, numberOfSeasons: seasons)
-                    .padding([.top, .horizontal], 0)
+                    .padding([.top, .horizontal], .zero)
                     .padding(.bottom)
             }
             
@@ -45,7 +45,7 @@ struct ItemContentPhoneView: View {
                                 addedItemConfirmation: $showConfirmation,
                                 displayAsCard: true)
             
-            InformationSectionView(item: viewModel.content, type: type).padding()
+            infoBox(item: viewModel.content, type: type).padding()
             
             AttributionView().padding([.top, .bottom])
         }
@@ -106,11 +106,93 @@ struct ItemContentPhoneView: View {
             withAnimation { animateGesture = false }
         }
     }
-}
-
-struct ItemContentPhoneView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentPhoneView(title: "Preview", type: .movie, id: ItemContent.example.id, showConfirmation: .constant(false))
+    
+    @ViewBuilder
+    private func infoBox(item: ItemContent?, type: MediaType) -> some View {
+        GroupBox {
+            Section {
+                infoView(title: NSLocalizedString("Original Title", comment: ""),
+                         content: item?.originalItemTitle)
+                if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
+                    infoView(title: NSLocalizedString("Overview", comment: ""),
+                             content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+                }
+                infoView(title: NSLocalizedString("Run Time", comment: ""),
+                         content: item?.itemRuntime)
+                if type == .movie {
+                    infoView(title: NSLocalizedString("Release Date",
+                                                      comment: ""),
+                             content: item?.itemTheatricalString)
+                } else {
+                    infoView(title: NSLocalizedString("First Air Date",
+                                                      comment: ""),
+                             content: item?.itemFirstAirDate)
+                }
+                infoView(title: NSLocalizedString("Ratings Score", comment: ""),
+                         content: item?.itemRating)
+                infoView(title: NSLocalizedString("Status",
+                                                  comment: ""),
+                         content: item?.itemStatus.localizedTitle)
+                infoView(title: NSLocalizedString("Genres", comment: ""),
+                         content: item?.itemGenres)
+                infoView(title: NSLocalizedString("Region of Origin",
+                                                  comment: ""),
+                         content: item?.itemCountry)
+                if let companies = item?.itemCompanies, let company = companies.first {
+                    if !companies.isEmpty {
+                        NavigationLink(value: companies) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text("Production Company")
+                                            .font(.caption)
+                                        Image(systemName: "chevron.right")
+                                            .font(.caption)
+                                    }
+                                    Text(company.name)
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
+                                .accessibilityElement(children: .combine)
+                                Spacer()
+                            }
+                            .padding([.horizontal, .top], 2)
+                        }
+#if os(macOS)
+                        .buttonStyle(.link)
+#endif
+                    }
+                } else {
+                    infoView(title: NSLocalizedString("Production Company",
+                                                      comment: ""),
+                             content: item?.itemCompany)
+                }
+            }
+        } label: {
+            Label("Information", systemImage: "info")
+                .unredacted()
+        }
+        .groupBoxStyle(TransparentGroupBox())
+    }
+    
+    @ViewBuilder
+    private func infoView(title: String, content: String?) -> some View {
+        if let content {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.caption)
+                    Text(content)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                Spacer()
+            }
+            .padding([.horizontal, .top], 2)
+        } else {
+            EmptyView()
+        }
     }
 }
 
@@ -119,5 +201,10 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
     static let imageRadius: CGFloat = 12
+}
+
+@available(iOS 17, *)
+#Preview {
+    ItemContentPhoneView(title: "Preview", type: .movie, id: ItemContent.example.id, showConfirmation: .constant(false))
 }
 #endif

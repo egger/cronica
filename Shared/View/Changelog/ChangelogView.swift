@@ -16,17 +16,17 @@ struct ChangelogView: View {
                 Spacer()
                 VStack {
                     ScrollView {
-                        ChangelogItemView(title: "featureOneTitle",
+                        changelogItem(title: "featureOneTitle",
                                           description: "featureOneDescription",
-                                          image: "sparkles.tv", color: .orange, isDisplayingTipJar: $showTipJar)
+                                          image: "sparkles.tv", color: .orange)
                         .padding(.vertical)
-                        ChangelogItemView(title: "featureTwoTitle",
+                        changelogItem(title: "featureTwoTitle",
                                           description: "featureTwoDescription",
-                                          image: "film.stack", color: .red, isDisplayingTipJar: $showTipJar)
+                                          image: "film.stack", color: .red)
                         .padding(.vertical)
-                        ChangelogItemView(title: "featureThreeTitle",
+                        changelogItem(title: "featureThreeTitle",
                                           description: "featureThreeDescription",
-                                          image: "gearshape", color: .blue, isDisplayingTipJar: $showTipJar)
+                                          image: "gearshape", color: .blue)
                         .padding(.vertical)
                     }
                 }
@@ -77,6 +77,27 @@ struct ChangelogView: View {
 #endif
             }
         }
+    }
+    
+    private func changelogItem(title: String, description: String, image: String, color: Color) -> some View {
+        HStack {
+            Image(systemName: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40, alignment: .center)
+                .foregroundColor(showTipJar ? .secondary : color)
+            VStack(alignment: .leading) {
+                Text(LocalizedStringKey(title))
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                Text(LocalizedStringKey(description))
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.leading, 12)
+            Spacer()
+        }
+        .padding(.horizontal)
     }
     
     var defaultButtons: some View {

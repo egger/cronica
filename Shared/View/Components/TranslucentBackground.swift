@@ -44,8 +44,7 @@ struct TranslucentBackground: View {
     }
 }
 
-struct TranslucentBackground_Previews: PreviewProvider {
-    static var previews: some View {
-        TranslucentBackground()
-    }
+@available(iOS 17, *)
+#Preview {
+    TranslucentBackground()
 }

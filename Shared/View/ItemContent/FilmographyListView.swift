@@ -21,7 +21,7 @@ struct FilmographyListView: View {
         if let filmography {
             if !filmography.isEmpty {
                 VStack {
-                    TitleView(title: "Filmography", subtitle: "", image: nil)
+                    TitleView(title: "Filmography", subtitle: "")
 #if os(tvOS)
                     cardStyle
 #else

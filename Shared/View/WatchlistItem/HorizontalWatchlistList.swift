@@ -22,7 +22,6 @@ struct HorizontalWatchlistList: View {
             NavigationLink(value: [title:items]) {
                 TitleView(title: title,
                           subtitle: subtitle,
-                          image: image,
                           showChevron: true)
             }
             .buttonStyle(.plain)

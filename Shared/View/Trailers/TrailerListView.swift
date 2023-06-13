@@ -16,7 +16,7 @@ struct TrailerListView: View {
         if let trailers {
             if !trailers.isEmpty {
                 VStack {
-                    TitleView(title: "Trailers", subtitle: "", image: nil, showChevron: false)
+                    TitleView(title: "Trailers", subtitle: "", showChevron: false)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(trailers) { trailer in
