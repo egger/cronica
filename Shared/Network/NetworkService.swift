@@ -236,6 +236,7 @@ class NetworkService {
             .init(name: "page", value: "\(page)"),
             .init(name: "with_genres", value: genres)
         ]
+        print("URL: \(component.url as Any)")
         return component.url
     }
     

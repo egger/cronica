@@ -125,9 +125,6 @@ struct TMDBListDetails: View {
                 Text("importTMDBList")
             }
         }
-#if os(macOS)
-        .buttonStyle(.link)
-#endif
     }
     
     private var deleteButton: some View {
@@ -137,9 +134,6 @@ struct TMDBListDetails: View {
             Text("deleteList")
                 .foregroundColor(.red)
         }
-#if os(macOS)
-        .buttonStyle(.link)
-#endif
     }
     
     private var syncButton: some View {
@@ -152,9 +146,6 @@ struct TMDBListDetails: View {
                 Text("syncNow")
             }
         }
-#if os(macOS)
-        .buttonStyle(.link)
-#endif
     }
     
     private func delete() {

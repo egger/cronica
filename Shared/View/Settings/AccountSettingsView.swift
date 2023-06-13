@@ -31,8 +31,8 @@ struct AccountSettingsView: View {
                     NavigationLink("AccountSettingsViewListsManager", destination: TMDBListsView())
                     NavigationLink("AccountSettingsViewWatchlist", destination: TMDBWatchlistView())
 #elseif os(macOS)
-                    Button("AccountSettingsViewListsManager") { showListManager.toggle() }.buttonStyle(.link)
-                    Button("AccountSettingsViewWatchlist") { showWatchlistManager.toggle() }.buttonStyle(.link)
+                    Button("AccountSettingsViewListsManager") { showListManager.toggle() }
+                    Button("AccountSettingsViewWatchlist") { showWatchlistManager.toggle() }
 #endif
                 }
                 accountButton
@@ -96,9 +96,6 @@ struct AccountSettingsView: View {
                 .foregroundColor(userIsLoggedIn ? .red : nil)
 #endif
         }
-#if os(macOS)
-        .buttonStyle(.link)
-#endif
     }
     
     private func SignIn() {

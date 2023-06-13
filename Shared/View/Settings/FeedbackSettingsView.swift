@@ -18,30 +18,37 @@ struct FeedbackSettingsView: View {
             Button("Send Feedback") {
                 showFeedbackForm.toggle()
             }
-            .alert("Send Feedback", isPresented: $showFeedbackForm) {
-                TextField("Feedback", text: $feedback)
-                    .lineLimit(4)
-                Button("Send", action: send)
-                Button("Cancel") { showFeedbackForm.toggle() }
-            }
-            #if os(macOS)
-            .buttonStyle(.link)
-            #endif
-            
-            Button("sendEmail") { supportEmail.send(openURL: openURL) }
-#if os(macOS)
-.buttonStyle(.link)
+            .sheet(isPresented: $showFeedbackForm) {
+                NavigationStack {
+                    Form {
+                        Section {
+                            TextField("Feedback", text: $feedback)
+                                .lineLimit(4)
+                            Button("Send", action: send)
+                        }
+                        
+                        Section {
+                            Button("sendEmail") { supportEmail.send(openURL: openURL) }
+                        } footer: {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("sendEmailFooter")
+                                    Text("sendEmailFooterBackup")
+                                        .textSelection(.enabled)
+                                }
+                                Spacer()
+                            }
+                        }
+                    }
+                    .navigationTitle("Send Feedback")
+                    .toolbar {
+                        Button("Cancel") { showFeedbackForm.toggle() }
+                    }
+#if os(iOS)
+                    .navigationBarTitleDisplayMode(.inline)
 #endif
-        } header: {
-            Text("Feedback")
-        } footer: {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("sendEmailFooter")
-                    Text("sendEmailFooterBackup")
-                        .textSelection(.enabled)
                 }
-                Spacer()
+                .presentationDetents([.medium, .large])
             }
         }
     }
@@ -50,6 +57,7 @@ struct FeedbackSettingsView: View {
         if feedback.isEmpty { return }
         CronicaTelemetry.shared.handleMessage("Feedback: \(feedback)", for: "Feedback")
         feedback = ""
+        showFeedbackForm.toggle()
     }
 }
 

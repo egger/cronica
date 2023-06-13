@@ -19,7 +19,7 @@ class WatchProvidersListViewModel: ObservableObject {
     private func checkLocale() {
         if firstCheck { return }
         let userLocale = Locale.userRegion
-        let providerRegions = WatchProviderOption.allCases
+        let providerRegions = AppContentRegion.allCases
         for region in providerRegions {
             if userLocale.lowercased() == region.rawValue.lowercased() {
                 settings.watchRegion = region

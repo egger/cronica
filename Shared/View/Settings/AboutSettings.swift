@@ -22,8 +22,8 @@ struct AboutSettings: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 120, height: 120, alignment: .center)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                            .shadow(radius: 2.5)
+                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            .shadow(radius: 5)
                         Text("Developed by Alexandre Madeira")
                             .font(.caption2)
                             .foregroundColor(.secondary)
@@ -58,42 +58,31 @@ struct AboutSettings: View {
                     InformationalLabel(title: "acknowledgmentsAppIconTitle",
                                        subtitle: "acknowledgmentsAppIconSubtitle")
                 }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
+                
                 Button {
                     openUrl("https://www.themoviedb.org")
                 } label: {
                     InformationalLabel(title: "acknowledgmentsContentProviderTitle",
                                        subtitle: "acknowledgmentsContentProviderSubtitle")
                 }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
+                
                 Button {
                     openUrl("https://github.com/SDWebImage/SDWebImageSwiftUI")
                 } label: {
                     InformationalLabel(title: "acknowledgmentsSDWebImage")
                 }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
+                
                 Button {
                     openUrl("https://github.com/AvdLee/Roadmap")
                 } label: {
                     InformationalLabel(title: "Roadmap")
                 }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
+                
                 Button {
                     openUrl("https://telemetrydeck.com/")
                 } label: {
                     InformationalLabel(title: "TelemetryDeck")
                 }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
             }
             
             Section {
@@ -102,9 +91,6 @@ struct AboutSettings: View {
                 } label: {
                     InformationalLabel(title: "cronicaGitHub")
                 }
-#if os(macOS)
-                .buttonStyle(.link)
-#endif
                 
             }
             
@@ -132,7 +118,6 @@ struct AboutSettings: View {
                 guard let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") else { return }
                 NSWorkspace.shared.open(url)
             }
-            .buttonStyle(.link)
         } header: {
             Label("Privacy", systemImage: "hand.raised")
         }

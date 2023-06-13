@@ -105,9 +105,6 @@ struct TMDBWatchlistView: View {
                 Text("importTMDBWatchlist")
             }
         }
-#if os(macOS)
-        .buttonStyle(.link)
-#endif
     }
     
     private var doneButton: some View {
@@ -142,9 +139,6 @@ struct TMDBWatchlistView: View {
                 Text("syncWatchlist")
             }
         }
-#if os(macOS)
-        .buttonStyle(.link)
-#endif
     }
     
     private func publishItems() async {

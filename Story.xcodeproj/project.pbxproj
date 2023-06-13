@@ -37,8 +37,8 @@
 		B8105257298DC0AD00723E94 /* Locale-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8105252298DBAF500723E94 /* Locale-Extensions.swift */; };
 		B8105259298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8105258298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift */; };
 		B810525A298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8105258298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift */; };
-		B810525E298DD05600723E94 /* WatchProviderOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* WatchProviderOption.swift */; };
-		B810525F298DD05600723E94 /* WatchProviderOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* WatchProviderOption.swift */; };
+		B810525E298DD05600723E94 /* AppContentRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* AppContentRegion.swift */; };
+		B810525F298DD05600723E94 /* AppContentRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* AppContentRegion.swift */; };
 		B8105265298F58E100723E94 /* CompanyDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8105264298F58E100723E94 /* CompanyDetails.swift */; };
 		B8110EE8279245D100844FEB /* CronicaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED8279245D000844FEB /* CronicaApp.swift */; };
 		B8110EEA279245D100844FEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8110ED9279245D000844FEB /* ContentView.swift */; };
@@ -173,7 +173,7 @@
 		B84457C8297341B4009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
 		B84457C9297341B5009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
 		B84457CE29734F90009CB21F /* WatchProvidersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457CD29734F90009CB21F /* WatchProvidersList.swift */; };
-		B84457D32973987E009CB21F /* WatchProviderOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* WatchProviderOption.swift */; };
+		B84457D32973987E009CB21F /* AppContentRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* AppContentRegion.swift */; };
 		B84457D52973A402009CB21F /* WatchProvidersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */; };
 		B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
@@ -515,7 +515,7 @@
 		B84457C12970D599009CB21F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		B84457C6297341AF009CB21F /* WatchProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviders.swift; sourceTree = "<group>"; };
 		B84457CD29734F90009CB21F /* WatchProvidersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProvidersList.swift; sourceTree = "<group>"; };
-		B84457D22973987E009CB21F /* WatchProviderOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviderOption.swift; sourceTree = "<group>"; };
+		B84457D22973987E009CB21F /* AppContentRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContentRegion.swift; sourceTree = "<group>"; };
 		B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProvidersListViewModel.swift; sourceTree = "<group>"; };
 		B845132927EA514C00F0D4A4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person-Extensions.swift"; sourceTree = "<group>"; };
@@ -739,7 +739,7 @@
 				B876DE51281B1BA5005558DD /* ItemSchedule.swift */,
 				B876DE4F281B1B81005558DD /* MediaType.swift */,
 				B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */,
-				B84457D22973987E009CB21F /* WatchProviderOption.swift */,
+				B84457D22973987E009CB21F /* AppContentRegion.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1679,7 +1679,7 @@
 				B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */,
 				B81941D12A0861D70057DA04 /* ArchiveButton.swift in Sources */,
 				B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */,
-				B810525E298DD05600723E94 /* WatchProviderOption.swift in Sources */,
+				B810525E298DD05600723E94 /* AppContentRegion.swift in Sources */,
 				B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */,
 				B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */,
 				B83E3EDB299AB9FB00A3A28B /* CustomList-Extensions.swift in Sources */,
@@ -1869,7 +1869,7 @@
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,
 				B88789D029F8844C00680FD3 /* ReviewView.swift in Sources */,
 				B8733A7829293ABB00CBEF2B /* TranslucentBackground.swift in Sources */,
-				B84457D32973987E009CB21F /* WatchProviderOption.swift in Sources */,
+				B84457D32973987E009CB21F /* AppContentRegion.swift in Sources */,
 				B8F6D6DF29DB433200B9190B /* TVSearchItemContentView.swift in Sources */,
 				B819418D2A0822C30057DA04 /* UpNextEpisode.swift in Sources */,
 				B8CC952D27D02D3900B6757C /* ItemContentViewModel.swift in Sources */,
@@ -1950,7 +1950,7 @@
 				B8D7AED428B963110053CE5A /* Season.swift in Sources */,
 				B81DD93729BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
 				B81DD93D29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
-				B810525F298DD05600723E94 /* WatchProviderOption.swift in Sources */,
+				B810525F298DD05600723E94 /* AppContentRegion.swift in Sources */,
 				B8D7AEC528B961860053CE5A /* NetworkError.swift in Sources */,
 				B8D7AECF28B962660053CE5A /* Person.swift in Sources */,
 				B8D7AEBB28B95FC60053CE5A /* ItemContent.swift in Sources */,

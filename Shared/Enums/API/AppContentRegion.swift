@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WatchProviderOption: String, CaseIterable, Identifiable {
+enum AppContentRegion: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case ae, ar, at, au, be, bg, br,
     ca, ch, cz, de, dk, ee, es, fi,

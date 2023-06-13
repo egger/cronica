@@ -28,7 +28,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("markEpisodeWatchedTap") var markEpisodeWatchedOnTap = false
     @AppStorage("enableHapticFeedback") var hapticFeedback = true
     @AppStorage("enableWatchProviders") var isWatchProviderEnabled = true
-    @AppStorage("selectedWatchProviderRegion") var watchRegion: WatchProviderOption = .us
+    @AppStorage("selectedWatchProviderRegion") var watchRegion: AppContentRegion = .us
     @AppStorage("primaryLeftSwipe") var primaryLeftSwipe: SwipeGestureOptions = .markWatch
     @AppStorage("secondaryLeftSwipe") var secondaryLeftSwipe: SwipeGestureOptions = .markFavorite
     @AppStorage("primaryRightSwipe") var primaryRightSwipe: SwipeGestureOptions = .delete

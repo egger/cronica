@@ -42,8 +42,6 @@ struct SettingsView: View {
             .fullScreenCover(isPresented: $showPolicy) {
                 SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
             }
-#elseif os(macOS)
-            .buttonStyle(.link)
 #endif
 #endif
         } header: {

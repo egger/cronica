@@ -76,7 +76,7 @@ struct BehaviorSetting: View {
             }
             if store.isWatchProviderEnabled {
                 Picker(selection: $store.watchRegion) {
-                    ForEach(WatchProviderOption.allCases.sorted { $0.localizableTitle < $1.localizableTitle}) { region in
+                    ForEach(AppContentRegion.allCases.sorted { $0.localizableTitle < $1.localizableTitle}) { region in
                         Text(region.localizableTitle)
                             .tag(region)
                     }
@@ -96,7 +96,7 @@ struct BehaviorSetting: View {
 #elseif os(macOS)
                 Button("selectedWatchProvider") {
                     showWatchProvidersSelector.toggle()
-                }.buttonStyle(.link)
+                }
 #endif
             }
         }

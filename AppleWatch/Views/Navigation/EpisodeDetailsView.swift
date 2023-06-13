@@ -35,9 +35,6 @@ struct EpisodeDetailsView: View {
                 
                 AboutSectionView(about: episode.itemOverview)
                 
-                CompanionTextView()
-                
-                AttributionView()
             }
         }
         .navigationTitle(episode.itemTitle)

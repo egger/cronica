@@ -83,6 +83,25 @@ struct DeveloperView: View {
                 }
             }
             
+            Section {
+                Text("User Region: \(Locale.userRegion)")
+                Text("User Lang: \(Locale.userLang)")
+                Button("Print Locale") {
+                    let currentLocale = Locale.current
+
+                    if let regionCode = currentLocale.region?.identifier {
+                        if let regionName = currentLocale.localizedString(forRegionCode: regionCode) {
+                            print("User's region code: \(regionCode)")
+                            print("User's region: \(regionName)")
+                        } else {
+                            print("Unable to determine the user's region.")
+                        }
+                    } else {
+                        print("Unable to determine the user's region code.")
+                    }
+                }
+            }
+            
             Section("TMDB") {
                 Text("User Access ID (TMDB): \(userAccessId)")
                     .textSelection(.enabled)

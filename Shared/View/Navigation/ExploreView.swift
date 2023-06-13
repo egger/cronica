@@ -51,10 +51,13 @@ struct ExploreView: View {
                         }
                     }
                     .onChange(of: onChanging) { _ in
-                        let first = viewModel.items[0]
+                        guard let first = viewModel.items.first else { return }
                         withAnimation {
                             proxy.scrollTo(first.id, anchor: .topLeading)
                         }
+                    }
+                    .task {
+                        await load()
                     }
                     .navigationDestination(for: ItemContent.self) { item in
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
@@ -87,6 +90,7 @@ struct ExploreView: View {
                     }
                 }
             }
+            
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
         .sheet(isPresented: $showFilters, content: {
@@ -152,9 +156,6 @@ struct ExploreView: View {
 #if os(iOS) || os(macOS)
         .navigationTitle("Explore")
 #endif
-        .task {
-            await load()
-        }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
         .toolbar {
 #if os(iOS) || os(macOS)
@@ -184,9 +185,9 @@ struct ExploreView: View {
             onChanging = true
             var genre: Genre?
             if value == .tvShow {
-                genre = viewModel.shows[0]
+                genre = viewModel.shows.first
             } else {
-                genre = viewModel.movies[0]
+                genre = viewModel.movies.first
             }
             if let genre {
                 viewModel.selectedGenre = genre.id
