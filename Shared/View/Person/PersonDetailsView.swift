@@ -25,36 +25,8 @@ struct PersonDetailsView: View {
         ZStack {
             VStack {
                 ScrollView {
-#if os(tvOS)
-                    imageProfile.padding()
-#else
-                    ViewThatFits {
-                        HStack {
-                            imageProfile
-                                .padding([.horizontal, .top])
-                            
-                            if viewModel.person?.hasBiography ?? false {
-                                OverviewBoxView(overview: viewModel.person?.personBiography,
-                                                title: name,
-                                                type: .person)
-                                .frame(width: 500)
-                                .padding(.horizontal)
-                            }
-                        }
-                        
-                        VStack {
-                            imageProfile
-                                .padding()
-                            
-                            if viewModel.person?.hasBiography ?? false {
-                                OverviewBoxView(overview: viewModel.person?.personBiography,
-                                                title: name,
-                                                type: .person)
-                                .padding()
-                            }
-                        }
-                    }
-#endif
+                    imageProfile
+                        .padding()
                     
                     FilmographyListView(filmography: viewModel.credits,
                                         showConfirmation: $showConfirmation)

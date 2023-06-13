@@ -16,7 +16,9 @@ class SettingsStore: ObservableObject {
     @AppStorage("rowType") var rowType: WatchlistSubtitleRow = .none
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
 #if os(macOS)
-    @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .poster
+    @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .card
+#elseif os(iOS)
+    @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = UIDevice.isIPhone ? .list : .card
 #else
     @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .list
 #endif

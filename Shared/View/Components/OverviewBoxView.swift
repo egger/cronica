@@ -16,44 +16,54 @@ struct OverviewBoxView: View {
     @State private var showFullText = false
     @State private var showSheet = false
     var body: some View {
-        GroupBox {
-            Text(overview ?? "Not Available")
-                .padding([.top], 2)
-                .lineLimit(showFullText ? nil : 4)
-        } label: {
-            switch type {
-            case .person:
-                Label("Biography", systemImage: "book")
-                    .unredacted()
-            case .tvShow:
-                Label("About", systemImage: "film")
-                    .unredacted()
-            default:
-                Label("About", systemImage: "film")
-                    .unredacted()
-            }
-        }
-        .onTapGesture {
+        if let overview {
+            if !overview.isEmpty {
+                GroupBox {
+                    VStack(alignment: .leading) {
+                        Text(overview)
+                            .padding([.top], 2)
+                            .lineLimit(showFullText ? nil : 4)
+                        Text(showFullText ? "Collapse" : "Show More")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .padding(.top, 4)
+                    }
+                } label: {
+                    switch type {
+                    case .person:
+                        Label("Biography", systemImage: "book")
+                            .unredacted()
+                    case .tvShow:
+                        Label("About", systemImage: "film")
+                            .unredacted()
+                    default:
+                        Label("About", systemImage: "film")
+                            .unredacted()
+                    }
+                }
+                .onTapGesture {
 #if os(iOS) || os(watchOS)
-            withAnimation { showFullText.toggle() }
+                    withAnimation { showFullText.toggle() }
 #elseif os(macOS)
-            showSheet.toggle()
+                    showSheet.toggle()
 #endif
-        }
-        .accessibilityElement(children: .combine)
-        .contextMenu { if let overview { ShareLink(item: overview) } }
+                }
+                .accessibilityElement(children: .combine)
+                .contextMenu {  ShareLink(item: overview) }
 #if os(macOS)
-        .popover(isPresented: $showSheet) {
-            ScrollView {
-                Text(overview ?? "No Overview")
-                    .unredacted()
-                    .padding()
-            }
-            .frame(width: 400, height: 200, alignment: .center)
-        }
+                .popover(isPresented: $showSheet) {
+                    ScrollView {
+                        Text(overview ?? "No Overview")
+                            .unredacted()
+                            .padding()
+                    }
+                    .frame(width: 400, height: 200, alignment: .center)
+                }
 #elseif os(iOS)
-        .groupBoxStyle(TransparentGroupBox())
+                .groupBoxStyle(TransparentGroupBox())
 #endif
+            }
+        }
     }
 }
 

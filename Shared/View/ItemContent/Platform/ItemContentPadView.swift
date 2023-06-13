@@ -22,7 +22,7 @@ struct ItemContentPadView: View {
     @Binding var showConfirmation: Bool
     var body: some View {
         VStack {
-            header
+            header.padding(.leading)
             
             if let seasons = viewModel.content?.itemSeasons {
                 SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
@@ -104,8 +104,6 @@ struct ItemContentPadView: View {
                 Text(title)
                     .fontWeight(.semibold)
                     .font(.title)
-                Text(viewModel.content?.itemInfo ?? "")
-                    .foregroundColor(.secondary)
                     .padding(.bottom)
                 HStack {
                     Text(viewModel.content?.itemOverview ?? "")
@@ -115,7 +113,7 @@ struct ItemContentPadView: View {
                         }
                     Spacer()
                 }
-                .frame(maxWidth: 400)
+                .frame(maxWidth: 460)
                 .padding(.bottom)
 #if os(iOS) || os(macOS)
                 .popover(isPresented: $showOverview) {
@@ -140,7 +138,7 @@ struct ItemContentPadView: View {
                         Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                               systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
                     }
-                    .tint(viewModel.isInWatchlist ? .red.opacity(0.8) : .black.opacity(0.8))
+                    .tint(viewModel.isInWatchlist ? .red : .black)
                     .disabled(viewModel.isLoading)
                     .buttonStyle(.borderedProminent)
 #if os(iOS) || os(macOS)
@@ -196,8 +194,8 @@ struct ItemContentPadView: View {
             
             ViewThatFits {
                 QuickInformationView(item: viewModel.content)
-                    .frame(width: 260)
-                    .padding(.trailing)
+                    .frame(width: 280)
+                    .padding(.horizontal)
                 VStack {
                     Text("")
                 }

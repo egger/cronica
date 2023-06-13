@@ -183,13 +183,9 @@ struct EpisodeDetailsView: View {
                 .padding()
                 
                 CastListView(credits: episode.itemCast)
-                
-                AttributionView()
+                    .padding(.bottom)
             }
             .navigationTitle(episode.itemTitle)
-#if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-#endif
             .task { load() }
             .onAppear {
                 if isUpNext {
