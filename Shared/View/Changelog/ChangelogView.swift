@@ -16,18 +16,26 @@ struct ChangelogView: View {
                 Spacer()
                 VStack {
                     ScrollView {
-                        changelogItem(title: "featureOneTitle",
-                                          description: "featureOneDescription",
-                                          image: "sparkles.tv", color: .orange)
-                        .padding(.vertical)
-                        changelogItem(title: "featureTwoTitle",
-                                          description: "featureTwoDescription",
-                                          image: "film.stack", color: .red)
-                        .padding(.vertical)
-                        changelogItem(title: "featureThreeTitle",
-                                          description: "featureThreeDescription",
-                                          image: "gearshape", color: .blue)
-                        .padding(.vertical)
+                        changelogItem(
+                            title: "featureOneTitle",
+                            description: "featureOneDescription",
+                            image: "sparkles.tv",
+                            color: .orange
+                        ).padding(.vertical)
+                        
+                        changelogItem(
+                            title: "featureTwoTitle",
+                            description: "featureTwoDescription",
+                            image: "film.stack",
+                            color: .red
+                        ).padding(.vertical)
+                        
+                        changelogItem(
+                            title: "featureThreeTitle",
+                            description: "featureThreeDescription",
+                            image: "gearshape",
+                            color: .blue
+                        ).padding(.vertical)
                     }
                 }
                 .padding(.horizontal)
