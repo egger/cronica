@@ -6,9 +6,8 @@
 //
 #if os(iOS) || os(macOS)
 import SwiftUI
-import SDWebImageSwiftUI
-/// This view should be used only on development phase.
-/// Do not utilize this on the TestFlight/App Store version.
+
+/// This view provides quick information and utilities to the developer.
 struct DeveloperView: View {
     @State private var item: ItemContent?
     @State private var person: Person?
@@ -86,20 +85,6 @@ struct DeveloperView: View {
             Section {
                 Text("User Region: \(Locale.userRegion)")
                 Text("User Lang: \(Locale.userLang)")
-                Button("Print Locale") {
-                    let currentLocale = Locale.current
-
-                    if let regionCode = currentLocale.region?.identifier {
-                        if let regionName = currentLocale.localizedString(forRegionCode: regionCode) {
-                            print("User's region code: \(regionCode)")
-                            print("User's region: \(regionName)")
-                        } else {
-                            print("Unable to determine the user's region.")
-                        }
-                    } else {
-                        print("Unable to determine the user's region code.")
-                    }
-                }
             }
             
             Section("TMDB") {

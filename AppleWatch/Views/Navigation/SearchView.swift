@@ -16,48 +16,49 @@ struct SearchView: View {
     @Binding var query: String
     @State private var filteredItems = [WatchlistItem]()
     @State private var isInWatchlist = false
+    @State private var hasLoadedTMDbResults = false
     var body: some View {
         List {
-            Section {
-                if !filteredItems.isEmpty {
+            if !filteredItems.isEmpty {
+                Section("Results from Watchlist") {
                     ForEach(filteredItems) { item in
                         NavigationLink(value: item) {
                             WatchlistItemRow(content: item)
                         }
                     }
-                } else {
-                    Text("No results from Watchlist")
                 }
-            } header: {
-                Text("Results from Watchlist")
             }
-            Section {
-                if !viewModel.items.isEmpty {
-                    ForEach(viewModel.items) { item in
-                        NavigationLink(value: item) {
-                            SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isInWatchlist)
+            
+            Section("Results from TMDb") {
+                if hasLoadedTMDbResults {
+                    if !viewModel.items.isEmpty {
+                        ForEach(viewModel.items) { item in
+                            NavigationLink(value: item) {
+                                SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isInWatchlist)
+                            }
                         }
+                    } else {
+                        Text("No results from TMDb")
                     }
                 } else {
-                    Text("No results from TMDb")
+                    ProgressView("Loading")
                 }
-            } header: {
-                Text("Results from TMDb")
             }
         }
         .task(id: query) {
             if query.isEmpty { return }
             if Task.isCancelled { return }
+            withAnimation { hasLoadedTMDbResults = false }
             if !filteredItems.isEmpty { filteredItems.removeAll() }
             filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
             await viewModel.search(query)
+            withAnimation { hasLoadedTMDbResults = true }
         }
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
-    @State private static var query = String()
     static var previews: some View {
-        SearchView(query: $query)
+        SearchView(query: .constant(String()))
     }
 }
