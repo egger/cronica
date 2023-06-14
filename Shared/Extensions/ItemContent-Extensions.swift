@@ -26,7 +26,7 @@ extension ItemContent {
     }
     var itemGenre: String {
         if let genre = genres?.first?.name { return genre }
-        return NSLocalizedString("Not Available", comment: "")
+        return String()
     }
     var itemGenres: String {
         guard let genres = genres else { return String() }
@@ -298,19 +298,15 @@ extension ItemContent {
     
     // MARK: Date
     var nextEpisodeDate: Date? {
-        if let nextEpisodeDate = nextEpisodeToAir?.airDate {
-            return DatesManager.dateFormatter.date(from: nextEpisodeDate)
-        }
-        return nil
+        guard let nextEpisodeDate = nextEpisodeToAir?.airDate else { return nil }
+        return DatesManager.dateFormatter.date(from: nextEpisodeDate)
     }
     
     var itemFirstAirDate: String? {
-        if let firstAirDate {
-            let date = DatesManager.dateFormatter.date(from: firstAirDate)
-            guard let date else { return nil }
-            return DatesManager.dateString.string(from: date)
-        }
-        return nil
+        guard let firstAirDate else { return nil }
+        let date = DatesManager.dateFormatter.date(from: firstAirDate)
+        guard let date else { return nil }
+        return DatesManager.dateString.string(from: date)
     }
     
     var itemTheatricalDate: Date? {
@@ -329,10 +325,8 @@ extension ItemContent {
         if let releaseDate = releaseDate {
             return DatesManager.dateFormatter.date(from: releaseDate)
         }
-        if let lastEpisodeToAir {
-            if let date = lastEpisodeToAir.airDate {
-                return DatesManager.dateFormatter.date(from: date)
-            }
+        if let lastEpisodeToAir, let date = lastEpisodeToAir.airDate {
+            return DatesManager.dateFormatter.date(from: date)
         }
         return nil
     }

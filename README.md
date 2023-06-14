@@ -30,18 +30,16 @@ To provide release notifications, the app takes advantage of local notifications
 Thanks to CloudKit and SwiftUI, Cronica also can run on every Apple device, and the information will automatically sync.
 
 ## Project Organization
-> **I've made some changes to the app structure in the latest commits. These changes will make it easier for me to quickly port new iOS features to the macOS and tvOS versions of the app, while also allowing me to share the same App Store page.**
+If you want to contribute with code, here are some important details about the project's organization:
 
-> **If you're interested, you can check out the commit the last ['Commit with the old structure'](https://github.com/MadeiraAlexandre/Cronica/tree/d594a9c2b1b68ec98ca9075c2504fff6574ce172) and follow the project organization outlined below:**
-- Files related to Models, ViewModels, Network, Error, and Localization live inside the Shared folder.
-- The iOS and iPadOS apps are fully inside the Shared folder.
-- The tvOS app shares resources with Shared folder and it's unique UI elements lives only on AppleTV folder.
-- The macOS app shares resources with Shared folder and it's unique UI elements lives only on Mac folder.
-- The watchOS app shares resources with Shared folder and it's unique UI elements lives only on AppleWatch folder.
+- The code-base for the Mac, iPhone, iPad, and Apple TV versions is shared and resides within the "Shared" folder.
+- While the Apple Watch also utilizes the same networking as the other platforms, it has a different user interface (UI) design. The Apple Watch-specific UI components are located in the "Apple Watch" folder. However, certain UI components are shared among all platforms and can be found in the "Shared" folder.
+- The views are organized based on their relationship with models or functionality. For instance, the "ItemContent" struct represents data fetched from the TMDb service, which can refer to a movie or a TV show. The UI elements associated with this struct are grouped under the "ItemContent" group in the "Views" folder. An example of such a UI element is the details page that users see when they open a movie.
+- If you have any questions, feel free to reach out to me via email, Twitter, or iMessage. I'll be happy to assist you.
 
 ##  Build information
 
-#### This project targets iOS 16, iPadOS 16, watchOS 9, macOS 13, tvOS 16 and requires Xcode 14.
+#### This project targets iOS 16.4, iPadOS 16.4, watchOS 9.4, macOS 13.4, tvOS 16.4 and requires Xcode 14.
 
 To get started you'll need to:
 
@@ -110,5 +108,6 @@ You can also download the latest beta from <a href="https://testflight.apple.com
 ## Contact
 
 If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.<br>
+I'm also availabe at iMessage, you can send a message at the same email address above.<br>
 Follow me on Twitter: [_alexMadeira](https://twitter.com/_alexMadeira).
 

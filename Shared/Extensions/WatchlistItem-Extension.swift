@@ -7,12 +7,8 @@
 
 import Foundation
 import CoreData
-import SwiftUI
 
-extension WatchlistItem: Transferable {
-    public static var transferRepresentation: some TransferRepresentation {
-        ProxyRepresentation(exporting: \.itemUrlProxy)
-    }
+extension WatchlistItem {
     var itemTitle: String {
         title ?? NSLocalizedString("No title available", comment: "")
     }
