@@ -643,3 +643,13 @@
 "Overview" = "Visão Geral";
 "Original Title" = "Título Original";
 "What's New" = "Novidades";
+
+"settingsRegionContentTitle" = "Conteúdo e Região";
+"appRegionTitle" = "Região";
+"appRegionSubtitle" = "O aplicativo irá adaptar os provedores de streaming com base na sua região.";
+"Translation" = "Tradução";
+"German" = "Alemão";
+"Libraries" = "Bibliotecas";
+"Source Code" = "Código Fonte";
+"Show More" = "Mostrar Mais";
+"Collapse" = "Recolher";

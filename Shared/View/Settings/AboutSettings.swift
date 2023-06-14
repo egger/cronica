@@ -48,7 +48,7 @@ struct AboutSettings: View {
             }
             
 #if os(macOS)
-            privacy
+            privacy 
 #endif
             
             FeedbackSettingsView()

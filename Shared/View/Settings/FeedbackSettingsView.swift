@@ -49,6 +49,9 @@ struct FeedbackSettingsView: View {
 #endif
                 }
                 .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 400, height: 500, alignment: .center)
+#endif
             }
         }
     }

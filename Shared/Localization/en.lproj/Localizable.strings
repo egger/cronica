@@ -612,4 +612,10 @@
 
 "settingsRegionContentTitle" = "Content & Region";
 "appRegionTitle" = "Region";
-"appRegionSubtitle" = "The app will adapt releases dates, watch providers and more based on your region.";
+"appRegionSubtitle" = "The app will adapt watch providers based on your region.";
+"Translation" = "Translation";
+"German" = "German";
+"Libraries" = "Libraries";
+"Source Code" = "Source Code";
+"Show More" = "Show More";
+"Collapse" = "Collapse";

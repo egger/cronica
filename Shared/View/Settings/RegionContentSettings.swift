@@ -54,8 +54,9 @@ struct RegionContentSettings: View {
 #endif
                 
             }
-            
+#if os(iOS)
             languageButton
+#endif
         }
         .navigationTitle("settingsRegionContentTitle")
 #if os(macOS)
@@ -63,6 +64,7 @@ struct RegionContentSettings: View {
 #endif
     }
     
+#if os(iOS)
     private var languageButton: some View {
         Button("changeLanguage") {
             Task {
@@ -74,6 +76,7 @@ struct RegionContentSettings: View {
             }
         }
     }
+#endif
 }
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)

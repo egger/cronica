@@ -1168,19 +1168,19 @@
 		B89446C6294FE267008974BA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				B85FD9A829F324730088B5CC /* AccountSettingsView.swift */,
 				B8FB2A8F295263AB006DAC8E /* AboutSettings.swift */,
+				B85FD9A829F324730088B5CC /* AccountSettingsView.swift */,
 				B80BBE572949665A00958876 /* AppearanceSetting.swift */,
 				B8FB2A8D29526341006DAC8E /* BehaviorSetting.swift */,
 				B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */,
 				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
 				B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */,
+				B86AA7FB2A3A4C8C009847FE /* RegionContentSettings.swift */,
 				B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */,
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B80BBE5D2949677300958876 /* SyncSetting.swift */,
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
 				B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */,
-				B86AA7FB2A3A4C8C009847FE /* RegionContentSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

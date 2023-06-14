@@ -24,6 +24,8 @@ struct OverviewBoxView: View {
                             .padding([.top], 2)
                             .lineLimit(showFullText ? nil : 4)
                         Text(showFullText ? "Collapse" : "Show More")
+                            .fontDesign(.rounded)
+                            .textCase(.uppercase)
                             .font(.caption)
                             .foregroundStyle(.secondary)
                             .padding(.top, 4)
@@ -53,7 +55,7 @@ struct OverviewBoxView: View {
 #if os(macOS)
                 .popover(isPresented: $showSheet) {
                     ScrollView {
-                        Text(overview ?? "No Overview")
+                        Text(overview )
                             .unredacted()
                             .padding()
                     }

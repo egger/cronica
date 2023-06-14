@@ -611,3 +611,13 @@
 "Overview" = "Überblick";
 "Original Title" = "Originaltitel";
 "What's New" = "Was ist neu";
+
+"settingsRegionContentTitle" = "Inhalte und Region";
+"appRegionTitle" = "Region";
+"appRegionSubtitle" = "Die App passt die Streaming-Anbieter basierend auf Ihrer Region an.";
+"Translation" = "Übersetzung";
+"German" = "Deutsch";
+"Libraries" = "Bibliotheken";
+"Source Code" = "Quellcode";
+"Show More" = "Mehr anzeigen";
+"Collapse" = "Ausblenden";
