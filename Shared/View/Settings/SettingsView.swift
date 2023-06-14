@@ -74,6 +74,9 @@ struct SettingsView: View {
                     NavigationLink(value: SettingsScreens.notifications) {
                         SettingsLabelWithIcon(title: "settingsNotificationTitle", icon: "bell", color: .red)
                     }
+                    NavigationLink(destination: RegionContentSettings()) {
+                        SettingsLabelWithIcon(title: "settingsRegionContentTitle", icon: "globe", color: .purple)
+                    }
                 }
                 
                 Section {

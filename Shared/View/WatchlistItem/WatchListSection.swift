@@ -31,7 +31,6 @@ struct WatchListSection: View {
         Table(items, sortOrder: $sortOrder) {
             TableColumn("Title") { item in
                 WatchlistItemRow(content: item)
-                    .draggable(item)
                     .buttonStyle(.plain)
             }
             TableColumn("Media", value: \.itemMedia.title)
@@ -45,7 +44,6 @@ struct WatchListSection: View {
             Section {
                 ForEach(items) {
                     WatchlistItemRow(content: $0)
-                        .draggable($0)
                 }
                 .onDelete(perform: delete)
             } header: {

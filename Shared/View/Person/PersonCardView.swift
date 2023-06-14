@@ -81,7 +81,6 @@ struct PersonCardView: View {
                     .transition(.opacity)
             }
 #if os(iOS) || os(macOS)
-            .draggable(person)
             .contextMenu {
                 ShareLink(item: person.itemURL)
             }

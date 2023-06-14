@@ -8,9 +8,6 @@
 import SwiftUI
 import AuthenticationServices
 
-@available(iOS 16.4, *)
-@available(tvOS 16.4, *)
-@available(macOS 13.3, *)
 struct AccountSettingsView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     @State private var viewModel = AccountManager.shared
@@ -122,9 +119,6 @@ struct AccountSettingsView: View {
     private func SignOut() { showSignOutConfirmation.toggle() }
 }
 
-@available(iOS 16.4, *)
-@available(macOS 13.3, *)
-@available(tvOS 16.4, *)
 struct AccountSettings_Previews: PreviewProvider {
     static var previews: some View {
         AccountSettingsView()

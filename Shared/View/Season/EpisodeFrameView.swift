@@ -144,7 +144,7 @@ struct EpisodeFrameView: View {
             .overlay {
                 if isWatched {
                     ZStack {
-                        Color.black.opacity(0.3)
+                        Color.black.opacity(0.4)
                         Image(systemName: "checkmark.circle.fill")
                             .font(.title2)
                             .foregroundColor(.white)
@@ -203,16 +203,13 @@ struct EpisodeFrameView: View {
     }
     
     private func addToWatchlist() async {
-        do {
-            let item = try await NetworkService.shared.fetchItem(id: show, type: .tvShow)
-            PersistenceController.shared.save(item)
-            DispatchQueue.main.async {
-                withAnimation {
-                    viewModel.isItemInWatchlist.toggle()
-                }
+        let item = try? await NetworkService.shared.fetchItem(id: show, type: .tvShow)
+        guard let item else { return }
+        PersistenceController.shared.save(item)
+        DispatchQueue.main.async {
+            withAnimation {
+                viewModel.isItemInWatchlist.toggle()
             }
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "EpisodeFrameView.addToWatchlist")
         }
     }
     
@@ -250,9 +247,9 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 200
 #else
-    static let imageWidth: CGFloat = 180
+    static let imageWidth: CGFloat = 200
     static let imageHeight: CGFloat = 120
 #endif
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 16
     static let titleLineLimit: Int = 1
 }

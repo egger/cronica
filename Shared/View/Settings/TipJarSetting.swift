@@ -42,7 +42,9 @@ struct TipJarSetting: View {
                 Label("tipJarTitle", systemImage: "heart")
 #endif
             } footer: {
-                Text("tipJarFooter")
+                if !SettingsStore.shared.hasPurchasedTipJar {
+                    Text("tipJarFooter")
+                }
             }
         }
         .navigationTitle("tipJarTitle")

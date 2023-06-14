@@ -70,21 +70,14 @@ import Combine
         if endPagination { return }
         if Task.isCancelled { return }
         Task {
-            do {
-                let result = try await service.search(query: trimmedQuery, page: "\(page)")
-                if result.isEmpty { endPagination.toggle() }
-                let filtered = await filter(for: result)
-                withAnimation {
-                    self.items.append(contentsOf: filtered.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
-                }
-                self.page += 1
-            } catch {
-                if Task.isCancelled { return }
-                CronicaTelemetry.shared.handleMessage(
-                    error.localizedDescription,
-                    for: "ItemContentViewModel.loadMoreItems()"
-                )
+            let result = try? await service.search(query: trimmedQuery, page: "\(page)")
+            guard let result else { return }
+            if result.isEmpty { endPagination.toggle() }
+            let filtered = await filter(for: result)
+            withAnimation {
+                self.items.append(contentsOf: filtered.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
             }
+            self.page += 1
         }
     }
     

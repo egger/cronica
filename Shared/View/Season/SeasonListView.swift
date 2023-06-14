@@ -92,7 +92,7 @@ struct SeasonList: View {
 #if os(tvOS)
                                         .frame(width: 360)
 #else
-                                        .frame(width: 180)
+                                        .frame(width: 200)
 #endif
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == season.first!.id ? 16 : 0)

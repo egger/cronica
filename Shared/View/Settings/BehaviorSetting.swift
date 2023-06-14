@@ -9,9 +9,6 @@ import SwiftUI
 
 struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
-#if os(macOS)
-    @State private var showWatchProvidersSelector = false
-#endif
     var body: some View {
         Form {
             gesture
@@ -20,25 +17,10 @@ struct BehaviorSetting: View {
             links
 #endif
             otherOptions
-            watchProviders
 #if os(iOS)
-            
-            Button("changeLanguage") {
-                Task {
-                    // Create the URL that deep links to your app's custom settings.
-                    if let url = URL(string: UIApplication.openSettingsURLString) {
-                        // Ask the system to open that URL.
-                        await UIApplication.shared.open(url)
-                    }
-                }
-            }
-            
             Section {
                 Toggle(isOn: $store.hapticFeedback) {
                     InformationalLabel(title: "hapticFeedbackTitle")
-                }
-                .onChange(of: store.hapticFeedback) { newValue in
-                    CronicaTelemetry.shared.handleMessage("\(newValue)", for: "haptic.Feedback.Settings")
                 }
             }
             
@@ -66,49 +48,6 @@ struct BehaviorSetting: View {
         } header: {
             Text("behaviorGestureTitle")
         }
-    }
-    
-    private var watchProviders: some View {
-        Section {
-            Toggle(isOn: $store.isWatchProviderEnabled) {
-                InformationalLabel(title: "behaviorWatchProvidersTitle",
-                                   subtitle: "behaviorWatchProvidersSubtitle")
-            }
-            if store.isWatchProviderEnabled {
-                Picker(selection: $store.watchRegion) {
-                    ForEach(AppContentRegion.allCases.sorted { $0.localizableTitle < $1.localizableTitle}) { region in
-                        Text(region.localizableTitle)
-                            .tag(region)
-                    }
-                } label: {
-                    InformationalLabel(title: "watchRegionTitle", subtitle: "watchRegionSubtitle")
-                }
-                .onChange(of: store.watchRegion) { _ in
-                    if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
-                }
-#if os(macOS)
-                .pickerStyle(.automatic)
-#else
-                .pickerStyle(.navigationLink)
-#endif
-#if os(iOS)
-                NavigationLink("selectedWatchProvider", destination: WatchProviderSelectorSetting())
-#elseif os(macOS)
-                Button("selectedWatchProvider") {
-                    showWatchProvidersSelector.toggle()
-                }
-#endif
-            }
-        }
-#if os(macOS)
-        .sheet(isPresented: $showWatchProvidersSelector) {
-            NavigationStack {
-                WatchProviderSelectorSetting(showView: $showWatchProvidersSelector)
-            }
-            .presentationDetents([.large])
-            .frame(width: 400, height: 500, alignment: .center)
-        }
-#endif
     }
     
     private var otherOptions: some View {

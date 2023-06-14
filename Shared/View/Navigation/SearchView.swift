@@ -21,25 +21,21 @@ struct SearchView: View {
                 case .noScope:
                     ForEach(viewModel.items) { item in
                         SearchItemView(item: item, showConfirmation: $showInformationPopup)
-                            .draggable(item)
                     }
                     loadableProgressRing
                 case .movies:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
                         SearchItemView(item: item, showConfirmation: $showInformationPopup)
-                            .draggable(item)
                     }
                     loadableProgressRing
                 case .shows:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showInformationPopup)
-                            .draggable(item)
                     }
                     loadableProgressRing
                 case .people:
                     ForEach(viewModel.items.filter { $0.media == .person }) { item in
                         SearchItemView(item: item, showConfirmation: $showInformationPopup)
-                            .draggable(item)
                     }
                     loadableProgressRing
                 }

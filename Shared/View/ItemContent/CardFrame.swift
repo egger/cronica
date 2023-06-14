@@ -148,9 +148,6 @@ struct CardFrame: View {
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote, showCustomList: $showCustomListView)
 #if os(iOS) || os(macOS)
-                    .draggable(item)
-#endif
-#if os(iOS) || os(macOS)
                 HStack {
                     Text(item.itemTitle)
                         .font(.caption)

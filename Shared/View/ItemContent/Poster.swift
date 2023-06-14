@@ -129,9 +129,6 @@ struct Poster: View {
                 .appTint()
 #endif
             }
-#if os(iOS) || os(macOS)
-            .draggable(item)
-#endif
     }
     
     private var compact: some View {

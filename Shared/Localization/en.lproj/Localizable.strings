@@ -296,9 +296,6 @@
 "Update Items" = "Update Items";
 "'Update Items' will update your items with new information available on TMDb, if available." = "'Update Items' will update your items with new information available on TMDb, if available.";
 "Privacy" = "Privacy";
-"Disable Telemetry" = "Disable Crash Report";
-"privacyfooter" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
-"privacyFooterTV" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy at https://alexandremadeira.dev/cronica/privacy.";
 "Open Trailers in YouTube App" = "Open Trailers in YouTube App";
 
 //MARK: HomeView.swift
@@ -612,3 +609,7 @@
 "Overview" = "Overview";
 "Original Title" = "Original Title";
 "What's New" = "What's New";
+
+"settingsRegionContentTitle" = "Content & Region";
+"appRegionTitle" = "Region";
+"appRegionSubtitle" = "The app will adapt releases dates, watch providers and more based on your region.";

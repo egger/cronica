@@ -28,12 +28,6 @@ struct WatchlistItemFrame: View {
                                           showNote: $showNote,
                                           showCustomList: $showCustomListView)
 #if os(iOS) || os(macOS)
-                    .draggable(content) {
-                        WebImage(url: content.largeCardImage)
-                            .resizable()
-                    }
-#endif
-#if os(iOS) || os(macOS)
                 HStack {
                     Text(content.itemTitle)
                         .font(.caption)

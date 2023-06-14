@@ -126,8 +126,5 @@ private struct PersonItemRow: View {
             }
         }
         .buttonStyle(.plain)
-#if os(macOS) || os(iOS)
-        .draggable(person)
-#endif
     }
 }

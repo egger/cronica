@@ -103,6 +103,7 @@ extension WatchlistItem: Transferable {
     }
     private var isReleasedTvShow: Bool {
         if itemMedia == .tvShow {
+            if isWatched { return false }
             if itemSchedule == .renewed && nextSeasonNumber == 1 && nextEpisodeNumber > 1 { return true }
             if itemSchedule == .renewed && nextSeasonNumber != 1 { return true }
             if itemSchedule == .released && !isWatched { return true }
@@ -143,7 +144,10 @@ extension WatchlistItem: Transferable {
     }
     var itemPreviewOverview: String {
         if let genre {
-            return "\(itemMedia.title), \(genre)"
+            return "\(itemMedia.title) • \(genre)"
+        }
+        if let formattedDate {
+            return "\(itemMedia.title) • \(formattedDate)"
         }
         return "\(itemMedia.title)"
     }

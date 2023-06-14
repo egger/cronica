@@ -31,13 +31,14 @@ struct TabBarView: View {
             
             NavigationStack { ExploreView() }
                 .tag(ExploreView.tag)
-                .tabItem { Label("Explore", systemImage: "popcorn") }
+                .tabItem { Label("Explore", systemImage: "popcorn").labelStyle(.titleOnly) }
             
             NavigationStack {
                 WatchlistView()
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
-            .tabItem { Label("Watchlist", systemImage: "square.stack") }
+            .tabItem { Label("Watchlist", systemImage: "square.stack").labelStyle(.titleOnly) }
+            .tag(WatchlistView.tag)
             
             NavigationStack { TVSearchView() }
                 .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.iconOnly) }

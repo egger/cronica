@@ -25,11 +25,11 @@ struct WatchlistItemPoster: View {
                 image
             }
         }
-        #if os(tvOS)
+#if os(tvOS)
         .buttonStyle(.card)
-        #else
+#else
         .buttonStyle(.plain)
-        #endif
+#endif
         .accessibilityLabel(Text(content.itemTitle))
         .sheet(isPresented: $showNote) {
             NavigationStack {
@@ -39,8 +39,8 @@ struct WatchlistItemPoster: View {
 #if os(macOS)
             .frame(width: 400, height: 400, alignment: .center)
 #elseif os(iOS)
-                .appTheme()
-                .appTint()
+            .appTheme()
+            .appTint()
 #endif
         }
         .sheet(isPresented: $showCustomListView) {
@@ -85,9 +85,6 @@ struct WatchlistItemPoster: View {
                 isPin = content.isPin
                 isArchive = content.isArchive
             }
-#if os(iOS) || os(macOS)
-            .draggable(content)
-#endif
     }
     
     private var compact: some View {

@@ -67,19 +67,8 @@ struct SyncSetting: View {
                     }
                 }
 #endif
-#if os(iOS)
-                if #available(iOS 16.4, *)  {
-                    accountSection
-                }
-#elseif os(macOS)
-                if #available(macOS 13.3, *) {
-                    accountSection
-                }
-                #elseif os(tvOS)
-                if #available(tvOS 16.4, *) {
-                    accountSection
-                }
-#endif
+
+                AccountSettingsView()
                 
             }
             .navigationTitle("syncSettingsTitle")
@@ -88,13 +77,6 @@ struct SyncSetting: View {
 #endif
             ConfirmationDialogView(showConfirmation: $hasImported, message: "importedSucceeded")
         }
-    }
-    
-    @available(iOS 16.4, *)
-    @available(macOS 13.3, *)
-    @available(tvOS 16.4, *)
-    private var accountSection: some View {
-        AccountSettingsView()
     }
     
 #if os(iOS)

@@ -116,9 +116,6 @@ struct CardView: View {
                     .padding([.leading, .trailing], 4)
                     .transition(.opacity)
                     .applyHoverEffect()
-#if os(iOS) || os(macOS)
-                    .draggable(item)
-#endif
             }
         } else {
             EmptyView()
