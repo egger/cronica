@@ -28,15 +28,13 @@ struct ConfirmationDialogView: View {
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .fontWeight(.regular)
                 }
-                
             }
             .background { Rectangle().fill(.thickMaterial) }
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .padding()
-            .shadow(radius: 18)
+            .shadow(radius: 5)
             .opacity(showConfirmation ? 1 : 0)
-            .scaleEffect(showConfirmation ? 1.2 : 1)
-            .animation(.linear, value: showConfirmation)
+            .animation(.easeInOut, value: showConfirmation)
             .onTapGesture { withAnimation { showConfirmation = false } }
         }
     }

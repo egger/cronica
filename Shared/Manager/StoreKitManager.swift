@@ -42,8 +42,7 @@ class StoreKitManager: ObservableObject {
             storeProducts = try await Product.products(for: productDict.values)
         } catch {
             let message = "Can't request products, error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message,
-                                                  for: "StoreKitManager.requestProducts()")
+            CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.requestProducts()")
         }
     }
     
@@ -54,11 +53,6 @@ class StoreKitManager: ObservableObject {
             let transaction = try checkVerified(verification)
             await updateConsumerUpdateStatus()
             await transaction.finish()
-            let message = "Transaction of \(transaction.productID) has successfully."
-            let isTestFlight = Bundle.isTestFlight()
-            if !isTestFlight {
-                CronicaTelemetry.shared.handleMessage(message, for: "StoreKitManager.purchase.success")
-            }
             DispatchQueue.main.async {
                 SettingsStore.shared.hasPurchasedTipJar = true
                 withAnimation {

@@ -142,12 +142,7 @@ struct CronicaApp: App {
 #if os(iOS)
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            let message = "Can't schedule 'scheduleAppRefresh', error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppRefresh.error")
-        }
+        try? BGTaskScheduler.shared.submit(request)
 #endif
     }
     
@@ -162,12 +157,7 @@ struct CronicaApp: App {
         let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
         request.requiresNetworkConnectivity = true
         request.earliestBeginDate = Date(timeIntervalSinceNow: twoDays)
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            let message = "Can't schedule 'scheduleAppMaintenance', error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message, for: "scheduleAppMaintenance.error")
-        }
+        try? BGTaskScheduler.shared.submit(request)
 #endif
     }
     

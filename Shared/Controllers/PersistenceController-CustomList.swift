@@ -32,68 +32,47 @@ extension PersistenceController {
     
     func delete(_ list: CustomList) {
         let viewContext = container.viewContext
-        do {
-            let item = try viewContext.existingObject(with: list.objectID)
-            viewContext.delete(item)
-            try save()
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "PersistenceController.delete")
-        }
+        let item = try? viewContext.existingObject(with: list.objectID)
+        guard let item else { return }
+        viewContext.delete(item)
+        try? save()
     }
     
     func updateList(for id: String, to list: CustomList) {
-        do {
-            let item = try fetch(for: id)
-            guard let item else { return }
-            if item.itemLists.contains(list) {
-                var original = item.itemLists
-                original.remove(list)
-                let converted = original as NSSet
-                item.list = converted
-                try save()
-            } else {
-                var set = Set<CustomList>()
-                set.insert(list)
-                let original = item.itemLists
-                for item in original {
-                    set.insert(item)
-                }
-                let converted = set as NSSet
-                item.list = converted
-                try save()
+        let item = try? fetch(for: id)
+        guard let item else { return }
+        if item.itemLists.contains(list) {
+            var original = item.itemLists
+            original.remove(list)
+            let converted = original as NSSet
+            item.list = converted
+            try? save()
+        } else {
+            var set = Set<CustomList>()
+            set.insert(list)
+            let original = item.itemLists
+            for item in original {
+                set.insert(item)
             }
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "PersistenceController.updateList")
+            let converted = set as NSSet
+            item.list = converted
+            try? save()
         }
     }
     
     func updateListTitle(of list: CustomList, with title: String) {
-        do {
-            list.title = title
-            try save()
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updateListTitle")
-        }
+        list.title = title
+        try? save()
     }
     
     func updateListNotes(of list: CustomList, with notes: String) {
-        do {
-            list.notes = notes
-            try save()
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updateListNotes")
-        }
+        list.notes = notes
+        try? save()
     }
     
     func updatePinOnHome(of list: CustomList) {
-        do {
-            list.isPin.toggle()
-            try save()
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "updatePinOnHome")
-        }
+        list.isPin.toggle()
+        try? save()
     }
     
     /// Remove a set of items from a CustomList.

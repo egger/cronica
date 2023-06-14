@@ -55,12 +55,7 @@ class IconModel: ObservableObject {
         selectedAppIcon = icon
         Task { @MainActor in
             guard UIApplication.shared.alternateIconName != icon.iconName else { return }
-            do {
-                try await UIApplication.shared.setAlternateIconName(icon.iconName)
-            } catch {
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "IconModel.setAppIcon.failed")
-                selectedAppIcon = previousAppIcon
-            }
+            try? await UIApplication.shared.setAlternateIconName(icon.iconName)
         }
     }
 }

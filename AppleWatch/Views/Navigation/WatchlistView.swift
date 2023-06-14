@@ -41,6 +41,7 @@ struct WatchlistView: View {
                 if #available(watchOS 10, *) {
                     ToolbarItem(placement: .bottomBar) {
                         filterButton
+                            .tint(.accentColor)
                             .labelStyle(.iconOnly)
                             .clipShape(Circle())
                             .shadow(radius: 5)
@@ -50,6 +51,9 @@ struct WatchlistView: View {
                 } else {
                     ToolbarItem(placement: .primaryAction) {
                         filterButton
+                            .tint(.blue)
+                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .padding(.bottom)
                     }
                 }
             }
@@ -94,7 +98,6 @@ struct WatchlistView: View {
             Label("Sort List", systemImage: "line.3.horizontal.decrease")
         }
         .buttonStyle(.borderedProminent)
-        .tint(.accentColor)
     }
     
     @ViewBuilder
