@@ -27,31 +27,16 @@ struct UpNextListView: View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
                 if !episodes.isEmpty {
-#if os(tvOS)
-                    TitleView(title: "upNext", subtitle: "upNextSubtitle")
-#else
+                    
                     NavigationLink(value: episodes) {
                         TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
                     }
                     .buttonStyle(.plain)
-#endif
+                    
                     ScrollViewReader { proxy in
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
                                 ForEach(episodes) { item in
-    #if os(tvOS)
-                                    Button {
-                                        selectedEpisode = item
-                                    } label: {
-                                        UpNextItem(item: item)
-                                    }
-                                    .buttonStyle(.card)
-                                    .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == episodes.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == episodes.last!.id ? 16 : 0)
-                                    .padding(.top, 8)
-                                    .padding(.bottom)
-    #else
                                     UpNextItem(item: item)
                                         .contextMenu {
                                             Button("markAsWatched") {
@@ -62,7 +47,7 @@ struct UpNextListView: View {
                                                     selectedEpisode = item
                                                 }
                                             }
-    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
                                             Divider()
                                             if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
                                                 ShareLink("shareEpisode", item: url)
@@ -70,7 +55,7 @@ struct UpNextListView: View {
                                             if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
                                                 ShareLink("shareShow", item: url)
                                             }
-    #endif
+#endif
                                         }
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == episodes.first!.id ? 16 : 0)
@@ -84,12 +69,8 @@ struct UpNextListView: View {
                                                 selectedEpisode = item
                                             }
                                         }
-    #endif
                                 }
                             }
-                            #if os(tvOS)
-                            .padding()
-                            #endif
                         }
                     }
                 }
@@ -211,7 +192,6 @@ struct UpNextListView: View {
     }
     
     func checkForNewEpisodes() async {
-        print("Checking for new episodes!")
         for item in items {
             let result = try? await network.fetchEpisode(tvID: item.id,
                                                          season: item.seasonNumberUpNext,
@@ -239,7 +219,7 @@ struct UpNextListView: View {
                     
                     DispatchQueue.main.async {
                         withAnimation(.easeInOut) {
-                            self.episodes.append(content)
+                            self.episodes.insert(content, at: 0)
                         }
                     }
                 }

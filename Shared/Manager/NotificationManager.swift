@@ -7,7 +7,6 @@
 
 import Foundation
 import UserNotifications
-import SwiftUI
 
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
@@ -15,7 +14,7 @@ class NotificationManager: ObservableObject {
     private init() { }
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .provisional]) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .provisional, .badge]) { granted, error in
             self.fetchNotificationSettings()
             completion(granted)
         }

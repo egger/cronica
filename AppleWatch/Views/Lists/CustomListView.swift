@@ -13,8 +13,12 @@ struct CustomListView: View {
         if let list {
             List {
                 Section {
-                    ForEach(list.itemsArray) { item in
-                        WatchlistItemRow(content: item)
+                    if list.itemsArray.isEmpty {
+                        EmptyListView()
+                    } else {
+                        ForEach(list.itemsArray) { item in
+                            WatchlistItemRow(content: item)
+                        }
                     }
                 } header: {
                     Text(list.itemTitle)

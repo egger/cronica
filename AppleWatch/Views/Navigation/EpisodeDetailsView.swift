@@ -24,6 +24,15 @@ struct EpisodeDetailsView: View {
                 )
                 .padding()
                 
+                Text("Episode \(episode.itemEpisodeNumber)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal)
+                Text("Season \(episode.itemSeasonNumber)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .padding([.horizontal, .bottom])
+                
                 WatchEpisodeButton(episode: episode, season: season, show: show, isWatched: $isWatched)
                     .padding([.bottom, .horizontal])
                     .onAppear(perform: load)

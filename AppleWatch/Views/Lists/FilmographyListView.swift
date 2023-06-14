@@ -16,10 +16,7 @@ struct FilmographyListView: View {
         if let items {
             if !items.isEmpty {
                 VStack {
-                    Divider()
-                        .padding([.horizontal, .bottom])
-                        .foregroundColor(.secondary)
-                    TitleView(title: "Filmography", subtitle: "Know for")
+                    TitleView(title: "Filmography")
                     LazyVStack {
                         ForEach(items) { item in
                             NavigationLink(value: item) {
@@ -33,9 +30,6 @@ struct FilmographyListView: View {
                             }
                         }
                     }
-                    Divider()
-                        .padding([.horizontal, .top])
-                        .foregroundColor(.secondary)
                 }
             }
         }

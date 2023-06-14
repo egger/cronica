@@ -10,13 +10,11 @@ import SwiftUI
 struct PersonView: View {
     let id: Int
     let name: String
-    let url: URL
     @StateObject private var viewModel: PersonDetailsViewModel
     init(id: Int, name: String) {
         self.id = id
         self.name = name
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
-        self.url = URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!
     }
     var body: some View {
         VStack {
@@ -26,12 +24,12 @@ struct PersonView: View {
                            height: DrawingConstants.imageHeight)
                     .padding()
                 
-                ShareLink(item: url)
-                    .padding(.bottom)
-                
+                if let url = URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)") {
+                    ShareLink(item: url)
+                        .padding(.bottom)
+                }
+               
                 FilmographyListView(items: viewModel.credits)
-                
-                CompanionTextView()
                 
                 AttributionView()
                     .padding(.bottom)

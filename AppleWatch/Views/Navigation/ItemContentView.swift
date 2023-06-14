@@ -76,8 +76,6 @@ struct ItemContentView: View {
                 
                 AboutSectionView(about: viewModel.content?.itemOverview)
                 
-                CompanionTextView()
-                
                 AttributionView()
             }
         }
@@ -127,9 +125,8 @@ struct ItemContentView: View {
             }
             showCustomListSheet.toggle()
         } label: {
-            Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")
+            Text("addToCustomList")
         }
-        .buttonStyle(.borderedProminent)
     }
     
     private var favoriteButton: some View {
