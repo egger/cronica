@@ -13,7 +13,6 @@ struct Poster: View {
     private let context = PersistenceController.shared
     @State private var isInWatchlist = false
     @State private var isWatched = false
-    @State private var canReview = false
     @State private var showNote = false
     @State private var showCustomListView = false
     @Binding var addedItemConfirmation: Bool
@@ -94,9 +93,6 @@ struct Poster: View {
                     isInWatchlist = context.isItemSaved(id: item.itemContentID)
                     if isInWatchlist && !isWatched {
                         isWatched = context.isMarkedAsWatched(id: item.itemContentID)
-                        canReview = true
-                    } else {
-                        if canReview { canReview = false }
                     }
                 }
             }

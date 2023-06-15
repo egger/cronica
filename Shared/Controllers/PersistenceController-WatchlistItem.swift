@@ -105,6 +105,9 @@ extension PersistenceController {
     // MARK: Properties updates
     func updateWatched(for item: WatchlistItem) {
         item.watched.toggle()
+        if item.isTvShow {
+            item.isWatching.toggle()
+        }
         try? save()
     }
     

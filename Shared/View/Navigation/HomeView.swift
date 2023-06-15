@@ -87,18 +87,20 @@ struct HomeView: View {
                                    id: item.itemId,
                                    type: item.itemMedia)
             }
-            .navigationDestination(for: [WatchlistItem].self) { item in
-                TitleWatchlistDetails(items: item)
-            }
             .navigationDestination(for: Endpoints.self) { endpoint in
                 EndpointDetails(title: endpoint.title,
                                 endpoint: endpoint)
+            }
+#if os(iOS) || os(macOS)
+            .navigationDestination(for: [WatchlistItem].self) { item in
+                TitleWatchlistDetails(items: item)
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
                 let keys = item.map { (key, _) in key }
                 let value = item.map { (_, value) in value }
                 TitleWatchlistDetails(title: keys[0], items: value[0])
             }
+#endif
             .navigationDestination(for: [String:[ItemContent]].self) { item in
                 let keys = item.map { (key, _) in key }
                 let value = item.map { (_, value) in value }

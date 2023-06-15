@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+
 struct ItemContentDetails: View {
     var title: String
     var id: Int
@@ -291,8 +292,6 @@ struct ItemContentDetails: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
             withAnimation {
                 showNotificationUI = false
-                notificationMessage = ""
-                notificationImage = ""
             }
         }
     }

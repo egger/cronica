@@ -25,14 +25,12 @@ struct ConfirmationDialogView: View {
                 } else {
                     Text(NSLocalizedString(message, comment: ""))
                         .padding()
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .fontWeight(.regular)
                 }
             }
             .background { Rectangle().fill(.thickMaterial) }
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(radius: 2.5)
             .padding()
-            .shadow(radius: 5)
             .opacity(showConfirmation ? 1 : 0)
             .animation(.easeInOut, value: showConfirmation)
             .onTapGesture { withAnimation { showConfirmation = false } }

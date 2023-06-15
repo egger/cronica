@@ -50,7 +50,7 @@ struct ItemContentPhoneView: View {
             AttributionView().padding([.top, .bottom])
         }
         .navigationTitle(title)
-        .navigationBarTitleDisplayMode(.automatic)
+        .navigationBarTitleDisplayMode(.large)
     }
     
     private var cover: some View {

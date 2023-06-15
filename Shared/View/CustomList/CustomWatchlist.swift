@@ -164,6 +164,9 @@ struct CustomWatchlist: View {
                         case .archive:
                             WatchListSection(items: items.filter { $0.isArchive },
                                              title: DefaultListTypes.archive.title)
+                        case .watching:
+                            WatchListSection(items: items.filter { $0.isCurrentlyWatching },
+                                             title: DefaultListTypes.watching.title)
                         }
                     }
                 }
@@ -226,6 +229,9 @@ struct CustomWatchlist: View {
                     case .archive:
                         WatchlistCardSection(items: items.filter { $0.isArchive },
                                              title: DefaultListTypes.archive.title)
+                    case .watching:
+                        WatchlistCardSection(items: items.filter { $0.isCurrentlyWatching },
+                                             title: DefaultListTypes.watching.title)
                     }
                 }
             }
@@ -286,6 +292,9 @@ struct CustomWatchlist: View {
                     case .archive:
                         WatchlistPosterSection(items: items.filter { $0.isArchive },
                                                title: DefaultListTypes.archive.title)
+                    case .watching:
+                        WatchlistPosterSection(items: items.filter { $0.isCurrentlyWatching },
+                                               title: DefaultListTypes.watching.title)
                     }
                 }
             }

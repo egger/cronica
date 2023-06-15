@@ -18,9 +18,12 @@ struct EndpointDetails: View {
             if viewModel.isLoading { ProgressView() }
             ScrollView {
                 VStack {
-                    if settings.listsDisplayType == .card {
+                    switch settings.listsDisplayType {
+                    case .standard:
                         cardStyle
-                    } else {
+                    case .card:
+                        cardStyle
+                    case .poster:
                         posterStyle
                     }
                     if !viewModel.items.isEmpty {

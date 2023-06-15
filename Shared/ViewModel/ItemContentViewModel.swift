@@ -126,7 +126,7 @@ class ItemContentViewModel: ObservableObject {
     }
     
     func registerNotification() {
-        if isInWatchlist && isNotificationAvailable && !hasNotificationScheduled && type == .tvShow {
+        if isInWatchlist && !isArchive && isNotificationAvailable && !hasNotificationScheduled && type == .tvShow {
             if let content {
                 NotificationManager.shared.schedule(content)
                 persistence.update(item: content)

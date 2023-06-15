@@ -132,6 +132,11 @@ extension WatchlistItem {
         if itemSchedule == .production { return true }
         return false
     }
+    var isCurrentlyWatching: Bool {
+        if isMovie { return false }
+        if isArchive && isWatched { return false }
+        return isWatching
+    }
     var itemContentID: String {
         return "\(itemId)@\(itemMedia.toInt)"
     }

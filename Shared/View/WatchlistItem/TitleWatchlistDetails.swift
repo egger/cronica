@@ -6,23 +6,32 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct TitleWatchlistDetails: View {
     var title = "Upcoming"
     let items: [WatchlistItem]
     var body: some View {
         VStack {
-#if os(macOS)
-            WatchListSection(items: items, title: title)
-#else
-            List(items) { item in
-                WatchlistItemRow(content: item)
+            ScrollView {
+                LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+                    ForEach(items) { item in
+                        WatchlistItemFrame(content: item)
+                            .buttonStyle(.plain)
+                    }
+                }
+                .padding()
             }
-            
-#endif
         }
         .navigationTitle(LocalizedStringKey(title))
     }
+}
+
+private struct DrawingConstants {
+#if os(macOS)
+    static let columns = [GridItem(.adaptive(minimum: 240))]
+#else
+    static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
+#endif
 }
 
 struct TitleWatchlistDetails_Previews: PreviewProvider {
@@ -30,3 +39,4 @@ struct TitleWatchlistDetails_Previews: PreviewProvider {
         TitleWatchlistDetails(items: [.example])
     }
 }
+#endif

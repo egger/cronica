@@ -21,12 +21,11 @@ struct FilmographyListView: View {
         if let filmography {
             if !filmography.isEmpty {
                 VStack {
-                    TitleView(title: "Filmography", subtitle: "")
 #if os(tvOS)
                     cardStyle
 #else
                     switch settings.listsDisplayType {
-                    case .standard: posterStyle
+                    case .standard: cardStyle
                     case .poster: posterStyle
                     case .card: cardStyle
                     }
@@ -57,6 +56,7 @@ struct FilmographyListView: View {
                         .buttonStyle(.plain)
                 }
             }
+            .padding()
         }
     }
 }

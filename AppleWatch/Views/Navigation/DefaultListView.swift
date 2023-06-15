@@ -50,6 +50,11 @@ struct DefaultListView: View {
                     WatchlistSectionView(items: items.filter { $0.isArchive },
                                          title: "Archive")
                 }
+            case .watching:
+                List {
+                    WatchlistSectionView(items: items.filter { $0.isCurrentlyWatching },
+                                         title: "Watching")
+                }
             }
         } else {
             EmptyListView()
