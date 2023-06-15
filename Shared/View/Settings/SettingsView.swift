@@ -6,61 +6,22 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 /// Renders the Settings UI for each OS, support iOS, macOS, and tvOS.
 struct SettingsView: View {
 #if os(iOS)
-    @StateObject private var settings = SettingsStore.shared
     static let tag: Screens? = .settings
     @State private var showPolicy = false
-#if os(iOS)
-    @SceneStorage("selectedView") private var selectedView: SettingsScreens?
-#else
-    @SceneStorage("selectedView") private var selectedView: SettingsScreens = .behavior
-#endif
-#endif
     @State private var showWhatsNew = false
+#endif
     var body: some View {
-#if os(iOS)
-        details
-#elseif os(macOS)
-        macOSSettings
-#endif
+        settings
     }
     
-    private var privacy: some View {
-        Section {
-#if os(iOS) || os(macOS)
-            Button("settingsPrivacyPolicy") {
-#if os(macOS)
-                NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-#else
-                showPolicy.toggle()
-#endif
-            }
+    private var settings: some View {
 #if os(iOS)
-            .fullScreenCover(isPresented: $showPolicy) {
-                SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-            }
-#endif
-#endif
-        } header: {
-#if os(macOS) || os(tvOS)
-            Label("Privacy", systemImage: "hand.raised")
-#endif
-        } footer: {
-#if os(tvOS)
-            Text("privacyFooterTV")
-                .padding(.bottom)
-#endif
-        }
-    }
-    
-#if os(iOS)
-    private var details: some View {
         NavigationStack {
             Form {
-                
                 Section {
                     NavigationLink(value: SettingsScreens.behavior) {
                         SettingsLabelWithIcon(title: "settingsBehaviorTitle", icon: "hand.tap", color: .gray)
@@ -80,7 +41,15 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    privacy
+                    Button {
+                        showPolicy.toggle()
+                    } label: {
+                        SettingsLabelWithIcon(title: "Privacy Policy", icon: "hand.raised", color: .indigo)
+                    }
+                    .buttonStyle(.plain)
+                    .fullScreenCover(isPresented: $showPolicy) {
+                        SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+                    }
                 }
                 
                 Section {
@@ -116,11 +85,7 @@ struct SettingsView: View {
                 }
             }
         }
-    }
-#endif
-    
-#if os(macOS)
-    private var macOSSettings: some View {
+#elseif os(macOS)
         TabView {
             BehaviorSetting()
                 .tabItem { Label("settingsBehaviorTitle", systemImage: "cursorarrow.click") }
@@ -140,10 +105,10 @@ struct SettingsView: View {
             AboutSettings()
                 .tabItem { Label("aboutTitle", systemImage: "info.circle") }
         }
-        .frame(minWidth: 600, idealWidth: 620, minHeight: 320, idealHeight: 320)
+        .frame(minWidth: 540, idealWidth: 580, minHeight: 320, idealHeight: 320)
         .tabViewStyle(.automatic)
-    }
 #endif
+    }
 }
 
 struct SettingsView_Previews: PreviewProvider {
@@ -151,3 +116,4 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView()
     }
 }
+#endif
