@@ -134,7 +134,8 @@ extension WatchlistItem {
     }
     var isCurrentlyWatching: Bool {
         if isMovie { return false }
-        if isArchive && isWatched { return false }
+        if isTvShow && isWatched { return false }
+        if isArchive || isWatched { return false }
         return isWatching
     }
     var itemContentID: String {
