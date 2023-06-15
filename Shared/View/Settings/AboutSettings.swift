@@ -45,6 +45,9 @@ struct AboutSettings: View {
             
             if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
                 ShareLink(item: appUrl).labelStyle(.titleOnly)
+                #if os(macOS)
+                    .buttonStyle(.link)
+                #endif
             }
             
 #if os(macOS)
@@ -54,52 +57,44 @@ struct AboutSettings: View {
             FeedbackSettingsView()
             
             Section("Design") {
-                Button {
-                    openUrl("https://www.fiverr.com/akhmad437")
-                } label: {
-                    InformationalLabel(title: "acknowledgmentsAppIconTitle",
-                                       subtitle: "acknowledgmentsAppIconSubtitle")
-                }
+                aboutButton(
+                    title: "acknowledgmentsAppIconTitle",
+                    subtitle: "acknowledgmentsAppIconSubtitle",
+                    url: "https://www.fiverr.com/akhmad437"
+                )
             }
             
             Section("Translation") {
-                Button {
-                    openUrl("https://twitter.com/simonboer16")
-                } label: {
-                    InformationalLabel(title: "German",
-                                       subtitle: "Simon Boer")
-                }
+                aboutButton(title: "German", subtitle: "Simon Boer", url: "https://twitter.com/simonboer16")
             }
             
             Section("Libraries") {
-                Button {
-                    openUrl("https://github.com/SDWebImage/SDWebImageSwiftUI")
-                } label: {
-                    InformationalLabel(title: "acknowledgmentsSDWebImage")
-                }
-                
-                Button {
-                    openUrl("https://telemetrydeck.com/")
-                } label: {
-                    InformationalLabel(title: "TelemetryDeck")
-                }
+                aboutButton(
+                    title: "acknowledgmentsSDWebImage",
+                    subtitle: nil,
+                    url: "https://github.com/SDWebImage/SDWebImageSwiftUI"
+                )
+                aboutButton(
+                    title: "TelemetryDeck",
+                    subtitle: nil,
+                    url: "https://telemetrydeck.com/"
+                )
             }
             
             Section("acknowledgmentsContentProviderTitle") {
-                Button {
-                    openUrl("https://www.themoviedb.org")
-                } label: {
-                    InformationalLabel(title: "acknowledgmentsContentProviderSubtitle")
-                }
+                aboutButton(
+                    title: "acknowledgmentsContentProviderSubtitle",
+                    subtitle: nil,
+                    url: "https://www.themoviedb.org"
+                )
             }
             
             Section("Source Code") {
-                Button {
-                    openUrl("https://github.com/MadeiraAlexandre/Cronica")
-                } label: {
-                    InformationalLabel(title: "cronicaGitHub")
-                }
-                
+                aboutButton(
+                    title: "cronicaGitHub",
+                    subtitle: nil,
+                    url: "https://github.com/MadeiraAlexandre/Cronica"
+                )
             }
             
             Section {
@@ -124,6 +119,22 @@ struct AboutSettings: View {
 #endif
     }
     
+    private func aboutButton(title: String, subtitle: String?, url: String) -> some View {
+        Button {
+            guard let url = URL(string: url) else { return }
+#if os(macOS)
+            NSWorkspace.shared.open(url)
+#else
+            UIApplication.shared.open(url)
+#endif
+        } label: {
+            InformationalLabel(title: title, subtitle: subtitle)
+        }
+#if os(macOS)
+        .buttonStyle(.link)
+#endif
+    }
+    
 #if os(macOS)
     private var privacy: some View {
         Section {
@@ -131,20 +142,12 @@ struct AboutSettings: View {
                 guard let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") else { return }
                 NSWorkspace.shared.open(url)
             }
+            .buttonStyle(.link)
         } header: {
             Label("Privacy", systemImage: "hand.raised")
         }
     }
 #endif
-    
-    private func openUrl(_ url: String) {
-        guard let url = URL(string: url) else { return }
-#if os(macOS)
-        NSWorkspace.shared.open(url)
-#else
-        UIApplication.shared.open(url)
-#endif
-    }
 }
 
 struct AboutSettings_Previews: PreviewProvider {
