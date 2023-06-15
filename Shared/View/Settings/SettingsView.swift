@@ -131,6 +131,9 @@ struct SettingsView: View {
             SyncSetting()
                 .tabItem { Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath") }
             
+            RegionContentSettings()
+                .tabItem { Label("settingsRegionContentTitle", systemImage: "globe")  }
+            
             TipJarSetting()
                 .tabItem { Label("tipJar", systemImage: "heart") }
             

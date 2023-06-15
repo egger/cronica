@@ -46,6 +46,8 @@ struct FeedbackSettingsView: View {
                     }
 #if os(iOS)
                     .navigationBarTitleDisplayMode(.inline)
+#elseif os(macOS)
+                    .formStyle(.grouped)
 #endif
                 }
                 .presentationDetents([.medium, .large])

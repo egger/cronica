@@ -90,6 +90,7 @@ struct ItemContentDetails: View {
                                 favoriteButton
                                 archiveButton
                                 pinButton
+                                userNotesButton
                                 shareButton
                             }
                             shareButton
@@ -230,13 +231,13 @@ struct ItemContentDetails: View {
     private var moreMenu: some View {
         Menu {
             if viewModel.isInWatchlist {
-                #if os(iOS)
+#if os(iOS)
                 if UIDevice.isIPhone {
                     addToCustomListButton
                 }
-                #else
+#else
                 addToCustomListButton
-                #endif
+#endif
                 archiveButton
                 pinButton
                 userNotesButton
