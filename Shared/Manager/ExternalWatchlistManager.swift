@@ -146,7 +146,7 @@ class ExternalWatchlistManager {
     ///   - list: The list title and list description will be used to create the new list.
     ///   - isPublic: Define the privacy level of the list, it is private by default.
     /// - Returns: If the list is successfully created, it will return the new list ID of the newly created list.
-    func publishList(title: String, description: String, isPublic: Bool) async -> Int? {
+    func publishList(title: String, description: String) async -> Int? {
         do {
             let headers = [
                 "authorization": "Bearer \(userAccessToken)",
@@ -156,7 +156,7 @@ class ExternalWatchlistManager {
                 "name": "\(title)",
                 "description": description,
                 "iso_639_1": "en",
-                "public": "\(isPublic)"
+                "public": "false"
             ]
             guard let url = URL(string: "https://api.themoviedb.org/4/list") else { return nil }
             let postData = try JSONSerialization.data(withJSONObject: parameters)

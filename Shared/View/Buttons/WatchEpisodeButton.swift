@@ -64,17 +64,13 @@ struct WatchEpisodeButton: View {
     }
     
     private func fetch() async {
-        do {
-            let content = try await network.fetchItem(id: show, type: .tvShow)
-            persistence.save(content)
-            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoWeeksAway() {
-                NotificationManager.shared.schedule(content)
-            }
-            isItemSaved = true
-        } catch {
-            if Task.isCancelled { return }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "WatchEpisodeButton.fetch")
+        let content = try? await network.fetchItem(id: show, type: .tvShow)
+        guard let content else { return }
+        persistence.save(content)
+        if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoWeeksAway() {
+            NotificationManager.shared.schedule(content)
         }
+        isItemSaved = true
     }
     
     private func fetchNextEpisode() async -> Episode? {

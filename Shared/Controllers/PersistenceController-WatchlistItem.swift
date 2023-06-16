@@ -94,10 +94,19 @@ extension PersistenceController {
                     }
                 }
                 if let episode = content.nextEpisodeToAir {
-                    item.nextEpisodeNumber = Int64(episode.itemEpisodeNumber)
+                    if item.nextEpisodeNumber != Int64(episode.itemEpisodeNumber) {
+                        item.nextEpisodeNumber = Int64(episode.itemEpisodeNumber)
+                    }
                 }
-                item.upcomingSeason = content.hasUpcomingSeason
-                item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.itemSeasonNumber ?? 0)
+                if item.upcomingSeason != content.hasUpcomingSeason {
+                    item.upcomingSeason = content.hasUpcomingSeason
+                }
+                if let nextSeasonNumber = content.nextEpisodeToAir?.itemSeasonNumber {
+                    let season = Int64(nextSeasonNumber)
+                    if item.nextSeasonNumber != season {
+                        item.nextSeasonNumber = season
+                    }
+                }
             } else {
                 if let date = content.itemFallbackDate {
                     if item.date != date {
@@ -154,6 +163,11 @@ extension PersistenceController {
     func updateReview(for item: WatchlistItem, rating: Int, notes: String) {
         item.userNotes = notes
         item.userRating = Int64(rating)
+        save()
+    }
+    
+    func updateDisplayOnUpNext(for item: WatchlistItem) {
+        item.displayOnUpNext.toggle()
         save()
     }
     

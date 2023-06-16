@@ -27,26 +27,29 @@ struct NewCustomListView: View {
     @State private var pinOnHome = false
     var body: some View {
         Form {
-            Section("listBasicHeader") {
+            Section {
                 TextField("listName", text: $title)
                 TextField("listDescription", text: $note)
+                
+#if os(watchOS)
+                createList
+#endif
+            }
+            
+#if os(iOS) || os(macOS)
+            Section { Toggle("pinOnHome", isOn: $pinOnHome) }
+#endif
+            
+            Section {
                 if SettingsStore.shared.connectedTMDB {
                     Toggle("publishOnTMDB", isOn: $publishOnTMDB)
                 }
-#if os(watchOS)
-                createList
-#else
-                Toggle("pinOnHome", isOn: $pinOnHome)
-#endif
             }
             
             if !items.isEmpty {
                 Section("listItemsToAdd") {
                     List(items, id: \.itemContentID) {
                         NewListItemSelectorRow(item: $0, selectedItems: $itemsToAdd)
-                        #if os(tvOS)
-                            .buttonStyle(.plain)
-                        #endif
                     }
                 }
                 .onAppear {
@@ -75,7 +78,7 @@ struct NewCustomListView: View {
     }
     
     private var createList: some View {
-        Button("createList", action: save).disabled(title.isEmpty)
+        Button("Create", action: save).disabled(title.isEmpty)
     }
     
     private var cancelButton: some View {
@@ -108,7 +111,7 @@ struct NewCustomListView: View {
     
     private func handlePublish() async -> Int? {
         let external = ExternalWatchlistManager.shared
-        let id = await external.publishList(title: title, description: note, isPublic: false)
+        let id = await external.publishList(title: title, description: note)
         guard let id else { return nil }
         
         // Gets the items to update the list

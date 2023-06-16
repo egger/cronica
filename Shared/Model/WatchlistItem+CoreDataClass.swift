@@ -43,6 +43,7 @@ public class WatchlistItem: NSManagedObject, Codable {
             lastSelectedSeason = try values.decode(Int64.self, forKey: .lastSelectedSeason)
             userNotes = try values.decode(String.self, forKey: .userNotes)
             userRating = try values.decode(Int64.self, forKey: .userRating)
+            isWatching = try values.decode(Bool.self, forKey: .isWatching)
         } catch {
             print(error.localizedDescription)
         }
@@ -74,6 +75,7 @@ public class WatchlistItem: NSManagedObject, Codable {
         try values.encode(lastSelectedSeason, forKey: .lastSelectedSeason)
         try values.encode(userNotes, forKey: .userNotes)
         try values.encode(userRating, forKey: .userRating)
+        try values.encode(isWatching, forKey: .isWatching)
     }
     
     enum CodingKeys: CodingKey {
@@ -81,7 +83,7 @@ public class WatchlistItem: NSManagedObject, Codable {
              schedule, largeCardImage, largePosterImage, mediumPosterImage, shouldNotify,
              isArchive, nextEpisodeNumber, nextSeasonNumber, nextEpisodeNumberUpNext,
              seasonNumberUpNext, displayOnUpNext, isPin, lastEpisodeNumber, lastSelectedSeason,
-             userNotes, userRating
+             userNotes, userRating, isWatching
     }
 }
 

@@ -45,10 +45,7 @@ class PersonDetailsViewModel: ObservableObject {
             } catch {
                 if Task.isCancelled { return }
                 person = nil
-                errorMessage = error.localizedDescription
-                let message = """
-Can't load the id \(id), with error message: \(error.localizedDescription).
-"""
+                let message = "Can't load the id \(id), with error message: \(error.localizedDescription)"
                 CronicaTelemetry.shared.handleMessage(message, for: "PersonDetailsViewModel.load()")
             }
         }

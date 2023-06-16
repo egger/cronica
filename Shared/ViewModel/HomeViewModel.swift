@@ -91,20 +91,14 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     /// Get the items which recommendations will be based at, these items must be watched OR favorite.
     /// - Returns: Returns a shuffled array of WatchlistItems that matches the criteria of watched OR favorite.
     private func fetchBasedRecommendationItems() -> [WatchlistItem] {
-        do {
-            let context = PersistenceController.shared.container.newBackgroundContext()
-            let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-            let watchedPredicate = NSPredicate(format: "watched == %d", true)
-            let favoritesPredicate = NSPredicate(format: "isWatching == %d", true)
-            request.predicate = NSCompoundPredicate(type: .or,
-                                                    subpredicates: [watchedPredicate, favoritesPredicate])
-            let list = try context.fetch(request)
-            return list.shuffled()
-        } catch {
-            CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                  for: "HomeViewModel.fetchBasedRecommendationItems")
-            return []
-        }
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let watchedPredicate = NSPredicate(format: "watched == %d", true)
+        let favoritesPredicate = NSPredicate(format: "isWatching == %d", true)
+        request.predicate = NSCompoundPredicate(type: .or,
+                                                subpredicates: [watchedPredicate, favoritesPredicate])
+        guard let list = try? context.fetch(request) else { return [] }
+        return list.shuffled()
     }
     
     /// Gets all the IDs from watched content saved on Core Data.
@@ -131,7 +125,7 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     private func fetchRecommendations() async {
         var recommendationsFetched = [ItemContent]()
         let itemsToRecommendFrom = fetchBasedRecommendationItems()
-        let limitedItems = itemsToRecommendFrom.prefix(8)
+        let limitedItems = itemsToRecommendFrom.prefix(10)
         for item in limitedItems {
             let result = try? await service.fetchItems(from: "\(item.itemMedia.rawValue)/\(item.itemId)/recommendations")
             if let result {

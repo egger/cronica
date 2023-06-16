@@ -152,7 +152,7 @@ struct CronicaApp: App {
         let now = Date()
         let twoDays = TimeInterval(2 * 24 * 60 * 60)
         
-        // Maintenance the database at most two days per week.
+        // Maintenance the database at each two days per week.
         guard now > (lastMaintenanceDate + twoDays) else { return }
         let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
         request.requiresNetworkConnectivity = true

@@ -28,15 +28,16 @@ struct EditCustomList: View {
             Section {
                 TextField("listName", text: $title)
                 TextField("listDescription", text: $note)
+            }
+            
+            Section {
                 Toggle("pinOnHome", isOn: $pinOnHome)
-            } header: {
-                Text("listBasicHeader")
             }
             
             if canPublish {
                 Section {
                     Button {
-                        showPublishConfirmation.toggle()
+                        publishToTMDB()
                     } label: {
                         if isPublishing {
                             CenterHorizontalView { ProgressView() }
@@ -44,13 +45,6 @@ struct EditCustomList: View {
                             Text("publishListToTMDB")
                         }
                     }
-                }
-                .alert("publishListToTMDB", isPresented: $showPublishConfirmation) {
-                    Button("publishPublic") { publishToTMDB(isPublic: true) }
-                    Button("publishPrivate") { publishToTMDB() }
-                    Button("Cancel") { showPublishConfirmation = false }
-                } message: {
-                    Text("publishTMDBMessage")
                 }
             }
             
@@ -174,7 +168,7 @@ struct EditCustomList: View {
             let external = ExternalWatchlistManager.shared
             let title = list.itemTitle
             let description = list.notes ?? String()
-            let id = await external.publishList(title: title, description: description, isPublic: isPublic)
+            let id = await external.publishList(title: title, description: description)
             guard let id else { return }
             
             // Gets the items to update the list

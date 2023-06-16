@@ -86,28 +86,7 @@ struct DeveloperView: View {
             Section {
                 Text("User Region: \(Locale.userRegion)")
                 Text("User Lang: \(Locale.userLang)")
-                Button("Print watching") {
-                    let context = PersistenceController.shared.container.newBackgroundContext()
-                    let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-                    let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
-                    let archivePredicate = NSPredicate(format: "isArchive == %d", false)
-                    let watchedPredicate = NSPredicate(format: "watched == %d", false)
-                    let archiveAndWatchedPredicate = NSCompoundPredicate(
-                        type: .and,
-                        subpredicates: [archivePredicate,
-                                        watchedPredicate]
-                    )
-                    let orPredicate = NSCompoundPredicate(
-                        type: .and,
-                        subpredicates: [archiveAndWatchedPredicate,
-                                        watchingPredicate]
-                    )
-                    request.predicate = orPredicate
-                    guard let list = try? context.fetch(request) else { return }
-                    for item in list {
-                        print(item.itemTitle)
-                    }
-                }
+                Text("Last maintenance: \(BackgroundManager.shared.lastMaintenance?.convertDateToString() ?? "Nil")")
             }
             
             Section("TMDB") {

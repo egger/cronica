@@ -30,6 +30,7 @@ struct ItemContentCustomListSelector: View {
 #endif
                         ForEach(lists) { list in
                             AddToListRow(list: list, item: $item, showView: $showView)
+                                .padding(.vertical, 4)
                         }
                     }
                 } header: { Text(title) }
