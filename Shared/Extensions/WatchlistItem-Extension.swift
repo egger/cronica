@@ -101,6 +101,7 @@ extension WatchlistItem {
     private var isReleasedTvShow: Bool {
         if itemMedia == .tvShow {
             if isWatched { return false }
+            if itemSchedule == .ended { return true }
             if itemSchedule == .renewed && nextSeasonNumber == 1 && nextEpisodeNumber > 1 { return true }
             if itemSchedule == .renewed && nextSeasonNumber != 1 { return true }
             if itemSchedule == .released && !isWatched { return true }
