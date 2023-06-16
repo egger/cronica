@@ -167,6 +167,11 @@ struct SyncSetting: View {
             _ = try decoder.decode([WatchlistItem].self, from: jsonData)
             try context.save()
             hasImported.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation {
+                    hasImported = false
+                }
+            }
         } catch {
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.importJSON.failed")
         }

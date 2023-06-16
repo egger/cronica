@@ -1,5 +1,5 @@
 //
-//  DetailedUpNextView.swift
+//  VerticalUpNextListView.swift
 //  Story
 //
 //  Created by Alexandre Madeira on 07/05/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailedUpNextView: View {
+struct VerticalUpNextListView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],

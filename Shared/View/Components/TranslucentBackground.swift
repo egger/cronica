@@ -44,7 +44,7 @@ struct TranslucentBackground: View {
     }
 }
 
-//@available(iOS 17, *)
-//#Preview {
-//    TranslucentBackground()
-//}
+@available(iOS 17, *)
+#Preview {
+    TranslucentBackground()
+}

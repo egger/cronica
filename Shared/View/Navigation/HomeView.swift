@@ -25,7 +25,7 @@ struct HomeView: View {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
             VStack(alignment: .leading) {
                 ScrollView {
-                    UpNextListView(shouldReload: $reloadUpNext)
+                    HorizontalUpNextListView(shouldReload: $reloadUpNext)
                     UpcomingWatchlist()
                     PinItemsList()
                     CustomListPinned()

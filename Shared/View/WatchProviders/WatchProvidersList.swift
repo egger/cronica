@@ -31,16 +31,14 @@ struct WatchProvidersList: View {
                                     openLink()
                                 }
                             } label: {
-                                WatchProviderItem(item: item)
+                                providerItemView(item)
                             }
                             .buttonStyle(.plain)
                             .padding(.leading, item.self == viewModel.items.first!.self ? 16 : 0)
                             .padding(.trailing, item.self == viewModel.items.last!.self ? 16 : 0)
                             .padding(.horizontal, 6)
                             .padding(.top, 8)
-#if os(iOS)
-                            .hoverEffect()
-#endif
+                            .applyHoverEffect()
                         }
                         .padding(.bottom)
                     }
@@ -69,11 +67,8 @@ struct WatchProvidersList: View {
 #endif
         }
     }
-}
-
-private struct WatchProviderItem: View {
-    let item: WatchProviderContent
-    var body: some View {
+    
+    private func providerItemView(_ item: WatchProviderContent) -> some View {
         VStack(alignment: .leading) {
             WebImage(url: item.providerImage)
                 .resizable()
@@ -97,6 +92,7 @@ private struct WatchProviderItem: View {
                 .padding(.leading, 2)
         }
         .frame(width: DrawingConstants.imageWidth)
+        .padding(.vertical, 6)
     }
 }
 

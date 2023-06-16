@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS) || os(macOS)
 struct AppearanceSetting: View {
     @StateObject private var store = SettingsStore.shared
 #if os(iOS)
@@ -165,11 +165,7 @@ struct AppearanceSetting: View {
 
 struct AppearanceSetting_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            AppearanceSetting()
-#if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-#endif
-        }
+        AppearanceSetting()
     }
 }
+#endif

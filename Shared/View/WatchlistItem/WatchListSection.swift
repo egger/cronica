@@ -11,9 +11,6 @@ struct WatchListSection: View {
     let items: [WatchlistItem]
     var title: String
     private let context = PersistenceController.shared
-    @State private var multiSelection = Set<String>()
-    @State private var sortOrder = [KeyPathComparator(\WatchlistItem.itemTitle)]
-    var alternativeFooter: String?
     var body: some View {
         if !items.isEmpty {
 #if os(macOS)
@@ -48,11 +45,7 @@ struct WatchListSection: View {
                     let result = String(format: formatString, items.count)
                     Text(result)
                 }
-            } footer: {
-                if let alternativeFooter {
-                    Text(alternativeFooter)
-                }
-            }
+            } 
         }
     }
     

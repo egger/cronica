@@ -91,13 +91,8 @@ struct UpNextItem: View {
 }
 
 private struct DrawingConstants {
-#if os(tvOS)
-    static let imageWidth: CGFloat = 660
-    static let imageHeight: CGFloat = 360
-#else
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
-#endif
     static let compactImageWidth: CGFloat = 200
     static let compactImageHeight: CGFloat = 120
     static let imageRadius: CGFloat = 12

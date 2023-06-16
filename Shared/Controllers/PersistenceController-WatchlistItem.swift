@@ -59,7 +59,6 @@ extension PersistenceController {
         if isItemSaved(id: content.itemContentID) {
             let item = fetch(for: content.itemContentID)
             guard let item else { return }
-            item.tmdbID = Int64(content.id)
             if item.title != content.itemTitle {
                 item.title = content.itemTitle
             }
@@ -101,7 +100,9 @@ extension PersistenceController {
                 item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.itemSeasonNumber ?? 0)
             } else {
                 if let date = content.itemFallbackDate {
-                    item.date = date
+                    if item.date != date {
+                        item.date = date
+                    }
                 }
             }
             item.lastValuesUpdated = Date()

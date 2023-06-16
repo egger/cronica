@@ -1,5 +1,5 @@
 //
-//  UpNextListView.swift
+//  HorizontalUpNextListView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 19/03/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UpNextListView: View {
+struct HorizontalUpNextListView: View {
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
@@ -77,7 +77,7 @@ struct UpNextListView: View {
             }
             .redacted(reason: isLoaded ? [] : .placeholder)
             .navigationDestination(for: [UpNextEpisode].self) { _ in
-                DetailedUpNextView(episodes: $episodes)
+                VerticalUpNextListView(episodes: $episodes)
             }
             .task(id: isWatched) {
                 if isWatched {
