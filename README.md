@@ -39,7 +39,7 @@ If you want to contribute with code, here are some important details about the p
 
 ##  Build information
 
-#### This project targets iOS 16.4, iPadOS 16.4, watchOS 9.4, macOS 13.4, tvOS 16.4 and requires Xcode 14.
+#### This project targets iOS 16.4, iPadOS 16.4, watchOS 9.4, macOS 13.4, tvOS 16.4 and requires Xcode 15.
 
 To get started you'll need to:
 

@@ -36,21 +36,15 @@ struct WatchlistButton: View {
     }
     
     private func remove() {
-        do {
-            let watchlistItem = try persistence.fetch(for: id)
-            if let watchlistItem {
-                if watchlistItem.notify {
-                    notification.removeNotification(identifier: id)
-                }
-                persistence.delete(watchlistItem)
-                withAnimation {
-                    isInWatchlist.toggle()
-                }
+        let watchlistItem = persistence.fetch(for: id)
+        if let watchlistItem {
+            if watchlistItem.notify {
+                notification.removeNotification(identifier: id)
             }
-        } catch {
-            let message = "Can't remove item from Watchlist, error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message,
-                                                  for: "ItemContentContextMenu.updateWatchlist")
+            persistence.delete(watchlistItem)
+            withAnimation {
+                isInWatchlist.toggle()
+            }
         }
     }
     

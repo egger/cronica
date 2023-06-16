@@ -27,11 +27,13 @@ struct ListRowItem: View {
 #endif
             VStack(alignment: .leading) {
                 Text(list.itemTitle)
+                    .font(.callout)
                 Text(list.itemGlanceInfo)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
             }
+            .padding(.leading, 4)
             Spacer()
         }
         .onChange(of: selectedList) { _ in
@@ -40,6 +42,7 @@ struct ListRowItem: View {
         .onAppear {
             checkSelection()
         }
+        .padding(.vertical, 4)
     }
     
     @ViewBuilder

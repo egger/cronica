@@ -30,23 +30,21 @@ struct WatchlistItemRow: View {
                         Text(content.itemTitle)
                             .lineLimit(DrawingConstants.textLimit)
                     }
-#if os(watchOS)
-                    rowInformationNone
-#elseif os(iOS)
-                    switch settings.rowType {
-                    case .none: rowInformationNone
-                    case .date: rowInformationDate
-                    case .genre: rowInformationGenre
+                    HStack {
+                        Text(content.itemMedia.title)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
                     }
-#endif
                 }
+                .padding(.leading, 4)
 #if os(iOS) || os(macOS)
                 if isFavorite || content.favorite {
                     Spacer()
                     Image(systemName: "heart.fill")
                         .symbolRenderingMode(.multicolor)
                         .padding(.trailing)
-                        .accessibilityLabel("\(content.itemTitle) is favorite.")
+                        .accessibilityHidden(true)
                 }
 #endif
             }
@@ -118,51 +116,6 @@ struct WatchlistItemRow: View {
         .frame(width: DrawingConstants.imageWidth,
                height: DrawingConstants.imageHeight)
         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-    }
-    
-    private var rowInformationNone: some View {
-        HStack {
-            Text(content.itemMedia.title)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            Spacer()
-        }
-    }
-    
-    private var rowInformationGenre: some View {
-        HStack {
-            if let itemGenre = content.genre {
-                if !itemGenre.isEmpty {
-                    Text("\(content.itemMedia.title) • \(itemGenre)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-            } else {
-                Text(content.itemMedia.title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-            }
-        }
-    }
-    
-    private var rowInformationDate: some View {
-        HStack {
-            if let date = content.formattedDate {
-                if !date.isEmpty {
-                    Text("\(content.itemMedia.title) • \(date)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-            } else {
-                Text(content.itemMedia.title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-            }
-        }
     }
 }
 

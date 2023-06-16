@@ -48,23 +48,18 @@ struct WatchEpisodeButton: View {
     }
     
     private func handleList() {
-        do {
-            let contentId = "\(show)@\(MediaType.tvShow.toInt)"
-            let item = try persistence.fetch(for: contentId)
-            guard let item else { return }
-            persistence.updateWatchedEpisodes(for: item, with: episode)
-            DispatchQueue.main.async {
-                withAnimation { isWatched.toggle() }
-            }
-            HapticManager.shared.successHaptic()
-            Task {
-                let nextEpisode = await fetchNextEpisode()
-                guard let nextEpisode else { return }
-                persistence.updateUpNext(item, episode: nextEpisode)
-            }
-        } catch {
-            let message = "Error '\(error.localizedDescription)' when saving: \(episode)."
-            CronicaTelemetry.shared.handleMessage(message, for: "WatchEpisodeButton")
+        let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+        let item = persistence.fetch(for: contentId)
+        guard let item else { return }
+        persistence.updateWatchedEpisodes(for: item, with: episode)
+        DispatchQueue.main.async {
+            withAnimation { isWatched.toggle() }
+        }
+        HapticManager.shared.successHaptic()
+        Task {
+            let nextEpisode = await fetchNextEpisode()
+            guard let nextEpisode else { return }
+            persistence.updateUpNext(item, episode: nextEpisode)
         }
     }
     

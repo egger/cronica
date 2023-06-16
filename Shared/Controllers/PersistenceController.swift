@@ -62,9 +62,9 @@ struct PersistenceController {
         }
     }
     
-    func save() throws {
+    func save() {
         if container.viewContext.hasChanges {
-            try container.viewContext.save()
+            try? container.viewContext.save()
         }
     }
 }

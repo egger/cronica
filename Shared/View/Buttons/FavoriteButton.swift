@@ -19,7 +19,7 @@ struct FavoriteButton: View {
     }
     
     private func updateFavorite() {
-        guard let item = try? persistence.fetch(for: id) else { return }
+        guard let item = persistence.fetch(for: id) else { return }
         persistence.updateFavorite(for: item)
         withAnimation { isFavorite.toggle() }
         HapticManager.shared.successHaptic()

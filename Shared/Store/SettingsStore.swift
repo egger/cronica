@@ -13,18 +13,13 @@ class SettingsStore: ObservableObject {
     @AppStorage("showOnboarding") var displayOnboard = true
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings = false
     @AppStorage("gesture") var gesture: UpdateItemProperties = .favorite
-    @AppStorage("rowType") var rowType: WatchlistSubtitleRow = .none
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
 #if os(macOS)
     @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .card
 #elseif os(iOS)
     @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = UIDevice.isIPhone ? .list : .card
-#else
-    @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .list
 #endif
     @AppStorage("disableTranslucentBackground") var disableTranslucent = false
-    @AppStorage("disableTelemetry") var disableTelemetry = false
-    @AppStorage("deleteConfirmation") var deleteConfirmation = false
     @AppStorage("user_theme") var currentTheme: AppTheme = .system
     @AppStorage("openInYouTube") var openInYouTube = false
     @AppStorage("markEpisodeWatchedTap") var markEpisodeWatchedOnTap = false
@@ -54,8 +49,6 @@ class SettingsStore: ObservableObject {
 #if os(watchOS) || os(tvOS)
     @AppStorage("showRemoveConfirmation") var showRemoveConfirmation = true
 #endif
-#if os(iOS)
     @AppStorage("choosePreferredLaunchScreen") var isPreferredLaunchScreenEnabled = false
     @AppStorage("preferredLaunchScreen") var preferredLaunchScreen: Screens = .home
-#endif
 }

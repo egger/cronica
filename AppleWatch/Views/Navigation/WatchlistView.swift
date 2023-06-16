@@ -124,9 +124,9 @@ struct WatchlistView: View {
     }
 }
 
-@available(iOS 17, *)
-@available(macOS 14, *)
-@available(watchOS 10, *)
-#Preview {
-    WatchlistView()
-}
+//@available(iOS 17, *)
+//@available(macOS 14, *)
+//@available(watchOS 10, *)
+//#Preview {
+//    WatchlistView()
+//}

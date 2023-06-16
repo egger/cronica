@@ -141,9 +141,6 @@ extension WatchlistItem {
     var itemContentID: String {
         return "\(itemId)@\(itemMedia.toInt)"
     }
-    var itemGenre: String {
-        genre ?? "Not Available"
-    }
     var itemPreviewOverview: String {
         if let genre {
             return "\(itemMedia.title) • \(genre)"

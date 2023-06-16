@@ -39,7 +39,7 @@ struct ItemContentPhoneView: View {
             
             CastListView(credits: viewModel.credits)
             
-            ItemContentListView(items: viewModel.recommendations,
+            HorizontalItemContentListView(items: viewModel.recommendations,
                                 title: "Recommendations",
                                 subtitle: "You may like",
                                 addedItemConfirmation: $showConfirmation,

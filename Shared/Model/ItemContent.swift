@@ -6,16 +6,11 @@
 //
 
 import Foundation
-import SwiftUI
 
 /// A model that represents a movie or tv show.
 ///
 /// it is also used for people only on multi search results.
-struct ItemContent: Identifiable, Codable, Hashable, Sendable, Transferable {
-    static var transferRepresentation: some TransferRepresentation {
-        CodableRepresentation(for: ItemContent.self, contentType: .itemContent)
-        ProxyRepresentation(exporting: \.itemUrlProxy)
-    }
+struct ItemContent: Identifiable, Codable, Hashable, Sendable {
     let adult: Bool?
     let id: Int
     let title, name, overview, originalTitle: String?

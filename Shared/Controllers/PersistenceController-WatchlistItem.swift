@@ -39,11 +39,11 @@ extension PersistenceController {
                 item.upcomingSeason = content.hasUpcomingSeason
                 item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
             }
-            try? save()
+            save()
         }
     }
     
-    func fetch(for id: String) throws -> WatchlistItem? {
+    func fetch(for id: String) -> WatchlistItem? {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let idPredicate = NSPredicate(format: "contentID == %@", id)
         request.predicate = idPredicate
@@ -58,7 +58,7 @@ extension PersistenceController {
     /// Updates a WatchlistItem on Core Data.
     func update(item content: ItemContent) {
         if isItemSaved(id: content.itemContentID) {
-            let item = try? fetch(for: content.itemContentID)
+            let item = fetch(for: content.itemContentID)
             guard let item else { return }
             item.contentID = content.itemContentID
             item.tmdbID = Int64(content.id)
@@ -87,7 +87,7 @@ extension PersistenceController {
                 }
             }
             item.lastValuesUpdated = Date()
-            try? save()
+            save()
         }
     }
     
@@ -99,7 +99,7 @@ extension PersistenceController {
         let notification = NotificationManager.shared
         notification.removeNotification(identifier: content.itemContentID)
         viewContext.delete(item)
-        try? save()
+        save()
     }
     
     // MARK: Properties updates
@@ -108,17 +108,17 @@ extension PersistenceController {
         if item.isTvShow {
             item.isWatching.toggle()
         }
-        try? save()
+        save()
     }
     
     func updateFavorite(for item: WatchlistItem) {
         item.favorite.toggle()
-        try? save()
+        save()
     }
     
     func updatePin(for item: WatchlistItem) {
         item.isPin.toggle()
-        try? save()
+        save()
     }
     
     func updateArchive(for item: WatchlistItem) {
@@ -129,13 +129,13 @@ extension PersistenceController {
             item.isWatching.toggle()
             item.displayOnUpNext.toggle()
         }
-        try? save()
+        save()
     }
     
     func updateReview(for item: WatchlistItem, rating: Int, notes: String) {
         item.userNotes = notes
         item.userRating = Int64(rating)
-        try? save()
+        save()
     }
     
     // MARK: Properties read
@@ -153,26 +153,26 @@ extension PersistenceController {
     
     /// Returns a boolean indicating the status of 'watched' on a given item.
     func isMarkedAsWatched(id: String) -> Bool {
-        let item = try? fetch(for: id)
+        let item = fetch(for: id)
         guard let item else { return false }
         return item.watched
     }
     
     /// Returns a boolean indicating the status of 'favorite' on a given item.
     func isMarkedAsFavorite(id: String) -> Bool {
-        let item = try? fetch(for: id)
+        let item = fetch(for: id)
         guard let item else { return false }
         return item.favorite
     }
     
     func isItemPinned(id: String) -> Bool {
-        let item = try? fetch(for: id)
+        let item = fetch(for: id)
         guard let item else { return false }
         return item.isPin
     }
     
     func isItemArchived(id: String) -> Bool {
-        let item = try? fetch(for: id)
+        let item = fetch(for: id)
         guard let item else { return false }
         return item.isArchive
     }
@@ -189,13 +189,13 @@ extension PersistenceController {
             item.lastSelectedSeason = Int64(lastWatched.itemSeasonNumber)
             item.lastWatchedEpisode = Int64(lastWatched.id)
         }
-        try? save()
+        save()
     }
       
     func updateEpisodeList(show: Int, season: Int, episode: Int, nextEpisode: Episode? = nil) {
         let contentId = "\(show)@\(MediaType.tvShow.toInt)"
         if isItemSaved(id: contentId) {
-            let item = try? fetch(for: contentId)
+            let item = fetch(for: contentId)
             guard let item else { return }
             if isEpisodeSaved(show: show, season: season, episode: episode) {
                 let watched = item.watchedEpisodes?.replacingOccurrences(of: "-\(episode)@\(season)", with: "")
@@ -213,7 +213,7 @@ extension PersistenceController {
                 item.lastWatchedEpisode = Int64(episode)
                 item.displayOnUpNext = true
             }
-            try? save()
+            save()
         }
     }
     
@@ -229,30 +229,30 @@ extension PersistenceController {
             item.lastWatchedEpisode = Int64(episode.id)
         }
         item.isWatching = true
-        try? save()
+        save()
     }
     
     func removeFromUpNext(_ item: WatchlistItem) {
         item.displayOnUpNext = false
-        try? save()
+        save()
     }
     
     func updateUpNext(_ item: WatchlistItem, episode: Episode) {
         item.nextEpisodeNumberUpNext = Int64(episode.itemEpisodeNumber)
         item.seasonNumberUpNext = Int64(episode.itemSeasonNumber)
         item.displayOnUpNext = true
-        try? save()
+        save()
     }
     
     func removeWatchedEpisodes(for item: WatchlistItem) {
         item.watchedEpisodes = String()
         item.displayOnUpNext = false
         item.isWatching = false
-        try? save()
+        save()
     }
     
     func getLastSelectedSeason(_ id: String) -> Int? {
-        let item = try? fetch(for: id)
+        let item = fetch(for: id)
         guard let item else { return nil }
         if item.lastSelectedSeason == 0 { return 1 }
         return Int(item.lastSelectedSeason)
@@ -260,7 +260,7 @@ extension PersistenceController {
     
     func fetchLastWatchedEpisode(for id: Int) -> Int? {
         let contentId = "\(id)@\(MediaType.tvShow.toInt)"
-        let item = try? fetch(for: contentId)
+        let item = fetch(for: contentId)
         guard let item else { return nil }
         if !item.isWatching { return nil }
         if item.lastWatchedEpisode == 0 { return nil }
@@ -270,7 +270,7 @@ extension PersistenceController {
     func isEpisodeSaved(show: Int, season: Int, episode: Int) -> Bool {
         let contentId = "\(show)@\(MediaType.tvShow.toInt)"
         if isItemSaved(id: contentId) {
-            let item = try? fetch(for: contentId)
+            let item = fetch(for: contentId)
             guard let item, let watched = item.watchedEpisodes else { return false }
             if watched.contains("-\(episode)@\(season)") { return true }
         }

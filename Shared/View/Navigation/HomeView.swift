@@ -29,18 +29,18 @@ struct HomeView: View {
                     UpcomingWatchlist()
                     PinItemsList()
                     CustomListPinned()
-                    ItemContentListView(items: viewModel.trending,
+                    HorizontalItemContentListView(items: viewModel.trending,
                                         title: "Trending",
                                         subtitle: "Today",
                                         addedItemConfirmation: $showConfirmation)
                     ForEach(viewModel.sections) { section in
-                        ItemContentListView(items: section.results,
+                        HorizontalItemContentListView(items: section.results,
                                             title: section.title,
                                             subtitle: section.subtitle,
                                             addedItemConfirmation: $showConfirmation,
                                             endpoint: section.endpoint)
                     }
-                    ItemContentListView(items: viewModel.recommendations,
+                    HorizontalItemContentListView(items: viewModel.recommendations,
                                         title: "recommendationsTitle",
                                         subtitle: "recommendationsSubtitle",
                                         addedItemConfirmation: $showConfirmation)

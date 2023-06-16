@@ -18,7 +18,7 @@ struct PinButton: View {
     }
     
     private func updatePin() {
-        guard let item = try? persistence.fetch(for: id) else { return }
+        guard let item = persistence.fetch(for: id) else { return }
         persistence.updatePin(for: item)
         withAnimation { isPin.toggle() }
         HapticManager.shared.successHaptic()

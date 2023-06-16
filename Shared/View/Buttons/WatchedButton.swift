@@ -19,7 +19,7 @@ struct WatchedButton: View {
     }
     
     private func updateWatched() {
-        guard let item = try? persistence.fetch(for: id) else { return }
+        guard let item = persistence.fetch(for: id) else { return }
         persistence.updateWatched(for: item)
         withAnimation { isWatched.toggle() }
         HapticManager.shared.successHaptic()
@@ -29,7 +29,7 @@ struct WatchedButton: View {
     private func updateSeasons() {
         Task {
             let network = NetworkService.shared
-            guard let item = try? persistence.fetch(for: id) else { return }
+            guard let item = persistence.fetch(for: id) else { return }
             guard let content = try? await network.fetchItem(id: item.itemId, type: .tvShow) else { return }
             guard let seasons = content.itemSeasons else { return }
             var episodes = [Episode]()

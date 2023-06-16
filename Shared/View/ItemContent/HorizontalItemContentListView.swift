@@ -1,5 +1,5 @@
 //
-//  ItemContentListView.swift
+//  HorizontalItemContentListView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 06/06/22.
@@ -9,7 +9,7 @@ import SwiftUI
 
 /// Display a list of ItemContent within PosterView, with a TitleView indicating
 /// its origin.
-struct ItemContentListView: View {
+struct HorizontalItemContentListView: View {
     let items: [ItemContent]?
     let title: String
     let subtitle: String
@@ -82,24 +82,24 @@ struct ItemContentListView: View {
                     .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                     .padding(.leading, item.id == items.first!.id ? 16 : 0)
                     .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                    #if os(tvOS)
+#if os(tvOS)
                     .padding(.vertical)
-                    #else
+#else
                     .padding(.top, settings.isCompactUI ? 4 : 8)
                     .padding(.bottom, settings.isCompactUI ? 4 : nil)
-                    #endif
+#endif
                 }
             }
-            #if os(tvOS)
+#if os(tvOS)
             .padding(.vertical)
-            #endif
+#endif
         }
     }
 }
 
 struct ItemContentListView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentListView(items: ItemContent.examples,
+        HorizontalItemContentListView(items: ItemContent.examples,
                             title: "Favorites",
                             subtitle: "Favorites Movies",
                             addedItemConfirmation: .constant(false))

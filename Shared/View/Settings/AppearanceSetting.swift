@@ -12,21 +12,9 @@ struct AppearanceSetting: View {
 #if os(iOS)
     @StateObject private var icons = IconModel()
 #endif
-    @State private var disableRowType = false
     var body: some View {
         Form {
             Section {
-#if os(iOS)
-                Picker(selection: $store.rowType) {
-                    ForEach(WatchlistSubtitleRow.allCases) { item in
-                        Text(item.localizableName).tag(item)
-                    }
-                } label: {
-                    InformationalLabel(title: "appearanceRowTypeTitle",
-                                       subtitle: "appearanceRowTypeSubtitle")
-                }
-                .disabled(disableRowType)
-#endif
                 Picker(selection: $store.watchlistStyle) {
                     ForEach(WatchlistItemType.allCases) { item in
                         Text(item.localizableName).tag(item)
@@ -38,13 +26,6 @@ struct AppearanceSetting: View {
                 
             } header: {
                 Text("appearanceWatchlist")
-            }
-            .onChange(of: store.watchlistStyle) { newValue in
-                if newValue != .list {
-                    disableRowType = true
-                } else {
-                    disableRowType = false
-                }
             }
             
             Section {
@@ -111,9 +92,6 @@ struct AppearanceSetting: View {
             }
         }
         .navigationTitle("appearanceTitle")
-        .task {
-            if store.watchlistStyle != .list { disableRowType = true }
-        }
 #if os(macOS)
         .formStyle(.grouped)
 #endif

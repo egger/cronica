@@ -81,7 +81,7 @@ struct ItemContentContextMenu: ViewModifier {
                 return
             }
             context.save(item)
-            let content = try? context.fetch(for: item.itemContentID)
+            let content = context.fetch(for: item.itemContentID)
             guard let content else { return }
             context.updateWatched(for: content)
             HapticManager.shared.successHaptic()

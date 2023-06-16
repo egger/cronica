@@ -19,7 +19,7 @@ struct ArchiveButton: View {
     }
     
     private func updateArchive() {
-        guard let item = try? persistence.fetch(for: id) else { return }
+        guard let item = persistence.fetch(for: id) else { return }
         persistence.updateArchive(for: item)
         withAnimation { isArchive.toggle() }
         if isArchive {

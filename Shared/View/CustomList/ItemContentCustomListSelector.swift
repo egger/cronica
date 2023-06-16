@@ -12,10 +12,8 @@ struct ItemContentCustomListSelector: View {
     let contentID: String
     @Binding var showView: Bool
     let title: String
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
-        animation: .default)
-    private var lists: FetchedResults<CustomList>
+    @FetchRequest( sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+                   animation: .default) private var lists: FetchedResults<CustomList>
     @State private var selectedList: CustomList?
     @State private var isLoading = false
     var body: some View {
@@ -75,7 +73,7 @@ struct ItemContentCustomListSelector: View {
     }
     
     private func load() {
-        guard let content = try? PersistenceController.shared.fetch(for: contentID) else { return }
+        guard let content = PersistenceController.shared.fetch(for: contentID) else { return }
         self.item = content
     }
     

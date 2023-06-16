@@ -78,10 +78,10 @@ struct DefaultWatchlist: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
-                HStack {
-                    filterButton
-                    styleButton
-                }
+                styleButton
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                filterButton
             }
 #elseif os(macOS)
             HStack {

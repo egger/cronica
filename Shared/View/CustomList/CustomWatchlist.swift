@@ -42,10 +42,10 @@ struct CustomWatchlist: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
-                HStack {
-                    filterPicker
-                    styleButton
-                }
+                styleButton
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                filterPicker
             }
 #else
             filterPicker

@@ -11,7 +11,6 @@ struct HorizontalWatchlistList: View {
     let items: [WatchlistItem]
     let title: String
     let subtitle: String
-    var image: String?
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {

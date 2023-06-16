@@ -25,11 +25,14 @@ struct DefaultListRow: View {
 #endif
             VStack(alignment: .leading) {
                 Text("Watchlist")
+                    .font(.callout)
                 Text("Default List")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
+            .padding(.leading, 4)
         }
+        .padding(.vertical, 4)
     }
     
     @ViewBuilder

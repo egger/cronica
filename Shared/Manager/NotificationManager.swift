@@ -98,14 +98,9 @@ class NotificationManager: ObservableObject {
     
     func removeNotificationSchedule(identifier: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-        do {
-            let item = try PersistenceController.shared.fetch(for: identifier)
-            guard let item else { return }
-            item.notify = false
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "NotificationManager.removeNotificationSchedule")
-        }
+        let item = PersistenceController.shared.fetch(for: identifier)
+        guard let item else { return }
+        item.notify = false
     }
     
     func removeDeliveredNotification(identifier: String) {
@@ -180,13 +175,9 @@ class NotificationManager: ObservableObject {
         var items = [WatchlistItem]()
         let notifications = await getUpcomingNotificationsId()
         for notification in notifications {
-            do {
-                let item = try PersistenceController.shared.fetch(for: notification)
-                if let item {
-                    items.append(item)
-                }
-            } catch {
-                throw error
+            let item = PersistenceController.shared.fetch(for: notification)
+            if let item {
+                items.append(item)
             }
         }
         return items

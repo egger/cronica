@@ -165,10 +165,10 @@ private struct DrawingConstants {
     static let lineLimit: Int = 1
 }
 
-@available(watchOS 10, *)
-#Preview {
-    ItemContentView(id: ItemContent.example.id,
-                    title: ItemContent.example.itemTitle,
-                    type: ItemContent.example.itemContentMedia,
-                    image: ItemContent.example.cardImageMedium)
-}
+//@available(watchOS 10, *)
+//#Preview {
+//    ItemContentView(id: ItemContent.example.id,
+//                    title: ItemContent.example.itemTitle,
+//                    type: ItemContent.example.itemContentMedia,
+//                    image: ItemContent.example.cardImageMedium)
+//}
