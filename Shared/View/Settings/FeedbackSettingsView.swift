@@ -18,6 +18,9 @@ struct FeedbackSettingsView: View {
             Button("Send Feedback") {
                 showFeedbackForm.toggle()
             }
+#if os(macOS)
+            .buttonStyle(.link)
+#endif
             .sheet(isPresented: $showFeedbackForm) {
                 NavigationStack {
                     Form {

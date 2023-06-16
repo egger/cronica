@@ -84,12 +84,8 @@ struct ItemContentPadView: View {
                     .opacity(animateGesture ? 1 : 0)
                 }
                 .aspectRatio(contentMode: .fill)
-#if os(macOS)
-                .frame(width: 340, height: 500)
-#else
                 .frame(width: 300, height: 460)
-#endif
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .onTapGesture(count: 2) {
                     animate(for: store.gesture)
                     viewModel.update(store.gesture)

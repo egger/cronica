@@ -130,6 +130,12 @@ struct ItemContentDetails: View {
                         ReviewView(id: contentID, showView: $showUserNotes)
                     }
                     .presentationDetents([.medium, .large])
+#if os(macOS)
+                    .frame(width: 500, height: 500, alignment: .center)
+#else
+                    .appTheme()
+                    .appTint()
+#endif
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")

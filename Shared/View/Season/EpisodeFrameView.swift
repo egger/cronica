@@ -196,7 +196,7 @@ struct EpisodeFrameView: View {
             withAnimation { isWatched.toggle() }
             let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: episode, show: show)
             if let nextEpisode {
-                guard let item = try? persistence.fetch(for: contentId) else { return }
+                guard let item = persistence.fetch(for: contentId) else { return }
                 persistence.updateUpNext(item, episode: nextEpisode)
             }
         }
@@ -235,7 +235,7 @@ struct EpisodeFrameView: View {
                 currentFetchedSeason += 1
             }
             let contentId = "\(show)@\(MediaType.tvShow.toInt)"
-            guard let listItem = try persistence.fetch(for: contentId) else { return }
+            guard let listItem = persistence.fetch(for: contentId) else { return }
             persistence.updateEpisodeList(to: listItem, show: show, episodes: allEpisodes)
             checkedIfWatched = true
         }

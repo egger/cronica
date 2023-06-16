@@ -43,7 +43,7 @@ class ItemContentViewModel: ObservableObject {
                 guard let content else { return }
                 isInWatchlist = persistence.isItemSaved(id: content.itemContentID)
                 if isInWatchlist {
-                    watchlistItem = try persistence.fetch(for: content.itemContentID)
+                    watchlistItem = persistence.fetch(for: content.itemContentID)
                 }
                 withAnimation {
                     if isInWatchlist {
@@ -87,15 +87,10 @@ class ItemContentViewModel: ObservableObject {
         if isInWatchlist {
             // Removes item from Watchlist
             withAnimation { isInWatchlist.toggle() }
-            do {
-                let watchlistItem = try persistence.fetch(for: item.itemContentID)
-                guard let watchlistItem else { return }
-                notification.removeNotification(identifier: item.itemContentID)
-                persistence.delete(watchlistItem)
-            } catch {
-                CronicaTelemetry.shared.handleMessage("\(error.localizedDescription)",
-                                                      for: "ItemContentViewModel.updateWatchlist.failed")
-            }
+            let watchlistItem = persistence.fetch(for: item.itemContentID)
+            guard let watchlistItem else { return }
+            notification.removeNotification(identifier: item.itemContentID)
+            persistence.delete(watchlistItem)
         } else {
             // Adds the item to Watchlist
             withAnimation { isInWatchlist.toggle() }
@@ -141,27 +136,21 @@ class ItemContentViewModel: ObservableObject {
     /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
     /// and might not be an actual representation if the item will notify the user.
     private func isNotificationScheduled() -> Bool {
-        do {
-            guard let content else { return false }
-            let item = try persistence.fetch(for: content.itemContentID)
-            guard let notify = item?.notify else { return false }
-            return notify
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "ItemContentViewModel.isNotificationScheduled")
-            return false
-        }
+        guard let content else { return false }
+        let item = persistence.fetch(for: content.itemContentID)
+        guard let notify = item?.notify else { return false }
+        return notify
     }
     
     func fetchSavedItem() {
         guard let content else { return }
-        watchlistItem = try? persistence.fetch(for: content.itemContentID)
+        watchlistItem = persistence.fetch(for: content.itemContentID)
     }
     
     func update(_ property: UpdateItemProperties) {
         guard let content else { return }
         if !isInWatchlist { updateWatchlist(with: content) }
-        guard let item = try? persistence.fetch(for: content.itemContentID) else { return }
+        guard let item = persistence.fetch(for: content.itemContentID) else { return }
         switch property {
         case .watched:
             persistence.updateWatched(for: item)
@@ -181,7 +170,7 @@ class ItemContentViewModel: ObservableObject {
     
     private func updateSeasons() async {
         if type != .tvShow { return }
-        guard let content, let item = try? persistence.fetch(for: content.itemContentID) else { return }
+        guard let content, let item = persistence.fetch(for: content.itemContentID) else { return }
         if !isWatched {
             /// if item is removed from watched, then all watched episodes will also be removed.
             persistence.removeWatchedEpisodes(for: item)

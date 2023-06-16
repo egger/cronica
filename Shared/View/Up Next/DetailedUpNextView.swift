@@ -165,7 +165,7 @@ struct DetailedUpNextView: View {
     
     func markAsWatched(_ content: UpNextEpisode) async {
         let contentId = "\(content.showID)@\(MediaType.tvShow.toInt)"
-        let item = try? persistence.fetch(for: contentId)
+        let item = persistence.fetch(for: contentId)
         guard let item else { return }
         persistence.updateWatchedEpisodes(for: item, with: content.episode)
         withAnimation(.easeInOut) {

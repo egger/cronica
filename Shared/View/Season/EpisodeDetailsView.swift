@@ -122,21 +122,20 @@ struct EpisodeDetailsView: View {
     private var details: some View {
         VStack {
             ScrollView {
-#if os(macOS)
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
+#if os(macOS)
                     .frame(width: DrawingConstants.padImageWidth,
                            height: DrawingConstants.padImageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                    .shadow(radius: DrawingConstants.shadowRadius)
-                    .padding(.top)
 #else
-                HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
                     .frame(width: (horizontalSizeClass == .regular) ? DrawingConstants.padImageWidth : DrawingConstants.imageWidth,
                            height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
+#endif
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
-                
+#if os(macOS)
+                    .padding(.top)
 #endif
+                
                 
                 if let info = episode.itemInfo {
                     CenterHorizontalView {
@@ -181,9 +180,6 @@ struct EpisodeDetailsView: View {
                                 title: episode.itemTitle,
                                 type: .tvShow)
                 .padding()
-                
-                CastListView(credits: episode.itemCast)
-                    .padding(.bottom)
             }
             .navigationTitle(episode.itemTitle)
             .task { load() }

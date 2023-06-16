@@ -70,7 +70,7 @@ struct ReviewView: View {
     }
     
     private func load() {
-        let item = try? persistence.fetch(for: id)
+        let item = persistence.fetch(for: id)
         guard let item else {
             return
         }
