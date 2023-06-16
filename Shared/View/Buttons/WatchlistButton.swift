@@ -71,7 +71,7 @@ struct WatchlistButton: View {
     }
     
     private func registerNotification(_ item: ItemContent) {
-        if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
+        if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoWeeksAway() {
             notification.schedule(item)
         }
     }

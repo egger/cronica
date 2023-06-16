@@ -37,19 +37,19 @@ extension Date {
 
 extension Date? {
     /// This function calculates if the given date is less than two months away from today.
-    func isLessThanTwoMonthsAway() -> Bool {
+    func isLessThanTwoWeeksAway() -> Bool {
         if let date = self {
             let today = Date()
-            let twoMonths = TimeInterval(60 * 24 * 60 * 60)
+            let twoMonths = TimeInterval(14 * 24 * 60 * 60)
             if date < (today + twoMonths) { return true }
         }
         return false
     }
     
-    func hasPassedOneWeek() -> Bool {
+    func hasPassedFourDays() -> Bool {
         if let date = self {
             let today = Date()
-            let week = TimeInterval(7 * 24 * 60 * 60)
+            let week = TimeInterval(4 * 24 * 60 * 60)
             if today > (date + week) { return true }
         }
         return false

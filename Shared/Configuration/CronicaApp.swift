@@ -193,7 +193,7 @@ struct CronicaApp: App {
         }
         queue.addOperation {
             Task {
-                await BackgroundManager.shared.handleAppRefreshMaintenance(isAppMaintenance: true)
+                await BackgroundManager.shared.handleAppRefreshMaintenance()
             }
         }
         task.setTaskCompleted(success: true)

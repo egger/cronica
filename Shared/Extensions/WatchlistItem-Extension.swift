@@ -34,6 +34,7 @@ extension WatchlistItem {
         case 2: return .production
         case 3: return .cancelled
         case 5: return .renewed
+        case 6: return .ended
         default: return .unknown
         }
     }

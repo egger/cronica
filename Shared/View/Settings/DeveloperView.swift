@@ -6,6 +6,7 @@
 //
 #if os(iOS) || os(macOS)
 import SwiftUI
+import CoreData
 
 /// This view provides quick information and utilities to the developer.
 struct DeveloperView: View {
@@ -85,6 +86,28 @@ struct DeveloperView: View {
             Section {
                 Text("User Region: \(Locale.userRegion)")
                 Text("User Lang: \(Locale.userLang)")
+                Button("Print watching") {
+                    let context = PersistenceController.shared.container.newBackgroundContext()
+                    let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+                    let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
+                    let archivePredicate = NSPredicate(format: "isArchive == %d", false)
+                    let watchedPredicate = NSPredicate(format: "watched == %d", false)
+                    let archiveAndWatchedPredicate = NSCompoundPredicate(
+                        type: .and,
+                        subpredicates: [archivePredicate,
+                                        watchedPredicate]
+                    )
+                    let orPredicate = NSCompoundPredicate(
+                        type: .and,
+                        subpredicates: [archiveAndWatchedPredicate,
+                                        watchingPredicate]
+                    )
+                    request.predicate = orPredicate
+                    guard let list = try? context.fetch(request) else { return }
+                    for item in list {
+                        print(item.itemTitle)
+                    }
+                }
             }
             
             Section("TMDB") {
@@ -127,7 +150,7 @@ struct DeveloperView: View {
                                 }
                                 Menu {
                                     Button {
-                                        let watchlist = try? PersistenceController.shared.fetch(for: item.itemContentID)
+                                        let watchlist = PersistenceController.shared.fetch(for: item.itemContentID)
                                         if let watchlist {
                                             CronicaTelemetry.shared.handleMessage("WatchlistItem: \(watchlist as Any)",
                                                                                   for: "DeveloperView.printObject")

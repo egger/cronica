@@ -19,74 +19,63 @@ struct TMDBWatchlistView: View {
     @State private var isEndPagination = false
     @State private var selectedItem: ItemContent?
     var body: some View {
-        Form {
+        Section {
             if !hasLoaded {
                 CenterHorizontalView { ProgressView("Loading") }
             } else {
-                Section {
-                    if !settings.userImportedTMDB {
-                        importButton
-                    } else {
-                        syncButton
-                    }
+                if !settings.userImportedTMDB {
+                    importButton
+                } else {
+                    syncButton
                 }
-                
-                Section {
-                    if items.isEmpty {
-                        CenterHorizontalView { Text("emptyList") }
-                    } else {
-                        List {
-                            ForEach(items) { item in
-                                Button {
-                                    selectedItem = item
-                                } label: {
-                                    ItemContentConfirmationRow(item: item)
-                                }
-                                .buttonStyle(.plain)
+                if items.isEmpty {
+                    CenterHorizontalView { Text("emptyList") }
+                } else {
+                    List {
+                        ForEach(items) { item in
+                            Button {
+                                selectedItem = item
+                            } label: {
+                                ItemContentConfirmationRow(item: item)
                             }
-                            if !isEndPagination {
-                                ProgressView()
-                                    .onAppear {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                            Task { await fetch() }
-                                        }
+                            .buttonStyle(.plain)
+                        }
+                        if !isEndPagination {
+                            ProgressView()
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                        Task { await fetch() }
                                     }
-                            }
-                        }
-                        .redacted(reason: isImporting ? .placeholder : [])
-                    }
-                } header: {
-                    Text("itemsTMDB")
-                }
-                .sheet(item: $selectedItem) { item in
-                    NavigationStack {
-                        ItemContentDetails(title: item.itemTitle,
-                                           id: item.id,
-                                           type: item.itemContentMedia,
-                                           handleToolbar: true)
-                        .toolbar {
-#if os(iOS)
-                            ToolbarItem(placement: .navigationBarLeading) { doneButton }
-#else
-                            doneButton
-#endif
+                                }
                         }
                     }
-                    .presentationDetents([.large])
-#if os(macOS)
-                    .frame(width: 600, height: 400, alignment: .center)
-#endif
+                    .redacted(reason: isImporting ? .placeholder : [])
                 }
                 
             }
         }
-        .navigationTitle("AccountSettingsViewWatchlist")
+        .sheet(item: $selectedItem) { item in
+            NavigationStack {
+                ItemContentDetails(title: item.itemTitle,
+                                   id: item.id,
+                                   type: item.itemContentMedia,
+                                   handleToolbar: true)
+                .toolbar {
+#if os(iOS)
+                    ToolbarItem(placement: .navigationBarLeading) { doneButton }
+#else
+                    doneButton
+#endif
+                }
+            }
+            .presentationDetents([.large])
+#if os(macOS)
+            .frame(width: 600, height: 400, alignment: .center)
+#endif
+        }
         .task {
             await load()
         }
-#if os(macOS)
-        .formStyle(.grouped)
-#endif
     }
     
     private func load() async {
@@ -100,7 +89,7 @@ struct TMDBWatchlistView: View {
             Task { await saveWatchlist() }
         } label: {
             if isImporting {
-                CenterHorizontalView { ProgressView("importingTMDB") }
+                CenterHorizontalView { ProgressView("importingWatchlistTMDB") }
             } else {
                 Text("importTMDBWatchlist")
             }
@@ -140,6 +129,7 @@ struct TMDBWatchlistView: View {
             }
         }
     }
+    
     
     private func publishItems() async {
         do {

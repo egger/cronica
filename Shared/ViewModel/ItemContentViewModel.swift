@@ -95,7 +95,7 @@ class ItemContentViewModel: ObservableObject {
             // Adds the item to Watchlist
             withAnimation { isInWatchlist.toggle() }
             persistence.save(item)
-            if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoMonthsAway() {
+            if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoWeeksAway() {
                 NotificationManager.shared.schedule(item)
             }
         }

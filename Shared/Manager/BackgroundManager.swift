@@ -26,17 +26,54 @@ class BackgroundManager {
     }
     
     func handleAppRefreshContent() async {
-        let items = self.fetchItems()
+        let items = self.fetchWatchingItems()
         await self.fetchUpdates(items: items)
     }
     
-    func handleAppRefreshMaintenance(isAppMaintenance: Bool = false) async {
-        let items = self.fetchReleasedItems()
+    func handleAppRefreshMaintenance() async {
+        var items = [WatchlistItem]()
+        let upcomingItems = self.fetchUpcomingItems()
+        items.append(contentsOf: upcomingItems)
+        let releasedAndEndedItems = self.fetchReleasedItems()
+        items.append(contentsOf: releasedAndEndedItems)
+        if items.isEmpty { return }
         await self.fetchUpdates(items: items)
-        if isAppMaintenance {
-            CronicaTelemetry.shared.handleMessage("App Maintenance done.",
-                                                  for: "BackgroundManager.handleAppRefreshMaintenance()")
-        }
+    }
+    
+    private func fetchWatchingItems() -> [WatchlistItem] {
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
+        let archivePredicate = NSPredicate(format: "isArchive == %d", false)
+        let watchedPredicate = NSPredicate(format: "watched == %d", false)
+        let archiveAndWatchedPredicate = NSCompoundPredicate(
+            type: .and,
+            subpredicates: [archivePredicate,
+                            watchedPredicate]
+        )
+        let orPredicate = NSCompoundPredicate(
+            type: .and,
+            subpredicates: [archiveAndWatchedPredicate,
+                            watchingPredicate]
+        )
+        request.predicate = orPredicate
+        guard let list = try? context.fetch(request) else { return [] }
+        return list
+    }
+    
+    private func fetchUpcomingItems() -> [WatchlistItem] {
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt)
+        let renewedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.renewed.toInt)
+        let productionPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.production.toInt)
+        let orPredicate = NSCompoundPredicate(
+            type: .or,
+            subpredicates: [productionPredicate,
+                            soonPredicate,
+                            renewedPredicate]
+        )
+        request.predicate = orPredicate
+        guard let list = try? context.fetch(request) else { return [] }
+        return list
     }
     
     /// Fetch for any Watchlist item that match notify, soon, or tv predicates.
@@ -47,36 +84,31 @@ class BackgroundManager {
         let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt)
         let renewedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.renewed.toInt)
         let productionPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.production.toInt)
-        let orPredicate = NSCompoundPredicate(type: .or,
-                                              subpredicates: [notifyPredicate,
-                                                              productionPredicate,
-                                                              soonPredicate,
-                                                              renewedPredicate])
+        let orPredicate = NSCompoundPredicate(
+            type: .or,
+            subpredicates: [notifyPredicate,
+                            productionPredicate,
+                            soonPredicate,
+                            renewedPredicate]
+        )
         request.predicate = orPredicate
-        do {
-            let list = try context.fetch(request)
-            return list
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.fetchItems.failed")
-            return []
-        }
+        guard let list = try? context.fetch(request) else { return [] }
+        return list
     }
     
     private func fetchReleasedItems() -> [WatchlistItem] {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let releasedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.released.toInt)
+        let endedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.ended.toInt)
         let archivePredicate = NSPredicate(format: "isArchive == %d", true)
-        request.predicate = NSCompoundPredicate(type: .or,
-                                                subpredicates: [releasedPredicate, archivePredicate])
-        do {
-            let list = try self.context.fetch(request)
-            return list
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "BackgroundManager.fetchReleasedItems.failed")
-            return []
-        }
+        request.predicate = NSCompoundPredicate(
+            type: .or,
+            subpredicates: [releasedPredicate,
+                            endedPredicate,
+                            archivePredicate]
+        )
+        guard let list = try? self.context.fetch(request) else { return [] }
+        return list
     }
     
     /// Updates every item in the items array, update it in CoreData if needed, and update notification schedule.
@@ -86,14 +118,22 @@ class BackgroundManager {
                 // if the item is already released, archive or watched
                 // the need for constant updates are not there.
                 // So, to save resources, they will update less frequently.
-                if item.isMovie && item.isReleased || item.isArchive || item.isWatched {
-                    if item.lastValuesUpdated.hasPassedOneWeek() {
+                if item.isMovie {
+                    if item.isReleased || item.isArchive || item.isWatched {
+                        if item.lastValuesUpdated.hasPassedFourDays() {
+                            await update(item)
+                        }
+                    } else {
                         await update(item)
                     }
-                } else if item.isTvShow && !item.isArchive {
-                    await update(item)
                 } else {
-                    await update(item)
+                    if item.isArchive || item.itemSchedule == .ended {
+                        if item.lastValuesUpdated.hasPassedFourDays() {
+                            await update(item)
+                        }
+                    } else {
+                        await update(item)
+                    }
                 }
             }
         }
@@ -101,29 +141,24 @@ class BackgroundManager {
     
     private func update(_ item: WatchlistItem) async {
         if item.id == 0 { return }
-        do {
-            let content = try await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
-            if content.itemCanNotify && item.shouldNotify {
-                // If fetched item release date is different than the scheduled one,
-                // then remove the old date and register the new one.
-                if item.itemDate.areDifferentDates(with: content.itemFallbackDate) {
-                    notifications.removeNotification(identifier: content.itemContentID)
-                }
-                if content.itemStatus == .cancelled {
-                    notifications.removeNotification(identifier: content.itemContentID)
-                }
-                // In order to avoid passing the limit of local notifications,
-                // the app will only register when it's less than two months away
-                // from release date.
-                if content.itemFallbackDate.isLessThanTwoMonthsAway() {
-                    notifications.schedule(content)
-                }
+        let content = try? await self.network.fetchItem(id: item.itemId, type: item.itemMedia)
+        guard let content else { return }
+        if content.itemCanNotify && item.shouldNotify {
+            // If fetched item release date is different than the scheduled one,
+            // then remove the old date and register the new one.
+            if item.itemDate.areDifferentDates(with: content.itemFallbackDate) {
+                notifications.removeNotification(identifier: content.itemContentID)
             }
-            PersistenceController.shared.update(item: content)
-        } catch {
-            if Task.isCancelled { return }
-            let message = "Could not update item: \(item.itemContentID), error: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message, for: "BackgroundManager.update.failed")
+            if content.itemStatus == .cancelled {
+                notifications.removeNotification(identifier: content.itemContentID)
+            }
+            // In order to avoid passing the limit of local notifications,
+            // the app will only register when it's less than two months away
+            // from release date.
+            if content.itemFallbackDate.isLessThanTwoWeeksAway() {
+                notifications.schedule(content)
+            }
         }
+        PersistenceController.shared.update(item: content)
     }
 }

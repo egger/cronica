@@ -16,12 +16,8 @@ struct TMDBListDetails: View {
     @State private var isLoading = true
     @FetchRequest(
         entity: CustomList.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \CustomList.title, ascending: true),
-        ],
-        predicate: NSCompoundPredicate(type: .and, subpredicates: [
-            NSPredicate(format: "isSyncEnabledTMDB == %d", true),
-        ])
+        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+        predicate: NSCompoundPredicate(type: .and, subpredicates: [NSPredicate(format: "isSyncEnabledTMDB == %d", true)])
     ) private var customLists: FetchedResults<CustomList>
     @State private var selectedCustomList: CustomList?
     @State private var isSyncing = false
@@ -45,7 +41,6 @@ struct TMDBListDetails: View {
                 } else {
                     Section {
                         if syncList {
-                            syncWarning
                             syncButton
                         } else {
                             importButton
@@ -66,15 +61,9 @@ struct TMDBListDetails: View {
                             Text("emptyList")
                         } else {
                             ForEach(items) { item in
-#if os(iOS)
-                                NavigationLink(destination: ItemContentDetails(title: item.itemTitle,
-                                                                               id: item.id,
-                                                                               type: item.itemContentMedia)) {
+                                NavigationLink(value: item) {
                                     ItemContentConfirmationRow(item: item)
                                 }
-#else
-                                ItemContentConfirmationRow(item: item)
-#endif
                             }
                         }
                     } header: {
@@ -86,6 +75,28 @@ struct TMDBListDetails: View {
             }
         }
         .navigationTitle(list.itemTitle)
+        .navigationDestination(for: ItemContent.self) { item in
+            ItemContentDetails(title: item.itemTitle,
+                               id: item.id,
+                               type: item.itemContentMedia)
+        }
+        .navigationDestination(for: Person.self) { person in
+            PersonDetailsView(title: person.name, id: person.id)
+        }
+        .navigationDestination(for: [String:[ItemContent]].self) { item in
+            let keys = item.map { (key, _) in key }
+            let value = item.map { (_, value) in value }
+            ItemContentCollectionDetails(title: keys[0], items: value[0])
+        }
+        .navigationDestination(for: [Person].self) { items in
+            DetailedPeopleList(items: items)
+        }
+        .navigationDestination(for: ProductionCompany.self) { item in
+            CompanyDetails(company: item)
+        }
+        .navigationDestination(for: [ProductionCompany].self) { item in
+            CompaniesListView(companies: item)
+        }
         .onAppear { Task { await load() } }
 #if os(macOS)
         .formStyle(.grouped)
@@ -166,14 +177,6 @@ struct TMDBListDetails: View {
             DispatchQueue.main.async {
                 withAnimation { isDeleted = deletionStatus }
             }
-        }
-    }
-    
-    @ViewBuilder
-    private var syncWarning: some View {
-        if !itemsToSync.isEmpty {
-            Text("needToSync \(itemsToSync.count)")
-                .foregroundColor(.red)
         }
     }
     

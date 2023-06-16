@@ -28,7 +28,6 @@ extension PersistenceController {
             item.largePosterImage = content.posterImageLarge
             item.schedule = content.itemStatus.toInt
             item.notify = content.itemCanNotify
-            item.genre = content.itemGenre
             item.lastValuesUpdated = Date()
             item.date = content.itemFallbackDate
             item.formattedDate = content.itemTheatricalString
@@ -60,21 +59,40 @@ extension PersistenceController {
         if isItemSaved(id: content.itemContentID) {
             let item = fetch(for: content.itemContentID)
             guard let item else { return }
-            item.contentID = content.itemContentID
             item.tmdbID = Int64(content.id)
-            item.title = content.itemTitle
-            item.originalTitle = content.originalTitle
-            item.image = content.cardImageMedium
-            item.largeCardImage = content.cardImageLarge
-            item.mediumPosterImage = content.posterImageMedium
-            item.largePosterImage = content.posterImageLarge
-            item.schedule = content.itemStatus.toInt
-            item.notify = content.itemCanNotify
-            item.formattedDate = content.itemTheatricalString
-            item.genre = content.itemGenre
+            if item.title != content.itemTitle {
+                item.title = content.itemTitle
+            }
+            if item.originalTitle != content.originalTitle {
+                item.originalTitle = content.originalTitle
+            }
+            if item.image != content.cardImageMedium {
+                item.image = content.cardImageMedium
+            }
+            if item.largeCardImage != content.cardImageLarge {
+                item.largeCardImage = content.cardImageLarge
+            }
+            if item.mediumPosterImage != content.posterImageMedium {
+                item.mediumPosterImage = content.posterImageMedium
+            }
+            if item.largePosterImage != content.posterImageLarge {
+                item.largePosterImage = content.posterImageLarge
+            }
+            if item.schedule != content.itemStatus.toInt {
+                item.schedule = content.itemStatus.toInt
+            }
+            if item.notify != content.itemCanNotify {
+                item.notify = content.itemCanNotify
+            }
+            if item.formattedDate != content.itemTheatricalString {
+                item.formattedDate = content.itemTheatricalString
+            }
             if content.itemContentMedia == .tvShow {
                 if let episode = content.lastEpisodeToAir {
-                    item.lastEpisodeNumber = Int64(episode.itemEpisodeNumber)
+                    let episodeNumber = Int64(episode.itemEpisodeNumber)
+                    if item.lastEpisodeNumber != episodeNumber {
+                        item.lastEpisodeNumber = episodeNumber
+                    }
                 }
                 if let episode = content.nextEpisodeToAir {
                     item.nextEpisodeNumber = Int64(episode.itemEpisodeNumber)

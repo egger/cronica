@@ -140,7 +140,7 @@ extension ItemContent {
         case "Post Production": return .soon
         case "Returning Series": return .renewed
         case "Released": return .released
-        case "Ended": return .released
+        case "Ended": return .ended
         case "Canceled": return .cancelled
         default: return .unknown
         }

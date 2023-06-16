@@ -12,7 +12,7 @@ import Foundation
 /// This value is most used to quickly filter out WatchlistItem and handle better fetching in notifications.
 enum ItemSchedule: String, CaseIterable, Identifiable {
     var id: String { rawValue }
-    case soon, released, production, cancelled, unknown, renewed
+    case soon, released, production, cancelled, unknown, renewed, ended
     var toInt: Int16 {
         switch self {
         case .soon: return 0
@@ -21,6 +21,7 @@ enum ItemSchedule: String, CaseIterable, Identifiable {
         case .cancelled: return 3
         case .unknown: return 4
         case .renewed: return 5
+        case .ended: return 6
         }
     }
     var localizedTitle: String {
@@ -37,6 +38,8 @@ enum ItemSchedule: String, CaseIterable, Identifiable {
             return NSLocalizedString("Unknown", comment: "")
         case .renewed:
             return NSLocalizedString("Renewed Series", comment: "")
+        case .ended:
+            return NSLocalizedString("Ended Series", comment: "")
         }
     }
 }

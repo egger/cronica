@@ -67,7 +67,7 @@ struct WatchEpisodeButton: View {
         do {
             let content = try await network.fetchItem(id: show, type: .tvShow)
             persistence.save(content)
-            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoMonthsAway() {
+            if content.itemCanNotify && content.itemFallbackDate.isLessThanTwoWeeksAway() {
                 NotificationManager.shared.schedule(content)
             }
             isItemSaved = true

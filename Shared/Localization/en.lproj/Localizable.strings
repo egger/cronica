@@ -620,3 +620,9 @@
 "Show More" = "Show More";
 "Collapse" = "Collapse";
 "Watching" = "Watching";
+"connectedAccounts" = "Connected Accounts";
+"connectedAccountTMDB" = "The Movie Database";
+"importingWatchlistTMDB" = "Importing, please wait.";
+"importTMDBWatchlist" = "Import Watchlist";
+"Account" = "Account";
+"Ended Series" = "Ended Series";

@@ -654,3 +654,9 @@
 "Show More" = "Mostrar Mais";
 "Collapse" = "Recolher";
 "Watching" = "Assistindo";
+"connectedAccounts" = "Contas Conectadas";
+"connectedAccountTMDB" = "The Movie Database";
+"importingWatchlistTMDB" = "Importando, por favor aguarde.";
+"importTMDBWatchlist" = "Importar Lista";
+"Account" = "Conta";
+"Ended Series" = "Finalizado";
