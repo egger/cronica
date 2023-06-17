@@ -127,7 +127,7 @@ class ItemContentViewModel: ObservableObject {
                 persistence.update(item: content)
             }
         }
-        if isInWatchlist && isNotificationAvailable && type == .movie {
+        if isInWatchlist && isNotificationAvailable && type == .movie && !hasNotificationScheduled {
             guard let content else { return }
             NotificationManager.shared.schedule(content)
         }

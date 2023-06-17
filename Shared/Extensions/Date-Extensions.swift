@@ -62,3 +62,12 @@ extension Date? {
         return false
     }
 }
+
+extension Date {
+    func isLessThanTwoWeeksAway() -> Bool {
+        let today = Date()
+        let twoMonths = TimeInterval(14 * 24 * 60 * 60)
+        if self < (today + twoMonths) { return true }
+        return false
+    }
+}
