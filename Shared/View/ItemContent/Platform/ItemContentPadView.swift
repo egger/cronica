@@ -222,6 +222,8 @@ private struct QuickInformationView: View {
             infoView(title: NSLocalizedString("Original Title",
                                               comment: ""),
                      content: item?.originalItemTitle)
+            infoView(title: NSLocalizedString("Run Time", comment: ""),
+                     content: item?.itemRuntime)
             if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
                 infoView(title: NSLocalizedString("Overview",
                                                   comment: ""),

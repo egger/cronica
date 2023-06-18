@@ -79,6 +79,7 @@ struct SelectListView: View {
 #else
                             ListRowItem(list: item, selectedList: $selectedList)
                                 .onTapGesture {
+                                    HapticManager.shared.selectionHaptic()
                                     selectedList = item
                                     showListSelection.toggle()
                                 }

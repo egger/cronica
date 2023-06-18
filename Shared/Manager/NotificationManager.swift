@@ -67,7 +67,7 @@ class NotificationManager: ObservableObject {
             date = content.itemFallbackDate
         }
         if let date {
-            if !date.isLessThanTwoWeeksAway() {
+            if date.isLessThanTwoWeeksAway() {
                 self.scheduleNotification(identifier: identifier,
                                           title: title,
                                           message: body,

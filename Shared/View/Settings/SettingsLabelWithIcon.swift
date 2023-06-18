@@ -26,6 +26,7 @@ struct SettingsLabelWithIcon: View {
             .accessibilityHidden(true)
             Text(LocalizedStringKey(title))
         }
+        .padding(.vertical, 2)
     }
 }
 
