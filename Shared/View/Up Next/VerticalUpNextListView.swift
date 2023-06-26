@@ -36,7 +36,7 @@ struct VerticalUpNextListView: View {
                                             selectedEpisode = item
                                         }
                                     }
-    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
                                     Divider()
                                     if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
                                         ShareLink("shareEpisode", item: url)
@@ -44,7 +44,7 @@ struct VerticalUpNextListView: View {
                                     if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
                                         ShareLink("shareShow", item: url)
                                     }
-    #endif
+#endif
                                 }
                                 .onTapGesture {
                                     if SettingsStore.shared.markEpisodeWatchedOnTap {
@@ -57,7 +57,7 @@ struct VerticalUpNextListView: View {
                                 VStack(alignment: .leading) {
                                     Text(item.showTitle)
                                         .font(.callout)
-                                        .lineLimit(1)
+                                        .lineLimit(2)
                                     Text("E\(item.episode.itemEpisodeNumber), S\(item.episode.itemSeasonNumber)")
                                         .font(.caption)
                                         .textCase(.uppercase)
@@ -67,11 +67,11 @@ struct VerticalUpNextListView: View {
                                 Spacer()
                             }
                             .frame(width: DrawingConstants.imageWidth)
+                            Spacer()
                         }
                     }
                 }
                 .padding()
-                AttributionView()
             }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {

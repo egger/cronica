@@ -34,6 +34,7 @@ struct WatchlistItemFrame: View {
                         .lineLimit(DrawingConstants.titleLineLimit)
                     Spacer()
                 }
+                Spacer()
 #endif
             }
             .frame(width: DrawingConstants.imageWidth)
@@ -84,54 +85,59 @@ struct WatchlistItemFrame: View {
                                         style: .continuous))
             .shadow(radius: DrawingConstants.imageShadow)
             .applyHoverEffect()
-#if os(tvOS)
             .overlay {
-                ZStack(alignment: .bottom) {
-                    VStack {
-                        Spacer()
-                        ZStack {
-                            Color.black.opacity(0.4)
-                                .frame(height: 50)
-                                .mask {
-                                    LinearGradient(colors: [Color.black,
-                                                            Color.black.opacity(0.924),
-                                                            Color.black.opacity(0.707),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0)],
-                                                   startPoint: .bottom,
-                                                   endPoint: .top)
-                                }
-                            Rectangle()
-                                .fill(.ultraThinMaterial)
-                                .frame(height: 70)
-                                .mask {
-                                    VStack(spacing: 0) {
-                                        LinearGradient(colors: [Color.black.opacity(0),
-                                                                Color.black.opacity(0.383),
-                                                                Color.black.opacity(0.707),
-                                                                Color.black.opacity(0.924),
-                                                                Color.black],
-                                                       startPoint: .top,
-                                                       endPoint: .bottom)
-                                        .frame(height: 50)
-                                        Rectangle()
-                                    }
-                                }
+#if os(tvOS)
+                tvOSOverlay
+#endif
+            }
+    }
+    
+    private var tvOSOverlay: some View {
+        ZStack(alignment: .bottom) {
+            VStack {
+                Spacer()
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .frame(height: 50)
+                        .mask {
+                            LinearGradient(colors: [Color.black,
+                                                    Color.black.opacity(0.924),
+                                                    Color.black.opacity(0.707),
+                                                    Color.black.opacity(0.383),
+                                                    Color.black.opacity(0)],
+                                           startPoint: .bottom,
+                                           endPoint: .top)
                         }
-                    }
-                    HStack {
-                        Text(content.itemTitle)
-                            .font(.callout)
-                            .foregroundColor(.white)
-                            .lineLimit(1)
-                            .padding([.leading, .bottom])
-                        Spacer()
-                    }
-                    
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .frame(height: 70)
+                        .mask {
+                            VStack(spacing: 0) {
+                                LinearGradient(colors: [Color.black.opacity(0),
+                                                        Color.black.opacity(0.383),
+                                                        Color.black.opacity(0.707),
+                                                        Color.black.opacity(0.924),
+                                                        Color.black],
+                                               startPoint: .top,
+                                               endPoint: .bottom)
+                                .frame(height: 50)
+                                Rectangle()
+                            }
+                        }
                 }
             }
-#endif
+            HStack {
+                Text(content.itemTitle)
+                    .font(.callout)
+                    .foregroundColor(.white)
+                    .lineLimit(1)
+                    .padding([.leading, .bottom])
+                Spacer()
+            }
+            
+        }
     }
+    
     private var placeholder: some View {
         ZStack {
             Rectangle().fill(.gray.gradient)
@@ -162,17 +168,17 @@ private struct DrawingConstants {
 #if os(macOS)
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 16
 #elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 240 : 160
     static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 16
 #elseif os(tvOS)
     static let imageWidth: CGFloat = 460
     static let imageHeight: CGFloat = 260
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 16
 #endif
-    static let titleLineLimit: Int = 1
+    static let titleLineLimit: Int = 2
     static let imageShadow: CGFloat = 2.5
     static let placeholderForegroundColor: Color = .white.opacity(0.8)
 }

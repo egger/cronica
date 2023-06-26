@@ -1,5 +1,5 @@
 //
-//  ItemContentCollectionDetails.swift
+//  ItemContentSectionDetails.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 30/11/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ItemContentCollectionDetails: View {
+struct ItemContentSectionDetails: View {
     let title: String
     let items: [ItemContent]
     @State private var showConfirmation = false
@@ -21,7 +21,6 @@ struct ItemContentCollectionDetails: View {
                     } else {
                         cardStyle
                     }
-                    AttributionView()
                 }
                 .navigationTitle(LocalizedStringKey(title))
             }
@@ -62,10 +61,10 @@ struct ItemContentCollectionDetails: View {
     }
 }
 
-struct ItemContentCollectionDetails_Previews: PreviewProvider {
+struct ItemContentSectionDetails_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentCollectionDetails(title: "Preview Items",
-                                     items: ItemContent.examples)
+        ItemContentSectionDetails(title: "Preview Items",
+                                  items: ItemContent.examples)
     }
 }
 

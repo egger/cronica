@@ -28,7 +28,7 @@ struct HomeView: View {
                     HorizontalUpNextListView(shouldReload: $reloadUpNext)
                     UpcomingWatchlist()
                     PinItemsList()
-                    CustomListPinned()
+                    HorizontalPinnedList()
                     HorizontalItemContentListView(items: viewModel.trending,
                                         title: "Trending",
                                         subtitle: "Today",
@@ -93,18 +93,18 @@ struct HomeView: View {
             }
 #if os(iOS) || os(macOS)
             .navigationDestination(for: [WatchlistItem].self) { item in
-                TitleWatchlistDetails(items: item)
+                WatchlistSectionDetails(items: item)
             }
             .navigationDestination(for: [String:[WatchlistItem]].self) { item in
                 let keys = item.map { (key, _) in key }
                 let value = item.map { (_, value) in value }
-                TitleWatchlistDetails(title: keys[0], items: value[0])
+                WatchlistSectionDetails(title: keys[0], items: value[0])
             }
 #endif
             .navigationDestination(for: [String:[ItemContent]].self) { item in
                 let keys = item.map { (key, _) in key }
                 let value = item.map { (_, value) in value }
-                ItemContentCollectionDetails(title: keys[0], items: value[0])
+                ItemContentSectionDetails(title: keys[0], items: value[0])
             }
             .navigationDestination(for: [Person].self) { items in
                 DetailedPeopleList(items: items)

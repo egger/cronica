@@ -38,26 +38,33 @@ struct WatchlistView: View {
                 showSearch = true
             }
             .toolbar {
-                if #available(watchOS 10, *) {
-                    ToolbarItem(placement: .bottomBar) {
-                        filterButton
-                            .buttonStyle(.borderedProminent)
-                            .tint(.accentColor)
-                            .labelStyle(.iconOnly)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
-                            .opacity(showPicker ? 0 : 1)
-                            .opacity(showSearch ? 0 : 1)
-                    }
-                } else {
-                    ToolbarItem(placement: .primaryAction) {
-                        filterButton
-                            .buttonStyle(.bordered)
-                            .tint(.blue)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                            .padding()
-                    }
+                ToolbarItem(placement: .primaryAction) {
+                    filterButton
+                        .buttonStyle(.bordered)
+                        .tint(.blue)
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .padding()
                 }
+//                if #available(watchOS 10, *) {
+//                    ToolbarItem(placement: .bottomBar) {
+//                        filterButton
+//                            .buttonStyle(.borderedProminent)
+//                            .tint(.accentColor)
+//                            .labelStyle(.iconOnly)
+//                            .clipShape(Circle())
+//                            .shadow(radius: 5)
+//                            .opacity(showPicker ? 0 : 1)
+//                            .opacity(showSearch ? 0 : 1)
+//                    }
+//                } else {
+//                    ToolbarItem(placement: .primaryAction) {
+//                        filterButton
+//                            .buttonStyle(.bordered)
+//                            .tint(.blue)
+//                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+//                            .padding()
+//                    }
+//                }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentView(id: item.itemId,

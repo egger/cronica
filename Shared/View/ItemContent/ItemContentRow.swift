@@ -75,21 +75,21 @@ struct ItemContentRow: View {
                     ItemContentCustomListSelector(contentID: item.itemContentID, showView: $showCustomListView, title: item.itemTitle)
                 }
                 .presentationDetents([.medium, .large])
-    #if os(macOS)
+#if os(macOS)
                 .frame(width: 500, height: 600, alignment: .center)
-    #else
+#else
                 .appTheme()
                 .appTint()
-    #endif
+#endif
             }
         }
     }
 }
 
 private struct DrawingConstants {
-    static let imageWidth: CGFloat = 70
+    static let imageWidth: CGFloat = 80
     static let imageHeight: CGFloat = 50
-    static let imageRadius: CGFloat = 6
+    static let imageRadius: CGFloat = 8
     static let textLimit: Int = 1
 }
 

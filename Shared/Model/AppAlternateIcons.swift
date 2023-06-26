@@ -51,7 +51,6 @@ class IconModel: ObservableObject {
     }
     
     func updateAppIcon(to icon: Icon) {
-        let previousAppIcon = selectedAppIcon
         selectedAppIcon = icon
         Task { @MainActor in
             guard UIApplication.shared.alternateIconName != icon.iconName else { return }

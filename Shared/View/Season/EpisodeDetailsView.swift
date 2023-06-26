@@ -205,7 +205,7 @@ struct EpisodeDetailsView: View {
         .navigationDestination(for: [String:[ItemContent]].self) { item in
             let keys = item.map { (key, _) in key }
             let value = item.map { (_, value) in value }
-            ItemContentCollectionDetails(title: keys[0], items: value[0])
+            ItemContentSectionDetails(title: keys[0], items: value[0])
         }
         .navigationDestination(for: [Person].self) { items in
             DetailedPeopleList(items: items)
@@ -235,7 +235,7 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 12
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 16
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12

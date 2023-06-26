@@ -15,6 +15,7 @@ struct OverviewBoxView: View {
     var type: MediaType = .movie
     @State private var showFullText = false
     @State private var showSheet = false
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         if let overview {
             if !overview.isEmpty {
@@ -27,7 +28,7 @@ struct OverviewBoxView: View {
                             .fontDesign(.rounded)
                             .textCase(.uppercase)
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(settings.appTheme.color)
                             .padding(.top, 4)
                     }
                 } label: {

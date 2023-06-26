@@ -1,5 +1,5 @@
 //
-//  TitleWatchlistDetails.swift
+//  WatchlistSectionDetails.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 28/01/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 #if os(iOS) || os(macOS)
-struct TitleWatchlistDetails: View {
+struct WatchlistSectionDetails: View {
     var title = "Upcoming"
     let items: [WatchlistItem]
     var body: some View {
@@ -34,9 +34,9 @@ private struct DrawingConstants {
 #endif
 }
 
-struct TitleWatchlistDetails_Previews: PreviewProvider {
+struct WatchlistSectionDetails_Previews: PreviewProvider {
     static var previews: some View {
-        TitleWatchlistDetails(items: [.example])
+        WatchlistSectionDetails(items: [.example])
     }
 }
 #endif

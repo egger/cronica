@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailWatchlistButton: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var showConfirmationPopup = false
+    var verticalStyle = false
     var body: some View {
         Button {
             if viewModel.isInWatchlist {
@@ -29,10 +30,10 @@ struct DetailWatchlistButton: View {
         } label: {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-            #if os(tvOS)
+#if os(tvOS)
             .padding([.top, .bottom])
             .frame(minWidth: 480)
-            #endif
+#endif
         }
         .buttonStyle(.borderedProminent)
 #if os(iOS) || os(macOS)

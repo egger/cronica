@@ -100,7 +100,7 @@ private struct DrawingConstants {
     static let imageRadius: CGFloat = 16
     static let imageWidth: CGFloat = 60
     static let imageHeight: CGFloat = 60
-    static let lineLimits: Int = 1
+    static let lineLimits: Int = 2
 }
 
 struct WatchProvidersList_Previews: PreviewProvider {

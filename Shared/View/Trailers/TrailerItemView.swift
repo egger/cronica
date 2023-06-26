@@ -86,13 +86,13 @@ struct TrailerItemView: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let imageShadow: CGFloat = 2.5
     static let imageWidth: CGFloat = 220
     static let imageHeight: CGFloat = 120
-    static let overlayOpacity: Double = 0.1
-    static let overlayWidth: CGFloat = 40
-    static let overlayHeight: CGFloat = 40
+    static let overlayOpacity: Double = 0.2
+    static let overlayWidth: CGFloat = 50
+    static let overlayHeight: CGFloat = 50
     static let lineLimits: Int = 1
 }
 #endif

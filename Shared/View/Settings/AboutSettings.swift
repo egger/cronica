@@ -98,6 +98,7 @@ struct AboutSettings: View {
             }
             
             Section {
+                CenterHorizontalView { AttributionView() }
                 if settings.displayDeveloperSettings {
                     NavigationLink(value: SettingsScreens.developer) {
                         SettingsLabelWithIcon(title: "Developer Options", icon: "hammer", color: .purple)

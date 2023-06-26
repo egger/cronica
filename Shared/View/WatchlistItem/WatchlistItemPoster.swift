@@ -111,21 +111,11 @@ struct WatchlistItemPoster_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
-#if os(iOS) || os(macOS)
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
-#endif
     static let compactPosterWidth: CGFloat = 80
     static let compactPosterHeight: CGFloat = 140
     static let compactPosterRadius: CGFloat = 6
-#if os(macOS)
-    static let posterRadius: CGFloat = 12
-#elseif os(tvOS)
-    static let posterWidth: CGFloat = 260
-    static let posterHeight: CGFloat = 380
-    static let posterRadius: CGFloat = 12
-#else
-    static let posterRadius: CGFloat = 12
-#endif
-    static let shadowRadius: CGFloat = 2
+    static let posterRadius: CGFloat = 16
+    static let shadowRadius: CGFloat = 2.5
 }

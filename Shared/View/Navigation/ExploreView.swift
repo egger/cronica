@@ -45,10 +45,6 @@ struct ExploreView: View {
                         case .poster: posterStyle
                         case .card: cardStyle
                         }
-                        
-                        if !viewModel.items.isEmpty {
-                            AttributionView()
-                        }
                     }
                     .onChange(of: onChanging) { _ in
                         guard let first = viewModel.items.first else { return }
@@ -70,7 +66,7 @@ struct ExploreView: View {
                         let value = item.map { (_, value) in value }
 #if os(tvOS)
 #else
-                        ItemContentCollectionDetails(title: keys[0], items: value[0])
+                        ItemContentSectionDetails(title: keys[0], items: value[0])
 #endif
                     }
                     .navigationDestination(for: [Person].self) { items in

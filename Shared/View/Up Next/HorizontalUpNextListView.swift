@@ -55,6 +55,10 @@ struct HorizontalUpNextListView: View {
                                             if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
                                                 ShareLink("shareShow", item: url)
                                             }
+                                            Divider()
+                                            Button("hideFromUpNext") {
+                                                
+                                            }.hidden()
 #endif
                                         }
                                         .padding([.leading, .trailing], 4)

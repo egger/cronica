@@ -26,9 +26,6 @@ struct EndpointDetails: View {
                     case .poster:
                         posterStyle
                     }
-                    if !viewModel.items.isEmpty {
-                        AttributionView()
-                    }
                 }
             }
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")

@@ -200,11 +200,11 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 12
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 16
 }
 
-@available(iOS 17, *)
-#Preview {
-    ItemContentPhoneView(title: "Preview", type: .movie, id: ItemContent.example.id, showConfirmation: .constant(false))
-}
+//@available(iOS 17, *)
+//#Preview {
+//    ItemContentPhoneView(title: "Preview", type: .movie, id: ItemContent.example.id, showConfirmation: .constant(false))
+//}
 #endif
