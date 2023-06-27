@@ -66,11 +66,8 @@ class ExternalWatchlistManager {
             let content =  try decoder.decode(TMDBWatchlist.self, from: data)
             return content
         } catch {
-            if Task.isCancelled { return nil }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "")
+            return nil
         }
-        return nil
     }
     
     func updateWatchlist(with items: Data) async {
@@ -134,9 +131,8 @@ class ExternalWatchlistManager {
             guard let success = content.success else { return false }
             return success
         } catch {
-            if Task.isCancelled { return false }
+            return false
         }
-        return false
     }
     
     /// Create a new list on TMDb.
@@ -171,9 +167,8 @@ class ExternalWatchlistManager {
             let content =  try decoder.decode(TMDBNewList.self, from: data)
             return content.id
         } catch {
-            if Task.isCancelled { return nil }
+            return nil
         }
-        return nil
     }
     
     func fetchLists() async -> TMDBList? {
@@ -192,9 +187,8 @@ class ExternalWatchlistManager {
             let content =  try decoder.decode(TMDBList.self, from: data)
             return content
         } catch {
-            if Task.isCancelled { return nil }
+            return nil
         }
-        return nil
     }
     
     func fetchListDetails(for id: TMDBListResult.ID) async -> DetailedTMDBList? {
@@ -213,9 +207,8 @@ class ExternalWatchlistManager {
             let content =  try decoder.decode(DetailedTMDBList.self, from: data)
             return content
         } catch {
-            if Task.isCancelled { return nil }
+            return nil
         }
-        return nil
     }
 }
 

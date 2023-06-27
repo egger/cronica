@@ -33,6 +33,7 @@ struct RegionContentSettings: View {
                 .pickerStyle(.navigationLink)
 #endif
             }
+            
             Section {
                 Toggle(isOn: $store.isWatchProviderEnabled) {
                     InformationalLabel(title: "behaviorWatchProvidersTitle",

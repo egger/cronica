@@ -24,29 +24,24 @@ extension [ReleaseDatesResult] {
     }
     
     private func getReleaseDates(for dates: [ReleaseDate]?) -> Date? {
-        if let dates {
-            for date in dates {
-                // All types can be check out in https://developers.themoviedb.org/3/movies/get-movie-release-dates
-                if let type = date.type {
-                    // Type 3 is Theatrical release
-                    if type == 3 {
-                        return releaseToDate(for: date)
-                    }
-                    // Type 4 is Digital
-                    if type == 4 {
-                        return releaseToDate(for: date)
-                        //return date.releaseDate.toFormattedStringDate()
-                    }
-                    // Type 6 is TV
-                    if type == 6 {
-                        return releaseToDate(for: date)
-                        //return date.releaseDate.toFormattedStringDate()
-                    }
-                    // Type 1 is Premiere
-                    if type == 1 {
-                        return releaseToDate(for: date)
-                        //return date.releaseDate.toFormattedStringDate()
-                    }
+        guard let dates else { return nil }
+        for date in dates {
+            if let type = date.type {
+                
+                if type == ReleaseDateType.theatrical.toInt {
+                    return releaseToDate(for: date)
+                }
+                
+                if type == ReleaseDateType.digital.toInt {
+                    return releaseToDate(for: date)
+                }
+                
+                if type == ReleaseDateType.tv.toInt {
+                    return releaseToDate(for: date)
+                }
+                
+                if type == ReleaseDateType.premiere.toInt {
+                    return releaseToDate(for: date)
                 }
             }
         }
@@ -54,9 +49,7 @@ extension [ReleaseDatesResult] {
     }
     
     private func releaseToDate(for item: ReleaseDate) -> Date? {
-        if let release = item.releaseDate {
-            return String.releaseDateFormatter.date(from: release)
-        }
-        return nil
+        guard let release = item.releaseDate else { return nil }
+        return String.releaseDateFormatter.date(from: release)
     }
 }

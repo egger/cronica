@@ -18,6 +18,7 @@ struct ItemContentPadView: View {
     @State private var animationImage = ""
     @State private var animateGesture = false
     @State private var showOverview = false
+    @State private var showInfoBox = false
     @StateObject private var store = SettingsStore.shared
     @Binding var showConfirmation: Bool
     var body: some View {
@@ -41,6 +42,17 @@ struct ItemContentPadView: View {
                                 subtitle: "You may like",
                                 addedItemConfirmation: $showConfirmation,
                                 displayAsCard: true)
+            
+            if showInfoBox {
+                GroupBox {
+                    QuickInformationView(item: viewModel.content)
+                } label: {
+                    Label("Information", systemImage: "i.circle")
+                }
+                .groupBoxStyle(TransparentGroupBox())
+                .padding()
+
+            }
             
             AttributionView().padding([.top, .bottom])
         }
@@ -191,6 +203,8 @@ struct ItemContentPadView: View {
                 QuickInformationView(item: viewModel.content)
                     .frame(width: 280)
                     .padding(.horizontal)
+                    .onAppear { showInfoBox = false }
+                    .onDisappear { showInfoBox = true }
                 VStack {
                     Text("")
                 }

@@ -258,6 +258,9 @@
 		B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
+		B8AA36712A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */; };
+		B8AA36722A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */; };
+		B8AA36732A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */; };
 		B8AAA6E929645561004FDF21 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AAA6E829645561004FDF21 /* AppTheme.swift */; };
 		B8AAA6EA29645561004FDF21 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AAA6E829645561004FDF21 /* AppTheme.swift */; };
 		B8AAA6EE296455E2004FDF21 /* AppThemeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AAA6ED296455E2004FDF21 /* AppThemeModifier.swift */; };
@@ -577,6 +580,7 @@
 		B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentTVView.swift; sourceTree = "<group>"; };
 		B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPhoneView.swift; sourceTree = "<group>"; };
 		B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extensions.swift"; sourceTree = "<group>"; };
+		B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseDateType.swift; sourceTree = "<group>"; };
 		B8AAA6E829645561004FDF21 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		B8AAA6ED296455E2004FDF21 /* AppThemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeModifier.swift; sourceTree = "<group>"; };
 		B8AD442F284AD42300778275 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -723,6 +727,7 @@
 				B876DE4F281B1B81005558DD /* MediaType.swift */,
 				B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */,
 				B84457D22973987E009CB21F /* AppContentRegion.swift */,
+				B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1629,6 +1634,7 @@
 				B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B81941CF2A0861D70057DA04 /* FavoriteButton.swift in Sources */,
 				B801071329F2566B008A4551 /* WatchlistSelectorView.swift in Sources */,
+				B8AA36722A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */,
 				B8105254298DBAF500723E94 /* Locale-Extensions.swift in Sources */,
 				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
 				B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
@@ -1833,6 +1839,7 @@
 				B81941932A0823380057DA04 /* SmallerUpNextCard.swift in Sources */,
 				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
 				B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */,
+				B8AA36712A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */,
 				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
 				B85FD9A929F324730088B5CC /* TMDBAccountView.swift in Sources */,
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,
@@ -1907,6 +1914,7 @@
 				B821A2022A4A2B3F00EB0AF0 /* ItemContentList.swift in Sources */,
 				B81DD92F29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B8D7AEC428B9616C0053CE5A /* ImageSize.swift in Sources */,
+				B8AA36732A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */,
 				B8D7AEC228B961650053CE5A /* MediaType.swift in Sources */,
 				B897AE5E29F7519D00044B1E /* WatchlistItem+CoreDataClass.swift in Sources */,
 				B8D7AECA28B961AE0053CE5A /* ReleaseDate.swift in Sources */,

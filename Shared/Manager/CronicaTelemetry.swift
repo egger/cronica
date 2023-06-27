@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 03/10/22.
 //
 
-import SwiftUI
+import Foundation
 import os
 import TelemetryClient
 
@@ -26,13 +26,14 @@ struct CronicaTelemetry {
     
     /// Send a signal using TelemetryDeck service.
     ///
-    /// If it is running in Simulator or Debug, it will also send a warning on logger.
+    /// If it is running in Simulator or Debug, it will send a warning on logger.
     func handleMessage(_ message: String, for id: String) {
 #if targetEnvironment(simulator) || DEBUG
         logger.warning("\(message), for: \(id)")
-#endif
+#else
         if TelemetryManager.isInitialized {
             TelemetryManager.send("\(id)", with: ["Message":"\(message)"])
         }
+#endif
     }
 }
