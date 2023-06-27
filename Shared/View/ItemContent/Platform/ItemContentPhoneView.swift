@@ -16,6 +16,7 @@ struct ItemContentPhoneView: View {
     @StateObject private var store = SettingsStore.shared
     @State private var animateGesture = false
     @State private var animationImage = ""
+    @State private var showReleaseDateInfo = false
     var body: some View {
         VStack {
             cover
@@ -23,7 +24,7 @@ struct ItemContentPhoneView: View {
             DetailWatchlistButton()
                 .keyboardShortcut("l", modifiers: [.option])
                 .environmentObject(viewModel)
-
+            
             OverviewBoxView(overview: viewModel.content?.itemOverview,
                             title: title).padding()
             
@@ -40,12 +41,16 @@ struct ItemContentPhoneView: View {
             CastListView(credits: viewModel.credits)
             
             HorizontalItemContentListView(items: viewModel.recommendations,
-                                title: "Recommendations",
-                                subtitle: "You may like",
-                                addedItemConfirmation: $showConfirmation,
-                                displayAsCard: true)
+                                          title: "Recommendations",
+                                          subtitle: "You may like",
+                                          addedItemConfirmation: $showConfirmation,
+                                          displayAsCard: true)
             
             infoBox(item: viewModel.content, type: type).padding()
+                .sheet(isPresented: $showReleaseDateInfo) {
+                    DetailedReleaseDateView(item: viewModel.content?.releaseDates?.results,
+                                            dismiss: $showReleaseDateInfo)
+                }
             
             AttributionView().padding([.top, .bottom])
         }
@@ -120,9 +125,27 @@ struct ItemContentPhoneView: View {
                 infoView(title: NSLocalizedString("Run Time", comment: ""),
                          content: item?.itemRuntime)
                 if type == .movie {
-                    infoView(title: NSLocalizedString("Release Date",
-                                                      comment: ""),
-                             content: item?.itemTheatricalString)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("Release Date")
+                                    .font(.caption)
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                            }
+                            Text(item?.itemTheatricalString ?? "")
+                                .lineLimit(1)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                        }
+                        .accessibilityElement(children: .combine)
+                        Spacer()
+                    }
+                    .padding([.horizontal, .top], 2)
+                    .onTapGesture {
+                        showReleaseDateInfo.toggle()
+                    }
                 } else {
                     infoView(title: NSLocalizedString("First Air Date",
                                                       comment: ""),
@@ -204,9 +227,4 @@ private struct DrawingConstants {
     static let imageHeight: CGFloat = 210
     static let imageRadius: CGFloat = 16
 }
-
-//@available(iOS 17, *)
-//#Preview {
-//    ItemContentPhoneView(title: "Preview", type: .movie, id: ItemContent.example.id, showConfirmation: .constant(false))
-//}
 #endif
