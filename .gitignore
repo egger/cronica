@@ -3,4 +3,7 @@
 #
 
 Story.xcodeproj/xcuserdata/alexandremadeira.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
-Shared/Configuration/Key.swift
+
+# Ignore .DS_Store files
+.DS_Store
+Story.xcodeproj/project.xcworkspace/xcuserdata/alexandremadeira.xcuserdatad/UserInterfaceState.xcuserstate

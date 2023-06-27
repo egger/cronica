@@ -35,42 +35,41 @@ class WatchProvidersListViewModel: ObservableObject {
             if Task.isCancelled { return }
             if isLoaded { return }
             let providers = try await NetworkService.shared.fetchProviders(id: id, for: media)
-            if let results = providers.results {
-                let regionContent = filterByRegion(results)
-                if let regionContent {
-                    link = regionContent.itemLink
-                    var content = [WatchProviderContent]()
-                    if let flatrate = regionContent.flatrate {
-                        if settings.isSelectedWatchProviderEnabled {
-                            for item in flatrate {
-                                if settings.selectedWatchProviders.contains(item.itemID) {
-                                    content.append(item)
-                                }
+            guard let results = providers.results else { return }
+            let regionContent = filterByRegion(results)
+            if let regionContent {
+                link = regionContent.itemLink
+                var content = [WatchProviderContent]()
+                if let flatrate = regionContent.flatrate {
+                    if settings.isSelectedWatchProviderEnabled {
+                        for item in flatrate {
+                            if settings.selectedWatchProviders.contains(item.itemID) {
+                                content.append(item)
                             }
-                        } else {
-                            content.append(contentsOf: flatrate)
                         }
-                        
-                    }
-                    if let buy =  regionContent.buy {
-                        if settings.isSelectedWatchProviderEnabled {
-                            for item in buy {
-                                if settings.selectedWatchProviders.contains(item.itemID) {
-                                    content.append(item)
-                                }
-                            }
-                        } else {
-                            content.append(contentsOf: buy)
-                        }
-                        
+                    } else {
+                        content.append(contentsOf: flatrate)
                     }
                     
-                    items.append(contentsOf: content.sorted { $0.listPriority < $1.listPriority })
+                }
+                if let buy =  regionContent.buy {
+                    if settings.isSelectedWatchProviderEnabled {
+                        for item in buy {
+                            if settings.selectedWatchProviders.contains(item.itemID) {
+                                content.append(item)
+                            }
+                        }
+                    } else {
+                        content.append(contentsOf: buy)
+                    }
                     
                 }
-                if !items.isEmpty {
-                    withAnimation { isProvidersAvailable = true }
-                }
+                
+                items.append(contentsOf: content.sorted { $0.listPriority < $1.listPriority })
+                
+            }
+            if !items.isEmpty {
+                withAnimation { isProvidersAvailable = true }
             }
             isLoaded = true
         } catch {
@@ -82,10 +81,6 @@ Error: \(error.localizedDescription)
 """
             CronicaTelemetry.shared.handleMessage(message, for: "WatchProvidersListViewModel.load()")
         }
-    }
-    
-    private func filter() {
-        
     }
     
     private func filterByRegion(_ results: Results) -> ProviderItem? {

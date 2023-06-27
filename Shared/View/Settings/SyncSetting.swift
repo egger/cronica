@@ -52,7 +52,6 @@ struct SyncSetting: View {
                 .sheet(isPresented: $showExportShareSheet) {
 #if os(iOS)
                     CustomShareSheet(url: $exportUrl)
-                        .onDisappear { deleteTempFile() }
 #endif
                 }
 #if os(iOS)
@@ -146,16 +145,6 @@ struct SyncSetting: View {
         } catch {
             isGeneratingExport = false
             CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.export.failed")
-        }
-    }
-    
-    private func deleteTempFile() {
-        do {
-            if let exportUrl {
-                try FileManager.default.removeItem(at: exportUrl)
-            }
-        } catch {
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription, for: "SyncSettings.deleteTempFile.failed")
         }
     }
     

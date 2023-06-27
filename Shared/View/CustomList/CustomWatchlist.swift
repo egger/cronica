@@ -62,19 +62,13 @@ struct CustomWatchlist: View {
         }
         .disableAutocorrection(true)
         .task(id: query) {
-            do {
-                isSearching = true
-                try await Task.sleep(nanoseconds: 300_000_000)
-                if !filteredItems.isEmpty { filteredItems.removeAll() }
-                if let items = selectedList?.itemsArray {
-                    filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-                }
-                isSearching = false
-            } catch {
-                if Task.isCancelled { return }
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                      for: "WatchlistView.task(id: query)")
+            isSearching = true
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            if !filteredItems.isEmpty { filteredItems.removeAll() }
+            if let items = selectedList?.itemsArray {
+                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
             }
+            isSearching = false
         }
 #endif
     }

@@ -50,23 +50,18 @@ struct WatchlistButton: View {
     
     private func add() {
         Task {
-            do {
-                let identifier = id
-                let type = identifier.last ?? "0"
-                var media: MediaType = .movie
-                if type == "1" {
-                    media = .tvShow
-                }
-                let contentID = identifier.dropLast(2)
-                let content = try await NetworkService.shared.fetchItem(id: Int(contentID)!, type: media)
-                persistence.save(content)
-                registerNotification(content)
-                displayConfirmation()
-            } catch {
-                if Task.isCancelled { return }
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                      for: "ItemContentContextMenu.updateWatchlist")
+            let identifier = id
+            let type = identifier.last ?? "0"
+            var media: MediaType = .movie
+            if type == "1" {
+                media = .tvShow
             }
+            let contentID = identifier.dropLast(2)
+            let content = try? await NetworkService.shared.fetchItem(id: Int(contentID)!, type: media)
+            guard let content else { return }
+            persistence.save(content)
+            registerNotification(content)
+            displayConfirmation()
         }
     }
     

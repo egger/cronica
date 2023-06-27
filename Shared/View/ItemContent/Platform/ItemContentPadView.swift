@@ -73,7 +73,7 @@ struct ItemContentPadView: View {
                 }
                 .overlay {
                     ZStack {
-                        Rectangle().fill(.ultraThinMaterial)
+                        Rectangle().fill(.thinMaterial)
                         Image(systemName: animationImage)
                             .symbolRenderingMode(.multicolor)
                             .resizable()
@@ -204,12 +204,12 @@ struct ItemContentPadView: View {
         switch type {
         case .watched: animationImage = viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle"
         case .favorite: animationImage = viewModel.isFavorite ? "heart.slash.fill" : "heart.fill"
-        case .pin: animationImage = viewModel.isPin ? "pin.slash" : "pin"
-        case .archive: animationImage = viewModel.isArchive ? "archivebox.fill" : "archivebox"
+        case .pin: animationImage = viewModel.isPin ? "pin.slash" : "pin.fill"
+        case .archive: animationImage = viewModel.isArchive ? "archivebox" : "archivebox.fill"
         }
         withAnimation { animateGesture.toggle() }
         HapticManager.shared.successHaptic()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
             withAnimation { animateGesture = false }
         }
     }
@@ -237,7 +237,7 @@ private struct QuickInformationView: View {
                      content: item?.itemCountry)
             infoView(title: NSLocalizedString("Genres", comment: ""),
                      content: item?.itemGenres)
-            if let companies = item?.itemCompanies, let company = companies.first {
+            if let companies = item?.itemCompanies, let company = item?.itemCompany {
                 if !companies.isEmpty {
                     NavigationLink(value: companies) {
                         HStack {
@@ -248,7 +248,8 @@ private struct QuickInformationView: View {
                                     Image(systemName: "chevron.right")
                                         .font(.caption)
                                 }
-                                Text(company.name)
+                                Text(company)
+                                    .lineLimit(2)
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
                             }

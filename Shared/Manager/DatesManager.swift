@@ -52,20 +52,19 @@ class DatesManager {
                 }
             }
             if result.iso31661 == "US" {
-                if let dates = result.releaseDates {
-                    for date in dates {
-                        if date.type != nil && date.type == 3 {
-                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                            return dateString.string(from: release)
-                        }
-                        if date.type != nil && date.type == 4 {
-                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                            return dateString.string(from: release)
-                        }
-                        if date.type != nil && date.type == 6 {
-                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                            return dateString.string(from: release)
-                        }
+                guard let dates = result.releaseDates else { return nil }
+                for date in dates {
+                    if date.type != nil && date.type == 3 {
+                        let release = releaseDateFormatter.date(from: date.releaseDate!)!
+                        return dateString.string(from: release)
+                    }
+                    if date.type != nil && date.type == 4 {
+                        let release = releaseDateFormatter.date(from: date.releaseDate!)!
+                        return dateString.string(from: release)
+                    }
+                    if date.type != nil && date.type == 6 {
+                        let release = releaseDateFormatter.date(from: date.releaseDate!)!
+                        return dateString.string(from: release)
                     }
                 }
             }

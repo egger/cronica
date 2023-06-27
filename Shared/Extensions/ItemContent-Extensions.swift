@@ -45,6 +45,15 @@ extension ItemContent {
         return NSLocalizedString("Not Available", comment: "")
     }
     var itemCompany: String {
+        if let productionCompanies {
+            var companies = [String]()
+            for company in productionCompanies {
+                companies.append(company.name)
+            }
+            if companies.isEmpty { return String() }
+            let output = companies.joined(separator: ", ")
+            return output
+        }
         if let company = productionCompanies?.first?.name {
             return company
         }

@@ -22,8 +22,10 @@ struct HapticManager {
     
     func selectionHaptic() {
 #if os(iOS)
-        let generator = UISelectionFeedbackGenerator()
-        generator.selectionChanged()
+        if SettingsStore.shared.hapticFeedback {
+            let generator = UISelectionFeedbackGenerator()
+            generator.selectionChanged()
+        }
 #endif
     }
 }

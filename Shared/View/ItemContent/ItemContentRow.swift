@@ -37,6 +37,7 @@ struct ItemContentRow: View {
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                    .shadow(radius: 2.5)
                 VStack(alignment: .leading) {
                     HStack {
                         Text(item.itemTitle)

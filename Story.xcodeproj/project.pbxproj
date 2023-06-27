@@ -20,7 +20,7 @@
 		B806C4E12899BE2800A5330E /* CronicaWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */; };
 		B806C4E52899BE2900A5330E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B806C4E42899BE2900A5330E /* Assets.xcassets */; };
 		B806C4E82899BE2900A5330E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B806C4E72899BE2900A5330E /* Preview Assets.xcassets */; };
-		B806C4EB2899BE2900A5330E /* Cronica.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B806C4DE2899BE2800A5330E /* Cronica.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B806C4EB2899BE2900A5330E /* Cronica.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B806C4DE2899BE2800A5330E /* Cronica.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B4DA9284537EF008BA43C /* SearchItemView.swift */; };
 		B80BBE582949665A00958876 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE572949665A00958876 /* AppearanceSetting.swift */; };
 		B80BBE5B294966FC00958876 /* InformationalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5A294966FC00958876 /* InformationalLabel.swift */; };
@@ -99,6 +99,7 @@
 		B81DD93C29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
 		B81DD93D29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD93329BD14EE009F73F3 /* CustomList+CoreDataProperties.swift */; };
 		B81DD94129BE226E009F73F3 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */; };
+		B821A2022A4A2B3F00EB0AF0 /* ItemContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AED628B963700053CE5A /* ItemContentList.swift */; };
 		B824E4362A04945400E385CE /* ItemContentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E4352A04945400E385CE /* ItemContentRow.swift */; };
 		B824E43A2A05416E00E385CE /* UpNextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E4392A05416E00E385CE /* UpNextItem.swift */; };
 		B824E4402A059E2400E385CE /* TransparentGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E43F2A059E2400E385CE /* TransparentGroupBox.swift */; };
@@ -302,7 +303,7 @@
 		B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD4431284AD42300778275 /* SwiftUI.framework */; };
 		B8D7AEAC28B95F5E0053CE5A /* CronicaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */; };
 		B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */; };
-		B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B8D7AEBA28B95FB20053CE5A /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
 		B8D7AEBB28B95FC60053CE5A /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEB828B95F840053CE5A /* ItemContent.swift */; };
 		B8D7AEBC28B960420053CE5A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
@@ -317,7 +318,6 @@
 		B8D7AECA28B961AE0053CE5A /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
 		B8D7AECF28B962660053CE5A /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AECD28B962490053CE5A /* Person.swift */; };
 		B8D7AED428B963110053CE5A /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AED128B963000053CE5A /* Season.swift */; };
-		B8D7AED828B963720053CE5A /* ItemContentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AED628B963700053CE5A /* ItemContentList.swift */; };
 		B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8D7AEDB28B967180053CE5A /* TelemetryClient */; };
 		B8D7AEE328BA64DF0053CE5A /* DataPlaceholder.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */; };
 		B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
@@ -1371,9 +1371,9 @@
 		B8FB2A7A29522D22006DAC8E /* WatchlistItem */ = {
 			isa = PBXGroup;
 			children = (
+				B8D1A2F32A4A0DC5001BACDC /* HorizontalPinnedLists.swift */,
 				B81941882A081B840057DA04 /* HorizontalWatchlistList.swift */,
 				B8BF633329146A1F0051915C /* PinItemsList.swift */,
-				B89ECD052985F11100F0B197 /* WatchlistSectionDetails.swift */,
 				B8BF633A29146AEB0051915C /* UpcomingWatchlist.swift */,
 				B8FB2A7F295235E2006DAC8E /* WatchlistCardSection.swift */,
 				B8FB2A7D29522E58006DAC8E /* WatchlistItemFrame.swift */,
@@ -1381,7 +1381,7 @@
 				B84C53FC27B1F1DD00425524 /* WatchlistItemRow.swift */,
 				B8FB2A8829524FAD006DAC8E /* WatchlistPosterSection.swift */,
 				B8C335462815ED140055389D /* WatchListSection.swift */,
-				B8D1A2F32A4A0DC5001BACDC /* HorizontalPinnedLists.swift */,
+				B89ECD052985F11100F0B197 /* WatchlistSectionDetails.swift */,
 			);
 			path = WatchlistItem;
 			sourceTree = "<group>";
@@ -1901,10 +1901,10 @@
 				B824E44A2A05A9AF00E385CE /* AttributionView.swift in Sources */,
 				B84457C9297341B5009CB21F /* WatchProviders.swift in Sources */,
 				B8105257298DC0AD00723E94 /* Locale-Extensions.swift in Sources */,
-				B8D7AED828B963720053CE5A /* ItemContentList.swift in Sources */,
 				B8F6DE652937A144005D1A50 /* Videos.swift in Sources */,
 				B8D7AEC628B961890053CE5A /* NetworkService.swift in Sources */,
 				B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */,
+				B821A2022A4A2B3F00EB0AF0 /* ItemContentList.swift in Sources */,
 				B81DD92F29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B8D7AEC428B9616C0053CE5A /* ImageSize.swift in Sources */,
 				B8D7AEC228B961650053CE5A /* MediaType.swift in Sources */,
@@ -1930,6 +1930,7 @@
 /* Begin PBXTargetDependency section */
 		B806C4EA2899BE2900A5330E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */;
 			targetProxy = B806C4E92899BE2900A5330E /* PBXContainerItemProxy */;
 		};
@@ -1940,6 +1941,7 @@
 		};
 		B8D7AEB128B95F5F0053CE5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */;
 			targetProxy = B8D7AEB028B95F5F0053CE5A /* PBXContainerItemProxy */;
 		};
@@ -2318,7 +2320,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2353,7 +2355,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -31,6 +31,8 @@ struct CronicaTelemetry {
 #if targetEnvironment(simulator) || DEBUG
         logger.warning("\(message), for: \(id)")
 #endif
-        TelemetryManager.send("\(id)", with: ["Message":"\(message)"])
+        if TelemetryManager.isInitialized {
+            TelemetryManager.send("\(id)", with: ["Message":"\(message)"])
+        }
     }
 }

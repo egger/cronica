@@ -138,20 +138,22 @@ struct ItemContentPhoneView: View {
                 infoView(title: NSLocalizedString("Region of Origin",
                                                   comment: ""),
                          content: item?.itemCountry)
-                if let companies = item?.itemCompanies, let company = companies.first {
+                if let companies = item?.itemCompanies, let company = item?.itemCompany {
                     if !companies.isEmpty {
                         NavigationLink(value: companies) {
                             HStack {
                                 VStack(alignment: .leading) {
                                     HStack {
-                                        Text("Production Company")
+                                        Text("Production Companies")
                                             .font(.caption)
                                         Image(systemName: "chevron.right")
                                             .font(.caption)
                                     }
-                                    Text(company.name)
+                                    Text(company)
+                                        .lineLimit(1)
                                         .font(.caption2)
                                         .foregroundColor(.secondary)
+                                    Spacer()
                                 }
                                 .accessibilityElement(children: .combine)
                                 Spacer()
