@@ -14,11 +14,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings = false
     @AppStorage("gesture") var gesture: UpdateItemProperties = .favorite
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
-#if os(macOS)
     @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .card
-#elseif os(iOS)
-    @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = UIDevice.isIPhone ? .list : .card
-#endif
     @AppStorage("disableTranslucentBackground") var disableTranslucent = false
     @AppStorage("user_theme") var currentTheme: AppTheme = .system
     @AppStorage("openInYouTube") var openInYouTube = false

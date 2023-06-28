@@ -174,7 +174,7 @@ struct CronicaApp: App {
             }
             queue.addOperation {
                 Task {
-                    await BackgroundManager.shared.handleAppRefreshContent()
+                    await BackgroundManager.shared.handleWatchingContentRefresh()
                 }
             }
             task.setTaskCompleted(success: true)

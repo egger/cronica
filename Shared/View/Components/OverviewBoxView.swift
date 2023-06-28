@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 /// Displays the overview of a movie, tv show, or episode.
 /// It can also display biography.
 struct OverviewBoxView: View {
@@ -24,12 +24,14 @@ struct OverviewBoxView: View {
                         Text(overview)
                             .padding([.top], 2)
                             .lineLimit(showFullText ? nil : 4)
+#if os(iOS)
                         Text(showFullText ? "Collapse" : "Show More")
                             .fontDesign(.rounded)
                             .textCase(.uppercase)
                             .font(.caption)
                             .foregroundStyle(settings.appTheme.color)
                             .padding(.top, 4)
+#endif
                     }
                 } label: {
                     switch type {
@@ -45,7 +47,7 @@ struct OverviewBoxView: View {
                     }
                 }
                 .onTapGesture {
-#if os(iOS) || os(watchOS)
+#if os(iOS)
                     withAnimation { showFullText.toggle() }
 #elseif os(macOS)
                     showSheet.toggle()

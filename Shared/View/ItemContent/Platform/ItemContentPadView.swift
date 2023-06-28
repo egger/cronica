@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if !os(tvOS)
 /// The Details view for ItemContent for iPadOS and macOS, built with larger screen in mind.
 struct ItemContentPadView: View {
     let id: Int
@@ -49,7 +49,6 @@ struct ItemContentPadView: View {
                 } label: {
                     Label("Information", systemImage: "i.circle")
                 }
-                .groupBoxStyle(TransparentGroupBox())
                 .padding()
 
             }
@@ -305,3 +304,4 @@ private struct QuickInformationView: View {
         }
     }
 }
+#endif

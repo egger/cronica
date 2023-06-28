@@ -14,6 +14,8 @@ class BackgroundManager {
     private let network = NetworkService.shared
     private let notifications = NotificationManager.shared
     private static let lastMaintenanceKey = "lastMaintenance"
+    private static let lastWatchingRefreshKey = "lastWatchingRefreshKey"
+    private static let lastReleasedRefreshKey = "lastReleasedRefreshKey"
     static let shared = BackgroundManager()
     
     var lastMaintenance: Date? {
@@ -24,9 +26,33 @@ class BackgroundManager {
             UserDefaults.standard.set(newValue, forKey: BackgroundManager.lastMaintenanceKey)
         }
     }
+    var lastWatchingRefresh: Date? {
+        get {
+            return UserDefaults.standard.object(forKey: BackgroundManager.lastWatchingRefreshKey) as? Date
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: BackgroundManager.lastWatchingRefreshKey)
+        }
+    }
+    var lastReleasedRefresh: Date? {
+        get {
+            return UserDefaults.standard.object(forKey: BackgroundManager.lastReleasedRefreshKey) as? Date
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: BackgroundManager.lastReleasedRefreshKey)
+        }
+    }
     
-    func handleAppRefreshContent() async {
+    func handleWatchingContentRefresh() async {
         let items = self.fetchWatchingItems()
+        await self.fetchUpdates(items: items)
+    }
+    
+    func handleUpcomingContentRefresh() async {
+        var items = [WatchlistItem]()
+        let upcomingItems = self.fetchUpcomingItems()
+        items.append(contentsOf: upcomingItems)
+        if items.isEmpty { return }
         await self.fetchUpdates(items: items)
     }
     
@@ -65,33 +91,15 @@ class BackgroundManager {
         let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt)
         let renewedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.renewed.toInt)
         let productionPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.production.toInt)
+        let archivePredicate = NSPredicate(format: "isArchive == %d", false)
         let orPredicate = NSCompoundPredicate(
             type: .or,
             subpredicates: [productionPredicate,
                             soonPredicate,
                             renewedPredicate]
         )
-        request.predicate = orPredicate
-        guard let list = try? context.fetch(request) else { return [] }
-        return list
-    }
-    
-    /// Fetch for any Watchlist item that match notify, soon, or tv predicates.
-    /// - Returns: Returns a list of Watchlist items that matched the predicates.
-    private func fetchItems() -> [WatchlistItem] {
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        let notifyPredicate = NSPredicate(format: "notify == %d", true)
-        let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt)
-        let renewedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.renewed.toInt)
-        let productionPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.production.toInt)
-        let orPredicate = NSCompoundPredicate(
-            type: .or,
-            subpredicates: [notifyPredicate,
-                            productionPredicate,
-                            soonPredicate,
-                            renewedPredicate]
-        )
-        request.predicate = orPredicate
+        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [orPredicate, archivePredicate])
+        request.predicate = andPredicate
         guard let list = try? context.fetch(request) else { return [] }
         return list
     }

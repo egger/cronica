@@ -29,7 +29,7 @@ struct ItemContent: Identifiable, Codable, Hashable, Sendable {
     var videos: Videos?
     var nextEpisodeToAir, lastEpisodeToAir: Episode?
     let originalName, firstAirDate, homepage: String?
-    
+    let episodeRunTime: [Int]?
 }
 struct ProductionCompany: Identifiable, Codable, Hashable {
     let name: String

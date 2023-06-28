@@ -12,6 +12,7 @@ struct TransparentGroupBox: GroupBoxStyle {
         VStack {
             HStack {
                 configuration.label
+                    .fontDesign(.rounded)
                     .font(.headline)
                     .foregroundColor(.primary)
                 Spacer()
@@ -26,7 +27,7 @@ struct TransparentGroupBox: GroupBoxStyle {
                 Rectangle().fill(.background)
             }
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .shadow(radius: 1)
+            .shadow(radius: 2)
         }
     }
 }
