@@ -114,7 +114,9 @@ extension PersistenceController {
                     }
                 }
             }
-            item.lastValuesUpdated = Date()
+            if item.hasChanges || item.isReleased {
+                item.lastValuesUpdated = Date()
+            }
             save()
         }
     }

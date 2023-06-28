@@ -115,6 +115,7 @@ struct SyncSetting: View {
                 self.updatingItems.toggle()
             }
             await background.handleWatchingContentRefresh()
+            await background.handleUpcomingContentRefresh()
             await background.handleAppRefreshMaintenance()
             withAnimation {
                 self.updatingItems.toggle()

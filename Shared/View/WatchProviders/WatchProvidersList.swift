@@ -83,7 +83,7 @@ struct WatchProvidersList: View {
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                .shadow(radius: 2.5)
+                .shadow(radius: 2)
                 .applyHoverEffect()
             Text(item.providerTitle)
                 .font(.caption)
@@ -100,7 +100,7 @@ private struct DrawingConstants {
     static let imageRadius: CGFloat = 16
     static let imageWidth: CGFloat = 60
     static let imageHeight: CGFloat = 60
-    static let lineLimits: Int = 2
+    static let lineLimits: Int = 1
 }
 
 struct WatchProvidersList_Previews: PreviewProvider {

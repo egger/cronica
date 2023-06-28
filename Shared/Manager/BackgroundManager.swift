@@ -15,7 +15,7 @@ class BackgroundManager {
     private let notifications = NotificationManager.shared
     private static let lastMaintenanceKey = "lastMaintenance"
     private static let lastWatchingRefreshKey = "lastWatchingRefreshKey"
-    private static let lastReleasedRefreshKey = "lastReleasedRefreshKey"
+    private static let lastUpcomingRefreshKey = "lastUpcomingRefreshKey"
     static let shared = BackgroundManager()
     
     var lastMaintenance: Date? {
@@ -34,12 +34,12 @@ class BackgroundManager {
             UserDefaults.standard.set(newValue, forKey: BackgroundManager.lastWatchingRefreshKey)
         }
     }
-    var lastReleasedRefresh: Date? {
+    var lastUpcomingRefresh: Date? {
         get {
-            return UserDefaults.standard.object(forKey: BackgroundManager.lastReleasedRefreshKey) as? Date
+            return UserDefaults.standard.object(forKey: BackgroundManager.lastUpcomingRefreshKey) as? Date
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: BackgroundManager.lastReleasedRefreshKey)
+            UserDefaults.standard.set(newValue, forKey: BackgroundManager.lastUpcomingRefreshKey)
         }
     }
     
@@ -128,15 +128,15 @@ class BackgroundManager {
                 // So, to save resources, they will update less frequently.
                 if item.isMovie {
                     if item.isReleased || item.isArchive || item.isWatched {
-                        if item.lastValuesUpdated.hasPassedFourDays() {
+                        if item.lastValuesUpdated.hasPassedTwoWeek() {
                             await update(item)
                         }
                     } else {
                         await update(item)
                     }
                 } else {
-                    if item.isArchive || item.itemSchedule == .ended {
-                        if item.lastValuesUpdated.hasPassedFourDays() {
+                    if item.isArchive || item.itemSchedule == .ended || item.isWatched {
+                        if item.lastValuesUpdated.hasPassedTwoWeek() {
                             await update(item)
                         }
                     } else {

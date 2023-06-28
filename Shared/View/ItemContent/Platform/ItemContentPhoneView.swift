@@ -42,7 +42,7 @@ struct ItemContentPhoneView: View {
             
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
-                                          subtitle: "You may like",
+                                          subtitle: "",
                                           addedItemConfirmation: $showConfirmation,
                                           displayAsCard: true)
             

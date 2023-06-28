@@ -61,6 +61,15 @@ extension Date? {
         return false
     }
     
+    func hasPassedTwoWeek() -> Bool {
+        if let date = self {
+            let today = Date()
+            let week = TimeInterval(14 * 24 * 60 * 60)
+            if today > (date + week) { return true }
+        }
+        return false
+    }
+    
     func areDifferentDates(with new: Date?) -> Bool {
         if let original = self, let new {
             if original != new { return true }

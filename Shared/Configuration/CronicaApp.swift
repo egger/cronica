@@ -15,6 +15,7 @@ struct CronicaApp: App {
     var persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
     private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
+    private let backgroundUpcomingRefreshIdentifier = "dev.alexandremadeira.cronica.backgroundUpcomingRefreshIdentifier"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @State private var notificationItem: ItemContent?
@@ -27,6 +28,7 @@ struct CronicaApp: App {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
+        registerAppUpcomingRefreshBGTask()
 #if os(iOS)
         UNUserNotificationCenter.current().delegate = notificationDelegate
 #endif
@@ -98,6 +100,7 @@ struct CronicaApp: App {
             if phase == .background {
                 scheduleAppRefresh()
                 scheduleAppMaintenance()
+                scheduleAppUpcomingRefresh()
             }
         }
         
@@ -138,6 +141,14 @@ struct CronicaApp: App {
 #endif
     }
     
+    private func registerAppUpcomingRefreshBGTask() {
+#if os(iOS)
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundUpcomingRefreshIdentifier, using: nil) { task in
+            self.handleAppMaintenance(task: task as? BGProcessingTask ?? nil)
+        }
+#endif
+    }
+    
     private func scheduleAppRefresh() {
 #if os(iOS)
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
@@ -150,13 +161,28 @@ struct CronicaApp: App {
 #if os(iOS)
         let lastMaintenanceDate = BackgroundManager.shared.lastMaintenance ?? .distantPast
         let now = Date()
-        let twoDays = TimeInterval(2 * 24 * 60 * 60)
+        let fourDays = TimeInterval(4 * 24 * 60 * 60)
         
-        // Maintenance the database at each two days per week.
-        guard now > (lastMaintenanceDate + twoDays) else { return }
+        // Maintenance the database at each four days per week.
+        guard now > (lastMaintenanceDate + fourDays) else { return }
         let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
         request.requiresNetworkConnectivity = true
-        request.earliestBeginDate = Date(timeIntervalSinceNow: twoDays)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: fourDays)
+        try? BGTaskScheduler.shared.submit(request)
+#endif
+    }
+    
+    private func scheduleAppUpcomingRefresh() {
+#if os(iOS)
+        let lastMaintenanceDate = BackgroundManager.shared.lastUpcomingRefresh ?? .distantPast
+        let now = Date()
+        let oneDay = TimeInterval(1 * 24 * 60 * 60)
+        
+        // Maintenance the database at each two days per week.
+        guard now > (lastMaintenanceDate + oneDay) else { return }
+        let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
+        request.requiresNetworkConnectivity = true
+        request.earliestBeginDate = Date(timeIntervalSinceNow: oneDay)
         try? BGTaskScheduler.shared.submit(request)
 #endif
     }
@@ -178,6 +204,7 @@ struct CronicaApp: App {
                 }
             }
             task.setTaskCompleted(success: true)
+            BackgroundManager.shared.lastWatchingRefresh = Date()
         }
     }
 #endif
@@ -198,6 +225,25 @@ struct CronicaApp: App {
         }
         task.setTaskCompleted(success: true)
         BackgroundManager.shared.lastMaintenance = Date()
+    }
+#endif
+    
+#if os(iOS)
+    private func handleAppUpcomingContentRefresh(task: BGProcessingTask?) {
+        guard let task else { return }
+        scheduleAppUpcomingRefresh()
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        task.expirationHandler = {
+            queue.cancelAllOperations()
+        }
+        queue.addOperation {
+            Task {
+                await BackgroundManager.shared.handleUpcomingContentRefresh()
+            }
+        }
+        task.setTaskCompleted(success: true)
+        BackgroundManager.shared.lastUpcomingRefresh = Date()
     }
 #endif
 }
