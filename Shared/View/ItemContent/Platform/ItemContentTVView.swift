@@ -29,7 +29,7 @@ struct ItemContentTVView: View {
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                     title: "Recommendations",
-                                    subtitle: "",
+                                    subtitle: String(),
                                     addedItemConfirmation: .constant(false),
                                     displayAsCard: false)
                 .ignoresSafeArea()
@@ -116,18 +116,6 @@ struct ItemContentTVView: View {
                 
                 // Actions
                 HStack {
-//                    Button {
-//                        guard let item = viewModel.content else { return }
-//                        viewModel.updateWatchlist(with: item)
-//                    } label: {
-//                        Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-//                              systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-//                        .padding()
-//                    }
-//                    .disabled(viewModel.isLoading)
-//                    .buttonStyle(.borderedProminent)
-//                    .applyHoverEffect()
-                   
                     
                     DetailWatchlistButton()
                         .environmentObject(viewModel)
@@ -138,7 +126,7 @@ struct ItemContentTVView: View {
                         viewModel.update(.watched)
                     } label: {
                         Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                              systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                              systemImage: viewModel.isWatched ? "rectangle.badge.minus" : "rectangle.badge.checkmark.fill")
                         .labelStyle(.iconOnly)
                     }
                     .buttonStyle(.borderedProminent)
@@ -170,15 +158,6 @@ struct ItemContentTVView: View {
 #if os(macOS) || os(iOS)
                             .keyboardShortcut("k", modifiers: [.option])
 #endif
-                            
-//                            Button {
-//
-//                            } label: {
-//                                Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
-//                                      systemImage: viewModel.isPin ? "pin.slash" : "pin")
-//                                    .labelStyle(.iconOnly)
-//                            }
-//                            .buttonStyle(.borderedProminent)
                             
                             Button {
                                 

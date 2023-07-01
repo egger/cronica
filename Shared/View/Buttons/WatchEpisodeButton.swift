@@ -21,6 +21,7 @@ struct WatchEpisodeButton: View {
                   systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
 #if os(tvOS)
             .padding()
+            .labelStyle(.iconOnly)
 #endif
         }
 #if os(watchOS)

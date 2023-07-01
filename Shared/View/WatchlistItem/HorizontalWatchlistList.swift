@@ -17,6 +17,7 @@ struct HorizontalWatchlistList: View {
 #if os(tvOS)
             TitleView(title: title,
                       subtitle: subtitle)
+            .padding(.leading, 32)
 #else
             NavigationLink(value: [title:items]) {
                 TitleView(title: title,
@@ -30,29 +31,41 @@ struct HorizontalWatchlistList: View {
                     LazyHStack {
                         ForEach(items) { item in
                             WatchlistItemFrame(content: item)
+#if os(tvOS)
+                                .padding([.leading, .trailing], 2)
+                                .padding(.leading, item.id == self.items.first!.id ? 32 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 32 : 0)
+                                .padding(.vertical)
+                                .buttonStyle(.card)
+#else
                                 .padding([.leading, .trailing], 4)
                                 .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
                                 .padding(.top, 8)
                                 .padding(.bottom)
                                 .buttonStyle(.plain)
+#endif
                         }
                     }
                 } else {
                     LazyHStack {
                         ForEach(items) { item in
                             WatchlistItemPoster(content: item)
+#if os(tvOS)
+                                .padding([.leading, .trailing], 2)
+                                .padding(.leading, item.id == self.items.first!.id ? 32 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 32 : 0)
+                                .padding(.vertical)
+                                .buttonStyle(.card)
+#else
                                 .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                                 .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
                                 .padding(.top, 8)
                                 .padding(.bottom)
+#endif
                         }
                     }
-#if os(tvOS)
-                    .padding(.vertical)
-                    .padding(.horizontal)
-#endif
                 }
             }
         }

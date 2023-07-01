@@ -34,23 +34,39 @@ struct UpcomingWatchlist: View {
     func list(items: [WatchlistItem]) -> some View {
         if !items.isEmpty {
             VStack {
+#if !os(tvOS)
                 NavigationLink(value: items) {
                     TitleView(title: "Upcoming",
                               subtitle: "From Watchlist",
                               showChevron: true)
                 }
                 .buttonStyle(.plain)
+#else
+                TitleView(title: "Upcoming",
+                          subtitle: "From Watchlist",
+                          showChevron: false)
+                .padding(.leading, 32)
+#endif
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(items) { item in
                             card(item: item)
+#if !os(tvOS)
                                 .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
                                 .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                                .padding(.bottom)
+                                .padding(.top, 8)
+                                .padding([.leading, .trailing], 4)
                                 .buttonStyle(.plain)
+#else
+                                .padding(.leading, item.id == self.items.first!.id ? 32 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 32 : 0)
+                                .padding(.vertical)
+                                .padding([.leading, .trailing], 4)
+                                .buttonStyle(.card)
+#endif
                         }
                     }
-                    .padding(.bottom)
-                    .padding(.top, 8)
                 }
             }
         }
@@ -146,7 +162,6 @@ struct UpcomingWatchlist: View {
                            height: settings.isCompactUI ? DrawingConstants.compactCardHeight : DrawingConstants.cardHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
                     .shadow(radius: DrawingConstants.shadowRadius)
-                    .padding([.leading, .trailing], 4)
                     .transition(.opacity)
                     .applyHoverEffect()
             }
@@ -165,7 +180,7 @@ struct UpcomingWatchlist_Previews: PreviewProvider {
 private struct DrawingConstants {
 #if os(tvOS)
     static let cardWidth: CGFloat = 460
-    static let cardHeight: CGFloat = 260 
+    static let cardHeight: CGFloat = 260
 #else
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160

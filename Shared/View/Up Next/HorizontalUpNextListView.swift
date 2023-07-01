@@ -27,16 +27,33 @@ struct HorizontalUpNextListView: View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
                 if !episodes.isEmpty {
-                    
+#if !os(tvOS)
                     NavigationLink(value: episodes) {
                         TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
                     }
                     .buttonStyle(.plain)
+#else
+                    TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: false)
+                        .padding(.leading, 32)
+#endif
                     
                     ScrollViewReader { proxy in
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
                                 ForEach(episodes) { item in
+#if os(tvOS)
+                                    Button {
+                                        selectedEpisode = item
+                                    } label: {
+                                        UpNextItem(item: item)
+                                    }
+                                    .padding([.leading, .trailing], 4)
+                                    .padding(.leading, item.id == episodes.first!.id ? 32 : 0)
+                                    .padding(.trailing, item.id == episodes.last!.id ? 32 : 0)
+                                    .padding(.top, 8)
+                                    .padding(.vertical)
+                                    .buttonStyle(.card)
+#else
                                     UpNextItem(item: item)
                                         .contextMenu {
                                             Button("markAsWatched") {
@@ -73,9 +90,7 @@ struct HorizontalUpNextListView: View {
                                                 selectedEpisode = item
                                             }
                                         }
-                                    #if os(tvOS)
-                                        .focusable()
-                                    #endif
+#endif
                                 }
                             }
                             .onChange(of: isWatched) { _ in

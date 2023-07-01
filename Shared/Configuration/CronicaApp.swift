@@ -23,6 +23,7 @@ struct CronicaApp: App {
     @ObservedObject private var settings = SettingsStore.shared
 #if os(iOS)
     @ObservedObject private var notificationDelegate = NotificationDelegate()
+    @State private var lastNotificationID = String()
 #endif
     init() {
         CronicaTelemetry.shared.setup()
@@ -41,7 +42,10 @@ struct CronicaApp: App {
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                     Task {
                         guard let id = notificationDelegate.notificationID else { return }
-                        await fetchContent(for: id)
+                        if lastNotificationID != id {
+                            await fetchContent(for: id)
+                        }
+                        lastNotificationID = id
                     }
                 }
 #endif
@@ -87,6 +91,7 @@ struct CronicaApp: App {
                             CompaniesListView(companies: item)
                         }
                     }
+                    .onDisappear { selectedItem = nil }
 #if os(macOS)
                     .presentationDetents([.large])
                     .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)

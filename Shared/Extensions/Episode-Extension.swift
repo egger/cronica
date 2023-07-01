@@ -65,17 +65,6 @@ extension Episode {
     }
     
     // MARK: Custom
-    var itemCast: [Person] {
-        return []
-//        var value = [Person]()
-//        if let crew {
-//            value.append(contentsOf: crew)
-//        }
-//        if let guestStars {
-//            value.append(contentsOf: guestStars)
-//        }
-//        return value.sorted { $0.itemPopularity > $1.itemPopularity }
-    }
     var itemNotificationID: String {
         return "\(id)@\(MediaType.tvShow.toInt)"
     }

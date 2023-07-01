@@ -60,6 +60,11 @@ extension WatchlistItem {
         }
         return nil
     }
+    var itemLastUpNextUpdateDate: Date {
+        //guard let lastUpNextUpdateDate else { return Date.distantPast }
+        //lastUpNextUpdateDate ?? Date.distantPast
+        Date.distantPast
+    }
     var isWatched: Bool {
         return watched
     }
