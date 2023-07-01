@@ -73,6 +73,17 @@ struct HorizontalUpNextListView: View {
                                                 selectedEpisode = item
                                             }
                                         }
+                                    #if os(tvOS)
+                                        .focusable()
+                                    #endif
+                                }
+                            }
+                            .onChange(of: isWatched) { _ in
+                                guard let first = episodes.first else { return }
+                                if isWatched {
+                                    withAnimation {
+                                        proxy.scrollTo(first.id, anchor: .topLeading)
+                                    }
                                 }
                             }
                         }

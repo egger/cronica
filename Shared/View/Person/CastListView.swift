@@ -26,13 +26,13 @@ struct CastListView: View {
                     LazyHStack {
                         ForEach(credits.prefix(10), id: \.personListID) { person in
                             PersonCardView(person: person)
+                                .applyHoverEffect()
                                 .padding([.leading, .trailing], 4)
                                 .buttonStyle(.plain)
                                 .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
                                 .padding(.top, 8)
                                 .padding(.bottom)
                                 .buttonStyle(.plain)
-                                .applyHoverEffect()
 #if os(tvOS)
                                 .padding(.vertical)
 #endif
@@ -60,7 +60,7 @@ private struct DrawingConstants {
     static let profileWidth: CGFloat = 140
     static let profileHeight: CGFloat = 200
     static let shadowRadius: CGFloat = 2
-    static let profileRadius: CGFloat = 16
+    static let profileRadius: CGFloat = 12
     static let lineLimit: Int = 1
     static let padding: CGFloat = 16
 }

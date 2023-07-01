@@ -98,7 +98,9 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
         request.predicate = NSCompoundPredicate(type: .or,
                                                 subpredicates: [watchedPredicate, favoritesPredicate])
         guard let list = try? context.fetch(request) else { return [] }
-        return list.shuffled()
+        let shuffled = list.shuffled()
+        let limited = shuffled.prefix(50)
+        return limited.shuffled()
     }
     
     /// Gets all the IDs from watched content saved on Core Data.
@@ -108,8 +110,9 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
             let context = PersistenceController.shared.container.newBackgroundContext()
             let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
             let watchedPredicate = NSPredicate(format: "watched == %d", true)
+            let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
             request.predicate = NSCompoundPredicate(type: .or,
-                                                    subpredicates: [watchedPredicate])
+                                                    subpredicates: [watchedPredicate, watchingPredicate])
             let list = try context.fetch(request)
             if !list.isEmpty {
                 for item in list {
@@ -125,8 +128,7 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     private func fetchRecommendations() async {
         var recommendationsFetched = [ItemContent]()
         let itemsToRecommendFrom = fetchBasedRecommendationItems()
-        let limitedItems = itemsToRecommendFrom.prefix(10)
-        for item in limitedItems {
+        for item in itemsToRecommendFrom {
             let result = try? await service.fetchItems(from: "\(item.itemMedia.rawValue)/\(item.itemId)/recommendations")
             if let result {
                 recommendationsFetched.append(contentsOf: result)

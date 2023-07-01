@@ -97,6 +97,6 @@ struct SearchItemContentView_Previews: PreviewProvider {
 private struct DrawingConstants {
     static let posterWidth: CGFloat = 220
     static let posterHeight: CGFloat = 320
-    static let posterRadius: CGFloat = 16
+    static let posterRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2
 }

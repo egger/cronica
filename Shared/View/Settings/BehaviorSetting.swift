@@ -22,6 +22,7 @@ struct BehaviorSetting: View {
                 Toggle(isOn: $store.hapticFeedback) {
                     InformationalLabel(title: "hapticFeedbackTitle")
                 }
+                Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
             }
             
 #endif

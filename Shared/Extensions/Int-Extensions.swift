@@ -13,9 +13,7 @@ extension Int {
         formatter.unitsStyle = .abbreviated
         formatter.allowedUnits = [.hour, .minute]
         let value = formatter.string(from: TimeInterval(self) * 60)
-        guard let value else {
-            return ""
-        }
+        guard let value else { return String() }
         return value
     }
     
@@ -24,9 +22,7 @@ extension Int {
         formatter.unitsStyle = .full
         formatter.allowedUnits = [.hour, .minute]
         let value = formatter.string(from: TimeInterval(self) * 60)
-        guard let value else {
-            return ""
-        }
+        guard let value else { return String() }
         return value
     }
 }

@@ -31,8 +31,7 @@ struct DetailWatchlistButton: View {
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
 #if os(tvOS)
-            .padding([.top, .bottom])
-            .frame(minWidth: 480)
+            .labelStyle(.iconOnly)
 #endif
         }
         .buttonStyle(.borderedProminent)

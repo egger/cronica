@@ -58,8 +58,6 @@ class BackgroundManager {
     
     func handleAppRefreshMaintenance() async {
         var items = [WatchlistItem]()
-        let upcomingItems = self.fetchUpcomingItems()
-        items.append(contentsOf: upcomingItems)
         let releasedAndEndedItems = self.fetchReleasedItems()
         items.append(contentsOf: releasedAndEndedItems)
         if items.isEmpty { return }
@@ -106,13 +104,12 @@ class BackgroundManager {
     
     private func fetchReleasedItems() -> [WatchlistItem] {
         let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        let releasedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.released.toInt)
+        // Movies are not updated after released
         let endedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.ended.toInt)
         let archivePredicate = NSPredicate(format: "isArchive == %d", true)
         request.predicate = NSCompoundPredicate(
             type: .or,
-            subpredicates: [releasedPredicate,
-                            endedPredicate,
+            subpredicates: [endedPredicate,
                             archivePredicate]
         )
         guard let list = try? self.context.fetch(request) else { return [] }

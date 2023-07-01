@@ -27,17 +27,24 @@ struct SeasonList: View {
         .task {
             load()
         }
+#if os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
+#endif
     }
     
     private var header: some View {
         HStack {
             Picker(selection: $selectedSeason) {
                 ForEach(numberOfSeasons, id: \.self) { season in
+#if os(tvOS)
+                    Text("\(season)").tag(season)
+#else
                     Text("Season \(season)").tag(season)
+#endif
                 }
             } label: {
-#if os(iOS)
-                Text("Seasons")
+#if os(iOS) || os(tvOS)
+                Text("Season")
 #endif
             }
 #if os(tvOS)
@@ -56,7 +63,8 @@ struct SeasonList: View {
 #if os(macOS)
             .frame(maxWidth: 200)
 #elseif os(tvOS)
-            .frame(maxWidth: 400)
+            .frame(maxWidth: 360)
+            .padding(.leading, 32)
 #endif
             Spacer()
 #if os(iOS) 
@@ -91,12 +99,16 @@ struct SeasonList: View {
                                                          checkedIfWatched: $checkIfWatched)
 #if os(tvOS)
                                         .frame(width: 360)
+                                        .padding([.leading, .trailing], 2)
+                                        .padding(.leading, item.id == season.first!.id ? 32 : 0)
+                                        .padding(.trailing, item.id == season.last!.id ? 32 : 0)
 #else
                                         .frame(width: 200)
-#endif
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == season.first!.id ? 16 : 0)
                                         .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+#endif
+                                        
                                     }
                                 }
                                 .padding(.top, 8)

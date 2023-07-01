@@ -235,7 +235,7 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 12
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 16
+    static let imageRadius: CGFloat = 12
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12

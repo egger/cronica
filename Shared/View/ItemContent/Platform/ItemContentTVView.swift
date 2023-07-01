@@ -7,167 +7,200 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if os(tvOS)
 struct ItemContentTVView: View {
     let title: String
     let type: MediaType
     let id: Int
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var showOverview = false
+    @State private var showReleaseDateInfo = false
+    @State private var showCustomList = false
+    @Namespace var tvOSActionNamespace
+    @FocusState var isWatchlistButtonFocused: Bool
     var body: some View {
-        ScrollView {
-            header
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            VStack {
-                ScrollView {
-                    if let seasons = viewModel.content?.itemSeasons {
-                        SeasonList(showID: id, numberOfSeasons: seasons)
-                    }
-                    HorizontalItemContentListView(items: viewModel.recommendations,
-                                        title: "Recommendations",
-                                        subtitle: "",
-                                        addedItemConfirmation: .constant(false),
-                                        displayAsCard: false)
-                    .padding(.horizontal)
-                    CastListView(credits: viewModel.credits)
-                        .padding(.bottom)
-                    AttributionView()
+        VStack {
+            ScrollView {
+                v2header
+                    .padding(.bottom)
+                if let seasons = viewModel.content?.itemSeasons {
+                    SeasonList(showID: id, numberOfSeasons: seasons)
+                        .ignoresSafeArea(.all, edges: .horizontal)
                 }
+                HorizontalItemContentListView(items: viewModel.recommendations,
+                                    title: "Recommendations",
+                                    subtitle: "",
+                                    addedItemConfirmation: .constant(false),
+                                    displayAsCard: false)
+                .ignoresSafeArea()
+                CastListView(credits: viewModel.credits)
+                    .padding(.bottom)
+                AttributionView()
             }
-            .task { await viewModel.load() }
-            .redacted(reason: viewModel.isLoading ? .placeholder : [])
+            .ignoresSafeArea(.all, edges: .horizontal)
         }
+        .task { await viewModel.load() }
+        .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        .ignoresSafeArea(.all, edges: .horizontal)
         .background {
             TranslucentBackground(image: viewModel.content?.cardImageLarge)
         }
-        .ignoresSafeArea()
+        .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        .onAppear {
+            DispatchQueue.main.async {
+                isWatchlistButtonFocused = true
+            }
+        }
     }
     
-    private var header: some View {
-        ZStack {
-            if viewModel.isLoading { ProgressView("Loading").unredacted() }
-            WebImage(url: viewModel.content?.cardImageOriginal)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 1920, height: 1080)
-            VStack {
-                Spacer()
-                ZStack {
-                    Color.black.opacity(0.4)
-                        .frame(height: 400)
-                        .mask {
-                            LinearGradient(colors: [Color.black,
-                                                    Color.black.opacity(0.924),
-                                                    Color.black.opacity(0.707),
-                                                    Color.black.opacity(0.383),
-                                                    Color.black.opacity(0)],
-                                           startPoint: .bottom,
-                                           endPoint: .top)
-                        }
-                    Rectangle()
-                        .fill(.regularMaterial)
-                        .frame(height: 600)
-                        .mask {
-                            VStack(spacing: 0) {
-                                LinearGradient(colors: [Color.black.opacity(0),
-                                                        Color.black.opacity(0.383),
-                                                        Color.black.opacity(0.707),
-                                                        Color.black.opacity(0.924),
-                                                        Color.black],
-                                               startPoint: .top,
-                                               endPoint: .bottom)
-                                .frame(height: 400)
-                                Rectangle()
-                            }
-                        }
-                }
-            }
-            .padding(.zero)
-            .ignoresSafeArea()
-            .frame(width: 1920, height: 1080)
-            VStack(alignment: .leading) {
-                Spacer()
-                HStack {
-                    Text(title)
-                        .font(.title3)
-                        .lineLimit(1)
-                        .fontWeight(.semibold)
-                        .padding()
-                    Spacer()
-                }
-                .padding(.leading)
-                HStack(alignment: .center) {
-                    VStack {
+    private var v2header: some View {
+        HStack {
+            Spacer()
+            
+            WebImage(url: viewModel.content?.posterImageMedium)
+                .resizable(resizingMode: .stretch)
+                .placeholder {
+                    ZStack {
+                        Rectangle().fill(.gray.gradient)
                         VStack {
-                            DetailWatchlistButton()
-                                .environmentObject(viewModel)
-                            .buttonStyle(.borderedProminent)
-                            .frame(width: 480)
-                            Button {
-                                viewModel.update(.watched)
-                            } label: {
-                                Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                                      systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
-                                .padding([.top, .bottom])
-                                .frame(minWidth: 480)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .frame(width: 480)
-                        }
-                        .padding()
-                    }
-                    .padding(.leading)
-                    Spacer()
-                    VStack {
-                        if let overview = viewModel.content?.itemOverview {
-                            Button {
-                                showOverview.toggle()
-                            } label: {
-                                VStack(alignment: .leading) {
-                                    Text(overview)
-                                        .lineLimit(4)
-                                        .font(.callout)
-                                    
-                                }
-                                .frame(maxWidth: 800)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                    .sheet(isPresented: $showOverview, content: {
-                        ScrollView {
-                            if let overview = viewModel.content?.itemOverview {
-                                ScrollView {
-                                    Text(overview)
-                                }
-                            }
-                        }
-                    })
-                    .padding()
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        VStack(alignment: .leading) {
-                            if let item = viewModel.content {
-                                InfoSegmentView(title: "Release Date", info: item.itemTheatricalString)
-                                InfoSegmentView(title: "Genre", info: item.itemGenre)
-                                if type == .tvShow {
-                                    InfoSegmentView(title: "Production Company", info: item.itemCompany)
-                                } else {
-                                    InfoSegmentView(title: "Run Time", info: item.itemRuntime)
-                                }
-                            }
+                            Text(title)
+                                .foregroundColor(.white.opacity(0.8))
+                                .lineLimit(1)
+                                .padding()
+                            Image(systemName: type == .tvShow ? "tv" : "film")
+                                .font(.title)
+                                .foregroundColor(.white.opacity(0.8))
                             
                         }
                         .padding()
                     }
-                    .buttonStyle(.plain)
+                }
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 500, height: 800)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .shadow(radius: 16)
+                .padding()
+                .accessibility(hidden: true)
+            
+            
+            VStack(alignment: .leading) {
+                Text(title)
+                    .fontWeight(.black)
+                    .font(.title2)
+                    .padding(.bottom)
+                Button {
+                    showOverview.toggle()
+                } label: {
+                    HStack {
+                        Text(viewModel.content?.itemOverview ?? "")
+                            .font(.callout)
+                            .lineLimit(10)
+                            .onTapGesture {
+                                showOverview.toggle()
+                            }
+                        Spacer()
+                    }
+                    .frame(maxWidth: 700)
+                    .padding(.bottom)
+                }
+                .buttonStyle(.plain)
+                .sheet(isPresented: $showOverview) {
+                    NavigationStack {
+                        ScrollView {
+                            Text(viewModel.content?.itemOverview ?? "")
+                                .padding()
+                        }
+                        .navigationTitle(title)
+                    }
+                }
+                
+                // Actions
+                HStack {
+//                    Button {
+//                        guard let item = viewModel.content else { return }
+//                        viewModel.updateWatchlist(with: item)
+//                    } label: {
+//                        Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
+//                              systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+//                        .padding()
+//                    }
+//                    .disabled(viewModel.isLoading)
+//                    .buttonStyle(.borderedProminent)
+//                    .applyHoverEffect()
+                   
+                    
+                    DetailWatchlistButton()
+                        .environmentObject(viewModel)
+                        .buttonStyle(.borderedProminent)
+                        .prefersDefaultFocus(in: tvOSActionNamespace)
+                        .focused($isWatchlistButtonFocused)
+                    Button {
+                        viewModel.update(.watched)
+                    } label: {
+                        Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+                              systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                        .labelStyle(.iconOnly)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    
+                    if viewModel.isInWatchlist {
+                        if let id = viewModel.content?.itemContentID {
+                            Button {
+                                showCustomList.toggle()
+                            } label: {
+                                Label("addToList", systemImage: "rectangle.on.rectangle.angled")
+                                    .labelStyle(.iconOnly)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .sheet(isPresented: $showCustomList) {
+                                NavigationStack {
+                                    ItemContentCustomListSelector(contentID: id,
+                                                                  showView: $showCustomList,
+                                                                  title: title)
+                                }
+                                .presentationDetents([.medium, .large])
+                                .presentationDragIndicator(.visible)
+#if os(macOS)
+                                .frame(width: 500, height: 600, alignment: .center)
+#else
+                                .appTheme()
+                                .appTint()
+#endif
+                            }
+#if os(macOS) || os(iOS)
+                            .keyboardShortcut("k", modifiers: [.option])
+#endif
+                            
+//                            Button {
+//
+//                            } label: {
+//                                Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
+//                                      systemImage: viewModel.isPin ? "pin.slash" : "pin")
+//                                    .labelStyle(.iconOnly)
+//                            }
+//                            .buttonStyle(.borderedProminent)
+                            
+                            Button {
+                                
+                            } label: {
+                                Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                                      systemImage: viewModel.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
+                                .labelStyle(.iconOnly)
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                    }
+                    
                     Spacer()
                 }
-                .padding()
             }
-            .padding()
+            .frame(width: 700)
+            
+            QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
+                .frame(width: 400)
+                .padding(.trailing)
+            
+            Spacer()
         }
     }
 }
@@ -177,3 +210,13 @@ struct ItemContentTVView_Previews: PreviewProvider {
         ItemContentTVView(title: "Preview", type: .movie, id: ItemContent.example.id)
     }
 }
+
+struct CustomLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack {
+            configuration.icon
+            configuration.title
+        }
+    }
+}
+#endif

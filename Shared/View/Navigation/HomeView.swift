@@ -52,6 +52,9 @@ struct HomeView: View {
                     viewModel.reload()
                 }
             }
+            #if os(tvOS)
+            .ignoresSafeArea(.all, edges: .horizontal)
+            #endif
             .onAppear {
                 checkVersion()
 #if os(iOS) || os(macOS)
@@ -122,28 +125,36 @@ struct HomeView: View {
             .toolbar {
 #if os(macOS)
                 ToolbarItem(placement: .navigation) {
+                    HStack {
+                        Button {
+                            showNotifications.toggle()
+                        } label: {
+                            Label("Notifications", systemImage: hasNotifications ? "bell.badge.fill" : "bell")
+                                .labelStyle(.iconOnly)
+                        }
+                        Button {
+                            reloadUpNext = true
+                            viewModel.reload()
+                        } label: {
+                            Label("Reload", systemImage: "arrow.clockwise")
+                                .labelStyle(.iconOnly)
+                        }
+                        .keyboardShortcut("r", modifiers: .command)
+                    }
+                }
+#elseif os(iOS)
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showNotifications.toggle()
                     } label: {
                         Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
                             .imageScale(.medium)
                     }
-                }
-#elseif os(iOS)
-                if UIDevice.isIPhone {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showNotifications.toggle()
-                        } label: {
-                            Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
-                                .imageScale(.medium)
-                        }
-                        .buttonStyle(.bordered)
-                        .clipShape(Circle())
-                        .tint(.secondary)
-                        .shadow(radius: 2)
-                        .accessibilityLabel("Notifications")
-                    }
+                    .buttonStyle(.bordered)
+                    .clipShape(Circle())
+                    .tint(SettingsStore.shared.appTheme.color)
+                    .shadow(radius: 5)
+                    .accessibilityLabel("Notifications")
                 }
 #endif
             }

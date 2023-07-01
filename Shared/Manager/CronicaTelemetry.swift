@@ -19,9 +19,11 @@ struct CronicaTelemetry {
     private init() { }
     
     func setup() {
+#if !targetEnvironment(simulator) || !DEBUG
         guard let key = Key.telemetryClientKey else { return }
         let configuration = TelemetryManagerConfiguration(appID: key)
         TelemetryManager.initialize(with: configuration)
+#endif
     }
     
     /// Send a signal using TelemetryDeck service.

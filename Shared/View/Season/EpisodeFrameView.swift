@@ -250,6 +250,6 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 200
     static let imageHeight: CGFloat = 120
 #endif
-    static let imageRadius: CGFloat = 16
+    static let imageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1
 }

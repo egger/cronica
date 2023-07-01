@@ -84,8 +84,10 @@ class NotificationManager: ObservableObject {
         notificationContent.body = message
         notificationContent.userInfo = ["contentID":"\(identifier)"]
         notificationContent.sound = UNNotificationSound.default
-        let dateComponent: DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+        var dateComponent: DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
                                                                             from: date)
+        dateComponent.hour = 7
+        dateComponent.minute = 0
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
         let request = UNNotificationRequest(identifier: identifier,
                                             content: notificationContent,

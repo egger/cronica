@@ -48,9 +48,18 @@ struct WatchListFilter: View {
         .toolbar {
             Button("Cancel") { showView.toggle() }
         }
-        #if os(macOS)
+#if os(macOS)
         .formStyle(.grouped)
-        #endif
+#endif
+        .onChange(of: selectedOrder) { _ in
+            showView.toggle()
+        }
+        .onChange(of: showAllItems) { _ in
+            showView.toggle()
+        }
+        .onChange(of: mediaTypeFilter) { _ in
+            showView.toggle()
+        }
     }
 }
 

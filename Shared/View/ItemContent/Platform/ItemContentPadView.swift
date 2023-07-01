@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if !os(tvOS)
+
 /// The Details view for ItemContent for iPadOS and macOS, built with larger screen in mind.
 struct ItemContentPadView: View {
     let id: Int
@@ -19,6 +19,7 @@ struct ItemContentPadView: View {
     @State private var animateGesture = false
     @State private var showOverview = false
     @State private var showInfoBox = false
+    @State private var showReleaseDateInfo = false
     @StateObject private var store = SettingsStore.shared
     @Binding var showConfirmation: Bool
     var body: some View {
@@ -29,7 +30,7 @@ struct ItemContentPadView: View {
                 SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
             }
             
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
             TrailerListView(trailers: viewModel.content?.itemTrailers)
 #endif
             
@@ -38,20 +39,21 @@ struct ItemContentPadView: View {
             CastListView(credits: viewModel.credits)
             
             HorizontalItemContentListView(items: viewModel.recommendations,
-                                title: "Recommendations",
-                                subtitle: "",
-                                addedItemConfirmation: $showConfirmation,
-                                displayAsCard: true)
-            
+                                          title: "Recommendations",
+                                          subtitle: "",
+                                          addedItemConfirmation: $showConfirmation,
+                                          displayAsCard: true)
+#if !os(tvOS)
             if showInfoBox {
                 GroupBox {
-                    QuickInformationView(item: viewModel.content)
+                    QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
                 } label: {
                     Label("Information", systemImage: "i.circle")
                 }
                 .padding()
-
+                
             }
+#endif
             
             AttributionView().padding([.top, .bottom])
         }
@@ -96,7 +98,7 @@ struct ItemContentPadView: View {
                 }
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 300, height: 460)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .onTapGesture(count: 2) {
                     animate(for: store.gesture)
                     viewModel.update(store.gesture)
@@ -199,7 +201,7 @@ struct ItemContentPadView: View {
             .frame(width: 360)
             
             ViewThatFits {
-                QuickInformationView(item: viewModel.content)
+                QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
                     .frame(width: 280)
                     .padding(.horizontal)
                     .onAppear { showInfoBox = false }
@@ -228,8 +230,9 @@ struct ItemContentPadView: View {
     }
 }
 
-private struct QuickInformationView: View {
+struct QuickInformationView: View {
     let item: ItemContent?
+    @Binding var showReleaseDateInfo: Bool
     var body: some View {
         VStack(alignment: .leading) {
             infoView(title: NSLocalizedString("Original Title",
@@ -242,9 +245,33 @@ private struct QuickInformationView: View {
                                                   comment: ""),
                          content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
             }
-            infoView(title: NSLocalizedString("First Air Date",
-                                              comment: ""),
-                     content: item?.itemFirstAirDate)
+            if item?.itemContentMedia == .movie {
+                HStack {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Release Date")
+                                .font(.caption)
+#if !os(tvOS)
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+#endif
+                        }
+                        Text(item?.itemTheatricalString ?? "")
+                            .lineLimit(1)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                    .accessibilityElement(children: .combine)
+                }
+                .padding([.horizontal, .top], 2)
+                .onTapGesture {
+                    showReleaseDateInfo.toggle()
+                }
+            } else {
+                infoView(title: NSLocalizedString("First Air Date",
+                                                  comment: ""),
+                         content: item?.itemFirstAirDate)
+            }
             infoView(title: NSLocalizedString("Region of Origin",
                                               comment: ""),
                      content: item?.itemCountry)
@@ -252,26 +279,14 @@ private struct QuickInformationView: View {
                      content: item?.itemGenres)
             if let companies = item?.itemCompanies, let company = item?.itemCompany {
                 if !companies.isEmpty {
+#if !os(tvOS)
                     NavigationLink(value: companies) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text("Production Company")
-                                        .font(.caption)
-                                    Image(systemName: "chevron.right")
-                                        .font(.caption)
-                                }
-                                Text(company)
-                                    .lineLimit(2)
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                            }
-                            .accessibilityElement(children: .combine)
-                            Spacer()
-                        }
-                        .padding([.horizontal, .top], 2)
+                        companiesLabel(company: company)
                     }
                     .buttonStyle(.plain)
+#else
+                    companiesLabel(company: company)
+#endif
                 }
             } else {
                 infoView(title: NSLocalizedString("Production Company",
@@ -282,6 +297,38 @@ private struct QuickInformationView: View {
                                               comment: ""),
                      content: item?.itemStatus.localizedTitle)
         }
+        .sheet(isPresented: $showReleaseDateInfo) {
+            DetailedReleaseDateView(item: item?.releaseDates?.results,
+                                    dismiss: $showReleaseDateInfo)
+#if os(macOS)
+            .frame(width: 400, height: 300, alignment: .center)
+#else
+            .appTint()
+            .appTheme()
+#endif
+        }
+    }
+    
+    private func companiesLabel(company: String) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Production Company")
+                        .font(.caption)
+#if !os(tvOS)
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+#endif
+                }
+                Text(company)
+                    .lineLimit(1)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            .accessibilityElement(children: .combine)
+            Spacer()
+        }
+        .padding([.horizontal, .top], 2)
     }
     
     @ViewBuilder
@@ -304,4 +351,4 @@ private struct QuickInformationView: View {
         }
     }
 }
-#endif
+

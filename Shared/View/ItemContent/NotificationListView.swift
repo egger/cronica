@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 struct NotificationListView: View {
     @Binding var showNotification: Bool
     @State private var hasLoaded = false
@@ -34,6 +34,9 @@ struct NotificationListView: View {
             .toolbar {
 #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) { Button("Done", action: dismiss) }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    configButton
+                }
 #else
                 Button("Done", action: dismiss)
 #endif
@@ -45,6 +48,12 @@ struct NotificationListView: View {
                 PersonDetailsView(title: item.name, id: item.id)
             }
             .onAppear(perform: load)
+        }
+    }
+    
+    private var configButton: some View {
+        NavigationLink(destination: NotificationsSettingsView()) {
+            Label("Settings", systemImage: "gearshape")
         }
     }
     

@@ -71,6 +71,16 @@ extension ItemContent {
         }
         return nil
     }
+    var shortEpisodeAverageRuntime: String? {
+        guard let runtime = episodeRunTime?.first else { return nil }
+        if runtime > 0 { return runtime.convertToShortRuntime() }
+        return nil
+    }
+    var longEpisodeAverageRuntime: String? {
+        guard let runtime = episodeRunTime?.first else { return nil }
+        if runtime > 0 { return runtime.convertToLongRuntime() }
+        return nil
+    }
     var itemContentID: String {
         return "\(id)@\(itemContentMedia.toInt)"
     }
@@ -98,6 +108,9 @@ extension ItemContent {
         }
         if let itemFallbackDate {
             return "\(itemGenres) • \(DatesManager.dateString.string(from: itemFallbackDate))"
+        }
+        if let shortEpisodeAverageRuntime {
+            return "\(itemGenres) • \(shortEpisodeAverageRuntime)"
         }
         if !itemGenres.isEmpty { return "\(itemGenres)" }
         return ""
@@ -281,6 +294,9 @@ extension ItemContent {
             if let formattedDate {
                 return "\(itemContentMedia.title) • \(DatesManager.dateString.string(from: formattedDate))"
             }
+        }
+        if let itemFirstAirDate {
+            return "\(itemContentMedia.title) • \(itemFirstAirDate)"
         }
         return "\(itemContentMedia.title)"
     }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct VerticalUpNextListView: View {
     @FetchRequest(
@@ -26,7 +27,7 @@ struct VerticalUpNextListView: View {
                 LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                     ForEach(episodes) { item in
                         VStack(alignment: .leading) {
-                            SmallerUpNextCard(item: item)
+                            upNextCard(item: item)
                                 .contextMenu {
                                     Button("markAsWatched") {
                                         Task { await markAsWatched(item) }
@@ -105,6 +106,26 @@ struct VerticalUpNextListView: View {
         }
     }
     
+    func upNextCard(item: UpNextEpisode) -> some View {
+        WebImage(url: item.episode.itemImageMedium ?? item.backupImage)
+            .resizable()
+            .placeholder {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    Image(systemName: "sparkles.tv")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(width: 40, height: 40, alignment: .center)
+                }
+            }
+            .aspectRatio(contentMode: .fill)
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .transition(.opacity)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+            .shadow(radius: 2)
+    }
     
     func handleWatched(_ content: UpNextEpisode) async {
         let helper = EpisodeHelper()
@@ -192,13 +213,10 @@ struct VerticalUpNextListView: View {
 private struct DrawingConstants {
 #if os(iOS)
     static let columns = [GridItem(.adaptive(minimum: 160))]
-#else
-    static let columns = [GridItem(.adaptive(minimum: 280))]
-#endif
-#if os(iOS)
     static let imageWidth: CGFloat = 160
     static let imageHeight: CGFloat = 100
 #else
+    static let columns = [GridItem(.adaptive(minimum: 280))]
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
 #endif

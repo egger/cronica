@@ -136,7 +136,7 @@ struct CronicaApp: App {
     private func registerAppMaintenanceBGTask() {
 #if os(iOS)
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundProcessingIdentifier, using: nil) { task in
-            self.handleAppMaintenance(task: task as? BGProcessingTask ?? nil)
+            self.handleAppMaintenance(task: task as? BGAppRefreshTask ?? nil)
         }
 #endif
     }
@@ -144,7 +144,7 @@ struct CronicaApp: App {
     private func registerAppUpcomingRefreshBGTask() {
 #if os(iOS)
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundUpcomingRefreshIdentifier, using: nil) { task in
-            self.handleAppMaintenance(task: task as? BGProcessingTask ?? nil)
+            self.handleAppMaintenance(task: task as? BGAppRefreshTask ?? nil)
         }
 #endif
     }
@@ -159,30 +159,16 @@ struct CronicaApp: App {
     
     private func scheduleAppMaintenance() {
 #if os(iOS)
-        let lastMaintenanceDate = BackgroundManager.shared.lastMaintenance ?? .distantPast
-        let now = Date()
-        let fourDays = TimeInterval(4 * 24 * 60 * 60)
-        
-        // Maintenance the database at each four days per week.
-        guard now > (lastMaintenanceDate + fourDays) else { return }
-        let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
-        request.requiresNetworkConnectivity = true
-        request.earliestBeginDate = Date(timeIntervalSinceNow: fourDays)
+        let request = BGAppRefreshTaskRequest(identifier: backgroundProcessingIdentifier)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1440 * 60)
         try? BGTaskScheduler.shared.submit(request)
 #endif
     }
     
     private func scheduleAppUpcomingRefresh() {
 #if os(iOS)
-        let lastMaintenanceDate = BackgroundManager.shared.lastUpcomingRefresh ?? .distantPast
-        let now = Date()
-        let oneDay = TimeInterval(1 * 24 * 60 * 60)
-        
-        // Maintenance the database at each two days per week.
-        guard now > (lastMaintenanceDate + oneDay) else { return }
-        let request = BGProcessingTaskRequest(identifier: backgroundProcessingIdentifier)
-        request.requiresNetworkConnectivity = true
-        request.earliestBeginDate = Date(timeIntervalSinceNow: oneDay)
+        let request = BGAppRefreshTaskRequest(identifier: backgroundProcessingIdentifier)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 720 * 60)
         try? BGTaskScheduler.shared.submit(request)
 #endif
     }
@@ -210,7 +196,7 @@ struct CronicaApp: App {
 #endif
     
 #if os(iOS)
-    private func handleAppMaintenance(task: BGProcessingTask?) {
+    private func handleAppMaintenance(task: BGAppRefreshTask?) {
         guard let task else { return }
         scheduleAppMaintenance()
         let queue = OperationQueue()
@@ -229,7 +215,7 @@ struct CronicaApp: App {
 #endif
     
 #if os(iOS)
-    private func handleAppUpcomingContentRefresh(task: BGProcessingTask?) {
+    private func handleAppUpcomingContentRefresh(task: BGAppRefreshTask?) {
         guard let task else { return }
         scheduleAppUpcomingRefresh()
         let queue = OperationQueue()
@@ -256,7 +242,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Observab
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         // Get the ID of the notification from its userInfo dictionary
-        notificationID = response.notification.request.content.userInfo["notificationID"] as? String
+        notificationID = response.notification.request.content.userInfo["contentID"] as? String
         
         completionHandler()
     }

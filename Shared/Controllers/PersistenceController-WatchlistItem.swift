@@ -138,6 +138,9 @@ extension PersistenceController {
         if item.isTvShow {
             item.isWatching.toggle()
         }
+        if item.isWatched && SettingsStore.shared.removeFromPinOnWatched {
+            item.isPin = false
+        }
         save()
     }
     

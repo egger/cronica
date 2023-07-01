@@ -29,6 +29,10 @@ struct TabBarView: View {
     private var details: some View {
         TabView {
             
+            NavigationStack { HomeView() }
+                .tag(HomeView.tag)
+                .tabItem { Label("Home", systemImage: "house").labelStyle(.titleOnly) }
+            
             NavigationStack { ExploreView() }
                 .tag(ExploreView.tag)
                 .tabItem { Label("Explore", systemImage: "popcorn").labelStyle(.titleOnly) }
@@ -43,6 +47,7 @@ struct TabBarView: View {
             NavigationStack { TVSearchView() }
                 .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.iconOnly) }
         }
+        .padding(.horizontal, .zero)
     }
 #endif
     

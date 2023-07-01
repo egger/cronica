@@ -33,10 +33,11 @@ class SettingsStore: ObservableObject {
     @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
 #if os(tvOS)
     @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .poster
+    @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .card
 #else
     @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .card
-#endif
     @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .standard
+#endif
     @AppStorage("preferCompactUI") var isCompactUI = false
     @AppStorage("selectedWatchProviderEnabled") var isSelectedWatchProviderEnabled = false
     @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""
@@ -47,4 +48,5 @@ class SettingsStore: ObservableObject {
 #endif
     @AppStorage("choosePreferredLaunchScreen") var isPreferredLaunchScreenEnabled = false
     @AppStorage("preferredLaunchScreen") var preferredLaunchScreen: Screens = .home
+    @AppStorage("removeFromPinOnWatched") var removeFromPinOnWatched = false
 }

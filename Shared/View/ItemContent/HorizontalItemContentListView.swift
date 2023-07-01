@@ -23,6 +23,7 @@ struct HorizontalItemContentListView: View {
                 VStack {
 #if os(tvOS)
                     TitleView(title: title, subtitle: subtitle)
+                        .padding(.leading, 32)
 #else
                     if let endpoint {
                         NavigationLink(value: endpoint) {
@@ -37,6 +38,7 @@ struct HorizontalItemContentListView: View {
                     }
 #endif
                     ScrollView(.horizontal, showsIndicators: false) {
+                        #if !os(tvOS)
                         switch settings.listsDisplayType {
                         case .standard:
                             LazyHStack {
@@ -49,6 +51,9 @@ struct HorizontalItemContentListView: View {
                         case .card: cardStyle
                         case .poster: posterStyle
                         }
+                        #else
+                        posterStyle
+                        #endif
                     }
                 }
             }
@@ -61,10 +66,16 @@ struct HorizontalItemContentListView: View {
             LazyHStack {
                 ForEach(items) { item in
                     CardFrame(item: item, showConfirmation: $addedItemConfirmation)
+                    #if !os(tvOS)
                         .padding([.leading, .trailing], 4)
-                        .buttonStyle(.plain)
                         .padding(.leading, item.id == items.first!.id ? 16 : 0)
                         .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                    #else
+                        .padding([.leading, .trailing], 2)
+                        .padding(.leading, item.id == items.first!.id ? 32 : 0)
+                        .padding(.trailing, item.id == items.last!.id ? 32 : 0)
+                    #endif
+                        .buttonStyle(.plain)
                         .padding(.top, 8)
                         .padding(.bottom)
                 }
@@ -79,14 +90,17 @@ struct HorizontalItemContentListView: View {
                 ForEach(items) { item in
                     Poster(item: item,
                            addedItemConfirmation: $addedItemConfirmation)
+#if !os(tvOS)
                     .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                     .padding(.leading, item.id == items.first!.id ? 16 : 0)
                     .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-#if os(tvOS)
-                    .padding(.vertical)
-#else
                     .padding(.top, settings.isCompactUI ? 4 : 8)
                     .padding(.bottom, settings.isCompactUI ? 4 : nil)
+#else
+                    .padding([.leading, .trailing], 2)
+                    .padding(.leading, item.id == items.first!.id ? 32 : 0)
+                    .padding(.trailing, item.id == items.last!.id ? 32 : 0)
+                    .padding(.vertical)
 #endif
                 }
             }
