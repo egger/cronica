@@ -71,7 +71,6 @@ struct ItemContentSection: Identifiable, Sendable {
     let endpoint: Endpoints
     var title: String { endpoint.title }
     var subtitle: String { endpoint.subtitle }
-    var image: String { endpoint.image }
 }
 
 struct ItemContentKeyword: Identifiable, Codable, Hashable {

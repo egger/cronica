@@ -45,6 +45,7 @@ struct SeasonList: View {
             } label: {
 #if os(iOS) || os(tvOS)
                 Text("Season")
+                    .lineLimit(1)
 #endif
             }
 #if os(tvOS)
@@ -63,7 +64,7 @@ struct SeasonList: View {
 #if os(macOS)
             .frame(maxWidth: 200)
 #elseif os(tvOS)
-            .frame(maxWidth: 360)
+            .frame(maxWidth: 460)
             .padding(.leading, 32)
 #endif
             Spacer()
