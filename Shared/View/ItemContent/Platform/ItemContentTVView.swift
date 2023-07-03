@@ -25,19 +25,16 @@ struct ItemContentTVView: View {
                     .padding(.bottom)
                 if let seasons = viewModel.content?.itemSeasons {
                     SeasonList(showID: id, numberOfSeasons: seasons)
-                        .ignoresSafeArea(.all, edges: .horizontal)
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                     title: "Recommendations",
                                     subtitle: String(),
                                     addedItemConfirmation: .constant(false),
-                                    displayAsCard: false)
-                .ignoresSafeArea()
+                                    displayAsCard: true)
                 CastListView(credits: viewModel.credits)
                     .padding(.bottom)
                 AttributionView()
             }
-            .ignoresSafeArea(.all, edges: .horizontal)
         }
         .task { await viewModel.load() }
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
@@ -131,45 +128,14 @@ struct ItemContentTVView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     
-                    if viewModel.isInWatchlist {
-                        if let id = viewModel.content?.itemContentID {
-                            Button {
-                                showCustomList.toggle()
-                            } label: {
-                                Label("addToList", systemImage: "rectangle.on.rectangle.angled")
-                                    .labelStyle(.iconOnly)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .sheet(isPresented: $showCustomList) {
-                                NavigationStack {
-                                    ItemContentCustomListSelector(contentID: id,
-                                                                  showView: $showCustomList,
-                                                                  title: title)
-                                }
-                                .presentationDetents([.medium, .large])
-                                .presentationDragIndicator(.visible)
-#if os(macOS)
-                                .frame(width: 500, height: 600, alignment: .center)
-#else
-                                .appTheme()
-                                .appTint()
-#endif
-                            }
-#if os(macOS) || os(iOS)
-                            .keyboardShortcut("k", modifiers: [.option])
-#endif
-                            
-                            Button {
-                                
-                            } label: {
-                                Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                                      systemImage: viewModel.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
-                                .labelStyle(.iconOnly)
-                            }
-                            .buttonStyle(.bordered)
-                        }
+                    Button {
+                        viewModel.update(.favorite)
+                    } label: {
+                        Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                              systemImage: viewModel.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
+                        .labelStyle(.iconOnly)
                     }
-                    
+                    .buttonStyle(.borderedProminent)
                     Spacer()
                 }
             }

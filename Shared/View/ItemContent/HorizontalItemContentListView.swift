@@ -38,7 +38,7 @@ struct HorizontalItemContentListView: View {
                     }
 #endif
                     ScrollView(.horizontal, showsIndicators: false) {
-                        #if !os(tvOS)
+#if !os(tvOS)
                         switch settings.listsDisplayType {
                         case .standard:
                             LazyHStack {
@@ -51,9 +51,9 @@ struct HorizontalItemContentListView: View {
                         case .card: cardStyle
                         case .poster: posterStyle
                         }
-                        #else
-                        posterStyle
-                        #endif
+#else
+                        cardStyle
+#endif
                     }
                 }
             }
@@ -66,15 +66,15 @@ struct HorizontalItemContentListView: View {
             LazyHStack {
                 ForEach(items) { item in
                     CardFrame(item: item, showConfirmation: $addedItemConfirmation)
-                    #if !os(tvOS)
+#if !os(tvOS)
                         .padding([.leading, .trailing], 4)
                         .padding(.leading, item.id == items.first!.id ? 16 : 0)
                         .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                    #else
+#else
                         .padding([.leading, .trailing], 2)
                         .padding(.leading, item.id == items.first!.id ? 32 : 0)
                         .padding(.trailing, item.id == items.last!.id ? 32 : 0)
-                    #endif
+#endif
                         .buttonStyle(.plain)
                         .padding(.top, 8)
                         .padding(.bottom)
@@ -114,9 +114,9 @@ struct HorizontalItemContentListView: View {
 struct ItemContentListView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalItemContentListView(items: ItemContent.examples,
-                            title: "Favorites",
-                            subtitle: "Favorites Movies",
-                            addedItemConfirmation: .constant(false))
+                                      title: "Favorites",
+                                      subtitle: "Favorites Movies",
+                                      addedItemConfirmation: .constant(false))
     }
 }
 

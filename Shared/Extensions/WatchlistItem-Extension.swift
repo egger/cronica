@@ -12,6 +12,12 @@ extension WatchlistItem {
     var itemTitle: String {
         title ?? NSLocalizedString("No title available", comment: "")
     }
+    var itemOriginalTitle: String {
+        originalTitle ?? NSLocalizedString("No title available", comment: "")
+    }
+    var itemLastUpdateDate: Date {
+        lastValuesUpdated ?? Date.distantPast
+    }
     var itemId: Int {
         Int(id)
     }
@@ -59,11 +65,6 @@ extension WatchlistItem {
             return formattedDate
         }
         return nil
-    }
-    var itemLastUpNextUpdateDate: Date {
-        //guard let lastUpNextUpdateDate else { return Date.distantPast }
-        //lastUpNextUpdateDate ?? Date.distantPast
-        Date.distantPast
     }
     var isWatched: Bool {
         return watched
@@ -160,6 +161,9 @@ extension WatchlistItem {
     var itemDate: Date? {
         guard let date else { return nil }
         return date
+    }
+    var itemSortDate: Date {
+        date ?? Date.distantPast
     }
     var canShowOnUpcoming: Bool {
         if isArchive { return false }

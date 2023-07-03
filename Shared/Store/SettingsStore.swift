@@ -32,12 +32,11 @@ class SettingsStore: ObservableObject {
     @AppStorage("notifyTVShows") var notifyNewEpisodes = true
     @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
 #if os(tvOS)
-    @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .poster
     @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .card
 #else
-    @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .card
     @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .standard
 #endif
+    @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .card
     @AppStorage("preferCompactUI") var isCompactUI = false
     @AppStorage("selectedWatchProviderEnabled") var isSelectedWatchProviderEnabled = false
     @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""

@@ -27,30 +27,32 @@ struct DefaultWatchlist: View {
     var body: some View {
         VStack {
 #if os(tvOS)
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Watchlist")
-                        .font(.title3)
-                    if showAllItems {
-                        Text(mediaTypeFilter.localizableTitle)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    } else {
-                        Text(selectedOrder.title)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
+            if !items.isEmpty {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Watchlist")
+                            .font(.title3)
+                        if showAllItems {
+                            Text(mediaTypeFilter.localizableTitle)
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                        } else {
+                            Text(selectedOrder.title)
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding()
+                    Spacer()
+                    Button {
+                        showFilter.toggle()
+                    } label: {
+                        Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                            .labelStyle(.iconOnly)
                     }
                 }
-                .padding()
-                Spacer()
-                Button {
-                    showFilter.toggle()
-                } label: {
-                    Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                        .labelStyle(.iconOnly)
-                }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
             frameStyle
 #else
             switch settings.watchlistStyle {
@@ -104,17 +106,24 @@ struct DefaultWatchlist: View {
         }
         .disableAutocorrection(true)
         .task(id: query) {
-            do {
-                isSearching = true
-                try await Task.sleep(nanoseconds: 300_000_000)
-                if !filteredItems.isEmpty { filteredItems.removeAll() }
-                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-                isSearching = false
-            } catch {
-                if Task.isCancelled { return }
-            }
+            await search()
         }
 #endif
+    }
+    
+    private func search() async {
+        do {
+            isSearching = true
+            try await Task.sleep(nanoseconds: 300_000_000)
+            if !filteredItems.isEmpty { filteredItems.removeAll() }
+            filteredItems.append(contentsOf: items.filter {
+                ($0.itemTitle.localizedStandardContains(query)) as Bool
+                || ($0.itemOriginalTitle.localizedStandardContains(query)) as Bool
+            })
+            isSearching = false
+        } catch {
+            if Task.isCancelled { return }
+        }
     }
     
     private var filterButton: some View {

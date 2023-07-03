@@ -98,7 +98,6 @@ struct CustomWatchlist: View {
         }
     }
     
-    
 #if os(iOS) || os(macOS)
     @ViewBuilder
     private var listStyle: some View {
@@ -168,7 +167,6 @@ struct CustomWatchlist: View {
         }
     }
 #endif
-    
     
     @ViewBuilder
     private var frameStyle: some View {
@@ -295,8 +293,6 @@ struct CustomWatchlist: View {
         }
         
     }
-    
-
     
     private var noResults: some View {
         CenterHorizontalView {

@@ -151,6 +151,8 @@ struct ExploreView: View {
         })
 #if os(iOS) || os(macOS)
         .navigationTitle("Explore")
+        #elseif os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
         .toolbar {

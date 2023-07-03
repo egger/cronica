@@ -17,8 +17,8 @@ struct WatchlistItemFrame: View {
     @State private var showNote = false
     @State private var showCustomListView = false
     var body: some View {
-        NavigationLink(value: content) {
-            VStack {
+        VStack {
+            NavigationLink(value: content) {
                 image
                     .watchlistContextMenu(item: content,
                                           isWatched: $isWatched,
@@ -27,23 +27,24 @@ struct WatchlistItemFrame: View {
                                           isArchive: $isArchive,
                                           showNote: $showNote,
                                           showCustomList: $showCustomListView)
-#if os(iOS) || os(macOS)
-                HStack {
-                    Text(content.itemTitle)
-                        .font(.caption)
-                        .lineLimit(DrawingConstants.titleLineLimit)
-                    Spacer()
-                }
+            }
+            HStack {
+                Text(content.itemTitle)
+                    .font(.caption)
+                    .lineLimit(DrawingConstants.titleLineLimit)
+                #if os(tvOS)
+                    .foregroundColor(.secondary)
+                #endif
                 Spacer()
-#endif
             }
-            .frame(width: DrawingConstants.imageWidth)
-            .task {
-                isWatched = content.isWatched
-                isFavorite = content.isFavorite
-                isPin = content.isPin
-                isArchive = content.isArchive
-            }
+            Spacer()
+        }
+        .frame(width: DrawingConstants.imageWidth)
+        .task {
+            isWatched = content.isWatched
+            isFavorite = content.isFavorite
+            isPin = content.isPin
+            isArchive = content.isArchive
         }
 #if os(tvOS)
         .buttonStyle(.card)
@@ -85,11 +86,6 @@ struct WatchlistItemFrame: View {
                                         style: .continuous))
             .shadow(radius: DrawingConstants.imageShadow)
             .applyHoverEffect()
-            .overlay {
-#if os(tvOS)
-                tvOSOverlay
-#endif
-            }
     }
     
     private var tvOSOverlay: some View {
@@ -174,8 +170,8 @@ private struct DrawingConstants {
     static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
     static let imageRadius: CGFloat = 12
 #elseif os(tvOS)
-    static let imageWidth: CGFloat = 460
-    static let imageHeight: CGFloat = 260
+    static let imageWidth: CGFloat = 420
+    static let imageHeight: CGFloat = 240
     static let imageRadius: CGFloat = 12
 #endif
     static let titleLineLimit: Int = 2

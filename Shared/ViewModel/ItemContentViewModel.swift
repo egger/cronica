@@ -109,6 +109,10 @@ class ItemContentViewModel: ObservableObject {
                 withAnimation {
                     isInWatchlist = true
                 }
+                isPin = persistence.isItemPinned(id: content.itemContentID)
+                isFavorite = persistence.isMarkedAsFavorite(id: content.itemContentID)
+                isWatched = persistence.isMarkedAsWatched(id: content.itemContentID)
+                isArchive = persistence.isItemArchived(id: content.itemContentID)
             }
         } else {
             let isSaved = persistence.isItemSaved(id: content.itemContentID)
@@ -116,6 +120,10 @@ class ItemContentViewModel: ObservableObject {
                 withAnimation {
                     isInWatchlist = false
                 }
+                isPin = false
+                isFavorite = false
+                isWatched = false
+                isArchive = false
             }
         }
     }

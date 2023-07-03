@@ -71,9 +71,11 @@ private struct DrawingConstants {
 #if os(macOS)
     static let posterColumns: CGFloat = 160
     static let columns: CGFloat = 240
+    static let spacing: CGFloat = 20
 #elseif os(tvOS)
     static let posterColumns: CGFloat = 260
-    static let columns: CGFloat = 440
+    static let columns: CGFloat = 420
+    static let spacing: CGFloat = 40
 #else
     static let posterColumns: CGFloat = 160
     static let spacing: CGFloat = 20

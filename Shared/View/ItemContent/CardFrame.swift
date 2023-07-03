@@ -17,8 +17,8 @@ struct CardFrame: View {
     @State private var showNote = false
     @State private var showCustomListView = false
     var body: some View {
-        NavigationLink(value: item) {
-            VStack {
+        VStack {
+            NavigationLink(value: item) {
                 WebImage(url: item.cardImageMedium)
                     .resizable()
                     .placeholder {
@@ -40,66 +40,6 @@ struct CardFrame: View {
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     }
                     .overlay {
-#if os(tvOS)
-                        if isInWatchlist {
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Text(item.itemTitle)
-                                        .font(.caption)
-                                        .lineLimit(1)
-                                        .padding()
-                                    Spacer()
-                                    if isWatched {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(.white.opacity(0.8))
-                                            .padding()
-                                    } else {
-                                        Image(systemName: "square.stack.fill")
-                                            .foregroundColor(.white.opacity(0.8))
-                                            .padding()
-                                    }
-                                }
-                                .background {
-                                    Color.black.opacity(0.5)
-                                        .mask {
-                                            LinearGradient(colors:
-                                                            [Color.black,
-                                                             Color.black.opacity(0.924),
-                                                             Color.black.opacity(0.707),
-                                                             Color.black.opacity(0.383),
-                                                             Color.black.opacity(0)],
-                                                           startPoint: .bottom,
-                                                           endPoint: .top)
-                                        }
-                                }
-                            }
-                        } else {
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Text(item.itemTitle)
-                                        .font(.caption)
-                                        .lineLimit(1)
-                                        .padding()
-                                    Spacer()
-                                }
-                                .background {
-                                    Color.black.opacity(0.5)
-                                        .mask {
-                                            LinearGradient(colors:
-                                                            [Color.black,
-                                                             Color.black.opacity(0.924),
-                                                             Color.black.opacity(0.707),
-                                                             Color.black.opacity(0.383),
-                                                             Color.black.opacity(0)],
-                                                           startPoint: .bottom,
-                                                           endPoint: .top)
-                                        }
-                                }
-                            }
-                        }
-#else
                         if isInWatchlist {
                             VStack {
                                 Spacer()
@@ -132,7 +72,6 @@ struct CardFrame: View {
                                 }
                             }
                         }
-#endif
                     }
                     .aspectRatio(contentMode: .fill)
                     .transition(.opacity)
@@ -147,58 +86,60 @@ struct CardFrame: View {
                                             showConfirmation: $showConfirmation,
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote, showCustomList: $showCustomListView)
-#if os(iOS) || os(macOS)
-                HStack {
-                    Text(item.itemTitle)
-                        .font(.caption)
-                        .lineLimit(DrawingConstants.titleLineLimit)
-                        .accessibilityHidden(true)
-                    Spacer()
-                }
-                .frame(width: DrawingConstants.imageWidth)
-#endif
             }
-            .task {
-                withAnimation {
-                    isInWatchlist = context.isItemSaved(id: item.itemContentID)
-                    if isInWatchlist && !isWatched {
-                        isWatched = context.isMarkedAsWatched(id: item.itemContentID)
-                    } 
-                }
+#if os(tvOS)
+            .buttonStyle(.card)
+#endif
+            HStack {
+                Text(item.itemTitle)
+                    .font(.caption)
+                    .lineLimit(DrawingConstants.titleLineLimit)
+                    .accessibilityHidden(true)
+#if os(tvOS)
+                    .foregroundColor(.secondary)
+#endif
+                Spacer()
             }
-            .sheet(isPresented: $showNote) {
-#if os(iOS) || os(macOS)
-                NavigationStack {
-                    ReviewView(id: item.itemContentID, showView: $showNote)
+            .frame(width: DrawingConstants.imageWidth)
+            Spacer()
+        }
+        .task {
+            withAnimation {
+                isInWatchlist = context.isItemSaved(id: item.itemContentID)
+                if isInWatchlist && !isWatched {
+                    isWatched = context.isMarkedAsWatched(id: item.itemContentID)
                 }
-                .presentationDetents([.medium, .large])
-#if os(macOS)
-                .frame(width: 400, height: 400, alignment: .center)
-#elseif os(iOS)
-                .appTheme()
-                .appTint()
-#endif
-#endif
-            }
-            .sheet(isPresented: $showCustomListView) {
-                NavigationStack {
-                    ItemContentCustomListSelector(contentID: item.itemContentID,
-                                                  showView: $showCustomListView,
-                                                  title: item.itemTitle)
-                }
-                .presentationDetents([.medium, .large])
-#if os(macOS)
-                .frame(width: 500, height: 600, alignment: .center)
-#else
-                .appTheme()
-                .appTint()
-#endif
             }
         }
-        .accessibilityLabel(Text(item.itemTitle))
-#if os(tvOS)
-        .buttonStyle(.card)
+        .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+            NavigationStack {
+                ReviewView(id: item.itemContentID, showView: $showNote)
+            }
+            .presentationDetents([.medium, .large])
+#if os(macOS)
+            .frame(width: 400, height: 400, alignment: .center)
+#elseif os(iOS)
+            .appTheme()
+            .appTint()
 #endif
+#endif
+        }
+        .sheet(isPresented: $showCustomListView) {
+            NavigationStack {
+                ItemContentCustomListSelector(contentID: item.itemContentID,
+                                              showView: $showCustomListView,
+                                              title: item.itemTitle)
+            }
+            .presentationDetents([.medium, .large])
+#if os(macOS)
+            .frame(width: 500, height: 600, alignment: .center)
+#else
+            .appTheme()
+            .appTint()
+#endif
+        }
+        .accessibilityLabel(Text(item.itemTitle))
     }
 }
 
@@ -212,14 +153,16 @@ private struct DrawingConstants {
 #if os(macOS)
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
+    static let titleLineLimit: Int = 1
 #elseif os(tvOS)
-    static let imageWidth: CGFloat = 440
+    static let imageWidth: CGFloat = 420
     static let imageHeight: CGFloat = 240
+    static let titleLineLimit: Int = 2
 #elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 240 : 160
-    static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100 
-#endif
+    static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
     static let titleLineLimit: Int = 1
+#endif
     static let imageRadius: CGFloat = 12
     static let imageShadow: CGFloat = 2.5
     static let placeholderForegroundColor: Color = .white.opacity(0.8)

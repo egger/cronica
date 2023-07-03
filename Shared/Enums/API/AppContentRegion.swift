@@ -10,10 +10,10 @@ import Foundation
 enum AppContentRegion: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case ae, ar, at, au, be, bg, br,
-    ca, ch, cz, de, dk, ee, es, fi,
-    fr, gb, hk, hr, hu, id, ie, india, it,
-    jp, kr, lt, mx, nl, no, nz, ph, pl,
-    pt, rs, se, sk, tr, us, za
+         ca, ch, cz, de, dk, ee, es, fi,
+         fr, gb, hk, hr, hu, id, ie, india, it,
+         jp, kr, lt, mx, nl, no, nz, ph, pl,
+         pt, rs, se, sk, tr, us, za
     var localizableTitle: String {
         switch self {
         case .br:
@@ -96,6 +96,90 @@ enum AppContentRegion: String, CaseIterable, Identifiable {
             return NSLocalizedString("watchProviderTr", comment: "")
         case .za:
             return NSLocalizedString("watchProviderZa", comment: "")
+        }
+    }
+    var bcp47Identifier: String {
+        switch self {
+        case .ae:
+            return "ar-AE"
+        case .ar:
+            return "es-AR"
+        case .at:
+            return "de-AT"
+        case .au:
+            return "en-AU"
+        case .be:
+            return "nl-BE"
+        case .bg:
+            return "bg-BG"
+        case .br:
+            return "pt-BR"
+        case .ca:
+            return "en-CA"
+        case .ch:
+            return "de-CH"
+        case .cz:
+            return "cs-CZ"
+        case .de:
+            return "de-DE"
+        case .dk:
+            return "da-DK"
+        case .ee:
+            return "et-EE"
+        case .es:
+            return "es-ES"
+        case .fi:
+            return "fi-FI"
+        case .fr:
+            return "fr-FR"
+        case .gb:
+            return "en-GB"
+        case .hk:
+            return "zh-HK"
+        case .hr:
+            return "hr-HR"
+        case .hu:
+            return "hu-HU"
+        case .id:
+            return "id-ID"
+        case .ie:
+            return "en-IE"
+        case .india:
+            return "hi-IN"
+        case .it:
+            return "it-IT"
+        case .jp:
+            return "ja-JP"
+        case .kr:
+            return "ko-KR"
+        case .lt:
+            return "lt-LT"
+        case .mx:
+            return "es-MX"
+        case .nl:
+            return "nl-NL"
+        case .no:
+            return "nb-NO"
+        case .nz:
+            return "en-NZ"
+        case .ph:
+            return "en-PH"
+        case .pl:
+            return "pl-PL"
+        case .pt:
+            return "pt-PT"
+        case .rs:
+            return "sr-RS"
+        case .se:
+            return "sv-SE"
+        case .sk:
+            return "sk-SK"
+        case .tr:
+            return "tr-TR"
+        case .us:
+            return "en-US"
+        case .za:
+            return "en-ZA"
         }
     }
 }

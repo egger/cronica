@@ -106,6 +106,9 @@ struct PersonDetailsView: View {
 #endif
             ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
+#if os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
+#endif
     }
     
     private func load() {

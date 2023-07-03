@@ -57,7 +57,7 @@ struct VerticalUpNextListView: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text(item.showTitle)
-                                        .font(.callout)
+                                        .font(.caption)
                                         .lineLimit(2)
                                     Text("E\(item.episode.itemEpisodeNumber), S\(item.episode.itemSeasonNumber)")
                                         .font(.caption)

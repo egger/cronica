@@ -114,7 +114,7 @@ extension PersistenceController {
                     }
                 }
             }
-            if item.hasChanges || item.isReleased {
+            if item.hasChanges && item.isReleased {
                 item.lastValuesUpdated = Date()
             }
             save()
@@ -171,11 +171,6 @@ extension PersistenceController {
         save()
     }
     
-    func updateDisplayOnUpNext(for item: WatchlistItem) {
-        item.displayOnUpNext.toggle()
-        save()
-    }
-    
     // MARK: Properties read
     func isItemSaved(id: String) -> Bool {
         let viewContext = container.viewContext
@@ -227,6 +222,7 @@ extension PersistenceController {
             item.lastSelectedSeason = Int64(lastWatched.itemSeasonNumber)
             item.lastWatchedEpisode = Int64(lastWatched.id)
         }
+        item.lastValuesUpdated = Date()
         save()
     }
       
@@ -250,6 +246,7 @@ extension PersistenceController {
                 item.lastSelectedSeason = Int64(season)
                 item.lastWatchedEpisode = Int64(episode)
                 item.displayOnUpNext = true
+                item.lastValuesUpdated = Date()
             }
             save()
         }

@@ -32,6 +32,7 @@ struct TabBarView: View {
             NavigationStack { HomeView() }
                 .tag(HomeView.tag)
                 .tabItem { Label("Home", systemImage: "house").labelStyle(.titleOnly) }
+                .ignoresSafeArea(.all, edges: .horizontal)
             
             NavigationStack { ExploreView() }
                 .tag(ExploreView.tag)

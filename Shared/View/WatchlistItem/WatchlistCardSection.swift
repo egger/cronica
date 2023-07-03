@@ -15,7 +15,7 @@ struct WatchlistCardSection: View {
         if !items.isEmpty {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))],
-                          spacing: 20) {
+                          spacing: DrawingConstants.spacing) {
 #if os(tvOS)
                     ForEach(items, id: \.itemContentID) { item in
                         WatchlistItemFrame(content: item)
@@ -72,9 +72,12 @@ struct WatchlistCardSection_Previews: PreviewProvider {
 private struct DrawingConstants {
 #if os(macOS)
     static let columns: CGFloat = 240
+    static let spacing: CGFloat = 20
 #elseif os(tvOS)
-    static let columns: CGFloat = 460
+    static let columns: CGFloat = 420
+    static let spacing: CGFloat = 40
 #else
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
+    static let spacing: CGFloat = 20
 #endif
 }

@@ -30,6 +30,8 @@ struct WatchlistView: View {
         }
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #elseif os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         .navigationDestination(for: WatchlistItem.self) { item in
             ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)

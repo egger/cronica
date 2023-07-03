@@ -721,13 +721,13 @@
 		B810525D298DD04300723E94 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				B84457D22973987E009CB21F /* AppContentRegion.swift */,
 				B89ECCFE2984530700F0B197 /* DiscoverSortBy.swift */,
 				B876DE53281B1BC0005558DD /* ImageSize.swift */,
 				B876DE51281B1BA5005558DD /* ItemSchedule.swift */,
 				B876DE4F281B1B81005558DD /* MediaType.swift */,
-				B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */,
-				B84457D22973987E009CB21F /* AppContentRegion.swift */,
 				B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */,
+				B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";

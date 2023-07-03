@@ -14,6 +14,7 @@ struct PersonCardView: View {
     let person: Person
     @State private var isFavorite: Bool = false
     var body: some View {
+        #if !os(tvOS)
         NavigationLink(value: person) {
             VStack {
                 WebImage(url: person.personImage)
@@ -86,9 +87,41 @@ struct PersonCardView: View {
             }
 #endif
         }
-#if os(tvOS)
-        .buttonStyle(.card)
-#endif
+        #else
+        VStack(alignment: .leading) {
+            NavigationLink(value: person) {
+                WebImage(url: person.personImage)
+                    .resizable()
+                    .placeholder {
+                        ZStack {
+                            Rectangle().fill(.gray.gradient)
+                            Image(systemName: "person")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50, height: 50, alignment: .center)
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 200, alignment: .center)
+                    .clipShape(Circle())
+                    .shadow(radius: 2.5)
+            }
+            .clipShape(Circle())
+            .buttonStyle(.plain)
+            Text(person.name)
+                .font(.caption)
+                .lineLimit(1)
+            if let role = person.personRole {
+                Text(role)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+            }
+            Spacer()
+        }
+        .frame(width: 200)
+        #endif
     }
     private var name: some View {
         VStack {
