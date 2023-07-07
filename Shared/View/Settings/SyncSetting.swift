@@ -110,7 +110,7 @@ struct SyncSetting: View {
     
     private func updateItems() {
         Task {
-            let background = BackgroundManager()
+            let background = BackgroundManager.shared
             withAnimation {
                 self.updatingItems.toggle()
             }

@@ -29,7 +29,6 @@ struct CronicaApp: App {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
         registerAppMaintenanceBGTask()
-        registerAppUpcomingRefreshBGTask()
 #if os(iOS)
         UNUserNotificationCenter.current().delegate = notificationDelegate
 #endif
@@ -105,7 +104,6 @@ struct CronicaApp: App {
             if phase == .background {
                 scheduleAppRefresh()
                 scheduleAppMaintenance()
-                scheduleAppUpcomingRefresh()
             }
         }
         
@@ -146,14 +144,6 @@ struct CronicaApp: App {
 #endif
     }
     
-    private func registerAppUpcomingRefreshBGTask() {
-#if os(iOS)
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundUpcomingRefreshIdentifier, using: nil) { task in
-            self.handleAppMaintenance(task: task as? BGAppRefreshTask ?? nil)
-        }
-#endif
-    }
-    
     private func scheduleAppRefresh() {
 #if os(iOS)
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
@@ -165,15 +155,7 @@ struct CronicaApp: App {
     private func scheduleAppMaintenance() {
 #if os(iOS)
         let request = BGAppRefreshTaskRequest(identifier: backgroundProcessingIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 1440 * 60)
-        try? BGTaskScheduler.shared.submit(request)
-#endif
-    }
-    
-    private func scheduleAppUpcomingRefresh() {
-#if os(iOS)
-        let request = BGAppRefreshTaskRequest(identifier: backgroundProcessingIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 720 * 60)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 420 * 60)
         try? BGTaskScheduler.shared.submit(request)
 #endif
     }
@@ -192,10 +174,12 @@ struct CronicaApp: App {
             queue.addOperation {
                 Task {
                     await BackgroundManager.shared.handleWatchingContentRefresh()
+                    BackgroundManager.shared.lastWatchingRefresh = Date()
+                    await BackgroundManager.shared.handleUpcomingContentRefresh()
+                    BackgroundManager.shared.lastUpcomingRefresh = Date()
                 }
             }
             task.setTaskCompleted(success: true)
-            BackgroundManager.shared.lastWatchingRefresh = Date()
         }
     }
 #endif
@@ -216,25 +200,6 @@ struct CronicaApp: App {
         }
         task.setTaskCompleted(success: true)
         BackgroundManager.shared.lastMaintenance = Date()
-    }
-#endif
-    
-#if os(iOS)
-    private func handleAppUpcomingContentRefresh(task: BGAppRefreshTask?) {
-        guard let task else { return }
-        scheduleAppUpcomingRefresh()
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        task.expirationHandler = {
-            queue.cancelAllOperations()
-        }
-        queue.addOperation {
-            Task {
-                await BackgroundManager.shared.handleUpcomingContentRefresh()
-            }
-        }
-        task.setTaskCompleted(success: true)
-        BackgroundManager.shared.lastUpcomingRefresh = Date()
     }
 #endif
 }

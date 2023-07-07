@@ -18,13 +18,14 @@ class EpisodeHelper {
             let nextEpisodeCount = episode.itemEpisodeNumber+1
             if episodes.contains(where: { $0.itemEpisodeNumber == nextEpisodeCount}) {
                 let nextEpisode = episodes.filter { $0.itemEpisodeNumber == nextEpisodeCount }
-                return nextEpisode[0]
+                guard let episode = nextEpisode.first else { return nil }
+                return episode
             } else {
                 let nextSeasonNumber = episode.itemSeasonNumber + 1
                 let nextSeason = try await network.fetchSeason(id: show, season: nextSeasonNumber)
                 guard let episodes = nextSeason.episodes else { return nil }
                 if episodes.isEmpty { return nil }
-                let nextEpisode = episodes[0]
+                guard let nextEpisode = episodes.first else { return nil }
                 if nextEpisode.isItemReleased {
                     return nextEpisode
                 }

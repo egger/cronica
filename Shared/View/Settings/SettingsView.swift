@@ -105,7 +105,7 @@ struct SettingsView: View {
             AboutSettings()
                 .tabItem { Label("aboutTitle", systemImage: "info.circle") }
         }
-        .frame(minWidth: 540, idealWidth: 580, minHeight: 320, idealHeight: 320)
+        .frame(minWidth: 420, idealWidth: 500, minHeight: 320, idealHeight: 320)
         .tabViewStyle(.automatic)
 #endif
     }

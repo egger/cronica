@@ -73,7 +73,7 @@ struct ItemContentTVView: View {
                     }
                 }
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 500, height: 800)
+                .frame(width: 420, height: 640)
                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .shadow(radius: 16)
                 .padding()
@@ -82,7 +82,7 @@ struct ItemContentTVView: View {
             
             VStack(alignment: .leading) {
                 Text(title)
-                    .fontWeight(.black)
+                    .fontWeight(.semibold)
                     .font(.title2)
                     .padding(.bottom)
                 Button {

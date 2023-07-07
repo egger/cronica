@@ -149,20 +149,21 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
         var result = Set<ItemContent>()
         for item in items {
             if item.posterPath != nil && item.backdropPath != nil {
-                let contentKeywords = try? await service.fetchKeywords(type: item.itemContentMedia,
-                                                                       id: item.id)
-                if let contentKeywords {
-                    var keywordsArray = [Int]()
-                    let _: [()] = contentKeywords.map { item in
-                        keywordsArray.append(item.id)
-                    }
-                    let containsNSFW = !Set(keywordsArray).isDisjoint(with: nsfwKeywords)
-                    if !containsNSFW {
-                        result.insert(item)
-                    }
-                } else {
-                    result.insert(item)
-                }
+                result.insert(item)
+//                let contentKeywords = try? await service.fetchKeywords(type: item.itemContentMedia,
+//                                                                       id: item.id)
+//                if let contentKeywords {
+//                    var keywordsArray = [Int]()
+//                    let _: [()] = contentKeywords.map { item in
+//                        keywordsArray.append(item.id)
+//                    }
+//                    let containsNSFW = !Set(keywordsArray).isDisjoint(with: nsfwKeywords)
+//                    if !containsNSFW {
+//                        result.insert(item)
+//                    }
+//                } else {
+//                    result.insert(item)
+//                }
             }
         }
         let filteredWatched = result.filter { !watchedItems.contains($0.itemContentID) }

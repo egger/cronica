@@ -12,7 +12,7 @@ import SwiftUI
 struct HorizontalItemContentListView: View {
     let items: [ItemContent]?
     let title: String
-    let subtitle: String
+    var subtitle = String()
     @Binding var addedItemConfirmation: Bool
     var displayAsCard = false
     var endpoint: Endpoints?

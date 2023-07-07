@@ -68,35 +68,16 @@ struct EpisodeDetailsView: View {
             .frame(width: 1920, height: 1080)
             VStack(alignment: .leading) {
                 Spacer()
-                HStack {
-                    Text(episode.itemTitle)
-                        .lineLimit(1)
-                        .font(.title3)
-                    Spacer()
-                }
-                .padding(.horizontal)
                 HStack(alignment: .bottom) {
-                    VStack {
+                    VStack(alignment: .leading) {
+                        Text(episode.itemTitle)
+                            .lineLimit(1)
+                            .font(.title3)
                         WatchEpisodeButton(episode: episode,
                                            season: season,
                                            show: show,
                                            isWatched: $isWatched)
                         .padding(.horizontal)
-                    }
-                    .padding()
-                    Spacer()
-                    VStack {
-                        Button {
-                            showOverview.toggle()
-                        } label: {
-                            VStack(alignment: .leading) {
-                                Text(episode.itemOverview)
-                                    .lineLimit(4)
-                                    .font(.callout)
-                                    .frame(maxWidth: 700)
-                            }
-                        }
-                        .buttonStyle(.plain)
                     }
                     .padding()
                     Spacer()
@@ -108,8 +89,6 @@ struct EpisodeDetailsView: View {
                         InfoSegmentView(title: "Release", info: episode.itemDate)
                     }
                     .padding()
-                    
-                    Spacer()
                 }
                 .padding()
             }

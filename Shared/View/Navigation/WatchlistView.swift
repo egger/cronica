@@ -11,6 +11,7 @@ struct WatchlistView: View {
     static let tag: Screens? = .watchlist
     @State private var showListSelection = false
     @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
+    @State private var navigationDisplayTitle = String()
     @State private var selectedList: CustomList?
     var body: some View {
         VStack {
@@ -20,7 +21,15 @@ struct WatchlistView: View {
                 DefaultWatchlist()
             }
         }
-        .navigationTitle("")
+        .onDisappear {
+            navigationDisplayTitle = navigationTitle
+        }
+        .task {
+            if !navigationDisplayTitle.isEmpty {
+                navigationDisplayTitle = String()
+            }
+        }
+        .navigationTitle(navigationDisplayTitle)
         .onChange(of: selectedList) { newValue in
             if let newValue {
                 navigationTitle = newValue.itemTitle

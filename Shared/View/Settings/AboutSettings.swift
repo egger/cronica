@@ -45,13 +45,13 @@ struct AboutSettings: View {
             
             if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
                 ShareLink(item: appUrl).labelStyle(.titleOnly)
-                #if os(macOS)
+#if os(macOS)
                     .buttonStyle(.link)
-                #endif
+#endif
             }
             
 #if os(macOS)
-            privacy 
+            privacy
 #endif
             
             FeedbackSettingsView()
@@ -71,12 +71,10 @@ struct AboutSettings: View {
             Section("Libraries") {
                 aboutButton(
                     title: "acknowledgmentsSDWebImage",
-                    subtitle: nil,
                     url: "https://github.com/SDWebImage/SDWebImageSwiftUI"
                 )
                 aboutButton(
                     title: "TelemetryDeck",
-                    subtitle: nil,
                     url: "https://telemetrydeck.com/"
                 )
             }
@@ -84,7 +82,6 @@ struct AboutSettings: View {
             Section("acknowledgmentsContentProviderTitle") {
                 aboutButton(
                     title: "acknowledgmentsContentProviderSubtitle",
-                    subtitle: nil,
                     url: "https://www.themoviedb.org"
                 )
             }
@@ -92,7 +89,6 @@ struct AboutSettings: View {
             Section("Source Code") {
                 aboutButton(
                     title: "cronicaGitHub",
-                    subtitle: nil,
                     url: "https://github.com/MadeiraAlexandre/Cronica"
                 )
             }
@@ -120,7 +116,7 @@ struct AboutSettings: View {
 #endif
     }
     
-    private func aboutButton(title: String, subtitle: String?, url: String) -> some View {
+    private func aboutButton(title: String, subtitle: String? = nil, url: String) -> some View {
         Button {
             guard let url = URL(string: url) else { return }
 #if os(macOS)

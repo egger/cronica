@@ -62,6 +62,7 @@ struct WatchlistButton: View {
             persistence.save(content)
             registerNotification(content)
             displayConfirmation()
+            if content.itemContentMedia == .tvShow { addFirstEpisodeToUpNext(content) }
         }
     }
     
@@ -80,6 +81,16 @@ struct WatchlistButton: View {
             withAnimation {
                 showConfirmation = false
             }
+        }
+    }
+    
+    private func addFirstEpisodeToUpNext(_ item: ItemContent) {
+        Task {
+            let firstSeason = try? await NetworkService.shared.fetchSeason(id: item.id, season: 1)
+            guard let firstEpisode = firstSeason?.episodes?.first,
+                  let content = persistence.fetch(for: item.itemContentID)
+            else { return }
+            persistence.updateUpNext(content, episode: firstEpisode)
         }
     }
 }

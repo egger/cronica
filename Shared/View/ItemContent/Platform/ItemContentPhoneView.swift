@@ -17,13 +17,13 @@ struct ItemContentPhoneView: View {
     @State private var animateGesture = false
     @State private var animationImage = ""
     @State private var showReleaseDateInfo = false
+    @Binding var showCustomList: Bool
+    @State private var navigationTitle = String()
     var body: some View {
         VStack {
             cover
             
-            DetailWatchlistButton()
-                .keyboardShortcut("l", modifiers: [.option])
-                .environmentObject(viewModel)
+            actions
             
             OverviewBoxView(overview: viewModel.content?.itemOverview,
                             title: title).padding()
@@ -42,7 +42,6 @@ struct ItemContentPhoneView: View {
             
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
-                                          subtitle: "",
                                           addedItemConfirmation: $showConfirmation,
                                           displayAsCard: true)
             
@@ -54,8 +53,61 @@ struct ItemContentPhoneView: View {
             
             AttributionView().padding([.top, .bottom])
         }
-        .navigationTitle(title)
-        .navigationBarTitleDisplayMode(.large)
+        .navigationTitle(navigationTitle)
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            if !navigationTitle.isEmpty {
+                navigationTitle = String()
+            }
+        }
+    }
+    
+    private var actions: some View {
+        HStack {
+            if viewModel.isInWatchlist {
+                Button {
+                    animate(for: .watched)
+                    viewModel.update(.watched)
+                } label: {
+                    VStack {
+                        Image(systemName: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                        Text("Watched")
+                            .padding(.top, 2)
+                            .font(.caption)
+                    }
+                    .padding(.vertical, 4)
+                    .frame(width: 50)
+                }
+                .keyboardShortcut("w", modifiers: [.option])
+                .controlSize(.small)
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.roundedRectangle(radius: 12))
+                .tint(.primary)
+                .padding(.horizontal)
+            }
+            DetailWatchlistButton()
+                .keyboardShortcut("l", modifiers: [.option])
+                .environmentObject(viewModel)
+            if viewModel.isInWatchlist {
+                Button {
+                    showCustomList.toggle()
+                } label: {
+                    VStack {
+                        Image(systemName: "rectangle.on.rectangle.angled")
+                        Text("Lists")
+                            .padding(.top, 2)
+                            .font(.caption)
+                    }
+                    .padding(.vertical, 4)
+                    .frame(width: 50)
+                }
+                .controlSize(.small)
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.roundedRectangle(radius: 12))
+                .tint(.primary)
+                .padding(.horizontal)
+            }
+        }
     }
     
     private var cover: some View {
@@ -77,13 +129,22 @@ struct ItemContentPhoneView: View {
             .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
             .shadow(radius: DrawingConstants.shadowRadius)
-            .padding(.vertical)
+            .padding(.top)
+            .padding(.bottom, 8)
             .accessibilityElement(children: .combine)
             .accessibility(hidden: true)
             .onTapGesture(count: 2) {
                 animate(for: store.gesture)
                 viewModel.update(store.gesture)
             }
+            Text(title)
+                .lineLimit(2)
+                .font(.title2)
+                .fontWeight(.semibold)
+                .padding([.horizontal, .bottom], 4)
+                .onDisappear {
+                    navigationTitle = title
+                }
             if let genres = viewModel.content?.itemGenres {
                 Text(genres)
                     .font(.caption)

@@ -98,6 +98,15 @@ class ItemContentViewModel: ObservableObject {
             if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoWeeksAway() {
                 NotificationManager.shared.schedule(item)
             }
+            if item.itemContentMedia == .tvShow {
+                Task {
+                    let firstSeason = try? await service.fetchSeason(id: item.id, season: 1)
+                    guard let firstEpisode = firstSeason?.episodes?.first,
+                          let content = persistence.fetch(for: item.itemContentID)
+                    else { return }
+                    persistence.updateUpNext(content, episode: firstEpisode)
+                }
+            }
         }
     }
     

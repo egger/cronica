@@ -42,8 +42,10 @@ class SettingsStore: ObservableObject {
     @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""
     @AppStorage("userHasImportedFromTMDB") var userImportedTMDB = false
     @AppStorage("isUserConnectedWithTMDB") var connectedTMDB = false
-#if os(watchOS) || os(tvOS)
+#if os(tvOS) || os(watchOS)
     @AppStorage("showRemoveConfirmation") var showRemoveConfirmation = true
+#else
+    @AppStorage("showRemoveConfirmation") var showRemoveConfirmation = false
 #endif
     @AppStorage("choosePreferredLaunchScreen") var isPreferredLaunchScreenEnabled = false
     @AppStorage("preferredLaunchScreen") var preferredLaunchScreen: Screens = .home

@@ -39,6 +39,12 @@ extension Date {
         if self < (today + twoMonths) { return true }
         return false
     }
+    func hasPassedTwoWeek() -> Bool {
+        let today = Date()
+        let week = TimeInterval(14 * 24 * 60 * 60)
+        if today > (self + week) { return true }
+        return false
+    }
 }
 
 extension Date? {

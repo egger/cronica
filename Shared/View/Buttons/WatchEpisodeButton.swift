@@ -20,7 +20,7 @@ struct WatchEpisodeButton: View {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
 #if os(tvOS)
-            .padding()
+            .padding(.horizontal)
             .labelStyle(.iconOnly)
 #endif
         }

@@ -18,13 +18,13 @@ struct DetailedPeopleList: View {
 #if os(iOS) || os(tvOS)
                 List {
                     ForEach(items, id: \.personListID) { item in
-                        PersonItemRow(person: item)
+                        personItemRow(person: item)
                     }
                 }
 #elseif os(macOS)
                 Table(items) {
                     TableColumn("Person") { item in
-                        PersonItemRow(person: item)
+                        personItemRow(person: item)
                             .buttonStyle(.plain)
                             .accessibilityHint(Text(item.name))
                     }
@@ -39,13 +39,13 @@ struct DetailedPeopleList: View {
 #if os(iOS) || os(tvOS)
                     List {
                         ForEach(filteredItems, id: \.personListID) { item in
-                            PersonItemRow(person: item)
+                            personItemRow(person: item)
                         }
                     }
 #else
                     Table(filteredItems) {
                         TableColumn("Person") { item in
-                            PersonItemRow(person: item)
+                            personItemRow(person: item)
                                 .buttonStyle(.plain)
                                 .accessibilityHint(Text(item.name))
                         }
@@ -55,6 +55,9 @@ struct DetailedPeopleList: View {
             }
         }
         .navigationTitle("Cast & Crew")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.large)
+#endif
         .task(id: query) {
             if query.isEmpty {
                 return
@@ -79,17 +82,8 @@ struct DetailedPeopleList: View {
         .searchable(text: $query)
 #endif
     }
-}
-
-struct DetailedPeopleList_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailedPeopleList(items: ItemContent.example.credits?.cast ?? [])
-    }
-}
-
-private struct PersonItemRow: View {
-    let person: Person
-    var body: some View {
+    
+    private func personItemRow(person: Person) -> some View {
         NavigationLink(value: person) {
             HStack {
                 WebImage(url: person.personImage)
@@ -120,11 +114,17 @@ private struct PersonItemRow: View {
             }
             .frame(height: 70)
             .contextMenu {
-                #if os(macOS) || os(iOS)
+#if os(macOS) || os(iOS)
                 ShareLink(item: person.itemURL)
-                #endif
+#endif
             }
         }
         .buttonStyle(.plain)
+    }
+}
+
+struct DetailedPeopleList_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailedPeopleList(items: ItemContent.example.credits?.cast ?? [])
     }
 }

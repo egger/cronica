@@ -108,6 +108,8 @@ struct PersonDetailsView: View {
         }
 #if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
+#elseif os(iOS)
+        .navigationBarTitleDisplayMode(.large)
 #endif
     }
     

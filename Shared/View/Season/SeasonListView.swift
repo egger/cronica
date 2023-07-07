@@ -133,6 +133,9 @@ struct SeasonList: View {
                 }
             }
         }
+        #if os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
+        #endif
     }
     
     private var emptySeason: some View {

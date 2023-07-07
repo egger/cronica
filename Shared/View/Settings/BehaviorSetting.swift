@@ -17,15 +17,15 @@ struct BehaviorSetting: View {
             links
 #endif
             otherOptions
-#if os(iOS)
             Section {
+#if os(iOS)
                 Toggle(isOn: $store.hapticFeedback) {
                     InformationalLabel(title: "hapticFeedbackTitle")
                 }
-                Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
-            }
-            
 #endif
+                Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
+                Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
+            }
         }
         .navigationTitle("behaviorTitle")
 #if os(macOS)

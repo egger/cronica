@@ -59,7 +59,7 @@ struct VerticalUpNextListView: View {
                                     Text(item.showTitle)
                                         .font(.caption)
                                         .lineLimit(2)
-                                    Text("E\(item.episode.itemEpisodeNumber), S\(item.episode.itemSeasonNumber)")
+                                    Text("S\(item.episode.itemSeasonNumber), E\(item.episode.itemEpisodeNumber)")
                                         .font(.caption)
                                         .textCase(.uppercase)
                                         .foregroundColor(.secondary)
@@ -106,7 +106,7 @@ struct VerticalUpNextListView: View {
         }
     }
     
-    func upNextCard(item: UpNextEpisode) -> some View {
+    private func upNextCard(item: UpNextEpisode) -> some View {
         WebImage(url: item.episode.itemImageMedium ?? item.backupImage)
             .resizable()
             .placeholder {
@@ -127,7 +127,7 @@ struct VerticalUpNextListView: View {
             .shadow(radius: 2)
     }
     
-    func handleWatched(_ content: UpNextEpisode) async {
+    private func handleWatched(_ content: UpNextEpisode) async {
         let helper = EpisodeHelper()
         let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
         if let nextEpisode {
@@ -147,7 +147,7 @@ struct VerticalUpNextListView: View {
         }
     }
     
-    func checkForNewEpisodes() async {
+    private func checkForNewEpisodes() async {
         for item in items {
             let result = try? await network.fetchEpisode(tvID: item.id,
                                                          season: item.seasonNumberUpNext,
@@ -184,7 +184,7 @@ struct VerticalUpNextListView: View {
         
     }
     
-    func markAsWatched(_ content: UpNextEpisode) async {
+    private func markAsWatched(_ content: UpNextEpisode) async {
         let contentId = "\(content.showID)@\(MediaType.tvShow.toInt)"
         let item = persistence.fetch(for: contentId)
         guard let item else { return }

@@ -151,7 +151,7 @@ struct ExploreView: View {
         })
 #if os(iOS) || os(macOS)
         .navigationTitle("Explore")
-        #elseif os(tvOS)
+#elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
@@ -193,12 +193,18 @@ struct ExploreView: View {
             Task {
                 await load()
             }
+#if os(tvOS)
+            showFilters.toggle()
+#endif
         }
         .onChange(of: viewModel.selectedGenre) { _ in
             onChanging = true
             Task {
                 await load()
             }
+#if os(tvOS)
+            showFilters.toggle()
+#endif
         }
     }
     
@@ -250,7 +256,7 @@ struct ExploreView: View {
                 }
             }
         }
-        .padding(.all, settings.isCompactUI ? 10 : nil)
+                  .padding(.all, settings.isCompactUI ? 10 : nil)
     }
     
 #if os(iOS) || os(macOS)

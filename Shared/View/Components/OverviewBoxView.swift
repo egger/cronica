@@ -15,6 +15,8 @@ struct OverviewBoxView: View {
     var type: MediaType = .movie
     @State private var showFullText = false
     @State private var showSheet = false
+    @State private var showTextOptions = true
+    @State private var isTruncated = false
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         if let overview {
@@ -22,8 +24,10 @@ struct OverviewBoxView: View {
                 GroupBox {
                     VStack(alignment: .leading) {
                         Text(overview)
+                            .font(.callout)
                             .padding([.top], 2)
                             .lineLimit(showFullText ? nil : 4)
+                        
 #if os(iOS)
                         Text(showFullText ? "Collapse" : "Show More")
                             .fontDesign(.rounded)
@@ -34,17 +38,8 @@ struct OverviewBoxView: View {
 #endif
                     }
                 } label: {
-                    switch type {
-                    case .person:
-                        Label("Biography", systemImage: "book")
-                            .unredacted()
-                    case .tvShow:
-                        Label("About", systemImage: "film")
-                            .unredacted()
-                    default:
-                        Label("About", systemImage: "film")
-                            .unredacted()
-                    }
+                    Text("About")
+                        .unredacted()
                 }
                 .onTapGesture {
 #if os(iOS)
@@ -70,6 +65,10 @@ struct OverviewBoxView: View {
             }
         }
     }
+    
+#if os(iOS)
+    
+#endif
 }
 
 struct OverviewBoxView_Previews: PreviewProvider {
