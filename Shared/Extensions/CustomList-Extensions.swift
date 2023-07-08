@@ -55,4 +55,8 @@ extension CustomList {
             $0.itemTitle < $1.itemTitle
         }
     }
+    var itemIDToString: String {
+        guard let id else { return String() }
+        return id.uuidString
+    }
 }

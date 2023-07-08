@@ -150,9 +150,6 @@ extension WatchlistItem {
         return "\(itemId)@\(itemMedia.toInt)"
     }
     var itemPreviewOverview: String {
-        if let genre {
-            return "\(itemMedia.title) • \(genre)"
-        }
         if let formattedDate {
             return "\(itemMedia.title) • \(formattedDate)"
         }

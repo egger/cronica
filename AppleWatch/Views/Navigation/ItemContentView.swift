@@ -32,7 +32,7 @@ struct ItemContentView: View {
                     .shadow(radius: 5)
                     .padding()
                 
-                DetailWatchlistButton()
+                DetailWatchlistButton(showCustomList: $showCustomListSheet)
                     .environmentObject(viewModel)
                     .padding()
                 

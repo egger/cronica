@@ -50,4 +50,5 @@ class SettingsStore: ObservableObject {
     @AppStorage("choosePreferredLaunchScreen") var isPreferredLaunchScreenEnabled = false
     @AppStorage("preferredLaunchScreen") var preferredLaunchScreen: Screens = .home
     @AppStorage("removeFromPinOnWatched") var removeFromPinOnWatched = false
+    @AppStorage("autoOpenCustomListSelector") var openListSelectorOnAdding = false
 }

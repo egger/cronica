@@ -148,29 +148,20 @@ class BackgroundManager {
     }
     
     private func updateUpNext(_ item: WatchlistItem) async {
+        if !item.displayOnUpNext { return }
         let persistence = PersistenceController.shared
         let upNextEpisode = try? await network.fetchEpisode(tvID: item.id,
                                                             season: item.seasonNumberUpNext,
                                                             episodeNumber: item.nextEpisodeNumberUpNext)
-        if let upNextEpisode {
-            let isUpNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                                    season: upNextEpisode.itemSeasonNumber,
-                                                                    episode: upNextEpisode.id)
-            if isUpNextEpisodeWatched && item.itemSchedule == .renewed {
-                let nextSeasonNumber = upNextEpisode.itemSeasonNumber + 1
-                let nextEpisodeNumber = upNextEpisode.itemEpisodeNumber + 1
-                let upNextSeason = try? await network.fetchSeason(id: item.itemId, season: upNextEpisode.itemSeasonNumber)
-                if let episodes = upNextSeason?.episodes {
-                    if episodes.contains(where: { $0.itemEpisodeNumber == nextEpisodeNumber }) {
-                        guard let episode = episodes.filter({ $0.itemEpisodeNumber == nextEpisodeNumber }).first else { return }
-                        persistence.updateUpNext(item, episode: episode)
-                    } else {
-                        let nextSeason = try? await network.fetchSeason(id: item.itemId, season: nextSeasonNumber)
-                        guard let nextSeasonEpisode = nextSeason?.episodes?.first else { return }
-                        persistence.updateUpNext(item, episode: nextSeasonEpisode)
-                    }
-                }
-            }
+        guard let upNextEpisode else { return }
+        let isUpNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
+                                                                season: upNextEpisode.itemSeasonNumber,
+                                                                episode: upNextEpisode.id)
+        if isUpNextEpisodeWatched && item.itemSchedule == .renewed {
+            let nextSeasonNumber = upNextEpisode.itemSeasonNumber + 1
+            let nextSeason = try? await network.fetchSeason(id: item.itemId, season: nextSeasonNumber)
+            guard let nextSeasonEpisode = nextSeason?.episodes?.first else { return }
+            persistence.updateUpNext(item, episode: nextSeasonEpisode)
         }
     }
     

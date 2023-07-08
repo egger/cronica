@@ -85,7 +85,7 @@ struct ItemContentPhoneView: View {
                 .tint(.primary)
                 .padding(.horizontal)
             }
-            DetailWatchlistButton()
+            DetailWatchlistButton(showCustomList: $showCustomList)
                 .keyboardShortcut("l", modifiers: [.option])
                 .environmentObject(viewModel)
             if viewModel.isInWatchlist {

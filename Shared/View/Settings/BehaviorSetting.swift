@@ -14,15 +14,21 @@ struct BehaviorSetting: View {
             gesture
 #if os(iOS)
             swipeGesture
-            links
+            singleTapGesture
 #endif
             otherOptions
+            
             Section {
 #if os(iOS)
                 Toggle(isOn: $store.hapticFeedback) {
                     InformationalLabel(title: "hapticFeedbackTitle")
                 }
 #endif
+                
+            }
+            
+            Section("Watchlist") {
+                Toggle("openCustomListSelectorWhenAdding", isOn: $store.openListSelectorOnAdding)
                 Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
                 Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
             }
@@ -42,9 +48,6 @@ struct BehaviorSetting: View {
             } label: {
                 InformationalLabel(title: "behaviorDoubleTapTitle",
                                    subtitle: "behaviorDoubleTapSubtitle")
-            }
-            Toggle(isOn: $store.markEpisodeWatchedOnTap) {
-                InformationalLabel(title: "behaviorEpisodeTitle")
             }
         } header: {
             Text("behaviorGestureTitle")
@@ -107,10 +110,13 @@ struct BehaviorSetting: View {
         }
     }
     
-    private var links: some View {
+    private var singleTapGesture: some View {
         Section {
             Toggle(isOn: $store.openInYouTube) {
                 InformationalLabel(title: "behaviorYouTubeTitle")
+            }
+            Toggle(isOn: $store.markEpisodeWatchedOnTap) {
+                InformationalLabel(title: "behaviorEpisodeTitle")
             }
         }
     }

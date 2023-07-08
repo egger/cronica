@@ -318,6 +318,7 @@ extension ItemContent {
     // MARK: Int
     var itemSeasons: [Int]? {
         guard let numberOfSeasons else { return nil }
+        if numberOfSeasons == 0 { return nil }
         return Array(1...numberOfSeasons)
     }
     

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailWatchlistButton: View {
     @EnvironmentObject var viewModel: ItemContentViewModel
+    @Binding var showCustomList: Bool
     @State private var showConfirmationPopup = false
     @StateObject private var settings = SettingsStore.shared
     var verticalStyle = false
@@ -73,5 +74,8 @@ struct DetailWatchlistButton: View {
     private func update() {
         guard let item = viewModel.content else { return }
         viewModel.updateWatchlist(with: item)
+        if settings.openListSelectorOnAdding {
+            showCustomList.toggle()
+        }
     }
 }
