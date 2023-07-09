@@ -18,14 +18,16 @@ struct TitleView: View {
                     Text(NSLocalizedString(title, comment: ""))
                         .padding([.top, .leading])
                         .fontWeight(.semibold)
+                        .fontDesign(.rounded)
 #if os(tvOS)
                         .font(.headline)
                         .foregroundColor(.secondary)
 #else
-                        .font(.title2)
+                        .font(.title3)
 #endif
                     if showChevron {
                         Image(systemName: "chevron.right")
+                            .fontDesign(.rounded)
                             .font(.title3)
                             .fontWeight(.semibold)
                             .foregroundColor(.secondary)
@@ -36,6 +38,7 @@ struct TitleView: View {
                 if let subtitle {
                     HStack {
                         Text(NSLocalizedString(subtitle, comment: ""))
+                            .fontDesign(.rounded)
                             .foregroundColor(.secondary)
                             .padding(.leading)
 #if os(tvOS)

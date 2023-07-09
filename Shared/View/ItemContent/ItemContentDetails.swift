@@ -40,11 +40,11 @@ struct ItemContentDetails: View {
             if viewModel.isLoading { ProgressView().padding() }
             ScrollView {
 #if os(macOS)
-                ItemContentPadView(id: id, title: title, type: type, showConfirmation: $showConfirmation)
+                ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showConfirmation: $showConfirmation)
                     .environmentObject(viewModel)
 #elseif os(iOS)
                 if UIDevice.isIPad {
-                    ItemContentPadView(id: id, title: title, type: type, showConfirmation: $showConfirmation)
+                    ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showConfirmation: $showConfirmation)
                         .environmentObject(viewModel)
                 } else {
                     ItemContentPhoneView(title: title, type: type, id: id,
@@ -236,18 +236,16 @@ struct ItemContentDetails: View {
     private var moreMenu: some View {
         Menu {
             if viewModel.isInWatchlist {
-#if os(iOS)
-                if UIDevice.isIPhone {
-                    addToCustomListButton
-                }
-#else
+#if !os(iOS)
                 addToCustomListButton
 #endif
                 archiveButton
                 pinButton
                 userNotesButton
             }
+#if !os(iOS)
             watchButton
+#endif
             favoriteButton
 #if os(iOS)
             openInMenu

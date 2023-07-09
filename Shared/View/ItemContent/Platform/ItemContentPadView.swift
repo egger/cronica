@@ -7,13 +7,13 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+#if !os(tvOS)
 /// The Details view for ItemContent for iPadOS and macOS, built with larger screen in mind.
 struct ItemContentPadView: View {
     let id: Int
     let title: String
     let type: MediaType
-    @State private var showCustomList = false
+    @Binding var showCustomList: Bool
     @EnvironmentObject var viewModel: ItemContentViewModel
     @State private var animationImage = ""
     @State private var animateGesture = false
@@ -139,62 +139,68 @@ struct ItemContentPadView: View {
                 
                 // Actions
                 HStack {
-                    Button {
-                        guard let item = viewModel.content else { return }
-                        viewModel.updateWatchlist(with: item)
-                    } label: {
-                        Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                              systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-                    }
-                    .tint(viewModel.isInWatchlist ? .red : .black)
-                    .disabled(viewModel.isLoading)
-                    .buttonStyle(.borderedProminent)
-#if os(iOS) || os(macOS)
-                    .controlSize(.large)
-                    .keyboardShortcut("l", modifiers: [.option])
-#endif
-#if os(iOS)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-#endif
-                    .applyHoverEffect()
+                    DetailWatchlistButton(showCustomList: $showCustomList)
+                        .environmentObject(viewModel)
                     
                     if viewModel.isInWatchlist {
-                        if let id = viewModel.content?.itemContentID {
-                            Button {
-                                showCustomList.toggle()
-                            } label: {
-                                Label("addToList", systemImage: "rectangle.on.rectangle.angled")
-                                    .foregroundColor(.primary)
-                            }
-                            .labelStyle(.iconOnly)
-#if os(iOS) || os(macOS)
-                            .controlSize(.large)
-#endif
-                            .buttonStyle(.bordered)
-#if os(iOS)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-#endif
-                            .padding(.leading, 6)
-                            .applyHoverEffect()
-                            .sheet(isPresented: $showCustomList) {
-                                NavigationStack {
-                                    ItemContentCustomListSelector(contentID: id,
-                                                                  showView: $showCustomList,
-                                                                  title: title)
-                                }
-                                .presentationDetents([.medium, .large])
-                                .presentationDragIndicator(.visible)
+                        Button {
+                            showCustomList.toggle()
+                        } label: {
 #if os(macOS)
-                                .frame(width: 500, height: 600, alignment: .center)
+                            Label("Lists", systemImage: "rectangle.on.rectangle.angled")
 #else
-                                .appTheme()
-                                .appTint()
-#endif
+                            VStack {
+                                Image(systemName: "rectangle.on.rectangle.angled")
+                                Text("Lists")
+                                    .padding(.top, 2)
+                                    .font(.caption)
+                                    .lineLimit(1)
                             }
-#if os(macOS) || os(iOS)
-                            .keyboardShortcut("k", modifiers: [.option])
+                            .padding(.vertical, 4)
+                            .frame(width: 60)
 #endif
                         }
+#if os(macOS)
+                        .controlSize(.large)
+#else
+                        .controlSize(.small)
+#endif
+                        .buttonStyle(.bordered)
+#if os(iOS)
+                        .buttonBorderShape(.roundedRectangle(radius: 12))
+#endif
+                        .tint(.primary)
+                        .padding(.leading)
+                        Button {
+                            animate(for: .watched)
+                            viewModel.update(.watched)
+                        } label: {
+#if os(macOS)
+                            Label("Watched", systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+#else
+                            VStack {
+                                Image(systemName: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                                Text("Watched")
+                                    .padding(.top, 2)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                            }
+                            .padding(.vertical, 4)
+                            .frame(width: 60)
+#endif
+                        }
+                        .keyboardShortcut("w", modifiers: [.option])
+#if os(macOS)
+                        .controlSize(.large)
+#else
+                        .controlSize(.small)
+#endif
+                        .buttonStyle(.bordered)
+#if os(iOS)
+                        .buttonBorderShape(.roundedRectangle(radius: 12))
+#endif
+                        .tint(.primary)
+                        .padding(.leading)
                     }
                 }
             }
@@ -229,7 +235,7 @@ struct ItemContentPadView: View {
         }
     }
 }
-
+#endif
 struct QuickInformationView: View {
     let item: ItemContent?
     @Binding var showReleaseDateInfo: Bool

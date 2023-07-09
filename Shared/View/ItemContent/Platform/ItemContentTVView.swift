@@ -114,7 +114,7 @@ struct ItemContentTVView: View {
                 // Actions
                 HStack {
                     
-                    DetailWatchlistButton()
+                    DetailWatchlistButton(showCustomList: .constant(false))
                         .environmentObject(viewModel)
                         .buttonStyle(.borderedProminent)
                         .prefersDefaultFocus(in: tvOSActionNamespace)

@@ -26,8 +26,8 @@ struct TransparentGroupBox: GroupBoxStyle {
             ZStack {
                 Rectangle().fill(.background)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .shadow(radius: 2)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .shadow(radius: 1)
         }
     }
 }

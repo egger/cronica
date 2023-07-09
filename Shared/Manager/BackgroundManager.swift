@@ -153,15 +153,16 @@ class BackgroundManager {
         let upNextEpisode = try? await network.fetchEpisode(tvID: item.id,
                                                             season: item.seasonNumberUpNext,
                                                             episodeNumber: item.nextEpisodeNumberUpNext)
-        guard let upNextEpisode else { return }
-        let isUpNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                                season: upNextEpisode.itemSeasonNumber,
-                                                                episode: upNextEpisode.id)
-        if isUpNextEpisodeWatched && item.itemSchedule == .renewed {
-            let nextSeasonNumber = upNextEpisode.itemSeasonNumber + 1
-            let nextSeason = try? await network.fetchSeason(id: item.itemId, season: nextSeasonNumber)
-            guard let nextSeasonEpisode = nextSeason?.episodes?.first else { return }
-            persistence.updateUpNext(item, episode: nextSeasonEpisode)
+        if let upNextEpisode {
+            let isUpNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
+                                                                    season: upNextEpisode.itemSeasonNumber,
+                                                                    episode: upNextEpisode.id)
+            if isUpNextEpisodeWatched && item.itemSchedule == .renewed {
+                let nextSeasonNumber = upNextEpisode.itemSeasonNumber + 1
+                let nextSeason = try? await network.fetchSeason(id: item.itemId, season: nextSeasonNumber)
+                guard let nextSeasonEpisode = nextSeason?.episodes?.first else { return }
+                persistence.updateUpNext(item, episode: nextSeasonEpisode)
+            }
         }
     }
     

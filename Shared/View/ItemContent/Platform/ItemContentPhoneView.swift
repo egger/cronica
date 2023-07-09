@@ -74,9 +74,10 @@ struct ItemContentPhoneView: View {
                         Text("Watched")
                             .padding(.top, 2)
                             .font(.caption)
+                            .lineLimit(1)
                     }
                     .padding(.vertical, 4)
-                    .frame(width: 50)
+                    .frame(width: 60)
                 }
                 .keyboardShortcut("w", modifiers: [.option])
                 .controlSize(.small)
@@ -97,9 +98,10 @@ struct ItemContentPhoneView: View {
                         Text("Lists")
                             .padding(.top, 2)
                             .font(.caption)
+                            .lineLimit(1)
                     }
                     .padding(.vertical, 4)
-                    .frame(width: 50)
+                    .frame(width: 60)
                 }
                 .controlSize(.small)
                 .buttonStyle(.bordered)
@@ -108,6 +110,7 @@ struct ItemContentPhoneView: View {
                 .padding(.horizontal)
             }
         }
+        .padding(.top)
     }
     
     private var cover: some View {
@@ -138,23 +141,29 @@ struct ItemContentPhoneView: View {
                 viewModel.update(store.gesture)
             }
             Text(title)
+                .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .font(.title2)
+                .fontDesign(.rounded)
                 .fontWeight(.semibold)
-                .padding([.horizontal, .bottom], 4)
+                .padding(.horizontal, 8)
+                .padding(.bottom, 4)
                 .onDisappear {
                     navigationTitle = title
                 }
             if let genres = viewModel.content?.itemGenres {
-                Text(genres)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                if !genres.isEmpty {
+                    Text(genres)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
             if let info = viewModel.content?.itemQuickInfo {
-                Text(info)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom)
+                if !info.isEmpty {
+                    Text(info)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
         }
     }
@@ -175,7 +184,7 @@ struct ItemContentPhoneView: View {
     
     @ViewBuilder
     private func infoBox(item: ItemContent?, type: MediaType) -> some View {
-        GroupBox {
+        GroupBox("Information") {
             Section {
                 infoView(title: NSLocalizedString("Original Title", comment: ""),
                          content: item?.originalItemTitle)
@@ -254,9 +263,6 @@ struct ItemContentPhoneView: View {
                              content: item?.itemCompany)
                 }
             }
-        } label: {
-            Label("Information", systemImage: "info")
-                .unredacted()
         }
         .groupBoxStyle(TransparentGroupBox())
     }

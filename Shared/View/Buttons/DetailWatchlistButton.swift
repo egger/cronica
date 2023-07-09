@@ -27,23 +27,19 @@ struct DetailWatchlistButton: View {
             }
         } label: {
 #if os(iOS)
-            if UIDevice.isIPhone {
-                if viewModel.isInWatchlist {
-                    VStack {
-                        Image(systemName: "minus.circle.fill")
-                        Text("Remove")
-                            .padding(.top, 2)
-                            .font(.caption)
-                    }
-                    .padding(.vertical, 4)
-                    .frame(width: 50)
-                } else {
-                    Label("Add to watchlist", systemImage: "plus.circle.fill")
-                }
-            } else {
-                Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                      systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+            VStack {
+                Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                Text(viewModel.isInWatchlist ? "Remove" : "Add to watchlist")
+                    .lineLimit(1)
+                    .padding(.top, 2)
+                    .font(.caption)
             }
+            .padding(.vertical, 4)
+            .frame(width: viewModel.isInWatchlist ? 60 : nil)
+            .frame(minWidth: viewModel.isInWatchlist ? nil : 140)
+#elseif os(macOS)
+            Label(viewModel.isInWatchlist ? "Remove": "Add to watchlist",
+                  systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
 #else
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
@@ -56,7 +52,8 @@ struct DetailWatchlistButton: View {
 #if os(macOS)
         .controlSize(.large)
 #elseif os(iOS)
-        .controlSize(UIDevice.isIPhone ? viewModel.isInWatchlist ? .small: .large : .large)
+        .controlSize(.small)
+        .shadow(radius: viewModel.isInWatchlist ? 0 : 2.5)
 #endif
         .disabled(viewModel.isLoading)
 #if os(iOS) || os(macOS) || os(watchOS)
@@ -74,7 +71,7 @@ struct DetailWatchlistButton: View {
     private func update() {
         guard let item = viewModel.content else { return }
         viewModel.updateWatchlist(with: item)
-        if settings.openListSelectorOnAdding {
+        if settings.openListSelectorOnAdding && viewModel.isInWatchlist {
             showCustomList.toggle()
         }
     }
