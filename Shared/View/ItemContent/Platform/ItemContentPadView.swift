@@ -20,6 +20,7 @@ struct ItemContentPadView: View {
     @State private var showOverview = false
     @State private var showInfoBox = false
     @State private var showReleaseDateInfo = false
+    @State private var isSideInfoPanelShowed = false
     @StateObject private var store = SettingsStore.shared
     @Binding var showConfirmation: Bool
     var body: some View {
@@ -45,11 +46,9 @@ struct ItemContentPadView: View {
                                           displayAsCard: true)
 #if !os(tvOS)
             if showInfoBox {
-                GroupBox {
+                GroupBox("Information") {
                     QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
-                } label: {
-                    Label("Information", systemImage: "i.circle")
-                }
+                } 
                 .padding()
                 
             }
@@ -62,6 +61,9 @@ struct ItemContentPadView: View {
 #elseif os(macOS)
         .navigationTitle(title)
 #endif
+        .task {
+            if !isSideInfoPanelShowed && !showInfoBox { showInfoBox = true }
+        }
     }
     
     private var header: some View {
@@ -210,8 +212,14 @@ struct ItemContentPadView: View {
                 QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
                     .frame(width: 280)
                     .padding(.horizontal)
-                    .onAppear { showInfoBox = false }
-                    .onDisappear { showInfoBox = true }
+                    .onAppear {
+                        showInfoBox = false
+                        isSideInfoPanelShowed = true
+                    }
+                    .onDisappear {
+                        showInfoBox = true
+                        isSideInfoPanelShowed = false
+                    }
                 VStack {
                     Text("")
                 }
@@ -252,27 +260,30 @@ struct QuickInformationView: View {
                          content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
             }
             if item?.itemContentMedia == .movie {
-                HStack {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("Release Date")
-                                .font(.caption)
+                if let theatricalStringDate = item?.itemTheatricalString {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("Release Date")
+                                    .font(.caption)
 #if !os(tvOS)
-                            Image(systemName: "chevron.right")
-                                .font(.caption)
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
 #endif
+                            }
+                            Text(theatricalStringDate)
+                                .lineLimit(1)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
                         }
-                        Text(item?.itemTheatricalString ?? "")
-                            .lineLimit(1)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
+                        .accessibilityElement(children: .combine)
                     }
-                    .accessibilityElement(children: .combine)
+                    .padding([.horizontal, .top], 2)
+                    .onTapGesture {
+                        showReleaseDateInfo.toggle()
+                    }
                 }
-                .padding([.horizontal, .top], 2)
-                .onTapGesture {
-                    showReleaseDateInfo.toggle()
-                }
+                
             } else {
                 infoView(title: NSLocalizedString("First Air Date",
                                                   comment: ""),

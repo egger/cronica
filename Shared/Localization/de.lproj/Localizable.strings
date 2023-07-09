@@ -629,3 +629,9 @@
 "Account" = "Konto";
 "Ended Series" = "Beendet";
 "Create" = "Erstellen";
+"Production Companies" = "Produktionsfirmen";
+"releaseDates" = "Veröffentlichungsdaten";
+"removeFromPinOnWatchedTitle" = "Von Pin entfernen, wenn Element als gesehen markiert wird";
+"Remove" = "Entfernen";
+"openCustomListSelectorWhenAdding" = "Listenauswahl beim Hinzufügen öffnen";
+"showConfirmationOnRemovingItem" = "Bestätigung beim Entfernen anzeigen";

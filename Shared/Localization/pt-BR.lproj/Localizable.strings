@@ -85,8 +85,8 @@
 "Something went wrong, try again later." = "Algo deu errado, tente novamente mais tarde.";
 
 //MARK: ContentDetailsView.swift
-"Add to watchlist" = "Adicionar à lista";
-"Remove from watchlist" = "Remover da lista";
+"Add to watchlist" = "Adicionar";
+"Remove from watchlist" = "Remover";
 "About" = "Sobre";
 "Trailers" = "Trailers";
 "Season" = "Temporada";
@@ -661,3 +661,9 @@
 "Account" = "Conta";
 "Ended Series" = "Finalizado";
 "Create" = "Criar";
+"Production Companies" = "Empresas de Produção";
+"releaseDates" = "Datas de Lançamento";
+"removeFromPinOnWatchedTitle" = "Remover do Pin quando item é marcado como assistido";
+"Remove" = "Remover";
+"openCustomListSelectorWhenAdding" = "Abrir Seletor de Lista ao Adicionar um Item";
+"showConfirmationOnRemovingItem" = "Mostrar Confirmação ao Remover Item";

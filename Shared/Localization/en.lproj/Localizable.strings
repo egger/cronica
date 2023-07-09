@@ -629,7 +629,7 @@
 "Create" = "Create";
 "Production Companies" = "Production Companies";
 "releaseDates" = "Release Dates";
-"removeFromPinOnWatchedTitle" = "Remove From Pin on Marked as Watched";
+"removeFromPinOnWatchedTitle" = "Remove From Pin when item is  marked as watched";
 "Remove" = "Remove";
 "openCustomListSelectorWhenAdding" = "Open List Selector when adding an item";
 "showConfirmationOnRemovingItem" = "Show Remove Confirmation";

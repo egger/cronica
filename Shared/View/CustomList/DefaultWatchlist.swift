@@ -16,9 +16,6 @@ struct DefaultWatchlist: View {
     @State private var query = ""
     @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
-#if os(iOS)
-    @Environment(\.editMode) private var editMode
-#endif
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
     @State private var showFilter = false

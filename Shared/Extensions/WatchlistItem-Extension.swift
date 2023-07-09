@@ -18,6 +18,9 @@ extension WatchlistItem {
     var itemLastUpdateDate: Date {
         lastValuesUpdated ?? Date.distantPast
     }
+    var itemReleaseDate: Date {
+        date ?? Date.distantPast
+    }
     var itemId: Int {
         Int(id)
     }

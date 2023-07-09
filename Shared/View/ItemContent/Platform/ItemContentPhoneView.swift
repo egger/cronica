@@ -195,27 +195,30 @@ struct ItemContentPhoneView: View {
                 infoView(title: NSLocalizedString("Run Time", comment: ""),
                          content: item?.itemRuntime)
                 if type == .movie {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text("Release Date")
-                                    .font(.caption)
-                                Image(systemName: "chevron.right")
-                                    .font(.caption)
+                    if let theatricalStringDate = item?.itemTheatricalString {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("Release Date")
+                                        .font(.caption)
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption)
+                                }
+                                Text(theatricalStringDate)
+                                    .lineLimit(1)
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                                Spacer()
                             }
-                            Text(item?.itemTheatricalString ?? "")
-                                .lineLimit(1)
-                                .font(.caption2)
-                                .foregroundColor(.secondary)
+                            .accessibilityElement(children: .combine)
                             Spacer()
                         }
-                        .accessibilityElement(children: .combine)
-                        Spacer()
+                        .padding([.horizontal, .top], 2)
+                        .onTapGesture {
+                            showReleaseDateInfo.toggle()
+                        }
                     }
-                    .padding([.horizontal, .top], 2)
-                    .onTapGesture {
-                        showReleaseDateInfo.toggle()
-                    }
+                    
                 } else {
                     infoView(title: NSLocalizedString("First Air Date",
                                                       comment: ""),
