@@ -26,6 +26,8 @@ struct CompaniesListView: View {
         .navigationTitle("companiesTitle")
 #if os(macOS)
         .formStyle(.grouped)
+#elseif os(iOS)
+        .navigationBarTitleDisplayMode(.large)
 #endif
     }
 }

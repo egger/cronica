@@ -156,6 +156,7 @@ struct ItemContentPhoneView: View {
                     Text(genres)
                         .font(.caption)
                         .foregroundColor(.secondary)
+                        .fontDesign(.rounded)
                 }
             }
             if let info = viewModel.content?.itemQuickInfo {
@@ -163,6 +164,7 @@ struct ItemContentPhoneView: View {
                     Text(info)
                         .font(.caption)
                         .foregroundColor(.secondary)
+                        .fontDesign(.rounded)
                 }
             }
         }
@@ -273,18 +275,20 @@ struct ItemContentPhoneView: View {
     @ViewBuilder
     private func infoView(title: String, content: String?) -> some View {
         if let content {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(title)
-                        .font(.caption)
-                    Text(content)
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
+            if !content.isEmpty {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(title)
+                            .font(.caption)
+                        Text(content)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                    .accessibilityElement(children: .combine)
+                    Spacer()
                 }
-                .accessibilityElement(children: .combine)
-                Spacer()
-            }
-            .padding([.horizontal, .top], 2)
+                .padding([.horizontal, .top], 2)
+            } else { EmptyView() }
         } else {
             EmptyView()
         }

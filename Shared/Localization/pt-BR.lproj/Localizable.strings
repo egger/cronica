@@ -149,7 +149,7 @@
 "Gesture" = "Gestos";
 "Double Tap Gesture" = "Gesto de Dois Toques";
 "The function is performed when double-tap the cover image." = "A função será executada quando tocar duas vezes na imagem da capa.";
-"Settings" = "Configurações";
+"Settings" = "Ajustes";
 "Review Cronica" = "Avalie Cronica";
 "Send Feedback" = "Enviar Sugestão";
 "Feedback" = "Sugestão";
@@ -161,9 +161,6 @@
 "Update Items" = "Atualizar Itens";
 "'Update Items' will update your items with new information available on TMDb, if available." = "'Atualizar Itens' atualizará seus itens com novas informações disponíveis no TMDb, se disponíveis.";
 "Privacy" = "Privacidade";
-"Disable Telemetry" = "Desativar Relatório de Falha";
-"privacyfooter" = "A Cronica coleta dados mínimos para minimizar falhas de aplicativo, esses dados são anônimos. Veja mais detalhes na Política de Privacidade.";
-"privacyFooterTV" = "A Cronica coleta dados mínimos para minimizar falhas de aplicativo, esses dados são anônimos. Veja mais detalhes na Política de Privacidade em https://alexandremadeira.dev/cronica/privacy.";
 "Open Trailers in YouTube App" = "Abra Trailers no Aplicativo do YouTube";
 "Media" = "Vídeos";
 "Show Genre on Watchlist" = "Mostrar Gênero na Lista";
@@ -667,3 +664,10 @@
 "Remove" = "Remover";
 "openCustomListSelectorWhenAdding" = "Abrir Seletor de Lista ao Adicionar um Item";
 "showConfirmationOnRemovingItem" = "Mostrar Confirmação ao Remover Item";
+"S%d, E%d" = "T%d, E%d";
+"Premiere" = "Estreia";
+"Theatrical Limited" = "Cinema Limitado";
+"Theatrical" = "Cinema";
+"Digital" = "Digital";
+"Physical" = "Físico";
+"TV" = "TV";

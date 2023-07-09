@@ -212,7 +212,7 @@ struct HorizontalUpNextListView: View {
                                 .foregroundColor(.white)
                                 .fontWeight(.semibold)
                                 .lineLimit(1)
-                            Text("E\(item.episode.itemEpisodeNumber), S\(item.episode.itemSeasonNumber)")
+                            Text("S\(item.episode.itemSeasonNumber), E\(item.episode.itemEpisodeNumber)")
                                 .font(.caption)
                                 .textCase(.uppercase)
                                 .foregroundColor(.white.opacity(0.8))
@@ -233,7 +233,7 @@ struct HorizontalUpNextListView: View {
         .accessibilityAddTraits(.isButton)
     }
     
-    func load() async {
+    private func load() async {
         if !isLoaded {
             for item in items {
                 let result = try? await network.fetchEpisode(tvID: item.id,
@@ -265,7 +265,7 @@ struct HorizontalUpNextListView: View {
         }
     }
     
-    func reload() async {
+    private func reload() async {
         withAnimation { self.isLoaded = false }
         DispatchQueue.main.async {
             withAnimation(.easeInOut) {
@@ -275,7 +275,7 @@ struct HorizontalUpNextListView: View {
         Task { await load() }
     }
     
-    func handleWatched(_ content: UpNextEpisode) async {
+    private func handleWatched(_ content: UpNextEpisode) async {
         let helper = EpisodeHelper()
         let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
         if let nextEpisode {
@@ -300,7 +300,7 @@ struct HorizontalUpNextListView: View {
         }
     }
     
-    func checkForNewEpisodes() async {
+    private func checkForNewEpisodes() async {
         for item in items {
             let result = try? await network.fetchEpisode(tvID: item.id,
                                                          season: item.seasonNumberUpNext,
@@ -337,7 +337,7 @@ struct HorizontalUpNextListView: View {
         
     }
     
-    func markAsWatched(_ content: UpNextEpisode) async {
+    private func markAsWatched(_ content: UpNextEpisode) async {
         let contentId = "\(content.showID)@\(MediaType.tvShow.toInt)"
         let item = persistence.fetch(for: contentId)
         guard let item else { return }

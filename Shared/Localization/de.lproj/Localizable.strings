@@ -635,3 +635,10 @@
 "Remove" = "Entfernen";
 "openCustomListSelectorWhenAdding" = "Listenauswahl beim Hinzufügen öffnen";
 "showConfirmationOnRemovingItem" = "Bestätigung beim Entfernen anzeigen";
+"S%d, E%d" = "S%d, E%d";
+"Premiere" = "Premiere";
+"Theatrical Limited" = "Kino (begrenzt)";
+"Theatrical" = "Kino";
+"Digital" = "Digital";
+"Physical" = "Physisch";
+"TV" = "TV";

@@ -76,8 +76,8 @@ struct ItemContentDetails: View {
                     ToolbarItem(placement: .status) {
                         ViewThatFits {
                             HStack {
-                                watchButton
                                 favoriteButton
+                                pinButton
                                 shareButton
                             }
                             shareButton
@@ -88,7 +88,6 @@ struct ItemContentDetails: View {
                     ToolbarItem {
                         ViewThatFits {
                             HStack {
-                                watchButton
                                 favoriteButton
                                 archiveButton
                                 pinButton
@@ -97,7 +96,6 @@ struct ItemContentDetails: View {
                             }
                             shareButton
                         }
-                        
                     }
                 }
 #endif
@@ -243,9 +241,6 @@ struct ItemContentDetails: View {
                 pinButton
                 userNotesButton
             }
-#if !os(iOS)
-            watchButton
-#endif
             favoriteButton
 #if os(iOS)
             openInMenu

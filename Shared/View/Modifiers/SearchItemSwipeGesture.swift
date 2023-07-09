@@ -27,7 +27,7 @@ struct SearchItemSwipeGesture: ViewModifier {
                 } else {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation)
+                                    showConfirmation: $showConfirmation, showListSelector: .constant(false))
                     .tint(.blue)
                 }
             }
@@ -35,7 +35,7 @@ struct SearchItemSwipeGesture: ViewModifier {
                 if isInWatchlist {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation)
+                                    showConfirmation: $showConfirmation, showListSelector: .constant(false))
                 }
             }
     }

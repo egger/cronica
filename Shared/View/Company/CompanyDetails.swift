@@ -26,6 +26,9 @@ struct CompanyDetails: View {
             }
             .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             .navigationTitle(company.name)
+#if os(iOS)
+            .navigationBarTitleDisplayMode(.large)
+#endif
             .onAppear {
                 Task {
                     await viewModel.load(company.id)

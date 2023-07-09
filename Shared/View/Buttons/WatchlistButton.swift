@@ -11,6 +11,7 @@ struct WatchlistButton: View {
     let id: String
     @Binding var isInWatchlist: Bool
     @Binding var showConfirmation: Bool
+    @Binding var showListSelector: Bool
     private let persistence = PersistenceController.shared
     private let notification = NotificationManager.shared
     var body: some View {
@@ -63,6 +64,7 @@ struct WatchlistButton: View {
             registerNotification(content)
             displayConfirmation()
             if content.itemContentMedia == .tvShow { addFirstEpisodeToUpNext(content) }
+            showListSelector.toggle()
         }
     }
     
@@ -98,6 +100,8 @@ struct WatchlistButton: View {
 struct WatchlistButton_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistButton(id: ItemContent.example.itemContentID,
-                        isInWatchlist: .constant(true), showConfirmation: .constant(false))
+                        isInWatchlist: .constant(true),
+                        showConfirmation: .constant(false),
+                        showListSelector: .constant(false))
     }
 }

@@ -27,14 +27,45 @@ struct OverviewBoxView: View {
                             .font(.callout)
                             .padding([.top], 2)
                             .lineLimit(showFullText ? nil : 4)
+                            .multilineTextAlignment(.leading)
+#if os(iOS)
+                            .background(
+                                // Render the limited text and measure its size
+                                Text(overview)
+                                    .lineLimit(4)
+                                    .font(.callout)
+                                    .padding([.top], 2)
+                                    .background(GeometryReader { displayedGeometry in
+                                        // Create a ZStack with unbounded height to allow the inner Text as much
+                                        // height as it likes, but no extra width.
+                                        ZStack {
+                                            // Render the text without restrictions and measure its size
+                                            Text(overview)
+                                                .font(.callout)
+                                                .padding([.top], 2)
+                                                .background(GeometryReader { fullGeometry in
+                                                    // And compare the two
+                                                    Color.clear.onAppear {
+                                                        self.isTruncated = fullGeometry.size.height > displayedGeometry.size.height
+                                                    }
+                                                })
+                                        }
+                                        .frame(height: .greatestFiniteMagnitude)
+                                    })
+                                    .hidden() // Hide the background
+                            )
+#endif
                         
 #if os(iOS)
-                        Text(showFullText ? "Collapse" : "Show More")
-                            .fontDesign(.rounded)
-                            .textCase(.uppercase)
-                            .font(.caption)
-                            .foregroundStyle(settings.appTheme.color)
-                            .padding(.top, 4)
+                        if isTruncated {
+                            Text(showFullText ? "Collapse" : "Show More")
+                                .fontDesign(.rounded)
+                                .textCase(.uppercase)
+                                .font(.caption)
+                                .foregroundStyle(settings.appTheme.color)
+                                .padding(.top, 4)
+                            
+                        }
 #endif
                     }
                 } label: {
@@ -65,10 +96,6 @@ struct OverviewBoxView: View {
             }
         }
     }
-    
-#if os(iOS)
-    
-#endif
 }
 
 struct OverviewBoxView_Previews: PreviewProvider {

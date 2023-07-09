@@ -44,7 +44,8 @@ struct ItemContentContextMenu: ViewModifier {
                 }
                 WatchlistButton(id: item.itemContentID,
                                 isInWatchlist: $isInWatchlist,
-                                showConfirmation: $showConfirmation)
+                                showConfirmation: $showConfirmation,
+                                showListSelector: $showCustomListView)
             } preview: {
                 ContextMenuPreviewImage(title: item.itemTitle,
                                         image: item.cardImageLarge,
