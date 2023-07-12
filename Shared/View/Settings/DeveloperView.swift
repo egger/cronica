@@ -86,6 +86,7 @@ struct DeveloperView: View {
             Section {
                 Text("User Region: \(Locale.userRegion)")
                 Text("User Lang: \(Locale.userLang)")
+                Text("Is TelemetryDeck Initialized: \(CronicaTelemetry.shared.isTelemetryDeckInitialized)")
                 Text("Last maintenance: \(BackgroundManager.shared.lastMaintenance?.convertDateToString() ?? "Nil")")
                 Text("Last watching refresh: \(BackgroundManager.shared.lastWatchingRefresh?.convertDateToString() ?? "Nil")")
                 Text("Last upcoming refresh: \(BackgroundManager.shared.lastUpcomingRefresh?.convertDateToString() ?? "Nil")")

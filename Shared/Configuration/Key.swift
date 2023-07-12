@@ -11,9 +11,23 @@ import Foundation
 ///
 /// The values for each key is defined in an environment variable.
 struct Key {
-    #warning("Please, check your TMDB API.")
-    static let tmdbApi = ProcessInfo.processInfo.environment["tmdb_api"]
-    #warning("TelemetryDeck service is used to track crashes, you can remove it. Read README file for more.")
-    static let telemetryClientKey: String? = ProcessInfo.processInfo.environment["telemetry_client_key"]
-    static let authorizationHeader: String? = nil
+    #warning("You can also place your API Key here, the actual setup is just to make it work better with Xcode Cloud.")
+    static var tmdbApi: String {
+        let infoKey = "CRONICA_API_KEY_TMDB"
+        guard let apiKey = Bundle.main.infoDictionary?[infoKey] as? String else { return String() }
+        return apiKey
+    }
+    #warning("This is only for production code, you can remove it if you want to.")
+    static var telemetryClientKey: String? {
+        let infoKey = "CRONICA_API_KEY_TELEMETRYDECK"
+        guard let apiKey = Bundle.main.infoDictionary?[infoKey] as? String else { return nil }
+        if apiKey.isEmpty { return nil }
+        return apiKey
+    }
+    static var authorizationHeader: String? {
+        let infoKey = "CRONICA_API_KEY_TMDB_AuthorizationHeader"
+        guard let apiKey = Bundle.main.infoDictionary?[infoKey] as? String else { return nil }
+        if apiKey.isEmpty { return nil }
+        return apiKey
+    }
 }

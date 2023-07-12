@@ -38,4 +38,8 @@ struct CronicaTelemetry {
         }
 #endif
     }
+    
+    var isTelemetryDeckInitialized: String {
+        return TelemetryManager.isInitialized.description 
+    }
 }
