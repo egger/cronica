@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CRONICA_API_KEY_TMDB_AuthorizationHeader</key>
-	<string></string>
-	<key>CRONICA_API_KEY_TELEMETRYDECK</key>
-	<string></string>
-	<key>CRONICA_API_KEY_TMDB</key>
-	<string></string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>dev.alexandremadeira.cronica.backgroundUpcomingRefreshIdentifier</string>

@@ -471,7 +471,6 @@
 		B824E4352A04945400E385CE /* ItemContentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentRow.swift; sourceTree = "<group>"; };
 		B824E43F2A059E2400E385CE /* TransparentGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentGroupBox.swift; sourceTree = "<group>"; };
 		B824E4432A05A4C500E385CE /* InfoSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSegmentView.swift; sourceTree = "<group>"; };
-		B8277DDE2A5F60CD003B4408 /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 		B82B759F28A84D6600C3212A /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
 		B82B75A328A84DBA00C3212A /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
 		B82BE4D8299BF35D005F9990 /* PersistenceController-WatchlistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceController-WatchlistItem.swift"; sourceTree = "<group>"; };
@@ -734,7 +733,6 @@
 		B8110ED2279245D000844FEB = {
 			isa = PBXGroup;
 			children = (
-				B8277DDD2A5F6007003B4408 /* ci_scripts */,
 				B806C4DF2899BE2800A5330E /* AppleWatch */,
 				B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */,
 				B88B88FC29DF194A00497058 /* CronicaTests */,
@@ -950,14 +948,6 @@
 				B8105264298F58E100723E94 /* CompanyDetails.swift */,
 			);
 			path = Company;
-			sourceTree = "<group>";
-		};
-		B8277DDD2A5F6007003B4408 /* ci_scripts */ = {
-			isa = PBXGroup;
-			children = (
-				B8277DDE2A5F60CD003B4408 /* ci_pre_xcodebuild.sh */,
-			);
-			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		B82B759128A84C0F00C3212A /* Components */ = {
