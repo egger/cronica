@@ -73,7 +73,7 @@ struct ItemContentConfirmationRow: View {
                                 showConfirmation: $showConfirmation,
                                 isInWatchlist: $isItemAdded,
                                 showNote: $showNote,
-                                showCustomList: $showCustomListView)
+                                showCustomList: $showCustomListView, popupConfirmationType: .constant(nil), showConfirmationPopup: $showConfirmation)
     }
 }
 

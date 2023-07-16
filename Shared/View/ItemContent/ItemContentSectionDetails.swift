@@ -11,6 +11,7 @@ struct ItemContentSectionDetails: View {
     let title: String
     let items: [ItemContent]
     @State private var showConfirmation = false
+    @State private var popupConfirmationType: ActionPopupItems?
     @State private var settings = SettingsStore.shared
     var body: some View {
         ZStack {
@@ -24,7 +25,7 @@ struct ItemContentSectionDetails: View {
                 }
                 .navigationTitle(LocalizedStringKey(title))
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
+            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
         }
     }
     
@@ -32,7 +33,7 @@ struct ItemContentSectionDetails: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(items) { item in
-                CardFrame(item: item, showConfirmation: $showConfirmation)
+                CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
         }
@@ -45,14 +46,14 @@ struct ItemContentSectionDetails: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
         }.padding(.all, settings.isCompactUI ? 10 : nil)
 #elseif os(macOS)
         LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
             ForEach(items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
         }

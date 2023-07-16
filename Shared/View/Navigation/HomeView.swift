@@ -20,6 +20,7 @@ struct HomeView: View {
     @State private var reloadUpNext = false
     @State private var showWhatsNew = false
     @State private var hasNotifications = false
+    @State private var popupConfirmationType: ActionPopupItems?
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
@@ -30,20 +31,23 @@ struct HomeView: View {
                     PinItemsList()
                     HorizontalPinnedList()
                     HorizontalItemContentListView(items: viewModel.trending,
-                                        title: "Trending",
-                                        subtitle: "Today",
-                                        addedItemConfirmation: $showConfirmation)
+                                                  title: "Trending",
+                                                  subtitle: "Today",
+                                                  addedItemConfirmation: $showConfirmation,
+                                                  popupConfirmationType: $popupConfirmationType)
                     ForEach(viewModel.sections) { section in
                         HorizontalItemContentListView(items: section.results,
-                                            title: section.title,
-                                            subtitle: section.subtitle,
-                                            addedItemConfirmation: $showConfirmation,
-                                            endpoint: section.endpoint)
+                                                      title: section.title,
+                                                      subtitle: section.subtitle,
+                                                      addedItemConfirmation: $showConfirmation,
+                                                      popupConfirmationType: $popupConfirmationType,
+                                                      endpoint: section.endpoint)
                     }
                     HorizontalItemContentListView(items: viewModel.recommendations,
-                                        title: "recommendationsTitle",
-                                        subtitle: "recommendationsSubtitle",
-                                        addedItemConfirmation: $showConfirmation)
+                                                  title: "recommendationsTitle",
+                                                  subtitle: "recommendationsSubtitle",
+                                                  addedItemConfirmation: $showConfirmation,
+                                                  popupConfirmationType: $popupConfirmationType)
                     .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                     AttributionView()
                 }
@@ -52,9 +56,10 @@ struct HomeView: View {
                     viewModel.reload()
                 }
             }
-            #if os(tvOS)
+            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
+#if os(tvOS)
             .ignoresSafeArea(.all, edges: .horizontal)
-            #endif
+#endif
             .onAppear {
                 checkVersion()
 #if os(iOS) || os(macOS)
@@ -149,10 +154,11 @@ struct HomeView: View {
                     } label: {
                         Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
                             .imageScale(.medium)
+                            .foregroundColor(.white)
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.borderedProminent)
                     .clipShape(Circle())
-                    .tint(SettingsStore.shared.appTheme.color)
+                    .tint(SettingsStore.shared.appTheme.color.opacity(0.8))
                     .shadow(radius: 5)
                     .accessibilityLabel("Notifications")
                 }
@@ -176,7 +182,6 @@ struct HomeView: View {
             .task {
                 await viewModel.load()
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
     }
     
@@ -187,7 +192,7 @@ struct HomeView: View {
             return
         } else {
             if currentVersion != lastSeenVersion {
-               // showWhatsNew.toggle()
+                // showWhatsNew.toggle()
                 UserDefaults.standard.set(currentVersion, forKey: UserDefaults.lastSeenAppVersionKey)
             }
         }

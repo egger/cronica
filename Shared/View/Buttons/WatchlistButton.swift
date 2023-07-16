@@ -12,6 +12,7 @@ struct WatchlistButton: View {
     @Binding var isInWatchlist: Bool
     @Binding var showConfirmation: Bool
     @Binding var showListSelector: Bool
+    @Binding var popupConfirmationType: ActionPopupItems?
     private let persistence = PersistenceController.shared
     private let notification = NotificationManager.shared
     var body: some View {
@@ -19,8 +20,8 @@ struct WatchlistButton: View {
             if !isInWatchlist { HapticManager.shared.successHaptic() }
             updateWatchlist()
         } label: {
-            Label(isInWatchlist ? "Remove from watchlist": "Add to watchlist",
-                  systemImage: isInWatchlist ? "minus.square" : "plus.square")
+            Label(isInWatchlist ? "Remove": "Add to watchlist",
+                  systemImage: isInWatchlist ? "minus.circle" : "plus.circle")
 #if os(macOS)
             .foregroundColor(isInWatchlist ? .red : nil)
             .labelStyle(.titleOnly)
@@ -43,9 +44,7 @@ struct WatchlistButton: View {
                 notification.removeNotification(identifier: id)
             }
             persistence.delete(watchlistItem)
-            withAnimation {
-                isInWatchlist.toggle()
-            }
+            displayConfirmation()
         }
     }
     
@@ -64,7 +63,10 @@ struct WatchlistButton: View {
             registerNotification(content)
             displayConfirmation()
             if content.itemContentMedia == .tvShow { addFirstEpisodeToUpNext(content) }
-            showListSelector.toggle()
+            if SettingsStore.shared.openListSelectorOnAdding {
+                showListSelector.toggle()
+            }
+            popupConfirmationType = .addedWatchlist
         }
     }
     
@@ -78,11 +80,7 @@ struct WatchlistButton: View {
         withAnimation {
             showConfirmation.toggle()
             isInWatchlist.toggle()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-            withAnimation {
-                showConfirmation = false
-            }
+            popupConfirmationType = isInWatchlist ? .addedWatchlist : .removedWatchlist
         }
     }
     
@@ -102,6 +100,7 @@ struct WatchlistButton_Previews: PreviewProvider {
         WatchlistButton(id: ItemContent.example.itemContentID,
                         isInWatchlist: .constant(true),
                         showConfirmation: .constant(false),
-                        showListSelector: .constant(false))
+                        showListSelector: .constant(false),
+                        popupConfirmationType: .constant(.addedWatchlist))
     }
 }

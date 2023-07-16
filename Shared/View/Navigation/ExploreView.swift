@@ -12,6 +12,7 @@ struct ExploreView: View {
     @State private var showConfirmation = false
     @State private var onChanging = false
     @State private var showFilters = false
+    @State private var popupConfirmationType: ActionPopupItems?
     @StateObject private var viewModel = ExploreViewModel()
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -86,8 +87,7 @@ struct ExploreView: View {
                     }
                 }
             }
-            
-            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
+            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
         }
         .sheet(isPresented: $showFilters, content: {
             NavigationStack {
@@ -212,7 +212,7 @@ struct ExploreView: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showConfirmation: $showConfirmation)
+                CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
@@ -238,7 +238,7 @@ struct ExploreView: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
@@ -255,8 +255,7 @@ struct ExploreView: View {
                         }
                 }
             }
-        }
-                  .padding(.all, settings.isCompactUI ? 10 : nil)
+        }.padding(.all, settings.isCompactUI ? 10 : nil)
     }
     
 #if os(iOS) || os(macOS)

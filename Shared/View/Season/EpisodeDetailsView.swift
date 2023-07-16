@@ -11,12 +11,12 @@ struct EpisodeDetailsView: View {
     let episode: Episode
     let season: Int
     let show: Int
+    let showTitle: String
     private let persistence = PersistenceController.shared
     @Binding var isWatched: Bool
     @State private var isInWatchlist = false
-    var isUpNext = false
-    @State private var showItem: ItemContent?
     @State private var showOverview = false
+    @StateObject private var settings = SettingsStore.shared
 #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 #endif
@@ -117,58 +117,51 @@ struct EpisodeDetailsView: View {
                 
                 
                 if let info = episode.itemInfo {
-                    CenterHorizontalView {
-                        Text(info)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                    Text(episode.itemTitle)
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .padding(.top, 8)
+                        .padding(.horizontal)
+                        .padding(.bottom, 0.5)
+                        .multilineTextAlignment(.center)
+                    Text(showTitle)
+                        .multilineTextAlignment(.center)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+                    if !info.isEmpty {
+                        CenterHorizontalView {
+                            Text(info)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.bottom, 4)
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding([.top, .horizontal])
                 }
                 
-                WatchEpisodeButton(episode: episode,
-                                   season: season,
-                                   show: show,
-                                   isWatched: $isWatched)
-                .tint(isWatched ? .red : .blue)
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .padding(.horizontal)
-                .keyboardShortcut("e", modifiers: [.control])
-#if os(iOS)
-                .buttonBorderShape(.capsule)
-                .shadow(radius: 5)
-#endif
-                
-#if os(iOS)
-                if let showItem {
-                    NavigationLink(value: showItem) {
-                        Label("tvShowDetails", systemImage: "chevron.forward")
-                            .foregroundColor(.white)
-                            .frame(minWidth: 100)
-                    }
-                    .tint(.black)
+                HStack {
+                    WatchEpisodeButton(episode: episode,
+                                       season: season,
+                                       show: show,
+                                       isWatched: $isWatched)
+                    .tint(isWatched ? .red.opacity(0.9) : settings.appTheme.color)
                     .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle(radius: 12))
                     .controlSize(.large)
-                    .padding([.horizontal, .top])
-                    .buttonBorderShape(.capsule)
-                    .shadow(radius: 5)
+                    .frame(height: 60)
+                    .padding(.horizontal)
+                    .keyboardShortcut("e", modifiers: [.control])
+                    .shadow(radius: 2.5)
                 }
-#endif
-                
+                .padding(.vertical)
+                 
                 OverviewBoxView(overview: episode.itemOverview,
                                 title: episode.itemTitle,
                                 type: .tvShow)
                 .padding()
             }
-            .navigationTitle(episode.itemTitle)
             .task { load() }
-            .onAppear {
-                if isUpNext {
-                    Task {
-                        showItem = try? await NetworkService.shared.fetchItem(id: show, type: .tvShow)
-                    }
-                }
-            }
         }
         .background {
             TranslucentBackground(image: episode.itemImageLarge)
@@ -182,9 +175,11 @@ struct EpisodeDetailsView: View {
             PersonDetailsView(title: person.name, id: person.id)
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
-            let keys = item.map { (key, _) in key }
-            let value = item.map { (_, value) in value }
-            ItemContentSectionDetails(title: keys[0], items: value[0])
+            let keys = item.map { (key, _) in key }.first
+            let value = item.map { (_, value) in value }.first
+            if let keys, let value {
+                ItemContentSectionDetails(title: keys, items: value)
+            }
         }
         .navigationDestination(for: [Person].self) { items in
             DetailedPeopleList(items: items)

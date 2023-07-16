@@ -12,6 +12,7 @@ struct ItemContentPhoneView: View {
     let type: MediaType
     let id: Int
     @Binding var showConfirmation: Bool
+    @Binding var showWatchedPopup: Bool
     @EnvironmentObject var viewModel: ItemContentViewModel
     @StateObject private var store = SettingsStore.shared
     @State private var animateGesture = false
@@ -19,6 +20,8 @@ struct ItemContentPhoneView: View {
     @State private var showReleaseDateInfo = false
     @Binding var showCustomList: Bool
     @State private var navigationTitle = String()
+    @Binding var showActionPopup: Bool
+    @Binding var popupConfirmationType: ActionPopupItems?
     var body: some View {
         VStack {
             cover
@@ -29,7 +32,7 @@ struct ItemContentPhoneView: View {
                             title: title).padding()
             
             if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, numberOfSeasons: seasons)
+                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons)
                     .padding([.top, .horizontal], .zero)
                     .padding(.bottom)
             }
@@ -43,6 +46,7 @@ struct ItemContentPhoneView: View {
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
                                           addedItemConfirmation: $showConfirmation,
+                                          popupConfirmationType: $popupConfirmationType,
                                           displayAsCard: true)
             
             infoBox(item: viewModel.content, type: type).padding()
@@ -66,11 +70,12 @@ struct ItemContentPhoneView: View {
         HStack {
             if viewModel.isInWatchlist {
                 Button {
-                    animate(for: .watched)
                     viewModel.update(.watched)
+                    popupConfirmationType = viewModel.isWatched ? .markedWatched : .removedWatched
+                    withAnimation { showActionPopup = true }
                 } label: {
                     VStack {
-                        Image(systemName: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                        Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
                         Text("Watched")
                             .padding(.top, 2)
                             .font(.caption)
@@ -248,7 +253,7 @@ struct ItemContentPhoneView: View {
                                             .font(.caption)
                                     }
                                     Text(company)
-                                        .lineLimit(1)
+                                        .multilineTextAlignment(.leading)
                                         .font(.caption2)
                                         .foregroundColor(.secondary)
                                     Spacer()
@@ -281,6 +286,7 @@ struct ItemContentPhoneView: View {
                         Text(title)
                             .font(.caption)
                         Text(content)
+                            .multilineTextAlignment(.leading)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }

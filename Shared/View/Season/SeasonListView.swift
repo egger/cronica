@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SeasonList: View {
     let showID: Int
+    let showTitle: String
     let numberOfSeasons: [Int]
     @State private var lastSelectedSeason = 0
     @State private var selectedSeason = 1
@@ -96,7 +97,10 @@ struct SeasonList: View {
                             VStack {
                                 LazyHStack {
                                     ForEach(season) { item in
-                                        EpisodeFrameView(episode: item, season: selectedSeason, show: showID,
+                                        EpisodeFrameView(episode: item,
+                                                         season: selectedSeason,
+                                                         show: showID,
+                                                         showTitle: showTitle,
                                                          checkedIfWatched: $checkIfWatched)
 #if os(tvOS)
                                         .frame(width: 360)

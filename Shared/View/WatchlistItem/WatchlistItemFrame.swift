@@ -26,15 +26,16 @@ struct WatchlistItemFrame: View {
                                           isPin: $isPin,
                                           isArchive: $isArchive,
                                           showNote: $showNote,
-                                          showCustomList: $showCustomListView)
+                                          showCustomList: $showCustomListView, popupConfirmationType: .constant(nil),
+                                          showConfirmationPopup: .constant(false))
             }
             HStack {
                 Text(content.itemTitle)
                     .font(.caption)
                     .lineLimit(DrawingConstants.titleLineLimit)
-                #if os(tvOS)
+#if os(tvOS)
                     .foregroundColor(.secondary)
-                #endif
+#endif
                 Spacer()
             }
             Spacer()
@@ -57,8 +58,8 @@ struct WatchlistItemFrame: View {
 #if os(macOS)
             .frame(width: 400, height: 400, alignment: .center)
 #elseif os(iOS)
-                .appTheme()
-                .appTint()
+            .appTheme()
+            .appTint()
 #endif
         }
         .sheet(isPresented: $showCustomListView) {

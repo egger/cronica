@@ -16,6 +16,8 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var isArchive: Bool
     @Binding var showNote: Bool
     @Binding var showCustomListView: Bool
+    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var showConfirmationPopup: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
     private let settings = SettingsStore.shared
@@ -23,7 +25,7 @@ struct WatchlistItemContextMenu: ViewModifier {
 #if os(watchOS)
         return content
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                WatchedButton(id: item.itemContentID, isWatched: $isWatched)
+                watchedButton
                     .tint(item.isWatched ? .yellow : .green)
                     .disabled(item.isInProduction || item.isUpcoming)
                 pinButton
@@ -73,19 +75,31 @@ struct WatchlistItemContextMenu: ViewModifier {
     }
     
     private var watchedButton: some View {
-        WatchedButton(id: item.itemContentID, isWatched: $isWatched)
+        WatchedButton(id: item.itemContentID,
+                      isWatched: $isWatched,
+                      popupConfirmationType: $popupConfirmationType,
+                      showConfirmationPopup: $showConfirmationPopup)
     }
     
     private var favoriteButton: some View {
-        FavoriteButton(id: item.itemContentID, isFavorite: $isFavorite)
+        FavoriteButton(id: item.itemContentID,
+                       isFavorite: $isFavorite,
+                       popupConfirmationType: $popupConfirmationType,
+                       showConfirmationPopup: $showConfirmationPopup)
     }
     
     private var pinButton: some View {
-        PinButton(id: item.itemContentID, isPin: $isPin)
+        PinButton(id: item.itemContentID,
+                  isPin: $isPin,
+                  popupConfirmationType: $popupConfirmationType,
+                  showConfirmationPopup: $showConfirmationPopup)
     }
     
     private var archiveButton: some View {
-        ArchiveButton(id: item.itemContentID, isArchive: $isArchive)
+        ArchiveButton(id: item.itemContentID,
+                      isArchive: $isArchive,
+                      popupConfirmationType: $popupConfirmationType,
+                      showConfirmationPopup: $showConfirmationPopup)
     }
     
 #if os(iOS) || os(macOS)
@@ -164,7 +178,7 @@ struct WatchlistItemContextMenu: ViewModifier {
             Text("Remove")
                 .foregroundColor(.red)
 #else
-            Label("Remove", systemImage: "trash")
+            Label("Remove", systemImage: "minus.circle.fill")
 #endif
         }
         .tint(.red)

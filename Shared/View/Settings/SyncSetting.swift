@@ -78,7 +78,6 @@ struct SyncSetting: View {
 #if os(macOS)
             .formStyle(.grouped)
 #endif
-            ConfirmationDialogView(showConfirmation: $hasImported, message: "importedSucceeded")
         }
     }
     

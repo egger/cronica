@@ -42,7 +42,9 @@ struct SearchItemView: View {
                                             showConfirmation: $showConfirmation,
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote,
-                                            showCustomList: $showCustomListView)
+                                            showCustomList: $showCustomListView,
+                                            popupConfirmationType: .constant(nil),
+                    showConfirmationPopup: $showConfirmation)
                     .modifier(
                         SearchItemSwipeGesture(item: item,
                                                showConfirmation: $showConfirmation,
@@ -91,7 +93,7 @@ struct SearchItemView: View {
                                                 showConfirmation: $showConfirmation,
                                                 isInWatchlist: $isInWatchlist,
                                                 showNote: $showNote,
-                                                showCustomList: $showCustomListView)
+                                                showCustomList: $showCustomListView, popupConfirmationType: .constant(nil), showConfirmationPopup: $showConfirmation)
                         .modifier(
                             SearchItemSwipeGesture(item: item,
                                                    showConfirmation: $showConfirmation,

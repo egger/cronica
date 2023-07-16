@@ -17,11 +17,10 @@ struct ItemContentDetails: View {
     @State private var showConfirmation = false
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
-    @State private var showNotificationUI = false
-    @State private var notificationMessage = ""
-    @State private var notificationImage = ""
     @State private var showCustomList = false
     @State private var showUserNotes = false
+    @State private var showConfirmationPopup = false
+    @State private var popupConfirmationType: ActionPopupItems?
 #if os(macOS)
     var handleToolbarOnPopup: Bool = false
 #endif
@@ -47,8 +46,14 @@ struct ItemContentDetails: View {
                     ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showConfirmation: $showConfirmation)
                         .environmentObject(viewModel)
                 } else {
-                    ItemContentPhoneView(title: title, type: type, id: id,
-                                         showConfirmation: $showConfirmation, showCustomList: $showCustomList)
+                    ItemContentPhoneView(title: title,
+                                         type: type,
+                                         id: id,
+                                         showConfirmation: $showConfirmation,
+                                         showWatchedPopup: .constant(false),
+                                         showCustomList: $showCustomList,
+                                         showActionPopup: $showConfirmationPopup,
+                                         popupConfirmationType: $popupConfirmationType)
                         .environmentObject(viewModel)
                 }
 #endif
@@ -61,6 +66,7 @@ struct ItemContentDetails: View {
                 viewModel.registerNotification()
                 viewModel.checkIfAdded()
             }
+            .actionPopup(isShowing: $showConfirmationPopup, for: popupConfirmationType)
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .toolbar {
 #if os(iOS)
@@ -137,9 +143,7 @@ struct ItemContentDetails: View {
 #endif
                 }
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
-            ConfirmationDialogView(showConfirmation: $showNotificationUI,
-                                   message: notificationMessage, image: notificationImage)
+            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
 #elseif os(tvOS)
             ItemContentTVView(title: title, type: type, id: id)
                 .environmentObject(viewModel)
@@ -157,8 +161,8 @@ struct ItemContentDetails: View {
     
     private var watchButton: some View {
         Button {
-            animate(for: .watched)
             viewModel.update(.watched)
+            animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
         } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
@@ -170,8 +174,8 @@ struct ItemContentDetails: View {
     
     private var favoriteButton: some View {
         Button {
-            animate(for: .favorite)
             viewModel.update(.favorite)
+            animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
         } label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
                   systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
@@ -183,8 +187,8 @@ struct ItemContentDetails: View {
     
     private var archiveButton: some View {
         Button {
-            animate(for: .archive)
             viewModel.update(.archive)
+            animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
         } label: {
             Label(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox")
@@ -193,8 +197,8 @@ struct ItemContentDetails: View {
     
     private var pinButton: some View {
         Button {
-            animate(for: .pin)
             viewModel.update(.pin)
+            animate(for: viewModel.isPin ? .markedPin : .removedPin)
         } label: {
             Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
                   systemImage: viewModel.isPin ? "pin.slash.fill" : "pin.fill")
@@ -270,27 +274,9 @@ struct ItemContentDetails: View {
 #endif
     }
     
-    private func animate(for action: UpdateItemProperties) {
-        switch action {
-        case .watched:
-            notificationMessage = viewModel.isWatched ? "removedFromWatched" : "markedAsWatched"
-            notificationImage = viewModel.isWatched ? "minus.circle" : "checkmark.circle.fill"
-        case .favorite:
-            notificationMessage = viewModel.isFavorite ? "removedFromFavorites" : "markedAsFavorite"
-            notificationImage = viewModel.isFavorite ? "heart.slash.fill" : "heart.circle.fill"
-        case .pin:
-            notificationMessage = viewModel.isPin ? "removedFromPin" : "markedAsPin"
-            notificationImage = viewModel.isPin ? "pin.slash.fill" : "pin.fill"
-        case .archive:
-            notificationMessage = viewModel.isArchive ? "removedFromArchive" : "markedAsArchive"
-            notificationImage = viewModel.isArchive ? "archivebox.fill" : "archivebox"
-        }
-        withAnimation { showNotificationUI.toggle() }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-            withAnimation {
-                showNotificationUI = false
-            }
-        }
+    private func animate(for action: ActionPopupItems) {
+        popupConfirmationType = action
+        withAnimation { showConfirmationPopup = true }
     }
 }
 

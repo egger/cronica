@@ -14,6 +14,7 @@ struct EpisodeFrameView: View {
     let episode: Episode
     let season: Int
     let show: Int
+    let showTitle: String
     private let persistence = PersistenceController.shared
     @EnvironmentObject var viewModel: SeasonViewModel
     @State private var isWatched = false
@@ -168,7 +169,7 @@ struct EpisodeFrameView: View {
                 EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
 #else
                 NavigationStack {
-                    EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
+                    EpisodeDetailsView(episode: episode, season: season, show: show, showTitle: showTitle, isWatched: $isWatched)
                         .toolbar {
                             ToolbarItem {
                                 Button("Done") { showDetails = false }

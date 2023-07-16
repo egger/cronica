@@ -14,6 +14,7 @@ struct HorizontalItemContentListView: View {
     let title: String
     var subtitle = String()
     @Binding var addedItemConfirmation: Bool
+    @Binding var popupConfirmationType: ActionPopupItems?
     var displayAsCard = false
     var endpoint: Endpoints?
     @StateObject private var settings = SettingsStore.shared
@@ -65,7 +66,7 @@ struct HorizontalItemContentListView: View {
         if let items {
             LazyHStack {
                 ForEach(items) { item in
-                    CardFrame(item: item, showConfirmation: $addedItemConfirmation)
+                    CardFrame(item: item, showConfirmation: $addedItemConfirmation, popupConfirmationType: $popupConfirmationType)
 #if !os(tvOS)
                         .padding([.leading, .trailing], 4)
                         .padding(.leading, item.id == items.first!.id ? 16 : 0)
@@ -89,7 +90,7 @@ struct HorizontalItemContentListView: View {
             LazyHStack {
                 ForEach(items) { item in
                     Poster(item: item,
-                           addedItemConfirmation: $addedItemConfirmation)
+                           addedItemConfirmation: $addedItemConfirmation, popupConfirmationType: $popupConfirmationType)
 #if !os(tvOS)
                     .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                     .padding(.leading, item.id == items.first!.id ? 16 : 0)
@@ -116,7 +117,7 @@ struct ItemContentListView_Previews: PreviewProvider {
         HorizontalItemContentListView(items: ItemContent.examples,
                                       title: "Favorites",
                                       subtitle: "Favorites Movies",
-                                      addedItemConfirmation: .constant(false))
+                                      addedItemConfirmation: .constant(false), popupConfirmationType: .constant(nil))
     }
 }
 

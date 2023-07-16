@@ -139,8 +139,8 @@ struct HorizontalUpNextListView: View {
                     EpisodeDetailsView(episode: item.episode,
                                        season: item.episode.itemSeasonNumber,
                                        show: item.showID,
-                                       isWatched: $isWatched,
-                                       isUpNext: true)
+                                       showTitle: item.showTitle,
+                                       isWatched: $isWatched)
 #if os(macOS) || os(iOS)
                     .toolbar { Button("Done") { selectedEpisode = nil } }
 #endif

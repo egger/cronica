@@ -12,6 +12,7 @@ struct SearchItemSwipeGesture: ViewModifier {
     @Binding var showConfirmation: Bool
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
+    //@Binding var popupConfirmationType: ActionPopupItems?
     @State private var isFavorite = false
     private let context = PersistenceController.shared
     private let network = NetworkService.shared
@@ -20,14 +21,20 @@ struct SearchItemSwipeGesture: ViewModifier {
         return content
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 if isInWatchlist {
-                    WatchedButton(id: item.itemContentID, isWatched: $isWatched)
+                    WatchedButton(id: item.itemContentID,
+                                  isWatched: $isWatched,
+                                  popupConfirmationType: .constant(nil),
+                                  showConfirmationPopup: .constant(false))
                         .tint(isWatched ? .yellow : .green)
-                    FavoriteButton(id: item.itemContentID, isFavorite: $isFavorite)
+                    FavoriteButton(id: item.itemContentID,
+                                   isFavorite: $isFavorite,
+                                   popupConfirmationType: .constant(nil),
+                                   showConfirmationPopup: .constant(false))
                         .tint(isFavorite ? .orange : .blue)
                 } else {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation, showListSelector: .constant(false))
+                                    showConfirmation: $showConfirmation, showListSelector: .constant(false), popupConfirmationType: .constant(nil))
                     .tint(.blue)
                 }
             }
@@ -35,7 +42,7 @@ struct SearchItemSwipeGesture: ViewModifier {
                 if isInWatchlist {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation, showListSelector: .constant(false))
+                                    showConfirmation: $showConfirmation, showListSelector: .constant(false), popupConfirmationType: .constant(nil))
                 }
             }
     }

@@ -76,7 +76,7 @@ struct SearchView: View {
                 }
             }
             .overlay(searchResults)
-            ConfirmationDialogView(showConfirmation: $showInformationPopup, message: "addedToWatchlist")
+            .actionPopup(isShowing: $showInformationPopup, for: nil)
         }
     }
     

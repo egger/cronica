@@ -79,8 +79,8 @@ struct VerticalUpNextListView: View {
                     EpisodeDetailsView(episode: item.episode,
                                        season: item.episode.itemSeasonNumber,
                                        show: item.showID,
-                                       isWatched: $isWatched,
-                                       isUpNext: true)
+                                       showTitle: item.showTitle,
+                                       isWatched: $isWatched)
                     .toolbar {
                         Button("Done") { selectedEpisode = nil }
                     }

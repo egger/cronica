@@ -16,6 +16,7 @@ struct Poster: View {
     @State private var showNote = false
     @State private var showCustomListView = false
     @Binding var addedItemConfirmation: Bool
+    @Binding var popupConfirmationType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         NavigationLink(value: item) {
@@ -87,7 +88,9 @@ struct Poster: View {
                                     showConfirmation: $addedItemConfirmation,
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote,
-                                    showCustomList: $showCustomListView)
+                                    showCustomList: $showCustomListView,
+                                    popupConfirmationType: $popupConfirmationType,
+                                    showConfirmationPopup: $addedItemConfirmation)
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.itemContentID)
@@ -146,7 +149,7 @@ struct Poster: View {
 
 struct Poster_Previews: PreviewProvider {
     static var previews: some View {
-        Poster(item: .example, addedItemConfirmation: .constant(false))
+        Poster(item: .example, addedItemConfirmation: .constant(false), popupConfirmationType: .constant(nil))
     }
 }
 

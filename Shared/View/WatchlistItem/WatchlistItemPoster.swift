@@ -78,7 +78,7 @@ struct WatchlistItemPoster: View {
                                   isPin: $isPin,
                                   isArchive: $isArchive,
                                   showNote: $showNote,
-                                  showCustomList: $showCustomListView)
+                                  showCustomList: $showCustomListView, popupConfirmationType: .constant(nil), showConfirmationPopup: .constant(false))
             .task {
                 isWatched = content.isWatched
                 isFavorite = content.isFavorite

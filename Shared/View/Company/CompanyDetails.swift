@@ -10,6 +10,7 @@ import SwiftUI
 struct CompanyDetails: View {
     let company: ProductionCompany
     @State private var showConfirmation = false
+    @State private var popupConfirmationType: ActionPopupItems?
     @StateObject private var viewModel = CompanyDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -41,7 +42,7 @@ struct CompanyDetails: View {
                 }
 #endif
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
+            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
         }
     }
     
@@ -49,7 +50,7 @@ struct CompanyDetails: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showConfirmation: $showConfirmation)
+                CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
             if viewModel.isLoaded && !viewModel.endPagination {
@@ -74,7 +75,7 @@ struct CompanyDetails: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
             if viewModel.isLoaded && !viewModel.endPagination {

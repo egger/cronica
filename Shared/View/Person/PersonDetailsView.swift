@@ -13,104 +13,104 @@ struct PersonDetailsView: View {
     let personUrl: URL
     @State private var isLoading = true
     @StateObject private var viewModel: PersonDetailsViewModel
-    @State private var showConfirmation = false
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var showImageFullscreen = false
+    @State var popupConfirmationType: ActionPopupItems?
+    @State var showConfirmationPopup = false
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
         self.personUrl = URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!
     }
     var body: some View {
-        ZStack {
-            VStack {
-                ScrollView {
-                    imageProfile
-                        .padding()
-                    
-                    FilmographyListView(filmography: viewModel.credits,
-                                        showConfirmation: $showConfirmation)
-                    
-                    AttributionView()
-                        .padding([.top, .bottom])
-                        .unredacted()
-                }
+        VStack {
+            ScrollView {
+                imageProfile
+                    .padding()
+                
+                FilmographyListView(filmography: viewModel.credits,
+                                    showConfirmation: $showConfirmationPopup,
+                                    popupConfirmationType: $popupConfirmationType)
+                
+                AttributionView()
+                    .padding([.top, .bottom])
+                    .unredacted()
             }
-            .task { load() }
-            .redacted(reason: isLoading ? .placeholder : [])
-#if os(iOS)
-            .overlay(search)
-            .searchScopes($scope) {
-                ForEach(WatchlistSearchScope.allCases) { scope in
-                    Text(scope.localizableTitle).tag(scope)
-                }
-            }
-#endif
-            .autocorrectionDisabled(true)
-#if os(iOS) || os(macOS)
-            .navigationTitle(name)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem {
-                    ShareLink(item: personUrl)
-                }
-#elseif os(macOS)
-                ToolbarItem(placement: .status) {
-                    ShareLink(item: personUrl)
-                }
-#endif
-            }
-            .background {
-                TranslucentBackground(image: viewModel.person?.personImage)
-            }
-            .alert("Error",
-                   isPresented: $viewModel.showErrorAlert) {
-                Button("Cancel") { }
-                Button("Retry") {
-                    Task { await viewModel.load() }
-                }
-            } message: {
-                Text(viewModel.errorMessage)
-            }
-#if os(iOS)
-            .searchable(text: $viewModel.query, placement: .automatic)
-            .fullScreenCover(isPresented: $showImageFullscreen) {
-                NavigationStack {
-                    ZStack {
-                        Rectangle().fill(.black).ignoresSafeArea(.all)
-                        VStack {
-                            WebImage(url: viewModel.person?.originalPersonImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding()
-                        }
-                    }
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button {
-                                showImageFullscreen.toggle()
-                            } label: {
-                                Label("Back", systemImage: "chevron.left")
-                                    .imageScale(.large)
-                                    .foregroundColor(.black)
-                                    .labelStyle(.iconOnly)
-                            }
-                            .tint(.white)
-                            .buttonStyle(.borderedProminent)
-                            .padding()
-                        }
-                    }
-                }
-            }
-#endif
-            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
         }
-#if os(tvOS)
-        .ignoresSafeArea(.all, edges: .horizontal)
-#elseif os(iOS)
+        .actionPopup(isShowing: $showConfirmationPopup, for: popupConfirmationType)
+        .task { load() }
+        .redacted(reason: isLoading ? .placeholder : [])
+#if os(iOS)
+        .overlay(search)
+        .searchScopes($scope) {
+            ForEach(WatchlistSearchScope.allCases) { scope in
+                Text(scope.localizableTitle).tag(scope)
+            }
+        }
+#endif
+        .autocorrectionDisabled(true)
+#if os(iOS) || os(macOS)
+        .navigationTitle(name)
+#endif
+        .toolbar {
+#if os(iOS)
+            ToolbarItem {
+                ShareLink(item: personUrl)
+            }
+#elseif os(macOS)
+            ToolbarItem(placement: .status) {
+                ShareLink(item: personUrl)
+            }
+#endif
+        }
+        .background {
+            TranslucentBackground(image: viewModel.person?.personImage)
+        }
+        .alert("Error",
+               isPresented: $viewModel.showErrorAlert) {
+            Button("Cancel") { }
+            Button("Retry") {
+                Task { await viewModel.load() }
+            }
+        } message: {
+            Text(viewModel.errorMessage)
+        }
+#if os(iOS)
+        .searchable(text: $viewModel.query, placement: .automatic)
+        .fullScreenCover(isPresented: $showImageFullscreen) {
+            NavigationStack {
+                ZStack {
+                    Rectangle().fill(.black).ignoresSafeArea(.all)
+                    VStack {
+                        WebImage(url: viewModel.person?.originalPersonImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding()
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            showImageFullscreen.toggle()
+                        } label: {
+                            Label("Back", systemImage: "chevron.left")
+                                .imageScale(.large)
+                                .foregroundColor(.black)
+                                .labelStyle(.iconOnly)
+                        }
+                        .tint(.white)
+                        .buttonStyle(.borderedProminent)
+                        .padding()
+                    }
+                }
+            }
+        }
         .navigationBarTitleDisplayMode(.large)
 #endif
+#if os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
+#endif
+        
     }
     
     private func load() {
@@ -135,22 +135,22 @@ struct PersonDetailsView: View {
                 switch scope {
                 case .noScope:
                     ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        SearchItemView(item: item, showConfirmation: $showConfirmationPopup)
                     }
                 case .movies:
                     ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        SearchItemView(item: item, showConfirmation: $showConfirmationPopup)
                     }
                 case .shows:
                     ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation)
+                        SearchItemView(item: item, showConfirmation: $showConfirmationPopup)
                     }
                 }
             }
 #else
             Table(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) {
                 TableColumn("Title") { item in
-                    SearchItemView(item: item, showConfirmation: $showConfirmation)
+                    SearchItemView(item: item, showConfirmation: $showConfirmationPopup)
                         .buttonStyle(.plain)
                         .accessibilityHint(Text(item.itemTitle))
                 }

@@ -89,7 +89,9 @@ struct WatchlistItemRow: View {
                                   isPin: $isPin,
                                   isArchive: $isArchive,
                                   showNote: $showNote,
-                                  showCustomList: $showCustomListView)
+                                  showCustomList: $showCustomListView,
+                                  popupConfirmationType: .constant(nil),
+                                  showConfirmationPopup: .constant(false))
         }
     }
     

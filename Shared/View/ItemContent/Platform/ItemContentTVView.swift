@@ -27,10 +27,10 @@ struct ItemContentTVView: View {
                     SeasonList(showID: id, numberOfSeasons: seasons)
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
-                                    title: "Recommendations",
-                                    subtitle: String(),
-                                    addedItemConfirmation: .constant(false),
-                                    displayAsCard: true)
+                                              title: "Recommendations",
+                                              addedItemConfirmation: .constant(false),
+                                              popupConfirmationType: .constant(nil),
+                                              displayAsCard: true)
                 CastListView(credits: viewModel.credits)
                     .padding(.bottom)
                 AttributionView()

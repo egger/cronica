@@ -10,6 +10,7 @@ import SwiftUI
 struct FilmographyListView: View {
     let filmography: [ItemContent]?
     @Binding var showConfirmation: Bool
+    @Binding var popupConfirmationType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
     private let columns: [GridItem] = [
         GridItem(.adaptive(minimum: DrawingConstants.posterColumns))
@@ -41,7 +42,7 @@ struct FilmographyListView: View {
             LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : columns,
                       spacing: settings.isCompactUI ? 10 : 20) {
                 ForEach(filmography) { item in
-                    Poster(item: item, addedItemConfirmation: $showConfirmation)
+                    Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                 }
             }.padding(.all, settings.isCompactUI ? 10 : nil)
         }
@@ -52,7 +53,7 @@ struct FilmographyListView: View {
         if let filmography {
             LazyVGrid(columns: cardColumns, spacing: 20) {
                 ForEach(filmography) { item in
-                    CardFrame(item: item, showConfirmation: $showConfirmation)
+                    CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                         .buttonStyle(.plain)
                 }
             }
@@ -63,7 +64,9 @@ struct FilmographyListView: View {
 
 struct FilmographyListView_Previews: PreviewProvider {
     static var previews: some View {
-        FilmographyListView(filmography: ItemContent.examples, showConfirmation: .constant(false))
+        FilmographyListView(filmography: ItemContent.examples,
+                            showConfirmation: .constant(false),
+                            popupConfirmationType: .constant(nil))
     }
 }
 

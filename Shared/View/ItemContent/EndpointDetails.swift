@@ -13,22 +13,20 @@ struct EndpointDetails: View {
     @StateObject private var viewModel = EndpointDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
     @State private var showConfirmation = false
+    @State private var popupConfirmationType: ActionPopupItems?
     var body: some View {
         ZStack {
             if viewModel.isLoading { ProgressView() }
             ScrollView {
                 VStack {
                     switch settings.listsDisplayType {
-                    case .standard:
-                        cardStyle
-                    case .card:
-                        cardStyle
-                    case .poster:
-                        posterStyle
+                    case .standard: cardStyle
+                    case .card: cardStyle
+                    case .poster: posterStyle
                     }
                 }
             }
-            ConfirmationDialogView(showConfirmation: $showConfirmation, message: "addedToWatchlist")
+            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
         }
         .task {
             if let endpoint {
@@ -42,7 +40,7 @@ struct EndpointDetails: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showConfirmation: $showConfirmation)
+                CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
             if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
@@ -70,7 +68,7 @@ struct EndpointDetails: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
             if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
@@ -92,7 +90,7 @@ struct EndpointDetails: View {
 #elseif os(macOS)
         LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation)
+                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
             }
             if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {

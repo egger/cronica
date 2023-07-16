@@ -316,7 +316,9 @@ struct SideBarView: View {
                                     if item.media == .person {
                                         PersonSearchImage(item: item)
                                     } else {
-                                        Poster(item: item, addedItemConfirmation: $showConfirmation)
+                                        Poster(item: item,
+                                               addedItemConfirmation: $showConfirmation,
+                                               popupConfirmationType: .constant(nil))
                                     }
                                 }
                                 .buttonStyle(.plain)

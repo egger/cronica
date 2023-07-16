@@ -18,7 +18,7 @@ struct WatchEpisodeButton: View {
     var body: some View {
         Button(action: update) {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: isWatched ? "rectangle.fill.badge.minus" : "rectangle.fill.badge.checkmark")
+                  systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
 #if os(tvOS)
             .padding(.horizontal)
             .labelStyle(.iconOnly)

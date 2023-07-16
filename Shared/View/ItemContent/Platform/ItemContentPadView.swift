@@ -21,6 +21,7 @@ struct ItemContentPadView: View {
     @State private var showInfoBox = false
     @State private var showReleaseDateInfo = false
     @State private var isSideInfoPanelShowed = false
+    @State private var popupConfirmationType: ActionPopupItems?
     @StateObject private var store = SettingsStore.shared
     @Binding var showConfirmation: Bool
     var body: some View {
@@ -28,7 +29,7 @@ struct ItemContentPadView: View {
             header.padding(.leading)
             
             if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, numberOfSeasons: seasons).padding(0)
+                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons).padding(0)
             }
             
 #if !os(tvOS)
@@ -42,7 +43,7 @@ struct ItemContentPadView: View {
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
                                           subtitle: "",
-                                          addedItemConfirmation: $showConfirmation,
+                                          addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType,
                                           displayAsCard: true)
 #if !os(tvOS)
             if showInfoBox {
