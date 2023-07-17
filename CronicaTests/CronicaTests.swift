@@ -29,7 +29,7 @@ final class CronicaTests: XCTestCase {
     
     func testMarkAsWatched() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updateWatched(for: item)
         }
         for item in ItemContent.examples {
@@ -39,7 +39,7 @@ final class CronicaTests: XCTestCase {
     
     func testRemoveFromWatched() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updateWatched(for: item)
         }
         for item in ItemContent.examples {
@@ -49,7 +49,7 @@ final class CronicaTests: XCTestCase {
     
     func testMarkAsFavorite() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updateFavorite(for: item)
         }
         for item in ItemContent.examples {
@@ -59,7 +59,7 @@ final class CronicaTests: XCTestCase {
     
     func testRemoveFromFavorite() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updateFavorite(for: item)
         }
         for item in ItemContent.examples {
@@ -69,7 +69,7 @@ final class CronicaTests: XCTestCase {
     
     func testMarkAsArchive() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updateArchive(for: item)
         }
         for item in ItemContent.examples {
@@ -79,7 +79,7 @@ final class CronicaTests: XCTestCase {
     
     func testRemoveFromArchive() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updateArchive(for: item)
         }
         for item in ItemContent.examples {
@@ -89,7 +89,7 @@ final class CronicaTests: XCTestCase {
     
     func testMarkAsPin() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updatePin(for: item)
         }
         for item in ItemContent.examples {
@@ -99,7 +99,7 @@ final class CronicaTests: XCTestCase {
     
     func testRemoveFromPins() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.updatePin(for: item)
         }
         for item in ItemContent.examples {
@@ -109,7 +109,7 @@ final class CronicaTests: XCTestCase {
     
     func testRemoveItemsFromWatchlist() {
         for item in ItemContent.examples {
-            guard let item = try? persistence.fetch(for: item.itemContentID) else { return }
+            guard let item = persistence.fetch(for: item.itemContentID) else { return }
             persistence.delete(item)
         }
         for item in ItemContent.examples {
