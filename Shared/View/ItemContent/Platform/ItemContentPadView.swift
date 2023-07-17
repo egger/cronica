@@ -21,7 +21,7 @@ struct ItemContentPadView: View {
     @State private var showInfoBox = false
     @State private var showReleaseDateInfo = false
     @State private var isSideInfoPanelShowed = false
-    @State private var popupConfirmationType: ActionPopupItems?
+    @State private var popupType: ActionPopupItems?
     @StateObject private var store = SettingsStore.shared
     @Binding var showConfirmation: Bool
     var body: some View {
@@ -42,8 +42,8 @@ struct ItemContentPadView: View {
             
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
-                                          subtitle: "",
-                                          addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType,
+                                          addedItemConfirmation: $showConfirmation,
+                                          popupConfirmationType: $popupType,
                                           displayAsCard: true)
 #if !os(tvOS)
             if showInfoBox {

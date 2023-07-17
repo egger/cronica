@@ -53,11 +53,9 @@ class StoreKitManager: ObservableObject {
             let transaction = try checkVerified(verification)
             await updateConsumerUpdateStatus()
             await transaction.finish()
-            DispatchQueue.main.async {
+            await MainActor.run {
                 SettingsStore.shared.hasPurchasedTipJar = true
-                withAnimation {
-                    self.hasUserPurchased = true
-                }
+                withAnimation { self.hasUserPurchased = true }
             }
             return transaction
         case .userCancelled, .pending:

@@ -20,7 +20,7 @@ struct ItemContentDetails: View {
     @State private var showCustomList = false
     @State private var showUserNotes = false
     @State private var showConfirmationPopup = false
-    @State private var popupConfirmationType: ActionPopupItems?
+    @State private var popupType: ActionPopupItems?
 #if os(macOS)
     var handleToolbarOnPopup: Bool = false
 #endif
@@ -53,7 +53,7 @@ struct ItemContentDetails: View {
                                          showWatchedPopup: .constant(false),
                                          showCustomList: $showCustomList,
                                          showActionPopup: $showConfirmationPopup,
-                                         popupConfirmationType: $popupConfirmationType)
+                                         popupType: $popupType)
                         .environmentObject(viewModel)
                 }
 #endif
@@ -66,7 +66,7 @@ struct ItemContentDetails: View {
                 viewModel.registerNotification()
                 viewModel.checkIfAdded()
             }
-            .actionPopup(isShowing: $showConfirmationPopup, for: popupConfirmationType)
+            .actionPopup(isShowing: $showConfirmationPopup, for: popupType)
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .toolbar {
 #if os(iOS)
@@ -143,7 +143,7 @@ struct ItemContentDetails: View {
 #endif
                 }
             }
-            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
+            .actionPopup(isShowing: $showConfirmation, for: popupType)
 #elseif os(tvOS)
             ItemContentTVView(title: title, type: type, id: id)
                 .environmentObject(viewModel)
@@ -275,7 +275,7 @@ struct ItemContentDetails: View {
     }
     
     private func animate(for action: ActionPopupItems) {
-        popupConfirmationType = action
+        popupType = action
         withAnimation { showConfirmationPopup = true }
     }
 }

@@ -22,6 +22,7 @@ struct SideBarView: View {
     @State private var showConfirmation = false
     @State private var isInWatchlist = false
     @State private var isSearching = false
+    @State private var popupType: ActionPopupItems?
     private let columns: [GridItem] = [GridItem(.adaptive(minimum: 160))]
     var body: some View {
         NavigationSplitView {
@@ -211,7 +212,10 @@ struct SideBarView: View {
                 switch scope {
                 case .noScope:
                     ForEach(viewModel.items) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showConfirmation,
+                                       popupType: $popupType,
+                                       isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
@@ -231,21 +235,30 @@ struct SideBarView: View {
                     }
                 case .movies:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showConfirmation,
+                                       popupType: $popupType,
+                                       isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
                 case .shows:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showConfirmation,
+                                       popupType: $popupType,
+                                       isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }
                     }
                 case .people:
                     ForEach(viewModel.items.filter { $0.media == .person }) { item in
-                        SearchItemView(item: item, showConfirmation: $showConfirmation, isSidebar: true)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showConfirmation,
+                                       popupType: $popupType,
+                                       isSidebar: true)
                             .onTapGesture {
                                 selectedSearchItem = item
                             }

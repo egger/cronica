@@ -235,7 +235,7 @@ struct HorizontalUpNextListView: View {
                                                     backupImage: item.image,
                                                     episode: result)
                         
-                        DispatchQueue.main.async {
+                        await MainActor.run {
                             withAnimation(.easeInOut) {
                                 self.episodes.append(content)
                             }
@@ -243,7 +243,7 @@ struct HorizontalUpNextListView: View {
                     }
                 }
             }
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation { self.isLoaded = true }
             }
         }
@@ -251,7 +251,7 @@ struct HorizontalUpNextListView: View {
     
     private func reload() async {
         withAnimation { self.isLoaded = false }
-        DispatchQueue.main.async {
+        await MainActor.run {
             withAnimation(.easeInOut) {
                 self.episodes.removeAll()
             }
@@ -298,7 +298,7 @@ struct HorizontalUpNextListView: View {
                 
                 if result.isItemReleased && !isWatched && !isInEpisodeList {
                     if isItemAlreadyLoadedInList {
-                        DispatchQueue.main.async {
+                        await MainActor.run {
                             withAnimation(.easeInOut) {
                                 self.episodes.removeAll(where: { $0.showID == item.itemId })
                             }
@@ -310,7 +310,7 @@ struct HorizontalUpNextListView: View {
                                                 backupImage: item.image,
                                                 episode: result)
                     
-                    DispatchQueue.main.async {
+                    await MainActor.run {
                         withAnimation(.easeInOut) {
                             self.episodes.insert(content, at: 0)
                         }
@@ -326,7 +326,7 @@ struct HorizontalUpNextListView: View {
         let item = persistence.fetch(for: contentId)
         guard let item else { return }
         persistence.updateWatchedEpisodes(for: item, with: content.episode)
-        DispatchQueue.main.async {
+        await MainActor.run {
             withAnimation(.easeInOut) {
                 self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
             }
@@ -342,7 +342,7 @@ struct HorizontalUpNextListView: View {
                                         backupImage: content.backupImage,
                                         episode: nextEpisode)
             
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation(.easeInOut) {
                     self.episodes.insert(content, at: 0)
                 }

@@ -105,7 +105,7 @@ struct NotificationListView: View {
         Task {
             items = await NotificationManager.shared.fetchUpcomingNotifications() ?? []
             deliveredItems = await NotificationManager.shared.fetchDeliveredNotifications()
-            DispatchQueue.main.async { withAnimation { self.hasLoaded = true } }
+            await MainActor.run { withAnimation { self.hasLoaded = true } }
         }
     }
     

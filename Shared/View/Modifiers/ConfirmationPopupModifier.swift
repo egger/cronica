@@ -52,32 +52,20 @@ enum ActionPopupItems: String, Identifiable, CaseIterable {
     case addedWatchlist, removedWatchlist, markedWatched, removedWatched, markedFavorite, removedFavorite,
          markedArchive, removedArchive, markedPin, removedPin
     
-    var localizedString: String {
-        return NSLocalizedString(rawValue, comment: "")
-    }
+    var localizedString: String { return NSLocalizedString(rawValue, comment: "") }
     
     var toSfSymbol: String {
         switch self {
-        case .addedWatchlist:
-            return "plus.circle.fill"
-        case .removedWatchlist:
-            return "minus.circle.fill"
-        case .markedWatched:
-            return "rectangle.badge.checkmark.fill"
-        case .removedWatched:
-            return "rectangle.badge.checkmark"
-        case .markedFavorite:
-            return "heart.circle.fill"
-        case .removedFavorite:
-            return "heart.slash.fill"
-        case .markedArchive:
-            return "archivebox.fill"
-        case .removedArchive:
-            return "archivebox"
-        case .markedPin:
-            return "pin.fill"
-        case .removedPin:
-            return "pin.slash.fill"
+        case .addedWatchlist: return "plus.circle.fill"
+        case .removedWatchlist: return "minus.circle.fill"
+        case .markedWatched: return "rectangle.badge.checkmark.fill"
+        case .removedWatched: return "rectangle.badge.checkmark"
+        case .markedFavorite: return "heart.circle.fill"
+        case .removedFavorite: return "heart.slash.fill"
+        case .markedArchive: return "archivebox.fill"
+        case .removedArchive: return "archivebox"
+        case .markedPin: return "pin.fill"
+        case .removedPin: return "pin.slash.fill"
         }
     }
 }

@@ -185,7 +185,7 @@ class AccountManager: ObservableObject {
     }
     
     func logOut() async {
-        DispatchQueue.main.async { SettingsStore.shared.connectedTMDB = false }
+        await MainActor.run { SettingsStore.shared.connectedTMDB = false }
         await self.logOutV3()
         await self.logOutV4()
         KeychainHelper.standard.delete(service: "access-token", account: "cronicaTMDB-Sync")

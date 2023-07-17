@@ -204,13 +204,10 @@ struct EpisodeFrameView: View {
     }
     
     private func addToWatchlist() async {
-        let item = try? await NetworkService.shared.fetchItem(id: show, type: .tvShow)
-        guard let item else { return }
+        guard let item = try? await NetworkService.shared.fetchItem(id: show, type: .tvShow) else { return }
         PersistenceController.shared.save(item)
-        DispatchQueue.main.async {
-            withAnimation {
-                viewModel.isItemInWatchlist.toggle()
-            }
+        await MainActor.run {
+            withAnimation { viewModel.isItemInWatchlist.toggle() }
         }
     }
     

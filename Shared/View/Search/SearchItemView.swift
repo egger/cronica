@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchItemView: View {
     let item: ItemContent
     @Binding var showConfirmation: Bool
+    @Binding var popupType: ActionPopupItems?
     @State private var isInWatchlist = false
     @State private var isWatched = false
     @State private var canReview = false
@@ -49,7 +50,8 @@ struct SearchItemView: View {
                         SearchItemSwipeGesture(item: item,
                                                showConfirmation: $showConfirmation,
                                                isInWatchlist: $isInWatchlist,
-                                               isWatched: $isWatched)
+                                               isWatched: $isWatched,
+                                               popupType: $popupType)
                     )
                     .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
@@ -93,12 +95,15 @@ struct SearchItemView: View {
                                                 showConfirmation: $showConfirmation,
                                                 isInWatchlist: $isInWatchlist,
                                                 showNote: $showNote,
-                                                showCustomList: $showCustomListView, popupConfirmationType: .constant(nil), showConfirmationPopup: $showConfirmation)
+                                                showCustomList: $showCustomListView,
+                                                popupConfirmationType: .constant(nil),
+                                                showConfirmationPopup: $showConfirmation)
                         .modifier(
                             SearchItemSwipeGesture(item: item,
                                                    showConfirmation: $showConfirmation,
                                                    isInWatchlist: $isInWatchlist,
-                                                   isWatched: $isWatched)
+                                                   isWatched: $isWatched,
+                                                   popupType: $popupType)
                         )
                         .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
@@ -135,9 +140,8 @@ struct SearchItemView: View {
 }
 
 struct SearchItemView_Previews: PreviewProvider {
-    @State private static var show: Bool = false
     static var previews: some View {
-        SearchItemView(item: ItemContent.example, showConfirmation: $show)
+        SearchItemView(item: ItemContent.example, showConfirmation: .constant(false), popupType: .constant(nil))
     }
 }
 #endif

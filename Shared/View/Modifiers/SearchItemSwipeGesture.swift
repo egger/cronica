@@ -12,7 +12,7 @@ struct SearchItemSwipeGesture: ViewModifier {
     @Binding var showConfirmation: Bool
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
-    //@Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     @State private var isFavorite = false
     private let context = PersistenceController.shared
     private let network = NetworkService.shared
@@ -23,18 +23,20 @@ struct SearchItemSwipeGesture: ViewModifier {
                 if isInWatchlist {
                     WatchedButton(id: item.itemContentID,
                                   isWatched: $isWatched,
-                                  popupConfirmationType: .constant(nil),
-                                  showConfirmationPopup: .constant(false))
+                                  popupConfirmationType: $popupType,
+                                  showConfirmationPopup: $showConfirmation)
                         .tint(isWatched ? .yellow : .green)
                     FavoriteButton(id: item.itemContentID,
                                    isFavorite: $isFavorite,
-                                   popupConfirmationType: .constant(nil),
-                                   showConfirmationPopup: .constant(false))
+                                   popupConfirmationType: $popupType,
+                                   showConfirmationPopup: $showConfirmation)
                         .tint(isFavorite ? .orange : .blue)
                 } else {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation, showListSelector: .constant(false), popupConfirmationType: .constant(nil))
+                                    showConfirmation: $showConfirmation,
+                                    showListSelector: .constant(false),
+                                    popupConfirmationType: $popupType)
                     .tint(.blue)
                 }
             }
@@ -42,7 +44,9 @@ struct SearchItemSwipeGesture: ViewModifier {
                 if isInWatchlist {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation, showListSelector: .constant(false), popupConfirmationType: .constant(nil))
+                                    showConfirmation: $showConfirmation,
+                                    showListSelector: .constant(false),
+                                    popupConfirmationType: $popupType)
                 }
             }
     }

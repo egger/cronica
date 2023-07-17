@@ -18,7 +18,7 @@ struct ItemContentContextMenu: ViewModifier {
     private let context = PersistenceController.shared
     @Binding var showNote: Bool
     @Binding var showCustomListView: Bool
-    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     @Binding var showConfirmationPopup: Bool
     func body(content: Content) -> some View {
 #if os(watchOS)
@@ -31,18 +31,18 @@ struct ItemContentContextMenu: ViewModifier {
                 if isInWatchlist {
                     WatchedButton(id: item.itemContentID,
                                   isWatched: $isWatched,
-                                  popupConfirmationType: $popupConfirmationType,
+                                  popupConfirmationType: $popupType,
                                   showConfirmationPopup: $showConfirmation)
                     FavoriteButton(id: item.itemContentID,
                                    isFavorite: $isFavorite,
-                                   popupConfirmationType: $popupConfirmationType,
+                                   popupConfirmationType: $popupType,
                                    showConfirmationPopup: $showConfirmation)
                     PinButton(id: item.itemContentID,
                               isPin: $isPin,
-                              popupConfirmationType: $popupConfirmationType,
+                              popupConfirmationType: $popupType,
                               showConfirmationPopup: $showConfirmation)
                     ArchiveButton(id: item.itemContentID, isArchive: $isArchive,
-                                  popupConfirmationType: $popupConfirmationType, showConfirmationPopup: $showConfirmationPopup)
+                                  popupType: $popupType, showConfirmationPopup: $showConfirmationPopup)
                     CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
                     Button {
                         showNote.toggle()
@@ -58,7 +58,7 @@ struct ItemContentContextMenu: ViewModifier {
                                 isInWatchlist: $isInWatchlist,
                                 showConfirmation: $showConfirmation,
                                 showListSelector: $showCustomListView,
-                                popupConfirmationType: $popupConfirmationType)
+                                popupConfirmationType: $popupType)
             } preview: {
                 ContextMenuPreviewImage(title: item.itemTitle,
                                         image: item.cardImageLarge,

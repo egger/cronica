@@ -21,7 +21,7 @@ struct ItemContentPhoneView: View {
     @Binding var showCustomList: Bool
     @State private var navigationTitle = String()
     @Binding var showActionPopup: Bool
-    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         VStack {
             cover
@@ -46,7 +46,7 @@ struct ItemContentPhoneView: View {
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
                                           addedItemConfirmation: $showConfirmation,
-                                          popupConfirmationType: $popupConfirmationType,
+                                          popupConfirmationType: $popupType,
                                           displayAsCard: true)
             
             infoBox(item: viewModel.content, type: type).padding()
@@ -71,7 +71,7 @@ struct ItemContentPhoneView: View {
             if viewModel.isInWatchlist {
                 Button {
                     viewModel.update(.watched)
-                    popupConfirmationType = viewModel.isWatched ? .markedWatched : .removedWatched
+                    popupType = viewModel.isWatched ? .markedWatched : .removedWatched
                     withAnimation { showActionPopup = true }
                 } label: {
                     VStack {

@@ -153,13 +153,15 @@ struct HomeView: View {
                         showNotifications.toggle()
                     } label: {
                         Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
                             .imageScale(.medium)
-                            .foregroundColor(.white)
+                            .foregroundColor(.white.opacity(0.9))
                     }
                     .buttonStyle(.borderedProminent)
                     .clipShape(Circle())
-                    .tint(SettingsStore.shared.appTheme.color.opacity(0.8))
-                    .shadow(radius: 5)
+                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                    .shadow(radius: 2.5)
                     .accessibilityLabel("Notifications")
                 }
 #endif

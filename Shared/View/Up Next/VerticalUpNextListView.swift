@@ -149,7 +149,7 @@ struct VerticalUpNextListView: View {
                 
                 if result.isItemReleased && !isWatched && !isInEpisodeList {
                     if isItemAlreadyLoadedInList {
-                        DispatchQueue.main.async {
+                        await MainActor.run {
                             withAnimation(.easeInOut) {
                                 self.episodes.removeAll(where: { $0.showID == item.itemId })
                             }
@@ -161,7 +161,7 @@ struct VerticalUpNextListView: View {
                                                 backupImage: item.image,
                                                 episode: result)
                     
-                    DispatchQueue.main.async {
+                    await MainActor.run {
                         withAnimation(.easeInOut) {
                             self.episodes.append(content)
                         }

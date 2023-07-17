@@ -11,7 +11,8 @@ import SwiftUI
 struct SearchView: View { 
     static let tag: Screens? = .search
     @StateObject private var viewModel = SearchViewModel()
-    @State private var showInformationPopup: Bool = false
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     @State private var scope: SearchItemsScope = .noScope
     @State private var currentlyQuery = String()
     var body: some View {
@@ -20,22 +21,30 @@ struct SearchView: View {
                 switch scope {
                 case .noScope:
                     ForEach(viewModel.items) { item in
-                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showPopup,
+                                       popupType: $popupType)
                     }
                     loadableProgressRing
                 case .movies:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showPopup,
+                                       popupType: $popupType)
                     }
                     loadableProgressRing
                 case .shows:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
-                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showPopup,
+                                       popupType: $popupType)
                     }
                     loadableProgressRing
                 case .people:
                     ForEach(viewModel.items.filter { $0.media == .person }) { item in
-                        SearchItemView(item: item, showConfirmation: $showInformationPopup)
+                        SearchItemView(item: item,
+                                       showConfirmation: $showPopup,
+                                       popupType: $popupType)
                     }
                     loadableProgressRing
                 }
@@ -53,9 +62,11 @@ struct SearchView: View {
                 }
             }
             .navigationDestination(for: [String:[ItemContent]].self) { item in
-                let keys = item.map { (key, _) in key }
-                let value = item.map { (_, value) in value }
-                ItemContentSectionDetails(title: keys[0], items: value[0])
+                let keys = item.map { (key, _) in key }.first
+                let value = item.map { (_, value) in value }.first
+                if let keys, let value {
+                    ItemContentSectionDetails(title: keys, items: value)
+                }
             }
             .navigationDestination(for: [Person].self) { items in
                 DetailedPeopleList(items: items)
@@ -76,7 +87,7 @@ struct SearchView: View {
                 }
             }
             .overlay(searchResults)
-            .actionPopup(isShowing: $showInformationPopup, for: nil)
+            .actionPopup(isShowing: $showPopup, for: popupType)
         }
     }
     

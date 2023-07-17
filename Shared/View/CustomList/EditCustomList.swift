@@ -161,7 +161,7 @@ struct EditCustomList: View {
     
     private func publishToTMDB(isPublic: Bool = false) {
         Task {
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation { isPublishing.toggle() }
             }
             // Create and publish the new list
@@ -197,7 +197,7 @@ struct EditCustomList: View {
                 try? context.save()
             }
             
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation {
                     isPublishing.toggle()
                     canPublish.toggle()

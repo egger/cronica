@@ -45,7 +45,7 @@ extension View {
                                         isWatched: isWatched,
                                         showNote: showNote,
                                         showCustomListView: showCustomList,
-                                        popupConfirmationType: popupConfirmationType,
+                                        popupType: popupConfirmationType,
                                         showConfirmationPopup: showConfirmationPopup))
     }
     

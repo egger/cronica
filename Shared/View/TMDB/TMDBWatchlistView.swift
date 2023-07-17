@@ -112,7 +112,7 @@ struct TMDBWatchlistView: View {
                 PersistenceController.shared.save(content)
             }
             withAnimation { self.isImporting = false }
-            DispatchQueue.main.async { settings.userImportedTMDB = true }
+            await MainActor.run { settings.userImportedTMDB = true }
         } catch {
             if Task.isCancelled { return }
         }
@@ -137,7 +137,7 @@ struct TMDBWatchlistView: View {
             let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
             let list = try context.fetch(request)
             if list.isEmpty { return }
-            DispatchQueue.main.async { withAnimation { self.isSyncing = true } }
+            await MainActor.run { withAnimation { self.isSyncing = true } }
             for item in list {
                 if !items.contains(where: { $0.id == item.itemId }) {
                     let content = TMDBWatchlistItemV3(media_type: item.itemMedia.rawValue,
@@ -150,7 +150,7 @@ struct TMDBWatchlistView: View {
                 }
             }
             await fetch(shouldReload: true)
-            DispatchQueue.main.async { withAnimation { self.isSyncing = false } }
+            await MainActor.run { withAnimation { self.isSyncing = false } }
         } catch {
             if Task.isCancelled { return }
         }

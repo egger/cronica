@@ -98,7 +98,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     private var archiveButton: some View {
         ArchiveButton(id: item.itemContentID,
                       isArchive: $isArchive,
-                      popupConfirmationType: $popupConfirmationType,
+                      popupType: $popupConfirmationType,
                       showConfirmationPopup: $showConfirmationPopup)
     }
     

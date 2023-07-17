@@ -995,6 +995,7 @@
 			isa = PBXGroup;
 			children = (
 				B8AAA6ED296455E2004FDF21 /* AppThemeModifier.swift */,
+				B886D231284D512F00FFE96A /* ConfirmationPopupModifier.swift */,
 				B8E6EF662A044E5A000A3617 /* ContextMenuPreviewImage.swift */,
 				B8BF63262914013D0051915C /* HoverEffectModifier.swift */,
 				B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */,
@@ -1335,7 +1336,6 @@
 		B8EC463E27D84C62009389FC /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B886D231284D512F00FFE96A /* ConfirmationPopupModifier.swift */,
 				B8CBBF1B2A4B7C3E0052A59B /* DetailedReleaseDateView.swift */,
 				B890C57827FC999F006BE5E1 /* HeroImage.swift */,
 				B80BBE5A294966FC00958876 /* InformationalLabel.swift */,
