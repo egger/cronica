@@ -58,27 +58,11 @@ struct HorizontalUpNextListView: View {
 #else
                                     upNextCard(item)
                                         .contextMenu {
-                                            Button("markAsWatched") {
-                                                Task { await markAsWatched(item) }
-                                            }
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                 Button("showDetails") {
                                                     selectedEpisode = item
                                                 }
                                             }
-#if os(iOS) || os(macOS)
-                                            Divider()
-                                            if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
-                                                ShareLink("shareEpisode", item: url)
-                                            }
-                                            if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
-                                                ShareLink("shareShow", item: url)
-                                            }
-                                            Divider()
-                                            Button("hideFromUpNext") {
-                                                
-                                            }.hidden()
-#endif
                                         }
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == episodes.first!.id ? 16 : 0)

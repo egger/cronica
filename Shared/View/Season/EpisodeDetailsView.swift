@@ -147,7 +147,9 @@ struct EpisodeDetailsView: View {
                                        isWatched: $isWatched)
                     .tint(isWatched ? .red.opacity(0.9) : settings.appTheme.color)
                     .buttonStyle(.borderedProminent)
+#if os(iOS)
                     .buttonBorderShape(.roundedRectangle(radius: 12))
+#endif
                     .controlSize(.large)
                     .frame(height: 60)
                     .padding(.horizontal)
@@ -155,7 +157,7 @@ struct EpisodeDetailsView: View {
                     .shadow(radius: 2.5)
                 }
                 .padding(.vertical)
-                 
+                
                 OverviewBoxView(overview: episode.itemOverview,
                                 title: episode.itemTitle,
                                 type: .tvShow)

@@ -24,19 +24,19 @@ struct SettingsView: View {
             Form {
                 Section {
                     NavigationLink(value: SettingsScreens.behavior) {
-                        SettingsLabelWithIcon(title: "settingsBehaviorTitle", icon: "hand.tap", color: .gray)
+                        settingsLabel(title: "settingsBehaviorTitle", icon: "hand.tap", color: .gray)
                     }
                     NavigationLink(value: SettingsScreens.appearance) {
-                        SettingsLabelWithIcon(title: "settingsAppearanceTitle", icon: "paintbrush", color: .blue)
+                        settingsLabel(title: "settingsAppearanceTitle", icon: "paintbrush", color: .blue)
                     }
                     NavigationLink(value: SettingsScreens.sync) {
-                        SettingsLabelWithIcon(title: "settingsSyncTitle", icon: "arrow.triangle.2.circlepath", color: .green)
+                        settingsLabel(title: "settingsSyncTitle", icon: "arrow.triangle.2.circlepath", color: .green)
                     }
                     NavigationLink(value: SettingsScreens.notifications) {
-                        SettingsLabelWithIcon(title: "settingsNotificationTitle", icon: "bell", color: .red)
+                        settingsLabel(title: "settingsNotificationTitle", icon: "bell", color: .red)
                     }
                     NavigationLink(destination: RegionContentSettings()) {
-                        SettingsLabelWithIcon(title: "settingsRegionContentTitle", icon: "globe", color: .purple)
+                        settingsLabel(title: "settingsRegionContentTitle", icon: "globe", color: .purple)
                     }
                 }
                 
@@ -44,7 +44,7 @@ struct SettingsView: View {
                     Button {
                         showPolicy.toggle()
                     } label: {
-                        SettingsLabelWithIcon(title: "Privacy Policy", icon: "hand.raised", color: .indigo)
+                        settingsLabel(title: "Privacy Policy", icon: "hand.raised", color: .indigo)
                     }
                     .buttonStyle(.plain)
                     .fullScreenCover(isPresented: $showPolicy) {
@@ -56,18 +56,18 @@ struct SettingsView: View {
                     Button {
                         showWhatsNew.toggle()
                     } label: {
-                        SettingsLabelWithIcon(title: "What's New", icon: "sparkles", color: .yellow)
+                        settingsLabel(title: "What's New", icon: "sparkles", color: .yellow)
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showWhatsNew) {
                         ChangelogView(showChangelog: $showWhatsNew)
                     }
                     NavigationLink(destination: TipJarSetting()) {
-                        SettingsLabelWithIcon(title: "tipJarTitle", icon: "heart", color: .red)
+                        settingsLabel(title: "tipJarTitle", icon: "heart", color: .red)
                     }
                     
                     NavigationLink(value: SettingsScreens.about) {
-                        SettingsLabelWithIcon(title: "aboutTitle", icon: "info.circle", color: .black)
+                        settingsLabel(title: "aboutTitle", icon: "info.circle", color: .black)
                     }
                 }
             }
@@ -108,6 +108,23 @@ struct SettingsView: View {
         .frame(minWidth: 420, idealWidth: 500, minHeight: 320, idealHeight: 320)
         .tabViewStyle(.automatic)
 #endif
+    }
+    
+    private func settingsLabel(title: String, icon: String, color: Color) -> some View {
+        HStack {
+            ZStack {
+                Rectangle()
+                    .fill(color)
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                Image(systemName: icon)
+                    .foregroundColor(.white)
+            }
+            .frame(width: 30, height: 30, alignment: .center)
+            .padding(.trailing, 8)
+            .accessibilityHidden(true)
+            Text(LocalizedStringKey(title))
+        }
+        .padding(.vertical, 2)
     }
 }
 

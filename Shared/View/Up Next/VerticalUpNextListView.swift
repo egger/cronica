@@ -29,23 +29,11 @@ struct VerticalUpNextListView: View {
                         VStack(alignment: .leading) {
                             upNextCard(item: item)
                                 .contextMenu {
-                                    Button("markAsWatched") {
-                                        Task { await markAsWatched(item) }
-                                    }
                                     if SettingsStore.shared.markEpisodeWatchedOnTap {
                                         Button("showDetails") {
                                             selectedEpisode = item
                                         }
                                     }
-#if os(iOS) || os(macOS)
-                                    Divider()
-                                    if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)/season/\(item.episode.itemSeasonNumber)/episode/\(item.episode.itemEpisodeNumber)") {
-                                        ShareLink("shareEpisode", item: url)
-                                    }
-                                    if let url = URL(string: "https://www.themoviedb.org/tv/\(item.showID)") {
-                                        ShareLink("shareShow", item: url)
-                                    }
-#endif
                                 }
                                 .onTapGesture {
                                     if SettingsStore.shared.markEpisodeWatchedOnTap {

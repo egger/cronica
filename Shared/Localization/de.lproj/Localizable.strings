@@ -642,3 +642,13 @@
 "Digital" = "Digital";
 "Physical" = "Physisch";
 "TV" = "TV";
+"addedWatchlist" = "Zur Watchlist hinzugefügt";
+"removedWatchlist" = "Aus der Watchlist entfernt";
+"markedWatched" = "Als gesehen markiert";
+"removedWatched" = "Aus den Gesehenen entfernt";
+"markedFavorite" = "Als Favorit markiert";
+"removedFavorite" = "Aus Favoriten entfernt";
+"markedArchive" = "Als Archiv markiert";
+"removedArchive" = "Aus dem Archiv entfernt";
+"markedPin" = "Gepinnt";
+"removedPin" = "Ungepinnt";

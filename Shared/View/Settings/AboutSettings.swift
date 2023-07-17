@@ -96,15 +96,13 @@ struct AboutSettings: View {
             Section {
                 CenterHorizontalView { AttributionView() }
                 if settings.displayDeveloperSettings {
-                    NavigationLink(value: SettingsScreens.developer) {
-                        SettingsLabelWithIcon(title: "Developer Options", icon: "hammer", color: .purple)
-                    }
+                    NavigationLink("Developer Options", value: SettingsScreens.developer)
                 }
                 CenterHorizontalView {
                     Text("Version \(appVersion ?? "")")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
-                        .onTapGesture(count: 2) {
+                        .onTapGesture(count: 4) {
                             withAnimation { settings.displayDeveloperSettings.toggle() }
                         }
                 }

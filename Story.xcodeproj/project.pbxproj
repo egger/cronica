@@ -340,7 +340,6 @@
 		B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B8F6D6D929DB433200B9190B /* TVSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A2B290AEEFE00459E41 /* TVSearchView.swift */; };
 		B8F6D6DF29DB433200B9190B /* TVSearchItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A2E290AF41500459E41 /* TVSearchItemContentView.swift */; };
-		B8F6D6E429DB575B00B9190B /* SettingsLabelWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */; };
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentSectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */; };
 		B8F6DE652937A144005D1A50 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
@@ -638,7 +637,6 @@
 		B8EC462E27D7AA99009389FC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBoxView.swift; sourceTree = "<group>"; };
-		B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelWithIcon.swift; sourceTree = "<group>"; };
 		B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetails.swift; sourceTree = "<group>"; };
 		B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentSectionDetails.swift; sourceTree = "<group>"; };
 		B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVerticalView.swift; sourceTree = "<group>"; };
@@ -1166,7 +1164,6 @@
 				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
 				B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */,
 				B86AA7FB2A3A4C8C009847FE /* RegionContentSettings.swift */,
-				B8F6D6E329DB575B00B9190B /* SettingsLabelWithIcon.swift */,
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B80BBE5D2949677300958876 /* SyncSetting.swift */,
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
@@ -1740,7 +1737,6 @@
 				B8779377281E319D00174F32 /* TabBarView.swift in Sources */,
 				B8105265298F58E100723E94 /* CompanyDetails.swift in Sources */,
 				B8B981E529F42B060001CF0B /* KeychainHelper.swift in Sources */,
-				B8F6D6E429DB575B00B9190B /* SettingsLabelWithIcon.swift in Sources */,
 				B892EB1429675B5E002E028E /* StoreKitManager.swift in Sources */,
 				B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */,
 				B82BE4D9299BF35D005F9990 /* PersistenceController-WatchlistItem.swift in Sources */,
@@ -2175,7 +2171,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 160;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2220,7 +2216,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 160;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

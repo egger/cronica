@@ -11,6 +11,8 @@ struct WatchListSection: View {
     let items: [WatchlistItem]
     var title: String
     private let context = PersistenceController.shared
+    @State private var showConfirmation = false
+    @State private var confirmationAction: ActionPopupItems?
     var body: some View {
         if !items.isEmpty {
 #if os(macOS)

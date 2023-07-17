@@ -241,11 +241,11 @@ struct ItemContentDetails: View {
 #if !os(iOS)
                 addToCustomListButton
 #endif
+                favoriteButton
                 archiveButton
                 pinButton
                 userNotesButton
             }
-            favoriteButton
 #if os(iOS)
             openInMenu
 #endif

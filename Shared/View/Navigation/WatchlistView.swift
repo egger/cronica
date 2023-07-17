@@ -13,6 +13,8 @@ struct WatchlistView: View {
     @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
     @State private var navigationDisplayTitle = String()
     @State private var selectedList: CustomList?
+    @State private var showConfirmation = false
+    @State private var confirmationAction: ActionPopupItems?
     var body: some View {
         VStack {
             if selectedList != nil {
@@ -21,6 +23,7 @@ struct WatchlistView: View {
                 DefaultWatchlist()
             }
         }
+        .actionPopup(isShowing: $showConfirmation, for: confirmationAction)
         .onDisappear {
             navigationDisplayTitle = navigationTitle
         }
@@ -39,7 +42,7 @@ struct WatchlistView: View {
         }
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
-        #elseif os(tvOS)
+#elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         .navigationDestination(for: WatchlistItem.self) { item in
