@@ -15,6 +15,7 @@ struct ItemContentView: View {
     @StateObject private var viewModel: ItemContentViewModel
     @State private var showCustomListSheet = false
     @State private var showMoreOptions = false
+    @State private var isWatched = false
     init(id: Int, title: String, type: MediaType, image: URL?) {
         self.id = id
         self.title = title
@@ -97,9 +98,11 @@ struct ItemContentView: View {
             EpisodeListView(seasonNumber: season.seasonNumber, id: id)
         }
         .navigationDestination(for: [Int:Episode].self) { item in
-            let keys = item.map { (key, _) in key }
-            let value = item.map { (_, value) in value }
-            EpisodeDetailsView(episode: value.first!, season: keys.first!, show: id)
+            let keys = item.map { (key, _) in key }.first
+            let value = item.map { (_, value) in value }.first
+            if let keys, let value {
+                EpisodeDetailsView(episode: value, season: keys, show: id, isWatched: $isWatched)
+            }
         }
         .background {
             if #available(watchOS 10, *) {

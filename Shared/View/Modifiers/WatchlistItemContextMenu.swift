@@ -25,16 +25,16 @@ struct WatchlistItemContextMenu: ViewModifier {
 #if os(watchOS)
         return content
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                watchedButton
-                    .tint(item.isWatched ? .yellow : .green)
-                pinButton
-                    .tint(item.isPin ? .gray : .teal)
-                favoriteButton
-                    .tint(item.isFavorite ? .orange : .blue)
+//                watchedButton
+//                    .tint(item.isWatched ? .yellow : .green)
+//                pinButton
+//                    .tint(item.isPin ? .gray : .teal)
+//                favoriteButton
+//                    .tint(item.isFavorite ? .orange : .blue)
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                deleteButton
-                archiveButton
+//                deleteButton
+//                archiveButton
             }
 #elseif os(tvOS)
         return content

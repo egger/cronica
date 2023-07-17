@@ -90,7 +90,7 @@ struct EndpointDetails: View {
 #elseif os(macOS)
         LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showPopup, popupType: $popupType)
+                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
             }
             if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {

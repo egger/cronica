@@ -24,12 +24,12 @@ struct ItemContentTVView: View {
                 v2header
                     .padding(.bottom)
                 if let seasons = viewModel.content?.itemSeasons {
-                    SeasonList(showID: id, numberOfSeasons: seasons)
+                    SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons)
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                               title: "Recommendations",
-                                              addedItemConfirmation: .constant(false),
-                                              popupType: .constant(nil),
+                                              showPopup: .constant(false),
+                                              popupConfirmationType: .constant(nil),
                                               displayAsCard: true)
                 CastListView(credits: viewModel.credits)
                     .padding(.bottom)

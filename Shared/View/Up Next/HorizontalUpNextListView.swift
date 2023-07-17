@@ -45,8 +45,8 @@ struct HorizontalUpNextListView: View {
                                         upNextCard(item)
                                     }
                                     .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == episodes.first!.id ? 32 : 0)
-                                    .padding(.trailing, item.id == episodes.last!.id ? 32 : 0)
+                                    .padding(.leading, item.id == viewModel.episodes.first!.id ? 32 : 0)
+                                    .padding(.trailing, item.id == viewModel.episodes.last!.id ? 32 : 0)
                                     .padding(.top, 8)
                                     .padding(.vertical)
                                     .buttonStyle(.card)

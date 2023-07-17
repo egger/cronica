@@ -11,8 +11,9 @@ struct EpisodeDetailsView: View {
     let episode: Episode
     let season: Int
     let show: Int
+    var showTitle = String()
+    @Binding var isWatched: Bool
     private let persistence = PersistenceController.shared
-    @State private var isWatched = false
     var body: some View {
         VStack {
             ScrollView {
@@ -24,12 +25,22 @@ struct EpisodeDetailsView: View {
                 )
                 .padding()
                 
-                Text("Episode \(episode.itemEpisodeNumber)")
+                Text(showTitle)
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                Text(episode.itemTitle)
                     .font(.caption)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .padding(.horizontal)
-                Text("Season \(episode.itemSeasonNumber)")
+                
+                Text("S\(episode.itemSeasonNumber), E\(episode.itemEpisodeNumber)")
                     .font(.caption)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .padding([.horizontal, .bottom])
                 
@@ -46,7 +57,6 @@ struct EpisodeDetailsView: View {
                 
             }
         }
-        .navigationTitle(episode.itemTitle)
         .background {
             if #available(watchOS 10, *) {
                 TranslucentBackground(image: episode.itemImageMedium)

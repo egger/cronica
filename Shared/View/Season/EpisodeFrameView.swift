@@ -166,7 +166,11 @@ struct EpisodeFrameView: View {
             }
             .sheet(isPresented: $showDetails) {
 #if os(tvOS)
-                EpisodeDetailsView(episode: episode, season: season, show: show, isWatched: $isWatched)
+                EpisodeDetailsView(episode: episode,
+                                   season: season,
+                                   show: show,
+                                   showTitle: showTitle,
+                                   isWatched: $isWatched)
 #else
                 NavigationStack {
                     EpisodeDetailsView(episode: episode, season: season, show: show, showTitle: showTitle, isWatched: $isWatched)

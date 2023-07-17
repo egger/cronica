@@ -51,7 +51,7 @@ struct ItemContentSectionDetails: View {
 #elseif os(macOS)
         LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
             ForEach(items) { item in
-                Poster(item: item, showPopup: $showPopup, popupType: $popupType)
+                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
             }
         }

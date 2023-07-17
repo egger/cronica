@@ -330,7 +330,7 @@ struct SideBarView: View {
                                         PersonSearchImage(item: item)
                                     } else {
                                         Poster(item: item,
-                                               addedItemConfirmation: $showConfirmation,
+                                               showPopup: $showPopup,
                                                popupConfirmationType: .constant(nil))
                                     }
                                 }
