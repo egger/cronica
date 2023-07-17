@@ -22,168 +22,166 @@ struct HomeView: View {
     @State private var hasNotifications = false
     @State private var popupConfirmationType: ActionPopupItems?
     var body: some View {
-        ZStack {
-            if !viewModel.isLoaded { ProgressView("Loading").unredacted() }
-            VStack(alignment: .leading) {
-                ScrollView {
-                    HorizontalUpNextListView(shouldReload: $reloadUpNext)
-                    UpcomingWatchlist()
-                    PinItemsList()
-                    HorizontalPinnedList()
-                    HorizontalItemContentListView(items: viewModel.trending,
-                                                  title: "Trending",
-                                                  subtitle: "Today",
+        VStack(alignment: .leading) {
+            ScrollView {
+                HorizontalUpNextListView(shouldReload: $reloadUpNext)
+                UpcomingWatchlist()
+                PinItemsList()
+                HorizontalPinnedList()
+                HorizontalItemContentListView(items: viewModel.trending,
+                                              title: "Trending",
+                                              subtitle: "Today",
+                                              showPopup: $showPopup,
+                                              popupConfirmationType: $popupConfirmationType)
+                ForEach(viewModel.sections) { section in
+                    HorizontalItemContentListView(items: section.results,
+                                                  title: section.title,
+                                                  subtitle: section.subtitle,
                                                   showPopup: $showPopup,
-                                                  popupConfirmationType: $popupConfirmationType)
-                    ForEach(viewModel.sections) { section in
-                        HorizontalItemContentListView(items: section.results,
-                                                      title: section.title,
-                                                      subtitle: section.subtitle,
-                                                      showPopup: $showPopup,
-                                                      popupConfirmationType: $popupConfirmationType,
-                                                      endpoint: section.endpoint)
-                    }
-                    HorizontalItemContentListView(items: viewModel.recommendations,
-                                                  title: "recommendationsTitle",
-                                                  subtitle: "recommendationsSubtitle",
-                                                  showPopup: $showPopup,
-                                                  popupConfirmationType: $popupConfirmationType)
-                    .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
-                    AttributionView()
+                                                  popupConfirmationType: $popupConfirmationType,
+                                                  endpoint: section.endpoint)
                 }
-                .refreshable {
-                    reloadUpNext = true
-                    viewModel.reload()
-                }
+                HorizontalItemContentListView(items: viewModel.recommendations,
+                                              title: "recommendationsTitle",
+                                              subtitle: "recommendationsSubtitle",
+                                              showPopup: $showPopup,
+                                              popupConfirmationType: $popupConfirmationType)
+                .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
+                AttributionView()
             }
-            .actionPopup(isShowing: $showPopup, for: popupConfirmationType)
+            .refreshable {
+                reloadUpNext = true
+                viewModel.reload()
+            }
+        }
+        .overlay { if !viewModel.isLoaded { ProgressView("Loading").unredacted() } }
+        .actionPopup(isShowing: $showPopup, for: popupConfirmationType)
 #if os(tvOS)
-            .ignoresSafeArea(.all, edges: .horizontal)
+        .ignoresSafeArea(.all, edges: .horizontal)
 #endif
-            .onAppear {
-                checkVersion()
+        .onAppear {
+            checkVersion()
 #if os(iOS) || os(macOS)
-                Task {
-                    let notifications = await NotificationManager.shared.hasDeliveredItems()
-                    hasNotifications = notifications
+            Task {
+                let notifications = await NotificationManager.shared.hasDeliveredItems()
+                hasNotifications = notifications
+            }
+#endif
+        }
+        .sheet(isPresented: $showWhatsNew) {
+#if os(iOS) || os(macOS)
+            ChangelogView(showChangelog: $showWhatsNew)
+                .onDisappear {
+                    showWhatsNew = false
                 }
-#endif
-            }
-            .sheet(isPresented: $showWhatsNew) {
-#if os(iOS) || os(macOS)
-                ChangelogView(showChangelog: $showWhatsNew)
-                    .onDisappear {
-                        showWhatsNew = false
-                    }
 #if os(macOS)
-                    .frame(minWidth: 400, idealWidth: 600, maxWidth: nil, minHeight: 500, idealHeight: 500, maxHeight: nil, alignment: .center)
+                .frame(minWidth: 400, idealWidth: 600, maxWidth: nil, minHeight: 500, idealHeight: 500, maxHeight: nil, alignment: .center)
 #elseif os(iOS)
-                    .appTheme()
+                .appTheme()
 #endif
 #endif
-            }
-            .navigationDestination(for: ItemContent.self) { item in
-                ItemContentDetails(title: item.itemTitle,
-                                   id: item.id,
-                                   type: item.itemContentMedia)
-            }
-            .navigationDestination(for: Person.self) { person in
-                PersonDetailsView(title: person.name, id: person.id)
-            }
-            .navigationDestination(for: WatchlistItem.self) { item in
-                ItemContentDetails(title: item.itemTitle,
-                                   id: item.itemId,
-                                   type: item.itemMedia)
-            }
-            .navigationDestination(for: Endpoints.self) { endpoint in
-                EndpointDetails(title: endpoint.title,
-                                endpoint: endpoint)
-            }
+        }
+        .navigationDestination(for: ItemContent.self) { item in
+            ItemContentDetails(title: item.itemTitle,
+                               id: item.id,
+                               type: item.itemContentMedia)
+        }
+        .navigationDestination(for: Person.self) { person in
+            PersonDetailsView(title: person.name, id: person.id)
+        }
+        .navigationDestination(for: WatchlistItem.self) { item in
+            ItemContentDetails(title: item.itemTitle,
+                               id: item.itemId,
+                               type: item.itemMedia)
+        }
+        .navigationDestination(for: Endpoints.self) { endpoint in
+            EndpointDetails(title: endpoint.title,
+                            endpoint: endpoint)
+        }
 #if os(iOS) || os(macOS)
-            .navigationDestination(for: [WatchlistItem].self) { item in
-                WatchlistSectionDetails(items: item)
-            }
-            .navigationDestination(for: [String:[WatchlistItem]].self) { item in
-                let keys = item.map { (key, _) in key }
-                let value = item.map { (_, value) in value }
-                WatchlistSectionDetails(title: keys[0], items: value[0])
-            }
+        .navigationDestination(for: [WatchlistItem].self) { item in
+            WatchlistSectionDetails(items: item)
+        }
+        .navigationDestination(for: [String:[WatchlistItem]].self) { item in
+            let keys = item.map { (key, _) in key }
+            let value = item.map { (_, value) in value }
+            WatchlistSectionDetails(title: keys[0], items: value[0])
+        }
 #endif
-            .navigationDestination(for: [String:[ItemContent]].self) { item in
-                let keys = item.map { (key, _) in key }
-                let value = item.map { (_, value) in value }
-                ItemContentSectionDetails(title: keys[0], items: value[0])
-            }
-            .navigationDestination(for: [Person].self) { items in
-                DetailedPeopleList(items: items)
-            }
-            .navigationDestination(for: ProductionCompany.self) { item in
-                CompanyDetails(company: item)
-            }
-            .navigationDestination(for: [ProductionCompany].self) { item in
-                CompaniesListView(companies: item)
-            }
-            .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
+        .navigationDestination(for: [String:[ItemContent]].self) { item in
+            let keys = item.map { (key, _) in key }
+            let value = item.map { (_, value) in value }
+            ItemContentSectionDetails(title: keys[0], items: value[0])
+        }
+        .navigationDestination(for: [Person].self) { items in
+            DetailedPeopleList(items: items)
+        }
+        .navigationDestination(for: ProductionCompany.self) { item in
+            CompanyDetails(company: item)
+        }
+        .navigationDestination(for: [ProductionCompany].self) { item in
+            CompaniesListView(companies: item)
+        }
+        .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
 #if os(iOS) || os(macOS)
-            .navigationTitle("Home")
+        .navigationTitle("Home")
 #endif
-            .toolbar {
+        .toolbar {
 #if os(macOS)
-                ToolbarItem(placement: .navigation) {
-                    HStack {
-                        Button {
-                            showNotifications.toggle()
-                        } label: {
-                            Label("Notifications", systemImage: hasNotifications ? "bell.badge.fill" : "bell")
-                                .labelStyle(.iconOnly)
-                        }
-                        Button {
-                            reloadUpNext = true
-                            viewModel.reload()
-                        } label: {
-                            Label("Reload", systemImage: "arrow.clockwise")
-                                .labelStyle(.iconOnly)
-                        }
-                        .keyboardShortcut("r", modifiers: .command)
-                    }
-                }
-#elseif os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .navigation) {
+                HStack {
                     Button {
                         showNotifications.toggle()
                     } label: {
-                        Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
-                            .fontDesign(.rounded)
-                            .fontWeight(.semibold)
-                            .imageScale(.medium)
-                            .foregroundColor(.white.opacity(0.9))
+                        Label("Notifications", systemImage: hasNotifications ? "bell.badge.fill" : "bell")
+                            .labelStyle(.iconOnly)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .clipShape(Circle())
-                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                    .shadow(radius: 2.5)
-                    .accessibilityLabel("Notifications")
+                    Button {
+                        reloadUpNext = true
+                        viewModel.reload()
+                    } label: {
+                        Label("Reload", systemImage: "arrow.clockwise")
+                            .labelStyle(.iconOnly)
+                    }
+                    .keyboardShortcut("r", modifiers: .command)
                 }
-#endif
             }
-            .sheet(isPresented: $displayOnboard) {
-                WelcomeView()
+#elseif os(iOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showNotifications.toggle()
+                } label: {
+                    Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                        .fontDesign(.rounded)
+                        .fontWeight(.semibold)
+                        .imageScale(.medium)
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                .buttonStyle(.borderedProminent)
+                .clipShape(Circle())
+                .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                .shadow(radius: 2.5)
+                .accessibilityLabel("Notifications")
+            }
+#endif
+        }
+        .sheet(isPresented: $displayOnboard) {
+            WelcomeView()
 #if os(macOS)
-                    .frame(width: 500, height: 700, alignment: .center)
+                .frame(width: 500, height: 700, alignment: .center)
 #endif
-            }
-            .sheet(isPresented: $showNotifications) {
+        }
+        .sheet(isPresented: $showNotifications) {
 #if os(iOS) || os(macOS)
-                NotificationListView(showNotification: $showNotifications)
-                    .appTheme()
+            NotificationListView(showNotification: $showNotifications)
+                .appTheme()
 #if os(macOS)
-                    .frame(width: 800, height: 500)
+                .frame(width: 800, height: 500)
 #endif
 #endif
-            }
-            .task {
-                await viewModel.load()
-            }
+        }
+        .task {
+            await viewModel.load()
         }
     }
     
