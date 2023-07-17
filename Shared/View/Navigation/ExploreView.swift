@@ -12,82 +12,80 @@ struct ExploreView: View {
     @State private var showPopup = false
     @State private var onChanging = false
     @State private var showFilters = false
-    @State private var popupConfirmationType: ActionPopupItems?
+    @State private var popupType: ActionPopupItems?
     @StateObject private var viewModel = ExploreViewModel()
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
-        ZStack {
-            if !viewModel.isLoaded {  ProgressView().unredacted() }
-            ScrollView {
-                ScrollViewReader { proxy in
-                    VStack {
+        VStack {
+            ScrollViewReader { proxy in
+                ScrollView {
 #if os(tvOS)
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("Explore")
-                                    .font(.title3)
-                                Text(viewModel.selectedMedia.title)
-                                    .font(.callout)
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding()
-                            Spacer()
-                            Button {
-                                showFilters.toggle()
-                            } label: {
-                                Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                                    .labelStyle(.iconOnly)
-                            }
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Explore")
+                                .font(.title3)
+                            Text(viewModel.selectedMedia.title)
+                                .font(.callout)
+                                .foregroundColor(.secondary)
                         }
-                        .padding(.horizontal)
-#endif
-                        
-                        switch settings.exploreDisplayType {
-                        case .poster: posterStyle
-                        case .card: cardStyle
+                        .padding()
+                        Spacer()
+                        Button {
+                            showFilters.toggle()
+                        } label: {
+                            Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                                .labelStyle(.iconOnly)
                         }
                     }
-                    .onChange(of: onChanging) { _ in
-                        guard let first = viewModel.items.first else { return }
-                        withAnimation {
-                            proxy.scrollTo(first.id, anchor: .topLeading)
-                        }
-                    }
-                    .task {
-                        await load()
-                    }
-                    .navigationDestination(for: ItemContent.self) { item in
-                        ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
-                    }
-                    .navigationDestination(for: Person.self) { person in
-                        PersonDetailsView(title: person.name, id: person.id)
-                    }
-                    .navigationDestination(for: [String:[ItemContent]].self) { item in
-                        let keys = item.map { (key, _) in key }
-                        let value = item.map { (_, value) in value }
-#if os(tvOS)
-#else
-                        ItemContentSectionDetails(title: keys[0], items: value[0])
+                    .padding(.horizontal)
 #endif
+                    
+                    switch settings.exploreDisplayType {
+                    case .poster: posterStyle
+                    case .card: cardStyle
                     }
-                    .navigationDestination(for: [Person].self) { items in
-#if os(tvOS)
-#else
-                        DetailedPeopleList(items: items)
-#endif
-                    }
-                    .navigationDestination(for: ProductionCompany.self) { item in
-                        CompanyDetails(company: item)
-                    }
-                    .navigationDestination(for: [ProductionCompany].self) { item in
-#if os(tvOS)
-#else
-                        CompaniesListView(companies: item)
-#endif
+                }
+                .onChange(of: onChanging) { _ in
+                    guard let first = viewModel.items.first else { return }
+                    withAnimation {
+                        proxy.scrollTo(first.id, anchor: .topLeading)
                     }
                 }
             }
-            .actionPopup(isShowing: $showPopup, for: popupConfirmationType)
+        }
+        .overlay { if !viewModel.isLoaded {  ProgressView().unredacted() } }
+        .actionPopup(isShowing: $showPopup, for: popupType)
+        .task {
+            await load()
+        }
+        .navigationDestination(for: ItemContent.self) { item in
+            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
+        }
+        .navigationDestination(for: Person.self) { person in
+            PersonDetailsView(title: person.name, id: person.id)
+        }
+        .navigationDestination(for: [String:[ItemContent]].self) { item in
+            let keys = item.map { (key, _) in key }
+            let value = item.map { (_, value) in value }
+#if os(tvOS)
+#else
+            ItemContentSectionDetails(title: keys[0], items: value[0])
+#endif
+        }
+        .navigationDestination(for: [Person].self) { items in
+#if os(tvOS)
+#else
+            DetailedPeopleList(items: items)
+#endif
+        }
+        .navigationDestination(for: ProductionCompany.self) { item in
+            CompanyDetails(company: item)
+        }
+        .navigationDestination(for: [ProductionCompany].self) { item in
+#if os(tvOS)
+#else
+            CompaniesListView(companies: item)
+#endif
         }
         .sheet(isPresented: $showFilters, content: {
             NavigationStack {
@@ -212,7 +210,7 @@ struct ExploreView: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showPopup: $showPopup, popupConfirmationType: $popupConfirmationType)
+                CardFrame(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
@@ -238,7 +236,7 @@ struct ExploreView: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupConfirmationType)
+                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
