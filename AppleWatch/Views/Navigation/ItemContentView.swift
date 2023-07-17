@@ -101,7 +101,7 @@ struct ItemContentView: View {
             let keys = item.map { (key, _) in key }.first
             let value = item.map { (_, value) in value }.first
             if let keys, let value {
-                EpisodeDetailsView(episode: value, season: keys, show: id, isWatched: $isWatched)
+                EpisodeDetailsView(episode: value, season: keys, show: id, showTitle: title, isWatched: $isWatched)
             }
         }
         .background {

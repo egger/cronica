@@ -650,3 +650,4 @@
 "removedArchive" = "Removed from Archive";
 "markedPin" = "Pinned";
 "removedPin" = "Unpinned";
+"S%d, E%d" = "S%d, E%d";

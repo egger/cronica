@@ -681,3 +681,4 @@
 "removedArchive" = "Removido dos arquivos";
 "markedPin" = "Fixado";
 "removedPin" = "Desafixado";
+"S%d, E%d" = "T%d, E%d";
