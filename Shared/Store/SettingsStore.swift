@@ -48,7 +48,11 @@ class SettingsStore: ObservableObject {
     @AppStorage("showRemoveConfirmation") var showRemoveConfirmation = false
 #endif
     @AppStorage("choosePreferredLaunchScreen") var isPreferredLaunchScreenEnabled = false
+#if !os(watchOS)
     @AppStorage("preferredLaunchScreen") var preferredLaunchScreen: Screens = .home
+#else
+    @AppStorage("preferredLaunchScreen") var preferredLaunchScreen: Screens = .watchlist
+#endif
     @AppStorage("removeFromPinOnWatched") var removeFromPinOnWatched = false
     @AppStorage("autoOpenCustomListSelector") var openListSelectorOnAdding = false
 }

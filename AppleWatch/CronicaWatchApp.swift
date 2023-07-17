@@ -16,14 +16,16 @@ struct CronicaWatchApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            TabView {
+            TabView(selection: $selectedView) {
                 WatchlistView()
+                    .tag(WatchlistView.tag)
                     .environment(\.managedObjectContext, persistence.container.viewContext)
                     .tabItem {
                         Label("Watchlist", systemImage: "square.stack")
                             .labelStyle(.titleOnly)
                     }
                 UpNextListView()
+                    .tag(UpNextListView.tag)
                     .environment(\.managedObjectContext, persistence.container.viewContext)
                     .tabItem {
                         Label("Up Next", systemImage: "tv")

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WatchlistView: View {
+    static let tag: Screens? = .watchlist
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],

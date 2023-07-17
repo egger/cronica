@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+#if !os(watchOS)
 enum Screens: String, Identifiable, CaseIterable {
     var id: String { rawValue }
     case home, explore, watchlist
@@ -26,3 +26,16 @@ enum Screens: String, Identifiable, CaseIterable {
         }
     }
 }
+#else
+enum Screens: String, Identifiable, CaseIterable {
+    var id: String { rawValue }
+    case watchlist, upNext
+    
+    var title: String {
+        switch self {
+        case .watchlist: return NSLocalizedString("Watchlist", comment: "")
+        case .upNext: return NSLocalizedString("upNext", comment: "")
+        }
+    }
+}
+#endif

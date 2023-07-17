@@ -9,6 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct UpNextListView: View {
+    static let tag: Screens? = .upNext
     @StateObject private var viewModel = UpNextViewModel()
     @FetchRequest(
         entity: WatchlistItem.entity(),
@@ -34,6 +35,7 @@ struct UpNextListView: View {
                     }
                 }
                 .overlay { if !viewModel.isLoaded { ProgressView() } }
+                .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
                 .task(id: viewModel.isWatched) {
                     if viewModel.isWatched {
                         await viewModel.handleWatched(selectedEpisode)
