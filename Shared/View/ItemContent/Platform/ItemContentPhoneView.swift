@@ -147,7 +147,7 @@ struct ItemContentPhoneView: View {
             }
             Text(title)
                 .multilineTextAlignment(.center)
-                .lineLimit(2)
+                .lineLimit(3)
                 .font(.title2)
                 .fontDesign(.rounded)
                 .fontWeight(.semibold)

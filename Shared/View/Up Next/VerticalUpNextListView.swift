@@ -9,6 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct VerticalUpNextListView: View {
+    @StateObject private var settings = SettingsStore.shared
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
@@ -16,16 +17,13 @@ struct VerticalUpNextListView: View {
                                                                     NSPredicate(format: "isArchive == %d", false),
                                                                     NSPredicate(format: "watched == %d", false)])
     ) private var items: FetchedResults<WatchlistItem>
+    @EnvironmentObject var viewModel: UpNextViewModel
     @State private var selectedEpisode: UpNextEpisode?
-    @State private var isWatched = false
-    @Binding var episodes: [UpNextEpisode]
-    private let network = NetworkService.shared
-    private let persistence = PersistenceController.shared
     var body: some View {
-        ScrollView {
-            VStack {
+        VStack {
+            ScrollView {
                 LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                    ForEach(episodes) { item in
+                    ForEach(viewModel.episodes) { item in
                         VStack(alignment: .leading) {
                             upNextCard(item: item)
                                 .contextMenu {
@@ -37,7 +35,7 @@ struct VerticalUpNextListView: View {
                                 }
                                 .onTapGesture {
                                     if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                        Task { await markAsWatched(item) }
+                                        Task { await viewModel.markAsWatched(item) }
                                     } else {
                                         selectedEpisode = item
                                     }
@@ -62,36 +60,35 @@ struct VerticalUpNextListView: View {
                 }
                 .padding()
             }
-            .sheet(item: $selectedEpisode) { item in
-                NavigationStack {
-                    EpisodeDetailsView(episode: item.episode,
-                                       season: item.episode.itemSeasonNumber,
-                                       show: item.showID,
-                                       showTitle: item.showTitle,
-                                       isWatched: $isWatched)
-                    .toolbar {
-                        Button("Done") { selectedEpisode = nil }
-                    }
-                    .navigationDestination(for: ItemContent.self) { item in
-                        ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                    }
-                }
-#if os(macOS)
-                .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
-#endif
-            }
-            .task(id: isWatched) {
-                if isWatched {
-                    guard let selectedEpisode else { return }
-                    await handleWatched(selectedEpisode)
-                    self.selectedEpisode = nil
-                }
-            }
-            .task {
-                await checkForNewEpisodes()
-            }
-            .navigationTitle("upNext")
         }
+        .sheet(item: $selectedEpisode) { item in
+            NavigationStack {
+                EpisodeDetailsView(episode: item.episode,
+                                   season: item.episode.itemSeasonNumber,
+                                   show: item.showID,
+                                   showTitle: item.showTitle,
+                                   isWatched: $viewModel.isWatched)
+                .toolbar {
+                    Button("Done") { self.selectedEpisode = nil }
+                }
+                .navigationDestination(for: ItemContent.self) { item in
+                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+                }
+            }
+#if os(macOS)
+            .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#endif
+        }
+        .task(id: viewModel.isWatched) {
+            if viewModel.isWatched {
+                await viewModel.handleWatched(selectedEpisode)
+                self.selectedEpisode = nil
+            }
+        }
+        .task {
+            await viewModel.checkForNewEpisodes(items)
+        }
+        .navigationTitle("upNext")
     }
     
     private func upNextCard(item: UpNextEpisode) -> some View {
@@ -113,88 +110,6 @@ struct VerticalUpNextListView: View {
             .transition(.opacity)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
             .shadow(radius: 2)
-    }
-    
-    private func handleWatched(_ content: UpNextEpisode) async {
-        let helper = EpisodeHelper()
-        let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
-        if let nextEpisode {
-            if nextEpisode.isItemReleased {
-                let content = UpNextEpisode(id: nextEpisode.id,
-                                            showTitle: content.showTitle,
-                                            showID: content.showID,
-                                            backupImage: content.backupImage,
-                                            episode: nextEpisode)
-                withAnimation(.easeInOut) {
-                    self.episodes.insert(content, at: 0)
-                }
-            }
-        }
-        withAnimation(.easeInOut) {
-            self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
-        }
-    }
-    
-    private func checkForNewEpisodes() async {
-        for item in items {
-            let result = try? await network.fetchEpisode(tvID: item.id,
-                                                         season: item.seasonNumberUpNext,
-                                                         episodeNumber: item.nextEpisodeNumberUpNext)
-            if let result {
-                let isWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                           season: result.itemSeasonNumber,
-                                                           episode: result.id)
-                let isInEpisodeList = episodes.contains(where: { $0.episode.id == result.id })
-                let isItemAlreadyLoadedInList = episodes.contains(where: { $0.showID == item.itemId })
-                
-                if result.isItemReleased && !isWatched && !isInEpisodeList {
-                    if isItemAlreadyLoadedInList {
-                        await MainActor.run {
-                            withAnimation(.easeInOut) {
-                                self.episodes.removeAll(where: { $0.showID == item.itemId })
-                            }
-                        }
-                    }
-                    let content = UpNextEpisode(id: result.id,
-                                                showTitle: item.itemTitle,
-                                                showID: item.itemId,
-                                                backupImage: item.image,
-                                                episode: result)
-                    
-                    await MainActor.run {
-                        withAnimation(.easeInOut) {
-                            self.episodes.append(content)
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    private func markAsWatched(_ content: UpNextEpisode) async {
-        let contentId = "\(content.showID)@\(MediaType.tvShow.toInt)"
-        let item = persistence.fetch(for: contentId)
-        guard let item else { return }
-        persistence.updateWatchedEpisodes(for: item, with: content.episode)
-        withAnimation(.easeInOut) {
-            self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
-        }
-        HapticManager.shared.successHaptic()
-        let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: content.episode, show: content.showID)
-        if let nextEpisode {
-            if nextEpisode.isItemReleased {
-                let content = UpNextEpisode(id: nextEpisode.id,
-                                            showTitle: content.showTitle,
-                                            showID: content.showID,
-                                            backupImage: content.backupImage,
-                                            episode: nextEpisode)
-                persistence.updateUpNext(item, episode: nextEpisode)
-                withAnimation(.easeInOut) {
-                    self.episodes.insert(content, at: 0)
-                }
-            }
-        }
     }
 }
 

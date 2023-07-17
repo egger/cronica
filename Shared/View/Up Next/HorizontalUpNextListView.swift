@@ -9,6 +9,10 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct HorizontalUpNextListView: View {
+    @Binding var shouldReload: Bool
+    @State private var selectedEpisode: UpNextEpisode?
+    @StateObject private var settings = SettingsStore.shared
+    @StateObject private var viewModel = UpNextViewModel()
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
@@ -16,21 +20,12 @@ struct HorizontalUpNextListView: View {
                                                                     NSPredicate(format: "isArchive == %d", false),
                                                                     NSPredicate(format: "watched == %d", false)])
     ) private var items: FetchedResults<WatchlistItem>
-    @State private var isWatched = false
-    @Binding var shouldReload: Bool
-    @State private var selectedEpisode: UpNextEpisode?
-    @State var isLoaded = false
-    @State var episodes = [UpNextEpisode]()
-    @State private var scrollToInitial = false
-    private let network = NetworkService.shared
-    private let persistence = PersistenceController.shared
-    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
-                if !episodes.isEmpty {
+                if !viewModel.episodes.isEmpty {
 #if !os(tvOS)
-                    NavigationLink(value: episodes) {
+                    NavigationLink(value: viewModel.episodes) {
                         TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
                     }
                     .buttonStyle(.plain)
@@ -42,7 +37,7 @@ struct HorizontalUpNextListView: View {
                     ScrollViewReader { proxy in
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
-                                ForEach(episodes) { item in
+                                ForEach(viewModel.episodes) { item in
 #if os(tvOS)
                                     Button {
                                         selectedEpisode = item
@@ -65,13 +60,13 @@ struct HorizontalUpNextListView: View {
                                             }
                                         }
                                         .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == episodes.first!.id ? 16 : 0)
-                                        .padding(.trailing, item.id == episodes.last!.id ? 16 : 0)
+                                        .padding(.leading, item.id == viewModel.episodes.first!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == viewModel.episodes.last!.id ? 16 : 0)
                                         .padding(.top, 8)
                                         .padding(.bottom)
                                         .onTapGesture {
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                Task { await markAsWatched(item) }
+                                                Task { await viewModel.markAsWatched(item) }
                                             } else {
                                                 selectedEpisode = item
                                             }
@@ -79,9 +74,9 @@ struct HorizontalUpNextListView: View {
 #endif
                                 }
                             }
-                            .onChange(of: isWatched) { _ in
-                                guard let first = episodes.first else { return }
-                                if isWatched {
+                            .onChange(of: viewModel.isWatched) { _ in
+                                guard let first = viewModel.episodes.first else { return }
+                                if viewModel.isWatched {
                                     withAnimation {
                                         proxy.scrollTo(first.id, anchor: .topLeading)
                                     }
@@ -91,25 +86,24 @@ struct HorizontalUpNextListView: View {
                     }
                 }
             }
-            .redacted(reason: isLoaded ? [] : .placeholder)
+            .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             .navigationDestination(for: [UpNextEpisode].self) { _ in
-                VerticalUpNextListView(episodes: $episodes)
+                VerticalUpNextListView().environmentObject(viewModel)
             }
-            .task(id: isWatched) {
-                if isWatched {
-                    guard let selectedEpisode else { return }
-                    await handleWatched(selectedEpisode)
+            .task(id: viewModel.isWatched) {
+                if viewModel.isWatched {
+                    await viewModel.handleWatched(selectedEpisode)
                     self.selectedEpisode = nil
                 }
             }
             .task {
-                await load()
-                await checkForNewEpisodes()
+                await viewModel.load(items)
+                await viewModel.checkForNewEpisodes(items)
             }
             .onChange(of: shouldReload) { reload in
                 if reload {
                     Task {
-                        await self.reload()
+                        await viewModel.reload(items)
                         DispatchQueue.main.async {
                             withAnimation(.easeInOut) {
                                 self.shouldReload = false
@@ -124,14 +118,15 @@ struct HorizontalUpNextListView: View {
                                        season: item.episode.itemSeasonNumber,
                                        show: item.showID,
                                        showTitle: item.showTitle,
-                                       isWatched: $isWatched)
+                                       isWatched: $viewModel.isWatched)
 #if os(macOS) || os(iOS)
-                    .toolbar { Button("Done") { selectedEpisode = nil } }
+                    .toolbar { Button("Done") { self.selectedEpisode = nil } }
 #endif
                     .navigationDestination(for: ItemContent.self) { item in
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     }
                 }
+                .presentationDetents([.medium, .large])
 #if os(macOS)
                 .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
 #endif
@@ -215,139 +210,6 @@ struct HorizontalUpNextListView: View {
         .shadow(radius: 2.5)
         .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
         .accessibilityAddTraits(.isButton)
-    }
-    
-    private func load() async {
-        if !isLoaded {
-            for item in items {
-                let result = try? await network.fetchEpisode(tvID: item.id,
-                                                             season: item.seasonNumberUpNext,
-                                                             episodeNumber: item.nextEpisodeNumberUpNext)
-                if let result {
-                    let isWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                               season: result.itemSeasonNumber,
-                                                               episode: result.id)
-                    
-                    if result.isItemReleased && !isWatched {
-                        let content = UpNextEpisode(id: result.id,
-                                                    showTitle: item.itemTitle,
-                                                    showID: item.itemId,
-                                                    backupImage: item.image,
-                                                    episode: result)
-                        
-                        await MainActor.run {
-                            withAnimation(.easeInOut) {
-                                self.episodes.append(content)
-                            }
-                        }
-                    }
-                }
-            }
-            await MainActor.run {
-                withAnimation { self.isLoaded = true }
-            }
-        }
-    }
-    
-    private func reload() async {
-        withAnimation { self.isLoaded = false }
-        await MainActor.run {
-            withAnimation(.easeInOut) {
-                self.episodes.removeAll()
-            }
-        }
-        Task { await load() }
-    }
-    
-    private func handleWatched(_ content: UpNextEpisode) async {
-        let helper = EpisodeHelper()
-        let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
-        if let nextEpisode {
-            if nextEpisode.isItemReleased {
-                let content = UpNextEpisode(id: nextEpisode.id,
-                                            showTitle: content.showTitle,
-                                            showID: content.showID,
-                                            backupImage: content.backupImage,
-                                            episode: nextEpisode)
-                DispatchQueue.main.async {
-                    withAnimation(.easeInOut) {
-                        self.episodes.insert(content, at: 0)
-                        self.scrollToInitial = true
-                    }
-                }
-            }
-        }
-        DispatchQueue.main.async {
-            withAnimation(.easeInOut) {
-                self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
-            }
-        }
-    }
-    
-    private func checkForNewEpisodes() async {
-        for item in items {
-            let result = try? await network.fetchEpisode(tvID: item.id,
-                                                         season: item.seasonNumberUpNext,
-                                                         episodeNumber: item.nextEpisodeNumberUpNext)
-            if let result {
-                let isWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                           season: result.itemSeasonNumber,
-                                                           episode: result.id)
-                let isInEpisodeList = episodes.contains(where: { $0.episode.id == result.id })
-                let isItemAlreadyLoadedInList = episodes.contains(where: { $0.showID == item.itemId })
-                
-                if result.isItemReleased && !isWatched && !isInEpisodeList {
-                    if isItemAlreadyLoadedInList {
-                        await MainActor.run {
-                            withAnimation(.easeInOut) {
-                                self.episodes.removeAll(where: { $0.showID == item.itemId })
-                            }
-                        }
-                    }
-                    let content = UpNextEpisode(id: result.id,
-                                                showTitle: item.itemTitle,
-                                                showID: item.itemId,
-                                                backupImage: item.image,
-                                                episode: result)
-                    
-                    await MainActor.run {
-                        withAnimation(.easeInOut) {
-                            self.episodes.insert(content, at: 0)
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    private func markAsWatched(_ content: UpNextEpisode) async {
-        let contentId = "\(content.showID)@\(MediaType.tvShow.toInt)"
-        let item = persistence.fetch(for: contentId)
-        guard let item else { return }
-        persistence.updateWatchedEpisodes(for: item, with: content.episode)
-        await MainActor.run {
-            withAnimation(.easeInOut) {
-                self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
-            }
-        }
-        HapticManager.shared.successHaptic()
-        let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: content.episode, show: content.showID)
-        guard let nextEpisode else { return }
-        persistence.updateUpNext(item, episode: nextEpisode)
-        if nextEpisode.isItemReleased {
-            let content = UpNextEpisode(id: nextEpisode.id,
-                                        showTitle: content.showTitle,
-                                        showID: content.showID,
-                                        backupImage: content.backupImage,
-                                        episode: nextEpisode)
-            
-            await MainActor.run {
-                withAnimation(.easeInOut) {
-                    self.episodes.insert(content, at: 0)
-                }
-            }
-        }
     }
 }
 

@@ -200,5 +200,13 @@ extension WatchlistItem {
             $0.itemTitle < $1.itemTitle
         }
     }
+    var itemNextUpNextSeason: Int64 {
+        if seasonNumberUpNext == 0 { return 1 }
+        return seasonNumberUpNext
+    }
+    var itemNextUpNextEpisode: Int64 {
+        if nextEpisodeNumberUpNext == 0 { return 1 }
+        return nextEpisodeNumberUpNext
+    }
 }
 
