@@ -11,7 +11,7 @@ struct PinButton: View {
     let id: String
     @Binding var isPin: Bool
     @Binding var popupConfirmationType: ActionPopupItems?
-    @Binding var showConfirmationPopup: Bool
+    @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
         Button(action: updatePin) {
@@ -25,7 +25,7 @@ struct PinButton: View {
         withAnimation {
             isPin.toggle()
             popupConfirmationType = isPin ? .markedPin : .removedPin
-            showConfirmationPopup = true
+            showPopup = true
         }
         HapticManager.shared.successHaptic()
     }
@@ -36,6 +36,6 @@ struct PinButton_Previews: PreviewProvider {
         PinButton(id: ItemContent.example.itemContentID,
                   isPin: .constant(false),
                   popupConfirmationType: .constant(nil),
-                  showConfirmationPopup: .constant(false))
+                  showPopup: .constant(false))
     }
 }

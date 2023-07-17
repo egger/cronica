@@ -11,7 +11,7 @@ struct ItemContentPhoneView: View {
     let title: String
     let type: MediaType
     let id: Int
-    @Binding var showConfirmation: Bool
+    @Binding var showPopup: Bool
     @Binding var showWatchedPopup: Bool
     @EnvironmentObject var viewModel: ItemContentViewModel
     @StateObject private var store = SettingsStore.shared
@@ -20,7 +20,6 @@ struct ItemContentPhoneView: View {
     @State private var showReleaseDateInfo = false
     @Binding var showCustomList: Bool
     @State private var navigationTitle = String()
-    @Binding var showActionPopup: Bool
     @Binding var popupType: ActionPopupItems?
     var body: some View {
         VStack {
@@ -45,7 +44,7 @@ struct ItemContentPhoneView: View {
             
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
-                                          addedItemConfirmation: $showConfirmation,
+                                          showPopup: $showPopup,
                                           popupConfirmationType: $popupType,
                                           displayAsCard: true)
             
@@ -72,7 +71,7 @@ struct ItemContentPhoneView: View {
                 Button {
                     viewModel.update(.watched)
                     popupType = viewModel.isWatched ? .markedWatched : .removedWatched
-                    withAnimation { showActionPopup = true }
+                    withAnimation { showPopup = true }
                 } label: {
                     VStack {
                         Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")

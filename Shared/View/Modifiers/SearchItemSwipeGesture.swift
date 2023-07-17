@@ -9,7 +9,7 @@ import SwiftUI
 #if os(iOS) || os(macOS)
 struct SearchItemSwipeGesture: ViewModifier {
     let item: ItemContent
-    @Binding var showConfirmation: Bool
+    @Binding var showPopup: Bool
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
     @Binding var popupType: ActionPopupItems?
@@ -24,17 +24,17 @@ struct SearchItemSwipeGesture: ViewModifier {
                     WatchedButton(id: item.itemContentID,
                                   isWatched: $isWatched,
                                   popupConfirmationType: $popupType,
-                                  showConfirmationPopup: $showConfirmation)
+                                  showPopup: $showPopup)
                         .tint(isWatched ? .yellow : .green)
                     FavoriteButton(id: item.itemContentID,
                                    isFavorite: $isFavorite,
                                    popupConfirmationType: $popupType,
-                                   showConfirmationPopup: $showConfirmation)
+                                   showPopup: $showPopup)
                         .tint(isFavorite ? .orange : .blue)
                 } else {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation,
+                                    showPopup: $showPopup,
                                     showListSelector: .constant(false),
                                     popupConfirmationType: $popupType)
                     .tint(.blue)
@@ -44,7 +44,7 @@ struct SearchItemSwipeGesture: ViewModifier {
                 if isInWatchlist {
                     WatchlistButton(id: item.itemContentID,
                                     isInWatchlist: $isInWatchlist,
-                                    showConfirmation: $showConfirmation,
+                                    showPopup: $showPopup,
                                     showListSelector: .constant(false),
                                     popupConfirmationType: $popupType)
                 }

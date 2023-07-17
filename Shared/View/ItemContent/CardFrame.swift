@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct CardFrame: View {
     let item: ItemContent
-    @Binding var showConfirmation: Bool
+    @Binding var showPopup: Bool
     @Binding var popupConfirmationType: ActionPopupItems?
     private let context = PersistenceController.shared
     @State private var isInWatchlist = false
@@ -84,12 +84,11 @@ struct CardFrame: View {
                     .applyHoverEffect()
                     .itemContentContextMenu(item: item,
                                             isWatched: $isWatched,
-                                            showConfirmation: $showConfirmation,
+                                            showPopup: $showPopup,
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote,
                                             showCustomList: $showCustomListView,
-                                            popupConfirmationType: $popupConfirmationType,
-                                            showConfirmationPopup: $showConfirmation)
+                                            popupConfirmationType: $popupConfirmationType)
             }
 #if os(tvOS)
             .buttonStyle(.card)
@@ -149,7 +148,7 @@ struct CardFrame: View {
 
 struct CardFrame_Previews: PreviewProvider {
     static var previews: some View {
-        CardFrame(item: .example, showConfirmation: .constant(false), popupConfirmationType: .constant(nil))
+        CardFrame(item: .example, showPopup: .constant(false), popupConfirmationType: .constant(nil))
     }
 }
 

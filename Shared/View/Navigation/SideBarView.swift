@@ -19,7 +19,7 @@ struct SideBarView: View {
     @State private var selectedSearchItem: ItemContent?
     @State private var scope: SearchItemsScope = .noScope
     private let persistence = PersistenceController.shared
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var isInWatchlist = false
     @State private var isSearching = false
     @State private var popupType: ActionPopupItems?
@@ -213,7 +213,7 @@ struct SideBarView: View {
                 case .noScope:
                     ForEach(viewModel.items) { item in
                         SearchItemView(item: item,
-                                       showConfirmation: $showConfirmation,
+                                       showPopup: $showPopup,
                                        popupType: $popupType,
                                        isSidebar: true)
                             .onTapGesture {
@@ -236,7 +236,7 @@ struct SideBarView: View {
                 case .movies:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
                         SearchItemView(item: item,
-                                       showConfirmation: $showConfirmation,
+                                       showPopup: $showPopup,
                                        popupType: $popupType,
                                        isSidebar: true)
                             .onTapGesture {
@@ -246,7 +246,7 @@ struct SideBarView: View {
                 case .shows:
                     ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
                         SearchItemView(item: item,
-                                       showConfirmation: $showConfirmation,
+                                       showPopup: $showPopup,
                                        popupType: $popupType,
                                        isSidebar: true)
                             .onTapGesture {
@@ -256,7 +256,7 @@ struct SideBarView: View {
                 case .people:
                     ForEach(viewModel.items.filter { $0.media == .person }) { item in
                         SearchItemView(item: item,
-                                       showConfirmation: $showConfirmation,
+                                       showPopup: $showPopup,
                                        popupType: $popupType,
                                        isSidebar: true)
                             .onTapGesture {

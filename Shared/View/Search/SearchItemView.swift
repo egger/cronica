@@ -9,7 +9,7 @@ import SwiftUI
 #if os(iOS) || os(macOS)
 struct SearchItemView: View {
     let item: ItemContent
-    @Binding var showConfirmation: Bool
+    @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     @State private var isInWatchlist = false
     @State private var isWatched = false
@@ -40,15 +40,14 @@ struct SearchItemView: View {
                     }
                     .itemContentContextMenu(item: item,
                                             isWatched: $isWatched,
-                                            showConfirmation: $showConfirmation,
+                                            showPopup: $showPopup,
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote,
                                             showCustomList: $showCustomListView,
-                                            popupConfirmationType: .constant(nil),
-                    showConfirmationPopup: $showConfirmation)
+                                            popupConfirmationType: .constant(nil))
                     .modifier(
                         SearchItemSwipeGesture(item: item,
-                                               showConfirmation: $showConfirmation,
+                                               showPopup: $showPopup,
                                                isInWatchlist: $isInWatchlist,
                                                isWatched: $isWatched,
                                                popupType: $popupType)
@@ -92,15 +91,14 @@ struct SearchItemView: View {
                         }
                         .itemContentContextMenu(item: item,
                                                 isWatched: $isWatched,
-                                                showConfirmation: $showConfirmation,
+                                                showPopup: $showPopup,
                                                 isInWatchlist: $isInWatchlist,
                                                 showNote: $showNote,
                                                 showCustomList: $showCustomListView,
-                                                popupConfirmationType: .constant(nil),
-                                                showConfirmationPopup: $showConfirmation)
+                                                popupConfirmationType: .constant(nil))
                         .modifier(
                             SearchItemSwipeGesture(item: item,
-                                                   showConfirmation: $showConfirmation,
+                                                   showPopup: $showPopup,
                                                    isInWatchlist: $isInWatchlist,
                                                    isWatched: $isWatched,
                                                    popupType: $popupType)
@@ -141,7 +139,7 @@ struct SearchItemView: View {
 
 struct SearchItemView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchItemView(item: ItemContent.example, showConfirmation: .constant(false), popupType: .constant(nil))
+        SearchItemView(item: ItemContent.example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 #endif

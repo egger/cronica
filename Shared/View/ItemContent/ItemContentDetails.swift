@@ -14,12 +14,11 @@ struct ItemContentDetails: View {
     var type: MediaType
     @StateObject private var viewModel: ItemContentViewModel
     @StateObject private var store = SettingsStore.shared
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var showSeasonConfirmation = false
     @State private var switchMarkAsView = false
     @State private var showCustomList = false
     @State private var showUserNotes = false
-    @State private var showConfirmationPopup = false
     @State private var popupType: ActionPopupItems?
 #if os(macOS)
     var handleToolbarOnPopup: Bool = false
@@ -39,20 +38,23 @@ struct ItemContentDetails: View {
             if viewModel.isLoading { ProgressView().padding() }
             ScrollView {
 #if os(macOS)
-                ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showConfirmation: $showConfirmation)
+                ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showPopup: $showPopup)
                     .environmentObject(viewModel)
 #elseif os(iOS)
                 if UIDevice.isIPad {
-                    ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showConfirmation: $showConfirmation)
+                    ItemContentPadView(id: id,
+                                       title: title,
+                                       type: type,
+                                       showCustomList: $showCustomList,
+                                       showPopup: $showPopup)
                         .environmentObject(viewModel)
                 } else {
                     ItemContentPhoneView(title: title,
                                          type: type,
                                          id: id,
-                                         showConfirmation: $showConfirmation,
+                                         showPopup: $showPopup,
                                          showWatchedPopup: .constant(false),
                                          showCustomList: $showCustomList,
-                                         showActionPopup: $showConfirmationPopup,
                                          popupType: $popupType)
                         .environmentObject(viewModel)
                 }
@@ -66,7 +68,7 @@ struct ItemContentDetails: View {
                 viewModel.registerNotification()
                 viewModel.checkIfAdded()
             }
-            .actionPopup(isShowing: $showConfirmationPopup, for: popupType)
+            .actionPopup(isShowing: $showPopup, for: popupType)
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .toolbar {
 #if os(iOS)
@@ -143,7 +145,7 @@ struct ItemContentDetails: View {
 #endif
                 }
             }
-            .actionPopup(isShowing: $showConfirmation, for: popupType)
+            .actionPopup(isShowing: $showPopup, for: popupType)
 #elseif os(tvOS)
             ItemContentTVView(title: title, type: type, id: id)
                 .environmentObject(viewModel)
@@ -276,7 +278,7 @@ struct ItemContentDetails: View {
     
     private func animate(for action: ActionPopupItems) {
         popupType = action
-        withAnimation { showConfirmationPopup = true }
+        withAnimation { showPopup = true }
     }
 }
 

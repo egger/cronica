@@ -12,22 +12,22 @@ struct EndpointDetails: View {
     var endpoint: Endpoints?
     @StateObject private var viewModel = EndpointDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
     var body: some View {
-        ZStack {
-            if viewModel.isLoading { ProgressView() }
+        VStack {
             ScrollView {
-                VStack {
-                    switch settings.listsDisplayType {
-                    case .standard: cardStyle
-                    case .card: cardStyle
-                    case .poster: posterStyle
-                    }
+                switch settings.listsDisplayType {
+                case .standard: cardStyle
+                case .card: cardStyle
+                case .poster: posterStyle
                 }
             }
-            .actionPopup(isShowing: $showConfirmation, for: popupType)
         }
+        .overlay {
+            if viewModel.isLoading { ProgressView() }
+        }
+        .actionPopup(isShowing: $showPopup, for: popupType)
         .task {
             if let endpoint {
                 await viewModel.loadMoreItems(for: endpoint)
@@ -40,7 +40,7 @@ struct EndpointDetails: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupType)
+                CardFrame(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
             }
             if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
@@ -68,7 +68,7 @@ struct EndpointDetails: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupType)
+                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
             }
             if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
@@ -90,7 +90,7 @@ struct EndpointDetails: View {
 #elseif os(macOS)
         LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation, popupType: $popupType)
+                Poster(item: item, addedItemConfirmation: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
             }
             if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {

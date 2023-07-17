@@ -17,6 +17,7 @@ struct WatchlistItemRow: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var showNote = false
     @State private var showCustomListView = false
+    @State private var showPopup: Bool = false
     var body: some View {
         NavigationLink(value: content) {
             HStack {
@@ -91,7 +92,7 @@ struct WatchlistItemRow: View {
                                   showNote: $showNote,
                                   showCustomList: $showCustomListView,
                                   popupConfirmationType: .constant(nil),
-                                  showConfirmationPopup: .constant(false))
+                                  showPopup: $showPopup)
         }
     }
     

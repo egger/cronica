@@ -17,7 +17,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var showNote: Bool
     @Binding var showCustomListView: Bool
     @Binding var popupConfirmationType: ActionPopupItems?
-    @Binding var showConfirmationPopup: Bool
+    @Binding var showPopup: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
     private let settings = SettingsStore.shared
@@ -27,7 +27,6 @@ struct WatchlistItemContextMenu: ViewModifier {
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 watchedButton
                     .tint(item.isWatched ? .yellow : .green)
-                    .disabled(item.isInProduction || item.isUpcoming)
                 pinButton
                     .tint(item.isPin ? .gray : .teal)
                 favoriteButton
@@ -78,28 +77,28 @@ struct WatchlistItemContextMenu: ViewModifier {
         WatchedButton(id: item.itemContentID,
                       isWatched: $isWatched,
                       popupConfirmationType: $popupConfirmationType,
-                      showConfirmationPopup: $showConfirmationPopup)
+                      showPopup: $showPopup)
     }
     
     private var favoriteButton: some View {
         FavoriteButton(id: item.itemContentID,
                        isFavorite: $isFavorite,
                        popupConfirmationType: $popupConfirmationType,
-                       showConfirmationPopup: $showConfirmationPopup)
+                       showPopup: $showPopup)
     }
     
     private var pinButton: some View {
         PinButton(id: item.itemContentID,
                   isPin: $isPin,
                   popupConfirmationType: $popupConfirmationType,
-                  showConfirmationPopup: $showConfirmationPopup)
+                  showPopup: $showPopup)
     }
     
     private var archiveButton: some View {
         ArchiveButton(id: item.itemContentID,
                       isArchive: $isArchive,
                       popupType: $popupConfirmationType,
-                      showConfirmationPopup: $showConfirmationPopup)
+                      showPopup: $showPopup)
     }
     
 #if os(iOS) || os(macOS)

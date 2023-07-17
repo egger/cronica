@@ -16,6 +16,7 @@ struct WatchlistItemFrame: View {
     @State private var isArchive = false
     @State private var showNote = false
     @State private var showCustomListView = false
+    @State private var showPopup = false
     var body: some View {
         VStack {
             NavigationLink(value: content) {
@@ -26,8 +27,9 @@ struct WatchlistItemFrame: View {
                                           isPin: $isPin,
                                           isArchive: $isArchive,
                                           showNote: $showNote,
-                                          showCustomList: $showCustomListView, popupConfirmationType: .constant(nil),
-                                          showConfirmationPopup: .constant(false))
+                                          showCustomList: $showCustomListView,
+                                          popupConfirmationType: .constant(nil),
+                                          showPopup: $showPopup)
             }
             HStack {
                 Text(content.itemTitle)

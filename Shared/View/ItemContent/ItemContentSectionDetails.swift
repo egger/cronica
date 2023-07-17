@@ -10,30 +10,28 @@ import SwiftUI
 struct ItemContentSectionDetails: View {
     let title: String
     let items: [ItemContent]
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
     @State private var settings = SettingsStore.shared
     var body: some View {
-        ZStack {
+        VStack {
             ScrollView {
-                VStack {
-                    if settings.listsDisplayType == .poster {
-                        posterStyle
-                    } else {
-                        cardStyle
-                    }
+                switch settings.listsDisplayType {
+                case .card: cardStyle
+                case .poster: posterStyle
+                case .standard: cardStyle
                 }
-                .navigationTitle(LocalizedStringKey(title))
             }
-            .actionPopup(isShowing: $showConfirmation, for: popupType)
         }
+        .navigationTitle(LocalizedStringKey(title))
+        .actionPopup(isShowing: $showPopup, for: popupType)
     }
     
     @ViewBuilder
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(items) { item in
-                CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupType)
+                CardFrame(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
             }
         }
@@ -46,14 +44,14 @@ struct ItemContentSectionDetails: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupType)
+                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
                     .buttonStyle(.plain)
             }
         }.padding(.all, settings.isCompactUI ? 10 : nil)
 #elseif os(macOS)
         LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
             ForEach(items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation, popupType: $popupType)
+                Poster(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
             }
         }

@@ -13,7 +13,7 @@ struct ItemContentConfirmationRow: View {
     let item: ItemContent
     @State private var isItemAdded = false
     @State private var isWatched = false
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var canReview = false
     @State private var showNote = false
     @State private var showCustomListView = false
@@ -70,10 +70,11 @@ struct ItemContentConfirmationRow: View {
         }
         .itemContentContextMenu(item: item,
                                 isWatched: $isWatched,
-                                showConfirmation: $showConfirmation,
+                                showPopup: $showPopup,
                                 isInWatchlist: $isItemAdded,
                                 showNote: $showNote,
-                                showCustomList: $showCustomListView, popupConfirmationType: .constant(nil), showConfirmationPopup: $showConfirmation)
+                                showCustomList: $showCustomListView,
+                                popupConfirmationType: .constant(nil))
     }
 }
 

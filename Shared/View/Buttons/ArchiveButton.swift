@@ -11,7 +11,7 @@ struct ArchiveButton: View {
     let id: String
     @Binding var isArchive: Bool
     @Binding var popupType: ActionPopupItems?
-    @Binding var showConfirmationPopup: Bool
+    @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
         Button(action: updateArchive) {
@@ -30,7 +30,7 @@ struct ArchiveButton: View {
         HapticManager.shared.successHaptic()
 #if !os(watchOS)
         popupType = isArchive ? .markedArchive : .removedArchive
-        withAnimation { showConfirmationPopup = true }
+        withAnimation { showPopup = true }
 #endif
     }
 }
@@ -40,6 +40,6 @@ struct ArchiveButton_Previews: PreviewProvider {
         ArchiveButton(id: ItemContent.example.itemContentID,
                       isArchive: .constant(false),
                       popupType: .constant(nil),
-                      showConfirmationPopup: .constant(true))
+                      showPopup: .constant(true))
     }
 }

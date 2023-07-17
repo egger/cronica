@@ -11,7 +11,7 @@ struct FavoriteButton: View {
     let id: String
     @Binding var isFavorite: Bool
     @Binding var popupConfirmationType: ActionPopupItems?
-    @Binding var showConfirmationPopup: Bool
+    @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
         Button(action: updateFavorite) {
@@ -26,7 +26,7 @@ struct FavoriteButton: View {
         withAnimation {
             isFavorite.toggle()
             popupConfirmationType = isFavorite ? .markedFavorite : .removedFavorite
-            showConfirmationPopup = true
+            showPopup = true
         }
         HapticManager.shared.successHaptic()
     }
@@ -37,6 +37,6 @@ struct FavoriteButton_Previews: PreviewProvider {
         FavoriteButton(id: ItemContent.example.itemContentID,
                        isFavorite: .constant(true),
                        popupConfirmationType: .constant(nil),
-                       showConfirmationPopup: .constant(false))
+                       showPopup: .constant(false))
     }
 }

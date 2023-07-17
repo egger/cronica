@@ -10,7 +10,7 @@ import SwiftUI
 struct WatchlistButton: View {
     let id: String
     @Binding var isInWatchlist: Bool
-    @Binding var showConfirmation: Bool
+    @Binding var showPopup: Bool
     @Binding var showListSelector: Bool
     @Binding var popupConfirmationType: ActionPopupItems?
     private let persistence = PersistenceController.shared
@@ -78,7 +78,7 @@ struct WatchlistButton: View {
     
     private func displayConfirmation() {
         withAnimation {
-            showConfirmation.toggle()
+            showPopup.toggle()
             isInWatchlist.toggle()
             popupConfirmationType = isInWatchlist ? .addedWatchlist : .removedWatchlist
         }
@@ -99,7 +99,7 @@ struct WatchlistButton_Previews: PreviewProvider {
     static var previews: some View {
         WatchlistButton(id: ItemContent.example.itemContentID,
                         isInWatchlist: .constant(true),
-                        showConfirmation: .constant(false),
+                        showPopup: .constant(false),
                         showListSelector: .constant(false),
                         popupConfirmationType: .constant(.addedWatchlist))
     }

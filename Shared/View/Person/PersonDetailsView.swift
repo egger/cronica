@@ -16,7 +16,7 @@ struct PersonDetailsView: View {
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var showImageFullscreen = false
     @State var popupType: ActionPopupItems?
-    @State var showConfirmationPopup = false
+    @State var showPopup = false
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
@@ -29,7 +29,7 @@ struct PersonDetailsView: View {
                     .padding()
                 
                 FilmographyListView(filmography: viewModel.credits,
-                                    showConfirmation: $showConfirmationPopup,
+                                    showPopup: $showPopup,
                                     popupConfirmationType: $popupType)
                 
                 AttributionView()
@@ -37,7 +37,7 @@ struct PersonDetailsView: View {
                     .unredacted()
             }
         }
-        .actionPopup(isShowing: $showConfirmationPopup, for: popupType)
+        .actionPopup(isShowing: $showPopup, for: popupType)
         .task { load() }
         .redacted(reason: isLoading ? .placeholder : [])
 #if os(iOS)
@@ -136,19 +136,19 @@ struct PersonDetailsView: View {
                 case .noScope:
                     ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
                         SearchItemView(item: item,
-                                       showConfirmation: $showConfirmationPopup,
+                                       showPopup: $showPopup,
                                        popupType: $popupType)
                     }
                 case .movies:
                     ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
                         SearchItemView(item: item,
-                                       showConfirmation: $showConfirmationPopup,
+                                       showPopup: $showPopup,
                                        popupType: $popupType)
                     }
                 case .shows:
                     ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
                         SearchItemView(item: item,
-                                       showConfirmation: $showConfirmationPopup,
+                                       showPopup: $showPopup,
                                        popupType: $popupType)
                     }
                 }

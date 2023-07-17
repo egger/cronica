@@ -16,7 +16,7 @@ struct HomeView: View {
 #endif
     @StateObject private var viewModel = HomeViewModel()
     @State private var showNotifications = false
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var reloadUpNext = false
     @State private var showWhatsNew = false
     @State private var hasNotifications = false
@@ -33,20 +33,20 @@ struct HomeView: View {
                     HorizontalItemContentListView(items: viewModel.trending,
                                                   title: "Trending",
                                                   subtitle: "Today",
-                                                  addedItemConfirmation: $showConfirmation,
+                                                  showPopup: $showPopup,
                                                   popupConfirmationType: $popupConfirmationType)
                     ForEach(viewModel.sections) { section in
                         HorizontalItemContentListView(items: section.results,
                                                       title: section.title,
                                                       subtitle: section.subtitle,
-                                                      addedItemConfirmation: $showConfirmation,
+                                                      showPopup: $showPopup,
                                                       popupConfirmationType: $popupConfirmationType,
                                                       endpoint: section.endpoint)
                     }
                     HorizontalItemContentListView(items: viewModel.recommendations,
                                                   title: "recommendationsTitle",
                                                   subtitle: "recommendationsSubtitle",
-                                                  addedItemConfirmation: $showConfirmation,
+                                                  showPopup: $showPopup,
                                                   popupConfirmationType: $popupConfirmationType)
                     .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                     AttributionView()
@@ -56,7 +56,7 @@ struct HomeView: View {
                     viewModel.reload()
                 }
             }
-            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
+            .actionPopup(isShowing: $showPopup, for: popupConfirmationType)
 #if os(tvOS)
             .ignoresSafeArea(.all, edges: .horizontal)
 #endif

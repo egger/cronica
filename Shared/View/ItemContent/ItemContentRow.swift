@@ -11,11 +11,12 @@ import SDWebImageSwiftUI
 struct ItemContentRow: View {
     let item: ItemContent
     @State private var isWatched = false
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var isInWatchlist = true
     @State private var canReview = true
     @State private var showNote = false
     @State private var showCustomListView = false
+    @State private var popupType: ActionPopupItems?
     private let persistence = PersistenceController.shared
     var body: some View {
         NavigationLink(value: item) {
@@ -53,10 +54,11 @@ struct ItemContentRow: View {
             }
             .itemContentContextMenu(item: item,
                                     isWatched: $isWatched,
-                                    showConfirmation: $showConfirmation,
+                                    showPopup: $showPopup,
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote,
-                                    showCustomList: $showCustomListView, popupConfirmationType: .constant(nil), showConfirmationPopup: $showConfirmation)
+                                    showCustomList: $showCustomListView,
+                                    popupConfirmationType: $popupType)
             .task {
                 isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
             }
@@ -73,7 +75,9 @@ struct ItemContentRow: View {
             }
             .sheet(isPresented: $showCustomListView) {
                 NavigationStack {
-                    ItemContentCustomListSelector(contentID: item.itemContentID, showView: $showCustomListView, title: item.itemTitle)
+                    ItemContentCustomListSelector(contentID: item.itemContentID,
+                                                  showView: $showCustomListView,
+                                                  title: item.itemTitle)
                 }
                 .presentationDetents([.medium, .large])
 #if os(macOS)

@@ -13,7 +13,7 @@ struct WatchlistView: View {
     @State private var navigationTitle = NSLocalizedString("Watchlist", comment: "")
     @State private var navigationDisplayTitle = String()
     @State private var selectedList: CustomList?
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var confirmationAction: ActionPopupItems?
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct WatchlistView: View {
                 DefaultWatchlist()
             }
         }
-        .actionPopup(isShowing: $showConfirmation, for: confirmationAction)
+        .actionPopup(isShowing: $showPopup, for: confirmationAction)
         .onDisappear {
             navigationDisplayTitle = navigationTitle
         }

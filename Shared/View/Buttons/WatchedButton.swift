@@ -11,7 +11,7 @@ struct WatchedButton: View {
     let id: String
     @Binding var isWatched: Bool
     @Binding var popupConfirmationType: ActionPopupItems?
-    @Binding var showConfirmationPopup: Bool
+    @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
         Button(action: updateWatched) {
@@ -26,7 +26,7 @@ struct WatchedButton: View {
         withAnimation {
             isWatched.toggle()
             popupConfirmationType = isWatched ? .markedWatched : .removedWatched
-            showConfirmationPopup = true
+            showPopup = true
         }
         HapticManager.shared.successHaptic()
         if item.itemMedia == .tvShow { updateSeasons() }
@@ -57,6 +57,6 @@ struct WatchedButton_Previews: PreviewProvider {
         WatchedButton(id: ItemContent.example.itemContentID,
                       isWatched: .constant(true),
                       popupConfirmationType: .constant(nil),
-                      showConfirmationPopup: .constant(false))
+                      showPopup: .constant(false))
     }
 }

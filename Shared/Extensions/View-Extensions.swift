@@ -19,7 +19,7 @@ extension View {
                               showNote: Binding<Bool>,
                               showCustomList: Binding<Bool>,
                               popupConfirmationType: Binding<ActionPopupItems?>,
-                              showConfirmationPopup: Binding<Bool>) -> some View {
+                              showPopup: Binding<Bool>) -> some View {
         modifier(WatchlistItemContextMenu(item: item,
                                           isWatched: isWatched,
                                           isFavorite: isFavorite,
@@ -28,25 +28,23 @@ extension View {
                                           showNote: showNote,
                                           showCustomListView: showCustomList,
                                           popupConfirmationType: popupConfirmationType,
-                                          showConfirmationPopup: showConfirmationPopup))
+                                          showPopup: showPopup))
     }
     
     func itemContentContextMenu(item: ItemContent,
                                 isWatched: Binding<Bool>,
-                                showConfirmation: Binding<Bool>,
+                                showPopup: Binding<Bool>,
                                 isInWatchlist: Binding<Bool>,
                                 showNote: Binding<Bool>,
                                 showCustomList: Binding<Bool>,
-                                popupConfirmationType: Binding<ActionPopupItems?>,
-                                showConfirmationPopup: Binding<Bool>) -> some View {
+                                popupConfirmationType: Binding<ActionPopupItems?>) -> some View {
         modifier(ItemContentContextMenu(item: item,
-                                        showConfirmation: showConfirmation,
+                                        showPopup: showPopup,
                                         isInWatchlist: isInWatchlist,
                                         isWatched: isWatched,
                                         showNote: showNote,
                                         showCustomListView: showCustomList,
-                                        popupType: popupConfirmationType,
-                                        showConfirmationPopup: showConfirmationPopup))
+                                        popupType: popupConfirmationType))
     }
     
     func applyHoverEffect() -> some View {

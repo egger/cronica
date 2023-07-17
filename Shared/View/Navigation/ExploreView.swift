@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExploreView: View {
     static let tag: Screens? = .explore
-    @State private var showConfirmation = false
+    @State private var showPopup = false
     @State private var onChanging = false
     @State private var showFilters = false
     @State private var popupConfirmationType: ActionPopupItems?
@@ -87,7 +87,7 @@ struct ExploreView: View {
                     }
                 }
             }
-            .actionPopup(isShowing: $showConfirmation, for: popupConfirmationType)
+            .actionPopup(isShowing: $showPopup, for: popupConfirmationType)
         }
         .sheet(isPresented: $showFilters, content: {
             NavigationStack {
@@ -212,7 +212,7 @@ struct ExploreView: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
+                CardFrame(item: item, showPopup: $showPopup, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
@@ -238,7 +238,7 @@ struct ExploreView: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, addedItemConfirmation: $showConfirmation, popupConfirmationType: $popupConfirmationType)
+                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupConfirmationType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)

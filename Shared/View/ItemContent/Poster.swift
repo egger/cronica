@@ -15,7 +15,7 @@ struct Poster: View {
     @State private var isWatched = false
     @State private var showNote = false
     @State private var showCustomListView = false
-    @Binding var addedItemConfirmation: Bool
+    @Binding var showPopup: Bool
     @Binding var popupConfirmationType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -85,12 +85,11 @@ struct Poster: View {
             .applyHoverEffect()
             .itemContentContextMenu(item: item,
                                     isWatched: $isWatched,
-                                    showConfirmation: $addedItemConfirmation,
+                                    showPopup: $showPopup,
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote,
                                     showCustomList: $showCustomListView,
-                                    popupConfirmationType: $popupConfirmationType,
-                                    showConfirmationPopup: $addedItemConfirmation)
+                                    popupConfirmationType: $popupConfirmationType)
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.itemContentID)
@@ -149,7 +148,7 @@ struct Poster: View {
 
 struct Poster_Previews: PreviewProvider {
     static var previews: some View {
-        Poster(item: .example, addedItemConfirmation: .constant(false), popupConfirmationType: .constant(nil))
+        Poster(item: .example, showPopup: .constant(false), popupConfirmationType: .constant(nil))
     }
 }
 

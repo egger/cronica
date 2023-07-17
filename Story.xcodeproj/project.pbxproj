@@ -207,6 +207,7 @@
 		B87B5CD42799AF3600632648 /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
 		B87D1B222A64971300EB6D14 /* ConfirmationPopupModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D231284D512F00FFE96A /* ConfirmationPopupModifier.swift */; };
 		B87D1B242A65CF6000EB6D14 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */; };
+		B87D1B252A65D78900EB6D14 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */; };
 		B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B87F745D280605CE00E94126 /* TelemetryClient */; };
 		B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
@@ -1663,6 +1664,7 @@
 				B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */,
 				B83E3EDB299AB9FB00A3A28B /* CustomList-Extensions.swift in Sources */,
 				B801070829F24499008A4551 /* ItemContentCustomListSelector.swift in Sources */,
+				B87D1B252A65D78900EB6D14 /* UpNextViewModel.swift in Sources */,
 				B84043E7289B417500D5CEBF /* TitleView.swift in Sources */,
 				B899F21328B0391C00272484 /* DefaultListTypes.swift in Sources */,
 				B84043E5289B3F4000D5CEBF /* PersonDetailsViewModel.swift in Sources */,

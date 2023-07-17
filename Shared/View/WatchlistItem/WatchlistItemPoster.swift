@@ -17,6 +17,7 @@ struct WatchlistItemPoster: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var showNote = false
     @State private var showCustomListView = false
+    @State private var showPopup = false
     var body: some View {
         NavigationLink(value: content) {
             if settings.isCompactUI {
@@ -78,7 +79,9 @@ struct WatchlistItemPoster: View {
                                   isPin: $isPin,
                                   isArchive: $isArchive,
                                   showNote: $showNote,
-                                  showCustomList: $showCustomListView, popupConfirmationType: .constant(nil), showConfirmationPopup: .constant(false))
+                                  showCustomList: $showCustomListView,
+                                  popupConfirmationType: .constant(nil),
+                                  showPopup: $showPopup)
             .task {
                 isWatched = content.isWatched
                 isFavorite = content.isFavorite

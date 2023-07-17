@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ItemContentContextMenu: ViewModifier {
     let item: ItemContent
-    @Binding var showConfirmation: Bool
+    @Binding var showPopup: Bool
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
     @State private var isFavorite = false
@@ -19,7 +19,6 @@ struct ItemContentContextMenu: ViewModifier {
     @Binding var showNote: Bool
     @Binding var showCustomListView: Bool
     @Binding var popupType: ActionPopupItems?
-    @Binding var showConfirmationPopup: Bool
     func body(content: Content) -> some View {
 #if os(watchOS)
 #else
@@ -32,17 +31,19 @@ struct ItemContentContextMenu: ViewModifier {
                     WatchedButton(id: item.itemContentID,
                                   isWatched: $isWatched,
                                   popupConfirmationType: $popupType,
-                                  showConfirmationPopup: $showConfirmation)
+                                  showPopup: $showPopup)
                     FavoriteButton(id: item.itemContentID,
                                    isFavorite: $isFavorite,
                                    popupConfirmationType: $popupType,
-                                   showConfirmationPopup: $showConfirmation)
+                                   showPopup: $showPopup)
                     PinButton(id: item.itemContentID,
                               isPin: $isPin,
                               popupConfirmationType: $popupType,
-                              showConfirmationPopup: $showConfirmation)
-                    ArchiveButton(id: item.itemContentID, isArchive: $isArchive,
-                                  popupType: $popupType, showConfirmationPopup: $showConfirmationPopup)
+                              showPopup: $showPopup)
+                    ArchiveButton(id: item.itemContentID,
+                                  isArchive: $isArchive,
+                                  popupType: $popupType,
+                                  showPopup: $showPopup)
                     CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
                     Button {
                         showNote.toggle()
@@ -56,7 +57,7 @@ struct ItemContentContextMenu: ViewModifier {
                 }
                 WatchlistButton(id: item.itemContentID,
                                 isInWatchlist: $isInWatchlist,
-                                showConfirmation: $showConfirmation,
+                                showPopup: $showPopup,
                                 showListSelector: $showCustomListView,
                                 popupConfirmationType: $popupType)
             } preview: {
