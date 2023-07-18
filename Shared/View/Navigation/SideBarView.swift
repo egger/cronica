@@ -331,7 +331,7 @@ struct SideBarView: View {
                                     } else {
                                         Poster(item: item,
                                                showPopup: $showPopup,
-                                               popupConfirmationType: .constant(nil))
+                                               popupType: $popupType)
                                     }
                                 }
                                 .buttonStyle(.plain)
