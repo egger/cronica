@@ -28,7 +28,7 @@ struct WatchlistItemFrame: View {
                                           isArchive: $isArchive,
                                           showNote: $showNote,
                                           showCustomList: $showCustomListView,
-                                          popupConfirmationType: .constant(nil),
+                                                                        popupType: .constant(nil),
                                           showPopup: $showPopup)
             }
             HStack {

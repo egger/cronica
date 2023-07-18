@@ -82,6 +82,7 @@ struct ItemContentView: View {
         }
         .task { await viewModel.load() }
         .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.large)
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .sheet(isPresented: $showCustomListSheet) {
             if let contentID = viewModel.content?.itemContentID {
@@ -106,7 +107,7 @@ struct ItemContentView: View {
         }
         .background {
             if #available(watchOS 10, *) {
-                TranslucentBackground(image: image)
+                //TranslucentBackground(image: image)
             }
         }
     }

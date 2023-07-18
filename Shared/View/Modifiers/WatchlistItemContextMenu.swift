@@ -16,7 +16,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var isArchive: Bool
     @Binding var showNote: Bool
     @Binding var showCustomListView: Bool
-    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     @Binding var showPopup: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
@@ -76,28 +76,28 @@ struct WatchlistItemContextMenu: ViewModifier {
     private var watchedButton: some View {
         WatchedButton(id: item.itemContentID,
                       isWatched: $isWatched,
-                      popupConfirmationType: $popupConfirmationType,
+                      popupType: $popupType,
                       showPopup: $showPopup)
     }
     
     private var favoriteButton: some View {
         FavoriteButton(id: item.itemContentID,
                        isFavorite: $isFavorite,
-                       popupConfirmationType: $popupConfirmationType,
+                       popupType: $popupType,
                        showPopup: $showPopup)
     }
     
     private var pinButton: some View {
         PinButton(id: item.itemContentID,
                   isPin: $isPin,
-                  popupConfirmationType: $popupConfirmationType,
+                  popupType: $popupType,
                   showPopup: $showPopup)
     }
     
     private var archiveButton: some View {
         ArchiveButton(id: item.itemContentID,
                       isArchive: $isArchive,
-                      popupType: $popupConfirmationType,
+                      popupType: $popupType,
                       showPopup: $showPopup)
     }
     

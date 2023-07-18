@@ -58,13 +58,13 @@ private struct DrawingConstants {
 struct PosterSearchItem: View {
     let item: ItemContent
     @Binding var showPopup: Bool
-    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         if item.media == .person {
             PersonSearchImage(item: item)
                 .buttonStyle(.plain)
         } else {
-            Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupConfirmationType)
+            Poster(item: item, showPopup: $showPopup, popupType: $popupType)
                 .buttonStyle(.plain)
         }
     }

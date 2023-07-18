@@ -29,12 +29,13 @@ enum Screens: String, Identifiable, CaseIterable {
 #else
 enum Screens: String, Identifiable, CaseIterable {
     var id: String { rawValue }
-    case watchlist, upNext
+    case watchlist, upNext, settings
     
     var title: String {
         switch self {
         case .watchlist: return NSLocalizedString("Watchlist", comment: "")
         case .upNext: return NSLocalizedString("upNext", comment: "")
+        case .settings: return NSLocalizedString("Settings", comment: "")
         }
     }
 }

@@ -104,7 +104,7 @@ struct HorizontalUpNextListView: View {
                 if reload {
                     Task {
                         await viewModel.reload(items)
-                        DispatchQueue.main.async {
+                        await MainActor.run {
                             withAnimation(.easeInOut) {
                                 self.shouldReload = false
                             }

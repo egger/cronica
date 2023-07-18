@@ -8,6 +8,11 @@
 import SwiftUI
 
 extension View {
+    /// This function is responsible for creating an action popup in SwiftUI.
+    /// - Parameters:
+    ///   - isShowing: A binding to a Boolean value that determines whether the action popup is currently being shown or not.
+    ///   - item: An optional ActionPopupItems value representing the specific action item associated with the popup.
+    /// - Returns: The function applies the ConfirmationPopupModifier view modifier to the content view that is passed as an argument. The modifier configures the overlay and behavior of the action popup.
     func actionPopup(isShowing: Binding<Bool>, for item: ActionPopupItems?) -> some View {
         modifier(ConfirmationPopupModifier(isShowing: isShowing, item: item))
     }
@@ -18,7 +23,7 @@ extension View {
                               isArchive: Binding<Bool>,
                               showNote: Binding<Bool>,
                               showCustomList: Binding<Bool>,
-                              popupConfirmationType: Binding<ActionPopupItems?>,
+                              popupType: Binding<ActionPopupItems?>,
                               showPopup: Binding<Bool>) -> some View {
         modifier(WatchlistItemContextMenu(item: item,
                                           isWatched: isWatched,
@@ -27,7 +32,7 @@ extension View {
                                           isArchive: isArchive,
                                           showNote: showNote,
                                           showCustomListView: showCustomList,
-                                          popupConfirmationType: popupConfirmationType,
+                                          popupType: popupType,
                                           showPopup: showPopup))
     }
     
@@ -37,14 +42,14 @@ extension View {
                                 isInWatchlist: Binding<Bool>,
                                 showNote: Binding<Bool>,
                                 showCustomList: Binding<Bool>,
-                                popupConfirmationType: Binding<ActionPopupItems?>) -> some View {
+                                popupType: Binding<ActionPopupItems?>) -> some View {
         modifier(ItemContentContextMenu(item: item,
                                         showPopup: showPopup,
                                         isInWatchlist: isInWatchlist,
                                         isWatched: isWatched,
                                         showNote: showNote,
                                         showCustomListView: showCustomList,
-                                        popupType: popupConfirmationType))
+                                        popupType: popupType))
     }
     
     func applyHoverEffect() -> some View {

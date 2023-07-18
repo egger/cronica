@@ -27,7 +27,9 @@ struct EpisodeListView: View {
                                             show: id)
                             }
                         }
+                        .redacted(reason: isLoading ? .placeholder : [])
                     }
+                    .overlay { if isLoading { ProgressView("Loading") } }
                     .onAppear {
                         guard let lastWatched = PersistenceController.shared.fetchLastWatchedEpisode(for: id) else { return }
                         withAnimation { proxy.scrollTo(lastWatched, anchor: .topLeading) }
@@ -35,6 +37,7 @@ struct EpisodeListView: View {
                 }
             }
             .navigationTitle("Season \(seasonNumber)")
+            .navigationBarTitleDisplayMode(.inline)
             .task { load() }
         }
     }

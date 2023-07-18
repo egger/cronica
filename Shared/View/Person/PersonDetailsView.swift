@@ -30,7 +30,7 @@ struct PersonDetailsView: View {
                 
                 FilmographyListView(filmography: viewModel.credits,
                                     showPopup: $showPopup,
-                                    popupConfirmationType: $popupType)
+                                    popupType: $popupType)
                 
                 AttributionView()
                     .padding([.top, .bottom])

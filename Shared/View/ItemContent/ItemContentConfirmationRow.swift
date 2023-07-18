@@ -14,6 +14,7 @@ struct ItemContentConfirmationRow: View {
     @State private var isItemAdded = false
     @State private var isWatched = false
     @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     @State private var canReview = false
     @State private var showNote = false
     @State private var showCustomListView = false
@@ -74,7 +75,7 @@ struct ItemContentConfirmationRow: View {
                                 isInWatchlist: $isItemAdded,
                                 showNote: $showNote,
                                 showCustomList: $showCustomListView,
-                                popupConfirmationType: .constant(nil))
+                                popupType: $popupType)
     }
 }
 

@@ -30,15 +30,15 @@ struct ItemContentContextMenu: ViewModifier {
                 if isInWatchlist {
                     WatchedButton(id: item.itemContentID,
                                   isWatched: $isWatched,
-                                  popupConfirmationType: $popupType,
+                                  popupType: $popupType,
                                   showPopup: $showPopup)
                     FavoriteButton(id: item.itemContentID,
                                    isFavorite: $isFavorite,
-                                   popupConfirmationType: $popupType,
+                                   popupType: $popupType,
                                    showPopup: $showPopup)
                     PinButton(id: item.itemContentID,
                               isPin: $isPin,
-                              popupConfirmationType: $popupType,
+                              popupType: $popupType,
                               showPopup: $showPopup)
                     ArchiveButton(id: item.itemContentID,
                                   isArchive: $isArchive,
@@ -59,7 +59,7 @@ struct ItemContentContextMenu: ViewModifier {
                                 isInWatchlist: $isInWatchlist,
                                 showPopup: $showPopup,
                                 showListSelector: $showCustomListView,
-                                popupConfirmationType: $popupType)
+                                popupType: $popupType)
             } preview: {
                 ContextMenuPreviewImage(title: item.itemTitle,
                                         image: item.cardImageLarge,

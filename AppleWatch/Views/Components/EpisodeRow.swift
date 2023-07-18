@@ -63,10 +63,6 @@ struct EpisodeRow: View {
         }
         .padding(.horizontal)
         .accessibilityElement(children: .combine)
-        .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            WatchEpisodeButton(episode: episode, season: season, show: show, isWatched: $isWatched)
-                .tint(isWatched ? .orange : .green)
-        }
         .task {
             isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
         }

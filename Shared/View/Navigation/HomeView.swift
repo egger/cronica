@@ -20,7 +20,7 @@ struct HomeView: View {
     @State private var reloadUpNext = false
     @State private var showWhatsNew = false
     @State private var hasNotifications = false
-    @State private var popupConfirmationType: ActionPopupItems?
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
@@ -32,20 +32,20 @@ struct HomeView: View {
                                               title: "Trending",
                                               subtitle: "Today",
                                               showPopup: $showPopup,
-                                              popupConfirmationType: $popupConfirmationType)
+                                              popupType: $popupType)
                 ForEach(viewModel.sections) { section in
                     HorizontalItemContentListView(items: section.results,
                                                   title: section.title,
                                                   subtitle: section.subtitle,
                                                   showPopup: $showPopup,
-                                                  popupConfirmationType: $popupConfirmationType,
+                                                  popupType: $popupType,
                                                   endpoint: section.endpoint)
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                               title: "recommendationsTitle",
                                               subtitle: "recommendationsSubtitle",
                                               showPopup: $showPopup,
-                                              popupConfirmationType: $popupConfirmationType)
+                                              popupType: $popupType)
                 .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                 AttributionView()
             }
@@ -55,7 +55,7 @@ struct HomeView: View {
             }
         }
         .overlay { if !viewModel.isLoaded { ProgressView("Loading").unredacted() } }
-        .actionPopup(isShowing: $showPopup, for: popupConfirmationType)
+        .actionPopup(isShowing: $showPopup, for: popupType)
 #if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif

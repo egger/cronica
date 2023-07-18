@@ -91,7 +91,7 @@ class UpNextViewModel: ObservableObject {
                                             showID: content.showID,
                                             backupImage: content.backupImage,
                                             episode: nextEpisode)
-                DispatchQueue.main.async {
+                await MainActor.run {
                     withAnimation(.easeInOut) {
                         self.episodes.insert(content, at: 0)
                         self.scrollToInitial = true
@@ -99,7 +99,7 @@ class UpNextViewModel: ObservableObject {
                 }
             }
         }
-        DispatchQueue.main.async {
+        await MainActor.run {
             withAnimation(.easeInOut) {
                 self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
             }

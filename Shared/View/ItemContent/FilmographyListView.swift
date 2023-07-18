@@ -10,7 +10,7 @@ import SwiftUI
 struct FilmographyListView: View {
     let filmography: [ItemContent]?
     @Binding var showPopup: Bool
-    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
     private let columns: [GridItem] = [
         GridItem(.adaptive(minimum: DrawingConstants.posterColumns))
@@ -44,7 +44,7 @@ struct FilmographyListView: View {
                 ForEach(filmography) { item in
                     Poster(item: item,
                            showPopup: $showPopup,
-                           popupConfirmationType: $popupConfirmationType)
+                           popupType: $popupType)
                 }
             }.padding(.all, settings.isCompactUI ? 10 : nil)
         }
@@ -57,7 +57,7 @@ struct FilmographyListView: View {
                 ForEach(filmography) { item in
                     CardFrame(item: item,
                               showPopup: $showPopup,
-                              popupConfirmationType: $popupConfirmationType)
+                              popupType: $popupType)
                         .buttonStyle(.plain)
                 }
             }
@@ -70,7 +70,7 @@ struct FilmographyListView_Previews: PreviewProvider {
     static var previews: some View {
         FilmographyListView(filmography: ItemContent.examples,
                             showPopup: .constant(false),
-                            popupConfirmationType: .constant(nil))
+                            popupType: .constant(nil))
     }
 }
 

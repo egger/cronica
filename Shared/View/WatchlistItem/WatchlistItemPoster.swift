@@ -80,7 +80,7 @@ struct WatchlistItemPoster: View {
                                   isArchive: $isArchive,
                                   showNote: $showNote,
                                   showCustomList: $showCustomListView,
-                                  popupConfirmationType: .constant(nil),
+                                                                popupType: .constant(nil),
                                   showPopup: $showPopup)
             .task {
                 isWatched = content.isWatched

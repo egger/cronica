@@ -44,7 +44,7 @@ struct SearchItemView: View {
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote,
                                             showCustomList: $showCustomListView,
-                                            popupConfirmationType: .constant(nil))
+                                            popupType: .constant(nil))
                     .modifier(
                         SearchItemSwipeGesture(item: item,
                                                showPopup: $showPopup,
@@ -95,7 +95,7 @@ struct SearchItemView: View {
                                                 isInWatchlist: $isInWatchlist,
                                                 showNote: $showNote,
                                                 showCustomList: $showCustomListView,
-                                                popupConfirmationType: .constant(nil))
+                                                popupType: .constant(nil))
                         .modifier(
                             SearchItemSwipeGesture(item: item,
                                                    showPopup: $showPopup,

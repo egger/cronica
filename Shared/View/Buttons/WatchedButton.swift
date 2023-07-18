@@ -10,7 +10,7 @@ import SwiftUI
 struct WatchedButton: View {
     let id: String
     @Binding var isWatched: Bool
-    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
@@ -25,7 +25,7 @@ struct WatchedButton: View {
         persistence.updateWatched(for: item)
         withAnimation {
             isWatched.toggle()
-            popupConfirmationType = isWatched ? .markedWatched : .removedWatched
+            popupType = isWatched ? .markedWatched : .removedWatched
             showPopup = true
         }
         HapticManager.shared.successHaptic()
@@ -56,7 +56,7 @@ struct WatchedButton_Previews: PreviewProvider {
     static var previews: some View {
         WatchedButton(id: ItemContent.example.itemContentID,
                       isWatched: .constant(true),
-                      popupConfirmationType: .constant(nil),
+                      popupType: .constant(.markedWatched),
                       showPopup: .constant(false))
     }
 }

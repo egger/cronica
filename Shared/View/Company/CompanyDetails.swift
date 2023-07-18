@@ -10,7 +10,7 @@ import SwiftUI
 struct CompanyDetails: View {
     let company: ProductionCompany
     @State private var showPopup = false
-    @State private var popupConfirmationType: ActionPopupItems?
+    @State private var popupType: ActionPopupItems?
     @StateObject private var viewModel = CompanyDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
@@ -42,7 +42,7 @@ struct CompanyDetails: View {
                 }
 #endif
             }
-            .actionPopup(isShowing: $showPopup, for: popupConfirmationType)
+            .actionPopup(isShowing: $showPopup, for: popupType)
         }
     }
     
@@ -50,9 +50,7 @@ struct CompanyDetails: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item,
-                          showPopup: $showPopup,
-                          popupConfirmationType: $popupConfirmationType)
+                CardFrame(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
             }
             if viewModel.isLoaded && !viewModel.endPagination {
@@ -77,9 +75,7 @@ struct CompanyDetails: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item,
-                       showPopup: $showPopup,
-                       popupConfirmationType: $popupConfirmationType)
+                Poster(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
             }
             if viewModel.isLoaded && !viewModel.endPagination {

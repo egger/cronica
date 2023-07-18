@@ -31,6 +31,12 @@ struct CronicaWatchApp: App {
                         Label("Up Next", systemImage: "tv")
                             .labelStyle(.titleOnly)
                     }
+                
+                SettingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gearshape")
+                            .labelStyle(.titleOnly)
+                    }
             }
             
         }

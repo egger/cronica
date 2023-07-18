@@ -23,12 +23,12 @@ struct SearchItemSwipeGesture: ViewModifier {
                 if isInWatchlist {
                     WatchedButton(id: item.itemContentID,
                                   isWatched: $isWatched,
-                                  popupConfirmationType: $popupType,
+                                  popupType: $popupType,
                                   showPopup: $showPopup)
                         .tint(isWatched ? .yellow : .green)
                     FavoriteButton(id: item.itemContentID,
                                    isFavorite: $isFavorite,
-                                   popupConfirmationType: $popupType,
+                                   popupType: $popupType,
                                    showPopup: $showPopup)
                         .tint(isFavorite ? .orange : .blue)
                 } else {
@@ -36,7 +36,7 @@ struct SearchItemSwipeGesture: ViewModifier {
                                     isInWatchlist: $isInWatchlist,
                                     showPopup: $showPopup,
                                     showListSelector: .constant(false),
-                                    popupConfirmationType: $popupType)
+                                    popupType: $popupType)
                     .tint(.blue)
                 }
             }
@@ -46,7 +46,7 @@ struct SearchItemSwipeGesture: ViewModifier {
                                     isInWatchlist: $isInWatchlist,
                                     showPopup: $showPopup,
                                     showListSelector: .constant(false),
-                                    popupConfirmationType: $popupType)
+                                    popupType: $popupType)
                 }
             }
     }

@@ -29,7 +29,7 @@ struct ItemContentTVView: View {
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                               title: "Recommendations",
                                               showPopup: .constant(false),
-                                              popupConfirmationType: .constant(nil),
+                                              popupType: .constant(nil),
                                               displayAsCard: true)
                 CastListView(credits: viewModel.credits)
                     .padding(.bottom)

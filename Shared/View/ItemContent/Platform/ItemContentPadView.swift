@@ -43,7 +43,7 @@ struct ItemContentPadView: View {
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: "Recommendations",
                                           showPopup: $showPopup,
-                                          popupConfirmationType: $popupType,
+                                          popupType: $popupType,
                                           displayAsCard: true)
 #if !os(tvOS)
             if showInfoBox {

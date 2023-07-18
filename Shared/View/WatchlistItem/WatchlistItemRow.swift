@@ -18,29 +18,32 @@ struct WatchlistItemRow: View {
     @State private var showNote = false
     @State private var showCustomListView = false
     @State private var showPopup: Bool = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         NavigationLink(value: content) {
             HStack {
                 image
                     .applyHoverEffect()
-#if os(watchOS)
-                    .padding(.vertical)
-#else
+#if !os(watchOS)
                     .shadow(radius: 2.5)
+#else
+                    .padding(.vertical)
 #endif
                 VStack(alignment: .leading) {
                     HStack {
                         Text(content.itemTitle)
                             .lineLimit(DrawingConstants.textLimit)
+                            .fontDesign(.rounded)
                     }
                     HStack {
                         Text(content.itemMedia.title)
+                            .fontDesign(.rounded)
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Spacer()
                     }
                 }
-                .padding(.leading, 4)
+                .padding(.leading, 2)
 #if os(iOS) || os(macOS)
                 if isFavorite || content.favorite {
                     Spacer()
@@ -91,7 +94,7 @@ struct WatchlistItemRow: View {
                                   isArchive: $isArchive,
                                   showNote: $showNote,
                                   showCustomList: $showCustomListView,
-                                  popupConfirmationType: .constant(nil),
+                                                                popupType: $popupType,
                                   showPopup: $showPopup)
         }
     }
@@ -131,8 +134,13 @@ struct WatchlistItemRow_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
+#if os(watchOS)
+    static let imageWidth: CGFloat = 70
+    static let textLimit: Int = 2
+#else
     static let imageWidth: CGFloat = 80
+    static let textLimit: Int = 1
+#endif
     static let imageHeight: CGFloat = 50
     static let imageRadius: CGFloat = 8
-    static let textLimit: Int = 1
 }

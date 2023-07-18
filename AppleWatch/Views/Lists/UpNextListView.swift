@@ -21,45 +21,49 @@ struct UpNextListView: View {
     @State private var selectedEpisode: UpNextEpisode?
     var body: some View {
         NavigationStack {
-            if items.isEmpty {
-                Text("Mark some episodes as watched to use Up Next.")
-                    .font(.callout)
-                    .foregroundColor(.secondary)
-            } else {
-                List {
-                    ForEach(viewModel.episodes) { episode in
-                        upNextRowItem(episode)
-                            .onTapGesture {
-                                selectedEpisode = episode
-                            }
+            VStack {
+                if items.isEmpty {
+                    Text("Mark some episodes as watched to use Up Next.")
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                } else {
+                    List {
+                        ForEach(viewModel.episodes) { episode in
+                            upNextRowItem(episode)
+                                .onTapGesture {
+                                    selectedEpisode = episode
+                                }
+                        }
                     }
-                }
-                .overlay { if !viewModel.isLoaded { ProgressView() } }
-                .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
-                .task(id: viewModel.isWatched) {
-                    if viewModel.isWatched {
-                        await viewModel.handleWatched(selectedEpisode)
-                        self.selectedEpisode = nil
-                    }
-                }
-                .task {
-                    await viewModel.load(items)
-                    await viewModel.checkForNewEpisodes(items)
-                }
-                .sheet(item: $selectedEpisode) { item in
-                    NavigationStack {
-                        EpisodeDetailsView(episode: item.episode,
-                                           season: item.episode.itemSeasonNumber,
-                                           show: item.showID,
-                                           showTitle: item.showTitle,
-                                           isWatched: $viewModel.isWatched)
-                        .onDisappear {
+                    .overlay { if !viewModel.isLoaded { ProgressView() } }
+                    .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+                    .task(id: viewModel.isWatched) {
+                        if viewModel.isWatched {
+                            await viewModel.handleWatched(selectedEpisode)
                             self.selectedEpisode = nil
                         }
                     }
+                    .task {
+                        await viewModel.load(items)
+                        await viewModel.checkForNewEpisodes(items)
+                    }
+                    .sheet(item: $selectedEpisode) { item in
+                        NavigationStack {
+                            EpisodeDetailsView(episode: item.episode,
+                                               season: item.episode.itemSeasonNumber,
+                                               show: item.showID,
+                                               showTitle: item.showTitle,
+                                               isWatched: $viewModel.isWatched)
+                            .onDisappear {
+                                self.selectedEpisode = nil
+                            }
+                        }
+                    }
+                    
                 }
-                .navigationTitle("upNext")
             }
+            .navigationTitle("upNext")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

@@ -12,7 +12,7 @@ struct WatchlistButton: View {
     @Binding var isInWatchlist: Bool
     @Binding var showPopup: Bool
     @Binding var showListSelector: Bool
-    @Binding var popupConfirmationType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     private let persistence = PersistenceController.shared
     private let notification = NotificationManager.shared
     var body: some View {
@@ -66,7 +66,7 @@ struct WatchlistButton: View {
             if SettingsStore.shared.openListSelectorOnAdding {
                 showListSelector.toggle()
             }
-            popupConfirmationType = .addedWatchlist
+            popupType = .addedWatchlist
         }
     }
     
@@ -80,7 +80,7 @@ struct WatchlistButton: View {
         withAnimation {
             showPopup.toggle()
             isInWatchlist.toggle()
-            popupConfirmationType = isInWatchlist ? .addedWatchlist : .removedWatchlist
+            popupType = isInWatchlist ? .addedWatchlist : .removedWatchlist
         }
     }
     
@@ -101,6 +101,6 @@ struct WatchlistButton_Previews: PreviewProvider {
                         isInWatchlist: .constant(true),
                         showPopup: .constant(false),
                         showListSelector: .constant(false),
-                        popupConfirmationType: .constant(.addedWatchlist))
+                        popupType: .constant(.addedWatchlist))
     }
 }

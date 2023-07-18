@@ -31,6 +31,7 @@ struct WatchlistView: View {
                 }
             }
             .navigationTitle("Watchlist")
+            .navigationBarTitleDisplayMode(.automatic)
             .disableAutocorrection(true)
             .searchable(text: $query)
             .task(id: query) {

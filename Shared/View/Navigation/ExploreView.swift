@@ -210,7 +210,7 @@ struct ExploreView: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
+                CardFrame(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
@@ -236,7 +236,7 @@ struct ExploreView: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, showPopup: $showPopup, popupConfirmationType: $popupType)
+                Poster(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)

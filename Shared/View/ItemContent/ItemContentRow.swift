@@ -58,7 +58,7 @@ struct ItemContentRow: View {
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote,
                                     showCustomList: $showCustomListView,
-                                    popupConfirmationType: $popupType)
+                                    popupType: $popupType)
             .task {
                 isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
             }
