@@ -47,7 +47,7 @@ class UpNextViewModel: ObservableObject {
                         if let nextEpisode {
                             let isNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
                                                                                   season: nextEpisode.itemSeasonNumber,
-                                                                                  episode: nextEpisode.itemEpisodeNumber)
+                                                                                  episode: nextEpisode.id)
                             if nextEpisode.isItemReleased && !isNextEpisodeWatched {
                                 let content = UpNextEpisode(id: nextEpisode.id,
                                                             showTitle: item.itemTitle,
