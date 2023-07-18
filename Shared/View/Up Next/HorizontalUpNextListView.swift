@@ -191,7 +191,7 @@ struct HorizontalUpNextListView: View {
                                 .foregroundColor(.white)
                                 .fontWeight(.semibold)
                                 .lineLimit(1)
-                            Text("S\(item.episode.itemSeasonNumber), E\(item.episode.itemEpisodeNumber)")
+                            Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
                                 .font(.caption)
                                 .textCase(.uppercase)
                                 .foregroundColor(.white.opacity(0.8))

@@ -75,7 +75,7 @@ struct TMDBAccountView: View {
     private func SignIn() {
         Task {
             do {
-                DispatchQueue.main.async { withAnimation { self.isFetching = true } }
+                await MainActor.run { withAnimation { self.isFetching = true } }
                 let url = await viewModel.requestToken()
                 guard let url else { return }
                 let _ = try await webAuthenticationSession.authenticate(using: url,
@@ -83,12 +83,12 @@ struct TMDBAccountView: View {
                                                                         preferredBrowserSession: .shared)
                 try await viewModel.requestAccess()
                 await viewModel.createV3Session()
-                DispatchQueue.main.async { withAnimation { self.isFetching = false } }
-                DispatchQueue.main.async { withAnimation { self.userIsLoggedIn = true } }
+                await MainActor.run { withAnimation { self.isFetching = false } }
+                await MainActor.run { withAnimation { self.userIsLoggedIn = true } }
             } catch {
                 if Task.isCancelled { return }
                 CronicaTelemetry.shared.handleMessage("Failed to SignIn", for: "AccountSettings.failed")
-                DispatchQueue.main.async { withAnimation { self.isFetching = false } }
+                await MainActor.run { withAnimation { self.isFetching = false } }
             }
         }
     }

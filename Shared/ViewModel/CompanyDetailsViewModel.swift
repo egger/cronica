@@ -35,7 +35,7 @@ class CompanyDetailsViewModel: ObservableObject {
             items.append(contentsOf: result.sorted { $0.itemPopularity > $1.itemPopularity })
             if !startPagination { startPagination = true }
             if !isLoaded {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.isLoaded = true
                 }
             }

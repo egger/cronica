@@ -39,7 +39,7 @@ struct DeveloperView: View {
                 Button {
                     Task {
                         if !itemIdField.isEmpty {
-                            DispatchQueue.main.async {
+                            await MainActor.run {
                                 withAnimation { isFetching = false }
                             }
                             if itemMediaType != .person {
@@ -53,7 +53,7 @@ struct DeveloperView: View {
                                 self.person = person
                             }
                         }
-                        DispatchQueue.main.async {
+                        await MainActor.run {
                             withAnimation { isFetching = false }
                         }
                     }

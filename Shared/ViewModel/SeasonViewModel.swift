@@ -20,18 +20,18 @@ class SeasonViewModel: ObservableObject {
     func load(id: Int, season: Int) async {
         do {
             if Task.isCancelled { return }
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation { self.isLoading = true }
             }
             self.season = try await self.network.fetchSeason(id: id, season: season)
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation { self.isLoading = false }
             }
         } catch {
             if Task.isCancelled { return }
             let message = "Season \(season), show: \(id), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "SeasonViewModel.load.failed")
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation { self.isLoading = false }
             }
         }

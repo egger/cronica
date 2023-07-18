@@ -21,7 +21,7 @@ class UpNextViewModel: ObservableObject {
             for item in items {
                 let result = try? await network.fetchEpisode(tvID: item.id,
                                                              season: item.itemNextUpNextSeason,
-                                                             episodeNumber: item.nextEpisodeNumberUpNext)
+                                                             episodeNumber: item.itemNextUpNextEpisode)
                 if let result {
                     let isWatched = persistence.isEpisodeSaved(show: item.itemId,
                                                                season: result.itemSeasonNumber,

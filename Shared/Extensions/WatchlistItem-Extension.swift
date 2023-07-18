@@ -205,8 +205,12 @@ extension WatchlistItem {
         return seasonNumberUpNext
     }
     var itemNextUpNextEpisode: Int64 {
-        if nextEpisodeNumberUpNext == 0 { return 1 }
-        return nextEpisodeNumberUpNext
+        if nextEpisodeNumberUpNext == 0 {
+            return 1
+        } else {
+            return nextEpisodeNumberUpNext
+        }
+        
     }
 }
 

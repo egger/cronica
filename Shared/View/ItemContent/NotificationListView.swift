@@ -86,7 +86,7 @@ struct NotificationListView: View {
             }
         } else {
             Section("Upcoming Notifications") {
-                ForEach(items.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
+                ForEach(items) { item in
                     ItemContentRow(item: item)
                         .onAppear {
                             let isStillSaved = PersistenceController.shared.isItemSaved(id: item.itemContentID)
@@ -103,7 +103,11 @@ struct NotificationListView: View {
     
     private func load() {
         Task {
-            items = await NotificationManager.shared.fetchUpcomingNotifications() ?? []
+            let upcomingContent = await NotificationManager.shared.fetchUpcomingNotifications() ?? []
+            if !upcomingContent.isEmpty {
+                let orderedContent = upcomingContent.sorted(by: { $0.itemFallbackDate ?? Date.distantPast < $1.itemFallbackDate ?? Date.distantPast})
+                items = orderedContent
+            }
             deliveredItems = await NotificationManager.shared.fetchDeliveredNotifications()
             await MainActor.run { withAnimation { self.hasLoaded = true } }
         }

@@ -183,7 +183,7 @@ struct ItemContentPhoneView: View {
         }
         withAnimation { animateGesture.toggle() }
         HapticManager.shared.successHaptic()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             withAnimation { animateGesture = false }
         }
     }

@@ -111,7 +111,7 @@ struct TMDBListDetails: View {
         }
         if !hasLoaded {
             guard let listID = detailedList?.id else {
-                DispatchQueue.main.async { withAnimation { self.isLoading = false } }
+                await MainActor.run { withAnimation { self.isLoading = false } }
                 return
             }
             for item in customLists {
@@ -120,7 +120,7 @@ struct TMDBListDetails: View {
                     selectedCustomList = item
                 }
             }
-            DispatchQueue.main.async { withAnimation { self.isLoading = false } }
+            await MainActor.run { withAnimation { self.isLoading = false } }
             hasLoaded = true
         }
         checkForSync()
@@ -174,7 +174,7 @@ struct TMDBListDetails: View {
                 }
             }
             let deletionStatus = await viewModel.deleteList(list.id)
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation { isDeleted = deletionStatus }
             }
         }
@@ -182,7 +182,7 @@ struct TMDBListDetails: View {
     
     private func importList() async {
         do {
-            DispatchQueue.main.async { withAnimation { isImportingList = true } }
+            await MainActor.run { withAnimation { isImportingList = true } }
             let persistence = PersistenceController.shared
             let network = NetworkService.shared
             let viewContext = persistence.container.viewContext
@@ -207,8 +207,8 @@ struct TMDBListDetails: View {
                 try viewContext.save()
                 HapticManager.shared.successHaptic()
             }
-            DispatchQueue.main.async { withAnimation { isImportingList = false } }
-            DispatchQueue.main.async { withAnimation { self.syncList = true } }
+            await MainActor.run { withAnimation { isImportingList = false } }
+            await MainActor.run { withAnimation { self.syncList = true } }
         } catch {
             if Task.isCancelled { return }
         }

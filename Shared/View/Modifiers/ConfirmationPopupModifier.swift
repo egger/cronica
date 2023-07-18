@@ -35,7 +35,7 @@ struct ConfirmationPopupModifier: ViewModifier {
                             .onTapGesture { withAnimation { isShowing = false } }
                         }
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                 withAnimation {
                                     isShowing = false
                                 }

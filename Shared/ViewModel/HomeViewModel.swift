@@ -34,7 +34,7 @@ class HomeViewModel: ObservableObject {
                 let result = await self.fetchSections()
                 sections.append(contentsOf: result)
             }
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation { self.isLoaded = true }
             }
             if recommendations.isEmpty {
@@ -92,15 +92,17 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     /// - Returns: Returns a shuffled array of WatchlistItems that matches the criteria of watched OR favorite.
     private func fetchBasedRecommendationItems() -> [WatchlistItem] {
         let context = PersistenceController.shared.container.newBackgroundContext()
-        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let watchingRequest: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let watchedRequest: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let watchedPredicate = NSPredicate(format: "watched == %d", true)
-        let favoritesPredicate = NSPredicate(format: "isWatching == %d", true)
-        request.predicate = NSCompoundPredicate(type: .or,
-                                                subpredicates: [watchedPredicate, favoritesPredicate])
-        guard let list = try? context.fetch(request) else { return [] }
-        let shuffled = list.shuffled()
-        let limited = shuffled.prefix(50)
-        return limited.shuffled()
+        let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
+        watchingRequest.predicate = watchingPredicate
+        watchedRequest.predicate = watchedPredicate
+        guard let watchingList = try? context.fetch(watchingRequest) else { return [] }
+        guard let watchedList = try? context.fetch(watchedRequest) else { return [] }
+        let shuffled = watchingList.shuffled().prefix(10) + watchedList.shuffled().prefix(10)
+        let limited = shuffled.shuffled()
+        return limited
     }
     
     /// Gets all the IDs from watched content saved on Core Data.
@@ -136,7 +138,7 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
         }
         let recommendations = await filterRecommendationsItems(recommendationsFetched)
         self.recommendations = recommendations.sorted { $0.itemPopularity > $1.itemPopularity }
-        DispatchQueue.main.async {
+        await MainActor.run {
             withAnimation { self.isLoadingRecommendations = false }
         }
     }
