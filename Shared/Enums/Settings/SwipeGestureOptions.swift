@@ -21,7 +21,7 @@ enum SwipeGestureOptions: String, CaseIterable, Identifiable {
         case .markArchive:
             return NSLocalizedString("swipeGestureArchive", comment: "")
         case .delete:
-            return NSLocalizedString("swipeGestureDelete", comment: "")
+            return NSLocalizedString("Remove", comment: "")
         case .share:
             return NSLocalizedString("swipeGestureShare", comment: "")
         }
