@@ -660,7 +660,7 @@
 "Create" = "Criar";
 "Production Companies" = "Empresas de Produção";
 "releaseDates" = "Datas de Lançamento";
-"removeFromPinOnWatchedTitle" = "Remover do Pin quando item é marcado como assistido";
+"removeFromPinOnWatchedTitle" = "Remover do Pin quando item for marcado como assistido";
 "Remove" = "Remover";
 "openCustomListSelectorWhenAdding" = "Abrir Seletor de Lista ao Adicionar um Item";
 "showConfirmationOnRemovingItem" = "Mostrar Confirmação ao Remover Item";
@@ -682,3 +682,4 @@
 "markedPin" = "Fixado";
 "removedPin" = "Desafixado";
 "S%d, E%d" = "T%d, E%d";
+"Mark some episodes as watched to use Up Next." = "Marque alguns episódios como assistidos para usar o A Seguir.";
