@@ -159,6 +159,7 @@
 		B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
 		B840D2CE279B24C900A07C71 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2CD279B24C900A07C71 /* Person.swift */; };
 		B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8423E2B2793B4C10012259B /* WatchlistView.swift */; };
+		B84403542A673C7A00D0AACF /* UpcomingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84403532A673C7A00D0AACF /* UpcomingListView.swift */; };
 		B84457C22970D599009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
 		B84457C52970D59E009CB21F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C12970D599009CB21F /* HapticManager.swift */; };
 		B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
@@ -502,6 +503,7 @@
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
+		B84403532A673C7A00D0AACF /* UpcomingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingListView.swift; sourceTree = "<group>"; };
 		B84457C12970D599009CB21F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		B84457C6297341AF009CB21F /* WatchProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviders.swift; sourceTree = "<group>"; };
 		B84457CD29734F90009CB21F /* WatchProvidersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProvidersList.swift; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 				B88529B228E371650026D33A /* EpisodeListView.swift */,
 				B82B759F28A84D6600C3212A /* FilmographyListView.swift */,
 				B88529AA28E35A9F0026D33A /* SeasonListView.swift */,
+				B84403532A673C7A00D0AACF /* UpcomingListView.swift */,
 				B87D1B262A65E63700EB6D14 /* UpNextListView.swift */,
 			);
 			path = Lists;
@@ -1607,6 +1610,7 @@
 				B84043C0289B18D500D5CEBF /* Endpoints.swift in Sources */,
 				B8B94CED28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B8C0215829E0D2B0006E9D82 /* SettingsStore.swift in Sources */,
+				B84403542A673C7A00D0AACF /* UpcomingListView.swift in Sources */,
 				B81941B32A0839B00057DA04 /* StoreKitManager.swift in Sources */,
 				B8B981EF29F433340001CF0B /* CustomListView.swift in Sources */,
 				B81DD92E29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,

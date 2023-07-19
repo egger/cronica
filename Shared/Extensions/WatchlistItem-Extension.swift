@@ -54,6 +54,7 @@ extension WatchlistItem {
         return  "https://www.themoviedb.org/\(itemMedia.rawValue)/\(id)"
     }
     var itemGlanceInfo: String? {
+#if !os(watchOS)
         switch itemMedia {
         case .tvShow:
             if upcomingSeason {
@@ -68,6 +69,10 @@ extension WatchlistItem {
             return formattedDate
         }
         return nil
+#else
+        guard let date else { return nil }
+        return date.toShortString()
+#endif
     }
     var isWatched: Bool {
         return watched

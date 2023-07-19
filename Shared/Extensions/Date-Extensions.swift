@@ -45,6 +45,14 @@ extension Date {
         if today > (self + week) { return true }
         return false
     }
+    func toShortString() -> String {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd"
+
+        let dateString = dateFormatter.string(from: self)
+        return dateString
+    }
 }
 
 extension Date? {

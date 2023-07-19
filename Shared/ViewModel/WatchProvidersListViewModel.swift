@@ -12,7 +12,6 @@ class WatchProvidersListViewModel: ObservableObject {
     @Published var items = [WatchProviderContent]()
     @Published var link: URL?
     private var isLoaded = false
-    @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
     @AppStorage("firstLocaleCheck") private var firstCheck = false
     private var settings = SettingsStore.shared
     

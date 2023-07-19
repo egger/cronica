@@ -193,11 +193,8 @@ struct DefaultWatchlist: View {
                     case .released:
                         WatchListSection(items: items.filter { $0.isReleased },
                                          title: DefaultListTypes.released.title)
-                    case .upcoming:
-                        WatchListSection(items: items.filter { $0.isUpcoming },
-                                         title: DefaultListTypes.upcoming.title)
                     case .production:
-                        WatchListSection(items: items.filter { $0.isInProduction },
+                        WatchListSection(items: items.filter { $0.isInProduction || $0.isUpcoming },
                                          title: DefaultListTypes.production.title)
                     case .favorites:
                         WatchListSection(items: items.filter { $0.isFavorite },
@@ -255,11 +252,8 @@ struct DefaultWatchlist: View {
                 case .released:
                     WatchlistCardSection(items: items.filter { $0.isReleased },
                                          title: DefaultListTypes.released.title)
-                case .upcoming:
-                    WatchlistCardSection(items: items.filter { $0.isUpcoming },
-                                         title: DefaultListTypes.upcoming.title)
                 case .production:
-                    WatchlistCardSection(items: items.filter { $0.isInProduction },
+                    WatchlistCardSection(items: items.filter { $0.isInProduction || $0.isUpcoming },
                                          title: DefaultListTypes.production.title)
                 case .watched:
                     WatchlistCardSection(items: items.filter { $0.isWatched },
@@ -315,11 +309,8 @@ struct DefaultWatchlist: View {
                 case .released:
                     WatchlistPosterSection(items: items.filter { $0.isReleased },
                                            title: DefaultListTypes.released.title)
-                case .upcoming:
-                    WatchlistPosterSection(items: items.filter { $0.isUpcoming },
-                                           title: DefaultListTypes.upcoming.title)
                 case .production:
-                    WatchlistPosterSection(items: items.filter { $0.isInProduction },
+                    WatchlistPosterSection(items: items.filter { $0.isInProduction || $0.isUpcoming },
                                            title: DefaultListTypes.production.title)
                 case .watched:
                     WatchlistPosterSection(items: items.filter { $0.isWatched },

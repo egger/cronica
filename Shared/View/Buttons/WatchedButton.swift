@@ -16,7 +16,7 @@ struct WatchedButton: View {
     var body: some View {
         Button(action: updateWatched) {
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: isWatched ? "minus.circle" : "checkmark.circle")
+                  systemImage: isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
         }
     }
     

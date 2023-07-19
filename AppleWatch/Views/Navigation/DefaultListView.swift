@@ -20,14 +20,9 @@ struct DefaultListView: View {
                     WatchlistSectionView(items: items.filter { $0.isReleased },
                                          title: "Released")
                 }
-            case .upcoming:
-                List {
-                    WatchlistSectionView(items: items.filter { $0.isUpcoming },
-                                         title: "Upcoming")
-                }
             case .production:
                 List {
-                    WatchlistSectionView(items: items.filter { $0.isInProduction },
+                    WatchlistSectionView(items: items.filter { $0.isInProduction || $0.isUpcoming},
                                          title: "In Production")
                 }
             case .watched:

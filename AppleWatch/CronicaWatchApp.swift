@@ -31,6 +31,13 @@ struct CronicaWatchApp: App {
                         Label("Up Next", systemImage: "tv")
                             .labelStyle(.titleOnly)
                     }
+                UpcomingListView()
+                    .tag(UpcomingListView.tag)
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+                    .tabItem {
+                        Label("Upcoming", systemImage: "calendar")
+                            .labelStyle(.titleOnly)
+                    }
                 
                 SettingsView()
                     .tabItem {
