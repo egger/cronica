@@ -28,7 +28,6 @@ struct TabBarView: View {
 #if os(tvOS)
     private var details: some View {
         TabView {
-            
             NavigationStack { HomeView() }
                 .tag(HomeView.tag)
                 .tabItem { Label("Home", systemImage: "house").labelStyle(.titleOnly) }
@@ -51,7 +50,7 @@ struct TabBarView: View {
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape").labelStyle(.iconOnly)  }
         }
-        .padding(.horizontal, .zero)
+        .ignoresSafeArea(.all, edges: .horizontal)
     }
 #endif
     

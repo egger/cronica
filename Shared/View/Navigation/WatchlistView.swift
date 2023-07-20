@@ -47,12 +47,21 @@ struct WatchlistView: View {
 #endif
         .navigationDestination(for: WatchlistItem.self) { item in
             ItemContentDetails(title: item.itemTitle, id: item.itemId, type: item.itemMedia)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
             let keys = item.map { (key, _) in key }

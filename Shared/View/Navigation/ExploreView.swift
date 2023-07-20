@@ -59,10 +59,16 @@ struct ExploreView: View {
             await load()
         }
         .navigationDestination(for: ItemContent.self) { item in
-            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
+            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: false)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
             let keys = item.map { (key, _) in key }

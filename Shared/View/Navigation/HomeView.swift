@@ -85,14 +85,23 @@ struct HomeView: View {
             ItemContentDetails(title: item.itemTitle,
                                id: item.id,
                                type: item.itemContentMedia)
+#if os(tvOS)
+            .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(title: person.name, id: person.id)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: WatchlistItem.self) { item in
             ItemContentDetails(title: item.itemTitle,
                                id: item.itemId,
                                type: item.itemMedia)
+#if os(tvOS)
+            .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: Endpoints.self) { endpoint in
             EndpointDetails(title: endpoint.title,
