@@ -12,6 +12,8 @@ struct HorizontalWatchlistList: View {
     let title: String
     let subtitle: String
     @StateObject private var settings = SettingsStore.shared
+    @Binding var showPopup: Bool
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         VStack {
 #if os(tvOS)
@@ -30,7 +32,7 @@ struct HorizontalWatchlistList: View {
                 if settings.listsDisplayType == .card {
                     LazyHStack {
                         ForEach(items) { item in
-                            WatchlistItemFrame(content: item)
+                            WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                 .padding([.leading, .trailing], 2)
                                 .padding(.leading, item.id == self.items.first!.id ? 32 : 0)
@@ -50,7 +52,7 @@ struct HorizontalWatchlistList: View {
                 } else {
                     LazyHStack {
                         ForEach(items) { item in
-                            WatchlistItemPoster(content: item)
+                            WatchlistItemPoster(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                 .padding([.leading, .trailing], 2)
                                 .padding(.leading, item.id == self.items.first!.id ? 32 : 0)
@@ -74,6 +76,8 @@ struct HorizontalWatchlistList: View {
 
 struct HorizontalWatchlistList_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalWatchlistList(items: [.example], title: "Preview", subtitle: "SwiftUI Preview")
+        HorizontalWatchlistList(items: [.example],
+                                title: "Preview",
+                                subtitle: "SwiftUI Preview", showPopup: .constant(false), popupType: .constant(nil))
     }
 }

@@ -34,12 +34,44 @@ struct ItemContentDetails: View {
     }
     var body: some View {
         ZStack {
-#if os(macOS) || os(iOS)
-            if viewModel.isLoading { ProgressView().padding() }
+            
             ScrollView {
 #if os(macOS)
                 ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showPopup: $showPopup)
                     .environmentObject(viewModel)
+                    .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
+                    .toolbar {
+                        if handleToolbarOnPopup {
+                            ToolbarItem(placement: .status) {
+                                ViewThatFits {
+                                    HStack {
+                                        if viewModel.isInWatchlist {
+                                            favoriteButton
+                                            pinButton
+                                        }
+                                        shareButton
+                                    }
+                                    shareButton
+                                }
+                                
+                            }
+                        } else {
+                            ToolbarItem {
+                                ViewThatFits {
+                                    HStack {
+                                        if viewModel.isInWatchlist {
+                                            favoriteButton
+                                            archiveButton
+                                            pinButton
+                                            userNotesButton
+                                        }
+                                        shareButton
+                                    }
+                                    shareButton
+                                }
+                            }
+                        }
+                    }
 #elseif os(iOS)
                 if UIDevice.isIPad {
                     ItemContentPadView(id: id,
@@ -47,7 +79,16 @@ struct ItemContentDetails: View {
                                        type: type,
                                        showCustomList: $showCustomList,
                                        showPopup: $showPopup)
-                        .environmentObject(viewModel)
+                    .environmentObject(viewModel)
+                    .toolbar {
+                        ToolbarItem {
+                            HStack {
+                                shareButton
+                                    .disabled(viewModel.isLoading ? true : false)
+                                moreMenu
+                            }
+                        }
+                    }
                 } else {
                     ItemContentPhoneView(title: title,
                                          type: type,
@@ -56,8 +97,20 @@ struct ItemContentDetails: View {
                                          showWatchedPopup: .constant(false),
                                          showCustomList: $showCustomList,
                                          popupType: $popupType)
-                        .environmentObject(viewModel)
+                    .environmentObject(viewModel)
+                    .toolbar {
+                        ToolbarItem {
+                            HStack {
+                                shareButton
+                                    .disabled(viewModel.isLoading ? true : false)
+                                moreMenu
+                            }
+                        }
+                    }
                 }
+#elseif os(tvOS)
+                ItemContentTVView(title: title, type: type, id: id)
+                    .environmentObject(viewModel)
 #endif
             }
             .background {
@@ -70,44 +123,6 @@ struct ItemContentDetails: View {
             }
             .actionPopup(isShowing: $showPopup, for: popupType)
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            .toolbar {
-#if os(iOS)
-                ToolbarItem {
-                    HStack {
-                        shareButton
-                            .disabled(viewModel.isLoading ? true : false)
-                        moreMenu
-                    }
-                }
-#elseif os(macOS)
-                if handleToolbarOnPopup {
-                    ToolbarItem(placement: .status) {
-                        ViewThatFits {
-                            HStack {
-                                favoriteButton
-                                pinButton
-                                shareButton
-                            }
-                            shareButton
-                        }
-                        
-                    }
-                } else {
-                    ToolbarItem {
-                        ViewThatFits {
-                            HStack {
-                                favoriteButton
-                                archiveButton
-                                pinButton
-                                userNotesButton
-                                shareButton
-                            }
-                            shareButton
-                        }
-                    }
-                }
-#endif
-            }
             .alert("Error", isPresented: $viewModel.showErrorAlert) {
                 Button("Cancel") { }
                 Button("Retry") { Task { await viewModel.load() } }
@@ -146,9 +161,8 @@ struct ItemContentDetails: View {
                 }
             }
             .actionPopup(isShowing: $showPopup, for: popupType)
-#elseif os(tvOS)
-            ItemContentTVView(title: title, type: type, id: id)
-                .environmentObject(viewModel)
+#if os(tvOS)
+            .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         }
     }

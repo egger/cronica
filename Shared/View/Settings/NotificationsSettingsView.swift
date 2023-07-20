@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NotificationsSettingsView: View {
+    var navigationTitle = "settingsNotificationTitle"
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         Form {
@@ -44,7 +45,7 @@ struct NotificationsSettingsView: View {
                 }
             }
         }
-        .navigationTitle("settingsNotificationTitle")
+        .navigationTitle(NSLocalizedString(navigationTitle, comment: ""))
 #if os(macOS)
         .formStyle(.grouped)
 #endif

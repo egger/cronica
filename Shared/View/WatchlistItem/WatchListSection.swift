@@ -11,8 +11,8 @@ struct WatchListSection: View {
     let items: [WatchlistItem]
     var title: String
     private let context = PersistenceController.shared
-    @State private var showPopup = false
-    @State private var confirmationAction: ActionPopupItems?
+    @Binding var showPopup: Bool
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         if !items.isEmpty {
 #if os(macOS)
@@ -36,7 +36,7 @@ struct WatchListSection: View {
         List {
             Section {
                 ForEach(items) {
-                    WatchlistItemRow(content: $0)
+                    WatchlistItemRow(content: $0, showPopup: $showPopup, popupType: $popupType)
                 }
                 .onDelete(perform: delete)
             } header: {

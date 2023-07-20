@@ -89,6 +89,9 @@ struct VerticalUpNextListView: View {
             await viewModel.checkForNewEpisodes(items)
         }
         .navigationTitle("upNext")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
     }
     
     private func upNextCard(item: UpNextEpisode) -> some View {

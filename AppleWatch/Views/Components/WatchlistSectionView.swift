@@ -10,11 +10,13 @@ import SwiftUI
 struct WatchlistSectionView: View {
     let items: [WatchlistItem]
     let title: String
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         if !items.isEmpty {
             Section {
                 ForEach(items) { item in
-                    WatchlistItemRow(content: item)
+                    WatchlistItemRow(content: item, showPopup: $showPopup, popupType: $popupType)
                 }
             } header: {
                 Text(NSLocalizedString(title, comment: ""))

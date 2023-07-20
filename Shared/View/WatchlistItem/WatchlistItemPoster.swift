@@ -10,14 +10,16 @@ import SDWebImageSwiftUI
 
 struct WatchlistItemPoster: View {
     let content: WatchlistItem
-    @State private var isWatched: Bool = false
-    @State private var isFavorite: Bool = false
+    @State private var isInWatchlist = true
+    @State private var isWatched = false
+    @State private var isFavorite = false
     @State private var isPin = false
     @State private var isArchive = false
     @StateObject private var settings = SettingsStore.shared
     @State private var showNote = false
     @State private var showCustomListView = false
-    @State private var showPopup = false
+    @Binding var showPopup: Bool
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         NavigationLink(value: content) {
             if settings.isCompactUI {
@@ -66,6 +68,41 @@ struct WatchlistItemPoster: View {
             }
             .aspectRatio(contentMode: .fill)
             .transition(.opacity)
+            .overlay {
+                if isInWatchlist {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            if isWatched {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding()
+                            } else {
+                                Image(systemName: "square.stack.fill")
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding()
+                            }
+                        }
+                        .background {
+                            if content.mediumPosterImage != nil {
+                                Color.black.opacity(0.5)
+                                    .mask {
+                                        LinearGradient(colors:
+                                                        [Color.black,
+                                                         Color.black.opacity(0.924),
+                                                         Color.black.opacity(0.707),
+                                                         Color.black.opacity(0.383),
+                                                         Color.black.opacity(0)],
+                                                       startPoint: .bottom,
+                                                       endPoint: .top)
+                                    }
+                            }
+                            
+                        }
+                    }
+                }
+            }
             .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
                    height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
             .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
@@ -80,7 +117,7 @@ struct WatchlistItemPoster: View {
                                   isArchive: $isArchive,
                                   showNote: $showNote,
                                   showCustomList: $showCustomListView,
-                                                                popupType: .constant(nil),
+                                  popupType: $popupType,
                                   showPopup: $showPopup)
             .task {
                 isWatched = content.isWatched
@@ -109,7 +146,7 @@ struct WatchlistItemPoster: View {
 
 struct WatchlistItemPoster_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistItemPoster(content: .example)
+        WatchlistItemPoster(content: .example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 

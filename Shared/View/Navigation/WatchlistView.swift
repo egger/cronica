@@ -14,16 +14,16 @@ struct WatchlistView: View {
     @State private var navigationDisplayTitle = String()
     @State private var selectedList: CustomList?
     @State private var showPopup = false
-    @State private var confirmationAction: ActionPopupItems?
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         VStack {
             if selectedList != nil {
-                CustomWatchlist(selectedList: $selectedList)
+                CustomWatchlist(selectedList: $selectedList, showPopup: $showPopup, popupType: $popupType)
             } else {
-                DefaultWatchlist()
+                DefaultWatchlist(showPopup: $showPopup, popupType: $popupType)
             }
         }
-        .actionPopup(isShowing: $showPopup, for: confirmationAction)
+        .actionPopup(isShowing: $showPopup, for: popupType)
         .onDisappear {
             navigationDisplayTitle = navigationTitle
         }

@@ -1999,7 +1999,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "AppleWatch/Configuration/CronicaWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
@@ -2032,7 +2032,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "AppleWatch/Configuration/CronicaWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
@@ -2189,7 +2189,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2234,7 +2234,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2322,7 +2322,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
@@ -2357,7 +2357,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 200;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;

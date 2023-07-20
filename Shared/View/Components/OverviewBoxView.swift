@@ -13,6 +13,7 @@ struct OverviewBoxView: View {
     let overview: String?
     let title: String
     var type: MediaType = .movie
+    var showAsPopover = false
     @State private var showFullText = false
     @State private var showSheet = false
     @State private var showTextOptions = true
@@ -74,14 +75,22 @@ struct OverviewBoxView: View {
                 }
                 .onTapGesture {
 #if os(iOS)
-                    withAnimation { showFullText.toggle() }
+                    if UIDevice.isIPad {
+                        if showAsPopover {
+                            showSheet.toggle()
+                        } else {
+                            withAnimation { showFullText.toggle() }
+                        }
+                    } else {
+                        withAnimation { showFullText.toggle() }
+                    }
+                    
 #elseif os(macOS)
                     showSheet.toggle()
 #endif
                 }
                 .accessibilityElement(children: .combine)
                 .contextMenu {  ShareLink(item: overview) }
-#if os(macOS)
                 .popover(isPresented: $showSheet) {
                     ScrollView {
                         Text(overview )
@@ -90,7 +99,7 @@ struct OverviewBoxView: View {
                     }
                     .frame(width: 400, height: 200, alignment: .center)
                 }
-#elseif os(iOS)
+#if os(iOS)
                 .groupBoxStyle(TransparentGroupBox())
 #endif
             }

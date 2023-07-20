@@ -177,7 +177,7 @@ struct WatchlistItemContextMenu: ViewModifier {
             Text("Remove")
                 .foregroundColor(.red)
 #else
-            Label("Remove", systemImage: "minus.circle.fill")
+            Label("Remove", systemImage: "minus.circle")
 #endif
         }
         .tint(.red)

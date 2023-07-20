@@ -18,6 +18,8 @@ struct ItemContentTVView: View {
     @State private var showCustomList = false
     @Namespace var tvOSActionNamespace
     @FocusState var isWatchlistButtonFocused: Bool
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         VStack {
             ScrollView {
@@ -28,20 +30,18 @@ struct ItemContentTVView: View {
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                               title: "Recommendations",
-                                              showPopup: .constant(false),
-                                              popupType: .constant(nil),
+                                              showPopup: $showPopup,
+                                              popupType: $popupType,
                                               displayAsCard: true)
                 CastListView(credits: viewModel.credits)
                     .padding(.bottom)
                 AttributionView()
             }
+            .ignoresSafeArea(.all, edges: .horizontal)
         }
         .task { await viewModel.load() }
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .ignoresSafeArea(.all, edges: .horizontal)
-        .background {
-            TranslucentBackground(image: viewModel.content?.cardImageLarge)
-        }
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .onAppear {
             DispatchQueue.main.async {
@@ -121,18 +121,20 @@ struct ItemContentTVView: View {
                         .focused($isWatchlistButtonFocused)
                     Button {
                         viewModel.update(.watched)
+                        viewModel.isWatched ? animate(for: .markedWatched) : animate(for: .removedWatched)
                     } label: {
                         Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                              systemImage: viewModel.isWatched ? "rectangle.badge.minus" : "rectangle.badge.checkmark.fill")
+                              systemImage: viewModel.isWatched ? "rectangle.badge.checkmark" : "rectangle.badge.checkmark.fill")
                         .labelStyle(.iconOnly)
                     }
                     .buttonStyle(.borderedProminent)
                     
                     Button {
                         viewModel.update(.favorite)
+                        viewModel.isFavorite ? animate(for: .markedFavorite) : animate(for: .removedFavorite)
                     } label: {
                         Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                              systemImage: viewModel.isFavorite ? "heart.slash.circle.fill" : "heart.circle")
+                              systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
                         .labelStyle(.iconOnly)
                     }
                     .buttonStyle(.borderedProminent)
@@ -147,6 +149,11 @@ struct ItemContentTVView: View {
             
             Spacer()
         }
+    }
+    
+    private func animate(for action: ActionPopupItems) {
+        popupType = action
+        withAnimation { showPopup = true }
     }
 }
 

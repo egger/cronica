@@ -17,13 +17,15 @@ struct SearchView: View {
     @State private var filteredItems = [WatchlistItem]()
     @State private var isInWatchlist = false
     @State private var hasLoadedTMDbResults = false
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         List {
             if !filteredItems.isEmpty {
                 Section("Results from Watchlist") {
                     ForEach(filteredItems) { item in
                         NavigationLink(value: item) {
-                            WatchlistItemRow(content: item)
+                            WatchlistItemRow(content: item, showPopup: $showPopup, popupType: $popupType)
                         }
                     }
                 }

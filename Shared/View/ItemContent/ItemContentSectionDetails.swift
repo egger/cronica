@@ -25,6 +25,9 @@ struct ItemContentSectionDetails: View {
         }
         .navigationTitle(LocalizedStringKey(title))
         .actionPopup(isShowing: $showPopup, for: popupType)
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
     }
     
     @ViewBuilder

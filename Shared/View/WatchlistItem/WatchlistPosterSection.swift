@@ -12,6 +12,8 @@ struct WatchlistPosterSection: View {
     let items: [WatchlistItem]
     let title: String
     @StateObject private var settings = SettingsStore.shared
+    @Binding var showPopup: Bool
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         if !items.isEmpty {
             ScrollView {
@@ -19,7 +21,7 @@ struct WatchlistPosterSection: View {
                           spacing: settings.isCompactUI ? 10 : 20) {
                     Section {
                         ForEach(items, id: \.itemContentID) { item in
-                            WatchlistItemPoster(content: item)
+                            WatchlistItemPoster(content: item, showPopup: $showPopup, popupType: $popupType)
                                 .buttonStyle(.plain)
                         }
                         .onDelete(perform: delete)
@@ -60,7 +62,7 @@ struct WatchlistPosterSection: View {
 
 struct WatchlistPosterSection_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistPosterSection(items: [.example], title: "Preview")
+        WatchlistPosterSection(items: [.example], title: "Preview", showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 

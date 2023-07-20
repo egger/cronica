@@ -17,8 +17,8 @@ struct WatchlistItemRow: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var showNote = false
     @State private var showCustomListView = false
-    @State private var showPopup: Bool = false
-    @State private var popupType: ActionPopupItems?
+    @Binding var showPopup: Bool
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         NavigationLink(value: content) {
             HStack {
@@ -129,7 +129,7 @@ struct WatchlistItemRow: View {
 
 struct WatchlistItemRow_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistItemRow(content: .example)
+        WatchlistItemRow(content: .example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 

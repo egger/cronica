@@ -34,6 +34,9 @@ struct EndpointDetails: View {
             }
         }
         .navigationTitle(LocalizedStringKey(title))
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
     }
     
     @ViewBuilder

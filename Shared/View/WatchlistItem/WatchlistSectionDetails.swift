@@ -10,19 +10,25 @@ import SwiftUI
 struct WatchlistSectionDetails: View {
     var title = "Upcoming"
     let items: [WatchlistItem]
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         VStack {
             ScrollView {
                 LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                     ForEach(items) { item in
-                        WatchlistItemFrame(content: item)
+                        WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
                             .buttonStyle(.plain)
                     }
                 }
                 .padding()
             }
         }
+        .actionPopup(isShowing: $showPopup, for: popupType)
         .navigationTitle(LocalizedStringKey(title))
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
     }
 }
 

@@ -52,7 +52,7 @@ struct NotificationListView: View {
     }
     
     private var configButton: some View {
-        NavigationLink(destination: NotificationsSettingsView()) {
+        NavigationLink(destination: NotificationsSettingsView(navigationTitle: String())) {
             Label("Settings", systemImage: "gearshape")
         }
     }

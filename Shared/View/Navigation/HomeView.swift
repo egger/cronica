@@ -26,8 +26,8 @@ struct HomeView: View {
             ScrollView {
                 HorizontalUpNextListView(shouldReload: $reloadUpNext)
                 UpcomingWatchlist()
-                PinItemsList()
-                HorizontalPinnedList()
+                PinItemsList(showPopup: $showPopup, popupType: $popupType)
+                HorizontalPinnedList(showPopup: $showPopup, popupType: $popupType)
                 HorizontalItemContentListView(items: viewModel.trending,
                                               title: "Trending",
                                               subtitle: "Today",

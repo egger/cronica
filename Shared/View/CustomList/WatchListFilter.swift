@@ -22,22 +22,23 @@ struct WatchListFilter: View {
                     }
                 }
                 .disabled(!showAllItems)
-#if os(iOS)
-                .pickerStyle(.navigationLink)
-#endif
             }
             Section {
-                Picker("defaultWatchlistSmartFilters", selection: $selectedOrder) {
+                Picker(selection: $selectedOrder) {
                     ForEach(DefaultListTypes.allCases) { sort in
                         Text(sort.title).tag(sort)
                     }
-                }
+                } label: {
+                    Text("defaultWatchlistSmartFilters")
 #if os(iOS)
-                .pickerStyle(.navigationLink)
+                        .foregroundColor(.secondary)
 #endif
+                }
                 .disabled(showAllItems)
-#if os(iOS)
-                .pickerStyle(.navigationLink)
+#if !os(macOS)
+                .pickerStyle(.inline)
+#else
+                .pickerStyle(.menu)
 #endif
             }
         }
@@ -52,7 +53,7 @@ struct WatchListFilter: View {
         .formStyle(.grouped)
 #endif
         .onChange(of: selectedOrder) { _ in
-            showView.toggle()
+            showView = false
         }
         .onChange(of: showAllItems) { _ in
             showView.toggle()

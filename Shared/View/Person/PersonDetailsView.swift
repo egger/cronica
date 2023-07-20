@@ -25,8 +25,33 @@ struct PersonDetailsView: View {
     var body: some View {
         VStack {
             ScrollView {
-                imageProfile
-                    .padding()
+                
+                ViewThatFits {
+                    HStack {
+                        imageProfile
+                            .padding([.bottom, .horizontal])
+#if !os(tvOS)
+                        if let overview = viewModel.person?.biography {
+                            OverviewBoxView(overview: overview, title: "", showAsPopover: true)
+                                .frame(width: 500)
+                                .padding([.bottom, .trailing])
+                        }
+#endif
+                    }
+#if os(macOS)
+                    .padding(.top)
+#endif
+                    VStack {
+                        imageProfile
+                            .padding()
+#if !os(tvOS)
+                        if let overview = viewModel.person?.biography {
+                            OverviewBoxView(overview: overview, title: "")
+                                .padding([.horizontal, .bottom])
+                        }
+#endif
+                    }
+                }
                 
                 FilmographyListView(filmography: viewModel.credits,
                                     showPopup: $showPopup,
@@ -58,7 +83,7 @@ struct PersonDetailsView: View {
                 ShareLink(item: personUrl)
             }
 #elseif os(macOS)
-            ToolbarItem(placement: .status) {
+            ToolbarItem(placement: .primaryAction) {
                 ShareLink(item: personUrl)
             }
 #endif

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CustomListView: View {
     @Binding var list: CustomList?
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         if let list {
             List {
@@ -17,7 +19,7 @@ struct CustomListView: View {
                         EmptyListView()
                     } else {
                         ForEach(list.itemsArray) { item in
-                            WatchlistItemRow(content: item)
+                            WatchlistItemRow(content: item, showPopup: $showPopup, popupType: $popupType)
                         }
                     }
                 } header: {

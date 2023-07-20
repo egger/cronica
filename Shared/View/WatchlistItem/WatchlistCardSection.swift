@@ -11,6 +11,8 @@ struct WatchlistCardSection: View {
     private let context = PersistenceController.shared
     let items: [WatchlistItem]
     let title: String
+    @Binding var showPopup: Bool
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         if !items.isEmpty {
             ScrollView {
@@ -18,12 +20,12 @@ struct WatchlistCardSection: View {
                           spacing: DrawingConstants.spacing) {
 #if os(tvOS)
                     ForEach(items, id: \.itemContentID) { item in
-                        WatchlistItemFrame(content: item)
+                        WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
                     }
 #else
                     Section {
                         ForEach(items, id: \.itemContentID) { item in
-                            WatchlistItemFrame(content: item)
+                            WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
                                 .buttonStyle(.plain)
                         }
                         .onDelete(perform: delete)
@@ -65,7 +67,7 @@ struct WatchlistCardSection: View {
 
 struct WatchlistCardSection_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistCardSection(items: [.example], title: "Preview")
+        WatchlistCardSection(items: [.example], title: "Preview", showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 

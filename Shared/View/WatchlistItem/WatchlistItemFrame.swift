@@ -16,7 +16,8 @@ struct WatchlistItemFrame: View {
     @State private var isArchive = false
     @State private var showNote = false
     @State private var showCustomListView = false
-    @State private var showPopup = false
+    @Binding var showPopup: Bool
+    @Binding var popupType: ActionPopupItems?
     var body: some View {
         VStack {
             NavigationLink(value: content) {
@@ -28,7 +29,7 @@ struct WatchlistItemFrame: View {
                                           isArchive: $isArchive,
                                           showNote: $showNote,
                                           showCustomList: $showCustomListView,
-                                                                        popupType: .constant(nil),
+                                          popupType: $popupType,
                                           showPopup: $showPopup)
             }
             HStack {
@@ -83,6 +84,38 @@ struct WatchlistItemFrame: View {
             .placeholder { placeholder }
             .aspectRatio(contentMode: .fill)
             .transition(.opacity)
+            .overlay {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        if isWatched {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(DrawingConstants.placeholderForegroundColor)
+                                .padding()
+                        } else {
+                            Image(systemName: "square.stack.fill")
+                                .foregroundColor(DrawingConstants.placeholderForegroundColor)
+                                .padding()
+                        }
+                    }
+                    .background {
+                        if content.image != nil {
+                            Color.black.opacity(0.5)
+                                .mask {
+                                    LinearGradient(colors:
+                                                    [Color.black,
+                                                     Color.black.opacity(0.924),
+                                                     Color.black.opacity(0.707),
+                                                     Color.black.opacity(0.383),
+                                                     Color.black.opacity(0)],
+                                                   startPoint: .bottom,
+                                                   endPoint: .top)
+                                }
+                        }
+                    }
+                }
+            }
             .frame(width: DrawingConstants.imageWidth,
                    height: DrawingConstants.imageHeight)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
@@ -159,7 +192,7 @@ struct WatchlistItemFrame: View {
 
 struct WatchlistItemFrame_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistItemFrame(content: .example)
+        WatchlistItemFrame(content: .example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 
