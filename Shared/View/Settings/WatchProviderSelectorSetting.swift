@@ -104,6 +104,7 @@ private struct WatchProviderItemSelector: View {
             } else {
                 settings.selectedWatchProviders.append(item.itemID)
             }
+            HapticManager.shared.selectionHaptic()
         }
         .task(id: settings.selectedWatchProviders) {
             if settings.selectedWatchProviders.contains(item.itemID)  {

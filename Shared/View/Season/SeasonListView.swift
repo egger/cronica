@@ -66,7 +66,7 @@ struct SeasonList: View {
             .frame(maxWidth: 200)
 #elseif os(tvOS)
             .frame(maxWidth: 460)
-            .padding(.leading, 32)
+            .padding(.leading, 64)
 #endif
             Spacer()
 #if os(iOS) 
@@ -105,8 +105,8 @@ struct SeasonList: View {
 #if os(tvOS)
                                         .frame(width: 360)
                                         .padding([.leading, .trailing], 2)
-                                        .padding(.leading, item.id == season.first!.id ? 32 : 0)
-                                        .padding(.trailing, item.id == season.last!.id ? 32 : 0)
+                                        .padding(.leading, item.id == season.first!.id ? 64 : 0)
+                                        .padding(.trailing, item.id == season.last!.id ? 64 : 0)
 #else
                                         .frame(width: 200)
                                         .padding([.leading, .trailing], 4)

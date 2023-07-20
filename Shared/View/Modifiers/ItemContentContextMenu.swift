@@ -44,12 +44,14 @@ struct ItemContentContextMenu: ViewModifier {
                                   isArchive: $isArchive,
                                   popupType: $popupType,
                                   showPopup: $showPopup)
+#if !os(tvOS)
                     CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
                     Button {
                         showNote.toggle()
                     } label: {
                         Label("reviewTitle", systemImage: "note.text")
                     }
+#endif
                 }
                 Divider()
                 if !isInWatchlist {

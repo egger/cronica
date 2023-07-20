@@ -34,7 +34,6 @@ struct ItemContentDetails: View {
     }
     var body: some View {
         ZStack {
-            
             ScrollView {
 #if os(macOS)
                 ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showPopup: $showPopup)

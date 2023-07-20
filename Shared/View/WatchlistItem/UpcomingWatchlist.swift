@@ -45,7 +45,7 @@ struct UpcomingWatchlist: View {
                 TitleView(title: "Upcoming",
                           subtitle: "From Watchlist",
                           showChevron: false)
-                .padding(.leading, 32)
+                .padding(.leading, 64)
 #endif
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
@@ -59,8 +59,8 @@ struct UpcomingWatchlist: View {
                                 .padding([.leading, .trailing], 4)
                                 .buttonStyle(.plain)
 #else
-                                .padding(.leading, item.id == items.first!.id ? 32 : 0)
-                                .padding(.trailing, item.id == items.last!.id ? 32 : 0)
+                                .padding(.leading, item.id == items.first!.id ? 64 : 0)
+                                .padding(.trailing, item.id == items.last!.id ? 64 : 0)
                                 .padding(.vertical)
                                 .padding([.leading, .trailing], 4)
                                 .buttonStyle(.card)
@@ -74,99 +74,130 @@ struct UpcomingWatchlist: View {
     
     @ViewBuilder
     func card(item: WatchlistItem) -> some View {
-        if item.image != nil {
-            NavigationLink(value: item) {
-                WebImage(url: item.image, options: .highPriority)
-                    .resizable()
-                    .placeholder {
-                        ZStack {
-                            Rectangle().fill(.gray.gradient)
-                            Color.black.opacity(0.4)
-                            Image(systemName: item.itemMedia == .tvShow ? "tv" : "film")
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .aspectRatio(contentMode: .fill)
-                    .overlay {
-                        ZStack(alignment: .bottom) {
-                            Color.black.opacity(0.4)
-                                .frame(height: 50)
-                                .mask {
-                                    LinearGradient(colors: [Color.black,
-                                                            Color.black.opacity(0.924),
-                                                            Color.black.opacity(0.707),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0)],
-                                                   startPoint: .bottom,
-                                                   endPoint: .top)
-                                }
-                            Rectangle()
-                                .fill(.ultraThinMaterial)
-                                .frame(height: 70)
-                                .mask {
-                                    VStack(spacing: 0) {
-                                        LinearGradient(colors: [Color.black.opacity(0),
-                                                                Color.black.opacity(0.383),
-                                                                Color.black.opacity(0.707),
-                                                                Color.black.opacity(0.924),
-                                                                Color.black],
-                                                       startPoint: .top,
-                                                       endPoint: .bottom)
-                                        .frame(height: 50)
-                                        Rectangle()
-                                    }
-                                }
-                            if let info = item.itemGlanceInfo {
-                                VStack(alignment: .leading) {
-                                    Spacer()
-                                    HStack {
-                                        Text(item.itemTitle)
-                                            .fontWeight(.semibold)
-                                            .font(.callout)
-                                            .foregroundColor(.white)
-                                            .lineLimit(DrawingConstants.lineLimits)
-                                            .padding(.leading)
-                                        Spacer()
-                                    }
-                                    HStack {
-                                        Text(info)
-                                            .font(.caption)
-                                            .foregroundColor(.white)
-                                            .lineLimit(DrawingConstants.lineLimits)
-                                            .padding(.leading)
-                                            .padding(.bottom, 8)
-                                        Spacer()
-                                    }
-                                }
-                                .padding(.horizontal, 2)
-                            } else {
-                                VStack(alignment: .leading) {
-                                    Spacer()
-                                    HStack {
-                                        Text(item.itemTitle)
-                                            .fontWeight(.semibold)
-                                            .font(.callout)
-                                            .foregroundColor(.white)
-                                            .lineLimit(DrawingConstants.lineLimits)
-                                            .padding()
-                                        Spacer()
-                                    }
-                                    
-                                }
-                                .padding(.horizontal, 2)
-                            }
-                            
-                        }
-                    }
-                    .frame(width: settings.isCompactUI ? DrawingConstants.compactCardWidth : DrawingConstants.cardWidth,
-                           height: settings.isCompactUI ? DrawingConstants.compactCardHeight : DrawingConstants.cardHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
-                    .shadow(radius: DrawingConstants.shadowRadius)
-                    .transition(.opacity)
-                    .applyHoverEffect()
+#if os(tvOS)
+        VStack {
+            image(for: item)
+                .buttonStyle(.card)
+            HStack {
+                Text(item.itemTitle)
+                    .font(.caption)
+                    .lineLimit(2)
+                    .foregroundColor(.secondary)
+                Spacer()
             }
+            if let info = item.itemGlanceInfo {
+                HStack {
+                    Text(info)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+            }
+            Spacer()
+        }
+        .frame(width: DrawingConstants.cardWidth)
+#else
+        if item.image != nil {
+            image(for: item)
         } else {
             EmptyView()
+        }
+#endif
+    }
+    
+    private func image(for item: WatchlistItem) -> some View {
+        NavigationLink(value: item) {
+            WebImage(url: item.image, options: .highPriority)
+                .resizable()
+                .placeholder {
+                    ZStack {
+                        Rectangle().fill(.gray.gradient)
+                        Color.black.opacity(0.4)
+                        Image(systemName: item.itemMedia == .tvShow ? "tv" : "film")
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .aspectRatio(contentMode: .fill)
+#if !os(tvOS)
+                .overlay {
+                    ZStack(alignment: .bottom) {
+                        Color.black.opacity(0.4)
+                            .frame(height: 50)
+                            .mask {
+                                LinearGradient(colors: [Color.black,
+                                                        Color.black.opacity(0.924),
+                                                        Color.black.opacity(0.707),
+                                                        Color.black.opacity(0.383),
+                                                        Color.black.opacity(0)],
+                                               startPoint: .bottom,
+                                               endPoint: .top)
+                            }
+                        Rectangle()
+                            .fill(.ultraThinMaterial)
+                            .frame(height: 70)
+                            .mask {
+                                VStack(spacing: 0) {
+                                    LinearGradient(colors: [Color.black.opacity(0),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.924),
+                                                            Color.black],
+                                                   startPoint: .top,
+                                                   endPoint: .bottom)
+                                    .frame(height: 50)
+                                    Rectangle()
+                                }
+                            }
+                        if let info = item.itemGlanceInfo {
+                            VStack(alignment: .leading) {
+                                Spacer()
+                                HStack {
+                                    Text(item.itemTitle)
+                                        .fontWeight(.semibold)
+                                        .font(.callout)
+                                        .foregroundColor(.white)
+                                        .lineLimit(DrawingConstants.lineLimits)
+                                        .padding(.leading)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text(info)
+                                        .font(.caption)
+                                        .foregroundColor(.white)
+                                        .lineLimit(DrawingConstants.lineLimits)
+                                        .padding(.leading)
+                                        .padding(.bottom, 8)
+                                    Spacer()
+                                }
+                            }
+                            .padding(.horizontal, 2)
+                        } else {
+                            VStack(alignment: .leading) {
+                                Spacer()
+                                HStack {
+                                    Text(item.itemTitle)
+                                        .fontWeight(.semibold)
+                                        .font(.callout)
+                                        .foregroundColor(.white)
+                                        .lineLimit(DrawingConstants.lineLimits)
+                                        .padding()
+                                    Spacer()
+                                }
+                                
+                            }
+                            .padding(.horizontal, 2)
+                        }
+                        
+                    }
+                }
+#endif
+                .frame(width: settings.isCompactUI ? DrawingConstants.compactCardWidth : DrawingConstants.cardWidth,
+                       height: settings.isCompactUI ? DrawingConstants.compactCardHeight : DrawingConstants.cardHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cardRadius, style: .continuous))
+                .shadow(radius: DrawingConstants.shadowRadius)
+                .transition(.opacity)
+                .applyHoverEffect()
         }
     }
 }
@@ -179,8 +210,8 @@ struct UpcomingWatchlist_Previews: PreviewProvider {
 
 private struct DrawingConstants {
 #if os(tvOS)
-    static let cardWidth: CGFloat = 460
-    static let cardHeight: CGFloat = 260
+    static let cardWidth: CGFloat = 420
+    static let cardHeight: CGFloat = 240
 #else
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160

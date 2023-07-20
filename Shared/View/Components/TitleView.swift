@@ -20,7 +20,7 @@ struct TitleView: View {
                         .fontWeight(.semibold)
                         .fontDesign(.rounded)
 #if os(tvOS)
-                        .font(.headline)
+                        .font(.callout)
                         .foregroundColor(.secondary)
 #else
                         .font(.title3)

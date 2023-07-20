@@ -52,6 +52,15 @@ struct WatchlistItemFrame: View {
         }
 #if os(tvOS)
         .buttonStyle(.card)
+        .watchlistContextMenu(item: content,
+                              isWatched: $isWatched,
+                              isFavorite: $isFavorite,
+                              isPin: $isPin,
+                              isArchive: $isArchive,
+                              showNote: $showNote,
+                              showCustomList: $showCustomListView,
+                              popupType: $popupType,
+                              showPopup: $showPopup)
 #endif
         .sheet(isPresented: $showNote) {
             NavigationStack {

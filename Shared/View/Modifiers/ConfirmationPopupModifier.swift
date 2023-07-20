@@ -25,13 +25,13 @@ struct ConfirmationPopupModifier: ViewModifier {
                                     .padding()
                             }
 #if !os(watchOS)
-                            .background { Rectangle().fill(.thinMaterial) }
+                            .background { Rectangle().fill(.regularMaterial) }
 #endif
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                            .shadow(radius: 2.5)
+                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            .shadow(radius: 2)
                             .padding()
                             .opacity(isShowing ? 1 : 0)
-                            .animation(.easeInOut, value: isShowing)
+                            .animation(.linear, value: isShowing)
                             .onTapGesture { withAnimation { isShowing = false } }
                         }
                         .onAppear {

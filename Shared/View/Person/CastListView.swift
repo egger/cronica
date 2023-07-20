@@ -16,6 +16,7 @@ struct CastListView: View {
             VStack(alignment: .leading) {
 #if os(tvOS)
                 TitleView(title: "Cast & Crew")
+                    .padding(.leading, 64)
 #else
                 NavigationLink(value: credits) {
                     TitleView(title: "Cast & Crew", showChevron: true)
@@ -29,7 +30,11 @@ struct CastListView: View {
                                 .applyHoverEffect()
                                 .padding([.leading, .trailing], 4)
                                 .buttonStyle(.plain)
+#if os(tvOS)
+                                .padding(.leading, person.id == self.credits.first!.id ? 64 : 0)
+#else
                                 .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
+#endif
                                 .padding(.top, 8)
                                 .padding(.bottom)
                                 .buttonStyle(.plain)

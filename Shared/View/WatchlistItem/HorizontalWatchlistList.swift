@@ -19,7 +19,7 @@ struct HorizontalWatchlistList: View {
 #if os(tvOS)
             TitleView(title: title,
                       subtitle: subtitle)
-            .padding(.leading, 32)
+            .padding(.leading, 64)
 #else
             NavigationLink(value: [title:items]) {
                 TitleView(title: title,
@@ -35,8 +35,8 @@ struct HorizontalWatchlistList: View {
                             WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                 .padding([.leading, .trailing], 2)
-                                .padding(.leading, item.id == self.items.first!.id ? 32 : 0)
-                                .padding(.trailing, item.id == self.items.last!.id ? 32 : 0)
+                                .padding(.leading, item.id == self.items.first!.id ? 64 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 64 : 0)
                                 .padding(.vertical)
                                 .buttonStyle(.card)
 #else
@@ -55,8 +55,8 @@ struct HorizontalWatchlistList: View {
                             WatchlistItemPoster(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                 .padding([.leading, .trailing], 2)
-                                .padding(.leading, item.id == self.items.first!.id ? 32 : 0)
-                                .padding(.trailing, item.id == self.items.last!.id ? 32 : 0)
+                                .padding(.leading, item.id == self.items.first!.id ? 64 : 0)
+                                .padding(.trailing, item.id == self.items.last!.id ? 64 : 0)
                                 .padding(.vertical)
                                 .buttonStyle(.card)
 #else

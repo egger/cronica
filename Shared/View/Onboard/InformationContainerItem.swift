@@ -23,12 +23,15 @@ struct InformationContainerItem: View {
             VStack(alignment: .leading) {
                 Text(NSLocalizedString(title, comment: ""))
                     .font(.title3)
+                    .fontWeight(.semibold)
                     .foregroundColor(.primary)
                     .accessibility(addTraits: .isHeader)
+                    .fontDesign(.rounded)
                 
                 Text(NSLocalizedString(subTitle, comment: ""))
-                    .font(.body)
+                    .font(.callout)
                     .foregroundColor(.secondary)
+                    .fontDesign(.rounded)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.leading, 6)

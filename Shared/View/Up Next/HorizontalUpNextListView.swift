@@ -31,7 +31,7 @@ struct HorizontalUpNextListView: View {
                     .buttonStyle(.plain)
 #else
                     TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: false)
-                        .padding(.leading, 32)
+                        .padding(.leading, 64)
 #endif
                     
                     ScrollViewReader { proxy in
@@ -39,17 +39,13 @@ struct HorizontalUpNextListView: View {
                             LazyHStack {
                                 ForEach(viewModel.episodes) { item in
 #if os(tvOS)
-                                    Button {
-                                        selectedEpisode = item
-                                    } label: {
-                                        upNextCard(item)
-                                    }
-                                    .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == viewModel.episodes.first!.id ? 32 : 0)
-                                    .padding(.trailing, item.id == viewModel.episodes.last!.id ? 32 : 0)
-                                    .padding(.top, 8)
-                                    .padding(.vertical)
-                                    .buttonStyle(.card)
+                                    UpNextCard(item: item)
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == viewModel.episodes.first!.id ? 64 : 0)
+                                        .padding(.trailing, item.id == viewModel.episodes.last!.id ? 64 : 0)
+                                        .padding(.top, 8)
+                                        .padding(.bottom)
+                                        .buttonStyle(.card)
 #else
                                     upNextCard(item)
                                         .contextMenu {
@@ -90,6 +86,16 @@ struct HorizontalUpNextListView: View {
             .navigationDestination(for: [UpNextEpisode].self) { _ in
                 VerticalUpNextListView().environmentObject(viewModel)
             }
+#if os(tvOS)
+            .navigationDestination(for: UpNextEpisode.self) { item in
+                EpisodeDetailsView(episode: item.episode,
+                                   season: item.episode.itemSeasonNumber,
+                                   show: item.showID,
+                                   showTitle: item.showTitle,
+                                   isWatched: $viewModel.isWatched)
+                .ignoresSafeArea(.all)
+            }
+#endif
             .task(id: viewModel.isWatched) {
                 if viewModel.isWatched {
                     await viewModel.handleWatched(selectedEpisode)
@@ -213,13 +219,69 @@ struct HorizontalUpNextListView: View {
     }
 }
 
+#if os(tvOS)
+private struct UpNextCard: View {
+    let item: UpNextEpisode
+    var body: some View {
+        VStack {
+            NavigationLink(value: item) {
+                WebImage(url: item.episode.itemImageLarge ?? item.backupImage)
+                    .resizable()
+                    .placeholder {
+                        ZStack {
+                            Rectangle().fill(.gray.gradient)
+                            Image(systemName: "sparkles.tv")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.white.opacity(0.8))
+                                .frame(width: 40, height: 40, alignment: .center)
+                                .padding()
+                        }
+                        .frame(width: DrawingConstants.imageWidth,
+                               height: DrawingConstants.imageHeight)
+                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                    }
+                    .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                                style: .continuous))
+                    .shadow(radius: DrawingConstants.imageShadow)
+                    .applyHoverEffect()
+            }
+            .buttonStyle(.card)
+            HStack {
+                Text(item.showTitle)
+                    .font(.caption)
+                    .lineLimit(2)
+                    .accessibilityHidden(true)
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+            .frame(width: DrawingConstants.imageWidth)
+            HStack {
+                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                    .font(.caption)
+                    .textCase(.uppercase)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+                Spacer()
+            }
+            Spacer()
+        }
+        .padding(.top)
+    }
+}
+#endif
+
 private struct DrawingConstants {
 #if !os(tvOS)
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
 #else
-    static let imageWidth: CGFloat = 460
-    static let imageHeight: CGFloat = 260
+    static let imageWidth: CGFloat = 420
+    static let imageHeight: CGFloat = 240
 #endif
     static let compactImageWidth: CGFloat = 200
     static let compactImageHeight: CGFloat = 120

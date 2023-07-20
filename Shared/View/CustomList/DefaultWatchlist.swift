@@ -26,33 +26,35 @@ struct DefaultWatchlist: View {
     var body: some View {
         VStack {
 #if os(tvOS)
-            if !items.isEmpty {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Watchlist")
-                            .font(.title3)
-                        if showAllItems {
-                            Text(mediaTypeFilter.localizableTitle)
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                        } else {
-                            Text(selectedOrder.title)
-                                .font(.callout)
-                                .foregroundColor(.secondary)
+            ScrollView {
+                if !items.isEmpty {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Watchlist")
+                                .font(.title3)
+                            if showAllItems {
+                                Text(mediaTypeFilter.localizableTitle)
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
+                            } else {
+                                Text(selectedOrder.title)
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding()
+                        Spacer()
+                        Button {
+                            showFilter.toggle()
+                        } label: {
+                            Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                                .labelStyle(.iconOnly)
                         }
                     }
-                    .padding()
-                    Spacer()
-                    Button {
-                        showFilter.toggle()
-                    } label: {
-                        Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                            .labelStyle(.iconOnly)
-                    }
+                    .padding(.horizontal, 64)
                 }
-                .padding(.horizontal)
+                frameStyle
             }
-            frameStyle
 #else
             switch settings.watchlistStyle {
             case .list: listStyle

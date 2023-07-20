@@ -37,7 +37,7 @@ struct ExploreView: View {
                                 .labelStyle(.iconOnly)
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 64)
 #endif
                     
                     switch settings.exploreDisplayType {

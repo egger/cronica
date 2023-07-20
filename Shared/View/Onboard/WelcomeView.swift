@@ -19,15 +19,18 @@ struct WelcomeView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100, alignment: .center)
-                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                        .shadow(radius: 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .shadow(radius: 5)
                         .padding(.leading)
                     VStack(alignment: .leading) {
                         Text("Cronica")
                             .font(.title)
                             .fontWeight(.bold)
+                            .fontDesign(.rounded)
                         Text("Be reminded of upcoming Movies & TV Shows.")
+                            .font(.callout)
                             .foregroundColor(.secondary)
+                            .fontDesign(.rounded)
                             .padding(.trailing)
                     }
                     .padding(.leading, 6)
@@ -39,37 +42,42 @@ struct WelcomeView: View {
             }
             .padding(.horizontal)
             Spacer()
-            CenterHorizontalView {
-                VStack {
-                    Button {
-                        withAnimation {
-                            displayOnboard.toggle()
-                        }
-                    } label: {
-                        Text("Continue")
-                            .frame(width: 200)
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation {
+                        displayOnboard.toggle()
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(Color.blue.gradient)
-#if os(iOS) || os(macOS)
-                    .controlSize(.large)
-#endif
-                    .shadow(radius: 5)
-                    .padding()
-                    Button("Privacy Policy") {
-#if os(macOS)
-                        NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
-#else
-                        showPolicy.toggle()
-#endif
-                    }
-                    .padding([.horizontal, .bottom])
-#if os(macOS)
-                    .buttonStyle(.link)
-#endif
+                } label: {
+                    Text("Continue")
                 }
-                .padding()
+                .buttonStyle(.borderedProminent)
+                .tint(Color.blue.gradient)
+#if os(iOS) || os(macOS)
+                .controlSize(.large)
+#endif
+                .padding([.leading, .vertical])
+                Button {
+#if os(macOS)
+                    NSWorkspace.shared.open(URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+#else
+                    showPolicy.toggle()
+#endif
+                } label: {
+                    Text("Privacy Policy")
+                }
+                .padding([.horizontal, .vertical])
+#if os(iOS) || os(macOS)
+                .controlSize(.large)
+#endif
+#if os(macOS)
+                .buttonStyle(.link)
+#else
+                .buttonStyle(.bordered)
+#endif
+                Spacer()
             }
+            .padding()
         }
         .interactiveDismissDisabled(true)
 #if os(iOS)

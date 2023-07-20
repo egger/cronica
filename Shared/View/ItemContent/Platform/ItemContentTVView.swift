@@ -39,10 +39,7 @@ struct ItemContentTVView: View {
             }
             .ignoresSafeArea(.all, edges: .horizontal)
         }
-        .task { await viewModel.load() }
-        .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .ignoresSafeArea(.all, edges: .horizontal)
-        .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .onAppear {
             DispatchQueue.main.async {
                 isWatchlistButtonFocused = true
@@ -124,7 +121,7 @@ struct ItemContentTVView: View {
                         viewModel.isWatched ? animate(for: .markedWatched) : animate(for: .removedWatched)
                     } label: {
                         Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                              systemImage: viewModel.isWatched ? "rectangle.badge.checkmark" : "rectangle.badge.checkmark.fill")
+                              systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
                         .labelStyle(.iconOnly)
                     }
                     .buttonStyle(.borderedProminent)

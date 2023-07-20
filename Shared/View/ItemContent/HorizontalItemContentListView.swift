@@ -24,7 +24,7 @@ struct HorizontalItemContentListView: View {
                 VStack {
 #if os(tvOS)
                     TitleView(title: title, subtitle: subtitle)
-                        .padding(.leading, 32)
+                        .padding(.leading, 64)
 #else
                     if let endpoint {
                         NavigationLink(value: endpoint) {
@@ -73,8 +73,9 @@ struct HorizontalItemContentListView: View {
                         .padding(.trailing, item.id == items.last!.id ? 16 : 0)
 #else
                         .padding([.leading, .trailing], 2)
-                        .padding(.leading, item.id == items.first!.id ? 32 : 0)
-                        .padding(.trailing, item.id == items.last!.id ? 32 : 0)
+                        .padding(.leading, item.id == items.first!.id ? 64 : 0)
+                        .padding(.trailing, item.id == items.last!.id ? 64 : 0)
+                        .padding(.top)
 #endif
                         .buttonStyle(.plain)
                         .padding(.top, 8)
@@ -100,8 +101,8 @@ struct HorizontalItemContentListView: View {
                     .padding(.bottom, settings.isCompactUI ? 4 : nil)
 #else
                     .padding([.leading, .trailing], 2)
-                    .padding(.leading, item.id == items.first!.id ? 32 : 0)
-                    .padding(.trailing, item.id == items.last!.id ? 32 : 0)
+                    .padding(.leading, item.id == items.first!.id ? 64 : 0)
+                    .padding(.trailing, item.id == items.last!.id ? 64 : 0)
                     .padding(.vertical)
 #endif
                 }

@@ -92,6 +92,13 @@ struct CardFrame: View {
             }
 #if os(tvOS)
             .buttonStyle(.card)
+            .itemContentContextMenu(item: item,
+                                    isWatched: $isWatched,
+                                    showPopup: $showPopup,
+                                    isInWatchlist: $isInWatchlist,
+                                    showNote: $showNote,
+                                    showCustomList: $showCustomListView,
+                                    popupType: $popupType)
 #endif
             HStack {
                 Text(item.itemTitle)

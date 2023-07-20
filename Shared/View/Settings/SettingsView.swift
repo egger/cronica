@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 /// Renders the Settings UI for each OS, support iOS, macOS, and tvOS.
 struct SettingsView: View {
 #if os(iOS)
     static let tag: Screens? = .settings
     @State private var showPolicy = false
     @State private var showWhatsNew = false
+#elseif os(tvOS)
+    @StateObject private var store = SettingsStore.shared
 #endif
     var body: some View {
         settings
@@ -107,6 +109,16 @@ struct SettingsView: View {
         }
         .frame(minWidth: 420, idealWidth: 500, minHeight: 320, idealHeight: 320)
         .tabViewStyle(.automatic)
+#elseif os(tvOS)
+        NavigationStack {
+            Form {
+                Section("Watchlist") {
+                    Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
+                    Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
+                }
+            }
+            .navigationTitle("Settings")
+        }
 #endif
     }
     
@@ -133,4 +145,3 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView()
     }
 }
-#endif

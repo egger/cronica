@@ -46,7 +46,10 @@ struct TabBarView: View {
             .tag(WatchlistView.tag)
             
             NavigationStack { TVSearchView() }
-                .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.iconOnly) }
+                .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.titleOnly) }
+            
+            SettingsView()
+                .tabItem { Label("Settings", systemImage: "gearshape").labelStyle(.iconOnly)  }
         }
         .padding(.horizontal, .zero)
     }
