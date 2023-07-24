@@ -18,7 +18,8 @@ class EndpointDetailsViewModel: ObservableObject {
     func loadMoreItems(for endpoint: Endpoints) async {
         do {
             let result = try await NetworkService.shared.fetchItems(from: "\(endpoint.type.rawValue)/\(endpoint.rawValue)", page: String(page))
-            items.append(contentsOf: result)
+            let filtered = result.filter { $0.backdropPath != nil && $0.posterPath != nil }
+            items.append(contentsOf: filtered)
             if !items.isEmpty {
                 page += 1
                 startPagination = false

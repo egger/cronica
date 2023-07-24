@@ -19,10 +19,15 @@ struct UpcomingWatchlist: View {
                                 subpredicates: [
                                     NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
                                     NSPredicate(format: "notify == %d", true),
+                                    NSPredicate(format: "isArchive == %d", false),
                                     NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
                                 ])
             ,
-            NSPredicate(format: "upcomingSeason == %d", true)])
+            NSCompoundPredicate(type: .and,
+                                subpredicates: [
+                                    NSPredicate(format: "upcomingSeason == %d", true),
+                                    NSPredicate(format: "isArchive == %d", false)
+                                ])])
     )
     var items: FetchedResults<WatchlistItem>
     @StateObject private var settings = SettingsStore.shared

@@ -600,6 +600,8 @@
 		B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTapGesture.swift; sourceTree = "<group>"; };
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8B271A527A5A18C00F6463F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		B8B8A4292A6EAC6800E5533F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8B8A42A2A6EAC6800E5533F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemSwipeGesture.swift; sourceTree = "<group>"; };
 		B8B94CEE28EB8B8200EDEC85 /* CronicaTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTelemetry.swift; sourceTree = "<group>"; };
 		B8B981E429F42B060001CF0B /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -1540,6 +1542,7 @@
 				Base,
 				"pt-BR",
 				de,
+				es,
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
@@ -1994,6 +1997,7 @@
 				B82BE50229A18A55005F9990 /* pt-BR */,
 				B82BE50429A18A5A005F9990 /* en */,
 				B862F24829EEE1EA000AEC18 /* de */,
+				B8B8A42A2A6EAC6800E5533F /* es */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -2004,6 +2008,7 @@
 				B8CC954C27D1310B00B6757C /* en */,
 				B8CC954F27D132F700B6757C /* pt-BR */,
 				B862F24729EEE1EA000AEC18 /* de */,
+				B8B8A4292A6EAC6800E5533F /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

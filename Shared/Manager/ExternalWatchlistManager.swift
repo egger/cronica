@@ -177,7 +177,8 @@ class ExternalWatchlistManager {
                 "content-type": contentTypeHeader,
                 "authorization": "Bearer \(userAccessToken)"
             ]
-            var request = URLRequest(url: URL(string: "https://api.themoviedb.org/4/account/\(userAccessId)/lists")!,
+            guard let url = URL(string: "https://api.themoviedb.org/4/account/\(userAccessId)/lists") else { return nil }
+            var request = URLRequest(url: url,
                                      cachePolicy: .useProtocolCachePolicy,
                                      timeoutInterval: 10.0)
             request.httpMethod = "GET"
@@ -191,13 +192,14 @@ class ExternalWatchlistManager {
         }
     }
     
-    func fetchListDetails(for id: TMDBListResult.ID) async -> DetailedTMDBList? {
+    func fetchListDetails(for id: TMDBListResult.ID, page: Int) async -> DetailedTMDBList? {
         do {
             let headers = [
                 "content-type": contentTypeHeader,
                 "authorization": "Bearer \(userAccessToken)"
             ]
-            var request = URLRequest(url: URL(string: "https://api.themoviedb.org/4/list/\(id)")!,
+            guard let url = URL(string: "https://api.themoviedb.org/4/list/\(id)?page=\(page)") else { return nil }
+            var request = URLRequest(url: url,
                                      cachePolicy: .useProtocolCachePolicy,
                                      timeoutInterval: 10.0)
             request.httpMethod = "GET"

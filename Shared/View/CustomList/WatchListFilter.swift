@@ -21,6 +21,7 @@ struct WatchListFilter: View {
                         Text(sort.localizableTitle).tag(sort)
                     }
                 }
+                .pickerStyle(.segmented)
                 .disabled(!showAllItems)
             }
             Section {
@@ -56,7 +57,7 @@ struct WatchListFilter: View {
             showView = false
         }
         .onChange(of: showAllItems) { _ in
-            showView.toggle()
+            if !showAllItems { showView = false }
         }
         .onChange(of: mediaTypeFilter) { _ in
             showView.toggle()

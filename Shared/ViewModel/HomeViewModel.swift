@@ -72,7 +72,8 @@ class HomeViewModel: ObservableObject {
     private func fetch(from endpoint: Endpoints) async -> ItemContentSection? {
         do {
             let section = try await service.fetchItems(from: "\(endpoint.type.rawValue)/\(endpoint.rawValue)")
-            return .init(results: section, endpoint: endpoint)
+            let filtered = section.filter { $0.backdropPath != nil && $0.posterPath != nil }
+            return .init(results: filtered, endpoint: endpoint)
         } catch {
             if Task.isCancelled { return nil }
             let message = """
@@ -130,9 +131,9 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     private func fetchRecommendations() async {
         var recommendationsFetched = [ItemContent]()
         let itemsToRecommendFrom = fetchBasedRecommendationItems()
+        print("fetchRecommendations: \(itemsToRecommendFrom.count) - recommend from")
         for item in itemsToRecommendFrom {
-            let result = try? await service.fetchItems(from: "\(item.itemMedia.rawValue)/\(item.itemId)/recommendations")
-            if let result {
+            if let result = try? await service.fetchItems(from: "\(item.itemMedia.rawValue)/\(item.itemId)/recommendations") {
                 recommendationsFetched.append(contentsOf: result)
             }
         }

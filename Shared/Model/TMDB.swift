@@ -42,7 +42,8 @@ extension TMDBListResult {
 
 struct DetailedTMDBList: Identifiable, Codable {
     var id: Int
-    var runtime: Int?
+    var runtime, totalPages, totalResults: Int?
+    var sortBy: String?
     var results: [ItemContent]?
 }
 

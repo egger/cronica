@@ -18,30 +18,49 @@ struct TMDBListDetails: View {
     @State private var hasLoaded = false
     @State private var deleteConfirmation = false
     @State private var isDeleted = false
+    
+    // pagination
+    @State private var page = 1
+    @State private var endPagination = false
+    @State private var totalItems = 0
     var body: some View {
         Form {
-            Section {
-                if items.isEmpty {
-                    Text("Empty List")
-                } else {
-                    ForEach(items) { item in
-                        ItemContentRowView(item: item)
+            if !isDeleted {
+                Section {
+                    if items.isEmpty {
+                        Text("Empty List")
+                    } else {
+                        ForEach(items) { item in
+                            ItemContentRowView(item: item)
+                        }
+                        if !endPagination {
+                            CenterHorizontalView {
+                                ProgressView()
+                                    .foregroundColor(.secondary)
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                            page += 1
+                                            Task { await load() }
+                                        }
+                                    }
+                            }
+                        }
                     }
-                }
-            } header: {
-                HStack {
-                    Text("Items")
-                    Spacer()
-                    Text("\(items.count)")
+                } header: {
+                    HStack {
+                        Text("\(totalItems) Items")
+                        Spacer()
+                    }
                 }
             }
         }
         .overlay { if isLoading { CenterHorizontalView { ProgressView("Loading") } }}
         .overlay {
             if isDeleted {
-                CenterVerticalView {
+                VStack {
                     Text("listDeleted")
-                        .font(.title2)
+                        .font(.title3)
+                        .fontDesign(.rounded)
                         .foregroundColor(.secondary)
                 }
             }
@@ -65,18 +84,29 @@ struct TMDBListDetails: View {
 #endif
         }
         .navigationTitle(list.itemTitle)
-        .onAppear { Task { await load() } }
+        .onAppear { if items.isEmpty { Task { await load() } } }
 #if os(macOS)
         .formStyle(.grouped)
 #endif
     }
     
     private func load() async {
-        detailedList = await viewModel.fetchListDetails(for: list.id)
-        if !items.isEmpty { return }
-        if let content = detailedList?.results {
-            items = content
+        detailedList = await viewModel.fetchListDetails(for: list.id, page: page)
+        print("Current page: \(page)")
+        guard let detailedList else { return }
+        if let content = detailedList.results {
+            items.append(contentsOf: content)
         }
+        if let totalPages = detailedList.totalPages {
+            if totalPages == page { endPagination = true }
+        }
+        if let totalResults = detailedList.totalResults {
+            if totalResults != totalItems {
+                totalItems = totalResults
+            }
+        }
+        print(detailedList.sortBy as Any)
+        print(detailedList.totalPages as Any)
         if !hasLoaded {
             await MainActor.run { withAnimation { self.isLoading = false } }
             hasLoaded = true
