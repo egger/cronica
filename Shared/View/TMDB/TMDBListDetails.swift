@@ -15,9 +15,6 @@ struct TMDBListDetails: View {
     @State private var items = [ItemContent]()
     @State private var isLoading = true
     @State private var isSyncing = false
-    @State private var isImportingList = false
-    @State private var itemsToSync = [TMDBItemContent]()
-    @State private var itemsToAddToCustomList = [ItemContent]()
     @State private var hasLoaded = false
     @State private var deleteConfirmation = false
     @State private var isDeleted = false
@@ -32,7 +29,11 @@ struct TMDBListDetails: View {
                     }
                 }
             } header: {
-                Text("Items")
+                HStack {
+                    Text("Items")
+                    Spacer()
+                    Text("\(items.count)")
+                }
             }
         }
         .overlay { if isLoading { CenterHorizontalView { ProgressView("Loading") } }}
@@ -53,7 +54,7 @@ struct TMDBListDetails: View {
             Text("deleteConfirmationMessage")
         }
         .toolbar {
-            #if !os(tvOS)
+#if !os(tvOS)
             ToolbarItem {
                 Menu {
                     deleteButton
@@ -61,31 +62,9 @@ struct TMDBListDetails: View {
                     Label("More", systemImage: "ellipsis.circle")
                 }
             }
-            #endif
+#endif
         }
         .navigationTitle(list.itemTitle)
-        .navigationDestination(for: ItemContent.self) { item in
-            ItemContentDetails(title: item.itemTitle,
-                               id: item.id,
-                               type: item.itemContentMedia)
-        }
-        .navigationDestination(for: Person.self) { person in
-            PersonDetailsView(title: person.name, id: person.id)
-        }
-        .navigationDestination(for: [String:[ItemContent]].self) { item in
-            let keys = item.map { (key, _) in key }
-            let value = item.map { (_, value) in value }
-            ItemContentSectionDetails(title: keys[0], items: value[0])
-        }
-        .navigationDestination(for: [Person].self) { items in
-            DetailedPeopleList(items: items)
-        }
-        .navigationDestination(for: ProductionCompany.self) { item in
-            CompanyDetails(company: item)
-        }
-        .navigationDestination(for: [ProductionCompany].self) { item in
-            CompaniesListView(companies: item)
-        }
         .onAppear { Task { await load() } }
 #if os(macOS)
         .formStyle(.grouped)
@@ -101,18 +80,6 @@ struct TMDBListDetails: View {
         if !hasLoaded {
             await MainActor.run { withAnimation { self.isLoading = false } }
             hasLoaded = true
-        }
-    }
-    
-    private var importButton: some View {
-        Button {
-            Task { await importList() }
-        } label: {
-            if isImportingList {
-                CenterHorizontalView { ProgressView() }
-            } else {
-                Text("importTMDBList")
-            }
         }
     }
     
@@ -135,56 +102,5 @@ struct TMDBListDetails: View {
                 }
             }
         }
-    }
-    
-    private func importList() async {
-        do {
-            await MainActor.run { withAnimation { isImportingList = true } }
-            let persistence = PersistenceController.shared
-            let network = NetworkService.shared
-            let viewContext = persistence.container.viewContext
-            let list = CustomList(context: viewContext)
-            list.id = UUID()
-            list.title = self.list.itemTitle
-            list.creationDate = Date()
-            list.updatedDate = Date()
-            list.isSyncEnabledTMDB = true
-            list.idOnTMDb = Int64(self.list.id)
-            var itemsToAdd = Set<WatchlistItem>()
-            for item in items {
-                let content = try await network.fetchItem(id: item.id, type: item.itemContentMedia)
-                persistence.save(content)
-                let savedItem = persistence.fetch(for: item.itemContentID)
-                if let savedItem {
-                    itemsToAdd.insert(savedItem)
-                }
-            }
-            list.items = itemsToAdd as NSSet
-            if viewContext.hasChanges {
-                try viewContext.save()
-                HapticManager.shared.successHaptic()
-            }
-            await MainActor.run { withAnimation { isImportingList = false } }
-            await MainActor.run { withAnimation { self.syncList = true } }
-        } catch {
-            if Task.isCancelled { return }
-        }
-    }
-    
-    private func sync() async {
-        if itemsToSync.isEmpty { return }
-        DispatchQueue.main.async { withAnimation { self.isSyncing = true } }
-        let itemsToUpdate = TMDBItem(items: itemsToSync)
-        do {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = [.sortedKeys]
-            let jsonData = try encoder.encode(itemsToUpdate)
-            await viewModel.updateList(list.id, with: jsonData)
-            self.items = []
-            await load()
-        } catch {
-            if Task.isCancelled { return }
-        }
-        DispatchQueue.main.async { withAnimation { self.isSyncing = false } }
     }
 }

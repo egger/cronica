@@ -14,11 +14,6 @@ struct TMDBAccountView: View {
     @State private var showSignOutConfirmation = false
     @State private var isFetching = false
     @State var userIsLoggedIn = false
-    // Lists
-    @State private var listManager = ExternalWatchlistManager.shared
-    @State private var lists = [TMDBListResult]()
-    @State private var isLoading = true
-    @State private var selectedList: TMDBListResult?
     var body: some View {
         Form {
             Section("Account") {
@@ -34,24 +29,6 @@ struct TMDBAccountView: View {
             }
             .task {
                 withAnimation { userIsLoggedIn = viewModel.checkAccessStatus() }
-                await load()
-            }
-            if userIsLoggedIn {
-                Section("Lists") {
-                    if isLoading {
-                        loadingSection
-                    } else {
-                        listsSection
-                    }
-                }
-                
-                Section("Watchlist") {
-                    if isFetching {
-                        CenterHorizontalView { ProgressView() }
-                    } else {
-                        TMDBWatchlistView()
-                    }
-                }
             }
         }
         .navigationTitle("connectedAccountTMDB")
@@ -94,49 +71,6 @@ struct TMDBAccountView: View {
     }
     
     private func SignOut() { showSignOutConfirmation.toggle() }
-    
-    
-    // Lists
-    private func load() async {
-        let fetchedLists = await listManager.fetchLists()
-        if let result = fetchedLists?.results {
-            lists = result
-            withAnimation { self.isLoading = false }
-        }
-    }
-    
-    private var loadingSection: some View {
-        Section {
-            CenterHorizontalView { ProgressView("Loading") }
-        }
-    }
-    
-    private var listsSection: some View {
-        Section {
-            List {
-                if lists.isEmpty {
-                    CenterHorizontalView {
-                        Text("emptyLists")
-                            .foregroundColor(.secondary)
-                    }
-                } else {
-                    ForEach(lists) { list in
-                        Button(list.itemTitle) {
-                            selectedList = list
-                        }
-                    }
-                }
-            }
-        }
-        .sheet(item: $selectedList) { list in
-            NavigationStack {
-                TMDBListDetails(list: list)
-                    .toolbar {
-                        Button("Done") { selectedList = nil }
-                    }
-            }
-        }
-    }
 }
 
 struct AccountSettings_Previews: PreviewProvider {

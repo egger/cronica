@@ -24,6 +24,10 @@ struct SelectListView: View {
     @State private var isCreateNewListPresented = false
 #endif
     @State private var isEditing = false
+    // Lists
+    @State private var listManager = ExternalWatchlistManager.shared
+    @State private var tmdbLists = [TMDBListResult]()
+    @State private var isLoading = true
     var body: some View {
         NavigationStack {
 #if os(iOS) || os(tvOS)
@@ -133,6 +137,71 @@ struct SelectListView: View {
 #endif
                 }
             }
+            
+            tmdbSection
+        }
+        .onAppear {
+            if SettingsStore.shared.isUserConnectedWithTMDb {
+                Task { await load() }
+            }
+        }
+        .navigationDestination(for: ItemContent.self) { item in
+            ItemContentDetails(title: item.itemTitle,
+                               id: item.id,
+                               type: item.itemContentMedia)
+        }
+        .navigationDestination(for: Person.self) { person in
+            PersonDetailsView(title: person.name, id: person.id)
+        }
+        .navigationDestination(for: [String:[ItemContent]].self) { item in
+            let keys = item.map { (key, _) in key }
+            let value = item.map { (_, value) in value }
+            ItemContentSectionDetails(title: keys[0], items: value[0])
+        }
+        .navigationDestination(for: [Person].self) { items in
+            DetailedPeopleList(items: items)
+        }
+        .navigationDestination(for: ProductionCompany.self) { item in
+            CompanyDetails(company: item)
+        }
+        .navigationDestination(for: [ProductionCompany].self) { item in
+            CompaniesListView(companies: item)
+        }
+        .navigationDestination(for: TMDBListResult.self) { item in
+            TMDBListDetails(list: item)
+        }
+    }
+    
+    @ViewBuilder
+    private var tmdbSection: some View {
+        if SettingsStore.shared.isUserConnectedWithTMDb {
+            Section {
+                List {
+                    NavigationLink(destination: TMDBWatchlistView()) {
+                        Text("Watchlist")
+                    }
+                    ForEach(tmdbLists) { list in
+                        NavigationLink(value: list) {
+                            Text(list.itemTitle)
+                        }
+                    }
+                }
+            } header: {
+                HStack {
+                    Text("TMDB")
+                    Spacer()
+                }
+            }
+            .redacted(reason: isLoading ? .placeholder : [])
+        }
+    }
+    
+    private func load() async {
+        let fetchedLists = await listManager.fetchLists()
+        if let result = fetchedLists?.results {
+            tmdbLists = result
+            print(tmdbLists)
+            withAnimation { self.isLoading = false }
         }
     }
     

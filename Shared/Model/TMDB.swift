@@ -29,7 +29,7 @@ struct TMDBList: Codable {
     var results: [TMDBListResult]?
 }
 
-struct TMDBListResult: Codable, Identifiable {
+struct TMDBListResult: Codable, Identifiable, Hashable {
     let id: Int
     var name: String?
 }

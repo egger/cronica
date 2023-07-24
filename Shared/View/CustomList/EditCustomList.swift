@@ -104,7 +104,7 @@ struct EditCustomList: View {
             title = list.itemTitle
             note = list.notes ?? ""
             pinOnHome = list.isPin
-            if SettingsStore.shared.connectedTMDB && !list.isSyncEnabledTMDB {
+            if SettingsStore.shared.isUserConnectedWithTMDb && !list.isSyncEnabledTMDB {
                 canPublish = true
             }
         }

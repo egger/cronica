@@ -13,11 +13,11 @@ struct WatchProvidersList: View {
     let id: ItemContent.ID
     let type: MediaType
     @State private var showConfirmation = false
+    @StateObject private var settings = SettingsStore.shared
     @AppStorage("alwaysShowConfirmationWatchProvider") private var isConfirmationEnabled = true
-    @AppStorage("enableWatchProviders") private var isWatchProviderEnabled = true
     var body: some View {
         VStack {
-            if viewModel.isProvidersAvailable && isWatchProviderEnabled {
+            if viewModel.isProvidersAvailable && settings.isWatchProviderEnabled {
                 TitleView(title: "watchProviderTitleList",
                           subtitle: "justWatchSubtitle",
                           showChevron: false)
