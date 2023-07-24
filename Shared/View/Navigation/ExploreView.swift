@@ -105,7 +105,15 @@ struct ExploreView: View {
                             }
                         } label: {
                             Text("mediaTypeDiscoverFilterTitle")
+#if os(iOS)
+                                .foregroundColor(.secondary)
+#endif
                         }
+#if os(iOS)
+                        .pickerStyle(.inline)
+#endif
+                    }
+                    Section {
                         Picker(selection: $viewModel.selectedGenre) {
                             if viewModel.selectedMedia == .movie {
                                 ForEach(viewModel.movies) { genre in
@@ -118,6 +126,7 @@ struct ExploreView: View {
                             }
                         } label: {
                             Text("genreDiscoverFilterTitle")
+                            
                         }
 #if os(iOS)
                         .pickerStyle(.navigationLink)
@@ -149,7 +158,7 @@ struct ExploreView: View {
                 .formStyle(.grouped)
 #endif
             }
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.large])
             .unredacted()
             .appTheme()
         })
@@ -197,18 +206,12 @@ struct ExploreView: View {
             Task {
                 await load()
             }
-#if os(tvOS)
-            showFilters.toggle()
-#endif
         }
         .onChange(of: viewModel.selectedGenre) { _ in
             onChanging = true
             Task {
                 await load()
             }
-#if os(tvOS)
-            showFilters.toggle()
-#endif
         }
     }
     
@@ -216,7 +219,7 @@ struct ExploreView: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showPopup: $showPopup, popupType: $popupType)
+                ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
@@ -242,7 +245,7 @@ struct ExploreView: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, showPopup: $showPopup, popupType: $popupType)
+                ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)

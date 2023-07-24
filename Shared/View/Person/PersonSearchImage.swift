@@ -64,7 +64,7 @@ struct PosterSearchItem: View {
             PersonSearchImage(item: item)
                 .buttonStyle(.plain)
         } else {
-            Poster(item: item, showPopup: $showPopup, popupType: $popupType)
+            ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                 .buttonStyle(.plain)
         }
     }

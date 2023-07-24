@@ -92,6 +92,9 @@ struct AppearanceSetting: View {
             }
         }
         .navigationTitle("appearanceTitle")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
 #if os(macOS)
         .formStyle(.grouped)
 #endif

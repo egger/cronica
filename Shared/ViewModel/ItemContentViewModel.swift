@@ -16,20 +16,20 @@ class ItemContentViewModel: ObservableObject {
     private var id: ItemContent.ID
     private var type: MediaType
     @Published var content: ItemContent?
-    @Published var watchlistItem: WatchlistItem?
     @Published var recommendations = [ItemContent]()
     @Published var credits = [Person]()
     @Published var errorMessage = "Something went wrong, try again later."
     @Published var showErrorAlert = false
     @Published var isInWatchlist = false
-    private var isNotificationAvailable = false
-    private var hasNotificationScheduled = false
     @Published var isWatched = false
     @Published var isFavorite = false
     @Published var isArchive = false
     @Published var isPin = false
     @Published var isLoading = true
     @Published var showMarkAsButton = false
+    @Published var isItemAddedToAnyList = false
+    private var isNotificationAvailable = false
+    private var hasNotificationScheduled = false
     init(id: ItemContent.ID, type: MediaType) {
         self.id = id
         self.type = type
@@ -42,9 +42,6 @@ class ItemContentViewModel: ObservableObject {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
                 guard let content else { return }
                 isInWatchlist = persistence.isItemSaved(id: content.itemContentID)
-                if isInWatchlist {
-                    watchlistItem = persistence.fetch(for: content.itemContentID)
-                }
                 withAnimation {
                     if isInWatchlist {
                         hasNotificationScheduled = isNotificationScheduled()
@@ -52,6 +49,7 @@ class ItemContentViewModel: ObservableObject {
                         isFavorite = persistence.isMarkedAsFavorite(id: content.itemContentID)
                         isArchive = persistence.isItemArchived(id: content.itemContentID)
                         isPin = persistence.isItemPinned(id: content.itemContentID)
+                        isItemAddedToAnyList = persistence.isItemAddedToAnyList(content.itemContentID)
                     }
                     isNotificationAvailable = content.itemCanNotify
                     if content.itemStatus == .released {
@@ -59,7 +57,11 @@ class ItemContentViewModel: ObservableObject {
                     }
                 }
                 if recommendations.isEmpty {
-                    recommendations.append(contentsOf: content.recommendations?.results.sorted { $0.itemPopularity > $1.itemPopularity } ?? [])
+                    let contentRecommendations = content.recommendations?.results ?? []
+                    if !contentRecommendations.isEmpty {
+                        let filteredRecommendations = contentRecommendations.filter { $0.backdropPath != nil && $0.posterPath != nil}
+                        recommendations.append(contentsOf: filteredRecommendations.sorted { $0.itemPopularity > $1.itemPopularity })
+                    }
                 }
                 if credits.isEmpty {
                     let cast = content.credits?.cast ?? []
@@ -75,6 +77,13 @@ class ItemContentViewModel: ObservableObject {
                 let message = "ID: \(id), type: \(type.title), error: \(error.localizedDescription)"
                 CronicaTelemetry.shared.handleMessage(message, for: "ItemContentViewModel.load()")
             }
+        }
+    }
+    
+    func checkListStatus() {
+        guard let contentID = content?.itemContentID else { return }
+        withAnimation {
+            isItemAddedToAnyList = persistence.isItemAddedToAnyList(contentID)
         }
     }
       
@@ -157,11 +166,6 @@ class ItemContentViewModel: ObservableObject {
         let item = persistence.fetch(for: content.itemContentID)
         guard let notify = item?.notify else { return false }
         return notify
-    }
-    
-    func fetchSavedItem() {
-        guard let content else { return }
-        watchlistItem = persistence.fetch(for: content.itemContentID)
     }
     
     func update(_ property: UpdateItemProperties) {

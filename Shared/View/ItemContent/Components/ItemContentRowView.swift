@@ -8,11 +8,11 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ItemContentRow: View {
+struct ItemContentRowView: View {
     let item: ItemContent
     @State private var isWatched = false
     @State private var showPopup = false
-    @State private var isInWatchlist = true
+    @State private var isInWatchlist = false
     @State private var canReview = true
     @State private var showNote = false
     @State private var showCustomListView = false
@@ -60,14 +60,17 @@ struct ItemContentRow: View {
                                     showCustomList: $showCustomListView,
                                     popupType: $popupType)
             .task {
-                isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
+                isInWatchlist = persistence.isItemSaved(id: item.itemContentID)
+                if isInWatchlist {
+                    isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
+                }
             }
             .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                 NavigationStack {
                     ReviewView(id: item.itemContentID, showView: $showNote)
                 }
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
 #if os(macOS)
                 .frame(width: 400, height: 400, alignment: .center)
 #endif
@@ -79,7 +82,7 @@ struct ItemContentRow: View {
                                                   showView: $showCustomListView,
                                                   title: item.itemTitle)
                 }
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
 #if os(macOS)
                 .frame(width: 500, height: 600, alignment: .center)
 #else
@@ -100,6 +103,6 @@ private struct DrawingConstants {
 
 struct ItemContentItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentRow(item: .example)
+        ItemContentRowView(item: .example)
     }
 }

@@ -81,7 +81,7 @@ struct WatchlistView: View {
             SelectListView(selectedList: $selectedList,
                            navigationTitle: $navigationTitle,
                            showListSelection: $showListSelection)
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.large])
 #if os(iOS)
             .appTheme()
 #elseif os(macOS)

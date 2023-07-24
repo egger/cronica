@@ -32,7 +32,7 @@ struct HorizontalWatchlistList: View {
                 if settings.listsDisplayType == .card {
                     LazyHStack {
                         ForEach(items) { item in
-                            WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
+                            WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                 .padding([.leading, .trailing], 2)
                                 .padding(.leading, item.id == self.items.first!.id ? 64 : 0)
@@ -52,7 +52,7 @@ struct HorizontalWatchlistList: View {
                 } else {
                     LazyHStack {
                         ForEach(items) { item in
-                            WatchlistItemPoster(content: item, showPopup: $showPopup, popupType: $popupType)
+                            WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                 .padding([.leading, .trailing], 2)
                                 .padding(.leading, item.id == self.items.first!.id ? 64 : 0)

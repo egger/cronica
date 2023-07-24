@@ -116,6 +116,14 @@ struct SettingsView: View {
                     Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
                     Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
                 }
+                
+                Section {
+                    NavigationLink("settingsRegionContentTitle", destination:  RegionContentSettings())
+                }
+                
+                Section {
+                    NavigationLink("tipJar", destination: TipJarSetting())
+                }
             }
             .navigationTitle("Settings")
         }

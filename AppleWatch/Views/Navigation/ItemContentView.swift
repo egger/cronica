@@ -124,9 +124,6 @@ struct ItemContentView: View {
     
     private var customListButton: some View {
         Button {
-            if viewModel.watchlistItem == nil {
-                viewModel.fetchSavedItem()
-            }
             showCustomListSheet.toggle()
         } label: {
             Text("addToCustomList")

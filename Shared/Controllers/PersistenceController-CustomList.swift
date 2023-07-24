@@ -8,15 +8,11 @@
 import Foundation
 
 extension PersistenceController {
-    func createList(title: String, description: String, items: Set<WatchlistItem>, idOnTMDb: Int? = nil, isPin: Bool) -> CustomList? {
+    func createList(title: String, description: String, items: Set<WatchlistItem>, isPin: Bool) -> CustomList? {
         let viewContext = container.viewContext
         let list = CustomList(context: viewContext)
         list.id = UUID()
         list.title = title
-        if let idOnTMDb {
-            list.isSyncEnabledTMDB = true
-            list.idOnTMDb = Int64(idOnTMDb)
-        }
         list.creationDate = Date()
         list.updatedDate = Date()
         list.notes = description

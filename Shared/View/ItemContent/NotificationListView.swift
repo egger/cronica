@@ -62,7 +62,7 @@ struct NotificationListView: View {
         if !deliveredItems.isEmpty {
             Section("Recent Notifications") {
                 ForEach(deliveredItems.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
-                    ItemContentRow(item: item)
+                    ItemContentRowView(item: item)
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button(role: .destructive) {
                                 removeDelivered(id: item.itemContentID, for: item.id)
@@ -87,7 +87,7 @@ struct NotificationListView: View {
         } else {
             Section("Upcoming Notifications") {
                 ForEach(items) { item in
-                    ItemContentRow(item: item)
+                    ItemContentRowView(item: item)
                         .onAppear {
                             let isStillSaved = PersistenceController.shared.isItemSaved(id: item.itemContentID)
                             if !isStillSaved {

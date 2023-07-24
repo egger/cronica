@@ -20,62 +20,41 @@ struct TMDBWatchlistView: View {
     @State private var selectedItem: ItemContent?
     var body: some View {
         Section {
-            if !hasLoaded {
-                CenterHorizontalView { ProgressView("Loading") }
-            } else {
-                if !settings.userImportedTMDB {
-                    importButton
-                } else {
-                    syncButton
+            List {
+                ForEach(items) { item in
+                    ItemContentRowView(item: item)
                 }
-                if items.isEmpty {
-                    CenterHorizontalView { Text("emptyList") }
-                } else {
-                    List {
-                        ForEach(items) { item in
-                            Button {
-                                selectedItem = item
-                            } label: {
-                                ItemContentConfirmationRow(item: item)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                        if !isEndPagination {
-                            ProgressView()
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                        Task { await fetch() }
-                                    }
+                if !isEndPagination && hasLoaded {
+                    CenterHorizontalView {
+                        ProgressView()
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                    Task { await fetch() }
                                 }
-                        }
+                            }
                     }
-                    .redacted(reason: isImporting ? .placeholder : [])
-                }
-                
-            }
-        }
-        .sheet(item: $selectedItem) { item in
-            NavigationStack {
-                ItemContentDetails(title: item.itemTitle,
-                                   id: item.id,
-                                   type: item.itemContentMedia,
-                                   handleToolbar: true)
-                .toolbar {
-#if os(iOS)
-                    ToolbarItem(placement: .navigationBarLeading) { doneButton }
-#else
-                    doneButton
-#endif
                 }
             }
-            .presentationDetents([.large])
-#if os(macOS)
-            .frame(width: 600, height: 400, alignment: .center)
+            .overlay { if items.isEmpty && hasLoaded { CenterHorizontalView { Text("emptyList") } }}
+            .overlay { if !hasLoaded { CenterHorizontalView { ProgressView("Loading") }.unredacted() }}
+            .redacted(reason: isImporting ? .placeholder : [])
+        }
+        .toolbar {
+            ToolbarItem {
+#if !os(tvOS)
+                Menu {
+                    if !settings.userImportedTMDB {
+                        importButton
+                    } else {
+                        syncButton
+                    }
+                } label: {
+                    Label("More", systemImage: "ellipsis.circle")
+                }
 #endif
+            }
         }
-        .task {
-            await load()
-        }
+        .task { await load() }
     }
     
     private func load() async {

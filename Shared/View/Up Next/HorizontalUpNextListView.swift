@@ -39,7 +39,7 @@ struct HorizontalUpNextListView: View {
                             LazyHStack {
                                 ForEach(viewModel.episodes) { item in
 #if os(tvOS)
-                                    UpNextCard(item: item)
+                                    UpNextCard(item: item, selectedEpisode: $selectedEpisode)
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == viewModel.episodes.first!.id ? 64 : 0)
                                         .padding(.trailing, item.id == viewModel.episodes.last!.id ? 64 : 0)
@@ -86,16 +86,6 @@ struct HorizontalUpNextListView: View {
             .navigationDestination(for: [UpNextEpisode].self) { _ in
                 VerticalUpNextListView().environmentObject(viewModel)
             }
-#if os(tvOS)
-            .navigationDestination(for: UpNextEpisode.self) { item in
-                EpisodeDetailsView(episode: item.episode,
-                                   season: item.episode.itemSeasonNumber,
-                                   show: item.showID,
-                                   showTitle: item.showTitle,
-                                   isWatched: $viewModel.isWatched)
-                .ignoresSafeArea(.all)
-            }
-#endif
             .task(id: viewModel.isWatched) {
                 if viewModel.isWatched {
                     await viewModel.handleWatched(selectedEpisode)
@@ -133,6 +123,9 @@ struct HorizontalUpNextListView: View {
                     }
                 }
                 .presentationDetents([.large])
+#if os(tvOS)
+                .ignoresSafeArea()
+#endif
 #if os(macOS)
                 .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
 #endif
@@ -222,9 +215,13 @@ struct HorizontalUpNextListView: View {
 #if os(tvOS)
 private struct UpNextCard: View {
     let item: UpNextEpisode
+    @FocusState var isFocused
+    @Binding var selectedEpisode: UpNextEpisode?
     var body: some View {
         VStack {
-            NavigationLink(value: item) {
+            Button {
+                selectedEpisode = item
+            } label: {
                 WebImage(url: item.episode.itemImageLarge ?? item.backupImage)
                     .resizable()
                     .placeholder {
@@ -251,12 +248,13 @@ private struct UpNextCard: View {
                     .applyHoverEffect()
             }
             .buttonStyle(.card)
+            .focused($isFocused)
             HStack {
                 Text(item.showTitle)
                     .font(.caption)
                     .lineLimit(2)
                     .accessibilityHidden(true)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(isFocused ? .primary : .secondary)
                 Spacer()
             }
             .frame(width: DrawingConstants.imageWidth)

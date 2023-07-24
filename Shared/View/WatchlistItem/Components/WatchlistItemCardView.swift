@@ -1,5 +1,5 @@
 //
-//  WatchlistItemFrame.swift
+//  WatchlistItemCardView.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 20/12/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct WatchlistItemFrame: View {
+struct WatchlistItemCardView: View {
     let content: WatchlistItem
     @State private var isWatched: Bool = false
     @State private var isFavorite: Bool = false
@@ -201,7 +201,7 @@ struct WatchlistItemFrame: View {
 
 struct WatchlistItemFrame_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistItemFrame(content: .example, showPopup: .constant(false), popupType: .constant(nil))
+        WatchlistItemCardView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 

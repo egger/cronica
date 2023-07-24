@@ -21,7 +21,7 @@ struct WatchlistPosterSection: View {
                           spacing: settings.isCompactUI ? 10 : 20) {
                     Section {
                         ForEach(items, id: \.itemContentID) { item in
-                            WatchlistItemPoster(content: item, showPopup: $showPopup, popupType: $popupType)
+                            WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
                                 .buttonStyle(.plain)
                         }
                         .onDelete(perform: delete)

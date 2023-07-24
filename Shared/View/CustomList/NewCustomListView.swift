@@ -16,14 +16,10 @@ struct NewCustomListView: View {
     @State private var title = ""
     @State private var note = ""
     @Environment(\.managedObjectContext) var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
-        animation: .default) private var items: FetchedResults<WatchlistItem>
     @State private var itemsToAdd = Set<WatchlistItem>()
     // This allows the SelectedListView to change to the new list when it is created.
     @Binding var newSelectedList: CustomList?
     @State private var searchQuery = String()
-    @State private var publishOnTMDB = false
     @State private var pinOnHome = false
     var body: some View {
         Form {
@@ -36,32 +32,17 @@ struct NewCustomListView: View {
 #endif
             }
             
-#if os(iOS) || os(macOS)
             Section { Toggle("pinOnHome", isOn: $pinOnHome) }
-#endif
             
-            Section {
-                if SettingsStore.shared.connectedTMDB {
-                    Toggle("publishOnTMDB", isOn: $publishOnTMDB)
-                }
-            }
-            
-            if !items.isEmpty {
-                Section("listItemsToAdd") {
-                    List(items, id: \.itemContentID) {
-                        NewListItemSelectorRow(item: $0, selectedItems: $itemsToAdd)
-                    }
-                }
-                .onAppear {
-                    if let preSelectedItem {
-                        itemsToAdd.insert(preSelectedItem)
-                    }
-                }
-            }
+            NavigationLink("listItemsToAdd",
+                           destination: NewCustomListItemSelector(itemsToAdd: $itemsToAdd,
+                                                                  preSelectedItem: preSelectedItem))
         }
 #if os(macOS)
         .onAppear { isPresentingNewList = true }
         .onDisappear { isPresentingNewList = false }
+#elseif os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
 #endif
         .navigationTitle("newCustomListTitle")
         .toolbar {
@@ -87,52 +68,18 @@ struct NewCustomListView: View {
     
     private func save() {
         if title.isEmpty { return }
-        if publishOnTMDB {
-            Task {
-                let idOnTMDb = await handlePublish()
-                handleSave(idOnTMDb: idOnTMDb)
-            }
-        } else {
-            handleSave(idOnTMDb: nil)
-        }
+        handleSave()
     }
     
-    private func handleSave(idOnTMDb: Int?) {
+    private func handleSave() {
         let list = PersistenceController.shared.createList(title: title,
                                                            description: note,
                                                            items: itemsToAdd,
-                                                           idOnTMDb: idOnTMDb,
                                                            isPin: pinOnHome)
         HapticManager.shared.successHaptic()
         newSelectedList = list
         title = ""
         presentView = false
-    }
-    
-    private func handlePublish() async -> Int? {
-        let external = ExternalWatchlistManager.shared
-        let id = await external.publishList(title: title, description: note)
-        guard let id else { return nil }
-        
-        // Gets the items to update the list
-        var itemsToAdd = [TMDBItemContent]()
-        for item in self.itemsToAdd {
-            let content = TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)
-            itemsToAdd.append(content)
-        }
-        let itemsToPublish = TMDBItem(items: itemsToAdd)
-        
-        // Encode the items and update the new list
-        do {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = [.sortedKeys]
-            let jsonData = try encoder.encode(itemsToPublish)
-            await external.updateList(id, with: jsonData)
-            return id
-        } catch {
-            if Task.isCancelled { return nil }
-        }
-        return nil
     }
 }
 
@@ -145,5 +92,56 @@ struct NewCustomListView_Previews: PreviewProvider {
                           presentView: .constant(true),
                           newSelectedList: .constant(nil))
 #endif
+    }
+}
+
+struct NewCustomListItemSelector: View {
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
+        animation: .default) private var items: FetchedResults<WatchlistItem>
+    @Binding var itemsToAdd: Set<WatchlistItem>
+    var preSelectedItem: WatchlistItem?
+    @State private var query = String()
+    @State private var searchItems = [WatchlistItem]()
+    var body: some View {
+        Form {
+            if !searchItems.isEmpty {
+                List(searchItems) { item in
+                    NewListItemSelectorRow(item: item, selectedItems: $itemsToAdd)
+                }
+            } else {
+                List(items, id: \.itemContentID) {
+                    NewListItemSelectorRow(item: $0, selectedItems: $itemsToAdd)
+                }
+            }
+        }
+        .onAppear {
+            if let preSelectedItem {
+                itemsToAdd.insert(preSelectedItem)
+            }
+        }
+        .overlay { if items.isEmpty { Text("Empty") } }
+        .task(id: query) {
+            await search()
+        }
+        .navigationTitle("listItemsToAdd")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
+#else
+        .searchable(text: $query)
+#endif
+        .formStyle(.grouped)
+    }
+    
+    private func search() async {
+        try? await Task.sleep(nanoseconds: 300_000_000)
+        if query.isEmpty && !searchItems.isEmpty { searchItems = [] }
+        if query.isEmpty { return }
+        if !searchItems.isEmpty { searchItems.removeAll() }
+        searchItems.append(contentsOf: items.filter {
+            ($0.itemTitle.localizedStandardContains(query)) as Bool
+            || ($0.itemOriginalTitle.localizedStandardContains(query)) as Bool
+        })
     }
 }

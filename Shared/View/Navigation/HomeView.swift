@@ -49,10 +49,12 @@ struct HomeView: View {
                 .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                 AttributionView()
             }
+#if os(iOS)
             .refreshable {
                 reloadUpNext = true
                 viewModel.reload()
             }
+#endif
         }
         .overlay { if !viewModel.isLoaded { ProgressView("Loading").unredacted() } }
         .actionPopup(isShowing: $showPopup, for: popupType)

@@ -34,6 +34,9 @@ struct BehaviorSetting: View {
             }
         }
         .navigationTitle("behaviorTitle")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
 #if os(macOS)
         .formStyle(.grouped)
 #endif

@@ -46,6 +46,9 @@ struct NotificationsSettingsView: View {
             }
         }
         .navigationTitle(NSLocalizedString(navigationTitle, comment: ""))
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
 #if os(macOS)
         .formStyle(.grouped)
 #endif

@@ -205,6 +205,10 @@ extension WatchlistItem {
             $0.itemTitle < $1.itemTitle
         }
     }
+    var hasItemBeenAddedToList: Bool {
+        if itemLists.isEmpty { return false }
+        return true
+    }
     var itemNextUpNextSeason: Int64 {
         if seasonNumberUpNext == 0 { return 1 }
         return seasonNumberUpNext

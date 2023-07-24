@@ -17,15 +17,17 @@ struct NewListItemSelectorRow: View {
             if selectedItems.contains(item) {
                 selectedItems.remove(item)
                 withAnimation { isSelected = false }
+                HapticManager.shared.selectionHaptic()
             } else {
                 selectedItems.insert(item)
                 withAnimation { isSelected = true }
+                HapticManager.shared.selectionHaptic()
             }
         } label: {
             HStack {
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(isSelected ? SettingsStore.shared.appTheme.color : nil)
-                    .imageScale(.large)
+                    .imageScale(.medium)
                     .padding(.trailing, 4)
                 WebImage(url: item.image)
                     .resizable()
@@ -46,6 +48,7 @@ struct NewListItemSelectorRow: View {
                             .cornerRadius(8)
                         }
                     }
+                    .padding(.trailing, 4)
                 VStack(alignment: .leading) {
                     Text(item.itemTitle)
                         .lineLimit(1)

@@ -25,7 +25,7 @@ struct SearchView: View {
                 Section("Results from Watchlist") {
                     ForEach(filteredItems) { item in
                         NavigationLink(value: item) {
-                            WatchlistItemRow(content: item, showPopup: $showPopup, popupType: $popupType)
+                            WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
                         }
                     }
                 }

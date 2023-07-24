@@ -19,7 +19,7 @@ struct CustomListView: View {
                         EmptyListView()
                     } else {
                         ForEach(list.itemsArray) { item in
-                            WatchlistItemRow(content: item, showPopup: $showPopup, popupType: $popupType)
+                            WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
                         }
                     }
                 } header: {

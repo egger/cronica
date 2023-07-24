@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct AboutSettings: View {
 #if os(iOS)
     @Environment(\.requestReview) var requestReview
@@ -42,14 +42,14 @@ struct AboutSettings: View {
                 Text("settingsReviewCronica")
             }
 #endif
-            
+#if !os(tvOS)
             if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
                 ShareLink(item: appUrl).labelStyle(.titleOnly)
 #if os(macOS)
                     .buttonStyle(.link)
 #endif
             }
-            
+#endif
 #if os(macOS)
             privacy
 #endif
@@ -109,6 +109,9 @@ struct AboutSettings: View {
             }
         }
         .navigationTitle("aboutTitle")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
 #if os(macOS)
         .formStyle(.grouped)
 #endif
@@ -150,4 +153,3 @@ struct AboutSettings_Previews: PreviewProvider {
         AboutSettings()
     }
 }
-#endif

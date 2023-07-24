@@ -141,9 +141,6 @@ struct SelectListView: View {
     }
     
     private var newList: some View {
-#if os(tvOS)
-        EmptyView()
-#else
         NavigationLink {
 #if os(iOS) || os(tvOS)
             NewCustomListView(presentView: $showListSelection, newSelectedList: $selectedList)
@@ -153,7 +150,6 @@ struct SelectListView: View {
         } label: {
             Label("newList", systemImage: "plus.rectangle.on.rectangle")
         }
-#endif
     }
     
     private func delete(offsets: IndexSet) {

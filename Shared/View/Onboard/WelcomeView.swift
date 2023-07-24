@@ -65,6 +65,7 @@ struct WelcomeView: View {
 #endif
                 } label: {
                     Text("Privacy Policy")
+                        .lineLimit(1)
                 }
                 .padding([.horizontal, .vertical])
 #if os(iOS) || os(macOS)

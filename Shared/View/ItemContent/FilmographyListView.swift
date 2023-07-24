@@ -42,7 +42,7 @@ struct FilmographyListView: View {
             LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : columns,
                       spacing: settings.isCompactUI ? 10 : 20) {
                 ForEach(filmography) { item in
-                    Poster(item: item,
+                    ItemContentPosterView(item: item,
                            showPopup: $showPopup,
                            popupType: $popupType)
                 }
@@ -55,7 +55,7 @@ struct FilmographyListView: View {
         if let filmography {
             LazyVGrid(columns: cardColumns, spacing: 20) {
                 ForEach(filmography) { item in
-                    CardFrame(item: item,
+                    ItemContentCardView(item: item,
                               showPopup: $showPopup,
                               popupType: $popupType)
                         .buttonStyle(.plain)

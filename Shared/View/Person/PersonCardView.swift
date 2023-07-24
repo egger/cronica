@@ -11,10 +11,13 @@ import SDWebImageSwiftUI
 /// This view is responsible for displaying a given person
 /// in a card view, with its name, role, and image.
 struct PersonCardView: View {
+#if os(tvOS)
+    @FocusState var isFocused
+#endif
     let person: Person
     @State private var isFavorite: Bool = false
     var body: some View {
-        #if !os(tvOS)
+#if !os(tvOS)
         NavigationLink(value: person) {
             VStack {
                 WebImage(url: person.personImage)
@@ -87,7 +90,7 @@ struct PersonCardView: View {
             }
 #endif
         }
-        #else
+#elseif os(tvOS)
         VStack(alignment: .leading) {
             NavigationLink(value: person) {
                 WebImage(url: person.personImage)
@@ -109,7 +112,9 @@ struct PersonCardView: View {
             }
             .clipShape(Circle())
             .buttonStyle(.plain)
+            .focused($isFocused)
             Text(person.name)
+                .foregroundColor(isFocused ? .primary : .secondary)
                 .font(.caption)
                 .lineLimit(1)
             if let role = person.personRole {
@@ -121,7 +126,7 @@ struct PersonCardView: View {
             Spacer()
         }
         .frame(width: 200)
-        #endif
+#endif
     }
     private var name: some View {
         VStack {

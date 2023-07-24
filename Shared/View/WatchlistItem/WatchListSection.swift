@@ -36,7 +36,7 @@ struct WatchListSection: View {
         List {
             Section {
                 ForEach(items) {
-                    WatchlistItemRow(content: $0, showPopup: $showPopup, popupType: $popupType)
+                    WatchlistItemRowView(content: $0, showPopup: $showPopup, popupType: $popupType)
                 }
                 .onDelete(perform: delete)
             } header: {

@@ -59,6 +59,9 @@ struct UpNextListView: View {
                             }
                         }
                     }
+                    .refreshable {
+                        Task { await viewModel.reload(items) }
+                    }
                     
                 }
             }

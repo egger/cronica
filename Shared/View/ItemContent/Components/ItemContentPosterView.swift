@@ -1,27 +1,25 @@
 //
-//  WatchlistItemPoster.swift
-//  Story (iOS)
+//  ItemContentPosterView.swift
+//  Story
 //
-//  Created by Alexandre Madeira on 20/12/22.
+//  Created by Alexandre Madeira on 17/01/22.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct WatchlistItemPoster: View {
-    let content: WatchlistItem
-    @State private var isInWatchlist = true
+struct ItemContentPosterView: View {
+    let item: ItemContent
+    private let context = PersistenceController.shared
+    @State private var isInWatchlist = false
     @State private var isWatched = false
-    @State private var isFavorite = false
-    @State private var isPin = false
-    @State private var isArchive = false
-    @StateObject private var settings = SettingsStore.shared
     @State private var showNote = false
     @State private var showCustomListView = false
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
-        NavigationLink(value: content) {
+        NavigationLink(value: item) {
             if settings.isCompactUI {
                 compact
             } else {
@@ -33,41 +31,16 @@ struct WatchlistItemPoster: View {
 #else
         .buttonStyle(.plain)
 #endif
-        .accessibilityLabel(Text(content.itemTitle))
-        .sheet(isPresented: $showNote) {
-            NavigationStack {
-                ReviewView(id: content.itemContentID, showView: $showNote)
-            }
-            .presentationDetents([.medium, .large])
-#if os(macOS)
-            .frame(width: 400, height: 400, alignment: .center)
-#elseif os(iOS)
-            .appTheme()
-            .appTint()
-#endif
-        }
-        .sheet(isPresented: $showCustomListView) {
-            NavigationStack {
-                ItemContentCustomListSelector(contentID: content.itemContentID, showView: $showCustomListView, title: content.itemTitle)
-            }
-            .presentationDetents([.medium, .large])
-#if os(macOS)
-            .frame(width: 500, height: 600, alignment: .center)
-#else
-            .appTheme()
-            .appTint()
-#endif
-        }
+        .accessibility(label: Text(item.itemTitle))
     }
     
     private var image: some View {
-        WebImage(url: content.mediumPosterImage)
+        WebImage(url: item.posterImageMedium, options: .highPriority)
             .resizable()
             .placeholder {
-                PosterPlaceholder(title: content.itemTitle, type: content.itemMedia)
+                PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
             }
             .aspectRatio(contentMode: .fill)
-            .transition(.opacity)
             .overlay {
                 if isInWatchlist {
                     VStack {
@@ -85,7 +58,7 @@ struct WatchlistItemPoster: View {
                             }
                         }
                         .background {
-                            if content.mediumPosterImage != nil {
+                            if item.posterImageMedium != nil {
                                 Color.black.opacity(0.5)
                                     .mask {
                                         LinearGradient(colors:
@@ -98,11 +71,11 @@ struct WatchlistItemPoster: View {
                                                        endPoint: .top)
                                     }
                             }
-                            
                         }
                     }
                 }
             }
+            .transition(.opacity)
             .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
                    height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
             .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
@@ -110,28 +83,57 @@ struct WatchlistItemPoster: View {
             .shadow(radius: DrawingConstants.shadowRadius)
             .padding(.zero)
             .applyHoverEffect()
-            .watchlistContextMenu(item: content,
-                                  isWatched: $isWatched,
-                                  isFavorite: $isFavorite,
-                                  isPin: $isPin,
-                                  isArchive: $isArchive,
-                                  showNote: $showNote,
-                                  showCustomList: $showCustomListView,
-                                  popupType: $popupType,
-                                  showPopup: $showPopup)
+            .itemContentContextMenu(item: item,
+                                    isWatched: $isWatched,
+                                    showPopup: $showPopup,
+                                    isInWatchlist: $isInWatchlist,
+                                    showNote: $showNote,
+                                    showCustomList: $showCustomListView,
+                                    popupType: $popupType)
             .task {
-                isWatched = content.isWatched
-                isFavorite = content.isFavorite
-                isPin = content.isPin
-                isArchive = content.isArchive
+                withAnimation {
+                    isInWatchlist = context.isItemSaved(id: item.itemContentID)
+                    if isInWatchlist && !isWatched {
+                        isWatched = context.isMarkedAsWatched(id: item.itemContentID)
+                    }
+                }
+            }
+            .sheet(isPresented: $showNote) {
+#if os(iOS) || os(macOS)
+                NavigationStack {
+                    ReviewView(id: item.itemContentID, showView: $showNote)
+                }
+                .presentationDetents([.medium, .large])
+#if os(macOS)
+                .frame(width: 400, height: 400, alignment: .center)
+#elseif os(iOS)
+                .appTheme()
+                .appTint()
+#endif
+#endif
+            }
+            .sheet(isPresented: $showCustomListView) {
+                NavigationStack {
+                    ItemContentCustomListSelector(contentID: item.itemContentID,
+                                                  showView: $showCustomListView,
+                                                  title: item.itemTitle)
+                }
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+#if os(macOS)
+                .frame(width: 500, height: 600, alignment: .center)
+#else
+                .appTheme()
+                .appTint()
+#endif
             }
     }
     
     private var compact: some View {
-        VStack {
+        VStack(alignment: .leading) {
             image
             HStack {
-                Text(content.itemTitle)
+                Text(item.itemTitle)
                     .lineLimit(2)
                     .foregroundColor(.secondary)
                     .font(.caption)
@@ -144,18 +146,23 @@ struct WatchlistItemPoster: View {
     }
 }
 
-struct WatchlistItemPoster_Previews: PreviewProvider {
+struct Poster_Previews: PreviewProvider {
     static var previews: some View {
-        WatchlistItemPoster(content: .example, showPopup: .constant(false), popupType: .constant(nil))
+        ItemContentPosterView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let posterWidth: CGFloat = 260
+    static let posterHeight: CGFloat = 380
+#else
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
-    static let compactPosterWidth: CGFloat = 80
-    static let compactPosterHeight: CGFloat = 140
-    static let compactPosterRadius: CGFloat = 6
+#endif
     static let posterRadius: CGFloat = 12
-    static let shadowRadius: CGFloat = 2.5
+    static let compactPosterWidth: CGFloat = 80
+    static let compactPosterRadius: CGFloat = 4
+    static let compactPosterHeight: CGFloat = 140
+    static let shadowRadius: CGFloat = 2
 }

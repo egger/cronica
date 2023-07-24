@@ -14,12 +14,6 @@ struct TMDBListDetails: View {
     @State private var detailedList: DetailedTMDBList?
     @State private var items = [ItemContent]()
     @State private var isLoading = true
-    @FetchRequest(
-        entity: CustomList.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
-        predicate: NSCompoundPredicate(type: .and, subpredicates: [NSPredicate(format: "isSyncEnabledTMDB == %d", true)])
-    ) private var customLists: FetchedResults<CustomList>
-    @State private var selectedCustomList: CustomList?
     @State private var isSyncing = false
     @State private var isImportingList = false
     @State private var itemsToSync = [TMDBItemContent]()
@@ -29,50 +23,45 @@ struct TMDBListDetails: View {
     @State private var isDeleted = false
     var body: some View {
         Form {
-            if isLoading {
-                CenterHorizontalView { ProgressView("Loading") }
-            } else {
-                if isDeleted {
-                    CenterVerticalView {
-                        Text("listDeleted")
-                            .font(.title2)
-                            .foregroundColor(.secondary)
-                    }
+            Section {
+                if items.isEmpty {
+                    Text("Empty List")
                 } else {
-                    Section {
-                        if syncList {
-                            syncButton
-                        } else {
-                            importButton
-                        }
-                        deleteButton
+                    ForEach(items) { item in
+                        ItemContentRowView(item: item)
                     }
-                    .alert("areYouSure", isPresented: $deleteConfirmation) {
-                        Button("Confirm", role: .destructive) {
-                            delete()
-                        }
-                    } message: {
-                        Text("deleteConfirmationMessage")
-                    }
-                    
-                    
-                    Section {
-                        if items.isEmpty {
-                            Text("emptyList")
-                        } else {
-                            ForEach(items) { item in
-                                NavigationLink(value: item) {
-                                    ItemContentConfirmationRow(item: item)
-                                }
-                            }
-                        }
-                    } header: {
-                        Text("Items")
-                    }
-                    .redacted(reason: isSyncing ? .placeholder : [])
-                    .redacted(reason: isImportingList ? .placeholder : [])
+                }
+            } header: {
+                Text("Items")
+            }
+        }
+        .overlay { if isLoading { CenterHorizontalView { ProgressView("Loading") } }}
+        .overlay {
+            if isDeleted {
+                CenterVerticalView {
+                    Text("listDeleted")
+                        .font(.title2)
+                        .foregroundColor(.secondary)
                 }
             }
+        }
+        .alert("areYouSure", isPresented: $deleteConfirmation) {
+            Button("Confirm", role: .destructive) {
+                delete()
+            }
+        } message: {
+            Text("deleteConfirmationMessage")
+        }
+        .toolbar {
+            #if !os(tvOS)
+            ToolbarItem {
+                Menu {
+                    deleteButton
+                } label: {
+                    Label("More", systemImage: "ellipsis.circle")
+                }
+            }
+            #endif
         }
         .navigationTitle(list.itemTitle)
         .navigationDestination(for: ItemContent.self) { item in
@@ -110,20 +99,9 @@ struct TMDBListDetails: View {
             items = content
         }
         if !hasLoaded {
-            guard let listID = detailedList?.id else {
-                await MainActor.run { withAnimation { self.isLoading = false } }
-                return
-            }
-            for item in customLists {
-                if item.idOnTMDb == Int64(listID) {
-                    syncList = true
-                    selectedCustomList = item
-                }
-            }
             await MainActor.run { withAnimation { self.isLoading = false } }
             hasLoaded = true
         }
-        checkForSync()
     }
     
     private var importButton: some View {
@@ -139,7 +117,7 @@ struct TMDBListDetails: View {
     }
     
     private var deleteButton: some View {
-        Button {
+        Button(role: .destructive) {
             deleteConfirmation.toggle()
         } label: {
             Text("deleteList")
@@ -147,35 +125,14 @@ struct TMDBListDetails: View {
         }
     }
     
-    private var syncButton: some View {
-        Button {
-            Task { await sync() }
-        } label: {
-            if isSyncing {
-                CenterHorizontalView { ProgressView("syncInProgress") }
-            } else {
-                Text("syncNow")
-            }
-        }
-    }
-    
     private func delete() {
         Task {
-            if let selectedCustomList {
-                selectedCustomList.isSyncEnabledTMDB = false
-                selectedCustomList.idOnTMDb = 0
-                let viewContext = PersistenceController.shared.container.viewContext
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        if Task.isCancelled { return }
-                    }
-                }
-            }
             let deletionStatus = await viewModel.deleteList(list.id)
             await MainActor.run {
-                withAnimation { isDeleted = deletionStatus }
+                withAnimation {
+                    items = []
+                    isDeleted = deletionStatus
+                }
             }
         }
     }
@@ -212,18 +169,6 @@ struct TMDBListDetails: View {
         } catch {
             if Task.isCancelled { return }
         }
-    }
-    
-    private func checkForSync() {
-        var itemsToAdd = [TMDBItemContent]()
-        guard let selectedCustomList else { return }
-        for item in selectedCustomList.itemsArray {
-            if !items.contains(where: { $0.id == item.itemId}) {
-                let content = TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)
-                itemsToAdd.append(content)
-            }
-        }
-        itemsToSync = itemsToAdd
     }
     
     private func sync() async {

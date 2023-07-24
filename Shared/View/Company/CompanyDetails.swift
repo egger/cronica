@@ -50,7 +50,7 @@ struct CompanyDetails: View {
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
-                CardFrame(item: item, showPopup: $showPopup, popupType: $popupType)
+                ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
             }
             if viewModel.isLoaded && !viewModel.endPagination {
@@ -75,7 +75,7 @@ struct CompanyDetails: View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? 10 : 20) {
             ForEach(viewModel.items) { item in
-                Poster(item: item, showPopup: $showPopup, popupType: $popupType)
+                ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
             }
             if viewModel.isLoaded && !viewModel.endPagination {

@@ -329,9 +329,9 @@ struct SideBarView: View {
                                     if item.media == .person {
                                         PersonSearchImage(item: item)
                                     } else {
-                                        Poster(item: item,
-                                               showPopup: $showPopup,
-                                               popupType: $popupType)
+                                        ItemContentPosterView(item: item,
+                                                              showPopup: $showPopup,
+                                                              popupType: $popupType)
                                     }
                                 }
                                 .buttonStyle(.plain)

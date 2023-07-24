@@ -98,7 +98,7 @@ struct ItemContentPhoneView: View {
                     showCustomList.toggle()
                 } label: {
                     VStack {
-                        Image(systemName: "rectangle.on.rectangle.angled")
+                        Image(systemName: viewModel.isItemAddedToAnyList ? "rectangle.on.rectangle.angled.fill" : "rectangle.on.rectangle.angled")
                         Text("Lists")
                             .padding(.top, 2)
                             .font(.caption)

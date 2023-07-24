@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct CardFrame: View {
+struct ItemContentCardView: View {
     let item: ItemContent
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
@@ -126,7 +126,7 @@ struct CardFrame: View {
             NavigationStack {
                 ReviewView(id: item.itemContentID, showView: $showNote)
             }
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.large])
 #if os(macOS)
             .frame(width: 400, height: 400, alignment: .center)
 #elseif os(iOS)
@@ -141,7 +141,7 @@ struct CardFrame: View {
                                               showView: $showCustomListView,
                                               title: item.itemTitle)
             }
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.large])
 #if os(macOS)
             .frame(width: 500, height: 600, alignment: .center)
 #else
@@ -155,7 +155,7 @@ struct CardFrame: View {
 
 struct CardFrame_Previews: PreviewProvider {
     static var previews: some View {
-        CardFrame(item: .example, showPopup: .constant(false), popupType: .constant(nil))
+        ItemContentCardView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 

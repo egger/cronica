@@ -39,7 +39,7 @@ struct CustomWatchlist: View {
             NavigationStack {
                 WatchListFilter(selectedOrder: $selectedOrder, showAllItems: $showAllItems, mediaTypeFilter: $mediaTypeFilter, showView: $showFilter)
             }
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.large])
         }
         .toolbar {
 #if os(iOS)

@@ -136,7 +136,10 @@ struct ItemContentDetails: View {
                                                       title: title)
                     }
                 }
-                .presentationDetents([.medium, .large])
+                .onDisappear {
+                    viewModel.checkListStatus()
+                }
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
 #if os(macOS)
                 .frame(width: 500, height: 600, alignment: .center)
@@ -150,7 +153,7 @@ struct ItemContentDetails: View {
                     NavigationStack {
                         ReviewView(id: contentID, showView: $showUserNotes)
                     }
-                    .presentationDetents([.medium, .large])
+                    .presentationDetents([.large])
 #if os(macOS)
                     .frame(width: 500, height: 500, alignment: .center)
 #else

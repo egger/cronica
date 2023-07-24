@@ -13,21 +13,29 @@ struct TVSearchView: View {
         VStack {
             switch viewModel.stage {
             case .none:
-                VStack {
-                    Spacer()
-                    AttributionView()
-                }
+                VStack { }
             case .searching:
                 ProgressView("Searching")
+                    .font(.title)
                     .foregroundColor(.secondary)
+                    .fontDesign(.monospaced)
+                    .textCase(.uppercase)
                     .padding()
             case .empty:
                 Label("No Results", systemImage: "minus.magnifyingglass")
                     .font(.title)
                     .foregroundColor(.secondary)
+                    .fontDesign(.monospaced)
+                    .textCase(.uppercase)
+                    .padding()
             case .failure:
                 VStack {
-                    Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
+                    Text("Search failed, try again later.")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                        .fontDesign(.monospaced)
+                        .textCase(.uppercase)
+                        .padding()
                 }
             case .success:
                 ScrollView(.horizontal) {

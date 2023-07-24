@@ -311,4 +311,10 @@ extension PersistenceController {
         }
         return false
     }
+    
+    func isItemAddedToAnyList(_ id: String) -> Bool {
+        let item = fetch(for: id)
+        guard let hasItemAddedToAnyList = item?.hasItemBeenAddedToList else { return false }
+        return hasItemAddedToAnyList
+    }
 }

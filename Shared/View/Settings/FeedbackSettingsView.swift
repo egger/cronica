@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(macOS) || os(iOS)
+#if os(macOS) || os(iOS) || os(tvOS)
 struct FeedbackSettingsView: View {
     @State private var feedback = ""
     @Environment(\.openURL) var openURL
@@ -29,7 +29,7 @@ struct FeedbackSettingsView: View {
                                 .lineLimit(4)
                             Button("Send", action: send)
                         }
-                        
+#if !os(tvOS)
                         Section {
                             Button("sendEmail") { supportEmail.send(openURL: openURL) }
                         } footer: {
@@ -42,6 +42,7 @@ struct FeedbackSettingsView: View {
                                 Spacer()
                             }
                         }
+#endif
                     }
                     .navigationTitle("Send Feedback")
                     .toolbar {

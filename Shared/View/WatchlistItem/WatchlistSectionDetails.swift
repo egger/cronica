@@ -17,7 +17,7 @@ struct WatchlistSectionDetails: View {
             ScrollView {
                 LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                     ForEach(items) { item in
-                        WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
+                        WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
                             .buttonStyle(.plain)
                     }
                 }

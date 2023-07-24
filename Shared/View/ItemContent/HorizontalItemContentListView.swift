@@ -66,7 +66,7 @@ struct HorizontalItemContentListView: View {
         if let items {
             LazyHStack {
                 ForEach(items) { item in
-                    CardFrame(item: item, showPopup: $showPopup, popupType: $popupType)
+                    ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
 #if !os(tvOS)
                         .padding([.leading, .trailing], 4)
                         .padding(.leading, item.id == items.first!.id ? 16 : 0)
@@ -90,7 +90,7 @@ struct HorizontalItemContentListView: View {
         if let items {
             LazyHStack {
                 ForEach(items) { item in
-                    Poster(item: item,
+                    ItemContentPosterView(item: item,
                            showPopup: $showPopup,
                            popupType: $popupType)
 #if !os(tvOS)

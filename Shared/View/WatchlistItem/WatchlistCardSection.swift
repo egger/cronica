@@ -20,12 +20,12 @@ struct WatchlistCardSection: View {
                           spacing: DrawingConstants.spacing) {
 #if os(tvOS)
                     ForEach(items, id: \.itemContentID) { item in
-                        WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
+                        WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
                     }
 #else
                     Section {
                         ForEach(items, id: \.itemContentID) { item in
-                            WatchlistItemFrame(content: item, showPopup: $showPopup, popupType: $popupType)
+                            WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
                                 .buttonStyle(.plain)
                         }
                         .onDelete(perform: delete)

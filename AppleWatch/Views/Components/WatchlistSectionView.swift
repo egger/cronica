@@ -16,7 +16,7 @@ struct WatchlistSectionView: View {
         if !items.isEmpty {
             Section {
                 ForEach(items) { item in
-                    WatchlistItemRow(content: item, showPopup: $showPopup, popupType: $popupType)
+                    WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
                 }
             } header: {
                 Text(NSLocalizedString(title, comment: ""))

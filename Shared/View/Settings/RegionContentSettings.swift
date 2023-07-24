@@ -33,7 +33,7 @@ struct RegionContentSettings: View {
                 .pickerStyle(.navigationLink)
 #endif
             }
-            
+#if !os(tvOS)
             Section {
                 Toggle(isOn: $store.isWatchProviderEnabled) {
                     InformationalLabel(title: "behaviorWatchProvidersTitle",
@@ -55,11 +55,15 @@ struct RegionContentSettings: View {
 #endif
                 
             }
+#endif
 #if os(iOS)
             languageButton
 #endif
         }
         .navigationTitle("settingsRegionContentTitle")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#endif
 #if os(macOS)
         .formStyle(.grouped)
 #endif

@@ -75,6 +75,9 @@ struct SyncSetting: View {
                 
             }
             .navigationTitle("syncSettingsTitle")
+#if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+#endif
 #if os(macOS)
             .formStyle(.grouped)
 #endif
