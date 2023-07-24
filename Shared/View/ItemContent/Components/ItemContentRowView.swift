@@ -80,7 +80,8 @@ struct ItemContentRowView: View {
                 NavigationStack {
                     ItemContentCustomListSelector(contentID: item.itemContentID,
                                                   showView: $showCustomListView,
-                                                  title: item.itemTitle)
+                                                  title: item.itemTitle,
+                                                  image: item.cardImageSmall)
                 }
                 .presentationDetents([.large])
 #if os(macOS)

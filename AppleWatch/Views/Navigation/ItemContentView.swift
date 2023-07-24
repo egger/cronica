@@ -88,7 +88,9 @@ struct ItemContentView: View {
             if let contentID = viewModel.content?.itemContentID {
                 NavigationStack {
                     ItemContentCustomListSelector(contentID: contentID,
-                                                  showView: $showCustomListSheet, title: title)
+                                                  showView: $showCustomListSheet,
+                                                  title: title,
+                                                  image: viewModel.content?.cardImageSmall)
                 }
             }
         }

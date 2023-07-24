@@ -103,7 +103,7 @@ struct ItemContentPosterView: View {
                 NavigationStack {
                     ReviewView(id: item.itemContentID, showView: $showNote)
                 }
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
 #if os(macOS)
                 .frame(width: 400, height: 400, alignment: .center)
 #elseif os(iOS)
@@ -116,9 +116,9 @@ struct ItemContentPosterView: View {
                 NavigationStack {
                     ItemContentCustomListSelector(contentID: item.itemContentID,
                                                   showView: $showCustomListView,
-                                                  title: item.itemTitle)
+                                                  title: item.itemTitle, image: item.cardImageSmall)
                 }
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
 #if os(macOS)
                 .frame(width: 500, height: 600, alignment: .center)

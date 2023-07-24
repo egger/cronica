@@ -76,7 +76,10 @@ struct WatchlistItemRowView: View {
             }
             .sheet(isPresented: $showCustomListView) {
                 NavigationStack {
-                    ItemContentCustomListSelector(contentID: content.itemContentID, showView: $showCustomListView, title: content.itemTitle)
+                    ItemContentCustomListSelector(contentID: content.itemContentID,
+                                                  showView: $showCustomListView,
+                                                  title: content.itemTitle,
+                                                  image: content.image)
                 }
                 .presentationDetents([.large])
 #if os(macOS)

@@ -19,9 +19,7 @@ struct SelectListView: View {
     @Binding var showListSelection: Bool
     @State private var showAllItems = true
     @State private var showDeleteConfirmation = true
-#if os(iOS)
-    @Environment(\.editMode) private var editMode
-#elseif os(macOS)
+#if os(macOS)
     @State private var isCreateNewListPresented = false
 #endif
     @State private var isEditing = false
@@ -88,22 +86,10 @@ struct SelectListView: View {
                                     selectedList = item
                                     showListSelection.toggle()
                                 }
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        if selectedList == item { selectedList = nil }
-                                        PersistenceController.shared.delete(item)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-#if os(macOS)
-                                            .foregroundColor(.red)
-#endif
-                                    }
-                                    .tint(.red)
-                                }
 #if os(iOS) || os(macOS)
                                 .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                     NavigationLink {
-#if os(iOS) || os(tvOS)
+#if os(iOS)
                                         EditCustomList(list: item, showListSelection: $showListSelection)
 #elseif os(macOS)
                                         EditCustomList(isPresentingNewList: $isCreateNewListPresented, list: item, showListSelection: $showListSelection)
@@ -124,7 +110,7 @@ struct SelectListView: View {
                 }
             } footer: {
                 HStack {
-                    Text("Swipe right to Edit your list")
+                    Text("Swipe to Edit your list")
                     Spacer()
                 }
             }
@@ -168,13 +154,12 @@ struct SelectListView: View {
         if SettingsStore.shared.isUserConnectedWithTMDb {
             Section {
                 List {
-                    NavigationLink(destination: TMDBWatchlistView()) {
-                        Text("Watchlist")
-                    }
+                    //NavigationLink("Watchlist", destination: TMDBWatchlistView())
                     ForEach(tmdbLists) { list in
                         NavigationLink(value: list) {
                             Text(list.itemTitle)
                         }
+                        .padding(.vertical, 4)
                     }
                 }
             } header: {

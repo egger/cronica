@@ -38,7 +38,7 @@ struct WatchlistItemPosterView: View {
             NavigationStack {
                 ReviewView(id: content.itemContentID, showView: $showNote)
             }
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.large])
 #if os(macOS)
             .frame(width: 400, height: 400, alignment: .center)
 #elseif os(iOS)
@@ -48,9 +48,11 @@ struct WatchlistItemPosterView: View {
         }
         .sheet(isPresented: $showCustomListView) {
             NavigationStack {
-                ItemContentCustomListSelector(contentID: content.itemContentID, showView: $showCustomListView, title: content.itemTitle)
+                ItemContentCustomListSelector(contentID: content.itemContentID,
+                                              showView: $showCustomListView,
+                                              title: content.itemTitle, image: content.image)
             }
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.large])
 #if os(macOS)
             .frame(width: 500, height: 600, alignment: .center)
 #else

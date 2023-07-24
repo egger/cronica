@@ -89,7 +89,6 @@ struct TMDBAddToListRow: View {
                 let isItemOnList = await viewModel.checkItemStatusOnList(list.id,
                                                                          itemID: item.itemId,
                                                                          itemMedia: item.itemMedia)
-                print("is \(item.itemTitle) in list \(list.itemTitle)? \(isItemOnList.description)")
                 await MainActor.run {
                     withAnimation { isItemAdded = isItemOnList }
                 }

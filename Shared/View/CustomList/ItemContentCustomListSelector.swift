@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ItemContentCustomListSelector: View {
     @State private var item: WatchlistItem?
     let contentID: String
     @Binding var showView: Bool
     let title: String
+    let image: URL?
     @FetchRequest( sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
                    animation: .default) private var lists: FetchedResults<CustomList>
     @State private var selectedList: CustomList?
@@ -26,6 +28,21 @@ struct ItemContentCustomListSelector: View {
             if isLoading {
                 CenterHorizontalView { ProgressView("Loading").padding() }
             } else {
+                HStack {
+                    WebImage(url: image)
+                        .resizable()
+                        .placeholder {
+                            Rectangle().fill(.gray.gradient)
+                        }
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 70, height: 50, alignment: .center)
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                        .shadow(radius: 2)
+                    Text(title)
+                        .lineLimit(2)
+                        .fontDesign(.rounded)
+                        .padding(.leading, 4)
+                }
                 Section {
                     List {
 #if os(watchOS)
@@ -38,8 +55,10 @@ struct ItemContentCustomListSelector: View {
                                 .padding(.vertical, 4)
                         }
                     }
-                } header: { Text(title) }
+                } header: { Text("yourLists") }
+#if os(iOS)
                 tmdbSection
+#endif
             }
         }
         .onAppear(perform: load)
@@ -110,7 +129,6 @@ struct ItemContentCustomListSelector: View {
         let fetchedLists = await listManager.fetchLists()
         if let result = fetchedLists?.results {
             tmdbLists = result.sorted(by: { $0.itemTitle < $1.itemTitle })
-            print(tmdbLists)
             withAnimation { self.isLoadingTMDBList = false }
         }
     }

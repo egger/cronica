@@ -133,7 +133,7 @@ struct ItemContentDetails: View {
                     if let contentID = viewModel.content?.itemContentID {
                         ItemContentCustomListSelector(contentID: contentID,
                                                       showView: $showCustomList,
-                                                      title: title)
+                                                      title: title, image: viewModel.content?.cardImageSmall)
                     }
                 }
                 .onDisappear {

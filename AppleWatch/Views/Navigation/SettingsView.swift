@@ -18,9 +18,11 @@ struct SettingsView: View {
                     Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
                 }
                 
+#if DEBUG
                 Section {
-                    NavigationLink("settingsSyncTitle", destination: SyncSetting()) 
+                    NavigationLink("settingsSyncTitle", destination: SyncSetting())
                 }
+#endif
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)

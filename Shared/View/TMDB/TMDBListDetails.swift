@@ -92,7 +92,6 @@ struct TMDBListDetails: View {
     
     private func load() async {
         detailedList = await viewModel.fetchListDetails(for: list.id, page: page)
-        print("Current page: \(page)")
         guard let detailedList else { return }
         if let content = detailedList.results {
             items.append(contentsOf: content)
@@ -105,8 +104,6 @@ struct TMDBListDetails: View {
                 totalItems = totalResults
             }
         }
-        print(detailedList.sortBy as Any)
-        print(detailedList.totalPages as Any)
         if !hasLoaded {
             await MainActor.run { withAnimation { self.isLoading = false } }
             hasLoaded = true

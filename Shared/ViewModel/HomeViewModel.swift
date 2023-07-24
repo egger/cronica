@@ -131,7 +131,6 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     private func fetchRecommendations() async {
         var recommendationsFetched = [ItemContent]()
         let itemsToRecommendFrom = fetchBasedRecommendationItems()
-        print("fetchRecommendations: \(itemsToRecommendFrom.count) - recommend from")
         for item in itemsToRecommendFrom {
             if let result = try? await service.fetchItems(from: "\(item.itemMedia.rawValue)/\(item.itemId)/recommendations") {
                 recommendationsFetched.append(contentsOf: result)
