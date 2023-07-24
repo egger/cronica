@@ -34,6 +34,12 @@ struct TMDBListResult: Codable, Identifiable, Hashable {
     var name: String?
 }
 
+struct TMDBItemStatus: Codable {
+    var mediaType, statusMessage: String?
+    var id, mediaId: Int?
+    var success: Bool?
+}
+
 extension TMDBListResult {
     var itemTitle: String {
         return name ?? NSLocalizedString("Not Found", comment: "")

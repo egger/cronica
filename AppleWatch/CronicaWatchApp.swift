@@ -40,6 +40,7 @@ struct CronicaWatchApp: App {
                     }
                 
                 SettingsView()
+                    .tag(SettingsView.tag)
                     .tabItem {
                         Label("Settings", systemImage: "gearshape")
                             .labelStyle(.titleOnly)

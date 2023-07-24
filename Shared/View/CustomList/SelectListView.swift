@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// This view is responsible for lettings users select which their want to see in WatchlistView.
 struct SelectListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
@@ -100,7 +101,7 @@ struct SelectListView: View {
                                     .tint(.red)
                                 }
 #if os(iOS) || os(macOS)
-                                .swipeActions(edge: .leading, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
+                                .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                     NavigationLink {
 #if os(iOS) || os(tvOS)
                                         EditCustomList(list: item, showListSelection: $showListSelection)
@@ -111,30 +112,20 @@ struct SelectListView: View {
                                         Text("Edit")
                                     }
                                 }
-                                .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
-                                    Button(role: .destructive) {
-                                        if selectedList == item { selectedList = nil }
-                                        PersistenceController.shared.delete(item)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-#if os(macOS)
-                                            .foregroundColor(.red)
-#endif
-                                    }
-                                    .tint(.red)
-                                }
 #endif
 #endif
-                        }.onDelete(perform: delete)
+                        }
                     }
                 }
             } header: {
                 HStack {
                     Text("yourLists")
                     Spacer()
-#if os(iOS)
-                    if !lists.isEmpty { EditButton() }
-#endif
+                }
+            } footer: {
+                HStack {
+                    Text("Swipe right to Edit your list")
+                    Spacer()
                 }
             }
             

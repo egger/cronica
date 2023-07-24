@@ -16,6 +16,11 @@ struct ItemContentCustomListSelector: View {
                    animation: .default) private var lists: FetchedResults<CustomList>
     @State private var selectedList: CustomList?
     @State private var isLoading = false
+    @State private var settings = SettingsStore.shared
+    // TMDb list support
+    @State private var listManager = ExternalWatchlistManager.shared
+    @State private var tmdbLists = [TMDBListResult]()
+    @State private var isLoadingTMDBList = true
     var body: some View {
         Form {
             if isLoading {
@@ -34,6 +39,7 @@ struct ItemContentCustomListSelector: View {
                         }
                     }
                 } header: { Text(title) }
+                tmdbSection
             }
         }
         .onAppear(perform: load)
@@ -73,9 +79,40 @@ struct ItemContentCustomListSelector: View {
         }
     }
     
+    @ViewBuilder
+    private var tmdbSection: some View {
+        if SettingsStore.shared.isUserConnectedWithTMDb {
+            Section {
+                List {
+                    ForEach(tmdbLists) { list in
+                        TMDBAddToListRow(list: list, item: item, showView: $showView)
+                            .environmentObject(listManager)
+                            .padding(.vertical, 4)
+                    }
+                }
+            } header: {
+                HStack {
+                    Text("TMDB")
+                    Spacer()
+                }
+            }
+            .redacted(reason: isLoadingTMDBList ? .placeholder : [])
+        }
+    }
+    
     private func load() {
         guard let content = PersistenceController.shared.fetch(for: contentID) else { return }
         self.item = content
+        if settings.isUserConnectedWithTMDb { Task { await loadTMDBLists() } }
+    }
+    
+    private func loadTMDBLists() async {
+        let fetchedLists = await listManager.fetchLists()
+        if let result = fetchedLists?.results {
+            tmdbLists = result
+            print(tmdbLists)
+            withAnimation { self.isLoadingTMDBList = false }
+        }
     }
     
     private var newList: some View {

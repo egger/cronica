@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    static let tag: Screens? = .settings
     @StateObject private var store = SettingsStore.shared
     var body: some View {
         NavigationStack {

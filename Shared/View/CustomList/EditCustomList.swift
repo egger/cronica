@@ -23,78 +23,43 @@ struct EditCustomList: View {
     @State private var canPublish = false
     @State private var isPublishing = false
     @State private var pinOnHome = false
+    @State private var askConfirmationForDeletion = false
+    @State private var isDeleted = false
     var body: some View {
         Form {
-            Section {
-                TextField("listName", text: $title)
-                TextField("listDescription", text: $note)
-            }
-            
-            Section {
-                Toggle("pinOnHome", isOn: $pinOnHome)
-            }
-            
-            if canPublish {
+            if isDeleted {
+                Text("This list has been deleted.")
+                    .font(.title3)
+                    .foregroundColor(.secondary)
+            } else {
                 Section {
-                    Button {
-                        publishToTMDB()
+                    TextField("listName", text: $title)
+                    TextField("listDescription", text: $note)
+                }
+                
+                Section {
+                    Toggle("pinOnHome", isOn: $pinOnHome)
+                }
+                
+                if !list.itemsSet.isEmpty {
+                    NavigationLink("editListRemoveItems", destination: EditCustomListItemSelector(list: list, itemsToRemove: $itemsToRemove))
+                }
+                
+                Section {
+                    Button(role: .destructive) {
+                        askConfirmationForDeletion = true
                     } label: {
-                        if isPublishing {
-                            CenterHorizontalView { ProgressView() }
-                        } else {
-                            Text("publishListToTMDB")
-                        }
+                        Label("Delete", systemImage: "trash")
+                    }
+                    .foregroundColor(.red)
+                }
+                .alert("removeDialogTitle", isPresented: $askConfirmationForDeletion) {
+                    Button("Confirm", role: .destructive) {
+                        isDeleted = true
+                        PersistenceController.shared.delete(list)
                     }
                 }
-            }
-            
-            Section {
-                if !list.itemsArray.isEmpty {
-                    List {
-                        ForEach(list.itemsArray, id: \.itemContentID) { item in
-                            HStack {
-                                Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
-                                    .foregroundColor(itemsToRemove.contains(item) ? .red : nil)
-                                WebImage(url: item.image)
-                                    .resizable()
-                                    .placeholder {
-                                        ZStack {
-                                            Rectangle().fill(.gray.gradient)
-                                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
-                                        }
-                                    }
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 70, height: 50)
-                                    .cornerRadius(8)
-                                    .overlay {
-                                        if itemsToRemove.contains(item) {
-                                            ZStack {
-                                                Rectangle().fill(.black.opacity(0.4))
-                                            }
-                                            .cornerRadius(8)
-                                        }
-                                    }
-                                VStack(alignment: .leading) {
-                                    Text(item.itemTitle)
-                                        .lineLimit(1)
-                                        .foregroundColor(itemsToRemove.contains(item) ? .secondary : nil)
-                                    Text(item.itemMedia.title)
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                            .onTapGesture {
-                                if itemsToRemove.contains(item) {
-                                    itemsToRemove.remove(item)
-                                } else {
-                                    itemsToRemove.insert(item)
-                                }
-                            }
-                        }
-                    }
-                }
-            } header: {
-                Text("editListRemoveItems")
+                
             }
         }
 #if os(macOS)
@@ -158,51 +123,130 @@ struct EditCustomList: View {
         }
         showListSelection = false
     }
-    
-    private func publishToTMDB(isPublic: Bool = false) {
-        Task {
-            await MainActor.run {
-                withAnimation { isPublishing.toggle() }
-            }
-            // Create and publish the new list
-            let external = ExternalWatchlistManager.shared
-            let title = list.itemTitle
-            let description = list.notes ?? String()
-            let id = await external.publishList(title: title, description: description)
-            guard let id else { return }
-            
-            // Gets the items to update the list
-            var itemsToAdd = [TMDBItemContent]()
-            for item in list.itemsArray {
-                let content = TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)
-                itemsToAdd.append(content)
-            }
-            let itemsToPublish = TMDBItem(items: itemsToAdd)
-            
-            // Encode the items and update the new list
-            do {
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = [.sortedKeys]
-                let jsonData = try encoder.encode(itemsToPublish)
-                await external.updateList(id, with: jsonData)
-            } catch {
-                if Task.isCancelled { return }
-            }
-            
-            list.isSyncEnabledTMDB = true
-            list.idOnTMDb = Int64(id)
-            
-            let context = PersistenceController.shared.container.viewContext
-            if context.hasChanges {
-                try? context.save()
-            }
-            
-            await MainActor.run {
-                withAnimation {
-                    isPublishing.toggle()
-                    canPublish.toggle()
+}
+
+struct EditCustomListItemSelector: View {
+    var list: CustomList
+    @Binding var itemsToRemove: Set<WatchlistItem>
+    @State private var query = String()
+    @State private var searchItems = [WatchlistItem]()
+    var body: some View {
+        Form {
+            if !searchItems.isEmpty {
+                Section {
+                    List {
+                        ForEach(searchItems) { item in
+                            HStack {
+                                Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
+                                    .foregroundColor(itemsToRemove.contains(item) ? .red : nil)
+                                WebImage(url: item.image)
+                                    .resizable()
+                                    .placeholder {
+                                        ZStack {
+                                            Rectangle().fill(.gray.gradient)
+                                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
+                                        }
+                                    }
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 70, height: 50)
+                                    .cornerRadius(8)
+                                    .overlay {
+                                        if itemsToRemove.contains(item) {
+                                            ZStack {
+                                                Rectangle().fill(.black.opacity(0.4))
+                                            }
+                                            .cornerRadius(8)
+                                        }
+                                    }
+                                VStack(alignment: .leading) {
+                                    Text(item.itemTitle)
+                                        .lineLimit(1)
+                                        .foregroundColor(itemsToRemove.contains(item) ? .secondary : nil)
+                                    Text(item.itemMedia.title)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .onTapGesture {
+                                if itemsToRemove.contains(item) {
+                                    itemsToRemove.remove(item)
+                                } else {
+                                    itemsToRemove.insert(item)
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                Section {
+                    List {
+                        ForEach(list.itemsArray, id: \.itemContentID) { item in
+                            HStack {
+                                Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
+                                    .foregroundColor(itemsToRemove.contains(item) ? .red : nil)
+                                WebImage(url: item.image)
+                                    .resizable()
+                                    .placeholder {
+                                        ZStack {
+                                            Rectangle().fill(.gray.gradient)
+                                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
+                                        }
+                                    }
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 70, height: 50)
+                                    .cornerRadius(8)
+                                    .overlay {
+                                        if itemsToRemove.contains(item) {
+                                            ZStack {
+                                                Rectangle().fill(.black.opacity(0.4))
+                                            }
+                                            .cornerRadius(8)
+                                        }
+                                    }
+                                VStack(alignment: .leading) {
+                                    Text(item.itemTitle)
+                                        .lineLimit(1)
+                                        .foregroundColor(itemsToRemove.contains(item) ? .secondary : nil)
+                                    Text(item.itemMedia.title)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .onTapGesture {
+                                if itemsToRemove.contains(item) {
+                                    itemsToRemove.remove(item)
+                                } else {
+                                    itemsToRemove.insert(item)
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            
         }
+        .overlay { if list.itemsArray.isEmpty { Text("Empty") } }
+        .task(id: query) {
+            await search()
+        }
+        .navigationTitle("editListRemoveItems")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
+#else
+        .searchable(text: $query)
+#endif
+        .formStyle(.grouped)
+    }
+    
+    private func search() async {
+        try? await Task.sleep(nanoseconds: 300_000_000)
+        if query.isEmpty && !searchItems.isEmpty { searchItems = [] }
+        if query.isEmpty { return }
+        if !searchItems.isEmpty { searchItems.removeAll() }
+        searchItems.append(contentsOf: list.itemsArray.filter {
+            ($0.itemTitle.localizedStandardContains(query)) as Bool
+            || ($0.itemOriginalTitle.localizedStandardContains(query)) as Bool
+        })
     }
 }

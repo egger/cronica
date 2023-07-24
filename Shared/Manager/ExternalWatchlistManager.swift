@@ -10,7 +10,7 @@ import SwiftUI
 /// This class handles with fetching and sync of lists on external services.
 ///
 /// Only TMDb is accepted at the moment.
-class ExternalWatchlistManager {
+class ExternalWatchlistManager: ObservableObject {
     static let shared = ExternalWatchlistManager()
     private let contentTypeHeader = "application/json;charset=utf-8"
     private let decoder = JSONDecoder()
@@ -109,6 +109,30 @@ class ExternalWatchlistManager {
             if Task.isCancelled { return }
         }
     }
+    
+    // https://developer.themoviedb.org/v4/reference/list-item-status
+    func checkItemStatusOnList(_ id: TMDBListResult.ID, itemID: Int, itemMedia: MediaType) async -> Bool {
+        do {
+            let headers = [
+                "content-type": contentTypeHeader,
+                "authorization": "Bearer \(userAccessToken)"
+            ]
+            guard let url = URL(string: "https://api.themoviedb.org/4/list/\(id)/item_status?media_id=\(itemID)&media_type=\(itemMedia.rawValue)") else { return false }
+            var request = URLRequest(url: url,
+                                     cachePolicy: .useProtocolCachePolicy,
+                                     timeoutInterval: 10.0)
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = headers
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let content =  try decoder.decode(TMDBItemStatus.self, from: data)
+            let result = content.success ?? false
+            return result
+        } catch {
+            return false
+        }
+    }
+    
     
     /// Deletes a given list on TMDb.
     ///
