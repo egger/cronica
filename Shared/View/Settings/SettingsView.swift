@@ -118,6 +118,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
+                    NavigationLink("settingsSyncTitle", destination: SyncSetting()) 
                     NavigationLink("settingsRegionContentTitle", destination:  RegionContentSettings())
                 }
                 

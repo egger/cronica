@@ -16,6 +16,10 @@ struct SettingsView: View {
                     Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
                     Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
                 }
+                
+                Section {
+                    NavigationLink("settingsSyncTitle", destination: SyncSetting()) 
+                }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)

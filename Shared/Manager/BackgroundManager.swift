@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import BackgroundTasks
 
 class BackgroundManager {
     private let context = PersistenceController.shared.container.newBackgroundContext()

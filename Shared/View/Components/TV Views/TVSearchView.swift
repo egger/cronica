@@ -16,25 +16,22 @@ struct TVSearchView: View {
                 VStack { }
             case .searching:
                 ProgressView("Searching")
-                    .font(.title)
+                    .font(.callout)
                     .foregroundColor(.secondary)
                     .fontDesign(.monospaced)
-                    .textCase(.uppercase)
                     .padding()
             case .empty:
                 Label("No Results", systemImage: "minus.magnifyingglass")
-                    .font(.title)
+                    .font(.callout)
                     .foregroundColor(.secondary)
                     .fontDesign(.monospaced)
-                    .textCase(.uppercase)
                     .padding()
             case .failure:
                 VStack {
                     Text("Search failed, try again later.")
-                        .font(.title)
+                        .font(.callout)
                         .foregroundColor(.secondary)
                         .fontDesign(.monospaced)
-                        .textCase(.uppercase)
                         .padding()
                 }
             case .success:
