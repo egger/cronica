@@ -109,7 +109,7 @@ struct ItemContentCustomListSelector: View {
     private func loadTMDBLists() async {
         let fetchedLists = await listManager.fetchLists()
         if let result = fetchedLists?.results {
-            tmdbLists = result
+            tmdbLists = result.sorted(by: { $0.itemTitle < $1.itemTitle })
             print(tmdbLists)
             withAnimation { self.isLoadingTMDBList = false }
         }

@@ -110,6 +110,26 @@ class ExternalWatchlistManager: ObservableObject {
         }
     }
     
+    func removeItemFromList(_ id: TMDBListResult.ID, with items: Data) async {
+        do {
+            let headers = [
+                "authorization": "Bearer \(userAccessToken)",
+                "content-type": contentTypeHeader
+            ]
+            guard let url = URL(string: "https://api.themoviedb.org/4/list/\(id)/items") else { return }
+            var request = URLRequest(url: url,
+                                     cachePolicy: .useProtocolCachePolicy,
+                                     timeoutInterval: 10.0)
+            request.httpMethod = "DELETE"
+            request.allHTTPHeaderFields = headers
+            request.httpBody = items
+            
+            let (_, _) = try await URLSession.shared.data(for: request)
+        } catch {
+            if Task.isCancelled { return }
+        }
+    }
+    
     // https://developer.themoviedb.org/v4/reference/list-item-status
     func checkItemStatusOnList(_ id: TMDBListResult.ID, itemID: Int, itemMedia: MediaType) async -> Bool {
         do {

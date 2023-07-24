@@ -58,12 +58,29 @@ struct TMDBAddToListRow: View {
             .padding(.leading, 4)
         }
         .onTapGesture {
-            //guard let item else { return }
-            
-            HapticManager.shared.selectionHaptic()
-            //withAnimation { isItemAdded.toggle() }
+            Task { await updateItemOnList() }
         }
         .onAppear { isItemInList() }
+    }
+    
+    private func updateItemOnList() async {
+        guard let item else { return }
+        let content = [TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)]
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = [.sortedKeys]
+            let itemsToPublish = TMDBItem(items: content)
+            let jsonData = try encoder.encode(itemsToPublish)
+            if isItemAdded {
+                await viewModel.removeItemFromList(list.id, with: jsonData)
+            } else {
+                await viewModel.updateList(list.id, with: jsonData)
+            }
+        } catch {
+            if Task.isCancelled { return }
+        }
+        HapticManager.shared.selectionHaptic()
+        withAnimation { isItemAdded.toggle() }
     }
     
     private func isItemInList() {

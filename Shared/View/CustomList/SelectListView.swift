@@ -190,8 +190,7 @@ struct SelectListView: View {
     private func load() async {
         let fetchedLists = await listManager.fetchLists()
         if let result = fetchedLists?.results {
-            tmdbLists = result
-            print(tmdbLists)
+            tmdbLists = result.sorted(by: { $0.itemTitle < $1.itemTitle })
             withAnimation { self.isLoading = false }
         }
     }
