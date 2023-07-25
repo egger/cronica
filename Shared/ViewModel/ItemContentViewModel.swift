@@ -28,6 +28,7 @@ class ItemContentViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var showMarkAsButton = false
     @Published var isItemAddedToAnyList = false
+    @Published var showPoster = false
     private var isNotificationAvailable = false
     private var hasNotificationScheduled = false
     init(id: ItemContent.ID, type: MediaType) {
@@ -42,6 +43,7 @@ class ItemContentViewModel: ObservableObject {
                 content = try await self.service.fetchItem(id: self.id, type: self.type)
                 guard let content else { return }
                 isInWatchlist = persistence.isItemSaved(id: content.itemContentID)
+                if content.backdropPath == nil && content.posterPath != nil { showPoster = true }
                 withAnimation {
                     if isInWatchlist {
                         hasNotificationScheduled = isNotificationScheduled()

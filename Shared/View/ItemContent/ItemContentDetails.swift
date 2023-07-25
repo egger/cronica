@@ -113,7 +113,7 @@ struct ItemContentDetails: View {
 #endif
             }
             .background {
-                TranslucentBackground(image: viewModel.content?.cardImageLarge)
+                TranslucentBackground(image: viewModel.showPoster ? viewModel.content?.posterImageLarge : viewModel.content?.cardImageLarge)
             }
             .task {
                 await viewModel.load()

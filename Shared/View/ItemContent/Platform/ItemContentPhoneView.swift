@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
+
 #if os(iOS)
 struct ItemContentPhoneView: View {
     let title: String
@@ -119,30 +121,34 @@ struct ItemContentPhoneView: View {
     
     private var cover: some View {
         VStack {
-            HeroImage(url: viewModel.content?.cardImageLarge,
-                      title: title)
-            .overlay {
-                ZStack {
-                    Rectangle().fill(.ultraThinMaterial)
-                    Image(systemName: animationImage)
-                        .symbolRenderingMode(.multicolor)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 120, height: 120, alignment: .center)
-                        .scaleEffect(animateGesture ? 1.1 : 1)
+            if viewModel.showPoster || store.usePostersAsCover {
+                posterCover
+            } else {
+                HeroImage(url: viewModel.content?.cardImageLarge,
+                          title: title)
+                .overlay {
+                    ZStack {
+                        Rectangle().fill(.ultraThinMaterial)
+                        Image(systemName: animationImage)
+                            .symbolRenderingMode(.multicolor)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 120, height: 120, alignment: .center)
+                            .scaleEffect(animateGesture ? 1.1 : 1)
+                    }
+                    .opacity(animateGesture ? 1 : 0)
                 }
-                .opacity(animateGesture ? 1 : 0)
-            }
-            .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-            .shadow(radius: DrawingConstants.shadowRadius)
-            .padding(.top)
-            .padding(.bottom, 8)
-            .accessibilityElement(children: .combine)
-            .accessibility(hidden: true)
-            .onTapGesture(count: 2) {
-                animate(for: store.gesture)
-                viewModel.update(store.gesture)
+                .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                .shadow(radius: DrawingConstants.shadowRadius)
+                .padding(.top)
+                .padding(.bottom, 8)
+                .accessibilityElement(children: .combine)
+                .accessibility(hidden: true)
+                .onTapGesture(count: 2) {
+                    animate(for: store.gesture)
+                    viewModel.update(store.gesture)
+                }
             }
             Text(title)
                 .multilineTextAlignment(.center)
@@ -172,6 +178,50 @@ struct ItemContentPhoneView: View {
                 }
             }
         }
+    }
+    
+    private var posterCover: some View {
+        WebImage(url: viewModel.content?.posterImageMedium)
+            .resizable()
+            .placeholder {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    VStack {
+                        Text(title)
+                            .foregroundColor(.white.opacity(0.8))
+                            .lineLimit(1)
+                            .frame(width: 200, height: 300)
+                            .padding()
+                        Image(systemName: type == .tvShow ? "tv" : "film")
+                            .font(.title)
+                            .foregroundColor(.white.opacity(0.8))
+                        
+                    }
+                    .padding()
+                }
+            }
+            .overlay {
+                ZStack {
+                    Rectangle().fill(.thinMaterial)
+                    Image(systemName: animationImage)
+                        .symbolRenderingMode(.multicolor)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .scaleEffect(animateGesture ? 1.1 : 1)
+                }
+                .opacity(animateGesture ? 1 : 0)
+            }
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 200, height: 300)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .onTapGesture(count: 2) {
+                animate(for: store.gesture)
+                viewModel.update(store.gesture)
+            }
+            .shadow(radius: 12)
+            .padding()
+            .accessibility(hidden: true)
     }
     
     private func animate(for type: UpdateItemProperties) {

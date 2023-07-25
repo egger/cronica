@@ -14,6 +14,13 @@ struct AppearanceSetting: View {
 #endif
     var body: some View {
         Form {
+#if os(iOS)
+            if UIDevice.isIPhone {
+                Section("Details Page") {
+                    Toggle("Prefer Poster in Details Page", isOn: $store.usePostersAsCover)
+                }
+            }
+#endif
             Section {
                 Picker(selection: $store.watchlistStyle) {
                     ForEach(WatchlistItemType.allCases) { item in
