@@ -15,7 +15,11 @@ struct TipJarSetting: View {
         Form {
             Section {
                 if viewModel.hasUserPurchased || SettingsStore.shared.hasPurchasedTipJar {
+#if os(tvOS)
+                    Button("thankYouTipJarMessage") { }
+#else
                     Text("thankYouTipJarMessage")
+#endif
                 } else {
                     if !productsLoaded { ProgressView() }
                     ForEach(viewModel.storeProducts) { item in

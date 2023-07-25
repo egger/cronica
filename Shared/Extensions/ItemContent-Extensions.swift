@@ -203,13 +203,17 @@ extension ItemContent {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
     var posterImageLarge: URL? {
-        return NetworkService.urlBuilder(size: .large, path: posterPath)
+        return NetworkService.urlBuilder(size: .w780, path: posterPath)
     }
     var cardImageSmall: URL? {
         return NetworkService.urlBuilder(size: .small, path: backdropPath)
     }
     var cardImageMedium: URL? {
+#if os(tvOS)
+        return NetworkService.urlBuilder(size: .w780, path: backdropPath)
+#else
         return NetworkService.urlBuilder(size: .medium, path: backdropPath)
+#endif
     }
     var cardImageLarge: URL? {
         return NetworkService.urlBuilder(size: .large, path: backdropPath)

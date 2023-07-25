@@ -55,7 +55,11 @@ extension Episode {
     
     // MARK: URL
     var itemImageMedium: URL? {
+        #if os(tvOS)
+        return NetworkService.urlBuilder(size: .w780, path: stillPath)
+        #else
         return NetworkService.urlBuilder(size: .medium, path: stillPath)
+        #endif
     }
     var itemImageLarge: URL? {
         return NetworkService.urlBuilder(size: .large, path: stillPath)

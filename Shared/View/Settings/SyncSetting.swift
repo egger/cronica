@@ -67,7 +67,7 @@ struct SyncSetting: View {
                 }
 #endif
                 
-#if !os(macOS)
+#if os(iOS)
                 Section("connectedAccounts") {
                     NavigationLink("connectedAccountTMDB", destination: TMDBAccountView())
                 }

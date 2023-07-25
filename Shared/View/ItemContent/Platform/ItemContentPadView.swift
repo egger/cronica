@@ -69,7 +69,7 @@ struct ItemContentPadView: View {
     
     private var header: some View {
         HStack {
-            WebImage(url: viewModel.content?.posterImageMedium)
+            WebImage(url: viewModel.content?.posterImageLarge)
                 .resizable()
                 .placeholder {
                     ZStack {

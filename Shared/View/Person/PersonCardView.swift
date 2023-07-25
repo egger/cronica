@@ -116,11 +116,12 @@ struct PersonCardView: View {
             Text(person.name)
                 .foregroundColor(isFocused ? .primary : .secondary)
                 .font(.caption)
+                .fontWeight(isFocused ? .bold : .regular)
                 .lineLimit(1)
             if let role = person.personRole {
                 Text(role)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(isFocused ? .primary : .secondary)
                     .lineLimit(1)
             }
             Spacer()

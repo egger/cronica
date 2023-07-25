@@ -21,6 +21,9 @@ struct EpisodeFrameView: View {
     @State private var showDetails = false
     private let network = NetworkService.shared
     @Binding var checkedIfWatched: Bool
+    #if os(tvOS)
+    @FocusState var isFocused
+    #endif
     var body: some View {
 #if os(tvOS)
         VStack {
@@ -38,6 +41,7 @@ struct EpisodeFrameView: View {
             .buttonStyle(.card)
             information
         }
+        .focused($isFocused)
         .padding(.top)
 #else
         VStack {
@@ -91,13 +95,21 @@ struct EpisodeFrameView: View {
                     .textCase(.uppercase)
                     .font(.caption2)
                     .lineLimit(1)
+#if !os(tvOS)
                     .foregroundColor(.secondary)
+#else
+                    .foregroundColor(isFocused ? .primary : .secondary)
+#endif
                 Spacer()
             }
             .padding(.top, 1)
             HStack {
                 Text(episode.itemTitle)
                     .font(.callout)
+#if os(tvOS)
+                    .foregroundColor(isFocused ? .primary : .secondary)
+                    .fontWeight(isFocused ? .bold : .regular)
+#endif
                     .lineLimit(1)
                 Spacer()
             }

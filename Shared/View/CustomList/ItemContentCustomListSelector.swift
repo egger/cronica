@@ -19,10 +19,12 @@ struct ItemContentCustomListSelector: View {
     @State private var selectedList: CustomList?
     @State private var isLoading = false
     @State private var settings = SettingsStore.shared
+#if os(iOS)
     // TMDb list support
     @State private var listManager = ExternalWatchlistManager.shared
     @State private var tmdbLists = [TMDBListResult]()
     @State private var isLoadingTMDBList = true
+#endif
     var body: some View {
         Form {
             if isLoading {
@@ -98,6 +100,7 @@ struct ItemContentCustomListSelector: View {
         }
     }
     
+#if os(iOS)
     @ViewBuilder
     private var tmdbSection: some View {
         if SettingsStore.shared.isUserConnectedWithTMDb {
@@ -118,13 +121,17 @@ struct ItemContentCustomListSelector: View {
             .redacted(reason: isLoadingTMDBList ? .placeholder : [])
         }
     }
+#endif
     
     private func load() {
         guard let content = PersistenceController.shared.fetch(for: contentID) else { return }
         self.item = content
+#if os(iOS)
         if settings.isUserConnectedWithTMDb { Task { await loadTMDBLists() } }
+#endif
     }
     
+#if os(iOS)
     private func loadTMDBLists() async {
         let fetchedLists = await listManager.fetchLists()
         if let result = fetchedLists?.results {
@@ -132,6 +139,7 @@ struct ItemContentCustomListSelector: View {
             withAnimation { self.isLoadingTMDBList = false }
         }
     }
+#endif
     
     private var newList: some View {
         NavigationLink {

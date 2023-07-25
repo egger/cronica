@@ -21,7 +21,6 @@ struct TitleView: View {
                         .fontDesign(.rounded)
 #if os(tvOS)
                         .font(.callout)
-                        .foregroundColor(.secondary)
 #else
                         .font(.title3)
 #endif

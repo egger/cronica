@@ -20,6 +20,7 @@ struct ItemContentTVView: View {
     @FocusState var isWatchlistButtonFocused: Bool
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
+    @State private var hasFocused = false
     var body: some View {
         VStack {
             ScrollView {
@@ -41,8 +42,11 @@ struct ItemContentTVView: View {
         }
         .ignoresSafeArea(.all, edges: .horizontal)
         .onAppear {
-            DispatchQueue.main.async {
-                isWatchlistButtonFocused = true
+            if !hasFocused {
+                DispatchQueue.main.async {
+                    isWatchlistButtonFocused = true
+                    hasFocused = true
+                }
             }
         }
     }
@@ -51,7 +55,7 @@ struct ItemContentTVView: View {
         HStack {
             Spacer()
             
-            WebImage(url: viewModel.content?.posterImageMedium)
+            WebImage(url: viewModel.content?.posterImageLarge)
                 .resizable(resizingMode: .stretch)
                 .placeholder {
                     ZStack {
@@ -70,9 +74,9 @@ struct ItemContentTVView: View {
                     }
                 }
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 420, height: 640)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .shadow(radius: 16)
+                .frame(width: 450, height: 700)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .shadow(radius: 5)
                 .padding()
                 .accessibility(hidden: true)
             
@@ -86,8 +90,9 @@ struct ItemContentTVView: View {
                     showOverview.toggle()
                 } label: {
                     HStack {
-                        Text(viewModel.content?.itemOverview ?? "")
+                        Text(viewModel.content?.itemOverview ?? String())
                             .font(.callout)
+                            .fontDesign(.rounded)
                             .lineLimit(10)
                             .onTapGesture {
                                 showOverview.toggle()

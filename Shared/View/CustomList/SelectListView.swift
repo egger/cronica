@@ -23,10 +23,12 @@ struct SelectListView: View {
     @State private var isCreateNewListPresented = false
 #endif
     @State private var isEditing = false
+#if os(iOS)
     // Lists
     @State private var listManager = ExternalWatchlistManager.shared
     @State private var tmdbLists = [TMDBListResult]()
     @State private var isLoading = true
+#endif
     var body: some View {
         NavigationStack {
 #if os(iOS) || os(tvOS)
@@ -114,13 +116,16 @@ struct SelectListView: View {
                     Spacer()
                 }
             }
-            
+#if os(iOS)
             tmdbSection
+#endif
         }
         .onAppear {
+#if os(iOS)
             if SettingsStore.shared.isUserConnectedWithTMDb {
                 Task { await load() }
             }
+#endif
         }
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle,
@@ -131,9 +136,11 @@ struct SelectListView: View {
             PersonDetailsView(title: person.name, id: person.id)
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
-            let keys = item.map { (key, _) in key }
-            let value = item.map { (_, value) in value }
-            ItemContentSectionDetails(title: keys[0], items: value[0])
+            let keys = item.map { (key, _) in key }.first
+            let value = item.map { (_, value) in value }.first
+            if let keys, let value {
+                ItemContentSectionDetails(title: keys, items: value)
+            }
         }
         .navigationDestination(for: [Person].self) { items in
             DetailedPeopleList(items: items)
@@ -148,7 +155,7 @@ struct SelectListView: View {
             TMDBListDetails(list: item)
         }
     }
-    
+#if os(iOS)
     @ViewBuilder
     private var tmdbSection: some View {
         if SettingsStore.shared.isUserConnectedWithTMDb {
@@ -179,7 +186,7 @@ struct SelectListView: View {
             withAnimation { self.isLoading = false }
         }
     }
-    
+#endif
     private var doneButton: some View {
         Button("Done") { showListSelection.toggle() }
     }

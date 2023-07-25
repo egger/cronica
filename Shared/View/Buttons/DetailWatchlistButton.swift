@@ -12,7 +12,6 @@ struct DetailWatchlistButton: View {
     @Binding var showCustomList: Bool
     @State private var showConfirmationPopup = false
     @StateObject private var settings = SettingsStore.shared
-    var verticalStyle = false
     var body: some View {
         Button {
             if viewModel.isInWatchlist {
