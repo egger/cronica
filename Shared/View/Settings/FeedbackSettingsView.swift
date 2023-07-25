@@ -55,6 +55,8 @@ struct FeedbackSettingsView: View {
 #endif
                 }
                 .presentationDetents([.medium, .large])
+                .appTheme()
+                .appTint()
 #if os(macOS)
                 .frame(width: 400, height: 400, alignment: .center)
 #endif

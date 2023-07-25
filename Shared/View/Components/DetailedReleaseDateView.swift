@@ -43,6 +43,8 @@ struct DetailedReleaseDateView: View {
 #endif
         }
         .presentationDetents([.medium])
+        .appTheme()
+        .appTint()
     }
     
     private func load() {
@@ -59,7 +61,7 @@ struct DetailedReleaseDateView: View {
                 if iso.lowercased() == "us" {
                     let result = fetchDates(content.releaseDates, region: "us")
                     guard let result else { return }
-                    dates = result
+                    if dates.isEmpty { dates = result }
                     isLoading = false
                 }
             }
