@@ -49,8 +49,12 @@ struct SettingsView: View {
                         settingsLabel(title: "Privacy Policy", icon: "hand.raised", color: .indigo)
                     }
                     .buttonStyle(.plain)
-                    .fullScreenCover(isPresented: $showPolicy) {
-                        SFSafariViewWrapper(url: URL(string: "https://alexandremadeira.dev/cronica/privacy")!)
+                    .sheet(isPresented: $showPolicy) {
+                        if let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") {
+                            SFSafariViewWrapper(url: url)
+                                .appTint()
+                                .appTheme()
+                        }
                     }
                 }
                 
@@ -63,6 +67,8 @@ struct SettingsView: View {
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showWhatsNew) {
                         ChangelogView(showChangelog: $showWhatsNew)
+                            .appTint()
+                            .appTheme()
                     }
                     NavigationLink(destination: TipJarSetting()) {
                         settingsLabel(title: "tipJarTitle", icon: "heart", color: .red)

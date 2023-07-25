@@ -22,6 +22,8 @@ struct DeveloperView: View {
     private let persistence = PersistenceController.shared
     private let service = NetworkService.shared
     @State private var showOnboarding = false
+    @AppStorage("launchCount") var launchCount: Int = 0
+    @AppStorage("askedForReview") var askedForReview = false
     var body: some View {
         Form {
             Section("Network") {
@@ -90,6 +92,8 @@ struct DeveloperView: View {
                 Text("Last maintenance: \(BackgroundManager.shared.lastMaintenance?.convertDateToString() ?? "Nil")")
                 Text("Last watching refresh: \(BackgroundManager.shared.lastWatchingRefresh?.convertDateToString() ?? "Nil")")
                 Text("Last upcoming refresh: \(BackgroundManager.shared.lastUpcomingRefresh?.convertDateToString() ?? "Nil")")
+                Text("launchCount: \(launchCount)")
+                Text("Asked for review: \(askedForReview.description)")
             }
             
             Section("TMDB") {

@@ -122,6 +122,8 @@ struct HorizontalUpNextListView: View {
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     }
                 }
+                .appTheme()
+                .appTint()
                 .presentationDetents([.large])
 #if os(tvOS)
                 .ignoresSafeArea()

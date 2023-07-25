@@ -1,0 +1,662 @@
+/*
+  Localizable.strings
+  Story
+
+  Created by Alexandre Madeira on 03/03/22.
+  
+*/
+
+// MARK: Settings
+// MARK: General Settings
+"settingsBehaviorTitle" = "السلوك";
+"settingsAppearanceTitle" = "المظهر";
+"settingsGeneralTitle" = "عام";
+"settingsSyncTitle" = "المزامنة";
+"settingsReviewCronica" = "مراجعة كرونيكا على متجر التطبيقات";
+"settingsPrivacyPolicy" = "سياسة الخصوصية";
+"settingsDisableTelemetryTitle" = "تعطيل تقارير الأعطال";
+"settingsDisableTelemetrySubtitle" = "يقوم كرونيكا بجمع بيانات محدودة للحد من تعطل التطبيق، وهذه البيانات مجهولة المصدر. لمزيد من التفاصيل، اطلع على سياسة الخصوصية.";
+"settingsFeedbackTitle" = "إرسال ملاحظات";
+"settingsPrivacySupportTitle" = "الخصوصية والدعم";
+"settingsDeveloperOptions" = "خيارات المطور";
+
+// MARK: Behavior Settings
+"behaviorDoubleTapTitle" = "النقر المزدوج على الغلاف";
+"behaviorDoubleTapSubtitle" = "اختر الوظيفة التي ترغب في تنفيذها عند النقر المزدوج على صورة الغلاف.";
+"behaviorGestureTitle" = "الإيماءات";
+"behaviorYouTubeTitle" = "فتح المقاطع الدعائية في يوتيوب";
+"behaviorLinkTitle" = "الروابط";
+"behaviorTitle" = "السلوك";
+"behaviorEpisodeTitle" = "النقر لتحديد الحلقة كمشاهدة";
+"hapticFeedbackTitle" = "تغذية لمسية";
+"behaviorSwipeTitle" = "إيماءات السحب";
+"behaviorAllowFullSwipeTitle" = "السماح بالسحب الكامل";
+"behaviorAllowFullSwipeSubtitle" = "السحب الكامل سينفذ الإجراء الأساسي";
+"behaviorPrimaryLeftGesture" = "إيماءة أساسية إلى اليسار";
+"behaviorSecondaryLeftGesture" = "إيماءة ثانوية إلى اليسار";
+"behaviorPrimaryRightGesture" = "إيماءة أساسية إلى اليمين";
+"behaviorSecondaryRightGesture" = "إيماءة ثانوية إلى اليمين";
+"resetToDefault" = "إعادة الضبط إلى الافتراضي";
+
+// MARK: Appearance Settings
+"appearanceRowTypeTitle" = "معلومات عناصر قائمة الانتظار";
+"appearanceRowTypeSubtitle" = "اختر نوع المعلومات التي ترغب في عرضها.";
+"appearanceWatchlist" = "قائمة الانتظار";
+"appearanceSendFeedback" = "إرسال الملاحظات";
+"appearanceTitle" = "المظهر";
+"appearanceThemeTitle" = "لون التطبيق";
+"appearanceTheme" = "الثيمات";
+"appearanceRowStyleTitle" = "نمط عنصر قائمة الانتظار";
+"appearanceRowStyleSubtitle" = "اختر كيفية عرض قائمة الانتظار الخاصة بك";
+"appearanceAppThemeTitle" = "ثيم التطبيق";
+"disableTranslucentTitle" = "تعطيل الخلفية الشفافة";
+"appearanceExploreDisplayType" = "تفضيلات عرض الاستكشاف";
+"appearanceExplore" = "الاستكشاف";
+"appearanceListsDisplayType" = "تفضيلات عرض القوائم";
+"appearanceLists" = "القوائم";
+
+// MARK: Sync Settings
+"syncSettingsUpdateWatchlistTitle" = "تحديث العناصر";
+"syncSettingsUpdateWatchlistSubtitle" = "تحديث العناصر بالمعلومات الجديدة، إذا كانت متوفرة على TMDb.";
+"syncSettingsWatchlistTitle" = "قائمة الانتظار";
+"syncSettingsTitle" = "المزامنة";
+
+// MARK: Acknowledgements Settings
+"acknowledgmentsAppIconTitle" = "مصمم الأيقونة";
+"acknowledgmentsAppIconSubtitle" = "أخمد";
+"acknowledgmentsContentProviderTitle" = "موفر المحتوى";
+"acknowledgmentsContentProviderSubtitle" = "TMDb";
+"acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
+"settingsAcknowledgments" = "الاعترافات";
+"settingsAcknowledgmentsFooter" = "شكراً لكل من جعل كرونيكا ممكنًا.";
+"acknowledgmentsTitle" = "الاعترافات";
+"acknowledgmentsUserTitle" = "شكرًا لملاحظاتك ودعمك!";
+
+// MARK: Tip Jar Settings
+"tipJarTitle" = "صندوق البقشيش";
+"tipJarFooter" = "يمكنك اختيار التبرع بمبلغ صغير، متوسط ​​أو كبير، وسيتم توجيه جميع العائدات لتحسين وصيانة التطبيق. ستظل كرونيكا دائمًا مجانية وخالية من الإعلانات، لذلك يُعتبر هذا الخيار اختياريًا لدعم تطوير التطبيق.";
+"restorePurchases" = "استعادة المشتريات";
+
+
+// MARK: AppThemeColors
+// MARK: App Theme Colors
+"appThemeColorsBlue" = "أزرق";
+"appThemeColorsRed" = "أحمر";
+"appThemeColorsGreen" = "أخضر";
+"appThemeColorsBrown" = "بني";
+"appThemeColorsCyan" = "سماوي";
+"appThemeColorsGray" = "رمادي";
+"appThemeColorsIndigo" = "نيلي";
+"appThemeColorsMint" = "نعناعي";
+"appThemeColorsOrange" = "برتقالي";
+"appThemeColorsPink" = "وردي";
+"appThemeColorsPurple" = "بنفسجي";
+"appThemeColorsTeal" = "زبرجدي";
+"appThemeColorsYellow" = "أصفر";
+
+// MARK: Watchlist Item Type
+"watchlistItemTypeList" = "قائمة";
+"watchlistItemTypePoster" = "بوستر";
+"watchlistItemTypeCard" = "كارت";
+
+// MARK: App Theme
+"appThemeSystem" = "النظام";
+"appThemeLight" = "فاتح";
+"appThemeDark" = "داكن";
+
+// MARK: Watch Provider Options
+"watchProviderBr" = "البرازيل";
+"watchProviderUs" = "الولايات المتحدة الأمريكية";
+"watchProviderAe" = "الإمارات العربية المتحدة";
+"watchProviderAr" = "الأرجنتين";
+"watchProviderAt" = "النمسا";
+"watchProviderAu" = "أستراليا";
+"watchProviderBe" = "بلجيكا";
+"watchProviderBg" = "بلغاريا";
+"watchProviderCa" = "كندا";
+"watchProviderCh" = "سويسرا";
+"watchProviderCz" = "الجمهورية التشيكية";
+"watchProviderDe" = "ألمانيا";
+"watchProviderDk" = "الدنمارك";
+"watchProviderEe" = "إستونيا";
+"watchProviderEs" = "إسبانيا";
+"watchProviderFi" = "فنلندا";
+"watchProviderFr" = "فرنسا";
+"watchProviderGb" = "المملكة المتحدة";
+"watchProviderHk" = "هونغ كونغ";
+"watchProviderHr" = "كرواتيا";
+"watchProviderHu" = "هنغاريا";
+"watchProviderId" = "إندونيسيا";
+"watchProviderIe" = "أيرلندا";
+"watchProviderIndia" = "الهند";
+"watchProviderIt" = "إيطاليا";
+"watchProviderJp" = "اليابان";
+"watchProviderKr" = "كوريا الجنوبية";
+"watchProviderLt" = "ليتوانيا";
+"watchProviderMx" = "المكسيك";
+"watchProviderNl" = "هولندا";
+"watchProviderNo" = "النرويج";
+"watchProviderNz" = "نيوزيلندا";
+"watchProviderPh" = "الفلبين";
+"watchProviderPl" = "بولندا";
+"watchProviderPt" = "البرتغال";
+"watchProviderRs" = "صربيا";
+"watchProviderSk" = "سلوفاكيا";
+"watchProviderTr" = "تركيا";
+"watchProviderSe" = "السويد";
+"watchProviderZa" = "جنوب أفريقيا";
+
+// MARK: Notification Content
+"The next episode is set to arrive today." = "الحلقة التالية مقرر وصولها اليوم.";
+"Next episode arrives today." = "الحلقة التالية تصل اليوم.";
+"The movie will be released today." = "سيتم إصدار الفيلم اليوم.";
+
+// MARK: Common
+"Done" = "تم";
+"No details available." = "لا توجد تفاصيل متوفرة.";
+"Not Available" = "غير متاح";
+"No information available" = "لا توجد معلومات متاحة";
+"No title available" = "لا يوجد عنوان متاح";
+"Up Coming" = "قادم";
+"Upcoming Episodes" = "الحلقات القادمة";
+"Arriving Soon" = "قادم قريبًا";
+"Latest Movies" = "أحدث الأفلام";
+"Latest Shows" = "أحدث البرامج";
+"Upcoming Movies" = "الأفلام القادمة";
+"TV Show" = "برنامج تلفزيوني";
+"Movie" = "فيلم";
+"People" = "الأشخاص";
+"Popular Movies" = "الأفلام الشهيرة";
+"Movies" = "أفلام";
+"TV Shows" = "برامج تلفزيونية";
+"Sort" = "ترتيب";
+"Media Type" = "نوع الوسائط";
+"Default" = "افتراضي";
+"Favorites" = "المفضلة";
+"To Watch" = "للمشاهدة";
+"Unwatched" = "لم يتم المشاهدة";
+"Watched" = "تمت المشاهدة";
+"Upcoming Movies" = "الأفلام القادمة";
+"Upcoming Seasons" = "المواسم القادمة";
+"Renewed Series" = "السلاسل المجددة";
+"Releasing Soon" = "قريبًا للإصدار";
+"Recently Released" = "صدرت حديثًا";
+"Remove" = "إزالة";
+"Added to watchlist" = "تمت الإضافة إلى قائمة الانتظار";
+"Mark as" = "وضع علامة كـ";
+"Add to Favorites" = "إضافة إلى المفضلة";
+"Share" = "مشاركة";
+"Mark this and previous episodes as watched" = "وضع علامة على هذه الحلقة والحلقات السابقة كمشاهدة";
+"No Episode Available" = "لا توجد حلقة متاحة";
+"Season Marked as Watched" = "تم وضع علامة على الموسم كمشاهدة";
+"No biography available." = "لا يوجد سيرة ذاتية متاحة.";
+"No information available." = "لا توجد معلومات متاحة.";
+"No title available" = "لا يوجد عنوان متاح";
+"No Name Found" = "لم يتم العثور على اسم";
+"Not Available" = "غير متاح";
+"Remove Selected" = "إزالة المحدد";
+"Mark selected as watched" = "وضع علامة على المحدد كمشاهدة";
+"Mark selected as unwatched" = "وضع علامة على المحدد كغير مشاهدة";
+"Open in" = "فتح في";
+"IMDb" = "IMDb";
+"TMDb" = "TMDb";
+"Coming Soon To Theaters" = "قريبًا في دور العرض";
+"Pins" = "دبابيس";
+"Email (optional)" = "البريد الإلكتروني (اختياري)";
+"Open in YouTube" = "فتح على YouTube";
+"List Filters" = "مرشحات القائمة";
+"Add to List" = "إضافة إلى القائمة";
+"Remove from List" = "إزالة من القائمة";
+"Pinned Items" = "العناصر المثبتة";
+"Show Details" = "عرض التفاصيل";
+"Archive" = "أرشيف";
+"Archive Item" = "أرشفة العنصر";
+"Remove from Archive" = "إزالة من الأرشيف";
+"Be reminded of upcoming Movies & TV Shows." = "تذكر بالأفلام والبرامج التلفزيونية القادمة.";
+"Your smart Watchlist" = "قائمة الانتظار الذكية الخاصة بك";
+"addAndMarkWatchedButton" = "إضافة ووضع علامة كمشاهدة";
+"markedAsWatched" = "تم وضع علامة كمشاهدة";
+"removedFromWatched" = "تمت الإزالة من المشاهدة";
+"markedAsFavorite" = "تم وضع علامة كمفضلة";
+"removedFromFavorites" = "تمت الإزالة من المفضلة";
+
+
+//MARK: AttributionView.swift
+"This product uses the TMDb API but is not endorsed or certified by TMDb." = "يستخدم هذا المنتج واجهة برمجة التطبيقات TMDb ولكنه ليس مصادقًا عليه أو معتمدًا من قبل TMDb.";
+
+//MARK: ContentDetailsView.swift
+"Add to watchlist" = "أضف إلى قائمة الانتظار";
+"Remove from watchlist" = "إزالة من قائمة الانتظار";
+"About" = "حول";
+"Trailers" = "عروض";
+"Seasons" = "مواسم";
+"Recommendations" = "توصيات";
+"You may like" = "قد تعجبك";
+"Mark as Watched" = "وضع علامة كمشاهدة";
+"Remove from Watched" = "إزالة من المشاهدة";
+"Mark as Favorite" = "وضع علامة كمفضلة";
+"Remove from Favorites" = "إزالة من المفضلة";
+"Ratings Score" = "تقييم";
+
+//MARK: ExploreView.swift
+"Explore" = "استكشاف";
+"Action" = "حركة";
+"Adventure" = "مغامرة";
+"Animation" = "رسوم متحركة";
+"Comedy" = "كوميديا";
+"Crime" = "جريمة";
+"Documentary" = "وثائقي";
+"Drama" = "دراما";
+"Family" = "عائلي";
+"Fantasy" = "خيال";
+"History" = "تاريخ";
+"Horror" = "رعب";
+"Music" = "موسيقى";
+"Mystery" = "غموض";
+"Romance" = "رومانسية";
+"Science Fiction" = "خيال علمي";
+"Thriller" = "إثارة";
+"War" = "حرب";
+"Action & Adventure" = "حركة ومغامرة";
+"Kids" = "أطفال";
+"Reality" = "واقع";
+"Sci-Fi & Fantasy" = "خيال علمي وفانتازيا";
+"Genres" = "أنواع";
+"Popular Movies by Genre" = "أفلام شائعة حسب النوع";
+"Popular TV Shows by Genre" = "برامج تلفزيونية شائعة حسب النوع";
+
+//MARK: InformationSectionView.swift
+"Run Time" = "مدة التشغيل";
+"Release Date" = "تاريخ الإصدار";
+"Status" = "الحالة";
+"Genre" = "النوع";
+"Region of Origin" = "منطقة المنشأ";
+"Production Company" = "شركة الإنتاج";
+"Information" = "معلومات";
+
+//MARK: ContentView.swift
+"Home" = "الرئيسية";
+"Watchlist" = "قائمة الانتظار";
+"Search" = "بحث";
+"Cronica" = "Cronica";
+
+//MARK: SettingsView.swift
+"Support" = "الدعم";
+"Send feedback" = "إرسال التعليقات";
+"Privacy Policy" = "سياسة الخصوصية";
+"Made in Brazil 🇧🇷" = "صُنع في البرازيل 🇧🇷";
+"Gesture" = "اللمسة";
+"Double Tap Gesture" = "اللمسة المزدوجة";
+"The function is performed when double-tap the cover image." = "يتم تنفيذ الوظيفة عند النقر المزدوج على صورة الغلاف.";
+"Settings" = "الإعدادات";
+"Review Cronica" = "مراجعة كرونيكا";
+"Send Feedback" = "إرسال التعليقات";
+"Feedback" = "تعليقات";
+"Send" = "إرسال";
+"Cancel" = "إلغاء";
+"Send your suggestions to help improve Cronica." = "أرسل اقتراحاتك للمساعدة في تحسين كرونيكا.";
+"Feedback sent" = "شكرًا لتعليقاتك.";
+"Sync" = "مزامنة";
+"Update Items" = "تحديث العناصر";
+"'Update Items' will update your items with new information available on TMDb, if available." = "سيقوم 'تحديث العناصر' بتحديث عناصرك بالمعلومات الجديدة المتوفرة على TMDb، إن توفرت.";
+"Privacy" = "الخصوصية";
+"Open Trailers in YouTube App" = "افتح العروض الترويجية في تطبيق YouTube";
+
+//MARK: HomeView.swift
+"Trending" = "الأكثر انتشارًا";
+"This week" = "هذا الأسبوع";
+"Today" = "اليوم";
+"My Pins" = "الدبابيس الخاصة بي";
+"Your pinned items" = "العناصر التي قُمت بتثبيتها";
+"Remove Pin" = "إزالة الدبوس";
+
+//MARK: WatchlistSectionView.swift
+"Coming Soon" = "قريبًا";
+"From Watchlist" = "من قائمة الانتظار";
+
+//MARK: CastDetailsView.swift
+"Biography" = "السيرة الذاتية";
+"Cast & Crew" = "الممثلين وطاقم العمل";
+
+//MARK: SeasonListView.swift
+"Seasons" = "المواسم";
+"Season %lld" = "الموسم %lld";
+"Episode %lld" = "الحلقة %lld";
+"Mark Season as Watched" = "وضع علامة على الموسم كمشاهدة";
+
+//MARK: FilmographyView.swift
+"Filmography" = "السيرة الفنية";
+"Know for" = "معروف بـ";
+
+//MARK: SearchView.swift
+"Search" = "بحث";
+"Movies, Shows, People" = "الأفلام والبرامج التلفزيونية والأشخاص";
+"Searching" = "جاري البحث";
+"No Results" = "لا توجد نتائج";
+"All" = "الكل";
+"Shows" = "البرامج التلفزيونية";
+
+//MARK: WatchlistView.swift
+"Your list is empty." = "القائمة فارغة.";
+"Coming Soon" = "قريبًا";
+"Now Available" = "متوفر الآن";
+"Released" = "تم الإصدار";
+"Watchlist" = "قائمة الانتظار";
+"Search watchlist" = "البحث في قائمة الانتظار";
+"In Production" = "جاري الإنتاج";
+"Production" = "في الإنتاج";
+"Cancelled" = "ملغى";
+"Unknown" = "غير معروف";
+"Released Movies" = "الأفلام المصدرة";
+"Released Shows" = "البرامج التلفزيونية المصدرة";
+"Releases" = "الإصدارات";
+"Upcoming" = "قادمة";
+"No results" = "لا توجد نتائج";
+"Search results" = "نتائج البحث";
+"This list is empty." = "هذه القائمة فارغة.";
+"Sort List" = "فرز القائمة";
+"Results from Watchlist" = "النتائج من قائمة الانتظار";
+"No results from Watchlist" = "لا توجد نتائج من قائمة الانتظار";
+"Results from TMDb" = "النتائج من TMDb";
+"No results from TMDb" = "لا توجد نتائج من TMDb";
+"Pin Item" = "تثبيت العنصر";
+"Unpin Item" = "إلغاء تثبيت العنصر";
+"Pin Items" = "تثبيت العناصر";
+
+
+// MARK: Error
+"Invalid Response" = "استجابة غير صحيحة.";
+"Invalid Request" = "طلب غير صحيح.";
+"Invalid Endpoint" = "نقطة نهاية غير صحيحة.";
+"Error reading this title" = "خطأ في قراءة هذا العنوان.";
+"Invalid API key: You must be granted a valid key." = "مفتاح واجهة برمجة التطبيقات غير صالح: يجب منح مفتاح صحيح.";
+"Internal error: Something went wrong, contact TMDB." = "خطأ داخلي: حدث خطأ ما، يرجى الاتصال بـ TMDb.";
+"The API is undergoing maintenance. Try again later." = "الواجهة البرمجية تحت الصيانة. يرجى المحاولة مرة أخرى لاحقًا.";
+"Error" = "خطأ";
+"Cancel" = "إلغاء";
+"Retry" = "إعادة المحاولة";
+
+// MARK: watchOS
+"Search TMDb" = "البحث في TMDb";
+"For more details, open the companion app." = "لمزيد من التفاصيل، قم بفتح تطبيق الرفيق.";
+
+// MARK: Widget
+"Shows movies and TV Shows trending from TMDb." = "يعرض أفلامًا وبرامج تلفزيونية شائعة من TMDb.";
+
+// MARK: NotificationListView
+"Notifications" = "الإشعارات";
+"Upcoming Notifications" = "الإشعارات القادمة";
+"Recent Notifications" = "الإشعارات الأخيرة";
+"No notifications" = "لا توجد إشعارات";
+"Remove Notification" = "إزالة الإشعار";
+"Loading" = "جارٍ التحميل";
+"%lld upcoming notifications." = "%lld إشعار قادم.";
+
+// MARK: WatchlistSubtitleRow
+"watchlistSubtitleRowNone" = "الافتراضي";
+"watchlistSubtitleRowGenre" = "النوع";
+"watchlistSubtitleRowDate" = "تاريخ الإصدار";
+
+// MARK: DoubleTapGesture
+"Watched" = "تمت المشاهدة";
+"Favorite" = "المفضلة";
+
+// MARK: WatchlistButtonView
+"removeDialogTitle" = "هل أنت متأكد؟";
+"confirmDialogAction" = "تأكيد";
+"cancelConfirmDialogAction" = "إلغاء";
+
+//MARK: WelcomeView.swift
+"Welcome to" = "مرحبًا بك في";
+" Cronica" = " كرونيكا";
+"Continue" = "متابعة";
+"Find" = "البحث عن";
+"Search for upcoming movies and tv shows." = "البحث عن الأفلام والبرامج التلفزيونية القادمة.";
+"Never miss out" = "لا تفوت أبدًا";
+"Get notifications about the newest releases." = "احصل على إشعارات حول أحدث الإصدارات.";
+"Organize" = "تنظيم";
+"Keep everything organized inside the Watchlist." = "احتفظ بكل شيء منظمًا داخل قائمة الانتظار.";
+"Your Watchlist" = "قائمة الانتظار الخاصة بك";
+"Add everything you want, the Watchlist automatically organizes it for you." = "أضف كل ما تريد، تقوم قائمة الانتظار تلقائيًا بتنظيمه لك.";
+"Discover what's next" = "اكتشف ما هو قادم";
+"The Discover will help you find your next favorite title." = "سيساعدك الاكتشاف في العثور على العنوان المفضل لديك التالي.";
+"Track your episodes" = "تتبع حلقاتك";
+"Keep track of every episode you've watched." = "تتبع كل حلقة شاهدتها.";
+"Always Synced" = "متزامن دائمًا";
+"Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "قائمة الانتظار الخاصة بك دائمًا متزامنة مع ساعة Apple Watch و iPad و Mac و Apple TV.";
+
+//MARK: WatchProviders
+"justWatchSubtitle" = "مُقدمة من JustWatch";
+"openWatchProviderTitle" = "سيفتح ذلك موقع TMDb مع الروابط إلى كل خدمة.";
+"confirmOpenWatchProvider" = "تأكيد";
+"confirmOpenDontAskAgainProvider" = "تأكيد وعدم السؤال مرة أخرى";
+"cancelOpenWatchProvider" = "إلغاء";
+"watchProviderTitleList" = "كيفية المشاهدة";
+"behaviorWatchProvidersTitle" = "موفرو الخدمة";
+"behaviorWatchProvidersSubtitle" = "شاهد الخدمات التي يتوفر بها المحتوى.";
+"watchRegionTitle" = "منطقة مقدمي الخدمة";
+"watchRegionSubtitle" = "سيتكيف موفرو الخدمة مع المنطقة المحددة.";
+"contentRegionTitle" = "المنطقة";
+"sendEmail" = "إرسال بريد إلكتروني";
+"sendEmailFooter" = "إذا كنت تفضل ذلك، يمكنك إرسال بريد إلكتروني للحصول على متابعة أسرع.";
+"mediaTypeDiscoverFilterTitle" = "نوع الوسائط";
+"genreDiscoverFilterTitle" = "النوع";
+"filterDiscoverTitle" = "الفلاتر";
+"hideAddedItemsDiscoverFilter" = "إخفاء العناصر المُضافة";
+"whereToWatchDiscoverFilter" = "أين تشاهد";
+"watchProviderToggleDiscover" = "عرض العناصر فقط من مقدمي الخدمة";
+"swipeGestureWatch" = "شاهد";
+"swipeGestureFavorite" = "المفضلة";
+"swipeGesturePin" = "تثبيت";
+"swipeGestureArchive" = "أرشفة";
+"swipeGestureDelete" = "حذف";
+"swipeGestureShare" = "مشاركة";
+"listName" = "اسم القائمة";
+"shareList" = "مشاركة القائمة";
+"listBasicHeader" = "أساسي";
+"newCustomListTitle" = "قائمة جديدة";
+"listDescription" = "وصف القائمة";
+"createList" = "حفظ";
+"newList" = "قائمة جديدة";
+"createList" = "إنشاء قائمة جديدة";
+"yourLists" = "قوائمك";
+"Lists" = "القوائم";
+"listItemsToAdd" = "تحديد العناصر";
+"cantSendFeedback" = "لإرسال التعليقات داخل التطبيق، يجب تعطيل 'تعطيل تقارير الأخطاء'";
+"addToList" = "إضافة إلى القائمة...";
+"companiesTitle" = "الشركات";
+"allCustomWatchListFilters" = "الكل";
+"moviesCustomWatchListFilters" = "الأفلام";
+"showsCustomWatchListFilters" = "البرامج التلفزيونية";
+"editListRemoveItems" = "إزالة العناصر";
+"%lld items • %@" = "%lld عناصر • %@";
+"Untitled List" = "قائمة بدون عنوان";
+"%llditems" = "%lld عنصر";
+"Default List" = "القائمة الافتراضية";
+"Title" = "العنوان";
+"Media" = "الوسائط";
+"Person" = "الشخص";
+"Save" = "حفظ";
+"featureRoadmap" = "ميزات قادمة";
+"featureRoadmapHeader" = "صوت للميزات القادمة التي ترغب في رؤيتها أولاً.";
+"featureRoadmapSubtitle" = "استخدم رمز 'إضافة' لاقتراح ميزة جديدة.";
+"importTitle" = "استيراد";
+"exportTitle" = "تصدير";
+"syncSettingsItemsTitle" = "العناصر";
+"generatingExportFile" = "جارٍ إنشاء ملف JSON، يرجى الانتظار.";
+"allowNotification" = "السماح بالإشعارات";
+"movieNotificationTitle" = "تنبيهات الأفلام";
+"movieNotificationSubtitle" = "تلقي إشعار عندما يتم إصدار فيلم من قائمة المشاهدة.";
+"episodeNotificationTitle" = "تنبيهات الحلقات الجديدة";
+"episodeNotificationSubtitle" = "تلقي إشعار عندما يتم إصدار حلقة جديدة من برنامج تلفزيوني من قائمة المشاهدة.";
+"settingsNotificationTitle" = "الإشعارات";
+"changelogViewTitle" = "ما الجديد";
+"tipJar" = "صندوق البقشيش";
+"tipJarDescription" = "إذا كنت تحب التطبيق، افكر في دعمه عبر صندوق البقشيش.";
+"featureOneTitle" = "القادم";
+"featureOneDescription" = "تحقق من الحلقة التالية من مسلسلك التلفزيوني المفضل وقم بوضع علامة عليها كمشاهدة بنقرة واحدة.";
+"featureTwoTitle" = "اقتراحات مخصصة";
+"featureTwoDescription" = "احصل على اقتراحات مخصصة للأفلام والبرامج التلفزيونية بناءً على ما شاهدته في Cronica.";
+"featureThreeTitle" = "تخصيص تجربتك";
+"featureThreeDescription" = "إعدادات إضافية وتحسينات لواجهة المستخدم لتخصيص Cronica بالطريقة التي تفضلها.";
+"thankYouTipJarMessage" = "شكرًا لشرائك! يُقدر دعمك كثيرًا. 😁";
+"notificationsSettingsFeedbackCall" = "هل لديك اقتراح؟ أرسل تعليق";
+"openNotificationInSettings" = "تحرير الإشعارات في تطبيق الإعدادات";
+"defaultWatchlistShowAllItems" = "عرض جميع العناصر";
+"defaultWatchlistSmartFilters" = "الفلاتر الذكية";
+"defaultWatchlistFilters" = "الفلاتر";
+"More Options" = "المزيد من الخيارات";
+"addToCustomList" = "إضافة إلى القائمة المخصصة...";
+"behaviorMarkPreviouslyEpisodes" = "وضع علامة على جميع الحلقات السابقة عند وضع علامة على الأحدث كمشاهدة";
+"changeLanguage" = "تغيير لغة التطبيق";
+"sendEmailFooterBackup" = "يمكنك أيضًا إرسال بريد إلكتروني إلى contact@alexandremadeira.dev باستخدام عميل البريد الإلكتروني الخاص بك.";
+"addedToWatchlist" = "تمت إضافتها إلى قائمة المشاهدة";
+"upNext" = "التالي";
+"markAsWatched" = "وضع علامة كمشاهدة";
+"recommendationsTitle" = "الاقتراحات";
+"recommendationsSubtitle" = "استنادًا إلى المحتوى الذي شاهدته";
+"allItems" = "كل العناصر";
+"mediaTypeFiltersNoFilter" = "الكل";
+"mediaTypeFiltersMovies" = "الأفلام";
+"mediaTypeFiltersTvShows" = "البرامج التلفزيونية";
+"mediaTypeFilter" = "فلتر حسب الوسائط";
+"allItemsMovies" = "كل الأفلام";
+"allItemsTVShows" = "كل البرامج التلفزيونية";
+"importedSucceeded" = "تم الاستيراد بنجاح";
+"appearanceAppIcon" = "أيقونة التطبيق";
+"Classical" = "كلاسيكي";
+"Ticket" = "تذكرة";
+"explorePreferredDisplayTypeCard" = "بطاقة";
+"explorePreferredDisplayTypePoster" = "بوستر";
+"itemContentListPreferredDisplayTypeStandard" = "افتراضي";
+"itemContentListPreferredDisplayTypeCard" = "بطاقة";
+"itemContentListPreferredDisplayTypePoster" = "بوستر";
+"appIconFeedbackTitle" = "هل لديك فكرة لأيقونة؟ أرسل تعليقًا";
+"exploreDisplayTypePicker" = "نمط العرض";
+"watchlistDisplayTypePicker" = "نمط العرض";
+"cronicaGitHub" = "مستودع Cronica على GitHub";
+"appearanceCompactUI" = "واجهة مستخدم مدمجة";
+"appearanceCompactUISubtitle" = "تقليل حجم بعض عناصر واجهة المستخدم لاستيعاب المزيد من العناصر على الشاشة.";
+"selectedWatchProvider" = "مقدمي الخدمة";
+"selectedWatchProviderTitle" = "مقدمي الخدمة المفضلة";
+"selectedWatchProviderSubtitle" = "عرض 'مقدم الخدمة' فقط إذا كان العنوان متوفرًا على أحد مقدمي الخدمة المفضلة.";
+"importExportWarning" = "التصدير/الاستيراد في مرحلة الاختبار، استخدمها فقط لتصدير بياناتك أو لاستيرادها إذا كنت تقوم بتبديل حساب iCloud الخاص بك، لا يوجد منطق حاليًا لتجنب التكرار. ستقدم تحديثات مستقبلية تجربة أفضل للجميع.";
+"tvShowDetails" = "تفاصيل البرنامج التلفزيوني";
+
+
+// MARK: TMDb Sync
+"AccountSettingsViewFooterHeader" = "قم بتوصيل حساب TMDb الخاص بك";
+"AccountSettingsViewFooter" = "قم بتوصيل حساب TMDb الخاص بك لاستيراد ومزامنة قائمة المشاهدة والقوائم الخاصة بك.";
+"AccountSettingsViewSignOut" = "الغاء الاتصال";
+"AccountSettingsViewSignIn" = "توصيل";
+"AccountSettingsViewListsManager" = "قوائمك في TMDb";
+"AccountSettingsViewHeaderSignIn" = "إدارة قوائمك في TMDb";
+"removeTMDBAccount" = "هل تريد قطع اتصال حساب TMDb؟";
+"Confirm" = "تأكيد";
+"tmdbLists" = "قوائمك في TMDb";
+"syncTMDBList" = "الحفاظ على مزامنة هذه القائمة";
+"importTMDBList" = "استيراد هذه القائمة";
+"tmdbListSyncConfig" = "التكوين";
+"importTMDBWatchlist" = "استيراد قائمة المشاهدة من TMDb";
+"syncNow" = "مزامنة الآن مع TMDb";
+"Loading" = "جاري التحميل";
+"AccountSettingsViewWatchlist" = "قائمة المشاهدة في TMDb";
+"importingTMDB" = "جاري استيراد قائمة المشاهدة الخاصة بك، يرجى الانتظار.";
+"needToSync %lld" = "هناك %lld عناصر متاحة للمزامنة";
+"itemsTMDB" = "عناصر قائمة المشاهدة الخاصة بك";
+"syncingWatchlistTMDB" = "جاري مزامنة قائمة المشاهدة الخاصة بك، يرجى الانتظار.";
+"syncWatchlist" = "مزامنة قائمة المشاهدة";
+"deleteList" = "حذف القائمة";
+"listDeleted" = "تم حذف هذه القائمة بنجاح.";
+"areYouSure" = "هل أنت متأكد؟";
+"deleteConfirmationMessage" = "لا يمكن التراجع عن هذا الإجراء.\nهذا لن يحذف القائمة المحلية، فقط القائمة على TMDb.";
+"emptyLists" = "فارغ";
+"publishListToTMDB" = "نشر القائمة على TMDb";
+"publishPublic" = "عام";
+"publishPrivate" = "خاص";
+"publishTMDBMessage" = "سيتم إنشاء قائمة جديدة بنفس العنوان والعناصر لهذه القائمة المحلية على TMDb.\nحدد مستوى الخصوصية الذي ترغب فيه:";
+
+"editNotes" = "تعديل الملاحظات";
+"createNote" = "إضافة ملاحظة";
+"reviewTitle" = "مراجعة";
+"reviewOf %@" = "مراجعة لـ: %@";
+"Season" = "الموسم";
+"Rating" = "التقييم";
+"Notes" = "الملاحظات";
+"enablePreferredLaunchScreen" = "تمكين الشاشة الافتتاحية المفضلة";
+"preferredLaunchScreen" = "الشاشة الافتتاحية المفضلة";
+
+"syncInProgress" = "جاري المزامنة";
+"upNextSubtitle" = "الحلقات القادمة";
+"pinnedList" = "القائمة المثبتة";
+"markThisSeasonAsWatched" = "وضع علامة على هذا الموسم كمشاهدة";
+"pinOnHome" = "تثبيت هذه القائمة في الصفحة الرئيسية";
+"markThisAndPreviously" = "وضع علامة على هذه الحلقة وجميع الحلقات السابقة كمشاهدة";
+"publishOnTMDB" = "نشر على TMDb";
+"shareEpisode" = "مشاركة الحلقة";
+"shareShow" = "مشاركة البرنامج التلفزيوني";
+"accentColor" = "لون التمييز";
+"showDetails" = "عرض التفاصيل";
+"removedFromPin" = "تمت إزالتها من التثبيت";
+"markedAsPin" = "تم التثبيت";
+"removedFromArchive" = "تمت إزالتها من الأرشيف";
+"markedAsArchive" = "تم الأرشفة";
+
+"aboutTitle" = "حول";
+"Version %@" = "الإصدار %@";
+"TelemetryDeck" = "TelemetryDeck";
+"Roadmap" = "خطة العمل";
+"Developed by Alexandre Madeira" = "تم التطوير بواسطة Alexandre Madeira";
+"Official Website" = "الموقع الرسمي";
+"%lld/10" = "%lld/10";
+"First Air Date" = "تاريخ العرض الأول";
+"%lld Seasons • %lld Episodes" = "%lld موسم • %lld حلقة";
+"Overview" = "نظرة عامة";
+"Original Title" = "العنوان الأصلي";
+"What's New" = "ما الجديد";
+
+
+"settingsRegionContentTitle" = "المحتوى والمنطقة";
+"appRegionTitle" = "المنطقة";
+"appRegionSubtitle" = "سيقوم التطبيق بتكيف مزودي البث بناءً على منطقتك.";
+"Translation" = "الترجمة";
+"German" = "الألمانية";
+"Libraries" = "المكتبات";
+"Source Code" = "شيفرة المصدر";
+"Show More" = "عرض المزيد";
+"Collapse" = "طي";
+"Watching" = "مشاهدة";
+"connectedAccounts" = "الحسابات المتصلة";
+"connectedAccountTMDB" = "قاعدة بيانات الأفلام";
+"importingWatchlistTMDB" = "جارٍ الاستيراد، يرجى الانتظار.";
+"importTMDBWatchlist" = "استيراد قائمة المشاهدة";
+"Account" = "الحساب";
+"Ended Series" = "المسلسلات المنتهية";
+"Create" = "إنشاء";
+"Production Companies" = "شركات الإنتاج";
+"releaseDates" = "تواريخ الإصدار";
+"removeFromPinOnWatchedTitle" = "إزالة من الثابت عند وضع علامة على العنصر كمشاهدة";
+"Remove" = "إزالة";
+"openCustomListSelectorWhenAdding" = "فتح محدد القوائم عند إضافة عنصر";
+"showConfirmationOnRemovingItem" = "عرض تأكيد الإزالة";
+"S%d, E%d" = "الموسم %d، الحلقة %d";
+"Premiere" = "الاطلاق الأول";
+"Theatrical Limited" = "عرض محدود";
+"Theatrical" = "عرض في دور السينما";
+"Digital" = "رقمي";
+"Physical" = "بدني";
+"TV" = "تلفزيون";
+"addedWatchlist" = "تمت الإضافة إلى قائمة المشاهدة";
+"removedWatchlist" = "تمت الإزالة من قائمة المشاهدة";
+"markedWatched" = "تم وضع علامة كمشاهدة";
+"removedWatched" = "تمت الإزالة من المشاهدة";
+"markedFavorite" = "تم وضع علامة كمفضل";
+"removedFavorite" = "تمت الإزالة من المفضلة";
+"markedArchive" = "تم وضع علامة كأرشيف";
+"removedArchive" = "تمت الإزالة من الأرشيف";
+"markedPin" = "تم التثبيت";
+"removedPin" = "تمت الإزالة من التثبيت";
+"Mark some episodes as watched to use Up Next." = "قم بوضع علامة على بعض الحلقات كمشاهدة لاستخدام القادمة.";
+"Your upcoming items will appear here." = "ستظهر عناصرك القادمة هنا.";
+"Prefer Poster in Details Page" = "المفضلة: البوستر في صفحة التفاصيل";
+"Details Page" = "صفحة التفاصيل";

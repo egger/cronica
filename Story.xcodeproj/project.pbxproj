@@ -617,6 +617,12 @@
 		B8C335462815ED140055389D /* WatchListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSection.swift; sourceTree = "<group>"; };
 		B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
 		B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
+		B8C852622A7026CD00A1CE85 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8C852632A7026CD00A1CE85 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8C852642A702A2500A1CE85 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8C852652A702A2500A1CE85 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8C852662A702E5900A1CE85 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8C852672A702E5900A1CE85 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B8CBBF1B2A4B7C3E0052A59B /* DetailedReleaseDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedReleaseDateView.swift; sourceTree = "<group>"; };
 		B8CC952027CFEBEC00B6757C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B8CC952927D02C5700B6757C /* ItemContentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentDetails.swift; sourceTree = "<group>"; };
@@ -1543,6 +1549,9 @@
 				"pt-BR",
 				de,
 				es,
+				ja,
+				ar,
+				fr,
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
@@ -1998,6 +2007,9 @@
 				B82BE50429A18A5A005F9990 /* en */,
 				B862F24829EEE1EA000AEC18 /* de */,
 				B8B8A42A2A6EAC6800E5533F /* es */,
+				B8C852632A7026CD00A1CE85 /* ja */,
+				B8C852652A702A2500A1CE85 /* ar */,
+				B8C852672A702E5900A1CE85 /* fr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -2009,6 +2021,9 @@
 				B8CC954F27D132F700B6757C /* pt-BR */,
 				B862F24729EEE1EA000AEC18 /* de */,
 				B8B8A4292A6EAC6800E5533F /* es */,
+				B8C852622A7026CD00A1CE85 /* ja */,
+				B8C852642A702A2500A1CE85 /* ar */,
+				B8C852662A702E5900A1CE85 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

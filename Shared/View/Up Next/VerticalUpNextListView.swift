@@ -75,6 +75,8 @@ struct VerticalUpNextListView: View {
                     ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                 }
             }
+            .appTheme()
+            .appTint()
 #if os(macOS)
             .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
 #endif
