@@ -119,6 +119,7 @@ struct CronicaApp: App {
 #endif
     }
     
+#if os(iOS)
     private func checkAskForReview() {
         if launchCount < 10 {
             launchCount += 1
@@ -129,6 +130,7 @@ struct CronicaApp: App {
             askedForReview = true
         }
     }
+#endif
     
     private func fetchContent(for id: String) async {
         if selectedItem != nil { selectedItem = nil }
