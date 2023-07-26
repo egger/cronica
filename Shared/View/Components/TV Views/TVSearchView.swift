@@ -38,9 +38,8 @@ struct TVSearchView: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(viewModel.items) { item in
-                            NavigationLink(value: item) {
-                                TVSearchItemContentView(item: item)
-                            }
+                            TVSearchItemContentView(item: item)
+                                .padding(.vertical)
                             .ignoresSafeArea(.all)
                             .buttonStyle(.card)
                         }

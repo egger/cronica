@@ -21,6 +21,9 @@ struct ItemContentTVView: View {
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
     @State private var hasFocused = false
+    @FocusState var isWatchlistInFocus: Bool
+    @FocusState var isWatchInFocus: Bool
+    @FocusState var isFavoriteInFocus: Bool
     var body: some View {
         VStack {
             ScrollView {
@@ -116,30 +119,52 @@ struct ItemContentTVView: View {
                 // Actions
                 HStack {
                     
-                    DetailWatchlistButton(showCustomList: .constant(false))
-                        .environmentObject(viewModel)
-                        .buttonStyle(.borderedProminent)
-                        .prefersDefaultFocus(in: tvOSActionNamespace)
-                        .focused($isWatchlistButtonFocused)
-                    Button {
-                        viewModel.update(.watched)
-                        viewModel.isWatched ? animate(for: .markedWatched) : animate(for: .removedWatched)
-                    } label: {
-                        Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                              systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                        .labelStyle(.iconOnly)
+                    VStack {
+                        DetailWatchlistButton(showCustomList: .constant(false))
+                            .environmentObject(viewModel)
+                            .buttonStyle(.borderedProminent)
+                            .prefersDefaultFocus(in: tvOSActionNamespace)
+                            .focused($isWatchlistButtonFocused)
+                        Text(viewModel.isInWatchlist ? "Remove" : "Add")
+                            .foregroundColor(.secondary)
+                            .font(.caption)
+                            .opacity(isWatchlistInFocus ? 1 : 0)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .focused($isWatchlistInFocus)
                     
-                    Button {
-                        viewModel.update(.favorite)
-                        viewModel.isFavorite ? animate(for: .markedFavorite) : animate(for: .removedFavorite)
-                    } label: {
-                        Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                              systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
-                        .labelStyle(.iconOnly)
+                    VStack {
+                        Button {
+                            viewModel.update(.watched)
+                            viewModel.isWatched ? animate(for: .markedWatched) : animate(for: .removedWatched)
+                        } label: {
+                            Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+                                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                            .labelStyle(.iconOnly)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        Text("Watched")
+                            .foregroundColor(.secondary)
+                            .font(.caption)
+                            .opacity(isWatchInFocus ? 1 : 0)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .focused($isWatchInFocus)
+                    
+                    VStack {
+                        Button {
+                            viewModel.update(.favorite)
+                            viewModel.isFavorite ? animate(for: .markedFavorite) : animate(for: .removedFavorite)
+                        } label: {
+                            Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                                  systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
+                            .labelStyle(.iconOnly)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        Text("Favorite")
+                            .foregroundColor(.secondary)
+                            .font(.caption)
+                            .opacity(isFavoriteInFocus ? 1 : 0)
+                    }
+                    .focused($isFavoriteInFocus)
                     Spacer()
                 }
             }

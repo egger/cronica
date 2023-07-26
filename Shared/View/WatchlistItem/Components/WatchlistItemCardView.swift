@@ -18,6 +18,9 @@ struct WatchlistItemCardView: View {
     @State private var showCustomListView = false
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
+#if os(tvOS)
+    @FocusState var isStackFocused: Bool
+#endif
     var body: some View {
         VStack {
             NavigationLink(value: content) {
@@ -37,7 +40,9 @@ struct WatchlistItemCardView: View {
                     .font(.caption)
                     .lineLimit(DrawingConstants.titleLineLimit)
 #if os(tvOS)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(isStackFocused ? .primary : .secondary)
+                    .opacity(isStackFocused ? 1 : 0)
+                    .padding(.vertical, 4)
 #endif
                 Spacer()
             }
@@ -61,6 +66,7 @@ struct WatchlistItemCardView: View {
                               showCustomList: $showCustomListView,
                               popupType: $popupType,
                               showPopup: $showPopup)
+        .focused($isStackFocused)
 #endif
         .sheet(isPresented: $showNote) {
             NavigationStack {

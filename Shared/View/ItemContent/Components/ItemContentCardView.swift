@@ -17,6 +17,9 @@ struct ItemContentCardView: View {
     @State private var isWatched = false
     @State private var showNote = false
     @State private var showCustomListView = false
+#if os(tvOS)
+    @FocusState var isStackFocused: Bool
+#endif
     var body: some View {
         VStack {
             NavigationLink(value: item) {
@@ -106,7 +109,9 @@ struct ItemContentCardView: View {
                     .lineLimit(DrawingConstants.titleLineLimit)
                     .accessibilityHidden(true)
 #if os(tvOS)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(isStackFocused ? .primary : .secondary)
+                    .opacity(isStackFocused ? 1 : 0)
+                    .padding(.vertical, 4)
 #endif
                 Spacer()
             }
@@ -121,6 +126,9 @@ struct ItemContentCardView: View {
                 }
             }
         }
+#if os(tvOS)
+        .focused($isStackFocused)
+#endif
         .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
             NavigationStack {
