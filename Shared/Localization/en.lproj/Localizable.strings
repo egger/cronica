@@ -655,3 +655,6 @@
 "Your upcoming items will appear here." = "Your upcoming items will appear here.";
 "Prefer Poster in Details Page" = "Prefer Poster in Details Page";
 "Details Page" = "Details Page";
+"moreInfoShow" = "More Info";
+"markedEpisodeWatched" = "Marked Episode as Watched";
+"removedEpisodeWatched" = "Removed Episode from Watched";

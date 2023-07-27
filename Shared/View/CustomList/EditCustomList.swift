@@ -25,6 +25,7 @@ struct EditCustomList: View {
     @State private var pinOnHome = false
     @State private var askConfirmationForDeletion = false
     @State private var isDeleted = false
+    @State private var itemsToAdd = Set<WatchlistItem>()
     var body: some View {
         Form {
             if isDeleted {
@@ -40,6 +41,9 @@ struct EditCustomList: View {
                 Section {
                     Toggle("pinOnHome", isOn: $pinOnHome)
                 }
+                
+                NavigationLink("listItemsToAdd",
+                               destination: NewCustomListItemSelector(itemsToAdd: $itemsToAdd, list: list))
                 
                 if !list.itemsSet.isEmpty {
                     NavigationLink("editListRemoveItems", destination: EditCustomListItemSelector(list: list, itemsToRemove: $itemsToRemove))
@@ -77,6 +81,9 @@ struct EditCustomList: View {
             if newValue != list.itemTitle {
                 disableSaveButton = false
             }
+        }
+        .onChange(of: itemsToAdd) { _ in
+            disableSaveButton = false
         }
         .onChange(of: note) { newValue in
             if newValue != list.notes {
@@ -120,6 +127,9 @@ struct EditCustomList: View {
         }
         if list.isPin != pinOnHome {
             persistence.updatePinOnHome(of: list)
+        }
+        if !itemsToAdd.isEmpty {
+            persistence.addItemsToList(items: itemsToAdd, list: list)
         }
         showListSelection = false
     }

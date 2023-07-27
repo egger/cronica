@@ -17,11 +17,26 @@ struct EpisodeDetailsView: View {
     @State private var isInWatchlist = false
     @State private var showOverview = false
     @StateObject private var settings = SettingsStore.shared
+    var isUpNext = false
+    @State private var showItem: ItemContent?
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
 #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 #endif
     var body: some View {
         details
+            .actionPopup(isShowing: $showPopup, for: popupType)
+            .onChange(of: isWatched) { hasWatched in
+                if isUpNext { return }
+                if hasWatched {
+                    popupType = .markedEpisodeWatched
+                    showPopup = true
+                } else {
+                    popupType = .removedEpisodeWatched
+                    showPopup = true
+                }
+            }
     }
     
 #if os(tvOS)
@@ -144,16 +159,37 @@ struct EpisodeDetailsView: View {
                                        season: season,
                                        show: show,
                                        isWatched: $isWatched)
-                    .tint(isWatched ? .red.opacity(0.9) : settings.appTheme.color)
+                    .tint(settings.appTheme.color)
                     .buttonStyle(.borderedProminent)
 #if os(iOS)
                     .buttonBorderShape(.roundedRectangle(radius: 12))
-#endif
-                    .controlSize(.large)
-                    .frame(height: 60)
+                    .padding(isUpNext ? .leading : .horizontal)
+#else
                     .padding(.horizontal)
+                    .controlSize(.large)
+#endif
                     .keyboardShortcut("e", modifiers: [.control])
-                    .shadow(radius: 2.5)
+                    .shadow(radius: isUpNext ? 0 : 2.5)
+#if os(iOS)
+                    if let showItem {
+                        NavigationLink(value: showItem) {
+                            VStack {
+                                Image(systemName: "info.circle.fill")
+                                Text("moreInfoShow")
+                                    .lineLimit(1)
+                                    .padding(.top, 2)
+                                    .font(.caption)
+                            }
+                            .frame(height: 40)
+                            .padding(.vertical, 4)
+                            .frame(minWidth: 60 )
+                        }
+                        .buttonStyle(.bordered)
+                        .buttonBorderShape(.roundedRectangle(radius: 12))
+                        .tint(.primary)
+                        .padding(.horizontal)
+                    }
+#endif
                 }
                 .padding(.top, 4)
                 .padding(.bottom)
@@ -167,6 +203,13 @@ struct EpisodeDetailsView: View {
         }
         .background {
             TranslucentBackground(image: episode.itemImageLarge)
+        }
+        .onAppear {
+            if isUpNext && showItem == nil {
+                Task {
+                    showItem = try await NetworkService.shared.fetchItem(id: show, type: .tvShow)
+                }
+            }
         }
     }
 #endif

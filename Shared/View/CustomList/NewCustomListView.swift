@@ -103,15 +103,18 @@ struct NewCustomListItemSelector: View {
     var preSelectedItem: WatchlistItem?
     @State private var query = String()
     @State private var searchItems = [WatchlistItem]()
+    var list: CustomList?
     var body: some View {
         Form {
             if !searchItems.isEmpty {
                 List(searchItems) { item in
                     NewListItemSelectorRow(item: item, selectedItems: $itemsToAdd)
+                        .disabled(item.listsArray.contains(where: { $0 == list}))
                 }
             } else {
-                List(items, id: \.itemContentID) {
-                    NewListItemSelectorRow(item: $0, selectedItems: $itemsToAdd)
+                List(items) { item in
+                    NewListItemSelectorRow(item: item, selectedItems: $itemsToAdd)
+                        .disabled(item.listsArray.contains(where: { $0 == list}))
                 }
             }
         }

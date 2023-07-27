@@ -30,6 +30,10 @@ extension PersistenceController {
         save()
     }
     
+    func isItemOnList(id: String, list: CustomList) -> Bool {
+        return list.itemsSet.contains(where:  { $0.itemContentID == id })
+    }
+    
     func updateList(for id: String, to list: CustomList) {
         let item = fetch(for: id)
         guard let item else { return }
@@ -64,6 +68,16 @@ extension PersistenceController {
     
     func updatePinOnHome(of list: CustomList) {
         list.isPin.toggle()
+        save()
+    }
+    
+    func addItemsToList(items: Set<WatchlistItem>, list: CustomList) {
+        var set = Set<WatchlistItem>()
+        set = list.itemsSet
+        for item in items {
+            set.insert(item)
+        }
+        list.items = set as NSSet
         save()
     }
     

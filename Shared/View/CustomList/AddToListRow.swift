@@ -84,14 +84,13 @@ struct TMDBAddToListRow: View {
     }
     
     private func isItemInList() {
-        if let item {
-            Task {
-                let isItemOnList = await viewModel.checkItemStatusOnList(list.id,
-                                                                         itemID: item.itemId,
-                                                                         itemMedia: item.itemMedia)
-                await MainActor.run {
-                    withAnimation { isItemAdded = isItemOnList }
-                }
+        guard let item else { return }
+        Task {
+            let isItemOnList = await viewModel.checkItemStatusOnList(list.id,
+                                                                     itemID: item.itemId,
+                                                                     itemMedia: item.itemMedia)
+            await MainActor.run {
+                withAnimation { isItemAdded = isItemOnList }
             }
         }
     }
