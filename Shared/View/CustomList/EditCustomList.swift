@@ -62,6 +62,14 @@ struct EditCustomList: View {
                         isDeleted = true
                         PersistenceController.shared.delete(list)
                     }
+                    Button("confirmAndDeleteItems", role: .destructive) {
+                        isDeleted = true
+                        let itemsToDelete = list.itemsArray
+                        PersistenceController.shared.delete(list)
+                        for item in itemsToDelete {
+                            PersistenceController.shared.delete(item)
+                        }
+                    }
                 }
                 
             }
