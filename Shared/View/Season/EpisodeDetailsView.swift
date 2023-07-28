@@ -159,14 +159,15 @@ struct EpisodeDetailsView: View {
                                        season: season,
                                        show: show,
                                        isWatched: $isWatched)
-                    .tint(settings.appTheme.color)
                     .buttonStyle(.borderedProminent)
 #if os(iOS)
                     .buttonBorderShape(.roundedRectangle(radius: 12))
                     .padding(isUpNext ? .leading : .horizontal)
-#else
+                    .tint(settings.appTheme.color)
+#elseif os(macOS)
                     .padding(.horizontal)
                     .controlSize(.large)
+                    .tint(isWatched ? .red : .blue)
 #endif
                     .keyboardShortcut("e", modifiers: [.control])
                     .shadow(radius: isUpNext ? 0 : 2.5)

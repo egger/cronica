@@ -45,6 +45,8 @@ struct EpisodeDetailsView: View {
                     .padding([.horizontal, .bottom])
                 
                 WatchEpisodeButton(episode: episode, season: season, show: show, isWatched: $isWatched)
+                    .buttonStyle(.borderedProminent)
+                    .tint(isWatched ? .orange : .green)
                     .padding([.bottom, .horizontal])
                     .onAppear(perform: load)
                 

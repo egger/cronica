@@ -37,10 +37,8 @@ struct WatchEpisodeButton: View {
 #endif
 #endif
         }
+#if os(iOS)
         .applyHoverEffect()
-#if os(watchOS)
-        .buttonStyle(.borderedProminent)
-        .tint(isWatched ? .orange : .green)
 #endif
     }
     
