@@ -188,14 +188,15 @@ extension ItemContent {
         default: return .movie
         }
     }
-    var itemTrailers: [VideoItem]? {
-        return NetworkService.fetchVideos(for: videos?.results)
+    var itemTrailers: [VideoItem] {
+        guard let content = NetworkService.fetchVideos(for: videos?.results) else {
+            return []
+        }
+        return content
     }
     var itemCompanies: [ProductionCompany] {
-        if let productionCompanies {
-            return productionCompanies
-        }
-        return []
+        guard let productionCompanies else { return [] }
+        return productionCompanies
     }
     
     // MARK: URL

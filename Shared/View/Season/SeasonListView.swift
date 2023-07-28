@@ -26,7 +26,9 @@ struct SeasonList: View {
             list
         }
         .task {
-            load()
+            if !hasFirstLoaded {
+                await load()
+            }
         }
 #if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
@@ -57,7 +59,7 @@ struct SeasonList: View {
             .pickerStyle(.menu)
 #endif
             .onChange(of: selectedSeason) { _ in
-                load()
+                Task { await load() }
             }
             .padding(.leading)
             .padding(.bottom, 1)
@@ -91,7 +93,19 @@ struct SeasonList: View {
             } else {
                 if let season = season?.episodes {
                     if season.isEmpty {
-                        emptySeason
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Image(systemName: "tv.fill")
+                                    .font(.title)
+                                    .padding(.bottom, 6)
+                                Text("No Episode Available")
+                            }
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal)
+                            Spacer()
+                        }
+                        .padding(.horizontal)
                     } else {
                         ScrollViewReader { proxy in
                             VStack {
@@ -137,49 +151,33 @@ struct SeasonList: View {
                 }
             }
         }
-        #if os(tvOS)
+#if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
-        #endif
+#endif
     }
     
-    private var emptySeason: some View {
-        CenterHorizontalView {
-            VStack {
-                Image(systemName: "tv.fill")
-                    .font(.title)
-                    .padding(.bottom, 6)
-                Text("No Episode Available")
-            }
-            .foregroundColor(.secondary)
-            .padding(.horizontal)
-        }
-    }
-    
-    private func load() {
-        Task {
-            let contentId = "\(showID)@\(MediaType.tvShow.toInt)"
-            let isShowSaved = persistence.isItemSaved(id: contentId)
-            if !hasFirstLoaded && isShowSaved {
-                let lastPickedSeason = persistence.getLastSelectedSeason(contentId)
-                guard let lastPickedSeason else {
-                    self.lastSelectedSeason = 1
-                    return
-                }
-                self.previouslySelectedSeason = lastPickedSeason
-                self.selectedSeason = lastPickedSeason
-                self.lastSelectedSeason = lastPickedSeason
-                await fetch(season: lastSelectedSeason)
-                hasFirstLoaded = true
+    private func load() async {
+        let contentId = "\(showID)@\(MediaType.tvShow.toInt)"
+        let isShowSaved = persistence.isItemSaved(id: contentId)
+        if !hasFirstLoaded && isShowSaved {
+            let lastPickedSeason = persistence.getLastSelectedSeason(contentId)
+            guard let lastPickedSeason else {
+                self.lastSelectedSeason = 1
                 return
             }
-            if previouslySelectedSeason != selectedSeason {
-                await fetch(season: selectedSeason)
-                previouslySelectedSeason = selectedSeason
-            } else {
-                await fetch(season: selectedSeason)
-                previouslySelectedSeason = selectedSeason
-            }
+            self.previouslySelectedSeason = lastPickedSeason
+            self.selectedSeason = lastPickedSeason
+            self.lastSelectedSeason = lastPickedSeason
+            await fetch(season: lastSelectedSeason)
+        } else if previouslySelectedSeason != selectedSeason {
+            await fetch(season: selectedSeason)
+            previouslySelectedSeason = selectedSeason
+        } else {
+            if hasFirstLoaded && lastSelectedSeason == selectedSeason { return }
+            await fetch(season: selectedSeason)
+            previouslySelectedSeason = selectedSeason
         }
+        self.hasFirstLoaded = true
     }
     
     private func fetch(season: Int) async {

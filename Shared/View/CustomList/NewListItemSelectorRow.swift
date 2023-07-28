@@ -34,7 +34,7 @@ struct NewListItemSelectorRow: View {
                     .placeholder {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
-                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
+                            Image(systemName: "popcorn.fill")
                         }
                     }
                     .aspectRatio(contentMode: .fill)

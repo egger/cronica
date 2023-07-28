@@ -68,7 +68,7 @@ struct WatchlistItemContextMenu: ViewModifier {
             } preview: {
                 ContextMenuPreviewImage(title: item.itemTitle,
                                         image: item.itemImage,
-                                        overview: item.itemPreviewOverview)
+                                        overview: String())
             }
 #endif
     }

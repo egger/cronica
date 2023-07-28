@@ -17,6 +17,7 @@ class BackgroundManager {
     private static let lastUpcomingRefreshKey = "lastUpcomingRefreshKey"
     static let shared = BackgroundManager()
     
+    
     private init() { }
     
     var lastMaintenance: Date? {

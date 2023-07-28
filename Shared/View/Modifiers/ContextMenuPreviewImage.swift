@@ -19,11 +19,13 @@ struct ContextMenuPreviewImage: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.regularMaterial)
-                        Label(title, systemImage: "film")
+                        Label(title, systemImage: "popcorn.fill")
+                            .font(.title3)
+                            .fontDesign(.rounded)
                             .foregroundColor(.secondary)
                             .padding()
                     }
-                    .frame(width: 260, height: 180)
+                    .frame(width: 300, height: 180)
                 }
                 .aspectRatio(contentMode: .fill)
                 .overlay {
@@ -65,16 +67,18 @@ struct ContextMenuPreviewImage: View {
                                             .foregroundColor(.white)
                                             .fontWeight(.semibold)
                                             .lineLimit(1)
-                                            .padding(.horizontal)
-                                            .padding(.bottom, 2)
+                                            .padding(overview.isEmpty ? [.horizontal, .bottom] : .horizontal)
                                         Spacer()
                                     }
-                                    Text(overview)
-                                        .lineLimit(2)
-                                        .font(.caption)
-                                        .foregroundColor(.white)
-                                        .padding(.horizontal)
-                                        .padding(.bottom, 16)
+                                    if !overview.isEmpty {
+                                        Text(overview)
+                                            .lineLimit(2)
+                                            .font(.caption)
+                                            .foregroundColor(.white)
+                                            .padding(.horizontal)
+                                            .padding(.bottom, 16)
+                                            .padding(.top, 2)
+                                    }
                                 }
                             }
                         }

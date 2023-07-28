@@ -45,13 +45,9 @@ struct WatchlistItemRowView: View {
                 }
                 .padding(.leading, 2)
 #if os(iOS) || os(macOS)
-                if isFavorite || content.favorite {
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .symbolRenderingMode(.multicolor)
-                        .padding(.trailing)
-                        .accessibilityHidden(true)
-                }
+                Spacer()
+                IconGridView(isFavorite: $isFavorite, isPin: $isPin)
+                    .accessibilityHidden(true)
 #endif
             }
             .task {
@@ -108,8 +104,11 @@ struct WatchlistItemRowView: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        Image(systemName: content.itemMedia == .movie ? "film" : "tv")
+                        Image(systemName: "popcorn.fill")
+                            .font(.title3)
+                            .fontWidth(.expanded)
                             .foregroundColor(.white.opacity(0.8))
+                            .padding()
                     }
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
@@ -146,4 +145,59 @@ private struct DrawingConstants {
 #endif
     static let imageHeight: CGFloat = 50
     static let imageRadius: CGFloat = 8
+}
+
+import SwiftUI
+
+struct IconGridView: View {
+    @Binding var isFavorite: Bool
+    @Binding var isPin: Bool
+
+    var body: some View {
+        if isSingleIconVisible {
+            // Display the single icon alone, bigger.
+            getSingleIcon()
+                .imageScale(.medium)
+                .symbolRenderingMode(.multicolor)
+                .padding()
+        } else if hasNoIcon {
+            EmptyView()
+        } else {
+            VStack {
+                iconImage(systemName: "heart.fill", isVisible: isFavorite)
+                    .padding(.bottom, 1)
+                iconImage(systemName: "pin.fill", isVisible: isPin)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func iconImage(systemName: String, isVisible: Bool) -> some View {
+        if isVisible {
+            Image(systemName: systemName)
+                .imageScale(.small)
+                .symbolRenderingMode(.multicolor)
+                .padding(.trailing)
+        } else {
+            Color.clear  // Placeholder to maintain layout even if icon is hidden
+        }
+    }
+
+    private var isSingleIconVisible: Bool {
+        let visibleIconsCount = [isFavorite, isPin].filter { $0 }.count
+        return visibleIconsCount == 1
+    }
+    
+    private var hasNoIcon: Bool {
+        let visibleIconsCount = [isFavorite, isPin].filter { $0 }.count
+        return visibleIconsCount == 0
+    }
+
+    private func getSingleIcon() -> Image {
+        if isFavorite {
+            return Image(systemName: "heart.fill")
+        } else {
+            return Image(systemName: "pin.fill")
+        }
+    }
 }

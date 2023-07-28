@@ -27,8 +27,8 @@ struct TitleView: View {
                     if showChevron {
                         Image(systemName: "chevron.right")
                             .fontDesign(.rounded)
-                            .font(.title3)
-                            .fontWeight(.semibold)
+                            .font(.callout)
+                            .fontWeight(.regular)
                             .foregroundColor(.secondary)
                             .padding(.top)
                             .accessibilityHidden(true)

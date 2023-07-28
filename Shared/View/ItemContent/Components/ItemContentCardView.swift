@@ -15,6 +15,8 @@ struct ItemContentCardView: View {
     private let context = PersistenceController.shared
     @State private var isInWatchlist = false
     @State private var isWatched = false
+    @State private var isPin = false
+    @State private var isFavorite = false
     @State private var showNote = false
     @State private var showCustomListView = false
 #if os(tvOS)
@@ -28,16 +30,9 @@ struct ItemContentCardView: View {
                     .placeholder {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
-                            VStack {
-                                Text(item.itemTitle)
-                                    .font(.caption)
-                                    .foregroundColor(DrawingConstants.placeholderForegroundColor)
-                                    .lineLimit(1)
-                                    .padding()
-                                Image(systemName: item.itemContentMedia == .tvShow ? "tv" : "film")
-                                    .foregroundColor(DrawingConstants.placeholderForegroundColor)
-                            }
-                            .padding()
+                            Image(systemName: "popcorn.fill")
+                                .foregroundColor(DrawingConstants.placeholderForegroundColor)
+                                .padding()
                         }
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)
@@ -49,19 +44,35 @@ struct ItemContentCardView: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
+                                    if isPin {
+                                        Image(systemName: "pin.fill")
+                                            .imageScale(.small)
+                                            .foregroundColor(.white.opacity(0.9))
+                                            .padding([.vertical])
+                                            .padding(.trailing, 4)
+                                    }
+                                    if isFavorite {
+                                        Image(systemName: "suit.heart.fill")
+                                            .imageScale(.small)
+                                            .foregroundColor(.white.opacity(0.9))
+                                            .padding([.vertical])
+                                            .padding(.trailing, 4)
+                                    }
                                     if isWatched {
                                         Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(DrawingConstants.placeholderForegroundColor)
-                                            .padding()
+                                            .imageScale(.small)
+                                            .foregroundColor(.white.opacity(0.9))
+                                            .padding([.vertical, .trailing])
                                     } else {
                                         Image(systemName: "square.stack.fill")
-                                            .foregroundColor(DrawingConstants.placeholderForegroundColor)
-                                            .padding()
+                                            .imageScale(.small)
+                                            .foregroundColor(.white.opacity(0.9))
+                                            .padding([.vertical, .trailing])
                                     }
                                 }
                                 .background {
                                     if item.cardImageMedium != nil {
-                                        Color.black.opacity(0.5)
+                                        Color.black.opacity(0.6)
                                             .mask {
                                                 LinearGradient(colors:
                                                                 [Color.black,
@@ -121,8 +132,10 @@ struct ItemContentCardView: View {
         .task {
             withAnimation {
                 isInWatchlist = context.isItemSaved(id: item.itemContentID)
-                if isInWatchlist && !isWatched {
+                if isInWatchlist {
                     isWatched = context.isMarkedAsWatched(id: item.itemContentID)
+                    isPin = context.isItemPinned(id: item.itemContentID)
+                    isFavorite = context.isMarkedAsFavorite(id: item.itemContentID)
                 }
             }
         }

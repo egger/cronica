@@ -64,13 +64,13 @@ struct ItemContentTVView: View {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
                         VStack {
+                            Image(systemName: "popcorn.fill")
+                                .font(.title)
+                                .foregroundColor(.white.opacity(0.8))
                             Text(title)
                                 .foregroundColor(.white.opacity(0.8))
                                 .lineLimit(1)
                                 .padding()
-                            Image(systemName: type == .tvShow ? "tv" : "film")
-                                .font(.title)
-                                .foregroundColor(.white.opacity(0.8))
                             
                         }
                         .padding()

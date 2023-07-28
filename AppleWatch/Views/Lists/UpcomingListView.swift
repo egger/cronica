@@ -64,8 +64,10 @@ struct UpcomingListView: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        Image(systemName: item.itemMedia == .tvShow ? "tv" : "film")
+                        Image(systemName: "popcorn.fill")
+                            .fontWidth(.expanded)
                             .foregroundColor(.white.opacity(0.8))
+                            .padding([.horizontal, .bottom])
                     }
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)

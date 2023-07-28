@@ -157,12 +157,6 @@ extension WatchlistItem {
     var itemContentID: String {
         return "\(itemId)@\(itemMedia.toInt)"
     }
-    var itemPreviewOverview: String {
-        if let formattedDate {
-            return "\(itemMedia.title) • \(formattedDate)"
-        }
-        return "\(itemMedia.title)"
-    }
     var itemDate: Date? {
         guard let date else { return nil }
         return date

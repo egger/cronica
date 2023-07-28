@@ -31,7 +31,7 @@ struct TVSearchItemContentView: View {
                             if item.media == .person {
                                 Image(systemName: "person")
                             } else {
-                                Image(systemName: "film")
+                                Image(systemName: "popcorn.fill")
                             }
                         }
                         .frame(width: DrawingConstants.posterWidth,

@@ -24,8 +24,9 @@ struct ItemContentRowView: View {
                 WebImage(url: item.cardImageMedium)
                     .placeholder {
                         ZStack {
-                            Color.secondary
-                            Image(systemName: "film")
+                            Rectangle().fill(.gray.gradient)
+                            Image(systemName: "popcorn.fill")
+                                .foregroundColor(.white.opacity(0.8))
                         }
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)

@@ -74,16 +74,9 @@ struct ItemContentPadView: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        VStack {
-                            Text(title)
-                                .foregroundColor(.white.opacity(0.8))
-                                .lineLimit(1)
-                                .padding()
-                            Image(systemName: type == .tvShow ? "tv" : "film")
-                                .font(.title)
-                                .foregroundColor(.white.opacity(0.8))
-                            
-                        }
+                        Image(systemName: "popcorn.fill")
+                            .font(.title)
+                            .foregroundColor(.white.opacity(0.8))
                         .padding()
                     }
                 }

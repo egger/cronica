@@ -59,6 +59,7 @@ extension PersistenceController {
         if isItemSaved(id: content.itemContentID) {
             let item = fetch(for: content.itemContentID)
             guard let item else { return }
+            if item.isReleased && !item.itemLastUpdateDate.hasPassedTwoWeek() { return }
             if item.title != content.itemTitle {
                 item.title = content.itemTitle
             }

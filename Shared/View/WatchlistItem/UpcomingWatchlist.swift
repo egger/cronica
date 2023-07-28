@@ -119,8 +119,11 @@ struct UpcomingWatchlist: View {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
                         Color.black.opacity(0.4)
-                        Image(systemName: item.itemMedia == .tvShow ? "tv" : "film")
-                            .foregroundColor(.secondary)
+                        Image(systemName: "popcorn.fill")
+                            .font(.title)
+                            .fontWidth(.expanded)
+                            .foregroundColor(.white.opacity(0.8))
+                            .padding()
                     }
                 }
                 .aspectRatio(contentMode: .fill)

@@ -290,7 +290,7 @@ class NetworkService {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "img.youtube.com"
-        urlComponents.path = "/vi/\(id)/maxresdefault.jpg"
+        urlComponents.path = "/vi/\(id)/mqdefault.jpg"
         return urlComponents.url
     }
 }

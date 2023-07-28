@@ -76,19 +76,35 @@ struct WatchlistItemPosterView: View {
                         Spacer()
                         HStack {
                             Spacer()
+                            if isPin {
+                                Image(systemName: "pin.fill")
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical])
+                                    .padding(.trailing, 4)
+                            }
+                            if isFavorite {
+                                Image(systemName: "suit.heart.fill")
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical])
+                                    .padding(.trailing, 4)
+                            }
                             if isWatched {
                                 Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.white.opacity(0.8))
-                                    .padding()
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical, .trailing])
                             } else {
                                 Image(systemName: "square.stack.fill")
-                                    .foregroundColor(.white.opacity(0.8))
-                                    .padding()
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical, .trailing])
                             }
                         }
                         .background {
                             if content.mediumPosterImage != nil {
-                                Color.black.opacity(0.5)
+                                Color.black.opacity(0.6)
                                     .mask {
                                         LinearGradient(colors:
                                                         [Color.black,

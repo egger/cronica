@@ -11,12 +11,13 @@ import SDWebImageSwiftUI
 struct TrailerListView: View {
     var trailers: [VideoItem]?
     @State var selectedItem: VideoItem? = nil
+    @State private var hasLoaded = false
     @AppStorage("openInYouTube") var openInYouTube = false
     var body: some View {
         if let trailers {
             if !trailers.isEmpty {
                 VStack {
-                    TitleView(title: "Trailers", subtitle: "", showChevron: false)
+                    TitleView(title: "Trailers")
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(trailers) { trailer in

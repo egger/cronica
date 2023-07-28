@@ -16,21 +16,26 @@ struct PosterPlaceholder: View {
             Rectangle().fill(.gray.gradient)
             VStack {
                 if settings.isCompactUI {
-                    Image(systemName: type == .tvShow ? "tv" : "film")
+                    Image(systemName: "popcorn.fill")
                         .font(.title3)
+                        .fontWidth(.expanded)
                         .foregroundColor(.white.opacity(0.8))
-                } else {
-                    Text(title)
-                        .foregroundColor(.white.opacity(0.8))
-                        .lineLimit(1)
                         .padding()
-                    Image(systemName: type == .tvShow ? "tv" : "film")
+                } else {
+                    Image(systemName: "popcorn.fill")
                         .font(.title)
+                        .fontWidth(.expanded)
                         .foregroundColor(.white.opacity(0.8))
+                        .padding()
+                    Text(title)
+                        .font(.callout)
+                        .foregroundColor(.white.opacity(0.8))
+                        .lineLimit(2)
+                        .padding(.bottom)
+                        .padding(.horizontal, 4)
                 }
                 
             }
-            .padding()
         }
         .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
                height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)

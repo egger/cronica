@@ -60,6 +60,10 @@ struct VerticalUpNextListView: View {
                 }
                 .padding()
             }
+            .refreshable {
+                Task { await viewModel.reload(items) }
+            }
+            .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
         }
         .sheet(item: $selectedEpisode) { item in
             NavigationStack {
@@ -75,10 +79,11 @@ struct VerticalUpNextListView: View {
                     ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                 }
             }
-            .appTheme()
-            .appTint()
 #if os(macOS)
             .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#elseif os(iOS)
+            .appTheme()
+            .appTint()
 #endif
         }
         .task(id: viewModel.isWatched) {

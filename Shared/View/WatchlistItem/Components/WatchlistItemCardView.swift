@@ -106,19 +106,35 @@ struct WatchlistItemCardView: View {
                     Spacer()
                     HStack {
                         Spacer()
+                        if isPin {
+                            Image(systemName: "pin.fill")
+                                .imageScale(.small)
+                                .foregroundColor(.white.opacity(0.9))
+                                .padding([.vertical])
+                                .padding(.trailing, 4)
+                        }
+                        if isFavorite {
+                            Image(systemName: "suit.heart.fill")
+                                .imageScale(.small)
+                                .foregroundColor(.white.opacity(0.9))
+                                .padding([.vertical])
+                                .padding(.trailing, 4)
+                        }
                         if isWatched {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(DrawingConstants.placeholderForegroundColor)
-                                .padding()
+                                .imageScale(.small)
+                                .foregroundColor(.white.opacity(0.9))
+                                .padding([.vertical, .trailing])
                         } else {
                             Image(systemName: "square.stack.fill")
-                                .foregroundColor(DrawingConstants.placeholderForegroundColor)
-                                .padding()
+                                .imageScale(.small)
+                                .foregroundColor(.white.opacity(0.9))
+                                .padding([.vertical, .trailing])
                         }
                     }
                     .background {
                         if content.image != nil {
-                            Color.black.opacity(0.5)
+                            Color.black.opacity(0.6)
                                 .mask {
                                     LinearGradient(colors:
                                                     [Color.black,
@@ -191,13 +207,11 @@ struct WatchlistItemCardView: View {
         ZStack {
             Rectangle().fill(.gray.gradient)
             VStack {
-                Text(content.itemTitle)
-                    .font(.caption)
-                    .foregroundColor(DrawingConstants.placeholderForegroundColor)
-                    .lineLimit(1)
+                Image(systemName: "popcorn.fill")
+                    .font(.title)
+                    .fontWidth(.expanded)
+                    .foregroundColor(.white.opacity(0.8))
                     .padding()
-                Image(systemName: content.itemMedia == .tvShow ? "tv" : "film")
-                    .foregroundColor(DrawingConstants.placeholderForegroundColor)
             }
             .padding()
         }

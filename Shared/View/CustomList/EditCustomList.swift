@@ -162,7 +162,8 @@ struct EditCustomListItemSelector: View {
                                     .placeholder {
                                         ZStack {
                                             Rectangle().fill(.gray.gradient)
-                                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
+                                            Image(systemName: "popcorn.fill")
+                                                .foregroundColor(.white.opacity(0.8))
                                         }
                                     }
                                     .aspectRatio(contentMode: .fill)
@@ -207,7 +208,10 @@ struct EditCustomListItemSelector: View {
                                     .placeholder {
                                         ZStack {
                                             Rectangle().fill(.gray.gradient)
-                                            Image(systemName: item.itemMedia == .movie ? "film" : "tv")
+                                            Image(systemName: "popcorn.fill")
+                                                .font(.title)
+                                                .fontWidth(.expanded)
+                                                .foregroundColor(.white.opacity(0.8))
                                         }
                                     }
                                     .aspectRatio(contentMode: .fill)

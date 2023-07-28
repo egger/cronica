@@ -27,7 +27,9 @@ struct HorizontalUpNextListView: View {
 #if !os(tvOS)
                     NavigationLink(value: viewModel.episodes) {
                         TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
+                            .unredacted()
                     }
+                    .disabled(!viewModel.isLoaded)
                     .buttonStyle(.plain)
 #else
                     TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: false)
@@ -143,7 +145,7 @@ struct HorizontalUpNextListView: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        Image(systemName: "sparkles.tv")
+                        Image(systemName: "popcorn.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(.white.opacity(0.8))

@@ -38,9 +38,9 @@ struct ItemContentPhoneView: View {
                     .padding(.bottom)
             }
             
-            TrailerListView(trailers: viewModel.content?.itemTrailers)
-            
             WatchProvidersList(id: id, type: type)
+            
+            TrailerListView(trailers: viewModel.content?.itemTrailers)
             
             CastListView(credits: viewModel.credits)
             
@@ -187,16 +187,13 @@ struct ItemContentPhoneView: View {
                 ZStack {
                     Rectangle().fill(.gray.gradient)
                     VStack {
-                        Text(title)
-                            .foregroundColor(.white.opacity(0.8))
-                            .lineLimit(1)
-                            .frame(width: 200, height: 300)
-                            .padding()
-                        Image(systemName: type == .tvShow ? "tv" : "film")
+                        Image(systemName: "popcorn.fill")
                             .font(.title)
+                            .fontWidth(.expanded)
                             .foregroundColor(.white.opacity(0.8))
-                        
+                            .padding()
                     }
+                    .frame(width: 220, height: 300)
                     .padding()
                 }
             }
@@ -219,14 +216,14 @@ struct ItemContentPhoneView: View {
                 animate(for: store.gesture)
                 viewModel.update(store.gesture)
             }
-            .shadow(radius: 12)
+            .shadow(radius: 5)
             .padding()
             .accessibility(hidden: true)
     }
     
     private func animate(for type: UpdateItemProperties) {
         switch type {
-        case .watched: animationImage = viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle"
+        case .watched: animationImage = viewModel.isWatched ? "rectangle.badge.checkmark" : "rectangle.badge.checkmark.fill"
         case .favorite: animationImage = viewModel.isFavorite ? "heart.slash.fill" : "heart.fill"
         case .pin: animationImage = viewModel.isPin ? "pin.slash" : "pin"
         case .archive: animationImage = viewModel.isArchive ? "archivebox.fill" : "archivebox"

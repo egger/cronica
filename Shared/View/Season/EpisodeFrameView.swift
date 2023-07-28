@@ -113,6 +113,7 @@ struct EpisodeFrameView: View {
                     .lineLimit(1)
                 Spacer()
             }
+#if !os(tvOS)
             HStack {
                 Text(episode.itemOverview)
                     .font(.caption)
@@ -121,6 +122,7 @@ struct EpisodeFrameView: View {
                     .accessibilityHidden(true)
                 Spacer()
             }
+#endif
             Spacer()
         }
     }
@@ -131,15 +133,16 @@ struct EpisodeFrameView: View {
                 ZStack {
                     Rectangle().fill(.gray.gradient)
                     VStack {
+                        Spacer()
                         Text(episode.itemTitle)
-                            .font(.callout)
+                            .foregroundColor(.white.opacity(0.8))
+                            .font(.body)
+                            .fontDesign(.rounded)
                             .lineLimit(1)
-                            .padding(.bottom)
-                        Image(systemName: "tv")
-                            .font(.title)
+                            .padding()
+                        Spacer()
                     }
                     .padding()
-                    .foregroundColor(.secondary)
                 }
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)

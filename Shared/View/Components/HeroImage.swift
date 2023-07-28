@@ -22,15 +22,11 @@ struct HeroImage: View {
     private var placeholder: some View {
         ZStack {
             Rectangle().fill(.gray.gradient)
-            VStack {
-                Text(title)
-                    .lineLimit(1)
-                    .padding()
-                Image(systemName: type == .movie ? "film" : "tv")
-                    .font(.title)
-            }
-            .padding()
-            .foregroundColor(.white.opacity(0.8))
+            Image(systemName: "popcorn.fill")
+                .font(.title)
+                .fontWidth(.expanded)
+                .foregroundColor(.white.opacity(0.8))
+                .padding()
         }
     }
 }

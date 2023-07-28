@@ -60,7 +60,7 @@ private struct PosterImage: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else if let image = item.data {
-                Image(uiImage: UIImage(data: image) ?? UIImage(systemName: "film")!)
+                Image(uiImage: UIImage(data: image) ?? UIImage(systemName: "popcorn.fill")!)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else {
@@ -80,7 +80,7 @@ private struct PlaceholderImage: View {
         VStack {
             ZStack {
                 Rectangle().fill(Color.gray.gradient)
-                Image(systemName: "film")
+                Image(systemName: "popcorn.fill")
                     .foregroundColor(.white.opacity(0.8))
             }
         }
