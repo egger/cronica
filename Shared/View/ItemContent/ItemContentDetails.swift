@@ -36,56 +36,71 @@ struct ItemContentDetails: View {
         ZStack {
             ScrollView {
 #if os(macOS)
-                ItemContentPadView(id: id, title: title, type: type, showCustomList: $showCustomList, showPopup: $showPopup)
-                    .environmentObject(viewModel)
-                    .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
-                    .toolbar {
-                        if handleToolbarOnPopup {
-                            ToolbarItem(placement: .status) {
-                                ViewThatFits {
-                                    HStack {
-                                        if viewModel.isInWatchlist {
-                                            favoriteButton
-                                            pinButton
-                                        }
-                                        shareButton
+                ItemContentPadView(id: id, title: title, type: type,
+                                   showCustomList: $showCustomList,
+                                   popupType: $popupType, showPopup: $showPopup)
+                .environmentObject(viewModel)
+                .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
+                .toolbar {
+                    if handleToolbarOnPopup {
+                        ToolbarItem(placement: .status) {
+                            ViewThatFits {
+                                HStack {
+                                    if viewModel.isInWatchlist {
+                                        favoriteButton
+                                        archiveButton
+                                        pinButton
+                                        userNotesButton
                                     }
                                     shareButton
                                 }
-                                
+                                .disabled(viewModel.isLoading ? true : false)
+                                shareButton
+                                    .disabled(viewModel.isLoading ? true : false)
                             }
-                        } else {
-                            ToolbarItem {
-                                ViewThatFits {
-                                    HStack {
-                                        if viewModel.isInWatchlist {
-                                            favoriteButton
-                                            archiveButton
-                                            pinButton
-                                            userNotesButton
-                                        }
-                                        shareButton
+                            
+                        }
+                    } else {
+                        ToolbarItem {
+                            ViewThatFits {
+                                HStack {
+                                    if viewModel.isInWatchlist {
+                                        favoriteButton
+                                        archiveButton
+                                        pinButton
+                                        userNotesButton
                                     }
                                     shareButton
                                 }
+                                .disabled(viewModel.isLoading ? true : false)
+                                shareButton
+                                    .disabled(viewModel.isLoading ? true : false)
                             }
                         }
                     }
+                }
 #elseif os(iOS)
                 if UIDevice.isIPad {
                     ItemContentPadView(id: id,
                                        title: title,
                                        type: type,
                                        showCustomList: $showCustomList,
+                                       popupType: $popupType,
                                        showPopup: $showPopup)
                     .environmentObject(viewModel)
                     .toolbar {
                         ToolbarItem {
                             HStack {
+                                if viewModel.isInWatchlist {
+                                    favoriteButton
+                                    archiveButton
+                                    pinButton
+                                    userNotesButton
+                                }
                                 shareButton
-                                    .disabled(viewModel.isLoading ? true : false)
                                 moreMenu
                             }
+                            .disabled(viewModel.isLoading ? true : false)
                         }
                     }
                 } else {
@@ -101,9 +116,9 @@ struct ItemContentDetails: View {
                         ToolbarItem {
                             HStack {
                                 shareButton
-                                    .disabled(viewModel.isLoading ? true : false)
                                 moreMenu
                             }
+                            .disabled(viewModel.isLoading ? true : false)
                         }
                     }
                 }
@@ -255,16 +270,15 @@ struct ItemContentDetails: View {
 #if os(iOS) || os(macOS)
     private var moreMenu: some View {
         Menu {
-            if viewModel.isInWatchlist {
-#if !os(iOS)
-                addToCustomListButton
-#endif
-                favoriteButton
-                archiveButton
-                pinButton
-                userNotesButton
-            }
 #if os(iOS)
+            if UIDevice.isIPhone {
+                if viewModel.isInWatchlist {
+                    favoriteButton
+                    archiveButton
+                    pinButton
+                    userNotesButton
+                }
+            }
             openInMenu
 #endif
         } label: {

@@ -15,6 +15,7 @@ struct ItemContentPosterView: View {
     @State private var isWatched = false
     @State private var isPin = false
     @State private var isFavorite = false
+    @State private var isArchive = false
     @State private var showNote = false
     @State private var showCustomListView = false
     @Binding var showPopup: Bool
@@ -49,12 +50,21 @@ struct ItemContentPosterView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            if isPin {
-                                Image(systemName: "pin.fill")
-                                    .imageScale(.small)
-                                    .foregroundColor(.white.opacity(0.9))
-                                    .padding([.vertical])
-                                    .padding(.trailing, 4)
+                            if !settings.isCompactUI {
+                                if isArchive {
+                                    Image(systemName: "archivebox.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
+                                }
+                                if isPin {
+                                    Image(systemName: "pin.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
+                                }
                             }
                             if isFavorite {
                                 Image(systemName: "suit.heart.fill")
@@ -107,7 +117,10 @@ struct ItemContentPosterView: View {
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote,
                                     showCustomList: $showCustomListView,
-                                    popupType: $popupType)
+                                    popupType: $popupType,
+                                    isFavorite: $isFavorite,
+                                    isPin: $isPin,
+                                    isArchive: $isArchive)
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.itemContentID)
@@ -115,6 +128,7 @@ struct ItemContentPosterView: View {
                         isWatched = context.isMarkedAsWatched(id: item.itemContentID)
                         isPin = context.isItemPinned(id: item.itemContentID)
                         isFavorite = context.isMarkedAsFavorite(id: item.itemContentID)
+                        isArchive = context.isItemArchived(id: item.itemContentID)
                     }
                 }
             }

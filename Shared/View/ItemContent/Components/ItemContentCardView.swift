@@ -17,6 +17,7 @@ struct ItemContentCardView: View {
     @State private var isWatched = false
     @State private var isPin = false
     @State private var isFavorite = false
+    @State private var isArchive = false
     @State private var showNote = false
     @State private var showCustomListView = false
 #if os(tvOS)
@@ -44,6 +45,13 @@ struct ItemContentCardView: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
+                                    if isArchive {
+                                        Image(systemName: "archivebox.fill")
+                                            .imageScale(.small)
+                                            .foregroundColor(.white.opacity(0.9))
+                                            .padding([.vertical])
+                                            .padding(.trailing, 4)
+                                    }
                                     if isPin {
                                         Image(systemName: "pin.fill")
                                             .imageScale(.small)
@@ -102,7 +110,10 @@ struct ItemContentCardView: View {
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote,
                                             showCustomList: $showCustomListView,
-                                            popupType: $popupType)
+                                            popupType: $popupType,
+                                            isFavorite: $isFavorite,
+                                            isPin: $isPin,
+                                            isArchive: $isArchive)
             }
 #if os(tvOS)
             .buttonStyle(.card)
@@ -112,7 +123,10 @@ struct ItemContentCardView: View {
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote,
                                     showCustomList: $showCustomListView,
-                                    popupType: $popupType)
+                                    popupType: $popupType,
+                                    isFavorite: $isFavorite,
+                                    isPin: $isPin,
+                                    isArchive: $isArchive)
 #endif
             HStack {
                 Text(item.itemTitle)
@@ -136,6 +150,7 @@ struct ItemContentCardView: View {
                     isWatched = context.isMarkedAsWatched(id: item.itemContentID)
                     isPin = context.isItemPinned(id: item.itemContentID)
                     isFavorite = context.isMarkedAsFavorite(id: item.itemContentID)
+                    isArchive = context.isItemArchived(id: item.itemContentID)
                 }
             }
         }

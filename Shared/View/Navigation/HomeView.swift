@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct HomeView: View {
     static let tag: Screens? = .home
@@ -21,9 +22,17 @@ struct HomeView: View {
     @State private var showWhatsNew = false
     @State private var hasNotifications = false
     @State private var popupType: ActionPopupItems?
+#if os(iOS)
+    @AppStorage("launchCount") var launchCount: Int = 0
+    @AppStorage("askedForReview") var askedForReview = false
+    @State private var showReviewBanner = false
+#endif
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
+#if os(iOS)
+                if showReviewBanner { ReviewAppBanner(showView: $showReviewBanner).unredacted() }
+#endif
                 HorizontalUpNextListView(shouldReload: $reloadUpNext)
                 UpcomingWatchlist()
                 PinItemsList(showPopup: $showPopup, popupType: $popupType)
@@ -53,6 +62,9 @@ struct HomeView: View {
             .refreshable {
                 reloadUpNext = true
                 viewModel.reload()
+            }
+            .onAppear {
+                checkAskForReview()
             }
 #endif
         }
@@ -169,10 +181,12 @@ struct HomeView: View {
                         .foregroundColor(.white.opacity(0.9))
                 }
                 .buttonStyle(.borderedProminent)
+                .contentShape(Circle())
                 .clipShape(Circle())
                 .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
                 .shadow(radius: 2.5)
                 .accessibilityLabel("Notifications")
+                .applyHoverEffect()
             }
 #endif
         }
@@ -208,6 +222,19 @@ struct HomeView: View {
             }
         }
     }
+    
+#if os(iOS)
+    private func checkAskForReview() {
+        if launchCount < 30 {
+            launchCount += 1
+        } else {
+            if !askedForReview {
+                withAnimation { showReviewBanner = true }
+            }
+            askedForReview = true
+        }
+    }
+#endif
 }
 
 struct HomeView_Previews: PreviewProvider {
@@ -215,3 +242,47 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
+
+#if os(iOS)
+struct ReviewAppBanner: View {
+    @Environment(\.requestReview) var requestReview
+    @Binding var showView: Bool
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("callToReviewTitle")
+                    .font(.title3)
+                    .fontDesign(.rounded)
+                    .padding(.leading)
+                    .padding(.bottom, 2)
+                    .fontWeight(.semibold)
+                Text("callToReviewSubtitle")
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                    .fontDesign(.rounded)
+                    .padding(.leading)
+                    .padding(.bottom, 4)
+                    .fontWeight(.regular)
+                Button("reviewInTheAppStore") {
+                    requestReview()
+                }
+                .padding(.leading)
+                .padding(.bottom, 4)
+            }
+            Spacer()
+            VStack {
+                Button {
+                    withAnimation { showView = false }
+                } label: {
+                    Label("dismissReviewCall", systemImage: "xmark")
+                        .labelStyle(.iconOnly)
+                }
+                .clipShape(Circle())
+                .buttonStyle(.bordered)
+                Spacer()
+            }
+            .padding(.trailing)
+        }.padding(.vertical)
+    }
+}
+#endif

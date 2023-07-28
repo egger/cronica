@@ -49,7 +49,47 @@ struct HorizontalUpNextListView: View {
                                         .padding(.bottom)
                                         .buttonStyle(.card)
 #else
-                                    upNextCard(item)
+                                    if !settings.isCompactUI {
+                                        upNextCard(item)
+                                            .applyHoverEffect()
+                                            .contextMenu {
+                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                    Button("showDetails") {
+                                                        selectedEpisode = item
+                                                    }
+                                                }
+                                            }
+                                            .padding([.leading, .trailing], 4)
+                                            .padding(.leading, item.id == viewModel.episodes.first!.id ? 16 : 0)
+                                            .padding(.trailing, item.id == viewModel.episodes.last!.id ? 16 : 0)
+                                            .padding(.top, 8)
+                                            .padding(.bottom)
+                                            .onTapGesture {
+                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                    Task { await viewModel.markAsWatched(item) }
+                                                } else {
+                                                    selectedEpisode = item
+                                                }
+                                            }
+                                    } else {
+                                        VStack {
+                                            upNextCard(item)
+                                            HStack {
+                                                VStack(alignment: .leading) {
+                                                    Text(item.showTitle)
+                                                        .font(.caption)
+                                                        .lineLimit(1)
+                                                    Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                                                        .font(.caption)
+                                                        .textCase(.uppercase)
+                                                        .foregroundColor(.secondary)
+                                                        .lineLimit(1)
+                                                    Spacer()
+                                                }
+                                                Spacer()
+                                            }
+                                        }
+                                        .frame(width: DrawingConstants.compactImageWidth)
                                         .contextMenu {
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                 Button("showDetails") {
@@ -69,6 +109,7 @@ struct HorizontalUpNextListView: View {
                                                 selectedEpisode = item
                                             }
                                         }
+                                    }
 #endif
                                 }
                             }
@@ -156,55 +197,56 @@ struct HorizontalUpNextListView: View {
                 .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
                        height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
                 .transition(.opacity)
-            
-            VStack(alignment: .leading) {
-                Spacer()
-                ZStack(alignment: .bottom) {
-                    Color.black.opacity(0.4)
-                        .frame(height: 50)
-                        .mask {
-                            LinearGradient(colors: [Color.black,
-                                                    Color.black.opacity(0.924),
-                                                    Color.black.opacity(0.707),
-                                                    Color.black.opacity(0.383),
-                                                    Color.black.opacity(0)],
-                                           startPoint: .bottom,
-                                           endPoint: .top)
-                        }
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .frame(height: 70)
-                        .mask {
-                            VStack(spacing: 0) {
-                                LinearGradient(colors: [Color.black.opacity(0),
-                                                        Color.black.opacity(0.383),
-                                                        Color.black.opacity(0.707),
+            if !settings.isCompactUI {
+                VStack(alignment: .leading) {
+                    Spacer()
+                    ZStack(alignment: .bottom) {
+                        Color.black.opacity(0.4)
+                            .frame(height: 50)
+                            .mask {
+                                LinearGradient(colors: [Color.black,
                                                         Color.black.opacity(0.924),
-                                                        Color.black],
-                                               startPoint: .top,
-                                               endPoint: .bottom)
-                                .frame(height: 50)
-                                Rectangle()
+                                                        Color.black.opacity(0.707),
+                                                        Color.black.opacity(0.383),
+                                                        Color.black.opacity(0)],
+                                               startPoint: .bottom,
+                                               endPoint: .top)
                             }
+                        Rectangle()
+                            .fill(.ultraThinMaterial)
+                            .frame(height: 70)
+                            .mask {
+                                VStack(spacing: 0) {
+                                    LinearGradient(colors: [Color.black.opacity(0),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.924),
+                                                            Color.black],
+                                                   startPoint: .top,
+                                                   endPoint: .bottom)
+                                    .frame(height: 50)
+                                    Rectangle()
+                                }
+                            }
+                        
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.showTitle)
+                                    .font(.callout)
+                                    .foregroundColor(.white)
+                                    .fontWeight(.semibold)
+                                    .lineLimit(1)
+                                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                                    .font(.caption)
+                                    .textCase(.uppercase)
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .lineLimit(1)
+                            }
+                            Spacer()
                         }
-                    
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.showTitle)
-                                .font(.callout)
-                                .foregroundColor(.white)
-                                .fontWeight(.semibold)
-                                .lineLimit(1)
-                            Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                                .font(.caption)
-                                .textCase(.uppercase)
-                                .foregroundColor(.white.opacity(0.8))
-                                .lineLimit(1)
-                        }
-                        Spacer()
+                        .padding(.bottom, 8)
+                        .padding(.leading)
                     }
-                    .padding(.bottom, 8)
-                    .padding(.leading)
                 }
             }
         }
@@ -286,8 +328,8 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 420
     static let imageHeight: CGFloat = 240
 #endif
-    static let compactImageWidth: CGFloat = 200
-    static let compactImageHeight: CGFloat = 120
+    static let compactImageWidth: CGFloat = 160
+    static let compactImageHeight: CGFloat = 100
     static let imageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5

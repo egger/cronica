@@ -659,3 +659,8 @@
 "markedEpisodeWatched" = "Marked Episode as Watched";
 "removedEpisodeWatched" = "Removed Episode from Watched";
 "confirmAndDeleteItems" = "Confirm and delete items";
+"tmdbSyncFeatures" = "You'll be able to see your lists and manage their content.";
+"callToReviewTitle" = "Enjoying Cronica?";
+"callToReviewSubtitle" = "Leave a Review on the App Store!";
+"reviewInTheAppStore" = "Review App";
+"dismissReviewCall" = "Dismiss";

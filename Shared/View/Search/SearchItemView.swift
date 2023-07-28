@@ -13,6 +13,9 @@ struct SearchItemView: View {
     @Binding var popupType: ActionPopupItems?
     @State private var isInWatchlist = false
     @State private var isWatched = false
+    @State private var isPin = false
+    @State private var isFavorite = false
+    @State private var isArchive = false
     @State private var canReview = false
     @State private var showNote = false
     @State private var showCustomListView = false
@@ -44,7 +47,10 @@ struct SearchItemView: View {
                                             isInWatchlist: $isInWatchlist,
                                             showNote: $showNote,
                                             showCustomList: $showCustomListView,
-                                            popupType: .constant(nil))
+                                            popupType: $popupType,
+                                            isFavorite: $isFavorite,
+                                            isPin: $isPin,
+                                            isArchive: $isArchive)
                     .modifier(
                         SearchItemSwipeGesture(item: item,
                                                showPopup: $showPopup,
@@ -98,7 +104,10 @@ struct SearchItemView: View {
                                                 isInWatchlist: $isInWatchlist,
                                                 showNote: $showNote,
                                                 showCustomList: $showCustomListView,
-                                                popupType: .constant(nil))
+                                                popupType: $popupType,
+                                                isFavorite: $isFavorite,
+                                                isPin: $isPin,
+                                                isArchive: $isArchive)
                         .modifier(
                             SearchItemSwipeGesture(item: item,
                                                    showPopup: $showPopup,

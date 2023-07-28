@@ -94,6 +94,7 @@ struct DeveloperView: View {
                 Text("Last upcoming refresh: \(BackgroundManager.shared.lastUpcomingRefresh?.convertDateToString() ?? "Nil")")
                 Text("launchCount: \(launchCount)")
                 Text("Asked for review: \(askedForReview.description)")
+                Button("Reset asked for review") { askedForReview = false }
             }
             
             Section("TMDB") {

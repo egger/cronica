@@ -68,9 +68,7 @@ struct SyncSetting: View {
 #endif
                 
 #if os(iOS)
-                Section("connectedAccounts") {
-                    NavigationLink("connectedAccountTMDB", destination: TMDBAccountView())
-                }
+                TMDBAccountView()
 #endif
                 
             }

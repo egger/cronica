@@ -656,3 +656,12 @@
 "Your upcoming items will appear here." = "Ihre bevorstehenden Titel werden hier angezeigt.";
 "Prefer Poster in Details Page" = "Bevorzuge Poster auf der Detailsseite";
 "Details Page" = "Detailsseite";
+"moreInfoShow" = "Mehr Info";
+"markedEpisodeWatched" = "Episode als Angesehen markiert";
+"removedEpisodeWatched" = "Episode aus Angesehen entfernt";
+"confirmAndDeleteItems" = "Bestätigen und Artikel löschen";
+"tmdbSyncFeatures" = "Du kannst deine Listen sehen und deren Inhalt verwalten.";
+"callToReviewTitle" = "Genießt du Cronica?";
+"callToReviewSubtitle" = "Hinterlasse eine Bewertung im App Store!";
+"reviewInTheAppStore" = "App bewerten";
+"dismissReviewCall" = "Verwerfen";

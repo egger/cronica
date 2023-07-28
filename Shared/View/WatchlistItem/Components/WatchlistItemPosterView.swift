@@ -76,12 +76,21 @@ struct WatchlistItemPosterView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            if isPin {
-                                Image(systemName: "pin.fill")
-                                    .imageScale(.small)
-                                    .foregroundColor(.white.opacity(0.9))
-                                    .padding([.vertical])
-                                    .padding(.trailing, 4)
+                            if !settings.isCompactUI {
+                                if isArchive {
+                                    Image(systemName: "archivebox.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
+                                }
+                                if isPin {
+                                    Image(systemName: "pin.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
+                                }
                             }
                             if isFavorite {
                                 Image(systemName: "suit.heart.fill")

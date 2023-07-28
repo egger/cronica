@@ -650,3 +650,12 @@
 "S%d, E%d" = "T%d, E%d";
 "Mark some episodes as watched to use Up Next." = "Marca algunos episodios como vistos para usar 'Próximos'";
 "Your upcoming items will appear here." = "Tus próximos elementos aparecerán aquí.";
+"moreInfoShow" = "Más información";
+"markedEpisodeWatched" = "Episodio marcado como visto";
+"removedEpisodeWatched" = "Episodio eliminado de vistos";
+"confirmAndDeleteItems" = "Confirmar y eliminar elementos";
+"tmdbSyncFeatures" = "Podrás ver tus listas y gestionar su contenido.";
+"callToReviewTitle" = "¿Disfrutando de Cronica?";
+"callToReviewSubtitle" = "¡Deja una reseña en la App Store!";
+"reviewInTheAppStore" = "Reseñar App";
+"dismissReviewCall" = "Descartar";

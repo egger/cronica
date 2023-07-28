@@ -94,9 +94,8 @@ struct AboutSettings: View {
             }
             
             Section {
-                CenterHorizontalView { AttributionView() }
                 if settings.displayDeveloperSettings {
-                    NavigationLink("Developer Options", value: SettingsScreens.developer)
+                    NavigationLink("🛠️", value: SettingsScreens.developer)
                 }
                 CenterHorizontalView {
                     Text("Version \(appVersion ?? "")")

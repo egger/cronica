@@ -104,7 +104,30 @@ struct UpcomingWatchlist: View {
         .frame(width: DrawingConstants.cardWidth)
 #else
         if item.image != nil {
-            image(for: item)
+            if settings.isCompactUI {
+                VStack {
+                    image(for: item)
+                    HStack {
+                        Text(item.itemTitle)
+                            .font(.caption)
+                            .lineLimit(2)
+                        Spacer()
+                    }
+                    if let info = item.itemGlanceInfo {
+                        HStack {
+                            Text(info)
+                                .font(.caption)
+                                .lineLimit(1)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                        }
+                    }
+                    Spacer()
+                }
+                .frame(width: DrawingConstants.compactCardWidth)
+            } else {
+                image(for: item)
+            }
         } else {
             EmptyView()
         }
@@ -129,74 +152,76 @@ struct UpcomingWatchlist: View {
                 .aspectRatio(contentMode: .fill)
 #if !os(tvOS)
                 .overlay {
-                    ZStack(alignment: .bottom) {
-                        Color.black.opacity(0.4)
-                            .frame(height: 50)
-                            .mask {
-                                LinearGradient(colors: [Color.black,
-                                                        Color.black.opacity(0.924),
-                                                        Color.black.opacity(0.707),
-                                                        Color.black.opacity(0.383),
-                                                        Color.black.opacity(0)],
-                                               startPoint: .bottom,
-                                               endPoint: .top)
-                            }
-                        Rectangle()
-                            .fill(.ultraThinMaterial)
-                            .frame(height: 70)
-                            .mask {
-                                VStack(spacing: 0) {
-                                    LinearGradient(colors: [Color.black.opacity(0),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0.707),
+                    if !settings.isCompactUI {
+                        ZStack(alignment: .bottom) {
+                            Color.black.opacity(0.4)
+                                .frame(height: 50)
+                                .mask {
+                                    LinearGradient(colors: [Color.black,
                                                             Color.black.opacity(0.924),
-                                                            Color.black],
-                                                   startPoint: .top,
-                                                   endPoint: .bottom)
-                                    .frame(height: 50)
-                                    Rectangle()
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0)],
+                                                   startPoint: .bottom,
+                                                   endPoint: .top)
                                 }
-                            }
-                        if let info = item.itemGlanceInfo {
-                            VStack(alignment: .leading) {
-                                Spacer()
-                                HStack {
-                                    Text(item.itemTitle)
-                                        .fontWeight(.semibold)
-                                        .font(.callout)
-                                        .foregroundColor(.white)
-                                        .lineLimit(DrawingConstants.lineLimits)
-                                        .padding(.leading)
+                            Rectangle()
+                                .fill(.ultraThinMaterial)
+                                .frame(height: 70)
+                                .mask {
+                                    VStack(spacing: 0) {
+                                        LinearGradient(colors: [Color.black.opacity(0),
+                                                                Color.black.opacity(0.383),
+                                                                Color.black.opacity(0.707),
+                                                                Color.black.opacity(0.924),
+                                                                Color.black],
+                                                       startPoint: .top,
+                                                       endPoint: .bottom)
+                                        .frame(height: 50)
+                                        Rectangle()
+                                    }
+                                }
+                            if let info = item.itemGlanceInfo {
+                                VStack(alignment: .leading) {
                                     Spacer()
+                                    HStack {
+                                        Text(item.itemTitle)
+                                            .fontWeight(.semibold)
+                                            .font(.callout)
+                                            .foregroundColor(.white)
+                                            .lineLimit(DrawingConstants.lineLimits)
+                                            .padding(.leading)
+                                        Spacer()
+                                    }
+                                    HStack {
+                                        Text(info)
+                                            .font(.caption)
+                                            .foregroundColor(.white)
+                                            .lineLimit(DrawingConstants.lineLimits)
+                                            .padding(.leading)
+                                            .padding(.bottom, 8)
+                                        Spacer()
+                                    }
                                 }
-                                HStack {
-                                    Text(info)
-                                        .font(.caption)
-                                        .foregroundColor(.white)
-                                        .lineLimit(DrawingConstants.lineLimits)
-                                        .padding(.leading)
-                                        .padding(.bottom, 8)
+                                .padding(.horizontal, 2)
+                            } else {
+                                VStack(alignment: .leading) {
                                     Spacer()
+                                    HStack {
+                                        Text(item.itemTitle)
+                                            .fontWeight(.semibold)
+                                            .font(.callout)
+                                            .foregroundColor(.white)
+                                            .lineLimit(DrawingConstants.lineLimits)
+                                            .padding()
+                                        Spacer()
+                                    }
+                                    
                                 }
+                                .padding(.horizontal, 2)
                             }
-                            .padding(.horizontal, 2)
-                        } else {
-                            VStack(alignment: .leading) {
-                                Spacer()
-                                HStack {
-                                    Text(item.itemTitle)
-                                        .fontWeight(.semibold)
-                                        .font(.callout)
-                                        .foregroundColor(.white)
-                                        .lineLimit(DrawingConstants.lineLimits)
-                                        .padding()
-                                    Spacer()
-                                }
-                                
-                            }
-                            .padding(.horizontal, 2)
+                            
                         }
-                        
                     }
                 }
 #endif
@@ -227,6 +252,6 @@ private struct DrawingConstants {
     static let cardRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1
-    static let compactCardWidth: CGFloat = 200
-    static let compactCardHeight: CGFloat = 120
+    static let compactCardWidth: CGFloat = 160
+    static let compactCardHeight: CGFloat = 100
 }

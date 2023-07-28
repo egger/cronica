@@ -21,7 +21,7 @@ struct ItemContentPadView: View {
     @State private var showInfoBox = false
     @State private var showReleaseDateInfo = false
     @State private var isSideInfoPanelShowed = false
-    @State private var popupType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     @StateObject private var store = SettingsStore.shared
     @Binding var showPopup: Bool
     var body: some View {
@@ -166,16 +166,18 @@ struct ItemContentPadView: View {
                         .buttonBorderShape(.roundedRectangle(radius: 12))
 #endif
                         .tint(.primary)
+                        .applyHoverEffect()
                         .padding(.leading)
                         Button {
-                            animate(for: .watched)
                             viewModel.update(.watched)
+                            popupType = viewModel.isWatched ? .markedWatched : .removedWatched
+                            withAnimation { showPopup = true }
                         } label: {
 #if os(macOS)
                             Label("Watched", systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
 #else
                             VStack {
-                                Image(systemName: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
                                 Text("Watched")
                                     .padding(.top, 2)
                                     .font(.caption)
@@ -196,6 +198,7 @@ struct ItemContentPadView: View {
                         .buttonBorderShape(.roundedRectangle(radius: 12))
 #endif
                         .tint(.primary)
+                        .applyHoverEffect()
                         .padding(.leading)
                     }
                 }
@@ -263,6 +266,7 @@ struct QuickInformationView: View {
 #if !os(tvOS)
                                 Image(systemName: "chevron.right")
                                     .font(.caption)
+                                    .foregroundColor(.secondary)
 #endif
                             }
                             Text(theatricalStringDate)
@@ -324,11 +328,12 @@ struct QuickInformationView: View {
         HStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Production Company")
+                    Text("Production Companies")
                         .font(.caption)
 #if !os(tvOS)
                     Image(systemName: "chevron.right")
                         .font(.caption)
+                        .foregroundColor(.secondary)
 #endif
                 }
                 Text(company)

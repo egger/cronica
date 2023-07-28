@@ -256,6 +256,7 @@ struct ItemContentPhoneView: View {
                                         .font(.caption)
                                     Image(systemName: "chevron.right")
                                         .font(.caption)
+                                        .foregroundColor(.secondary)
                                 }
                                 Text(theatricalStringDate)
                                     .lineLimit(1)
@@ -297,6 +298,7 @@ struct ItemContentPhoneView: View {
                                             .font(.caption)
                                         Image(systemName: "chevron.right")
                                             .font(.caption)
+                                            .foregroundColor(.secondary)
                                     }
                                     Text(company)
                                         .multilineTextAlignment(.leading)

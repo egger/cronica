@@ -15,33 +15,33 @@ struct TMDBAccountView: View {
     @State private var isFetching = false
     @State var userIsLoggedIn = false
     var body: some View {
-        Form {
-            Section("Account") {
-                accountButton
-                    .alert("removeTMDBAccount", isPresented: $showSignOutConfirmation) {
-                        Button("Confirm", role: .destructive) {
-                            Task {
-                                withAnimation { self.userIsLoggedIn = false }
-                                await viewModel.logOut()
-                            }
+        Section {
+            accountButton
+                .alert("removeTMDBAccount", isPresented: $showSignOutConfirmation) {
+                    Button("Confirm", role: .destructive) {
+                        Task {
+                            withAnimation { self.userIsLoggedIn = false }
+                            await viewModel.logOut()
                         }
                     }
-            }
-            .task {
-                withAnimation { userIsLoggedIn = viewModel.checkAccessStatus() }
-            }
+                }
+        } header: {
+            Text("connectedAccounts")
+        } footer: {
+            Text("tmdbSyncFeatures")
         }
-        .navigationTitle("connectedAccountTMDB")
-#if os(macOS)
-        .formStyle(.grouped)
-#endif
+        .task {
+            withAnimation { userIsLoggedIn = viewModel.checkAccessStatus() }
+        }
     }
     
     private var accountButton: some View {
         Button(role: userIsLoggedIn ? .destructive : nil) {
             userIsLoggedIn ? SignOut() : SignIn()
         } label: {
-            Text(userIsLoggedIn ? "AccountSettingsViewSignOut" : "AccountSettingsViewSignIn")
+            InformationalLabel(title: "connectedAccountTMDB",
+                               subtitle: userIsLoggedIn ? "AccountSettingsViewSignOut" : "AccountSettingsViewSignIn",
+                               image: userIsLoggedIn ? "person.crop.circle.fill.badge.minus" : "person.crop.circle.badge.plus")
                 .tint(userIsLoggedIn ? .red : nil)
 #if os(macOS)
                 .foregroundColor(userIsLoggedIn ? .red : nil)

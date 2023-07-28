@@ -660,3 +660,12 @@
 "Your upcoming items will appear here." = "ستظهر عناصرك القادمة هنا.";
 "Prefer Poster in Details Page" = "المفضلة: البوستر في صفحة التفاصيل";
 "Details Page" = "صفحة التفاصيل";
+"moreInfoShow" = "مزيد من المعلومات";
+"markedEpisodeWatched" = "تم وضع علامة على الحلقة كمشاهدة";
+"removedEpisodeWatched" = "تمت إزالة الحلقة من المشاهدات";
+"confirmAndDeleteItems" = "تأكيد وحذف العناصر";
+"tmdbSyncFeatures" = "ستتمكن من رؤية قوائمك وإدارة محتواها.";
+"callToReviewTitle" = "تستمتع بـ Cronica؟";
+"callToReviewSubtitle" = "اترك تقييمًا على متجر التطبيقات!";
+"reviewInTheAppStore" = "تقييم التطبيق";
+"dismissReviewCall" = "تجاهل";

@@ -187,6 +187,7 @@ struct EpisodeDetailsView: View {
                         .buttonStyle(.bordered)
                         .buttonBorderShape(.roundedRectangle(radius: 12))
                         .tint(.primary)
+                        .applyHoverEffect()
                         .padding(.horizontal)
                     }
 #endif

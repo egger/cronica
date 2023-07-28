@@ -56,6 +56,6 @@ class SettingsStore: ObservableObject {
     @AppStorage("removeFromPinOnWatched") var removeFromPinOnWatched = false
     @AppStorage("autoOpenCustomListSelector") var openListSelectorOnAdding = false
 #if os(iOS)
-    @AppStorage("alwaysUsePosterAsCover") var usePostersAsCover = false
+    @AppStorage("alwaysUsePosterAsCover") var usePostersAsCover = true
 #endif
 }

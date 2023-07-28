@@ -42,11 +42,17 @@ extension View {
                                 isInWatchlist: Binding<Bool>,
                                 showNote: Binding<Bool>,
                                 showCustomList: Binding<Bool>,
-                                popupType: Binding<ActionPopupItems?>) -> some View {
+                                popupType: Binding<ActionPopupItems?>,
+                                isFavorite: Binding<Bool>,
+                                isPin: Binding<Bool>,
+                                isArchive: Binding<Bool>) -> some View {
         modifier(ItemContentContextMenu(item: item,
                                         showPopup: showPopup,
                                         isInWatchlist: isInWatchlist,
                                         isWatched: isWatched,
+                                        isFavorite: isFavorite,
+                                        isPin: isPin,
+                                        isArchive: isArchive,
                                         showNote: showNote,
                                         showCustomListView: showCustomList,
                                         popupType: popupType))

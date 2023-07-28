@@ -8,7 +8,6 @@ import SwiftUI
 import BackgroundTasks
 #if os(iOS)
 import NotificationCenter
-import StoreKit
 #endif
 
 @main
@@ -25,9 +24,6 @@ struct CronicaApp: App {
 #if os(iOS)
     @ObservedObject private var notificationDelegate = NotificationDelegate()
     @State private var lastNotificationID = String()
-    @AppStorage("launchCount") var launchCount: Int = 0
-    @AppStorage("askedForReview") var askedForReview = false
-    @Environment(\.requestReview) var requestReview
 #endif
     init() {
         CronicaTelemetry.shared.setup()
@@ -35,7 +31,6 @@ struct CronicaApp: App {
         registerAppMaintenanceBGTask()
 #if os(iOS)
         UNUserNotificationCenter.current().delegate = notificationDelegate
-        //checkAskForReview()
 #endif
     }
     var body: some Scene {
@@ -118,19 +113,6 @@ struct CronicaApp: App {
         }
 #endif
     }
-    
-#if os(iOS)
-    private func checkAskForReview() {
-        if launchCount < 10 {
-            launchCount += 1
-        } else {
-            if !askedForReview {
-                requestReview()
-            }
-            askedForReview = true
-        }
-    }
-#endif
     
     private func fetchContent(for id: String) async {
         if selectedItem != nil { selectedItem = nil }

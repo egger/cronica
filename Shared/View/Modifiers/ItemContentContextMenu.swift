@@ -12,9 +12,9 @@ struct ItemContentContextMenu: ViewModifier {
     @Binding var showPopup: Bool
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
-    @State private var isFavorite = false
-    @State private var isPin = false
-    @State private var isArchive = false
+    @Binding var isFavorite: Bool
+    @Binding var isPin: Bool
+    @Binding var isArchive: Bool
     private let context = PersistenceController.shared
     @Binding var showNote: Bool
     @Binding var showCustomListView: Bool
@@ -66,13 +66,6 @@ struct ItemContentContextMenu: ViewModifier {
                 ContextMenuPreviewImage(title: item.itemTitle,
                                         image: item.cardImageLarge,
                                         overview: item.itemOverview)
-            }
-            .task {
-                if isInWatchlist {
-                    isFavorite = context.isMarkedAsFavorite(id: item.itemContentID)
-                    isPin = context.isItemPinned(id: item.itemContentID)
-                    isArchive = context.isItemArchived(id: item.itemContentID)
-                }
             }
 #endif
     }

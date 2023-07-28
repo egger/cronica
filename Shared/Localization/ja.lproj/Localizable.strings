@@ -662,3 +662,12 @@
 "Your upcoming items will appear here." = "ここにあなたの予定されたアイテムが表示されます。";
 "Prefer Poster in Details Page" = "詳細ページではポスターを優先";
 "Details Page" = "詳細ページ";
+"moreInfoShow" = "詳細情報";
+"markedEpisodeWatched" = "エピソードを視聴済みとしてマークしました";
+"removedEpisodeWatched" = "エピソードを視聴済みから削除しました";
+"confirmAndDeleteItems" = "確認して削除";
+"tmdbSyncFeatures" = "リストを表示し、コンテンツを管理できます。";
+"callToReviewTitle" = "Cronicaを楽しんでいますか？";
+"callToReviewSubtitle" = "App Storeでレビューを残してください！";
+"reviewInTheAppStore" = "アプリをレビュー";
+"dismissReviewCall" = "閉じる";

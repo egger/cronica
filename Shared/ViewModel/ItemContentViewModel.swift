@@ -72,9 +72,11 @@ class ItemContentViewModel: ObservableObject {
                     credits.append(contentsOf: combined)
                 }
                 isLoading = false
+#if os(iOS) || os(macOS)
                 if isInWatchlist {
                     persistence.update(item: content)
                 }
+#endif
             } catch {
                 if Task.isCancelled { return }
                 showErrorAlert = true

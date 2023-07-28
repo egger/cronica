@@ -53,6 +53,7 @@ struct DetailWatchlistButton: View {
 #elseif os(iOS)
         .controlSize(.small)
         .shadow(radius: viewModel.isInWatchlist ? 0 : 2.5)
+        .applyHoverEffect()
 #endif
         .disabled(viewModel.isLoading)
 #if os(iOS) || os(macOS) || os(watchOS)

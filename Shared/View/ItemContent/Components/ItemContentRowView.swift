@@ -11,6 +11,9 @@ import SDWebImageSwiftUI
 struct ItemContentRowView: View {
     let item: ItemContent
     @State private var isWatched = false
+    @State private var isFavorite = false
+    @State private var isPin = false
+    @State private var isArchive = false
     @State private var showPopup = false
     @State private var isInWatchlist = false
     @State private var canReview = true
@@ -59,11 +62,17 @@ struct ItemContentRowView: View {
                                     isInWatchlist: $isInWatchlist,
                                     showNote: $showNote,
                                     showCustomList: $showCustomListView,
-                                    popupType: $popupType)
+                                    popupType: $popupType,
+                                    isFavorite: $isFavorite,
+                                    isPin: $isPin,
+                                    isArchive: $isArchive)
             .task {
                 isInWatchlist = persistence.isItemSaved(id: item.itemContentID)
                 if isInWatchlist {
                     isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
+                    isPin = persistence.isItemPinned(id: item.itemContentID)
+                    isFavorite = persistence.isMarkedAsFavorite(id: item.itemContentID)
+                    isArchive = persistence.isItemArchived(id: item.itemContentID)
                 }
             }
             .sheet(isPresented: $showNote) {
