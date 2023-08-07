@@ -21,3 +21,12 @@ enum MediaTypeFilters: String, Identifiable, CaseIterable {
         }
     }
 }
+
+enum WatchlistSortOrder: String, Identifiable, CaseIterable {
+    var id: String { rawValue }
+    case titleAsc, titleDesc, dateAsc, dateDesc, ratingAsc, ratingDesc
+    
+    var localizableName: String {
+        return NSLocalizedString(rawValue, comment: "")
+    }
+}

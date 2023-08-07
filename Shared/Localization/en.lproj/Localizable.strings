@@ -665,3 +665,9 @@
 "reviewInTheAppStore" = "Review App";
 "dismissReviewCall" = "Dismiss";
 "feedbackSent" = "Feedback Sent. Thank you!";
+"titleAsc" = "Title (Ascending)";
+"titleDesc" = "Title (Descending)";
+"dateAsc" = "Date (Ascending)";
+"dateDesc" = "Date (Descending)";
+"ratingAsc" = "Rating (Ascending)";
+"ratingDesc" = "Rating (Descending)";
