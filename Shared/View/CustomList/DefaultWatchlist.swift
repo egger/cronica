@@ -271,10 +271,10 @@ struct DefaultWatchlist: View {
                     Text(item.localizableName).tag(item)
                 }
             } label: {
-                Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+                Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+            Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }

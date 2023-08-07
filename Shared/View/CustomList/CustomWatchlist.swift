@@ -18,9 +18,9 @@ struct CustomWatchlist: View {
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
     @State private var showFilter = false
-    @State private var showAllItems = true
-    @State private var mediaTypeFilter: MediaTypeFilters = .noFilter
-    @State private var selectedOrder: SmartFiltersTypes = .released
+    @AppStorage("customListShowAllItems") private var showAllItems = true
+    @AppStorage("customListMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .noFilter
+    @AppStorage("customListSmartFilter") private var selectedOrder: SmartFiltersTypes = .released
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     @AppStorage("customListSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
@@ -225,10 +225,10 @@ struct CustomWatchlist: View {
                     Text(item.localizableName).tag(item)
                 }
             } label: {
-                Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+                Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("watchlistDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+            Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }
@@ -267,7 +267,8 @@ struct CustomWatchlist: View {
     }
     
     private var empty: some View {
-        Text("This list is empty.")
+        Text("emptyList")
+            .multilineTextAlignment(.center)
             .font(.headline)
             .foregroundColor(.secondary)
             .padding()

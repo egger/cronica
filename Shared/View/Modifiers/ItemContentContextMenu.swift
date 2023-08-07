@@ -21,8 +21,7 @@ struct ItemContentContextMenu: ViewModifier {
     @Binding var popupType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
     func body(content: Content) -> some View {
-#if os(watchOS)
-#else
+#if !os(watchOS)
         return content
             .contextMenu {
 #if os(iOS) || os(macOS)
@@ -70,6 +69,34 @@ struct ItemContentContextMenu: ViewModifier {
                 ContextMenuPreviewImage(title: item.itemTitle,
                                         image: item.cardImageLarge,
                                         overview: item.itemOverview)
+            }
+            .swipeActions(edge: .leading, allowsFullSwipe: settings.allowFullSwipe) {
+                WatchlistButton(id: item.itemContentID,
+                                isInWatchlist: $isInWatchlist,
+                                showPopup: $showPopup,
+                                showListSelector: $showCustomListView,
+                                popupType: $popupType)
+                .tint(isInWatchlist ? .red : .green)
+                if isInWatchlist {
+                    WatchedButton(id: item.itemContentID,
+                                  isWatched: $isWatched,
+                                  popupType: $popupType,
+                                  showPopup: $showPopup)
+                }
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: settings.allowFullSwipe) {
+                if isInWatchlist {
+                    PinButton(id: item.itemContentID,
+                              isPin: $isPin,
+                              popupType: $popupType,
+                              showPopup: $showPopup)
+                    .tint(.purple)
+                    ArchiveButton(id: item.itemContentID,
+                                  isArchive: $isArchive,
+                                  popupType: $popupType,
+                                  showPopup: $showPopup)
+                    .tint(.gray)
+                }
             }
 #endif
     }

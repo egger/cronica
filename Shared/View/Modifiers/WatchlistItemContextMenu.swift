@@ -20,22 +20,9 @@ struct WatchlistItemContextMenu: ViewModifier {
     @Binding var showPopup: Bool
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
-    private let settings = SettingsStore.shared
+    @State private var settings = SettingsStore.shared
     func body(content: Content) -> some View {
 #if os(watchOS)
-        return content
-            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-//                watchedButton
-//                    .tint(item.isWatched ? .yellow : .green)
-//                pinButton
-//                    .tint(item.isPin ? .gray : .teal)
-//                favoriteButton
-//                    .tint(item.isFavorite ? .orange : .blue)
-            }
-            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-//                deleteButton
-//                archiveButton
-            }
 #elseif os(tvOS)
         return content
             .contextMenu {

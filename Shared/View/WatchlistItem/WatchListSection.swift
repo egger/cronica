@@ -52,7 +52,8 @@ struct WatchListSection: View {
     }
     
     private var empty: some View {
-        Text("This list is empty.")
+        Text("emptyList")
+            .multilineTextAlignment(.center)
             .font(.headline)
             .foregroundColor(.secondary)
             .padding()

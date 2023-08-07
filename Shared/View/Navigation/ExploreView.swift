@@ -115,8 +115,10 @@ struct ExploreView: View {
 #endif
                         }
 #if os(iOS)
-                        .pickerStyle(.inline)
+                        .pickerStyle(.segmented)
 #endif
+                    } header: {
+                        Text("mediaTypeDiscoverFilterTitle")
                     }
                     Section {
                         Picker(selection: $viewModel.selectedGenre) {
@@ -130,12 +132,14 @@ struct ExploreView: View {
                                 }
                             }
                         } label: {
-                            Text("genreDiscoverFilterTitle")
+                            EmptyView()
                             
                         }
 #if os(iOS)
-                        .pickerStyle(.navigationLink)
+                        .pickerStyle(.inline)
 #endif
+                    } header: {
+                        Text("genreDiscoverFilterTitle")
                     }
                     Section {
                         Toggle("hideAddedItemsDiscoverFilter", isOn: $viewModel.hideAddedItems)
@@ -304,10 +308,10 @@ struct ExploreView: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("sectionStyleTypePicker", systemImage: "rectangle.grid.2x2")
+                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("sectionStyleTypePicker", systemImage: "rectangle.grid.2x2")
+            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }

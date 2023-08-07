@@ -42,7 +42,7 @@
 "appearanceWatchlist" = "Lista de Seguimiento";
 "appearanceSendFeedback" = "Enviar Comentarios";
 "appearanceTitle" = "Apariencia";
-"appearanceThemeTitle" = "Tema De La Applicación";
+"appearanceThemeTitle" = "Tema De La Aplicación";
 "appearanceTheme" = "Temas";
 "appearanceRowStyleTitle" = "Estilo del Elemento en Lista";
 "appearanceRowStyleSubtitle" = "Elige cómo mostrar tu lista de seguimiento";
@@ -306,7 +306,7 @@
 
 //MARK: WatchlistSectionView.swift
 "Coming Soon" = "Próximamente";
-"From Watchlist" = "De la Lista de Pendientes";
+"From Watchlist" = "De la Lista de Seguimiento";
 
 //MARK: CastDetailsView.swift
 "Biography" = "Biografía";
@@ -675,3 +675,4 @@
 "shareLinkPreferenceSubtitle" = "Puedes optar por compartir utilizando un enlace de Cronica que permitirá abrir la aplicación.\nTen en cuenta que no todo el contenido se puede compartir con un enlace de Cronica, la aplicación siempre utilizará enlaces de TMDB en caso de ser necesario.";
 "Not Watched" = "No visto";
 "List" = "Lista";
+"Spanish" = "Español";

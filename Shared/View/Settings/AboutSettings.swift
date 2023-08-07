@@ -66,6 +66,7 @@ struct AboutSettings: View {
             
             Section("Translation") {
                 aboutButton(title: "German", subtitle: "Simon Boer", url: "https://twitter.com/simonboer16")
+                aboutButton(title: "Spanish", subtitle: "Luis Felipe Lerma Alvarez", url: "https://www.instagram.com/lerma_alvarez")
             }
             
             Section("Libraries") {
