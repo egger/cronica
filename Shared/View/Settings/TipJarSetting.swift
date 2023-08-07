@@ -52,9 +52,6 @@ struct TipJarSetting: View {
             }
         }
         .navigationTitle("tipJarTitle")
-#if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-#endif
         .onChange(of: viewModel.hasLoadedProducts) { hasLoaded in
             if hasLoaded {
                 withAnimation { productsLoaded = true }

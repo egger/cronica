@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WatchListFilter: View {
-    @Binding var selectedOrder: DefaultListTypes
+    @Binding var selectedOrder: SmartFiltersTypes
     @Binding var showAllItems: Bool
     @Binding var mediaTypeFilter: MediaTypeFilters
     @Binding var showView: Bool
@@ -26,7 +26,7 @@ struct WatchListFilter: View {
             }
             Section {
                 Picker(selection: $selectedOrder) {
-                    ForEach(DefaultListTypes.allCases) { sort in
+                    ForEach(SmartFiltersTypes.allCases) { sort in
                         Text(sort.title).tag(sort)
                     }
                 } label: {

@@ -18,6 +18,7 @@ class UpNextViewModel: ObservableObject {
     
     func load(_ items: FetchedResults<WatchlistItem>) async {
         if !isLoaded {
+            var upNextEpisodes = [UpNextEpisode]()
             for item in items {
                 let result = try? await network.fetchEpisode(tvID: item.id,
                                                              season: item.itemNextUpNextSeason,
@@ -32,11 +33,12 @@ class UpNextViewModel: ObservableObject {
                                                     showTitle: item.itemTitle,
                                                     showID: item.itemId,
                                                     backupImage: item.image,
-                                                    episode: result)
+                                                    episode: result,
+                                                    sortedDate: item.itemLastUpdateDate)
                         
                         await MainActor.run {
                             withAnimation(.easeInOut) {
-                                self.episodes.append(content)
+                                upNextEpisodes.append(content)
                             }
                         }
                     } else if isWatched {
@@ -53,10 +55,11 @@ class UpNextViewModel: ObservableObject {
                                                             showTitle: item.itemTitle,
                                                             showID: item.itemId,
                                                             backupImage: item.image,
-                                                            episode: nextEpisode)
+                                                            episode: nextEpisode,
+                                                            sortedDate: item.itemLastUpdateDate)
                                 await MainActor.run {
                                     withAnimation(.easeInOut) {
-                                        self.episodes.append(content)
+                                        upNextEpisodes.append(content)
                                     }
                                 }
                             }
@@ -65,7 +68,10 @@ class UpNextViewModel: ObservableObject {
                 }
             }
             await MainActor.run {
-                withAnimation { self.isLoaded = true }
+                withAnimation(.easeInOut)  {
+                    self.episodes.append(contentsOf: upNextEpisodes.sorted { $0.sortedDate > $1.sortedDate })
+                    self.isLoaded = true
+                }
             }
         }
     }
@@ -90,7 +96,8 @@ class UpNextViewModel: ObservableObject {
                                             showTitle: content.showTitle,
                                             showID: content.showID,
                                             backupImage: content.backupImage,
-                                            episode: nextEpisode)
+                                            episode: nextEpisode,
+                                            sortedDate: Date())
                 await MainActor.run {
                     withAnimation(.easeInOut) {
                         self.episodes.insert(content, at: 0)
@@ -130,7 +137,8 @@ class UpNextViewModel: ObservableObject {
                                                 showTitle: item.itemTitle,
                                                 showID: item.itemId,
                                                 backupImage: item.image,
-                                                episode: result)
+                                                episode: result,
+                                                sortedDate: item.itemLastUpdateDate)
                     
                     await MainActor.run {
                         withAnimation(.easeInOut) {
@@ -162,7 +170,8 @@ class UpNextViewModel: ObservableObject {
                                         showTitle: content.showTitle,
                                         showID: content.showID,
                                         backupImage: content.backupImage,
-                                        episode: nextEpisode)
+                                        episode: nextEpisode,
+                                        sortedDate: Date())
             
             await MainActor.run {
                 withAnimation(.easeInOut) {

@@ -109,9 +109,6 @@ struct AboutSettings: View {
             }
         }
         .navigationTitle("aboutTitle")
-#if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-#endif
 #if os(macOS)
         .formStyle(.grouped)
 #endif

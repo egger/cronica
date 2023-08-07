@@ -264,6 +264,7 @@ extension PersistenceController {
             item.lastSelectedSeason = Int64(episode.itemSeasonNumber)
             item.lastWatchedEpisode = Int64(episode.id)
         }
+        item.lastValuesUpdated = Date()
         item.isWatching = true
         save()
     }

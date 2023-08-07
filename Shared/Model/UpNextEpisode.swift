@@ -13,4 +13,5 @@ struct UpNextEpisode: Identifiable, Hashable {
     let showID: Int
     let backupImage: URL?
     let episode: Episode
+    let sortedDate: Date
 }

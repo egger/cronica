@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DefaultListView: View {
-    @Binding var selectedOrder: DefaultListTypes?
+    @Binding var selectedOrder: SmartFiltersTypes?
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default) private var items: FetchedResults<WatchlistItem>
@@ -48,6 +48,11 @@ struct DefaultListView: View {
             case .watching:
                 List {
                     WatchlistSectionView(items: items.filter { $0.isCurrentlyWatching },
+                                         title: "Watching")
+                }
+            case .notWatched:
+                List {
+                    WatchlistSectionView(items: items.filter { !$0.isCurrentlyWatching && !$0.isWatched },
                                          title: "Watching")
                 }
             }

@@ -61,9 +61,6 @@ struct RegionContentSettings: View {
 #endif
         }
         .navigationTitle("settingsRegionContentTitle")
-#if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-#endif
 #if os(macOS)
         .formStyle(.grouped)
 #endif

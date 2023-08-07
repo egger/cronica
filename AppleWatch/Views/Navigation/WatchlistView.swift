@@ -13,8 +13,8 @@ struct WatchlistView: View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default) private var items: FetchedResults<WatchlistItem>
-    @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
-    @State private var selectedList: DefaultListTypes?
+    @AppStorage("selectedOrder") private var selectedOrder: SmartFiltersTypes = .released
+    @State private var selectedList: SmartFiltersTypes?
     @State private var selectedCustomList: CustomList?
     @State private var query = ""
     @State private var showPicker = false

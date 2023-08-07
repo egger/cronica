@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WatchlistSelectorView: View {
     @Binding var showView: Bool
-    @Binding var selectedList: DefaultListTypes?
+    @Binding var selectedList: SmartFiltersTypes?
     @Binding var selectedCustomList: CustomList?
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
@@ -22,7 +22,7 @@ struct WatchlistSelectorView: View {
             Form {
                 List {
                     Section {
-                        ForEach(DefaultListTypes.allCases) { list in
+                        ForEach(SmartFiltersTypes.allCases) { list in
                             Button {
                                 selectedCustomList = nil
                                 selectedList = list

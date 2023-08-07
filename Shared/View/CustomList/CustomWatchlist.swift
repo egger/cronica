@@ -20,20 +20,159 @@ struct CustomWatchlist: View {
     @State private var showFilter = false
     @State private var showAllItems = true
     @State private var mediaTypeFilter: MediaTypeFilters = .noFilter
-    @State private var selectedOrder: DefaultListTypes = .released
+    @State private var selectedOrder: SmartFiltersTypes = .released
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
+    @AppStorage("customListSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
+    private var sortedItems: [WatchlistItem] {
+        if let items = selectedList?.itemsArray {
+            switch sortOrder {
+            case .titleAsc:
+                return items.sorted { $0.itemTitle < $1.itemTitle }
+            case .titleDesc:
+                return items.sorted { $0.itemTitle > $1.itemTitle }
+            case .ratingAsc:
+                return items.sorted { $0.userRating < $1.userRating }
+            case .ratingDesc:
+                return items.sorted { $0.userRating > $1.userRating }
+            case .dateAsc:
+                return items.sorted { $0.itemSortDate < $1.itemSortDate }
+            case .dateDesc:
+                return items.sorted { $0.itemSortDate > $1.itemSortDate }
+            }
+        } else {
+            return []
+        }
+    }
+    private var smartFiltersItems: [WatchlistItem] {
+        switch selectedOrder {
+        case .released:
+            return sortedItems.filter { $0.isReleased }
+        case .production:
+            return sortedItems.filter { $0.isInProduction || $0.isUpcoming }
+        case .watching:
+            return sortedItems.filter { $0.isCurrentlyWatching }
+        case .watched:
+            return sortedItems.filter { $0.isWatched }
+        case .favorites:
+            return sortedItems.filter { $0.isFavorite }
+        case .pin:
+            return sortedItems.filter { $0.isReleased }
+        case .archive:
+            return sortedItems.filter { $0.isArchive }
+        case .notWatched:
+            return sortedItems.filter { !$0.isCurrentlyWatching && !$0.isWatched && $0.isReleased }
+        }
+    }
+    private var scopeFiltersItems: [WatchlistItem] {
+        switch scope {
+        case .noScope:
+            return filteredItems
+        case .movies:
+            return filteredItems.filter { $0.isMovie }
+        case .shows:
+            return filteredItems.filter { $0.isTvShow }
+        }
+    }
+    private var mediaTypeItems: [WatchlistItem] {
+        switch mediaTypeFilter {
+        case .noFilter:
+            return sortedItems
+        case .movies:
+            return sortedItems.filter { $0.isMovie }
+        case .tvShows:
+            return sortedItems.filter { $0.isTvShow }
+        }
+    }
     var body: some View {
         VStack {
+            if let items = selectedList?.itemsArray {
 #if os(tvOS)
-            frameStyle
-#else
-            switch settings.watchlistStyle {
-            case .list: listStyle
-            case .poster: posterStyle
-            case .card: frameStyle
-            }
+                ScrollView {
+                    if !items.isEmpty {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Watchlist")
+                                    .font(.title3)
+                                if showAllItems {
+                                    Text(mediaTypeFilter.localizableTitle)
+                                        .font(.callout)
+                                        .foregroundColor(.secondary)
+                                } else {
+                                    Text(selectedOrder.title)
+                                        .font(.callout)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding()
+                            Spacer()
+                            Button {
+                                showFilter.toggle()
+                            } label: {
+                                Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                                    .labelStyle(.iconOnly)
+                            }
+                        }
+                        .padding(.horizontal, 64)
+                    }
+                }
 #endif
+                if items.isEmpty {
+                    if scope != .noScope {
+                        empty
+                    } else {
+                        empty
+                    }
+                } else {
+                    if !filteredItems.isEmpty {
+                        switch settings.watchlistStyle {
+                        case .list:
+                            WatchListSection(items: scopeFiltersItems,
+                                             title: "Search results", showPopup: $showPopup, popupType: $popupType)
+                        case .card:
+                            WatchlistCardSection(items: scopeFiltersItems,
+                                                 title: "Search results", showPopup: $showPopup, popupType: $popupType)
+                        case .poster:
+                            WatchlistPosterSection(items: scopeFiltersItems,
+                                                   title: "Search results", showPopup: $showPopup, popupType: $popupType)
+                        }
+                        
+                    } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
+                        noResults
+                    } else {
+                        if showAllItems {
+                            switch settings.watchlistStyle {
+                            case .list:
+                                WatchListSection(items: mediaTypeItems,
+                                                 title: mediaTypeFilter.localizableTitle,
+                                                 showPopup: $showPopup, popupType: $popupType)
+                            case .card:
+                                WatchlistCardSection(items: mediaTypeItems,
+                                                     title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                            case .poster:
+                                WatchlistPosterSection(items: mediaTypeItems,
+                                                       title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                            }
+                        } else {
+                            switch settings.watchlistStyle {
+                            case .list:
+                                WatchListSection(items: smartFiltersItems,
+                                                 title: selectedOrder.title,
+                                                 showPopup: $showPopup, popupType: $popupType)
+                            case .card:
+                                WatchlistCardSection(items: smartFiltersItems,
+                                                     title: selectedOrder.title,
+                                                     showPopup: $showPopup,
+                                                     popupType: $popupType)
+                            case .poster:
+                                WatchlistPosterSection(items: smartFiltersItems,
+                                                       title: selectedOrder.title,
+                                                       showPopup: $showPopup, popupType: $popupType)
+                            }
+                        }
+                    }
+                }
+            }
         }
         .sheet(isPresented: $showFilter) {
             NavigationStack {
@@ -47,7 +186,10 @@ struct CustomWatchlist: View {
                 styleButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                filterPicker
+                HStack {
+                    filterPicker
+                    sortButton
+                }
             }
 #else
             filterPicker
@@ -92,235 +234,27 @@ struct CustomWatchlist: View {
     }
 #endif
     
+    private var sortButton: some View {
+        Menu {
+            Picker(selection: $sortOrder) {
+                ForEach(WatchlistSortOrder.allCases) { item in
+                    Text(item.localizableName).tag(item)
+                }
+            } label: {
+                Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
+            }
+        } label: {
+            Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
+                .labelStyle(.iconOnly)
+        }
+    }
+    
     private var filterPicker: some View {
         Button {
             showFilter.toggle()
         } label: {
             Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
         }
-    }
-    
-#if os(iOS) || os(macOS)
-    @ViewBuilder
-    private var listStyle: some View {
-        if let items = selectedList?.itemsArray {
-            if items.isEmpty {
-                if scope != .noScope {
-                    empty
-                } else {
-                    empty
-                }
-            } else {
-                if !filteredItems.isEmpty {
-                    switch scope {
-                    case .noScope:
-                        WatchListSection(items: filteredItems,
-                                         title: "Search results", showPopup: $showPopup, popupType: $popupType)
-                    case .movies:
-                        WatchListSection(items: filteredItems.filter { $0.isMovie },
-                                         title: "Search results", showPopup: $showPopup, popupType: $popupType)
-                    case .shows:
-                        WatchListSection(items: filteredItems.filter { $0.isTvShow },
-                                         title: "Search results", showPopup: $showPopup, popupType: $popupType)
-                    }
-                } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
-                    noResults
-                } else {
-                    if showAllItems {
-                        switch mediaTypeFilter {
-                        case .noFilter:
-                            WatchListSection(items: items.filter { $0.title != nil }, title: "allItems",
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .movies:
-                            WatchListSection(items: items.filter { $0.itemMedia == .movie }, title: "allItemsMovies",
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .tvShows:
-                            WatchListSection(items: items.filter { $0.itemMedia == .tvShow }, title: "allItemsTVShows",
-                                             showPopup: $showPopup, popupType: $popupType)
-                        }
-                        
-                    } else {
-                        switch selectedOrder {
-                        case .released:
-                            WatchListSection(items: items.filter { $0.isReleased },
-                                             title: DefaultListTypes.released.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .production:
-                            WatchListSection(items: items.filter { $0.isInProduction || $0.isUpcoming },
-                                             title: DefaultListTypes.production.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .favorites:
-                            WatchListSection(items: items.filter { $0.isFavorite },
-                                             title: DefaultListTypes.favorites.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .watched:
-                            WatchListSection(items: items.filter { $0.isWatched },
-                                             title: DefaultListTypes.watched.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .pin:
-                            WatchListSection(items: items.filter { $0.isPin },
-                                             title: DefaultListTypes.pin.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .archive:
-                            WatchListSection(items: items.filter { $0.isArchive },
-                                             title: DefaultListTypes.archive.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .watching:
-                            WatchListSection(items: items.filter { $0.isCurrentlyWatching },
-                                             title: DefaultListTypes.watching.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                        }
-                    }
-                }
-            }
-        }
-    }
-#endif
-    
-    @ViewBuilder
-    private var frameStyle: some View {
-        if let items = selectedList?.itemsArray {
-            if !filteredItems.isEmpty {
-                switch scope {
-                case .noScope:
-                    WatchlistCardSection(items: filteredItems,
-                                         title: "Search results",
-                                         showPopup: $showPopup,
-                                         popupType: $popupType)
-                case .movies:
-                    WatchlistCardSection(items: filteredItems.filter { $0.isMovie },
-                                         title: "Search results",
-                                         showPopup: $showPopup,
-                                         popupType: $popupType)
-                case .shows:
-                    WatchlistCardSection(items: filteredItems.filter { $0.isTvShow },
-                                         title: "Search results",
-                                         showPopup: $showPopup,
-                                         popupType: $popupType)
-                }
-            } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-                noResults
-            } else {
-                if showAllItems {
-                    switch mediaTypeFilter {
-                    case .noFilter:
-                        WatchlistCardSection(items: items.filter { $0.title != nil },
-                                             title: "allItems",
-                                             showPopup: $showPopup,
-                                             popupType: $popupType)
-                    case .movies:
-                        WatchlistCardSection(items: items.filter { $0.isMovie },
-                                             title: "allItemsMovies",
-                                             showPopup: $showPopup,
-                                             popupType: $popupType)
-                    case .tvShows:
-                        WatchlistCardSection(items: items.filter { $0.isTvShow },
-                                             title: "allItemsTVShows",
-                                             showPopup: $showPopup,
-                                             popupType: $popupType)
-                    }
-                } else {
-                    switch selectedOrder {
-                    case .released:
-                        WatchlistCardSection(items: items.filter { $0.isReleased },
-                                             title: DefaultListTypes.released.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                    case .production:
-                        WatchlistCardSection(items: items.filter { $0.isInProduction || $0.isUpcoming },
-                                             title: DefaultListTypes.production.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                    case .watched:
-                        WatchlistCardSection(items: items.filter { $0.isWatched },
-                                             title: DefaultListTypes.watched.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                    case .favorites:
-                        WatchlistCardSection(items: items.filter { $0.isFavorite },
-                                             title: DefaultListTypes.favorites.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                    case .pin:
-                        WatchlistCardSection(items: items.filter { $0.isPin },
-                                             title: DefaultListTypes.pin.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                    case .archive:
-                        WatchlistCardSection(items: items.filter { $0.isArchive },
-                                             title: DefaultListTypes.archive.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                    case .watching:
-                        WatchlistCardSection(items: items.filter { $0.isCurrentlyWatching },
-                                             title: DefaultListTypes.watching.title,
-                                             showPopup: $showPopup, popupType: $popupType)
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    @ViewBuilder
-    private var posterStyle: some View {
-        if let items = selectedList?.itemsArray {
-            if !filteredItems.isEmpty {
-                switch scope {
-                case .noScope:
-                    WatchlistPosterSection(items: filteredItems,
-                                           title: "Search results", showPopup: $showPopup, popupType: $popupType)
-                case .movies:
-                    WatchlistPosterSection(items: filteredItems.filter { $0.isMovie },
-                                           title: "Search results", showPopup: $showPopup, popupType: $popupType)
-                case .shows:
-                    WatchlistPosterSection(items: filteredItems.filter { $0.isTvShow },
-                                           title: "Search results", showPopup: $showPopup, popupType: $popupType)
-                }
-            } else if !query.isEmpty && filteredItems.isEmpty && !isSearching {
-                noResults
-            } else {
-                if showAllItems {
-                    switch mediaTypeFilter {
-                    case .noFilter:
-                        WatchlistPosterSection(items: items.filter { $0.title != nil },
-                                               title: "allItems", showPopup: $showPopup, popupType: $popupType)
-                    case .movies:
-                        WatchlistPosterSection(items: items.filter { $0.isMovie },
-                                               title: "allItemsMovies", showPopup: $showPopup, popupType: $popupType)
-                    case .tvShows:
-                        WatchlistPosterSection(items: items.filter { $0.isTvShow },
-                                               title: "allItemsTVShows", showPopup: $showPopup, popupType: $popupType)
-                    }
-                } else {
-                    switch selectedOrder {
-                    case .released:
-                        WatchlistPosterSection(items: items.filter { $0.isReleased },
-                                               title: DefaultListTypes.released.title,
-                                               showPopup: $showPopup, popupType: $popupType)
-                    case .production:
-                        WatchlistPosterSection(items: items.filter { $0.isInProduction || $0.isUpcoming },
-                                               title: DefaultListTypes.production.title,
-                                               showPopup: $showPopup, popupType: $popupType)
-                    case .watched:
-                        WatchlistPosterSection(items: items.filter { $0.isWatched },
-                                               title: DefaultListTypes.watched.title,
-                                               showPopup: $showPopup, popupType: $popupType)
-                    case .favorites:
-                        WatchlistPosterSection(items: items.filter { $0.isFavorite },
-                                               title: DefaultListTypes.favorites.title,
-                                               showPopup: $showPopup, popupType: $popupType)
-                    case .pin:
-                        WatchlistPosterSection(items: items.filter { $0.isPin },
-                                               title: DefaultListTypes.pin.title,
-                                               showPopup: $showPopup, popupType: $popupType)
-                    case .archive:
-                        WatchlistPosterSection(items: items.filter { $0.isArchive },
-                                               title: DefaultListTypes.archive.title,
-                                               showPopup: $showPopup, popupType: $popupType)
-                    case .watching:
-                        WatchlistPosterSection(items: items.filter { $0.isCurrentlyWatching },
-                                               title: DefaultListTypes.watching.title,
-                                               showPopup: $showPopup, popupType: $popupType)
-                    }
-                }
-            }
-        }
-        
     }
     
     private var noResults: some View {

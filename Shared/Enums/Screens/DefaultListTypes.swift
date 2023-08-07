@@ -1,5 +1,5 @@
 //
-//  DefaultListTypes.swift
+//  SmartFiltersTypes.swift
 //  Story (iOS)
 //
 //  Created by Alexandre Madeira on 10/08/22.
@@ -9,9 +9,9 @@ import Foundation
 /// The type of lists supported by WatchlistView.
 ///
 /// This value is used to provide filter functionality for WatchlistView.
-enum DefaultListTypes: String, Identifiable, Hashable, CaseIterable {
+enum SmartFiltersTypes: String, Identifiable, Hashable, CaseIterable {
     var id: String { rawValue }
-    case released, production, watching, watched, favorites, pin, archive
+    case released, production, watching, notWatched, watched, favorites, pin, archive
     var title: String {
         switch self {
         case .released:
@@ -28,6 +28,8 @@ enum DefaultListTypes: String, Identifiable, Hashable, CaseIterable {
             return NSLocalizedString("Archive", comment: "")
         case .watching:
             return NSLocalizedString("Watching", comment: "")
+        case .notWatched:
+            return NSLocalizedString("Not Watched", comment: "")
         }
     }
 }

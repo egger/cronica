@@ -504,6 +504,8 @@
 		B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CronicaWatch Watch App.entitlements"; sourceTree = "<group>"; };
 		B84043DF289B372B00D5CEBF /* CronicaWatch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CronicaWatch-Info.plist"; path = "AppleWatch/Configuration/CronicaWatch-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B84043E3289B3F3800D5CEBF /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
+		B8409D182A817F810048840F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B8409D192A817F810048840F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "es-MX"; path = "es-MX.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B8423E2B2793B4C10012259B /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
@@ -1555,6 +1557,7 @@
 				ja,
 				ar,
 				fr,
+				"es-MX",
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
@@ -2014,6 +2017,7 @@
 				B8C852632A7026CD00A1CE85 /* ja */,
 				B8C852652A702A2500A1CE85 /* ar */,
 				B8C852672A702E5900A1CE85 /* fr */,
+				B8409D192A817F810048840F /* es-MX */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -2028,6 +2032,7 @@
 				B8C852622A7026CD00A1CE85 /* ja */,
 				B8C852642A702A2500A1CE85 /* ar */,
 				B8C852662A702E5900A1CE85 /* fr */,
+				B8409D182A817F810048840F /* es-MX */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

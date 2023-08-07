@@ -14,7 +14,7 @@ struct DefaultWatchlist: View {
         animation: .default) private var items: FetchedResults<WatchlistItem>
     @State private var filteredItems = [WatchlistItem]()
     @State private var query = ""
-    @AppStorage("selectedOrder") private var selectedOrder: DefaultListTypes = .released
+    @AppStorage("selectedOrder") private var smartFilter: SmartFiltersTypes = .released
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
@@ -23,7 +23,7 @@ struct DefaultWatchlist: View {
     @AppStorage("watchlistMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .noFilter
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
-    @State private var sortOrder: WatchlistSortOrder = .titleAsc
+    @AppStorage("defaultWatchlistSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
     private var sortedItems: [WatchlistItem] {
         switch sortOrder {
         case .titleAsc:
@@ -41,7 +41,7 @@ struct DefaultWatchlist: View {
         }
     }
     private var smartFiltersItems: [WatchlistItem] {
-        switch selectedOrder {
+        switch smartFilter {
         case .released:
             return sortedItems.filter { $0.isReleased }
         case .production:
@@ -56,6 +56,8 @@ struct DefaultWatchlist: View {
             return sortedItems.filter { $0.isReleased }
         case .archive:
             return sortedItems.filter { $0.isArchive }
+        case .notWatched:
+            return sortedItems.filter { !$0.isCurrentlyWatching && !$0.isWatched && $0.isReleased }
         }
     }
     private var scopeFiltersItems: [WatchlistItem] {
@@ -150,16 +152,16 @@ struct DefaultWatchlist: View {
                         switch settings.watchlistStyle {
                         case .list:
                             WatchListSection(items: smartFiltersItems,
-                                             title: selectedOrder.title,
+                                             title: smartFilter.title,
                                              showPopup: $showPopup, popupType: $popupType)
                         case .card:
                             WatchlistCardSection(items: smartFiltersItems,
-                                                 title: selectedOrder.title,
+                                                 title: smartFilter.title,
                                                  showPopup: $showPopup,
                                                  popupType: $popupType)
                         case .poster:
                             WatchlistPosterSection(items: smartFiltersItems,
-                                                   title: selectedOrder.title,
+                                                   title: smartFilter.title,
                                                    showPopup: $showPopup, popupType: $popupType)
                         }
                     }
@@ -168,7 +170,7 @@ struct DefaultWatchlist: View {
         }
         .sheet(isPresented: $showFilter) {
             NavigationStack {
-                WatchListFilter(selectedOrder: $selectedOrder,
+                WatchListFilter(selectedOrder: $smartFilter,
                                 showAllItems: $showAllItems,
                                 mediaTypeFilter: $mediaTypeFilter,
                                 showView: $showFilter)
@@ -208,7 +210,7 @@ struct DefaultWatchlist: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
-        .onChange(of: selectedOrder) { _ in
+        .onChange(of: smartFilter) { _ in
             withAnimation { showFilter.toggle() }
         }
         .disableAutocorrection(true)
