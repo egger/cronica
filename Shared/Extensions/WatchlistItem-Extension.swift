@@ -213,7 +213,6 @@ extension WatchlistItem {
         } else {
             return nextEpisodeNumberUpNext
         }
-        
     }
 }
 

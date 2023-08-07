@@ -18,6 +18,7 @@ struct SeasonList: View {
     @State private var previouslySelectedSeason = 1
     @State private var season: Season?
     @State private var checkIfWatched = false
+    @Binding var isInWatchlist: Bool
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
     var body: some View {
@@ -73,7 +74,7 @@ struct SeasonList: View {
             Spacer()
 #if os(iOS) 
             Menu {
-                Button("markThisSeasonAsWatched", action: markSeasonAsWatched)
+                if isInWatchlist { Button("markThisSeasonAsWatched", action: markSeasonAsWatched) }
                 if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(selectedSeason)") {
                     ShareLink(item: url)
                 }

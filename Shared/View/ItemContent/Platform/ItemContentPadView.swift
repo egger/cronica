@@ -29,12 +29,11 @@ struct ItemContentPadView: View {
             header.padding(.leading)
             
             if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons).padding(0)
+                SeasonList(showID: id, showTitle: title,
+                           numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist).padding(0)
             }
             
-#if !os(tvOS)
-            TrailerListView(trailers: viewModel.content?.itemTrailers)
-#endif
+            TrailerListView(trailers: viewModel.trailers)
             
             WatchProvidersList(id: id, type: type)
             
@@ -45,7 +44,6 @@ struct ItemContentPadView: View {
                                           showPopup: $showPopup,
                                           popupType: $popupType,
                                           displayAsCard: true)
-#if !os(tvOS)
             if showInfoBox {
                 GroupBox("Information") {
                     QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
@@ -53,7 +51,6 @@ struct ItemContentPadView: View {
                 .padding()
                 
             }
-#endif
             
             AttributionView().padding([.top, .bottom])
         }
@@ -99,7 +96,7 @@ struct ItemContentPadView: View {
                     animate(for: store.gesture)
                     viewModel.update(store.gesture)
                 }
-                .shadow(radius: 12)
+                .shadow(radius: 5)
                 .padding()
                 .accessibility(hidden: true)
             

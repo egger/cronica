@@ -30,16 +30,18 @@ struct WatchListFilter: View {
                         Text(sort.title).tag(sort)
                     }
                 } label: {
-                    Text("defaultWatchlistSmartFilters")
-#if os(iOS)
-                        .foregroundColor(.secondary)
-#endif
+                    EmptyView()
                 }
                 .disabled(showAllItems)
 #if !os(macOS)
                 .pickerStyle(.inline)
 #else
                 .pickerStyle(.menu)
+#endif
+            }  header: {
+                Text("defaultWatchlistSmartFilters")
+#if os(iOS)
+                    .foregroundColor(.secondary)
 #endif
             }
         }

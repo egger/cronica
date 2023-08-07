@@ -15,19 +15,21 @@ struct PinItemsList: View {
     ) private var items: FetchedResults<WatchlistItem>
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
+    @Binding var shouldReload: Bool
     var body: some View {
         if !items.isEmpty {
             HorizontalWatchlistList(items: items.sorted { $0.itemTitle < $1.itemTitle },
                                     title: "My Pins",
                                     subtitle: "Pinned Items",
                                     showPopup: $showPopup,
-                                    popupType: $popupType)
+                                    popupType: $popupType,
+                                    shouldReload: $shouldReload)
         }
     }
 }
 
 struct PinItemsList_Previews: PreviewProvider {
     static var previews: some View {
-        PinItemsList(showPopup: .constant(false), popupType: .constant(nil))
+        PinItemsList(showPopup: .constant(false), popupType: .constant(nil), shouldReload: .constant(false))
     }
 }

@@ -50,7 +50,8 @@ struct ConfirmationPopupModifier: ViewModifier {
 enum ActionPopupItems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
     case addedWatchlist, removedWatchlist, markedWatched, removedWatched, markedFavorite, removedFavorite,
-         markedArchive, removedArchive, markedPin, removedPin, markedEpisodeWatched, removedEpisodeWatched
+         markedArchive, removedArchive, markedPin, removedPin, markedEpisodeWatched, removedEpisodeWatched,
+         feedbackSent
     
     var localizedString: String { return NSLocalizedString(rawValue, comment: "") }
     
@@ -68,6 +69,7 @@ enum ActionPopupItems: String, Identifiable, CaseIterable {
         case .removedPin: return "pin.slash.fill"
         case .markedEpisodeWatched: return "rectangle.badge.checkmark.fill"
         case .removedEpisodeWatched: return "rectangle.badge.checkmark"
+        case .feedbackSent: return "envelope.fill"
         }
     }
 }

@@ -22,6 +22,7 @@ struct VideoItem: Identifiable, Codable, Hashable {
     let url: URL?
     let thumbnail: URL?
     let title: String
+    let videoID: String
 }
 extension VideosResult {
     private var isYouTube: Bool {

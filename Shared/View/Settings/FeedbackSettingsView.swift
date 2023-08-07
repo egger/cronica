@@ -13,6 +13,9 @@ struct FeedbackSettingsView: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var supportEmail = SupportEmail()
     @State private var showFeedbackForm = false
+    @State private var feedbackSent = false
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         Section {
             Button("Send Feedback") {
@@ -48,6 +51,7 @@ struct FeedbackSettingsView: View {
                     .toolbar {
                         Button("Cancel") { showFeedbackForm.toggle() }
                     }
+                    .actionPopup(isShowing: $showPopup, for: popupType)
 #if os(iOS)
                     .navigationBarTitleDisplayMode(.inline)
 #elseif os(macOS)
@@ -67,8 +71,9 @@ struct FeedbackSettingsView: View {
     private func send() {
         if feedback.isEmpty { return }
         CronicaTelemetry.shared.handleMessage("Feedback: \(feedback)", for: "Feedback")
+        popupType = .feedbackSent
+        withAnimation { showPopup = true }
         feedback = ""
-        showFeedbackForm.toggle()
     }
 }
 

@@ -36,7 +36,7 @@ class SettingsStore: ObservableObject {
 #else
     @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .standard
 #endif
-    @AppStorage("exploreDisplayType") var exploreDisplayType: ExplorePreferredDisplayType = .card
+    @AppStorage("exploreDisplayType") var sectionStyleType: ExplorePreferredDisplayType = .card
     @AppStorage("preferCompactUI") var isCompactUI = false
     @AppStorage("selectedWatchProviderEnabled") var isSelectedWatchProviderEnabled = false
     @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""
@@ -58,4 +58,5 @@ class SettingsStore: ObservableObject {
 #if os(iOS)
     @AppStorage("alwaysUsePosterAsCover") var usePostersAsCover = true
 #endif
+    @AppStorage("shareLinkPreference") var shareLinkPreference: ShareLinkPreference = .tmdb
 }

@@ -31,6 +31,7 @@ struct UpcomingWatchlist: View {
     )
     var items: FetchedResults<WatchlistItem>
     @StateObject private var settings = SettingsStore.shared
+    @Binding var shouldReload: Bool
     var body: some View {
         list(items: items.filter { $0.image != nil })
     }
@@ -52,24 +53,32 @@ struct UpcomingWatchlist: View {
                           showChevron: false)
                 .padding(.leading, 64)
 #endif
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(items) { item in
-                            card(item: item)
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEach(items) { item in
+                                card(item: item)
 #if !os(tvOS)
-                                .padding(.leading, item.id == items.first!.id ? 16 : 0)
-                                .padding(.trailing, item.id == items.last!.id ? 16 : 0)
-                                .padding(.bottom)
-                                .padding(.top, 8)
-                                .padding([.leading, .trailing], 4)
-                                .buttonStyle(.plain)
+                                    .padding(.leading, item.id == items.first!.id ? 16 : 0)
+                                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                                    .padding(.bottom)
+                                    .padding(.top, 8)
+                                    .padding([.leading, .trailing], 4)
+                                    .buttonStyle(.plain)
 #else
-                                .padding(.leading, item.id == items.first!.id ? 64 : 0)
-                                .padding(.trailing, item.id == items.last!.id ? 64 : 0)
-                                .padding(.vertical)
-                                .padding([.leading, .trailing], 4)
-                                .buttonStyle(.card)
+                                    .padding(.leading, item.id == items.first!.id ? 64 : 0)
+                                    .padding(.trailing, item.id == items.last!.id ? 64 : 0)
+                                    .padding(.vertical)
+                                    .padding([.leading, .trailing], 4)
+                                    .buttonStyle(.card)
 #endif
+                            }
+                        }
+                    }
+                    .onChange(of: shouldReload) { _ in
+                        guard let firstItem = items.first else { return }
+                        withAnimation {
+                            proxy.scrollTo(firstItem.id, anchor: .topLeading)
                         }
                     }
                 }
@@ -78,7 +87,7 @@ struct UpcomingWatchlist: View {
     }
     
     @ViewBuilder
-    func card(item: WatchlistItem) -> some View {
+    private func card(item: WatchlistItem) -> some View {
 #if os(tvOS)
         VStack {
             image(for: item)
@@ -141,7 +150,6 @@ struct UpcomingWatchlist: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        Color.black.opacity(0.4)
                         Image(systemName: "popcorn.fill")
                             .font(.title)
                             .fontWidth(.expanded)
@@ -237,7 +245,7 @@ struct UpcomingWatchlist: View {
 
 struct UpcomingWatchlist_Previews: PreviewProvider {
     static var previews: some View {
-        UpcomingWatchlist()
+        UpcomingWatchlist(shouldReload: .constant(false))
     }
 }
 

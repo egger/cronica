@@ -44,7 +44,7 @@ struct ItemContentDetails: View {
                 .toolbar {
                     if handleToolbarOnPopup {
                         ToolbarItem(placement: .status) {
-                            ViewThatFits {
+                            ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     if viewModel.isInWatchlist {
                                         favoriteButton
@@ -55,14 +55,11 @@ struct ItemContentDetails: View {
                                     shareButton
                                 }
                                 .disabled(viewModel.isLoading ? true : false)
-                                shareButton
-                                    .disabled(viewModel.isLoading ? true : false)
                             }
-                            
                         }
                     } else {
                         ToolbarItem {
-                            ViewThatFits {
+                            ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     if viewModel.isInWatchlist {
                                         favoriteButton
@@ -73,8 +70,6 @@ struct ItemContentDetails: View {
                                     shareButton
                                 }
                                 .disabled(viewModel.isLoading ? true : false)
-                                shareButton
-                                    .disabled(viewModel.isLoading ? true : false)
                             }
                         }
                     }
@@ -108,7 +103,6 @@ struct ItemContentDetails: View {
                                          type: type,
                                          id: id,
                                          showPopup: $showPopup,
-                                         showWatchedPopup: .constant(false),
                                          showCustomList: $showCustomList,
                                          popupType: $popupType)
                     .environmentObject(viewModel)
@@ -300,10 +294,21 @@ struct ItemContentDetails: View {
     @ViewBuilder
     private var shareButton: some View {
 #if os(iOS) || os(macOS)
-        if let url = viewModel.content?.itemURL {
-            ShareLink(item: url)
+        switch store.shareLinkPreference {
+        case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url) }
+        case .cronica: if let cronicaUrl { ShareLink(item: cronicaUrl) }
         }
 #endif
+    }
+    
+    private var cronicaUrl: URL? {
+        if let item = viewModel.content {
+            let encodedTitle = item.itemTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            let posterPath = item.posterPath ?? String()
+            let encodedPoster = posterPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            return URL(string: "https://alexandremadeira.dev/cronica/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
+        }
+        return nil
     }
     
     private func animate(for action: ActionPopupItems) {

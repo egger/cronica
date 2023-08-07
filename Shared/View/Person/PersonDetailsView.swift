@@ -195,8 +195,14 @@ struct PersonDetailsView: View {
         WebImage(url: viewModel.person?.personImage)
             .resizable()
             .placeholder {
-                Rectangle().redacted(reason: .placeholder)
-                    .clipShape(Circle())
+                ZStack {
+                    Circle().fill(.gray.gradient)
+                    Image(systemName: "person.fill")
+                        .resizable()
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(width: 50, height: 50, alignment: .center)
+                }
+                .clipShape(Circle())
             }
             .aspectRatio(contentMode: .fill)
             .transition(.opacity)

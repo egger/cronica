@@ -19,13 +19,17 @@ struct ItemContentContextMenu: ViewModifier {
     @Binding var showNote: Bool
     @Binding var showCustomListView: Bool
     @Binding var popupType: ActionPopupItems?
+    @StateObject private var settings = SettingsStore.shared
     func body(content: Content) -> some View {
 #if os(watchOS)
 #else
         return content
             .contextMenu {
 #if os(iOS) || os(macOS)
-                ShareLink(item: item.itemURL)
+                switch settings.shareLinkPreference {
+                case .cronica: if let cronicaUrl { ShareLink(item: cronicaUrl) }
+                case .tmdb: ShareLink(item: item.itemURL)
+                }
 #endif
                 if isInWatchlist {
                     WatchedButton(id: item.itemContentID,
@@ -102,5 +106,12 @@ struct ItemContentContextMenu: ViewModifier {
                 }
             }
         }
+    }
+    
+    private var cronicaUrl: URL? {
+        let encodedTitle = item.itemTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let posterPath = item.posterPath ?? String()
+        let encodedPoster = posterPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        return URL(string: "https://alexandremadeira.dev/cronica/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
     }
 }

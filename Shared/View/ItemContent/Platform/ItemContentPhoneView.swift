@@ -14,7 +14,6 @@ struct ItemContentPhoneView: View {
     let type: MediaType
     let id: Int
     @Binding var showPopup: Bool
-    @Binding var showWatchedPopup: Bool
     @EnvironmentObject var viewModel: ItemContentViewModel
     @StateObject private var store = SettingsStore.shared
     @State private var animateGesture = false
@@ -33,14 +32,14 @@ struct ItemContentPhoneView: View {
                             title: title).padding()
             
             if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons)
+                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist)
                     .padding([.top, .horizontal], .zero)
                     .padding(.bottom)
             }
             
             WatchProvidersList(id: id, type: type)
             
-            TrailerListView(trailers: viewModel.content?.itemTrailers)
+            TrailerListView(trailers: viewModel.trailers)
             
             CastListView(credits: viewModel.credits)
             
@@ -83,7 +82,7 @@ struct ItemContentPhoneView: View {
                             .lineLimit(1)
                     }
                     .padding(.vertical, 4)
-                    .frame(width: 60)
+                    .frame(width: 70)
                 }
                 .keyboardShortcut("w", modifiers: [.option])
                 .controlSize(.small)
@@ -107,7 +106,7 @@ struct ItemContentPhoneView: View {
                             .lineLimit(1)
                     }
                     .padding(.vertical, 4)
-                    .frame(width: 60)
+                    .frame(width: 70)
                 }
                 .controlSize(.small)
                 .buttonStyle(.bordered)

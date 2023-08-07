@@ -266,7 +266,7 @@ class NetworkService {
                 if video.isTrailer {
                     items.append(VideoItem.init(url: urlBuilder(video: video.key),
                                                 thumbnail: fetchThumbnail(for: video.key),
-                                                title: video.name))
+                                                title: video.name, videoID: video.key))
                 }
             }
         }

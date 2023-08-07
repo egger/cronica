@@ -17,38 +17,43 @@ struct ExploreView: View {
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
-            ScrollViewReader { proxy in
-                ScrollView {
+            if settings.sectionStyleType == .list {
+                listStyle
+            } else {
+                ScrollViewReader { proxy in
+                    ScrollView {
 #if os(tvOS)
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Explore")
-                                .font(.title3)
-                            Text(viewModel.selectedMedia.title)
-                                .font(.callout)
-                                .foregroundColor(.secondary)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Explore")
+                                    .font(.title3)
+                                Text(viewModel.selectedMedia.title)
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding()
+                            Spacer()
+                            Button {
+                                showFilters.toggle()
+                            } label: {
+                                Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                                    .labelStyle(.iconOnly)
+                            }
                         }
-                        .padding()
-                        Spacer()
-                        Button {
-                            showFilters.toggle()
-                        } label: {
-                            Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                                .labelStyle(.iconOnly)
-                        }
-                    }
-                    .padding(.horizontal, 64)
+                        .padding(.horizontal, 64)
 #endif
-                    
-                    switch settings.exploreDisplayType {
-                    case .poster: posterStyle
-                    case .card: cardStyle
+                        
+                        switch settings.sectionStyleType {
+                        case .list: EmptyView()
+                        case .poster: posterStyle
+                        case .card: cardStyle
+                        }
                     }
-                }
-                .onChange(of: onChanging) { _ in
-                    guard let first = viewModel.items.first else { return }
-                    withAnimation {
-                        proxy.scrollTo(first.id, anchor: .topLeading)
+                    .onChange(of: onChanging) { _ in
+                        guard let first = viewModel.items.first else { return }
+                        withAnimation {
+                            proxy.scrollTo(first.id, anchor: .topLeading)
+                        }
                     }
                 }
             }
@@ -216,6 +221,32 @@ struct ExploreView: View {
     }
     
     @ViewBuilder
+    private var listStyle: some View {
+        Form {
+            Section {
+                List {
+                    ForEach(viewModel.items) { item in
+                        ItemContentRowView(item: item)
+                    }
+                }
+            }
+            if viewModel.isLoaded && !viewModel.endPagination {
+                CenterHorizontalView {
+                    ProgressView("Loading")
+                        .progressViewStyle(.circular)
+                        .tint(settings.appTheme.color)
+                        .padding(.horizontal)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                viewModel.loadMoreItems()
+                            }
+                        }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
@@ -268,15 +299,15 @@ struct ExploreView: View {
 #if os(iOS) || os(macOS)
     private var styleOptions: some View {
         Menu {
-            Picker(selection: $settings.exploreDisplayType) {
+            Picker(selection: $settings.sectionStyleType) {
                 ForEach(ExplorePreferredDisplayType.allCases) { item in
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("exploreDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+                Label("sectionStyleTypePicker", systemImage: "rectangle.grid.2x2")
             }
         } label: {
-            Label("exploreDisplayTypePicker", systemImage: "rectangle.grid.2x2")
+            Label("sectionStyleTypePicker", systemImage: "rectangle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }

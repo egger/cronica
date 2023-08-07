@@ -175,6 +175,7 @@
 		B84C53FD27B1F1DD00425524 /* WatchlistItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemRowView.swift */; };
 		B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
 		B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
+		B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = B854FA1E2A75B24000509C34 /* YouTubePlayerKit */; };
 		B85ACBDD2A3522B00084A329 /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
 		B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };
@@ -689,6 +690,7 @@
 			files = (
 				B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */,
 				B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */,
+				B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */,
 				B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1468,6 +1470,7 @@
 			packageProductDependencies = (
 				B87F745D280605CE00E94126 /* TelemetryClient */,
 				B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */,
+				B854FA1E2A75B24000509C34 /* YouTubePlayerKit */,
 			);
 			productName = "Story (iOS)";
 			productReference = B8110EDF279245D100844FEB /* Cronica.app */;
@@ -1557,6 +1560,7 @@
 			packageReferences = (
 				B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */,
 				B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				B854FA1D2A75B24000509C34 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 			);
 			productRefGroup = B8110EE0279245D100844FEB /* Products */;
 			projectDirPath = "";
@@ -2039,7 +2043,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "AppleWatch/Configuration/CronicaWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 204;
+				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
@@ -2052,7 +2056,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.2;
+				MARKETING_VERSION = 2.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2072,7 +2076,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "AppleWatch/Configuration/CronicaWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 204;
+				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
@@ -2085,7 +2089,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.2;
+				MARKETING_VERSION = 2.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2229,7 +2233,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 204;
+				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2238,15 +2242,14 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 2.2.2;
+				MARKETING_VERSION = 2.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2274,7 +2277,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 204;
+				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2283,15 +2286,14 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 2.2.2;
+				MARKETING_VERSION = 2.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2362,7 +2364,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 204;
+				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
@@ -2374,7 +2376,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.2;
+				MARKETING_VERSION = 2.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2397,7 +2399,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 204;
+				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
@@ -2409,7 +2411,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.2;
+				MARKETING_VERSION = 2.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.CronicaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -2475,6 +2477,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B854FA1D2A75B24000509C34 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SvenTiigi/YouTubePlayerKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TelemetryDeck/SwiftClient";
@@ -2498,6 +2508,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		B854FA1E2A75B24000509C34 /* YouTubePlayerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B854FA1D2A75B24000509C34 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
+			productName = YouTubePlayerKit;
 		};
 		B87F745D280605CE00E94126 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;

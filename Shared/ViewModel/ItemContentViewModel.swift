@@ -17,6 +17,7 @@ class ItemContentViewModel: ObservableObject {
     private var type: MediaType
     @Published var content: ItemContent?
     @Published var recommendations = [ItemContent]()
+    @Published var trailers = [VideoItem]()
     @Published var credits = [Person]()
     @Published var errorMessage = "Something went wrong, try again later."
     @Published var showErrorAlert = false
@@ -64,6 +65,9 @@ class ItemContentViewModel: ObservableObject {
                         let filteredRecommendations = contentRecommendations.filter { $0.backdropPath != nil && $0.posterPath != nil}
                         recommendations.append(contentsOf: filteredRecommendations.sorted { $0.itemPopularity > $1.itemPopularity })
                     }
+                }
+                if trailers.isEmpty {
+                    trailers.append(contentsOf: content.itemTrailers)
                 }
                 if credits.isEmpty {
                     let cast = content.credits?.cast ?? []

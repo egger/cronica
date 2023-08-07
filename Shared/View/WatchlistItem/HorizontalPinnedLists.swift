@@ -15,14 +15,18 @@ struct HorizontalPinnedList: View {
     ) private var lists: FetchedResults<CustomList>
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
+    @Binding var shouldReload: Bool
     var body: some View {
         if !lists.isEmpty {
             ForEach(lists) { list in
-                HorizontalWatchlistList(items: list.itemsArray,
-                                        title: list.itemTitle,
-                                        subtitle: "pinnedList",
-                                        showPopup: $showPopup,
-                                        popupType: $popupType)
+                if !list.itemsSet.isEmpty {
+                    HorizontalWatchlistList(items: list.itemsArray,
+                                            title: list.itemTitle,
+                                            subtitle: list.notes,
+                                            showPopup: $showPopup,
+                                            popupType: $popupType,
+                                            shouldReload: $shouldReload)
+                }
             }
         }
     }

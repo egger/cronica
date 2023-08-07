@@ -49,8 +49,19 @@ struct CronicaApp: App {
                 }
 #endif
                 .onOpenURL { url in
-                    Task {
-                        await fetchContent(for: url.absoluteString)
+                    let urlString = url.absoluteString
+                    print(urlString)
+                    if urlString.hasPrefix("cronica://") {
+                        let urlSubstring = urlString.dropFirst("cronica://".count)
+                        Task {
+                            print(urlSubstring)
+                            await fetchContent(for: String(urlSubstring))
+                        }
+                    } else {
+                        Task {
+                            print(urlString)
+                            await fetchContent(for: url.absoluteString)
+                        }
                     }
                 }
                 .sheet(item: $selectedItem) { item in

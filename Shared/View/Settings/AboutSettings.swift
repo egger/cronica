@@ -77,6 +77,7 @@ struct AboutSettings: View {
                     title: "TelemetryDeck",
                     url: "https://telemetrydeck.com/"
                 )
+                aboutButton(title: "YouTubePlayerKit", url: "https://github.com/SvenTiigi/YouTubePlayerKit")
             }
             
             Section("acknowledgmentsContentProviderTitle") {

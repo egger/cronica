@@ -34,6 +34,11 @@ extension PersistenceController {
         return list.itemsSet.contains(where:  { $0.itemContentID == id })
     }
     
+    func isItemOnHowManyLists(id: String) -> Int {
+        guard let item = fetch(for: id) else { return 0 }
+        return item.listsArray.count
+    }
+    
     func updateList(for id: String, to list: CustomList) {
         let item = fetch(for: id)
         guard let item else { return }

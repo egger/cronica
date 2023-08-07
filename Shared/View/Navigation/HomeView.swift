@@ -34,9 +34,9 @@ struct HomeView: View {
                 if showReviewBanner { ReviewAppBanner(showView: $showReviewBanner).unredacted() }
 #endif
                 HorizontalUpNextListView(shouldReload: $reloadUpNext)
-                UpcomingWatchlist()
-                PinItemsList(showPopup: $showPopup, popupType: $popupType)
-                HorizontalPinnedList(showPopup: $showPopup, popupType: $popupType)
+                UpcomingWatchlist(shouldReload: $reloadUpNext)
+                PinItemsList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadUpNext)
+                HorizontalPinnedList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadUpNext)
                 HorizontalItemContentListView(items: viewModel.trending,
                                               title: "Trending",
                                               subtitle: "Today",

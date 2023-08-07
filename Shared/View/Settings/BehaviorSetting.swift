@@ -32,6 +32,14 @@ struct BehaviorSetting: View {
                 Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
                 Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
             }
+            
+            Section("Experimental") {
+                Picker("shareLinkPreference", selection: $store.shareLinkPreference) {
+                    ForEach(ShareLinkPreference.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                }
+            }
         }
         .navigationTitle("behaviorTitle")
 #if os(iOS)

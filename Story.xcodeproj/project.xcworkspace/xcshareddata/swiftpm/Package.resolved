@@ -26,6 +26,15 @@
         "revision" : "3f8bd438c8681ce7ccdf035b529cb5c4cd82cd7b",
         "version" : "1.4.4"
       }
+    },
+    {
+      "identity" : "youtubeplayerkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SvenTiigi/YouTubePlayerKit.git",
+      "state" : {
+        "revision" : "6bbba75c8a8927e8073765849e22707d96b55205",
+        "version" : "1.5.2"
+      }
     }
   ],
   "version" : 2

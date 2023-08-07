@@ -122,6 +122,23 @@ struct HorizontalUpNextListView: View {
                                 }
                             }
                         }
+                        .onChange(of: shouldReload) { reload in
+                            if reload {
+                                if let firstItem = viewModel.episodes.first {
+                                    withAnimation {
+                                        proxy.scrollTo(firstItem.id, anchor: .topLeading)
+                                    }
+                                }
+                                Task {
+                                    await viewModel.reload(items)
+                                    await MainActor.run {
+                                        withAnimation(.easeInOut) {
+                                            self.shouldReload = false
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -138,18 +155,6 @@ struct HorizontalUpNextListView: View {
             .task {
                 await viewModel.load(items)
                 await viewModel.checkForNewEpisodes(items)
-            }
-            .onChange(of: shouldReload) { reload in
-                if reload {
-                    Task {
-                        await viewModel.reload(items)
-                        await MainActor.run {
-                            withAnimation(.easeInOut) {
-                                self.shouldReload = false
-                            }
-                        }
-                    }
-                }
             }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {

@@ -12,24 +12,80 @@ struct WatchlistSectionDetails: View {
     let items: [WatchlistItem]
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
+    @State private var query = String()
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
-            ScrollView {
-                LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                    ForEach(items) { item in
-                        WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
-                            .buttonStyle(.plain)
-                    }
-                }
-                .padding()
+            switch settings.sectionStyleType {
+            case .list: listStyle
+            case .card: cardStyle
+            case .poster: posterStyle
             }
+        }
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                styleOptions
+            }
+#endif
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
         .navigationTitle(LocalizedStringKey(title))
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
 #endif
     }
+    
+    private var listStyle: some View {
+        Section {
+            List {
+                ForEach(items) { item in
+                    WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
+                }
+            }
+        }
+    }
+    
+    private var cardStyle: some View {
+        ScrollView {
+            LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+                ForEach(items) { item in
+                    WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
+                }
+            }
+            .padding()
+        }
+    }
+    
+    private var posterStyle: some View {
+        ScrollView {
+            LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
+                      spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
+                ForEach(items) { item in
+                    WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
+                }
+            }.padding(.all, settings.isCompactUI ? 10 : nil)
+        }
+    }
+    
+#if os(iOS) || os(macOS)
+    private var styleOptions: some View {
+        Menu {
+            Picker(selection: $settings.sectionStyleType) {
+                ForEach(ExplorePreferredDisplayType.allCases) { item in
+                    Text(item.title).tag(item)
+                }
+            } label: {
+                Label("sectionStyleTypePicker", systemImage: "rectangle.grid.2x2")
+            }
+        } label: {
+            Label("sectionStyleTypePicker", systemImage: "rectangle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+    }
+#endif
 }
 
 private struct DrawingConstants {
@@ -38,6 +94,14 @@ private struct DrawingConstants {
 #else
     static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
 #endif
+#if os(macOS)
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
+#elseif os(iOS)
+    static let posterColumns  = [GridItem(.adaptive(minimum: 160))]
+#endif
+    static let compactPosterColumns = [GridItem(.adaptive(minimum: 80))]
+    static let compactSpacing: CGFloat = 20
+    static let spacing: CGFloat = 10
 }
 
 struct WatchlistSectionDetails_Previews: PreviewProvider {

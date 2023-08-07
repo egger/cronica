@@ -36,7 +36,7 @@ struct AppearanceSetting: View {
             }
             
             Section {
-                Picker(selection: $store.exploreDisplayType) {
+                Picker(selection: $store.sectionStyleType) {
                     ForEach(ExplorePreferredDisplayType.allCases) { item in
                         Text(item.title).tag(item)
                     }

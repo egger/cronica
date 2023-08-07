@@ -34,7 +34,7 @@ struct DetailWatchlistButton: View {
                     .font(.caption)
             }
             .padding(.vertical, 4)
-            .frame(width: viewModel.isInWatchlist ? 60 : nil)
+            .frame(width: viewModel.isInWatchlist ? 70 : nil)
             .frame(minWidth: viewModel.isInWatchlist ? nil : 140)
 #elseif os(macOS)
             Label(viewModel.isInWatchlist ? "Remove": "Add to watchlist",

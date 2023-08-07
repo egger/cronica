@@ -19,3 +19,17 @@ enum ItemContentListPreferredDisplayType: String, CaseIterable, Identifiable {
         }
     }
 }
+
+enum ShareLinkPreference: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    case tmdb, cronica
+    
+    var title: String {
+        switch self {
+        case .tmdb:
+            return "TMDB"
+        case .cronica:
+            return "Cronica"
+        }
+    }
+}
