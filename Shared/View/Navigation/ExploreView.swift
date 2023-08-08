@@ -248,6 +248,9 @@ struct ExploreView: View {
                 }
             }
         }
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
     
     @ViewBuilder

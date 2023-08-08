@@ -94,7 +94,7 @@ struct DefaultWatchlist: View {
                                     .font(.callout)
                                     .foregroundColor(.secondary)
                             } else {
-                                Text(selectedOrder.title)
+                                Text(smartFilter.title)
                                     .font(.callout)
                                     .foregroundColor(.secondary)
                             }
@@ -249,6 +249,9 @@ struct DefaultWatchlist: View {
     }
     
     private var sortButton: some View {
+#if os(tvOS)
+        EmptyView()
+#else
         Menu {
             Picker(selection: $sortOrder) {
                 ForEach(WatchlistSortOrder.allCases) { item in
@@ -261,6 +264,7 @@ struct DefaultWatchlist: View {
             Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
                 .labelStyle(.iconOnly)
         }
+#endif
     }
     
 #if os(iOS) || os(macOS)

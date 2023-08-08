@@ -70,6 +70,7 @@ struct ItemContentContextMenu: ViewModifier {
                                         image: item.cardImageLarge,
                                         overview: item.itemOverview)
             }
+#if !os(tvOS)
             .swipeActions(edge: .leading, allowsFullSwipe: settings.allowFullSwipe) {
                 WatchlistButton(id: item.itemContentID,
                                 isInWatchlist: $isInWatchlist,
@@ -98,6 +99,7 @@ struct ItemContentContextMenu: ViewModifier {
                     .tint(.gray)
                 }
             }
+#endif
 #endif
     }
     

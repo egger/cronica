@@ -30,7 +30,7 @@ struct ItemContentTVView: View {
                 v2header
                     .padding(.bottom)
                 if let seasons = viewModel.content?.itemSeasons {
-                    SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons)
+                    SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist)
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                               title: "Recommendations",

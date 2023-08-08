@@ -4,12 +4,12 @@
 //
 //  Created by Alexandre Madeira on 20/08/22.
 //
-
+#if os(iOS) || os(macOS)
 import SwiftUI
 import SDWebImageSwiftUI
 import YouTubePlayerKit
 
-#if os(iOS) || os(macOS)
+
 struct TrailerItemView: View {
     private let trailer: VideoItem
     private let player: YouTubePlayer

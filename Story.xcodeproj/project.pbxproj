@@ -175,7 +175,7 @@
 		B84C53FD27B1F1DD00425524 /* WatchlistItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemRowView.swift */; };
 		B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
 		B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
-		B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = B854FA1E2A75B24000509C34 /* YouTubePlayerKit */; };
+		B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = B854FA1E2A75B24000509C34 /* YouTubePlayerKit */; };
 		B85ACBDD2A3522B00084A329 /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
 		B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };

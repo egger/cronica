@@ -235,6 +235,9 @@ struct CustomWatchlist: View {
 #endif
     
     private var sortButton: some View {
+#if os(tvOS)
+        EmptyView()
+#else
         Menu {
             Picker(selection: $sortOrder) {
                 ForEach(WatchlistSortOrder.allCases) { item in
@@ -247,6 +250,7 @@ struct CustomWatchlist: View {
             Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
                 .labelStyle(.iconOnly)
         }
+#endif
     }
     
     private var filterPicker: some View {
