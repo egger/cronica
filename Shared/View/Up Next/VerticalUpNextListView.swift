@@ -21,22 +21,114 @@ struct VerticalUpNextListView: View {
     @State private var selectedEpisode: UpNextEpisode?
     @State private var query = String()
     @State private var queryResult = [UpNextEpisode]()
+    @AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
     var body: some View {
         VStack {
-            ScrollViewReader { proxy in
-                ScrollView {
-                    LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                        if !queryResult.isEmpty {
-                            ForEach(queryResult) { item in
-                                VStack(alignment: .leading) {
-                                    upNextCard(item: item)
-                                        .contextMenu {
-                                            if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                Button("showDetails") {
+            if upNextStyle == .card {
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+                            if !queryResult.isEmpty {
+                                ForEach(queryResult) { item in
+                                    VStack(alignment: .leading) {
+                                        upNextCard(item: item)
+                                            .contextMenu {
+                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                    Button("showDetails") {
+                                                        selectedEpisode = item
+                                                    }
+                                                }
+                                            }
+                                            .onTapGesture {
+                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                    Task { await viewModel.markAsWatched(item) }
+                                                } else {
                                                     selectedEpisode = item
                                                 }
                                             }
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text(item.showTitle)
+                                                    .font(.caption)
+                                                    .lineLimit(2)
+                                                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                                                    .font(.caption)
+                                                    .textCase(.uppercase)
+                                                    .foregroundColor(.secondary)
+                                                    .lineLimit(1)
+                                            }
+                                            Spacer()
                                         }
+                                        .frame(width: DrawingConstants.imageWidth)
+                                        Spacer()
+                                    }
+                                }
+                            } else if queryResult.isEmpty && !query.isEmpty {
+                                CenterHorizontalView {
+                                    Text("noResultsFound")
+                                        .font(.headline)
+                                        .foregroundStyle(.secondary)
+                                        .multilineTextAlignment(.center)
+                                }
+                            } else {
+                                ForEach(viewModel.episodes) { item in
+                                    VStack(alignment: .leading) {
+                                        upNextCard(item: item)
+                                            .contextMenu {
+                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                    Button("showDetails") {
+                                                        selectedEpisode = item
+                                                    }
+                                                }
+                                            }
+                                            .onTapGesture {
+                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                                    Task { await viewModel.markAsWatched(item) }
+                                                } else {
+                                                    selectedEpisode = item
+                                                }
+                                            }
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text(item.showTitle)
+                                                    .font(.caption)
+                                                    .lineLimit(2)
+                                                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                                                    .font(.caption)
+                                                    .textCase(.uppercase)
+                                                    .foregroundColor(.secondary)
+                                                    .lineLimit(1)
+                                            }
+                                            Spacer()
+                                        }
+                                        .frame(width: DrawingConstants.imageWidth)
+                                        Spacer()
+                                    }
+                                }
+                            }
+                        }
+                        .onChange(of: viewModel.isWatched) { _ in
+                            guard let first = viewModel.episodes.first else { return }
+                            if viewModel.isWatched {
+                                withAnimation {
+                                    proxy.scrollTo(first.id, anchor: .topLeading)
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    .refreshable {
+                        Task { await viewModel.reload(items) }
+                    }
+                    .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+                }
+            } else {
+                Form {
+                    Section {
+                        List {
+                            if !queryResult.isEmpty {
+                                ForEach(queryResult) { item in
+                                    upNextRowItem(item)
                                         .onTapGesture {
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                 Task { await viewModel.markAsWatched(item) }
@@ -44,34 +136,15 @@ struct VerticalUpNextListView: View {
                                                 selectedEpisode = item
                                             }
                                         }
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            Text(item.showTitle)
-                                                .font(.caption)
-                                                .lineLimit(2)
-                                            Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                                                .font(.caption)
-                                                .textCase(.uppercase)
-                                                .foregroundColor(.secondary)
-                                                .lineLimit(1)
-                                        }
-                                        Spacer()
-                                    }
-                                    .frame(width: DrawingConstants.imageWidth)
-                                    Spacer()
                                 }
-                            }
-                        } else {
-                            ForEach(viewModel.episodes) { item in
-                                VStack(alignment: .leading) {
-                                    upNextCard(item: item)
-                                        .contextMenu {
-                                            if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                Button("showDetails") {
-                                                    selectedEpisode = item
-                                                }
-                                            }
-                                        }
+                            } else if queryResult.isEmpty && !query.isEmpty {
+                                Text("noResultsFound")
+                                    .font(.headline)
+                                    .foregroundStyle(.secondary)
+                                    .multilineTextAlignment(.center)
+                            } else {
+                                ForEach(viewModel.episodes) { item in
+                                    upNextRowItem(item)
                                         .onTapGesture {
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                 Task { await viewModel.markAsWatched(item) }
@@ -79,39 +152,15 @@ struct VerticalUpNextListView: View {
                                                 selectedEpisode = item
                                             }
                                         }
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            Text(item.showTitle)
-                                                .font(.caption)
-                                                .lineLimit(2)
-                                            Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                                                .font(.caption)
-                                                .textCase(.uppercase)
-                                                .foregroundColor(.secondary)
-                                                .lineLimit(1)
-                                        }
-                                        Spacer()
-                                    }
-                                    .frame(width: DrawingConstants.imageWidth)
-                                    Spacer()
                                 }
                             }
                         }
-                    }
-                    .onChange(of: viewModel.isWatched) { _ in
-                        guard let first = viewModel.episodes.first else { return }
-                        if viewModel.isWatched {
-                            withAnimation {
-                                proxy.scrollTo(first.id, anchor: .topLeading)
-                            }
+                        .refreshable {
+                            Task { await viewModel.reload(items) }
                         }
+                        .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
                     }
-                    .padding()
                 }
-                .refreshable {
-                    Task { await viewModel.reload(items) }
-                }
-                .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             }
         }
 #if os(iOS)
@@ -128,6 +177,13 @@ struct VerticalUpNextListView: View {
             }
         }
 #endif
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                styleOptions
+            }
+#endif
+        }
         .sheet(item: $selectedEpisode) { item in
             NavigationStack {
                 EpisodeDetailsView(episode: item.episode,
@@ -191,6 +247,54 @@ struct VerticalUpNextListView: View {
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
             .shadow(radius: 2)
     }
+    
+    private func upNextRowItem(_ item: UpNextEpisode) -> some View {
+        HStack {
+            WebImage(url: item.episode.itemImageMedium ?? item.backupImage)
+                .placeholder {
+                    ZStack {
+                        Rectangle().fill(.gray.gradient)
+                        Image(systemName: "sparkles.tv")
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    .frame(width: 80, height: 50)
+                }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .transition(.opacity)
+                .frame(width: 80, height: 50)
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            VStack(alignment: .leading) {
+                Text(item.showTitle)
+                    .font(.callout)
+                    .lineLimit(1)
+                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                    .font(.caption)
+                    .textCase(.uppercase)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+            }
+            .padding(.leading, 2)
+            Spacer()
+        }
+    }
+    
+#if os(iOS) || os(macOS)
+    private var styleOptions: some View {
+        Menu {
+            Picker(selection: $upNextStyle) {
+                ForEach(UpNextDetailsPreferredStyle.allCases) { item in
+                    Text(item.title).tag(item)
+                }
+            } label: {
+                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            }
+        } label: {
+            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+    }
+#endif
 }
 
 private struct DrawingConstants {

@@ -85,7 +85,7 @@ struct UpNextListView: View {
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
-                        Image(systemName: "tv")
+                        Image(systemName: "sparkles.tv")
                             .foregroundColor(.white.opacity(0.8))
                     }
                     .frame(width: DrawingConstants.imageWidth,

@@ -55,7 +55,7 @@ struct ItemContentSectionDetails: View {
     private var styleOptions: some View {
         Menu {
             Picker(selection: $settings.sectionStyleType) {
-                ForEach(ExplorePreferredDisplayType.allCases) { item in
+                ForEach(SectionDetailsPreferredStyle.allCases) { item in
                     Text(item.title).tag(item)
                 }
             } label: {

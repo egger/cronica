@@ -678,3 +678,4 @@
 "appearanceSectionDetailsTitle" = "Section's Details Style";
 "appearanceHorizontalListsTitle" = "Horizontal List Style";
 "List" = "List";
+"noResultsFound" = "Nothing found with your query.\nTry another one or check if title is not on archive.";

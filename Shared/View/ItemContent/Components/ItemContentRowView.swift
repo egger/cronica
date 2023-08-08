@@ -41,9 +41,12 @@ struct ItemContentRowView: View {
                         
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)
-                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
                         .shadow(radius: 2.5)
                     if isWatched {
+                        Color.black.opacity(0.5)
+                        Image(systemName: "rectangle.fill.badge.checkmark")
+                            .foregroundColor(.white)
+                    } else if isInWatchlist {
                         Color.black.opacity(0.5)
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(.white)
@@ -51,6 +54,7 @@ struct ItemContentRowView: View {
                 }
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
                 VStack(alignment: .leading) {
                     HStack {
                         Text(item.itemTitle)
