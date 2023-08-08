@@ -17,6 +17,13 @@ struct CronicaWatchApp: App {
     var body: some Scene {
         WindowGroup {
             TabView(selection: $selectedView) {
+                TrendingView()
+                    .tag(TrendingView.tag)
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+                    .tabItem {
+                        Label("Trending", systemImage: "popcorn")
+                            .labelStyle(.titleOnly)
+                    }
                 WatchlistView()
                     .tag(WatchlistView.tag)
                     .environment(\.managedObjectContext, persistence.container.viewContext)

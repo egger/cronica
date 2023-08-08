@@ -123,7 +123,7 @@ struct VerticalUpNextListView: View {
                 }
             } else {
                 queryResult.removeAll()
-                queryResult = viewModel.episodes.filter{ $0.showTitle.contains(query)}
+                queryResult = viewModel.episodes.filter{ $0.showTitle.lowercased().contains(query.lowercased())}
             }
         }
         .sheet(item: $selectedEpisode) { item in

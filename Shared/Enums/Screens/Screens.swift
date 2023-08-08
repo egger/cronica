@@ -29,10 +29,11 @@ enum Screens: String, Identifiable, CaseIterable {
 #else
 enum Screens: String, Identifiable, CaseIterable {
     var id: String { rawValue }
-    case watchlist, upNext, upcoming, settings
+    case trending, watchlist, upNext, upcoming, settings
     
     var title: String {
         switch self {
+        case .trending: return NSLocalizedString("Trending", comment: "")
         case .watchlist: return NSLocalizedString("Watchlist", comment: "")
         case .upcoming: return NSLocalizedString("Upcoming", comment: "")
         case .upNext: return NSLocalizedString("upNext", comment: "")

@@ -24,25 +24,33 @@ struct ItemContentRowView: View {
     var body: some View {
         NavigationLink(value: item) {
             HStack {
-                WebImage(url: item.cardImageMedium)
-                    .placeholder {
-                        ZStack {
-                            Rectangle().fill(.gray.gradient)
-                            Image(systemName: "popcorn.fill")
-                                .foregroundColor(.white.opacity(0.8))
+                ZStack {
+                    WebImage(url: item.cardImageSmall)
+                        .placeholder {
+                            ZStack {
+                                Rectangle().fill(.gray.gradient)
+                                Image(systemName: "popcorn.fill")
+                                    .foregroundColor(.white.opacity(0.8))
+                            }
+                            .frame(width: DrawingConstants.imageWidth,
+                                   height: DrawingConstants.imageHeight)
                         }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .transition(.opacity)
+                        
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)
+                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                        .shadow(radius: 2.5)
+                    if isWatched {
+                        Color.black.opacity(0.5)
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.white)
                     }
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-                    .shadow(radius: 2.5)
+                }
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
                 VStack(alignment: .leading) {
                     HStack {
                         Text(item.itemTitle)
@@ -55,6 +63,11 @@ struct ItemContentRowView: View {
                         Spacer()
                     }
                 }
+#if os(iOS) || os(macOS)
+                Spacer()
+                IconGridView(isFavorite: $isFavorite, isPin: $isPin)
+                    .accessibilityHidden(true)
+#endif
             }
             .itemContentContextMenu(item: item,
                                     isWatched: $isWatched,

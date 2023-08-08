@@ -10,8 +10,14 @@ import SDWebImageSwiftUI
 
 struct SearchItem: View {
     let item: ItemContent
+    private let persistence = PersistenceController.shared
+#if os(watchOS)
+    @State private var isInWatchlist = false
+    @State private var isWatched = false
+#else
     @Binding var isInWatchlist: Bool
     @Binding var isWatched: Bool
+#endif
     var body: some View {
         HStack {
             if item.media == .person {
@@ -50,6 +56,14 @@ struct SearchItem: View {
                 }
 #endif
             }
+        }
+        .task {
+#if os(watchOS)
+            isInWatchlist = persistence.isItemSaved(id: item.itemContentID)
+            if isInWatchlist {
+                isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
+            }
+#endif
         }
         .accessibilityElement(children: .combine)
     }

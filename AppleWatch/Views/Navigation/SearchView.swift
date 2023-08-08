@@ -36,7 +36,7 @@ struct SearchView: View {
                     if !viewModel.items.isEmpty {
                         ForEach(viewModel.items) { item in
                             NavigationLink(value: item) {
-                                SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isInWatchlist)
+                                SearchItem(item: item)
                             }
                         }
                     } else {

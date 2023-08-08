@@ -44,7 +44,7 @@ struct WatchlistItemRowView: View {
                     }
                 }
                 .padding(.leading, 2)
-#if os(iOS) || os(macOS)
+#if !os(watchOS)
                 Spacer()
                 IconGridView(isFavorite: $isFavorite, isPin: $isPin)
                     .accessibilityHidden(true)
@@ -56,8 +56,8 @@ struct WatchlistItemRowView: View {
                 isPin = content.isPin
                 isArchive = content.isArchive
             }
-            .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
+            .sheet(isPresented: $showNote) {
                 NavigationStack {
                     ReviewView(id: content.itemContentID, showView: $showNote)
                 }
@@ -68,8 +68,8 @@ struct WatchlistItemRowView: View {
                 .appTheme()
                 .appTint()
 #endif
-#endif
             }
+#endif
             .sheet(isPresented: $showCustomListView) {
                 NavigationStack {
                     ItemContentCustomListSelector(contentID: content.itemContentID,
@@ -86,6 +86,7 @@ struct WatchlistItemRowView: View {
 #endif
             }
             .accessibilityElement(children: .combine)
+#if !os(watchOS)
             .watchlistContextMenu(item: content,
                                   isWatched: $isWatched,
                                   isFavorite: $isFavorite,
@@ -95,6 +96,7 @@ struct WatchlistItemRowView: View {
                                   showCustomList: $showCustomListView,
                                   popupType: $popupType,
                                   showPopup: $showPopup)
+#endif
         }
     }
     
@@ -152,7 +154,7 @@ import SwiftUI
 struct IconGridView: View {
     @Binding var isFavorite: Bool
     @Binding var isPin: Bool
-
+    
     var body: some View {
         if isSingleIconVisible {
             // Display the single icon alone, bigger.
@@ -170,7 +172,7 @@ struct IconGridView: View {
             }
         }
     }
-
+    
     @ViewBuilder
     private func iconImage(systemName: String, isVisible: Bool) -> some View {
         if isVisible {
@@ -182,7 +184,7 @@ struct IconGridView: View {
             Color.clear  // Placeholder to maintain layout even if icon is hidden
         }
     }
-
+    
     private var isSingleIconVisible: Bool {
         let visibleIconsCount = [isFavorite, isPin].filter { $0 }.count
         return visibleIconsCount == 1
@@ -192,7 +194,7 @@ struct IconGridView: View {
         let visibleIconsCount = [isFavorite, isPin].filter { $0 }.count
         return visibleIconsCount == 0
     }
-
+    
     private func getSingleIcon() -> Image {
         if isFavorite {
             return Image(systemName: "heart.fill")

@@ -34,6 +34,15 @@ struct UpNextListView: View {
                                     selectedEpisode = episode
                                 }
                         }
+                        Button {
+                            Task {
+                                await viewModel.reload(items)
+                            }
+                        } label: {
+                            CenterHorizontalView {
+                                Text("Reload")
+                            }
+                        }
                     }
                     .overlay { if !viewModel.isLoaded { ProgressView() } }
                     .redacted(reason: viewModel.isLoaded ? [] : .placeholder)

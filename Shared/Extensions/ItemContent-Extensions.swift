@@ -238,7 +238,7 @@ extension ItemContent {
 #else
         switch media {
         case .person: return castImage
-        default: return cardImageMedium
+        default: return cardImageSmall
         }
 #endif
     }
