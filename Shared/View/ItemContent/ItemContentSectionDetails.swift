@@ -74,11 +74,11 @@ struct ItemContentSectionDetails: View {
                 List {
                     if !queryResult.isEmpty {
                         ForEach(queryResult) { item in
-                            ItemContentRowView(item: item)
+                            ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                         }
                     } else {
                         ForEach(items) { item in
-                            ItemContentRowView(item: item)
+                            ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                         }
                     }
                 }

@@ -14,12 +14,12 @@ struct ItemContentRowView: View {
     @State private var isFavorite = false
     @State private var isPin = false
     @State private var isArchive = false
-    @State private var showPopup = false
+    @Binding var showPopup: Bool
     @State private var isInWatchlist = false
     @State private var canReview = true
     @State private var showNote = false
     @State private var showCustomListView = false
-    @State private var popupType: ActionPopupItems?
+    @Binding var popupType: ActionPopupItems?
     private let persistence = PersistenceController.shared
     var body: some View {
         NavigationLink(value: item) {
@@ -127,6 +127,6 @@ private struct DrawingConstants {
 
 struct ItemContentItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemContentRowView(item: .example)
+        ItemContentRowView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }

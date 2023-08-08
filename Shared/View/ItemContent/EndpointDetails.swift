@@ -66,7 +66,7 @@ struct EndpointDetails: View {
             Section {
                 List {
                     ForEach(viewModel.items) { item in
-                        ItemContentRowView(item: item)
+                        ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                     }
                     if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
                         CenterHorizontalView {

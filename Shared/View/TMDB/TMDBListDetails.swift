@@ -18,6 +18,8 @@ struct TMDBListDetails: View {
     @State private var hasLoaded = false
     @State private var deleteConfirmation = false
     @State private var isDeleted = false
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     
     // pagination
     @State private var page = 1
@@ -31,7 +33,7 @@ struct TMDBListDetails: View {
                         Text("Empty List")
                     } else {
                         ForEach(items) { item in
-                            ItemContentRowView(item: item)
+                            ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                         }
                         if !endPagination {
                             CenterHorizontalView {
@@ -54,6 +56,7 @@ struct TMDBListDetails: View {
                 }
             }
         }
+        .actionPopup(isShowing: $showPopup, for: popupType)
         .overlay { if isLoading { CenterHorizontalView { ProgressView("Loading") } }}
         .overlay {
             if isDeleted {

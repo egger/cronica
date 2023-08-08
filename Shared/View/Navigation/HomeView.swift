@@ -254,7 +254,6 @@ struct ReviewAppBanner: View {
                     .font(.title3)
                     .fontDesign(.rounded)
                     .padding(.leading)
-                    .padding(.bottom, 2)
                     .fontWeight(.semibold)
                 Text("callToReviewSubtitle")
                     .font(.callout)

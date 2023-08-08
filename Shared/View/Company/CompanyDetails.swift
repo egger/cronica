@@ -14,40 +14,88 @@ struct CompanyDetails: View {
     @StateObject private var viewModel = CompanyDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
-        ZStack {
+        VStack {
+            switch settings.sectionStyleType {
+            case .list: listStyle
+            case .poster: ScrollView { posterStyle }
+            case .card: ScrollView { cardStyle }
+            }
+        }
+        .overlay {
             if !viewModel.isLoaded { ProgressView() }
-            
-            VStack {
-                ScrollView {
-                    if settings.listsDisplayType == .poster {
-                        posterStyle
-                    } else {
-                        cardStyle
+        }
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                styleOptions
+            }
+#endif
+        }
+        .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+        .navigationTitle(company.name)
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.large)
+#endif
+        .onAppear {
+            Task {
+                await viewModel.load(company.id)
+            }
+        }
+        .toolbar {
+#if os(iOS) || os(macOS)
+            if let url = URL(string: "https://www.themoviedb.org/company/\(company.id)/") {
+                ShareLink(item: url)
+            }
+#endif
+        }
+        .actionPopup(isShowing: $showPopup, for: popupType)
+    }
+    
+#if os(iOS) || os(macOS)
+    private var styleOptions: some View {
+        Menu {
+            Picker(selection: $settings.sectionStyleType) {
+                ForEach(ExplorePreferredDisplayType.allCases) { item in
+                    Text(item.title).tag(item)
+                }
+            } label: {
+                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            }
+        } label: {
+            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+    }
+#endif
+    
+    private var listStyle: some View {
+        Form {
+            Section {
+                List {
+                    ForEach(viewModel.items) { item in
+                        ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
+                    }
+                    if viewModel.isLoaded && !viewModel.endPagination {
+                        CenterHorizontalView {
+                            ProgressView("Loading")
+                                .padding(.horizontal)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                        Task {
+                                            await viewModel.load(company.id)
+                                        }
+                                    }
+                                }
+                        }
                     }
                 }
             }
-            .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
-            .navigationTitle(company.name)
-#if os(iOS)
-            .navigationBarTitleDisplayMode(.large)
-#endif
-            .onAppear {
-                Task {
-                    await viewModel.load(company.id)
-                }
-            }
-            .toolbar {
-#if os(iOS) || os(macOS)
-                if let url = URL(string: "https://www.themoviedb.org/company/\(company.id)/") {
-                    ShareLink(item: url)
-                }
-#endif
-            }
-            .actionPopup(isShowing: $showPopup, for: popupType)
         }
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
     
-    @ViewBuilder
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in

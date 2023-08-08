@@ -13,6 +13,8 @@ struct NotificationListView: View {
     @State private var hasLoaded = false
     @State private var items = [ItemContent]()
     @State private var deliveredItems = [ItemContent]()
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
     var body: some View {
         NavigationStack {
             Form {
@@ -25,6 +27,7 @@ struct NotificationListView: View {
                     CenterHorizontalView { ProgressView("Loading") }
                 }
             }
+            .actionPopup(isShowing: $showPopup, for: popupType)
             .navigationTitle("Notifications")
 #if os(macOS)
             .formStyle(.grouped)
@@ -62,7 +65,7 @@ struct NotificationListView: View {
         if !deliveredItems.isEmpty {
             Section("Recent Notifications") {
                 ForEach(deliveredItems.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
-                    ItemContentRowView(item: item)
+                    ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button(role: .destructive) {
                                 removeDelivered(id: item.itemContentID, for: item.id)
@@ -87,7 +90,7 @@ struct NotificationListView: View {
         } else {
             Section("Upcoming Notifications") {
                 ForEach(items) { item in
-                    ItemContentRowView(item: item)
+                    ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                         .onAppear {
                             let isStillSaved = PersistenceController.shared.isItemSaved(id: item.itemContentID)
                             if !isStillSaved {
