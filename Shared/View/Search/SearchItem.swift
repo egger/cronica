@@ -128,7 +128,11 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 70
     static let imageHeight: CGFloat = 50
     static let imageRadius: CGFloat = 4
+#if os(watchOS)
+    static let textLimit: Int = 2
+#else
     static let textLimit: Int = 1
+#endif
     static let personImageWidth: CGFloat = 60
     static let personImageHeight: CGFloat = 60
 }

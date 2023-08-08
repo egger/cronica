@@ -101,7 +101,7 @@ struct PersonDetailsView: View {
             Text(viewModel.errorMessage)
         }
 #if os(iOS)
-        .searchable(text: $viewModel.query, placement: .automatic)
+        .searchable(text: $viewModel.query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
         .fullScreenCover(isPresented: $showImageFullscreen) {
             NavigationStack {
                 ZStack {

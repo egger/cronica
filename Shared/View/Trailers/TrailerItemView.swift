@@ -9,14 +9,17 @@ import SwiftUI
 import SDWebImageSwiftUI
 import YouTubePlayerKit
 
-
 struct TrailerItemView: View {
     private let trailer: VideoItem
+#if os(iOS)
     private let player: YouTubePlayer
+#endif
     @State private var isLoading = false
+    @State private var showWebPlayer = false
     @AppStorage("openInYouTube") private var openInYouTube = false
     init(trailer: VideoItem) {
         self.trailer = trailer
+#if os(iOS)
         self.player = YouTubePlayer(
             source: .video(id: trailer.videoID),
             configuration: .init(
@@ -31,13 +34,16 @@ struct TrailerItemView: View {
                 showRelatedVideos: false
             )
         )
+#endif
     }
     var body: some View {
         ZStack {
+#if os(iOS)
             YouTubePlayerView(player)
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
                 .opacity(0)
+#endif
             VStack {
                 WebImage(url: trailer.thumbnail)
                     .resizable()
@@ -78,20 +84,39 @@ struct TrailerItemView: View {
         .accessibilityElement(children: .combine)
         .accessibilityLabel(trailer.title)
         .onTapGesture(perform: openVideo)
+#if os(iOS)
+        .fullScreenCover(isPresented: $showWebPlayer) {
+            if let url = trailer.url {
+                SFSafariViewWrapper(url: url)
+            }
+        }
+#endif
     }
     
     private func openVideo() {
-        self.isLoading = true
 #if os(iOS)
         if UIDevice.isIPhone {
-            player.play()
+            if openInYouTube {
+                if let url = trailer.url {
+                    UIApplication.shared.open(url)
+                }
+            } else {
+                self.isLoading = true
+                player.play()
+            }
         } else {
-            if let url = trailer.url {
-                UIApplication.shared.open(url)
+            if openInYouTube {
+                if let url = trailer.url {
+                    UIApplication.shared.open(url)
+                }
+            } else {
+                showWebPlayer = true
             }
         }
-#else
-        player.play()
+#elseif os(macOS)
+        if let url = trailer.url {
+            NSWorkspace.shared.open(url)
+        }
 #endif
     }
     

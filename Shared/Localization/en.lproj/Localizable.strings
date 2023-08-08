@@ -674,3 +674,7 @@
 "Not Watched" = "Not Watched";
 "Spanish" = "Spanish";
 "emptyList" = "Nothing found matching the selected filter.\nTry changing the filters.";
+"appearanceStyle" = "Style Preferences";
+"appearanceSectionDetailsTitle" = "Section's Details Style";
+"appearanceHorizontalListsTitle" = "Horizontal List Style";
+"List" = "List";

@@ -16,12 +16,10 @@ struct EndpointDetails: View {
     @State private var popupType: ActionPopupItems?
     var body: some View {
         VStack {
-            ScrollView {
-                switch settings.listsDisplayType {
-                case .standard: cardStyle
-                case .card: cardStyle
-                case .poster: posterStyle
-                }
+            switch settings.sectionStyleType {
+            case .list: listStyle
+            case .card: cardStyle
+            case .poster: ScrollView { posterStyle }
             }
         }
         .overlay {
@@ -34,38 +32,89 @@ struct EndpointDetails: View {
             }
         }
         .navigationTitle(LocalizedStringKey(title))
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                styleOptions
+            }
+#endif
+        }
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
 #endif
     }
     
-    @ViewBuilder
-    private var cardStyle: some View {
-        LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-            ForEach(viewModel.items) { item in
-                ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
-                    .buttonStyle(.plain)
+#if os(iOS) || os(macOS)
+    private var styleOptions: some View {
+        Menu {
+            Picker(selection: $settings.sectionStyleType) {
+                ForEach(ExplorePreferredDisplayType.allCases) { item in
+                    Text(item.title).tag(item)
+                }
+            } label: {
+                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
             }
-            if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
-                CenterHorizontalView {
-                    ProgressView()
-                        .padding()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                Task {
-                                    if let endpoint {
-                                        await viewModel.loadMoreItems(for: endpoint)
+        } label: {
+            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+    }
+#endif
+    
+    private var listStyle: some View {
+        Form {
+            Section {
+                List {
+                    ForEach(viewModel.items) { item in
+                        ItemContentRowView(item: item)
+                    }
+                    if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
+                        CenterHorizontalView {
+                            ProgressView("Loading")
+                                .padding()
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                        Task {
+                                            if let endpoint {
+                                                await viewModel.loadMoreItems(for: endpoint)
+                                            }
+                                        }
                                     }
                                 }
-                            }
                         }
+                    }
                 }
             }
         }
-        .padding()
     }
     
-    @ViewBuilder
+    private var cardStyle: some View {
+        ScrollView {
+            LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+                ForEach(viewModel.items) { item in
+                    ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
+                }
+                if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
+                    CenterHorizontalView {
+                        ProgressView()
+                            .padding()
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                    Task {
+                                        if let endpoint {
+                                            await viewModel.loadMoreItems(for: endpoint)
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                }
+            }
+            .padding()
+        }
+    }
+    
     private var posterStyle: some View {
 #if os(iOS)
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,

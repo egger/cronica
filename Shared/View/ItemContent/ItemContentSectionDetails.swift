@@ -12,43 +12,116 @@ struct ItemContentSectionDetails: View {
     let items: [ItemContent]
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
-    @State private var settings = SettingsStore.shared
+    @StateObject private var settings = SettingsStore.shared
+    @State private var query = String()
+    @State private var queryResult = [ItemContent]()
     var body: some View {
         VStack {
-            ScrollView {
-                switch settings.listsDisplayType {
-                case .card: cardStyle
-                case .poster: posterStyle
-                case .standard: cardStyle
-                }
+            switch settings.sectionStyleType {
+            case .list: listStyle
+            case .card: cardStyle
+            case .poster: ScrollView { posterStyle }
             }
         }
         .navigationTitle(LocalizedStringKey(title))
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                styleOptions
+            }
+#endif
+        }
         .actionPopup(isShowing: $showPopup, for: popupType)
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
+        .autocorrectionDisabled()
+        .onChange(of: query) { _ in
+            if query.isEmpty && !queryResult.isEmpty {
+                withAnimation {
+                    queryResult.removeAll()
+                }
+            } else {
+                queryResult.removeAll()
+                queryResult = items.filter {
+                    $0.itemTitle.lowercased().contains(query.lowercased())
+                }
+            }
+        }
 #endif
     }
     
-    @ViewBuilder
-    private var cardStyle: some View {
-        LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-            ForEach(items) { item in
-                ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
-                    .buttonStyle(.plain)
+#if os(iOS) || os(macOS)
+    private var styleOptions: some View {
+        Menu {
+            Picker(selection: $settings.sectionStyleType) {
+                ForEach(ExplorePreferredDisplayType.allCases) { item in
+                    Text(item.title).tag(item)
+                }
+            } label: {
+                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            }
+        } label: {
+            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+    }
+#endif
+    
+    private var listStyle: some View {
+        Form {
+            Section {
+                List {
+                    if !queryResult.isEmpty {
+                        ForEach(queryResult) { item in
+                            ItemContentRowView(item: item)
+                        }
+                    } else {
+                        ForEach(items) { item in
+                            ItemContentRowView(item: item)
+                        }
+                    }
+                }
             }
         }
-        .padding()
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
     
-    @ViewBuilder
+    private var cardStyle: some View {
+        ScrollView {
+            LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+                if !queryResult.isEmpty {
+                    ForEach(queryResult) { item in
+                        ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
+                            .buttonStyle(.plain)
+                    }
+                } else {
+                    ForEach(items) { item in
+                        ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
+                            .buttonStyle(.plain)
+                    }
+                }
+            }
+            .padding()
+        }
+    }
+    
     private var posterStyle: some View {
 #if os(iOS)
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
                   spacing: settings.isCompactUI ? 10 : 20) {
-            ForEach(items) { item in
-                ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
-                    .buttonStyle(.plain)
+            if !queryResult.isEmpty {
+                ForEach(queryResult) { item in
+                    ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
+                }
+            } else {
+                ForEach(items) { item in
+                    ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
+                }
             }
         }.padding(.all, settings.isCompactUI ? 10 : nil)
 #elseif os(macOS)

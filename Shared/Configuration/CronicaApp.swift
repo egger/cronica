@@ -14,8 +14,6 @@ import NotificationCenter
 struct CronicaApp: App {
     var persistence = PersistenceController.shared
     private let backgroundIdentifier = "dev.alexandremadeira.cronica.refreshContent"
-    private let backgroundProcessingIdentifier = "dev.alexandremadeira.cronica.backgroundProcessingTask"
-    private let backgroundUpcomingRefreshIdentifier = "dev.alexandremadeira.cronica.backgroundUpcomingRefreshIdentifier"
     @Environment(\.scenePhase) private var scene
     @State private var widgetItem: ItemContent?
     @State private var notificationItem: ItemContent?
@@ -28,7 +26,6 @@ struct CronicaApp: App {
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
-        registerAppMaintenanceBGTask()
 #if os(iOS)
         UNUserNotificationCenter.current().delegate = notificationDelegate
 #endif
@@ -50,16 +47,13 @@ struct CronicaApp: App {
 #endif
                 .onOpenURL { url in
                     let urlString = url.absoluteString
-                    print(urlString)
                     if urlString.hasPrefix("cronica://") {
                         let urlSubstring = urlString.dropFirst("cronica://".count)
                         Task {
-                            print(urlSubstring)
                             await fetchContent(for: String(urlSubstring))
                         }
                     } else {
                         Task {
-                            print(urlString)
                             await fetchContent(for: url.absoluteString)
                         }
                     }
@@ -114,7 +108,6 @@ struct CronicaApp: App {
         .onChange(of: scene) { phase in
             if phase == .background {
                 scheduleAppRefresh()
-                scheduleAppMaintenance()
             }
         }
         
@@ -147,26 +140,10 @@ struct CronicaApp: App {
 #endif
     }
     
-    private func registerAppMaintenanceBGTask() {
-#if os(iOS)
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundProcessingIdentifier, using: nil) { task in
-            self.handleAppMaintenance(task: task as? BGAppRefreshTask ?? nil)
-        }
-#endif
-    }
-    
     private func scheduleAppRefresh() {
 #if os(iOS)
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
-        try? BGTaskScheduler.shared.submit(request)
-#endif
-    }
-    
-    private func scheduleAppMaintenance() {
-#if os(iOS)
-        let request = BGAppRefreshTaskRequest(identifier: backgroundProcessingIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 420 * 60)
         try? BGTaskScheduler.shared.submit(request)
 #endif
     }
@@ -188,29 +165,12 @@ struct CronicaApp: App {
                     BackgroundManager.shared.lastWatchingRefresh = Date()
                     await BackgroundManager.shared.handleUpcomingContentRefresh()
                     BackgroundManager.shared.lastUpcomingRefresh = Date()
+                    await BackgroundManager.shared.handleAppRefreshMaintenance()
+                    BackgroundManager.shared.lastMaintenance = Date()
                 }
             }
             task.setTaskCompleted(success: true)
         }
-    }
-#endif
-    
-#if os(iOS)
-    private func handleAppMaintenance(task: BGAppRefreshTask?) {
-        guard let task else { return }
-        scheduleAppMaintenance()
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        task.expirationHandler = {
-            queue.cancelAllOperations()
-        }
-        queue.addOperation {
-            Task {
-                await BackgroundManager.shared.handleAppRefreshMaintenance()
-            }
-        }
-        task.setTaskCompleted(success: true)
-        BackgroundManager.shared.lastMaintenance = Date()
     }
 #endif
 }

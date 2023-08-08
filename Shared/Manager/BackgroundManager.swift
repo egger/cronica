@@ -135,7 +135,7 @@ class BackgroundManager {
                     }
                 } else {
                     if item.isArchive || item.itemSchedule == .ended || item.isWatched {
-                        if item.itemLastUpdateDate.hasPassedTwoWeek() {
+                        if item.itemLastUpdateDate.hasPassedFourWeeks() {
                             await update(item)
                         }
                     } else {

@@ -27,37 +27,24 @@ struct AppearanceSetting: View {
                         Text(item.localizableName).tag(item)
                     }
                 } label: {
-                    InformationalLabel(title: "appearanceRowStyleTitle",
-                                       subtitle: "appearanceRowStyleSubtitle")
+                    InformationalLabel(title: "appearanceRowStyleTitle")
                 }
-                
-            } header: {
-                Text("appearanceWatchlist")
-            }
-            
-            Section {
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(ExplorePreferredDisplayType.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    InformationalLabel(title: "appearanceExploreDisplayType")
+                    InformationalLabel(title: "appearanceSectionDetailsTitle")
                 }
-            } header: {
-                Text("appearanceExplore")
-            }
-            
-            Section {
                 Picker(selection: $store.listsDisplayType) {
                     ForEach(ItemContentListPreferredDisplayType.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    InformationalLabel(title: "appearanceListsDisplayType")
+                    InformationalLabel(title: "appearanceHorizontalListsTitle")
                 }
-                
             } header: {
-                Text("appearanceLists")
+                Text("appearanceStyle")
             }
             
 #if os(iOS)

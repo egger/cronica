@@ -232,19 +232,19 @@ struct ExploreView: View {
                     ForEach(viewModel.items) { item in
                         ItemContentRowView(item: item)
                     }
-                }
-            }
-            if viewModel.isLoaded && !viewModel.endPagination {
-                CenterHorizontalView {
-                    ProgressView("Loading")
-                        .progressViewStyle(.circular)
-                        .tint(settings.appTheme.color)
-                        .padding(.horizontal)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                viewModel.loadMoreItems()
-                            }
+                    if viewModel.isLoaded && !viewModel.endPagination {
+                        CenterHorizontalView {
+                            ProgressView("Loading")
+                                .progressViewStyle(.circular)
+                                .tint(settings.appTheme.color)
+                                .padding(.horizontal)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                        viewModel.loadMoreItems()
+                                    }
+                                }
                         }
+                    }
                 }
             }
         }

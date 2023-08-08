@@ -16,6 +16,7 @@ struct CompanyDetails: View {
     var body: some View {
         ZStack {
             if !viewModel.isLoaded { ProgressView() }
+            
             VStack {
                 ScrollView {
                     if settings.listsDisplayType == .poster {

@@ -45,6 +45,12 @@ extension Date {
         if today > (self + week) { return true }
         return false
     }
+    func hasPassedFourWeeks() -> Bool {
+        let today = Date()
+        let week = TimeInterval(28 * 24 * 60 * 60)
+        if today > (self + week) { return true }
+        return false
+    }
     func toShortString() -> String {
 
         let dateFormatter = DateFormatter()

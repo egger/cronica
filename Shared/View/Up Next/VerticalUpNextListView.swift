@@ -114,7 +114,8 @@ struct VerticalUpNextListView: View {
                 .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             }
         }
-        .searchable(text: $query)
+#if os(iOS)
+        .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
         .autocorrectionDisabled()
         .onChange(of: query) { _ in
             if query.isEmpty && !queryResult.isEmpty {
@@ -126,6 +127,7 @@ struct VerticalUpNextListView: View {
                 queryResult = viewModel.episodes.filter{ $0.showTitle.lowercased().contains(query.lowercased())}
             }
         }
+#endif
         .sheet(item: $selectedEpisode) { item in
             NavigationStack {
                 EpisodeDetailsView(episode: item.episode,
