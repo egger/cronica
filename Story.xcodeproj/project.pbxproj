@@ -179,7 +179,6 @@
 		B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
 		B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84F0229299026B7007EA8AE /* DatesManager.swift */; };
 		B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = B854FA1E2A75B24000509C34 /* YouTubePlayerKit */; };
-		B85ACBDD2A3522B00084A329 /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */; };
 		B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
 		B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };
 		B85FD9A929F324730088B5CC /* TMDBAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9A829F324730088B5CC /* TMDBAccountView.swift */; };
@@ -1747,7 +1746,6 @@
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
 				B8E6EF5B2A043A61000A3617 /* HomeViewModel.swift in Sources */,
-				B85ACBDD2A3522B00084A329 /* TranslucentBackground.swift in Sources */,
 				B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */,
 				B88529B128E371350026D33A /* EpisodeRow.swift in Sources */,
 				B81941A22A08330A0057DA04 /* ListRowItem.swift in Sources */,

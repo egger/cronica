@@ -59,11 +59,11 @@ struct EpisodeDetailsView: View {
                 
             }
         }
-        .background {
-            if #available(watchOS 10, *) {
-                TranslucentBackground(image: episode.itemImageMedium)
-            }
-        }
+//        .background {
+//            if #available(watchOS 10, *) {
+//                TranslucentBackground(image: episode.itemImageMedium)
+//            }
+//        }
     }
     
     private func load() {

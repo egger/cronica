@@ -27,12 +27,12 @@ struct TranslucentBackground: View {
                     .padding(.zero)
                     .transition(.opacity)
 #if os(watchOS)
-                //                if #available(watchOS 10, *) {
-                //                    Rectangle()
-                //                        .fill(.thickMaterial)
-                //                        .ignoresSafeArea()
-                //                        .padding(.zero)
-                //                }
+//                if #available(watchOS 10, *) {
+//                    Rectangle()
+//                        .fill(.thickMaterial)
+//                        .ignoresSafeArea()
+//                        .padding(.zero)
+//                }
 #elseif os(macOS) || os(iOS)
                 Rectangle()
                     .fill(.ultraThickMaterial)

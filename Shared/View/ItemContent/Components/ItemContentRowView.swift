@@ -38,7 +38,6 @@ struct ItemContentRowView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .transition(.opacity)
-                        
                         .frame(width: DrawingConstants.imageWidth,
                                height: DrawingConstants.imageHeight)
                         .shadow(radius: 2.5)
@@ -46,11 +45,12 @@ struct ItemContentRowView: View {
                         Color.black.opacity(0.5)
                         Image(systemName: "rectangle.fill.badge.checkmark")
                             .foregroundColor(.white)
-                    } else if isInWatchlist {
-                        Color.black.opacity(0.5)
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.white)
                     }
+//                    else if isInWatchlist {
+//                        Color.black.opacity(0.5)
+//                        Image(systemName: "checkmark.circle.fill")
+//                            .foregroundColor(.white)
+//                    }
                 }
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
