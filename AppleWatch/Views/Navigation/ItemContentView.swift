@@ -119,7 +119,7 @@ struct ItemContentView: View {
             viewModel.update(.watched)
         } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: viewModel.isWatched ? "minus.circle.fill" : "checkmark.circle.fill")
+                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
         }
         .buttonStyle(.borderedProminent)
     }

@@ -72,12 +72,11 @@ struct ItemContentCardView: View {
                                             .foregroundColor(.white.opacity(0.9))
                                             .padding([.vertical])
                                             .padding(.trailing, 4)
-                                    } else {
-                                        Image(systemName: "square.stack.fill")
-                                            .imageScale(.small)
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .padding([.vertical, .trailing])
                                     }
+                                    Image(systemName: "square.stack.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical, .trailing])
                                 }
                                 .background {
                                     if item.cardImageMedium != nil {
