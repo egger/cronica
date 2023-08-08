@@ -33,18 +33,20 @@ struct BehaviorSetting: View {
                 Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
             }
             
-            Section {
-                Picker(selection: $store.shareLinkPreference) {
-                    ForEach(ShareLinkPreference.allCases) { item in
-                        Text(item.title).tag(item)
+            if store.displayDeveloperSettings {
+                Section {
+                    Picker(selection: $store.shareLinkPreference) {
+                        ForEach(ShareLinkPreference.allCases) { item in
+                            Text(item.title).tag(item)
+                        }
+                    } label: {
+                        InformationalLabel(title: "shareLinkPreference")
                     }
-                } label: {
-                    InformationalLabel(title: "shareLinkPreference")
+                } header: {
+                    Text("Beta")
+                } footer: {
+                    Text("shareLinkPreferenceSubtitle")
                 }
-            } header: {
-                Text("Beta")
-            } footer: {
-                Text("shareLinkPreferenceSubtitle")
             }
         }
         .navigationTitle("behaviorTitle")

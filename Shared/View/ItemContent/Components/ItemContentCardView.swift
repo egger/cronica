@@ -67,10 +67,11 @@ struct ItemContentCardView: View {
                                             .padding(.trailing, 4)
                                     }
                                     if isWatched {
-                                        Image(systemName: "checkmark.circle.fill")
+                                        Image(systemName: "rectangle.badge.checkmark.fill")
                                             .imageScale(.small)
                                             .foregroundColor(.white.opacity(0.9))
-                                            .padding([.vertical, .trailing])
+                                            .padding([.vertical])
+                                            .padding(.trailing, 4)
                                     } else {
                                         Image(systemName: "square.stack.fill")
                                             .imageScale(.small)

@@ -25,7 +25,6 @@ struct PersonDetailsView: View {
     var body: some View {
         VStack {
             ScrollView {
-                
                 ViewThatFits {
                     HStack {
                         imageProfile

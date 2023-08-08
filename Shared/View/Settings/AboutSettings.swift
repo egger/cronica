@@ -103,7 +103,7 @@ struct AboutSettings: View {
                     Text("Version \(appVersion ?? "")")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
-                        .onTapGesture(count: 4) {
+                        .onTapGesture(count: 3) {
                             withAnimation { settings.displayDeveloperSettings.toggle() }
                         }
                 }
