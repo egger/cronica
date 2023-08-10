@@ -268,12 +268,10 @@ extension ItemContent {
         return false
     }
     var hasUpcomingSeason: Bool {
-        if let nextEpisodeToAir {
-            if nextEpisodeToAir.episodeNumber == 1 && itemCanNotify {
-                return true
-            }
-        }
-        return false
+		guard let nextEpisodeToAir else { return false }
+		if nextEpisodeToAir.episodeNumber == 1 && itemCanNotify {
+			return true
+		} else { return false }
     }
     var itemIsAdult: Bool {
         adult ?? false

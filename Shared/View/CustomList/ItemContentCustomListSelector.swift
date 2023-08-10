@@ -34,7 +34,11 @@ struct ItemContentCustomListSelector: View {
                     WebImage(url: image)
                         .resizable()
                         .placeholder {
-                            Rectangle().fill(.gray.gradient)
+							ZStack {
+								Rectangle().fill(.gray.gradient)
+								Image(systemName: "popcorn.fill")
+									.foregroundColor(.white.opacity(0.9))
+							}
                         }
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 70, height: 50, alignment: .center)

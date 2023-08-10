@@ -44,33 +44,29 @@ struct ItemContentDetails: View {
                 .toolbar {
                     if handleToolbarOnPopup {
                         ToolbarItem(placement: .status) {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    if viewModel.isInWatchlist {
-                                        favoriteButton
-                                        archiveButton
-                                        pinButton
-                                        userNotesButton
-                                    }
-                                    shareButton
-                                }
-                                .disabled(viewModel.isLoading ? true : false)
-                            }
+							HStack {
+								if viewModel.isInWatchlist {
+									favoriteButton
+									archiveButton
+									pinButton
+									userNotesButton
+								}
+								shareButton
+							}
+							.disabled(viewModel.isLoading ? true : false)
                         }
                     } else {
                         ToolbarItem {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    if viewModel.isInWatchlist {
-                                        favoriteButton
-                                        archiveButton
-                                        pinButton
-                                        userNotesButton
-                                    }
-                                    shareButton
-                                }
-                                .disabled(viewModel.isLoading ? true : false)
-                            }
+							HStack {
+								if viewModel.isInWatchlist {
+									favoriteButton
+									archiveButton
+									pinButton
+									userNotesButton
+								}
+								shareButton
+							}
+							.disabled(viewModel.isLoading ? true : false)
                         }
                     }
                 }
@@ -296,7 +292,9 @@ struct ItemContentDetails: View {
 #if os(iOS) || os(macOS)
         switch store.shareLinkPreference {
         case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url) }
-        case .cronica: if let cronicaUrl { ShareLink(item: cronicaUrl) }
+        case .cronica: if let cronicaUrl {
+			ShareLink(item: cronicaUrl, message: Text(title))
+		}
         }
 #endif
     }

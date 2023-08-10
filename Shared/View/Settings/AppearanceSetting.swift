@@ -23,8 +23,8 @@ struct AppearanceSetting: View {
 #endif
             Section {
                 Picker(selection: $store.watchlistStyle) {
-                    ForEach(WatchlistItemType.allCases) { item in
-                        Text(item.localizableName).tag(item)
+                    ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                        Text(item.title).tag(item)
                     }
                 } label: {
                     InformationalLabel(title: "appearanceRowStyleTitle")
@@ -43,6 +43,13 @@ struct AppearanceSetting: View {
                 } label: {
                     InformationalLabel(title: "appearanceHorizontalListsTitle")
                 }
+				Picker(selection: $store.upNextStyle) {
+					ForEach(UpNextDetailsPreferredStyle.allCases) { item in
+						Text(item.title).tag(item)
+					}
+				} label: {
+					InformationalLabel(title: "appearanceUpNextTitle")
+				}
             } header: {
                 Text("appearanceStyle")
             }

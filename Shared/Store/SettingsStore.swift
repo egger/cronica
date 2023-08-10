@@ -14,7 +14,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings = false
     @AppStorage("gesture") var gesture: UpdateItemProperties = .favorite
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
-    @AppStorage("watchlistStyle") var watchlistStyle: WatchlistItemType = .card
+    @AppStorage("watchlistStyle") var watchlistStyle: SectionDetailsPreferredStyle = .card
     @AppStorage("disableTranslucentBackground") var disableTranslucent = false
     @AppStorage("user_theme") var currentTheme: AppTheme = .system
     @AppStorage("openInYouTube") var openInYouTube = false
@@ -59,4 +59,8 @@ class SettingsStore: ObservableObject {
     @AppStorage("alwaysUsePosterAsCover") var usePostersAsCover = true
 #endif
     @AppStorage("shareLinkPreference") var shareLinkPreference: ShareLinkPreference = .tmdb
+	@AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
+#if os(macOS)
+	@AppStorage("quitAppWhenClosingWindow") var quitApp = true
+#endif
 }

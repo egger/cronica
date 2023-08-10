@@ -47,7 +47,6 @@ class ItemContentViewModel: ObservableObject {
                 if content.backdropPath == nil && content.posterPath != nil { showPoster = true }
                 withAnimation {
                     if isInWatchlist {
-                        hasNotificationScheduled = isNotificationScheduled()
                         isWatched = persistence.isMarkedAsWatched(id: content.itemContentID)
                         isFavorite = persistence.isMarkedAsFavorite(id: content.itemContentID)
                         isArchive = persistence.isItemArchived(id: content.itemContentID)
@@ -76,6 +75,9 @@ class ItemContentViewModel: ObservableObject {
                     credits.append(contentsOf: combined)
                 }
                 isLoading = false
+				Task {
+					hasNotificationScheduled = await isNotificationScheduled()
+				}
 #if os(iOS) || os(macOS)
                 if isInWatchlist {
                     persistence.update(item: content)
@@ -116,7 +118,7 @@ class ItemContentViewModel: ObservableObject {
             withAnimation { isInWatchlist.toggle() }
             persistence.save(item)
             if item.itemCanNotify && item.itemFallbackDate.isLessThanTwoWeeksAway() {
-                NotificationManager.shared.schedule(item)
+                notification.schedule(item)
             }
             if item.itemContentMedia == .tvShow {
                 Task {
@@ -158,25 +160,26 @@ class ItemContentViewModel: ObservableObject {
     }
     
     func registerNotification() {
-        if isInWatchlist && !isArchive && isNotificationAvailable && !hasNotificationScheduled && type == .tvShow {
-            if let content {
-                NotificationManager.shared.schedule(content)
-                persistence.update(item: content)
-            }
-        }
-        if isInWatchlist && isNotificationAvailable && type == .movie && !hasNotificationScheduled {
-            guard let content else { return }
-            NotificationManager.shared.schedule(content)
-        }
+		if isInWatchlist && !isArchive {
+			guard let content else { return }
+			// TV Shows
+			if type == .tvShow && !hasNotificationScheduled {
+				notification.schedule(content)
+			}
+			// Movies
+			if type == .movie {
+				if content.itemCanNotify {
+					notification.schedule(content)
+				}
+			}
+		}
     }
     
-    /// Finds if a given item has notification scheduled, it's purely based on the property value when saved or updated,
-    /// and might not be an actual representation if the item will notify the user.
-    private func isNotificationScheduled() -> Bool {
-        guard let content else { return false }
-        let item = persistence.fetch(for: content.itemContentID)
-        guard let notify = item?.notify else { return false }
-        return notify
+    /// Finds if a given item has notification scheduled.
+    private func isNotificationScheduled() async -> Bool {
+		guard let contentID = content?.itemContentID else { return false }
+		let hasNotificationScheduled = await notification.hasPendingNotification(for: contentID)
+		return hasNotificationScheduled
     }
     
     func update(_ property: UpdateItemProperties) {

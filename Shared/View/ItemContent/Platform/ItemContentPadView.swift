@@ -171,7 +171,7 @@ struct ItemContentPadView: View {
                             withAnimation { showPopup = true }
                         } label: {
 #if os(macOS)
-                            Label("Watched", systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                            Label("Watched", systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
 #else
                             VStack {
                                 Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")

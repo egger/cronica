@@ -53,7 +53,7 @@ struct DefaultWatchlist: View {
         case .favorites:
             return sortedItems.filter { $0.isFavorite }
         case .pin:
-            return sortedItems.filter { $0.isReleased }
+            return sortedItems.filter { $0.isPin }
         case .archive:
             return sortedItems.filter { $0.isArchive }
         case .notWatched:
@@ -180,7 +180,7 @@ struct DefaultWatchlist: View {
             .appTheme()
             .appTint()
 #elseif os(macOS)
-            .frame(width: 380, height: 220, alignment: .center)
+            .frame(width: 380, height: 420, alignment: .center)
 #endif
         }
         .toolbar {
@@ -271,8 +271,8 @@ struct DefaultWatchlist: View {
     private var styleButton: some View {
         Menu {
             Picker(selection: $settings.watchlistStyle) {
-                ForEach(WatchlistItemType.allCases) { item in
-                    Text(item.localizableName).tag(item)
+                ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                    Text(item.title).tag(item)
                 }
             } label: {
                 Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")

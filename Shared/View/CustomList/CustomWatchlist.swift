@@ -57,7 +57,7 @@ struct CustomWatchlist: View {
         case .favorites:
             return sortedItems.filter { $0.isFavorite }
         case .pin:
-            return sortedItems.filter { $0.isReleased }
+            return sortedItems.filter { $0.isPin }
         case .archive:
             return sortedItems.filter { $0.isArchive }
         case .notWatched:
@@ -221,8 +221,8 @@ struct CustomWatchlist: View {
     private var styleButton: some View {
         Menu {
             Picker(selection: $settings.watchlistStyle) {
-                ForEach(WatchlistItemType.allCases) { item in
-                    Text(item.localizableName).tag(item)
+                ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                    Text(item.title).tag(item)
                 }
             } label: {
                 Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")

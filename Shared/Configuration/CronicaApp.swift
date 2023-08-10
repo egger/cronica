@@ -33,6 +33,10 @@ struct CronicaApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+#if os(macOS)
+				.frame(minWidth: 800, minHeight: 600)
+				.onDisappear(perform: terminateApp)
+#endif
                 .environment(\.managedObjectContext, persistence.container.viewContext)
 #if os(iOS)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
@@ -117,6 +121,12 @@ struct CronicaApp: App {
         }
 #endif
     }
+	
+#if os(macOS)
+	private func terminateApp() {
+		if settings.quitApp { NSApplication.shared.terminate(self) }
+	}
+#endif
     
     private func fetchContent(for id: String) async {
         if selectedItem != nil { selectedItem = nil }
@@ -143,7 +153,7 @@ struct CronicaApp: App {
     private func scheduleAppRefresh() {
 #if os(iOS)
         let request = BGAppRefreshTaskRequest(identifier: backgroundIdentifier)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 360 * 60) // Fetch no earlier than 6 hours from now
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 180 * 60) // Fetch no earlier than 3 hours from now
         try? BGTaskScheduler.shared.submit(request)
 #endif
     }

@@ -104,7 +104,7 @@ struct WatchlistItemContextMenu: ViewModifier {
     
     private var share: some View {
 #if os(iOS)
-        ShareLink(item: item.itemUrlProxy)
+        ShareLink(item: item.itemLink)
 #else
         EmptyView()
 #endif

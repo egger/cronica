@@ -59,7 +59,7 @@ struct ItemContentPhoneView: View {
         }
         .navigationTitle(navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
-        .task {
+        .onAppear {
             if !navigationTitle.isEmpty {
                 navigationTitle = String()
             }
@@ -82,7 +82,7 @@ struct ItemContentPhoneView: View {
                             .lineLimit(1)
                     }
                     .padding(.vertical, 4)
-                    .frame(width: 70)
+                    .frame(width: 75)
                 }
                 .keyboardShortcut("w", modifiers: [.option])
                 .controlSize(.small)
@@ -106,7 +106,7 @@ struct ItemContentPhoneView: View {
                             .lineLimit(1)
                     }
                     .padding(.vertical, 4)
-                    .frame(width: 70)
+                    .frame(width: 75)
                 }
                 .controlSize(.small)
                 .buttonStyle(.bordered)
@@ -190,6 +190,7 @@ struct ItemContentPhoneView: View {
                             .font(.title)
                             .fontWidth(.expanded)
                             .foregroundColor(.white.opacity(0.8))
+							.unredacted()
                             .padding()
                     }
                     .frame(width: 220, height: 300)

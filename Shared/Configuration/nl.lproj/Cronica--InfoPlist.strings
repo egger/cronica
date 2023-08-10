@@ -1,0 +1,21 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Cronica";
+
+/* Bundle name */
+"CFBundleName" = "Cronica";
+
+/* (No Comment) */
+"ItemContent" = "ItemInhoud";
+
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "Afbeelding opslaan in Foto's?";
+
+/* (No Comment) */
+"Person" = "Persoon";
+
+/* (No Comment) */
+"trailerItem" = "trailerItem";
+
+/* (No Comment) */
+"WatchlistItem" = "WatchlistItem";
+

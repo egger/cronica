@@ -50,9 +50,6 @@ extension WatchlistItem {
     var itemLink: URL {
         return URL(string: "https://www.themoviedb.org/\(itemMedia.rawValue)/\(itemId)")!
     }
-    var itemUrlProxy: String {
-        return  "https://www.themoviedb.org/\(itemMedia.rawValue)/\(id)"
-    }
     var itemGlanceInfo: String? {
 #if !os(watchOS)
         switch itemMedia {
@@ -152,6 +149,8 @@ extension WatchlistItem {
         if isMovie { return false }
         if isTvShow && isWatched { return false }
         if isArchive || isWatched { return false }
+		if isTvShow && isArchive { return false }
+		if isTvShow && !(watchedEpisodes?.isEmpty ?? false) { return true }
         return isWatching
     }
     var itemContentID: String {

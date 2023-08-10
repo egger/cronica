@@ -1,0 +1,21 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Cronica";
+
+/* Bundle name */
+"CFBundleName" = "Cronica";
+
+/* (No Comment) */
+"ItemContent" = "Öğe İçeriği";
+
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "Fotoğrafı Fotoğraflara kaydet?";
+
+/* (No Comment) */
+"Person" = "Kişi";
+
+/* (No Comment) */
+"trailerItem" = "fragmanÖğesi";
+
+/* (No Comment) */
+"WatchlistItem" = "İzleme Listesi Öğesi";
+

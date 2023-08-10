@@ -1,0 +1,1935 @@
+/* (No Comment) */
+" Cronica" = "크로니카";
+
+/* (No Comment) */
+"'Update Items' will update your items with new information available on TMDb, if available." = "'항목 업데이트'는 TMDb에서 새로운 정보가 있을 경우 항목을 업데이트합니다, 사용 가능한 경우에 한해.";
+
+/* No comment provided by engineer. */
+"(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" = "(numberOfSeasons) 시즌 • (numberOfEpisodes) 에피소드";
+
+/* No comment provided by engineer. */
+"(voteAverage.rounded())/10" = "(voteAverage.rounded())/10";
+
+/* No comment provided by engineer. */
+"%@, tap to open list options." = "%@, 목록 옵션을 열려면 탭하세요.";
+
+/* No comment provided by engineer. */
+"%lld Items" = "%lld 항목";
+
+/* (No Comment) */
+"%lld items • %@" = "%lld개 • %@";
+
+/* (No Comment) */
+"%lld Seasons • %lld Episodes" = "%lld시즌 • %lld 에피소드";
+
+/* (No Comment) */
+"%lld upcoming notifications." = "%lld 알림이 예정되어 있습니다.";
+
+/* (No Comment) */
+"%lld/10" = "%lld/10";
+
+/* (No Comment) */
+"%llditems" = "%lld 개 항목";
+
+/* No comment provided by engineer. */
+"🛠️" = "🛠️";
+
+/* (No Comment) */
+"About" = "소개";
+
+/* (No Comment) */
+"aboutTitle" = "소개";
+
+/* (No Comment) */
+"accentColor" = "액센트 색상";
+
+/* (No Comment) */
+"Account" = "계정";
+
+/* (No Comment) */
+"AccountSettingsViewFooter" = "TMDb 계정을 연결하여 시청목록과 목록을 가져오고 동기화하세요.";
+
+/* MARK: TMDb Sync */
+"AccountSettingsViewFooterHeader" = "TMDb 계정에 연결하세요";
+
+/* (No Comment) */
+"AccountSettingsViewHeaderSignIn" = "TMDb의 목록을 관리하세요";
+
+/* (No Comment) */
+"AccountSettingsViewListsManager" = "당신의 TMDB 목록";
+
+/* (No Comment) */
+"AccountSettingsViewSignIn" = "연결하기";
+
+/* (No Comment) */
+"AccountSettingsViewSignOut" = "연결 끊기";
+
+/* (No Comment) */
+"AccountSettingsViewWatchlist" = "TMDB 보관함";
+
+/* (No Comment) */
+"acknowledgmentsAppIconSubtitle" = "아크마드";
+
+/* MARK: AcknowledgementsSettings */
+"acknowledgmentsAppIconTitle" = "아이콘 디자이너";
+
+/* (No Comment) */
+"acknowledgmentsContentProviderSubtitle" = "TMDb";
+
+/* (No Comment) */
+"acknowledgmentsContentProviderTitle" = "컨텐츠 제공자";
+
+/* (No Comment) */
+"acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
+
+/* (No Comment) */
+"acknowledgmentsTitle" = "감사의 말";
+
+/* (No Comment) */
+"acknowledgmentsUserTitle" = "피드백과 지원에 감사드립니다!";
+
+/* (No Comment) */
+"Action" = "액션";
+
+/* (No Comment) */
+"Action & Adventure" = "액션 및 모험";
+
+/* (No Comment) */
+"Add everything you want, the Watchlist automatically organizes it for you." = "원하는 모든 것을 추가하세요. Watchlist가 자동으로 정리해 드립니다.";
+
+/* (No Comment) */
+"Add to Favorites" = "즐겨찾기에 추가";
+
+/* (No Comment) */
+"Add to List" = "목록에 추가";
+
+/* MARK: ContentDetailsView.swift */
+"Add to watchlist" = "찜하기";
+
+/* (No Comment) */
+"addAndMarkWatchedButton" = "추가 및 시청으로 표시";
+
+/* (No Comment) */
+"Added to watchlist" = "관심 목록에 추가되었습니다.";
+
+/* (No Comment) */
+"addedToWatchlist" = "보관함에 추가되었습니다";
+
+/* (No Comment) */
+"addedWatchlist" = "관심 목록에 추가됨";
+
+/* (No Comment) */
+"addToCustomList" = "리스트에 추가...";
+
+/* (No Comment) */
+"addToList" = "리스트에 추가하기...";
+
+/* (No Comment) */
+"Adventure" = "모험";
+
+/* (No Comment) */
+"All" = "모두";
+
+/* (No Comment) */
+"allCustomWatchListFilters" = "모두";
+
+/* (No Comment) */
+"allItems" = "모든 항목";
+
+/* (No Comment) */
+"allItemsMovies" = "모든 영화";
+
+/* (No Comment) */
+"allItemsTVShows" = "모든 TV 프로그램";
+
+/* (No Comment) */
+"allowNotification" = "알림 허용";
+
+/* (No Comment) */
+"Always Synced" = "항상 동기화됨";
+
+/* (No Comment) */
+"Animation" = "애니메이션";
+
+/* (No Comment) */
+"appearanceAppIcon" = "앱 아이콘";
+
+/* (No Comment) */
+"appearanceAppThemeTitle" = "앱 테마";
+
+/* (No Comment) */
+"appearanceCompactUI" = "간단한 UI";
+
+/* (No Comment) */
+"appearanceCompactUISubtitle" = "화면에 더 많은 항목을 수용하기 위해 일부 UI 요소 크기를 줄입니다.";
+
+/* (No Comment) */
+"appearanceExplore" = "탐색";
+
+/* (No Comment) */
+"appearanceExploreDisplayType" = "선호 표시 보기";
+
+/* (No Comment) */
+"appearanceHorizontalListsTitle" = "수평 목록 스타일";
+
+/* (No Comment) */
+"appearanceLists" = "목록";
+
+/* (No Comment) */
+"appearanceListsDisplayType" = "리스트의 표시 설정";
+
+/* (No Comment) */
+"appearanceRowStyleSubtitle" = "관심 목록을 표시하는 방법 선택";
+
+/* (No Comment) */
+"appearanceRowStyleTitle" = "워치리스트의 아이템 스타일";
+
+/* (No Comment) */
+"appearanceRowTypeSubtitle" = "표시할 정보 유형을 선택하세요.";
+
+/* MARK: AppearanceSetting */
+"appearanceRowTypeTitle" = "워치리스트 항목 정보";
+
+/* (No Comment) */
+"appearanceSectionDetailsTitle" = "섹션의 세부 정보 스타일";
+
+/* (No Comment) */
+"appearanceSendFeedback" = "피드백 보내기";
+
+/* (No Comment) */
+"appearanceStyle" = "스타일 환경설정";
+
+/* (No Comment) */
+"appearanceTheme" = "테마";
+
+/* (No Comment) */
+"appearanceThemeTitle" = "앱 틴트";
+
+/* (No Comment) */
+"appearanceTitle" = "외관";
+
+/* (No Comment) */
+"appearanceWatchlist" = "관심 목록";
+
+/* (No Comment) */
+"appIconFeedbackTitle" = "아이콘에 대한 아이디어가 있으신가요? 피드백을 보내주세요";
+
+/* (No Comment) */
+"appRegionSubtitle" = "앱은 지역에 따라 시청 공급자를 조정할 것입니다.";
+
+/* (No Comment) */
+"appRegionTitle" = "지역";
+
+/* MARK: AppThemeColors */
+"appThemeColorsBlue" = "파랑색";
+
+/* (No Comment) */
+"appThemeColorsBrown" = "갈색";
+
+/* (No Comment) */
+"appThemeColorsCyan" = "시안";
+
+/* (No Comment) */
+"appThemeColorsGray" = "회색";
+
+/* (No Comment) */
+"appThemeColorsGreen" = "초록색";
+
+/* (No Comment) */
+"appThemeColorsIndigo" = "인디고";
+
+/* (No Comment) */
+"appThemeColorsMint" = "민트";
+
+/* (No Comment) */
+"appThemeColorsOrange" = "오렌지";
+
+/* (No Comment) */
+"appThemeColorsPink" = "핑크";
+
+/* (No Comment) */
+"appThemeColorsPurple" = "보라색";
+
+/* (No Comment) */
+"appThemeColorsRed" = "빨간색";
+
+/* (No Comment) */
+"appThemeColorsTeal" = "틸";
+
+/* (No Comment) */
+"appThemeColorsYellow" = "노랑";
+
+/* (No Comment) */
+"appThemeDark" = "어두운";
+
+/* (No Comment) */
+"appThemeLight" = "라이트";
+
+/* MARK: AppTheme */
+"appThemeSystem" = "시스템";
+
+/* (No Comment) */
+"Archive" = "보관";
+
+/* (No Comment) */
+"Archive Item" = "아카이브 항목";
+
+/* (No Comment) */
+"areYouSure" = "확실하십니까?";
+
+/* (No Comment) */
+"Arriving Soon" = "곧 도착합니다";
+
+/* No comment provided by engineer. */
+"Asked for review: %@" = "리뷰를 요청했습니다: %@";
+
+/* No comment provided by engineer. */
+"Back" = "뒤로";
+
+/* (No Comment) */
+"Be reminded of upcoming Movies & TV Shows." = "다가오는 영화 및 TV 프로그램을 상기시켜 드립니다.";
+
+/* (No Comment) */
+"behaviorAllowFullSwipeSubtitle" = "전체 밀기로 주요 동작을 활성화합니다";
+
+/* (No Comment) */
+"behaviorAllowFullSwipeTitle" = "전체 스와이프 허용";
+
+/* (No Comment) */
+"behaviorDoubleTapSubtitle" = "표지 이미지를 두 번 탭할 때 수행할 기능을 선택하세요.";
+
+/* MARK: BehaviorSetting */
+"behaviorDoubleTapTitle" = "커버를 두 번 탭하세요";
+
+/* (No Comment) */
+"behaviorEpisodeTitle" = "에피소드를 시청한 것으로 표시하기 위해 탭하세요";
+
+/* (No Comment) */
+"behaviorGestureTitle" = "동작";
+
+/* (No Comment) */
+"behaviorLinkTitle" = "링크";
+
+/* (No Comment) */
+"behaviorMarkPreviouslyEpisodes" = "새로운 에피소드가 시청으로 표시되면 이전 에피소드를 모두 표시";
+
+/* (No Comment) */
+"behaviorPrimaryLeftGesture" = "주 왼쪽 제스처";
+
+/* (No Comment) */
+"behaviorPrimaryRightGesture" = "기본 오른쪽 제스처";
+
+/* (No Comment) */
+"behaviorSecondaryLeftGesture" = "보조 왼쪽 제스처";
+
+/* (No Comment) */
+"behaviorSecondaryRightGesture" = "보조 오른쪽 제스처";
+
+/* (No Comment) */
+"behaviorSwipeTitle" = "스와이프 제스쳐";
+
+/* (No Comment) */
+"behaviorTitle" = "행동";
+
+/* (No Comment) */
+"behaviorWatchProvidersSubtitle" = "어떤 플랫폼에서 콘텐츠를 확인할 수 있는지 보세요.";
+
+/* (No Comment) */
+"behaviorWatchProvidersTitle" = "시청 공급자";
+
+/* (No Comment) */
+"behaviorYouTubeTitle" = "유튜브에서 트레일러 열기";
+
+/* No comment provided by engineer. */
+"Beta" = "베타";
+
+/* MARK: CastDetailsView.swift */
+"Biography" = "약력";
+
+/* (No Comment) */
+"callToReviewSubtitle" = "앱 스토어에서 리뷰를 작성해주세요!";
+
+/* (No Comment) */
+"callToReviewTitle" = "크로니카를 즐기고 있나요?";
+
+/* (No Comment) */
+"Cancel" = "취소";
+
+/* (No Comment) */
+"cancelConfirmDialogAction" = "취소";
+
+/* (No Comment) */
+"Cancelled" = "취소됨";
+
+/* (No Comment) */
+"cancelOpenWatchProvider" = "취소";
+
+/* (No Comment) */
+"cantSendFeedback" = "앱 내에서 피드백을 보내려면 '크래시 보고 비활성화'를 해제해야 합니다.";
+
+/* (No Comment) */
+"Cast & Crew" = "출연진 및 스탭";
+
+/* (No Comment) */
+"changeLanguage" = "앱 언어 변경";
+
+/* (No Comment) */
+"changelogViewTitle" = "새로운 기능";
+
+/* (No Comment) */
+"Classical" = "고전적인";
+
+/* (No Comment) */
+"Collapse" = "접기";
+
+/* (No Comment) */
+"Comedy" = "코미디";
+
+/* MARK: WatchlistSectionView.swift */
+"Coming Soon" = "곧 출시 예정";
+
+/* (No Comment) */
+"Coming Soon To Theaters" = "극장에서 곧 상영 예정";
+
+/* (No Comment) */
+"companiesTitle" = "회사";
+
+/* (No Comment) */
+"Confirm" = "확인";
+
+/* (No Comment) */
+"confirmAndDeleteItems" = "항목을 확인하고 삭제합니다";
+
+/* (No Comment) */
+"confirmDialogAction" = "확인";
+
+/* (No Comment) */
+"confirmOpenDontAskAgainProvider" = "확인하고 다시 묻지 않습니다";
+
+/* (No Comment) */
+"confirmOpenWatchProvider" = "확인";
+
+/* (No Comment) */
+"connectedAccounts" = "연결된 계정";
+
+/* (No Comment) */
+"connectedAccountTMDB" = "더 무비 데이터베이스";
+
+/* (No Comment) */
+"contentRegionTitle" = "지역";
+
+/* (No Comment) */
+"Continue" = "계속";
+
+/* (No Comment) */
+"Create" = "생성";
+
+/* (No Comment) */
+"createList" = "새로운 목록 생성";
+
+/* (No Comment) */
+"createNote" = "노트 추가";
+
+/* (No Comment) */
+"Crime" = "범죄";
+
+/* (No Comment) */
+"Cronica" = "크로니카";
+
+/* (No Comment) */
+"cronicaGitHub" = "크로니카 GitHub 저장소";
+
+/* (No Comment) */
+"dateAsc" = "날짜 (오름차순)";
+
+/* (No Comment) */
+"dateDesc" = "날짜 (내림차순)";
+
+/* (No Comment) */
+"Default" = "최적화";
+
+/* (No Comment) */
+"Default List" = "기본 목록";
+
+/* (No Comment) */
+"defaultWatchlistFilters" = "필터";
+
+/* (No Comment) */
+"defaultWatchlistShowAllItems" = "모든 항목 표시";
+
+/* (No Comment) */
+"defaultWatchlistSmartFilters" = "스마트 필터";
+
+/* (No Comment) */
+"Delete" = "삭제";
+
+/* (No Comment) */
+"deleteConfirmationMessage" = "이 작업을 취소할 수 없습니다.\n로컬 목록은 삭제되지 않고 TMDb의 목록만 삭제됩니다.";
+
+/* (No Comment) */
+"deleteList" = "리스트 삭제하기";
+
+/* (No Comment) */
+"Design" = "디자인";
+
+/* (No Comment) */
+"Details Page" = "상세 페이지";
+
+/* (No Comment) */
+"Developed by Alexandre Madeira" = "개발자: Alexandre Madeira";
+
+/* No comment provided by engineer. */
+"Developer Options" = "개발자 옵션";
+
+/* (No Comment) */
+"Digital" = "디지털";
+
+/* (No Comment) */
+"disableTranslucentTitle" = "반투명 배경 비활성화";
+
+/* (No Comment) */
+"Discover what's next" = "다음에 무엇을 찾을까요";
+
+/* No comment provided by engineer. */
+"Dismiss" = "닫기";
+
+/* (No Comment) */
+"dismissReviewCall" = "닫기";
+
+/* (No Comment) */
+"Documentary" = "다큐멘터리";
+
+/* MARK: Common */
+"Done" = "완료";
+
+/* (No Comment) */
+"Double Tap Gesture" = "더블 탭 제스처";
+
+/* (No Comment) */
+"Drama" = "드라마";
+
+/* No comment provided by engineer. */
+"E%lld" = "E%lld";
+
+/* (No Comment) */
+"Edit" = "편집";
+
+/* (No Comment) */
+"editListRemoveItems" = "항목 제거하기";
+
+/* (No Comment) */
+"editNotes" = "노트 편집";
+
+/* (No Comment) */
+"Email (optional)" = "이메일 (선택 사항)";
+
+/* No comment provided by engineer. */
+"Empty" = "빈 값";
+
+/* No comment provided by engineer. */
+"Empty List" = "빈 목록";
+
+/* (No Comment) */
+"emptyList" = "선택한 필터와 일치하는 항목을 찾을 수 없습니다.\n필터를 변경해보세요.";
+
+/* (No Comment) */
+"emptyLists" = "빈 칸";
+
+/* (No Comment) */
+"enablePreferredLaunchScreen" = "기본 화면을 활성화합니다.";
+
+/* (No Comment) */
+"Ended Series" = "종료된 시리즈";
+
+/* No comment provided by engineer. */
+"Episode" = "에피소드";
+
+/* No comment provided by engineer. */
+"Episode (episodeNumber)" = "에피소드 (episodeNumber)";
+
+/* (No Comment) */
+"Episode %lld" = "에피소드 %lld";
+
+/* No comment provided by engineer. */
+"Episode: %lld, of the show: %@." = "에피소드: %lld, 쇼: %@.";
+
+/* (No Comment) */
+"episodeNotificationSubtitle" = "당신의 시청 목록에 있는 TV 프로그램의 새 에피소드가 출시될 때 알림을 받으세요.";
+
+/* (No Comment) */
+"episodeNotificationTitle" = "새 에피소드 알림";
+
+/* (No Comment) */
+"Error" = "오류";
+
+/* (No Comment) */
+"Error reading this title" = "이 제목을 읽는 중 오류가 발생했습니다.";
+
+/* MARK: ExploreView.swift */
+"Explore" = "탐색하기";
+
+/* (No Comment) */
+"exploreDisplayTypePicker" = "표시 스타일";
+
+/* (No Comment) */
+"explorePreferredDisplayTypeCard" = "카드";
+
+/* (No Comment) */
+"explorePreferredDisplayTypePoster" = "포스터";
+
+/* (No Comment) */
+"exportTitle" = "내보내기";
+
+/* (No Comment) */
+"Family" = "가족";
+
+/* (No Comment) */
+"Fantasy" = "환상";
+
+/* (No Comment) */
+"Favorite" = "좋아요";
+
+/* (No Comment) */
+"Favorites" = "즐겨찾기";
+
+/* (No Comment) */
+"featureOneDescription" = "당신이 좋아하는 TV 시리즈의 다음 에피소드를 확인하고 한 번에 시청 완료로 표시하세요.";
+
+/* (No Comment) */
+"featureOneTitle" = "다음에 진행";
+
+/* (No Comment) */
+"featureRoadmap" = "다가오는 기능";
+
+/* (No Comment) */
+"featureRoadmapHeader" = "처음으로 보고 싶은 다음 기능에 투표하세요.";
+
+/* (No Comment) */
+"featureRoadmapSubtitle" = "새로운 기능을 제안하려면 '플러스' 아이콘을 사용하세요.";
+
+/* (No Comment) */
+"featureThreeDescription" = "더 많은 설정과 개선된 UI를 통해 Cronica를 원하는 방식으로 사용자 정의할 수 있습니다.";
+
+/* (No Comment) */
+"featureThreeTitle" = "경험을 세밀하게 조정하세요";
+
+/* (No Comment) */
+"featureTwoDescription" = "크로니카에서 시청한 내용을 기반으로 한 맞춤형 영화 및 TV 프로그램 추천을 받으세요.";
+
+/* (No Comment) */
+"featureTwoTitle" = "개인화된 추천";
+
+/* (No Comment) */
+"Feedback" = "피드백";
+
+/* (No Comment) */
+"Feedback sent" = "피드백을 주셔서 감사합니다.";
+
+/* (No Comment) */
+"feedbackSent" = "피드백이 전송되었습니다. 감사합니다!";
+
+/* No comment provided by engineer. */
+"Fetch" = "불러오기";
+
+/* MARK: FilmographyView.swift */
+"Filmography" = "업적";
+
+/* (No Comment) */
+"filterDiscoverTitle" = "필터";
+
+/* No comment provided by engineer. */
+"Filters" = "필터";
+
+/* (No Comment) */
+"Find" = "찾기";
+
+/* (No Comment) */
+"First Air Date" = "최초 방영일";
+
+/* (No Comment) */
+"For more details, open the companion app." = "더 자세한 내용은 iPhone 앱을 열어주세요.";
+
+/* (No Comment) */
+"From Watchlist" = "워치리스트에서";
+
+/* (No Comment) */
+"generatingExportFile" = "JSON 파일을 생성 중입니다. 잠시 기다려주세요.";
+
+/* (No Comment) */
+"Genre" = "장르";
+
+/* (No Comment) */
+"genreDiscoverFilterTitle" = "장르";
+
+/* (No Comment) */
+"Genres" = "장르";
+
+/* (No Comment) */
+"German" = "독일인";
+
+/* (No Comment) */
+"Gesture" = "제스처";
+
+/* (No Comment) */
+"Get notifications about the newest releases." = "최신 릴리스에 대한 알림 받기.";
+
+/* (No Comment) */
+"hapticFeedbackTitle" = "진동 피드백";
+
+/* (No Comment) */
+"hideAddedItemsDiscoverFilter" = "추가된 항목 숨기기";
+
+/* (No Comment) */
+"History" = "역사";
+
+/* MARK: ContentView.swift */
+"Home" = "홈";
+
+/* (No Comment) */
+"Horror" = "공포";
+
+/* (No Comment) */
+"IMDb" = "IMDb";
+
+/* (No Comment) */
+"importedSucceeded" = "성공적으로 가져옴";
+
+/* (No Comment) */
+"importExportWarning" = "수출/수입은 베타 버전으로, 데이터를 내보내거나 iCloud 계정을 전환하는 경우에만 사용하세요. 현재는 중복을 피하기 위한 논리가 없습니다. 향후 업데이트에서 더 나은 경험을 제공할 것입니다.";
+
+/* (No Comment) */
+"importingTMDB" = "워치리스트를 가져오는 중입니다. 잠시 기다려주세요.";
+
+/* (No Comment) */
+"importingWatchlistTMDB" = "가져 오는 중입니다, 기다려주십시오.";
+
+/* (No Comment) */
+"importTitle" = "가져오기";
+
+/* (No Comment) */
+"importTMDBList" = "이 목록 가져오기";
+
+/* (No Comment) */
+"importTMDBWatchlist" = "관심 목록 가져오기";
+
+/* (No Comment) */
+"In Production" = "생산 중";
+
+/* (No Comment) */
+"Information" = "정보";
+
+/* (No Comment) */
+"Internal error: Something went wrong, contact TMDB." = "내부 오류: 뭔가 잘못되었습니다. TMDb에 문의하십시오.";
+
+/* (No Comment) */
+"Invalid API key: You must be granted a valid key." = "유효하지 않은 API 키입니다.";
+
+/* (No Comment) */
+"Invalid Endpoint" = "유효하지 않은 엔드포인트입니다.";
+
+/* (No Comment) */
+"Invalid Request" = "올바르지 않은 요청입니다.";
+
+/* MARK: Error */
+"Invalid Response" = "유효하지 않은 응답.";
+
+/* No comment provided by engineer. */
+"Is TelemetryDeck Initialized: %@" = "TelemetryDeck이 초기화되었습니까: %@";
+
+/* No comment provided by engineer. */
+"Item ID" = "항목 ID";
+
+/* (No Comment) */
+"itemContentListPreferredDisplayTypeCard" = "카드";
+
+/* (No Comment) */
+"itemContentListPreferredDisplayTypePoster" = "포스터";
+
+/* (No Comment) */
+"itemContentListPreferredDisplayTypeStandard" = "기본값";
+
+/* No comment provided by engineer. */
+"items count" = "항목 수";
+
+/* (No Comment) */
+"itemsTMDB" = "당신의 감시 목록 항목";
+
+/* MARK: WatchProviders */
+"justWatchSubtitle" = "제공: JustWatch";
+
+/* (No Comment) */
+"Keep everything organized inside the Watchlist." = "워치리스트 내에서 모든 것을 정리하세요.";
+
+/* (No Comment) */
+"Keep track of every episode you've watched." = "당신이 본 모든 에피소드를 추적하세요.";
+
+/* (No Comment) */
+"Kids" = "어린이";
+
+/* (No Comment) */
+"Know for" = "알려진";
+
+/* No comment provided by engineer. */
+"Last maintenance: %@" = "최근 유지 보수: %@";
+
+/* No comment provided by engineer. */
+"Last upcoming refresh: %@" = "마지막으로 다가오는 새로고침: %@";
+
+/* No comment provided by engineer. */
+"Last update on (itemLastUpdateFormatted)" = " (itemLastUpdateFormatted)에 대한 최신 업데이트";
+
+/* No comment provided by engineer. */
+"Last watching refresh: %@" = "마지막으로 갱신된 시청: %@";
+
+/* (No Comment) */
+"Latest Movies" = "최신 영화";
+
+/* (No Comment) */
+"Latest Shows" = "최신쇼";
+
+/* No comment provided by engineer. */
+"launchCount: %lld" = "launchCount: %lld";
+
+/* (No Comment) */
+"Libraries" = "라이브러리";
+
+/* (No Comment) */
+"List" = "목록";
+
+/* (No Comment) */
+"List Filters" = "리스트 필터";
+
+/* (No Comment) */
+"listBasicHeader" = "기본";
+
+/* (No Comment) */
+"listDeleted" = "이 목록이 성공적으로 삭제되었습니다.";
+
+/* (No Comment) */
+"listDescription" = "리스트 설명";
+
+/* (No Comment) */
+"listItemsToAdd" = "아이템 선택";
+
+/* (No Comment) */
+"listName" = "리스트 이름";
+
+/* (No Comment) */
+"Lists" = "목록";
+
+/* (No Comment) */
+"Loading" = "로딩 중";
+
+/* (No Comment) */
+"Made in Brazil 🇧🇷" = "브라질에서 제작되었습니다. 🇧🇷";
+
+/* (No Comment) */
+"Mark as" = "표시하기";
+
+/* (No Comment) */
+"Mark as Favorite" = "즐겨 찾기로 설정";
+
+/* (No Comment) */
+"Mark as Watched" = "시청으로 표시";
+
+/* (No Comment) */
+"Mark Season as Watched" = "시즌 시청으로 표시하기";
+
+/* (No Comment) */
+"Mark selected as unwatched" = "선택한 항목을 비시청으로 표시";
+
+/* (No Comment) */
+"Mark selected as watched" = "선택한 항목을 시청으로 표시";
+
+/* (No Comment) */
+"Mark some episodes as watched to use Up Next." = "Up Next를 사용하려면 일부 에피소드를 시청한 것으로 표시하세요.";
+
+/* (No Comment) */
+"Mark this and previous episodes as watched" = "이것과 이전 에피소드를 시청완료로 표시하세요.";
+
+/* (No Comment) */
+"markAsWatched" = "시청 완료로 표시";
+
+/* (No Comment) */
+"markedArchive" = "아카이브로 표시됨";
+
+/* (No Comment) */
+"markedAsArchive" = "아카이브로 표시함";
+
+/* (No Comment) */
+"markedAsFavorite" = "즐겨찾기로 표시됨";
+
+/* (No Comment) */
+"markedAsPin" = "북마크로 표시됨";
+
+/* (No Comment) */
+"markedAsWatched" = "시청 완료";
+
+/* (No Comment) */
+"markedEpisodeWatched" = "에피소드를 시청 완료로 표시";
+
+/* (No Comment) */
+"markedFavorite" = "즐겨찾기에 추가됨";
+
+/* (No Comment) */
+"markedPin" = "고정됨";
+
+/* (No Comment) */
+"markedWatched" = "시청한 것으로 표시됨";
+
+/* (No Comment) */
+"markThisAndPreviously" = "이번 에피소드와 이전 모든 에피소드를 시청으로 표시";
+
+/* (No Comment) */
+"markThisSeasonAsWatched" = "이 시즌을 시청으로 표시하세요";
+
+/* (No Comment) */
+"Media" = "미디어";
+
+/* (No Comment) */
+"Media Type" = "미디어 유형";
+
+/* (No Comment) */
+"mediaTypeDiscoverFilterTitle" = "미디어 형식";
+
+/* (No Comment) */
+"mediaTypeFilter" = "미디어로 필터링";
+
+/* (No Comment) */
+"mediaTypeFiltersMovies" = "영화";
+
+/* (No Comment) */
+"mediaTypeFiltersNoFilter" = "모두";
+
+/* (No Comment) */
+"mediaTypeFiltersTvShows" = "TV 쇼";
+
+/* No comment provided by engineer. */
+"More" = "더보기";
+
+/* (No Comment) */
+"More Options" = "더 많은 옵션";
+
+/* (No Comment) */
+"moreInfoShow" = "자세히보기";
+
+/* (No Comment) */
+"Movie" = "영화";
+
+/* (No Comment) */
+"movieNotificationSubtitle" = "당신의 관심영화가 개봉될 때 알림을 받으세요.";
+
+/* (No Comment) */
+"movieNotificationTitle" = "영화 출시 알림";
+
+/* (No Comment) */
+"Movies" = "영화";
+
+/* (No Comment) */
+"Movies, Shows, People" = "영화, 티비 프로그램, 인물";
+
+/* (No Comment) */
+"moviesCustomWatchListFilters" = "영화";
+
+/* (No Comment) */
+"Music" = "음악";
+
+/* (No Comment) */
+"My Pins" = "나의 핀";
+
+/* (No Comment) */
+"Mystery" = "미스터리";
+
+/* (No Comment) */
+"needToSync %lld" = "동기화할 수 있는 항목이 %lld개 있습니다.";
+
+/* No comment provided by engineer. */
+"Network" = "네트워크";
+
+/* (No Comment) */
+"Never miss out" = "놓치지 마세요";
+
+/* (No Comment) */
+"newCustomListTitle" = "새로운 목록";
+
+/* (No Comment) */
+"newList" = "새로운 목록";
+
+/* (No Comment) */
+"Next episode arrives today." = "다음 에피소드가 오늘 도착합니다.";
+
+/* (No Comment) */
+"No biography available." = "사용 가능한 전기사가 없습니다.";
+
+/* (No Comment) */
+"No details available." = "세부 정보가 없습니다.";
+
+/* (No Comment) */
+"No Episode Available" = "에피소드를 찾을 수 없습니다";
+
+/* (No Comment) */
+"No information available" = "정보 없음";
+
+/* (No Comment) */
+"No information available." = "정보를 찾을 수 없습니다.";
+
+/* (No Comment) */
+"No Name Found" = "이름 없음";
+
+/* (No Comment) */
+"No notifications" = "알림 없음";
+
+/* (No Comment) */
+"No results" = "결과 없음";
+
+/* (No Comment) */
+"No Results" = "결과 없음";
+
+/* (No Comment) */
+"No results from TMDb" = "TMDb에서 결과가 없습니다";
+
+/* (No Comment) */
+"No results from Watchlist" = "Watchlist에서 결과가 없습니다.";
+
+/* (No Comment) */
+"No title available" = "제목 없음";
+
+/* (No Comment) */
+"noResultsFound" = "검색어에 해당하는 결과를 찾을 수 없습니다. 다른 검색어를 시도하거나 제목이 보관함에 없는지 확인해보세요.";
+
+/* (No Comment) */
+"Not Available" = "사용 불가";
+
+/* No comment provided by engineer. */
+"Not Found" = "찾을 수 없음";
+
+/* (No Comment) */
+"Not Watched" = "본 적 없음";
+
+/* (No Comment) */
+"Notes" = "노트";
+
+/* MARK: NotificationListView */
+"Notifications" = "알림";
+
+/* (No Comment) */
+"notificationsSettingsFeedbackCall" = "의견이 있으십니까? 피드백 보내기";
+
+/* (No Comment) */
+"Now Available" = "지금 이용 가능합니다";
+
+/* (No Comment) */
+"Official Website" = "공식 웹사이트";
+
+/* (No Comment) */
+"Open in" = "열기";
+
+/* (No Comment) */
+"Open in YouTube" = "YouTube에서 열기";
+
+/* (No Comment) */
+"Open Trailers in YouTube App" = "YouTube 앱에서 오픈 트레일러";
+
+/* (No Comment) */
+"openCustomListSelectorWhenAdding" = "항목을 추가할 때 목록 선택기 열기";
+
+/* (No Comment) */
+"openNotificationInSettings" = "설정 앱에서 알림 편집";
+
+/* (No Comment) */
+"openWatchProviderTitle" = "이는 각 서비스에 대한 링크가 있는 TMDb 웹사이트를 엽니다.";
+
+/* (No Comment) */
+"Organize" = "정리하다";
+
+/* (No Comment) */
+"Original Title" = "원본 제목";
+
+/* (No Comment) */
+"Overview" = "개요";
+
+/* (No Comment) */
+"People" = "사람들";
+
+/* (No Comment) */
+"Person" = "사람";
+
+/* (No Comment) */
+"Physical" = "물리적";
+
+/* (No Comment) */
+"Pin" = "핀";
+
+/* (No Comment) */
+"Pin Item" = "핀 아이템";
+
+/* (No Comment) */
+"Pin Items" = "핀 아이템";
+
+/* (No Comment) */
+"Pinned Items" = "고정된 항목";
+
+/* (No Comment) */
+"pinnedList" = "고정 목록";
+
+/* (No Comment) */
+"pinOnHome" = "홈에 이 목록 고정하기";
+
+/* (No Comment) */
+"Pins" = "핀";
+
+/* (No Comment) */
+"Popular Movies" = "인기 영화";
+
+/* (No Comment) */
+"Popular Movies by Genre" = "장르별 인기 영화";
+
+/* (No Comment) */
+"Popular TV Shows by Genre" = "장르별 인기 TV 시리즈";
+
+/* (No Comment) */
+"Prefer Poster in Details Page" = "세부 정보 페이지에서 포스터 선호";
+
+/* (No Comment) */
+"preferredLaunchScreen" = "선호하는 시작 화면";
+
+/* (No Comment) */
+"Premiere" = "프리미어";
+
+/* No comment provided by engineer. */
+"Presentation" = "프레젠테이션";
+
+/* No comment provided by engineer. */
+"Preview" = "미리보기";
+
+/* (No Comment) */
+"Privacy" = "개인 정보 보호";
+
+/* (No Comment) */
+"Privacy Policy" = "개인정보 처리 방침";
+
+/* (No Comment) */
+"Production" = "생산";
+
+/* (No Comment) */
+"Production Companies" = "제작사";
+
+/* (No Comment) */
+"Production Company" = "제작사";
+
+/* (No Comment) */
+"publishListToTMDB" = "TMDb에 목록 게시";
+
+/* (No Comment) */
+"publishOnTMDB" = "TMDb에 게시하기";
+
+/* (No Comment) */
+"publishPrivate" = "개인";
+
+/* (No Comment) */
+"publishPublic" = "공개";
+
+/* (No Comment) */
+"publishTMDBMessage" = "이 작업은 TMDb의 로컬 목록과 동일한 제목 및 항목으로 새 목록을 생성합니다.\n원하는 개인 정보 수준을 선택하세요:";
+
+/* (No Comment) */
+"Rating" = "평가";
+
+/* (No Comment) */
+"ratingAsc" = "평점 (오름차순)";
+
+/* (No Comment) */
+"ratingDesc" = "평점 (내림차순)";
+
+/* (No Comment) */
+"Ratings Score" = "평가 점수";
+
+/* (No Comment) */
+"Reality" = "현실";
+
+/* (No Comment) */
+"Recent Notifications" = "최근 알림";
+
+/* (No Comment) */
+"Recently Released" = "최근에 출시됨";
+
+/* (No Comment) */
+"Recommendations" = "추천 사항";
+
+/* (No Comment) */
+"recommendationsSubtitle" = "당신의 시청한 콘텐츠를 기반으로";
+
+/* (No Comment) */
+"recommendationsTitle" = "추천";
+
+/* (No Comment) */
+"Region of Origin" = "원산지";
+
+/* (No Comment) */
+"Release Date" = "출시일";
+
+/* (No Comment) */
+"Released" = "출시됨";
+
+/* (No Comment) */
+"Released Movies" = "개봉된 영화";
+
+/* (No Comment) */
+"Released Shows" = "출시된 쇼";
+
+/* (No Comment) */
+"releaseDates" = "출시 날짜";
+
+/* (No Comment) */
+"Releases" = "릴리스";
+
+/* (No Comment) */
+"Releasing Soon" = "곧 출시됩니다";
+
+/* No comment provided by engineer. */
+"Reload" = "새로고침";
+
+/* (No Comment) */
+"Remove" = "삭제";
+
+/* (No Comment) */
+"Remove from Archive" = "보관함에서 제거";
+
+/* (No Comment) */
+"Remove from Favorites" = "즐겨찾기에서 제거";
+
+/* (No Comment) */
+"Remove from List" = "리스트에서 제거하기";
+
+/* (No Comment) */
+"Remove from Watched" = "시청 목록에서 제거";
+
+/* (No Comment) */
+"Remove from watchlist" = "관심 목록에서 제거";
+
+/* (No Comment) */
+"Remove Notification" = "알림 제거";
+
+/* (No Comment) */
+"Remove Pin" = "핀 제거";
+
+/* (No Comment) */
+"Remove Selected" = "선택 항목 삭제";
+
+/* (No Comment) */
+"removedArchive" = "보관했던 항목에서 제거되었습니다.";
+
+/* (No Comment) */
+"removedEpisodeWatched" = "시청 완료한 에피소드에서 제거됨";
+
+/* (No Comment) */
+"removedFavorite" = "즐겨찾기에서 제거됨";
+
+/* (No Comment) */
+"removedFromArchive" = "보관함에서 제거됨";
+
+/* (No Comment) */
+"removedFromFavorites" = "즐겨찾기에서 제거";
+
+/* (No Comment) */
+"removedFromPin" = "핀에서 제거됨";
+
+/* (No Comment) */
+"removedFromWatched" = "시청목록에서 제거됨";
+
+/* MARK: WatchlistButtonView */
+"removeDialogTitle" = "확실합니까?";
+
+/* (No Comment) */
+"removedPin" = "해제됨";
+
+/* (No Comment) */
+"removedWatched" = "시청목록에서 제거됨";
+
+/* (No Comment) */
+"removedWatchlist" = "관심 목록에서 제거되었습니다.";
+
+/* (No Comment) */
+"removeFromPinOnWatchedTitle" = "아이템이 시청으로 표시되었을 때 핀에서 제거";
+
+/* (No Comment) */
+"removeTMDBAccount" = "TMDB 계정 연결 해제?";
+
+/* (No Comment) */
+"Renewed Series" = "갱신된 시리즈";
+
+/* No comment provided by engineer. */
+"Reset asked for review" = "리셋이 리뷰를 요청했습니다.";
+
+/* (No Comment) */
+"resetToDefault" = "기본 값으로 재설정";
+
+/* (No Comment) */
+"restorePurchases" = "구매 내역 복원";
+
+/* (No Comment) */
+"Results from TMDb" = "TMDb에서 결과";
+
+/* (No Comment) */
+"Results from Watchlist" = "감시 목록에서 결과";
+
+/* (No Comment) */
+"Retry" = "다시 시도";
+
+/* (No Comment) */
+"Review Cronica" = "리뷰 크로니카";
+
+/* (No Comment) */
+"reviewInTheAppStore" = "앱 리뷰";
+
+/* (No Comment) */
+"reviewOf %@" = "리뷰: %@의 검토";
+
+/* (No Comment) */
+"reviewTitle" = "리뷰";
+
+/* (No Comment) */
+"Roadmap" = "로드맵";
+
+/* (No Comment) */
+"Romance" = "로맨스";
+
+/* MARK: InformationSectionView.swift */
+"Run Time" = "런타임";
+
+/* (No Comment) */
+"S%d, E%d" = "S%d, E%d";
+
+/* No comment provided by engineer. */
+"S%lld, E%lld" = "S%lld, E%lld";
+
+/* (No Comment) */
+"Save" = "저장";
+
+/* (No Comment) */
+"Sci-Fi & Fantasy" = "과학 괴이주의";
+
+/* (No Comment) */
+"Science Fiction" = "과학 소설";
+
+/* MARK: SearchView.swift */
+"Search" = "검색";
+
+/* No comment provided by engineer. */
+"Search %@" = "검색 %@";
+
+/* No comment provided by engineer. */
+"Search failed, try again later." = "검색에 실패했습니다. 나중에 다시 시도하세요.";
+
+/* (No Comment) */
+"Search for upcoming movies and tv shows." = "다가오는 영화 및 TV 프로그램을 검색하세요.";
+
+/* (No Comment) */
+"Search results" = "검색 결과";
+
+/* MARK: watchOS */
+"Search TMDb" = "TMDb 검색";
+
+/* (No Comment) */
+"Search watchlist" = "검색 보관함";
+
+/* (No Comment) */
+"Searching" = "검색 중";
+
+/* (No Comment) */
+"Season" = "계절";
+
+/* No comment provided by engineer. */
+"Season (nextSeasonNumber)" = "시즌 (nextSeasonNumber)";
+
+/* (No Comment) */
+"Season %lld" = "시즌 %lld";
+
+/* (No Comment) */
+"Season Marked as Watched" = "시즌을 시청 체크했습니다.";
+
+/* MARK: SeasonListView.swift */
+"Seasons" = "시즌";
+
+/* No comment provided by engineer. */
+"sectionStyleTypePicker" = "sectionStyleTypePicker";
+
+/* No comment provided by engineer. */
+"Select the Media Type" = "미디어 유형 선택";
+
+/* (No Comment) */
+"selectedWatchProvider" = "스트리밍 서비스";
+
+/* (No Comment) */
+"selectedWatchProviderSubtitle" = "선호하는 서비스 중 하나에서 제목을 사용할 수 있는 경우에만 '시청 가능 서비스'를 표시합니다.";
+
+/* (No Comment) */
+"selectedWatchProviderTitle" = "선호하는 스트리밍 서비스";
+
+/* (No Comment) */
+"Send" = "보내기";
+
+/* (No Comment) */
+"Send feedback" = "피드백 보내기";
+
+/* (No Comment) */
+"Send Feedback" = "피드백 보내기";
+
+/* No comment provided by engineer. */
+"Send Object to Developer" = "개발자에게 객체 보내기";
+
+/* (No Comment) */
+"Send your suggestions to help improve Cronica." = "크로니카를 개선하기 위해 제안을 보내주세요.";
+
+/* (No Comment) */
+"sendEmail" = "이메일 보내기";
+
+/* (No Comment) */
+"sendEmailFooter" = "보다 빠른 후속 조치를 위해 이메일을 보내실 수 있습니다.";
+
+/* (No Comment) */
+"sendEmailFooterBackup" = "메일 클라이언트를 사용하여 contact@alexandremadeira.dev로 이메일을 보낼 수도 있습니다.";
+
+/* No comment provided by engineer. */
+"Session ID (TMDB): %@" = "세션 ID (TMDB): %@";
+
+/* (No Comment) */
+"Settings" = "설정";
+
+/* (No Comment) */
+"settingsAcknowledgments" = "감사의 말";
+
+/* (No Comment) */
+"settingsAcknowledgmentsFooter" = "크로니카가 가능하게 해준 모든 분들께 감사드립니다.";
+
+/* (No Comment) */
+"settingsAppearanceTitle" = "외관";
+
+/* MARK: Settings */
+"settingsBehaviorTitle" = "동작";
+
+/* (No Comment) */
+"settingsDeveloperOptions" = "개발자 설정";
+
+/* (No Comment) */
+"settingsDisableTelemetrySubtitle" = "Cronica는 앱 충돌을 최소화하기 위해 최소한의 데이터를 수집합니다. 이 데이터는 익명으로 수집됩니다. 자세한 내용은 개인정보 처리 방침에서 확인하실 수 있습니다.";
+
+/* (No Comment) */
+"settingsDisableTelemetryTitle" = "크래시 보고서 비활성화";
+
+/* (No Comment) */
+"settingsFeedbackTitle" = "의견 보내기";
+
+/* (No Comment) */
+"settingsGeneralTitle" = "일반";
+
+/* (No Comment) */
+"settingsNotificationTitle" = "알림";
+
+/* (No Comment) */
+"settingsPrivacyPolicy" = "개인 정보 보호 정책";
+
+/* (No Comment) */
+"settingsPrivacySupportTitle" = "개인 정보 및 지원";
+
+/* (No Comment) */
+"settingsRegionContentTitle" = "콘텐츠 및 지역";
+
+/* (No Comment) */
+"settingsReviewCronica" = "App Store에서 Cronica 리뷰 작성하기";
+
+/* (No Comment) */
+"settingsSyncTitle" = "동기화";
+
+/* (No Comment) */
+"Share" = "공유하기";
+
+/* (No Comment) */
+"shareEpisode" = "에피소드 공유";
+
+/* (No Comment) */
+"shareLinkPreference" = "링크를 공유하는 우선순위 방법 선택";
+
+/* (No Comment) */
+"shareLinkPreferenceSubtitle" = "응용 프로그램을 열 수있게해주는 Cronica 링크를 사용하여 공유할 수 있습니다. 모든 콘텐츠를 Cronica 링크로 공유 할 수있는 것은 아니며 필요한 경우 응용 프로그램에서는 항상 TMDB 링크를 사용합니다.";
+
+/* (No Comment) */
+"shareList" = "공유 목록";
+
+/* (No Comment) */
+"shareShow" = "TV 프로그램 공유";
+
+/* (No Comment) */
+"Show Details" = "세부 정보 보기";
+
+/* (No Comment) */
+"Show More" = "더 보기";
+
+/* No comment provided by engineer. */
+"Show Onboarding" = "온보딩 표시";
+
+/* (No Comment) */
+"showConfirmationOnRemovingItem" = "확인 메시지 표시";
+
+/* (No Comment) */
+"showDetails" = "자세히 보기";
+
+/* (No Comment) */
+"Shows" = "쇼";
+
+/* MARK: Widget */
+"Shows movies and TV Shows trending from TMDb." = "TMDb에서 인기있는 영화 및 TV 프로그램을 표시합니다.";
+
+/* (No Comment) */
+"showsCustomWatchListFilters" = "TV 프로그램";
+
+/* (No Comment) */
+"Sort" = "정렬";
+
+/* (No Comment) */
+"Sort List" = "목록 정렬";
+
+/* (No Comment) */
+"Source Code" = "소스 코드";
+
+/* (No Comment) */
+"Spanish" = "스페인어";
+
+/* (No Comment) */
+"Status" = "상태";
+
+/* MARK: SettingsView.swift */
+"Support" = "지원";
+
+/* (No Comment) */
+"Swipe to Edit your list" = "스와이프하여 목록을 편집하세요";
+
+/* (No Comment) */
+"swipeGestureArchive" = "아카이브";
+
+/* (No Comment) */
+"swipeGestureDelete" = "삭제";
+
+/* (No Comment) */
+"swipeGestureFavorite" = "즐겨찾기";
+
+/* (No Comment) */
+"swipeGesturePin" = "핀";
+
+/* (No Comment) */
+"swipeGestureShare" = "공유";
+
+/* (No Comment) */
+"swipeGestureWatch" = "시청하다";
+
+/* (No Comment) */
+"Sync" = "동기화";
+
+/* (No Comment) */
+"syncingWatchlistTMDB" = "시청 목록 동기화 중입니다. 잠시 기다려주세요.";
+
+/* (No Comment) */
+"syncInProgress" = "진행 중인 동기화";
+
+/* (No Comment) */
+"syncNow" = "지금 TMDB와 동기화";
+
+/* (No Comment) */
+"syncSettingsItemsTitle" = "항목";
+
+/* (No Comment) */
+"syncSettingsTitle" = "동기화";
+
+/* (No Comment) */
+"syncSettingsUpdateWatchlistSubtitle" = "TMDb에서 사용 가능한 경우 새로운 정보로 항목을 업데이트하세요.";
+
+/* MARK: SyncSetting */
+"syncSettingsUpdateWatchlistTitle" = "항목 업데이트";
+
+/* (No Comment) */
+"syncSettingsWatchlistTitle" = "찜한 목록";
+
+/* (No Comment) */
+"syncTMDBList" = "이 목록을 동기화 상태로 유지하세요";
+
+/* (No Comment) */
+"syncWatchlist" = "동기화 보관함";
+
+/* (No Comment) */
+"TelemetryDeck" = "텔레메트리덱";
+
+/* (No Comment) */
+"thankYouTipJarMessage" = "구매해 주셔서 감사합니다! 지원해 주신 것을 정말로 감사하게 생각합니다. 😁";
+
+/* (No Comment) */
+"The API is undergoing maintenance. Try again later." = "API는 현재 유지 보수 중입니다. 나중에 다시 시도해주세요.";
+
+/* (No Comment) */
+"The Discover will help you find your next favorite title." = "Discover는 다음으로 가장 좋아하는 제목을 찾는 데 도움이됩니다.";
+
+/* (No Comment) */
+"The function is performed when double-tap the cover image." = "표지 이미지를 더블 탭할 때 함수가 실행됩니다.";
+
+/* (No Comment) */
+"The movie will be released today." = "영화는 오늘 출시됩니다.";
+
+/* MARK: Notification content */
+"The next episode is set to arrive today." = "다음 에피소드는 오늘 도착할 예정입니다.";
+
+/* (No Comment) */
+"Theatrical" = "연극적인";
+
+/* (No Comment) */
+"Theatrical Limited" = "극장 제한";
+
+/* No comment provided by engineer. */
+"This content has been removed from TMDB, you can delete it." = "이 내용은 TMDB에서 제거되었습니다. 삭제할 수 있습니다.";
+
+/* No comment provided by engineer. */
+"This is a preview" = "이것은 미리보기입니다";
+
+/* No comment provided by engineer. */
+"This list has been deleted." = "이 목록은 삭제되었습니다.";
+
+/* (No Comment) */
+"This list is empty." = "이 목록은 비어 있습니다.";
+
+/* MARK: AttributionView.swift */
+"This product uses the TMDb API but is not endorsed or certified by TMDb." = "이 제품은 TMDb API를 사용하지만 TMDb의 승인 또는 인증을 받지 않았습니다.";
+
+/* (No Comment) */
+"This week" = "이번 주";
+
+/* (No Comment) */
+"Thriller" = "무서운 이야기";
+
+/* (No Comment) */
+"Ticket" = "티켓";
+
+/* (No Comment) */
+"tipJar" = "팁을 넣어주세요";
+
+/* (No Comment) */
+"tipJarDescription" = "앱을 좋아하신다면 팁 자루를 통해 지원해주세요.";
+
+/* (No Comment) */
+"tipJarFooter" = "작은, 중간 또는 큰 금액을 기부하실 수 있으며 모든 수익은 앱의 개선과 유지를 위해 사용됩니다. 크로니카는 항상 무료이며 광고 없이 제공되므로, 이는 사용자들이 앱의 개발을 지원하기 위한 선택적인 방법입니다.";
+
+/* MARK: TipJarSetting */
+"tipJarTitle" = "팁 저장소";
+
+/* (No Comment) */
+"Title" = "제목";
+
+/* (No Comment) */
+"titleAsc" = "제목 (오름차순)";
+
+/* (No Comment) */
+"titleDesc" = "제목 (내림차순)";
+
+/* (No Comment) */
+"TMDb" = "TMDb";
+
+/* No comment provided by engineer. */
+"TMDB" = "TMDB";
+
+/* (No Comment) */
+"tmdbLists" = "당신의 TMDB 목록";
+
+/* (No Comment) */
+"tmdbListSyncConfig" = "구성";
+
+/* (No Comment) */
+"tmdbSyncFeatures" = "당신은 자신의 목록을 볼 수 있으며 그 내용을 관리할 수 있습니다.";
+
+/* (No Comment) */
+"To Watch" = "보기";
+
+/* (No Comment) */
+"Today" = "오늘";
+
+/* (No Comment) */
+"Track your episodes" = "에피소드를 추적하세요";
+
+/* (No Comment) */
+"Trailers" = "예고편";
+
+/* (No Comment) */
+"Translation" = "번역";
+
+/* MARK: HomeView.swift */
+"Trending" = "인기있는";
+
+/* No comment provided by engineer. */
+"Trending service ins't available right now." = "트렌드 서비스는 현재 이용할 수 없습니다.";
+
+/* (No Comment) */
+"TV" = "TV";
+
+/* (No Comment) */
+"TV Show" = "TV 쇼";
+
+/* (No Comment) */
+"TV Shows" = "TV 프로그램";
+
+/* (No Comment) */
+"tvShowDetails" = "TV 프로그램 세부 정보";
+
+/* (No Comment) */
+"Unknown" = "알 수 없음";
+
+/* (No Comment) */
+"Unpin Item" = "항목 고정 해제";
+
+/* (No Comment) */
+"Untitled List" = "제목 없는 목록";
+
+/* (No Comment) */
+"Unwatched" = "미시청";
+
+/* (No Comment) */
+"Up Coming" = "다가오는";
+
+/* No comment provided by engineer. */
+"Up Next" = "다음";
+
+/* (No Comment) */
+"Upcoming" = "다가오는";
+
+/* (No Comment) */
+"Upcoming Episodes" = "다가오는 에피소드";
+
+/* (No Comment) */
+"Upcoming Movies" = "다가오는 영화";
+
+/* (No Comment) */
+"Upcoming Notifications" = "다가오는 알림";
+
+/* (No Comment) */
+"Upcoming Seasons" = "다가오는 시즌";
+
+/* (No Comment) */
+"Update Items" = "아이템 업데이트";
+
+/* (No Comment) */
+"upNext" = "곧 나올 예정";
+
+/* (No Comment) */
+"upNextSubtitle" = "다음 에피소드";
+
+/* No comment provided by engineer. */
+"User Access ID (TMDB): %@" = "사용자 액세스 ID (TMDB): %@";
+
+/* No comment provided by engineer. */
+"User Access Token (TMDB): %@" = "사용자 액세스 토큰 (TMDB): %@";
+
+/* No comment provided by engineer. */
+"User Lang: %@" = "사용자 언어: %@";
+
+/* No comment provided by engineer. */
+"User Region: %@" = "사용자 지역: %@";
+
+/* (No Comment) */
+"Version %@" = "버전 %@";
+
+/* (No Comment) */
+"War" = "전쟁";
+
+/* MARK: DoubleTapGesture */
+"Watched" = "본";
+
+/* (No Comment) */
+"Watching" = "시청 중";
+
+/* (No Comment) */
+"Watchlist" = "관심 목록";
+
+/* (No Comment) */
+"watchlistDisplayTypePicker" = "디스플레이 스타일";
+
+/* (No Comment) */
+"watchlistItemTypeCard" = "카드";
+
+/* MARK: WatchlistItemType */
+"watchlistItemTypeList" = "목록";
+
+/* (No Comment) */
+"watchlistItemTypePoster" = "포스터";
+
+/* No comment provided by engineer. */
+"watchlistSortORder" = "watchlistSortORder";
+
+/* (No Comment) */
+"watchlistSubtitleRowDate" = "출시일";
+
+/* (No Comment) */
+"watchlistSubtitleRowGenre" = "장르";
+
+/* MARK: WatchlistSubtitleRow */
+"watchlistSubtitleRowNone" = "기본값";
+
+/* (No Comment) */
+"watchProviderAe" = "아랍 에미리트 연합";
+
+/* (No Comment) */
+"watchProviderAr" = "아르헨티나";
+
+/* (No Comment) */
+"watchProviderAt" = "오스트리아";
+
+/* (No Comment) */
+"watchProviderAu" = "오스트레일리아";
+
+/* (No Comment) */
+"watchProviderBe" = "벨기에";
+
+/* (No Comment) */
+"watchProviderBg" = "불가리아";
+
+/* MARK: WatchProviderOption */
+"watchProviderBr" = "브라질";
+
+/* (No Comment) */
+"watchProviderCa" = "캐나다";
+
+/* (No Comment) */
+"watchProviderCh" = "스위스";
+
+/* (No Comment) */
+"watchProviderCz" = "체코 공화국";
+
+/* (No Comment) */
+"watchProviderDe" = "독일";
+
+/* (No Comment) */
+"watchProviderDk" = "덴마크";
+
+/* (No Comment) */
+"watchProviderEe" = "에스토니아";
+
+/* (No Comment) */
+"watchProviderEs" = "스페인";
+
+/* (No Comment) */
+"watchProviderFi" = "핀란드";
+
+/* (No Comment) */
+"watchProviderFr" = "프랑스";
+
+/* (No Comment) */
+"watchProviderGb" = "영국";
+
+/* (No Comment) */
+"watchProviderHk" = "홍콩";
+
+/* (No Comment) */
+"watchProviderHr" = "크로아티아";
+
+/* (No Comment) */
+"watchProviderHu" = "헝가리";
+
+/* (No Comment) */
+"watchProviderId" = "인도네시아";
+
+/* (No Comment) */
+"watchProviderIe" = "아일랜드";
+
+/* (No Comment) */
+"watchProviderIndia" = "인도";
+
+/* (No Comment) */
+"watchProviderIt" = "이탈리아";
+
+/* (No Comment) */
+"watchProviderJp" = "일본";
+
+/* (No Comment) */
+"watchProviderKr" = "한국";
+
+/* (No Comment) */
+"watchProviderLt" = "리투아니아";
+
+/* (No Comment) */
+"watchProviderMx" = "멕시코";
+
+/* (No Comment) */
+"watchProviderNl" = "네덜란드";
+
+/* (No Comment) */
+"watchProviderNo" = "노르웨이";
+
+/* (No Comment) */
+"watchProviderNz" = "뉴질랜드";
+
+/* (No Comment) */
+"watchProviderPh" = "필리핀";
+
+/* (No Comment) */
+"watchProviderPl" = "폴란드";
+
+/* (No Comment) */
+"watchProviderPt" = "포르트칼";
+
+/* (No Comment) */
+"watchProviderRs" = "세르비아";
+
+/* (No Comment) */
+"watchProviderSe" = "스웨덴";
+
+/* (No Comment) */
+"watchProviderSk" = "슬로바키아";
+
+/* (No Comment) */
+"watchProviderTitleList" = "시청 방법";
+
+/* (No Comment) */
+"watchProviderToggleDiscover" = "오직 시청 제공자로부터만 표시";
+
+/* (No Comment) */
+"watchProviderTr" = "터키";
+
+/* (No Comment) */
+"watchProviderUs" = "미국";
+
+/* (No Comment) */
+"watchProviderZa" = "남아프리카";
+
+/* (No Comment) */
+"watchRegionSubtitle" = "시청 공급업체는 선택한 지역에 맞게 적응합니다.";
+
+/* (No Comment) */
+"watchRegionTitle" = "제공자 지역";
+
+/* MARK: WelcomeView.swift */
+"Welcome to" = "환영합니다";
+
+/* (No Comment) */
+"What's New" = "새로운 기능";
+
+/* (No Comment) */
+"whereToWatchDiscoverFilter" = "어디에서 볼까요";
+
+/* (No Comment) */
+"You may like" = "좋아할 수 있습니다";
+
+/* MARK: WatchlistView.swift */
+"Your list is empty." = "리스트가 비어 있습니다.";
+
+/* (No Comment) */
+"Your pinned items" = "고정된 항목";
+
+/* (No Comment) */
+"Your smart Watchlist" = "지능형 워치리스트";
+
+/* (No Comment) */
+"Your upcoming items will appear here." = "다가오는 항목은 여기에 표시됩니다.";
+
+/* (No Comment) */
+"Your Watchlist" = "당신의 관심목록";
+
+/* (No Comment) */
+"Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "당신의 관심목록은 항상 Apple Watch, iPad, Mac 및 Apple TV와 동기화됩니다.";
+
+/* (No Comment) */
+"yourLists" = "당신의 목록";
+

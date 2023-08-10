@@ -34,7 +34,7 @@ struct DetailWatchlistButton: View {
                     .font(.caption)
             }
             .padding(.vertical, 4)
-            .frame(width: viewModel.isInWatchlist ? 70 : nil)
+            .frame(width: viewModel.isInWatchlist ? 75 : nil)
             .frame(minWidth: viewModel.isInWatchlist ? nil : 140)
 #elseif os(macOS)
             Label(viewModel.isInWatchlist ? "Remove": "Add to watchlist",
@@ -52,7 +52,6 @@ struct DetailWatchlistButton: View {
         .controlSize(.large)
 #elseif os(iOS)
         .controlSize(.small)
-        .shadow(radius: viewModel.isInWatchlist ? 0 : 2.5)
         .applyHoverEffect()
 #endif
         .disabled(viewModel.isLoading)

@@ -1,0 +1,21 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "크로니카";
+
+/* Bundle name */
+"CFBundleName" = "Cronica";
+
+/* (No Comment) */
+"ItemContent" = "항목 내용";
+
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "사진을 사진에 저장하시겠습니까?";
+
+/* (No Comment) */
+"Person" = "사람";
+
+/* (No Comment) */
+"trailerItem" = "트레일러 항목";
+
+/* (No Comment) */
+"WatchlistItem" = "찜 목록 항목";
+

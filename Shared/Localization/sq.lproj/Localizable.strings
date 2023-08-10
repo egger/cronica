@@ -1,0 +1,1935 @@
+/* (No Comment) */
+" Cronica" = "Cronica";
+
+/* (No Comment) */
+"'Update Items' will update your items with new information available on TMDb, if available." = "'Përditëso Produktet' do të përditësojë produktet tuaja me informacion të ri të disponueshëm në TMDb, nëse është e disponueshme.";
+
+/* No comment provided by engineer. */
+"(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" = "(numberOfSeasons) Sezone • (numberOfEpisodes) Episoda";
+
+/* No comment provided by engineer. */
+"(voteAverage.rounded())/10" = "(voteAverage.rounded())/10";
+
+/* No comment provided by engineer. */
+"%@, tap to open list options." = "%@, shtypni për të hapur opsionet e listës.";
+
+/* No comment provided by engineer. */
+"%lld Items" = "%lld Artikuj";
+
+/* (No Comment) */
+"%lld items • %@" = "%lld artikuj • %@";
+
+/* (No Comment) */
+"%lld Seasons • %lld Episodes" = "%lld Sezone • %lld Episoda";
+
+/* (No Comment) */
+"%lld upcoming notifications." = "%lld paralajmërime të ardhshme.";
+
+/* (No Comment) */
+"%lld/10" = "%lld/10";
+
+/* (No Comment) */
+"%llditems" = "%lld elemente";
+
+/* No comment provided by engineer. */
+"🛠️" = "🛠️";
+
+/* (No Comment) */
+"About" = "Rreth";
+
+/* (No Comment) */
+"aboutTitle" = "Rreth";
+
+/* (No Comment) */
+"accentColor" = "Ngjyra e akcentit";
+
+/* (No Comment) */
+"Account" = "Llogari";
+
+/* (No Comment) */
+"AccountSettingsViewFooter" = "Lidhni llogarinë tuaj të TMDb për të importuar dhe sinkronizuar listën tuaj të shikimeve dhe listat.";
+
+/* MARK: TMDb Sync */
+"AccountSettingsViewFooterHeader" = "Lidhni llogarinë tuaj të TMDb";
+
+/* (No Comment) */
+"AccountSettingsViewHeaderSignIn" = "Menaxho listat e tua të TMDb";
+
+/* (No Comment) */
+"AccountSettingsViewListsManager" = "Listat tuaja TMDB";
+
+/* (No Comment) */
+"AccountSettingsViewSignIn" = "Lidh";
+
+/* (No Comment) */
+"AccountSettingsViewSignOut" = "Shkyç";
+
+/* (No Comment) */
+"AccountSettingsViewWatchlist" = "Lista e Shikimoreve TMDB";
+
+/* (No Comment) */
+"acknowledgmentsAppIconSubtitle" = "Akhmad";
+
+/* MARK: AcknowledgementsSettings */
+"acknowledgmentsAppIconTitle" = "Dizajner i ikonave";
+
+/* (No Comment) */
+"acknowledgmentsContentProviderSubtitle" = "TMDb";
+
+/* (No Comment) */
+"acknowledgmentsContentProviderTitle" = "Furnizuesi i Përmbajtjes";
+
+/* (No Comment) */
+"acknowledgmentsSDWebImage" = "SDWebImageSwiftUI";
+
+/* (No Comment) */
+"acknowledgmentsTitle" = "Mirënjohje";
+
+/* (No Comment) */
+"acknowledgmentsUserTitle" = "Ju faleminderit për vlerësimin dhe mbështetjen tuaj!";
+
+/* (No Comment) */
+"Action" = "Veprim";
+
+/* (No Comment) */
+"Action & Adventure" = "Aksion & Avanturë";
+
+/* (No Comment) */
+"Add everything you want, the Watchlist automatically organizes it for you." = "Shtoni gjithçka që dëshironi, Lista e Shikueshmërisë e organizon automatikisht për ju.";
+
+/* (No Comment) */
+"Add to Favorites" = "Shtoni në të parapëlqyer";
+
+/* (No Comment) */
+"Add to List" = "Shto në Listë";
+
+/* MARK: ContentDetailsView.swift */
+"Add to watchlist" = "Shto në Listën e Parashikimeve";
+
+/* (No Comment) */
+"addAndMarkWatchedButton" = "Shtoni dhe shënoni si të shikuar";
+
+/* (No Comment) */
+"Added to watchlist" = "Shtua në Listën e Shikimit";
+
+/* (No Comment) */
+"addedToWatchlist" = "Shtuar në listën e ndjekjes";
+
+/* (No Comment) */
+"addedWatchlist" = "Shtuar në Listën e Përgjegjësve";
+
+/* (No Comment) */
+"addToCustomList" = "Shto në listë...";
+
+/* (No Comment) */
+"addToList" = "Shto në Listë...";
+
+/* (No Comment) */
+"Adventure" = "Avanturë";
+
+/* (No Comment) */
+"All" = "Të gjithë";
+
+/* (No Comment) */
+"allCustomWatchListFilters" = "Të gjithë";
+
+/* (No Comment) */
+"allItems" = "Të gjitha artikujt";
+
+/* (No Comment) */
+"allItemsMovies" = "Të gjitha filmat";
+
+/* (No Comment) */
+"allItemsTVShows" = "Të gjitha emisionet TV";
+
+/* (No Comment) */
+"allowNotification" = "Lejo Njoftimet";
+
+/* (No Comment) */
+"Always Synced" = "Gjithmonë i sinkronizuar";
+
+/* (No Comment) */
+"Animation" = "Animacioni";
+
+/* (No Comment) */
+"appearanceAppIcon" = "Ikona e aplikacionit";
+
+/* (No Comment) */
+"appearanceAppThemeTitle" = "Tema e aplikacionit";
+
+/* (No Comment) */
+"appearanceCompactUI" = "UI i përshtatur";
+
+/* (No Comment) */
+"appearanceCompactUISubtitle" = "Zvogëlo madhësinë e disa elementëve të UI për të pranuar më shumë artikuj në ekran.";
+
+/* (No Comment) */
+"appearanceExplore" = "Mundohu të eksplorosh";
+
+/* (No Comment) */
+"appearanceExploreDisplayType" = "Preferenca e shfaqjes së Explore";
+
+/* (No Comment) */
+"appearanceHorizontalListsTitle" = "Stili i Listës Horizontale";
+
+/* (No Comment) */
+"appearanceLists" = "Listat";
+
+/* (No Comment) */
+"appearanceListsDisplayType" = "Preferenca e shfaqjes së listave";
+
+/* (No Comment) */
+"appearanceRowStyleSubtitle" = "Zgjidh se si të shfaqet lista e shënimeve të tua";
+
+/* (No Comment) */
+"appearanceRowStyleTitle" = "Stili i artikullit në listën e ndjekur";
+
+/* (No Comment) */
+"appearanceRowTypeSubtitle" = "Zgjidhni llojin e informacionit që dëshironi të shfaqni.";
+
+/* MARK: AppearanceSetting */
+"appearanceRowTypeTitle" = "Informacioni i artikullit në listën e shikimit";
+
+/* (No Comment) */
+"appearanceSectionDetailsTitle" = "Stili i Detajetave të Seksionit";
+
+/* (No Comment) */
+"appearanceSendFeedback" = "Dërgo Përgjigje";
+
+/* (No Comment) */
+"appearanceStyle" = "Preferencat e Stilit";
+
+/* (No Comment) */
+"appearanceTheme" = "Tëmasat";
+
+/* (No Comment) */
+"appearanceThemeTitle" = "App Tint";
+
+/* (No Comment) */
+"appearanceTitle" = "Pamje";
+
+/* (No Comment) */
+"appearanceWatchlist" = "Lista e shikimeve";
+
+/* (No Comment) */
+"appIconFeedbackTitle" = "Ke një ide për një ikonë? Dërgo një reagim";
+
+/* (No Comment) */
+"appRegionSubtitle" = "Aplikacioni do të përshtatet me ofrues të shikimit në bazë të vendit tënd.";
+
+/* (No Comment) */
+"appRegionTitle" = "Rajon";
+
+/* MARK: AppThemeColors */
+"appThemeColorsBlue" = "Blu";
+
+/* (No Comment) */
+"appThemeColorsBrown" = "Kafe";
+
+/* (No Comment) */
+"appThemeColorsCyan" = "Cyan";
+
+/* (No Comment) */
+"appThemeColorsGray" = "Gray";
+
+/* (No Comment) */
+"appThemeColorsGreen" = "Gjelbër";
+
+/* (No Comment) */
+"appThemeColorsIndigo" = "Indigo";
+
+/* (No Comment) */
+"appThemeColorsMint" = "Mollë e freskët";
+
+/* (No Comment) */
+"appThemeColorsOrange" = "Portokallje";
+
+/* (No Comment) */
+"appThemeColorsPink" = "Rozë";
+
+/* (No Comment) */
+"appThemeColorsPurple" = "Vjollcë";
+
+/* (No Comment) */
+"appThemeColorsRed" = "Kuq";
+
+/* (No Comment) */
+"appThemeColorsTeal" = "Çeladitë";
+
+/* (No Comment) */
+"appThemeColorsYellow" = "E bardhë";
+
+/* (No Comment) */
+"appThemeDark" = "E errët";
+
+/* (No Comment) */
+"appThemeLight" = "Dritë";
+
+/* MARK: AppTheme */
+"appThemeSystem" = "Sistemi";
+
+/* (No Comment) */
+"Archive" = "Arkivo";
+
+/* (No Comment) */
+"Archive Item" = "Artikull arkivimi";
+
+/* (No Comment) */
+"areYouSure" = "A jeni të sigurt?";
+
+/* (No Comment) */
+"Arriving Soon" = "Së shpejti do të mbërrijë";
+
+/* No comment provided by engineer. */
+"Asked for review: %@" = "Kërkuar për vlerësim: %@";
+
+/* No comment provided by engineer. */
+"Back" = "Mbrapa";
+
+/* (No Comment) */
+"Be reminded of upcoming Movies & TV Shows." = "Kujtohuni për Filma & Seriale të ardhshëm.";
+
+/* (No Comment) */
+"behaviorAllowFullSwipeSubtitle" = "Swipe-i i plot do të aktivojë veprimin kryesor";
+
+/* (No Comment) */
+"behaviorAllowFullSwipeTitle" = "Lejoni Pikslide të Plote";
+
+/* (No Comment) */
+"behaviorDoubleTapSubtitle" = "Zgjidhni çfarë funksioni të kryeni kur të dyfishtoni përkuljen e imazhit.";
+
+/* MARK: BehaviorSetting */
+"behaviorDoubleTapTitle" = "Takim i dyfishtë në kapak";
+
+/* (No Comment) */
+"behaviorEpisodeTitle" = "Trokit për të shënuar episodin si i shikuar";
+
+/* (No Comment) */
+"behaviorGestureTitle" = "Gestet";
+
+/* (No Comment) */
+"behaviorLinkTitle" = "Lidhjet";
+
+/* (No Comment) */
+"behaviorMarkPreviouslyEpisodes" = "Shëno të gjitha episodet e mëparshme kur një e re shënohet si e shikuar";
+
+/* (No Comment) */
+"behaviorPrimaryLeftGesture" = "Gesti i Majtë Kryesor";
+
+/* (No Comment) */
+"behaviorPrimaryRightGesture" = "Gestura Kryesore Djathtas";
+
+/* (No Comment) */
+"behaviorSecondaryLeftGesture" = "Gestura e mënçme e majtë";
+
+/* (No Comment) */
+"behaviorSecondaryRightGesture" = "Gestura e djathtë e dytë";
+
+/* (No Comment) */
+"behaviorSwipeTitle" = "Lëvizje me anë të sajë";
+
+/* (No Comment) */
+"behaviorTitle" = "Djeshmëria";
+
+/* (No Comment) */
+"behaviorWatchProvidersSubtitle" = "Shikoni në cilat platforma është i disponueshëm përmbajtja.";
+
+/* (No Comment) */
+"behaviorWatchProvidersTitle" = "Ofertuesit e Shikimit";
+
+/* (No Comment) */
+"behaviorYouTubeTitle" = "Hapni Trailerin në YouTube";
+
+/* No comment provided by engineer. */
+"Beta" = "Beta";
+
+/* MARK: CastDetailsView.swift */
+"Biography" = "Biografi";
+
+/* (No Comment) */
+"callToReviewSubtitle" = "Lëreni një vlerësim në App Store!";
+
+/* (No Comment) */
+"callToReviewTitle" = "Po e kënaqeni Cronica?";
+
+/* (No Comment) */
+"Cancel" = "Anulo";
+
+/* (No Comment) */
+"cancelConfirmDialogAction" = "Anulo";
+
+/* (No Comment) */
+"Cancelled" = "Anuluar";
+
+/* (No Comment) */
+"cancelOpenWatchProvider" = "Anulo";
+
+/* (No Comment) */
+"cantSendFeedback" = "Për të dërguar vlerësime në aplikacion, duhet të çaktivizoni 'Çaktivizo Raportet e Kaqesimit'";
+
+/* (No Comment) */
+"Cast & Crew" = "Aktorë & Ekipi";
+
+/* (No Comment) */
+"changeLanguage" = "Ndryshoni gjuhën e aplikacionit";
+
+/* (No Comment) */
+"changelogViewTitle" = "Çka ka të re";
+
+/* (No Comment) */
+"Classical" = "Klasik";
+
+/* (No Comment) */
+"Collapse" = "Thithi";
+
+/* (No Comment) */
+"Comedy" = "Komedi";
+
+/* MARK: WatchlistSectionView.swift */
+"Coming Soon" = "Së shpejti";
+
+/* (No Comment) */
+"Coming Soon To Theaters" = "Së shpejti në kinema";
+
+/* (No Comment) */
+"companiesTitle" = "Kompanitë";
+
+/* (No Comment) */
+"Confirm" = "Konfirmo";
+
+/* (No Comment) */
+"confirmAndDeleteItems" = "Konfirmo dhe fshij elementet";
+
+/* (No Comment) */
+"confirmDialogAction" = "Konfirmo";
+
+/* (No Comment) */
+"confirmOpenDontAskAgainProvider" = "Konfirmo dhe mos pyet përsëri";
+
+/* (No Comment) */
+"confirmOpenWatchProvider" = "Konfirmo";
+
+/* (No Comment) */
+"connectedAccounts" = "Llogaritë e Lidhura";
+
+/* (No Comment) */
+"connectedAccountTMDB" = "Baza e televizionit";
+
+/* (No Comment) */
+"contentRegionTitle" = "Rajon";
+
+/* (No Comment) */
+"Continue" = "Vazhdoni";
+
+/* (No Comment) */
+"Create" = "Krijo";
+
+/* (No Comment) */
+"createList" = "Krijo listë të re";
+
+/* (No Comment) */
+"createNote" = "Shto njoftim";
+
+/* (No Comment) */
+"Crime" = "Krim";
+
+/* (No Comment) */
+"Cronica" = "Cronike";
+
+/* (No Comment) */
+"cronicaGitHub" = "Repo-ja e Cronica në GitHub";
+
+/* (No Comment) */
+"dateAsc" = "Data (Ngritja)";
+
+/* (No Comment) */
+"dateDesc" = "Data (Në rend Rënës)";
+
+/* (No Comment) */
+"Default" = "Optimizuar";
+
+/* (No Comment) */
+"Default List" = "Lista e paracaktuar";
+
+/* (No Comment) */
+"defaultWatchlistFilters" = "Filtrat";
+
+/* (No Comment) */
+"defaultWatchlistShowAllItems" = "Shfaq të gjitha sendet";
+
+/* (No Comment) */
+"defaultWatchlistSmartFilters" = "Filtrat e Mençur";
+
+/* (No Comment) */
+"Delete" = "Fshi";
+
+/* (No Comment) */
+"deleteConfirmationMessage" = "Kjo veprim nuk mund të zhbëhet.\nKy veprim nuk do të fshijë listën vendore, vetëm atë në TMDb.";
+
+/* (No Comment) */
+"deleteList" = "Fshij Listën";
+
+/* (No Comment) */
+"Design" = "Dizajni";
+
+/* (No Comment) */
+"Details Page" = "Faqja e Detajeve";
+
+/* (No Comment) */
+"Developed by Alexandre Madeira" = "I zhvilluar nga Alexandre Madeira";
+
+/* No comment provided by engineer. */
+"Developer Options" = "Opsionet e zhvilluesit";
+
+/* (No Comment) */
+"Digital" = "Dixhital";
+
+/* (No Comment) */
+"disableTranslucentTitle" = "Çaktivizo Fosshëllim të Qartë";
+
+/* (No Comment) */
+"Discover what's next" = "Zbuloni çfarë vjen pas";
+
+/* No comment provided by engineer. */
+"Dismiss" = "Mbylle";
+
+/* (No Comment) */
+"dismissReviewCall" = "Mosprano";
+
+/* (No Comment) */
+"Documentary" = "Dokumentar";
+
+/* MARK: Common */
+"Done" = "Përfunduar";
+
+/* (No Comment) */
+"Double Tap Gesture" = "Gestura e dyfishtë e shtyrjes";
+
+/* (No Comment) */
+"Drama" = "Drama";
+
+/* No comment provided by engineer. */
+"E%lld" = "E%lld";
+
+/* (No Comment) */
+"Edit" = "Ndrysho";
+
+/* (No Comment) */
+"editListRemoveItems" = "Fshini artikujt";
+
+/* (No Comment) */
+"editNotes" = "Redakto shënime";
+
+/* (No Comment) */
+"Email (optional)" = "Email (opsionale)";
+
+/* No comment provided by engineer. */
+"Empty" = "Bosh";
+
+/* No comment provided by engineer. */
+"Empty List" = "Lista e zbrazët";
+
+/* (No Comment) */
+"emptyList" = "Asnjë gjë nuk u gjet duke përputhur me filtrin e zgjedhur.\nProvoni të ndryshoni filtret.";
+
+/* (No Comment) */
+"emptyLists" = "Bosh";
+
+/* (No Comment) */
+"enablePreferredLaunchScreen" = "Aktivizo ekrani i preferuar i fillimit";
+
+/* (No Comment) */
+"Ended Series" = "Seritë e përfunduar";
+
+/* No comment provided by engineer. */
+"Episode" = "Epizodi";
+
+/* No comment provided by engineer. */
+"Episode (episodeNumber)" = "Episodi (numëriEpisodit)";
+
+/* (No Comment) */
+"Episode %lld" = "EPISODI %lld";
+
+/* No comment provided by engineer. */
+"Episode: %lld, of the show: %@." = "Episodi: %lld, i shfaqjes: %@.";
+
+/* (No Comment) */
+"episodeNotificationSubtitle" = "Njoftoni kur një episod i ri i një emisioni televiziv në listën tuaj të ndjekshme dalë.";
+
+/* (No Comment) */
+"episodeNotificationTitle" = "Njoftoni Episodet e Reja";
+
+/* (No Comment) */
+"Error" = "Gabim";
+
+/* (No Comment) */
+"Error reading this title" = "Gabim në leximin e këtij titulli.";
+
+/* MARK: ExploreView.swift */
+"Explore" = "Eksploro";
+
+/* (No Comment) */
+"exploreDisplayTypePicker" = "Stil i shfaqjes";
+
+/* (No Comment) */
+"explorePreferredDisplayTypeCard" = "Karta";
+
+/* (No Comment) */
+"explorePreferredDisplayTypePoster" = "Plakatë";
+
+/* (No Comment) */
+"exportTitle" = "Eksporto";
+
+/* (No Comment) */
+"Family" = "Familje";
+
+/* (No Comment) */
+"Fantasy" = "Fantazi";
+
+/* (No Comment) */
+"Favorite" = "E preferuara";
+
+/* (No Comment) */
+"Favorites" = "Të preferuarat";
+
+/* (No Comment) */
+"featureOneDescription" = "Shikoni episodin në vazhdim të serialit tuaj të preferuar dhe shënoni të shikuershmen në një çast.";
+
+/* (No Comment) */
+"featureOneTitle" = "Vjen Pas";
+
+/* (No Comment) */
+"featureRoadmap" = "Funksione të ardhshme";
+
+/* (No Comment) */
+"featureRoadmapHeader" = "Voto për veçoritë e ardhshme që dëshiron të shohësh së pari.";
+
+/* (No Comment) */
+"featureRoadmapSubtitle" = "Përdorni ikonën 'plus' për të sugjeruar një karakteristikë të re.";
+
+/* (No Comment) */
+"featureThreeDescription" = "Më shumë cilëtime dhe ndryshime te UI për të personalizuar Cronica pikërisht siç ju pëlqen.";
+
+/* (No Comment) */
+"featureThreeTitle" = "Përmirësoni përvojën tuaj";
+
+/* (No Comment) */
+"featureTwoDescription" = "Merr sugjerime të përshtatura për filma dhe emisione televizive, bazuar në atë që ke parë në Cronica.";
+
+/* (No Comment) */
+"featureTwoTitle" = "Rekomandimet e personalizuara";
+
+/* (No Comment) */
+"Feedback" = "Feedback";
+
+/* (No Comment) */
+"Feedback sent" = "Faleminderit për vlerësimin tuaj.";
+
+/* (No Comment) */
+"feedbackSent" = "Feedback-u është dërguar. Ju faleminderit!";
+
+/* No comment provided by engineer. */
+"Fetch" = "Merrni";
+
+/* MARK: FilmographyView.swift */
+"Filmography" = "Filmografia";
+
+/* (No Comment) */
+"filterDiscoverTitle" = "Filtra";
+
+/* No comment provided by engineer. */
+"Filters" = "Filtrat";
+
+/* (No Comment) */
+"Find" = "Gjej";
+
+/* (No Comment) */
+"First Air Date" = "Data e parë e transmetimit";
+
+/* (No Comment) */
+"For more details, open the companion app." = "Për më shumë detaje, hapni aplikacionin për iPhone.";
+
+/* (No Comment) */
+"From Watchlist" = "Nga Lista e shikimit";
+
+/* (No Comment) */
+"generatingExportFile" = "Duke gjeneruar skedarin JSON, ju lutem prisni.";
+
+/* (No Comment) */
+"Genre" = "Zhanër";
+
+/* (No Comment) */
+"genreDiscoverFilterTitle" = "Zhanër";
+
+/* (No Comment) */
+"Genres" = "Zhanre";
+
+/* (No Comment) */
+"German" = "Gjermanisht";
+
+/* (No Comment) */
+"Gesture" = "Gest";
+
+/* (No Comment) */
+"Get notifications about the newest releases." = "Merrni njoftime për publikimet më të reja.";
+
+/* (No Comment) */
+"hapticFeedbackTitle" = "Reagim taktil";
+
+/* (No Comment) */
+"hideAddedItemsDiscoverFilter" = "Fshi Artikujt e Shtuar";
+
+/* (No Comment) */
+"History" = "Historia";
+
+/* MARK: ContentView.swift */
+"Home" = "Ballina";
+
+/* (No Comment) */
+"Horror" = "Krimi";
+
+/* (No Comment) */
+"IMDb" = "IMDb";
+
+/* (No Comment) */
+"importedSucceeded" = "Importuar me sukses";
+
+/* (No Comment) */
+"importExportWarning" = "Eksportimi / Importimi është në fazën beta, përdorni të vetëm për të eksportuar të dhëna tuaja ose për t'u importuar nëse jeni duke ndërruar llogarinë tuaj të iCloud, aktualisht nuk ka logjikë për të shmangur dublikimin. Përditësimi i ardhshëm do të ofrojë një përvojë më të mirë për të gjithë.";
+
+/* (No Comment) */
+"importingTMDB" = "Importimi i listës së shihjes tuaj, ju lutem prisni.";
+
+/* (No Comment) */
+"importingWatchlistTMDB" = "Importimi, ju lutemi prisni.";
+
+/* (No Comment) */
+"importTitle" = "Importo";
+
+/* (No Comment) */
+"importTMDBList" = "Importoni këtë listë";
+
+/* (No Comment) */
+"importTMDBWatchlist" = "Importo listën e shikueshmërisë";
+
+/* (No Comment) */
+"In Production" = "Në prodhim";
+
+/* (No Comment) */
+"Information" = "Informacion";
+
+/* (No Comment) */
+"Internal error: Something went wrong, contact TMDB." = "Gabim i brendshëm: Diçka shkoi keq, kontakto TMDb.";
+
+/* (No Comment) */
+"Invalid API key: You must be granted a valid key." = "Çelësi i API i pavlefshëm.";
+
+/* (No Comment) */
+"Invalid Endpoint" = "Pikë hyrëse e pavlefshme.";
+
+/* (No Comment) */
+"Invalid Request" = "Kërkesë e pavlefshme.";
+
+/* MARK: Error */
+"Invalid Response" = "Përgjigja e pavlefshme.";
+
+/* No comment provided by engineer. */
+"Is TelemetryDeck Initialized: %@" = "A është inicjalizuar TelemetryDeck: %@";
+
+/* No comment provided by engineer. */
+"Item ID" = "ID e artikullit";
+
+/* (No Comment) */
+"itemContentListPreferredDisplayTypeCard" = "Karta";
+
+/* (No Comment) */
+"itemContentListPreferredDisplayTypePoster" = "Poster";
+
+/* (No Comment) */
+"itemContentListPreferredDisplayTypeStandard" = "Parazgjedhje";
+
+/* No comment provided by engineer. */
+"items count" = "numërimi i artikujve";
+
+/* (No Comment) */
+"itemsTMDB" = "Artikujt në listën tuaj të përshpejtuesit";
+
+/* MARK: WatchProviders */
+"justWatchSubtitle" = "Ofrohet nga JustWatch";
+
+/* (No Comment) */
+"Keep everything organized inside the Watchlist." = "Mbani çdo gjë të organizuar brenda Listës së Paraxhjeverës.";
+
+/* (No Comment) */
+"Keep track of every episode you've watched." = "Mbani gjurmë të secilit episod që keni parë.";
+
+/* (No Comment) */
+"Kids" = "Fëmijë";
+
+/* (No Comment) */
+"Know for" = "I njohur për";
+
+/* No comment provided by engineer. */
+"Last maintenance: %@" = "Përditësimi i fundit: %@";
+
+/* No comment provided by engineer. */
+"Last upcoming refresh: %@" = "Refreshi i ardhshëm i fundit: %@";
+
+/* No comment provided by engineer. */
+"Last update on (itemLastUpdateFormatted)" = "Përditësimi i fundit në (itemLastUpdateFormatted)";
+
+/* No comment provided by engineer. */
+"Last watching refresh: %@" = "Përditëso refresh-in e fundit të shikimit: %@";
+
+/* (No Comment) */
+"Latest Movies" = "Filmat më të fundit";
+
+/* (No Comment) */
+"Latest Shows" = "Emisionet më të fundit";
+
+/* No comment provided by engineer. */
+"launchCount: %lld" = "launchCount: %lld";
+
+/* (No Comment) */
+"Libraries" = "Bibliotekat";
+
+/* (No Comment) */
+"List" = "Lista";
+
+/* (No Comment) */
+"List Filters" = "Filtra të Listës";
+
+/* (No Comment) */
+"listBasicHeader" = "Bazë";
+
+/* (No Comment) */
+"listDeleted" = "Kjo listë është fshirë me sukses.";
+
+/* (No Comment) */
+"listDescription" = "Përshkrim i listës";
+
+/* (No Comment) */
+"listItemsToAdd" = "Zgjidhni artikujt";
+
+/* (No Comment) */
+"listName" = "Emri i Listës";
+
+/* (No Comment) */
+"Lists" = "Listat";
+
+/* (No Comment) */
+"Loading" = "Duke u ngarkuar";
+
+/* (No Comment) */
+"Made in Brazil 🇧🇷" = "Prodhim i Brazilit 🇧🇷";
+
+/* (No Comment) */
+"Mark as" = "Shëno si";
+
+/* (No Comment) */
+"Mark as Favorite" = "Shëno si të preferuar";
+
+/* (No Comment) */
+"Mark as Watched" = "Shëno si të parë";
+
+/* (No Comment) */
+"Mark Season as Watched" = "Segna Stagione come Guardata";
+
+/* (No Comment) */
+"Mark selected as unwatched" = "Marko si i paselektuar";
+
+/* (No Comment) */
+"Mark selected as watched" = "Marko i zgjedhur si të shikuar";
+
+/* (No Comment) */
+"Mark some episodes as watched to use Up Next." = "Përbëni disa episode si të shikuara për të përdorur 'Pas kësaj'";
+
+/* (No Comment) */
+"Mark this and previous episodes as watched" = "Shëno këto dhe episode të mëparshme si të shikuara";
+
+/* (No Comment) */
+"markAsWatched" = "Shënoje si të shikuar";
+
+/* (No Comment) */
+"markedArchive" = "Vendosur si arkiv";
+
+/* (No Comment) */
+"markedAsArchive" = "Shënuar si Arkiv";
+
+/* (No Comment) */
+"markedAsFavorite" = "Të shënuar si të preferuar";
+
+/* (No Comment) */
+"markedAsPin" = "E shënjuar si Përmendore";
+
+/* (No Comment) */
+"markedAsWatched" = "Shënuar si Shikuar";
+
+/* (No Comment) */
+"markedEpisodeWatched" = "Shënim episodin si i shikuar";
+
+/* (No Comment) */
+"markedFavorite" = "Shënuar si i preferuar";
+
+/* (No Comment) */
+"markedPin" = "Palosur";
+
+/* (No Comment) */
+"markedWatched" = "Shënuar si shikuar";
+
+/* (No Comment) */
+"markThisAndPreviously" = "Vizatoni këtë episod dhe të gjithë episodet e kaluara si të shikuara";
+
+/* (No Comment) */
+"markThisSeasonAsWatched" = "Caktoni këtë sezon si të shikuar";
+
+/* (No Comment) */
+"Media" = "Media";
+
+/* (No Comment) */
+"Media Type" = "Lloji i Medias";
+
+/* (No Comment) */
+"mediaTypeDiscoverFilterTitle" = "Lloji i medias";
+
+/* (No Comment) */
+"mediaTypeFilter" = "Filtro sipas medias";
+
+/* (No Comment) */
+"mediaTypeFiltersMovies" = "Filmat";
+
+/* (No Comment) */
+"mediaTypeFiltersNoFilter" = "Të gjitha";
+
+/* (No Comment) */
+"mediaTypeFiltersTvShows" = "Seritë televizive";
+
+/* No comment provided by engineer. */
+"More" = "Më shumë";
+
+/* (No Comment) */
+"More Options" = "Më shumë Opsione";
+
+/* (No Comment) */
+"moreInfoShow" = "Më shumë informacion";
+
+/* (No Comment) */
+"Movie" = "Filmi";
+
+/* (No Comment) */
+"movieNotificationSubtitle" = "Njofto kur një film në listën tënde të shikimit lëshohet.";
+
+/* (No Comment) */
+"movieNotificationTitle" = "Njofto Lirimore të Filmit";
+
+/* (No Comment) */
+"Movies" = "Filma";
+
+/* (No Comment) */
+"Movies, Shows, People" = "Filma, Shfaqje, Personazhe";
+
+/* (No Comment) */
+"moviesCustomWatchListFilters" = "Filma";
+
+/* (No Comment) */
+"Music" = "Muzika";
+
+/* (No Comment) */
+"My Pins" = "Pinsat e mia";
+
+/* (No Comment) */
+"Mystery" = "Mistere";
+
+/* (No Comment) */
+"needToSync %lld" = "Ka %lld artikuj të disponueshëm për sinkronizim";
+
+/* No comment provided by engineer. */
+"Network" = "RRJETI";
+
+/* (No Comment) */
+"Never miss out" = "Mos e humb kurrë";
+
+/* (No Comment) */
+"newCustomListTitle" = "Lista e re";
+
+/* (No Comment) */
+"newList" = "Lista e re";
+
+/* (No Comment) */
+"Next episode arrives today." = "Episodi tjetër vjen sot.";
+
+/* (No Comment) */
+"No biography available." = "Nuk ka biografi të disponueshme.";
+
+/* (No Comment) */
+"No details available." = "Nuk ka detaje të disponueshme.";
+
+/* (No Comment) */
+"No Episode Available" = "Asnjë episod i disponueshëm";
+
+/* (No Comment) */
+"No information available" = "Nuk ka informacion të disponueshëm";
+
+/* (No Comment) */
+"No information available." = "Nuk ka informacion të disponueshëm.";
+
+/* (No Comment) */
+"No Name Found" = "Nuk u gjet emri";
+
+/* (No Comment) */
+"No notifications" = "Asnjë njoftim";
+
+/* (No Comment) */
+"No results" = "Asnjë rezultat";
+
+/* (No Comment) */
+"No Results" = "Nuk ka rezultate";
+
+/* (No Comment) */
+"No results from TMDb" = "Nuk ka rezultate nga TMDb";
+
+/* (No Comment) */
+"No results from Watchlist" = "Nuk ka rezultate nga Lista e ndjekjeve";
+
+/* (No Comment) */
+"No title available" = "Titulli nuk është i disponueshëm";
+
+/* (No Comment) */
+"noResultsFound" = "Asnjë rezultat nuk u gjet me kërkesën tuaj. Provoni një tjetër ose kontrolloni nëse titulli nuk gjendet në arkiv.";
+
+/* (No Comment) */
+"Not Available" = "Jo i disponueshëm";
+
+/* No comment provided by engineer. */
+"Not Found" = "Nuk u gjet";
+
+/* (No Comment) */
+"Not Watched" = "Nuk eshte parë";
+
+/* (No Comment) */
+"Notes" = "Shënime";
+
+/* MARK: NotificationListView */
+"Notifications" = "Njoftime";
+
+/* (No Comment) */
+"notificationsSettingsFeedbackCall" = "A keni një sugjerim? Dërgoni një Përgjigje";
+
+/* (No Comment) */
+"Now Available" = "Tani është në dispozicion";
+
+/* (No Comment) */
+"Official Website" = "Website Zyrtar";
+
+/* (No Comment) */
+"Open in" = "Hap në";
+
+/* (No Comment) */
+"Open in YouTube" = "Hap në YouTube";
+
+/* (No Comment) */
+"Open Trailers in YouTube App" = "Hapni Trailers në aplikacionin YouTube";
+
+/* (No Comment) */
+"openCustomListSelectorWhenAdding" = "Hapni Përzgjedhësin e Listës kur shtoni një artikull";
+
+/* (No Comment) */
+"openNotificationInSettings" = "Ndryshoni Njoftimet në aplikacionin Cilësimet";
+
+/* (No Comment) */
+"openWatchProviderTitle" = "Kjo do të hapë faqen e internetit të TMDb me lidhjet për çdo shërbim.";
+
+/* (No Comment) */
+"Organize" = "Organizo";
+
+/* (No Comment) */
+"Original Title" = "Titulli Origjinal";
+
+/* (No Comment) */
+"Overview" = "Përmbledhje";
+
+/* (No Comment) */
+"People" = "Njerëz";
+
+/* (No Comment) */
+"Person" = "Person";
+
+/* (No Comment) */
+"Physical" = "Fizikisht";
+
+/* (No Comment) */
+"Pin" = "Spillo";
+
+/* (No Comment) */
+"Pin Item" = "Artikulli i fiksuar";
+
+/* (No Comment) */
+"Pin Items" = "Artikujt me Pin";
+
+/* (No Comment) */
+"Pinned Items" = "Artikujt e fiksuar";
+
+/* (No Comment) */
+"pinnedList" = "Lista e fiksuar";
+
+/* (No Comment) */
+"pinOnHome" = "Ngjit këtë listë në Shtëpinë";
+
+/* (No Comment) */
+"Pins" = "Thollëza";
+
+/* (No Comment) */
+"Popular Movies" = "Filma të Popullarizuar";
+
+/* (No Comment) */
+"Popular Movies by Genre" = "Filmat popullore sipas zhanrit";
+
+/* (No Comment) */
+"Popular TV Shows by Genre" = "Seriale te njohura televizive sipas zhanrit";
+
+/* (No Comment) */
+"Prefer Poster in Details Page" = "Preferoni postën në faqen e detajeve";
+
+/* (No Comment) */
+"preferredLaunchScreen" = "Ekrani i fillimit i preferuar";
+
+/* (No Comment) */
+"Premiere" = "Premiere";
+
+/* No comment provided by engineer. */
+"Presentation" = "Prezantimi";
+
+/* No comment provided by engineer. */
+"Preview" = "Parashiko";
+
+/* (No Comment) */
+"Privacy" = "Privatësia";
+
+/* (No Comment) */
+"Privacy Policy" = "Politika e privatësisë";
+
+/* (No Comment) */
+"Production" = "Prodhimi";
+
+/* (No Comment) */
+"Production Companies" = "Kompanitë e Prodhuara";
+
+/* (No Comment) */
+"Production Company" = "Kompani Prodhuese";
+
+/* (No Comment) */
+"publishListToTMDB" = "Publikoni Listën në TMDb";
+
+/* (No Comment) */
+"publishOnTMDB" = "Publikoni në TMDb";
+
+/* (No Comment) */
+"publishPrivate" = "privat";
+
+/* (No Comment) */
+"publishPublic" = "Publik";
+
+/* (No Comment) */
+"publishTMDBMessage" = "Kjo do të krijojë një listë të re me të njëjtin titull dhe elementë të listës lokale në TMDb.\nZgjidhni nivelin e privatësisë që dëshironi:";
+
+/* (No Comment) */
+"Rating" = "Vlerësim";
+
+/* (No Comment) */
+"ratingAsc" = "Vlerësim (Ngritës)";
+
+/* (No Comment) */
+"ratingDesc" = "Vlerësimi (Zbritës)";
+
+/* (No Comment) */
+"Ratings Score" = "Pikët e vlerësimeve";
+
+/* (No Comment) */
+"Reality" = "Realiteti";
+
+/* (No Comment) */
+"Recent Notifications" = "Njoftimet e fundit";
+
+/* (No Comment) */
+"Recently Released" = "E fundit e publikuar";
+
+/* (No Comment) */
+"Recommendations" = "Rekomandimet";
+
+/* (No Comment) */
+"recommendationsSubtitle" = "Bazuar në përmbajtjen që keni shikuar";
+
+/* (No Comment) */
+"recommendationsTitle" = "Rekomandimet";
+
+/* (No Comment) */
+"Region of Origin" = "Rajoni i Origjinës";
+
+/* (No Comment) */
+"Release Date" = "Data e lëshimit";
+
+/* (No Comment) */
+"Released" = "Lansuar";
+
+/* (No Comment) */
+"Released Movies" = "Filmat e Liruar";
+
+/* (No Comment) */
+"Released Shows" = "Shows të publikuara";
+
+/* (No Comment) */
+"releaseDates" = "Datat e lancimeve";
+
+/* (No Comment) */
+"Releases" = "Publikime";
+
+/* (No Comment) */
+"Releasing Soon" = "Në publikim së shpejti";
+
+/* No comment provided by engineer. */
+"Reload" = "Ringarko";
+
+/* (No Comment) */
+"Remove" = "Hiq";
+
+/* (No Comment) */
+"Remove from Archive" = "Hiq nga Arkivi";
+
+/* (No Comment) */
+"Remove from Favorites" = "Hiq nga të preferuarat";
+
+/* (No Comment) */
+"Remove from List" = "Hiq nga lista";
+
+/* (No Comment) */
+"Remove from Watched" = "Hiq nga Urahet";
+
+/* (No Comment) */
+"Remove from watchlist" = "Hiq nga lista e ndjekjesh";
+
+/* (No Comment) */
+"Remove Notification" = "Hiq Njoftimin";
+
+/* (No Comment) */
+"Remove Pin" = "Hiq çelësin";
+
+/* (No Comment) */
+"Remove Selected" = "Fshi të zgjedhur";
+
+/* (No Comment) */
+"removedArchive" = "Të larguar nga Arkiva";
+
+/* (No Comment) */
+"removedEpisodeWatched" = "Fshini Episodin nga Shikuar";
+
+/* (No Comment) */
+"removedFavorite" = "Hequr nga të preferuarat";
+
+/* (No Comment) */
+"removedFromArchive" = "E hiqet nga Arkiva";
+
+/* (No Comment) */
+"removedFromFavorites" = "Fshirë nga të preferuarat";
+
+/* (No Comment) */
+"removedFromPin" = "I larguar nga Pin";
+
+/* (No Comment) */
+"removedFromWatched" = "E larguar nga e shikuar";
+
+/* MARK: WatchlistButtonView */
+"removeDialogTitle" = "A jeni i sigurt?";
+
+/* (No Comment) */
+"removedPin" = "Ç'përruhej";
+
+/* (No Comment) */
+"removedWatched" = "Hequr nga shikimi";
+
+/* (No Comment) */
+"removedWatchlist" = "Larguar nga lista e ndjekjeve";
+
+/* (No Comment) */
+"removeFromPinOnWatchedTitle" = "Fshini nga Pini kur artikulli shënon si të shihur";
+
+/* (No Comment) */
+"removeTMDBAccount" = "Shkyç Nga Llogaria e TMDB?";
+
+/* (No Comment) */
+"Renewed Series" = "Seritë të rinovuara";
+
+/* No comment provided by engineer. */
+"Reset asked for review" = "Kërkohet rivlerësimi i bërë";
+
+/* (No Comment) */
+"resetToDefault" = "Rivendos në parazgjedhje";
+
+/* (No Comment) */
+"restorePurchases" = "Riparo blerjet";
+
+/* (No Comment) */
+"Results from TMDb" = "Rezultatet nga TMDb";
+
+/* (No Comment) */
+"Results from Watchlist" = "Rezultate nga lista e përmbledhjes sime";
+
+/* (No Comment) */
+"Retry" = "Provo përsëri";
+
+/* (No Comment) */
+"Review Cronica" = "Shqyrtim Cronica";
+
+/* (No Comment) */
+"reviewInTheAppStore" = "Shqyrtim i aplikacionit";
+
+/* (No Comment) */
+"reviewOf %@" = "Vlerësim i: %@";
+
+/* (No Comment) */
+"reviewTitle" = "Shqyrtim";
+
+/* (No Comment) */
+"Roadmap" = "Plan i veprimit";
+
+/* (No Comment) */
+"Romance" = "Romancë";
+
+/* MARK: InformationSectionView.swift */
+"Run Time" = "Kohë-ekzekutim";
+
+/* (No Comment) */
+"S%d, E%d" = "S%d, E%d";
+
+/* No comment provided by engineer. */
+"S%lld, E%lld" = "S%lld, E%lld";
+
+/* (No Comment) */
+"Save" = "Ruaje";
+
+/* (No Comment) */
+"Sci-Fi & Fantasy" = "Shkenca-Fantazia";
+
+/* (No Comment) */
+"Science Fiction" = "Fantashkencë";
+
+/* MARK: SearchView.swift */
+"Search" = "Kërko";
+
+/* No comment provided by engineer. */
+"Search %@" = "Kërko %@";
+
+/* No comment provided by engineer. */
+"Search failed, try again later." = "Kërkimi dështoi, provo përsëri më vonë.";
+
+/* (No Comment) */
+"Search for upcoming movies and tv shows." = "Kërkoni filmat dhe emisionet e ardhshme.";
+
+/* (No Comment) */
+"Search results" = "Rezultatet e kërkimit";
+
+/* MARK: watchOS */
+"Search TMDb" = "Kërkoni në TMDb";
+
+/* (No Comment) */
+"Search watchlist" = "Kërkoni në Listën e Përcjelljes së Filmit";
+
+/* (No Comment) */
+"Searching" = "Duke kërkuar";
+
+/* (No Comment) */
+"Season" = "Stinë";
+
+/* No comment provided by engineer. */
+"Season (nextSeasonNumber)" = "Sezon (nextSeasonNumber)";
+
+/* (No Comment) */
+"Season %lld" = "Sezoni %lld";
+
+/* (No Comment) */
+"Season Marked as Watched" = "Sezoni i shënuar si të shikuar";
+
+/* MARK: SeasonListView.swift */
+"Seasons" = "Sezonet";
+
+/* No comment provided by engineer. */
+"sectionStyleTypePicker" = "sectionStyleTypePicker";
+
+/* No comment provided by engineer. */
+"Select the Media Type" = "Zgjidh Llojin e Medias";
+
+/* (No Comment) */
+"selectedWatchProvider" = "Shërbimet e transmetimit";
+
+/* (No Comment) */
+"selectedWatchProviderSubtitle" = "Shfaq vetëm 'Furnizuesin e shikim' nëse titulli është i disponueshëm në një prej shërbimeve tuaja të preferuara.";
+
+/* (No Comment) */
+"selectedWatchProviderTitle" = "Shërbimet e preferuara të transmetimit";
+
+/* (No Comment) */
+"Send" = "Dërgo";
+
+/* (No Comment) */
+"Send feedback" = "Dërgo komentin";
+
+/* (No Comment) */
+"Send Feedback" = "Dërgo komente";
+
+/* No comment provided by engineer. */
+"Send Object to Developer" = "Dërgo Objektin te Zhvilluesi";
+
+/* (No Comment) */
+"Send your suggestions to help improve Cronica." = "Dërgoni sugjerimet tuaja për të ndihmuar në përmirësimin e Cronica.";
+
+/* (No Comment) */
+"sendEmail" = "Dërgo Email";
+
+/* (No Comment) */
+"sendEmailFooter" = "Nëse preferoni, mund të dërgoni një email për një ndjekje më të shpejtë.";
+
+/* (No Comment) */
+"sendEmailFooterBackup" = "Ju gjithashtu mund të dërgoni një email te contact@alexandremadeira.dev duke përdorur klientin tuaj të emailit.";
+
+/* No comment provided by engineer. */
+"Session ID (TMDB): %@" = "ID e sesionit (TMDB): %@";
+
+/* (No Comment) */
+"Settings" = "Cilësimet";
+
+/* (No Comment) */
+"settingsAcknowledgments" = "Përshkrimet";
+
+/* (No Comment) */
+"settingsAcknowledgmentsFooter" = "Faleminderit të gjithëve që e bënë të mundur Cronica.";
+
+/* (No Comment) */
+"settingsAppearanceTitle" = "Paraqitja";
+
+/* MARK: Settings */
+"settingsBehaviorTitle" = "Periudha e veprimtarisë";
+
+/* (No Comment) */
+"settingsDeveloperOptions" = "Cilësimet e Zhvilluesit";
+
+/* (No Comment) */
+"settingsDisableTelemetrySubtitle" = "Cronica mbledh të dhëna minimale për të minimizuar rrëzimin e aplikacionit, këto të dhëna janë anonime. Shihni më shumë detaje në Politikën e Privatësisë.";
+
+/* (No Comment) */
+"settingsDisableTelemetryTitle" = "Çaktivizo raportet e rrëzimit";
+
+/* (No Comment) */
+"settingsFeedbackTitle" = "Dërgo koment";
+
+/* (No Comment) */
+"settingsGeneralTitle" = "Përgjithshme";
+
+/* (No Comment) */
+"settingsNotificationTitle" = "Njoftime";
+
+/* (No Comment) */
+"settingsPrivacyPolicy" = "Politika e Privatësisë";
+
+/* (No Comment) */
+"settingsPrivacySupportTitle" = "Privatësia dhe Mbështetja";
+
+/* (No Comment) */
+"settingsRegionContentTitle" = "Përmbajtje dhe Rajon";
+
+/* (No Comment) */
+"settingsReviewCronica" = "Shqyrto Cronica në App Store";
+
+/* (No Comment) */
+"settingsSyncTitle" = "Sinkronizimi";
+
+/* (No Comment) */
+"Share" = "Ndaj";
+
+/* (No Comment) */
+"shareEpisode" = "Ndaj Episodin";
+
+/* (No Comment) */
+"shareLinkPreference" = "Zgjidhni mënyrën tuaj të preferuar për të ndarë lidhjet";
+
+/* (No Comment) */
+"shareLinkPreferenceSubtitle" = "Mund të zgjidhni të ndani duke përdorur një lidhje Cronica që do t'ju lejojë të hapni aplikacionin.\nJu lutem vini re që jo të gjithë përmbajtja mund të ndahet me një lidhje Cronica, aplikacioni gjithmonë do të përdorë lidhjet e TMDB-së nëse është e nevojshme.";
+
+/* (No Comment) */
+"shareList" = "Ndaj listën";
+
+/* (No Comment) */
+"shareShow" = "Ndaj Serialet e TV";
+
+/* (No Comment) */
+"Show Details" = "Shfaq detajet";
+
+/* (No Comment) */
+"Show More" = "Shfaq më shumë";
+
+/* No comment provided by engineer. */
+"Show Onboarding" = "Shfaqe udhëheqësin e parështatjes";
+
+/* (No Comment) */
+"showConfirmationOnRemovingItem" = "Trego Konfirmimin e Heqjes";
+
+/* (No Comment) */
+"showDetails" = "Shfaq Detajet";
+
+/* (No Comment) */
+"Shows" = "Tregon";
+
+/* MARK: Widget */
+"Shows movies and TV Shows trending from TMDb." = "Shfaq filmat dhe emisionet e TV që janë në trend nga TMDb.";
+
+/* (No Comment) */
+"showsCustomWatchListFilters" = "Seriale televizive";
+
+/* (No Comment) */
+"Sort" = "Rendit";
+
+/* (No Comment) */
+"Sort List" = "Renditni listën";
+
+/* (No Comment) */
+"Source Code" = "Kodi Burimor";
+
+/* (No Comment) */
+"Spanish" = "Spanjolle";
+
+/* (No Comment) */
+"Status" = "Statusi";
+
+/* MARK: SettingsView.swift */
+"Support" = "Mbështetje";
+
+/* (No Comment) */
+"Swipe to Edit your list" = "Rrëmbeni për të redaktuar listën tuaj";
+
+/* (No Comment) */
+"swipeGestureArchive" = "Arkivi";
+
+/* (No Comment) */
+"swipeGestureDelete" = "Fshi";
+
+/* (No Comment) */
+"swipeGestureFavorite" = "Favorit";
+
+/* (No Comment) */
+"swipeGesturePin" = "Pin";
+
+/* (No Comment) */
+"swipeGestureShare" = "Shpërndaje";
+
+/* (No Comment) */
+"swipeGestureWatch" = "Shiko";
+
+/* (No Comment) */
+"Sync" = "Sinkronizo";
+
+/* (No Comment) */
+"syncingWatchlistTMDB" = "Duke sinkronizuar listën e shikimeve tuaja, ju lutemi prisni.";
+
+/* (No Comment) */
+"syncInProgress" = "Sinkronizimi në progres";
+
+/* (No Comment) */
+"syncNow" = "Sinkronizo Tani me TMDB";
+
+/* (No Comment) */
+"syncSettingsItemsTitle" = "Artikujt";
+
+/* (No Comment) */
+"syncSettingsTitle" = "Sinkronizim";
+
+/* (No Comment) */
+"syncSettingsUpdateWatchlistSubtitle" = "Përditësoni artikujt me informacion të ri, nëse janë të disponueshëm në TMDb.";
+
+/* MARK: SyncSetting */
+"syncSettingsUpdateWatchlistTitle" = "Përditëso artikujt";
+
+/* (No Comment) */
+"syncSettingsWatchlistTitle" = "Lista e ndjekjeve";
+
+/* (No Comment) */
+"syncTMDBList" = "Mbani këtë listë në sinkronizim";
+
+/* (No Comment) */
+"syncWatchlist" = "Sinkronizo Watchlist";
+
+/* (No Comment) */
+"TelemetryDeck" = "TelemetryDeck";
+
+/* (No Comment) */
+"thankYouTipJarMessage" = "Faleminderit për blerjen tuaj! Mbështetja juaj vlerësohet shumë. 😁";
+
+/* (No Comment) */
+"The API is undergoing maintenance. Try again later." = "API-ja është nën mirëmbajtje. Provo sërish më vonë.";
+
+/* (No Comment) */
+"The Discover will help you find your next favorite title." = "Discover do t'ju ndihmojë të gjeni titullin tuaj të preferuar të ardhshëm.";
+
+/* (No Comment) */
+"The function is performed when double-tap the cover image." = "Funksioni zhvillohet kur dy herë shtypshi fotografinë e titullit.";
+
+/* (No Comment) */
+"The movie will be released today." = "Filmi do të dalë sot.";
+
+/* MARK: Notification content */
+"The next episode is set to arrive today." = "Episodi i ardhshëm pritet të vijë sot.";
+
+/* (No Comment) */
+"Theatrical" = "Teatral";
+
+/* (No Comment) */
+"Theatrical Limited" = "Teatrë i kufizuar";
+
+/* No comment provided by engineer. */
+"This content has been removed from TMDB, you can delete it." = "Këtë përmbajtje është larguar nga TMDB, mund ta fshini atë.";
+
+/* No comment provided by engineer. */
+"This is a preview" = "Ky është një paraparje";
+
+/* No comment provided by engineer. */
+"This list has been deleted." = "Kjo listë është fshirë.";
+
+/* (No Comment) */
+"This list is empty." = "Kjo listë është e zbrazët.";
+
+/* MARK: AttributionView.swift */
+"This product uses the TMDb API but is not endorsed or certified by TMDb." = "Ky produkt përdor TMDb API-në, por nuk është miratuar ose certifikuar nga TMDb.";
+
+/* (No Comment) */
+"This week" = "Ky javë";
+
+/* (No Comment) */
+"Thriller" = "Thriller";
+
+/* (No Comment) */
+"Ticket" = "Bileta";
+
+/* (No Comment) */
+"tipJar" = "Shportë të Këshillë";
+
+/* (No Comment) */
+"tipJarDescription" = "Nëse e doni aplikacionin, shqyrtoni mundësinë për të mbështetur nëpërmjet Dritares së Tavolinës.";
+
+/* (No Comment) */
+"tipJarFooter" = "Mund të zgjidhni të ndihmoni me një shumë të vogël, mesatare, ose të madhe dhe të gjitha të ardhurat do të shkojnë për të përmirësuar dhe ruajtur aplikacionin. Cronica gjithmonë do të mbetet falas dhe pa reklama, kështu që kjo është thjesht një mënyrë opsionale për përdoruesit për të mbështetur zhvillimin e aplikacionit.";
+
+/* MARK: TipJarSetting */
+"tipJarTitle" = "Kuti e këshillave";
+
+/* (No Comment) */
+"Title" = "Titulli";
+
+/* (No Comment) */
+"titleAsc" = "Titulli (Ngritës)";
+
+/* (No Comment) */
+"titleDesc" = "Titulli (Zbritës)";
+
+/* (No Comment) */
+"TMDb" = "TMDb";
+
+/* No comment provided by engineer. */
+"TMDB" = "TMDB";
+
+/* (No Comment) */
+"tmdbLists" = "Lista e tua e TMDB";
+
+/* (No Comment) */
+"tmdbListSyncConfig" = "Konfigurim";
+
+/* (No Comment) */
+"tmdbSyncFeatures" = "Do të jeni në gjendje të shihni listat tuaja dhe menaxhoni përmbajtjen e tyre.";
+
+/* (No Comment) */
+"To Watch" = "Të shikosh";
+
+/* (No Comment) */
+"Today" = "Sot";
+
+/* (No Comment) */
+"Track your episodes" = "Gjej rrethpashtrimet e tua";
+
+/* (No Comment) */
+"Trailers" = "Trejlerë";
+
+/* (No Comment) */
+"Translation" = "Përkthim";
+
+/* MARK: HomeView.swift */
+"Trending" = "Në rritje";
+
+/* No comment provided by engineer. */
+"Trending service ins't available right now." = "Shërbimi i riaktualizuar nuk është i disponueshëm për momentin.";
+
+/* (No Comment) */
+"TV" = "TV";
+
+/* (No Comment) */
+"TV Show" = "Emisioni televiziv";
+
+/* (No Comment) */
+"TV Shows" = "Emisione televizive";
+
+/* (No Comment) */
+"tvShowDetails" = "Detajet e emisionit televiziv";
+
+/* (No Comment) */
+"Unknown" = "i panjohur";
+
+/* (No Comment) */
+"Unpin Item" = "Shpërndaje Artikullin";
+
+/* (No Comment) */
+"Untitled List" = "Lista pa emër";
+
+/* (No Comment) */
+"Unwatched" = "Pa shikuar";
+
+/* (No Comment) */
+"Up Coming" = "Në vazhdim";
+
+/* No comment provided by engineer. */
+"Up Next" = "Vijoj";
+
+/* (No Comment) */
+"Upcoming" = "Në vazhdim";
+
+/* (No Comment) */
+"Upcoming Episodes" = "Episodet e ardhshëm";
+
+/* (No Comment) */
+"Upcoming Movies" = "Filmat e ardhshëm";
+
+/* (No Comment) */
+"Upcoming Notifications" = "Njoftimet e ardhshme";
+
+/* (No Comment) */
+"Upcoming Seasons" = "Sezone të ardhshme";
+
+/* (No Comment) */
+"Update Items" = "Përditëso të dhënat";
+
+/* (No Comment) */
+"upNext" = "Më vonë";
+
+/* (No Comment) */
+"upNextSubtitle" = "Episodet e Tuat Vjenëse";
+
+/* No comment provided by engineer. */
+"User Access ID (TMDB): %@" = "ID e hyrjes së përdoruesit (TMDB): %@";
+
+/* No comment provided by engineer. */
+"User Access Token (TMDB): %@" = "Tokeni i Hyrjes së Përdoruesit (TMDB): %@";
+
+/* No comment provided by engineer. */
+"User Lang: %@" = "Gjuha e përdoruesit: %@";
+
+/* No comment provided by engineer. */
+"User Region: %@" = "Rajoni i përdoruesit: %@";
+
+/* (No Comment) */
+"Version %@" = "Version %@";
+
+/* (No Comment) */
+"War" = "Lufte";
+
+/* MARK: DoubleTapGesture */
+"Watched" = "Shikuar";
+
+/* (No Comment) */
+"Watching" = "Duke parë";
+
+/* (No Comment) */
+"Watchlist" = "Lista e ndjekjeve";
+
+/* (No Comment) */
+"watchlistDisplayTypePicker" = "Stili i Shfaqjes";
+
+/* (No Comment) */
+"watchlistItemTypeCard" = "Kartë";
+
+/* MARK: WatchlistItemType */
+"watchlistItemTypeList" = "Lista";
+
+/* (No Comment) */
+"watchlistItemTypePoster" = "Poster";
+
+/* No comment provided by engineer. */
+"watchlistSortORder" = "renditja e listës së shikimeve";
+
+/* (No Comment) */
+"watchlistSubtitleRowDate" = "Data e publikimit";
+
+/* (No Comment) */
+"watchlistSubtitleRowGenre" = "Gjinia";
+
+/* MARK: WatchlistSubtitleRow */
+"watchlistSubtitleRowNone" = "Parazgjedhur";
+
+/* (No Comment) */
+"watchProviderAe" = "Emiratet e Bashkuara Arabe";
+
+/* (No Comment) */
+"watchProviderAr" = "Argjentinë";
+
+/* (No Comment) */
+"watchProviderAt" = "Austri";
+
+/* (No Comment) */
+"watchProviderAu" = "Australi";
+
+/* (No Comment) */
+"watchProviderBe" = "Belgjikë";
+
+/* (No Comment) */
+"watchProviderBg" = "Bullgaria";
+
+/* MARK: WatchProviderOption */
+"watchProviderBr" = "Brazil";
+
+/* (No Comment) */
+"watchProviderCa" = "Kanada";
+
+/* (No Comment) */
+"watchProviderCh" = "Zvicra";
+
+/* (No Comment) */
+"watchProviderCz" = "Republika e Çekisë";
+
+/* (No Comment) */
+"watchProviderDe" = "Gjermani";
+
+/* (No Comment) */
+"watchProviderDk" = "Danimarka";
+
+/* (No Comment) */
+"watchProviderEe" = "Estonia";
+
+/* (No Comment) */
+"watchProviderEs" = "Spanja";
+
+/* (No Comment) */
+"watchProviderFi" = "Finland";
+
+/* (No Comment) */
+"watchProviderFr" = "Francë";
+
+/* (No Comment) */
+"watchProviderGb" = "Mbretëria e Bashkuar";
+
+/* (No Comment) */
+"watchProviderHk" = "Hong Kong";
+
+/* (No Comment) */
+"watchProviderHr" = "Kroacia";
+
+/* (No Comment) */
+"watchProviderHu" = "Hungari";
+
+/* (No Comment) */
+"watchProviderId" = "Indonezia";
+
+/* (No Comment) */
+"watchProviderIe" = "Irlandë";
+
+/* (No Comment) */
+"watchProviderIndia" = "India";
+
+/* (No Comment) */
+"watchProviderIt" = "Itali";
+
+/* (No Comment) */
+"watchProviderJp" = "Japoni";
+
+/* (No Comment) */
+"watchProviderKr" = "Koreja e Jugut";
+
+/* (No Comment) */
+"watchProviderLt" = "Lituani";
+
+/* (No Comment) */
+"watchProviderMx" = "Meksikë";
+
+/* (No Comment) */
+"watchProviderNl" = "Vendet e Ulëta";
+
+/* (No Comment) */
+"watchProviderNo" = "Norvegji";
+
+/* (No Comment) */
+"watchProviderNz" = "Zelandë e Re";
+
+/* (No Comment) */
+"watchProviderPh" = "Filipine";
+
+/* (No Comment) */
+"watchProviderPl" = "Polonia";
+
+/* (No Comment) */
+"watchProviderPt" = "Portugali";
+
+/* (No Comment) */
+"watchProviderRs" = "Serbi";
+
+/* (No Comment) */
+"watchProviderSe" = "Suedi";
+
+/* (No Comment) */
+"watchProviderSk" = "Sllovaki";
+
+/* (No Comment) */
+"watchProviderTitleList" = "Si të shikoni";
+
+/* (No Comment) */
+"watchProviderToggleDiscover" = "Trego vetëm nga ofruesi i shikimit";
+
+/* (No Comment) */
+"watchProviderTr" = "Turqi";
+
+/* (No Comment) */
+"watchProviderUs" = "Shtetet e Bashkuara të Amerikës";
+
+/* (No Comment) */
+"watchProviderZa" = "Afrika e Jugut";
+
+/* (No Comment) */
+"watchRegionSubtitle" = "Ofruesit e Shikimit do të adaptohen në rajonin e zgjedhur.";
+
+/* (No Comment) */
+"watchRegionTitle" = "Shiko Furnizuesin e Rajonit";
+
+/* MARK: WelcomeView.swift */
+"Welcome to" = "Mirësevini në";
+
+/* (No Comment) */
+"What's New" = "Ç'Është e Re";
+
+/* (No Comment) */
+"whereToWatchDiscoverFilter" = "Ku Shikoni";
+
+/* (No Comment) */
+"You may like" = "Ju mund të ju pëlqej";
+
+/* MARK: WatchlistView.swift */
+"Your list is empty." = "Lista juaj është bosh.";
+
+/* (No Comment) */
+"Your pinned items" = "Artikujt e tu të rëndësishëm";
+
+/* (No Comment) */
+"Your smart Watchlist" = "Lista juaj e inteligjente e dëshirave";
+
+/* (No Comment) */
+"Your upcoming items will appear here." = "Rrjeshtat e ardhshëm do të shfaqen këtu.";
+
+/* (No Comment) */
+"Your Watchlist" = "Lista juaj e ndjekjeve";
+
+/* (No Comment) */
+"Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." = "Lista juaj e ndjekjeve është gjithmonë në sinkron me Apple Watch-in, iPad-in, Mac-in dhe Apple TV-n tuaj.";
+
+/* (No Comment) */
+"yourLists" = "Listat tuaja";
+

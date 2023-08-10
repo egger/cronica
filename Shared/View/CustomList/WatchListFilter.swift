@@ -33,11 +33,7 @@ struct WatchListFilter: View {
                     EmptyView()
                 }
                 .disabled(showAllItems)
-#if !os(macOS)
-                .pickerStyle(.inline)
-#else
-                .pickerStyle(.menu)
-#endif
+				.pickerStyle(.inline)
             }  header: {
                 Text("defaultWatchlistSmartFilters")
 #if os(iOS)

@@ -9,7 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct VerticalUpNextListView: View {
-    @StateObject private var settings = SettingsStore.shared
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
@@ -21,10 +20,10 @@ struct VerticalUpNextListView: View {
     @State private var selectedEpisode: UpNextEpisode?
     @State private var query = String()
     @State private var queryResult = [UpNextEpisode]()
-    @AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
+	@StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
-            if upNextStyle == .card {
+			if settings.upNextStyle == .card {
                 ScrollViewReader { proxy in
                     ScrollView {
                         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
@@ -161,6 +160,9 @@ struct VerticalUpNextListView: View {
                         .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
                     }
                 }
+#if os(macOS)
+				.formStyle(.grouped)
+#endif
             }
         }
 #if os(iOS)
@@ -282,7 +284,7 @@ struct VerticalUpNextListView: View {
 #if os(iOS) || os(macOS)
     private var styleOptions: some View {
         Menu {
-            Picker(selection: $upNextStyle) {
+			Picker(selection: $settings.upNextStyle) {
                 ForEach(UpNextDetailsPreferredStyle.allCases) { item in
                     Text(item.title).tag(item)
                 }

@@ -243,9 +243,7 @@
 		B892EB1429675B5E002E028E /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB1329675B5E002E028E /* StoreKitManager.swift */; };
 		B89429C9297C94CD0029646F /* DetailedPeopleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89429C8297C94CD0029646F /* DetailedPeopleList.swift */; };
 		B89429CC297E076E0029646F /* SupportEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89429CB297E076E0029646F /* SupportEmail.swift */; };
-		B89446BC294FDABA008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
 		B89446BF294FDACA008974BA /* AppThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BE294FDACA008974BA /* AppThemeColors.swift */; };
-		B89446C3294FDAE4008974BA /* WatchlistItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BB294FDABA008974BA /* WatchlistItemType.swift */; };
 		B897AE5D29F7315800044B1E /* ExternalWatchlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B897AE5C29F7315800044B1E /* ExternalWatchlistManager.swift */; };
 		B897AE5E29F7519D00044B1E /* WatchlistItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81DD92429BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift */; };
 		B8991C7D27E4B5D2001055CB /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8991C7C27E4B5D2001055CB /* WelcomeView.swift */; };
@@ -274,7 +272,6 @@
 		B8ADAF662829F134001D72EF /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF652829F134001D72EF /* NetworkError.swift */; };
 		B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
 		B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */; };
-		B8ADAF71282C4400001D72EF /* DoubleTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */; };
 		B8B271A627A5A18C00F6463F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* PersistenceController.swift */; };
 		B8B8A4252A6E288300E5533F /* TMDBAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9A829F324730088B5CC /* TMDBAccountView.swift */; };
 		B8B8A4262A6E289200E5533F /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9AD29F3324F0088B5CC /* AccountManager.swift */; };
@@ -353,6 +350,9 @@
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentSectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */; };
 		B8F6DE652937A144005D1A50 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE65281B4040005558DD /* Videos.swift */; };
+		B8F905C62A852D3F003A0CE1 /* CronicaWatch-InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8F905C42A852D3F003A0CE1 /* CronicaWatch-InfoPlist.strings */; };
+		B8F905C92A852D3F003A0CE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8F905C72A852D3F003A0CE1 /* InfoPlist.strings */; };
+		B8F905CC2A852D3F003A0CE1 /* Cronica--InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8F905CA2A852D3F003A0CE1 /* Cronica--InfoPlist.strings */; };
 		B8FB2A7C29522DC3006DAC8E /* WatchlistItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C53FC27B1F1DD00425524 /* WatchlistItemRowView.swift */; };
 		B8FB2A7E29522E58006DAC8E /* WatchlistItemCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A7D29522E58006DAC8E /* WatchlistItemCardView.swift */; };
 		B8FB2A80295235E2006DAC8E /* WatchlistCardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A7F295235E2006DAC8E /* WatchlistCardSection.swift */; };
@@ -361,7 +361,6 @@
 		B8FB2A8629524D9A006DAC8E /* View-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8329524D6E006DAC8E /* View-Extensions.swift */; };
 		B8FB2A8929524FAD006DAC8E /* WatchlistPosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8829524FAD006DAC8E /* WatchlistPosterSection.swift */; };
 		B8FB2A8B2952606A006DAC8E /* AppThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89446BE294FDACA008974BA /* AppThemeColors.swift */; };
-		B8FB2A8C29526074006DAC8E /* DoubleTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */; };
 		B8FB2A8E29526341006DAC8E /* BehaviorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8D29526341006DAC8E /* BehaviorSetting.swift */; };
 		B8FB2A90295263AB006DAC8E /* AboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FB2A8F295263AB006DAC8E /* AboutSettings.swift */; };
 		B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */; };
@@ -582,7 +581,6 @@
 		B892EB1329675B5E002E028E /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
 		B89429C8297C94CD0029646F /* DetailedPeopleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPeopleList.swift; sourceTree = "<group>"; };
 		B89429CB297E076E0029646F /* SupportEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportEmail.swift; sourceTree = "<group>"; };
-		B89446BB294FDABA008974BA /* WatchlistItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemType.swift; sourceTree = "<group>"; };
 		B89446BE294FDACA008974BA /* AppThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeColors.swift; sourceTree = "<group>"; };
 		B897AE5C29F7315800044B1E /* ExternalWatchlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalWatchlistManager.swift; sourceTree = "<group>"; };
 		B8991C7C27E4B5D2001055CB /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -602,7 +600,6 @@
 		B8ADAF652829F134001D72EF /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeFrameView.swift; sourceTree = "<group>"; };
 		B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
-		B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTapGesture.swift; sourceTree = "<group>"; };
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8B271A527A5A18C00F6463F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		B8B8A4292A6EAC6800E5533F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -664,6 +661,41 @@
 		B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetails.swift; sourceTree = "<group>"; };
 		B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentSectionDetails.swift; sourceTree = "<group>"; };
 		B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVerticalView.swift; sourceTree = "<group>"; };
+		B8F905C52A852D3F003A0CE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "it.lproj/CronicaWatch-InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905C82A852D3F003A0CE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8F905CB2A852D3F003A0CE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "it.lproj/Cronica--InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905CD2A852D3F003A0CE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8F905CE2A852D3F003A0CE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8F905CF2A8552E4003A0CE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = "ko.lproj/CronicaWatch-InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905D02A8552E4003A0CE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8F905D12A8552E4003A0CE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = "ko.lproj/Cronica--InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905D22A8552E4003A0CE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8F905D32A8552E4003A0CE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ko; path = ko.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8F905D42A8552F3003A0CE1 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = "zh.lproj/CronicaWatch-InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905D52A8552F3003A0CE1 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8F905D62A8552F3003A0CE1 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = "zh.lproj/Cronica--InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905D72A8552F3003A0CE1 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8F905D82A8552F3003A0CE1 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = zh; path = zh.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8F905D92A855323003A0CE1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = "nl.lproj/CronicaWatch-InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905DA2A855323003A0CE1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8F905DB2A855323003A0CE1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = "nl.lproj/Cronica--InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905DC2A855323003A0CE1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8F905DD2A855323003A0CE1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = nl; path = nl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8F905DE2A855335003A0CE1 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = "pl.lproj/CronicaWatch-InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905DF2A855335003A0CE1 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8F905E02A855335003A0CE1 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = "pl.lproj/Cronica--InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905E12A855335003A0CE1 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8F905E22A855335003A0CE1 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = pl; path = pl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8F905E32A855341003A0CE1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = "tr.lproj/CronicaWatch-InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905E42A855341003A0CE1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8F905E52A855341003A0CE1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = "tr.lproj/Cronica--InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905E62A855341003A0CE1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8F905E72A855341003A0CE1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		B8F905E82A85534D003A0CE1 /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sq; path = "sq.lproj/CronicaWatch-InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905E92A85534D003A0CE1 /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sq; path = sq.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8F905EA2A85534D003A0CE1 /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sq; path = "sq.lproj/Cronica--InfoPlist.strings"; sourceTree = "<group>"; };
+		B8F905EB2A85534D003A0CE1 /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sq; path = sq.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8F905EC2A85534D003A0CE1 /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sq; path = sq.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B8FB2A7D29522E58006DAC8E /* WatchlistItemCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemCardView.swift; sourceTree = "<group>"; };
 		B8FB2A7F295235E2006DAC8E /* WatchlistCardSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCardSection.swift; sourceTree = "<group>"; };
 		B8FB2A8129524C37006DAC8E /* WatchlistItemPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistItemPosterView.swift; sourceTree = "<group>"; };
@@ -1146,6 +1178,7 @@
 			children = (
 				B8D7AEB328B95F5F0053CE5A /* CronicaWidgetExtension.entitlements */,
 				B8D7AEAF28B95F5F0053CE5A /* Info.plist */,
+				B8F905C72A852D3F003A0CE1 /* InfoPlist.strings */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1155,6 +1188,7 @@
 			children = (
 				B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */,
 				B84043DF289B372B00D5CEBF /* CronicaWatch-Info.plist */,
+				B8F905C42A852D3F003A0CE1 /* CronicaWatch-InfoPlist.strings */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1172,10 +1206,8 @@
 			children = (
 				B8AAA6E829645561004FDF21 /* AppTheme.swift */,
 				B89446BE294FDACA008974BA /* AppThemeColors.swift */,
-				B8ADAF70282C4400001D72EF /* DoubleTapGesture.swift */,
 				B89429CB297E076E0029646F /* SupportEmail.swift */,
 				B8105243298D2E7700723E94 /* SwipeGestureOptions.swift */,
-				B89446BB294FDABA008974BA /* WatchlistItemType.swift */,
 				B8C0215429E0D027006E9D82 /* ExplorePreferredDisplayType.swift */,
 				B8C0215929E0D527006E9D82 /* ItemContentListPreferredDisplayType.swift */,
 			);
@@ -1357,6 +1389,7 @@
 			children = (
 				B8110F162792764B00844FEB /* Story (iOS).entitlements */,
 				B8CC953527D05E4A00B6757C /* Cronica--Info.plist */,
+				B8F905CA2A852D3F003A0CE1 /* Cronica--InfoPlist.strings */,
 				B8110ED8279245D000844FEB /* CronicaApp.swift */,
 				B86E587827A48E5A005DBF38 /* Key.swift */,
 				B8E6D64027B6B106002E7A63 /* Watchlist.xcdatamodeld */,
@@ -1561,6 +1594,13 @@
 				ar,
 				fr,
 				"es-MX",
+				it,
+				ko,
+				zh,
+				nl,
+				pl,
+				tr,
+				sq,
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
@@ -1588,6 +1628,7 @@
 				B813917F289F4F8D003BEB2E /* Attribution.xcassets in Resources */,
 				B8EC6ABC28AC67CD0054DC76 /* Localizable.strings in Resources */,
 				B806C4E82899BE2900A5330E /* Preview Assets.xcassets in Resources */,
+				B8F905C62A852D3F003A0CE1 /* CronicaWatch-InfoPlist.strings in Resources */,
 				B86AA7FD2A3A5D5A009847FE /* Localizable.stringsdict in Resources */,
 				B806C4E52899BE2900A5330E /* Assets.xcassets in Resources */,
 			);
@@ -1600,6 +1641,7 @@
 				B892EB10296755A3002E028E /* ProductList.plist in Resources */,
 				B87B5CD42799AF3600632648 /* Attribution.xcassets in Resources */,
 				B892EB0A29675265002E028E /* Cronica.storekit in Resources */,
+				B8F905CC2A852D3F003A0CE1 /* Cronica--InfoPlist.strings in Resources */,
 				B8CC954A27D1310B00B6757C /* Localizable.strings in Resources */,
 				B87B5CCC27999C5700632648 /* content.json in Resources */,
 				B8110EEC279245D100844FEB /* Assets.xcassets in Resources */,
@@ -1622,6 +1664,7 @@
 				B8D7AEE328BA64DF0053CE5A /* DataPlaceholder.json in Resources */,
 				B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */,
 				B8D7AEBC28B960420053CE5A /* Localizable.strings in Resources */,
+				B8F905C92A852D3F003A0CE1 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1661,7 +1704,6 @@
 				B810524A298DBACB00723E94 /* Int-Extensions.swift in Sources */,
 				B82B75A028A84D6600C3212A /* FilmographyListView.swift in Sources */,
 				B89ECD092986A89600F0B197 /* InformationalLabel.swift in Sources */,
-				B8FB2A8C29526074006DAC8E /* DoubleTapGesture.swift in Sources */,
 				B82BE4DA299BF35D005F9990 /* PersistenceController-WatchlistItem.swift in Sources */,
 				B81941B12A08398F0057DA04 /* ChangelogView.swift in Sources */,
 				B81DD92829BD149D009F73F3 /* WatchlistItem+CoreDataClass.swift in Sources */,
@@ -1679,7 +1721,6 @@
 				B81941D02A0861D70057DA04 /* CustomListButton.swift in Sources */,
 				B8C0215629E0D29C006E9D82 /* ExplorePreferredDisplayType.swift in Sources */,
 				B84043C3289B18DE00D5CEBF /* ItemSchedule.swift in Sources */,
-				B89446C3294FDAE4008974BA /* WatchlistItemType.swift in Sources */,
 				B84457C52970D59E009CB21F /* HapticManager.swift in Sources */,
 				B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */,
 				B84F022B299026B7007EA8AE /* DatesManager.swift in Sources */,
@@ -1803,7 +1844,6 @@
 				B82BE4D9299BF35D005F9990 /* PersistenceController-WatchlistItem.swift in Sources */,
 				B8C781F2287F576100B4C2C2 /* FilmographyListView.swift in Sources */,
 				B8CC952127CFEBEC00B6757C /* SearchView.swift in Sources */,
-				B8ADAF71282C4400001D72EF /* DoubleTapGesture.swift in Sources */,
 				B8C0215529E0D027006E9D82 /* ExplorePreferredDisplayType.swift in Sources */,
 				B89ECCFF2984530700F0B197 /* DiscoverSortBy.swift in Sources */,
 				B8FB2A8429524D6E006DAC8E /* View-Extensions.swift in Sources */,
@@ -1866,7 +1906,6 @@
 				B879B70228B12201005EADCE /* TrailerItemView.swift in Sources */,
 				B81941C32A0861C80057DA04 /* FavoriteButton.swift in Sources */,
 				B83E3EDA299AB9FB00A3A28B /* CustomList-Extensions.swift in Sources */,
-				B89446BC294FDABA008974BA /* WatchlistItemType.swift in Sources */,
 				B878E83527BC85BC0021A981 /* WatchlistItem-Extension.swift in Sources */,
 				B8C0215D29E121C1006E9D82 /* SettingsScreens.swift in Sources */,
 				B85E035427B02D01005C7FDF /* PersonDetailsViewModel.swift in Sources */,
@@ -2022,6 +2061,13 @@
 				B8C852652A702A2500A1CE85 /* ar */,
 				B8C852672A702E5900A1CE85 /* fr */,
 				B8409D192A817F810048840F /* es-MX */,
+				B8F905CE2A852D3F003A0CE1 /* it */,
+				B8F905D32A8552E4003A0CE1 /* ko */,
+				B8F905D82A8552F3003A0CE1 /* zh */,
+				B8F905DD2A855323003A0CE1 /* nl */,
+				B8F905E22A855335003A0CE1 /* pl */,
+				B8F905E72A855341003A0CE1 /* tr */,
+				B8F905EC2A85534D003A0CE1 /* sq */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -2037,8 +2083,57 @@
 				B8C852642A702A2500A1CE85 /* ar */,
 				B8C852662A702E5900A1CE85 /* fr */,
 				B8409D182A817F810048840F /* es-MX */,
+				B8F905CD2A852D3F003A0CE1 /* it */,
+				B8F905D22A8552E4003A0CE1 /* ko */,
+				B8F905D72A8552F3003A0CE1 /* zh */,
+				B8F905DC2A855323003A0CE1 /* nl */,
+				B8F905E12A855335003A0CE1 /* pl */,
+				B8F905E62A855341003A0CE1 /* tr */,
+				B8F905EB2A85534D003A0CE1 /* sq */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		B8F905C42A852D3F003A0CE1 /* CronicaWatch-InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8F905C52A852D3F003A0CE1 /* it */,
+				B8F905CF2A8552E4003A0CE1 /* ko */,
+				B8F905D42A8552F3003A0CE1 /* zh */,
+				B8F905D92A855323003A0CE1 /* nl */,
+				B8F905DE2A855335003A0CE1 /* pl */,
+				B8F905E32A855341003A0CE1 /* tr */,
+				B8F905E82A85534D003A0CE1 /* sq */,
+			);
+			name = "CronicaWatch-InfoPlist.strings";
+			sourceTree = "<group>";
+		};
+		B8F905C72A852D3F003A0CE1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8F905C82A852D3F003A0CE1 /* it */,
+				B8F905D02A8552E4003A0CE1 /* ko */,
+				B8F905D52A8552F3003A0CE1 /* zh */,
+				B8F905DA2A855323003A0CE1 /* nl */,
+				B8F905DF2A855335003A0CE1 /* pl */,
+				B8F905E42A855341003A0CE1 /* tr */,
+				B8F905E92A85534D003A0CE1 /* sq */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B8F905CA2A852D3F003A0CE1 /* Cronica--InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8F905CB2A852D3F003A0CE1 /* it */,
+				B8F905D12A8552E4003A0CE1 /* ko */,
+				B8F905D62A8552F3003A0CE1 /* zh */,
+				B8F905DB2A855323003A0CE1 /* nl */,
+				B8F905E02A855335003A0CE1 /* pl */,
+				B8F905E52A855341003A0CE1 /* tr */,
+				B8F905EA2A85534D003A0CE1 /* sq */,
+			);
+			name = "Cronica--InfoPlist.strings";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -2251,7 +2346,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2295,7 +2391,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -13,7 +13,7 @@ struct WatchlistTitle: View {
     @State private var isRotating = 0.0
     var body: some View {
         Button {
-            showListSelection.toggle()
+            showListSelection = true
         } label: {
             HStack {
                 Text(navigationTitle)

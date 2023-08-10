@@ -53,11 +53,7 @@ class NotificationManager: ObservableObject {
         let identifier = content.itemContentID
         let title = content.itemTitle
         var body: String
-        if content.itemContentMedia == .movie {
-            body = NSLocalizedString("The movie will be released today.", comment: "")
-        } else {
-            body = NSLocalizedString("Next episode arrives today.", comment: "")
-        }
+		body = content.itemContentMedia == .movie ? NSLocalizedString("The movie will be released today.", comment: "") : NSLocalizedString("Next episode arrives today.", comment: "")
         var date: Date?
         if content.itemContentMedia == .movie {
             date = content.itemTheatricalDate
@@ -66,14 +62,14 @@ class NotificationManager: ObservableObject {
         } else {
             date = content.itemFallbackDate
         }
-        if let date {
-            if date.isLessThanTwoWeeksAway() {
-                self.scheduleNotification(identifier: identifier,
-                                          title: title,
-                                          message: body,
-                                          date: date)
-            }
-        }
+		guard let date else { return }
+		if date.isLessThanTwoWeeksAway() {
+			removeNotification(identifier: content.itemContentID)
+			self.scheduleNotification(identifier: identifier,
+									  title: title,
+									  message: body,
+									  date: date)
+		}
     }
     
     private func scheduleNotification(identifier: String, title: String, message: String, date: Date) {
@@ -98,13 +94,6 @@ class NotificationManager: ObservableObject {
     
     func removeNotification(identifier: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-    }
-    
-    func removeNotificationSchedule(identifier: String) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-        let item = PersistenceController.shared.fetch(for: identifier)
-        guard let item else { return }
-        item.notify = false
     }
     
     func removeDeliveredNotification(identifier: String) {
@@ -216,4 +205,10 @@ class NotificationManager: ObservableObject {
         }
         return items
     }
+	
+	func hasPendingNotification(for id: String) async -> Bool {
+		let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
+		if notifications.contains(where: { $0.identifier == id }) { return true }
+		return false
+	}
 }
