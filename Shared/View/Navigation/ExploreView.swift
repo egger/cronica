@@ -15,6 +15,7 @@ struct ExploreView: View {
     @State private var popupType: ActionPopupItems?
     @StateObject private var viewModel = ExploreViewModel()
     @StateObject private var settings = SettingsStore.shared
+	@State private var sortBy: TMDBSortBy = .popularity
     var body: some View {
         VStack {
             if settings.sectionStyleType == .list {
@@ -189,6 +190,7 @@ struct ExploreView: View {
                             .foregroundColor(showFilters ? .secondary : nil)
                     }
                     .keyboardShortcut("f", modifiers: .command)
+					//sortButton
 #if os(macOS)
                     styleOptions
 #endif
@@ -222,6 +224,9 @@ struct ExploreView: View {
                 await load()
             }
         }
+		.onChange(of: sortBy) { newSortByValue in
+			viewModel.loadMoreItems(sortBy: newSortByValue, reload: true)
+		}
     }
     
     private var listStyle: some View {
@@ -252,7 +257,6 @@ struct ExploreView: View {
 #endif
     }
     
-    @ViewBuilder
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
             ForEach(viewModel.items) { item in
@@ -277,7 +281,6 @@ struct ExploreView: View {
         .padding()
     }
     
-    @ViewBuilder
     private var posterStyle: some View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
@@ -317,6 +320,20 @@ struct ExploreView: View {
                 .labelStyle(.iconOnly)
         }
     }
+	
+	private var sortButton: some View {
+		Menu {
+			Picker(selection: $sortBy) {
+				ForEach(TMDBSortBy.allCases) { item in
+					Text(item.localizedString).tag(item)
+				}
+			} label: {
+				Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
+			}
+		} label: {
+			Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
+		}
+	}
 #endif
     
     private func load() async {

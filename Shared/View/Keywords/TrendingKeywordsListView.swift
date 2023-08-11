@@ -13,11 +13,8 @@ struct TrendingKeywordsListView: View {
 	private let columns = [GridItem(.adaptive(minimum: 160))]
     var body: some View {
 		VStack {
-			if viewModel.isLoadingTrendingKeywords {
-				ProgressView()
-			}
 			if !viewModel.trendingKeywords.isEmpty {
-				TitleView(title: "Trending Keywords")
+				TitleView(title: "Trending Keywords").unredacted()
 				ScrollView {
 					LazyVGrid(columns: columns, spacing: 20) {
 						ForEach(viewModel.trendingKeywords) { keyword in
@@ -25,10 +22,7 @@ struct TrendingKeywordsListView: View {
 								WebImage(url: keyword.image)
 									.resizable()
 									.placeholder {
-										ZStack {
-											Rectangle().fill(.gray.gradient)
-											Image(systemName: "popcorn.fill")
-										}
+										Rectangle().fill(.gray.gradient)
 									}
 									.aspectRatio(contentMode: .fill)
 									.overlay {
@@ -38,7 +32,7 @@ struct TrendingKeywordsListView: View {
 												.foregroundColor(.white)
 												.fontDesign(.rounded)
 												.font(.headline)
-												.fontWeight(.semibold)
+												.fontWeight(.bold)
 												.multilineTextAlignment(.center)
 												.lineLimit(2)
 												.padding()
@@ -53,6 +47,14 @@ struct TrendingKeywordsListView: View {
 					}
 					.padding([.horizontal, .bottom])
 				}
+			}
+		}
+		.overlay {
+			if viewModel.isLoadingTrendingKeywords {
+				ProgressView()
+					.unredacted()
+					.foregroundColor(.secondary)
+					.padding()
 			}
 		}
 		.redacted(reason: viewModel.isLoadingTrendingKeywords ? .placeholder : [])

@@ -15,7 +15,7 @@ class ExploreViewModel: ObservableObject {
     @Published var items = [ItemContent]()
     @AppStorage("exploreViewSelectedGenre") var selectedGenre: Int = 28
     @AppStorage("exploreViewSelectedMedia") var selectedMedia: MediaType = .movie
-    @Published var selectedSortBy: DiscoverSortBy = .popularityDesc
+	private var selectedSortBy: TMDBSortBy = .popularity
     @Published var selectedWatchProviders = [String]()
     @Published var isLoaded: Bool = false
     @Published var showErrorDialog: Bool = false
@@ -40,7 +40,15 @@ class ExploreViewModel: ObservableObject {
         }
     }
     
-    func loadMoreItems() {
+	func loadMoreItems(sortBy: TMDBSortBy = .popularity, reload: Bool = false) {
+		if reload {
+			withAnimation {
+				items.removeAll()
+				isLoaded = false
+				currentPage = 0
+				selectedSortBy = sortBy
+			}
+		}
         if restartFetch {
             currentPage = 0
             startPagination = true

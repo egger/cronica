@@ -116,25 +116,21 @@ import SwiftUI
 	
 	func loadTrendingKeywords() async {
 		if trendingKeywords.isEmpty {
-			var result = [CombinedKeywords]()
-			for item in keywords {
+			for item in keywords.sorted(by: { $0.name < $1.name}) {
 				let type: MediaType = Bool.random() ? .movie : .tvShow
 				let itemFromKeyword = try? await service.fetchKeyword(type: type,
 																	  page: 1,
 																	  keywords: item.id,
-																	  sortBy: KeywordsSearchSortBy.popularity.rawValue)
+																	  sortBy: TMDBSortBy.popularity.rawValue)
 				var url: URL?
-				if let firstItem = itemFromKeyword?.shuffled().first {
+				if let firstItem = itemFromKeyword?.first {
 					url = firstItem.cardImageMedium
 				}
 				let content: CombinedKeywords = .init(id: item.id, name: item.name, image: url)
-				result.append(content)
-				isLoadingTrendingKeywords = false
+				trendingKeywords.append(content)
 			}
-			if !result.isEmpty {
-				withAnimation {
-					trendingKeywords.append(contentsOf: result.sorted(by: { $0.name < $1.name}))
-				}
+			withAnimation {
+				isLoadingTrendingKeywords = false
 			}
 		}
 	}
@@ -171,23 +167,4 @@ struct CombinedKeywords: Identifiable, Hashable {
 	let name: String
 	let image: URL?
 }
-enum KeywordsSearchSortBy: String, Identifiable, CaseIterable {
-	var id: String { rawValue }
-	case popularity = "popularity.desc"
-	case rating = "vote_average.desc"
-	case releaseDateDesc = "primary_release_date.desc"
-	case releaseDateAsc = "primary_release_date.asc"
-	
-	var localizedString: LocalizedStringKey {
-		switch self {
-		case .popularity:
-			return LocalizedStringKey("Popularity")
-		case .rating:
-			return LocalizedStringKey("Rating")
-		case .releaseDateDesc:
-			return LocalizedStringKey("Release Date (Descending)")
-		case .releaseDateAsc:
-			return LocalizedStringKey("Release Date (Ascending)")
-		}
-	}
-}
+

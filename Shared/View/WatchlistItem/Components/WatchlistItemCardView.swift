@@ -21,6 +21,7 @@ struct WatchlistItemCardView: View {
 #if os(tvOS)
     @FocusState var isStackFocused: Bool
 #endif
+	var displayInfoPreferrence: DisplayInformartionPreferrence = .none
     var body: some View {
         VStack {
             NavigationLink(value: content) {
@@ -43,6 +44,17 @@ struct WatchlistItemCardView: View {
                     .foregroundColor(isStackFocused ? .primary : .secondary)
                     .padding(.vertical, 4)
 #endif
+				switch displayInfoPreferrence {
+				case .upcoming:
+					if let glanceInfo = content.itemGlanceInfo {
+						Text(glanceInfo)
+							.font(.caption)
+							.lineLimit(DrawingConstants.titleLineLimit)
+							.foregroundColor(.secondary)
+					}
+				default:
+					EmptyView()
+				}
                 Spacer()
             }
             Spacer()

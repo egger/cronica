@@ -200,6 +200,12 @@ struct HomeView: View {
 #if os(iOS) || os(macOS)
             NotificationListView(showNotification: $showNotifications)
                 .appTheme()
+				.onDisappear {
+					Task {
+						let notifications = await NotificationManager.shared.hasDeliveredItems()
+						hasNotifications = notifications
+					}
+				}
 #if os(macOS)
                 .frame(width: 800, height: 500)
 #endif

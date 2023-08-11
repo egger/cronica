@@ -67,7 +67,7 @@ class NetworkService {
 	}
     
     func fetchCompanyFilmography(type: MediaType, page: Int, company: Int) async throws -> [ItemContent] {
-		guard let url = urlBuilder(type: type, company: company, page: page, sortBy: DiscoverSortBy.popularityDesc.rawValue) else {
+		guard let url = urlBuilder(type: type, company: company, page: page, sortBy: TMDBSortBy.popularity.rawValue) else {
             throw NetworkError.invalidRequest
         }
         let response: ItemContentResponse = try await self.fetch(url: url)
@@ -82,7 +82,7 @@ class NetworkService {
 		return response.results
 	}
     
-    func fetchDiscover(type: MediaType, page: Int, genres: String, sort: DiscoverSortBy) async throws -> [ItemContent] {
+    func fetchDiscover(type: MediaType, page: Int, genres: String, sort: TMDBSortBy) async throws -> [ItemContent] {
         guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres, sortBy: sort) else {
             throw NetworkError.invalidEndpoint
         }
@@ -251,7 +251,7 @@ class NetworkService {
     ///   - type: The content type for the discovery fetch.
     ///   - page: The page used for pagination.
     ///   - genres: The desired genres for the discovery.
-    private func urlBuilder(type: String, page: Int, genres: String, sortBy: DiscoverSortBy) -> URL? {
+    private func urlBuilder(type: String, page: Int, genres: String, sortBy: TMDBSortBy) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"

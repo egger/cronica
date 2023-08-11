@@ -109,14 +109,14 @@ struct SearchView: View {
 		case .none:
 			ScrollView {
 				VStack {
-					TrendingPeopleListView()
-						.environmentObject(viewModel)
+//					TrendingPeopleListView()
+//						.environmentObject(viewModel)
 					TrendingKeywordsListView()
 						.environmentObject(viewModel)
 					Spacer()
 				}
 				.task {
-					await viewModel.loadTrendingPeople()
+					//await viewModel.loadTrendingPeople()
 					await viewModel.loadTrendingKeywords()
 				}
 			}

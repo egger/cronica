@@ -13,7 +13,7 @@ struct KeywordSectionView: View {
 	@StateObject private var settings = SettingsStore.shared
 	@State private var showPopup = false
 	@State private var popupType: ActionPopupItems?
-	@State private var sortBy: KeywordsSearchSortBy = .popularity
+	@State private var sortBy: TMDBSortBy = .popularity
 	var body: some View {
 		VStack {
 			switch settings.sectionStyleType {
@@ -52,7 +52,7 @@ struct KeywordSectionView: View {
 	private var sortButton: some View {
 		Menu {
 			Picker(selection: $sortBy) {
-				ForEach(KeywordsSearchSortBy.allCases) { item in
+				ForEach(TMDBSortBy.allCases) { item in
 					Text(item.localizedString).tag(item)
 				}
 			} label: {

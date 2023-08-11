@@ -16,7 +16,7 @@ class KeywordSectionViewModel: ObservableObject {
 	@Published var endPagination = false
 	private let network = NetworkService.shared
 	
-	func load(_ id: Int, sortBy: KeywordsSearchSortBy, reload: Bool) async {
+	func load(_ id: Int, sortBy: TMDBSortBy, reload: Bool) async {
 		do {
 			if reload {
 				withAnimation {
@@ -40,7 +40,9 @@ class KeywordSectionViewModel: ObservableObject {
 			} else {
 				page += 1
 			}
-			items.append(contentsOf: result.sorted { $0.itemPopularity > $1.itemPopularity })
+			withAnimation {
+				items.append(contentsOf: result.sorted { $0.itemPopularity > $1.itemPopularity })
+			}
 			if !startPagination { startPagination = true }
 			if !isLoaded {
 				await MainActor.run {
