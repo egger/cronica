@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct TrendingKeywordsListView: View {
 	@EnvironmentObject var viewModel: SearchViewModel
+	private let columns = [GridItem(.adaptive(minimum: 160))]
     var body: some View {
 		VStack {
 			if viewModel.isLoadingTrendingKeywords {
@@ -17,8 +18,8 @@ struct TrendingKeywordsListView: View {
 			}
 			if !viewModel.trendingKeywords.isEmpty {
 				TitleView(title: "Trending Keywords")
-				ScrollView(.horizontal, showsIndicators: false) {
-					LazyHStack {
+				ScrollView {
+					LazyVGrid(columns: columns, spacing: 20) {
 						ForEach(viewModel.trendingKeywords) { keyword in
 							NavigationLink(value: keyword) {
 								WebImage(url: keyword.image)
@@ -46,14 +47,11 @@ struct TrendingKeywordsListView: View {
 									.frame(width: 160, height: 100, alignment: .center)
 									.clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 									.shadow(radius: 2)
-									.padding([.leading, .trailing], 4)
-									.padding(.leading, keyword.id == viewModel.trendingKeywords.first!.id ? 16 : 0)
-									.padding(.trailing, keyword.id == viewModel.trendingKeywords.last!.id ? 16 : 0)
-									.padding(.top, 8)
-									.padding(.bottom)
 							}
+							.frame(width: 160, height: 100, alignment: .center)
 						}
 					}
+					.padding([.horizontal, .bottom])
 				}
 			}
 		}

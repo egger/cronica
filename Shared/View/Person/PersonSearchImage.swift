@@ -4,14 +4,14 @@
 //
 //  Created by Alexandre Madeira on 20/11/22.
 //
-
+#if os(macOS)
 import SwiftUI
 import SDWebImageSwiftUI
 
 /// A rectangular shape for displaying Person images in Search, it is currently used
 /// for displaying people in Search for macOS. This is a simpler view from the Cast List.
 struct PersonSearchImage: View {
-    let item: ItemContent
+    let item: SearchItemContent
     var body: some View {
         NavigationLink(value: item) {
             WebImage(url: item.itemImage, options: .highPriority)
@@ -56,7 +56,7 @@ private struct DrawingConstants {
 
 
 struct PosterSearchItem: View {
-    let item: ItemContent
+    let item: SearchItemContent
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     var body: some View {
@@ -64,8 +64,9 @@ struct PosterSearchItem: View {
             PersonSearchImage(item: item)
                 .buttonStyle(.plain)
         } else {
-            ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+			SearchContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                 .buttonStyle(.plain)
         }
     }
 }
+#endif

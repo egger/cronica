@@ -10,10 +10,8 @@ import SwiftUI
 struct SideBarView: View {
     @SceneStorage("selectedView") private var selectedView: Screens = .home
     @StateObject private var viewModel = SearchViewModel()
-    @State private var showSettings = false
-    @State private var showNotifications = false
     @State private var selectedSearchItem: ItemContent?
-    @State private var scope: SearchItemsScope = .noScope
+	@State private var showNotifications = false
     private let persistence = PersistenceController.shared
     @State private var showPopup = false
     @State private var isInWatchlist = false
@@ -187,43 +185,41 @@ struct SideBarView: View {
         case .success:
             NavigationStack {
                 ScrollView {
-                    VStack(alignment: .leading) {
-                        VStack {
-                            LazyVGrid(columns: columns, spacing: 20) {
-                                ForEach(viewModel.items) { item in
-                                    if item.media == .person {
-                                        PersonSearchImage(item: item)
-                                    } else {
-                                        ItemContentPosterView(item: item,
-                                                              showPopup: $showPopup,
-                                                              popupType: $popupType)
-                                    }
-                                }
-                                .buttonStyle(.plain)
-                                if viewModel.startPagination && !viewModel.endPagination {
-                                    CenterHorizontalView {
-                                        ProgressView()
-                                            .padding()
-                                            .onAppear {
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                    withAnimation {
-                                                        viewModel.loadMoreItems()
-                                                    }
-                                                }
-                                            }
-                                    }
-                                }
-                            }
-                        }
-                        .padding()
-                    }
+					LazyVGrid(columns: columns, spacing: 20) {
+						ForEach(viewModel.items) { item in
+							if item.media == .person {
+								PersonSearchImage(item: item)
+							} else {
+								SearchContentPosterView(item: item,
+													  showPopup: $showPopup,
+													  popupType: $popupType)
+							}
+						}
+						.buttonStyle(.plain)
+						if viewModel.startPagination && !viewModel.endPagination {
+							CenterHorizontalView {
+								ProgressView()
+									.padding()
+									.onAppear {
+										DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+											withAnimation {
+												viewModel.loadMoreItems()
+											}
+										}
+									}
+							}
+						}
+					}
                     .navigationDestination(for: ItemContent.self) { item in
-                        if item.media == .person {
-                            PersonDetailsView(title: item.itemTitle, id: item.id)
-                        } else {
-                            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                        }
+						ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                     }
+					.navigationDestination(for: SearchItemContent.self) { item in
+						if item.media == .person {
+							PersonDetailsView(title: item.itemTitle, id: item.id)
+						} else {
+							ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
+						}
+					}
                 }
                 .navigationTitle("Search")
             }
