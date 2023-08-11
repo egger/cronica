@@ -61,6 +61,6 @@ class SettingsStore: ObservableObject {
     @AppStorage("shareLinkPreference") var shareLinkPreference: ShareLinkPreference = .tmdb
 	@AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
 #if os(macOS)
-	@AppStorage("quitAppWhenClosingWindow") var quitApp = true
+	@AppStorage("quitAppWhenClosingWindow") var quitApp = false
 #endif
 }

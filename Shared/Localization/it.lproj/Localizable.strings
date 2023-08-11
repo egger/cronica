@@ -821,9 +821,6 @@
 "Loading" = "Caricamento";
 
 /* (No Comment) */
-"Made in Brazil 🇧🇷" = "Fatto in Brasile 🇧🇷";
-
-/* (No Comment) */
 "Mark as" = "Segna come";
 
 /* (No Comment) */
@@ -1933,3 +1930,6 @@
 /* (No Comment) */
 "yourLists" = "Le tue liste";
 
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

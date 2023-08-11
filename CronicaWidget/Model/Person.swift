@@ -12,3 +12,7 @@ struct Person: Codable, Identifiable {
     let name: String
     let job, character, biography, profilePath: String?
 }
+struct PersonsResponse: Codable {
+	let page: Int?
+	let results: [Person]?
+}

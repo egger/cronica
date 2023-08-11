@@ -19,5 +19,4 @@ struct Episode: Identifiable, Codable, Hashable {
     let id: Int
     let episodeNumber, seasonNumber: Int?
     let name, overview, stillPath, airDate: String?
-    //let crew, guestStars: [Person]?
 }

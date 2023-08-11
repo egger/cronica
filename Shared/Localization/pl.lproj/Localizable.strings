@@ -821,9 +821,6 @@
 "Loading" = "Ładowanie";
 
 /* (No Comment) */
-"Made in Brazil 🇧🇷" = "Wyprodukowane w Brazylii 🇧🇷";
-
-/* (No Comment) */
 "Mark as" = "Oznacz jako";
 
 /* (No Comment) */
@@ -1933,3 +1930,6 @@
 /* (No Comment) */
 "yourLists" = "Twoje listy";
 
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

@@ -25,9 +25,8 @@ struct WatchEpisodeButton: View {
                     .padding(.top, 2)
                     .font(.caption)
             }
-            .frame(height: 40)
+            .frame(width: 80, height: 40)
             .padding(.vertical, 4)
-            .frame(width: 70 )
 #else
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")

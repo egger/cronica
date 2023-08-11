@@ -110,8 +110,14 @@ struct DefaultWatchlist: View {
                     }
                     .padding(.horizontal, 64)
                 }
+				if smartFiltersItems.isEmpty {
+					empty
+				} else {
+					WatchlistCardSection(items: smartFiltersItems,
+										 title: "Search results", showPopup: $showPopup, popupType: $popupType)
+				}
             }
-#endif
+#else
             if items.isEmpty {
                 if scope != .noScope {
                     empty
@@ -167,6 +173,7 @@ struct DefaultWatchlist: View {
                     }
                 }
             }
+			#endif
         }
         .sheet(isPresented: $showFilter) {
             NavigationStack {

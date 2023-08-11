@@ -135,7 +135,6 @@ struct ItemContentCardView: View {
                     .accessibilityHidden(true)
 #if os(tvOS)
                     .foregroundColor(isStackFocused ? .primary : .secondary)
-                    .opacity(isStackFocused ? 1 : 0)
                     .padding(.vertical, 4)
 #endif
                 Spacer()

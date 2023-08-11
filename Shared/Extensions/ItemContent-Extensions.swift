@@ -133,9 +133,6 @@ extension ItemContent {
         }
         return ""
     }
-    var itemUrlProxy: String {
-        return  "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)"
-    }
     var itemRating: String? {
         if let voteAverage {
             if voteAverage <= 0.9 {

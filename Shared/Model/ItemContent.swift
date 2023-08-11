@@ -75,6 +75,7 @@ struct ItemContentSection: Identifiable, Sendable {
 
 struct ItemContentKeyword: Identifiable, Codable, Hashable {
     let id: Int
+	let name: String?
 }
 
 struct Keywords: Hashable, Codable {

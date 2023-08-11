@@ -284,7 +284,6 @@
 "Support" = "サポート";
 "Send feedback" = "フィードバックを送信";
 "Privacy Policy" = "プライバシーポリシー";
-"Made in Brazil 🇧🇷" = "Made in Brazil 🇧🇷";
 "Gesture" = "ジェスチャー";
 "Double Tap Gesture" = "ダブルタップジェスチャー";
 "The function is performed when double-tap the cover image." = "カバー画像をダブルタップした際に実行される機能です。";
@@ -695,3 +694,7 @@
 "Prefer Poster in Details Page" = "詳細ページでポスターを優先";
 "Design" = "デザイン";
 "Pin" = "ピン留め";
+
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

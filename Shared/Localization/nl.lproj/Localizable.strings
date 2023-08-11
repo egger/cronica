@@ -821,9 +821,6 @@
 "Loading" = "Laden";
 
 /* (No Comment) */
-"Made in Brazil 🇧🇷" = "Gemaakt in Brazilië 🇧🇷";
-
-/* (No Comment) */
 "Mark as" = "Markeren als";
 
 /* (No Comment) */
@@ -1933,3 +1930,6 @@
 /* (No Comment) */
 "yourLists" = "Uw lijsten";
 
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

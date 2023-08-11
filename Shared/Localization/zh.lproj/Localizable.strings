@@ -821,9 +821,6 @@
 "Loading" = "加载中";
 
 /* (No Comment) */
-"Made in Brazil 🇧🇷" = "巴西制造 🇧🇷";
-
-/* (No Comment) */
 "Mark as" = "标记为";
 
 /* (No Comment) */
@@ -1933,3 +1930,6 @@
 /* (No Comment) */
 "yourLists" = "您的清单";
 
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

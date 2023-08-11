@@ -14,16 +14,18 @@ struct WatchListFilter: View {
     @Binding var showView: Bool
     var body: some View {
         Form {
-            Section {
-                Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
-                Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
-                    ForEach(MediaTypeFilters.allCases) { sort in
-                        Text(sort.localizableTitle).tag(sort)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .disabled(!showAllItems)
-            }
+#if !os(tvOS)
+			Section {
+				Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
+				Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
+					ForEach(MediaTypeFilters.allCases) { sort in
+						Text(sort.localizableTitle).tag(sort)
+					}
+				}
+				.pickerStyle(.segmented)
+				.disabled(!showAllItems)
+			}
+#endif
             Section {
                 Picker(selection: $selectedOrder) {
                     ForEach(SmartFiltersTypes.allCases) { sort in

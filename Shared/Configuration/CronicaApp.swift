@@ -34,7 +34,7 @@ struct CronicaApp: App {
         WindowGroup {
             ContentView()
 #if os(macOS)
-				.frame(minWidth: 800, minHeight: 600)
+				.frame(minWidth: 1000, minHeight: 600)
 				.onDisappear(perform: terminateApp)
 #endif
                 .environment(\.managedObjectContext, persistence.container.viewContext)
@@ -124,7 +124,11 @@ struct CronicaApp: App {
 	
 #if os(macOS)
 	private func terminateApp() {
-		if settings.quitApp { NSApplication.shared.terminate(self) }
+		if settings.quitApp {
+			if NSApplication.shared.windows.count <= 1 {
+				NSApplication.shared.terminate(self)
+			}
+		}
 	}
 #endif
     

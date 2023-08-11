@@ -57,14 +57,30 @@ class NetworkService {
         let response: ItemContentResponse = try await self.fetch(url: url)
         return response.results
     }
+	
+	func fetchPersons(from path: String, page: String = "1") async throws -> [Person] {
+		guard let url = urlBuilder(path: path, page: page) else {
+			throw NetworkError.invalidEndpoint
+		}
+		let response: PersonsResponse = try await self.fetch(url: url)
+		return response.results ?? []
+	}
     
     func fetchCompanyFilmography(type: MediaType, page: Int, company: Int) async throws -> [ItemContent] {
-        guard let url = urlBuilder(type: type, company: company, page: page) else {
+		guard let url = urlBuilder(type: type, company: company, page: page, sortBy: DiscoverSortBy.popularityDesc.rawValue) else {
             throw NetworkError.invalidRequest
         }
         let response: ItemContentResponse = try await self.fetch(url: url)
         return response.results
     }
+	
+	func fetchKeyword(type: MediaType, page: Int, keywords: Int, sortBy: String) async throws -> [ItemContent] {
+		guard let url = urlBuilder(type: type, page: page, keywords: keywords, sortBy: sortBy) else {
+			throw NetworkError.invalidRequest
+		}
+		let response: ItemContentResponse = try await self.fetch(url: url)
+		return response.results
+	}
     
     func fetchDiscover(type: MediaType, page: Int, genres: String, sort: DiscoverSortBy) async throws -> [ItemContent] {
         guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres, sortBy: sort) else {
@@ -111,11 +127,11 @@ class NetworkService {
     }
 #endif
     
-    func search(query: String, page: String) async throws -> [ItemContent] {
+    func search(query: String, page: String) async throws -> [SearchItemContent] {
         guard let url = urlBuilder(path: "search/multi", query: query, page: page) else {
             throw NetworkError.invalidEndpoint
         }
-        let results: ItemContentResponse = try await self.fetch(url: url)
+        let results: SearchItemContentResponse = try await self.fetch(url: url)
         return results.results
     }
     
@@ -151,21 +167,35 @@ class NetworkService {
     }
     
     
-    func urlBuilder(type: MediaType, company: Int, page: Int) -> URL? {
+	func urlBuilder(type: MediaType, company: Int? = nil, page: Int, keywords: Int? = nil, sortBy: String) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"
         component.path = "/3/discover/\(type.rawValue)"
-        component.queryItems = [
-            .init(name: "api_key", value: Key.tmdbApi),
-            .init(name: "language", value: Locale.userLang),
-            .init(name: "region", value: Locale.userRegion),
-            .init(name: "sort_by", value: DiscoverSortBy.popularityDesc.rawValue),
-            .init(name: "include_adult", value: "false"),
-            .init(name: "include_video", value: "false"),
-            .init(name: "page", value: "\(page)"),
-            .init(name: "with_companies", value: "\(company)")
-        ]
+		if let company {
+			component.queryItems = [
+				.init(name: "api_key", value: Key.tmdbApi),
+				.init(name: "language", value: Locale.userLang),
+				.init(name: "region", value: Locale.userRegion),
+				.init(name: "sort_by", value: sortBy),
+				.init(name: "include_adult", value: "false"),
+				.init(name: "include_video", value: "false"),
+				.init(name: "page", value: "\(page)"),
+				.init(name: "with_companies", value: "\(company)")
+			]
+		}
+		if let keywords {
+			component.queryItems = [
+				.init(name: "api_key", value: Key.tmdbApi),
+				.init(name: "language", value: Locale.userLang),
+				.init(name: "region", value: Locale.userRegion),
+				.init(name: "sort_by", value: sortBy),
+				.init(name: "include_adult", value: "false"),
+				.init(name: "include_video", value: "false"),
+				.init(name: "page", value: "\(page)"),
+				.init(name: "with_keywords", value: "\(keywords)")
+			]
+		}
 #if DEBUG
         print(component.url as Any)
 #endif

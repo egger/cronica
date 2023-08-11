@@ -7,7 +7,9 @@
 #if os(iOS) || os(macOS)
 import SwiftUI
 import SDWebImageSwiftUI
+#if os(iOS)
 import YouTubePlayerKit
+#endif
 
 struct TrailerItemView: View {
     private let trailer: VideoItem

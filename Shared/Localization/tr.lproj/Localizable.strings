@@ -821,9 +821,6 @@
 "Loading" = "Yükleniyor";
 
 /* (No Comment) */
-"Made in Brazil 🇧🇷" = "Brezilya'da yapıldı 🇧🇷";
-
-/* (No Comment) */
 "Mark as" = "İşaretle";
 
 /* (No Comment) */
@@ -1933,3 +1930,6 @@
 /* (No Comment) */
 "yourLists" = "Listeleriniz";
 
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

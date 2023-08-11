@@ -6,13 +6,9 @@
 //
 import SwiftUI
 
-#if os(iOS) || os(macOS)
+#if os(macOS)
 struct SideBarView: View {
-#if os(iOS)
-    @SceneStorage("selectedView") private var selectedView: Screens?
-#else
     @SceneStorage("selectedView") private var selectedView: Screens = .home
-#endif
     @StateObject private var viewModel = SearchViewModel()
     @State private var showSettings = false
     @State private var showNotifications = false
@@ -44,17 +40,8 @@ struct SideBarView: View {
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
-#if os(iOS)
-            .searchable(text: $viewModel.query,
-                        placement: .navigationBarDrawer(displayMode: .always),
-                        prompt: "Movies, Shows, People")
-            .searchScopes($scope) {
-                ForEach(SearchItemsScope.allCases) { scope in
-                    Text(scope.localizableTitle).tag(scope)
-                }
-            }
-            .overlay(search)
-#elseif os(macOS)
+#if os(macOS)
+			.overlay(search)
             .searchable(text: $viewModel.query, placement: .toolbar, prompt: "Movies, Shows, People")
 #endif
             .disableAutocorrection(true)
@@ -122,31 +109,13 @@ struct SideBarView: View {
 #endif
         }
         .navigationSplitViewStyle(.balanced)
-#if os(iOS)
-        .appTheme()
-#endif
         .sheet(isPresented: $showNotifications) {
-#if os(iOS) || os(macOS)
             NotificationListView(showNotification: $showNotifications)
-#if os(iOS)
-                .appTheme()
-                .appTint()
-#endif
-#endif
         }
         .sheet(item: $selectedSearchItem) { item in
             if item.media == .person {
                 NavigationStack {
                     PersonDetailsView(title: item.itemTitle, id: item.id)
-                        .toolbar {
-#if os(iOS)
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") {
-                                    selectedSearchItem = nil
-                                }
-                            }
-#endif
-                        }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                         }
@@ -157,15 +126,6 @@ struct SideBarView: View {
             } else {
                 NavigationStack {
                     ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                        .toolbar {
-#if os(iOS)
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") {
-                                    selectedSearchItem = nil
-                                }
-                            }
-#endif
-                        }
                         .navigationDestination(for: ItemContent.self) { item in
                             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
                         }
@@ -176,101 +136,6 @@ struct SideBarView: View {
             }
         }
     }
-    
-#if os(iOS)
-    @ViewBuilder
-    private var search: some View {
-        switch viewModel.stage {
-        case .none: EmptyView()
-        case .searching:
-            ZStack {
-                Rectangle()
-                    .fill(.regularMaterial)
-                    .ignoresSafeArea(.all)
-                ProgressView("Searching")
-                    .foregroundColor(.secondary)
-                    .padding()
-            }
-        case .empty:
-            ZStack {
-                Rectangle()
-                    .fill(.regularMaterial)
-                    .ignoresSafeArea(.all)
-                Label("No Results", systemImage: "minus.magnifyingglass")
-                    .font(.title)
-                    .foregroundColor(.secondary)
-            }
-        case .failure:
-            ZStack {
-                Rectangle()
-                    .fill(.regularMaterial)
-                    .ignoresSafeArea(.all)
-                Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
-            }
-        case .success:
-            List {
-                switch scope {
-                case .noScope:
-                    ForEach(viewModel.items) { item in
-                        SearchItemView(item: item,
-                                       showPopup: $showPopup,
-                                       popupType: $popupType,
-                                       isSidebar: true)
-                            .onTapGesture {
-                                selectedSearchItem = item
-                            }
-                    }
-                    if viewModel.startPagination && !viewModel.endPagination {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                                .padding()
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        viewModel.loadMoreItems()
-                                    }
-                                }
-                            Spacer()
-                        }
-                    }
-                case .movies:
-                    ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                        SearchItemView(item: item,
-                                       showPopup: $showPopup,
-                                       popupType: $popupType,
-                                       isSidebar: true)
-                            .onTapGesture {
-                                selectedSearchItem = item
-                            }
-                    }
-                case .shows:
-                    ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
-                        SearchItemView(item: item,
-                                       showPopup: $showPopup,
-                                       popupType: $popupType,
-                                       isSidebar: true)
-                            .onTapGesture {
-                                selectedSearchItem = item
-                            }
-                    }
-                case .people:
-                    ForEach(viewModel.items.filter { $0.media == .person }) { item in
-                        SearchItemView(item: item,
-                                       showPopup: $showPopup,
-                                       popupType: $popupType,
-                                       isSidebar: true)
-                            .onTapGesture {
-                                selectedSearchItem = item
-                            }
-                    }
-                }
-            }
-#if os(iOS)
-            .listStyle(.insetGrouped)
-#endif
-        }
-    }
-#endif
     
 #if os(macOS)
     @ViewBuilder

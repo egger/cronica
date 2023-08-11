@@ -280,7 +280,6 @@
 "Support" = "Support";
 "Send feedback" = "Send Feedback";
 "Privacy Policy" = "Privacy Policy";
-"Made in Brazil 🇧🇷" = "Made in Brazil 🇧🇷";
 "Gesture" = "Gesture";
 "Double Tap Gesture" = "Double Tap Gesture";
 "The function is performed when double-tap the cover image." = "The function is performed when double-tap the cover image.";
@@ -688,3 +687,7 @@
 "Prefer Poster in Details Page" = "Prefer Poster in Details Page";
 "Design" = "Design";
 "Pin" = "Pin";
+
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

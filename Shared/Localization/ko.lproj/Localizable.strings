@@ -821,9 +821,6 @@
 "Loading" = "로딩 중";
 
 /* (No Comment) */
-"Made in Brazil 🇧🇷" = "브라질에서 제작되었습니다. 🇧🇷";
-
-/* (No Comment) */
 "Mark as" = "표시하기";
 
 /* (No Comment) */
@@ -1933,3 +1930,6 @@
 /* (No Comment) */
 "yourLists" = "당신의 목록";
 
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

@@ -17,7 +17,7 @@ struct FilmographyListView: View {
                     LazyVStack {
                         ForEach(items) { item in
                             NavigationLink(value: item) {
-                                SearchItem(item: item)
+								ItemContentRow(item: item)
                             }
                         }
                     }

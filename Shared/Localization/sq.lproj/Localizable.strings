@@ -821,9 +821,6 @@
 "Loading" = "Duke u ngarkuar";
 
 /* (No Comment) */
-"Made in Brazil 🇧🇷" = "Prodhim i Brazilit 🇧🇷";
-
-/* (No Comment) */
 "Mark as" = "Shëno si";
 
 /* (No Comment) */
@@ -1933,3 +1930,6 @@
 /* (No Comment) */
 "yourLists" = "Listat tuaja";
 
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

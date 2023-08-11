@@ -284,7 +284,6 @@
 "Support" = "الدعم";
 "Send feedback" = "إرسال التعليقات";
 "Privacy Policy" = "سياسة الخصوصية";
-"Made in Brazil 🇧🇷" = "صُنع في البرازيل 🇧🇷";
 "Gesture" = "اللمسة";
 "Double Tap Gesture" = "اللمسة المزدوجة";
 "The function is performed when double-tap the cover image." = "يتم تنفيذ الوظيفة عند النقر المزدوج على صورة الغلاف.";
@@ -693,3 +692,7 @@
 "Prefer Poster in Details Page" = "تفضيل الملصق في صفحة التفاصيل";
 "Design" = "تصميم";
 "Pin" = "تثبيت";
+
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

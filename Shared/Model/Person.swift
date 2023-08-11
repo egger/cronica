@@ -26,3 +26,7 @@ struct Person: Codable, Identifiable, Hashable, Transferable {
 struct Filmography: Codable, Hashable {
     let cast, crew: [ItemContent]?
 }
+struct PersonsResponse: Codable, Hashable {
+	let page: Int?
+	let results: [Person]?
+}

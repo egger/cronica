@@ -19,7 +19,7 @@ struct TrendingView: View {
                     List {
                         ForEach(trending) { item in
                             NavigationLink(value: item) {
-                                SearchItem(item: item)
+								ItemContentRow(item: item)
                             }
                         }
                     }

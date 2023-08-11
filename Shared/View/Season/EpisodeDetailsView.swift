@@ -183,7 +183,7 @@ struct EpisodeDetailsView: View {
                             }
                             .frame(height: 40)
                             .padding(.vertical, 4)
-                            .frame(minWidth: 70 )
+                            .frame(minWidth: 80)
                         }
                         .buttonStyle(.bordered)
                         .buttonBorderShape(.roundedRectangle(radius: 12))

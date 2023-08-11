@@ -683,3 +683,7 @@
 "Prefer Poster in Details Page" = "Preferir Póster en la Página de Detalles";
 "Design" = "Diseño";
 "Pin" = "Fijar";
+
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

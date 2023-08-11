@@ -8,7 +8,7 @@
 import SwiftUI
 #if os(iOS) || os(macOS)
 struct SearchItemView: View {
-    let item: ItemContent
+    let item: SearchItemContent
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     @State private var isInWatchlist = false
@@ -41,23 +41,6 @@ struct SearchItemView: View {
                             isWatched = context.isMarkedAsWatched(id: item.itemContentID)
                         }
                     }
-                    .itemContentContextMenu(item: item,
-                                            isWatched: $isWatched,
-                                            showPopup: $showPopup,
-                                            isInWatchlist: $isInWatchlist,
-                                            showNote: $showNote,
-                                            showCustomList: $showCustomListView,
-                                            popupType: $popupType,
-                                            isFavorite: $isFavorite,
-                                            isPin: $isPin,
-                                            isArchive: $isArchive)
-                    .modifier(
-                        SearchItemSwipeGesture(item: item,
-                                               showPopup: $showPopup,
-                                               isInWatchlist: $isInWatchlist,
-                                               isWatched: $isWatched,
-                                               popupType: $popupType)
-                    )
                     .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                         NavigationStack {
@@ -98,23 +81,6 @@ struct SearchItemView: View {
                                 canReview = true
                             }
                         }
-                        .itemContentContextMenu(item: item,
-                                                isWatched: $isWatched,
-                                                showPopup: $showPopup,
-                                                isInWatchlist: $isInWatchlist,
-                                                showNote: $showNote,
-                                                showCustomList: $showCustomListView,
-                                                popupType: $popupType,
-                                                isFavorite: $isFavorite,
-                                                isPin: $isPin,
-                                                isArchive: $isArchive)
-                        .modifier(
-                            SearchItemSwipeGesture(item: item,
-                                                   showPopup: $showPopup,
-                                                   isInWatchlist: $isInWatchlist,
-                                                   isWatched: $isWatched,
-                                                   popupType: $popupType)
-                        )
                         .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
                             NavigationStack {
@@ -149,12 +115,6 @@ struct SearchItemView: View {
             }
             
         }
-    }
-}
-
-struct SearchItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchItemView(item: ItemContent.example, showPopup: .constant(false), popupType: .constant(nil))
     }
 }
 #endif

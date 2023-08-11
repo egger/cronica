@@ -270,7 +270,6 @@
 "Support" = "Support";
 "Send feedback" = "Envoyer des Commentaires";
 "Privacy Policy" = "Politique de Confidentialité";
-"Made in Brazil 🇧🇷" = "Fabriqué au Brésil 🇧🇷";
 "Gesture" = "Geste";
 "Double Tap Gesture" = "Geste de Double Tap";
 "The function is performed when double-tap the cover image." = "La fonction est activée lorsqu'on double-clique sur l'image de couverture.";
@@ -679,3 +678,7 @@
 "Prefer Poster in Details Page" = "Préférer l'affiche dans la page de détails";
 "Design" = "Design";
 "Pin" = "Épingler";
+
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

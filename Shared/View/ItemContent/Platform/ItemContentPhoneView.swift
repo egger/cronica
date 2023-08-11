@@ -160,6 +160,7 @@ struct ItemContentPhoneView: View {
                 .onDisappear {
                     navigationTitle = title
                 }
+				.unredacted()
             if let genres = viewModel.content?.itemGenres {
                 if !genres.isEmpty {
                     Text(genres)

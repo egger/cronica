@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class CompanyDetailsViewModel: ObservableObject {
-    var page = 1
+    private var page = 1
     @Published var items = [ItemContent]()
     @Published var startPagination = false
     @Published var endPagination = false

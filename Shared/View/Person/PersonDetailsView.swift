@@ -154,38 +154,28 @@ struct PersonDetailsView: View {
     @ViewBuilder
     private var search: some View {
         if !viewModel.query.isEmpty {
-#if os(iOS)
-            List {
-                switch scope {
-                case .noScope:
-                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
-                        SearchItemView(item: item,
-                                       showPopup: $showPopup,
-                                       popupType: $popupType)
-                    }
-                case .movies:
-                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
-                        SearchItemView(item: item,
-                                       showPopup: $showPopup,
-                                       popupType: $popupType)
-                    }
-                case .shows:
-                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
-                        SearchItemView(item: item,
-                                       showPopup: $showPopup,
-                                       popupType: $popupType)
-                    }
-                }
-            }
-#else
-            Table(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) {
-                TableColumn("Title") { item in
-                    SearchItemView(item: item, showConfirmation: $showConfirmationPopup)
-                        .buttonStyle(.plain)
-                        .accessibilityHint(Text(item.itemTitle))
-                }
-            }
-#endif
+			List {
+				switch scope {
+				case .noScope:
+					ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
+						ItemContentSearchRowView(item: item,
+												 showPopup: $showPopup,
+												 popupType: $popupType)
+					}
+				case .movies:
+					ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
+						ItemContentSearchRowView(item: item,
+												 showPopup: $showPopup,
+												 popupType: $popupType)
+					}
+				case .shows:
+					ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
+						ItemContentSearchRowView(item: item,
+												 showPopup: $showPopup,
+												 popupType: $popupType)
+					}
+				}
+			}
         }
     }
 #endif
@@ -200,6 +190,7 @@ struct PersonDetailsView: View {
                         .resizable()
                         .foregroundColor(.white.opacity(0.8))
                         .frame(width: 50, height: 50, alignment: .center)
+						.unredacted()
                 }
                 .clipShape(Circle())
             }

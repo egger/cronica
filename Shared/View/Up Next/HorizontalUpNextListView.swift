@@ -314,7 +314,7 @@ private struct UpNextCard: View {
                 Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
                     .font(.caption)
                     .textCase(.uppercase)
-                    .foregroundColor(isFocused ? .primary : .secondary)
+                    .foregroundColor(.secondary)
                     .lineLimit(1)
                 Spacer()
             }

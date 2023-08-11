@@ -46,6 +46,12 @@ struct BehaviorSetting: View {
 			} footer: {
 				Text("shareLinkPreferenceSubtitle")
 			}
+			
+#if os(macOS)
+			Section {
+				Toggle("quitWhenClosingApp", isOn: $store.quitApp)
+			}
+#endif
         }
         .navigationTitle("behaviorTitle")
 #if os(macOS)

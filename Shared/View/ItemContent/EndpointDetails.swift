@@ -16,11 +16,15 @@ struct EndpointDetails: View {
     @State private var popupType: ActionPopupItems?
     var body: some View {
         VStack {
-            switch settings.sectionStyleType {
-            case .list: listStyle
-            case .card: cardStyle
-            case .poster: ScrollView { posterStyle }
-            }
+#if os(tvOS)
+			cardStyle
+#else
+			switch settings.sectionStyleType {
+			case .list: listStyle
+			case .card: cardStyle
+			case .poster: ScrollView { posterStyle }
+			}
+#endif
         }
         .overlay {
             if viewModel.isLoading { ProgressView() }
@@ -114,7 +118,7 @@ struct EndpointDetails: View {
             .padding()
         }
     }
-    
+	#if !os(tvOS)
     private var posterStyle: some View {
 #if os(iOS)
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
@@ -163,6 +167,7 @@ struct EndpointDetails: View {
         }.padding()
 #endif
     }
+	#endif
 }
 
 private struct DrawingConstants {

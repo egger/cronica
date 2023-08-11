@@ -145,7 +145,6 @@
 "Support" = "Suporte";
 "Send feedback" = "Enviar Sugestão";
 "Privacy Policy" = "Política de Privacidade";
-"Made in Brazil 🇧🇷" = "Feito no Brasil 🇧🇷";
 "Gesture" = "Gestos";
 "Double Tap Gesture" = "Gesto de Dois Toques";
 "The function is performed when double-tap the cover image." = "A função será executada quando tocar duas vezes na imagem da capa.";
@@ -517,7 +516,7 @@
 "featureThreeDescription" = "Mais configurações e interface do usuário melhorada para personalizar o Cronica exatamente como você gosta.";
 "thankYouTipJarMessage" = "Obrigado pela sua contribuição! Seu apoio é muito apreciado. 😁";
 "notificationsSettingsFeedbackCall" = "Você tem alguma sugestão? Envie um Feedback";
-"openNotificationInSettings" = "Editar Notificações no aplicativo Configurações";
+"openNotificationInSettings" = "Editar Notificações em Ajustes";
 "defaultWatchlistShowAllItems" = "Mostrar Todos os Itens";
 "defaultWatchlistSmartFilters" = "Filtros Inteligentes";
 "defaultWatchlistFilters" = "Filtros";
@@ -719,3 +718,7 @@
 "Prefer Poster in Details Page" = "Preferir Pôster na Página de Detalhes";
 "Design" = "Design";
 "Pin" = "Fixar";
+
+"appearanceUpNextTitle" = "Up Next Details Style";
+"quitWhenClosingApp" = "Quit when closing the app";
+"noListFoundMessage" = "No list found with your query, try another one.";

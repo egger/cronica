@@ -104,7 +104,10 @@ struct SelectListView: View {
 							if isSearchingLists {
 								ProgressView()
 							} else {
-								Text("noListFoundMessage")
+								CenterHorizontalView {
+									Text("noListFoundMessage")
+										.padding(.horizontal)
+								}
 							}
 						} else {
 							ForEach(lists) { item in

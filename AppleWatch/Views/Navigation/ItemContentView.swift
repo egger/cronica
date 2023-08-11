@@ -26,12 +26,6 @@ struct ItemContentView: View {
         VStack {
             ScrollView {
                 HeroImage(url: image, title: title)
-                    .clipShape(
-                        RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                         style: .continuous)
-                    )
-                    .shadow(radius: 5)
-                    .padding()
                 
                 DetailWatchlistButton(showCustomList: $showCustomListSheet)
                     .environmentObject(viewModel)
