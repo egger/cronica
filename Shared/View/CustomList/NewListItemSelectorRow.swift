@@ -29,7 +29,7 @@ struct NewListItemSelectorRow: View {
                     .foregroundColor(isSelected ? SettingsStore.shared.appTheme.color : nil)
                     .imageScale(.medium)
                     .padding(.trailing, 4)
-                WebImage(url: item.image)
+                WebImage(url: item.backCompatibleCardImage)
                     .resizable()
                     .placeholder {
                         ZStack {

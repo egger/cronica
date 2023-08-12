@@ -90,7 +90,7 @@ extension ItemContent {
 			if let country = productionCountries?.first {
 				productionRegion = country.iso31661
 			}
-            return DatesManager.getReleaseDateFormatted(results: dates, productionRegion: productionRegion)
+            return DatesManager.getDetailedReleaseDateFormatted(results: dates, productionRegion: productionRegion)
         }
         if let date = nextEpisodeDate {
             return "\(DatesManager.dateString.string(from: date))"

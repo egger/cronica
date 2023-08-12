@@ -95,7 +95,7 @@ struct WatchlistItemCardView: View {
             NavigationStack {
                 ItemContentCustomListSelector(contentID: content.itemContentID,
                                               showView: $showCustomListView,
-                                              title: content.itemTitle, image: content.image)
+                                              title: content.itemTitle, image: content.backCompatibleCardImage)
             }
             .presentationDetents([.large])
 #if os(macOS)
@@ -144,7 +144,7 @@ struct WatchlistItemCardView: View {
                             .padding([.vertical, .trailing])
                     }
                     .background {
-                        if content.image != nil {
+                        if content.backCompatibleCardImage != nil {
                             Color.black.opacity(0.6)
                                 .mask {
                                     LinearGradient(colors:

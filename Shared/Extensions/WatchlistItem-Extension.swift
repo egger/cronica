@@ -227,7 +227,13 @@ extension WatchlistItem {
 		return image
 	}
 	var backCompatibleCardImage: URL? {
-		if backdropPath != nil { return itemCardImageMedium }
+		if backdropPath != nil {
+#if os(watchOS)
+			return itemCardImageMedium
+#else
+			return itemCardImageLarge
+#endif
+		}
 		return image
 	}
 	var backCompatiblePosterImage: URL? {

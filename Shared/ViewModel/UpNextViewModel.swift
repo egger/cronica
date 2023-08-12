@@ -32,14 +32,13 @@ class UpNextViewModel: ObservableObject {
                         let content = UpNextEpisode(id: result.id,
                                                     showTitle: item.itemTitle,
                                                     showID: item.itemId,
-                                                    backupImage: item.image,
+                                                    backupImage: item.backCompatibleCardImage,
                                                     episode: result,
                                                     sortedDate: item.itemLastUpdateDate)
                         
                         await MainActor.run {
                             withAnimation(.easeInOut) {
 								self.episodes.append(content)
-                                //upNextEpisodes.append(content)
                             }
                         }
                     } else if isWatched {
@@ -55,13 +54,12 @@ class UpNextViewModel: ObservableObject {
                                 let content = UpNextEpisode(id: nextEpisode.id,
                                                             showTitle: item.itemTitle,
                                                             showID: item.itemId,
-                                                            backupImage: item.image,
+                                                            backupImage: item.backCompatibleCardImage,
                                                             episode: nextEpisode,
                                                             sortedDate: item.itemLastUpdateDate)
                                 await MainActor.run {
                                     withAnimation(.easeInOut) {
 										self.episodes.append(content)
-                                        //upNextEpisodes.append(content)
                                     }
                                 }
                             }
@@ -71,7 +69,6 @@ class UpNextViewModel: ObservableObject {
             }
             await MainActor.run {
                 withAnimation(.easeInOut)  {
-                    //self.episodes.append(contentsOf: upNextEpisodes.sorted { $0.sortedDate > $1.sortedDate })
                     self.isLoaded = true
                 }
             }
@@ -138,7 +135,7 @@ class UpNextViewModel: ObservableObject {
                     let content = UpNextEpisode(id: result.id,
                                                 showTitle: item.itemTitle,
                                                 showID: item.itemId,
-                                                backupImage: item.image,
+                                                backupImage: item.backCompatibleCardImage,
                                                 episode: result,
                                                 sortedDate: item.itemLastUpdateDate)
                     

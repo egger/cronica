@@ -29,6 +29,7 @@ extension PersistenceController {
             item.lastValuesUpdated = Date()
             item.date = content.itemFallbackDate
             item.formattedDate = content.itemTheatricalString
+			print("\(content.itemTitle), formatted: \(content.itemTheatricalString as Any)")
             if content.itemContentMedia == .tvShow {
                 if let episode = content.lastEpisodeToAir?.episodeNumber {
                     item.nextEpisodeNumber = Int64(episode)

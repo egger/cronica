@@ -9,36 +9,36 @@ import Foundation
 
 /// Migrate to extension based formatters and functions to get release dates and format the result.
 class DatesManager {
-    static let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        return decoder
-    }()
-    static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y,MM,dd"
-        return formatter
-    }()
-    static let dateString: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
-    private static var releaseDateFormatter: ISO8601DateFormatter {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = .withFullDate
-        return formatter
-    }
-	static func getReleaseDateFormatted(results: [ReleaseDatesResult], productionRegion: String) -> String? {
+	static let decoder: JSONDecoder = {
+		let decoder = JSONDecoder()
+		decoder.keyDecodingStrategy = .convertFromSnakeCase
+		decoder.dateDecodingStrategy = .formatted(dateFormatter)
+		return decoder
+	}()
+	static let dateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "y,MM,dd"
+		return formatter
+	}()
+	static let dateString: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .medium
+		formatter.timeStyle = .none
+		return formatter
+	}()
+	private static var releaseDateFormatter: ISO8601DateFormatter {
+		let formatter = ISO8601DateFormatter()
+		formatter.formatOptions = .withFullDate
+		return formatter
+	}
+	static func getDetailedReleaseDateFormatted(results: [ReleaseDatesResult], productionRegion: String) -> String? {
 		if results.isEmpty { return nil }
 		if results.contains(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() }) {
 			let result = results.filter { $0.iso31661?.lowercased()  == Locale.userRegion.lowercased() }.first
 			guard let dates = result?.releaseDates else { return nil }
 			var content: String?
-			if dates.contains(where: { $0.type == ReleaseDateType.premiere.toInt }) {
-				guard let theatrical = dates.filter({ $0.type == ReleaseDateType.premiere.toInt }).first else { return nil }
+			if dates.contains(where: { $0.type == ReleaseDateType.theatrical.toInt }) {
+				guard let theatrical = dates.filter({ $0.type == ReleaseDateType.theatrical.toInt }).first else { return nil }
 				content = theatrical.releaseDate
 			} else {
 				guard let firstDateAvailable = dates.first else { return nil }

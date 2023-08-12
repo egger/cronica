@@ -20,15 +20,16 @@ struct UpcomingListView: View {
                                 subpredicates: [
                                     NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
                                     NSPredicate(format: "notify == %d", true),
+									NSPredicate(format: "isArchive == %d", false),
                                     NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
                                 ])
             ,
-            NSPredicate(format: "upcomingSeason == %d", true)])
+            NSPredicate(format: "upcomingSeason == %d", true), NSPredicate(format: "isArchive == %d", false)])
     )
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         NavigationStack {
-            list(items: items.filter { $0.image != nil })
+            list(items: items.filter { $0.backCompatibleCardImage != nil })
         }
     }
     
@@ -60,7 +61,7 @@ struct UpcomingListView: View {
     
     private func itemRow(_ item: WatchlistItem) -> some View {
         HStack {
-            WebImage(url: item.image)
+            WebImage(url: item.backCompatibleCardImage)
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)

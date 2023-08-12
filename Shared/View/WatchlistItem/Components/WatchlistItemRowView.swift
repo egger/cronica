@@ -75,7 +75,7 @@ struct WatchlistItemRowView: View {
                     ItemContentCustomListSelector(contentID: content.itemContentID,
                                                   showView: $showCustomListView,
                                                   title: content.itemTitle,
-                                                  image: content.image)
+                                                  image: content.backCompatibleCardImage)
                 }
                 .presentationDetents([.large])
 #if os(macOS)

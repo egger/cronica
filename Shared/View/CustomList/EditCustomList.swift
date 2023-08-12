@@ -157,7 +157,7 @@ struct EditCustomListItemSelector: View {
                             HStack {
                                 Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
                                     .foregroundColor(itemsToRemove.contains(item) ? .red : nil)
-                                WebImage(url: item.image)
+                                WebImage(url: item.backCompatibleCardImage)
                                     .resizable()
                                     .placeholder {
                                         ZStack {
@@ -203,7 +203,7 @@ struct EditCustomListItemSelector: View {
                             HStack {
                                 Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
                                     .foregroundColor(itemsToRemove.contains(item) ? .red : nil)
-                                WebImage(url: item.image)
+                                WebImage(url: item.backCompatibleCardImage)
                                     .resizable()
                                     .placeholder {
                                         ZStack {

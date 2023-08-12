@@ -33,9 +33,12 @@ struct UpcomingWatchlist: View {
     @StateObject private var settings = SettingsStore.shared
     @Binding var shouldReload: Bool
     var body: some View {
-		list(items: items.filter { $0.image != nil && $0.itemReleaseDate > Date() }.sorted(by: { $0.itemReleaseDate < $1.itemReleaseDate}))
+		list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemReleaseDate < $1.itemReleaseDate}))
 			.onAppear {
-				updateItems(items: items.filter { $0.itemReleaseDate < Date() })
+				print("Watchlist here:")
+				for item in items {
+					print(item.itemTitle)
+				}
 			}
     }
 	
@@ -127,7 +130,7 @@ struct UpcomingWatchlist: View {
         }
         .frame(width: DrawingConstants.cardWidth)
 #else
-        if item.image != nil {
+        if item.backCompatibleCardImage != nil {
             if settings.isCompactUI {
                 VStack {
                     image(for: item)
@@ -160,7 +163,7 @@ struct UpcomingWatchlist: View {
     
     private func image(for item: WatchlistItem) -> some View {
         NavigationLink(value: item) {
-            WebImage(url: item.image, options: .highPriority)
+            WebImage(url: item.backCompatibleCardImage, options: .highPriority)
                 .resizable()
                 .placeholder {
                     ZStack {
