@@ -47,7 +47,7 @@ class DatesManager {
 			guard let content else { return nil }
 			guard let releaseDate = releaseDateFormatter.date(from: content) else { return nil }
 			return dateString.string(from: releaseDate)
-		} else {
+		} else if results.contains(where: { $0.iso31661?.lowercased() == productionRegion.lowercased() }) {
 			let result = results.filter { $0.iso31661?.lowercased()  == productionRegion.lowercased() }.first
 			guard let dates = result?.releaseDates else { return nil }
 			var content: String?
@@ -62,5 +62,18 @@ class DatesManager {
 			guard let releaseDate = releaseDateFormatter.date(from: content) else { return nil }
 			return dateString.string(from: releaseDate)
 		}
+		let result = results.filter { $0.iso31661?.lowercased()  == "US".lowercased() }.first
+		guard let dates = result?.releaseDates else { return nil }
+		var content: String?
+		if dates.contains(where: { $0.type == ReleaseDateType.theatrical.toInt }) {
+			guard let theatrical = dates.filter({ $0.type == ReleaseDateType.theatrical.toInt }).first else { return nil }
+			content = theatrical.releaseDate
+		} else {
+			guard let firstDateAvailable = dates.first else { return nil }
+			content = firstDateAvailable.releaseDate
+		}
+		guard let content else { return nil }
+		guard let releaseDate = releaseDateFormatter.date(from: content) else { return nil }
+		return dateString.string(from: releaseDate)
 	}
 }

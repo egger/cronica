@@ -8,6 +8,9 @@
 "(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" = "(numberOfSeasons) Stagioni • (numberOfEpisodes) Episodi";
 
 /* No comment provided by engineer. */
+"(voteAverage.rounded(.down))/10" = "(voteAverage.rounded(.down))/10";
+
+/* No comment provided by engineer. */
 "(voteAverage.rounded())/10" = "(voteAverage.rounded())/10";
 
 /* No comment provided by engineer. */
@@ -128,6 +131,9 @@
 "Adventure" = "Avventura";
 
 /* (No Comment) */
+"Alien" = "Alieno";
+
+/* (No Comment) */
 "All" = "Tutti";
 
 /* (No Comment) */
@@ -150,6 +156,9 @@
 
 /* (No Comment) */
 "Animation" = "Animazione";
+
+/* (No Comment) */
+"Anime" = "Anime";
 
 /* (No Comment) */
 "appearanceAppIcon" = "Icona dell'app";
@@ -207,6 +216,9 @@
 
 /* (No Comment) */
 "appearanceTitle" = "Aspetto";
+
+/* (No Comment) */
+"appearanceUpNextTitle" = "Stile dei Dettagli Prossimi";
 
 /* (No Comment) */
 "appearanceWatchlist" = "Lista dei desideri";
@@ -285,6 +297,15 @@
 
 /* No comment provided by engineer. */
 "Back" = "Indietro";
+
+/* (No Comment) */
+"Based on novel or book" = "Basato sul romanzo o libro";
+
+/* (No Comment) */
+"Based on true story" = "Basato su una storia vera";
+
+/* (No Comment) */
+"Based on Video-Game" = "Basato su un videogioco";
 
 /* (No Comment) */
 "Be reminded of upcoming Movies & TV Shows." = "Ricevi promemoria sui prossimi film e programmi TV.";
@@ -432,6 +453,9 @@
 
 /* (No Comment) */
 "Crime" = "Crimine";
+
+/* (No Comment) */
+"Crime Investigation" = "Investigazione criminale";
 
 /* (No Comment) */
 "Cronica" = "Cronica";
@@ -737,6 +761,9 @@
 "Is TelemetryDeck Initialized: %@" = "TelemetryDeck è stato inizializzato: %@";
 
 /* No comment provided by engineer. */
+"Is User Signed In With TMDB: %@" = "L'utente è registrato con TMDB: %@";
+
+/* No comment provided by engineer. */
 "Item ID" = "ID dell'elemento";
 
 /* (No Comment) */
@@ -786,9 +813,6 @@
 
 /* (No Comment) */
 "Latest Shows" = "Ultimi spettacoli";
-
-/* No comment provided by engineer. */
-"launchCount: %lld" = "Conteggio del lancio: %lld";
 
 /* (No Comment) */
 "Libraries" = "Librerie";
@@ -992,6 +1016,9 @@
 "No title available" = "Titolo non disponibile";
 
 /* (No Comment) */
+"noListFoundMessage" = "Nessuna lista trovata con la tua ricerca, prova un'altra.";
+
+/* (No Comment) */
 "noResultsFound" = "Nessun risultato trovato con la tua ricerca.\nProva un altro o controlla se il titolo non è nell'archivio.";
 
 /* (No Comment) */
@@ -1085,6 +1112,9 @@
 "Popular TV Shows by Genre" = "Serie TV popolari per genere";
 
 /* (No Comment) */
+"Popularity" = "Popolarità";
+
+/* (No Comment) */
 "Prefer Poster in Details Page" = "Preferisci Poster nella pagina dei dettagli";
 
 /* (No Comment) */
@@ -1130,6 +1160,9 @@
 "publishTMDBMessage" = "Questo creerà una nuova lista con lo stesso titolo e gli stessi elementi di questa lista locale su TMDb.\nSeleziona il livello di privacy desiderato:";
 
 /* (No Comment) */
+"quitWhenClosingApp" = "Chiudi quando si chiude l'app";
+
+/* (No Comment) */
 "Rating" = "Valutazione";
 
 /* (No Comment) */
@@ -1143,6 +1176,9 @@
 
 /* (No Comment) */
 "Reality" = "Realtà";
+
+/* (No Comment) */
+"Reboot" = "Riavvio";
 
 /* (No Comment) */
 "Recent Notifications" = "Notifiche recenti";
@@ -1164,6 +1200,12 @@
 
 /* (No Comment) */
 "Release Date" = "Data di rilascio";
+
+/* (No Comment) */
+"Release Date (Ascending)" = "Data di rilascio (Crescente)";
+
+/* (No Comment) */
+"Release Date (Descending)" = "Data di rilascio (Decrescente)";
 
 /* (No Comment) */
 "Released" = "Pubblicato";
@@ -1291,6 +1333,9 @@
 /* (No Comment) */
 "Romance" = "Romance";
 
+/* (No Comment) */
+"Romantic Comedy" = "Commedia romantica";
+
 /* MARK: InformationSectionView.swift */
 "Run Time" = "Eseguire il tempo di esecuzione";
 
@@ -1387,9 +1432,6 @@
 /* (No Comment) */
 "sendEmailFooterBackup" = "Puoi anche inviare un'email a contact@alexandremadeira.dev utilizzando il tuo client di posta elettronica.";
 
-/* No comment provided by engineer. */
-"Session ID (TMDB): %@" = "ID sessione (TMDB): %@";
-
 /* (No Comment) */
 "Settings" = "Impostazioni";
 
@@ -1483,6 +1525,9 @@
 /* (No Comment) */
 "Sort" = "Ordina";
 
+/* No comment provided by engineer. */
+"Sort By" = "Ordina per";
+
 /* (No Comment) */
 "Sort List" = "Elenco ordinato";
 
@@ -1490,13 +1535,28 @@
 "Source Code" = "Codice sorgente";
 
 /* (No Comment) */
+"Space" = "Spazio";
+
+/* (No Comment) */
 "Spanish" = "Spagnolo";
+
+/* (No Comment) */
+"Spin off" = "spin-off";
 
 /* (No Comment) */
 "Status" = "Stato";
 
+/* (No Comment) */
+"Superhero" = "Supereroe";
+
+/* (No Comment) */
+"Supernatural Horror" = "Orrore soprannaturale";
+
 /* MARK: SettingsView.swift */
 "Support" = "Supporto";
+
+/* (No Comment) */
+"Survival" = "Sopravvivenza";
 
 /* (No Comment) */
 "Swipe to Edit your list" = "Scorri per modificare la tua lista";
@@ -1657,6 +1717,9 @@
 /* MARK: HomeView.swift */
 "Trending" = "Tendenze";
 
+/* (No Comment) */
+"Trending Keywords" = "Parole chiave di tendenza";
+
 /* No comment provided by engineer. */
 "Trending service ins't available right now." = "Il servizio di tendenza non è disponibile al momento.";
 
@@ -1715,12 +1778,6 @@
 "upNextSubtitle" = "Le tue prossime puntate";
 
 /* No comment provided by engineer. */
-"User Access ID (TMDB): %@" = "ID di accesso utente (TMDB): %@";
-
-/* No comment provided by engineer. */
-"User Access Token (TMDB): %@" = "User Access Token (TMDB): %@";
-
-/* No comment provided by engineer. */
 "User Lang: %@" = "Lingua utente: %@";
 
 /* No comment provided by engineer. */
@@ -1728,6 +1785,9 @@
 
 /* (No Comment) */
 "Version %@" = "Versione %@";
+
+/* No comment provided by engineer. */
+"Version %@ • %@" = "Versione %@ • %@";
 
 /* (No Comment) */
 "War" = "Guerra";
@@ -1930,6 +1990,3 @@
 /* (No Comment) */
 "yourLists" = "Le tue liste";
 
-"appearanceUpNextTitle" = "Up Next Details Style";
-"quitWhenClosingApp" = "Quit when closing the app";
-"noListFoundMessage" = "No list found with your query, try another one.";

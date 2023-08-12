@@ -8,6 +8,9 @@
 "(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" = "(numberOfSeasons) 季 • (numberOfEpisodes) 集";
 
 /* No comment provided by engineer. */
+"(voteAverage.rounded(.down))/10" = "(voteAverage.rounded(.down))/10";
+
+/* No comment provided by engineer. */
 "(voteAverage.rounded())/10" = "(voteAverage.rounded())/10";
 
 /* No comment provided by engineer. */
@@ -128,6 +131,9 @@
 "Adventure" = "冒险";
 
 /* (No Comment) */
+"Alien" = "外星人";
+
+/* (No Comment) */
 "All" = "所有";
 
 /* (No Comment) */
@@ -150,6 +156,9 @@
 
 /* (No Comment) */
 "Animation" = "动画";
+
+/* (No Comment) */
+"Anime" = "动漫";
 
 /* (No Comment) */
 "appearanceAppIcon" = "应用图标";
@@ -207,6 +216,9 @@
 
 /* (No Comment) */
 "appearanceTitle" = "外观";
+
+/* (No Comment) */
+"appearanceUpNextTitle" = "下一个详情样式";
 
 /* (No Comment) */
 "appearanceWatchlist" = "观看列表";
@@ -285,6 +297,15 @@
 
 /* No comment provided by engineer. */
 "Back" = "返回";
+
+/* (No Comment) */
+"Based on novel or book" = "基于小说或书籍";
+
+/* (No Comment) */
+"Based on true story" = "根据真实故事";
+
+/* (No Comment) */
+"Based on Video-Game" = "基于视频游戏";
 
 /* (No Comment) */
 "Be reminded of upcoming Movies & TV Shows." = "提醒即将上映的电影和电视节目。";
@@ -432,6 +453,9 @@
 
 /* (No Comment) */
 "Crime" = "犯罪";
+
+/* (No Comment) */
+"Crime Investigation" = "犯罪调查";
 
 /* (No Comment) */
 "Cronica" = "编年史";
@@ -737,6 +761,9 @@
 "Is TelemetryDeck Initialized: %@" = "是否初始化 TelemetryDeck: %@";
 
 /* No comment provided by engineer. */
+"Is User Signed In With TMDB: %@" = "用户是否使用TMDB登录: %@";
+
+/* No comment provided by engineer. */
 "Item ID" = "项目标识";
 
 /* (No Comment) */
@@ -786,9 +813,6 @@
 
 /* (No Comment) */
 "Latest Shows" = "最新节目";
-
-/* No comment provided by engineer. */
-"launchCount: %lld" = "启动次数: %lld";
 
 /* (No Comment) */
 "Libraries" = "图书馆";
@@ -992,6 +1016,9 @@
 "No title available" = "无标题可用";
 
 /* (No Comment) */
+"noListFoundMessage" = "未找到符合您查询的清单，请尝试其他清单。";
+
+/* (No Comment) */
 "noResultsFound" = "没有找到符合您查询的内容。\n请尝试其他查询或检查标题是否不在存档中。";
 
 /* (No Comment) */
@@ -1085,6 +1112,9 @@
 "Popular TV Shows by Genre" = "按流派分类的热门电视剧";
 
 /* (No Comment) */
+"Popularity" = "流行";
+
+/* (No Comment) */
 "Prefer Poster in Details Page" = "在详细页中显示海报";
 
 /* (No Comment) */
@@ -1130,6 +1160,9 @@
 "publishTMDBMessage" = "这将在 TMDb 上创建一个具有相同标题和项目的新列表。\n选择您希望的隐私级别：";
 
 /* (No Comment) */
+"quitWhenClosingApp" = "关闭应用程序时退出";
+
+/* (No Comment) */
 "Rating" = "评分";
 
 /* (No Comment) */
@@ -1143,6 +1176,9 @@
 
 /* (No Comment) */
 "Reality" = "现实";
+
+/* (No Comment) */
+"Reboot" = "重启";
 
 /* (No Comment) */
 "Recent Notifications" = "最近的通知";
@@ -1164,6 +1200,12 @@
 
 /* (No Comment) */
 "Release Date" = "发布日期";
+
+/* (No Comment) */
+"Release Date (Ascending)" = "发布日期（升序）";
+
+/* (No Comment) */
+"Release Date (Descending)" = "发布日期（降序）";
 
 /* (No Comment) */
 "Released" = "发布";
@@ -1291,6 +1333,9 @@
 /* (No Comment) */
 "Romance" = "浪漫";
 
+/* (No Comment) */
+"Romantic Comedy" = "浪漫喜剧";
+
 /* MARK: InformationSectionView.swift */
 "Run Time" = "运行时间";
 
@@ -1387,9 +1432,6 @@
 /* (No Comment) */
 "sendEmailFooterBackup" = "您还可以使用您的电子邮件客户端向contact@alexandremadeira.dev发送电子邮件。";
 
-/* No comment provided by engineer. */
-"Session ID (TMDB): %@" = "会话ID（TMDB）：%@";
-
 /* (No Comment) */
 "Settings" = "设置";
 
@@ -1483,6 +1525,9 @@
 /* (No Comment) */
 "Sort" = "排序";
 
+/* No comment provided by engineer. */
+"Sort By" = "排序方式";
+
 /* (No Comment) */
 "Sort List" = "排序列表";
 
@@ -1490,13 +1535,28 @@
 "Source Code" = "源代码";
 
 /* (No Comment) */
+"Space" = "太空";
+
+/* (No Comment) */
 "Spanish" = "西班牙语";
+
+/* (No Comment) */
+"Spin off" = "外传";
 
 /* (No Comment) */
 "Status" = "状态";
 
+/* (No Comment) */
+"Superhero" = "超级英雄";
+
+/* (No Comment) */
+"Supernatural Horror" = "超自然恐怖";
+
 /* MARK: SettingsView.swift */
 "Support" = "支持";
+
+/* (No Comment) */
+"Survival" = "生存";
 
 /* (No Comment) */
 "Swipe to Edit your list" = "滑动以编辑您的列表";
@@ -1657,6 +1717,9 @@
 /* MARK: HomeView.swift */
 "Trending" = "热门";
 
+/* (No Comment) */
+"Trending Keywords" = "热门关键词";
+
 /* No comment provided by engineer. */
 "Trending service ins't available right now." = "热门服务暂时不可用。";
 
@@ -1715,12 +1778,6 @@
 "upNextSubtitle" = "您的下一集";
 
 /* No comment provided by engineer. */
-"User Access ID (TMDB): %@" = "用户访问 ID（TMDB）：%@";
-
-/* No comment provided by engineer. */
-"User Access Token (TMDB): %@" = "用户访问令牌（TMDB）：%@";
-
-/* No comment provided by engineer. */
 "User Lang: %@" = "用户语言：%@";
 
 /* No comment provided by engineer. */
@@ -1728,6 +1785,9 @@
 
 /* (No Comment) */
 "Version %@" = "版本%@";
+
+/* No comment provided by engineer. */
+"Version %@ • %@" = "版本 %@ • %@";
 
 /* (No Comment) */
 "War" = "战争";
@@ -1930,6 +1990,3 @@
 /* (No Comment) */
 "yourLists" = "您的清单";
 
-"appearanceUpNextTitle" = "Up Next Details Style";
-"quitWhenClosingApp" = "Quit when closing the app";
-"noListFoundMessage" = "No list found with your query, try another one.";

@@ -8,6 +8,9 @@
 "(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" = "(numberOfSeasons) Sezonlar • (numberOfEpisodes) Bölümler";
 
 /* No comment provided by engineer. */
+"(voteAverage.rounded(.down))/10" = "(voteAverage.rounded(.down))/10";
+
+/* No comment provided by engineer. */
 "(voteAverage.rounded())/10" = "(voteAverage.rounded())/10";
 
 /* No comment provided by engineer. */
@@ -128,6 +131,9 @@
 "Adventure" = "Macera";
 
 /* (No Comment) */
+"Alien" = "Yaratık";
+
+/* (No Comment) */
 "All" = "Tüm";
 
 /* (No Comment) */
@@ -150,6 +156,9 @@
 
 /* (No Comment) */
 "Animation" = "Animasyon";
+
+/* (No Comment) */
+"Anime" = "Anime";
 
 /* (No Comment) */
 "appearanceAppIcon" = "Uygulama İkonu";
@@ -207,6 +216,9 @@
 
 /* (No Comment) */
 "appearanceTitle" = "Görünüm";
+
+/* (No Comment) */
+"appearanceUpNextTitle" = "Sonraki Detaylar Stili";
 
 /* (No Comment) */
 "appearanceWatchlist" = "İzlenecekler";
@@ -285,6 +297,15 @@
 
 /* No comment provided by engineer. */
 "Back" = "Geri";
+
+/* (No Comment) */
+"Based on novel or book" = "Roman veya kitaba dayalı";
+
+/* (No Comment) */
+"Based on true story" = "Gerçek bir hikayeden alınmış";
+
+/* (No Comment) */
+"Based on Video-Game" = "Video Oyununa Dayalı";
 
 /* (No Comment) */
 "Be reminded of upcoming Movies & TV Shows." = "Yaklaşan Filmler ve TV Programlarını hatırlatın.";
@@ -432,6 +453,9 @@
 
 /* (No Comment) */
 "Crime" = "Suç";
+
+/* (No Comment) */
+"Crime Investigation" = "Suç İncelemesi";
 
 /* (No Comment) */
 "Cronica" = "Cronica";
@@ -737,6 +761,9 @@
 "Is TelemetryDeck Initialized: %@" = "Is TelemetryDeck Başlatıldı: %@";
 
 /* No comment provided by engineer. */
+"Is User Signed In With TMDB: %@" = "Kullanıcı TMDB ile oturum açtı mı: %@";
+
+/* No comment provided by engineer. */
 "Item ID" = "Öğe Kimliği";
 
 /* (No Comment) */
@@ -786,9 +813,6 @@
 
 /* (No Comment) */
 "Latest Shows" = "En Son Gösteriler";
-
-/* No comment provided by engineer. */
-"launchCount: %lld" = "launchCount: %lld";
 
 /* (No Comment) */
 "Libraries" = "Kütüphaneler";
@@ -992,6 +1016,9 @@
 "No title available" = "Başlık mevcut değil";
 
 /* (No Comment) */
+"noListFoundMessage" = "Sorgunuzla eşleşen bir liste bulunamadı, başka bir tane deneyin.";
+
+/* (No Comment) */
 "noResultsFound" = "Sorgunuzla ilgili bir sonuç bulunamadı. Başka bir tane deneyin veya başlığın arşivde olmadığını kontrol edin.";
 
 /* (No Comment) */
@@ -1085,6 +1112,9 @@
 "Popular TV Shows by Genre" = "Türlerine göre Popüler TV Dizileri";
 
 /* (No Comment) */
+"Popularity" = "Popülerlik";
+
+/* (No Comment) */
 "Prefer Poster in Details Page" = "Detay Sayfasında Poster Tercih Edin";
 
 /* (No Comment) */
@@ -1130,6 +1160,9 @@
 "publishTMDBMessage" = "Bu, TMDb'deki yerel listedeki aynı başlık ve öğelerle yeni bir liste oluşturacak.\nİstediğiniz gizlilik düzeyini seçin:";
 
 /* (No Comment) */
+"quitWhenClosingApp" = "Uygulama kapatıldığında çıkın";
+
+/* (No Comment) */
 "Rating" = "Oylama";
 
 /* (No Comment) */
@@ -1143,6 +1176,9 @@
 
 /* (No Comment) */
 "Reality" = "Gerçeklik";
+
+/* (No Comment) */
+"Reboot" = "Yeniden başlat";
 
 /* (No Comment) */
 "Recent Notifications" = "Son Bildirimler";
@@ -1164,6 +1200,12 @@
 
 /* (No Comment) */
 "Release Date" = "Yayın Tarihi";
+
+/* (No Comment) */
+"Release Date (Ascending)" = "Yayın Tarihi (Artan)";
+
+/* (No Comment) */
+"Release Date (Descending)" = "Yayın Tarihi (Azalan)";
 
 /* (No Comment) */
 "Released" = "Yayınlandı";
@@ -1291,6 +1333,9 @@
 /* (No Comment) */
 "Romance" = "Romantizm";
 
+/* (No Comment) */
+"Romantic Comedy" = "Romantik Komedi";
+
 /* MARK: InformationSectionView.swift */
 "Run Time" = "Çalışma Zamanı";
 
@@ -1387,9 +1432,6 @@
 /* (No Comment) */
 "sendEmailFooterBackup" = "E-posta istemcinizi kullanarak contact@alexandremadeira.dev adresine e-posta gönderebilirsiniz.";
 
-/* No comment provided by engineer. */
-"Session ID (TMDB): %@" = "Oturum Kimliği (TMDB): %@";
-
 /* (No Comment) */
 "Settings" = "Ayarlar";
 
@@ -1483,6 +1525,9 @@
 /* (No Comment) */
 "Sort" = "Sırala";
 
+/* No comment provided by engineer. */
+"Sort By" = "Sırala";
+
 /* (No Comment) */
 "Sort List" = "Listeyi Sırala";
 
@@ -1490,13 +1535,28 @@
 "Source Code" = "Kaynak Kodu";
 
 /* (No Comment) */
+"Space" = "Uzay";
+
+/* (No Comment) */
 "Spanish" = "İspanyolca";
+
+/* (No Comment) */
+"Spin off" = "Yan ürün";
 
 /* (No Comment) */
 "Status" = "Durum";
 
+/* (No Comment) */
+"Superhero" = "Süper kahraman";
+
+/* (No Comment) */
+"Supernatural Horror" = "Doğaüstü Korku";
+
 /* MARK: SettingsView.swift */
 "Support" = "Destek";
+
+/* (No Comment) */
+"Survival" = "Hayatta kalma";
 
 /* (No Comment) */
 "Swipe to Edit your list" = "Listeyi Düzenlemek için Kaydır";
@@ -1657,6 +1717,9 @@
 /* MARK: HomeView.swift */
 "Trending" = "Gündem";
 
+/* (No Comment) */
+"Trending Keywords" = "Trend Anahtar Kelimeler";
+
 /* No comment provided by engineer. */
 "Trending service ins't available right now." = "Trend hizmeti şu anda mevcut değil.";
 
@@ -1715,12 +1778,6 @@
 "upNextSubtitle" = "Sonraki Bölümleriniz";
 
 /* No comment provided by engineer. */
-"User Access ID (TMDB): %@" = "Kullanıcı Erişim Kimliği (TMDB): %@";
-
-/* No comment provided by engineer. */
-"User Access Token (TMDB): %@" = "Kullanıcı Erişim Tokeni (TMDB): %@";
-
-/* No comment provided by engineer. */
 "User Lang: %@" = "Kullanıcı Dili: %@";
 
 /* No comment provided by engineer. */
@@ -1728,6 +1785,9 @@
 
 /* (No Comment) */
 "Version %@" = "Versiyon %@";
+
+/* No comment provided by engineer. */
+"Version %@ • %@" = "Sürüm %@ • %@";
 
 /* (No Comment) */
 "War" = "Savaş";
@@ -1930,6 +1990,3 @@
 /* (No Comment) */
 "yourLists" = "Listeleriniz";
 
-"appearanceUpNextTitle" = "Up Next Details Style";
-"quitWhenClosingApp" = "Quit when closing the app";
-"noListFoundMessage" = "No list found with your query, try another one.";

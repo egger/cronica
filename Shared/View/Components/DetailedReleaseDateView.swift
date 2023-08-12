@@ -50,23 +50,28 @@ struct DetailedReleaseDateView: View {
     
     private func load() {
         guard let item else { return }
-        for content in item {
-			if let iso = content.iso31661 {
-                if iso.lowercased() == Locale.userRegion.lowercased() {
-                    let result = fetchDates(content.releaseDates, region: iso)
-                    guard let result else { return }
-                    dates = result
-                    isLoading = false
-                }
-                // If the user country is not found in the ISO, then US is used.
-				if iso.lowercased() == productionRegion.lowercased() {
-					let result = fetchDates(content.releaseDates, region: productionRegion.lowercased())
-                    guard let result else { return }
-                    if dates.isEmpty { dates = result }
-                    isLoading = false
-                }
-            }
-        }
+		if item.contains(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() }) {
+			guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() })
+			else { return }
+			let result = fetchDates(releaseDateRegion.releaseDates, region: Locale.userRegion)
+			guard let result else { return }
+			dates = result
+			isLoading = false
+		} else if item.contains(where: {$0.iso31661?.lowercased() == productionRegion.lowercased() }) {
+			guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == productionRegion.lowercased() })
+			else { return }
+			let result = fetchDates(releaseDateRegion.releaseDates, region: productionRegion)
+			guard let result else { return }
+			dates = result
+			isLoading = false
+		} else {
+			guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == "US".lowercased() })
+			else { return }
+			let result = fetchDates(releaseDateRegion.releaseDates, region: "US")
+			guard let result else { return }
+			dates = result
+			isLoading = false
+		}
     }
     
     private func fetchDates(_ dates: [ReleaseDate]?, region: String?) -> [ReleaseDateDisplay]? {

@@ -684,6 +684,23 @@
 "Design" = "Diseño";
 "Pin" = "Fijar";
 
-"appearanceUpNextTitle" = "Up Next Details Style";
-"quitWhenClosingApp" = "Quit when closing the app";
-"noListFoundMessage" = "No list found with your query, try another one.";
+"appearanceUpNextTitle" = "Estilo de Detalles Próximos";
+"quitWhenClosingApp" = "Salir al cerrar la aplicación";
+"noListFoundMessage" = "No se encontró ninguna lista con tu consulta, intenta otra.";
+"Trending Keywords" = "Palabras Clave en Tendencia";
+"Popularity" = "Popularidad";
+"Release Date (Descending)" = "Fecha de Lanzamiento (Descendente)";
+"Release Date (Ascending)" = "Fecha de Lanzamiento (Ascendente)";
+"Anime" = "Anime";
+"Based on Video-Game" = "Basado en Videojuego";
+"Superhero" = "Superhéroe";
+"Romantic Comedy" = "Comedia Romántica";
+"Based on true story" = "Basado en una Historia Real";
+"Supernatural Horror" = "Horror Sobrenatural";
+"Survival" = "Supervivencia";
+"Space" = "Espacio";
+"Based on novel or book" = "Basado en Novela o Libro";
+"Alien" = "Extraterrestre";
+"Crime Investigation" = "Investigación Criminal";
+"Reboot" = "Reboot";
+"Spin off" = "Historia Derivada";

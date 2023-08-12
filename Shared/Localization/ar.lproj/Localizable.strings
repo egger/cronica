@@ -693,6 +693,24 @@
 "Design" = "تصميم";
 "Pin" = "تثبيت";
 
-"appearanceUpNextTitle" = "Up Next Details Style";
-"quitWhenClosingApp" = "Quit when closing the app";
-"noListFoundMessage" = "No list found with your query, try another one.";
+"appearanceUpNextTitle" = "نمط تفاصيل القادم التالي";
+"quitWhenClosingApp" = "الخروج عند إغلاق التطبيق";
+"noListFoundMessage" = "لم يتم العثور على قائمة باستفسارك، جرب آخر.";
+"Trending Keywords" = "كلمات رائجة";
+"Popularity" = "الشهرة";
+"Release Date (Descending)" = "تاريخ الإصدار (تنازلي)";
+"Release Date (Ascending)" = "تاريخ الإصدار (تصاعدي)";
+"Anime" = "أنمي";
+"Based on Video-Game" = "مستند إلى لعبة فيديو";
+"Superhero" = "بطل خارق";
+"Romantic Comedy" = "كوميديا رومانسية";
+"Based on true story" = "مستند إلى قصة حقيقية";
+"Supernatural Horror" = "رعب خارق";
+"Survival" = "بقاء";
+"Space" = "الفضاء";
+"Based on novel or book" = "مستند إلى رواية أو كتاب";
+"Alien" = "فضائي";
+"Crime Investigation" = "تحقيق جريمة";
+"Reboot" = "Reboot";
+"Spin off" = "فرعي";
+

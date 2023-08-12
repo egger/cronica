@@ -21,19 +21,19 @@ import SwiftUI
 	@Published var trendingPeople = [Person]()
 	@Published var isLoadingTrendingPeople = true
 	private var keywords: [CombinedKeywords] = [
-		.init(id: 210024, name: "Anime", image: nil),
-		.init(id: 41645, name: "Based on Video-Game", image: nil),
-		.init(id: 9715, name: "Superhero", image: nil),
-		.init(id: 9799, name: "Romantic Comedy", image: nil),
-		.init(id: 9672, name: "Based on true story", image: nil),
-		.init(id: 256183, name: "Supernatural Horror", image: nil),
-		.init(id: 10349, name: "Survival", image: nil),
-		.init(id: 9882, name: "Space", image: nil),
-		.init(id: 818, name: "Based on novel or book", image: nil),
-		.init(id: 9951, name: "Alien", image: nil),
-		.init(id: 189402, name: "Crime Investigation", image: nil),
-		.init(id: 161184, name: "Reboot", image: nil),
-		.init(id: 15285, name: "Spin off", image: nil)
+		.init(id: 210024, name: NSLocalizedString("Anime", comment: ""), image: nil),
+		.init(id: 41645, name: NSLocalizedString("Based on Video-Game", comment: ""), image: nil),
+		.init(id: 9715, name: NSLocalizedString("Superhero", comment: ""), image: nil),
+		.init(id: 9799, name: NSLocalizedString("Romantic Comedy", comment: ""), image: nil),
+		.init(id: 9672, name: NSLocalizedString("Based on true story", comment: ""), image: nil),
+		.init(id: 256183, name: NSLocalizedString("Supernatural Horror", comment: ""), image: nil),
+		.init(id: 10349, name: NSLocalizedString("Survival", comment: ""), image: nil),
+		.init(id: 9882, name: NSLocalizedString("Space", comment: ""), image: nil),
+		.init(id: 818, name: NSLocalizedString("Based on novel or book", comment: ""), image: nil),
+		.init(id: 9951, name: NSLocalizedString("Alien", comment: ""), image: nil),
+		.init(id: 189402, name: NSLocalizedString("Crime Investigation", comment: ""), image: nil),
+		.init(id: 161184, name: NSLocalizedString("Reboot", comment: ""), image: nil),
+		.init(id: 15285, name: NSLocalizedString("Spin off", comment: ""), image: nil)
 	]
 	@Published var trendingKeywords = [CombinedKeywords]()
 	@Published var isLoadingTrendingKeywords = true

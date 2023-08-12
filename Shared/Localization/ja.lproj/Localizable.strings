@@ -695,6 +695,24 @@
 "Design" = "デザイン";
 "Pin" = "ピン留め";
 
-"appearanceUpNextTitle" = "Up Next Details Style";
-"quitWhenClosingApp" = "Quit when closing the app";
-"noListFoundMessage" = "No list found with your query, try another one.";
+"appearanceUpNextTitle" = "次に表示される詳細スタイル";
+"quitWhenClosingApp" = "アプリを閉じる際に終了";
+"noListFoundMessage" = "クエリに該当するリストが見つかりませんでした。別のクエリを試してください。";
+"Trending Keywords" = "トレンドキーワード";
+"Popularity" = "人気度";
+"Release Date (Descending)" = "公開日（降順）";
+"Release Date (Ascending)" = "公開日（昇順）";
+"Anime" = "アニメ";
+"Based on Video-Game" = "ビデオゲームに基づく";
+"Superhero" = "スーパーヒーロー";
+"Romantic Comedy" = "ロマンティックコメディ";
+"Based on true story" = "実話に基づく";
+"Supernatural Horror" = "超自然的ホラー";
+"Survival" = "サバイバル";
+"Space" = "宇宙";
+"Based on novel or book" = "小説に基づく";
+"Alien" = "エイリアン";
+"Crime Investigation" = "犯罪捜査";
+"Reboot" = "Reboot";
+"Spin off" = "スピンオフ";
+

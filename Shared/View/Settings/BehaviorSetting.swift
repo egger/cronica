@@ -44,7 +44,10 @@ struct BehaviorSetting: View {
 			} header: {
 				Text("Beta")
 			} footer: {
-				Text("shareLinkPreferenceSubtitle")
+				HStack {
+					Text("shareLinkPreferenceSubtitle")
+					Spacer()
+				}
 			}
 			
 #if os(macOS)

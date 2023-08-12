@@ -149,6 +149,7 @@ struct PersonDetailsView: View {
         }
     }
 	
+	#if !os(tvOS)
 	@ViewBuilder
 	private var shareButton: some View {
 		if let url = viewModel.person?.itemURL {
@@ -156,6 +157,7 @@ struct PersonDetailsView: View {
 				.disabled(!viewModel.isLoaded)
 		}
 	}
+	#endif
 	
 	private var favoriteButton: some View {
 		Button {

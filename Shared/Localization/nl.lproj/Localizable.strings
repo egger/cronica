@@ -8,6 +8,9 @@
 "(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" = "(numberOfSeasons) Seizoenen • (numberOfEpisodes) Afleveringen";
 
 /* No comment provided by engineer. */
+"(voteAverage.rounded(.down))/10" = "(voteAverage.afgerond(.naarbeneden))/10";
+
+/* No comment provided by engineer. */
 "(voteAverage.rounded())/10" = "(voteAverage.rounded())/10";
 
 /* No comment provided by engineer. */
@@ -128,6 +131,9 @@
 "Adventure" = "Avontuur";
 
 /* (No Comment) */
+"Alien" = "Buitenaards wezen";
+
+/* (No Comment) */
 "All" = "Alle";
 
 /* (No Comment) */
@@ -150,6 +156,9 @@
 
 /* (No Comment) */
 "Animation" = "Animatie";
+
+/* (No Comment) */
+"Anime" = "Anime";
 
 /* (No Comment) */
 "appearanceAppIcon" = "App Pictogram";
@@ -207,6 +216,9 @@
 
 /* (No Comment) */
 "appearanceTitle" = "Uiterlijk";
+
+/* (No Comment) */
+"appearanceUpNextTitle" = "Up Next Details Stijl";
 
 /* (No Comment) */
 "appearanceWatchlist" = "Kijklijst";
@@ -285,6 +297,15 @@
 
 /* No comment provided by engineer. */
 "Back" = "Terug";
+
+/* (No Comment) */
+"Based on novel or book" = "Gebaseerd op een roman of boek";
+
+/* (No Comment) */
+"Based on true story" = "Gebaseerd op een waargebeurd verhaal";
+
+/* (No Comment) */
+"Based on Video-Game" = "Gebaseerd op video-game";
 
 /* (No Comment) */
 "Be reminded of upcoming Movies & TV Shows." = "Herinnerd worden aan aankomende films en tv-shows.";
@@ -432,6 +453,9 @@
 
 /* (No Comment) */
 "Crime" = "Misdaad";
+
+/* (No Comment) */
+"Crime Investigation" = "Misdaadonderzoek";
 
 /* (No Comment) */
 "Cronica" = "Kroniek";
@@ -737,6 +761,9 @@
 "Is TelemetryDeck Initialized: %@" = "Is TelemetryDeck Geïnitialiseerd: %@";
 
 /* No comment provided by engineer. */
+"Is User Signed In With TMDB: %@" = "Is de gebruiker aangemeld bij TMDB: %@";
+
+/* No comment provided by engineer. */
 "Item ID" = "Item ID";
 
 /* (No Comment) */
@@ -786,9 +813,6 @@
 
 /* (No Comment) */
 "Latest Shows" = "Laatste shows";
-
-/* No comment provided by engineer. */
-"launchCount: %lld" = "launchCount: %lld";
 
 /* (No Comment) */
 "Libraries" = "Bibliotheken";
@@ -992,6 +1016,9 @@
 "No title available" = "Geen titel beschikbaar";
 
 /* (No Comment) */
+"noListFoundMessage" = "Geen lijst gevonden met uw zoekopdracht, probeer een andere.";
+
+/* (No Comment) */
 "noResultsFound" = "Niets gevonden met uw zoekopdracht.\nProbeer een andere zoekopdracht of controleer of de titel niet in het archief staat.";
 
 /* (No Comment) */
@@ -1085,6 +1112,9 @@
 "Popular TV Shows by Genre" = "Populaire tv-series per genre";
 
 /* (No Comment) */
+"Popularity" = "Populariteit";
+
+/* (No Comment) */
 "Prefer Poster in Details Page" = "Voorkeur voor Poster op details pagina";
 
 /* (No Comment) */
@@ -1130,6 +1160,9 @@
 "publishTMDBMessage" = "Dit zal een nieuwe lijst maken met dezelfde titel en items van deze lokale lijst op TMDb.\nSelecteer het privacyniveau dat je wilt:";
 
 /* (No Comment) */
+"quitWhenClosingApp" = "Stop wanneer de app wordt afgesloten";
+
+/* (No Comment) */
 "Rating" = "Beoordeling";
 
 /* (No Comment) */
@@ -1143,6 +1176,9 @@
 
 /* (No Comment) */
 "Reality" = "Realiteit";
+
+/* (No Comment) */
+"Reboot" = "Opnieuw opstarten";
 
 /* (No Comment) */
 "Recent Notifications" = "Recente meldingen";
@@ -1164,6 +1200,12 @@
 
 /* (No Comment) */
 "Release Date" = "Publicatiedatum";
+
+/* (No Comment) */
+"Release Date (Ascending)" = "Releasedatum (Oplopend)";
+
+/* (No Comment) */
+"Release Date (Descending)" = "Releasedatum (Aflopend)";
 
 /* (No Comment) */
 "Released" = "Uitgebracht";
@@ -1291,6 +1333,9 @@
 /* (No Comment) */
 "Romance" = "Romantiek";
 
+/* (No Comment) */
+"Romantic Comedy" = "Romantische Komedie";
+
 /* MARK: InformationSectionView.swift */
 "Run Time" = "Uitvoeringstijd";
 
@@ -1387,9 +1432,6 @@
 /* (No Comment) */
 "sendEmailFooterBackup" = "Je kunt ook een e-mail sturen naar contact@alexandremadeira.dev met behulp van je e-mailclient.";
 
-/* No comment provided by engineer. */
-"Session ID (TMDB): %@" = "Sessie-ID (TMDB): %@";
-
 /* (No Comment) */
 "Settings" = "Instellingen";
 
@@ -1483,6 +1525,9 @@
 /* (No Comment) */
 "Sort" = "Sorteren";
 
+/* No comment provided by engineer. */
+"Sort By" = "Sorteer op";
+
 /* (No Comment) */
 "Sort List" = "Sorteer lijst";
 
@@ -1490,13 +1535,28 @@
 "Source Code" = "Broncode";
 
 /* (No Comment) */
+"Space" = "Ruimte";
+
+/* (No Comment) */
 "Spanish" = "Spaans";
+
+/* (No Comment) */
+"Spin off" = "Afsplitsing";
 
 /* (No Comment) */
 "Status" = "Status";
 
+/* (No Comment) */
+"Superhero" = "Superheld";
+
+/* (No Comment) */
+"Supernatural Horror" = "Supernatuurlijke Horror";
+
 /* MARK: SettingsView.swift */
 "Support" = "Ondersteuning";
+
+/* (No Comment) */
+"Survival" = "Overleven";
 
 /* (No Comment) */
 "Swipe to Edit your list" = "Veeg om uw lijst te bewerken";
@@ -1657,6 +1717,9 @@
 /* MARK: HomeView.swift */
 "Trending" = "Trending";
 
+/* (No Comment) */
+"Trending Keywords" = "Trending zoekwoorden";
+
 /* No comment provided by engineer. */
 "Trending service ins't available right now." = "Populaire service is momenteel niet beschikbaar.";
 
@@ -1715,12 +1778,6 @@
 "upNextSubtitle" = "Je volgende afleveringen";
 
 /* No comment provided by engineer. */
-"User Access ID (TMDB): %@" = "Gebruikers toegang ID (TMDB): %@";
-
-/* No comment provided by engineer. */
-"User Access Token (TMDB): %@" = "Gebruikerstoegangstoken (TMDB): %@";
-
-/* No comment provided by engineer. */
 "User Lang: %@" = "Gebruikerstaal: %@";
 
 /* No comment provided by engineer. */
@@ -1728,6 +1785,9 @@
 
 /* (No Comment) */
 "Version %@" = "Versie %@";
+
+/* No comment provided by engineer. */
+"Version %@ • %@" = "Versie %@ • %@";
 
 /* (No Comment) */
 "War" = "Oorlog";
@@ -1930,6 +1990,3 @@
 /* (No Comment) */
 "yourLists" = "Uw lijsten";
 
-"appearanceUpNextTitle" = "Up Next Details Style";
-"quitWhenClosingApp" = "Quit when closing the app";
-"noListFoundMessage" = "No list found with your query, try another one.";

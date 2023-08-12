@@ -9,13 +9,13 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TVSearchItemContentView: View {
-    let item: ItemContent
+    let item: SearchItemContent
     private var image: URL?
     @State private var isInWatchlist = false
     @State private var isWatched = false
     private let context = PersistenceController.shared
     @FocusState var isStackFocused: Bool
-    init(item: ItemContent) {
+    init(item: SearchItemContent) {
         self.item = item
     }
     var body: some View {
@@ -98,12 +98,6 @@ struct TVSearchItemContentView: View {
         }
         .focused($isStackFocused)
         .frame(width: DrawingConstants.posterWidth)
-    }
-}
-
-struct SearchItemContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        TVSearchItemContentView(item: ItemContent.example)
     }
 }
 

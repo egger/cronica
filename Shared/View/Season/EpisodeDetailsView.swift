@@ -92,6 +92,7 @@ struct EpisodeDetailsView: View {
                                            season: season,
                                            show: show,
                                            isWatched: $isWatched)
+						.tint(.primary)
                         .padding(.horizontal)
                     }
                     .padding()

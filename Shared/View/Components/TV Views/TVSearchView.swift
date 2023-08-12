@@ -54,6 +54,7 @@ struct TVSearchView: View {
 
                         }
                     }
+					.padding(.vertical)
                 }
             }
         }
@@ -62,12 +63,18 @@ struct TVSearchView: View {
             await viewModel.search(viewModel.query)
         }
         .navigationDestination(for: ItemContent.self) { item in
-            if item.media == .person {
-                PersonDetailsView(title: item.itemTitle, id: item.id)
-            } else {
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-            }
+			ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
         }
+		.navigationDestination(for: SearchItemContent.self) { item in
+			if item.media == .person {
+				PersonDetailsView(title: item.itemTitle, id: item.id)
+			} else {
+				ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
+			}
+		}
+		.navigationDestination(for: Person.self) { person in
+			PersonDetailsView(title: person.name, id: person.id)
+		}
     }
 }
 #endif

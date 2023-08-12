@@ -49,6 +49,7 @@ struct KeywordSectionView: View {
 		.redacted(reason: viewModel.isLoaded ? [] : .placeholder)
 	}
 	
+#if !os(tvOS)
 	private var sortButton: some View {
 		Menu {
 			Picker(selection: $sortBy) {
@@ -62,6 +63,7 @@ struct KeywordSectionView: View {
 			Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
 		}
 	}
+#endif
 	
 #if os(iOS) || os(macOS)
 	private var styleOptions: some View {
