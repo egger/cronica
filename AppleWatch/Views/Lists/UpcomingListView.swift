@@ -20,11 +20,10 @@ struct UpcomingListView: View {
                                 subpredicates: [
                                     NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt),
                                     NSPredicate(format: "notify == %d", true),
-									NSPredicate(format: "isArchive == %d", false),
                                     NSPredicate(format: "contentType == %d", MediaType.movie.toInt)
                                 ])
             ,
-            NSPredicate(format: "upcomingSeason == %d", true), NSPredicate(format: "isArchive == %d", false)])
+            NSPredicate(format: "upcomingSeason == %d", true)])
     )
     var items: FetchedResults<WatchlistItem>
     var body: some View {
@@ -55,7 +54,7 @@ struct UpcomingListView: View {
             ItemContentView(id: item.itemId,
                             title: item.itemTitle,
                             type: item.itemMedia,
-                            image: item.itemImage)
+                            image: item.backCompatibleCardImage)
         }
     }
     

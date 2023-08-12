@@ -29,7 +29,6 @@ extension PersistenceController {
             item.lastValuesUpdated = Date()
             item.date = content.itemFallbackDate
             item.formattedDate = content.itemTheatricalString
-			print("\(content.itemTitle), formatted: \(content.itemTheatricalString as Any)")
             if content.itemContentMedia == .tvShow {
                 if let episode = content.lastEpisodeToAir?.episodeNumber {
                     item.nextEpisodeNumber = Int64(episode)
@@ -62,7 +61,7 @@ extension PersistenceController {
         if isItemSaved(id: content.itemContentID) {
             let item = fetch(for: content.itemContentID)
             guard let item else { return }
-            //if item.isReleasedMovie && !item.itemLastUpdateDate.hasPassedTwoWeek() { return }
+			if content.itemContentMedia == .movie && content.itemStatus == .released && !item.itemLastUpdateDate.hasPassedFourWeeks() { return }
             if item.title != content.itemTitle {
                 item.title = content.itemTitle
             }

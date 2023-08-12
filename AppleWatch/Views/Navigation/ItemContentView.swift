@@ -12,6 +12,7 @@ struct ItemContentView: View {
     let id: Int
     let title: String
     let image: URL?
+	let type: MediaType
     @StateObject private var viewModel: ItemContentViewModel
     @State private var showCustomListSheet = false
     @State private var showMoreOptions = false
@@ -19,6 +20,7 @@ struct ItemContentView: View {
     init(id: Int, title: String, type: MediaType, image: URL?) {
         self.id = id
         self.title = title
+		self.type = type
         self.image = image
         _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
     }
@@ -26,6 +28,19 @@ struct ItemContentView: View {
         VStack {
             ScrollView {
                 HeroImage(url: image, title: title)
+				
+				if let quickInfo = viewModel.content?.itemQuickInfo {
+					Text(type.title)
+						.font(.caption)
+						.multilineTextAlignment(.center)
+						.padding(.horizontal)
+						.foregroundColor(.secondary)
+					Text(quickInfo)
+						.font(.caption)
+						.multilineTextAlignment(.center)
+						.padding(.horizontal)
+						.foregroundColor(.secondary)
+				}
                 
                 DetailWatchlistButton(showCustomList: $showCustomListSheet)
                     .environmentObject(viewModel)

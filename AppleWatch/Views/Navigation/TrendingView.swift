@@ -26,17 +26,14 @@ struct TrendingView: View {
                     .redacted(reason: isLoaded ? [] : .placeholder)
                 }
             }
+			.overlay { if !isLoaded { ProgressView().unredacted() } }
             .navigationTitle("Trending")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: ItemContent.self) { item in
-                if item.media == .person {
-                    PersonView(id: item.id, name: item.itemTitle)
-                } else {
-                    ItemContentView(id: item.id,
-                                    title: item.itemTitle,
-                                    type: item.itemContentMedia,
-                                    image: item.cardImageMedium)
-                }
+				ItemContentView(id: item.id,
+								title: item.itemTitle,
+								type: item.itemContentMedia,
+								image: item.cardImageMedium)
             }
             .onAppear(perform: load)
         }

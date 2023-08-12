@@ -31,22 +31,10 @@ struct ItemContentContextMenu: ViewModifier {
 				}
 #endif
 				if isInWatchlist {
-					WatchedButton(id: item.itemContentID,
-								  isWatched: $isWatched,
-								  popupType: $popupType,
-								  showPopup: $showPopup)
-					FavoriteButton(id: item.itemContentID,
-								   isFavorite: $isFavorite,
-								   popupType: $popupType,
-								   showPopup: $showPopup)
-					PinButton(id: item.itemContentID,
-							  isPin: $isPin,
-							  popupType: $popupType,
-							  showPopup: $showPopup)
-					ArchiveButton(id: item.itemContentID,
-								  isArchive: $isArchive,
-								  popupType: $popupType,
-								  showPopup: $showPopup)
+					watchedButton
+					favoriteButton
+					pinButton
+					archiveButton
 #if !os(tvOS)
 					CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
 					Button {
@@ -60,11 +48,7 @@ struct ItemContentContextMenu: ViewModifier {
 				if !isInWatchlist {
 					addAndMarkWatchedButton
 				}
-				WatchlistButton(id: item.itemContentID,
-								isInWatchlist: $isInWatchlist,
-								showPopup: $showPopup,
-								showListSelector: $showCustomListView,
-								popupType: $popupType)
+				watchlistButton
 			} preview: {
 				ContextMenuPreviewImage(title: item.itemTitle,
 										image: item.cardImageLarge,
@@ -72,31 +56,22 @@ struct ItemContentContextMenu: ViewModifier {
 			}
 #if !os(tvOS)
 			.swipeActions(edge: .leading, allowsFullSwipe: settings.allowFullSwipe) {
-				WatchlistButton(id: item.itemContentID,
-								isInWatchlist: $isInWatchlist,
-								showPopup: $showPopup,
-								showListSelector: $showCustomListView,
-								popupType: $popupType)
-				.tint(isInWatchlist ? .red : .green)
-				if isInWatchlist {
-					WatchedButton(id: item.itemContentID,
-								  isWatched: $isWatched,
-								  popupType: $popupType,
-								  showPopup: $showPopup)
+				if !isInWatchlist {
+					WatchlistButton(id: item.itemContentID,
+									isInWatchlist: $isInWatchlist,
+									showPopup: $showPopup,
+									showListSelector: $showCustomListView,
+									popupType: $popupType)
+					.tint(isInWatchlist ? .red : .green)
+				} else {
+					primaryLeftSwipeActions
+					secondaryLeftSwipeActions
 				}
 			}
 			.swipeActions(edge: .trailing, allowsFullSwipe: settings.allowFullSwipe) {
 				if isInWatchlist {
-					PinButton(id: item.itemContentID,
-							  isPin: $isPin,
-							  popupType: $popupType,
-							  showPopup: $showPopup)
-					.tint(.purple)
-					ArchiveButton(id: item.itemContentID,
-								  isArchive: $isArchive,
-								  popupType: $popupType,
-								  showPopup: $showPopup)
-					.tint(.gray)
+					primaryRightSwipeActions
+					secondaryRightSwipeActions
 				}
 			}
 #endif
@@ -142,5 +117,101 @@ struct ItemContentContextMenu: ViewModifier {
 		let posterPath = item.posterPath ?? String()
 		let encodedPoster = posterPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		return URL(string: "https://alexandremadeira.dev/cronica/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
+	}
+	
+	private var watchedButton: some View {
+		WatchedButton(id: item.itemContentID,
+					  isWatched: $isWatched,
+					  popupType: $popupType,
+					  showPopup: $showPopup)
+	}
+	
+	private var favoriteButton: some View {
+		FavoriteButton(id: item.itemContentID,
+					   isFavorite: $isFavorite,
+					   popupType: $popupType,
+					   showPopup: $showPopup)
+	}
+	
+	private var pinButton: some View {
+		PinButton(id: item.itemContentID,
+				  isPin: $isPin,
+				  popupType: $popupType,
+				  showPopup: $showPopup)
+	}
+	
+	private var archiveButton: some View {
+		ArchiveButton(id: item.itemContentID,
+					  isArchive: $isArchive,
+					  popupType: $popupType,
+					  showPopup: $showPopup)
+	}
+	
+	private var watchlistButton: some View {
+		WatchlistButton(id: item.itemContentID,
+						isInWatchlist: $isInWatchlist,
+						showPopup: $showPopup,
+						showListSelector: $showCustomListView,
+						popupType: $popupType)
+	}
+	
+	@ViewBuilder
+	private var shareButton: some View {
+#if !os(tvOS)
+		switch settings.shareLinkPreference {
+		case .cronica: if let cronicaUrl { ShareLink(item: cronicaUrl) }
+		case .tmdb: ShareLink(item: item.itemURL)
+		}
+#else
+		EmptyView()
+#endif
+	}
+	
+	@ViewBuilder
+	private var primaryLeftSwipeActions: some View {
+		switch settings.primaryLeftSwipe {
+		case .markWatch: watchedButton.tint(isWatched ? .yellow : .green)
+		case .markFavorite: favoriteButton.tint(isFavorite ? .orange : .purple)
+		case .markPin: pinButton.tint(isPin ? .gray : .teal)
+		case .markArchive: archiveButton.tint(isArchive ? .gray : .indigo)
+		case .delete: watchlistButton.tint(isInWatchlist ? .red :  .blue)
+		case .share: shareButton
+		}
+	}
+	
+	@ViewBuilder
+	private var secondaryLeftSwipeActions: some View {
+		switch settings.secondaryLeftSwipe {
+		case .markWatch: watchedButton.tint(isWatched ? .yellow : .green)
+		case .markFavorite: favoriteButton.tint(isFavorite ? .orange : .purple)
+		case .markPin: pinButton.tint(isPin ? .gray : .teal)
+		case .markArchive: archiveButton.tint(isArchive ? .gray : .indigo)
+		case .delete: watchlistButton.tint(isInWatchlist ? .red :  .blue)
+		case .share: shareButton
+		}
+	}
+	
+	@ViewBuilder
+	private var primaryRightSwipeActions: some View {
+		switch  settings.primaryRightSwipe {
+		case .markWatch: watchedButton.tint(isWatched ? .yellow : .green)
+		case .markFavorite: favoriteButton.tint(isFavorite ? .orange : .purple)
+		case .markPin: pinButton.tint(isPin ? .gray : .teal)
+		case .markArchive: archiveButton.tint(isArchive ? .gray : .indigo)
+		case .delete: watchlistButton.tint(isInWatchlist ? .red :  .blue)
+		case .share: shareButton
+		}
+	}
+	
+	@ViewBuilder
+	private var secondaryRightSwipeActions: some View {
+		switch settings.secondaryRightSwipe {
+		case .markWatch: watchedButton.tint(isWatched ? .yellow : .green)
+		case .markFavorite: favoriteButton.tint(isFavorite ? .orange : .purple)
+		case .markPin: pinButton.tint(isPin ? .gray : .teal)
+		case .markArchive: archiveButton.tint(isArchive ? .gray : .indigo)
+		case .delete: watchlistButton.tint(isInWatchlist ? .red :  .blue)
+		case .share: shareButton
+		}
 	}
 }

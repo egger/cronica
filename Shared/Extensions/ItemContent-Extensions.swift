@@ -92,6 +92,9 @@ extension ItemContent {
 			}
             return DatesManager.getDetailedReleaseDateFormatted(results: dates, productionRegion: productionRegion)
         }
+		if let itemFirstAirDate {
+			return "\(itemFirstAirDate)"
+		}
         if let date = nextEpisodeDate {
             return "\(DatesManager.dateString.string(from: date))"
         }

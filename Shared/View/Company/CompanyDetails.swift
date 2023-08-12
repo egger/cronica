@@ -22,7 +22,7 @@ struct CompanyDetails: View {
             }
         }
         .overlay {
-            if !viewModel.isLoaded { ProgressView() }
+			if !viewModel.isLoaded { ProgressView().unredacted() }
         }
         .toolbar {
 #if os(iOS)
@@ -72,22 +72,33 @@ struct CompanyDetails: View {
         Form {
             Section {
                 List {
-                    ForEach(viewModel.items) { item in
-                        ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
-                    }
-                    if viewModel.isLoaded && !viewModel.endPagination {
-                        CenterHorizontalView {
-                            ProgressView("Loading")
-                                .padding(.horizontal)
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                        Task {
-                                            await viewModel.load(company.id)
-                                        }
-                                    }
-                                }
-                        }
-                    }
+					if !viewModel.items.isEmpty {
+						ForEach(viewModel.items) { item in
+							ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
+						}
+						if viewModel.isLoaded && !viewModel.endPagination {
+							CenterHorizontalView {
+								ProgressView("Loading")
+									.padding(.horizontal)
+									.onAppear {
+										DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+											Task {
+												await viewModel.load(company.id)
+											}
+										}
+									}
+							}
+						}
+					} else {
+						if viewModel.isLoaded {
+							CenterHorizontalView {
+								Text("Try again later.")
+									.fontDesign(.monospaced)
+									.font(.headline)
+									.foregroundColor(.secondary)
+							}
+						}
+					}
                 }
             }
         }
@@ -98,23 +109,34 @@ struct CompanyDetails: View {
     
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-            ForEach(viewModel.items) { item in
-                ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
-                    .buttonStyle(.plain)
-            }
-            if viewModel.isLoaded && !viewModel.endPagination {
-                CenterHorizontalView {
-                    ProgressView()
-                        .padding()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                Task {
-                                    await viewModel.load(company.id)
-                                }
-                            }
-                        }
-                }
-            }
+			if !viewModel.items.isEmpty {
+				ForEach(viewModel.items) { item in
+					ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
+						.buttonStyle(.plain)
+				}
+				if viewModel.isLoaded && !viewModel.endPagination {
+					CenterHorizontalView {
+						ProgressView()
+							.padding()
+							.onAppear {
+								DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+									Task {
+										await viewModel.load(company.id)
+									}
+								}
+							}
+					}
+				}
+			} else {
+				if viewModel.isLoaded {
+					CenterHorizontalView {
+						Text("Try again later.")
+							.fontDesign(.monospaced)
+							.font(.headline)
+							.foregroundColor(.secondary)
+					}
+				}
+			}
         }
         .padding()
     }
@@ -123,25 +145,35 @@ struct CompanyDetails: View {
     private var posterStyle: some View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? 10 : 20) {
-            ForEach(viewModel.items) { item in
-                ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
-                    .buttonStyle(.plain)
-            }
-            if viewModel.isLoaded && !viewModel.endPagination {
-                CenterHorizontalView {
-                    ProgressView()
-                        .padding()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                Task {
-                                    await viewModel.load(company.id)
-                                }
-                            }
-                        }
-                }
-            }
-        }
-                  .padding(.all, settings.isCompactUI ? 10 : nil)
+			if !viewModel.items.isEmpty {
+				ForEach(viewModel.items) { item in
+					ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+						.buttonStyle(.plain)
+				}
+				if viewModel.isLoaded && !viewModel.endPagination {
+					CenterHorizontalView {
+						ProgressView()
+							.padding()
+							.onAppear {
+								DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+									Task {
+										await viewModel.load(company.id)
+									}
+								}
+							}
+					}
+				}
+			} else {
+				if viewModel.isLoaded {
+					CenterHorizontalView {
+						Text("Try again later.")
+							.fontDesign(.monospaced)
+							.font(.headline)
+							.foregroundColor(.secondary)
+					}
+				}
+			}
+        }.padding(.all, settings.isCompactUI ? 10 : nil)
     }
 }
 

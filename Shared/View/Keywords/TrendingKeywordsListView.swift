@@ -43,6 +43,7 @@ struct TrendingKeywordsListView: View {
 									.shadow(radius: 2)
 									.buttonStyle(.plain)
 							}
+							.disabled(viewModel.isLoadingTrendingKeywords)
 							.frame(width: 160, height: 100, alignment: .center)
 						}
 					}

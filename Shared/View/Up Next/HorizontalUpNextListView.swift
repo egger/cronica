@@ -196,6 +196,7 @@ struct HorizontalUpNextListView: View {
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(.white.opacity(0.8))
                             .frame(width: 40, height: 40, alignment: .center)
+							.unredacted()
                     }
                 }
                 .aspectRatio(contentMode: .fill)

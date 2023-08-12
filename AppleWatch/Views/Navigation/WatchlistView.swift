@@ -69,7 +69,7 @@ struct WatchlistView: View {
                 ItemContentView(id: item.itemId,
                                 title: item.itemTitle,
                                 type: item.itemMedia,
-                                image: item.itemImage)
+                                image: item.backCompatibleCardImage)
             }
             .navigationDestination(for: ItemContent.self) { item in
 				ItemContentView(id: item.id,

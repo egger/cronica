@@ -34,11 +34,8 @@ struct UpcomingWatchlist: View {
     @Binding var shouldReload: Bool
     var body: some View {
 		list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemReleaseDate < $1.itemReleaseDate}))
-			.onAppear {
-				print("Watchlist here:")
-				for item in items {
-					print(item.itemTitle)
-				}
+			.task {
+				updateItems(items: items.filter { $0.itemReleaseDate < Date() })
 			}
     }
 	
@@ -46,9 +43,11 @@ struct UpcomingWatchlist: View {
 		if items.isEmpty { return }
 		Task {
 			for item in items {
-				let content = try? await NetworkService.shared.fetchItem(id: item.itemId, type: item.itemMedia)
-				if let content {
-					PersistenceController.shared.update(item: content)
+				if item.itemReleaseDate < Date() {
+					let content = try? await NetworkService.shared.fetchItem(id: item.itemId, type: item.itemMedia)
+					if let content {
+						PersistenceController.shared.update(item: content)
+					}
 				}
 			}
 		}

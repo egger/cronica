@@ -9,13 +9,24 @@ import SwiftUI
 
 struct AboutSectionView: View {
     let about: String?
+	@State private var showAbout = false
     var body: some View {
         if let about {
             if !about.isEmpty {
                 Section {
                     VStack(alignment: .leading) {
                         Text(about)
+							.lineLimit(4)
                     }
+					.onTapGesture {
+						showAbout = true
+					}
+					.sheet(isPresented: $showAbout) {
+						ScrollView {
+							Text(about)
+								.padding()
+						}
+					}
                 } header: {
                     HStack {
                         Text("About")
