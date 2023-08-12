@@ -19,7 +19,7 @@ extension WatchlistItem {
         lastValuesUpdated ?? Date.distantPast
     }
     var itemReleaseDate: Date {
-        date ?? Date.distantPast
+        itemDate ?? Date.distantPast
     }
     var itemId: Int {
         Int(id)
@@ -101,7 +101,7 @@ extension WatchlistItem {
             return isUpcomingTvShow
         }
     }
-    private var isReleasedMovie: Bool {
+	var isReleasedMovie: Bool {
         if itemMedia == .movie {
             if itemSchedule == .released && !notify && !isWatched {
                 return true
@@ -113,10 +113,13 @@ extension WatchlistItem {
         if itemMedia == .tvShow {
             if isWatched { return false }
             if itemSchedule == .ended { return true }
+			if itemSchedule == .released && !isWatched { return true }
+			if itemSchedule == .cancelled && !isWatched { return true }
+			if let firstAirDate {
+				if firstAirDate < Date() && !isWatched { return true }
+			}
             if itemSchedule == .renewed && nextSeasonNumber == 1 && nextEpisodeNumber > 1 { return true }
             if itemSchedule == .renewed && nextSeasonNumber != 1 { return true }
-            if itemSchedule == .released && !isWatched { return true }
-            if itemSchedule == .cancelled && !isWatched { return true }
         }
         return false
     }
@@ -157,11 +160,17 @@ extension WatchlistItem {
         return "\(itemId)@\(itemMedia.toInt)"
     }
     var itemDate: Date? {
+		if let firstAirDate {
+			return firstAirDate
+		}
+		if let movieReleaseDate {
+			return movieReleaseDate
+		}
         guard let date else { return nil }
         return date
     }
     var itemSortDate: Date {
-        date ?? Date.distantPast
+        itemDate ?? Date.distantPast
     }
     var canShowOnUpcoming: Bool {
         if isArchive { return false }
@@ -213,5 +222,39 @@ extension WatchlistItem {
             return nextEpisodeNumberUpNext
         }
     }
+	var backCompatibleSmallCardImage: URL? {
+		if backdropPath != nil { return itemCardImageSmall }
+		return image
+	}
+	var backCompatibleCardImage: URL? {
+		if backdropPath != nil { return itemCardImageMedium }
+		return image
+	}
+	var backCompatiblePosterImage: URL? {
+		if posterPath != nil { return itemPosterImageMedium }
+		return mediumPosterImage
+	}
+	var itemPosterImageMedium: URL? {
+		return NetworkService.urlBuilder(size: .medium, path: posterPath)
+	}
+	var itemPosterImageLarge: URL? {
+		return NetworkService.urlBuilder(size: .w780, path: posterPath)
+	}
+	var itemCardImageSmall: URL? {
+		return NetworkService.urlBuilder(size: .small, path: backdropPath)
+	}
+	var itemCardImageMedium: URL? {
+#if os(tvOS) || os(macOS)
+		return NetworkService.urlBuilder(size: .w780, path: backdropPath)
+#else
+		return NetworkService.urlBuilder(size: .medium, path: backdropPath)
+#endif
+	}
+	var itemCardImageLarge: URL? {
+		return NetworkService.urlBuilder(size: .large, path: backdropPath)
+	}
+	var itemCardImageOriginal: URL? {
+		return NetworkService.urlBuilder(size: .original, path: backdropPath)
+	}
 }
 

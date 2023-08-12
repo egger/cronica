@@ -18,8 +18,8 @@ class UpNextViewModel: ObservableObject {
     
     func load(_ items: FetchedResults<WatchlistItem>) async {
         if !isLoaded {
-            var upNextEpisodes = [UpNextEpisode]()
-            for item in items {
+			let sortedItems = items.sorted(by: { $0.itemLastUpdateDate > $1.itemLastUpdateDate})
+			for item in sortedItems {
                 let result = try? await network.fetchEpisode(tvID: item.id,
                                                              season: item.itemNextUpNextSeason,
                                                              episodeNumber: item.itemNextUpNextEpisode)
@@ -38,7 +38,8 @@ class UpNextViewModel: ObservableObject {
                         
                         await MainActor.run {
                             withAnimation(.easeInOut) {
-                                upNextEpisodes.append(content)
+								self.episodes.append(content)
+                                //upNextEpisodes.append(content)
                             }
                         }
                     } else if isWatched {
@@ -59,7 +60,8 @@ class UpNextViewModel: ObservableObject {
                                                             sortedDate: item.itemLastUpdateDate)
                                 await MainActor.run {
                                     withAnimation(.easeInOut) {
-                                        upNextEpisodes.append(content)
+										self.episodes.append(content)
+                                        //upNextEpisodes.append(content)
                                     }
                                 }
                             }
@@ -69,7 +71,7 @@ class UpNextViewModel: ObservableObject {
             }
             await MainActor.run {
                 withAnimation(.easeInOut)  {
-                    self.episodes.append(contentsOf: upNextEpisodes.sorted { $0.sortedDate > $1.sortedDate })
+                    //self.episodes.append(contentsOf: upNextEpisodes.sorted { $0.sortedDate > $1.sortedDate })
                     self.isLoaded = true
                 }
             }

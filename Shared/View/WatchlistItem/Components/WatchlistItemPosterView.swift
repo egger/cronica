@@ -63,7 +63,7 @@ struct WatchlistItemPosterView: View {
     }
     
     private var image: some View {
-        WebImage(url: content.mediumPosterImage)
+        WebImage(url: content.backCompatiblePosterImage)
             .resizable()
             .placeholder {
                 PosterPlaceholder(title: content.itemTitle, type: content.itemMedia)

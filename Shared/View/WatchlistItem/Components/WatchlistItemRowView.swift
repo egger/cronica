@@ -102,7 +102,7 @@ struct WatchlistItemRowView: View {
     
     private var image: some View {
         ZStack {
-            WebImage(url: content.image)
+            WebImage(url: content.backCompatibleSmallCardImage)
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)

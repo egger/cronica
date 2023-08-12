@@ -107,7 +107,7 @@ struct WatchlistItemCardView: View {
         }
     }
     private var image: some View {
-        WebImage(url: content.largeCardImage)
+        WebImage(url: content.backCompatibleCardImage)
             .resizable()
             .placeholder { placeholder }
             .aspectRatio(contentMode: .fill)

@@ -10,8 +10,8 @@ import SDWebImageSwiftUI
 
 struct PersonDetailsView: View {
     let name: String
-    let personUrl: URL
     @State private var isLoading = true
+	@State private var isFavorite = false
     @StateObject private var viewModel: PersonDetailsViewModel
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var showImageFullscreen = false
@@ -20,7 +20,6 @@ struct PersonDetailsView: View {
     init(title: String, id: Int) {
         _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
         self.name = title
-        self.personUrl = URL(string: "https://www.themoviedb.org/\(MediaType.person.rawValue)/\(id)")!
     }
     var body: some View {
         VStack {
@@ -79,11 +78,11 @@ struct PersonDetailsView: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem {
-                ShareLink(item: personUrl)
+				shareButton
             }
 #elseif os(macOS)
             ToolbarItem(placement: .primaryAction) {
-                ShareLink(item: personUrl)
+				shareButton
             }
 #endif
         }
@@ -149,6 +148,24 @@ struct PersonDetailsView: View {
             }
         }
     }
+	
+	@ViewBuilder
+	private var shareButton: some View {
+		if let url = viewModel.person?.itemURL {
+			ShareLink(item: url, message: Text(name))
+				.disabled(!viewModel.isLoaded)
+		}
+	}
+	
+	private var favoriteButton: some View {
+		Button {
+			
+		} label: {
+			Label("Favorite", systemImage: isFavorite ? "star.circle.fill" : "star.circle")
+				.labelStyle(.iconOnly)
+		}
+
+	}
     
 #if os(iOS)
     @ViewBuilder

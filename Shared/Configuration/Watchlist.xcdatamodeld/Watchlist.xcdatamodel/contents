@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="CustomList" representedClassName="CustomList" syncable="YES">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -12,11 +12,13 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WatchlistItem" inverseName="list" inverseEntity="WatchlistItem"/>
     </entity>
     <entity name="WatchlistItem" representedClassName="WatchlistItem" syncable="YES">
+        <attribute name="backdropPath" optional="YES" attributeType="String"/>
         <attribute name="contentID" optional="YES" attributeType="String"/>
         <attribute name="contentType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="displayOnUpNext" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="firstAirDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="formattedDate" optional="YES" attributeType="String"/>
         <attribute name="genre" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -32,11 +34,13 @@
         <attribute name="lastValuesUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lastWatchedEpisode" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mediumPosterImage" optional="YES" attributeType="URI"/>
+        <attribute name="movieReleaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="nextEpisodeNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nextEpisodeNumberUpNext" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nextSeasonNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="notify" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="originalTitle" optional="YES" attributeType="String"/>
+        <attribute name="posterPath" optional="YES" attributeType="String"/>
         <attribute name="schedule" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="seasonNumberUpNext" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="shouldNotify" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>

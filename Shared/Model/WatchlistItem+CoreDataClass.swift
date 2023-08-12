@@ -44,6 +44,10 @@ public class WatchlistItem: NSManagedObject, Codable {
             userNotes = try values.decode(String.self, forKey: .userNotes)
             userRating = try values.decode(Int64.self, forKey: .userRating)
             isWatching = try values.decode(Bool.self, forKey: .isWatching)
+			posterPath = try values.decode(String?.self, forKey: .posterPath)
+			backdropPath = try values.decode(String?.self, forKey: .backdropPath)
+			firstAirDate = try values.decode(Date?.self, forKey: .firstAirDate)
+			movieReleaseDate = try values.decode(Date?.self, forKey: .movieReleaseDate)
         } catch {
             print(error.localizedDescription)
         }
@@ -76,6 +80,10 @@ public class WatchlistItem: NSManagedObject, Codable {
         try values.encode(userNotes, forKey: .userNotes)
         try values.encode(userRating, forKey: .userRating)
         try values.encode(isWatching, forKey: .isWatching)
+		try values.encode(posterPath, forKey: .posterPath)
+		try values.encode(backdropPath, forKey: .backdropPath)
+		try values.encode(firstAirDate, forKey: .firstAirDate)
+		try values.encode(movieReleaseDate, forKey: .movieReleaseDate)
     }
     
     enum CodingKeys: CodingKey {
@@ -83,7 +91,7 @@ public class WatchlistItem: NSManagedObject, Codable {
              schedule, largeCardImage, largePosterImage, mediumPosterImage, shouldNotify,
              isArchive, nextEpisodeNumber, nextSeasonNumber, nextEpisodeNumberUpNext,
              seasonNumberUpNext, displayOnUpNext, isPin, lastEpisodeNumber, lastSelectedSeason,
-             userNotes, userRating, isWatching
+             userNotes, userRating, isWatching, posterPath, backdropPath, firstAirDate, movieReleaseDate
     }
 }
 

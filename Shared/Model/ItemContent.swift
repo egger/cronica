@@ -44,6 +44,7 @@ extension ProductionCompany {
     }
 }
 struct ProductionCountry: Codable, Hashable {
+	let iso31661: String
     let name: String
 }
 struct Genre: Codable, Identifiable, Hashable {

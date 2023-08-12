@@ -33,11 +33,26 @@ struct UpcomingWatchlist: View {
     @StateObject private var settings = SettingsStore.shared
     @Binding var shouldReload: Bool
     var body: some View {
-        list(items: items.filter { $0.image != nil })
+		list(items: items.filter { $0.image != nil && $0.itemReleaseDate > Date() }.sorted(by: { $0.itemReleaseDate < $1.itemReleaseDate}))
+			.onAppear {
+				updateItems(items: items.filter { $0.itemReleaseDate < Date() })
+			}
     }
+	
+	private func updateItems(items: [WatchlistItem]) {
+		if items.isEmpty { return }
+		Task {
+			for item in items {
+				let content = try? await NetworkService.shared.fetchItem(id: item.itemId, type: item.itemMedia)
+				if let content {
+					PersistenceController.shared.update(item: content)
+				}
+			}
+		}
+	}
     
     @ViewBuilder
-    func list(items: [WatchlistItem]) -> some View {
+	private func list(items: [WatchlistItem]) -> some View {
         if !items.isEmpty {
             VStack {
 #if !os(tvOS)

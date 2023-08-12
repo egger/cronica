@@ -29,7 +29,8 @@ extension SearchItemContent {
 	}
 	var itemTheatricalString: String? {
 		if let dates = releaseDates?.results {
-			return DatesManager.getReleaseDateFormatted(results: dates)
+			let productionRegion = "US"
+			return DatesManager.getReleaseDateFormatted(results: dates, productionRegion: productionRegion)
 		}
 		if let date = nextEpisodeDate {
 			return "\(DatesManager.dateString.string(from: date))"

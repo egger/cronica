@@ -13,6 +13,7 @@ struct AboutSettings: View {
 #endif
     @StateObject private var settings = SettingsStore.shared
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+	let buildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
     var body: some View {
         Form {
             Section {
@@ -100,7 +101,7 @@ struct AboutSettings: View {
                     NavigationLink("🛠️", value: SettingsScreens.developer)
                 }
                 CenterHorizontalView {
-                    Text("Version \(appVersion ?? "")")
+                    Text("Version \(appVersion ?? "") • \(buildNumber)")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
                         .onTapGesture(count: 3) {

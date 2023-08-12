@@ -188,7 +188,7 @@ struct ItemContentDetails: View {
             animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
         } label: {
             Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: viewModel.isWatched ? "minus.circle" : "checkmark.circle")
+                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
         }
 #if os(iOS) || os(macOS)
         .keyboardShortcut("w", modifiers: [.option])
@@ -201,7 +201,7 @@ struct ItemContentDetails: View {
             animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
         } label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                  systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
+                  systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
         }
 #if os(iOS) || os(macOS)
         .keyboardShortcut("f", modifiers: [.option])
@@ -263,7 +263,11 @@ struct ItemContentDetails: View {
 #if os(iOS)
             if UIDevice.isIPhone {
                 if viewModel.isInWatchlist {
-                    favoriteButton
+					if type == .movie {
+						favoriteButton
+					} else {
+						watchButton
+					}
                     archiveButton
                     pinButton
                     userNotesButton

@@ -532,7 +532,7 @@
 "changeLanguage" = "Alterar o idioma do aplicativo";
 "sendEmailFooterBackup" = "Você também pode enviar um e-mail para contact@alexandremadeira.dev usando seu cliente de e-mail.";
 "addedToWatchlist" = "Adicionado à Lista";
-"upNext" = "A seguir";
+"upNext" = "Seguintes";
 "markAsWatched" = "Marque como assistido";
 "recommendationsTitle" = "Recomendações";
 "recommendationsSubtitle" = "Com base no seu conteúdo assistido";
@@ -681,7 +681,7 @@
 "markedPin" = "Fixado";
 "removedPin" = "Desafixado";
 "S%d, E%d" = "T%d, E%d";
-"Mark some episodes as watched to use Up Next." = "Marque alguns episódios como assistidos para usar o A Seguir.";
+"Mark some episodes as watched to use Up Next." = "Marque alguns episódios como assistidos para usar o Seguintes.";
 "Your upcoming items will appear here." = "Seus próximos títulos aparecerão aqui.";
 "Prefer Poster in Details Page" = "Preferir Cartaz na Página de Detalhes";
 "Details Page" = "Página de Detalhes";

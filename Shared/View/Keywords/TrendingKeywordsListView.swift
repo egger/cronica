@@ -41,20 +41,13 @@ struct TrendingKeywordsListView: View {
 									.frame(width: 160, height: 100, alignment: .center)
 									.clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 									.shadow(radius: 2)
+									.buttonStyle(.plain)
 							}
 							.frame(width: 160, height: 100, alignment: .center)
 						}
 					}
 					.padding([.horizontal, .bottom])
 				}
-			}
-		}
-		.overlay {
-			if viewModel.isLoadingTrendingKeywords {
-				ProgressView()
-					.unredacted()
-					.foregroundColor(.secondary)
-					.padding()
 			}
 		}
 		.redacted(reason: viewModel.isLoadingTrendingKeywords ? .placeholder : [])

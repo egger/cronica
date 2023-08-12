@@ -31,44 +31,36 @@ class DatesManager {
         formatter.formatOptions = .withFullDate
         return formatter
     }
-    static func getReleaseDateFormatted(results: [ReleaseDatesResult]) -> String? {
-        for result in results {
-            if result.iso31661 == Locale.userRegion {
-                if result.releaseDates != nil {
-                    for date in result.releaseDates! {
-                        if date.type != nil && date.type == 3 {
-                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                            return dateString.string(from: release)
-                        }
-                        if date.type != nil && date.type == 4 {
-                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                            return dateString.string(from: release)
-                        }
-                        if date.type != nil && date.type == 6 {
-                            let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                            return dateString.string(from: release)
-                        }
-                    }
-                }
-            }
-            if result.iso31661 == "US" {
-                guard let dates = result.releaseDates else { return nil }
-                for date in dates {
-                    if date.type != nil && date.type == 3 {
-                        let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                        return dateString.string(from: release)
-                    }
-                    if date.type != nil && date.type == 4 {
-                        let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                        return dateString.string(from: release)
-                    }
-                    if date.type != nil && date.type == 6 {
-                        let release = releaseDateFormatter.date(from: date.releaseDate!)!
-                        return dateString.string(from: release)
-                    }
-                }
-            }
-        }
-        return nil
-    }
+	static func getReleaseDateFormatted(results: [ReleaseDatesResult], productionRegion: String) -> String? {
+		if results.isEmpty { return nil }
+		if results.contains(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() }) {
+			let result = results.filter { $0.iso31661?.lowercased()  == Locale.userRegion.lowercased() }.first
+			guard let dates = result?.releaseDates else { return nil }
+			var content: String?
+			if dates.contains(where: { $0.type == ReleaseDateType.premiere.toInt }) {
+				guard let theatrical = dates.filter({ $0.type == ReleaseDateType.premiere.toInt }).first else { return nil }
+				content = theatrical.releaseDate
+			} else {
+				guard let firstDateAvailable = dates.first else { return nil }
+				content = firstDateAvailable.releaseDate
+			}
+			guard let content else { return nil }
+			guard let releaseDate = releaseDateFormatter.date(from: content) else { return nil }
+			return dateString.string(from: releaseDate)
+		} else {
+			let result = results.filter { $0.iso31661?.lowercased()  == productionRegion.lowercased() }.first
+			guard let dates = result?.releaseDates else { return nil }
+			var content: String?
+			if dates.contains(where: { $0.type == ReleaseDateType.theatrical.toInt }) {
+				guard let theatrical = dates.filter({ $0.type == ReleaseDateType.theatrical.toInt }).first else { return nil }
+				content = theatrical.releaseDate
+			} else {
+				guard let firstDateAvailable = dates.first else { return nil }
+				content = firstDateAvailable.releaseDate
+			}
+			guard let content else { return nil }
+			guard let releaseDate = releaseDateFormatter.date(from: content) else { return nil }
+			return dateString.string(from: releaseDate)
+		}
+	}
 }

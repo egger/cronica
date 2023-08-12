@@ -52,6 +52,10 @@ extension WatchlistItem {
     @NSManaged public var displayOnUpNext: Bool
     @NSManaged public var userNotes: String
     @NSManaged public var userRating: Int64
+	@NSManaged public var posterPath: String?
+	@NSManaged public var backdropPath: String?
+	@NSManaged public var firstAirDate: Date?
+	@NSManaged public var movieReleaseDate: Date?
 }
 
 // MARK: Generated accessors for list

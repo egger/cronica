@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailedReleaseDateView: View {
     let item: [ReleaseDatesResult]?
+	var productionRegion = "US"
     @State private var dates = [ReleaseDateDisplay]()
     @State private var isLoading = true
     @Binding var dismiss: Bool
@@ -50,7 +51,7 @@ struct DetailedReleaseDateView: View {
     private func load() {
         guard let item else { return }
         for content in item {
-            if let iso = content.iso31661 {
+			if let iso = content.iso31661 {
                 if iso.lowercased() == Locale.userRegion.lowercased() {
                     let result = fetchDates(content.releaseDates, region: iso)
                     guard let result else { return }
@@ -58,8 +59,8 @@ struct DetailedReleaseDateView: View {
                     isLoading = false
                 }
                 // If the user country is not found in the ISO, then US is used.
-                if iso.lowercased() == "us" {
-                    let result = fetchDates(content.releaseDates, region: "us")
+				if iso.lowercased() == productionRegion.lowercased() {
+					let result = fetchDates(content.releaseDates, region: productionRegion.lowercased())
                     guard let result else { return }
                     if dates.isEmpty { dates = result }
                     isLoading = false
@@ -81,6 +82,14 @@ struct DetailedReleaseDateView: View {
                         }
                     }
                 }
+				if type == ReleaseDateType.theatricalLimited.toInt {
+					let content = getReleaseDateType(for: date, type: ReleaseDateType.theatrical, region: region)
+					if let content {
+						if !result.contains(where: { $0.releaseType == .theatrical }) {
+							result.append(content)
+						}
+					}
+				}
                 if type == ReleaseDateType.digital.toInt {
                     let content = getReleaseDateType(for: date, type: ReleaseDateType.digital, region: region)
                     if let content {

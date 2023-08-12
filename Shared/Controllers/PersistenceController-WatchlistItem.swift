@@ -22,10 +22,8 @@ extension PersistenceController {
             item.tmdbID = Int64(content.id)
             item.contentID = content.itemContentID
             item.imdbID = content.imdbId
-            item.image = content.cardImageMedium
-            item.largeCardImage = content.cardImageLarge
-            item.mediumPosterImage = content.posterImageMedium
-            item.largePosterImage = content.posterImageLarge
+			item.posterPath = content.posterPath
+			item.backdropPath = content.backdropPath
             item.schedule = content.itemStatus.toInt
             item.notify = content.itemCanNotify
             item.lastValuesUpdated = Date()
@@ -35,6 +33,11 @@ extension PersistenceController {
                 if let episode = content.lastEpisodeToAir?.episodeNumber {
                     item.nextEpisodeNumber = Int64(episode)
                 }
+				if let firstAirDate = content.itemFirstAirDate {
+					if let date = DatesManager.dateFormatter.date(from: firstAirDate) {
+						item.firstAirDate = date
+					}
+				}
                 item.upcomingSeason = content.hasUpcomingSeason
                 item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
             }
@@ -48,10 +51,9 @@ extension PersistenceController {
         request.predicate = idPredicate
         let items = try? container.viewContext.fetch(request)
         guard let items else { return nil }
-        if !items.isEmpty {
-            return items[0]
-        }
-        return nil
+		if items.isEmpty { return nil }
+		guard let firstItem = items.first else { return nil }
+		return firstItem
     }
     
     /// Updates a WatchlistItem on Core Data.
@@ -59,25 +61,19 @@ extension PersistenceController {
         if isItemSaved(id: content.itemContentID) {
             let item = fetch(for: content.itemContentID)
             guard let item else { return }
-            if item.isReleased && !item.itemLastUpdateDate.hasPassedTwoWeek() { return }
+            //if item.isReleasedMovie && !item.itemLastUpdateDate.hasPassedTwoWeek() { return }
             if item.title != content.itemTitle {
                 item.title = content.itemTitle
             }
             if item.originalTitle != content.originalTitle {
                 item.originalTitle = content.originalTitle
             }
-            if item.image != content.cardImageMedium {
-                item.image = content.cardImageMedium
-            }
-            if item.largeCardImage != content.cardImageLarge {
-                item.largeCardImage = content.cardImageLarge
-            }
-            if item.mediumPosterImage != content.posterImageMedium {
-                item.mediumPosterImage = content.posterImageMedium
-            }
-            if item.largePosterImage != content.posterImageLarge {
-                item.largePosterImage = content.posterImageLarge
-            }
+			if item.posterPath != content.posterPath {
+				item.posterPath = content.posterPath
+			}
+			if item.backdropPath != content.backdropPath {
+				item.backdropPath = content.backdropPath
+			}
             if item.schedule != content.itemStatus.toInt {
                 item.schedule = content.itemStatus.toInt
             }
@@ -108,14 +104,29 @@ extension PersistenceController {
                         item.nextSeasonNumber = season
                     }
                 }
+				if let firstAirDate = content.firstAirDate {
+					if !firstAirDate.isEmpty {
+						if let date = DatesManager.dateFormatter.date(from: firstAirDate) {
+							if item.firstAirDate != date {
+								item.firstAirDate = date
+							}
+						}
+					}
+					
+				}
             } else {
-                if let date = content.itemFallbackDate {
-                    if item.date != date {
-                        item.date = date
-                    }
-                }
+				if let releaseDate = content.itemTheatricalDate {
+					if item.movieReleaseDate != releaseDate {
+						item.movieReleaseDate = releaseDate
+					}
+				}
+				if let date = content.itemFallbackDate {
+					if item.date != date {
+						item.date = date
+					}
+				}
             }
-            if item.hasChanges && item.isReleased {
+            if item.hasChanges && item.isReleasedMovie {
                 item.lastValuesUpdated = Date()
             }
             save()

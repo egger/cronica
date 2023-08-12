@@ -51,8 +51,10 @@ struct ItemContentPhoneView: View {
             
             infoBox(item: viewModel.content, type: type).padding()
                 .sheet(isPresented: $showReleaseDateInfo) {
-                    DetailedReleaseDateView(item: viewModel.content?.releaseDates?.results,
-                                            dismiss: $showReleaseDateInfo)
+					let productionRegion = viewModel.content?.productionCountries?.first?.iso31661 ?? "US"
+					DetailedReleaseDateView(item: viewModel.content?.releaseDates?.results,
+											productionRegion: productionRegion,
+											dismiss: $showReleaseDateInfo)
                 }
             
             AttributionView().padding([.top, .bottom])
@@ -69,27 +71,51 @@ struct ItemContentPhoneView: View {
     private var actions: some View {
         HStack {
             if viewModel.isInWatchlist {
-                Button {
-                    viewModel.update(.watched)
-                    popupType = viewModel.isWatched ? .markedWatched : .removedWatched
-                    withAnimation { showPopup = true }
-                } label: {
-                    VStack {
-                        Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                        Text("Watched")
-                            .padding(.top, 2)
-                            .font(.caption)
-                            .lineLimit(1)
-                    }
-                    .padding(.vertical, 4)
-                    .frame(width: 75)
-                }
-                .keyboardShortcut("w", modifiers: [.option])
-                .controlSize(.small)
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.roundedRectangle(radius: 12))
-                .tint(.primary)
-                .padding(.horizontal)
+				if type == .movie {
+					Button {
+						viewModel.update(.watched)
+						popupType = viewModel.isWatched ? .markedWatched : .removedWatched
+						withAnimation { showPopup = true }
+					} label: {
+						VStack {
+							Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+							Text("Watched")
+								.padding(.top, 2)
+								.font(.caption)
+								.lineLimit(1)
+						}
+						.padding(.vertical, 4)
+						.frame(width: 75)
+					}
+					.keyboardShortcut("w", modifiers: [.option])
+					.controlSize(.small)
+					.buttonStyle(.bordered)
+					.buttonBorderShape(.roundedRectangle(radius: 12))
+					.tint(.primary)
+					.padding(.horizontal)
+				} else {
+					Button {
+						viewModel.update(.favorite)
+						popupType = viewModel.isFavorite ? .markedFavorite : .removedFavorite
+						withAnimation { showPopup = true }
+					} label: {
+						VStack {
+							Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+							Text("Favorite")
+								.padding(.top, 2)
+								.font(.caption)
+								.lineLimit(1)
+						}
+						.padding(.vertical, 4)
+						.frame(width: 75)
+					}
+					.keyboardShortcut("f", modifiers: [.option])
+					.controlSize(.small)
+					.buttonStyle(.bordered)
+					.buttonBorderShape(.roundedRectangle(radius: 12))
+					.tint(.primary)
+					.padding(.horizontal)
+				}
             }
             DetailWatchlistButton(showCustomList: $showCustomList)
                 .keyboardShortcut("l", modifiers: [.option])

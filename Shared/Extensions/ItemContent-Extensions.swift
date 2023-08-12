@@ -86,7 +86,11 @@ extension ItemContent {
     }
     var itemTheatricalString: String? {
         if let dates = releaseDates?.results {
-            return DatesManager.getReleaseDateFormatted(results: dates)
+			var productionRegion = "US"
+			if let country = productionCountries?.first {
+				productionRegion = country.iso31661
+			}
+            return DatesManager.getReleaseDateFormatted(results: dates, productionRegion: productionRegion)
         }
         if let date = nextEpisodeDate {
             return "\(DatesManager.dateString.string(from: date))"
@@ -122,6 +126,9 @@ extension ItemContent {
         if let itemTheatricalString {
             return "\(itemTheatricalString)"
         }
+		if let itemFirstAirDate {
+			return "\(itemFirstAirDate)"
+		}
         if let date = nextEpisodeDate {
             return "\(DatesManager.dateString.string(from: date))"
         }
@@ -138,7 +145,7 @@ extension ItemContent {
             if voteAverage <= 0.9 {
                 return nil
             } else {
-                return NSLocalizedString("\(voteAverage.rounded())/10", comment: "")
+				return NSLocalizedString("\(voteAverage.rounded(.down))/10", comment: "")
             }
         }
         return nil
