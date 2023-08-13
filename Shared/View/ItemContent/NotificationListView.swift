@@ -65,7 +65,7 @@ struct NotificationListView: View {
         if !deliveredItems.isEmpty {
             Section("Recent Notifications") {
                 ForEach(deliveredItems.sorted(by: { $0.itemTitle < $1.itemTitle })) { item in
-                    ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
+                    ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType, showNotificationDate: true)
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button(role: .destructive) {
                                 removeDelivered(id: item.itemContentID, for: item.id)
@@ -90,7 +90,7 @@ struct NotificationListView: View {
         } else {
             Section("Upcoming Notifications") {
                 ForEach(items) { item in
-                    ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
+                    ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType, showNotificationDate: true)
                         .onAppear {
                             let isStillSaved = PersistenceController.shared.isItemSaved(id: item.itemContentID)
                             if !isStillSaved {
@@ -108,7 +108,7 @@ struct NotificationListView: View {
         Task {
             let upcomingContent = await NotificationManager.shared.fetchUpcomingNotifications() ?? []
             if !upcomingContent.isEmpty {
-                let orderedContent = upcomingContent.sorted(by: { $0.itemFallbackDate ?? Date.distantPast < $1.itemFallbackDate ?? Date.distantPast})
+                let orderedContent = upcomingContent.sorted(by: { $0.itemNotificationSortDate ?? Date.distantPast < $1.itemNotificationSortDate ?? Date.distantPast})
                 items = orderedContent
             }
             deliveredItems = await NotificationManager.shared.fetchDeliveredNotifications()

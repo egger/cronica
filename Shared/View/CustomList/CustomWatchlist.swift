@@ -191,8 +191,14 @@ struct CustomWatchlist: View {
                     sortButton
                 }
             }
+#elseif os(macOS)
+			HStack {
+				sortButton
+				filterPicker
+				styleButton
+			}
 #else
-            filterPicker
+			filterPicker
 #endif
         }
 #if os(iOS)
@@ -244,10 +250,10 @@ struct CustomWatchlist: View {
                     Text(item.localizableName).tag(item)
                 }
             } label: {
-                Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
+                Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
             }
         } label: {
-            Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
+            Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
                 .labelStyle(.iconOnly)
         }
 #endif

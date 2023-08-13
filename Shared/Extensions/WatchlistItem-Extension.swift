@@ -67,8 +67,9 @@ extension WatchlistItem {
         }
         return nil
 #else
-        guard let date else { return nil }
-        return date.toShortString()
+//        guard let date else { return nil }
+//        return date.toShortString()
+		return itemReleaseDate.toShortString()
 #endif
     }
     var isWatched: Bool {

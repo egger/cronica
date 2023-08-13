@@ -54,6 +54,7 @@ struct BehaviorSetting: View {
 			Section {
 				Toggle("quitWhenClosingApp", isOn: $store.quitApp)
 			}
+			.hidden()
 #endif
         }
         .navigationTitle("behaviorTitle")

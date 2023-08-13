@@ -39,7 +39,6 @@ struct SideBarView: View {
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
 #if os(macOS)
-			.overlay(search)
             .searchable(text: $viewModel.query, placement: .toolbar, prompt: "Movies, Shows, People")
 #endif
             .disableAutocorrection(true)
@@ -110,29 +109,6 @@ struct SideBarView: View {
         .sheet(isPresented: $showNotifications) {
             NotificationListView(showNotification: $showNotifications)
         }
-        .sheet(item: $selectedSearchItem) { item in
-            if item.media == .person {
-                NavigationStack {
-                    PersonDetailsView(title: item.itemTitle, id: item.id)
-                        .navigationDestination(for: ItemContent.self) { item in
-                            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                        }
-                        .navigationDestination(for: Person.self) { person in
-                            PersonDetailsView(title: person.name, id: person.id)
-                        }
-                }
-            } else {
-                NavigationStack {
-                    ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                        .navigationDestination(for: ItemContent.self) { item in
-                            ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                        }
-                        .navigationDestination(for: Person.self) { person in
-                            PersonDetailsView(title: person.name, id: person.id)
-                        }
-                }
-            }
-        }
     }
     
 #if os(macOS)
@@ -184,43 +160,46 @@ struct SideBarView: View {
             }
         case .success:
             NavigationStack {
-                ScrollView {
-					LazyVGrid(columns: columns, spacing: 20) {
-						ForEach(viewModel.items) { item in
-							if item.media == .person {
-								PersonSearchImage(item: item)
-							} else {
-								SearchContentPosterView(item: item,
-													  showPopup: $showPopup,
-													  popupType: $popupType)
+				VStack {
+					ScrollView {
+						LazyVGrid(columns: columns, spacing: 20) {
+							ForEach(viewModel.items) { item in
+								if item.media == .person {
+									PersonSearchImage(item: item)
+								} else {
+									SearchContentPosterView(item: item,
+															showPopup: $showPopup,
+															popupType: $popupType)
+								}
 							}
-						}
-						.buttonStyle(.plain)
-						if viewModel.startPagination && !viewModel.endPagination {
-							CenterHorizontalView {
-								ProgressView()
-									.padding()
-									.onAppear {
-										DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-											withAnimation {
-												viewModel.loadMoreItems()
+							.buttonStyle(.plain)
+							if viewModel.startPagination && !viewModel.endPagination {
+								CenterHorizontalView {
+									ProgressView()
+										.padding()
+										.onAppear {
+											DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+												withAnimation {
+													viewModel.loadMoreItems()
+												}
 											}
 										}
-									}
+								}
+							}
+						}
+						.navigationDestination(for: ItemContent.self) { item in
+							ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+						}
+						.navigationDestination(for: SearchItemContent.self) { item in
+							if item.media == .person {
+								PersonDetailsView(title: item.itemTitle, id: item.id)
+							} else {
+								ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
 							}
 						}
 					}
-                    .navigationDestination(for: ItemContent.self) { item in
-						ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
-                    }
-					.navigationDestination(for: SearchItemContent.self) { item in
-						if item.media == .person {
-							PersonDetailsView(title: item.itemTitle, id: item.id)
-						} else {
-							ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
-						}
-					}
-                }
+				}
+				.padding()
                 .navigationTitle("Search")
             }
         }

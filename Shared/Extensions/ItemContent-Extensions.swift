@@ -310,7 +310,29 @@ extension ItemContent {
         }
         return "\(itemContentMedia.title)"
     }
-    
+	var itemNotificationDescription: String {
+		if itemContentMedia == .movie {
+			if itemTheatricalString != nil && shortItemRuntime != nil {
+				return "\(itemContentMedia.title) • \(itemTheatricalString!)"
+			}
+			if let itemTheatricalString {
+				return "\(itemContentMedia.title) • \(itemTheatricalString)"
+			}
+		}
+		if let date = nextEpisodeDate {
+			return "\(itemContentMedia.title) • \(DatesManager.dateString.string(from: date))"
+		}
+		if let date = lastEpisodeToAir?.airDate {
+			let formattedDate = DatesManager.dateFormatter.date(from: date)
+			if let formattedDate {
+				return "\(itemContentMedia.title) • \(DatesManager.dateString.string(from: formattedDate))"
+			}
+		}
+		if let itemFallbackDate {
+			return "\(itemContentMedia.title) • \(DatesManager.dateString.string(from: itemFallbackDate))"
+		}
+		return "\(itemContentMedia.title)"
+	}
 
     var originalItemTitle: String? {
         if let originalTitle { return originalTitle }
@@ -366,6 +388,23 @@ extension ItemContent {
         }
         return nil
     }
+	var itemNotificationSortDate: Date? {
+		if itemContentMedia == .movie {
+			if let itemTheatricalDate {
+				return itemTheatricalDate
+			}
+		}
+		if let nextEpisodeDate {
+			return nextEpisodeDate
+		}
+		if let releaseDate = releaseDate {
+			return DatesManager.dateFormatter.date(from: releaseDate)
+		}
+		if let lastEpisodeToAir, let date = lastEpisodeToAir.airDate {
+			return DatesManager.dateFormatter.date(from: date)
+		}
+		return nil
+	}
     
     // MARK: Preview
     static var examples: [ItemContent] {

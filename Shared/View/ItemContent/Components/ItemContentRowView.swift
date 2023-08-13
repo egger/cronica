@@ -21,6 +21,7 @@ struct ItemContentRowView: View {
     @State private var showCustomListView = false
     @Binding var popupType: ActionPopupItems?
     private let persistence = PersistenceController.shared
+	var showNotificationDate = false
     var body: some View {
         NavigationLink(value: item) {
             HStack {
@@ -61,7 +62,7 @@ struct ItemContentRowView: View {
                             .lineLimit(DrawingConstants.textLimit)
                     }
                     HStack {
-                        Text(item.itemSearchDescription)
+						Text(showNotificationDate ? item.itemNotificationDescription : item.itemSearchDescription)
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Spacer()

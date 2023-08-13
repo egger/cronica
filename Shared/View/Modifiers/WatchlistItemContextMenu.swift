@@ -104,7 +104,7 @@ struct WatchlistItemContextMenu: ViewModifier {
 	
 	@ViewBuilder
 	private var share: some View {
-#if os(iOS)
+#if os(iOS) || os(macOS)
 		switch settings.shareLinkPreference {
 		case .tmdb: ShareLink(item: item.itemLink)
 		case .cronica:
@@ -177,8 +177,9 @@ struct WatchlistItemContextMenu: ViewModifier {
 	
 	private var deleteButton: some View {
 		Button(role: .destructive, action: remove) {
-			Text("Remove")
+			Label("Remove", systemImage: "minus.circle.fill")
 #if os(macOS)
+				.labelStyle(.titleOnly)
 				.foregroundColor(.red)
 #endif
 		}

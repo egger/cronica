@@ -37,7 +37,9 @@ struct WatchEpisodeButton: View {
 #endif
         }
 #if os(iOS)
-        .applyHoverEffect()
+		.applyHoverEffect()
+#elseif os(watchOS)
+		.padding(.horizontal)
 #endif
     }
     

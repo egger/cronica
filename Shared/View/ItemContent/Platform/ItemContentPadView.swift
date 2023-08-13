@@ -136,6 +136,39 @@ struct ItemContentPadView: View {
                         .environmentObject(viewModel)
                     
                     if viewModel.isInWatchlist {
+						Button {
+							viewModel.update(.watched)
+							popupType = viewModel.isWatched ? .markedWatched : .removedWatched
+							withAnimation { showPopup = true }
+						} label: {
+#if os(macOS)
+							Label("Watched", systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+#else
+							VStack {
+								Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+								Text("Watched")
+									.padding(.top, 2)
+									.font(.caption)
+									.lineLimit(1)
+							}
+							.padding(.vertical, 4)
+							.frame(width: 60)
+#endif
+						}
+						.keyboardShortcut("w", modifiers: [.option])
+#if os(macOS)
+						.controlSize(.large)
+#else
+						.controlSize(.small)
+#endif
+						.buttonStyle(.bordered)
+#if os(iOS)
+						.buttonBorderShape(.roundedRectangle(radius: 12))
+#endif
+						.tint(.primary)
+						.applyHoverEffect()
+						.padding(.leading)
+						
                         Button {
                             showCustomList.toggle()
                         } label: {
@@ -153,38 +186,6 @@ struct ItemContentPadView: View {
                             .frame(width: 60)
 #endif
                         }
-#if os(macOS)
-                        .controlSize(.large)
-#else
-                        .controlSize(.small)
-#endif
-                        .buttonStyle(.bordered)
-#if os(iOS)
-                        .buttonBorderShape(.roundedRectangle(radius: 12))
-#endif
-                        .tint(.primary)
-                        .applyHoverEffect()
-                        .padding(.leading)
-                        Button {
-                            viewModel.update(.watched)
-                            popupType = viewModel.isWatched ? .markedWatched : .removedWatched
-                            withAnimation { showPopup = true }
-                        } label: {
-#if os(macOS)
-                            Label("Watched", systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-#else
-                            VStack {
-                                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                                Text("Watched")
-                                    .padding(.top, 2)
-                                    .font(.caption)
-                                    .lineLimit(1)
-                            }
-                            .padding(.vertical, 4)
-                            .frame(width: 60)
-#endif
-                        }
-                        .keyboardShortcut("w", modifiers: [.option])
 #if os(macOS)
                         .controlSize(.large)
 #else
@@ -310,7 +311,8 @@ struct QuickInformationView: View {
                      content: item?.itemStatus.localizedTitle)
         }
         .sheet(isPresented: $showReleaseDateInfo) {
-            DetailedReleaseDateView(item: item?.releaseDates?.results,
+			let productionRegion = item?.productionCountries?.first?.iso31661 ?? "US"
+            DetailedReleaseDateView(item: item?.releaseDates?.results, productionRegion: productionRegion,
                                     dismiss: $showReleaseDateInfo)
 #if os(macOS)
             .frame(width: 400, height: 300, alignment: .center)

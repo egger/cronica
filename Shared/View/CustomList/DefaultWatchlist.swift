@@ -203,6 +203,7 @@ struct DefaultWatchlist: View {
             }
 #elseif os(macOS)
             HStack {
+				sortButton
                 filterButton
                 styleButton
             }
@@ -265,10 +266,10 @@ struct DefaultWatchlist: View {
                     Text(item.localizableName).tag(item)
                 }
             } label: {
-                Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
+                Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
             }
         } label: {
-            Label("watchlistSortORder", systemImage: "arrow.up.arrow.down.circle")
+            Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
                 .labelStyle(.iconOnly)
         }
 #endif

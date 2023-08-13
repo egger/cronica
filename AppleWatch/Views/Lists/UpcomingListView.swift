@@ -28,7 +28,7 @@ struct UpcomingListView: View {
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         NavigationStack {
-            list(items: items.filter { $0.backCompatibleCardImage != nil })
+			list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemReleaseDate < $1.itemReleaseDate}))
         }
     }
     

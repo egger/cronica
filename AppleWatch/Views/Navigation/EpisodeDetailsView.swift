@@ -30,6 +30,7 @@ struct EpisodeDetailsView: View {
                     .fontWeight(.semibold)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
+					.padding(.horizontal)
                 Text(episode.itemTitle)
                     .font(.caption)
                     .lineLimit(2)
@@ -52,10 +53,12 @@ struct EpisodeDetailsView: View {
                 
                 if let url = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)") {
                     ShareLink(item: url)
+						.padding(.horizontal)
                         .padding([.bottom, .horizontal])
                 }
                 
                 AboutSectionView(about: episode.itemOverview)
+					.padding([.horizontal, .bottom])
                 
             }
         }
