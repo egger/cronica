@@ -195,7 +195,7 @@ struct ItemContentRow: View {
 					ZStack {
 						Color.black.opacity(0.5)
 						if isWatched {
-							Image(systemName: "checkmark.circle.fill")
+							Image(systemName: "rectangle.badge.checkmark.fill")
 								.foregroundColor(.white.opacity(0.8))
 								.padding()
 						} else {

@@ -33,7 +33,7 @@ struct UpcomingWatchlist: View {
     @StateObject private var settings = SettingsStore.shared
     @Binding var shouldReload: Bool
     var body: some View {
-		list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemReleaseDate < $1.itemReleaseDate}))
+		list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate}))
 			.task {
 				updateItems(items: items.filter { $0.itemReleaseDate < Date() })
 			}

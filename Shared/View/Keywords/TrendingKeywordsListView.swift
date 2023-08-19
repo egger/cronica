@@ -19,23 +19,32 @@ struct TrendingKeywordsListView: View {
 					LazyVGrid(columns: columns, spacing: 20) {
 						ForEach(viewModel.trendingKeywords) { keyword in
 							NavigationLink(value: keyword) {
-								WebImage(url: keyword.image)
+								WebImage(url: keyword.image, options: [.continueInBackground, .highPriority])
 									.resizable()
 									.placeholder {
-										Rectangle().fill(.gray.gradient)
+										ZStack {
+											Rectangle().fill(.gray.gradient)
+											Image(systemName: "popcorn")
+										}
 									}
 									.aspectRatio(contentMode: .fill)
 									.overlay {
 										ZStack {
 											Rectangle().fill(.black.opacity(0.5))
-											Text(keyword.name)
-												.foregroundColor(.white)
-												.fontDesign(.rounded)
-												.font(.headline)
-												.fontWeight(.bold)
-												.multilineTextAlignment(.center)
-												.lineLimit(2)
-												.padding()
+											VStack {
+												Spacer()
+												HStack {
+													Text(keyword.name)
+														.foregroundColor(.white)
+														.font(.subheadline)
+														.fontWeight(.semibold)
+														.multilineTextAlignment(.leading)
+														.lineLimit(2)
+													Spacer()
+												}
+												.padding(.horizontal)
+												.padding(.bottom, 8)
+											}
 										}
 									}
 									.frame(width: 160, height: 100, alignment: .center)

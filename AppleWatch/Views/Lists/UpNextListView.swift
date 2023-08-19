@@ -88,6 +88,7 @@ struct UpNextListView: View {
                         Image(systemName: "sparkles.tv")
                             .foregroundColor(.white.opacity(0.8))
                     }
+					.unredacted()
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                 }

@@ -27,7 +27,20 @@ extension PersistenceController {
             item.schedule = content.itemStatus.toInt
             item.notify = content.itemCanNotify
             item.lastValuesUpdated = Date()
-            item.date = content.itemFallbackDate
+			if content.itemContentMedia == .movie {
+				item.date = content.itemFallbackDate
+			} else {
+				if let nextEpisode = content.nextEpisodeToAir {
+					if nextEpisode.itemEpisodeNumber == 1 {
+						let date = nextEpisode.airDate?.toDate()
+						if let date {
+							if date != item.date {
+								item.date = date
+							}
+						}
+					}
+				}
+			}
             item.formattedDate = content.itemTheatricalString
             if content.itemContentMedia == .tvShow {
                 if let episode = content.lastEpisodeToAir?.episodeNumber {
@@ -84,6 +97,16 @@ extension PersistenceController {
                 item.formattedDate = content.itemTheatricalString
             }
             if content.itemContentMedia == .tvShow {
+				if let nextEpisode = content.nextEpisodeToAir {
+					if nextEpisode.itemEpisodeNumber == 1 {
+						let date = nextEpisode.airDate?.toDate()
+						if let date {
+							if date != item.date {
+								item.date = date
+							}
+						}
+					}
+				}
                 if let episode = content.lastEpisodeToAir {
                     let episodeNumber = Int64(episode.itemEpisodeNumber)
                     if item.lastEpisodeNumber != episodeNumber {
@@ -112,7 +135,6 @@ extension PersistenceController {
 							}
 						}
 					}
-					
 				}
             } else {
 				if let releaseDate = content.itemTheatricalDate {

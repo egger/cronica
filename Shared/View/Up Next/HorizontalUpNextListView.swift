@@ -66,7 +66,13 @@ struct HorizontalUpNextListView: View {
                                             .padding(.bottom)
                                             .onTapGesture {
                                                 if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                    Task { await viewModel.markAsWatched(item) }
+                                                    Task {
+														await viewModel.markAsWatched(item)
+														guard let first = viewModel.episodes.first else { return }
+														withAnimation {
+															proxy.scrollTo(first.id, anchor: .topLeading)
+														}
+													}
                                                 } else {
                                                     selectedEpisode = item
                                                 }
@@ -104,7 +110,13 @@ struct HorizontalUpNextListView: View {
                                         .padding(.bottom)
                                         .onTapGesture {
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                Task { await viewModel.markAsWatched(item) }
+                                                Task {
+													await viewModel.markAsWatched(item)
+													guard let first = viewModel.episodes.first else { return }
+													withAnimation {
+														proxy.scrollTo(first.id, anchor: .topLeading)
+													}
+												}
                                             } else {
                                                 selectedEpisode = item
                                             }

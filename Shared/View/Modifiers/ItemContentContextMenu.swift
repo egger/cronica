@@ -43,6 +43,9 @@ struct ItemContentContextMenu: ViewModifier {
 						Label("reviewTitle", systemImage: "note.text")
 					}
 #endif
+#if DEBUG
+					printButton
+#endif
 				}
 				Divider()
 				if !isInWatchlist {
@@ -153,6 +156,17 @@ struct ItemContentContextMenu: ViewModifier {
 						showPopup: $showPopup,
 						showListSelector: $showCustomListView,
 						popupType: $popupType)
+	}
+	
+	@ViewBuilder
+	private var printButton: some View {
+#if DEBUG
+		Button {
+			print(item)
+		} label: {
+			Label("Print", systemImage: "hammer.fill")
+		}
+#endif
 	}
 	
 	@ViewBuilder

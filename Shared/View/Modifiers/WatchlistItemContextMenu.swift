@@ -52,6 +52,9 @@ struct WatchlistItemContextMenu: ViewModifier {
 				reviewButton
 				Divider()
 				deleteButton
+#if DEBUG
+				printButton
+#endif
 			} preview: {
 				ContextMenuPreviewImage(title: item.itemTitle,
 										image: item.backCompatibleCardImage,
@@ -86,6 +89,17 @@ struct WatchlistItemContextMenu: ViewModifier {
 					  isArchive: $isArchive,
 					  popupType: $popupType,
 					  showPopup: $showPopup)
+	}
+	
+	@ViewBuilder
+	private var printButton: some View {
+#if DEBUG
+		Button {
+			print(item)
+		} label: {
+			Label("Print", systemImage: "hammer.fill")
+		}
+#endif
 	}
 	
 #if os(iOS) || os(macOS)

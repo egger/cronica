@@ -28,7 +28,7 @@ struct UpcomingListView: View {
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         NavigationStack {
-			list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemReleaseDate < $1.itemReleaseDate}))
+			list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate}))
         }
     }
     
@@ -69,6 +69,7 @@ struct UpcomingListView: View {
                             .foregroundColor(.white.opacity(0.8))
                             .padding([.horizontal, .bottom])
                     }
+					.unredacted()
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                 }
