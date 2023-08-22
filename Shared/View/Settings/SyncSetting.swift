@@ -28,8 +28,11 @@ struct SyncSetting: View {
                                 ProgressView()
                             }
                         } else {
-                            InformationalLabel(title: "syncSettingsUpdateWatchlistTitle",
-                                               subtitle: "syncSettingsUpdateWatchlistSubtitle")
+							VStack(alignment: .leading) {
+								Text("syncSettingsUpdateWatchlistTitle")
+								Text("syncSettingsUpdateWatchlistSubtitle")
+									.foregroundColor(.secondary)
+							}
                         }
                     }
 #if os(macOS)

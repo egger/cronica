@@ -60,7 +60,10 @@ struct SeasonList: View {
             .pickerStyle(.menu)
 #endif
             .onChange(of: selectedSeason) { _ in
-                Task { await load() }
+                Task {
+					await load()
+					checkIfWatched = false
+				}
             }
             .padding(.leading)
             .padding(.bottom, 1)
@@ -197,11 +200,19 @@ struct SeasonList: View {
     
     private func markSeasonAsWatched() {
         guard let episodes = season?.episodes else { return }
-        for episode in episodes {
-            if !persistence.isEpisodeSaved(show: showID, season: episode.itemSeasonNumber, episode: episode.id) {
-                persistence.updateEpisodeList(show: showID, season: episode.itemSeasonNumber, episode: episode.id)
-            }
-        }
+		let contentID = "\(showID)@\(MediaType.tvShow.toInt)"
+		guard let item = persistence.fetch(for: contentID) else { return }
+		persistence.updateEpisodeList(to: item, show: showID, episodes: episodes)
+		Task {
+			guard let actualSeason = season?.seasonNumber else { return }
+			let nextSeason = actualSeason + 1
+			let nextSeasonContent = try? await network.fetchSeason(id: showID, season: nextSeason)
+			if let firstEpisode = nextSeasonContent?.episodes?.first {
+				if !persistence.isEpisodeSaved(show: showID, season: nextSeason, episode: firstEpisode.id) {
+					persistence.updateUpNext(item, episode: firstEpisode)
+				}
+			}
+		}
         checkIfWatched = true
     }
 }

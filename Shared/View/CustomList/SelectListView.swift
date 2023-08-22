@@ -210,10 +210,9 @@ struct SelectListView: View {
 #if os(iOS)
 	@ViewBuilder
 	private var tmdbSection: some View {
-		if SettingsStore.shared.isUserConnectedWithTMDb {
+		if SettingsStore.shared.isUserConnectedWithTMDb && query.isEmpty && queryResult.isEmpty {
 			Section {
 				List {
-						//NavigationLink("Watchlist", destination: TMDBWatchlistView())
 					ForEach(tmdbLists) { list in
 						NavigationLink(value: list) {
 							Text(list.itemTitle)

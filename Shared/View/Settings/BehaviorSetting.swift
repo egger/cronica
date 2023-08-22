@@ -21,7 +21,7 @@ struct BehaviorSetting: View {
             Section {
 #if os(iOS)
                 Toggle(isOn: $store.hapticFeedback) {
-                    InformationalLabel(title: "hapticFeedbackTitle")
+                    Text("hapticFeedbackTitle")
                 }
 #endif
                 
@@ -39,7 +39,7 @@ struct BehaviorSetting: View {
 						Text(item.title).tag(item)
 					}
 				} label: {
-					InformationalLabel(title: "shareLinkPreference")
+					Text("shareLinkPreference")
 				}
 			} header: {
 				Text("Beta")
@@ -51,10 +51,10 @@ struct BehaviorSetting: View {
 			}
 			
 #if os(macOS)
-			Section {
-				Toggle("quitWhenClosingApp", isOn: $store.quitApp)
-			}
-			.hidden()
+//			Section {
+//				Toggle("quitWhenClosingApp", isOn: $store.quitApp)
+//			}
+//			.hidden()
 #endif
         }
         .navigationTitle("behaviorTitle")
@@ -70,8 +70,8 @@ struct BehaviorSetting: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                InformationalLabel(title: "behaviorDoubleTapTitle",
-                                   subtitle: "behaviorDoubleTapSubtitle")
+				Text("behaviorDoubleTapTitle")
+				Text("behaviorDoubleTapSubtitle")
             }
         } header: {
             Text("behaviorGestureTitle")
@@ -119,8 +119,8 @@ struct BehaviorSetting: View {
                 }
             }
             Toggle(isOn: $store.allowFullSwipe) {
-                InformationalLabel(title: "behaviorAllowFullSwipeTitle",
-                                   subtitle: "behaviorAllowFullSwipeSubtitle")
+				Text("behaviorAllowFullSwipeTitle")
+				Text("behaviorAllowFullSwipeSubtitle")
             }
             Button("resetToDefault") {
                 store.primaryLeftSwipe = .markWatch
@@ -137,10 +137,10 @@ struct BehaviorSetting: View {
     private var singleTapGesture: some View {
         Section {
             Toggle(isOn: $store.openInYouTube) {
-                InformationalLabel(title: "behaviorYouTubeTitle")
+                Text("behaviorYouTubeTitle")
             }
             Toggle(isOn: $store.markEpisodeWatchedOnTap) {
-                InformationalLabel(title: "behaviorEpisodeTitle")
+                Text("behaviorEpisodeTitle")
             }
         }
     }

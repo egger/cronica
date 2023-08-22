@@ -66,8 +66,9 @@ struct AboutSettings: View {
             }
             
             Section("Translation") {
-                aboutButton(title: "German", subtitle: "Simon Boer", url: "https://twitter.com/simonboer16")
-                aboutButton(title: "Spanish", subtitle: "Luis Felipe Lerma Alvarez", url: "https://www.instagram.com/lerma_alvarez")
+                aboutButton(title: "German", subtitle: "Simon Boer", url: "https://twitter.com/SimonBoer29")
+                aboutButton(title: "Spanish", subtitle: "Luis Felipe Lerma Alvarez",
+							url: "https://www.instagram.com/lerma_alvarez")
             }
             
             Section("Libraries") {
@@ -125,12 +126,23 @@ struct AboutSettings: View {
             UIApplication.shared.open(url)
 #endif
         } label: {
-            InformationalLabel(title: title, subtitle: subtitle)
+			buttonLabels(title: title, subtitle: subtitle)
         }
 #if os(macOS)
         .buttonStyle(.link)
 #endif
     }
+	
+	private func buttonLabels(title: String, subtitle: String?) -> some View {
+		VStack(alignment: .leading) {
+			Text(NSLocalizedString(title, comment: ""))
+			if let subtitle {
+				Text(NSLocalizedString(subtitle, comment: ""))
+					.font(.caption)
+					.foregroundColor(.secondary)
+			}
+		}
+	}
     
 #if os(macOS)
     private var privacy: some View {

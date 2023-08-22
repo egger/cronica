@@ -39,7 +39,7 @@ struct TMDBAccountView: View {
         Button(role: userIsLoggedIn ? .destructive : nil) {
             userIsLoggedIn ? SignOut() : SignIn()
         } label: {
-            InformationalLabel(title: "connectedAccountTMDB",
+			accountLabel(title: "connectedAccountTMDB",
                                subtitle: userIsLoggedIn ? "AccountSettingsViewSignOut" : "AccountSettingsViewSignIn",
                                image: userIsLoggedIn ? "person.crop.circle.fill.badge.minus" : "person.crop.circle.badge.plus")
                 .tint(userIsLoggedIn ? .red : nil)
@@ -48,6 +48,20 @@ struct TMDBAccountView: View {
 #endif
         }
     }
+	
+	private func accountLabel(title: String, subtitle: String, image: String) -> some View {
+		HStack {
+			VStack {
+				Image(systemName: image)
+			}
+			VStack(alignment: .leading) {
+				Text(NSLocalizedString(title, comment: ""))
+				Text(NSLocalizedString(subtitle, comment: ""))
+					.font(.caption)
+					.foregroundColor(.secondary)
+			}
+		}
+	}
     
     private func SignIn() {
         Task {

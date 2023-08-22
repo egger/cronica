@@ -27,28 +27,28 @@ struct AppearanceSetting: View {
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    InformationalLabel(title: "appearanceRowStyleTitle")
+					Text("appearanceRowStyleTitle")
                 }
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    InformationalLabel(title: "appearanceSectionDetailsTitle")
+                    Text("appearanceSectionDetailsTitle")
                 }
                 Picker(selection: $store.listsDisplayType) {
                     ForEach(ItemContentListPreferredDisplayType.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    InformationalLabel(title: "appearanceHorizontalListsTitle")
+                    Text("appearanceHorizontalListsTitle")
                 }
 				Picker(selection: $store.upNextStyle) {
 					ForEach(UpNextDetailsPreferredStyle.allCases) { item in
 						Text(item.title).tag(item)
 					}
 				} label: {
-					InformationalLabel(title: "appearanceUpNextTitle")
+					Text("appearanceUpNextTitle")
 				}
             } header: {
                 Text("appearanceStyle")
@@ -58,12 +58,17 @@ struct AppearanceSetting: View {
             if UIDevice.isIPhone {
                 Section {
                     Toggle(isOn: $store.isCompactUI) {
-                        InformationalLabel(title: "appearanceCompactUI", subtitle: "appearanceCompactUISubtitle")
+						Text("appearanceCompactUI")
+						Text("appearanceCompactUISubtitle")
                     }
                 }
             }
 #endif
-            
+      
+			Section {
+				Toggle("Show Date in Watchlist", isOn: $store.showDateOnWatchlist)
+			}
+			
 #if os(iOS)
             Section("appearanceAppThemeTitle") {
                 Picker(selection: $store.currentTheme) {
@@ -71,7 +76,7 @@ struct AppearanceSetting: View {
                         Text(item.localizableName).tag(item)
                     }
                 } label: {
-                    InformationalLabel(title: "appearanceAppThemeTitle")
+                    Text("appearanceAppThemeTitle")
                 }
                 .pickerStyle(.segmented)
                 .padding(.vertical, 6)
@@ -88,7 +93,7 @@ struct AppearanceSetting: View {
             
             Section {
                 Toggle(isOn: $store.disableTranslucent) {
-                    InformationalLabel(title: "disableTranslucentTitle")
+                    Text("disableTranslucentTitle")
                 }
             }
         }

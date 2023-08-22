@@ -248,7 +248,9 @@ extension PersistenceController {
     func updateEpisodeList(to item: WatchlistItem, show: Int, episodes: [Episode]) {
         var watched = ""
         for episode in episodes {
-            watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
+			if !watched.contains("-\(episode.id)@\(episode.itemSeasonNumber)") {
+				watched.append("-\(episode.id)@\(episode.itemSeasonNumber)")
+			}
         }
         item.watchedEpisodes?.append(watched)
         item.isWatching = true

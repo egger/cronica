@@ -60,6 +60,7 @@ class SettingsStore: ObservableObject {
 #endif
     @AppStorage("shareLinkPreference") var shareLinkPreference: ShareLinkPreference = .tmdb
 	@AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
+	@AppStorage("showDateOnWatchlistRow") var showDateOnWatchlist = false
 #if os(macOS)
 	@AppStorage("quitAppWhenClosingWindow") var quitApp = false
 #endif

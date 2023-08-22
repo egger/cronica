@@ -24,7 +24,6 @@ struct TrendingKeywordsListView: View {
 									.placeholder {
 										ZStack {
 											Rectangle().fill(.gray.gradient)
-											Image(systemName: "popcorn")
 										}
 									}
 									.aspectRatio(contentMode: .fill)

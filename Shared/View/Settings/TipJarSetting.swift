@@ -69,10 +69,16 @@ private struct TipJarItem: View {
     var product: Product
     var body: some View {
         HStack {
-            InformationalLabel(title: product.displayName, subtitle: product.description)
+			VStack {
+				VStack(alignment: .leading) {
+					Text(product.displayName)
+					Text(product.description)
+						.foregroundColor(.secondary)
+				}
+			}
             Spacer()
             if isPurchased {
-                Image(systemName: "checkmark")
+                Image(systemName: "checkmark.circle.fill")
                     .fontWeight(.semibold)
             } else {
                 Text(product.displayPrice)

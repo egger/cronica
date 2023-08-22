@@ -15,13 +15,13 @@ struct NotificationsSettingsView: View {
             Section {
                 Toggle("allowNotification", isOn: $settings.allowNotifications)
                 Toggle(isOn: $settings.notifyMovieRelease) {
-                    InformationalLabel(title: "movieNotificationTitle",
-                                       subtitle: "movieNotificationSubtitle")
+					Text("movieNotificationTitle")
+					Text("movieNotificationSubtitle")
                 }
                 .disabled(!settings.allowNotifications)
                 Toggle(isOn: $settings.notifyNewEpisodes) {
-                    InformationalLabel(title: "episodeNotificationTitle",
-                                       subtitle: "episodeNotificationSubtitle")
+					Text("episodeNotificationTitle")
+					Text("episodeNotificationSubtitle")
                 }
                 .disabled(!settings.allowNotifications)
                 

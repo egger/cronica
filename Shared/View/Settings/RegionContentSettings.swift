@@ -22,7 +22,11 @@ struct RegionContentSettings: View {
                             .tag(region)
                     }
                 } label: {
-                    InformationalLabel(title: "appRegionTitle", subtitle: "appRegionSubtitle")
+					VStack(alignment: .leading) {
+						Text("appRegionTitle")
+						Text("appRegionSubtitle")
+							.foregroundColor(.secondary)
+					}
                 }
                 .onChange(of: store.watchRegion) { _ in
                     if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
@@ -36,8 +40,8 @@ struct RegionContentSettings: View {
 #if !os(tvOS)
             Section {
                 Toggle(isOn: $store.isWatchProviderEnabled) {
-                    InformationalLabel(title: "behaviorWatchProvidersTitle",
-                                       subtitle: "behaviorWatchProvidersSubtitle")
+					Text("behaviorWatchProvidersTitle")
+					Text("behaviorWatchProvidersSubtitle")
                 }
 #if os(iOS)
                 NavigationLink("selectedWatchProvider", destination: WatchProviderSelectorSetting())

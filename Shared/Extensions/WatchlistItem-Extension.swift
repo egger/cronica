@@ -91,6 +91,11 @@ extension WatchlistItem {
 		}
 		return nil
 	}
+	var itemReleaseDateQuickInfo: String {
+		if isTvShow && firstAirDate != nil { return itemReleaseDate.convertDateToString() }
+		if isMovie && date != nil { return itemReleaseDate.convertDateToString() }
+		return ""
+	}
 	var isWatched: Bool {
 		return watched
 	}

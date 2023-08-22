@@ -117,8 +117,7 @@ import SwiftUI
 	func loadTrendingKeywords() async {
 		if trendingKeywords.isEmpty {
 			for item in keywords.sorted(by: { $0.name < $1.name}) {
-				let type: MediaType = Bool.random() ? .movie : .tvShow
-				let itemFromKeyword = try? await service.fetchKeyword(type: type,
+				let itemFromKeyword = try? await service.fetchKeyword(type: .tvShow,
 																	  page: 1,
 																	  keywords: item.id,
 																	  sortBy: TMDBSortBy.popularity.rawValue)
