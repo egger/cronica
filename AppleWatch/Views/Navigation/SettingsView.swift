@@ -13,16 +13,13 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Watchlist") {
-                    Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
-                    Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
-                }
+				Section {
+					NavigationLink("settingsBehaviorTitle", destination: BehaviorSettings())
+				}
                 
-#if DEBUG
-                Section {
-                    NavigationLink("settingsSyncTitle", destination: SyncSetting())
-                }
-#endif
+				Section {
+					NavigationLink("settingsSyncTitle", destination: SyncSetting())
+				}
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -34,4 +31,32 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
     }
+}
+
+private struct BehaviorSettings: View {
+	@StateObject private var store = SettingsStore.shared
+	var body: some View {
+		Form {
+			Section("Watchlist") {
+				Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
+				Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
+			}
+			Section {
+				Picker(selection: $store.shareLinkPreference) {
+					ForEach(ShareLinkPreference.allCases) { item in
+						Text(item.title).tag(item)
+					}
+				} label: {
+					Text("shareLinkPreference")
+				}
+			} header: {
+				Text("Beta")
+			} footer: {
+				HStack {
+					Text("shareLinkPreferenceSubtitle")
+					Spacer()
+				}
+			}
+		}
+	}
 }

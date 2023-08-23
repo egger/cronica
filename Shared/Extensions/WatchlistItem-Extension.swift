@@ -45,6 +45,7 @@ extension WatchlistItem {
 		}
 	}
 	var itemSchedule: ItemSchedule {
+		if isMovie && date != nil { if itemReleaseDate <= Date() { return .released } }
 		switch schedule {
 		case 0: return .soon
 		case 1: return .released

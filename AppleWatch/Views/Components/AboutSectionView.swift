@@ -16,24 +16,22 @@ struct AboutSectionView: View {
                 Section {
                     VStack(alignment: .leading) {
                         Text(about)
-							.lineLimit(4)
+							.lineLimit(showAbout ? nil : 4)
                     }
 					.onTapGesture {
-						showAbout = true
+						withAnimation { showAbout.toggle() }
 					}
-					.sheet(isPresented: $showAbout) {
-						ScrollView {
-							Text(about)
-								.padding()
-						}
-					}
+					.padding(.zero)
                 } header: {
                     HStack {
                         Text("About")
+							.textCase(.uppercase)
+							.foregroundColor(.secondary)
                         Spacer()
                     }
+					.padding([.horizontal, .top])
                 }
-                .padding()
+				.padding([.horizontal, .bottom])
             }
         }
     }

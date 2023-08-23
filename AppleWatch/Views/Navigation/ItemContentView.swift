@@ -17,6 +17,7 @@ struct ItemContentView: View {
     @State private var showCustomListSheet = false
     @State private var showMoreOptions = false
     @State private var isWatched = false
+	@StateObject private var store = SettingsStore.shared
     init(id: Int, title: String, type: MediaType, image: URL?) {
         self.id = id
         self.title = title
@@ -77,10 +78,7 @@ struct ItemContentView: View {
                         }
                     }
                     
-                    if let url = viewModel.content?.itemURL {
-                        ShareLink(item: url)
-                            .labelStyle(.iconOnly)
-                    }
+					shareButton
                 }
                 .padding([.bottom, .horizontal])
                 
@@ -170,6 +168,27 @@ struct ItemContentView: View {
         }
         .buttonStyle(.borderedProminent)
     }
+	
+	@ViewBuilder
+	private var shareButton: some View {
+		switch store.shareLinkPreference {
+		case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url).labelStyle(.iconOnly) }
+		case .cronica: if let cronicaUrl {
+			ShareLink(item: cronicaUrl, message: Text(title))
+				.labelStyle(.iconOnly)
+		}
+		}
+	}
+	
+	private var cronicaUrl: URL? {
+		if let item = viewModel.content {
+			let encodedTitle = item.itemTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+			let posterPath = item.posterPath ?? String()
+			let encodedPoster = posterPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+			return URL(string: "https://alexandremadeira.dev/cronica/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
+		}
+		return nil
+	}
 }
 
 private struct DrawingConstants {

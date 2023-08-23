@@ -14,6 +14,7 @@ struct WatchlistView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
         animation: .default) private var items: FetchedResults<WatchlistItem>
     @AppStorage("selectedOrder") private var selectedOrder: SmartFiltersTypes = .released
+	@AppStorage("defaultWatchlistSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
     @State private var selectedList: SmartFiltersTypes?
     @State private var selectedCustomList: CustomList?
     @State private var query = ""
@@ -41,8 +42,11 @@ struct WatchlistView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    filterButton
-                        .padding(.vertical, 4)
+					HStack {
+						filterButton
+						sortButton
+					}
+					.padding(.vertical, 4)
                 }
 //                if #available(watchOS 10, *) {
 //                    ToolbarItem(placement: .bottomBar) {
@@ -104,6 +108,21 @@ struct WatchlistView: View {
             }
         }
     }
+	
+	private var sortButton: some View {
+		Picker(selection: $sortOrder) {
+			ForEach(WatchlistSortOrder.allCases) { item in
+				Text(item.localizableName).tag(item)
+			}
+		} label: {
+			Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
+				.labelStyle(.iconOnly)
+		}
+		.pickerStyle(.navigationLink)
+		.buttonBorderShape(.roundedRectangle(radius: 12))
+		.tint(.blue.opacity(0.7))
+		.buttonStyle(.borderedProminent)
+	}
     
     private var filterButton: some View {
         Button {
@@ -111,6 +130,7 @@ struct WatchlistView: View {
         } label: {
             Label("Sort List", systemImage: "line.3.horizontal.decrease")
                 .foregroundColor(.white)
+				.labelStyle(.iconOnly)
         }
         .buttonBorderShape(.roundedRectangle(radius: 12))
         .tint(.blue.opacity(0.7))
@@ -124,7 +144,7 @@ struct WatchlistView: View {
         } else if items.isEmpty {
             EmptyListView()
         } else {
-            DefaultListView(selectedOrder: $selectedList)
+			DefaultListView(selectedOrder: $selectedList, sortOrder: $sortOrder)
         }
     }
     
@@ -135,7 +155,7 @@ struct WatchlistView: View {
         } else if items.isEmpty {
             EmptyListView()
         } else {
-            CustomListView(list: $selectedCustomList)
+			CustomListView(list: $selectedCustomList, sortOrder: $sortOrder)
         }
     }
 }

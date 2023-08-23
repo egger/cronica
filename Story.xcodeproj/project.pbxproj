@@ -125,6 +125,7 @@
 		B8389ED028AB46C5003025BC /* SearchItemsScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ECF28AB46C5003025BC /* SearchItemsScope.swift */; };
 		B8389ED228AB46E3003025BC /* WatchlistSearchScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */; };
 		B83C630728E642FB00927AE7 /* AboutSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83C630628E642FB00927AE7 /* AboutSectionView.swift */; };
+		B83D567E2A962DFA009E5FE0 /* MediaTypeFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */; };
 		B83E3EDA299AB9FB00A3A28B /* CustomList-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E3ED9299AB9FB00A3A28B /* CustomList-Extensions.swift */; };
 		B83E3EDB299AB9FB00A3A28B /* CustomList-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83E3ED9299AB9FB00A3A28B /* CustomList-Extensions.swift */; };
 		B83F1E9928BAD24C008E151D /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F1E9828BAD24C008E151D /* SideBarView.swift */; };
@@ -1128,12 +1129,12 @@
 				B8105252298DBAF500723E94 /* Locale-Extensions.swift */,
 				B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */,
 				B8105258298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift */,
+				B8B2F6AB2A85D57400FF0246 /* SearchItemContent-Extension.swift */,
 				B810524D298DBADF00723E94 /* String-Extensions.swift */,
 				B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */,
 				B818483629C286C300650763 /* UserDefaults-Extensions.swift */,
 				B8FB2A8329524D6E006DAC8E /* View-Extensions.swift */,
 				B878E83427BC85BC0021A981 /* WatchlistItem-Extension.swift */,
-				B8B2F6AB2A85D57400FF0246 /* SearchItemContent-Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1829,6 +1830,7 @@
 				B84043C5289B18E600D5CEBF /* MediaType.swift in Sources */,
 				B88529B128E371350026D33A /* EpisodeRow.swift in Sources */,
 				B81941A22A08330A0057DA04 /* ListRowItem.swift in Sources */,
+				B83D567E2A962DFA009E5FE0 /* MediaTypeFilters.swift in Sources */,
 				B84043B7289B18A300D5CEBF /* Person-Extensions.swift in Sources */,
 				B81941CD2A0861D70057DA04 /* WatchlistButton.swift in Sources */,
 				B801070F29F25615008A4551 /* EmptyListView.swift in Sources */,

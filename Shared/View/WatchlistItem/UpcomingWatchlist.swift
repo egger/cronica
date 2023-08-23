@@ -33,7 +33,7 @@ struct UpcomingWatchlist: View {
     @StateObject private var settings = SettingsStore.shared
     @Binding var shouldReload: Bool
     var body: some View {
-		list(items: items.filter { $0.backCompatibleCardImage != nil }.sorted(by: { $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate}))
+		list(items: items.filter { $0.backCompatibleCardImage != nil && $0.itemUpcomingReleaseDate > Date() }.sorted(by: { $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate}))
 			.task {
 				updateItems(items: items.filter { $0.itemReleaseDate < Date() })
 			}
@@ -43,6 +43,7 @@ struct UpcomingWatchlist: View {
 		if items.isEmpty { return }
 		Task {
 			for item in items {
+				print(item.itemTitle)
 				if item.itemReleaseDate < Date() {
 					let content = try? await NetworkService.shared.fetchItem(id: item.itemId, type: item.itemMedia)
 					if let content {

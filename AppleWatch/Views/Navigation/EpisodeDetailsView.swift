@@ -15,8 +15,8 @@ struct EpisodeDetailsView: View {
     @Binding var isWatched: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
-        VStack {
-            ScrollView {
+        ScrollView {
+            VStack {
                 HeroImage(url: episode.itemImageMedium,
                           title: episode.itemTitle)
                 .clipShape(
@@ -25,20 +25,24 @@ struct EpisodeDetailsView: View {
                 )
                 .padding()
                 
-                Text(showTitle)
-                    .font(.callout)
-                    .fontWeight(.semibold)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-					.padding(.horizontal)
-                Text(episode.itemTitle)
-                    .font(.caption)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal)
+				VStack {
+					Text(showTitle)
+						.padding(.horizontal)
+						.font(.callout)
+						.fontWeight(.semibold)
+						.lineLimit(2)
+						.multilineTextAlignment(.center)
+					
+					Text(episode.itemTitle)
+						.padding(.horizontal)
+						.font(.caption)
+						.lineLimit(2)
+						.multilineTextAlignment(.center)
+						.foregroundStyle(.secondary)
+				}.padding(.horizontal)
+                   
                 
-                Text("S\(season), E\(episode.itemEpisodeNumberDisplay)")
+				Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), episode.itemSeasonNumber, episode.itemEpisodeNumber))
                     .font(.caption)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)

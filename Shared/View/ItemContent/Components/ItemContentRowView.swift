@@ -124,7 +124,11 @@ struct ItemContentRowView: View {
 }
 
 private struct DrawingConstants {
+	#if os(watchOS)
+	static let imageWidth: CGFloat = 70
+	#else
     static let imageWidth: CGFloat = 80
+	#endif
     static let imageHeight: CGFloat = 50
     static let imageRadius: CGFloat = 8
     static let textLimit: Int = 1
