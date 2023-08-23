@@ -38,7 +38,7 @@ struct EpisodeDetailsView: View {
                     .foregroundStyle(.secondary)
                     .padding(.horizontal)
                 
-                Text("S\(episode.itemSeasonNumber), E\(episode.itemEpisodeNumber)")
+                Text("S\(season), E\(episode.itemEpisodeNumberDisplay)")
                     .font(.caption)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
@@ -51,7 +51,7 @@ struct EpisodeDetailsView: View {
                     .padding([.bottom, .horizontal])
                     .onAppear(perform: load)
                 
-                if let url = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumber)") {
+                if let url = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumberDisplay)") {
                     ShareLink(item: url)
 						.padding(.horizontal)
                         .padding([.bottom, .horizontal])
@@ -71,7 +71,7 @@ struct EpisodeDetailsView: View {
     
     private func load() {
         isWatched = persistence.isEpisodeSaved(show: show,
-                                                 season: episode.itemSeasonNumber,
+                                                 season: season,
                                                  episode: episode.id)
     }
 }

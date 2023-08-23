@@ -24,11 +24,13 @@ class UpNextViewModel: ObservableObject {
                                                              season: item.itemNextUpNextSeason,
                                                              episodeNumber: item.itemNextUpNextEpisode)
                 if let result {
+					let seasonNumber = result.seasonNumber ?? 0
                     let isWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                               season: result.itemSeasonNumber,
+                                                               season: seasonNumber,
                                                                episode: result.id)
-                    
-                    if result.isItemReleased && !isWatched {
+					let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
+					let isReleased = show?.itemStatus == .ended ? true : result.isItemReleased
+                    if isReleased && !isWatched {
                         let content = UpNextEpisode(id: result.id,
                                                     showTitle: item.itemTitle,
                                                     showID: item.itemId,
@@ -48,9 +50,11 @@ class UpNextViewModel: ObservableObject {
                                                                           episodeNumber: 1)
                         if let nextEpisode {
                             let isNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                                                  season: nextEpisode.itemSeasonNumber,
+																				  season: Int(nextSeasonNumber),
                                                                                   episode: nextEpisode.id)
-                            if nextEpisode.isItemReleased && !isNextEpisodeWatched {
+							let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
+							let isReleased = show?.itemStatus == .ended ? true : nextEpisode.isItemReleased
+                            if isReleased && !isNextEpisodeWatched {
                                 let content = UpNextEpisode(id: nextEpisode.id,
                                                             showTitle: item.itemTitle,
                                                             showID: item.itemId,
@@ -90,7 +94,9 @@ class UpNextViewModel: ObservableObject {
         let helper = EpisodeHelper()
         let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
         if let nextEpisode {
-            if nextEpisode.isItemReleased {
+			let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
+			let isReleased = showContent?.itemStatus == .ended ? true : nextEpisode.isItemReleased
+            if isReleased {
                 let content = UpNextEpisode(id: nextEpisode.id,
                                             showTitle: content.showTitle,
                                             showID: content.showID,
@@ -114,17 +120,20 @@ class UpNextViewModel: ObservableObject {
     
     func checkForNewEpisodes(_ items: FetchedResults<WatchlistItem>) async {
         for item in items {
+			print(item.itemTitle)
             let result = try? await network.fetchEpisode(tvID: item.id,
                                                          season: item.seasonNumberUpNext,
                                                          episodeNumber: item.nextEpisodeNumberUpNext)
             if let result {
+				let resultSeasonNumber = result.seasonNumber ?? 0
                 let isWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                           season: result.itemSeasonNumber,
+                                                           season: resultSeasonNumber,
                                                            episode: result.id)
                 let isInEpisodeList = episodes.contains(where: { $0.episode.id == result.id })
                 let isItemAlreadyLoadedInList = episodes.contains(where: { $0.showID == item.itemId })
-                
-                if result.isItemReleased && !isWatched && !isInEpisodeList {
+				let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
+				let isReleased = show?.itemStatus == .ended ? true : result.isItemReleased
+                if isReleased && !isWatched && !isInEpisodeList {
                     if isItemAlreadyLoadedInList {
                         await MainActor.run {
                             withAnimation(.easeInOut) {
@@ -164,7 +173,9 @@ class UpNextViewModel: ObservableObject {
         let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: content.episode, show: content.showID)
         guard let nextEpisode else { return }
         persistence.updateUpNext(item, episode: nextEpisode)
-        if nextEpisode.isItemReleased {
+		let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
+		let isReleased = showContent?.itemStatus == .ended ? true : nextEpisode.isItemReleased
+        if isReleased {
             let content = UpNextEpisode(id: nextEpisode.id,
                                         showTitle: content.showTitle,
                                         showID: content.showID,

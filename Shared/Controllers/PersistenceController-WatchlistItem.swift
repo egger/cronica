@@ -31,7 +31,7 @@ extension PersistenceController {
 				item.date = content.itemFallbackDate
 			} else {
 				if let nextEpisode = content.nextEpisodeToAir {
-					if nextEpisode.itemEpisodeNumber == 1 {
+					if nextEpisode.episodeNumber == 1 {
 						let date = nextEpisode.airDate?.toDate()
 						if let date {
 							if date != item.date {
@@ -98,7 +98,7 @@ extension PersistenceController {
             }
             if content.itemContentMedia == .tvShow {
 				if let nextEpisode = content.nextEpisodeToAir {
-					if nextEpisode.itemEpisodeNumber == 1 {
+					if nextEpisode.episodeNumber == 1 {
 						let date = nextEpisode.airDate?.toDate()
 						if let date {
 							if date != item.date {
@@ -310,8 +310,9 @@ extension PersistenceController {
     }
     
     func updateUpNext(_ item: WatchlistItem, episode: Episode) {
-        item.nextEpisodeNumberUpNext = Int64(episode.itemEpisodeNumber)
-        item.seasonNumberUpNext = Int64(episode.itemSeasonNumber)
+		guard let seasonNumber = episode.seasonNumber, let episodeNumber = episode.episodeNumber else { return }
+        item.nextEpisodeNumberUpNext = Int64(episodeNumber)
+        item.seasonNumberUpNext = Int64(seasonNumber)
         item.displayOnUpNext = true
         save()
     }

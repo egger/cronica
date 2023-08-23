@@ -54,7 +54,7 @@ struct EpisodeRow: View {
                 Text(episode.itemTitle)
                     .lineLimit(DrawingConstants.lineLimit)
                     .font(.callout)
-                Text("E\(episode.itemEpisodeNumber)")
+                Text("E\(episode.itemEpisodeNumberDisplay)")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
