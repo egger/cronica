@@ -129,6 +129,7 @@ extension WatchlistItem {
 	}
 	var isReleasedMovie: Bool {
 		if itemMedia == .movie {
+			if date != nil && itemReleaseDate < Date() && !isWatched { return true }
 			if itemSchedule == .released && !notify && !isWatched {
 				return true
 			}
