@@ -66,7 +66,7 @@ class ItemContentViewModel: ObservableObject {
                     }
                 }
                 if trailers.isEmpty {
-                    trailers.append(contentsOf: content.itemTrailers)
+                    trailers.append(contentsOf: content.itemTrailers.prefix(2))
                 }
                 if credits.isEmpty {
                     let cast = content.credits?.cast ?? []

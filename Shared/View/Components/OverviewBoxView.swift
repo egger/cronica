@@ -70,7 +70,7 @@ struct OverviewBoxView: View {
 #endif
                     }
                 } label: {
-                    Text("About")
+                    Text(type == .person ? "Biography" : "About")
                         .unredacted()
                 }
                 .onTapGesture {

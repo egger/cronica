@@ -39,7 +39,26 @@ class EpisodeHelper {
         } catch {
             if Task.isCancelled { return nil }
             let message = "Episode:\(episode.seasonNumber as Any)\nSeason:\(episode.seasonNumber as Any)\nShow: \(show).\nError: \(error.localizedDescription)"
-            CronicaTelemetry.shared.handleMessage(message, for: "EpisodeHelper.fetchNextEpisode")
+            guard let showContent = try? await network.fetchItem(id: show, type: .tvShow) else {
+                CronicaTelemetry.shared.handleMessage(message, for: "EpisodeHelper.fetchNextEpisode")
+                return nil
+            }
+            let lastEpisodeToAir = showContent.lastEpisodeToAir
+            guard let lastEpisodeToAir else {
+                CronicaTelemetry.shared.handleMessage(message, for: "EpisodeHelper.fetchNextEpisode")
+                return nil
+            }
+            if lastEpisodeToAir.itemEpisodeNumber == episode.itemEpisodeNumber {
+                let hasLastEpisodeReleased = lastEpisodeToAir.isItemReleased
+                if showContent.itemStatus == .ended && hasLastEpisodeReleased {
+                    let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+                    guard let watchlistItem = PersistenceController.shared.fetch(for: contentId) else {
+                        CronicaTelemetry.shared.handleMessage(message, for: "EpisodeHelper.fetchNextEpisode")
+                        return nil
+                    }
+                    PersistenceController.shared.updateWatched(for: watchlistItem)
+                }
+            }
             return nil
         }
     }

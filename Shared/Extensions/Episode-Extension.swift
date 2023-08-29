@@ -55,7 +55,7 @@ extension Episode {
 		guard let date else { return false }
 		return Date() >= date
 	}
-	
+    
 	// MARK: URL
 	var itemImageMedium: URL? {
 #if os(tvOS)

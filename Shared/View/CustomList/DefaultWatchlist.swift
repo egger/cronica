@@ -110,12 +110,12 @@ struct DefaultWatchlist: View {
                     }
                     .padding(.horizontal, 64)
                 }
-				if smartFiltersItems.isEmpty {
-					empty
-				} else {
-					WatchlistCardSection(items: smartFiltersItems,
-										 title: "Search results", showPopup: $showPopup, popupType: $popupType)
-				}
+                if smartFiltersItems.isEmpty {
+                    empty
+                } else {
+                    WatchlistCardSection(items: smartFiltersItems,
+                                         title: "Search results", showPopup: $showPopup, popupType: $popupType)
+                }
             }
 #else
             if items.isEmpty {
@@ -173,7 +173,7 @@ struct DefaultWatchlist: View {
                     }
                 }
             }
-			#endif
+#endif
         }
         .sheet(isPresented: $showFilter) {
             NavigationStack {
@@ -203,8 +203,8 @@ struct DefaultWatchlist: View {
             }
 #elseif os(macOS)
             HStack {
-				sortButton
                 filterButton
+                sortButton
                 styleButton
             }
 #endif
@@ -259,6 +259,15 @@ struct DefaultWatchlist: View {
     private var sortButton: some View {
 #if os(tvOS)
         EmptyView()
+#elseif os(macOS)
+        Picker(selection: $sortOrder) {
+            ForEach(WatchlistSortOrder.allCases) { item in
+                Text(item.localizableName).tag(item)
+            }
+        } label: {
+            Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
+                .labelStyle(.iconOnly)
+        }
 #else
         Menu {
             Picker(selection: $sortOrder) {
@@ -277,6 +286,16 @@ struct DefaultWatchlist: View {
     
 #if os(iOS) || os(macOS)
     private var styleButton: some View {
+        #if os(macOS)
+        Picker(selection: $settings.watchlistStyle) {
+            ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                Text(item.title).tag(item)
+            }
+        } label: {
+            Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+        #else
         Menu {
             Picker(selection: $settings.watchlistStyle) {
                 ForEach(SectionDetailsPreferredStyle.allCases) { item in
@@ -289,6 +308,7 @@ struct DefaultWatchlist: View {
             Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
+        #endif
     }
 #endif
     

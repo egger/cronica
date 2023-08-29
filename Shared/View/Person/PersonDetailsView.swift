@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct PersonDetailsView: View {
     let name: String
     @State private var isLoading = true
-	@State private var isFavorite = false
+    @State private var isFavorite = false
     @StateObject private var viewModel: PersonDetailsViewModel
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var showImageFullscreen = false
@@ -30,7 +30,7 @@ struct PersonDetailsView: View {
                             .padding([.bottom, .horizontal])
 #if !os(tvOS)
                         if let overview = viewModel.person?.biography {
-                            OverviewBoxView(overview: overview, title: "", showAsPopover: true)
+                            OverviewBoxView(overview: overview, title: "Biography", type: .person, showAsPopover: true)
                                 .frame(width: 500)
                                 .padding([.bottom, .trailing])
                         }
@@ -44,7 +44,7 @@ struct PersonDetailsView: View {
                             .padding()
 #if !os(tvOS)
                         if let overview = viewModel.person?.biography {
-                            OverviewBoxView(overview: overview, title: "")
+                            OverviewBoxView(overview: overview, title: "", type: .person)
                                 .padding([.horizontal, .bottom])
                         }
 #endif
@@ -54,10 +54,7 @@ struct PersonDetailsView: View {
                 FilmographyListView(filmography: viewModel.credits,
                                     showPopup: $showPopup,
                                     popupType: $popupType)
-                
-                AttributionView()
-                    .padding([.top, .bottom])
-                    .unredacted()
+                .padding(.bottom)
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
@@ -78,11 +75,11 @@ struct PersonDetailsView: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem {
-				shareButton
+                shareButton
             }
 #elseif os(macOS)
             ToolbarItem(placement: .primaryAction) {
-				shareButton
+                shareButton
             }
 #endif
         }
@@ -148,53 +145,53 @@ struct PersonDetailsView: View {
             }
         }
     }
-	
-	#if !os(tvOS)
-	@ViewBuilder
-	private var shareButton: some View {
-		if let url = viewModel.person?.itemURL {
-			ShareLink(item: url, message: Text(name))
-				.disabled(!viewModel.isLoaded)
-		}
-	}
-	#endif
-	
-	private var favoriteButton: some View {
-		Button {
-			
-		} label: {
-			Label("Favorite", systemImage: isFavorite ? "star.circle.fill" : "star.circle")
-				.labelStyle(.iconOnly)
-		}
-
-	}
+    
+#if !os(tvOS)
+    @ViewBuilder
+    private var shareButton: some View {
+        if let url = viewModel.person?.itemURL {
+            ShareLink(item: url, message: Text(name))
+                .disabled(!viewModel.isLoaded)
+        }
+    }
+#endif
+    
+    private var favoriteButton: some View {
+        Button {
+            
+        } label: {
+            Label("Favorite", systemImage: isFavorite ? "star.circle.fill" : "star.circle")
+                .labelStyle(.iconOnly)
+        }
+        
+    }
     
 #if os(iOS)
     @ViewBuilder
     private var search: some View {
         if !viewModel.query.isEmpty {
-			List {
-				switch scope {
-				case .noScope:
-					ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
-						ItemContentSearchRowView(item: item,
-												 showPopup: $showPopup,
-												 popupType: $popupType)
-					}
-				case .movies:
-					ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
-						ItemContentSearchRowView(item: item,
-												 showPopup: $showPopup,
-												 popupType: $popupType)
-					}
-				case .shows:
-					ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
-						ItemContentSearchRowView(item: item,
-												 showPopup: $showPopup,
-												 popupType: $popupType)
-					}
-				}
-			}
+            List {
+                switch scope {
+                case .noScope:
+                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
+                        ItemContentSearchRowView(item: item,
+                                                 showPopup: $showPopup,
+                                                 popupType: $popupType)
+                    }
+                case .movies:
+                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
+                        ItemContentSearchRowView(item: item,
+                                                 showPopup: $showPopup,
+                                                 popupType: $popupType)
+                    }
+                case .shows:
+                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
+                        ItemContentSearchRowView(item: item,
+                                                 showPopup: $showPopup,
+                                                 popupType: $popupType)
+                    }
+                }
+            }
         }
     }
 #endif
@@ -209,7 +206,7 @@ struct PersonDetailsView: View {
                         .resizable()
                         .foregroundColor(.white.opacity(0.8))
                         .frame(width: 50, height: 50, alignment: .center)
-						.unredacted()
+                        .unredacted()
                 }
                 .clipShape(Circle())
             }

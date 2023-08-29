@@ -15,7 +15,7 @@ struct ExploreView: View {
     @State private var popupType: ActionPopupItems?
     @StateObject private var viewModel = ExploreViewModel()
     @StateObject private var settings = SettingsStore.shared
-	@State private var sortBy: TMDBSortBy = .popularity
+    @State private var sortBy: TMDBSortBy = .popularity
     var body: some View {
         VStack {
             if settings.sectionStyleType == .list {
@@ -133,14 +133,22 @@ struct ExploreView: View {
                                 }
                             }
                         } label: {
+                            #if os(macOS)
+                            Text("genreDiscoverFilterTitle")
+                            #else
                             EmptyView()
+                            #endif
                             
                         }
 #if os(iOS)
                         .pickerStyle(.inline)
 #endif
                     } header: {
+#if os(iOS)
                         Text("genreDiscoverFilterTitle")
+#else
+                        EmptyView()
+#endif
                     }
                     Section {
                         Toggle("hideAddedItemsDiscoverFilter", isOn: $viewModel.hideAddedItems)
@@ -190,7 +198,7 @@ struct ExploreView: View {
                             .foregroundColor(showFilters ? .secondary : nil)
                     }
                     .keyboardShortcut("f", modifiers: .command)
-					//sortButton
+                    //sortButton
 #if os(macOS)
                     styleOptions
 #endif
@@ -224,9 +232,9 @@ struct ExploreView: View {
                 await load()
             }
         }
-		.onChange(of: sortBy) { newSortByValue in
-			viewModel.loadMoreItems(sortBy: newSortByValue, reload: true)
-		}
+        .onChange(of: sortBy) { newSortByValue in
+            viewModel.loadMoreItems(sortBy: newSortByValue, reload: true)
+        }
     }
     
     private var listStyle: some View {
@@ -307,33 +315,44 @@ struct ExploreView: View {
     
 #if os(iOS) || os(macOS)
     private var styleOptions: some View {
+#if os(macOS)
+        Picker(selection: $settings.sectionStyleType) {
+            ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                Text(item.title).tag(item)
+            }
+        } label: {
+            Label("Style Picker", systemImage: "circle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
+#else
         Menu {
             Picker(selection: $settings.sectionStyleType) {
                 ForEach(SectionDetailsPreferredStyle.allCases) { item in
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                Label("Style Picker", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            Label("Style Picker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
+#endif
     }
-	
-	private var sortButton: some View {
-		Menu {
-			Picker(selection: $sortBy) {
-				ForEach(TMDBSortBy.allCases) { item in
-					Text(item.localizedString).tag(item)
-				}
-			} label: {
-				Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
-			}
-		} label: {
-			Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
-		}
-	}
+    
+    private var sortButton: some View {
+        Menu {
+            Picker(selection: $sortBy) {
+                ForEach(TMDBSortBy.allCases) { item in
+                    Text(item.localizedString).tag(item)
+                }
+            } label: {
+                Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
+            }
+        } label: {
+            Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
+        }
+    }
 #endif
     
     private func load() async {

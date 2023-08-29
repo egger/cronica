@@ -144,14 +144,9 @@ extension ItemContent {
         return ""
     }
     var itemRating: String? {
-        if let voteAverage {
-            if voteAverage <= 0.9 {
-                return nil
-            } else {
-				return NSLocalizedString("\(voteAverage.rounded(.down))/10", comment: "")
-            }
-        }
-        return nil
+        guard let voteAverage else { return nil }
+        let formattedString = String(format: "%.1f", voteAverage)
+        return "\(formattedString)/10"
     }
     
     // MARK: Double

@@ -52,7 +52,6 @@ struct ItemContentPadView: View {
                 
             }
             
-            AttributionView().padding([.top, .bottom])
         }
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)

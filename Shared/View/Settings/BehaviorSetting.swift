@@ -49,6 +49,13 @@ struct BehaviorSetting: View {
 					Spacer()
 				}
 			}
+            
+            Section {
+                Toggle(isOn: $store.disableSearchFilter) {
+                    Text("Disable Search Filter")
+                    Text("Search filter improve the search results, but has the downside of taking longer to load.")
+                }
+            }
 			
 #if os(macOS)
 //			Section {

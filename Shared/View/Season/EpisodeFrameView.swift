@@ -21,9 +21,9 @@ struct EpisodeFrameView: View {
     @State private var showDetails = false
     private let network = NetworkService.shared
     @Binding var checkedIfWatched: Bool
-    #if os(tvOS)
+#if os(tvOS)
     @FocusState var isFocused
-    #endif
+#endif
     var body: some View {
 #if os(tvOS)
         VStack {

@@ -13,21 +13,24 @@ class DatesManager {
 		let decoder = JSONDecoder()
 		decoder.keyDecodingStrategy = .convertFromSnakeCase
 		decoder.dateDecodingStrategy = .formatted(dateFormatter)
-		return decoder
+		return decoder 
 	}()
 	static let dateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
+        formatter.timeZone = .current
 		formatter.dateFormat = "y,MM,dd"
 		return formatter
 	}()
 	static let dateString: DateFormatter = {
 		let formatter = DateFormatter()
+        formatter.timeZone = .current
 		formatter.dateStyle = .medium
 		formatter.timeStyle = .none
 		return formatter
 	}()
 	private static var releaseDateFormatter: ISO8601DateFormatter {
 		let formatter = ISO8601DateFormatter()
+        formatter.timeZone = .current
 		formatter.formatOptions = .withFullDate
 		return formatter
 	}

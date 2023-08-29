@@ -37,7 +37,7 @@ import SwiftUI
 	]
 	@Published var trendingKeywords = [CombinedKeywords]()
 	@Published var isLoadingTrendingKeywords = true
-    var stage: SearchStage = .none
+    @Published var stage: SearchStage = .none
     
     func search(_ query: String) async {
         if Task.isCancelled { return }
@@ -45,16 +45,16 @@ import SwiftUI
             startPagination = false
             withAnimation {
                 items.removeAll()
+                stage = .none
             }
-            stage = .none
             return
         }
-        stage = .searching
+        withAnimation { stage = .searching }
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedQuery.isEmpty else { return }
         do {
             if Task.isCancelled {
-                stage = .none
+                withAnimation { stage = .none }
                 return
             }
             try await Task.sleep(nanoseconds: 300_000_000)
@@ -66,17 +66,21 @@ import SwiftUI
             endPagination = false
             let result = try await service.search(query: trimmedQuery, page: "1")
             page += 1
-            let filtered = await filter(for: result)
-            items.append(contentsOf: filtered.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+            if SettingsStore.shared.disableSearchFilter {
+                items.append(contentsOf: result.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+            } else {
+                let filtered = await filter(for: result)
+                items.append(contentsOf: filtered.sorted(by: { $0.itemPopularity > $1.itemPopularity }))
+            }
             if self.items.isEmpty {
-                stage = .empty
+                withAnimation { stage = .empty }
                 return
             }
-            stage = .success
+            withAnimation {  stage = .success }
             startPagination = true
         } catch {
             if Task.isCancelled { return }
-            stage = .failure
+            withAnimation { stage = .failure }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,
                                                   for: "SearchViewModel.search()")
         }
@@ -117,7 +121,7 @@ import SwiftUI
 	func loadTrendingKeywords() async {
 		if trendingKeywords.isEmpty {
 			for item in keywords.sorted(by: { $0.name < $1.name}) {
-				let itemFromKeyword = try? await service.fetchKeyword(type: .tvShow,
+				let itemFromKeyword = try? await service.fetchKeyword(type: .movie,
 																	  page: 1,
 																	  keywords: item.id,
 																	  sortBy: TMDBSortBy.popularity.rawValue)

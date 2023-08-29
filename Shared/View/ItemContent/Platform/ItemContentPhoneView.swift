@@ -57,7 +57,6 @@ struct ItemContentPhoneView: View {
 											dismiss: $showReleaseDateInfo)
                 }
             
-            AttributionView().padding([.top, .bottom])
         }
         .navigationTitle(navigationTitle)
         .navigationBarTitleDisplayMode(.inline)

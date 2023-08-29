@@ -24,11 +24,6 @@ struct WatchlistItemRowView: View {
 			HStack {
 				image
 					.applyHoverEffect()
-#if !os(watchOS)
-					.shadow(radius: 2.5)
-#else
-					.padding(.vertical)
-#endif
 				VStack(alignment: .leading) {
 					HStack {
 						Text(content.itemTitle)
@@ -91,21 +86,6 @@ struct WatchlistItemRowView: View {
 #endif
 			}
 #endif
-			.sheet(isPresented: $showCustomListView) {
-				NavigationStack {
-					ItemContentCustomListSelector(contentID: content.itemContentID,
-												  showView: $showCustomListView,
-												  title: content.itemTitle,
-												  image: content.backCompatibleCardImage)
-				}
-				.presentationDetents([.large])
-#if os(macOS)
-				.frame(width: 500, height: 600, alignment: .center)
-#else
-				.appTheme()
-				.appTint()
-#endif
-			}
 			.accessibilityElement(children: .combine)
 #if !os(watchOS)
 			.watchlistContextMenu(item: content,
@@ -117,6 +97,21 @@ struct WatchlistItemRowView: View {
 								  showCustomList: $showCustomListView,
 								  popupType: $popupType,
 								  showPopup: $showPopup)
+            .sheet(isPresented: $showCustomListView) {
+                NavigationStack {
+                    ItemContentCustomListSelector(contentID: content.itemContentID,
+                                                  showView: $showCustomListView,
+                                                  title: content.itemTitle,
+                                                  image: content.backCompatibleCardImage)
+                }
+                .presentationDetents([.large])
+#if os(macOS)
+                .frame(width: 500, height: 600, alignment: .center)
+#else
+                .appTheme()
+                .appTint()
+#endif
+            }
 #endif
 		}
 	}
