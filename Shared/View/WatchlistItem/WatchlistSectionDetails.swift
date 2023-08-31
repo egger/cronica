@@ -34,7 +34,7 @@ struct WatchlistSectionDetails: View {
         .actionPopup(isShowing: $showPopup, for: popupType)
         .navigationTitle(LocalizedStringKey(title))
 #if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
         .autocorrectionDisabled()
         .onChange(of: query) { _ in

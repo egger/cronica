@@ -15,14 +15,26 @@ struct CompanyDetails: View {
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
+#if os(tvOS)
+            ScrollView {
+                HStack {
+                    Text(company.name)
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+                posterStyle
+            }
+#else
             switch settings.sectionStyleType {
             case .list: listStyle
             case .poster: ScrollView { posterStyle }
             case .card: ScrollView { cardStyle }
             }
+#endif
         }
         .overlay {
-			if !viewModel.isLoaded { ProgressView().unredacted() }
+            if !viewModel.isLoaded { ProgressView().unredacted() }
         }
         .toolbar {
 #if os(iOS)
@@ -32,7 +44,9 @@ struct CompanyDetails: View {
 #endif
         }
         .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+#if !os(tvOS)
         .navigationTitle(company.name)
+#endif
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
 #endif
@@ -72,33 +86,33 @@ struct CompanyDetails: View {
         Form {
             Section {
                 List {
-					if !viewModel.items.isEmpty {
-						ForEach(viewModel.items) { item in
-							ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
-						}
-						if viewModel.isLoaded && !viewModel.endPagination {
-							CenterHorizontalView {
-								ProgressView("Loading")
-									.padding(.horizontal)
-									.onAppear {
-										DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-											Task {
-												await viewModel.load(company.id)
-											}
-										}
-									}
-							}
-						}
-					} else {
-						if viewModel.isLoaded {
-							CenterHorizontalView {
-								Text("Try again later.")
-									.fontDesign(.monospaced)
-									.font(.headline)
-									.foregroundColor(.secondary)
-							}
-						}
-					}
+                    if !viewModel.items.isEmpty {
+                        ForEach(viewModel.items) { item in
+                            ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
+                        }
+                        if viewModel.isLoaded && !viewModel.endPagination {
+                            CenterHorizontalView {
+                                ProgressView("Loading")
+                                    .padding(.horizontal)
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                            Task {
+                                                await viewModel.load(company.id)
+                                            }
+                                        }
+                                    }
+                            }
+                        }
+                    } else {
+                        if viewModel.isLoaded {
+                            CenterHorizontalView {
+                                Text("Try again later.")
+                                    .fontDesign(.monospaced)
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -109,34 +123,34 @@ struct CompanyDetails: View {
     
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-			if !viewModel.items.isEmpty {
-				ForEach(viewModel.items) { item in
-					ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
-						.buttonStyle(.plain)
-				}
-				if viewModel.isLoaded && !viewModel.endPagination {
-					CenterHorizontalView {
-						ProgressView()
-							.padding()
-							.onAppear {
-								DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-									Task {
-										await viewModel.load(company.id)
-									}
-								}
-							}
-					}
-				}
-			} else {
-				if viewModel.isLoaded {
-					CenterHorizontalView {
-						Text("Try again later.")
-							.fontDesign(.monospaced)
-							.font(.headline)
-							.foregroundColor(.secondary)
-					}
-				}
-			}
+            if !viewModel.items.isEmpty {
+                ForEach(viewModel.items) { item in
+                    ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
+                }
+                if viewModel.isLoaded && !viewModel.endPagination {
+                    CenterHorizontalView {
+                        ProgressView()
+                            .padding()
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                    Task {
+                                        await viewModel.load(company.id)
+                                    }
+                                }
+                            }
+                    }
+                }
+            } else {
+                if viewModel.isLoaded {
+                    CenterHorizontalView {
+                        Text("Try again later.")
+                            .fontDesign(.monospaced)
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
         }
         .padding()
     }
@@ -144,35 +158,35 @@ struct CompanyDetails: View {
     @ViewBuilder
     private var posterStyle: some View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
-                  spacing: settings.isCompactUI ? 10 : 20) {
-			if !viewModel.items.isEmpty {
-				ForEach(viewModel.items) { item in
-					ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
-						.buttonStyle(.plain)
-				}
-				if viewModel.isLoaded && !viewModel.endPagination {
-					CenterHorizontalView {
-						ProgressView()
-							.padding()
-							.onAppear {
-								DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-									Task {
-										await viewModel.load(company.id)
-									}
-								}
-							}
-					}
-				}
-			} else {
-				if viewModel.isLoaded {
-					CenterHorizontalView {
-						Text("Try again later.")
-							.fontDesign(.monospaced)
-							.font(.headline)
-							.foregroundColor(.secondary)
-					}
-				}
-			}
+                  spacing: settings.isCompactUI ? 10 : DrawingConstants.posterSpacing) {
+            if !viewModel.items.isEmpty {
+                ForEach(viewModel.items) { item in
+                    ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
+                }
+                if viewModel.isLoaded && !viewModel.endPagination {
+                    CenterHorizontalView {
+                        ProgressView()
+                            .padding()
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                    Task {
+                                        await viewModel.load(company.id)
+                                    }
+                                }
+                            }
+                    }
+                }
+            } else {
+                if viewModel.isLoaded {
+                    CenterHorizontalView {
+                        Text("Try again later.")
+                            .fontDesign(.monospaced)
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
         }.padding(.all, settings.isCompactUI ? 10 : nil)
     }
 }
@@ -192,5 +206,11 @@ private struct DrawingConstants {
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
 #endif
     static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
+#if os(tvOS)
+    static let posterColumns = [GridItem(.adaptive(minimum: 260))]
+    static let posterSpacing: CGFloat = 40
+#else
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
+    static let posterSpacing: CGFloat = 20
+#endif
 }

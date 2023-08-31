@@ -159,7 +159,10 @@ extension WatchlistItem {
 	}
 	private var isUpcomingTvShow: Bool {
 		if itemMedia == .tvShow {
-			if itemSchedule == .soon && upcomingSeason && notify { return true }
+            if let firstAirDate, let date {
+                if firstAirDate <= Date() && date <= Date() { return false }
+            }
+            if itemSchedule == .soon && upcomingSeason && notify { return true }
 			if itemSchedule == .soon && upcomingSeason { return true }
 			if itemSchedule == .soon && nextSeasonNumber == 1 { return true }
 			if itemSchedule == .renewed && notify && date != nil && upcomingSeason { return true }

@@ -75,7 +75,7 @@ struct UpNextListView: View {
                 }
             }
             .navigationTitle("upNext")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.large)
         }
     }
     

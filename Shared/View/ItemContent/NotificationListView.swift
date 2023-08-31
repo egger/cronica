@@ -32,7 +32,7 @@ struct NotificationListView: View {
 #if os(macOS)
             .formStyle(.grouped)
 #elseif os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.large)
 #endif
             .toolbar {
 #if os(iOS)

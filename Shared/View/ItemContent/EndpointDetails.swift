@@ -44,7 +44,7 @@ struct EndpointDetails: View {
 #endif
         }
 #if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
 #endif
     }
     

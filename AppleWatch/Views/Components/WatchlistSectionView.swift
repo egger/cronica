@@ -21,7 +21,6 @@ struct WatchlistSectionView: View {
             } header: {
                 Text(NSLocalizedString(title, comment: ""))
             }
-            .padding(.bottom)
         } else {
             Text("No results")
         }

@@ -291,14 +291,10 @@ struct QuickInformationView: View {
                      content: item?.itemGenres)
             if let companies = item?.itemCompanies, let company = item?.itemCompany {
                 if !companies.isEmpty {
-#if !os(tvOS)
                     NavigationLink(value: companies) {
                         companiesLabel(company: company)
                     }
                     .buttonStyle(.plain)
-#else
-                    companiesLabel(company: company)
-#endif
                 }
             } else {
                 infoView(title: NSLocalizedString("Production Company",
@@ -335,7 +331,6 @@ struct QuickInformationView: View {
 #endif
                 }
                 Text(company)
-                    .lineLimit(1)
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }

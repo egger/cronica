@@ -49,7 +49,7 @@ struct UpcomingListView: View {
             }
         }
         .navigationTitle("Upcoming")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .navigationDestination(for: WatchlistItem.self) { item in
             ItemContentView(id: item.itemId,
                             title: item.itemTitle,

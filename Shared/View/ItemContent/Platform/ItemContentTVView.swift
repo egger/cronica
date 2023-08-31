@@ -39,7 +39,6 @@ struct ItemContentTVView: View {
                                               displayAsCard: true)
                 CastListView(credits: viewModel.credits)
                     .padding(.bottom)
-                AttributionView()
             }
             .ignoresSafeArea(.all, edges: .horizontal)
         }

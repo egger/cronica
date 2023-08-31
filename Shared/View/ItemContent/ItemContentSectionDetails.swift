@@ -37,7 +37,7 @@ struct ItemContentSectionDetails: View {
 		}
 		.actionPopup(isShowing: $showPopup, for: popupType)
 #if os(iOS)
-		.navigationBarTitleDisplayMode(.inline)
+		.navigationBarTitleDisplayMode(.large)
 		.searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
 		.autocorrectionDisabled()
 		.onChange(of: query) { _ in
@@ -63,10 +63,10 @@ struct ItemContentSectionDetails: View {
 					Text(item.title).tag(item)
 				}
 			} label: {
-				Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+				Label("Section Style", systemImage: "circle.grid.2x2")
 			}
 		} label: {
-			Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+			Label("Section Style", systemImage: "circle.grid.2x2")
 				.labelStyle(.iconOnly)
 		}
 	}

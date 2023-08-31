@@ -58,7 +58,12 @@ struct ItemContentPhoneView: View {
                 }
             
         }
-        .navigationTitle(navigationTitle)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack { }
+            }
+        }
+        .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             if !navigationTitle.isEmpty {

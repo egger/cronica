@@ -94,10 +94,7 @@ struct ExploreView: View {
             CompanyDetails(company: item)
         }
         .navigationDestination(for: [ProductionCompany].self) { item in
-#if os(tvOS)
-#else
             CompaniesListView(companies: item)
-#endif
         }
         .sheet(isPresented: $showFilters, content: {
             NavigationStack {

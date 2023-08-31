@@ -120,7 +120,6 @@ class UpNextViewModel: ObservableObject {
     
     func checkForNewEpisodes(_ items: FetchedResults<WatchlistItem>) async {
         for item in items {
-			print(item.itemTitle)
             let result = try? await network.fetchEpisode(tvID: item.id,
                                                          season: item.seasonNumberUpNext,
                                                          episodeNumber: item.nextEpisodeNumberUpNext)

@@ -74,6 +74,13 @@ struct SearchItemView: View {
             } else {
                 NavigationLink(value: item) {
                     SearchItem(item: item, isInWatchlist: $isInWatchlist, isWatched: $isWatched)
+                        .modifier(SearchItemContentContextMenu(item: item,
+                                                               showPopup: $showPopup,
+                                                               isInWatchlist: $isInWatchlist,
+                                                               isWatched: $isWatched,
+                                                               showNote: $showNote,
+                                                               showCustomListView: $showCustomListView,
+                                                               popupType: $popupType))
                         .task {
                             isInWatchlist = context.isItemSaved(id: item.itemContentID)
                             if isInWatchlist {

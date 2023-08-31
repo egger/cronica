@@ -28,7 +28,7 @@ struct TrendingView: View {
             }
 			.overlay { if !isLoaded { ProgressView().unredacted() } }
             .navigationTitle("Trending")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.large)
             .navigationDestination(for: ItemContent.self) { item in
 				ItemContentView(id: item.id,
 								title: item.itemTitle,
