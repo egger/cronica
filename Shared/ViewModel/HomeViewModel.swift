@@ -93,17 +93,13 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     /// - Returns: Returns a shuffled array of WatchlistItems that matches the criteria of watched OR favorite.
     private func fetchBasedRecommendationItems() -> [WatchlistItem] {
         let context = PersistenceController.shared.container.newBackgroundContext()
-        let watchingRequest: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
-        let watchedRequest: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
         let watchedPredicate = NSPredicate(format: "watched == %d", true)
         let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
-        watchingRequest.predicate = watchingPredicate
-        watchedRequest.predicate = watchedPredicate
-        guard let watchingList = try? context.fetch(watchingRequest) else { return [] }
-        guard let watchedList = try? context.fetch(watchedRequest) else { return [] }
-        let shuffled = watchingList.shuffled().prefix(10) + watchedList.shuffled().prefix(10)
-        let limited = shuffled.shuffled()
-        return limited
+        request.predicate = NSCompoundPredicate(type: .or, subpredicates: [watchingPredicate, watchedPredicate])
+        guard let list = try? context.fetch(request) else { return [] }
+        let items = list.shuffled().prefix(10)
+        return items.shuffled()
     }
     
     /// Gets all the IDs from watched content saved on Core Data.
@@ -129,18 +125,31 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
     }
     
     private func fetchRecommendations() async {
-        var recommendationsFetched = [ItemContent]()
-        let itemsToRecommendFrom = fetchBasedRecommendationItems()
-        for item in itemsToRecommendFrom {
-            if let result = try? await service.fetchItems(from: "\(item.itemMedia.rawValue)/\(item.itemId)/recommendations") {
-                recommendationsFetched.append(contentsOf: result)
+        var recommendations = [ItemContent]()
+        let itemsWatched = fetchBasedRecommendationItems()
+        var itemsToFetchFrom = [[Int:MediaType]]()
+        for item in itemsWatched {
+            itemsToFetchFrom.append([item.itemId:item.itemMedia])
+        }
+        for item in itemsToFetchFrom {
+            let result = await getRecommendations(for: item)
+            if let result {
+                recommendations.append(contentsOf: result)
             }
         }
-        let recommendations = await filterRecommendationsItems(recommendationsFetched)
-        self.recommendations = recommendations.sorted { $0.itemPopularity > $1.itemPopularity }
+        let content = await filterRecommendationsItems(recommendations)
+        self.recommendations = content.sorted { $0.itemPopularity > $1.itemPopularity }
         await MainActor.run {
             withAnimation { self.isLoadingRecommendations = false }
         }
+    }
+    
+    private func getRecommendations(for item: [Int:MediaType]) async -> [ItemContent]? {
+        if let (id, type) = item.first {
+            let result = try? await service.fetchItems(from: "\(type.rawValue)/\(id)/recommendations")
+            return result
+        }
+        return nil
     }
     
     /// Filters out recommendations from items without images and that matches NSFW keywords.

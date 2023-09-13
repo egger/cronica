@@ -41,6 +41,7 @@ struct BehaviorSetting: View {
 				} label: {
 					Text("shareLinkPreference")
 				}
+                .tint(.secondary)
 			} header: {
 				Text("Beta")
 			} footer: {
@@ -80,6 +81,7 @@ struct BehaviorSetting: View {
 				Text("behaviorDoubleTapTitle")
 				Text("behaviorDoubleTapSubtitle")
             }
+            .tint(.secondary)
         } header: {
             Text("behaviorGestureTitle")
         }
@@ -110,21 +112,25 @@ struct BehaviorSetting: View {
                     Text($0.localizableName).tag($0)
                 }
             }
+            .tint(.secondary)
             Picker("behaviorSecondaryLeftGesture", selection: $store.secondaryLeftSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
+            .tint(.secondary)
             Picker("behaviorPrimaryRightGesture", selection: $store.primaryRightSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
+            .tint(.secondary)
             Picker("behaviorSecondaryRightGesture", selection: $store.secondaryRightSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
+            .tint(.secondary)
             Toggle(isOn: $store.allowFullSwipe) {
 				Text("behaviorAllowFullSwipeTitle")
 				Text("behaviorAllowFullSwipeSubtitle")

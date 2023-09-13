@@ -18,7 +18,7 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var showNotifications = false
     @State private var showPopup = false
-    @State private var reloadUpNext = false
+    @State private var reloadHome = false
     @State private var showWhatsNew = false
     @State private var hasNotifications = false
     @State private var popupType: ActionPopupItems?
@@ -33,10 +33,10 @@ struct HomeView: View {
 #if os(iOS)
                 if showReviewBanner { ReviewAppBanner(showView: $showReviewBanner).unredacted() }
 #endif
-                HorizontalUpNextListView(shouldReload: $reloadUpNext)
-                UpcomingWatchlist(shouldReload: $reloadUpNext)
-                PinItemsList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadUpNext)
-                HorizontalPinnedList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadUpNext)
+                HorizontalUpNextListView(shouldReload: $reloadHome)
+                UpcomingWatchlist(shouldReload: $reloadHome)
+                PinItemsList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadHome)
+                HorizontalPinnedList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadHome)
                 HorizontalItemContentListView(items: viewModel.trending,
                                               title: "Trending",
                                               subtitle: "Today",
@@ -60,7 +60,7 @@ struct HomeView: View {
             }
 #if os(iOS)
             .refreshable {
-                reloadUpNext = true
+                reloadHome = true
                 viewModel.reload()
             }
             .onAppear {
@@ -160,7 +160,7 @@ struct HomeView: View {
                             .labelStyle(.iconOnly)
                     }
                     Button {
-                        reloadUpNext = true
+                        reloadHome = true
                         viewModel.reload()
                     } label: {
                         Label("Reload", systemImage: "arrow.clockwise")

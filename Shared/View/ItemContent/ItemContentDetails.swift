@@ -107,6 +107,7 @@ struct ItemContentDetails: View {
                             HStack {
                                 shareButton
                                 moreMenu
+                                
                             }
                             .disabled(viewModel.isLoading ? true : false)
                         }

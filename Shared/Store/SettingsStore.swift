@@ -14,11 +14,11 @@ class SettingsStore: ObservableObject {
     @AppStorage("displayDeveloperSettings") var displayDeveloperSettings = false
     @AppStorage("gesture") var gesture: UpdateItemProperties = .favorite
     @AppStorage("appThemeColor") var appTheme: AppThemeColors = .blue
-    #if os(iOS)
+#if os(iOS)
     @AppStorage("watchlistStyle") var watchlistStyle: SectionDetailsPreferredStyle = UIDevice.isIPhone ? .list : .poster
-    #else
+#else
     @AppStorage("watchlistStyle") var watchlistStyle: SectionDetailsPreferredStyle = .card
-    #endif
+#endif
     @AppStorage("disableTranslucentBackground") var disableTranslucent = false
     @AppStorage("user_theme") var currentTheme: AppTheme = .system
     @AppStorage("openInYouTube") var openInYouTube = false
@@ -40,11 +40,11 @@ class SettingsStore: ObservableObject {
 #else
     @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .standard
 #endif
-    #if os(iOS)
+#if os(iOS)
     @AppStorage("exploreDisplayType") var sectionStyleType: SectionDetailsPreferredStyle = UIDevice.isIPhone ? .card : .poster
-    #else
+#else
     @AppStorage("exploreDisplayType") var sectionStyleType: SectionDetailsPreferredStyle = .card
-    #endif
+#endif
     @AppStorage("preferCompactUI") var isCompactUI = false
     @AppStorage("selectedWatchProviderEnabled") var isSelectedWatchProviderEnabled = false
     @AppStorage("selectedWatchProviders") var selectedWatchProviders = ""
@@ -67,10 +67,10 @@ class SettingsStore: ObservableObject {
     @AppStorage("alwaysUsePosterAsCover") var usePostersAsCover = true
 #endif
     @AppStorage("shareLinkPreference") var shareLinkPreference: ShareLinkPreference = .tmdb
-	@AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
-	@AppStorage("showDateOnWatchlistRow") var showDateOnWatchlist = true
+    @AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
+    @AppStorage("showDateOnWatchlistRow") var showDateOnWatchlist = true
     @AppStorage("disableSearchFilter") var disableSearchFilter = false
 #if os(macOS)
-	@AppStorage("quitAppWhenClosingWindow") var quitApp = false
+    @AppStorage("quitAppWhenClosingWindow") var quitApp = false
 #endif
 }

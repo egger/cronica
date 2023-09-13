@@ -30,12 +30,12 @@ struct ReviewView: View {
                             RatingView(rating: $rating)
                         }
                     }
-                    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
                     Section("Notes") {
                         TextEditor(text: $note)
                             .frame(minHeight: 150)
                     }
-                    #endif
+#endif
                 } else {
                     ProgressView()
                 }

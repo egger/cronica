@@ -29,6 +29,7 @@ struct AppearanceSetting: View {
                 } label: {
 					Text("appearanceRowStyleTitle")
                 }
+                .tint(.secondary)
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)
@@ -36,6 +37,7 @@ struct AppearanceSetting: View {
                 } label: {
                     Text("appearanceSectionDetailsTitle")
                 }
+                .tint(.secondary)
                 Picker(selection: $store.listsDisplayType) {
                     ForEach(ItemContentListPreferredDisplayType.allCases) { item in
                         Text(item.title).tag(item)
@@ -43,6 +45,7 @@ struct AppearanceSetting: View {
                 } label: {
                     Text("appearanceHorizontalListsTitle")
                 }
+                .tint(.secondary)
 				Picker(selection: $store.upNextStyle) {
 					ForEach(UpNextDetailsPreferredStyle.allCases) { item in
 						Text(item.title).tag(item)
@@ -50,6 +53,7 @@ struct AppearanceSetting: View {
 				} label: {
 					Text("appearanceUpNextTitle")
 				}
+                .tint(.secondary)
             } header: {
                 Text("appearanceStyle")
             }
@@ -80,6 +84,7 @@ struct AppearanceSetting: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.vertical, 6)
+                .tint(.secondary)
             }
             
             Section("accentColor") { accentColor }

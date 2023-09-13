@@ -114,11 +114,11 @@ struct ItemContentView: View {
                 EpisodeDetailsView(episode: value, season: keys, show: id, showTitle: title, isWatched: $isWatched)
             }
         }
-//        .background {
-//            if #available(watchOS 10, *) {
-//                TranslucentBackground(image: image)
-//            }
-//        }
+        .background {
+            if #available(watchOS 10, *) {
+                TranslucentBackground(image: image)
+            }
+        }
     }
     
     private var watchButton: some View {

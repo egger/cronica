@@ -18,7 +18,7 @@ class UpNextViewModel: ObservableObject {
     
     func load(_ items: FetchedResults<WatchlistItem>) async {
         if !isLoaded {
-			let sortedItems = items.sorted(by: { $0.itemLastUpdateDate > $1.itemLastUpdateDate})
+            let sortedItems = items.sorted(by: { $0.itemLastUpdateDate > $1.itemLastUpdateDate}).filter { $0.firstAirDate != nil }
 			for item in sortedItems {
                 let result = try? await network.fetchEpisode(tvID: item.id,
                                                              season: item.itemNextUpNextSeason,
@@ -28,8 +28,11 @@ class UpNextViewModel: ObservableObject {
                     let isWatched = persistence.isEpisodeSaved(show: item.itemId,
                                                                season: seasonNumber,
                                                                episode: result.id)
-					let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
-					let isReleased = show?.itemStatus == .ended ? true : result.isItemReleased
+                    var isReleased = result.isItemReleased
+                    if result.airDate == nil {
+                        let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
+                        if show?.itemStatus == .ended { isReleased = true }
+                    }
                     if isReleased && !isWatched {
                         let content = UpNextEpisode(id: result.id,
                                                     showTitle: item.itemTitle,
@@ -94,8 +97,11 @@ class UpNextViewModel: ObservableObject {
         let helper = EpisodeHelper()
         let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
         if let nextEpisode {
-			let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
-			let isReleased = showContent?.itemStatus == .ended ? true : nextEpisode.isItemReleased
+            var isReleased = nextEpisode.isItemReleased
+            if nextEpisode.airDate == nil {
+                let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
+                if showContent?.itemStatus == .ended { isReleased = true }
+            }
             if isReleased {
                 let content = UpNextEpisode(id: nextEpisode.id,
                                             showTitle: content.showTitle,
@@ -130,8 +136,11 @@ class UpNextViewModel: ObservableObject {
                                                            episode: result.id)
                 let isInEpisodeList = episodes.contains(where: { $0.episode.id == result.id })
                 let isItemAlreadyLoadedInList = episodes.contains(where: { $0.showID == item.itemId })
-				let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
-				let isReleased = show?.itemStatus == .ended ? true : result.isItemReleased
+                var isReleased = result.isItemReleased
+                if result.airDate == nil {
+                    let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
+                    if show?.itemStatus == .ended { isReleased = true }
+                }
                 if isReleased && !isWatched && !isInEpisodeList {
                     if isItemAlreadyLoadedInList {
                         await MainActor.run {
@@ -172,8 +181,11 @@ class UpNextViewModel: ObservableObject {
         let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: content.episode, show: content.showID)
         guard let nextEpisode else { return }
         persistence.updateUpNext(item, episode: nextEpisode)
-		let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
-		let isReleased = showContent?.itemStatus == .ended ? true : nextEpisode.isItemReleased
+        var isReleased = nextEpisode.isItemReleased
+        if nextEpisode.airDate == nil {
+            let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
+            if showContent?.itemStatus == .ended { isReleased = true }
+        }
         if isReleased {
             let content = UpNextEpisode(id: nextEpisode.id,
                                         showTitle: content.showTitle,

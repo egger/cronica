@@ -50,7 +50,9 @@ struct NotificationListView: View {
             .navigationDestination(for: Person.self) { item in
                 PersonDetailsView(title: item.name, id: item.id)
             }
-            .onAppear(perform: load)
+            .task {
+                await load()
+            }
         }
     }
     
@@ -104,16 +106,16 @@ struct NotificationListView: View {
     
     private func dismiss() { showNotification.toggle() }
     
-    private func load() {
-        Task {
-            let upcomingContent = await NotificationManager.shared.fetchUpcomingNotifications() ?? []
-            if !upcomingContent.isEmpty {
-                let orderedContent = upcomingContent.sorted(by: { $0.itemNotificationSortDate ?? Date.distantPast < $1.itemNotificationSortDate ?? Date.distantPast})
-                items = orderedContent
-            }
-            deliveredItems = await NotificationManager.shared.fetchDeliveredNotifications()
-            await MainActor.run { withAnimation { self.hasLoaded = true } }
+    private func load() async {
+        if hasLoaded { return }
+        let upcomingContent = await NotificationManager.shared.fetchUpcomingNotifications() ?? []
+        if !upcomingContent.isEmpty {
+            let orderedContent = upcomingContent.sorted(by: { $0.itemNotificationSortDate ?? Date.distantPast < $1.itemNotificationSortDate ?? Date.distantPast})
+            items = orderedContent
         }
+        deliveredItems = await NotificationManager.shared.fetchDeliveredNotifications()
+        withAnimation { hasLoaded = true }
+        //await MainActor.run { withAnimation { self.hasLoaded = true } }
     }
     
     private func removeDelivered(id: String, for content: Int) {
