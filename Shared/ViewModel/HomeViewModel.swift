@@ -98,7 +98,7 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
         let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
         request.predicate = NSCompoundPredicate(type: .or, subpredicates: [watchingPredicate, watchedPredicate])
         guard let list = try? context.fetch(request) else { return [] }
-        let items = list.shuffled().prefix(10)
+        let items = list.shuffled().prefix(5)
         return items.shuffled()
     }
     

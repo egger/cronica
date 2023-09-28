@@ -19,7 +19,6 @@ struct WatchlistView: View {
     @State private var selectedCustomList: CustomList?
     @State private var query = ""
     @State private var showPicker = false
-    @State private var showSearch = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -32,42 +31,16 @@ struct WatchlistView: View {
                 }
             }
             .navigationTitle("Watchlist")
-            .navigationBarTitleDisplayMode(.automatic)
+            .navigationBarTitleDisplayMode(.large)
             .disableAutocorrection(true)
-            .searchable(text: $query)
-            .task(id: query) {
-                if query.isEmpty { return }
-                if Task.isCancelled { return }
-                showSearch = true
-            }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-					HStack {
-						filterButton
-						sortButton
-					}
-					.padding(.vertical, 4)
+                    HStack {
+                        filterButton
+                        sortButton
+                    }
+                    .padding(.vertical, 4)
                 }
-//                if #available(watchOS 10, *) {
-//                    ToolbarItem(placement: .bottomBar) {
-//                        filterButton
-//                            .buttonStyle(.borderedProminent)
-//                            .tint(.accentColor)
-//                            .labelStyle(.iconOnly)
-//                            .clipShape(Circle())
-//                            .shadow(radius: 5)
-//                            .opacity(showPicker ? 0 : 1)
-//                            .opacity(showSearch ? 0 : 1)
-//                    }
-//                } else {
-//                    ToolbarItem(placement: .primaryAction) {
-//                        filterButton
-//                            .buttonStyle(.bordered)
-//                            .tint(.blue)
-//                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-//                            .padding()
-//                    }
-//                }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
                 ItemContentView(id: item.itemId,
@@ -119,9 +92,8 @@ struct WatchlistView: View {
 				.labelStyle(.iconOnly)
 		}
 		.pickerStyle(.navigationLink)
-		.buttonBorderShape(.roundedRectangle(radius: 12))
-		.tint(.blue.opacity(0.7))
-		.buttonStyle(.borderedProminent)
+		.buttonBorderShape(.roundedRectangle(radius: 16))
+		.buttonStyle(.bordered)
 	}
     
     private var filterButton: some View {
@@ -132,16 +104,13 @@ struct WatchlistView: View {
                 .foregroundColor(.white)
 				.labelStyle(.iconOnly)
         }
-        .buttonBorderShape(.roundedRectangle(radius: 12))
-        .tint(.blue.opacity(0.7))
-        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.roundedRectangle(radius: 16))
+        .buttonStyle(.bordered)
     }
     
     @ViewBuilder
     private var defaultList: some View {
-        if !query.isEmpty {
-            SearchView(query: $query)
-        } else if items.isEmpty {
+        if items.isEmpty {
             EmptyListView()
         } else {
 			DefaultListView(selectedOrder: $selectedList, sortOrder: $sortOrder)
@@ -150,9 +119,7 @@ struct WatchlistView: View {
     
     @ViewBuilder
     private var customList: some View {
-        if !query.isEmpty {
-            SearchView(query: $query)
-        } else if items.isEmpty {
+        if items.isEmpty {
             EmptyListView()
         } else {
 			CustomListView(list: $selectedCustomList, sortOrder: $sortOrder)
@@ -160,9 +127,6 @@ struct WatchlistView: View {
     }
 }
 
-//@available(iOS 17, *)
-//@available(macOS 14, *)
-//@available(watchOS 10, *)
-//#Preview {
-//    WatchlistView()
-//}
+#Preview {
+    WatchlistView()
+}

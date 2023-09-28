@@ -46,6 +46,14 @@ struct CronicaWatchApp: App {
                             .labelStyle(.titleOnly)
                     }
                 
+                SearchView()
+                    .tag(SearchView.tag)
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+                    .tabItem {
+                        Label("Search", systemImage: "magnifyingglass")
+                            .labelStyle(.titleOnly)
+                    }
+                
                 SettingsView()
                     .tag(SettingsView.tag)
                     .tabItem {

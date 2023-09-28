@@ -93,7 +93,7 @@ struct UpcomingWatchlist: View {
                             }
                         }
                     }
-                    .onChange(of: shouldReload) { _ in
+                    .onChange(of: shouldReload) { _ in 
                         guard let firstItem = items.first else { return }
                         withAnimation {
                             proxy.scrollTo(firstItem.id, anchor: .topLeading)
@@ -109,6 +109,15 @@ struct UpcomingWatchlist: View {
 #if os(tvOS)
         VStack {
             image(for: item)
+                .watchlistContextMenu(item: item,
+                                      isWatched: .constant(false),
+                                      isFavorite: .constant(false),
+                                      isPin: .constant(false),
+                                      isArchive: .constant(false),
+                                      showNote: .constant(false),
+                                      showCustomList: .constant(false),
+                                      popupType: .constant(nil),
+                                      showPopup: .constant(false))
                 .buttonStyle(.card)
             HStack {
                 Text(item.itemTitle)
