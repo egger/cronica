@@ -45,22 +45,14 @@ struct AppearanceSetting: View {
                     Text("appearanceSectionDetailsTitle")
                 }
                 .tint(.secondary)
-#endif
                 Picker(selection: $store.listsDisplayType) {
                     ForEach(ItemContentListPreferredDisplayType.allCases) { item in
-#if os(tvOS)
-                        if item != ItemContentListPreferredDisplayType.standard {
-                            Text(item.title).tag(item)
-                        }
-#else
                         Text(item.title).tag(item)
-#endif
                     }
                 } label: {
                     Text("appearanceHorizontalListsTitle")
                 }
                 .tint(.secondary)
-#if !os(tvOS)
                 Picker(selection: $store.upNextStyle) {
                     ForEach(UpNextDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)

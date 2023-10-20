@@ -76,9 +76,9 @@ struct SeasonList: View {
             .padding(.horizontal, 60)
 #else
             seasonPicker
-#endif
 #if os(macOS)
                 .frame(maxWidth: 200)
+#endif
 #endif
             Spacer()
 #if os(iOS) || os(tvOS)

@@ -299,12 +299,13 @@ private struct UpNextCard: View {
     let item: UpNextEpisode
     @FocusState var isFocused
     @Binding var selectedEpisode: UpNextEpisode?
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
             Button {
                 selectedEpisode = item
             } label: {
-                WebImage(url: item.episode.itemImageLarge ?? item.backupImage)
+                WebImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage)
                     .resizable()
                     .placeholder {
                         ZStack {

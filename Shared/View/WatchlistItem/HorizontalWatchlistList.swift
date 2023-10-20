@@ -31,20 +31,21 @@ struct HorizontalWatchlistList: View {
 #endif
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
+#if !os(tvOS)
                     if settings.listsDisplayType == .card {
                         LazyHStack {
                             ForEach(items) { item in
                                 WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                     .padding([.leading, .trailing], 2)
-                                    .padding(.leading, item.id == self.items.first!.id ? 64 : 0)
-                                    .padding(.trailing, item.id == self.items.last!.id ? 64 : 0)
+                                    .padding(.leading, item.id == self.items.first?.id ? 64 : 0)
+                                    .padding(.trailing, item.id == self.items.last?.id ? 64 : 0)
                                     .padding(.vertical)
                                     .buttonStyle(.card)
 #else
                                     .padding([.leading, .trailing], 4)
-                                    .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                                    .padding(.leading, item.id == self.items.first?.id ? 16 : 0)
+                                    .padding(.trailing, item.id == self.items.last?.id ? 16 : 0)
                                     .padding(.top, 8)
                                     .padding(.bottom)
                                     .buttonStyle(.plain)
@@ -57,20 +58,32 @@ struct HorizontalWatchlistList: View {
                                 WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
 #if os(tvOS)
                                     .padding([.leading, .trailing], 2)
-                                    .padding(.leading, item.id == self.items.first!.id ? 64 : 0)
-                                    .padding(.trailing, item.id == self.items.last!.id ? 64 : 0)
-                                    .padding(.vertical)
+                                    .padding(.leading, item.id == self.items.first?.id ? 64 : 0)
+                                    .padding(.trailing, item.id == self.items.last?.id ? 64 : 0)
                                     .buttonStyle(.card)
+                                    .padding(.vertical)
 #else
                                     .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
-                                    .padding(.leading, item.id == self.items.first!.id ? 16 : 0)
-                                    .padding(.trailing, item.id == self.items.last!.id ? 16 : 0)
+                                    .padding(.leading, item.id == self.items.first?.id ? 16 : 0)
+                                    .padding(.trailing, item.id == self.items.last?.id ? 16 : 0)
                                     .padding(.top, 8)
                                     .padding(.bottom)
 #endif
                             }
                         }
                     }
+#else
+                    LazyHStack {
+                        ForEach(items) { item in
+                            WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
+                                .padding([.leading, .trailing], 2)
+                                .padding(.leading, item.id == self.items.first?.id ? 64 : 0)
+                                .padding(.trailing, item.id == self.items.last?.id ? 64 : 0)
+                                .padding(.vertical)
+                                .buttonStyle(.card)
+                        }
+                    }
+#endif
                 }
                 .onChange(of: shouldReload) { _ in
                     guard let firstItem = items.first else { return }

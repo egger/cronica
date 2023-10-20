@@ -209,9 +209,13 @@ struct ItemContentPadView: View {
                               value: viewModel.isWatched)
 #else
             VStack {
-                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
-                                  value: viewModel.isWatched)
+                if #available(iOS 17, *) {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                      value: viewModel.isWatched)
+                } else {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                }
                 Text("Watched")
                     .padding(.top, 2)
                     .font(.caption)
@@ -249,9 +253,13 @@ struct ItemContentPadView: View {
                               value: viewModel.isFavorite)
 #else
             VStack {
-                Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                    .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
-                                  value: viewModel.isFavorite)
+                if #available(iOS 17, *) {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                        .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                      value: viewModel.isFavorite)
+                } else {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                }
                 Text("Favorite")
                     .padding(.top, 2)
                     .font(.caption)

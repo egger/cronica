@@ -19,9 +19,13 @@ struct WatchEpisodeButton: View {
         Button(action: update) {
 #if os(iOS)
             VStack {
-                Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
-                    .symbolEffect(isWatched ? .bounce.down : .bounce.up,
-                                  value: isWatched)
+                if #available(iOS 17, *) {
+                    Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+                        .symbolEffect(isWatched ? .bounce.down : .bounce.up,
+                                      value: isWatched)
+                } else {
+                    Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+                }
                 Text("Watched")
                     .lineLimit(1)
                     .padding(.top, 2)
@@ -30,10 +34,15 @@ struct WatchEpisodeButton: View {
             .frame(width: 80, height: 40)
             .padding(.vertical, 4)
 #else
-            Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
-            .symbolEffect(isWatched ? .bounce.down : .bounce.up,
-                          value: isWatched)
+            if #available(watchOS 10, *) {
+                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+                .symbolEffect(isWatched ? .bounce.down : .bounce.up,
+                              value: isWatched)
+            } else {
+                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                      systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+            }
 #if os(tvOS)
             .padding(.horizontal)
             .labelStyle(.iconOnly)

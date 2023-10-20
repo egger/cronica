@@ -20,9 +20,6 @@ struct WatchlistItemPosterView: View {
     @State private var showCustomListView = false
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
-#if os(tvOS)
-    @FocusState var isStackFocused: Bool
-#endif
     var body: some View {
         NavigationLink(value: content) {
             if settings.isCompactUI {
@@ -33,6 +30,15 @@ struct WatchlistItemPosterView: View {
         }
 #if os(tvOS)
         .buttonStyle(.card)
+        .watchlistContextMenu(item: content,
+                              isWatched: $isWatched,
+                              isFavorite: $isFavorite,
+                              isPin: $isPin,
+                              isArchive: $isArchive,
+                              showNote: $showNote,
+                              showCustomList: $showCustomListView,
+                              popupType: $popupType,
+                              showPopup: $showPopup)
 #else
         .buttonStyle(.plain)
 #endif
@@ -141,6 +147,7 @@ struct WatchlistItemPosterView: View {
             .shadow(radius: DrawingConstants.shadowRadius)
             .padding(.zero)
             .applyHoverEffect()
+#if !os(tvOS)
             .watchlistContextMenu(item: content,
                                   isWatched: $isWatched,
                                   isFavorite: $isFavorite,
@@ -150,6 +157,7 @@ struct WatchlistItemPosterView: View {
                                   showCustomList: $showCustomListView,
                                   popupType: $popupType,
                                   showPopup: $showPopup)
+#endif
             .task {
                 isWatched = content.isWatched
                 isFavorite = content.isFavorite

@@ -76,7 +76,7 @@ struct ItemContentTVView: View {
                             }
                         Spacer()
                     }
-                    .frame(maxWidth: 800)
+                    .frame(maxWidth: 700)
                     .padding(.bottom)
                 }
                 .buttonStyle(.plain)
@@ -92,7 +92,7 @@ struct ItemContentTVView: View {
                 
                 actionRow
             }
-            .frame(width: 800)
+            .frame(width: 700)
             
             QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
                 .frame(width: 400)
@@ -185,20 +185,6 @@ struct ItemContentTVView: View {
             }
             .focused($isFavoriteInFocus)
             
-            VStack {
-                Button {
-                    
-                } label: {
-                    Label("More", systemImage: "ellipsis.circle")
-                    .labelStyle(.iconOnly)
-                }
-                .buttonStyle(.borderedProminent)
-                Text("More")
-                    .foregroundColor(.secondary)
-                    .font(.caption)
-                    .opacity(isMoreInFocus ? 1 : 0)
-            }
-            .focused($isMoreInFocus)
             Spacer()
         }
     }

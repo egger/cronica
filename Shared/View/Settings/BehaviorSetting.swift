@@ -11,9 +11,9 @@ struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
     var body: some View {
         Form {
-            #if !os(tvOS)
+#if !os(tvOS)
             gesture
-            #endif
+#endif
 #if os(iOS)
             swipeGesture
             singleTapGesture
@@ -28,13 +28,11 @@ struct BehaviorSetting: View {
 #endif
                 
             }
-            
+#if !os(tvOS)
             Section("Seasons & Up Next") {
+                
                 Toggle(isOn: $store.markEpisodeWatchedOnTap) {
                     Text("behaviorEpisodeTitle")
-                }
-                Toggle(isOn: $store.markWatchedOnTapUpNext) {
-                    Text("Mark Episodes as Watched on Up Next with a tap")
                 }
                 Toggle(isOn: $store.preferCoverOnUpNext) {
                     Text("Prefer Series Cover instead of Episode Thumbnail on Up Next")
@@ -47,17 +45,20 @@ struct BehaviorSetting: View {
                     Text("Hide Thumbnails from Unwatched Episodes")
                     Text("To avoid potential spoilers, you can hide thumbnails from unwatched episodes.")
                 }
+                
             }
+#endif
             
             Section("Watchlist") {
+#if !os(tvOS)
                 Toggle("openCustomListSelectorWhenAdding", isOn: $store.openListSelectorOnAdding)
+#endif
                 Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
                 Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
             }
             
 #if !os(tvOS)
             shareOptions
-#endif
             
             Section {
                 Toggle(isOn: $store.disableSearchFilter) {
@@ -65,6 +66,8 @@ struct BehaviorSetting: View {
                     Text("Search filter improve the search results, but has the downside of taking longer to load.")
                 }
             }
+#endif
+            
         }
         .navigationTitle("behaviorTitle")
 #if os(macOS)
@@ -79,8 +82,8 @@ struct BehaviorSetting: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-				Text("behaviorDoubleTapTitle")
-				Text("behaviorDoubleTapSubtitle")
+                Text("behaviorDoubleTapTitle")
+                Text("behaviorDoubleTapSubtitle")
             }
             .tint(.secondary)
         } header: {
@@ -153,8 +156,8 @@ struct BehaviorSetting: View {
             }
             .tint(.secondary)
             Toggle(isOn: $store.allowFullSwipe) {
-				Text("behaviorAllowFullSwipeTitle")
-				Text("behaviorAllowFullSwipeSubtitle")
+                Text("behaviorAllowFullSwipeTitle")
+                Text("behaviorAllowFullSwipeSubtitle")
             }
             Button("resetToDefault") {
                 store.primaryLeftSwipe = .markWatch
