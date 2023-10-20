@@ -21,6 +21,8 @@ struct EpisodeFrameView: View {
     @State private var showDetails = false
     private let network = NetworkService.shared
     @Binding var checkedIfWatched: Bool
+    @StateObject private var settings: SettingsStore = .shared
+    let showCover: URL?
 #if os(tvOS)
     @FocusState var isFocused
 #endif
@@ -105,10 +107,10 @@ struct EpisodeFrameView: View {
             .padding(.top, 1)
             HStack {
                 Text(episode.itemTitle)
+                    .redacted(reason: isWatched ? [] : settings.hideEpisodesTitles ? .placeholder : [])
                     .font(.callout)
 #if os(tvOS)
                     .foregroundColor(isFocused ? .primary : .secondary)
-                    .fontWeight(isFocused ? .bold : .regular)
 #endif
                     .lineLimit(1)
                 Spacer()
@@ -116,6 +118,7 @@ struct EpisodeFrameView: View {
 #if !os(tvOS)
             HStack {
                 Text(episode.itemOverview)
+                    .redacted(reason: isWatched ? [] : settings.hideEpisodesTitles ? .placeholder : [])
                     .font(.caption)
                     .lineLimit(2)
                     .foregroundColor(.secondary)
@@ -128,7 +131,7 @@ struct EpisodeFrameView: View {
     }
     
     private var image: some View {
-        WebImage(url: episode.itemImageMedium)
+        WebImage(url: isWatched ? episode.itemImageMedium : settings.hideEpisodesThumbnails ? showCover : episode.itemImageMedium)
             .placeholder {
                 ZStack {
                     Rectangle().fill(.gray.gradient)

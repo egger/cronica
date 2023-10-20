@@ -27,3 +27,26 @@ enum SwipeGestureOptions: String, CaseIterable, Identifiable {
         }
     }
 }
+
+
+enum SecondaryButtonOptions: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    case watched, favorite, archive, pin, review, lists
+    
+    var localizableTitle: String {
+        switch self {
+        case .watched:
+            return NSLocalizedString("Watch", comment: "")
+        case .favorite:
+            return NSLocalizedString("Favorite", comment: "")
+        case .archive:
+            return NSLocalizedString("Archive", comment: "")
+        case .pin:
+            return NSLocalizedString("Pin", comment: "")
+        case .review:
+            return NSLocalizedString("Review", comment: "")
+        case .lists:
+            return NSLocalizedString("Lists", comment: "")
+        }
+    }
+}

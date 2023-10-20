@@ -88,10 +88,8 @@ struct ContextMenuPreviewImage: View {
     }
 }
 
-struct ContextMenuPreviewImage_Previews: PreviewProvider {
-    static var previews: some View {
-        ContextMenuPreviewImage(title: ItemContent.example.itemTitle,
-                                image: ItemContent.example.cardImageMedium,
-                                overview: ItemContent.example.itemOverview)
-    }
+#Preview {
+    ContextMenuPreviewImage(title: ItemContent.example.itemTitle,
+                            image: ItemContent.example.cardImageMedium,
+                            overview: ItemContent.example.itemOverview)
 }

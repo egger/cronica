@@ -21,6 +21,7 @@ struct SeasonList: View {
     @Binding var isInWatchlist: Bool
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
+    let showCover: URL?
     var body: some View {
         VStack {
             header
@@ -36,56 +37,67 @@ struct SeasonList: View {
 #endif
     }
     
+    private var seasonPicker: some View {
+        Picker(selection: $selectedSeason) {
+            ForEach(numberOfSeasons, id: \.self) { season in
+                Text("Season \(season)").tag(season)
+            }
+        } label: {
+#if os(iOS) || os(tvOS)
+            Text("Season")
+                .lineLimit(1)
+#endif
+        }
+#if os(macOS)
+        .pickerStyle(.automatic)
+#elseif os(iOS)
+        .pickerStyle(.menu)
+#endif
+        .onChange(of: selectedSeason) { _ in
+            Task {
+                await load()
+                checkIfWatched = false
+            }
+        }
+        .padding(.leading)
+        .padding(.bottom, 1)
+        .unredacted()
+    }
+    
     private var header: some View {
         HStack {
-            Picker(selection: $selectedSeason) {
-                ForEach(numberOfSeasons, id: \.self) { season in
 #if os(tvOS)
-                    Text("\(season)").tag(season)
-#else
-                    Text("Season \(season)").tag(season)
-#endif
-                }
+            Menu {
+                seasonPicker
+                    .pickerStyle(.inline)
             } label: {
-#if os(iOS) || os(tvOS)
-                Text("Season")
-                    .lineLimit(1)
-#endif
+                Text("Season \(selectedSeason)")
             }
-#if os(tvOS)
-            .pickerStyle(.navigationLink)
-#elseif os(macOS)
-            .pickerStyle(.automatic)
+            .padding(.horizontal, 60)
 #else
-            .pickerStyle(.menu)
+            seasonPicker
 #endif
-            .onChange(of: selectedSeason) { _ in
-                Task {
-					await load()
-					checkIfWatched = false
-				}
-            }
-            .padding(.leading)
-            .padding(.bottom, 1)
-            .unredacted()
 #if os(macOS)
-            .frame(maxWidth: 200)
-#elseif os(tvOS)
-            .frame(maxWidth: 460)
-            .padding(.leading, 64)
+                .frame(maxWidth: 200)
 #endif
             Spacer()
-#if os(iOS) 
+#if os(iOS) || os(tvOS)
             Menu {
                 if isInWatchlist { Button("markThisSeasonAsWatched", action: markSeasonAsWatched) }
+#if os(iOS)
                 if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(selectedSeason)") {
                     ShareLink(item: url)
                 }
+#endif
             } label: {
                 Label("More", systemImage: "ellipsis.circle")
                     .labelStyle(.iconOnly)
             }
+#if os(tvOS)
+            .padding(.horizontal, 60)
+#else
             .padding(.horizontal)
+#endif
 #endif
         }
     }
@@ -119,7 +131,8 @@ struct SeasonList: View {
                                                          season: selectedSeason,
                                                          show: showID,
                                                          showTitle: showTitle,
-                                                         checkedIfWatched: $checkIfWatched)
+                                                         checkedIfWatched: $checkIfWatched,
+                                                         showCover: showCover)
 #if os(tvOS)
                                         .frame(width: 360)
                                         .padding([.leading, .trailing], 2)
@@ -200,19 +213,19 @@ struct SeasonList: View {
     
     private func markSeasonAsWatched() {
         guard let episodes = season?.episodes else { return }
-		let contentID = "\(showID)@\(MediaType.tvShow.toInt)"
-		guard let item = persistence.fetch(for: contentID) else { return }
-		persistence.updateEpisodeList(to: item, show: showID, episodes: episodes)
-		Task {
-			guard let actualSeason = season?.seasonNumber else { return }
-			let nextSeason = actualSeason + 1
-			let nextSeasonContent = try? await network.fetchSeason(id: showID, season: nextSeason)
-			if let firstEpisode = nextSeasonContent?.episodes?.first {
-				if !persistence.isEpisodeSaved(show: showID, season: nextSeason, episode: firstEpisode.id) {
-					persistence.updateUpNext(item, episode: firstEpisode)
-				}
-			}
-		}
+        let contentID = "\(showID)@\(MediaType.tvShow.toInt)"
+        guard let item = persistence.fetch(for: contentID) else { return }
+        persistence.updateEpisodeList(to: item, show: showID, episodes: episodes)
+        Task {
+            guard let actualSeason = season?.seasonNumber else { return }
+            let nextSeason = actualSeason + 1
+            let nextSeasonContent = try? await network.fetchSeason(id: showID, season: nextSeason)
+            if let firstEpisode = nextSeasonContent?.episodes?.first {
+                if !persistence.isEpisodeSaved(show: showID, season: nextSeason, episode: firstEpisode.id) {
+                    persistence.updateUpNext(item, episode: firstEpisode)
+                }
+            }
+        }
         checkIfWatched = true
     }
 }

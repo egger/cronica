@@ -215,7 +215,7 @@ struct HorizontalUpNextListView: View {
     
     private func upNextCard(_ item: UpNextEpisode) -> some View {
         ZStack {
-            WebImage(url: item.episode.itemImageLarge ?? item.backupImage)
+            WebImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage)
                 .resizable()
                 .placeholder {
                     ZStack {

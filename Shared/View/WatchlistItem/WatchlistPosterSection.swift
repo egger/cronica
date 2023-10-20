@@ -23,9 +23,13 @@ struct WatchlistPosterSection: View {
                         ForEach(items, id: \.itemContentID) { item in
                             WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
                                 .buttonStyle(.plain)
+#if os(tvOS)
+                                .padding(.vertical)
+#endif
                         }
                         .onDelete(perform: delete)
                     } header: {
+#if !os(tvOS)
                         HStack(alignment: .firstTextBaseline) {
                             Text(NSLocalizedString(title, comment: ""))
                                 .foregroundColor(.secondary)
@@ -40,7 +44,8 @@ struct WatchlistPosterSection: View {
                                 .textCase(.uppercase)
                         }
                         .padding(.horizontal)
-                    } 
+#endif
+                    }
                 }.padding(.all, settings.isCompactUI ? 10 : nil)
             }
         } else {
@@ -73,7 +78,7 @@ private struct DrawingConstants {
     static let columns = [GridItem(.adaptive(minimum: 240))]
 #elseif os(tvOS)
     static let posterColumns = [GridItem(.adaptive(minimum: 260))]
-    static let columns = [GridItem(.adaptive(minimum: 440))]
+    static let columns = [GridItem(.adaptive(minimum: 380))]
 #else
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let columns  = [GridItem(.adaptive(minimum: 160))]

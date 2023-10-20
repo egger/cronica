@@ -11,7 +11,9 @@ struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
     var body: some View {
         Form {
+            #if !os(tvOS)
             gesture
+            #endif
 #if os(iOS)
             swipeGesture
             singleTapGesture
@@ -27,29 +29,35 @@ struct BehaviorSetting: View {
                 
             }
             
+            Section("Seasons & Up Next") {
+                Toggle(isOn: $store.markEpisodeWatchedOnTap) {
+                    Text("behaviorEpisodeTitle")
+                }
+                Toggle(isOn: $store.markWatchedOnTapUpNext) {
+                    Text("Mark Episodes as Watched on Up Next with a tap")
+                }
+                Toggle(isOn: $store.preferCoverOnUpNext) {
+                    Text("Prefer Series Cover instead of Episode Thumbnail on Up Next")
+                }
+                Toggle(isOn: $store.hideEpisodesTitles) {
+                    Text("Hide Titles from Unwatched Episodes")
+                    Text("To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes.")
+                }
+                Toggle(isOn: $store.hideEpisodesThumbnails) {
+                    Text("Hide Thumbnails from Unwatched Episodes")
+                    Text("To avoid potential spoilers, you can hide thumbnails from unwatched episodes.")
+                }
+            }
+            
             Section("Watchlist") {
                 Toggle("openCustomListSelectorWhenAdding", isOn: $store.openListSelectorOnAdding)
                 Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
                 Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
             }
             
-			Section {
-				Picker(selection: $store.shareLinkPreference) {
-					ForEach(ShareLinkPreference.allCases) { item in
-						Text(item.title).tag(item)
-					}
-				} label: {
-					Text("shareLinkPreference")
-				}
-                .tint(.secondary)
-			} header: {
-				Text("Beta")
-			} footer: {
-				HStack {
-					Text("shareLinkPreferenceSubtitle")
-					Spacer()
-				}
-			}
+#if !os(tvOS)
+            shareOptions
+#endif
             
             Section {
                 Toggle(isOn: $store.disableSearchFilter) {
@@ -57,13 +65,6 @@ struct BehaviorSetting: View {
                     Text("Search filter improve the search results, but has the downside of taking longer to load.")
                 }
             }
-			
-#if os(macOS)
-//			Section {
-//				Toggle("quitWhenClosingApp", isOn: $store.quitApp)
-//			}
-//			.hidden()
-#endif
         }
         .navigationTitle("behaviorTitle")
 #if os(macOS)
@@ -84,6 +85,26 @@ struct BehaviorSetting: View {
             .tint(.secondary)
         } header: {
             Text("behaviorGestureTitle")
+        }
+    }
+    
+    private var shareOptions: some View {
+        Section {
+            Picker(selection: $store.shareLinkPreference) {
+                ForEach(ShareLinkPreference.allCases) { item in
+                    Text(item.title).tag(item)
+                }
+            } label: {
+                Text("shareLinkPreference")
+            }
+            .tint(.secondary)
+        } header: {
+            Text("Beta")
+        } footer: {
+            HStack {
+                Text("shareLinkPreferenceSubtitle")
+                Spacer()
+            }
         }
     }
     
@@ -152,21 +173,10 @@ struct BehaviorSetting: View {
             Toggle(isOn: $store.openInYouTube) {
                 Text("behaviorYouTubeTitle")
             }
-            Toggle(isOn: $store.markEpisodeWatchedOnTap) {
-                Text("behaviorEpisodeTitle")
-            }
         }
     }
 }
 
-struct BehaviorSetting_Previews: PreviewProvider {
-    static var previews: some View {
-        BehaviorSetting()
-            .preferredColorScheme(.light)
-        BehaviorSetting()
-            .preferredColorScheme(.dark)
-        BehaviorSetting()
-            .previewDevice("iPad Air (5th generation)")
-            .previewInterfaceOrientation(.landscapeRight)
-    }
+#Preview {
+    BehaviorSetting()
 }

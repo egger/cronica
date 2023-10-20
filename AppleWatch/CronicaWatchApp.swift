@@ -17,8 +17,8 @@ struct CronicaWatchApp: App {
     var body: some Scene {
         WindowGroup {
             TabView(selection: $selectedView) {
-                TrendingView()
-                    .tag(TrendingView.tag)
+                SearchView()
+                    .tag(SearchView.tag)
                     .environment(\.managedObjectContext, persistence.container.viewContext)
                     .tabItem {
                         Label("Trending", systemImage: "popcorn")
@@ -43,14 +43,6 @@ struct CronicaWatchApp: App {
                     .environment(\.managedObjectContext, persistence.container.viewContext)
                     .tabItem {
                         Label("Upcoming", systemImage: "calendar")
-                            .labelStyle(.titleOnly)
-                    }
-                
-                SearchView()
-                    .tag(SearchView.tag)
-                    .environment(\.managedObjectContext, persistence.container.viewContext)
-                    .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
                             .labelStyle(.titleOnly)
                     }
                 

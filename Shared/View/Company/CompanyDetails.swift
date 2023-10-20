@@ -39,7 +39,7 @@ struct CompanyDetails: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarTrailing) {
-                styleOptions
+                styleOptions 
             }
 #endif
         }

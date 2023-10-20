@@ -19,7 +19,6 @@ enum SectionDetailsPreferredStyle: String, CaseIterable, Identifiable {
         }
     }
 }
-
 enum UpNextDetailsPreferredStyle: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case list, card

@@ -708,3 +708,13 @@
 "Crime Investigation" = "Crime Investigation";
 "Reboot" = "Reboot";
 "Spin off" = "Spin off";
+
+"Prefer Series Cover instead of Episode Thumbnail on Up Next" = "Prefer Cover on Up Next";
+"Hide Titles from Unwatched Episodes" = "Hide Titles from Unwatched Episodes";
+"To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes." = "To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes.";
+"Hide Thumbnails from Unwatched Episodes" = "Hide Thumbnails from Unwatched Episodes";
+"To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "To avoid potential spoilers, you can hide thumbnails from unwatched episodes.";
+"Leading Button for Movies" = "Leading Button for Movies";
+"Trailing Button for Movies" = "Trailing Button for Movies";
+"Leading Button for TV Shows" = "Leading Button for TV Shows";
+"Trailing Button for TV Shows" = "Trailing Button for TV Shows";

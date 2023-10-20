@@ -86,23 +86,29 @@ struct DefaultWatchlist: View {
             ScrollView {
                 if !items.isEmpty {
                     HStack {
-                        VStack(alignment: .leading) {
-                            Text("Watchlist")
-                                .font(.title3)
-                            if showAllItems {
-                                Text(mediaTypeFilter.localizableTitle)
-                                    .font(.callout)
-                                    .foregroundColor(.secondary)
-                            } else {
+                        Button {
+                            
+                        } label: {
+                            HStack {
+                                Text("Watchlist")
+                                    .fontWeight(.semibold)
+                                    .font(.title3)
                                 Text(smartFilter.title)
+                                    .fontWeight(.semibold)
                                     .font(.callout)
                                     .foregroundColor(.secondary)
                             }
+                            .padding()
                         }
-                        .padding()
+                        .buttonStyle(.plain)
                         Spacer()
-                        Button {
-                            showFilter.toggle()
+                        Menu {
+                            Picker("Smart Filters", selection: $smartFilter) {
+                                ForEach(SmartFiltersTypes.allCases) { sort in
+                                    Text(sort.title).tag(sort)
+                                }
+                            }
+                            .pickerStyle(.inline)
                         } label: {
                             Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
                                 .labelStyle(.iconOnly)
@@ -113,8 +119,18 @@ struct DefaultWatchlist: View {
                 if smartFiltersItems.isEmpty {
                     empty
                 } else {
-                    WatchlistCardSection(items: smartFiltersItems,
-                                         title: "Search results", showPopup: $showPopup, popupType: $popupType)
+                    switch settings.watchlistStyle {
+                    case .list:
+                        WatchlistCardSection(items: smartFiltersItems,
+                                             title: String(), showPopup: $showPopup, popupType: $popupType)
+                    case .card:
+                        WatchlistCardSection(items: smartFiltersItems,
+                                             title: String(), showPopup: $showPopup, popupType: $popupType)
+                    case .poster:
+                        WatchlistPosterSection(items: smartFiltersItems,
+                                             title: String(), showPopup: $showPopup, popupType: $popupType)
+                    }
+                    
                 }
             }
 #else
@@ -329,8 +345,6 @@ struct DefaultWatchlist: View {
     }
 }
 
-struct DefaultWatchlist_Previews: PreviewProvider {
-    static var previews: some View {
-        DefaultWatchlist(showPopup: .constant(false), popupType: .constant(nil))
-    }
+#Preview {
+    DefaultWatchlist(showPopup: .constant(false), popupType: .constant(nil))
 }

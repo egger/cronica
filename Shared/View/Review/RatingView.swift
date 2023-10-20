@@ -22,6 +22,8 @@ struct RatingView: View {
             }
             ForEach(1..<maximumRating + 1, id: \.self) { number in
                 image(for: number)
+                    .accessibilityLabel("Rating star \(number) of 5.")
+                    .accessibilityHint("Select the rating in star numbers.")
                     .foregroundColor(number > rating ? offColor : onColor)
                     .onTapGesture {
                         HapticManager.shared.selectionHaptic()
@@ -40,8 +42,6 @@ struct RatingView: View {
     }
 }
 
-struct RatingView_Previews: PreviewProvider {
-    static var previews: some View {
-        RatingView(rating: .constant(4))
-    }
+#Preview {
+    RatingView(rating: .constant(4))
 }

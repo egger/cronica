@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+
 struct AppearanceSetting: View {
     @StateObject private var store = SettingsStore.shared
 #if os(iOS)
@@ -24,12 +24,19 @@ struct AppearanceSetting: View {
             Section {
                 Picker(selection: $store.watchlistStyle) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
+#if os(tvOS)
+                        if item != SectionDetailsPreferredStyle.list {
+                            Text(item.title).tag(item)
+                        }
+#else
                         Text(item.title).tag(item)
+#endif
                     }
                 } label: {
-					Text("appearanceRowStyleTitle")
+                    Text("appearanceRowStyleTitle")
                 }
                 .tint(.secondary)
+#if !os(tvOS)
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)
@@ -38,22 +45,31 @@ struct AppearanceSetting: View {
                     Text("appearanceSectionDetailsTitle")
                 }
                 .tint(.secondary)
+#endif
                 Picker(selection: $store.listsDisplayType) {
                     ForEach(ItemContentListPreferredDisplayType.allCases) { item in
+#if os(tvOS)
+                        if item != ItemContentListPreferredDisplayType.standard {
+                            Text(item.title).tag(item)
+                        }
+#else
                         Text(item.title).tag(item)
+#endif
                     }
                 } label: {
                     Text("appearanceHorizontalListsTitle")
                 }
                 .tint(.secondary)
-				Picker(selection: $store.upNextStyle) {
-					ForEach(UpNextDetailsPreferredStyle.allCases) { item in
-						Text(item.title).tag(item)
-					}
-				} label: {
-					Text("appearanceUpNextTitle")
-				}
+#if !os(tvOS)
+                Picker(selection: $store.upNextStyle) {
+                    ForEach(UpNextDetailsPreferredStyle.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                } label: {
+                    Text("appearanceUpNextTitle")
+                }
                 .tint(.secondary)
+#endif
             } header: {
                 Text("appearanceStyle")
             }
@@ -62,17 +78,19 @@ struct AppearanceSetting: View {
             if UIDevice.isIPhone {
                 Section {
                     Toggle(isOn: $store.isCompactUI) {
-						Text("appearanceCompactUI")
-						Text("appearanceCompactUISubtitle")
+                        Text("appearanceCompactUI")
+                        Text("appearanceCompactUISubtitle")
                     }
                 }
             }
 #endif
-      
-			Section {
-				Toggle("Show Date in Watchlist", isOn: $store.showDateOnWatchlist)
-			}
-			
+            
+#if !os(tvOS)
+            Section {
+                Toggle("Show Date in Watchlist", isOn: $store.showDateOnWatchlist)
+            }
+#endif
+            
 #if os(iOS)
             Section("appearanceAppThemeTitle") {
                 Picker(selection: $store.currentTheme) {
@@ -174,9 +192,6 @@ struct AppearanceSetting: View {
 #endif
 }
 
-struct AppearanceSetting_Previews: PreviewProvider {
-    static var previews: some View {
-        AppearanceSetting()
-    }
+#Preview {
+    AppearanceSetting()
 }
-#endif

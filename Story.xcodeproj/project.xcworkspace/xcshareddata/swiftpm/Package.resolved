@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "6e844d19679c9e0833ccc363d7f5a7c5f0c5f5d7",
-        "version" : "5.18.1"
+        "revision" : "1f06ef5007b6a580b3873ed2adee19e05d3b215a",
+        "version" : "5.18.3"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SvenTiigi/YouTubePlayerKit.git",
       "state" : {
-        "revision" : "6bbba75c8a8927e8073765849e22707d96b55205",
-        "version" : "1.5.2"
+        "revision" : "1fe4c8b07a61d50c2fd276e1d9c8087583c7638a",
+        "version" : "1.5.3"
       }
     }
   ],

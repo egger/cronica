@@ -118,9 +118,9 @@ struct SettingsView: View {
 #elseif os(tvOS)
         NavigationStack {
             Form {
-                Section("Watchlist") {
-                    Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
-                    Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
+                Section {
+                    NavigationLink("settingsBehaviorTitle", destination: BehaviorSetting())
+                    NavigationLink("settingsAppearanceTitle", destination: AppearanceSetting())
                 }
                 
                 Section {

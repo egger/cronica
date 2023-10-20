@@ -230,8 +230,6 @@ struct ItemContentContextMenu: ViewModifier {
 	}
 }
 
-
-
 struct SearchItemContentContextMenu: ViewModifier {
     let item: SearchItemContent
     @Binding var showPopup: Bool

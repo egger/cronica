@@ -48,7 +48,7 @@ struct TabBarView: View {
                 .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.titleOnly) }
             
             SettingsView()
-                .tabItem { Label("Settings", systemImage: "gearshape").labelStyle(.iconOnly)  }
+                .tabItem { Label("Settings", systemImage: "gearshape").labelStyle(.titleOnly)  }
         }
         .ignoresSafeArea(.all, edges: .horizontal)
     }

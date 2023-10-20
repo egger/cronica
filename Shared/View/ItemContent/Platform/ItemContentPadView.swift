@@ -30,7 +30,7 @@ struct ItemContentPadView: View {
             
             if let seasons = viewModel.content?.itemSeasons {
                 SeasonList(showID: id, showTitle: title,
-                           numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist).padding(0)
+                           numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium).padding(0)
             }
             
             TrailerListView(trailers: viewModel.trailers)
@@ -135,38 +135,11 @@ struct ItemContentPadView: View {
                         .environmentObject(viewModel)
                     
                     if viewModel.isInWatchlist {
-						Button {
-							viewModel.update(.watched)
-							popupType = viewModel.isWatched ? .markedWatched : .removedWatched
-							withAnimation { showPopup = true }
-						} label: {
-#if os(macOS)
-							Label("Watched", systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-#else
-							VStack {
-								Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-								Text("Watched")
-									.padding(.top, 2)
-									.font(.caption)
-									.lineLimit(1)
-							}
-							.padding(.vertical, 4)
-							.frame(width: 60)
-#endif
-						}
-						.keyboardShortcut("w", modifiers: [.option])
-#if os(macOS)
-						.controlSize(.large)
-#else
-						.controlSize(.small)
-#endif
-						.buttonStyle(.bordered)
-#if os(iOS)
-						.buttonBorderShape(.roundedRectangle(radius: 12))
-#endif
-						.tint(.primary)
-						.applyHoverEffect()
-						.padding(.leading)
+                        if type == .movie {
+                            watchButton
+                        } else {
+                            favoriteButton
+                        }
 						
                         Button {
                             showCustomList.toggle()
@@ -221,6 +194,86 @@ struct ItemContentPadView: View {
             
             Spacer()
         }
+    }
+    
+    private var watchButton: some View {
+        Button {
+            viewModel.update(.watched)
+            popupType = viewModel.isWatched ? .markedWatched : .removedWatched
+            withAnimation { showPopup = true }
+        } label: {
+#if os(macOS)
+            Label("Watched",
+                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                              value: viewModel.isWatched)
+#else
+            VStack {
+                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                  value: viewModel.isWatched)
+                Text("Watched")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 4)
+            .frame(width: 60)
+#endif
+        }
+        .keyboardShortcut("w", modifiers: [.option])
+#if os(macOS)
+        .controlSize(.large)
+#else
+        .controlSize(.small)
+#endif
+        .buttonStyle(.bordered)
+#if os(iOS)
+        .buttonBorderShape(.roundedRectangle(radius: 12))
+#endif
+        .tint(.primary)
+        .applyHoverEffect()
+        .padding(.leading)
+    }
+    
+    private var favoriteButton: some View {
+        Button {
+            viewModel.update(.favorite)
+            popupType = viewModel.isFavorite ? .markedFavorite : .removedFavorite
+            withAnimation { showPopup = true }
+        } label: {
+#if os(macOS)
+            Label("Favorite",
+                  systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
+                .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                              value: viewModel.isFavorite)
+#else
+            VStack {
+                Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                    .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                  value: viewModel.isFavorite)
+                Text("Favorite")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 4)
+            .frame(width: 60)
+#endif
+        }
+        .keyboardShortcut("w", modifiers: [.option])
+#if os(macOS)
+        .controlSize(.large)
+#else
+        .controlSize(.small)
+#endif
+        .buttonStyle(.bordered)
+#if os(iOS)
+        .buttonBorderShape(.roundedRectangle(radius: 12))
+#endif
+        .tint(.primary)
+        .applyHoverEffect()
+        .padding(.leading)
     }
     
     private func animate(for type: UpdateItemProperties) {

@@ -14,7 +14,7 @@ struct WatchlistCardSection: View {
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     var body: some View {
-        if !items.isEmpty {
+        if !items.isEmpty { 
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))],
                           spacing: DrawingConstants.spacing) {

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B801070829F24499008A4551 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
 		B801070929F244DE008A4551 /* NewCustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B3299480620096E806 /* NewCustomListView.swift */; };
-		B801070B29F255AE008A4551 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801070A29F255AE008A4551 /* SearchView.swift */; };
 		B801070D29F255F3008A4551 /* DefaultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801070C29F255F3008A4551 /* DefaultListView.swift */; };
 		B801070F29F25615008A4551 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801070E29F25615008A4551 /* EmptyListView.swift */; };
 		B801071129F2562C008A4551 /* WatchlistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801071029F2562C008A4551 /* WatchlistSectionView.swift */; };
@@ -156,7 +155,7 @@
 		B84043E4289B3F3800D5CEBF /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043E3289B3F3800D5CEBF /* PersonView.swift */; };
 		B84043E5289B3F4000D5CEBF /* PersonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E035327B02D01005C7FDF /* PersonDetailsViewModel.swift */; };
 		B84043E7289B417500D5CEBF /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
-		B8409D1B2A81C6240048840F /* TrendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8409D1A2A81C6240048840F /* TrendingView.swift */; };
+		B8409D1B2A81C6240048840F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8409D1A2A81C6240048840F /* SearchView.swift */; };
 		B8409D1D2A8286130048840F /* IconGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8409D1C2A8286130048840F /* IconGridView.swift */; };
 		B8409D1E2A8286350048840F /* IconGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8409D1C2A8286130048840F /* IconGridView.swift */; };
 		B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840D2BE279A0C4200A07C71 /* NetworkService.swift */; };
@@ -254,6 +253,7 @@
 		B89ECD032984531E00F0B197 /* TMDBSortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89ECCFE2984530700F0B197 /* TMDBSortBy.swift */; };
 		B89ECD062985F11100F0B197 /* WatchlistSectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89ECD052985F11100F0B197 /* WatchlistSectionDetails.swift */; };
 		B8A2C88129CA6ED100FDBB33 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
+		B8A3C2192AC64B7400BD4962 /* ReviewPortraitShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3C2182AC64B7400BD4962 /* ReviewPortraitShareView.swift */; };
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
 		B8A4511729F855CB0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
 		B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
@@ -435,7 +435,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B801070A29F255AE008A4551 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B801070C29F255F3008A4551 /* DefaultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListView.swift; sourceTree = "<group>"; };
 		B801070E29F25615008A4551 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		B801071029F2562C008A4551 /* WatchlistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSectionView.swift; sourceTree = "<group>"; };
@@ -521,7 +520,7 @@
 		B84043E3289B3F3800D5CEBF /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		B8409D182A817F810048840F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B8409D192A817F810048840F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "es-MX"; path = "es-MX.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
-		B8409D1A2A81C6240048840F /* TrendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingView.swift; sourceTree = "<group>"; };
+		B8409D1A2A81C6240048840F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		B8409D1C2A8286130048840F /* IconGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGridView.swift; sourceTree = "<group>"; };
 		B840D2BE279A0C4200A07C71 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B840D2CD279B24C900A07C71 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -602,6 +601,7 @@
 		B89ECCFE2984530700F0B197 /* TMDBSortBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBSortBy.swift; sourceTree = "<group>"; };
 		B89ECD052985F11100F0B197 /* WatchlistSectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSectionDetails.swift; sourceTree = "<group>"; };
 		B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentCustomListSelector.swift; sourceTree = "<group>"; };
+		B8A3C2182AC64B7400BD4962 /* ReviewPortraitShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPortraitShareView.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
 		B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPadView.swift; sourceTree = "<group>"; };
 		B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentTVView.swift; sourceTree = "<group>"; };
@@ -961,6 +961,7 @@
 			children = (
 				B88789D129F8A44C00680FD3 /* RatingView.swift */,
 				B88789CF29F8844C00680FD3 /* ReviewView.swift */,
+				B8A3C2182AC64B7400BD4962 /* ReviewPortraitShareView.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1159,10 +1160,9 @@
 				B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */,
 				B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */,
 				B84043E3289B3F3800D5CEBF /* PersonView.swift */,
-				B801070A29F255AE008A4551 /* SearchView.swift */,
 				B87D1B282A66128000EB6D14 /* SettingsView.swift */,
 				B82B75A328A84DBA00C3212A /* WatchlistView.swift */,
-				B8409D1A2A81C6240048840F /* TrendingView.swift */,
+				B8409D1A2A81C6240048840F /* SearchView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1717,14 +1717,13 @@
 				B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */,
 				B8C0215729E0D2A7006E9D82 /* WatchlistItemContextMenu.swift in Sources */,
 				B8FB2A7C29522DC3006DAC8E /* WatchlistItemRowView.swift in Sources */,
-				B8409D1B2A81C6240048840F /* TrendingView.swift in Sources */,
+				B8409D1B2A81C6240048840F /* SearchView.swift in Sources */,
 				B8105245298D2E7700723E94 /* SwipeGestureOptions.swift in Sources */,
 				B84043BC289B18C200D5CEBF /* ItemContent.swift in Sources */,
 				B8B94CF028EB8B8200EDEC85 /* CronicaTelemetry.swift in Sources */,
 				B81941A62A0833450057DA04 /* AddToListRow.swift in Sources */,
 				B810525A298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */,
 				B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */,
-				B801070B29F255AE008A4551 /* SearchView.swift in Sources */,
 				B84043BF289B18CB00D5CEBF /* Videos.swift in Sources */,
 				B801070D29F255F3008A4551 /* DefaultListView.swift in Sources */,
 				B8B981E629F42B090001CF0B /* KeychainHelper.swift in Sources */,
@@ -2023,6 +2022,7 @@
 				B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
 				B85FD9AE29F3324F0088B5CC /* AccountManager.swift in Sources */,
 				B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */,
+				B8A3C2192AC64B7400BD4962 /* ReviewPortraitShareView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B824E4442A05A4C500E385CE /* InfoSegmentView.swift in Sources */,
 				B85FD9B129F33A880088B5CC /* TMDB.swift in Sources */,
@@ -2214,7 +2214,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.2;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2247,7 +2247,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.2;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2403,7 +2403,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 238;
+				CURRENT_PROJECT_VERSION = 250;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
@@ -2413,15 +2413,14 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.4;
-				MARKETING_VERSION = 2.6.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2432,7 +2431,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,6";
-				TVOS_DEPLOYMENT_TARGET = 16.4;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
 			};
 			name = Debug;
 		};
@@ -2449,7 +2448,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 238;
+				CURRENT_PROJECT_VERSION = 250;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
@@ -2459,15 +2458,14 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save image to Photos?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.4;
-				MARKETING_VERSION = 2.6.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2478,7 +2476,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,6";
-				TVOS_DEPLOYMENT_TARGET = 16.4;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

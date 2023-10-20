@@ -269,7 +269,7 @@ struct VerticalUpNextListView: View {
     
     private func upNextRowItem(_ item: UpNextEpisode) -> some View {
         HStack {
-            WebImage(url: item.episode.itemImageMedium ?? item.backupImage)
+            WebImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage)
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)

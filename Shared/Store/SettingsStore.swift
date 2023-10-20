@@ -73,4 +73,9 @@ class SettingsStore: ObservableObject {
 #if os(macOS)
     @AppStorage("quitAppWhenClosingWindow") var quitApp = false
 #endif
+    @AppStorage("removeFromWatchingOnRenew") var removeFromWatchOnRenew = false
+    @AppStorage("hideEpisodeTitles") var hideEpisodesTitles = false
+    @AppStorage("hideEpisodeThumbnails") var hideEpisodesThumbnails = false
+    @AppStorage("preferCoverOnUpNext") var preferCoverOnUpNext = false
+    @AppStorage("markUpNextWatchedOnTap") var markWatchedOnTapUpNext = false
 }

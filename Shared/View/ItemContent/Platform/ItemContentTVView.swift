@@ -24,13 +24,20 @@ struct ItemContentTVView: View {
     @FocusState var isWatchlistInFocus: Bool
     @FocusState var isWatchInFocus: Bool
     @FocusState var isFavoriteInFocus: Bool
+    @FocusState var isMoreInFocus: Bool
     var body: some View {
         VStack {
             ScrollView {
-                v2header
+                header
                     .padding(.bottom)
                 if let seasons = viewModel.content?.itemSeasons {
-                    SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist)
+                    SeasonList(
+                        showID: id,
+                        showTitle: title,
+                        numberOfSeasons: seasons,
+                        isInWatchlist: $viewModel.isInWatchlist,
+                        showCover: viewModel.content?.cardImageLarge
+                    )
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
                                               title: "Recommendations",
@@ -43,45 +50,13 @@ struct ItemContentTVView: View {
             .ignoresSafeArea(.all, edges: .horizontal)
         }
         .ignoresSafeArea(.all, edges: .horizontal)
-        .onAppear {
-            if !hasFocused {
-                DispatchQueue.main.async {
-                    isWatchlistButtonFocused = true
-                    hasFocused = true
-                }
-            }
-        }
+        .onAppear(perform: setupInitialFocus)
     }
-    
-    private var v2header: some View {
+
+    private var header: some View {
         HStack {
             Spacer()
-            
-            WebImage(url: viewModel.content?.posterImageLarge)
-                .resizable(resizingMode: .stretch)
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                        VStack {
-                            Image(systemName: "popcorn.fill")
-                                .font(.title)
-                                .foregroundColor(.white.opacity(0.8))
-                            Text(title)
-                                .foregroundColor(.white.opacity(0.8))
-                                .lineLimit(1)
-                                .padding()
-                            
-                        }
-                        .padding()
-                    }
-                }
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 450, height: 700)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                .shadow(radius: 5)
-                .padding()
-                .accessibility(hidden: true)
-            
+            poster
             
             VStack(alignment: .leading) {
                 Text(title)
@@ -101,7 +76,7 @@ struct ItemContentTVView: View {
                             }
                         Spacer()
                     }
-                    .frame(maxWidth: 700)
+                    .frame(maxWidth: 800)
                     .padding(.bottom)
                 }
                 .buttonStyle(.plain)
@@ -115,59 +90,9 @@ struct ItemContentTVView: View {
                     }
                 }
                 
-                // Actions
-                HStack {
-                    
-                    VStack {
-                        DetailWatchlistButton(showCustomList: .constant(false))
-                            .environmentObject(viewModel)
-                            .buttonStyle(.borderedProminent)
-                            .prefersDefaultFocus(in: tvOSActionNamespace)
-                            .focused($isWatchlistButtonFocused)
-                        Text(viewModel.isInWatchlist ? "Remove" : "Add")
-                            .foregroundColor(.secondary)
-                            .font(.caption)
-                            .opacity(isWatchlistInFocus ? 1 : 0)
-                    }
-                    .focused($isWatchlistInFocus)
-                    
-                    VStack {
-                        Button {
-                            viewModel.update(.watched)
-                            viewModel.isWatched ? animate(for: .markedWatched) : animate(for: .removedWatched)
-                        } label: {
-                            Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                            .labelStyle(.iconOnly)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        Text("Watched")
-                            .foregroundColor(.secondary)
-                            .font(.caption)
-                            .opacity(isWatchInFocus ? 1 : 0)
-                    }
-                    .focused($isWatchInFocus)
-                    
-                    VStack {
-                        Button {
-                            viewModel.update(.favorite)
-                            viewModel.isFavorite ? animate(for: .markedFavorite) : animate(for: .removedFavorite)
-                        } label: {
-                            Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                                  systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
-                            .labelStyle(.iconOnly)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        Text("Favorite")
-                            .foregroundColor(.secondary)
-                            .font(.caption)
-                            .opacity(isFavoriteInFocus ? 1 : 0)
-                    }
-                    .focused($isFavoriteInFocus)
-                    Spacer()
-                }
+                actionRow
             }
-            .frame(width: 700)
+            .frame(width: 800)
             
             QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
                 .frame(width: 400)
@@ -177,15 +102,125 @@ struct ItemContentTVView: View {
         }
     }
     
-    private func animate(for action: ActionPopupItems) {
-        popupType = action
-        withAnimation { showPopup = true }
+    private var poster: some View {
+        WebImage(url: viewModel.content?.posterImageLarge)
+            .resizable(resizingMode: .stretch)
+            .placeholder {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    VStack {
+                        Image(systemName: "popcorn.fill")
+                            .font(.title)
+                            .foregroundColor(.white.opacity(0.8))
+                        Text(title)
+                            .foregroundColor(.white.opacity(0.8))
+                            .lineLimit(1)
+                            .padding()
+                        
+                    }
+                    .padding()
+                }
+            }
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 450, height: 700)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+            .padding()
+            .accessibility(hidden: true)
+    }
+    
+    private var actionRow: some View {
+        HStack {
+            
+            VStack {
+                DetailWatchlistButton(showCustomList: .constant(false))
+                    .environmentObject(viewModel)
+                    .buttonStyle(.borderedProminent)
+                    .prefersDefaultFocus(in: tvOSActionNamespace)
+                    .focused($isWatchlistButtonFocused)
+                Text(viewModel.isInWatchlist ? "Remove" : "Add")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .opacity(isWatchlistInFocus ? 1 : 0)
+            }
+            .focused($isWatchlistInFocus)
+            
+            VStack {
+                Button {
+                    viewModel.update(.watched)
+                    viewModel.isWatched ? animate(for: .markedWatched) : animate(for: .removedWatched)
+                } label: {
+                    Label(
+                        viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+                        systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark"
+                    )
+                    .labelStyle(.iconOnly)
+                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                  value: viewModel.isWatched)
+                }
+                .buttonStyle(.borderedProminent)
+                Text("Watched")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .opacity(isWatchInFocus ? 1 : 0)
+            }
+            .focused($isWatchInFocus)
+            
+            VStack {
+                Button {
+                    viewModel.update(.favorite)
+                    viewModel.isFavorite ? animate(for: .markedFavorite) : animate(for: .removedFavorite)
+                } label: {
+                    Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                          systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
+                    .labelStyle(.iconOnly)
+                    .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                  value: viewModel.isFavorite)
+                }
+                .buttonStyle(.borderedProminent)
+                Text("Favorite")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .opacity(isFavoriteInFocus ? 1 : 0)
+            }
+            .focused($isFavoriteInFocus)
+            
+            VStack {
+                Button {
+                    
+                } label: {
+                    Label("More", systemImage: "ellipsis.circle")
+                    .labelStyle(.iconOnly)
+                }
+                .buttonStyle(.borderedProminent)
+                Text("More")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .opacity(isMoreInFocus ? 1 : 0)
+            }
+            .focused($isMoreInFocus)
+            Spacer()
+        }
     }
 }
 
-struct ItemContentTVView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentTVView(title: "Preview", type: .movie, id: ItemContent.example.id)
+#Preview {
+    ItemContentTVView(title: "Preview", type: .movie, id: ItemContent.example.id)
+}
+
+extension ItemContentTVView {
+    private func setupInitialFocus() {
+        if !hasFocused {
+            DispatchQueue.main.async {
+                isWatchlistButtonFocused = true
+                hasFocused = true
+            }
+        }
+    }
+    
+    private func animate(for action: ActionPopupItems) {
+        popupType = action
+        withAnimation { showPopup = true }
     }
 }
 

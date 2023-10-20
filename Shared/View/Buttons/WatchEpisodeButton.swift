@@ -20,6 +20,8 @@ struct WatchEpisodeButton: View {
 #if os(iOS)
             VStack {
                 Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+                    .symbolEffect(isWatched ? .bounce.down : .bounce.up,
+                                  value: isWatched)
                 Text("Watched")
                     .lineLimit(1)
                     .padding(.top, 2)
@@ -30,6 +32,8 @@ struct WatchEpisodeButton: View {
 #else
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+            .symbolEffect(isWatched ? .bounce.down : .bounce.up,
+                          value: isWatched)
 #if os(tvOS)
             .padding(.horizontal)
             .labelStyle(.iconOnly)

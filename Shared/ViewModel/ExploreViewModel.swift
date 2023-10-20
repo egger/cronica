@@ -76,7 +76,11 @@ class ExploreViewModel: ObservableObject {
                 let ids = fetchAllItemsIDs(selectedMedia)
                 items.append(contentsOf: result.filter { !ids.contains($0.itemContentID)})
             } else {
-                items.append(contentsOf: result)
+                for item in result {
+                    if !items.contains(item) {
+                        items.append(item)
+                    }
+                }
             }
             if currentPage == 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {

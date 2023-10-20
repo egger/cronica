@@ -2,13 +2,18 @@
 //  SearchView.swift
 //  CronicaWatch Watch App
 //
-//  Created by Alexandre Madeira on 21/04/23.
+//  Created by Alexandre Madeira on 07/08/23.
 //
 
 import SwiftUI
 
 struct SearchView: View {
     static let tag: Screens? = .search
+    private let service: NetworkService = NetworkService.shared
+    @State private var trending = [ItemContent]()
+    @State private var isLoaded = false
+    
+    // search
     @StateObject private var viewModel = SearchViewModel()
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
@@ -24,21 +29,25 @@ struct SearchView: View {
         NavigationStack {
             Form {
                 if query.isEmpty {
-                    HStack {
-                        Spacer()
-                        Text("Search Your Watchlist and TMDB Content")
-                            .multilineTextAlignment(.center)
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                        Spacer()
+                    Section("Trending") {
+                        List {
+                            ForEach(trending) { item in
+                                NavigationLink(value: item) {
+                                    ItemContentRow(item: item)
+                                }
+                            }
+                        }
+                        .redacted(reason: isLoaded ? [] : .placeholder)
                     }
                 } else {
                     searchResults
                 }
+                
             }
+			.overlay { if !isLoaded { ProgressView().unredacted() } }
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.large)
-            .searchable(text: $query, placement: .toolbar)
+            .searchable(text: $query)
             .task(id: query) {
                 if query.isEmpty { return }
                 if Task.isCancelled { return }
@@ -68,6 +77,26 @@ struct SearchView: View {
                                     title: item.itemTitle,
                                     type: item.itemContentMedia,
                                     image: item.cardImageMedium)
+                }
+            }
+            .onAppear(perform: load)
+        }
+    }
+    
+    private func load() {
+        Task {
+            if !isLoaded {
+                if trending.isEmpty {
+                    do {
+                        let result = try await service.fetchItems(from: "trending/all/day")
+                        let filtered = result.filter { $0.itemContentMedia != .person }
+                        trending = filtered
+                        isLoaded = true
+                    } catch {
+                        if Task.isCancelled { return }
+                        let message = "Can't load trending/all/day, error: \(error.localizedDescription)"
+                        CronicaTelemetry.shared.handleMessage(message, for: "SearchView.load()")
+                    }
                 }
             }
         }
@@ -104,7 +133,7 @@ struct SearchView: View {
     }
 }
 
-struct SearchView_Previews: PreviewProvider {
+struct TrendingView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
     }

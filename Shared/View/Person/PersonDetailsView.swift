@@ -30,10 +30,19 @@ struct PersonDetailsView: View {
                             .padding([.bottom, .horizontal])
 #if !os(tvOS)
                         if let overview = viewModel.person?.biography {
-                            OverviewBoxView(overview: overview, title: "Biography", type: .person, showAsPopover: true)
-                                .frame(width: 500)
-                                .padding([.bottom, .trailing])
+                            OverviewBoxView(
+                                overview: overview,
+                                title: "Biography",
+                                type: .person,
+                                showAsPopover: true
+                            )
+                            .frame(width: 500)
+                            .padding([.bottom, .trailing])
                         }
+#else
+                        Text(name)
+                            .font(.title3)
+                            .fontWeight(.semibold)
 #endif
                     }
 #if os(macOS)

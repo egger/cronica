@@ -19,7 +19,24 @@ struct ConfirmationPopupModifier: ViewModifier {
                 if isShowing {
                     if let item {
                         VStack {
+#if os(tvOS)
+                            HStack {
+                                Spacer()
+                                HStack {
+                                    Label(item.localizedString, systemImage: item.toSfSymbol)
+                                        .fontWeight(.semibold)
+                                        .padding()
+                                }
+                                .background { Rectangle().fill(.ultraThickMaterial) }
+                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+                                .padding()
+                                .opacity(isShowing ? 1 : 0)
+                                .animation(.linear, value: isShowing)
+                            }
+#endif
                             Spacer()
+#if !os(tvOS)
                             HStack {
                                 Label(item.localizedString, systemImage: item.toSfSymbol)
                                     .padding()
@@ -33,6 +50,7 @@ struct ConfirmationPopupModifier: ViewModifier {
                             .opacity(isShowing ? 1 : 0)
                             .animation(.linear, value: isShowing)
                             .onTapGesture { withAnimation { isShowing = false } }
+#endif
                         }
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

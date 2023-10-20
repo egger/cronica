@@ -100,7 +100,8 @@ struct ItemContentDetails: View {
                                          id: id,
                                          showPopup: $showPopup,
                                          showCustomList: $showCustomList,
-                                         popupType: $popupType)
+                                         popupType: $popupType,
+                                         showReviewSheet: $showUserNotes)
                     .environmentObject(viewModel)
                     .toolbar {
                         ToolbarItem {

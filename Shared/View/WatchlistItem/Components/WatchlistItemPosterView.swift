@@ -20,6 +20,9 @@ struct WatchlistItemPosterView: View {
     @State private var showCustomListView = false
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
+#if os(tvOS)
+    @FocusState var isStackFocused: Bool
+#endif
     var body: some View {
         NavigationLink(value: content) {
             if settings.isCompactUI {
@@ -51,7 +54,7 @@ struct WatchlistItemPosterView: View {
                 ItemContentCustomListSelector(contentID: content.itemContentID,
                                               showView: $showCustomListView,
                                               title: content.itemTitle,
-											  image: content.backCompatibleCardImage)
+                                              image: content.backCompatibleCardImage)
             }
             .presentationDetents([.large])
 #if os(macOS)
@@ -179,8 +182,13 @@ struct WatchlistItemPoster_Previews: PreviewProvider {
 }
 
 private struct DrawingConstants {
+#if !os(tvOS)
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
+#else
+    static let posterWidth: CGFloat = 260
+    static let posterHeight: CGFloat = 380
+#endif
     static let compactPosterWidth: CGFloat = 80
     static let compactPosterHeight: CGFloat = 140
     static let compactPosterRadius: CGFloat = 6

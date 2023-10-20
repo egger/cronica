@@ -34,8 +34,11 @@ struct ExploreView: View {
                             }
                             .padding()
                             Spacer()
-                            Button {
-                                showFilters.toggle()
+                            Menu {
+                                hideItemsToggle
+                                selectMediaPicker
+                                selectGenrePicker
+                                    .pickerStyle(.menu)
                             } label: {
                                 Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
                                     .labelStyle(.iconOnly)
@@ -100,46 +103,12 @@ struct ExploreView: View {
             NavigationStack {
                 Form {
                     Section {
-                        Picker(selection: $viewModel.selectedMedia) {
-                            ForEach(MediaType.allCases) { type in
-                                if type != .person {
-                                    Text(type.title).tag(type)
-                                }
-                            }
-                        } label: {
-                            Text("mediaTypeDiscoverFilterTitle")
-#if os(iOS)
-                                .foregroundColor(.secondary)
-#endif
-                        }
-#if os(iOS)
-                        .pickerStyle(.segmented)
-#endif
+                        selectMediaPicker
                     } header: {
                         Text("mediaTypeDiscoverFilterTitle")
                     }
                     Section {
-                        Picker(selection: $viewModel.selectedGenre) {
-                            if viewModel.selectedMedia == .movie {
-                                ForEach(viewModel.movies) { genre in
-                                    Text(genre.name!).tag(genre)
-                                }
-                            } else {
-                                ForEach(viewModel.shows) { genre in
-                                    Text(genre.name!).tag(genre)
-                                }
-                            }
-                        } label: {
-                            #if os(macOS)
-                            Text("genreDiscoverFilterTitle")
-                            #else
-                            EmptyView()
-                            #endif
-                            
-                        }
-#if os(iOS)
-                        .pickerStyle(.inline)
-#endif
+                       selectGenrePicker
                     } header: {
 #if os(iOS)
                         Text("genreDiscoverFilterTitle")
@@ -148,17 +117,7 @@ struct ExploreView: View {
 #endif
                     }
                     Section {
-                        Toggle("hideAddedItemsDiscoverFilter", isOn: $viewModel.hideAddedItems)
-                            .onChange(of: viewModel.hideAddedItems) { value in
-                                if value {
-                                    viewModel.hideItems()
-                                } else {
-                                    onChanging = true
-                                    Task {
-                                        await load()
-                                    }
-                                }
-                            }
+                        hideItemsToggle
                     }
                 }
                 .toolbar {
@@ -232,6 +191,62 @@ struct ExploreView: View {
         .onChange(of: sortBy) { newSortByValue in
             viewModel.loadMoreItems(sortBy: newSortByValue, reload: true)
         }
+    }
+    
+    private var selectMediaPicker: some View {
+        Picker(selection: $viewModel.selectedMedia) {
+            ForEach(MediaType.allCases) { type in
+                if type != .person {
+                    Text(type.title).tag(type)
+                }
+            }
+        } label: {
+            Text("mediaTypeDiscoverFilterTitle")
+#if os(iOS)
+                .foregroundColor(.secondary)
+#endif
+        }
+#if os(iOS)
+        .pickerStyle(.segmented)
+#endif
+    }
+    
+    private var selectGenrePicker: some View {
+        Picker(selection: $viewModel.selectedGenre) {
+            if viewModel.selectedMedia == .movie {
+                ForEach(viewModel.movies) { genre in
+                    Text(genre.name!).tag(genre)
+                }
+            } else {
+                ForEach(viewModel.shows) { genre in
+                    Text(genre.name!).tag(genre)
+                }
+            }
+        } label: {
+#if os(macOS) || os(tvOS)
+            Text("genreDiscoverFilterTitle")
+#else
+            EmptyView()
+#endif
+            
+        }
+#if os(iOS)
+        .pickerStyle(.inline)
+#endif
+    }
+    
+    private var hideItemsToggle: some View {
+        Toggle("hideAddedItemsDiscoverFilter", isOn: $viewModel.hideAddedItems)
+            .onChange(of: viewModel.hideAddedItems) { value in
+                if value {
+                    viewModel.hideItems()
+                } else {
+                    onChanging = true
+                    Task {
+                        await load()
+                    }
+                }
+            }
     }
     
     private var listStyle: some View {

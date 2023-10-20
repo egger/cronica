@@ -22,6 +22,7 @@ struct ItemContentPhoneView: View {
     @Binding var showCustomList: Bool
     @State private var navigationTitle = String()
     @Binding var popupType: ActionPopupItems?
+    @Binding var showReviewSheet: Bool
     var body: some View {
         VStack {
             cover
@@ -32,7 +33,7 @@ struct ItemContentPhoneView: View {
                             title: title).padding()
             
             if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist)
+                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
                     .padding([.top, .horizontal], .zero)
                     .padding(.bottom)
             }
@@ -74,78 +75,98 @@ struct ItemContentPhoneView: View {
     
     private var actions: some View {
         HStack {
-            if viewModel.isInWatchlist {
-				if type == .movie {
-					Button {
-						viewModel.update(.watched)
-						popupType = viewModel.isWatched ? .markedWatched : .removedWatched
-						withAnimation { showPopup = true }
-					} label: {
-						VStack {
-							Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-							Text("Watched")
-								.padding(.top, 2)
-								.font(.caption)
-								.lineLimit(1)
-						}
-						.padding(.vertical, 4)
-						.frame(width: 75)
-					}
-					.keyboardShortcut("w", modifiers: [.option])
-					.controlSize(.small)
-					.buttonStyle(.bordered)
-					.buttonBorderShape(.roundedRectangle(radius: 12))
-					.tint(.primary)
-					.padding(.horizontal)
-				} else {
-					Button {
-						viewModel.update(.favorite)
-						popupType = viewModel.isFavorite ? .markedFavorite : .removedFavorite
-						withAnimation { showPopup = true }
-					} label: {
-						VStack {
-							Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-							Text("Favorite")
-								.padding(.top, 2)
-								.font(.caption)
-								.lineLimit(1)
-						}
-						.padding(.vertical, 4)
-						.frame(width: 75)
-					}
-					.keyboardShortcut("f", modifiers: [.option])
-					.controlSize(.small)
-					.buttonStyle(.bordered)
-					.buttonBorderShape(.roundedRectangle(radius: 12))
-					.tint(.primary)
-					.padding(.horizontal)
-				}
+            if type == .movie {
+               watchButton
+            } else {
+                favoriteButton
             }
             DetailWatchlistButton(showCustomList: $showCustomList)
                 .keyboardShortcut("l", modifiers: [.option])
                 .environmentObject(viewModel)
-            if viewModel.isInWatchlist {
-                Button {
-                    showCustomList.toggle()
-                } label: {
-                    VStack {
-                        Image(systemName: viewModel.isItemAddedToAnyList ? "rectangle.on.rectangle.angled.fill" : "rectangle.on.rectangle.angled")
-                        Text("Lists")
-                            .padding(.top, 2)
-                            .font(.caption)
-                            .lineLimit(1)
-                    }
-                    .padding(.vertical, 4)
-                    .frame(width: 75)
-                }
-                .controlSize(.small)
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.roundedRectangle(radius: 12))
-                .tint(.primary)
-                .padding(.horizontal)
-            }
+            listButton
         }
         .padding(.top)
+    }
+    
+    private var watchButton: some View {
+        Button {
+            viewModel.update(.watched)
+            popupType = viewModel.isWatched ? .markedWatched : .removedWatched
+            withAnimation { showPopup = true }
+        } label: {
+            VStack {
+                if #available(iOS 17, *) {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                      value: viewModel.isWatched)
+                } else {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                }
+                Text("Watched")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 4)
+            .frame(width: 75)
+        }
+        .keyboardShortcut("w", modifiers: [.option])
+        .controlSize(.small)
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: 12))
+        .tint(.primary)
+        .padding(.horizontal)
+    }
+    
+    private var favoriteButton: some View {
+        Button {
+            viewModel.update(.favorite)
+            popupType = viewModel.isFavorite ? .markedFavorite : .removedFavorite
+            withAnimation { showPopup = true }
+        } label: {
+            VStack {
+                if #available(iOS 17, *) {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                        .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                      value: viewModel.isFavorite)
+                } else {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                }
+                Text("Favorite")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 4)
+            .frame(width: 75)
+        }
+        .keyboardShortcut("f", modifiers: [.option])
+        .controlSize(.small)
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: 12))
+        .tint(.primary)
+        .padding(.horizontal)
+    }
+    
+    private var listButton: some View {
+        Button {
+            showCustomList.toggle()
+        } label: {
+            VStack {
+                Image(systemName: viewModel.isItemAddedToAnyList ? "rectangle.on.rectangle.angled.fill" : "rectangle.on.rectangle.angled")
+                Text("Lists")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 4)
+            .frame(width: 75)
+        }
+        .controlSize(.small)
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: 12))
+        .tint(.primary)
+        .padding(.horizontal)
     }
     
     private var cover: some View {
@@ -247,7 +268,7 @@ struct ItemContentPhoneView: View {
                 animate(for: store.gesture)
                 viewModel.update(store.gesture)
             }
-            .shadow(radius: 5)
+            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
             .padding()
             .accessibility(hidden: true)
     }

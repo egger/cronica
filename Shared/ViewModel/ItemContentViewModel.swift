@@ -186,7 +186,7 @@ class ItemContentViewModel: ObservableObject {
         guard let content else { return }
         if !isInWatchlist { updateWatchlist(with: content) }
         guard let item = persistence.fetch(for: content.itemContentID) else { return }
-        HapticManager.shared.successHaptic()
+        HapticManager.shared.selectionHaptic()
         switch property {
         case .watched:
             persistence.updateWatched(for: item)
