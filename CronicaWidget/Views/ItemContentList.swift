@@ -60,9 +60,16 @@ private struct PosterImage: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else if let image = item.data {
+#if os(iOS)
                 Image(uiImage: UIImage(data: image) ?? UIImage(systemName: "popcorn.fill")!)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+#elseif os(macOS)
+                Image(nsImage: (NSImage(data: image) ?? NSImage(systemSymbolName: "popcorn.fill", accessibilityDescription: "")) ?? "")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                
+#endif
             } else {
                 PlaceholderImage()
             }

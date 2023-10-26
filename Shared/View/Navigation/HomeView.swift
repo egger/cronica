@@ -26,6 +26,7 @@ struct HomeView: View {
     @AppStorage("launchCount") var launchCount: Int = 0
     @AppStorage("askedForReview") var askedForReview = false
     @State private var showReviewBanner = false
+    @State private var showSettings = false
 #endif
     var body: some View {
         VStack(alignment: .leading) {
@@ -149,6 +150,11 @@ struct HomeView: View {
 #if os(iOS) || os(macOS)
         .navigationTitle("Home")
 #endif
+        #if os(iOS)
+        .sheet(isPresented: $showSettings) {
+            SettingsView()
+        }
+        #endif
         .toolbar {
 #if os(macOS)
             ToolbarItem(placement: .navigation) {
@@ -170,6 +176,26 @@ struct HomeView: View {
                 }
             }
 #elseif os(iOS)
+            if UIDevice.isIPad {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showSettings.toggle()
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
+                            .imageScale(.medium)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .contentShape(Circle())
+                    .clipShape(Circle())
+                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                    .shadow(radius: 2.5)
+                    .accessibilityLabel("Settings")
+                    .applyHoverEffect()
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     showNotifications.toggle()

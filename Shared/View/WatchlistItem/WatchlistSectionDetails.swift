@@ -13,8 +13,6 @@ struct WatchlistSectionDetails: View {
 	var displayInfoPreferrence: DisplayInformartionPreferrence = .none
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
-    @State private var query = String()
-    @State private var queryResult = [WatchlistItem]()
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
@@ -35,20 +33,6 @@ struct WatchlistSectionDetails: View {
         .navigationTitle(LocalizedStringKey(title))
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
-        .autocorrectionDisabled()
-        .onChange(of: query) { _ in
-            if query.isEmpty && !queryResult.isEmpty {
-                withAnimation {
-                    queryResult.removeAll()
-                }
-            } else {
-                queryResult.removeAll()
-                queryResult = items.filter {
-                    $0.itemTitle.lowercased().contains(query.lowercased()) || $0.itemOriginalTitle.lowercased().contains(query.lowercased())
-                }
-            }
-        }
 #endif
     }
     
@@ -56,14 +40,8 @@ struct WatchlistSectionDetails: View {
         Form {
             Section {
                 List {
-                    if !queryResult.isEmpty {
-                        ForEach(queryResult) { item in
-                            WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
-                        }
-                    } else {
-                        ForEach(items) { item in
-                            WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
-                        }
+                    ForEach(items) { item in
+                        WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
                     }
                 }
             }
@@ -76,16 +54,9 @@ struct WatchlistSectionDetails: View {
     private var cardStyle: some View {
         ScrollView {
             LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                if !queryResult.isEmpty {
-                    ForEach(queryResult) { item in
-                        WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
-                            .buttonStyle(.plain)
-                    }
-                } else {
-                    ForEach(items) { item in
-                        WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
-                            .buttonStyle(.plain)
-                    }
+                ForEach(items) { item in
+                    WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
                 }
             }
             .padding()
@@ -96,14 +67,8 @@ struct WatchlistSectionDetails: View {
         ScrollView {
             LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                       spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
-                if !queryResult.isEmpty {
-                    ForEach(queryResult) { item in
-                        WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
-                    }
-                } else {
-                    ForEach(items) { item in
-                        WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
-                    }
+                ForEach(items) { item in
+                    WatchlistItemPosterView(content: item, showPopup: $showPopup, popupType: $popupType)
                 }
             }.padding(.all, settings.isCompactUI ? 10 : nil)
         }

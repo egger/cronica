@@ -716,3 +716,10 @@
 "Reboot" = "Reboot";
 "Spin off" = "スピンオフ";
 
+"Prefer Series Cover instead of Episode Thumbnail on Up Next" = "Up Nextでシリーズカバーを選択";
+"Hide Titles from Unwatched Episodes" = "未視聴のエピソードからタイトルを非表示";
+"To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes." = "潜在的なスポイラーを防ぐため、未視聴のエピソードからタイトルと要約を非表示にできます。";
+"Hide Thumbnails from Unwatched Episodes" = "未視聴のエピソードからサムネイルを非表示";
+"To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "潜在的なスポイラーを防ぐため、未視聴のエピソードからサムネイルを非表示にできます。";
+"Add" = "追加";
+"upNextSkipThisEpisode" = "このエピソードをスキップ";

@@ -20,65 +20,87 @@ class UpNextViewModel: ObservableObject {
         if !isLoaded {
             let sortedItems = items.sorted(by: { $0.itemLastUpdateDate > $1.itemLastUpdateDate}).filter { $0.firstAirDate != nil }
 			for item in sortedItems {
-                let result = try? await network.fetchEpisode(tvID: item.id,
-                                                             season: item.itemNextUpNextSeason,
-                                                             episodeNumber: item.itemNextUpNextEpisode)
-                if let result {
-					let seasonNumber = result.seasonNumber ?? 0
-                    let isWatched = persistence.isEpisodeSaved(show: item.itemId,
-                                                               season: seasonNumber,
-                                                               episode: result.id)
-                    var isReleased = result.isItemReleased
-                    if result.airDate == nil {
-                        let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
-                        if show?.itemStatus == .ended { isReleased = true }
-                    }
-                    if isReleased && !isWatched {
-                        let content = UpNextEpisode(id: result.id,
-                                                    showTitle: item.itemTitle,
-                                                    showID: item.itemId,
-                                                    backupImage: item.backCompatibleCardImage,
-                                                    episode: result,
-                                                    sortedDate: item.itemLastUpdateDate)
-                        
-                        await MainActor.run {
-                            withAnimation(.easeInOut) {
-								self.episodes.append(content)
-                            }
-                        }
-                    } else if isWatched {
-                        let nextSeasonNumber = item.seasonNumberUpNext + 1
-                        let nextEpisode = try? await network.fetchEpisode(tvID: item.id,
-                                                                          season: nextSeasonNumber,
-                                                                          episodeNumber: 1)
-                        if let nextEpisode {
-                            let isNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
-																				  season: Int(nextSeasonNumber),
-                                                                                  episode: nextEpisode.id)
-							let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
-							let isReleased = show?.itemStatus == .ended ? true : nextEpisode.isItemReleased
-                            if isReleased && !isNextEpisodeWatched {
-                                let content = UpNextEpisode(id: nextEpisode.id,
-                                                            showTitle: item.itemTitle,
-                                                            showID: item.itemId,
-                                                            backupImage: item.backCompatibleCardImage,
-                                                            episode: nextEpisode,
-                                                            sortedDate: item.itemLastUpdateDate)
-                                await MainActor.run {
-                                    withAnimation(.easeInOut) {
-										self.episodes.append(content)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                await fetchUpNextEpisode(for: item)
             }
             await MainActor.run {
                 withAnimation(.easeInOut)  {
                     self.isLoaded = true
                 }
             }
+        }
+    }
+    
+    private func fetchUpNextEpisode(for item: WatchlistItem) async {
+        let result = try? await network.fetchEpisode(tvID: item.id,
+                                                     season: item.itemNextUpNextSeason,
+                                                     episodeNumber: item.itemNextUpNextEpisode)
+        guard let result else {
+            CronicaTelemetry.shared.handleMessage(
+                "Failed to fetch episode: \(item.itemNextUpNextEpisode) from season: \(item.itemNextUpNextSeason) for show: \(item.id)",
+                for: "UpNextViewModel.fetchUpNextEpisode"
+            )
+            return
+        }
+        let seasonNumber = result.seasonNumber ?? 0
+        let isWatched = persistence.isEpisodeSaved(show: item.itemId,
+                                                   season: seasonNumber,
+                                                   episode: result.id)
+        var isReleased = result.isItemReleased
+        if result.airDate == nil {
+            let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
+            if show?.itemStatus == .ended { isReleased = true }
+        }
+        if isReleased && !isWatched {
+            let content = UpNextEpisode(id: result.id,
+                                        showTitle: item.itemTitle,
+                                        showID: item.itemId,
+                                        backupImage: item.backCompatibleCardImage,
+                                        episode: result,
+                                        sortedDate: item.itemLastUpdateDate)
+            
+            await MainActor.run {
+                withAnimation(.easeInOut) {
+                    self.episodes.append(content)
+                }
+            }
+        } else if isWatched {
+            let nextSeasonNumber = item.seasonNumberUpNext + 1
+            let nextEpisode = try? await network.fetchEpisode(tvID: item.id,
+                                                              season: nextSeasonNumber,
+                                                              episodeNumber: 1)
+            guard let nextEpisode else {
+                return
+            }
+            let isNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
+                                                                  season: Int(nextSeasonNumber),
+                                                                  episode: nextEpisode.id)
+            let show = try? await network.fetchItem(id: item.itemId, type: .tvShow)
+            let isReleased = show?.itemStatus == .ended ? true : nextEpisode.isItemReleased
+            if isReleased && !isNextEpisodeWatched {
+                let content = UpNextEpisode(id: nextEpisode.id,
+                                            showTitle: item.itemTitle,
+                                            showID: item.itemId,
+                                            backupImage: item.backCompatibleCardImage,
+                                            episode: nextEpisode,
+                                            sortedDate: item.itemLastUpdateDate)
+                await MainActor.run {
+                    withAnimation(.easeInOut) {
+                        self.episodes.append(content)
+                    }
+                }
+            }
+        }
+    }
+    
+    func skipEpisode(for item: UpNextEpisode) {
+        Task {
+            let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: item.episode, show: item.showID)
+            let persistence = PersistenceController()
+            guard let nextEpisode, let show = persistence.fetch(for: "\(item.showID)@\(MediaType.tvShow.toInt)") else {
+                return
+            }
+            persistence.updateUpNext(show, episode: nextEpisode)
+            await handleWatched(item)
         }
     }
     
@@ -94,32 +116,33 @@ class UpNextViewModel: ObservableObject {
     
     func handleWatched(_ content: UpNextEpisode?) async {
         guard let content else { return }
-        let helper = EpisodeHelper()
-        let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
-        if let nextEpisode {
-            var isReleased = nextEpisode.isItemReleased
-            if nextEpisode.airDate == nil {
-                let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
-                if showContent?.itemStatus == .ended { isReleased = true }
-            }
-            if isReleased {
-                let content = UpNextEpisode(id: nextEpisode.id,
-                                            showTitle: content.showTitle,
-                                            showID: content.showID,
-                                            backupImage: content.backupImage,
-                                            episode: nextEpisode,
-                                            sortedDate: Date())
-                await MainActor.run {
-                    withAnimation(.easeInOut) {
-                        self.episodes.insert(content, at: 0)
-                        self.scrollToInitial = true
-                    }
-                }
+        await MainActor.run {
+            withAnimation(.smooth) {
+                self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
             }
         }
-        await MainActor.run {
-            withAnimation(.easeInOut) {
-                self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
+        let helper = EpisodeHelper()
+        let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
+        guard let nextEpisode else {
+            return
+        }
+        var isReleased = nextEpisode.isItemReleased
+        if nextEpisode.airDate == nil {
+            let showContent = try? await network.fetchItem(id: content.showID, type: .tvShow)
+            if showContent?.itemStatus == .ended { isReleased = true }
+        }
+        if isReleased {
+            let content = UpNextEpisode(id: nextEpisode.id,
+                                        showTitle: content.showTitle,
+                                        showID: content.showID,
+                                        backupImage: content.backupImage,
+                                        episode: nextEpisode,
+                                        sortedDate: Date())
+            await MainActor.run {
+                withAnimation(.easeInOut) {
+                    self.episodes.insert(content, at: 0)
+                    self.scrollToInitial = true
+                }
             }
         }
     }

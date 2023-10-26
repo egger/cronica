@@ -76,9 +76,11 @@ struct TabBarView: View {
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
             
-            SettingsView()
-                .tag(SettingsView.tag)
-                .tabItem { Label("Settings", systemImage: "gearshape") }
+            if UIDevice.isIPhone {
+                SettingsView()
+                    .tag(SettingsView.tag)
+                    .tabItem { Label("Settings", systemImage: "gearshape") }
+            }
         }
         .appTheme()
     }

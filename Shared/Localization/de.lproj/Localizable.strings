@@ -710,3 +710,10 @@
 "Reboot" = "Reboot";
 "Spin off" = "Ableger";
 
+"Prefer Series Cover instead of Episode Thumbnail on Up Next" = "Bevorzuge Seriencover anstelle von Episodenminiaturbildern bei Up Next";
+"Hide Titles from Unwatched Episodes" = "Titel von ungesehenen Episoden ausblenden";
+"To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes." = "Um potenzielle Spoiler zu vermeiden, können Sie Titel und Zusammenfassungen von ungesehenen Episoden ausblenden.";
+"Hide Thumbnails from Unwatched Episodes" = "Miniaturbilder von ungesehenen Episoden ausblenden";
+"To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "Um potenzielle Spoiler zu vermeiden, können Sie Miniaturbilder von ungesehenen Episoden ausblenden.";
+"Add" = "Hinzufügen";
+"upNextSkipThisEpisode" = "Diese Episode überspringen";

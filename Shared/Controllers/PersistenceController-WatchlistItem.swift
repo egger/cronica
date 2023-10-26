@@ -40,20 +40,18 @@ extension PersistenceController {
 						}
 					}
 				}
-			}
-            item.formattedDate = content.itemTheatricalString
-            if content.itemContentMedia == .tvShow {
                 if let episode = content.lastEpisodeToAir?.episodeNumber {
                     item.nextEpisodeNumber = Int64(episode)
                 }
-				if let firstAirDate = content.itemFirstAirDate {
-					if let date = DatesManager.dateFormatter.date(from: firstAirDate) {
-						item.firstAirDate = date
-					}
-				}
+                if let firstAirDate = content.firstAirDate {
+                    if let date = DatesManager.dateFormatter.date(from: firstAirDate) {
+                        item.firstAirDate = date
+                    }
+                }
                 item.upcomingSeason = content.hasUpcomingSeason
                 item.nextSeasonNumber = Int64(content.nextEpisodeToAir?.seasonNumber ?? 0)
-            }
+			}
+            item.formattedDate = content.itemTheatricalString
             save()
         }
     }

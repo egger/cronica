@@ -106,12 +106,11 @@ class BackgroundManager {
 	private func fetchReleasedItems() -> [WatchlistItem] {
 		let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
 		let endedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.ended.toInt)
-		let releasePredicate = NSPredicate(format: "schedule == %d", ItemSchedule.released.toInt)
 		let archivePredicate = NSPredicate(format: "isArchive == %d", true)
 		request.predicate = NSCompoundPredicate(
 			type: .or,
 			subpredicates: [endedPredicate,
-							archivePredicate, releasePredicate]
+							archivePredicate]
 		)
 		guard let list = try? self.context.fetch(request) else { return [] }
 		return list

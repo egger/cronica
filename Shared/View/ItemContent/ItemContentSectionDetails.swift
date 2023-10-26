@@ -13,8 +13,6 @@ struct ItemContentSectionDetails: View {
 	@State private var showPopup = false
 	@State private var popupType: ActionPopupItems?
 	@StateObject private var settings = SettingsStore.shared
-	@State private var query = String()
-	@State private var queryResult = [ItemContent]()
 	var body: some View {
 		VStack {
 #if os(tvOS)
@@ -38,20 +36,6 @@ struct ItemContentSectionDetails: View {
 		.actionPopup(isShowing: $showPopup, for: popupType)
 #if os(iOS)
 		.navigationBarTitleDisplayMode(.large)
-		.searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
-		.autocorrectionDisabled()
-		.onChange(of: query) { _ in
-			if query.isEmpty && !queryResult.isEmpty {
-				withAnimation {
-					queryResult.removeAll()
-				}
-			} else {
-				queryResult.removeAll()
-				queryResult = items.filter {
-					$0.itemTitle.lowercased().contains(query.lowercased())
-				}
-			}
-		}
 #endif
 	}
 	
@@ -76,15 +60,9 @@ struct ItemContentSectionDetails: View {
 		Form {
 			Section {
 				List {
-					if !queryResult.isEmpty {
-						ForEach(queryResult) { item in
-							ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
-						}
-					} else {
-						ForEach(items) { item in
-							ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
-						}
-					}
+                    ForEach(items) { item in
+                        ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
+                    }
 				}
 			}
 		}
@@ -96,17 +74,10 @@ struct ItemContentSectionDetails: View {
 	private var cardStyle: some View {
 		ScrollView {
 			LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-				if !queryResult.isEmpty {
-					ForEach(queryResult) { item in
-						ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
-							.buttonStyle(.plain)
-					}
-				} else {
-					ForEach(items) { item in
-						ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
-							.buttonStyle(.plain)
-					}
-				}
+                ForEach(items) { item in
+                    ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
+                        .buttonStyle(.plain)
+                }
 			}
 			.padding()
 		}
@@ -117,17 +88,10 @@ struct ItemContentSectionDetails: View {
 #if os(iOS)
 		LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
 				  spacing: settings.isCompactUI ? 10 : 20) {
-			if !queryResult.isEmpty {
-				ForEach(queryResult) { item in
-					ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
-						.buttonStyle(.plain)
-				}
-			} else {
-				ForEach(items) { item in
-					ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
-						.buttonStyle(.plain)
-				}
-			}
+            ForEach(items) { item in
+                ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+                    .buttonStyle(.plain)
+            }
 		}.padding(.all, settings.isCompactUI ? 10 : nil)
 #elseif os(macOS)
 		LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
@@ -142,11 +106,9 @@ struct ItemContentSectionDetails: View {
 #endif
 }
 
-struct ItemContentSectionDetails_Previews: PreviewProvider {
-	static var previews: some View {
-		ItemContentSectionDetails(title: "Preview Items",
-								  items: ItemContent.examples)
-	}
+#Preview {
+    ItemContentSectionDetails(title: "Preview Items",
+                              items: ItemContent.examples)
 }
 
 private struct DrawingConstants {

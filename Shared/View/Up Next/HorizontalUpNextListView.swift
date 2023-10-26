@@ -53,10 +53,11 @@ struct HorizontalUpNextListView: View {
                                         upNextCard(item)
                                             .applyHoverEffect()
                                             .contextMenu {
-                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                    Button("showDetails") {
-                                                        selectedEpisode = item
-                                                    }
+                                                Button("showDetails") {
+                                                    selectedEpisode = item
+                                                }
+                                                Button("upNextSkipThisEpisode") {
+                                                    viewModel.skipEpisode(for: item)
                                                 }
                                             }
                                             .padding([.leading, .trailing], 4)
@@ -97,10 +98,11 @@ struct HorizontalUpNextListView: View {
                                         }
                                         .frame(width: DrawingConstants.compactImageWidth)
                                         .contextMenu {
-                                            if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                Button("showDetails") {
-                                                    selectedEpisode = item
-                                                }
+                                            Button("showDetails") {
+                                                selectedEpisode = item
+                                            }
+                                            Button("upNextSkipThisEpisode") {
+                                                viewModel.skipEpisode(for: item)
                                             }
                                         }
                                         .padding([.leading, .trailing], 4)
@@ -292,6 +294,7 @@ struct HorizontalUpNextListView: View {
         .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
         .accessibilityAddTraits(.isButton)
     }
+    
 }
 
 #if os(tvOS)

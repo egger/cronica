@@ -146,18 +146,17 @@ struct ExploreView: View {
 #if os(iOS) || os(macOS)
             ToolbarItem {
                 HStack {
-                    Button {
-                        showFilters.toggle()
+                    Menu {
+                        hideItemsToggle
+                        Divider()
+                        selectMediaPicker
+                        Divider()
+                        selectGenrePicker
                     } label: {
                         Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
                             .labelStyle(.iconOnly)
                             .foregroundColor(showFilters ? .secondary : nil)
                     }
-                    .keyboardShortcut("f", modifiers: .command)
-                    //sortButton
-#if os(macOS)
-                    styleOptions
-#endif
                 }
             }
 #if os(iOS)
@@ -202,13 +201,7 @@ struct ExploreView: View {
             }
         } label: {
             Text("mediaTypeDiscoverFilterTitle")
-#if os(iOS)
-                .foregroundColor(.secondary)
-#endif
         }
-#if os(iOS)
-        .pickerStyle(.segmented)
-#endif
     }
     
     private var selectGenrePicker: some View {

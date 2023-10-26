@@ -167,7 +167,7 @@ struct ItemContentPosterView: View {
         VStack(alignment: .leading) {
             image
             HStack {
-                Text(item.itemTitle)
+                Text("\(item.itemTitle)\n")
                     .lineLimit(2)
                     .foregroundColor(.secondary)
                     .font(.caption)
@@ -180,10 +180,8 @@ struct ItemContentPosterView: View {
     }
 }
 
-struct Poster_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentPosterView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
-    }
+#Preview {
+    ItemContentPosterView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
 }
 
 private struct DrawingConstants {

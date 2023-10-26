@@ -705,3 +705,10 @@
 "Reboot" = "Reboot";
 "Spin off" = "Historia Derivada";
 
+"Prefer Series Cover instead of Episode Thumbnail on Up Next" = "Preferir Portada en Up Next";
+"Hide Titles from Unwatched Episodes" = "Ocultar Títulos de Episodios no Vistos";
+"To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes." = "Para evitar posibles spoilers, puedes ocultar títulos y sinopsis de episodios no vistos.";
+"Hide Thumbnails from Unwatched Episodes" = "Ocultar Miniaturas de Episodios no Vistos";
+"To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "Para evitar posibles spoilers, puedes ocultar miniaturas de episodios no vistos.";
+"Add" = "Añadir";
+"upNextSkipThisEpisode" = "Saltar este episodio";
