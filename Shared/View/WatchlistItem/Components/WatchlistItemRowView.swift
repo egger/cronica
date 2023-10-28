@@ -147,10 +147,8 @@ struct WatchlistItemRowView: View {
 	}
 }
 
-struct WatchlistItemRow_Previews: PreviewProvider {
-	static var previews: some View {
-		WatchlistItemRowView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
-	}
+#Preview {
+    WatchlistItemRowView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
 }
 
 private struct DrawingConstants {

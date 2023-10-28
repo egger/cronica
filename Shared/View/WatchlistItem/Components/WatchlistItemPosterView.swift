@@ -183,10 +183,8 @@ struct WatchlistItemPosterView: View {
     }
 }
 
-struct WatchlistItemPoster_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistItemPosterView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
-    }
+#Preview {
+    WatchlistItemPosterView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
 }
 
 private struct DrawingConstants {

@@ -121,8 +121,6 @@ struct DetailedPeopleList: View {
     }
 }
 
-struct DetailedPeopleList_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailedPeopleList(items: ItemContent.example.credits?.cast ?? [])
-    }
+#Preview {
+    DetailedPeopleList(items: ItemContent.example.credits?.cast ?? [])
 }

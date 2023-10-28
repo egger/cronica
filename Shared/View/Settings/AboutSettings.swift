@@ -159,8 +159,6 @@ struct AboutSettings: View {
 #endif
 }
 
-struct AboutSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutSettings()
-    }
+#Preview {
+    AboutSettings()
 }

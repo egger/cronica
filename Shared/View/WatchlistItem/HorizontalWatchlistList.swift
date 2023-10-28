@@ -96,12 +96,10 @@ struct HorizontalWatchlistList: View {
     }
 }
 
-struct HorizontalWatchlistList_Previews: PreviewProvider {
-    static var previews: some View {
-        HorizontalWatchlistList(items: [.example],
-                                title: "Preview",
-                                subtitle: "SwiftUI Preview",
-                                showPopup: .constant(false), popupType: .constant(nil),
-                                shouldReload: .constant(false))
-    }
+#Preview {
+    HorizontalWatchlistList(items: [.example],
+                            title: "Preview",
+                            subtitle: "SwiftUI Preview",
+                            showPopup: .constant(false), popupType: .constant(nil),
+                            shouldReload: .constant(false))
 }

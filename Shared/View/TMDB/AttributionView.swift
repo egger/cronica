@@ -28,10 +28,8 @@ struct AttributionView: View {
     }
 }
 
-struct AttributionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AttributionView()
-    }
+#Preview {
+    AttributionView()
 }
 
 private struct DrawingConstants {

@@ -60,8 +60,6 @@ struct TrendingPeopleListView: View {
     }
 }
 
-struct TrendingPeopleListView_Previews: PreviewProvider {
-    static var previews: some View {
-        TrendingPeopleListView()
-    }
+#Preview {
+    TrendingPeopleListView()
 }

@@ -153,10 +153,8 @@ struct PersonCardView: View {
     }
 }
 
-struct PersonCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        PersonCardView(person: Person.previewCast)
-    }
+#Preview {
+    PersonCardView(person: Person.previewCast)
 }
 
 private struct DrawingConstants {

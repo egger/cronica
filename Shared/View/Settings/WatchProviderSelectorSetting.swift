@@ -84,10 +84,8 @@ struct WatchProviderSelectorSetting: View {
     }
 }
 #if os(iOS)
-struct WatchProviderSelectorSetting_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchProviderSelectorSetting()
-    }
+#Preview {
+    WatchProviderSelectorSetting()
 }
 #endif
 private struct WatchProviderItemSelector: View {

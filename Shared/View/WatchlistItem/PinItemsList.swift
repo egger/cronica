@@ -28,8 +28,6 @@ struct PinItemsList: View {
     }
 }
 
-struct PinItemsList_Previews: PreviewProvider {
-    static var previews: some View {
-        PinItemsList(showPopup: .constant(false), popupType: .constant(nil), shouldReload: .constant(false))
-    }
+#Preview {
+    PinItemsList(showPopup: .constant(false), popupType: .constant(nil), shouldReload: .constant(false))
 }

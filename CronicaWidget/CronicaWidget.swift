@@ -78,7 +78,7 @@ struct CronicaWidget: Widget {
     }
 }
 
-#Preview {
-    CronicaWidgetEntryView(entry: ItemContentEntry(date: Date(), item: [ItemContent.placeholder]))
-        .previewContext(WidgetPreviewContext(family: .systemMedium))
-}
+//#Preview {
+//    CronicaWidgetEntryView(entry: ItemContentEntry(date: Date(), item: [ItemContent.placeholder]))
+//        .previewContext(WidgetPreviewContext(family: .systemMedium))
+//}

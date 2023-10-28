@@ -173,14 +173,12 @@ struct SyncSetting: View {
 #endif
 }
 
-struct SyncSetting_Previews: PreviewProvider {
-    static var previews: some View {
-        SyncSetting()
-    }
+#Preview {
+    SyncSetting()
 }
 
 #if os(iOS)
-struct CustomShareSheet: UIViewControllerRepresentable {
+private struct CustomShareSheet: UIViewControllerRepresentable {
     @Binding var url: URL?
     func makeUIViewController(context: Context) -> some UIViewController {
         if let url {

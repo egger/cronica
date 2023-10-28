@@ -232,10 +232,8 @@ struct WatchlistItemCardView: View {
     }
 }
 
-struct WatchlistItemFrame_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistItemCardView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
-    }
+#Preview {
+    WatchlistItemCardView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
 }
 
 private struct DrawingConstants {

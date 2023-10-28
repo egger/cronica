@@ -11,8 +11,13 @@ struct CompanyDetails: View {
     let company: ProductionCompany
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
-    @StateObject private var viewModel = CompanyDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
+    @State private var page = 1
+    @State private var items = [ItemContent]()
+    @State private var startPagination = false
+    @State private var endPagination = false
+    @State private var isLoaded = false
+    private let network = NetworkService.shared
     var body: some View {
         VStack {
 #if os(tvOS)
@@ -34,7 +39,7 @@ struct CompanyDetails: View {
 #endif
         }
         .overlay {
-            if !viewModel.isLoaded { ProgressView().unredacted() }
+            if !isLoaded { ProgressView().unredacted() }
         }
         .toolbar {
 #if os(iOS)
@@ -43,7 +48,7 @@ struct CompanyDetails: View {
             }
 #endif
         }
-        .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+        .redacted(reason: isLoaded ? [] : .placeholder)
 #if !os(tvOS)
         .navigationTitle(company.name)
 #endif
@@ -52,7 +57,7 @@ struct CompanyDetails: View {
 #endif
         .onAppear {
             Task {
-                await viewModel.load(company.id)
+                await load()
             }
         }
         .toolbar {
@@ -86,31 +91,26 @@ struct CompanyDetails: View {
         Form {
             Section {
                 List {
-                    if !viewModel.items.isEmpty {
-                        ForEach(viewModel.items) { item in
+                    if !items.isEmpty {
+                        ForEach(items) { item in
                             ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                         }
-                        if viewModel.isLoaded && !viewModel.endPagination {
+                        if isLoaded && !endPagination {
                             CenterHorizontalView {
                                 ProgressView("Loading")
                                     .padding(.horizontal)
                                     .onAppear {
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                                             Task {
-                                                await viewModel.load(company.id)
+                                                await load()
                                             }
                                         }
                                     }
                             }
                         }
                     } else {
-                        if viewModel.isLoaded {
-                            CenterHorizontalView {
-                                Text("Try again later.")
-                                    .fontDesign(.monospaced)
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
-                            }
+                        if isLoaded {
+                            ContentUnavailableView("Try again later", systemImage: "popcorn")
                         }
                     }
                 }
@@ -123,32 +123,27 @@ struct CompanyDetails: View {
     
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-            if !viewModel.items.isEmpty {
-                ForEach(viewModel.items) { item in
+            if !items.isEmpty {
+                ForEach(items) { item in
                     ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
                         .buttonStyle(.plain)
                 }
-                if viewModel.isLoaded && !viewModel.endPagination {
+                if isLoaded && !endPagination {
                     CenterHorizontalView {
                         ProgressView()
                             .padding()
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                                     Task {
-                                        await viewModel.load(company.id)
+                                        await load()
                                     }
                                 }
                             }
                     }
                 }
             } else {
-                if viewModel.isLoaded {
-                    CenterHorizontalView {
-                        Text("Try again later.")
-                            .fontDesign(.monospaced)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                    }
+                if isLoaded {
+                    ContentUnavailableView("Try again later", systemImage: "popcorn")
                 }
             }
         }
@@ -159,26 +154,26 @@ struct CompanyDetails: View {
     private var posterStyle: some View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? 10 : DrawingConstants.posterSpacing) {
-            if !viewModel.items.isEmpty {
-                ForEach(viewModel.items) { item in
+            if !items.isEmpty {
+                ForEach(items) { item in
                     ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                         .buttonStyle(.plain)
                 }
-                if viewModel.isLoaded && !viewModel.endPagination {
+                if isLoaded && !endPagination {
                     CenterHorizontalView {
                         ProgressView()
                             .padding()
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                                     Task {
-                                        await viewModel.load(company.id)
+                                        await load()
                                     }
                                 }
                             }
                     }
                 }
             } else {
-                if viewModel.isLoaded {
+                if isLoaded {
                     CenterHorizontalView {
                         Text("Try again later.")
                             .fontDesign(.monospaced)
@@ -191,12 +186,9 @@ struct CompanyDetails: View {
     }
 }
 
-struct CompanyDetails_Previews: PreviewProvider {
-    static private let company = ProductionCompany(name: "PlayStation Productions",
-                                                   id: 125281, logoPath: nil, originCountry: nil, description: nil)
-    static var previews: some View {
-        CompanyDetails(company: company)
-    }
+#Preview {
+    CompanyDetails(company: .init(name: "PlayStation Productions",
+                                  id: 125281, logoPath: nil, originCountry: nil, description: nil))
 }
 
 private struct DrawingConstants {
@@ -213,4 +205,37 @@ private struct DrawingConstants {
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let posterSpacing: CGFloat = 20
 #endif
+}
+
+private extension CompanyDetails {
+    @MainActor
+    func load() async {
+        let id = company.id
+        do {
+            let movies = try await network.fetchCompanyFilmography(type: .movie,
+                                                                   page: page,
+                                                                   company: id)
+            let shows = try await network.fetchCompanyFilmography(type: .tvShow,
+                                                                  page: page,
+                                                                  company: id)
+            let result = movies + shows
+            if result.isEmpty {
+                endPagination = true
+                return
+            } else {
+                page += 1
+            }
+            items.append(contentsOf: result.sorted { $0.itemPopularity > $1.itemPopularity })
+            if !startPagination { startPagination = true }
+            if !isLoaded {
+                await MainActor.run {
+                    self.isLoaded = true
+                }
+            }
+        } catch {
+            if Task.isCancelled { return }
+            let message = "Company ID: \(id), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "CompanyDetails.load()")
+        }
+    }
 }

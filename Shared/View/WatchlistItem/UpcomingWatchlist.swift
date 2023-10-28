@@ -270,10 +270,8 @@ struct UpcomingWatchlist: View {
     }
 }
 
-struct UpcomingWatchlist_Previews: PreviewProvider {
-    static var previews: some View {
-        UpcomingWatchlist(shouldReload: .constant(false))
-    }
+#Preview {
+    UpcomingWatchlist(shouldReload: .constant(false))
 }
 
 private struct DrawingConstants {

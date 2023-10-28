@@ -93,8 +93,6 @@ private struct TipJarItem: View {
     }
 }
 
-struct TipJarSetting_Previews: PreviewProvider {
-    static var previews: some View {
-        TipJarSetting()
-    }
+#Preview {
+    TipJarSetting()
 }
