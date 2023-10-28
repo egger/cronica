@@ -1,6 +1,6 @@
 //
 //  TMDBSortBy.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 27/01/23.
 //

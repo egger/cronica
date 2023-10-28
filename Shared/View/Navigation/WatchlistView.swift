@@ -1,6 +1,6 @@
 //
 //  WatchListView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 15/01/22.
 //
@@ -33,7 +33,7 @@ struct WatchlistView: View {
             }
         }
         .navigationTitle(navigationDisplayTitle)
-        .onChange(of: selectedList) { newValue in
+        .onChange(of: selectedList) { newValue, _ in
             if let newValue {
                 navigationTitle = newValue.itemTitle
             } else {

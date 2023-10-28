@@ -1,6 +1,6 @@
 //
 //  ItemContent.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 17/02/22.
 //

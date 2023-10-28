@@ -1,6 +1,6 @@
 //
 //  NewCustomListView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 08/02/23.
 //
@@ -83,8 +83,7 @@ struct NewCustomListView: View {
     }
 }
 
-struct NewCustomListView_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
 #if os(iOS) || os(watchOS) || os(tvOS)
         NewCustomListView(presentView: .constant(true), newSelectedList: .constant(nil))
 #elseif os(macOS)
@@ -92,7 +91,6 @@ struct NewCustomListView_Previews: PreviewProvider {
                           presentView: .constant(true),
                           newSelectedList: .constant(nil))
 #endif
-    }
 }
 
 struct NewCustomListItemSelector: View {

@@ -1,6 +1,6 @@
 //
 //  Endpoints.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 28/01/22.
 //

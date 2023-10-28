@@ -1,6 +1,6 @@
 //
 //  ReleaseDateType.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 27/06/23.
 //

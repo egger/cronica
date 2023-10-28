@@ -1,6 +1,6 @@
 //
 //  SelectListView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 10/02/23.
 //

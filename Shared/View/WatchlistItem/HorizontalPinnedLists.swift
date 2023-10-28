@@ -1,6 +1,6 @@
 //
 //  HorizontalPinnedLists.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 26/06/23.
 //

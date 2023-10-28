@@ -1,6 +1,6 @@
 //
 //  OverviewBoxView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 25/04/22.
 //
@@ -107,11 +107,9 @@ struct OverviewBoxView: View {
     }
 }
 
-struct OverviewBoxView_Previews: PreviewProvider {
-    static var previews: some View {
-        OverviewBoxView(overview: ItemContent.example.overview,
-                        title: ItemContent.example.itemTitle,
-                        type: .movie)
-    }
+#Preview {
+    OverviewBoxView(overview: ItemContent.example.overview,
+                    title: ItemContent.example.itemTitle,
+                    type: .movie)
 }
 #endif

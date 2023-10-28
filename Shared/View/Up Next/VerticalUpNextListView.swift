@@ -1,6 +1,6 @@
 //
 //  VerticalUpNextListView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 07/05/23.
 //
@@ -106,7 +106,7 @@ struct VerticalUpNextListView: View {
                                 }
                             }
                         }
-                        .onChange(of: viewModel.isWatched) { _ in
+                        .onChange(of: viewModel.isWatched) { 
                             guard let first = viewModel.episodes.first else { return }
                             if viewModel.isWatched {
                                 withAnimation {
@@ -168,7 +168,7 @@ struct VerticalUpNextListView: View {
 #if os(iOS)
         .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
         .autocorrectionDisabled()
-        .onChange(of: query) { _ in
+        .onChange(of: query) { 
             if query.isEmpty && !queryResult.isEmpty {
                 withAnimation {
                     queryResult.removeAll()

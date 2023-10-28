@@ -1,6 +1,6 @@
 //
 //  SeasonListView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 02/04/22.
 //
@@ -136,12 +136,12 @@ struct SeasonList: View {
 #if os(tvOS)
                                         .frame(width: 360)
                                         .padding([.leading, .trailing], 2)
-                                        .padding(.leading, item.id == season.first!.id ? 64 : 0)
+                                        .padding(.leading, item.id == season.first?.id ? 64 : 0)
                                         .padding(.trailing, item.id == season.last!.id ? 64 : 0)
 #else
                                         .frame(width: 200)
                                         .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == season.first!.id ? 16 : 0)
+                                        .padding(.leading, item.id == season.first?.id ? 16 : 0)
                                         .padding(.trailing, item.id == season.last!.id ? 16 : 0)
 #endif
                                         

@@ -1,6 +1,6 @@
 //
 //  HorizontalUpNextListView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 19/03/23.
 //
@@ -43,7 +43,7 @@ struct HorizontalUpNextListView: View {
 #if os(tvOS)
                                     UpNextCard(item: item, selectedEpisode: $selectedEpisode)
                                         .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == viewModel.episodes.first!.id ? 64 : 0)
+                                        .padding(.leading, item.id == viewModel.episodes.first?.id ? 64 : 0)
                                         .padding(.trailing, item.id == viewModel.episodes.last!.id ? 64 : 0)
                                         .padding(.top, 8)
                                         .padding(.bottom)
@@ -61,7 +61,7 @@ struct HorizontalUpNextListView: View {
                                                 }
                                             }
                                             .padding([.leading, .trailing], 4)
-                                            .padding(.leading, item.id == viewModel.episodes.first!.id ? 16 : 0)
+                                            .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
                                             .padding(.trailing, item.id == viewModel.episodes.last!.id ? 16 : 0)
                                             .padding(.top, 8)
                                             .padding(.bottom)
@@ -106,7 +106,7 @@ struct HorizontalUpNextListView: View {
                                             }
                                         }
                                         .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == viewModel.episodes.first!.id ? 16 : 0)
+                                        .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
                                         .padding(.trailing, item.id == viewModel.episodes.last!.id ? 16 : 0)
                                         .padding(.top, 8)
                                         .padding(.bottom)
@@ -127,7 +127,7 @@ struct HorizontalUpNextListView: View {
 #endif
                                 }
                             }
-                            .onChange(of: viewModel.isWatched) { _ in
+                            .onChange(of: viewModel.isWatched) {
                                 guard let first = viewModel.episodes.first else { return }
                                 if viewModel.isWatched {
                                     withAnimation {
@@ -136,7 +136,7 @@ struct HorizontalUpNextListView: View {
                                 }
                             }
                         }
-                        .onChange(of: shouldReload) { reload in
+                        .onChange(of: shouldReload) { reload, _ in
                             if reload {
                                 if let firstItem = viewModel.episodes.first {
                                     withAnimation {

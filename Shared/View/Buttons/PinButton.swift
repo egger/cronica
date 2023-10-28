@@ -1,6 +1,6 @@
 //
 //  PinButton.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 04/05/23.
 //
@@ -31,11 +31,9 @@ struct PinButton: View {
     }
 }
 
-struct PinButton_Previews: PreviewProvider {
-    static var previews: some View {
-        PinButton(id: ItemContent.example.itemContentID,
-                  isPin: .constant(false),
-                  popupType: .constant(nil),
-                  showPopup: .constant(false))
-    }
+#Preview {
+    PinButton(id: ItemContent.example.itemContentID,
+              isPin: .constant(false),
+              popupType: .constant(nil),
+              showPopup: .constant(false))
 }

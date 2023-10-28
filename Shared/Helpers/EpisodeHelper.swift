@@ -1,6 +1,6 @@
 //
 //  EpisodeHelper.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 08/05/23.
 //

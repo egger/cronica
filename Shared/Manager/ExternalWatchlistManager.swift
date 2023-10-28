@@ -1,6 +1,6 @@
 //
 //  ExternalWatchlistManager.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 24/04/23.
 //

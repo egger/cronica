@@ -1,6 +1,6 @@
 //
 //  EpisodeFrameView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 10/05/22.
 //
@@ -78,7 +78,7 @@ struct EpisodeFrameView: View {
                 isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
             }
         }
-        .onChange(of: checkedIfWatched) { check in
+        .onChange(of: checkedIfWatched) { check, _ in
             if check {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     withAnimation {

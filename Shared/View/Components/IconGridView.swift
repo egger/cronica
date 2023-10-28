@@ -1,6 +1,6 @@
 //
 //  IconGridView.swift
-//  CronicaWatch Watch App
+//  Cronica
 //
 //  Created by Alexandre Madeira on 08/08/23.
 //
@@ -61,8 +61,6 @@ struct IconGridView: View {
 }
 
 
-struct IconGridView_Previews: PreviewProvider {
-    static var previews: some View {
-        IconGridView(isFavorite: .constant(true), isPin: .constant(true))
-    }
+#Preview {
+    IconGridView(isFavorite: .constant(true), isPin: .constant(true))
 }

@@ -1,6 +1,6 @@
 //
 //  SyncSetting.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 13/12/22.
 //

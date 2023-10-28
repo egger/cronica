@@ -1,6 +1,6 @@
 //
 //  InfoSegmentView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 05/05/23.
 //
@@ -25,8 +25,6 @@ struct InfoSegmentView: View {
     }
 }
 
-struct InfoSegmentView_Previews: PreviewProvider {
-    static var previews: some View {
-        InfoSegmentView(title: "This is for Preview", info: "SwiftUI Previews!")
-    }
+#Preview {
+    InfoSegmentView(title: "This is for Preview", info: "SwiftUI Previews!")
 }

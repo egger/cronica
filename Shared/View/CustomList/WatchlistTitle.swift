@@ -1,6 +1,6 @@
 //
 //  WatchlistTitle.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 16/02/23.
 //

@@ -1,6 +1,6 @@
 //
 //  WatchEpisodeButton.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 15/08/22.
 //
@@ -34,19 +34,14 @@ struct WatchEpisodeButton: View {
             .frame(width: 80, height: 40)
             .padding(.vertical, 4)
 #else
-            if #available(watchOS 10, *) {
-                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
-                .symbolEffect(isWatched ? .bounce.down : .bounce.up,
-                              value: isWatched)
-            } else {
-                Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                      systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
-            }
-#if os(tvOS)
-            .padding(.horizontal)
-            .labelStyle(.iconOnly)
-#endif
+            Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+                  systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+            .symbolEffect(isWatched ? .bounce.down : .bounce.up,
+                          value: isWatched)
+//#if os(tvOS)
+//            .padding(.horizontal)
+//            .labelStyle(.iconOnly)
+//#endif
 #endif
         }
 #if os(iOS)

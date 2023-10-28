@@ -1,6 +1,6 @@
 //
 //  KeywordSectionView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 10/08/23.
 //
@@ -29,7 +29,7 @@ struct KeywordSectionView: View {
 				await viewModel.load(keyword.id, sortBy: sortBy, reload: false)
 			}
 		}
-		.onChange(of: sortBy) { newSortBy in
+		.onChange(of: sortBy) { newSortBy, _ in
 			Task {
 				await viewModel.load(keyword.id, sortBy: sortBy, reload: true)
 			}

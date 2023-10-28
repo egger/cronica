@@ -1,6 +1,6 @@
 //
 //  WatchProviderSelectorSetting.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 16/04/23.
 //
@@ -41,7 +41,7 @@ struct WatchProviderSelectorSetting: View {
             }
         }
         .navigationTitle("selectedWatchProvider")
-        .onChange(of: settings.isSelectedWatchProviderEnabled) { _ in
+        .onChange(of: settings.isSelectedWatchProviderEnabled) {
             if settings.isSelectedWatchProviderEnabled {
                 Task { await load() }
             } else {

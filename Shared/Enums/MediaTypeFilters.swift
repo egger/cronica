@@ -1,6 +1,6 @@
 //
 //  MediaTypeFilters.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 06/04/23.
 //

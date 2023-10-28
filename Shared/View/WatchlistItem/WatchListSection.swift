@@ -1,6 +1,6 @@
 //
 //  WatchListSection.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 24/04/22.
 //
@@ -52,10 +52,7 @@ struct WatchListSection: View {
     }
     
     private var empty: some View {
-        Text("emptyList")
-            .multilineTextAlignment(.center)
-            .font(.headline)
-            .foregroundColor(.secondary)
+        ContentUnavailableView("emptyList", systemImage: "rectangle.on.rectangle")
             .padding()
     }
     

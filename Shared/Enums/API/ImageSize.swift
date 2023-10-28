@@ -1,6 +1,6 @@
 //
 //  ImageSize.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 28/04/22.
 //

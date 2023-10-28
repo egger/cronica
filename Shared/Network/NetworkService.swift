@@ -1,6 +1,6 @@
 //
 //  NetworkService.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 20/01/22.
 //  swiftlint:disable trailing_whitespace
@@ -57,6 +57,18 @@ class NetworkService {
         let response: ItemContentResponse = try await self.fetch(url: url)
         return response.results
     }
+    
+    func fetchYearContent(year: String, type: MediaType, page: Int = 1) async throws -> [ItemContent] {
+        guard let url = urlBuilder(type: type.rawValue,
+                                   page: page,
+                                   genres: nil,
+                                   sortBy: .popularity,
+                                   year: year) else {
+            throw NetworkError.invalidRequest
+        }
+        let response: ItemContentResponse = try await self.fetch(url: url)
+        return response.results
+    }
 	
 	func fetchPersons(from path: String, page: String = "1") async throws -> [Person] {
 		guard let url = urlBuilder(path: path, page: page) else {
@@ -83,7 +95,7 @@ class NetworkService {
 	}
     
     func fetchDiscover(type: MediaType, page: Int, genres: String, sort: TMDBSortBy) async throws -> [ItemContent] {
-        guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres, sortBy: sort) else {
+        guard let url = urlBuilder(type: type.rawValue, page: page, genres: genres, sortBy: sort, year: nil) else {
             throw NetworkError.invalidEndpoint
         }
         let response: ItemContentResponse = try await self.fetch(url: url)
@@ -91,7 +103,6 @@ class NetworkService {
     }
     
     func fetchKeywords(type: MediaType, id: Int) async throws -> [ItemContentKeyword] {
-    
         guard let url = URL(string: "https://api.themoviedb.org/3/\(type.rawValue)/\(id)/keywords?api_key=\(Key.tmdbApi)")
         else {
             throw NetworkError.invalidRequest
@@ -251,21 +262,34 @@ class NetworkService {
     ///   - type: The content type for the discovery fetch.
     ///   - page: The page used for pagination.
     ///   - genres: The desired genres for the discovery.
-    private func urlBuilder(type: String, page: Int, genres: String, sortBy: TMDBSortBy) -> URL? {
+    private func urlBuilder(type: String, page: Int, genres: String?, sortBy: TMDBSortBy, year: String?) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = "api.themoviedb.org"
         component.path = "/3/discover/\(type)"
-        component.queryItems = [
-            .init(name: "api_key", value: Key.tmdbApi),
-            .init(name: "language", value: Locale.userLang),
-            .init(name: "region", value: Locale.userRegion),
-            .init(name: "sort_by", value: sortBy.rawValue),
-            .init(name: "include_adult", value: "false"),
-            .init(name: "include_video", value: "false"),
-            .init(name: "page", value: "\(page)"),
-            .init(name: "with_genres", value: genres)
-        ]
+        if let year {
+            component.queryItems = [
+                .init(name: "api_key", value: Key.tmdbApi),
+                .init(name: "language", value: Locale.userLang),
+                .init(name: "region", value: Locale.userRegion),
+                .init(name: "sort_by", value: sortBy.rawValue),
+                .init(name: "include_adult", value: "false"),
+                .init(name: "include_video", value: "false"),
+                .init(name: "page", value: "\(page)"),
+                .init(name: "year", value: year)
+            ]
+        } else {
+            component.queryItems = [
+                .init(name: "api_key", value: Key.tmdbApi),
+                .init(name: "language", value: Locale.userLang),
+                .init(name: "region", value: Locale.userRegion),
+                .init(name: "sort_by", value: sortBy.rawValue),
+                .init(name: "include_adult", value: "false"),
+                .init(name: "include_video", value: "false"),
+                .init(name: "page", value: "\(page)"),
+                .init(name: "with_genres", value: genres)
+            ]
+        }
         print("URL: \(component.url as Any)")
         return component.url
     }

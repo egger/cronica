@@ -1,6 +1,6 @@
 //
 //  PersistenceController.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 29/01/22.
 //  swiftlint:disable trailing_whitespace

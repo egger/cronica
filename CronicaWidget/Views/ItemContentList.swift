@@ -1,6 +1,6 @@
 //
 //  ItemContentList.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 26/08/22.
 //
@@ -33,7 +33,7 @@ struct ItemContentList: View {
                                height: DrawingConstants.imageHeight)
                         .shadow(radius: 1)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                        .padding(.leading, item.id == items.first!.id ? 0 : 6)
+                        .padding(.leading, item.id == items.first?.id ? 0 : 6)
                 }
             }
             HStack {
@@ -43,7 +43,7 @@ struct ItemContentList: View {
                         .frame(width: DrawingConstants.smallImageWidth,
                                height: DrawingConstants.smallImageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                        .padding(.leading, item.id == items.first!.id ? 0 : 4)
+                        .padding(.leading, item.id == items.first?.id ? 0 : 4)
                 }
             }
         }

@@ -1,6 +1,6 @@
 //
 //  SearchItemsScope.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 16/08/22.
 //

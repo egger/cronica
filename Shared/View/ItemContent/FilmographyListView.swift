@@ -1,6 +1,6 @@
 //
 //  FilmographyListView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 13/07/22.
 //

@@ -1,6 +1,6 @@
 //
 //  HomeViewModel.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 02/03/22.
 //
@@ -16,6 +16,16 @@ class HomeViewModel: ObservableObject {
     @Published var recommendations = [ItemContent]()
     @Published var isLoaded = false
     @Published var isLoadingRecommendations = true
+    
+    // new feature test
+    @Published var nextYearMovies: [[ItemContent]:YearEndpoint]?
+    @Published var yearMovies = [ItemContent]()
+    
+    func fetchYearMovies() async {
+        let year = try? await service.fetchYearContent(year: "2024", type: .movie)
+        guard let year else { return }
+        yearMovies.append(contentsOf: year)
+    }
     
     func load() async {
         Task {
@@ -39,6 +49,10 @@ class HomeViewModel: ObservableObject {
             }
             if recommendations.isEmpty {
                 await fetchRecommendations()
+            }
+            
+            if yearMovies.isEmpty {
+                await fetchYearMovies()
             }
         }
     }
@@ -185,3 +199,9 @@ Can't load the endpoint \(endpoint.title), with error message: \(error.localized
 /// Theses keywords are used in some NSFW titles, this should be only used
 /// for avoiding displaying such titles in recommendations lists, explore and search.
 let nsfwKeywords = [155477, 230416, 190370, 158254, 159551, 301766]
+
+
+struct YearEndpoint: Identifiable, Hashable, Codable {
+    let id: UUID
+    let year: String
+}

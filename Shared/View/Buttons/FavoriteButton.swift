@@ -1,6 +1,6 @@
 //
 //  FavoriteButton.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 04/05/23.
 //
@@ -16,7 +16,7 @@ struct FavoriteButton: View {
     var body: some View {
         Button(action: updateFavorite) {
             Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                  systemImage: isFavorite ? "heart.slash.circle.fill" : "heart.circle")
+                  systemImage: isFavorite ? "heart.slash.fill" : "heart")
         }
     }
     
@@ -32,11 +32,9 @@ struct FavoriteButton: View {
     }
 }
 
-struct FavoriteButton_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoriteButton(id: ItemContent.example.itemContentID,
-                       isFavorite: .constant(true),
-                       popupType: .constant(nil),
-                       showPopup: .constant(false))
-    }
+#Preview {
+    FavoriteButton(id: ItemContent.example.itemContentID,
+                   isFavorite: .constant(true),
+                   popupType: .constant(nil),
+                   showPopup: .constant(false))
 }

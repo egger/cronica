@@ -1,6 +1,6 @@
 //
 //  TipJarSetting.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 05/01/23.
 //
@@ -52,7 +52,7 @@ struct TipJarSetting: View {
             }
         }
         .navigationTitle("tipJarTitle")
-        .onChange(of: viewModel.hasLoadedProducts) { hasLoaded in
+        .onChange(of: viewModel.hasLoadedProducts) { hasLoaded, _ in
             if hasLoaded {
                 withAnimation { productsLoaded = true }
             }
@@ -85,7 +85,7 @@ private struct TipJarItem: View {
                     .fontWeight(.semibold)
             }
         }
-        .onChange(of: storeKit.purchasedTipJar) { _ in
+        .onChange(of: storeKit.purchasedTipJar) { 
             Task {
                 isPurchased = (try? await storeKit.isPurchased(product)) ?? false
             }

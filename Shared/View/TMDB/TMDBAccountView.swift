@@ -1,6 +1,6 @@
 //
 //  TMDBAccountView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 21/04/23.
 //
@@ -87,8 +87,6 @@ struct TMDBAccountView: View {
     private func SignOut() { showSignOutConfirmation.toggle() }
 }
 
-struct AccountSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        TMDBAccountView()
-    }
+#Preview {
+    TMDBAccountView()
 }

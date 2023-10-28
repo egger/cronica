@@ -1,6 +1,6 @@
 //
 //  HomeView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 10/02/22.
 //
@@ -57,6 +57,13 @@ struct HomeView: View {
                                               showPopup: $showPopup,
                                               popupType: $popupType)
                 .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
+                HorizontalItemContentListView(items: viewModel.yearMovies,
+                                              title: "Coming Next Year",
+                                              subtitle: "2024's Movies",
+                                              showPopup: $showPopup,
+                                              popupType: $popupType,
+                                              displayAsCard: false,
+                                              endpoint: nil)
                 AttributionView()
             }
 #if os(iOS)

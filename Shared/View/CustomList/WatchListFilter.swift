@@ -1,6 +1,6 @@
 //
 //  WatchListFilter.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 16/05/23.
 //
@@ -53,23 +53,21 @@ struct WatchListFilter: View {
 #if os(macOS)
         .formStyle(.grouped)
 #endif
-        .onChange(of: selectedOrder) { _ in
+        .onChange(of: selectedOrder) {
             showView = false
         }
-        .onChange(of: showAllItems) { _ in
+        .onChange(of: showAllItems) {
             if !showAllItems { showView = false }
         }
-        .onChange(of: mediaTypeFilter) { _ in
+        .onChange(of: mediaTypeFilter) {
             showView.toggle()
         }
     }
 }
 
-struct WatchListFilter_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchListFilter(selectedOrder: .constant(.released),
-                        showAllItems: .constant(false),
-                        mediaTypeFilter: .constant(.noFilter),
-                        showView: .constant(true))
-    }
+#Preview {
+    WatchListFilter(selectedOrder: .constant(.released),
+                    showAllItems: .constant(false),
+                    mediaTypeFilter: .constant(.noFilter),
+                    showView: .constant(true))
 }

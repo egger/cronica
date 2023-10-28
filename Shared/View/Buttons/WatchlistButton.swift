@@ -1,6 +1,6 @@
 //
 //  WatchlistButton.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 04/05/23.
 //
@@ -95,12 +95,10 @@ struct WatchlistButton: View {
     }
 }
 
-struct WatchlistButton_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistButton(id: ItemContent.example.itemContentID,
-                        isInWatchlist: .constant(true),
-                        showPopup: .constant(false),
-                        showListSelector: .constant(false),
-                        popupType: .constant(.addedWatchlist))
-    }
+#Preview {
+    WatchlistButton(id: ItemContent.example.itemContentID,
+                    isInWatchlist: .constant(true),
+                    showPopup: .constant(false),
+                    showListSelector: .constant(false),
+                    popupType: .constant(.addedWatchlist))
 }

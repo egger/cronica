@@ -1,6 +1,6 @@
 //
 //  WatchlistItem+CoreDataProperties.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 11/03/23.
 //

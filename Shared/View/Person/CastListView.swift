@@ -1,6 +1,6 @@
 //
 //  CastListView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 29/01/22.
 //
@@ -31,9 +31,9 @@ struct CastListView: View {
                                 .padding([.leading, .trailing], 4)
                                 .buttonStyle(.plain)
 #if os(tvOS)
-                                .padding(.leading, person.id == self.credits.first!.id ? 64 : 0)
+                                .padding(.leading, person.id == self.credits.first?.id ? 64 : 0)
 #else
-                                .padding(.leading, person.id == self.credits.first!.id ? 16 : 0)
+                                .padding(.leading, person.id == self.credits.first?.id ? 16 : 0)
 #endif
                                 .padding(.top, 8)
                                 .padding(.bottom)

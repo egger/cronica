@@ -1,6 +1,6 @@
 //
 //  TrailerItemView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 20/08/22.
 //

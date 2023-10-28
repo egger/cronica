@@ -1,6 +1,6 @@
 //
 //  WatchedButton.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 04/05/23.
 //
@@ -52,11 +52,9 @@ struct WatchedButton: View {
     }
 }
 
-struct WatchedButton_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchedButton(id: ItemContent.example.itemContentID,
-                      isWatched: .constant(true),
-                      popupType: .constant(.markedWatched),
-                      showPopup: .constant(false))
-    }
+#Preview {
+    WatchedButton(id: ItemContent.example.itemContentID,
+                  isWatched: .constant(true),
+                  popupType: .constant(.markedWatched),
+                  showPopup: .constant(false))
 }

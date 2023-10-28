@@ -1,6 +1,6 @@
 //
 //  ExploreView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 20/06/22.
 //

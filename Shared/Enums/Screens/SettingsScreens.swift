@@ -1,6 +1,6 @@
 //
 //  SettingsScreens.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 08/04/23.
 //

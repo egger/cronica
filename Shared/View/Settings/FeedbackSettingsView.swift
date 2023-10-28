@@ -1,6 +1,6 @@
 //
 //  FeedbackSettingsView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 16/11/22.
 //

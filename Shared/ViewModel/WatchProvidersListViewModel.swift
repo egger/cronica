@@ -1,6 +1,6 @@
 //
 //  WatchProvidersListViewModel.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 15/01/23.
 //

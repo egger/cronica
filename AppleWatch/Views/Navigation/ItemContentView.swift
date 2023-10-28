@@ -144,7 +144,7 @@ struct ItemContentView: View {
             viewModel.update(.favorite)
         } label: {
             Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                  systemImage: viewModel.isFavorite ? "heart.circle.fill" : "heart.circle")
+                  systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
         }
         .buttonStyle(.borderedProminent)
     }

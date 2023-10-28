@@ -1,6 +1,6 @@
 //
 //  TrailerListView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 05/04/22.
 //
@@ -21,8 +21,8 @@ struct TrailerListView: View {
                         ForEach(trailers) { trailer in
                             TrailerItemView(trailer: trailer)
                                 .padding(.horizontal, 4)
-                                .padding(.leading, trailer.id == self.trailers.first!.id ? 16 : 0)
-                                .padding(.trailing, trailer.id == self.trailers.last!.id ? 16 : 0)
+                                .padding(.leading, trailer.id == self.trailers.first?.id ? 16 : 0)
+                                .padding(.trailing, trailer.id == self.trailers.last?.id ? 16 : 0)
                                 .padding(.top, 8)
                         }
                     }

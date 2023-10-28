@@ -1,6 +1,6 @@
 //
 //  ExploreView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 30/04/22.
 //
@@ -53,7 +53,7 @@ struct ExploreView: View {
                         case .card: cardStyle
                         }
                     }
-                    .onChange(of: onChanging) { _ in
+                    .onChange(of: onChanging) {
                         guard let first = viewModel.items.first else { return }
                         withAnimation {
                             proxy.scrollTo(first.id, anchor: .topLeading)
@@ -64,9 +64,7 @@ struct ExploreView: View {
         }
         .overlay { if !viewModel.isLoaded {  ProgressView().unredacted() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
-        .task {
-            await load()
-        }
+        .task { await load() }
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: false)
 #if os(tvOS)
@@ -99,43 +97,6 @@ struct ExploreView: View {
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
         }
-        .sheet(isPresented: $showFilters, content: {
-            NavigationStack {
-                Form {
-                    Section {
-                        selectMediaPicker
-                    } header: {
-                        Text("mediaTypeDiscoverFilterTitle")
-                    }
-                    Section {
-                       selectGenrePicker
-                    } header: {
-#if os(iOS)
-                        Text("genreDiscoverFilterTitle")
-#else
-                        EmptyView()
-#endif
-                    }
-                    Section {
-                        hideItemsToggle
-                    }
-                }
-                .toolbar {
-                    ToolbarItem {
-                        Button("Cancel") { showFilters = false }
-                    }
-                }
-#if os(iOS)
-                .navigationBarTitle("filterDiscoverTitle")
-                .navigationBarTitleDisplayMode(.inline)
-#elseif os(macOS)
-                .formStyle(.grouped)
-#endif
-            }
-            .presentationDetents([.large])
-            .unredacted()
-            .appTheme()
-        })
 #if os(iOS) || os(macOS)
         .navigationTitle("Explore")
 #elseif os(tvOS)
@@ -143,7 +104,7 @@ struct ExploreView: View {
 #endif
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
         .toolbar {
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
             ToolbarItem {
                 HStack {
                     Menu {
@@ -166,7 +127,7 @@ struct ExploreView: View {
 #endif
 #endif
         }
-        .onChange(of: viewModel.selectedMedia) { value in
+        .onChange(of: viewModel.selectedMedia) { value, _ in
             onChanging = true
             var genre: Genre?
             if value == .tvShow {
@@ -177,17 +138,13 @@ struct ExploreView: View {
             if let genre {
                 viewModel.selectedGenre = genre.id
             }
-            Task {
-                await load()
-            }
+            Task { await load() }
         }
-        .onChange(of: viewModel.selectedGenre) { _ in
+        .onChange(of: viewModel.selectedGenre) {
             onChanging = true
-            Task {
-                await load()
-            }
+            Task { await load() }
         }
-        .onChange(of: sortBy) { newSortByValue in
+        .onChange(of: sortBy) { newSortByValue, _ in
             viewModel.loadMoreItems(sortBy: newSortByValue, reload: true)
         }
     }
@@ -230,7 +187,7 @@ struct ExploreView: View {
     
     private var hideItemsToggle: some View {
         Toggle("hideAddedItemsDiscoverFilter", isOn: $viewModel.hideAddedItems)
-            .onChange(of: viewModel.hideAddedItems) { value in
+            .onChange(of: viewModel.hideAddedItems) { value, _ in
                 if value {
                     viewModel.hideItems()
                 } else {
@@ -371,11 +328,9 @@ struct ExploreView: View {
     }
 }
 
-struct ExploreView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            ExploreView()
-        }
+#Preview {
+    NavigationStack {
+        ExploreView()
     }
 }
 

@@ -1,6 +1,6 @@
 //
 //  CustomListButton.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 04/05/23.
 //
@@ -19,8 +19,6 @@ struct CustomListButton: View {
     }
 }
 
-struct CustomListButton_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomListButton(id: ItemContent.example.itemContentID, showCustomListView: .constant(true))
-    }
+#Preview {
+    CustomListButton(id: ItemContent.example.itemContentID, showCustomListView: .constant(true))
 }

@@ -1,6 +1,6 @@
 //
 //  DetailedReleaseDateView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 27/06/23.
 //

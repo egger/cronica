@@ -1,6 +1,6 @@
 //
 //  SideBarView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 28/04/22.
 //
@@ -38,38 +38,16 @@ struct SideBarView: View {
             }
             .listStyle(.sidebar)
             .navigationTitle("Cronica")
-#if os(macOS)
             .searchable(text: $viewModel.query, placement: .toolbar, prompt: "Movies, Shows, People")
-#endif
             .disableAutocorrection(true)
             
             .task(id: viewModel.query) {
-#if os(macOS)
                 if !viewModel.query.isEmpty {
                     isSearching = true
                 } else {
                     isSearching = false
                 }
-#endif
                 await viewModel.search(viewModel.query)
-            }
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        Button {
-                            showNotifications.toggle()
-                        } label: {
-                            Label("Notifications", systemImage: "bell")
-                        }
-                        Button {
-                            showSettings.toggle()
-                        } label: {
-                            Label("Settings", systemImage: "gearshape")
-                        }
-                    }
-                }
-#endif
             }
         } detail: {
 #if os(macOS)
@@ -111,7 +89,6 @@ struct SideBarView: View {
         }
     }
     
-#if os(macOS)
     @ViewBuilder
     private var search: some View {
         switch viewModel.stage {
@@ -133,9 +110,7 @@ struct SideBarView: View {
         case .empty:
             NavigationStack {
                 VStack {
-                    Label("No Results", systemImage: "minus.magnifyingglass")
-                        .font(.title)
-                        .foregroundColor(.secondary)
+                    ContentUnavailableView("No Results", systemImage: "magnifyingglass")
                 }
                 .background {
                     Rectangle()
@@ -147,9 +122,7 @@ struct SideBarView: View {
         case .failure:
             NavigationStack {
                 VStack {
-                    Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
-                        .font(.title)
-                        .foregroundColor(.secondary)
+                    ContentUnavailableView("Search failed, try again later.", systemImage: "magnifyingglass")
                 }
                 .background {
                     Rectangle()
@@ -204,12 +177,9 @@ struct SideBarView: View {
             }
         }
     }
-#endif
 }
 
-struct SideBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        SideBarView()
-    }
+#Preview {
+    SideBarView()
 }
 #endif

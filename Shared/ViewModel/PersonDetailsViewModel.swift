@@ -1,6 +1,6 @@
 //
 //  PersonDetailsViewModel.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 06/02/22.
 //

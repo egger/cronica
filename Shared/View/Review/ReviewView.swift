@@ -1,6 +1,6 @@
 //
 //  WatchlistItemNoteView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 25/04/23.
 //

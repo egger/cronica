@@ -1,6 +1,6 @@
 //
 //  ConfirmationPopupModifier.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 05/06/22.
 //
@@ -39,6 +39,7 @@ struct ConfirmationPopupModifier: ViewModifier {
 #if !os(tvOS)
                             HStack {
                                 Label(item.localizedString, systemImage: item.toSfSymbol)
+                                    .symbolEffect(.bounce, value: isShowing)
                                     .padding()
                             }
 #if !os(watchOS)
@@ -79,7 +80,7 @@ enum ActionPopupItems: String, Identifiable, CaseIterable {
         case .removedWatchlist: return "minus.circle.fill"
         case .markedWatched: return "rectangle.badge.checkmark.fill"
         case .removedWatched: return "rectangle.badge.checkmark"
-        case .markedFavorite: return "heart.circle.fill"
+        case .markedFavorite: return "heart.fill"
         case .removedFavorite: return "heart.slash.fill"
         case .markedArchive: return "archivebox.fill"
         case .removedArchive: return "archivebox"

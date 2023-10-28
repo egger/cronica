@@ -1,6 +1,6 @@
 //
 //  ItemContentTVView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 19/05/23.
 //

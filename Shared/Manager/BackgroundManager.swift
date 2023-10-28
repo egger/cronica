@@ -1,6 +1,6 @@
 //
 //  BackgroundManager.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 12/04/22.
 //

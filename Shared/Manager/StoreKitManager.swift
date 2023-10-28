@@ -1,6 +1,6 @@
 //
 //  StoreKitManager.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 05/01/23.
 //

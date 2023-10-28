@@ -1,6 +1,6 @@
 //
 //  ItemContentCustomListSelector.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 21/03/23.
 //

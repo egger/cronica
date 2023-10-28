@@ -1,6 +1,6 @@
 //
 //  HapticManager.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 12/01/23.
 //

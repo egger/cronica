@@ -1,6 +1,6 @@
 //
 //  HeroImage.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 05/04/22.
 //
@@ -40,9 +40,7 @@ struct HeroImage: View {
 	}
 }
 
-struct HeroImage_Previews: PreviewProvider {
-	static var previews: some View {
-		HeroImage(url: ItemContent.example.cardImageLarge,
-				  title: ItemContent.example.itemTitle)
-	}
+#Preview {
+    HeroImage(url: ItemContent.example.cardImageLarge,
+              title: ItemContent.example.itemTitle)
 }

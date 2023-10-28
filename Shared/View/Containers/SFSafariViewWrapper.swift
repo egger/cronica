@@ -1,6 +1,6 @@
 //
 //  SFSafariViewWrapper.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 04/04/22.
 //

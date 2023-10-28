@@ -1,6 +1,6 @@
 //
 //  ListRowItem.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 07/05/23.
 //
@@ -36,12 +36,8 @@ struct ListRowItem: View {
             .padding(.leading, 4)
             Spacer()
         }
-        .onChange(of: selectedList) { _ in
-            checkSelection()
-        }
-        .onAppear {
-            checkSelection()
-        }
+        .onChange(of: selectedList, checkSelection)
+        .onAppear(perform: checkSelection)
         .padding(.vertical, 4)
     }
     

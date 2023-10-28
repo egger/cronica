@@ -1,6 +1,6 @@
 //
 //  SearchContentPosterView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 11/08/23.
 //

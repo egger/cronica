@@ -1,6 +1,6 @@
 //
 //  SearchView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 02/03/22.
 //
@@ -34,16 +34,12 @@ struct SearchView: View {
                     .foregroundColor(.secondary)
                     .padding()
             case .empty:
-                Label("No Results", systemImage: "minus.magnifyingglass")
-                    .font(.title)
-                    .foregroundColor(.secondary)
+                ContentUnavailableView("No Results", systemImage: "magnifyingglass")
                     .padding()
             case .failure:
-                VStack {
-                    Label("Search failed, try again later.", systemImage: "text.magnifyingglass")
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
+                ContentUnavailableView("Search failed, try again later.",
+                                       systemImage: "magnifyingglass")
+                .padding()
             case .success:
                 List {
                     switch scope {
@@ -153,9 +149,7 @@ struct SearchView: View {
 #endif
 
 #if os(iOS)
-struct SearchView_Previews: PreviewProvider {
-	static var previews: some View {
-		SearchView()
-	}
+#Preview {
+    SearchView()
 }
 #endif

@@ -1,6 +1,6 @@
 //
 //  DefaultListRow.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 07/05/23.
 //

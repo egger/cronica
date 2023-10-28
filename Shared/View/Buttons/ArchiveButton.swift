@@ -1,6 +1,6 @@
 //
 //  ArchiveButton.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 04/05/23.
 //
@@ -35,11 +35,9 @@ struct ArchiveButton: View {
     }
 }
 
-struct ArchiveButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ArchiveButton(id: ItemContent.example.itemContentID,
-                      isArchive: .constant(false),
-                      popupType: .constant(nil),
-                      showPopup: .constant(true))
-    }
+#Preview {
+    ArchiveButton(id: ItemContent.example.itemContentID,
+                  isArchive: .constant(false),
+                  popupType: .constant(nil),
+                  showPopup: .constant(true))
 }

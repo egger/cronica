@@ -1,6 +1,6 @@
 //
 //  TrendingKeywordsListView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 10/08/23.
 //
@@ -65,8 +65,6 @@ struct TrendingKeywordsListView: View {
     }
 }
 
-struct TrendingKeywordsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        TrendingKeywordsListView()
-    }
+#Preview {
+    TrendingKeywordsListView()
 }

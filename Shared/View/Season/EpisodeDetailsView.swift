@@ -1,6 +1,6 @@
 //
 //  EpisodeDetailsView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 20/06/22.
 //
@@ -27,7 +27,7 @@ struct EpisodeDetailsView: View {
     var body: some View {
         details
             .actionPopup(isShowing: $showPopup, for: popupType)
-            .onChange(of: isWatched) { hasWatched in
+            .onChange(of: isWatched) { hasWatched, _ in
                 if isUpNext { return }
                 if hasWatched {
                     popupType = .markedEpisodeWatched

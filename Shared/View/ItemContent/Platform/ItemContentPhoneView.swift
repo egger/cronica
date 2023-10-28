@@ -1,6 +1,6 @@
 //
 //  ItemContentPhoneView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 19/05/23.
 //
@@ -95,13 +95,9 @@ struct ItemContentPhoneView: View {
             withAnimation { showPopup = true }
         } label: {
             VStack {
-                if #available(iOS 17, *) {
-                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
-                                      value: viewModel.isWatched)
-                } else {
-                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                }
+                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                  value: viewModel.isWatched)
                 Text("Watched")
                     .padding(.top, 2)
                     .font(.caption)

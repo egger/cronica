@@ -1,6 +1,6 @@
 //
 //  WatchProviderOption.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 14/01/23.
 //  swiftlint:disable identifier_name

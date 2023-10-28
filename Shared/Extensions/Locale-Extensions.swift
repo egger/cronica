@@ -1,6 +1,6 @@
 //
 //  Locale-Extensions.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 03/02/23.
 //

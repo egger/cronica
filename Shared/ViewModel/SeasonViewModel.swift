@@ -1,6 +1,6 @@
 //
 //  SeasonViewModel.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 02/04/22.
 //  swiftlint:disable trailing_whitespace

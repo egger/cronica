@@ -1,6 +1,6 @@
 //
 //  DefaultWatchlist.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 14/02/23.
 //
@@ -18,7 +18,6 @@ struct DefaultWatchlist: View {
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
-    @State private var showFilter = false
     @AppStorage("watchlistShowAllItems") private var showAllItems = false
     @AppStorage("watchlistMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .noFilter
     @Binding var showPopup: Bool
@@ -128,7 +127,7 @@ struct DefaultWatchlist: View {
                                              title: String(), showPopup: $showPopup, popupType: $popupType)
                     case .poster:
                         WatchlistPosterSection(items: smartFiltersItems,
-                                             title: String(), showPopup: $showPopup, popupType: $popupType)
+                                               title: String(), showPopup: $showPopup, popupType: $popupType)
                     }
                     
                 }
@@ -191,21 +190,6 @@ struct DefaultWatchlist: View {
             }
 #endif
         }
-        .sheet(isPresented: $showFilter) {
-            NavigationStack {
-                WatchListFilter(selectedOrder: $smartFilter,
-                                showAllItems: $showAllItems,
-                                mediaTypeFilter: $mediaTypeFilter,
-                                showView: $showFilter)
-            }
-            .presentationDetents([.large])
-#if os(iOS)
-            .appTheme()
-            .appTint()
-#elseif os(macOS)
-            .frame(width: 380, height: 420, alignment: .center)
-#endif
-        }
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
@@ -234,9 +218,6 @@ struct DefaultWatchlist: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
-        .onChange(of: smartFilter) { _ in
-            withAnimation { showFilter.toggle() }
-        }
         .disableAutocorrection(true)
         .task(id: query) {
             await search()
@@ -260,22 +241,31 @@ struct DefaultWatchlist: View {
     }
     
     private var filterButton: some View {
-        Button {
-            showFilter.toggle()
+        Menu {
+            Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
+            Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
+                ForEach(MediaTypeFilters.allCases) { sort in
+                    Text(sort.localizableTitle).tag(sort)
+                }
+            }
+            .pickerStyle(.menu)
+            .disabled(!showAllItems)
+            Divider()
+            Picker("Smart Filters", selection: $smartFilter) {
+                ForEach(SmartFiltersTypes.allCases) { sort in
+                    Text(sort.title).tag(sort)
+                }
+            }
+            .disabled(showAllItems)
         } label: {
             Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
                 .labelStyle(.iconOnly)
-                .foregroundColor(showFilter ? .secondary : nil)
         }
-#if os(tvOS)
         .buttonStyle(.bordered)
-#endif
     }
     
     private var sortButton: some View {
-#if os(tvOS)
-        EmptyView()
-#elseif os(macOS)
+#if os(macOS)
         Picker(selection: $sortOrder) {
             ForEach(WatchlistSortOrder.allCases) { item in
                 Text(item.localizableName).tag(item)
@@ -300,9 +290,8 @@ struct DefaultWatchlist: View {
 #endif
     }
     
-#if os(iOS) || os(macOS)
     private var styleButton: some View {
-        #if os(macOS)
+#if os(macOS)
         Picker(selection: $settings.watchlistStyle) {
             ForEach(SectionDetailsPreferredStyle.allCases) { item in
                 Text(item.title).tag(item)
@@ -311,7 +300,7 @@ struct DefaultWatchlist: View {
             Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
-        #else
+#else
         Menu {
             Picker(selection: $settings.watchlistStyle) {
                 ForEach(SectionDetailsPreferredStyle.allCases) { item in
@@ -324,24 +313,17 @@ struct DefaultWatchlist: View {
             Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
-        #endif
-    }
 #endif
+    }
     
     private var empty: some View {
-        Text("Your list is empty.")
-            .font(.headline)
-            .foregroundColor(.secondary)
+        ContentUnavailableView("Your list is empty.", systemImage: "rectangle.on.rectangle")
             .padding()
     }
     
     private var noResults: some View {
-        CenterHorizontalView {
-            Text("No results")
-                .font(.headline)
-                .foregroundColor(.secondary)
-                .padding()
-        }
+        ContentUnavailableView("No results", systemImage: "magnifyingglass")
+            .padding()
     }
 }
 

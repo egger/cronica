@@ -27,11 +27,9 @@ struct DetailWatchlistButton: View {
         } label: {
 #if os(iOS)
             VStack {
-                if #available(iOS 17, *) {
-                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-                } else {
-                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-                }
+                Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                    .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                                  value: viewModel.isInWatchlist)
                 Text(viewModel.isInWatchlist ? "Remove" : "Add")
                     .lineLimit(1)
                     .padding(.top, 2)
@@ -42,9 +40,13 @@ struct DetailWatchlistButton: View {
 #elseif os(macOS)
             Label(viewModel.isInWatchlist ? "Remove": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+            .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                          value: viewModel.isInWatchlist)
 #else
             Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+            .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                          value: viewModel.isInWatchlist)
 #if os(tvOS)
             .labelStyle(.iconOnly)
 #endif

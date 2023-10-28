@@ -1,6 +1,6 @@
 //
 //  TMDBAccountManager.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 21/04/23.
 //

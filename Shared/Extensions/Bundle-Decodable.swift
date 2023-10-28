@@ -1,6 +1,6 @@
 //
 //  Bundle-Decodable.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 17/01/22.
 //

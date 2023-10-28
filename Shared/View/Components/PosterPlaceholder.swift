@@ -1,6 +1,6 @@
 //
 //  PosterPlaceholder.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 07/05/23.
 //
@@ -60,8 +60,6 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 2
 }
 
-struct PosterPlaceholder_Previews: PreviewProvider {
-    static var previews: some View {
-        PosterPlaceholder(title: "Preview", type: .movie)
-    }
+#Preview {
+    PosterPlaceholder(title: "Preview", type: .movie)
 }

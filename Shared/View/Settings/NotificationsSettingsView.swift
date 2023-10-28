@@ -1,6 +1,6 @@
 //
 //  NotificationsSettingsView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 12/03/23.
 //

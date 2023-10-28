@@ -1,6 +1,6 @@
 //
 //  ChangelogView.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 15/03/23.
 //
@@ -150,8 +150,6 @@ struct ChangelogView: View {
     }
 }
 
-struct ChangelogView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChangelogView(showChangelog: .constant(false))
-    }
+#Preview {
+    ChangelogView(showChangelog: .constant(false))
 }

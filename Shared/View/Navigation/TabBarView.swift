@@ -1,6 +1,6 @@
 //
 //  TabBarView.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 01/05/22.
 //

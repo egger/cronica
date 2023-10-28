@@ -1,6 +1,6 @@
 //
 //  DatesManager.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 05/02/23.
 //

@@ -1,6 +1,6 @@
 //
 //  AppThemeColors.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 18/12/22.
 //

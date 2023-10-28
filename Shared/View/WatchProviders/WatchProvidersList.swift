@@ -1,6 +1,6 @@
 //
 //  WatchProvidersList.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 14/01/23.
 //
@@ -34,8 +34,8 @@ struct WatchProvidersList: View {
                                 providerItemView(item)
                             }
                             .buttonStyle(.plain)
-                            .padding(.leading, item.self == viewModel.items.first!.self ? 16 : 0)
-                            .padding(.trailing, item.self == viewModel.items.last!.self ? 16 : 0)
+                            .padding(.leading, item.self == viewModel.items.first.self ? 16 : 0)
+                            .padding(.trailing, item.self == viewModel.items.last.self ? 16 : 0)
                             .padding(.horizontal, 6)
                             .padding(.top, 8)
                             .applyHoverEffect()
@@ -103,8 +103,6 @@ private struct DrawingConstants {
     static let lineLimits: Int = 1
 }
 
-struct WatchProvidersList_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchProvidersList(id: ItemContent.example.id, type: .movie)
-    }
+#Preview {
+    WatchProvidersList(id: ItemContent.example.id, type: .movie)
 }

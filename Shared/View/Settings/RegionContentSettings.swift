@@ -1,6 +1,6 @@
 //
 //  RegionContentSettings.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 14/06/23.
 //

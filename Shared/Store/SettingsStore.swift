@@ -1,6 +1,6 @@
 //
 //  SettingsStore.swift
-//  Story (iOS)
+//  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 11/05/22.
 //
