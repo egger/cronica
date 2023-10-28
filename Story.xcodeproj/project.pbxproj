@@ -163,7 +163,6 @@
 		B84457C9297341B5009CB21F /* WatchProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457C6297341AF009CB21F /* WatchProviders.swift */; };
 		B84457CE29734F90009CB21F /* WatchProvidersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457CD29734F90009CB21F /* WatchProvidersList.swift */; };
 		B84457D32973987E009CB21F /* AppContentRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D22973987E009CB21F /* AppContentRegion.swift */; };
-		B84457D52973A402009CB21F /* WatchProvidersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */; };
 		B845132A27EA514C00F0D4A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132927EA514C00F0D4A4 /* SettingsView.swift */; };
 		B845132E27ECBC1D00F0D4A4 /* Person-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */; };
 		B845133427ECE2B500F0D4A4 /* UIDevice-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */; };
@@ -520,7 +519,6 @@
 		B84457C6297341AF009CB21F /* WatchProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviders.swift; sourceTree = "<group>"; };
 		B84457CD29734F90009CB21F /* WatchProvidersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProvidersList.swift; sourceTree = "<group>"; };
 		B84457D22973987E009CB21F /* AppContentRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContentRegion.swift; sourceTree = "<group>"; };
-		B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProvidersListViewModel.swift; sourceTree = "<group>"; };
 		B845132927EA514C00F0D4A4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B845132D27ECBC1D00F0D4A4 /* Person-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person-Extensions.swift"; sourceTree = "<group>"; };
 		B845133327ECE2B500F0D4A4 /* UIDevice-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice-Extension.swift"; sourceTree = "<group>"; };
@@ -1170,7 +1168,6 @@
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
 				B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */,
 				B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */,
-				B84457D42973A402009CB21F /* WatchProvidersListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1837,7 +1834,6 @@
 				B84F022A299026B7007EA8AE /* DatesManager.swift in Sources */,
 				B8B2F6AA2A85D50A00FF0246 /* SearchItemContent.swift in Sources */,
 				B81941C82A0861C80057DA04 /* ArchiveButton.swift in Sources */,
-				B84457D52973A402009CB21F /* WatchProvidersListViewModel.swift in Sources */,
 				B81941C22A0861C80057DA04 /* WatchlistButton.swift in Sources */,
 				B8BF632A291402730051915C /* HoverEffectModifier.swift in Sources */,
 				B81941C62A0861C80057DA04 /* PinButton.swift in Sources */,

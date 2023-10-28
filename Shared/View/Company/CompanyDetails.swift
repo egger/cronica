@@ -174,12 +174,7 @@ struct CompanyDetails: View {
                 }
             } else {
                 if isLoaded {
-                    CenterHorizontalView {
-                        Text("Try again later.")
-                            .fontDesign(.monospaced)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                    }
+                    ContentUnavailableView("Try again later", systemImage: "popcorn")
                 }
             }
         }.padding(.all, settings.isCompactUI ? 10 : nil)
