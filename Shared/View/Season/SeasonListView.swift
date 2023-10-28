@@ -24,8 +24,39 @@ struct SeasonList: View {
     let showCover: URL?
     var body: some View {
         VStack {
+#if !os(watchOS)
             header
             list
+#else
+            ScrollViewReader { proxy in
+                VStack {
+                    if isLoading {
+                        ProgressView("Loading")
+                    } else {
+                        if let season = season?.episodes {
+                            List {
+                                ForEach(season) { episode in
+                                    NavigationLink(value: [showID:episode]) {
+                                        EpisodeRow(episode: episode,
+                                                   season: selectedSeason,
+                                                   show: showID)
+                                    }
+                                }
+                                .redacted(reason: isLoading ? .placeholder : [])
+                            }
+                            .overlay { if isLoading { ProgressView("Loading") } }
+                            .onAppear {
+                                guard let lastWatched = PersistenceController.shared.fetchLastWatchedEpisode(for: showID) else { return }
+                                withAnimation { proxy.scrollTo(lastWatched, anchor: .topLeading) }
+                            }
+                        }
+                        
+                    }
+                }
+                .navigationTitle(showTitle)
+                .navigationBarTitleDisplayMode(.inline)
+            }
+#endif
         }
         .task {
             if !hasFirstLoaded {
@@ -34,6 +65,13 @@ struct SeasonList: View {
         }
 #if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
+#elseif os(watchOS)
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                seasonPicker
+                    .pickerStyle(.navigationLink)
+            }
+        }
 #endif
     }
     
@@ -41,6 +79,10 @@ struct SeasonList: View {
         Picker(selection: $selectedSeason) {
             ForEach(numberOfSeasons, id: \.self) { season in
                 Text("Season \(season)").tag(season)
+#if os(watchOS)
+                    .fontWeight(.semibold)
+                    .padding()
+#endif
             }
         } label: {
 #if os(iOS) || os(tvOS)
@@ -102,6 +144,7 @@ struct SeasonList: View {
         }
     }
     
+#if !os(watchOS)
     private var list: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             if isLoading {
@@ -157,7 +200,7 @@ struct SeasonList: View {
                                     proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
                                 }
                             }
-                            .onChange(of: selectedSeason) { 
+                            .onChange(of: selectedSeason) {
                                 if !hasFirstLoaded { return }
                                 let first = season.first ?? nil
                                 guard let first else { return }
@@ -172,7 +215,10 @@ struct SeasonList: View {
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
     }
-    
+#endif
+}
+
+extension SeasonList {
     private func load() async {
         let contentId = "\(showID)@\(MediaType.tvShow.toInt)"
         let isShowSaved = persistence.isItemSaved(id: contentId)

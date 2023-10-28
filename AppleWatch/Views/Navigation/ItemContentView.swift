@@ -102,7 +102,10 @@ struct ItemContentView: View {
             }
         }
         .navigationDestination(for: [Season].self) { seasons in
-            SeasonListView(numberOfSeasons: seasons, id: id)
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
+            }
+            //SeasonListView(numberOfSeasons: seasons, id: id)
         }
         .navigationDestination(for: Season.self) { season in
             EpisodeListView(seasonNumber: season.seasonNumber, id: id)
@@ -115,9 +118,7 @@ struct ItemContentView: View {
             }
         }
         .background {
-            if #available(watchOS 10, *) {
-                TranslucentBackground(image: image)
-            }
+            TranslucentBackground(image: image)
         }
     }
     

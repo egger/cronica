@@ -28,7 +28,7 @@ struct EpisodeListView: View {
                             }
                         }
                         .redacted(reason: isLoading ? .placeholder : [])
-                    }
+                    } 
                     .overlay { if isLoading { ProgressView("Loading") } }
                     .onAppear {
                         guard let lastWatched = PersistenceController.shared.fetchLastWatchedEpisode(for: id) else { return }
