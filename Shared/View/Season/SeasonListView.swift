@@ -53,7 +53,7 @@ struct SeasonList: View {
 #elseif os(iOS)
         .pickerStyle(.menu)
 #endif
-        .onChange(of: selectedSeason) { _ in
+        .onChange(of: selectedSeason) {
             Task {
                 await load()
                 checkIfWatched = false
@@ -157,7 +157,7 @@ struct SeasonList: View {
                                     proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
                                 }
                             }
-                            .onChange(of: selectedSeason) { _ in
+                            .onChange(of: selectedSeason) { 
                                 if !hasFirstLoaded { return }
                                 let first = season.first ?? nil
                                 guard let first else { return }

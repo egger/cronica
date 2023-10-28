@@ -72,7 +72,7 @@ struct ExploreView: View {
 #endif
         }
         .navigationDestination(for: Person.self) { person in
-            PersonDetailsView(title: person.name, id: person.id)
+            PersonDetailsView(name: person.name, id: person.id)
 #if os(tvOS)
                 .ignoresSafeArea(.all, edges: .horizontal)
 #endif

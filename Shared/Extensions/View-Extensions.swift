@@ -61,7 +61,7 @@ extension View {
     func applyHoverEffect() -> some View {
         modifier(HoverEffectModifier())
     }
-    
+
     func appTheme() -> some View {
         modifier(AppThemeModifier())
     }

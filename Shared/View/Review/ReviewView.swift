@@ -44,13 +44,13 @@ struct ReviewView: View {
         }
         .navigationTitle("reviewTitle")
         .onAppear { load() }
-        .onChange(of: rating) { newValue in
+        .onChange(of: rating) { newValue, _ in
             guard let item else { return }
             if newValue != Int(item.userRating) {
                 if !canSave { canSave = true }
             }
         }
-        .onChange(of: note) { newValue in
+        .onChange(of: note) { newValue, _ in
             guard let item else { return }
             if newValue != item.userNotes {
                 if !canSave { canSave = true }

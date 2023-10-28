@@ -10,17 +10,16 @@ import SDWebImageSwiftUI
 
 struct PersonDetailsView: View {
     let name: String
-    @State private var isLoading = true
-    @State private var isFavorite = false
-    @StateObject private var viewModel: PersonDetailsViewModel
+    let id: Int
+    private let service: NetworkService = NetworkService.shared
     @State private var scope: WatchlistSearchScope = .noScope
     @State private var showImageFullscreen = false
-    @State var popupType: ActionPopupItems?
-    @State var showPopup = false
-    init(title: String, id: Int) {
-        _viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id))
-        self.name = title
-    }
+    @State private var popupType: ActionPopupItems?
+    @State private var showPopup = false
+    @State private var isLoaded: Bool = false
+    @State private var person: Person?
+    @State private var credits = [ItemContent]()
+    @State private var query: String = ""
     var body: some View {
         VStack {
             ScrollView {
@@ -28,8 +27,8 @@ struct PersonDetailsView: View {
                     HStack {
                         imageProfile
                             .padding([.bottom, .horizontal])
-#if !os(tvOS)
-                        if let overview = viewModel.person?.biography {
+#if os(iOS) || os(macOS)
+                        if let overview = person?.biography {
                             OverviewBoxView(
                                 overview: overview,
                                 title: "Biography",
@@ -39,7 +38,7 @@ struct PersonDetailsView: View {
                             .frame(width: 500)
                             .padding([.bottom, .trailing])
                         }
-#else
+#elseif os(tvOS)
                         Text(name)
                             .font(.title3)
                             .fontWeight(.semibold)
@@ -51,8 +50,8 @@ struct PersonDetailsView: View {
                     VStack {
                         imageProfile
                             .padding()
-#if !os(tvOS)
-                        if let overview = viewModel.person?.biography {
+#if os(iOS) || os(macOS)
+                        if let overview = person?.biography {
                             OverviewBoxView(overview: overview, title: "", type: .person)
                                 .padding([.horizontal, .bottom])
                         }
@@ -60,15 +59,15 @@ struct PersonDetailsView: View {
                     }
                 }
                 
-                FilmographyListView(filmography: viewModel.credits,
+                FilmographyListView(filmography: credits,
                                     showPopup: $showPopup,
                                     popupType: $popupType)
                 .padding(.bottom)
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
-        .task { load() }
-        .redacted(reason: isLoading ? .placeholder : [])
+        .task { await load() }
+        .redacted(reason: isLoaded ? [] : .placeholder)
 #if os(iOS)
         .overlay(search)
         .searchScopes($scope) {
@@ -93,25 +92,17 @@ struct PersonDetailsView: View {
 #endif
         }
         .background {
-            TranslucentBackground(image: viewModel.person?.personImage)
-        }
-        .alert("Error",
-               isPresented: $viewModel.showErrorAlert) {
-            Button("Cancel") { }
-            Button("Retry") {
-                Task { await viewModel.load() }
-            }
-        } message: {
-            Text(viewModel.errorMessage)
+            TranslucentBackground(image: person?.personImage)
         }
 #if os(iOS)
-        .searchable(text: $viewModel.query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
+        .searchable(text: $query,
+                    placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
         .fullScreenCover(isPresented: $showImageFullscreen) {
             NavigationStack {
                 ZStack {
                     Rectangle().fill(.black).ignoresSafeArea(.all)
                     VStack {
-                        WebImage(url: viewModel.person?.originalPersonImage)
+                        WebImage(url: person?.originalPersonImage)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding()
@@ -142,59 +133,36 @@ struct PersonDetailsView: View {
         
     }
     
-    private func load() {
-        Task {
-            await self.viewModel.load()
-            if viewModel.isLoaded {
-                await MainActor.run {
-                    withAnimation {
-                        isLoading = false
-                    }
-                }
-            }
-        }
-    }
-    
 #if !os(tvOS)
     @ViewBuilder
     private var shareButton: some View {
-        if let url = viewModel.person?.itemURL {
+        if let url = person?.itemURL {
             ShareLink(item: url, message: Text(name))
-                .disabled(!viewModel.isLoaded)
+                .disabled(!isLoaded)
         }
     }
 #endif
     
-    private var favoriteButton: some View {
-        Button {
-            
-        } label: {
-            Label("Favorite", systemImage: isFavorite ? "star.circle.fill" : "star.circle")
-                .labelStyle(.iconOnly)
-        }
-        
-    }
-    
 #if os(iOS)
     @ViewBuilder
     private var search: some View {
-        if !viewModel.query.isEmpty {
+        if !query.isEmpty {
             List {
                 switch scope {
                 case .noScope:
-                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool }) { item in
+                    ForEach(credits.filter { ($0.itemTitle.localizedStandardContains(query)) as Bool }) { item in
                         ItemContentSearchRowView(item: item,
                                                  showPopup: $showPopup,
                                                  popupType: $popupType)
                     }
                 case .movies:
-                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .movie }) { item in
+                    ForEach(credits.filter { ($0.itemTitle.localizedStandardContains(query)) as Bool && $0.itemContentMedia == .movie }) { item in
                         ItemContentSearchRowView(item: item,
                                                  showPopup: $showPopup,
                                                  popupType: $popupType)
                     }
                 case .shows:
-                    ForEach(viewModel.credits.filter { ($0.itemTitle.localizedStandardContains(viewModel.query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
+                    ForEach(credits.filter { ($0.itemTitle.localizedStandardContains(query)) as Bool && $0.itemContentMedia == .tvShow }) { item in
                         ItemContentSearchRowView(item: item,
                                                  showPopup: $showPopup,
                                                  popupType: $popupType)
@@ -206,7 +174,7 @@ struct PersonDetailsView: View {
 #endif
     
     private var imageProfile: some View {
-        WebImage(url: viewModel.person?.personImage)
+        WebImage(url: person?.personImage)
             .resizable()
             .placeholder {
                 ZStack {
@@ -233,20 +201,49 @@ struct PersonDetailsView: View {
     }
 }
 
-struct CastDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        PersonDetailsView(title: Person.previewCast.name,
-                          id: Person.previewCast.id)
-    }
+#Preview {
+    PersonDetailsView(name: Person.previewCast.name,
+                      id: Person.previewCast.id)
 }
 
 private struct DrawingConstants {
 #if os(macOS) || os(tvOS)
     static let imageWidth: CGFloat = 250
     static let imageHeight: CGFloat = 250
-#else
+#elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 250 : 150
     static let imageHeight: CGFloat = UIDevice.isIPad ? 250 : 150
+    #else
+    static let imageWidth: CGFloat = 100
+    static let imageHeight: CGFloat = 100
 #endif
     static let imageShadow: CGFloat = 5
+}
+
+private extension PersonDetailsView {
+    func load() async {
+        if Task.isCancelled { return }
+        if person == nil {
+            do {
+                person = try await self.service.fetchPerson(id: self.id)
+                if let person {
+                    let cast = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false } ?? []
+                    let crew = person.combinedCredits?.crew?.filter { $0.itemIsAdult == false } ?? []
+                    let combinedCredits = cast + crew
+                    if !combinedCredits.isEmpty {
+                        let combined = Array(Set(combinedCredits))
+                        credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+                    }
+                }
+                withAnimation {
+                    isLoaded = true
+                }
+            } catch {
+                if Task.isCancelled { return }
+                person = nil
+                let message = "Can't load the id \(id), with error message: \(error.localizedDescription)"
+                CronicaTelemetry.shared.handleMessage(message, for: "PersonDetailsViewModel.load()")
+            }
+        }
+    }
 }

@@ -95,10 +95,8 @@ struct UpcomingListView: View {
     }
 }
 
-struct UpcomingListView_Previews: PreviewProvider {
-    static var previews: some View {
-        UpcomingListView()
-    }
+#Preview {
+    UpcomingListView()
 }
 
 private struct DrawingConstants {

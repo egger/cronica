@@ -66,10 +66,8 @@ struct WatchlistCardSection: View {
     }
 }
 
-struct WatchlistCardSection_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistCardSection(items: [.example], title: "Preview", showPopup: .constant(false), popupType: .constant(nil))
-    }
+#Preview {
+    WatchlistCardSection(items: [.example], title: "Preview", showPopup: .constant(false), popupType: .constant(nil))
 }
 
 private struct DrawingConstants {

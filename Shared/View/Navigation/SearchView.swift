@@ -80,7 +80,7 @@ struct SearchView: View {
         .navigationTitle("Search")
         .navigationBarTitleDisplayMode(.large)
         .navigationDestination(for: Person.self) { person in
-            PersonDetailsView(title: person.name, id: person.id)
+            PersonDetailsView(name: person.name, id: person.id)
         }
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
@@ -93,16 +93,16 @@ struct SearchView: View {
         }
         .navigationDestination(for: SearchItemContent.self) { item in
             if item.media == .person {
-                PersonDetailsView(title: item.itemTitle, id: item.id)
+                PersonDetailsView(name: item.itemTitle, id: item.id)
             } else {
                 ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
             }
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
-            let keys = item.map { (key, _) in key }.first
-            let value = item.map { (_, value) in value }.first
-            if let keys, let value {
-                ItemContentSectionDetails(title: keys, items: value)
+            let title = item.map { (key, _) in key }.first
+            let items = item.map { (_, value) in value }.first
+            if let title, let items {
+                ItemContentSectionDetails(title: title, items: items)
             }
         }
         .navigationDestination(for: [Person].self) { items in

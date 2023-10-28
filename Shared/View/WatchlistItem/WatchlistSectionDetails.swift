@@ -10,7 +10,6 @@ import SwiftUI
 struct WatchlistSectionDetails: View {
     var title = "Upcoming"
     let items: [WatchlistItem]
-	var displayInfoPreferrence: DisplayInformartionPreferrence = .none
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
@@ -108,9 +107,7 @@ private struct DrawingConstants {
     static let spacing: CGFloat = 10
 }
 
-struct WatchlistSectionDetails_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistSectionDetails(items: [.example])
-    }
+#Preview {
+    WatchlistSectionDetails(items: [.example])
 }
 #endif

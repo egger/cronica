@@ -56,7 +56,7 @@ struct WatchlistView: View {
             }
 			.navigationDestination(for: SearchItemContent.self) { item in
 				if item.media == .person {
-					PersonView(id: item.id, name: item.itemTitle)
+                    PersonDetailsView(name: item.itemTitle, id: item.id)
 				} else {
 					ItemContentView(id: item.id,
 									title: item.itemTitle,
@@ -74,7 +74,7 @@ struct WatchlistView: View {
                     selectedList = selectedOrder
                 }
             }
-            .onChange(of: selectedList) { newValue in
+            .onChange(of: selectedList) { newValue, _ in
                 if let newValue {
                     selectedOrder = newValue
                 }

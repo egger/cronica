@@ -64,7 +64,7 @@ struct ItemContentSearchRowView: View {
 						.presentationDragIndicator(.visible)
 #if os(macOS)
 						.frame(width: 500, height: 600, alignment: .center)
-#else
+#elseif !os(watchOS)
 						.appTheme()
 						.appTint()
 #endif
@@ -116,8 +116,6 @@ struct ItemContentSearchRowView: View {
 	}
 }
 
-struct ItemContentSearchRowView_Previews: PreviewProvider {
-    static var previews: some View {
-		ItemContentSearchRowView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
-    }
+#Preview {
+    ItemContentSearchRowView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
 }

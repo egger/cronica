@@ -134,8 +134,6 @@ private struct DrawingConstants {
 	static let textLimit: Int = 1
 }
 
-struct ItemContentItemView_Previews: PreviewProvider {
-	static var previews: some View {
-		ItemContentRowView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
-	}
+#Preview {
+    ItemContentRowView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
 }

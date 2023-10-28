@@ -27,12 +27,13 @@ struct HomeView: View {
     @AppStorage("askedForReview") var askedForReview = false
     @State private var showReviewBanner = false
     @State private var showSettings = false
+    @Environment(\.requestReview) var requestReview
 #endif
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
 #if os(iOS)
-                if showReviewBanner { ReviewAppBanner(showView: $showReviewBanner).unredacted() }
+                if showReviewBanner { reviewAppBanner.unredacted() }
 #endif
                 HorizontalUpNextListView(shouldReload: $reloadHome)
                 UpcomingWatchlist(shouldReload: $reloadHome)
@@ -112,7 +113,7 @@ struct HomeView: View {
 #endif
         }
         .navigationDestination(for: Person.self) { person in
-            PersonDetailsView(title: person.name, id: person.id)
+            PersonDetailsView(name: person.name, id: person.id)
 #if os(tvOS)
                 .ignoresSafeArea(.all, edges: .horizontal)
 #endif
@@ -264,7 +265,7 @@ struct HomeView: View {
     
 #if os(iOS)
     private func checkAskForReview() {
-        if launchCount < 30 {
+        if launchCount < 20 {
             launchCount += 1
         } else {
             if !askedForReview {
@@ -273,20 +274,8 @@ struct HomeView: View {
             askedForReview = true
         }
     }
-#endif
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
-
-#if os(iOS)
-struct ReviewAppBanner: View {
-    @Environment(\.requestReview) var requestReview
-    @Binding var showView: Bool
-    var body: some View {
+    
+    private var reviewAppBanner: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text("callToReviewTitle")
@@ -310,7 +299,7 @@ struct ReviewAppBanner: View {
             Spacer()
             VStack {
                 Button {
-                    withAnimation { showView = false }
+                    withAnimation { showReviewBanner = false }
                 } label: {
                     Label("dismissReviewCall", systemImage: "xmark")
                         .labelStyle(.iconOnly)
@@ -322,5 +311,9 @@ struct ReviewAppBanner: View {
             .padding(.trailing)
         }.padding(.vertical)
     }
-}
 #endif
+}
+
+#Preview {
+    HomeView()
+}

@@ -63,8 +63,6 @@ struct DefaultListView: View {
     }
 }
 
-struct DefaultListView_Previews: PreviewProvider {
-    static var previews: some View {
-		DefaultListView(selectedOrder: .constant(.released), sortOrder: .constant(.titleAsc))
-    }
+#Preview {
+    DefaultListView(selectedOrder: .constant(.released), sortOrder: .constant(.titleAsc))
 }

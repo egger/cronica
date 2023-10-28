@@ -9,15 +9,11 @@ import SwiftUI
 
 struct EmptyListView: View {
     var body: some View {
-        Text("Your list is empty.")
-            .font(.headline)
-            .foregroundColor(.secondary)
+        ContentUnavailableView("Your list is empty.", systemImage: "rectangle.on.rectangle")
             .padding()
     }
 }
 
-struct EmptyListView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmptyListView()
-    }
+#Preview {
+    EmptyListView()
 }

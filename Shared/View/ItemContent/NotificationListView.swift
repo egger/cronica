@@ -48,11 +48,9 @@ struct NotificationListView: View {
                 ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
             }
             .navigationDestination(for: Person.self) { item in
-                PersonDetailsView(title: item.name, id: item.id)
+                PersonDetailsView(name: item.name, id: item.id)
             }
-            .task {
-                await load()
-            }
+            .task { await load() }
         }
     }
     
@@ -124,9 +122,7 @@ struct NotificationListView: View {
     }
 }
 
-struct NotificationListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationListView(showNotification: .constant(true))
-    }
+#Preview {
+    NotificationListView(showNotification: .constant(true))
 }
 #endif

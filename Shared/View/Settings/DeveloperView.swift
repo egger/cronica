@@ -148,13 +148,13 @@ struct DeveloperView: View {
 						ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 					}
 					.navigationDestination(for: Person.self) { item in
-						PersonDetailsView(title: item.name, id: item.id)
+                        PersonDetailsView(name: item.name, id: item.id)
 					}
 			}
 		}
 		.sheet(item: $person) { item in
 			NavigationStack {
-				PersonDetailsView(title: item.name, id: item.id)
+                PersonDetailsView(name: item.name, id: item.id)
 					.toolbar {
 						ToolbarItem {
 							Button("Done") {
@@ -166,7 +166,7 @@ struct DeveloperView: View {
 						ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
 					}
 					.navigationDestination(for: Person.self) { item in
-						PersonDetailsView(title: item.name, id: item.id)
+                        PersonDetailsView(name: item.name, id: item.id)
 					}
 			}
 		}
@@ -176,9 +176,7 @@ struct DeveloperView: View {
 	}
 }
 
-struct DeveloperView_Previews: PreviewProvider {
-	static var previews: some View {
-		DeveloperView()
-	}
+#Preview {
+    DeveloperView()
 }
 #endif

@@ -114,13 +114,10 @@ struct HorizontalItemContentListView: View {
     }
 }
 
-struct ItemContentListView_Previews: PreviewProvider {
-    static var previews: some View {
-        HorizontalItemContentListView(items: ItemContent.examples,
-                                      title: "Favorites",
-                                      subtitle: "Favorites Movies",
-                                      showPopup: .constant(false),
-                                      popupType: .constant(nil))
-    }
+#Preview {
+    HorizontalItemContentListView(items: ItemContent.examples,
+                                  title: "Favorites",
+                                  subtitle: "Favorites Movies",
+                                  showPopup: .constant(false),
+                                  popupType: .constant(nil))
 }
-

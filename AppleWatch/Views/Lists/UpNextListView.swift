@@ -121,8 +121,6 @@ private struct DrawingConstants {
     static let textLimit: Int = 1
 }
 
-struct UpNextListView_Previews: PreviewProvider {
-    static var previews: some View {
-        UpNextListView()
-    }
+#Preview {
+    UpNextListView()
 }

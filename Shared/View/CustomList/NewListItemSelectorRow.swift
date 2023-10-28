@@ -68,8 +68,6 @@ struct NewListItemSelectorRow: View {
     }
 }
 
-struct NewListItemSelectorRow_Previews: PreviewProvider {
-    static var previews: some View {
-        NewListItemSelectorRow(item: .example, selectedItems: .constant(Set<WatchlistItem>()))
-    }
+#Preview {
+    NewListItemSelectorRow(item: .example, selectedItems: .constant(Set<WatchlistItem>()))
 }

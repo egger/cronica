@@ -19,10 +19,8 @@ struct CenterHorizontalView<Content: View>: View {
     }
 }
 
-struct CenterHorizontalView_Previews: PreviewProvider {
-    static var previews: some View {
-        CenterHorizontalView {
-            Label("Preview", systemImage: "square.stack")
-        }
+#Preview {
+    CenterHorizontalView {
+        Label("Preview", systemImage: "square.stack")
     }
 }

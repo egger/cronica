@@ -28,7 +28,7 @@ struct RegionContentSettings: View {
 							.foregroundColor(.secondary)
 					}
                 }
-                .onChange(of: store.watchRegion) { _ in
+                .onChange(of: store.watchRegion) { 
                     if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
                 }
 #if os(macOS)

@@ -58,15 +58,17 @@ struct WatchlistView: View {
 #endif
         }
         .navigationDestination(for: Person.self) { person in
-            PersonDetailsView(title: person.name, id: person.id)
+            PersonDetailsView(name: person.name, id: person.id)
 #if os(tvOS)
                 .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
-            let keys = item.map { (key, _) in key }
-            let value = item.map { (_, value) in value }
-            ItemContentSectionDetails(title: keys[0], items: value[0])
+            let title = item.map { (key, _) in key }.first
+            let items = item.map { (_, value) in value }.first
+            if let title, let items {
+                ItemContentSectionDetails(title: title, items: items)
+            }
         }
         .navigationDestination(for: [Person].self) { items in
             DetailedPeopleList(items: items)
@@ -103,9 +105,7 @@ struct WatchlistView: View {
     }
 }
 
-struct WatchlistView_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
+#Preview {
+    WatchlistView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

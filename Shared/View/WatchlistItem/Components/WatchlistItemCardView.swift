@@ -21,7 +21,7 @@ struct WatchlistItemCardView: View {
 #if os(tvOS)
     @FocusState var isStackFocused: Bool
 #endif
-	var displayInfoPreferrence: DisplayInformartionPreferrence = .none
+	var displayInfoPreferrence: DisplayInformationPreference = .none
     var body: some View {
         VStack {
             NavigationLink(value: content) {

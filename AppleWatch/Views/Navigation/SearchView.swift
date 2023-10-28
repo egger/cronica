@@ -71,7 +71,7 @@ struct SearchView: View {
             }
             .navigationDestination(for: SearchItemContent.self) { item in
                 if item.media == .person {
-                    PersonView(id: item.id, name: item.itemTitle)
+                    PersonDetailsView(name: item.itemTitle, id: item.id)
                 } else {
                     ItemContentView(id: item.id,
                                     title: item.itemTitle,
@@ -133,8 +133,6 @@ struct SearchView: View {
     }
 }
 
-struct TrendingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
-    }
+#Preview {
+    SearchView()
 }

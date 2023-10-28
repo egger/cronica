@@ -12,15 +12,29 @@ struct FilmographyListView: View {
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
+#if !os(watchOS)
     private let columns: [GridItem] = [
         GridItem(.adaptive(minimum: DrawingConstants.posterColumns))
     ]
     private let cardColumns: [GridItem] = [
         GridItem(.adaptive(minimum: DrawingConstants.columns))
     ]
+#endif
     var body: some View {
         if let filmography {
             if !filmography.isEmpty {
+#if os(watchOS)
+                VStack {
+                    TitleView(title: "Filmography")
+                    LazyVStack {
+                        ForEach(filmography) { item in
+                            NavigationLink(value: item) {
+                                ItemContentRow(item: item)
+                            }
+                        }
+                    }
+                }
+#else
                 VStack {
 #if os(tvOS)
                     cardStyle
@@ -32,10 +46,12 @@ struct FilmographyListView: View {
                     }
 #endif
                 }
+#endif
             }
         }
     }
     
+#if !os(watchOS)
     @ViewBuilder
     private var posterStyle: some View {
         if let filmography {
@@ -43,8 +59,8 @@ struct FilmographyListView: View {
                       spacing: settings.isCompactUI ? 10 : 20) {
                 ForEach(filmography) { item in
                     ItemContentPosterView(item: item,
-                           showPopup: $showPopup,
-                           popupType: $popupType)
+                                          showPopup: $showPopup,
+                                          popupType: $popupType)
                 }
             }.padding(.all, settings.isCompactUI ? 10 : nil)
         }
@@ -56,22 +72,21 @@ struct FilmographyListView: View {
             LazyVGrid(columns: cardColumns, spacing: 20) {
                 ForEach(filmography) { item in
                     ItemContentCardView(item: item,
-                              showPopup: $showPopup,
-                              popupType: $popupType)
-                        .buttonStyle(.plain)
+                                        showPopup: $showPopup,
+                                        popupType: $popupType)
+                    .buttonStyle(.plain)
                 }
             }
             .padding()
         }
     }
+#endif
 }
 
-struct FilmographyListView_Previews: PreviewProvider {
-    static var previews: some View {
-        FilmographyListView(filmography: ItemContent.examples,
-                            showPopup: .constant(false),
-                            popupType: .constant(nil))
-    }
+#Preview {
+    FilmographyListView(filmography: ItemContent.examples,
+                        showPopup: .constant(false),
+                        popupType: .constant(nil))
 }
 
 private struct DrawingConstants {
@@ -83,7 +98,7 @@ private struct DrawingConstants {
     static let posterColumns: CGFloat = 260
     static let columns: CGFloat = 420
     static let spacing: CGFloat = 40
-#else
+#elseif os(iOS)
     static let posterColumns: CGFloat = 160
     static let spacing: CGFloat = 20
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160

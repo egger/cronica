@@ -22,13 +22,12 @@ struct WatchlistSectionView: View {
                 Text(NSLocalizedString(title, comment: ""))
             }
         } else {
-            Text("No results")
+            ContentUnavailableView("No results", systemImage: "rectangle.on.rectangle")
+                .padding()
         }
     }
 }
 
-struct WatchlistSectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchlistSectionView(items: [.example], title: "SwiftUI Preview")
-    }
+#Preview {
+    WatchlistSectionView(items: [.example], title: "SwiftUI Preview")
 }

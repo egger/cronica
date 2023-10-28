@@ -89,10 +89,73 @@ struct WelcomeView: View {
     }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        WelcomeView()
-        WelcomeView()
-            .preferredColorScheme(.dark)
+private struct InformationContainerView: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            informationItem(
+                title: "Your Watchlist",
+                subtitle: "Add everything you want, the Watchlist automatically organizes it for you.",
+                imageName: "rectangle.stack.fill",
+                imageTint: .purple
+            )
+            
+            informationItem(
+                title: "Always Synced",
+                subtitle: "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.",
+                imageName: "icloud.fill"
+            )
+            
+            informationItem(
+                title: "Track your episodes",
+                subtitle: "Keep track of every episode you've watched.",
+                imageName: "rectangle.fill.badge.checkmark",
+                imageTint: .green
+            )
+            
+            informationItem(
+                title: "Never miss out",
+                subtitle: "Get notifications about the newest releases.",
+                imageName: "bell.fill",
+                imageTint: .orange
+            )
+            
+        }
     }
+    
+    private func informationItem(
+        title: String,
+        subtitle: String,
+        imageName: String,
+        imageTint: Color = .blue
+    ) -> some View {
+        HStack(alignment: .center) {
+            Image(systemName: imageName)
+                .font(.largeTitle)
+                .frame(width: 60)
+                .accessibility(hidden: true)
+                .foregroundColor(imageTint)
+            
+            VStack(alignment: .leading) {
+                Text(NSLocalizedString(title, comment: ""))
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                    .accessibility(addTraits: .isHeader)
+                    .fontDesign(.rounded)
+                
+                Text(NSLocalizedString(subtitle, comment: ""))
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                    .fontDesign(.rounded)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.leading, 6)
+            .padding([.top, .bottom], 8)
+        }
+        .padding(.top)
+    }
+}
+
+#Preview {
+    WelcomeView()
 }

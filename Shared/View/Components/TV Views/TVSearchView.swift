@@ -67,7 +67,7 @@ struct TVSearchView: View {
         }
 		.navigationDestination(for: SearchItemContent.self) { item in
 			if item.media == .person {
-				PersonDetailsView(title: item.itemTitle, id: item.id)
+                PersonDetailsView(name: item.itemTitle, id: item.id)
 					.ignoresSafeArea(.all, edges: .horizontal)
 			} else {
 				ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
@@ -75,7 +75,7 @@ struct TVSearchView: View {
 			}
 		}
 		.navigationDestination(for: Person.self) { person in
-			PersonDetailsView(title: person.name, id: person.id)
+            PersonDetailsView(name: person.name, id: person.id)
 				.ignoresSafeArea(.all, edges: .horizontal)
 		}
     }

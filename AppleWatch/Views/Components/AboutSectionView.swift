@@ -38,8 +38,6 @@ struct AboutSectionView: View {
 }
 
 
-struct AboutSectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutSectionView(about: ItemContent.example.itemOverview)
-    }
+#Preview {
+    AboutSectionView(about: ItemContent.example.itemOverview)
 }

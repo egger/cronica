@@ -19,12 +19,10 @@ struct CenterVerticalView<Content: View>: View {
     }
 }
 
-struct CenterVerticalView_Previews: PreviewProvider {
-    static var previews: some View {
-        CenterVerticalView {
-            ProgressView {
-                Label("This is a preview", systemImage: "smiley")
-            }
+#Preview {
+    CenterVerticalView {
+        ProgressView {
+            Label("This is a preview", systemImage: "smiley")
         }
     }
 }

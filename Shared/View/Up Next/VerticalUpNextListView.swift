@@ -215,7 +215,7 @@ struct VerticalUpNextListView: View {
                     CompaniesListView(companies: item)
                 }
                 .navigationDestination(for: Person.self) { person in
-                    PersonDetailsView(title: person.name, id: person.id)
+                    PersonDetailsView(name: person.name, id: person.id)
                 }
             }
 #if os(macOS)

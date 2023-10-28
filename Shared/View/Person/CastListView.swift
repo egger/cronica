@@ -55,10 +55,8 @@ struct CastListView: View {
     }
 }
 
-struct PersonListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CastListView(credits: Person.example)
-    }
+#Preview {
+    CastListView(credits: Person.example)
 }
 
 private struct DrawingConstants {

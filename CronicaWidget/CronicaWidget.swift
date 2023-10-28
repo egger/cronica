@@ -78,9 +78,7 @@ struct CronicaWidget: Widget {
     }
 }
 
-struct CronicaWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        CronicaWidgetEntryView(entry: ItemContentEntry(date: Date(), item: [ItemContent.placeholder]))
-            .previewContext(WidgetPreviewContext(family: .systemMedium))
-    }
+#Preview {
+    CronicaWidgetEntryView(entry: ItemContentEntry(date: Date(), item: [ItemContent.placeholder]))
+        .previewContext(WidgetPreviewContext(family: .systemMedium))
 }

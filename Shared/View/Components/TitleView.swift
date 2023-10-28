@@ -54,8 +54,6 @@ struct TitleView: View {
     }
 }
 
-struct TitleView_Previews: PreviewProvider {
-    static var previews: some View {
-        TitleView(title: "Coming Soon", subtitle: "From Watchlist")
-    }
+#Preview {
+    TitleView(title: "Coming Soon", subtitle: "From Watchlist")
 }

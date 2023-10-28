@@ -188,10 +188,8 @@ struct ItemContentCardView: View {
     }
 }
 
-struct CardFrame_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemContentCardView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
-    }
+#Preview {
+    ItemContentCardView(item: .example, showPopup: .constant(false), popupType: .constant(nil))
 }
 
 private struct DrawingConstants {

@@ -321,12 +321,10 @@ struct ItemContentDetails: View {
     }
 }
 
-struct ItemContentDetails_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            ItemContentDetails(title: ItemContent.example.itemTitle,
-                               id: ItemContent.example.id,
-                               type: .movie)
-        }
+#Preview {
+    NavigationStack {
+        ItemContentDetails(title: ItemContent.example.itemTitle,
+                           id: ItemContent.example.id,
+                           type: .movie)
     }
 }

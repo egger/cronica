@@ -82,7 +82,7 @@ struct CronicaApp: App {
                                                type: item.itemContentMedia)
                         }
                         .navigationDestination(for: Person.self) { person in
-                            PersonDetailsView(title: person.name, id: person.id)
+                            PersonDetailsView(name: person.name, id: person.id)
                         }
                         .navigationDestination(for: [String:[ItemContent]].self) { item in
                             let keys = item.map { (key, _) in key }
