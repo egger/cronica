@@ -25,7 +25,7 @@ struct DetailWatchlistButton: View {
                 update()
             }
         } label: {
-#if os(iOS)
+#if os(iOS) || os(watchOS)
             VStack {
                 Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
                     .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
@@ -35,8 +35,12 @@ struct DetailWatchlistButton: View {
                     .padding(.top, 2)
                     .font(.caption)
             }
+#if os(iOS)
             .padding(.vertical, 4)
             .frame(width: 75)
+#else
+            .padding(.vertical, 2)
+#endif
 #elseif os(macOS)
             Label(viewModel.isInWatchlist ? "Remove": "Add to watchlist",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")

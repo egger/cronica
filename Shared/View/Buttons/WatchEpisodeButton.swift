@@ -17,15 +17,11 @@ struct WatchEpisodeButton: View {
     @State private var isItemSaved = false
     var body: some View {
         Button(action: update) {
-#if os(iOS)
+#if os(iOS) || os(watchOS)
             VStack {
-                if #available(iOS 17, *) {
-                    Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
-                        .symbolEffect(isWatched ? .bounce.down : .bounce.up,
-                                      value: isWatched)
-                } else {
-                    Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
-                }
+                Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
+                    .symbolEffect(isWatched ? .bounce.down : .bounce.up,
+                                  value: isWatched)
                 Text("Watched")
                     .lineLimit(1)
                     .padding(.top, 2)

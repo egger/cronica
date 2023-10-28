@@ -211,12 +211,10 @@
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
 		B87F9D89286145600064947A /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D88286145600064947A /* ExploreViewModel.swift */; };
 		B8842C112A3BE18500B3BE34 /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
-		B88529AB28E35A9F0026D33A /* SeasonListViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529AA28E35A9F0026D33A /* SeasonListViewOld.swift */; };
 		B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
 		B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
 		B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */; };
 		B88529B128E371350026D33A /* EpisodeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529B028E371350026D33A /* EpisodeRow.swift */; };
-		B88529B328E371650026D33A /* EpisodeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529B228E371650026D33A /* EpisodeListView.swift */; };
 		B886D232284D512F00FFE96A /* ConfirmationPopupModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D231284D512F00FFE96A /* ConfirmationPopupModifier.swift */; };
 		B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
 		B88789D029F8844C00680FD3 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88789CF29F8844C00680FD3 /* ReviewView.swift */; };
@@ -559,10 +557,8 @@
 		B87D1B282A66128000EB6D14 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B87F746228064D3800E94126 /* BackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundManager.swift; sourceTree = "<group>"; };
 		B87F9D88286145600064947A /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
-		B88529AA28E35A9F0026D33A /* SeasonListViewOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonListViewOld.swift; sourceTree = "<group>"; };
 		B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
 		B88529B028E371350026D33A /* EpisodeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeRow.swift; sourceTree = "<group>"; };
-		B88529B228E371650026D33A /* EpisodeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListView.swift; sourceTree = "<group>"; };
 		B886D231284D512F00FFE96A /* ConfirmationPopupModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPopupModifier.swift; sourceTree = "<group>"; };
 		B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentContextMenu.swift; sourceTree = "<group>"; };
 		B88789CF29F8844C00680FD3 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
@@ -1031,8 +1027,6 @@
 			isa = PBXGroup;
 			children = (
 				B8B981EE29F433340001CF0B /* CustomListView.swift */,
-				B88529B228E371650026D33A /* EpisodeListView.swift */,
-				B88529AA28E35A9F0026D33A /* SeasonListViewOld.swift */,
 				B84403532A673C7A00D0AACF /* UpcomingListView.swift */,
 				B87D1B262A65E63700EB6D14 /* UpNextListView.swift */,
 			);
@@ -1797,12 +1791,10 @@
 				B818483829C286C300650763 /* UserDefaults-Extensions.swift in Sources */,
 				B8FCAE982AEDA38E00F688FE /* SeasonListView.swift in Sources */,
 				B81DD93629BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
-				B88529AB28E35A9F0026D33A /* SeasonListViewOld.swift in Sources */,
 				B8FB2A8629524D9A006DAC8E /* View-Extensions.swift in Sources */,
 				B8D7AEC928B961AD0053CE5A /* ReleaseDate.swift in Sources */,
 				B8B8A4272A6E29B600E5533F /* SyncSetting.swift in Sources */,
 				B84043C1289B18D700D5CEBF /* NetworkError.swift in Sources */,
-				B88529B328E371650026D33A /* EpisodeListView.swift in Sources */,
 				B82BE4E9299BFEF4005F9990 /* PersistenceController-CustomList.swift in Sources */,
 				B801070929F244DE008A4551 /* NewCustomListView.swift in Sources */,
 				B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */,

@@ -105,10 +105,6 @@ struct ItemContentView: View {
             if let seasons = viewModel.content?.itemSeasons {
                 SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
             }
-            //SeasonListView(numberOfSeasons: seasons, id: id)
-        }
-        .navigationDestination(for: Season.self) { season in
-            EpisodeListView(seasonNumber: season.seasonNumber, id: id)
         }
         .navigationDestination(for: [Int:Episode].self) { item in
             let keys = item.map { (key, _) in key }.first
@@ -126,8 +122,16 @@ struct ItemContentView: View {
         Button {
             viewModel.update(.watched)
         } label: {
-            Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+            VStack {
+                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                  value: viewModel.isWatched)
+                Text("Watched")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 2)
         }
         .buttonStyle(.borderedProminent)
     }
@@ -144,8 +148,16 @@ struct ItemContentView: View {
         Button {
             viewModel.update(.favorite)
         } label: {
-            Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                  systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
+            VStack {
+                Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                    .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                  value: viewModel.isFavorite)
+                Text("Favorite")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 2)
         }
         .buttonStyle(.borderedProminent)
     }
@@ -154,8 +166,16 @@ struct ItemContentView: View {
         Button {
             viewModel.update(.archive)
         } label: {
-            Label(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
-                  systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox")
+            VStack {
+                Image(systemName: viewModel.isArchive ? "archivebox.fill" : "archivebox")
+                    .symbolEffect(viewModel.isArchive ? .bounce.down : .bounce.up,
+                                  value: viewModel.isArchive)
+                Text("Archive")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 2)
         }
         .buttonStyle(.borderedProminent)
     }
@@ -164,8 +184,16 @@ struct ItemContentView: View {
         Button {
             viewModel.update(.pin)
         } label: {
-            Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
-                  systemImage: viewModel.isPin ? "pin.slash.fill" : "pin.fill")
+            VStack {
+                Image(systemName: viewModel.isPin ? "pin.fill" : "pin")
+                    .symbolEffect(viewModel.isPin ? .bounce.down : .bounce.up,
+                                  value: viewModel.isPin)
+                Text("Pin")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 2)
         }
         .buttonStyle(.borderedProminent)
     }
@@ -197,10 +225,9 @@ private struct DrawingConstants {
     static let lineLimit: Int = 1
 }
 
-//@available(watchOS 10, *)
-//#Preview {
-//    ItemContentView(id: ItemContent.example.id,
-//                    title: ItemContent.example.itemTitle,
-//                    type: ItemContent.example.itemContentMedia,
-//                    image: ItemContent.example.cardImageMedium)
-//}
+#Preview {
+    ItemContentView(id: ItemContent.example.id,
+                    title: ItemContent.example.itemTitle,
+                    type: ItemContent.example.itemContentMedia,
+                    image: ItemContent.example.cardImageMedium)
+}

@@ -57,6 +57,7 @@ struct EpisodeDetailsView: View {
                 
                 if let url = URL(string: "https://www.themoviedb.org/tv/\(show)/season/\(season)/episode/\(episode.itemEpisodeNumberDisplay)") {
                     ShareLink(item: url)
+                        .labelStyle(.iconOnly)
 						.padding(.horizontal)
                         .padding([.bottom, .horizontal])
                 }
