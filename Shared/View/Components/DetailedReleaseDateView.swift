@@ -47,31 +47,33 @@ struct DetailedReleaseDateView: View {
         .appTheme()
         .appTint()
     }
-    
+}
+
+extension DetailedReleaseDateView {
     private func load() {
         guard let item else { return }
-		if item.contains(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() }) {
-			guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() })
-			else { return }
-			let result = fetchDates(releaseDateRegion.releaseDates, region: Locale.userRegion)
-			guard let result else { return }
-			dates = result
-			isLoading = false
-		} else if item.contains(where: {$0.iso31661?.lowercased() == productionRegion.lowercased() }) {
-			guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == productionRegion.lowercased() })
-			else { return }
-			let result = fetchDates(releaseDateRegion.releaseDates, region: productionRegion)
-			guard let result else { return }
-			dates = result
-			isLoading = false
-		} else {
-			guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == "US".lowercased() })
-			else { return }
-			let result = fetchDates(releaseDateRegion.releaseDates, region: "US")
-			guard let result else { return }
-			dates = result
-			isLoading = false
-		}
+        if item.contains(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() }) {
+            guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == Locale.userRegion.lowercased() })
+            else { return }
+            let result = fetchDates(releaseDateRegion.releaseDates, region: Locale.userRegion)
+            guard let result else { return }
+            dates = result
+            isLoading = false
+        } else if item.contains(where: {$0.iso31661?.lowercased() == productionRegion.lowercased() }) {
+            guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == productionRegion.lowercased() })
+            else { return }
+            let result = fetchDates(releaseDateRegion.releaseDates, region: productionRegion)
+            guard let result else { return }
+            dates = result
+            isLoading = false
+        } else {
+            guard let releaseDateRegion = item.first(where: { $0.iso31661?.lowercased() == "US".lowercased() })
+            else { return }
+            let result = fetchDates(releaseDateRegion.releaseDates, region: "US")
+            guard let result else { return }
+            dates = result
+            isLoading = false
+        }
     }
     
     private func fetchDates(_ dates: [ReleaseDate]?, region: String?) -> [ReleaseDateDisplay]? {
@@ -87,14 +89,14 @@ struct DetailedReleaseDateView: View {
                         }
                     }
                 }
-				if type == ReleaseDateType.theatricalLimited.toInt {
-					let content = getReleaseDateType(for: date, type: ReleaseDateType.theatrical, region: region)
-					if let content {
-						if !result.contains(where: { $0.releaseType == .theatrical }) {
-							result.append(content)
-						}
-					}
-				}
+                if type == ReleaseDateType.theatricalLimited.toInt {
+                    let content = getReleaseDateType(for: date, type: ReleaseDateType.theatrical, region: region)
+                    if let content {
+                        if !result.contains(where: { $0.releaseType == .theatrical }) {
+                            result.append(content)
+                        }
+                    }
+                }
                 if type == ReleaseDateType.digital.toInt {
                     let content = getReleaseDateType(for: date, type: ReleaseDateType.digital, region: region)
                     if let content {
@@ -139,7 +141,7 @@ struct DetailedReleaseDateView: View {
         return String.releaseDateFormatter.date(from: release)
     }
     
-    func getLocalizedCountryNameFromISOCode(code: String?) -> String? {
+    private func getLocalizedCountryNameFromISOCode(code: String?) -> String? {
         guard let code else { return nil }
         guard let countryName = Locale.current.localizedString(forRegionCode: code) else {
             return nil

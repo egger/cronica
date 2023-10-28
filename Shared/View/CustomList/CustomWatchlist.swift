@@ -241,9 +241,6 @@ struct CustomWatchlist: View {
 #endif
     
     private var sortButton: some View {
-#if os(tvOS)
-        EmptyView()
-#else
         Menu {
             Picker(selection: $sortOrder) {
                 ForEach(WatchlistSortOrder.allCases) { item in
@@ -256,7 +253,6 @@ struct CustomWatchlist: View {
             Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
                 .labelStyle(.iconOnly)
         }
-#endif
     }
     
     private var filterPicker: some View {
@@ -268,19 +264,12 @@ struct CustomWatchlist: View {
     }
     
     private var noResults: some View {
-        CenterHorizontalView {
-            Text("No results")
-                .font(.headline)
-                .foregroundColor(.secondary)
-                .padding()
-        }
+        ContentUnavailableView("No results", systemImage: "popcorn")
+            .padding()
     }
     
     private var empty: some View {
-        Text("emptyList")
-            .multilineTextAlignment(.center)
-            .font(.headline)
-            .foregroundColor(.secondary)
+        ContentUnavailableView("emptyList", systemImage: "rectangle.on.rectangle")
             .padding()
     }
 }

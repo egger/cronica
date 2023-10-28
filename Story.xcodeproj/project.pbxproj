@@ -222,10 +222,8 @@
 		B88789D029F8844C00680FD3 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88789CF29F8844C00680FD3 /* ReviewView.swift */; };
 		B88789D229F8A44C00680FD3 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88789D129F8A44C00680FD3 /* RatingView.swift */; };
 		B887B0AC29EC149600E98DED /* WatchProviderSelectorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */; };
-		B88AA91B29DF588600F80EE4 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B88AA91A29DF588600F80EE4 /* SDWebImageSwiftUI */; };
 		B88AA92329DF781000F80EE4 /* MediaTypeFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */; };
 		B88B88C729DE55B500497058 /* AppAlternateIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88B88C629DE55B500497058 /* AppAlternateIcons.swift */; };
-		B88B88FE29DF194A00497058 /* CronicaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88B88FD29DF194A00497058 /* CronicaTests.swift */; };
 		B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57827FC999F006BE5E1 /* HeroImage.swift */; };
 		B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */; };
 		B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
@@ -373,6 +371,7 @@
 		B8FCAE882AED8AB000F688FE /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
 		B8FCAE892AED8C9300F688FE /* WatchlistSearchScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389ED128AB46E3003025BC /* WatchlistSearchScope.swift */; };
 		B8FCAE8A2AED8CA200F688FE /* FilmographyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */; };
+		B8FCAE922AED9CE300F688FE /* CronicaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FCAE912AED9CE300F688FE /* CronicaTests.swift */; };
 		B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */; };
 		B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
 		B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
@@ -387,19 +386,19 @@
 			remoteGlobalIDString = B806C4DD2899BE2800A5330E;
 			remoteInfo = "CronicaWatch Watch App";
 		};
-		B88B88FF29DF194A00497058 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B8110ED3279245D000844FEB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B8110EDE279245D100844FEB;
-			remoteInfo = "Story (iOS)";
-		};
 		B8D7AEB028B95F5F0053CE5A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B8110ED3279245D000844FEB /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B8D7AEA628B95F5D0053CE5A;
 			remoteInfo = CronicaWidgetExtension;
+		};
+		B8FCAE932AED9CE300F688FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8110ED3279245D000844FEB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8110EDE279245D100844FEB;
+			remoteInfo = "Story (iOS)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -570,7 +569,6 @@
 		B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviderSelectorSetting.swift; sourceTree = "<group>"; };
 		B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeFilters.swift; sourceTree = "<group>"; };
 		B88B88C629DE55B500497058 /* AppAlternateIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlternateIcons.swift; sourceTree = "<group>"; };
-		B88B88FB29DF194A00497058 /* CronicaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88B88FD29DF194A00497058 /* CronicaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTests.swift; sourceTree = "<group>"; };
 		B890C57827FC999F006BE5E1 /* HeroImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImage.swift; sourceTree = "<group>"; };
 		B890C57A27FCB54D006BE5E1 /* TrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerListView.swift; sourceTree = "<group>"; };
@@ -712,6 +710,8 @@
 		B8FB2A8829524FAD006DAC8E /* WatchlistPosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPosterSection.swift; sourceTree = "<group>"; };
 		B8FB2A8D29526341006DAC8E /* BehaviorSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviorSetting.swift; sourceTree = "<group>"; };
 		B8FB2A8F295263AB006DAC8E /* AboutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettings.swift; sourceTree = "<group>"; };
+		B8FCAE8F2AED9CE300F688FE /* CronicaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8FCAE912AED9CE300F688FE /* CronicaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTests.swift; sourceTree = "<group>"; };
 		B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonListView.swift; sourceTree = "<group>"; };
 		B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonViewModel.swift; sourceTree = "<group>"; };
 		B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
@@ -740,14 +740,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B88B88F829DF194A00497058 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B88AA91B29DF588600F80EE4 /* SDWebImageSwiftUI in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B8D7AEA428B95F5D0053CE5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -755,6 +747,13 @@
 				B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */,
 				B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */,
 				B8D7AEA828B95F5E0053CE5A /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8FCAE8C2AED9CE300F688FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -801,6 +800,7 @@
 				B806C4DF2899BE2800A5330E /* AppleWatch */,
 				B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */,
 				B88B88FC29DF194A00497058 /* CronicaTests */,
+				B8FCAE902AED9CE300F688FE /* CronicaTests */,
 				B8B271A227A59EF400F6463F /* Frameworks */,
 				B8110EE0279245D100844FEB /* Products */,
 				B8110ED7279245D000844FEB /* Shared */,
@@ -837,7 +837,7 @@
 				B8110EDF279245D100844FEB /* Cronica.app */,
 				B806C4DE2899BE2800A5330E /* Cronica.app */,
 				B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */,
-				B88B88FB29DF194A00497058 /* CronicaTests.xctest */,
+				B8FCAE8F2AED9CE300F688FE /* CronicaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1480,6 +1480,14 @@
 			path = WatchlistItem;
 			sourceTree = "<group>";
 		};
+		B8FCAE902AED9CE300F688FE /* CronicaTests */ = {
+			isa = PBXGroup;
+			children = (
+				B8FCAE912AED9CE300F688FE /* CronicaTests.swift */,
+			);
+			path = CronicaTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1530,27 +1538,6 @@
 			productReference = B8110EDF279245D100844FEB /* Cronica.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B88B88FA29DF194A00497058 /* CronicaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B88B890129DF194A00497058 /* Build configuration list for PBXNativeTarget "CronicaTests" */;
-			buildPhases = (
-				B88B88F729DF194A00497058 /* Sources */,
-				B88B88F829DF194A00497058 /* Frameworks */,
-				B88B88F929DF194A00497058 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B88B890029DF194A00497058 /* PBXTargetDependency */,
-			);
-			name = CronicaTests;
-			packageProductDependencies = (
-				B88AA91A29DF588600F80EE4 /* SDWebImageSwiftUI */,
-			);
-			productName = CronicaTests;
-			productReference = B88B88FB29DF194A00497058 /* CronicaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8D7AEB628B95F5F0053CE5A /* Build configuration list for PBXNativeTarget "CronicaWidgetExtension" */;
@@ -1571,6 +1558,24 @@
 			productReference = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		B8FCAE8E2AED9CE300F688FE /* CronicaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8FCAE952AED9CE300F688FE /* Build configuration list for PBXNativeTarget "CronicaTests" */;
+			buildPhases = (
+				B8FCAE8B2AED9CE300F688FE /* Sources */,
+				B8FCAE8C2AED9CE300F688FE /* Frameworks */,
+				B8FCAE8D2AED9CE300F688FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B8FCAE942AED9CE300F688FE /* PBXTargetDependency */,
+			);
+			name = CronicaTests;
+			productName = CronicaTests;
+			productReference = B8FCAE8F2AED9CE300F688FE /* CronicaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1578,7 +1583,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					B806C4DD2899BE2800A5330E = {
@@ -1587,12 +1592,12 @@
 					B8110EDE279245D100844FEB = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
-					B88B88FA29DF194A00497058 = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = B8110EDE279245D100844FEB;
-					};
 					B8D7AEA628B95F5D0053CE5A = {
 						CreatedOnToolsVersion = 14.0;
+					};
+					B8FCAE8E2AED9CE300F688FE = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = B8110EDE279245D100844FEB;
 					};
 				};
 			};
@@ -1631,7 +1636,7 @@
 				B8110EDE279245D100844FEB /* Story (iOS) */,
 				B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */,
 				B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */,
-				B88B88FA29DF194A00497058 /* CronicaTests */,
+				B8FCAE8E2AED9CE300F688FE /* CronicaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1665,13 +1670,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B88B88F929DF194A00497058 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B8D7AEA528B95F5D0053CE5A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1681,6 +1679,13 @@
 				B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */,
 				B8D7AEBC28B960420053CE5A /* Localizable.strings in Resources */,
 				B8F905C92A852D3F003A0CE1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8FCAE8D2AED9CE300F688FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2010,14 +2015,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B88B88F729DF194A00497058 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B88B88FE29DF194A00497058 /* CronicaTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B8D7AEA328B95F5D0053CE5A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2053,6 +2050,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8FCAE8B2AED9CE300F688FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8FCAE922AED9CE300F688FE /* CronicaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2062,16 +2067,16 @@
 			target = B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */;
 			targetProxy = B806C4E92899BE2900A5330E /* PBXContainerItemProxy */;
 		};
-		B88B890029DF194A00497058 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B8110EDE279245D100844FEB /* Story (iOS) */;
-			targetProxy = B88B88FF29DF194A00497058 /* PBXContainerItemProxy */;
-		};
 		B8D7AEB128B95F5F0053CE5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
 			target = B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */;
 			targetProxy = B8D7AEB028B95F5F0053CE5A /* PBXContainerItemProxy */;
+		};
+		B8FCAE942AED9CE300F688FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8110EDE279245D100844FEB /* Story (iOS) */;
+			targetProxy = B8FCAE932AED9CE300F688FE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2186,7 +2191,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.4;
+				MARKETING_VERSION = 2.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2219,7 +2224,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.4;
+				MARKETING_VERSION = 2.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2375,7 +2380,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
@@ -2392,7 +2397,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.6.4;
+				MARKETING_VERSION = 2.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2420,7 +2425,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
@@ -2437,7 +2442,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.6.4;
+				MARKETING_VERSION = 2.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
@@ -2450,54 +2455,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2,3,6";
 				TVOS_DEPLOYMENT_TARGET = 17.0;
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		B88B890229DF194A00497058 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2NF329R2JB;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cronica.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cronica";
-			};
-			name = Debug;
-		};
-		B88B890329DF194A00497058 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2NF329R2JB;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cronica.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cronica";
 			};
 			name = Release;
 		};
@@ -2516,7 +2473,7 @@
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CronicaWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2551,7 +2508,7 @@
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CronicaWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2568,6 +2525,52 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B8FCAE962AED9CE300F688FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cronica.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cronica";
+			};
+			name = Debug;
+		};
+		B8FCAE972AED9CE300F688FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2NF329R2JB;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.CronicaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cronica.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cronica";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2602,20 +2605,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B88B890129DF194A00497058 /* Build configuration list for PBXNativeTarget "CronicaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B88B890229DF194A00497058 /* Debug */,
-				B88B890329DF194A00497058 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		B8D7AEB628B95F5F0053CE5A /* Build configuration list for PBXNativeTarget "CronicaWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8D7AEB428B95F5F0053CE5A /* Debug */,
 				B8D7AEB528B95F5F0053CE5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8FCAE952AED9CE300F688FE /* Build configuration list for PBXNativeTarget "CronicaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8FCAE962AED9CE300F688FE /* Debug */,
+				B8FCAE972AED9CE300F688FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2664,11 +2667,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
 			productName = TelemetryClient;
-		};
-		B88AA91A29DF588600F80EE4 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
 		};
 		B8C0C67E28A92FF0009F4593 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;
