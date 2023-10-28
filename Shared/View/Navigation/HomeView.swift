@@ -1,6 +1,6 @@
 //
 //  HomeView.swift
-//  Cronica
+//  Story
 //
 //  Created by Alexandre Madeira on 10/02/22.
 //
@@ -27,13 +27,12 @@ struct HomeView: View {
     @AppStorage("askedForReview") var askedForReview = false
     @State private var showReviewBanner = false
     @State private var showSettings = false
-    @Environment(\.requestReview) var requestReview
 #endif
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
 #if os(iOS)
-                if showReviewBanner { reviewAppBanner.unredacted() }
+                if showReviewBanner { ReviewAppBanner(showView: $showReviewBanner).unredacted() }
 #endif
                 HorizontalUpNextListView(shouldReload: $reloadHome)
                 UpcomingWatchlist(shouldReload: $reloadHome)
@@ -58,13 +57,6 @@ struct HomeView: View {
                                               showPopup: $showPopup,
                                               popupType: $popupType)
                 .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
-                HorizontalItemContentListView(items: viewModel.yearMovies,
-                                              title: "Coming Next Year",
-                                              subtitle: "2024's Movies",
-                                              showPopup: $showPopup,
-                                              popupType: $popupType,
-                                              displayAsCard: false,
-                                              endpoint: nil)
                 AttributionView()
             }
 #if os(iOS)
@@ -234,12 +226,12 @@ struct HomeView: View {
 #if os(iOS) || os(macOS)
             NotificationListView(showNotification: $showNotifications)
                 .appTheme()
-				.onDisappear {
-					Task {
-						let notifications = await NotificationManager.shared.hasDeliveredItems()
-						hasNotifications = notifications
-					}
-				}
+                .onDisappear {
+                    Task {
+                        let notifications = await NotificationManager.shared.hasDeliveredItems()
+                        hasNotifications = notifications
+                    }
+                }
 #if os(macOS)
                 .frame(width: 800, height: 500)
 #endif
@@ -265,7 +257,7 @@ struct HomeView: View {
     
 #if os(iOS)
     private func checkAskForReview() {
-        if launchCount < 20 {
+        if launchCount < 30 {
             launchCount += 1
         } else {
             if !askedForReview {
@@ -274,8 +266,20 @@ struct HomeView: View {
             askedForReview = true
         }
     }
-    
-    private var reviewAppBanner: some View {
+#endif
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
+}
+
+#if os(iOS)
+struct ReviewAppBanner: View {
+    @Environment(\.requestReview) var requestReview
+    @Binding var showView: Bool
+    var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text("callToReviewTitle")
@@ -299,7 +303,7 @@ struct HomeView: View {
             Spacer()
             VStack {
                 Button {
-                    withAnimation { showReviewBanner = false }
+                    withAnimation { showView = false }
                 } label: {
                     Label("dismissReviewCall", systemImage: "xmark")
                         .labelStyle(.iconOnly)
@@ -311,9 +315,5 @@ struct HomeView: View {
             .padding(.trailing)
         }.padding(.vertical)
     }
+}
 #endif
-}
-
-#Preview {
-    HomeView()
-}
