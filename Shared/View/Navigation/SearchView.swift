@@ -25,9 +25,6 @@ struct SearchView: View {
                             .environmentObject(viewModel)
                         Spacer()
                     }
-                    .task {
-                        await viewModel.loadTrendingKeywords()
-                    }
                 }
             case .searching:
                 ProgressView("Searching")

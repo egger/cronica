@@ -1,6 +1,6 @@
 //
 //  EndpointDetails.swift
-//  CronicaMac
+//  Cronica
 //
 //  Created by Alexandre Madeira on 26/11/22.
 //
@@ -10,30 +10,37 @@ import SwiftUI
 struct EndpointDetails: View {
     let title: String
     var endpoint: Endpoints?
-    @StateObject private var viewModel = EndpointDetailsViewModel()
     @StateObject private var settings = SettingsStore.shared
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
+    
+    @State private var items = [ItemContent]()
+    @State private var page = 1
+    @State private var startPagination: Bool = false
+    @State private var endPagination: Bool = false
+    @State private var isLoading = true
     var body: some View {
         VStack {
 #if os(tvOS)
-			cardStyle
+            cardStyle
 #else
-			switch settings.sectionStyleType {
-			case .list: listStyle
-			case .card: cardStyle
-			case .poster: ScrollView { posterStyle }
-			}
+            switch settings.sectionStyleType {
+            case .list: listStyle
+            case .card: cardStyle
+            case .poster: ScrollView { posterStyle }
+            }
 #endif
         }
         .overlay {
-            if viewModel.isLoading { ProgressView() }
+            if isLoading { ProgressView() }
+            else if !isLoading && items.isEmpty {
+                ContentUnavailableView("Nothing here, try again later.",
+                                       systemImage: "popcorn")
+            }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
         .task {
-            if let endpoint {
-                await viewModel.loadMoreItems(for: endpoint)
-            }
+            await loadMoreItems(for: endpoint)
         }
         .navigationTitle(LocalizedStringKey(title))
         .toolbar {
@@ -48,7 +55,6 @@ struct EndpointDetails: View {
 #endif
     }
     
-#if os(iOS) || os(macOS)
     private var styleOptions: some View {
         Menu {
             Picker(selection: $settings.sectionStyleType) {
@@ -58,30 +64,28 @@ struct EndpointDetails: View {
             } label: {
                 Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
             }
+            .pickerStyle(.menu)
         } label: {
             Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }
-#endif
     
     private var listStyle: some View {
         Form {
             Section {
                 List {
-                    ForEach(viewModel.items) { item in
+                    ForEach(items) { item in
                         ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                     }
-                    if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
+                    if endpoint != nil && !endPagination && !isLoading {
                         CenterHorizontalView {
                             ProgressView("Loading")
                                 .padding()
                                 .onAppear {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                         Task {
-                                            if let endpoint {
-                                                await viewModel.loadMoreItems(for: endpoint)
-                                            }
+                                            await loadMoreItems(for: endpoint)
                                         }
                                     }
                                 }
@@ -94,21 +98,19 @@ struct EndpointDetails: View {
     
     private var cardStyle: some View {
         ScrollView {
-            LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                ForEach(viewModel.items) { item in
+            LazyVGrid(columns: DrawingConstants.cardColumns, spacing: 20) {
+                ForEach(items) { item in
                     ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
                         .buttonStyle(.plain)
                 }
-                if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
+                if endpoint != nil && !endPagination && !isLoading {
                     CenterHorizontalView {
                         ProgressView()
                             .padding()
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                     Task {
-                                        if let endpoint {
-                                            await viewModel.loadMoreItems(for: endpoint)
-                                        }
+                                        await loadMoreItems(for: endpoint)
                                     }
                                 }
                             }
@@ -118,67 +120,70 @@ struct EndpointDetails: View {
             .padding()
         }
     }
-	#if !os(tvOS)
+    
     private var posterStyle: some View {
-#if os(iOS)
-        LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.columns,
+        LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? 10 : 20) {
-            ForEach(viewModel.items) { item in
+            ForEach(items) { item in
                 ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
             }
-            if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
+            if endpoint != nil && !endPagination && !isLoading {
                 CenterHorizontalView {
                     ProgressView()
                         .padding()
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                 Task {
-                                    if let endpoint {
-                                        await viewModel.loadMoreItems(for: endpoint)
-                                    }
+                                    await loadMoreItems(for: endpoint)
                                 }
                             }
                         }
                 }
             }
-        }.padding(.all, settings.isCompactUI ? 10 : nil)
-#elseif os(macOS)
-        LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
-            ForEach(viewModel.items) { item in
-                ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
-                    .buttonStyle(.plain)
-            }
-            if endpoint != nil && !viewModel.endPagination && !viewModel.isLoading {
-                CenterHorizontalView {
-                    ProgressView()
-                        .padding()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                Task {
-                                    if let endpoint {
-                                        await viewModel.loadMoreItems(for: endpoint)
-                                    }
-                                }
-                            }
-                        }
-                }
-            }
-        }.padding()
+        }
+#if os(iOS)
+                  .padding(.all, settings.isCompactUI ? 10 : nil)
+#else
+                  .padding()
 #endif
     }
-	#endif
+}
+
+#Preview {
+    EndpointDetails(title: "Preview", endpoint: .nowPlaying)
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(tvOS)
-    static let columns = [GridItem(.adaptive(minimum: 240))]
+#if os(iOS)
+    static let cardColumns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
 #else
-    static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
+    static let cardColumns = [GridItem(.adaptive(minimum: 240))]
+    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
 #endif
     static let compactColumns = [GridItem(.adaptive(minimum: 80))]
-#if os(macOS)
-    static let posterColumns = [GridItem(.adaptive(minimum: 160))]
-    static let cardColumns = [GridItem(.adaptive(minimum: 240))]
-#endif
+}
+
+extension EndpointDetails {
+    private func loadMoreItems(for endpoint: Endpoints?) async {
+        guard let endpoint else { return }
+        do {
+            let result = try await NetworkService.shared.fetchItems(from: "\(endpoint.type.rawValue)/\(endpoint.rawValue)", page: String(page))
+            let filtered = result.filter { $0.backdropPath != nil && $0.posterPath != nil }
+            for item in filtered {
+                if !items.contains(item) {
+                    items.append(item)
+                }
+            }
+            if !items.isEmpty {
+                page += 1
+                startPagination = false
+            }
+            if result.isEmpty { endPagination = true }
+            withAnimation { isLoading = false }
+        } catch {
+            if Task.isCancelled { return }
+        }
+    }
 }

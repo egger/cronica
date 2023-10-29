@@ -18,25 +18,6 @@ import SwiftUI
     @Published var items = [SearchItemContent]()
     @Published var startPagination: Bool = false
     @Published var endPagination: Bool = false
-	@Published var trendingPeople = [Person]()
-	@Published var isLoadingTrendingPeople = true
-	private var keywords: [CombinedKeywords] = [
-		.init(id: 210024, name: NSLocalizedString("Anime", comment: ""), image: nil),
-		.init(id: 41645, name: NSLocalizedString("Based on Video-Game", comment: ""), image: nil),
-		.init(id: 9715, name: NSLocalizedString("Superhero", comment: ""), image: nil),
-		.init(id: 9799, name: NSLocalizedString("Romantic Comedy", comment: ""), image: nil),
-		.init(id: 9672, name: NSLocalizedString("Based on true story", comment: ""), image: nil),
-		.init(id: 256183, name: NSLocalizedString("Supernatural Horror", comment: ""), image: nil),
-		.init(id: 10349, name: NSLocalizedString("Survival", comment: ""), image: nil),
-		.init(id: 9882, name: NSLocalizedString("Space", comment: ""), image: nil),
-		.init(id: 818, name: NSLocalizedString("Based on novel or book", comment: ""), image: nil),
-		.init(id: 9951, name: NSLocalizedString("Alien", comment: ""), image: nil),
-		.init(id: 189402, name: NSLocalizedString("Crime Investigation", comment: ""), image: nil),
-		.init(id: 161184, name: NSLocalizedString("Reboot", comment: ""), image: nil),
-		.init(id: 15285, name: NSLocalizedString("Spin off", comment: ""), image: nil)
-	]
-	@Published var trendingKeywords = [CombinedKeywords]()
-	@Published var isLoadingTrendingKeywords = true
     @Published var stage: SearchStage = .none
     
     func search(_ query: String) async {
@@ -102,42 +83,6 @@ import SwiftUI
             self.page += 1
         }
     }
-	
-	func loadTrendingPeople() async {
-		if trendingPeople.isEmpty {
-			do {
-				let result = try await service.fetchPersons(from: "trending/person/week")
-				let filtered = result.filter { $0.profilePath != nil && $0.isAdult == false }
-				trendingPeople = filtered
-				isLoadingTrendingPeople = false
-			} catch {
-				if Task.isCancelled { return }
-				let message = "Can't load trending/person/week, error: \(error.localizedDescription)"
-				CronicaTelemetry.shared.handleMessage(message, for: "SearchViewModel.loadTrendingPeople()")
-			}
-		}
-	}
-	
-	func loadTrendingKeywords() async {
-		if trendingKeywords.isEmpty {
-			for item in keywords.sorted(by: { $0.name < $1.name}) {
-				let itemFromKeyword = try? await service.fetchKeyword(type: .movie,
-																	  page: 1,
-																	  keywords: item.id,
-																	  sortBy: TMDBSortBy.popularity.rawValue)
-				var url: URL?
-				if let firstItem = itemFromKeyword?.first {
-					url = firstItem.cardImageMedium
-				}
-				let content: CombinedKeywords = .init(id: item.id, name: item.name, image: url)
-				trendingKeywords.append(content)
-			}
-			withAnimation {
-				isLoadingTrendingKeywords = false
-			}
-		}
-	}
-	
 	
     private func filter(for items: [SearchItemContent]) async -> [SearchItemContent] {
         var result = [SearchItemContent]()
