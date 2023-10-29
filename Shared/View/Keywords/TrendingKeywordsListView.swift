@@ -9,7 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TrendingKeywordsListView: View {
-	@EnvironmentObject var viewModel: SearchViewModel
     @State private var trendingKeywords = [CombinedKeywords]()
     @State private var isLoading = true
 	private let columns = [GridItem(.adaptive(minimum: 160))]
@@ -112,4 +111,10 @@ extension TrendingKeywordsListView {
             }
         }
     }
+}
+
+struct CombinedKeywords: Identifiable, Hashable {
+    let id: Int
+    let name: String
+    let image: URL?
 }

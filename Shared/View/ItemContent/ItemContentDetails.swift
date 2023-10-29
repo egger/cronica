@@ -12,7 +12,7 @@ struct ItemContentDetails: View {
     var title: String
     var id: Int
     var type: MediaType
-    @StateObject private var viewModel: ItemContentViewModel
+    @StateObject private var viewModel = ItemContentViewModel()
     @StateObject private var store = SettingsStore.shared
     @State private var showPopup = false
     @State private var showSeasonConfirmation = false
@@ -20,18 +20,7 @@ struct ItemContentDetails: View {
     @State private var showCustomList = false
     @State private var showUserNotes = false
     @State private var popupType: ActionPopupItems?
-#if os(macOS)
-    var handleToolbarOnPopup: Bool = false
-#endif
-    init(title: String, id: Int, type: MediaType, handleToolbar: Bool = false) {
-        _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
-        self.title = title
-        self.id = id
-        self.type = type
-#if os(macOS)
-        self.handleToolbarOnPopup = handleToolbar
-#endif
-    }
+    var handleToolbar = false
     var body: some View {
         ZStack {
             ScrollView {
@@ -42,7 +31,7 @@ struct ItemContentDetails: View {
                 .environmentObject(viewModel)
                 .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
                 .toolbar {
-                    if handleToolbarOnPopup {
+                    if handleToolbar {
                         ToolbarItem(placement: .status) {
 							HStack {
 								if viewModel.isInWatchlist {
@@ -123,7 +112,7 @@ struct ItemContentDetails: View {
                 TranslucentBackground(image: viewModel.showPoster ? viewModel.content?.posterImageLarge : viewModel.content?.cardImageLarge)
             }
             .task {
-                await viewModel.load()
+                await viewModel.load(id: id, type: type)
                 viewModel.registerNotification()
                 viewModel.checkIfAdded()
             }
@@ -131,7 +120,7 @@ struct ItemContentDetails: View {
             .redacted(reason: viewModel.isLoading ? .placeholder : [])
             .alert("Error", isPresented: $viewModel.showErrorAlert) {
                 Button("Cancel") { }
-                Button("Retry") { Task { await viewModel.load() } }
+                Button("Retry") { Task { await viewModel.load(id: id, type: type) } }
             } message: {
                 Text(viewModel.errorMessage)
             }

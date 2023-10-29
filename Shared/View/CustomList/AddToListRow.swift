@@ -62,7 +62,9 @@ struct TMDBAddToListRow: View {
         }
         .onAppear { isItemInList() }
     }
-    
+}
+
+extension TMDBAddToListRow {
     private func updateItemOnList() async {
         guard let item else { return }
         let content = [TMDBItemContent(media_type: item.itemMedia.rawValue, media_id: item.itemId)]

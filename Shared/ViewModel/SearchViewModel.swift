@@ -105,14 +105,3 @@ import SwiftUI
     }
 }
 
-enum SearchStage: String {
-    var id: String { rawValue }
-    case none, failure, empty, success, searching
-}
-
-struct CombinedKeywords: Identifiable, Hashable {
-	let id: Int
-	let name: String
-	let image: URL?
-}
-

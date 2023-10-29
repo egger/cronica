@@ -128,6 +128,7 @@ struct PersonCardView: View {
         .frame(width: 200)
 #endif
     }
+    
     private var name: some View {
         VStack {
             Spacer()

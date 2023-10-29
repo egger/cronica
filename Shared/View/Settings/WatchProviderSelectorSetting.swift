@@ -1,6 +1,6 @@
 //
 //  WatchProviderSelectorSetting.swift
-//  Cronica (iOS)
+//  Cronica
 //
 //  Created by Alexandre Madeira on 16/04/23.
 //
@@ -18,24 +18,24 @@ struct WatchProviderSelectorSetting: View {
     var body: some View {
         Form {
             Toggle(isOn: $settings.isSelectedWatchProviderEnabled) {
-				VStack(alignment: .leading) {
-					Text("selectedWatchProviderTitle")
-					Text("selectedWatchProviderSubtitle")
-						.foregroundColor(.secondary)
-				}
+                VStack(alignment: .leading) {
+                    Text("selectedWatchProviderTitle")
+                    Text("selectedWatchProviderSubtitle")
+                        .foregroundColor(.secondary)
+                }
             }
             if settings.isSelectedWatchProviderEnabled {
                 Section {
                     List(providers, id: \.itemID) { item in
                         WatchProviderItemSelector(item: item)
                     }
-					if providers.isEmpty {
-						Text("Try Again Later")
-							.font(.title2)
-							.fontWeight(.semibold)
-							.multilineTextAlignment(.center)
-							.foregroundColor(.secondary)
-					}
+                    if providers.isEmpty {
+                        Text("Try Again Later")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 .redacted(reason: isLoading ? .placeholder : [])
             }
@@ -85,7 +85,11 @@ struct WatchProviderSelectorSetting: View {
 }
 
 #Preview {
+#if !os(macOS)
     WatchProviderSelectorSetting()
+#else
+    WatchProviderSelectorSetting(showView: .constant(true))
+#endif
 }
 
 private struct WatchProviderItemSelector: View {

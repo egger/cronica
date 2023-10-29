@@ -25,23 +25,20 @@ struct CustomWatchlist: View {
     @Binding var popupType: ActionPopupItems?
     @AppStorage("customListSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
     private var sortedItems: [WatchlistItem] {
-        if let items = selectedList?.itemsArray {
-            switch sortOrder {
-            case .titleAsc:
-                return items.sorted { $0.itemTitle < $1.itemTitle }
-            case .titleDesc:
-                return items.sorted { $0.itemTitle > $1.itemTitle }
-            case .ratingAsc:
-                return items.sorted { $0.userRating < $1.userRating }
-            case .ratingDesc:
-                return items.sorted { $0.userRating > $1.userRating }
-            case .dateAsc:
-                return items.sorted { $0.itemSortDate < $1.itemSortDate }
-            case .dateDesc:
-                return items.sorted { $0.itemSortDate > $1.itemSortDate }
-            }
-        } else {
-            return []
+        guard let items = selectedList?.itemsArray else { return [] }
+        switch sortOrder {
+        case .titleAsc:
+            return items.sorted { $0.itemTitle < $1.itemTitle }
+        case .titleDesc:
+            return items.sorted { $0.itemTitle > $1.itemTitle }
+        case .ratingAsc:
+            return items.sorted { $0.userRating < $1.userRating }
+        case .ratingDesc:
+            return items.sorted { $0.userRating > $1.userRating }
+        case .dateAsc:
+            return items.sorted { $0.itemSortDate < $1.itemSortDate }
+        case .dateDesc:
+            return items.sorted { $0.itemSortDate > $1.itemSortDate }
         }
     }
     private var smartFiltersItems: [WatchlistItem] {
@@ -223,7 +220,6 @@ struct CustomWatchlist: View {
 #endif
     }
     
-#if os(iOS) || os(macOS)
     private var styleButton: some View {
         Menu {
             Picker(selection: $settings.watchlistStyle) {
@@ -238,7 +234,6 @@ struct CustomWatchlist: View {
                 .labelStyle(.iconOnly)
         }
     }
-#endif
     
     private var sortButton: some View {
         Menu {

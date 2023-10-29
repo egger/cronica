@@ -11,20 +11,13 @@ import SDWebImageSwiftUI
 struct ItemContentView: View {
     let id: Int
     let title: String
-    let image: URL?
 	let type: MediaType
-    @StateObject private var viewModel: ItemContentViewModel
+    let image: URL?
+    @StateObject private var viewModel = ItemContentViewModel()
     @State private var showCustomListSheet = false
     @State private var showMoreOptions = false
     @State private var isWatched = false
 	@StateObject private var store = SettingsStore.shared
-    init(id: Int, title: String, type: MediaType, image: URL?) {
-        self.id = id
-        self.title = title
-		self.type = type
-        self.image = image
-        _viewModel = StateObject(wrappedValue: ItemContentViewModel(id: id, type: type))
-    }
     var body: some View {
         VStack {
             ScrollView {
@@ -87,7 +80,7 @@ struct ItemContentView: View {
                 AttributionView()
             }
         }
-        .task { await viewModel.load() }
+        .task { await viewModel.load(id: id, type: type) }
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.large)
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
