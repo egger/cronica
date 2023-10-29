@@ -30,7 +30,8 @@ struct TMDBListDetails: View {
             if !isDeleted {
                 Section {
                     if items.isEmpty {
-                        Text("Empty List")
+                        ContentUnavailableView("Empty List",
+                                               systemImage: "rectangle.on.rectangle")
                     } else {
                         ForEach(items) { item in
                             ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
@@ -61,10 +62,7 @@ struct TMDBListDetails: View {
         .overlay {
             if isDeleted {
                 VStack {
-                    Text("listDeleted")
-                        .font(.title3)
-                        .fontDesign(.rounded)
-                        .foregroundColor(.secondary)
+                    ContentUnavailableView("listDeleted", systemImage: "trash")
                 }
             }
         }
@@ -93,6 +91,19 @@ struct TMDBListDetails: View {
 #endif
     }
     
+    
+    private var deleteButton: some View {
+        Button(role: .destructive) {
+            deleteConfirmation.toggle()
+        } label: {
+            Text("deleteList")
+                .foregroundColor(.red)
+        }
+    }
+}
+
+extension TMDBListDetails {
+    @MainActor
     private func load() async {
         detailedList = await viewModel.fetchListDetails(for: list.id, page: page)
         guard let detailedList else { return }
@@ -113,15 +124,7 @@ struct TMDBListDetails: View {
         }
     }
     
-    private var deleteButton: some View {
-        Button(role: .destructive) {
-            deleteConfirmation.toggle()
-        } label: {
-            Text("deleteList")
-                .foregroundColor(.red)
-        }
-    }
-    
+    @MainActor
     private func delete() {
         Task {
             let deletionStatus = await viewModel.deleteList(list.id)

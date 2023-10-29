@@ -23,9 +23,8 @@ struct UpNextListView: View {
         NavigationStack {
             VStack {
                 if items.isEmpty {
-                    Text("Mark some episodes as watched to use Up Next.")
-                        .font(.callout)
-                        .foregroundColor(.secondary)
+                    ContentUnavailableView("Your episodes will appear here.",
+                                           systemImage: "tv")
                 } else {
                     List {
                         ForEach(viewModel.episodes) { episode in
@@ -56,7 +55,7 @@ struct UpNextListView: View {
                         await viewModel.load(items)
                         await viewModel.checkForNewEpisodes(items)
                     }
-                    .sheet(item: $selectedEpisode) { item in
+                    .navigationDestination(item: $selectedEpisode) { item in
                         NavigationStack {
                             EpisodeDetailsView(episode: item.episode,
                                                season: item.episode.itemSeasonNumber,
@@ -75,7 +74,7 @@ struct UpNextListView: View {
                 }
             }
             .navigationTitle("upNext")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

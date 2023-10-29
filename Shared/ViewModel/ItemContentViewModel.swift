@@ -15,21 +15,21 @@ class ItemContentViewModel: ObservableObject {
     private let persistence = PersistenceController.shared
     private var id: ItemContent.ID
     private var type: MediaType
-    @Published var content: ItemContent?
-    @Published var recommendations = [ItemContent]()
-    @Published var trailers = [VideoItem]()
-    @Published var credits = [Person]()
-    @Published var errorMessage = "Something went wrong, try again later."
+    @Published private(set) var content: ItemContent?
+    @Published private(set) var recommendations = [ItemContent]()
+    @Published private(set) var trailers = [VideoItem]()
+    @Published private(set) var credits = [Person]()
+    @Published private(set) var errorMessage = "Something went wrong, try again later."
     @Published var showErrorAlert = false
     @Published var isInWatchlist = false
-    @Published var isWatched = false
-    @Published var isFavorite = false
-    @Published var isArchive = false
-    @Published var isPin = false
-    @Published var isLoading = true
-    @Published var showMarkAsButton = false
-    @Published var isItemAddedToAnyList = false
-    @Published var showPoster = false
+    @Published private(set) var isWatched = false
+    @Published private(set) var isFavorite = false
+    @Published private(set) var isArchive = false
+    @Published private(set) var isPin = false
+    @Published private(set) var isLoading = true
+    @Published private(set) var showMarkAsButton = false
+    @Published private(set) var isItemAddedToAnyList = false
+    @Published private(set) var showPoster = false
     private var isNotificationAvailable = false
     private var hasNotificationScheduled = false
     init(id: ItemContent.ID, type: MediaType) {

@@ -216,16 +216,6 @@ struct EpisodeDetailsView: View {
         }
     }
 #endif
-    
-    private func load() {
-        isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
-    }
-    
-    private func checkIfItemIsSaved() {
-        let contentId = "\(show)@\(MediaType.tvShow.toInt)"
-        let isShowSaved = persistence.isItemSaved(id: contentId)
-        isInWatchlist = isShowSaved
-    }
 }
 
 private struct DrawingConstants {
@@ -237,4 +227,16 @@ private struct DrawingConstants {
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 12
+}
+
+extension EpisodeDetailsView {
+    private func load() {
+        isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
+    }
+    
+    private func checkIfItemIsSaved() {
+        let contentId = "\(show)@\(MediaType.tvShow.toInt)"
+        let isShowSaved = persistence.isItemSaved(id: contentId)
+        isInWatchlist = isShowSaved
+    }
 }

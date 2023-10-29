@@ -31,7 +31,7 @@ struct ItemContentTVView: View {
                 header
                     .padding(.bottom)
                 if let seasons = viewModel.content?.itemSeasons {
-                    SeasonList(
+                    SeasonListView(
                         showID: id,
                         showTitle: title,
                         numberOfSeasons: seasons,

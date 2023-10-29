@@ -46,7 +46,7 @@ struct TrendingPeopleListView: View {
 							.frame(width: 80)
 							.padding([.leading, .trailing], 4)
 							.padding(.leading, people.id == viewModel.trendingPeople.first?.id ? 16 : 0)
-							.padding(.trailing, people.id == viewModel.trendingPeople.last!.id ? 16 : 0)
+							.padding(.trailing, people.id == viewModel.trendingPeople.last?.id ? 16 : 0)
 							.padding(.top, 8)
 							.padding(.bottom)
 						}

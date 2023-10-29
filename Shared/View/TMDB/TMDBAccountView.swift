@@ -37,7 +37,9 @@ struct TMDBAccountView: View {
     
     private var accountButton: some View {
         Button(role: userIsLoggedIn ? .destructive : nil) {
-            userIsLoggedIn ? SignOut() : SignIn()
+            Task {
+                userIsLoggedIn ? SignOut() : await SignIn()
+            }
         } label: {
 			accountLabel(title: "connectedAccountTMDB",
                                subtitle: userIsLoggedIn ? "AccountSettingsViewSignOut" : "AccountSettingsViewSignIn",
@@ -63,24 +65,23 @@ struct TMDBAccountView: View {
 		}
 	}
     
-    private func SignIn() {
-        Task {
-            do {
-                await MainActor.run { withAnimation { self.isFetching = true } }
-                let url = await viewModel.requestToken()
-                guard let url else { return }
-                let _ = try await webAuthenticationSession.authenticate(using: url,
-                                                                        callbackURLScheme: "cronica",
-                                                                        preferredBrowserSession: .shared)
-                try await viewModel.requestAccess()
-                await viewModel.createV3Session()
-                await MainActor.run { withAnimation { self.isFetching = false } }
-                await MainActor.run { withAnimation { self.userIsLoggedIn = true } }
-            } catch {
-                if Task.isCancelled { return }
-                CronicaTelemetry.shared.handleMessage("Failed to SignIn", for: "AccountSettings.failed")
-                await MainActor.run { withAnimation { self.isFetching = false } }
-            }
+    @MainActor
+    private func SignIn() async {
+        do {
+            await MainActor.run { withAnimation { self.isFetching = true } }
+            let url = await viewModel.requestToken()
+            guard let url else { return }
+            let _ = try await webAuthenticationSession.authenticate(using: url,
+                                                                    callbackURLScheme: "cronica",
+                                                                    preferredBrowserSession: .shared)
+            try await viewModel.requestAccess()
+            await viewModel.createV3Session()
+            await MainActor.run { withAnimation { self.isFetching = false } }
+            await MainActor.run { withAnimation { self.userIsLoggedIn = true } }
+        } catch {
+            if Task.isCancelled { return }
+            CronicaTelemetry.shared.handleMessage("Failed to SignIn", for: "AccountSettings.failed")
+            await MainActor.run { withAnimation { self.isFetching = false } }
         }
     }
     

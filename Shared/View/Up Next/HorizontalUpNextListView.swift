@@ -44,7 +44,7 @@ struct HorizontalUpNextListView: View {
                                     UpNextCard(item: item, selectedEpisode: $selectedEpisode)
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == viewModel.episodes.first?.id ? 64 : 0)
-                                        .padding(.trailing, item.id == viewModel.episodes.last!.id ? 64 : 0)
+                                        .padding(.trailing, item.id == viewModel.episodes.last?.id ? 64 : 0)
                                         .padding(.top, 8)
                                         .padding(.bottom)
                                         .buttonStyle(.card)
@@ -62,7 +62,7 @@ struct HorizontalUpNextListView: View {
                                             }
                                             .padding([.leading, .trailing], 4)
                                             .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
-                                            .padding(.trailing, item.id == viewModel.episodes.last!.id ? 16 : 0)
+                                            .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : 0)
                                             .padding(.top, 8)
                                             .padding(.bottom)
                                             .onTapGesture {
@@ -107,7 +107,7 @@ struct HorizontalUpNextListView: View {
                                         }
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
-                                        .padding(.trailing, item.id == viewModel.episodes.last!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : 0)
                                         .padding(.top, 8)
                                         .padding(.bottom)
                                         .onTapGesture {

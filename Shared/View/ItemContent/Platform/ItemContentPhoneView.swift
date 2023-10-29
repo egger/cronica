@@ -33,7 +33,7 @@ struct ItemContentPhoneView: View {
                             title: title).padding()
             
             if let seasons = viewModel.content?.itemSeasons {
-                SeasonList(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
+                SeasonListView(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
                     .padding([.top, .horizontal], .zero)
                     .padding(.bottom)
             }

@@ -43,13 +43,12 @@ struct UpcomingListView: View {
                     }
                 }
             } else {
-                Text("Your upcoming items will appear here.")
-                    .font(.title3)
-                    .foregroundColor(.secondary)
+                ContentUnavailableView("Your upcoming items will appear here.",
+                                       systemImage: "popcorn")
             }
         }
         .navigationTitle("Upcoming")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: WatchlistItem.self) { item in
             ItemContentView(id: item.itemId,
                             title: item.itemTitle,

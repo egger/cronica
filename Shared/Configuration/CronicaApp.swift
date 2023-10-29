@@ -35,7 +35,6 @@ struct CronicaApp: App {
             ContentView()
 #if os(macOS)
 				.frame(minWidth: 1000, minHeight: 600)
-				.onDisappear(perform: terminateApp)
 #endif
                 .environment(\.managedObjectContext, persistence.container.viewContext)
 #if os(iOS)
@@ -143,7 +142,7 @@ struct CronicaApp: App {
         guard let contentIDNumber = Int(contentID) else { return }
         let item = try? await NetworkService.shared.fetchItem(id: contentIDNumber, type: media)
         guard let item else { return }
-        selectedItem = item
+        self.selectedItem = item
     }
     
     private func registerRefreshBGTask() {

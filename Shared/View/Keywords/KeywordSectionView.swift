@@ -9,11 +9,17 @@ import SwiftUI
 
 struct KeywordSectionView: View {
 	let keyword: CombinedKeywords
-	@StateObject private var viewModel = KeywordSectionViewModel()
 	@StateObject private var settings = SettingsStore.shared
 	@State private var showPopup = false
 	@State private var popupType: ActionPopupItems?
 	@State private var sortBy: TMDBSortBy = .popularity
+    
+    @State private var page = 1
+    @State private var items = [ItemContent]()
+    @State private var isLoaded = false
+    @State private var startPagination = false
+    @State private var endPagination = false
+    private let network = NetworkService.shared
 	var body: some View {
 		VStack {
 			switch settings.sectionStyleType {
@@ -23,15 +29,15 @@ struct KeywordSectionView: View {
 			}
 		}
 		.navigationTitle(NSLocalizedString(keyword.name, comment: ""))
-		.overlay { if !viewModel.isLoaded { ProgressView().unredacted() } }
+		.overlay { if !isLoaded { ProgressView().unredacted() } }
 		.onAppear {
 			Task {
-				await viewModel.load(keyword.id, sortBy: sortBy, reload: false)
+				await load(keyword.id, sortBy: sortBy, reload: false)
 			}
 		}
 		.onChange(of: sortBy) { newSortBy, _ in
 			Task {
-				await viewModel.load(keyword.id, sortBy: sortBy, reload: true)
+				await load(keyword.id, sortBy: sortBy, reload: true)
 			}
 		}
 		.toolbar {
@@ -42,11 +48,11 @@ struct KeywordSectionView: View {
 					styleOptions
 				}
 				.unredacted()
-				.disabled(!viewModel.isLoaded)
+				.disabled(!isLoaded)
 			}
 #endif
 		}
-		.redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+		.redacted(reason: isLoaded ? [] : .placeholder)
 	}
 	
 #if !os(tvOS)
@@ -86,17 +92,17 @@ struct KeywordSectionView: View {
 		Form {
 			Section {
 				List {
-					ForEach(viewModel.items) { item in
+					ForEach(items) { item in
 						ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
 					}
-					if viewModel.isLoaded && !viewModel.endPagination {
+					if isLoaded && !endPagination {
 						CenterHorizontalView {
 							ProgressView("Loading")
 								.padding(.horizontal)
 								.onAppear {
 									DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
 										Task {
-											await viewModel.load(keyword.id, sortBy: sortBy, reload: false)
+											await load(keyword.id, sortBy: sortBy, reload: false)
 										}
 									}
 								}
@@ -112,18 +118,18 @@ struct KeywordSectionView: View {
 	
 	private var cardStyle: some View {
 		LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-			ForEach(viewModel.items) { item in
+			ForEach(items) { item in
 				ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
 					.buttonStyle(.plain)
 			}
-			if viewModel.isLoaded && !viewModel.endPagination {
+			if isLoaded && !endPagination {
 				CenterHorizontalView {
 					ProgressView()
 						.padding()
 						.onAppear {
 							DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
 								Task {
-									await viewModel.load(keyword.id, sortBy: sortBy, reload: false)
+									await load(keyword.id, sortBy: sortBy, reload: false)
 								}
 							}
 						}
@@ -137,18 +143,18 @@ struct KeywordSectionView: View {
 	private var posterStyle: some View {
 		LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactColumns : DrawingConstants.posterColumns,
 				  spacing: settings.isCompactUI ? 10 : 20) {
-			ForEach(viewModel.items) { item in
+			ForEach(items) { item in
 				ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
 					.buttonStyle(.plain)
 			}
-			if viewModel.isLoaded && !viewModel.endPagination {
+			if isLoaded && !endPagination {
 				CenterHorizontalView {
 					ProgressView()
 						.padding()
 						.onAppear {
 							DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
 								Task {
-									await viewModel.load(keyword.id, sortBy: sortBy, reload: false)
+									await load(keyword.id, sortBy: sortBy, reload: false)
 								}
 							}
 						}
@@ -167,4 +173,46 @@ private struct DrawingConstants {
 #endif
 	static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
 	static let posterColumns = [GridItem(.adaptive(minimum: 160))]
+}
+
+extension KeywordSectionView {
+    func load(_ id: Int, sortBy: TMDBSortBy, reload: Bool) async {
+        do {
+            if reload {
+                withAnimation {
+                    items.removeAll()
+                    isLoaded = false
+                    page = 1
+                }
+            }
+            let movies = try await network.fetchKeyword(type: .movie,
+                                                        page: page,
+                                                        keywords: id,
+                                                        sortBy: sortBy.rawValue)
+            let shows = try await network.fetchKeyword(type: .tvShow,
+                                                       page: page,
+                                                       keywords: id,
+                                                       sortBy: sortBy.rawValue)
+            let result = movies + shows
+            if result.isEmpty {
+                endPagination = true
+                return
+            } else {
+                page += 1
+            }
+            withAnimation {
+                items.append(contentsOf: result.sorted { $0.itemPopularity > $1.itemPopularity })
+            }
+            if !startPagination { startPagination = true }
+            if !isLoaded {
+                await MainActor.run {
+                    self.isLoaded = true
+                }
+            }
+        } catch {
+            if Task.isCancelled { return }
+            let message = "Keyword ID: \(id), error: \(error.localizedDescription)"
+            CronicaTelemetry.shared.handleMessage(message, for: "KeywordSection.load()")
+        }
+    }
 }

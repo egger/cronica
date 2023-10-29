@@ -16,11 +16,11 @@ struct EpisodeFrameView: View {
     let show: Int
     let showTitle: String
     private let persistence = PersistenceController.shared
-    @EnvironmentObject var viewModel: SeasonViewModel
     @State private var isWatched = false
     @State private var showDetails = false
     private let network = NetworkService.shared
     @Binding var checkedIfWatched: Bool
+    @Binding var isInWatchlist: Bool
     @StateObject private var settings: SettingsStore = .shared
     let showCover: URL?
 #if os(tvOS)
@@ -213,7 +213,7 @@ struct EpisodeFrameView: View {
             let contentId = "\(show)@\(MediaType.tvShow.toInt)"
             let isItemInWatchlist = persistence.isItemSaved(id: contentId)
             if !isItemInWatchlist {
-                await addToWatchlist()
+                return
             }
             persistence.updateEpisodeList(show: show, season: season, episode: episode.id)
             withAnimation { isWatched.toggle() }
@@ -229,7 +229,7 @@ struct EpisodeFrameView: View {
         guard let item = try? await NetworkService.shared.fetchItem(id: show, type: .tvShow) else { return }
         PersistenceController.shared.save(item)
         await MainActor.run {
-            withAnimation { viewModel.isItemInWatchlist.toggle() }
+            withAnimation { isInWatchlist.toggle() }
         }
     }
     

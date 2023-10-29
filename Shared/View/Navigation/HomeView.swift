@@ -127,9 +127,11 @@ struct HomeView: View {
             WatchlistSectionDetails(items: item)
         }
         .navigationDestination(for: [String:[WatchlistItem]].self) { item in
-            let keys = item.map { (key, _) in key }
-            let value = item.map { (_, value) in value }
-            WatchlistSectionDetails(title: keys[0], items: value[0])
+            let title = item.map { (key, _) in key }.first
+            let items = item.map { (_, value) in value }.first
+            if let title, let items {
+                WatchlistSectionDetails(title: title, items: items)
+            }
         }
 #endif
         .navigationDestination(for: [String:[ItemContent]].self) { item in
@@ -269,14 +271,12 @@ struct HomeView: View {
 #endif
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
+#Preview {
+    HomeView()
 }
 
 #if os(iOS)
-struct ReviewAppBanner: View {
+private struct ReviewAppBanner: View {
     @Environment(\.requestReview) var requestReview
     @Binding var showView: Bool
     var body: some View {

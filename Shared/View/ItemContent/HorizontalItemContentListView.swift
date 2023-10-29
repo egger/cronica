@@ -70,11 +70,11 @@ struct HorizontalItemContentListView: View {
 #if !os(tvOS)
                         .padding([.leading, .trailing], 4)
                         .padding(.leading, item.id == items.first?.id ? 16 : 0)
-                        .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                        .padding(.trailing, item.id == items.last?.id ? 16 : 0)
 #else
                         .padding([.leading, .trailing], 2)
                         .padding(.leading, item.id == items.first?.id ? 64 : 0)
-                        .padding(.trailing, item.id == items.last!.id ? 64 : 0)
+                        .padding(.trailing, item.id == items.last?.id ? 64 : 0)
                         .padding(.top)
 #endif
                         .buttonStyle(.plain)
@@ -96,13 +96,13 @@ struct HorizontalItemContentListView: View {
 #if !os(tvOS)
                     .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                     .padding(.leading, item.id == items.first?.id ? 16 : 0)
-                    .padding(.trailing, item.id == items.last!.id ? 16 : 0)
+                    .padding(.trailing, item.id == items.last?.id ? 16 : 0)
                     .padding(.top, settings.isCompactUI ? 4 : 8)
                     .padding(.bottom, settings.isCompactUI ? 4 : nil)
 #else
                     .padding([.leading, .trailing], 2)
                     .padding(.leading, item.id == items.first?.id ? 64 : 0)
-                    .padding(.trailing, item.id == items.last!.id ? 64 : 0)
+                    .padding(.trailing, item.id == items.last?.id ? 64 : 0)
                     .padding(.vertical)
 #endif
                 }

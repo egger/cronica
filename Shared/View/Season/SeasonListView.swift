@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SeasonList: View {
+struct SeasonListView: View {
     let showID: Int
     let showTitle: String
     let numberOfSeasons: [Int]
@@ -174,18 +174,18 @@ struct SeasonList: View {
                                                          season: selectedSeason,
                                                          show: showID,
                                                          showTitle: showTitle,
-                                                         checkedIfWatched: $checkIfWatched,
+                                                         checkedIfWatched: $checkIfWatched, isInWatchlist: $isInWatchlist,
                                                          showCover: showCover)
 #if os(tvOS)
                                         .frame(width: 360)
                                         .padding([.leading, .trailing], 2)
                                         .padding(.leading, item.id == season.first?.id ? 64 : 0)
-                                        .padding(.trailing, item.id == season.last!.id ? 64 : 0)
+                                        .padding(.trailing, item.id == season.last?.id ? 64 : 0)
 #else
                                         .frame(width: 200)
                                         .padding([.leading, .trailing], 4)
                                         .padding(.leading, item.id == season.first?.id ? 16 : 0)
-                                        .padding(.trailing, item.id == season.last!.id ? 16 : 0)
+                                        .padding(.trailing, item.id == season.last?.id ? 16 : 0)
 #endif
                                         
                                     }
@@ -218,7 +218,7 @@ struct SeasonList: View {
 #endif
 }
 
-extension SeasonList {
+extension SeasonListView {
     private func load() async {
         let contentId = "\(showID)@\(MediaType.tvShow.toInt)"
         let isShowSaved = persistence.isItemSaved(id: contentId)

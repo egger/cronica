@@ -108,6 +108,7 @@ struct SyncSetting: View {
     }
 #endif
     
+    @MainActor
     private func updateItems() {
         Task {
             let background = BackgroundManager.shared

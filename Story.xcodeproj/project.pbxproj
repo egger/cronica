@@ -211,7 +211,6 @@
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
 		B87F9D89286145600064947A /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D88286145600064947A /* ExploreViewModel.swift */; };
 		B8842C112A3BE18500B3BE34 /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
-		B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
 		B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
 		B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */; };
 		B88529B128E371350026D33A /* EpisodeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529B028E371350026D33A /* EpisodeRow.swift */; };
@@ -260,7 +259,6 @@
 		B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */; };
 		B8ADAF6F282C42B3001D72EF /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */; };
 		B8B271A627A5A18C00F6463F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B271A527A5A18C00F6463F /* PersistenceController.swift */; };
-		B8B2F6A12A85D30800FF0246 /* KeywordSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6A02A85D30800FF0246 /* KeywordSectionViewModel.swift */; };
 		B8B2F6A32A85D34000FF0246 /* KeywordSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6A22A85D34000FF0246 /* KeywordSectionView.swift */; };
 		B8B2F6A62A85D39000FF0246 /* TrendingKeywordsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6A52A85D39000FF0246 /* TrendingKeywordsListView.swift */; };
 		B8B2F6A82A85D3CF00FF0246 /* TrendingPeopleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6A72A85D3CF00FF0246 /* TrendingPeopleListView.swift */; };
@@ -372,7 +370,6 @@
 		B8FCAE922AED9CE300F688FE /* CronicaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FCAE912AED9CE300F688FE /* CronicaTests.swift */; };
 		B8FCAE982AEDA38E00F688FE /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */; };
 		B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */; };
-		B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */; };
 		B8FF4DBF27FA511A00C7DE9F /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
 		B8FF4DC127FB56F500C7DE9F /* SFSafariViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DC027FB56F500C7DE9F /* SFSafariViewWrapper.swift */; };
 /* End PBXBuildFile section */
@@ -598,7 +595,6 @@
 		B8ADAF6E282C42B3001D72EF /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		B8B271A327A59EF400F6463F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8B271A527A5A18C00F6463F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		B8B2F6A02A85D30800FF0246 /* KeywordSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSectionViewModel.swift; sourceTree = "<group>"; };
 		B8B2F6A22A85D34000FF0246 /* KeywordSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSectionView.swift; sourceTree = "<group>"; };
 		B8B2F6A52A85D39000FF0246 /* TrendingKeywordsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingKeywordsListView.swift; sourceTree = "<group>"; };
 		B8B2F6A72A85D3CF00FF0246 /* TrendingPeopleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPeopleListView.swift; sourceTree = "<group>"; };
@@ -710,7 +706,6 @@
 		B8FCAE8F2AED9CE300F688FE /* CronicaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FCAE912AED9CE300F688FE /* CronicaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTests.swift; sourceTree = "<group>"; };
 		B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonListView.swift; sourceTree = "<group>"; };
-		B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonViewModel.swift; sourceTree = "<group>"; };
 		B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		B8FF4DC027FB56F500C7DE9F /* SFSafariViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariViewWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -760,7 +755,6 @@
 		B806C4DF2899BE2800A5330E /* AppleWatch */ = {
 			isa = PBXGroup;
 			children = (
-				B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */,
 				B806C4E42899BE2900A5330E /* Assets.xcassets */,
 				B88AA91D29DF714900F80EE4 /* Configuration */,
 				B806C4E62899BE2900A5330E /* Preview Content */,
@@ -1159,9 +1153,7 @@
 				B87F9D88286145600064947A /* ExploreViewModel.swift */,
 				B8CC953227D05D1000B6757C /* HomeViewModel.swift */,
 				B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */,
-				B8B2F6A02A85D30800FF0246 /* KeywordSectionViewModel.swift */,
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
-				B8FF4DBC27F91B5B00C7DE9F /* SeasonViewModel.swift */,
 				B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */,
 			);
 			path = ViewModel;
@@ -1190,6 +1182,7 @@
 		B88AA91D29DF714900F80EE4 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				B806C4E02899BE2800A5330E /* CronicaWatchApp.swift */,
 				B84043DE289B370B00D5CEBF /* CronicaWatch Watch App.entitlements */,
 				B84043DF289B372B00D5CEBF /* CronicaWatch-Info.plist */,
 				B8F905C42A852D3F003A0CE1 /* CronicaWatch-InfoPlist.strings */,
@@ -1769,7 +1762,6 @@
 				B86F7AC22A0941D800AA4855 /* EpisodeHelper.swift in Sources */,
 				B81941AC2A0835D40057DA04 /* PosterPlaceholder.swift in Sources */,
 				B87D1B272A65E63700EB6D14 /* UpNextListView.swift in Sources */,
-				B88529AC28E35D610026D33A /* SeasonViewModel.swift in Sources */,
 				B81941D12A0861D70057DA04 /* ArchiveButton.swift in Sources */,
 				B87D1B292A66128000EB6D14 /* SettingsView.swift in Sources */,
 				B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */,
@@ -1876,7 +1868,6 @@
 				B8B2F6B92A86733900FF0246 /* DisplayInformationPreference.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
-				B8FF4DBD27F91B5B00C7DE9F /* SeasonViewModel.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
 				B876DE64281B36A7005558DD /* Season.swift in Sources */,
 				B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */,
@@ -1896,7 +1887,6 @@
 				B845149328E0C96A00963399 /* NotificationListView.swift in Sources */,
 				B8FB2A8E29526341006DAC8E /* BehaviorSetting.swift in Sources */,
 				B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */,
-				B8B2F6A12A85D30800FF0246 /* KeywordSectionViewModel.swift in Sources */,
 				B876DE54281B1BC0005558DD /* ImageSize.swift in Sources */,
 				B80BBE5E2949677300958876 /* SyncSetting.swift in Sources */,
 				B82C267A2795E33900259D98 /* ItemContentPosterView.swift in Sources */,
