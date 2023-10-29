@@ -7,7 +7,6 @@
 #if os(iOS) || os(macOS)
 import SwiftUI
 import CoreData
-import SDWebImage
 
 /// This view provides quick information and utilities to the developer.
 struct DeveloperView: View {
@@ -97,10 +96,6 @@ struct DeveloperView: View {
 				Text("Asked for review: \(askedForReview.description)")
 				Text("Is User Signed In With TMDB: \(isUserSignedInWithTMDB.description)")
 				Button("Reset asked for review") { askedForReview = false }
-                Button("Clean Cache") {
-                    SDImageCache.shared.clearMemory()
-                    SDImageCache.shared.clearDisk()
-                }
 			}
 			.onAppear {
 				let data = KeychainHelper.standard.read(service: "access-token", account: "cronicaTMDB-Sync")

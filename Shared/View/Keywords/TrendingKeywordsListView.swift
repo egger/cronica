@@ -11,7 +11,11 @@ import SDWebImageSwiftUI
 struct TrendingKeywordsListView: View {
     @State private var trendingKeywords = [CombinedKeywords]()
     @State private var isLoading = true
-	private let columns = [GridItem(.adaptive(minimum: 160))]
+#if os(tvOS)
+    private let columns = [GridItem(.adaptive(minimum: 380))]
+#else
+    private let columns = [GridItem(.adaptive(minimum: 160))]
+#endif
     private let keywords: [CombinedKeywords] = [
         .init(id: 210024, name: NSLocalizedString("Anime", comment: ""), image: nil),
         .init(id: 41645, name: NSLocalizedString("Based on Video-Game", comment: ""), image: nil),
@@ -29,23 +33,34 @@ struct TrendingKeywordsListView: View {
     ]
     private var service: NetworkService = NetworkService.shared
     var body: some View {
-		VStack {
-			if !trendingKeywords.isEmpty {
-				TitleView(title: "Trending Keywords").unredacted()
-				ScrollView {
-					LazyVGrid(columns: columns, spacing: 20) {
-						ForEach(trendingKeywords) { keyword in
-                            if keyword.image != nil {
-                                trendingCard(keyword)
-                            }
-						}
-					}
-					.padding([.horizontal, .bottom])
-				}
-			}
-		}
+#if os(tvOS)
+        cardGrid
+#else
+        VStack {
+            if !trendingKeywords.isEmpty {
+                TitleView(title: "Trending Keywords").unredacted()
+            }
+            cardGrid
+        }
+#endif
+    }
+    
+    private var cardGrid: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(trendingKeywords) { keyword in
+                    if keyword.image != nil {
+                        trendingCard(keyword)
+#if os(tvOS)
+                            .padding(.vertical)
+#endif
+                    }
+                }
+            }
+            .padding([.horizontal, .bottom])
+        }
         .task { await load() }
-		.redacted(reason: isLoading ? .placeholder : [])
+        .redacted(reason: isLoading ? .placeholder : [])
     }
     
     private func trendingCard(_ keyword: CombinedKeywords) -> some View {
@@ -76,14 +91,28 @@ struct TrendingKeywordsListView: View {
                             .padding(.bottom, 8)
                         }
                     }
+#if os(tvOS)
+                    .frame(width: 380, height: 240, alignment: .center)
+#else
+                    .frame(width: 160, height: 100, alignment: .center)
+#endif
                 }
+#if os(tvOS)
+                .frame(width: 380, height: 240, alignment: .center)
+#else
                 .frame(width: 160, height: 100, alignment: .center)
+#endif
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .shadow(radius: 2)
                 .buttonStyle(.plain)
         }
         .disabled(isLoading)
+#if os(tvOS)
+        .buttonStyle(.card)
+        .frame(width: 380, height: 240, alignment: .center)
+#else
         .frame(width: 160, height: 100, alignment: .center)
+#endif
     }
 }
 

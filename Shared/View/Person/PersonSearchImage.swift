@@ -4,7 +4,7 @@
 //
 //  Created by Alexandre Madeira on 20/11/22.
 //
-#if os(macOS)
+
 import SwiftUI
 import SDWebImageSwiftUI
 
@@ -12,7 +12,30 @@ import SDWebImageSwiftUI
 /// for displaying people in Search for macOS. This is a simpler view from the Cast List.
 struct PersonSearchImage: View {
     let item: SearchItemContent
+    @FocusState var isStackFocused: Bool
     var body: some View {
+        VStack(alignment: .leading) {
+            image
+#if os(tvOS)
+            HStack {
+                Text(item.itemTitle)
+                    .padding(.top, 4)
+                    .font(.caption)
+                    .lineLimit(2)
+                    .foregroundStyle(isStackFocused ? .primary : .secondary)
+                    .frame(maxWidth: DrawingConstants.posterWidth)
+                Spacer()
+            }
+            Spacer()
+#endif
+        }
+#if os(tvOS)
+        .focused($isStackFocused)
+        .buttonStyle(.card)
+#endif
+    }
+    
+    private var image: some View {
         NavigationLink(value: item) {
             WebImage(url: item.itemImage, options: .highPriority)
                 .resizable()
@@ -27,6 +50,8 @@ struct PersonSearchImage: View {
                 .padding(.zero)
 #if os(macOS) || os(iOS)
                 .contextMenu { ShareLink(item: item.itemSearchURL) }
+#elseif os(tvOS)
+                .buttonStyle(.card)
 #endif
         }
     }
@@ -48,12 +73,16 @@ struct PersonSearchImage: View {
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let posterWidth: CGFloat = 260
+    static let posterHeight: CGFloat = 380
+#else
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
+#endif
     static let posterRadius: CGFloat = 12
     static let shadowRadius: CGFloat = 2.5
 }
-
 
 struct PosterSearchItem: View {
     let item: SearchItemContent
@@ -64,9 +93,8 @@ struct PosterSearchItem: View {
             PersonSearchImage(item: item)
                 .buttonStyle(.plain)
         } else {
-			SearchContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+            SearchContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                 .buttonStyle(.plain)
         }
     }
 }
-#endif

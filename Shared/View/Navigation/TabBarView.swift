@@ -30,25 +30,25 @@ struct TabBarView: View {
         TabView {
             NavigationStack { HomeView() }
                 .tag(HomeView.tag)
-                .tabItem { Label("Home", systemImage: "house").labelStyle(.titleOnly) }
+                .tabItem { Label("Home", systemImage: "house") }
                 .ignoresSafeArea(.all, edges: .horizontal)
             
             NavigationStack { ExploreView() }
                 .tag(ExploreView.tag)
-                .tabItem { Label("Explore", systemImage: "popcorn").labelStyle(.titleOnly) }
+                .tabItem { Label("Explore", systemImage: "popcorn") }
             
             NavigationStack {
                 WatchlistView()
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
-            .tabItem { Label("Watchlist", systemImage: "square.stack").labelStyle(.titleOnly) }
+            .tabItem { Label("Watchlist", systemImage: "square.stack") }
             .tag(WatchlistView.tag)
             
             NavigationStack { TVSearchView() }
-                .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.titleOnly) }
+                .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.iconOnly) }
             
             SettingsView()
-                .tabItem { Label("Settings", systemImage: "gearshape").labelStyle(.titleOnly)  }
+                .tabItem { Label("Settings", systemImage: "gearshape").labelStyle(.iconOnly)  }
         }
         .ignoresSafeArea(.all, edges: .horizontal)
     }
