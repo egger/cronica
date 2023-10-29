@@ -9,16 +9,19 @@ import SwiftUI
 
 struct KeywordSectionView: View {
 	let keyword: CombinedKeywords
+    
+    // States
 	@StateObject private var settings = SettingsStore.shared
 	@State private var showPopup = false
 	@State private var popupType: ActionPopupItems?
 	@State private var sortBy: TMDBSortBy = .popularity
-    
     @State private var page = 1
     @State private var items = [ItemContent]()
     @State private var isLoaded = false
     @State private var startPagination = false
     @State private var endPagination = false
+    
+    // Network service
     private let network = NetworkService.shared
 	var body: some View {
 		VStack {
@@ -35,11 +38,11 @@ struct KeywordSectionView: View {
 				await load(keyword.id, sortBy: sortBy, reload: false)
 			}
 		}
-		.onChange(of: sortBy) { newSortBy, _ in
-			Task {
-				await load(keyword.id, sortBy: sortBy, reload: true)
-			}
-		}
+        .onChange(of: sortBy) { _, newSortBy in
+            Task {
+                await load(keyword.id, sortBy: sortBy, reload: true)
+            }
+        }
 		.toolbar {
 #if os(iOS)
 			ToolbarItem(placement: .navigationBarTrailing) {
@@ -55,7 +58,6 @@ struct KeywordSectionView: View {
 		.redacted(reason: isLoaded ? [] : .placeholder)
 	}
 	
-#if !os(tvOS)
 	private var sortButton: some View {
 		Menu {
 			Picker(selection: $sortBy) {
@@ -69,9 +71,7 @@ struct KeywordSectionView: View {
 			Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
 		}
 	}
-#endif
 	
-#if os(iOS) || os(macOS)
 	private var styleOptions: some View {
 		Menu {
 			Picker(selection: $settings.sectionStyleType) {
@@ -86,7 +86,6 @@ struct KeywordSectionView: View {
 				.labelStyle(.iconOnly)
 		}
 	}
-#endif
 	
 	private var listStyle: some View {
 		Form {

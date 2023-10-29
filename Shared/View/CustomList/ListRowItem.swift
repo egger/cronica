@@ -50,7 +50,9 @@ struct ListRowItem: View {
             Image(systemName: "circle")
         }
     }
-    
+}
+
+extension ListRowItem {
     private func checkSelection() {
         if let selectedList {
             if selectedList == list {

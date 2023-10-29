@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-#if os(iOS) || os(macOS)
+
 struct WatchProviderSelectorSetting: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var providers = [WatchProviderContent]()
@@ -83,11 +83,11 @@ struct WatchProviderSelectorSetting: View {
         }
     }
 }
-#if os(iOS)
+
 #Preview {
     WatchProviderSelectorSetting()
 }
-#endif
+
 private struct WatchProviderItemSelector: View {
     let item: WatchProviderContent
     @StateObject private var settings = SettingsStore.shared
@@ -127,4 +127,3 @@ private struct WatchProviderItemSelector: View {
         }
     }
 }
-#endif

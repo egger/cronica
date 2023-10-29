@@ -209,7 +209,7 @@
 		B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B87F745D280605CE00E94126 /* TelemetryClient */; };
 		B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
-		B87F9D89286145600064947A /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D88286145600064947A /* ExploreViewModel.swift */; };
+		B883A1DE2AEEA49E00793EE2 /* EditCustomListItemSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B883A1DD2AEEA49E00793EE2 /* EditCustomListItemSelector.swift */; };
 		B8842C112A3BE18500B3BE34 /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876DE5B281B2B04005558DD /* Screens.swift */; };
 		B88529AD28E3603F0026D33A /* Episode-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C58427FE4442006BE5E1 /* Episode-Extension.swift */; };
 		B88529AF28E368CB0026D33A /* EpisodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */; };
@@ -553,7 +553,7 @@
 		B87D1B262A65E63700EB6D14 /* UpNextListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextListView.swift; sourceTree = "<group>"; };
 		B87D1B282A66128000EB6D14 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B87F746228064D3800E94126 /* BackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundManager.swift; sourceTree = "<group>"; };
-		B87F9D88286145600064947A /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
+		B883A1DD2AEEA49E00793EE2 /* EditCustomListItemSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCustomListItemSelector.swift; sourceTree = "<group>"; };
 		B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsView.swift; sourceTree = "<group>"; };
 		B88529B028E371350026D33A /* EpisodeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeRow.swift; sourceTree = "<group>"; };
 		B886D231284D512F00FFE96A /* ConfirmationPopupModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPopupModifier.swift; sourceTree = "<group>"; };
@@ -1042,6 +1042,7 @@
 				B812C7B52996C2DB0096E806 /* SelectListView.swift */,
 				B8C0D2FA2A13F57D00468141 /* WatchListFilter.swift */,
 				B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */,
+				B883A1DD2AEEA49E00793EE2 /* EditCustomListItemSelector.swift */,
 			);
 			path = CustomList;
 			sourceTree = "<group>";
@@ -1150,7 +1151,6 @@
 			isa = PBXGroup;
 			children = (
 				B81941A72A0834B70057DA04 /* EndpointDetailsViewModel.swift */,
-				B87F9D88286145600064947A /* ExploreViewModel.swift */,
 				B8CC953227D05D1000B6757C /* HomeViewModel.swift */,
 				B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */,
 				B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */,
@@ -1935,12 +1935,12 @@
 				B86F7ABD2A087FF900AA4855 /* HorizontalUpNextListView.swift in Sources */,
 				B8F6DE6329379F70005D1A50 /* ItemContentSectionDetails.swift in Sources */,
 				B804E397284FCBCB00F59855 /* ItemContentCardView.swift in Sources */,
-				B87F9D89286145600064947A /* ExploreViewModel.swift in Sources */,
 				B876DE52281B1BA5005558DD /* ItemSchedule.swift in Sources */,
 				B824E4402A059E2400E385CE /* TransparentGroupBox.swift in Sources */,
 				B81DD93429BD14EE009F73F3 /* CustomList+CoreDataClass.swift in Sources */,
 				B8F6D6D929DB433200B9190B /* TVSearchView.swift in Sources */,
 				B8FB2A7E29522E58006DAC8E /* WatchlistItemCardView.swift in Sources */,
+				B883A1DE2AEEA49E00793EE2 /* EditCustomListItemSelector.swift in Sources */,
 				B81941A12A0832FE0057DA04 /* ListRowItem.swift in Sources */,
 				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
 				B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */,
@@ -2451,7 +2451,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 238;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
@@ -2486,7 +2486,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 238;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;

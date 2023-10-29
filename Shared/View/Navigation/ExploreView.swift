@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ExploreView: View {
     static let tag: Screens? = .explore
@@ -13,9 +14,54 @@ struct ExploreView: View {
     @State private var onChanging = false
     @State private var showFilters = false
     @State private var popupType: ActionPopupItems?
-    @StateObject private var viewModel = ExploreViewModel()
     @StateObject private var settings = SettingsStore.shared
-    @State private var sortBy: TMDBSortBy = .popularity
+    
+    private let service: NetworkService = NetworkService.shared
+    @State private var items = [ItemContent]()
+    @AppStorage("exploreViewSelectedGenre") private var selectedGenre: Int = 28
+    @AppStorage("exploreViewSelectedMedia") private var selectedMedia: MediaType = .movie
+    @State private var selectedSortBy: TMDBSortBy = .popularity
+    @State private var selectedWatchProviders = [String]()
+    @State private var isLoaded: Bool = false
+    @State private var showErrorDialog: Bool = false
+    @AppStorage("exploreViewHideAddedItems") private var hideAddedItems = false
+    // MARK: Pagination Properties
+    @State private var currentPage: Int = 0
+    @State private var startPagination: Bool = false
+    @State private var endPagination: Bool = false
+    @State private var restartFetch: Bool = false
+    
+    // MARK: Genres array.
+    private let movies: [Genre] = [
+        Genre(id: 28, name: NSLocalizedString("Action", comment: "")),
+        Genre(id: 12, name: NSLocalizedString("Adventure", comment: "")),
+        Genre(id: 16, name: NSLocalizedString("Animation", comment: "")),
+        Genre(id: 35, name: NSLocalizedString("Comedy", comment: "")),
+        Genre(id: 80, name: NSLocalizedString("Crime", comment: "")),
+        Genre(id: 99, name: NSLocalizedString("Documentary", comment: "")),
+        Genre(id: 18, name: NSLocalizedString("Drama", comment: "")),
+        Genre(id: 10751, name: NSLocalizedString("Family", comment: "")),
+        Genre(id: 14, name: NSLocalizedString("Fantasy", comment: "")),
+        Genre(id: 36, name: NSLocalizedString("History", comment: "")),
+        Genre(id: 27, name: NSLocalizedString("Horror", comment: "")),
+        Genre(id: 10402, name: NSLocalizedString("Music", comment: "")),
+        Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
+        Genre(id: 10749, name: NSLocalizedString("Romance", comment: "")),
+        Genre(id: 878, name: NSLocalizedString("Science Fiction", comment: "")),
+        Genre(id: 53, name: NSLocalizedString("Thriller", comment: "")),
+        Genre(id: 10752, name: NSLocalizedString("War", comment: ""))
+    ]
+    private let shows: [Genre] = [
+        Genre(id: 10759, name: NSLocalizedString("Action & Adventure", comment: "")),
+        Genre(id: 16, name: NSLocalizedString("Animation", comment: "")),
+        Genre(id: 35, name: NSLocalizedString("Comedy", comment: "")),
+        Genre(id: 80, name: NSLocalizedString("Crime", comment: "")),
+        Genre(id: 99, name: NSLocalizedString("Documentary", comment: "")),
+        Genre(id: 18, name: NSLocalizedString("Drama", comment: "")),
+        Genre(id: 10762, name: NSLocalizedString("Kids", comment: "")),
+        Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
+        Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
+    ]
     var body: some View {
         VStack {
             if settings.sectionStyleType == .list {
@@ -28,7 +74,7 @@ struct ExploreView: View {
                             VStack(alignment: .leading) {
                                 Text("Explore")
                                     .font(.title3)
-                                Text(viewModel.selectedMedia.title)
+                                Text(selectedMedia.title)
                                     .font(.callout)
                                     .foregroundColor(.secondary)
                             }
@@ -54,7 +100,7 @@ struct ExploreView: View {
                         }
                     }
                     .onChange(of: onChanging) {
-                        guard let first = viewModel.items.first else { return }
+                        guard let first = items.first else { return }
                         withAnimation {
                             proxy.scrollTo(first.id, anchor: .topLeading)
                         }
@@ -62,7 +108,7 @@ struct ExploreView: View {
                 }
             }
         }
-        .overlay { if !viewModel.isLoaded {  ProgressView().unredacted() } }
+        .overlay { if !isLoaded {  ProgressView().unredacted() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
         .task { await load() }
         .navigationDestination(for: ItemContent.self) { item in
@@ -102,7 +148,7 @@ struct ExploreView: View {
 #elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
-        .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
+        .redacted(reason: !isLoaded ? .placeholder : [] )
         .toolbar {
 #if !os(tvOS)
             ToolbarItem {
@@ -127,30 +173,27 @@ struct ExploreView: View {
 #endif
 #endif
         }
-        .onChange(of: viewModel.selectedMedia) { value, _ in
+        .onChange(of: selectedMedia) { _, value in
             onChanging = true
             var genre: Genre?
             if value == .tvShow {
-                genre = viewModel.shows.first
+                genre = shows.first
             } else {
-                genre = viewModel.movies.first
+                genre = movies.first
             }
             if let genre {
-                viewModel.selectedGenre = genre.id
+                selectedGenre = genre.id
             }
             Task { await load() }
         }
-        .onChange(of: viewModel.selectedGenre) {
+        .onChange(of: selectedGenre) {
             onChanging = true
             Task { await load() }
-        }
-        .onChange(of: sortBy) { newSortByValue, _ in
-            viewModel.loadMoreItems(sortBy: newSortByValue, reload: true)
         }
     }
     
     private var selectMediaPicker: some View {
-        Picker(selection: $viewModel.selectedMedia) {
+        Picker(selection: $selectedMedia) {
             ForEach(MediaType.allCases) { type in
                 if type != .person {
                     Text(type.title).tag(type)
@@ -162,34 +205,27 @@ struct ExploreView: View {
     }
     
     private var selectGenrePicker: some View {
-        Picker(selection: $viewModel.selectedGenre) {
-            if viewModel.selectedMedia == .movie {
-                ForEach(viewModel.movies) { genre in
+        Picker("genreDiscoverFilterTitle", selection: $selectedGenre) {
+            if selectedMedia == .movie {
+                ForEach(movies) { genre in
                     Text(genre.name!).tag(genre)
                 }
             } else {
-                ForEach(viewModel.shows) { genre in
+                ForEach(shows) { genre in
                     Text(genre.name!).tag(genre)
                 }
             }
-        } label: {
-#if os(macOS) || os(tvOS)
-            Text("genreDiscoverFilterTitle")
-#else
-            EmptyView()
-#endif
-            
-        }
+        } 
 #if os(iOS)
         .pickerStyle(.inline)
 #endif
     }
     
     private var hideItemsToggle: some View {
-        Toggle("hideAddedItemsDiscoverFilter", isOn: $viewModel.hideAddedItems)
-            .onChange(of: viewModel.hideAddedItems) { value, _ in
+        Toggle("hideAddedItemsDiscoverFilter", isOn: $hideAddedItems)
+            .onChange(of: hideAddedItems) { _, value in
                 if value {
-                    viewModel.hideItems()
+                    hideItems()
                 } else {
                     onChanging = true
                     Task {
@@ -203,10 +239,10 @@ struct ExploreView: View {
         Form {
             Section {
                 List {
-                    ForEach(viewModel.items) { item in
+                    ForEach(items) { item in
                         ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                     }
-                    if viewModel.isLoaded && !viewModel.endPagination {
+                    if isLoaded && !endPagination {
                         CenterHorizontalView {
                             ProgressView("Loading")
                                 .progressViewStyle(.circular)
@@ -214,7 +250,7 @@ struct ExploreView: View {
                                 .padding(.horizontal)
                                 .onAppear {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                        viewModel.loadMoreItems()
+                                        loadMoreItems()
                                     }
                                 }
                         }
@@ -229,20 +265,20 @@ struct ExploreView: View {
     
     private var cardStyle: some View {
         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-            ForEach(viewModel.items) { item in
+            ForEach(items) { item in
                 ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
 #endif
             }
-            if viewModel.isLoaded && !viewModel.endPagination {
+            if isLoaded && !endPagination {
                 CenterHorizontalView {
                     ProgressView()
                         .padding()
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                viewModel.loadMoreItems()
+                                loadMoreItems()
                             }
                         }
                 }
@@ -254,20 +290,20 @@ struct ExploreView: View {
     private var posterStyle: some View {
         LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
                   spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
-            ForEach(viewModel.items) { item in
+            ForEach(items) { item in
                 ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
                     .buttonStyle(.plain)
 #if os(tvOS)
                     .padding(.bottom)
 #endif
             }
-            if viewModel.isLoaded && !viewModel.endPagination {
+            if isLoaded && !endPagination {
                 CenterHorizontalView {
                     ProgressView()
                         .padding()
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                viewModel.loadMoreItems()
+                                loadMoreItems()
                             }
                         }
                 }
@@ -301,31 +337,7 @@ struct ExploreView: View {
         }
 #endif
     }
-    
-    private var sortButton: some View {
-        Menu {
-            Picker(selection: $sortBy) {
-                ForEach(TMDBSortBy.allCases) { item in
-                    Text(item.localizedString).tag(item)
-                }
-            } label: {
-                Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
-            }
-        } label: {
-            Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
-        }
-    }
 #endif
-    
-    private func load() async {
-        if onChanging {
-            viewModel.restartFetch = true
-            onChanging = false
-            viewModel.loadMoreItems()
-        } else {
-            viewModel.loadMoreItems()
-        }
-    }
 }
 
 #Preview {
@@ -348,4 +360,109 @@ private struct DrawingConstants {
     static let compactPosterColumns = [GridItem(.adaptive(minimum: 80))]
     static let compactSpacing: CGFloat = 20
     static let spacing: CGFloat = 10
+}
+
+extension ExploreView {
+    private func load() async {
+        if onChanging {
+            restartFetch = true
+            onChanging = false
+            loadMoreItems()
+        } else {
+            loadMoreItems()
+        }
+    }
+    
+    private func clearItems() {
+        withAnimation {
+            isLoaded = false
+            items.removeAll()
+        }
+    }
+    
+    func hideItems() {
+        let ids = fetchAllItemsIDs(selectedMedia)
+        withAnimation {
+            items.removeAll(where: { ids.contains($0.itemContentID)})
+        }
+    }
+    
+    func loadMoreItems(sortBy: TMDBSortBy = .popularity, reload: Bool = false) {
+        if reload {
+            withAnimation {
+                items.removeAll()
+                isLoaded = false
+                currentPage = 0
+                selectedSortBy = sortBy
+            }
+        }
+        if restartFetch {
+            currentPage = 0
+            startPagination = true
+            clearItems()
+            restartFetch = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                withAnimation {
+                    self.isLoaded = true
+                }
+            }
+        }
+        currentPage += 1
+        Task {
+            await fetch()
+        }
+    }
+    
+    private func fetch() async {
+        do {
+            let result = try await service.fetchDiscover(type: selectedMedia,
+                                                         page: currentPage,
+                                                         genres: "\(selectedGenre)",
+                                                         sort: selectedSortBy)
+            if hideAddedItems {
+                let ids = fetchAllItemsIDs(selectedMedia)
+                items.append(contentsOf: result.filter { !ids.contains($0.itemContentID)})
+            } else {
+                for item in result {
+                    if !items.contains(item) {
+                        items.append(item)
+                    }
+                }
+            }
+            if currentPage == 1 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    withAnimation {
+                        self.isLoaded = true
+                    }
+                }
+            }
+            if result.isEmpty { endPagination = true }
+            startPagination = false
+        } catch {
+            if Task.isCancelled { return }
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "ExploreView.fetch()")
+            showErrorDialog.toggle()
+        }
+    }
+    
+    private func fetchAllItemsIDs(_ media: MediaType) -> [String] {
+        let persistence = PersistenceController.shared
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let typePredicate = NSPredicate(format: "contentType == %d", media.toInt)
+        request.predicate = typePredicate
+        do {
+            let list = try persistence.container.viewContext.fetch(request)
+            var ids = [String]()
+            for item in list {
+                ids.append(item.itemContentID)
+            }
+            return ids
+        } catch {
+            if Task.isCancelled { return [] }
+            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                  for: "ExploreView.fetchAllItemsIDs()")
+            return []
+        }
+    }
 }

@@ -108,7 +108,7 @@ struct CronicaApp: App {
 #endif
                 }
         }
-        .onChange(of: scene) { phase, _ in
+        .onChange(of: scene) { _, phase in
             if phase == .background {
                 scheduleAppRefresh()
             }

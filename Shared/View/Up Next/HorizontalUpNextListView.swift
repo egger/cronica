@@ -136,7 +136,7 @@ struct HorizontalUpNextListView: View {
                                 }
                             }
                         }
-                        .onChange(of: shouldReload) { reload, _ in
+                        .onChange(of: shouldReload) { _, reload in
                             if reload {
                                 if let firstItem = viewModel.episodes.first {
                                     withAnimation {

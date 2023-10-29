@@ -17,7 +17,7 @@ struct WatchEpisodeButton: View {
     @State private var isItemSaved = false
     var body: some View {
         Button(action: update) {
-#if os(iOS) || os(watchOS)
+#if !os(macOS)
             VStack {
                 Image(systemName: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
                     .symbolEffect(isWatched ? .bounce.down : .bounce.up,
@@ -27,35 +27,38 @@ struct WatchEpisodeButton: View {
                     .padding(.top, 2)
                     .font(.caption)
             }
+#if !os(tvOS)
             .frame(width: 80, height: 40)
+#elseif !os(watchOS)
             .padding(.vertical, 4)
+#endif
 #else
             Label(isWatched ? "Remove from Watched" : "Mark as Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
             .symbolEffect(isWatched ? .bounce.down : .bounce.up,
                           value: isWatched)
-//#if os(tvOS)
-//            .padding(.horizontal)
-//            .labelStyle(.iconOnly)
-//#endif
 #endif
         }
 #if os(iOS)
-		.applyHoverEffect()
+        .applyHoverEffect()
 #elseif os(watchOS)
-		.padding(.horizontal)
+        .padding(.horizontal)
 #endif
     }
-    
+}
+
+extension WatchEpisodeButton {
     private func update() {
         checkIfItemIsSaved()
         if !isItemSaved {
             Task {
                 await fetch()
-                handleList()
+                await handleList()
             }
         } else {
-            handleList()
+            Task {
+                await handleList()
+            }
         }
     }
     
@@ -65,20 +68,19 @@ struct WatchEpisodeButton: View {
         isItemSaved = isShowSaved
     }
     
-    private func handleList() {
+    @MainActor
+    private func handleList() async {
         let contentId = "\(show)@\(MediaType.tvShow.toInt)"
         let item = persistence.fetch(for: contentId)
         guard let item else { return }
         persistence.updateWatchedEpisodes(for: item, with: episode)
-        DispatchQueue.main.async {
+        await MainActor.run {
             withAnimation { isWatched.toggle() }
         }
         HapticManager.shared.successHaptic()
-        Task {
-            let nextEpisode = await fetchNextEpisode()
-            guard let nextEpisode else { return }
-            persistence.updateUpNext(item, episode: nextEpisode)
-        }
+        let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: self.episode, show: show)
+        guard let nextEpisode else { return }
+        persistence.updateUpNext(item, episode: nextEpisode)
     }
     
     private func fetch() async {
@@ -89,10 +91,5 @@ struct WatchEpisodeButton: View {
             NotificationManager.shared.schedule(content)
         }
         isItemSaved = true
-    }
-    
-    private func fetchNextEpisode() async -> Episode? {
-        let episode = await EpisodeHelper().fetchNextEpisode(for: self.episode, show: show)
-        return episode
     }
 }

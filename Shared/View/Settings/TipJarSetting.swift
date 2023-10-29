@@ -52,7 +52,7 @@ struct TipJarSetting: View {
             }
         }
         .navigationTitle("tipJarTitle")
-        .onChange(of: viewModel.hasLoadedProducts) { hasLoaded, _ in
+        .onChange(of: viewModel.hasLoadedProducts) { _, hasLoaded in
             if hasLoaded {
                 withAnimation { productsLoaded = true }
             }

@@ -33,7 +33,7 @@ struct WatchlistView: View {
             }
         }
         .navigationTitle(navigationDisplayTitle)
-        .onChange(of: selectedList) { newValue, _ in
+        .onChange(of: selectedList) { _, newValue in
             if let newValue {
                 navigationTitle = newValue.itemTitle
             } else {
