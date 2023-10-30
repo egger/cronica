@@ -58,6 +58,22 @@ extension View {
                                         popupType: popupType))
     }
     
+    func searchItemContextMenu(item: SearchItemContent,
+                               showPopup: Binding<Bool>,
+                               isInWatchlist: Binding<Bool>,
+                               isWatched: Binding<Bool>,
+                               showNote: Binding<Bool>,
+                               showCustomList: Binding<Bool>,
+                               popupType: Binding<ActionPopupItems?>) -> some View {
+        modifier(SearchItemContentContextMenu(item: item,
+                                              showPopup: showPopup,
+                                              isInWatchlist: isInWatchlist,
+                                              isWatched: isWatched,
+                                              showNote: showNote,
+                                              showCustomListView: showCustomList,
+                                              popupType: popupType))
+    }
+    
     func applyHoverEffect() -> some View {
         modifier(HoverEffectModifier())
     }

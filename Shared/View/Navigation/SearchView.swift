@@ -7,75 +7,32 @@
 
 import SwiftUI
 
-#if os(iOS)
-struct SearchView: View { 
-	static let tag: Screens? = .search
-	@StateObject private var viewModel = SearchViewModel()
-	@State private var showPopup = false
-	@State private var popupType: ActionPopupItems?
-	@State private var scope: SearchItemsScope = .noScope
-	@State private var currentlyQuery = String()
-	var body: some View {
+struct SearchView: View {
+#if !os(macOS)
+    static let tag: Screens? = .search
+#endif
+#if os(tvOS)
+    private let columns: [GridItem] = [GridItem(.adaptive(minimum: 260))]
+#endif
+    @StateObject private var viewModel = SearchViewModel()
+    @State private var showPopup = false
+    @State private var popupType: ActionPopupItems?
+    @State private var scope: SearchItemsScope = .noScope
+    @State private var currentlyQuery = String()
+    var body: some View {
         VStack {
-            switch viewModel.stage {
-            case .none:
-                ScrollView {
-                    VStack {
-                        TrendingKeywordsListView()
-                            .environmentObject(viewModel)
-                        Spacer()
-                    }
-                }
-            case .searching:
-                ProgressView("Searching")
-                    .foregroundColor(.secondary)
-                    .padding()
-            case .empty:
-                ContentUnavailableView("No Results", systemImage: "magnifyingglass")
-                    .padding()
-            case .failure:
-                ContentUnavailableView("Search failed, try again later.",
-                                       systemImage: "magnifyingglass")
-                .padding()
-            case .success:
-                List {
-                    switch scope {
-                    case .noScope:
-                        ForEach(viewModel.items) { item in
-                            SearchItemView(item: item,
-                                           showPopup: $showPopup,
-                                           popupType: $popupType)
-                        }
-                        if !viewModel.items.isEmpty {
-                            loadableProgressRing
-                        }
-                    case .movies:
-                        ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
-                            SearchItemView(item: item,
-                                           showPopup: $showPopup,
-                                           popupType: $popupType)
-                        }
-                        loadableProgressRing
-                    case .shows:
-                        ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
-                            SearchItemView(item: item,
-                                           showPopup: $showPopup,
-                                           popupType: $popupType)
-                        }
-                        loadableProgressRing
-                    case .people:
-                        ForEach(viewModel.items.filter { $0.media == .person }) { item in
-                            SearchItemView(item: item,
-                                           showPopup: $showPopup,
-                                           popupType: $popupType)
-                        }
-                        loadableProgressRing
-                    }
-                }
-            }
+#if os(iOS)
+            listView
+#elseif os(tvOS)
+            posterView
+#endif
         }
+#if !os(tvOS)
         .navigationTitle("Search")
+#endif
+#if os(iOS)
         .navigationBarTitleDisplayMode(.large)
+#endif
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(name: person.name, id: person.id)
         }
@@ -108,6 +65,7 @@ struct SearchView: View {
         .navigationDestination(for: CombinedKeywords.self) { keyword in
             KeywordSectionView(keyword: keyword)
         }
+#if os(iOS)
         .searchable(text: $viewModel.query,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: Text("Movies, Shows, People"))
@@ -116,6 +74,9 @@ struct SearchView: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
+#else
+        .searchable(text: $viewModel.query, prompt: "Movies, Shows, People")
+#endif
         .disableAutocorrection(true)
         .task(id: viewModel.query) {
             if currentlyQuery != viewModel.query {
@@ -124,29 +85,142 @@ struct SearchView: View {
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
-	}
-	
-	@ViewBuilder
-	private var loadableProgressRing: some View {
-		if viewModel.startPagination && !viewModel.endPagination {
-			CenterHorizontalView {
-				ProgressView()
-					.padding()
-					.onAppear {
-						DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-							viewModel.loadMoreItems()
-						}
-					}
-			}
-		} else {
-			EmptyView()
-		}
-	}
-}
+#if os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
 #endif
+    }
+    
+#if !os(tvOS)
+    @ViewBuilder
+    private var listView: some View {
+        switch viewModel.stage {
+        case .none:
+            ScrollView {
+                VStack {
+                    TrendingKeywordsListView()
+                        .environmentObject(viewModel)
+                    Spacer()
+                }
+            }
+        case .searching: searchingView
+        case .empty: emptyView
+        case .failure: failureView
+        case .success:
+            List {
+                switch scope {
+                case .noScope:
+                    ForEach(viewModel.items) { item in
+                        SearchItemView(item: item,
+                                       showPopup: $showPopup,
+                                       popupType: $popupType)
+                    }
+                    if !viewModel.items.isEmpty {
+                        loadableProgressRing
+                    }
+                case .movies:
+                    ForEach(viewModel.items.filter { $0.itemContentMedia == .movie }) { item in
+                        SearchItemView(item: item,
+                                       showPopup: $showPopup,
+                                       popupType: $popupType)
+                    }
+                    loadableProgressRing
+                case .shows:
+                    ForEach(viewModel.items.filter { $0.itemContentMedia == .tvShow && $0.media != .person }) { item in
+                        SearchItemView(item: item,
+                                       showPopup: $showPopup,
+                                       popupType: $popupType)
+                    }
+                    loadableProgressRing
+                case .people:
+                    ForEach(viewModel.items.filter { $0.media == .person }) { item in
+                        SearchItemView(item: item,
+                                       showPopup: $showPopup,
+                                       popupType: $popupType)
+                    }
+                    loadableProgressRing
+                }
+            }
+        }
+    }
+#endif
+    
+#if os(tvOS)
+    @ViewBuilder
+    private var posterView: some View {
+        switch viewModel.stage {
+        case .none: TrendingKeywordsListView()
+        case .searching: searchingView
+        case .empty: emptyView
+        case .failure: failureView
+        case .success:
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(viewModel.items) { item in
+                        if item.media == .person {
+                            PersonSearchImage(item: item)
+                                .padding()
+                        } else {
+                            SearchContentPosterView(item: item,
+                                                    showPopup: $showPopup,
+                                                    popupType: $popupType)
+                            .padding()
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    if viewModel.startPagination && !viewModel.endPagination {
+                        CenterHorizontalView {
+                            ProgressView()
+                                .padding()
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        withAnimation {
+                                            viewModel.loadMoreItems()
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+            .ignoresSafeArea(.all, edges: .horizontal)
+        }
+    }
+#endif
+    
+    private var emptyView: some View {
+        ContentUnavailableView("No Results", systemImage: "magnifyingglass").padding()
+    }
+    
+    private var searchingView: some View {
+        ProgressView("Searching")
+            .foregroundColor(.secondary)
+            .padding()
+    }
+    
+    private var failureView: some View {
+        ContentUnavailableView("Search failed, try again later.", systemImage: "magnifyingglass").padding()
+    }
+    
+    @ViewBuilder
+    private var loadableProgressRing: some View {
+        if viewModel.startPagination && !viewModel.endPagination {
+            CenterHorizontalView {
+                ProgressView()
+                    .padding()
+                    .onAppear(perform: loadMoreOnAppear)
+            }
+        }
+    }
+}
 
-#if os(iOS)
 #Preview {
     SearchView()
 }
-#endif
+
+extension SearchView {
+    private func loadMoreOnAppear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            viewModel.loadMoreItems()
+        }
+    }
+}

@@ -10,7 +10,7 @@ import Foundation
 enum Screens: String, Identifiable, CaseIterable {
     var id: String { rawValue }
     case home, explore, watchlist
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     case search, settings
 #endif
     
@@ -19,7 +19,7 @@ enum Screens: String, Identifiable, CaseIterable {
         case .home: return NSLocalizedString("Home", comment: "")
         case .explore: return NSLocalizedString("Explore", comment: "")
         case .watchlist: return NSLocalizedString("Watchlist", comment: "")
-#if os(iOS)
+#if os(iOS) || os(tvOS)
         case .search: return NSLocalizedString("Search", comment: "")
         case .settings: return NSLocalizedString("Settings", comment: "")
 #endif

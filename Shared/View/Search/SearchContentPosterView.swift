@@ -110,7 +110,13 @@ struct SearchContentPosterView: View {
 #endif
                 }
         }
-        
+        .searchItemContextMenu(item: item,
+                               showPopup: $showPopup,
+                               isInWatchlist: $isInWatchlist,
+                               isWatched: $isWatched,
+                               showNote: $showNote,
+                               showCustomList: $showCustomListView,
+                               popupType: $popupType)
     }
     
     @ViewBuilder

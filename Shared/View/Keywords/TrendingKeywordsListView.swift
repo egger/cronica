@@ -12,7 +12,7 @@ struct TrendingKeywordsListView: View {
     @State private var trendingKeywords = [CombinedKeywords]()
     @State private var isLoading = true
 #if os(tvOS)
-    private let columns = [GridItem(.adaptive(minimum: 380))]
+    private let columns = [GridItem(.adaptive(minimum: 400))]
 #else
     private let columns = [GridItem(.adaptive(minimum: 160))]
 #endif
@@ -27,9 +27,7 @@ struct TrendingKeywordsListView: View {
         .init(id: 9882, name: NSLocalizedString("Space", comment: ""), image: nil),
         .init(id: 818, name: NSLocalizedString("Based on novel or book", comment: ""), image: nil),
         .init(id: 9951, name: NSLocalizedString("Alien", comment: ""), image: nil),
-        .init(id: 189402, name: NSLocalizedString("Crime Investigation", comment: ""), image: nil),
-        .init(id: 161184, name: NSLocalizedString("Reboot", comment: ""), image: nil),
-        .init(id: 15285, name: NSLocalizedString("Spin off", comment: ""), image: nil)
+        .init(id: 189402, name: NSLocalizedString("Crime Investigation", comment: ""), image: nil)
     ]
     private var service: NetworkService = NetworkService.shared
     var body: some View {
@@ -61,6 +59,9 @@ struct TrendingKeywordsListView: View {
         }
         .task { await load() }
         .redacted(reason: isLoading ? .placeholder : [])
+#if os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
+#endif
     }
     
     private func trendingCard(_ keyword: CombinedKeywords) -> some View {
@@ -92,13 +93,13 @@ struct TrendingKeywordsListView: View {
                         }
                     }
 #if os(tvOS)
-                    .frame(width: 380, height: 240, alignment: .center)
+                    .frame(width: 400, height: 240, alignment: .center)
 #else
                     .frame(width: 160, height: 100, alignment: .center)
 #endif
                 }
 #if os(tvOS)
-                .frame(width: 380, height: 240, alignment: .center)
+                .frame(width: 400, height: 240, alignment: .center)
 #else
                 .frame(width: 160, height: 100, alignment: .center)
 #endif
@@ -109,7 +110,7 @@ struct TrendingKeywordsListView: View {
         .disabled(isLoading)
 #if os(tvOS)
         .buttonStyle(.card)
-        .frame(width: 380, height: 240, alignment: .center)
+        .frame(width: 400, height: 240, alignment: .center)
 #else
         .frame(width: 160, height: 100, alignment: .center)
 #endif

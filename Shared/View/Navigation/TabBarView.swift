@@ -44,7 +44,7 @@ struct TabBarView: View {
             .tabItem { Label("Watchlist", systemImage: "square.stack") }
             .tag(WatchlistView.tag)
             
-            NavigationStack { TVSearchView() }
+            NavigationStack { SearchView() }
                 .tabItem { Label("Search", systemImage: "magnifyingglass").labelStyle(.iconOnly) }
             
             SettingsView()

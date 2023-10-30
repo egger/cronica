@@ -26,10 +26,15 @@ struct KeywordSectionView: View {
     var body: some View {
         VStack {
 #if os(tvOS)
-            ScrollView { 
-                Text(NSLocalizedString(keyword.name, comment: ""))
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
+            ScrollView {
+                HStack {
+                    Text(NSLocalizedString(keyword.name, comment: ""))
+                        .font(.title3)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    sortButton
+                }
+                .padding(.horizontal, 64)
                 cardStyle
             }
 #else
@@ -74,26 +79,25 @@ struct KeywordSectionView: View {
     
     private var sortButton: some View {
         Menu {
-            Picker(selection: $sortBy) {
+            Picker("Sort By", selection: $sortBy) {
                 ForEach(TMDBSortBy.allCases) { item in
                     Text(item.localizedString).tag(item)
                 }
-            } label: {
-                Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
             }
         } label: {
             Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
+#if os(tvOS)
+                .labelStyle(.iconOnly)
+#endif
         }
     }
     
     private var styleOptions: some View {
         Menu {
-            Picker(selection: $settings.sectionStyleType) {
+            Picker("sectionStyleTypePicker", selection: $settings.sectionStyleType) {
                 ForEach(SectionDetailsPreferredStyle.allCases) { item in
                     Text(item.title).tag(item)
                 }
-            } label: {
-                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
             }
         } label: {
             Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
@@ -112,13 +116,7 @@ struct KeywordSectionView: View {
                         CenterHorizontalView {
                             ProgressView("Loading")
                                 .padding(.horizontal)
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                        Task {
-                                            await load(keyword.id, sortBy: sortBy, reload: false)
-                                        }
-                                    }
-                                }
+                                .onAppear(perform: loadMoreOnAppear)
                         }
                     }
                 }
@@ -142,13 +140,7 @@ struct KeywordSectionView: View {
                 CenterHorizontalView {
                     ProgressView()
                         .padding()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                Task {
-                                    await load(keyword.id, sortBy: sortBy, reload: false)
-                                }
-                            }
-                        }
+                        .onAppear(perform: loadMoreOnAppear)
                 }
             }
         }
@@ -167,13 +159,7 @@ struct KeywordSectionView: View {
                 CenterHorizontalView {
                     ProgressView()
                         .padding()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                Task {
-                                    await load(keyword.id, sortBy: sortBy, reload: false)
-                                }
-                            }
-                        }
+                        .onAppear(perform: loadMoreOnAppear)
                 }
             }
         }
@@ -194,7 +180,14 @@ private struct DrawingConstants {
 }
 
 extension KeywordSectionView {
-    func load(_ id: Int, sortBy: TMDBSortBy, reload: Bool) async {
+    private func loadMoreOnAppear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            Task {
+                await load(keyword.id, sortBy: sortBy, reload: false)
+            }
+        }
+    }
+    private func load(_ id: Int, sortBy: TMDBSortBy, reload: Bool) async {
         do {
             if reload {
                 withAnimation {

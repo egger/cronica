@@ -29,31 +29,19 @@ struct UpcomingWatchlist: View {
                                     NSPredicate(format: "isArchive == %d", false)
                                 ])])
     )
-    var items: FetchedResults<WatchlistItem>
-    @StateObject private var settings = SettingsStore.shared
+    private var items: FetchedResults<WatchlistItem>
     @Binding var shouldReload: Bool
     var body: some View {
-		list(items: items.filter { $0.backCompatibleCardImage != nil && $0.itemUpcomingReleaseDate > Date() }.sorted(by: { $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate}))
-			.task {
-				updateItems(items: items.filter { $0.itemReleaseDate < Date() })
-			}
+        list(items: items.filter {
+            $0.backCompatibleCardImage != nil && $0.itemUpcomingReleaseDate > Date()
+        }.sorted(by: {
+            $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate
+        }))
+        .task {
+            updateItems(items: items.filter { $0.itemReleaseDate < Date() })
+        }
     }
-	
-	private func updateItems(items: [WatchlistItem]) {
-		if items.isEmpty { return }
-		Task {
-			for item in items {
-				print(item.itemTitle)
-				if item.itemReleaseDate < Date() {
-					let content = try? await NetworkService.shared.fetchItem(id: item.itemId, type: item.itemMedia)
-					if let content {
-						PersistenceController.shared.update(item: content)
-					}
-				}
-			}
-		}
-	}
-    
+
     @ViewBuilder
 	private func list(items: [WatchlistItem]) -> some View {
         if !items.isEmpty {
@@ -75,7 +63,7 @@ struct UpcomingWatchlist: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             ForEach(items) { item in
-                                card(item: item)
+                                UpNextCardView(item: item)
 #if !os(tvOS)
                                     .padding(.leading, item.id == items.first?.id ? 16 : 0)
                                     .padding(.trailing, item.id == items.last?.id ? 16 : 0)
@@ -103,9 +91,36 @@ struct UpcomingWatchlist: View {
             }
         }
     }
-    
-    @ViewBuilder
-    private func card(item: WatchlistItem) -> some View {
+}
+
+extension UpcomingWatchlist {
+    private func updateItems(items: [WatchlistItem]) {
+        if items.isEmpty { return }
+        Task {
+            for item in items {
+                print(item.itemTitle)
+                if item.itemReleaseDate < Date() {
+                    let content = try? await NetworkService.shared.fetchItem(id: item.itemId, type: item.itemMedia)
+                    if let content {
+                        PersistenceController.shared.update(item: content)
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    UpcomingWatchlist(shouldReload: .constant(false))
+}
+
+private struct UpNextCardView: View {
+    let item: WatchlistItem
+    @StateObject private var settings = SettingsStore.shared
+#if os(tvOS)
+    @FocusState var isStackFocused: Bool
+#endif
+    var body: some View {
 #if os(tvOS)
         VStack {
             image(for: item)
@@ -123,7 +138,11 @@ struct UpcomingWatchlist: View {
                 Text(item.itemTitle)
                     .font(.caption)
                     .lineLimit(2)
+#if os(tvOS)
+                    .foregroundColor(isStackFocused ? .primary : .secondary)
+#else
                     .foregroundColor(.secondary)
+#endif
                 Spacer()
             }
             if let info = item.itemGlanceInfo {
@@ -267,11 +286,10 @@ struct UpcomingWatchlist: View {
                 .transition(.opacity)
                 .applyHoverEffect()
         }
+#if os(tvOS)
+        .focused($isStackFocused)
+#endif
     }
-}
-
-#Preview {
-    UpcomingWatchlist(shouldReload: .constant(false))
 }
 
 private struct DrawingConstants {
