@@ -168,16 +168,7 @@ struct VerticalUpNextListView: View {
 #if os(iOS)
         .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
         .autocorrectionDisabled()
-        .onChange(of: query) { 
-            if query.isEmpty && !queryResult.isEmpty {
-                withAnimation {
-                    queryResult.removeAll()
-                }
-            } else {
-                queryResult.removeAll()
-                queryResult = viewModel.episodes.filter{ $0.showTitle.lowercased().contains(query.lowercased())}
-            }
-        }
+        .onChange(of: query) { search() }
 #endif
         .toolbar {
 #if os(iOS)
@@ -237,9 +228,7 @@ struct VerticalUpNextListView: View {
                 }
             }
         }
-        .task {
-            await viewModel.checkForNewEpisodes(items)
-        }
+        .task { await viewModel.checkForNewEpisodes(items) }
         .navigationTitle("upNext")
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
@@ -314,6 +303,19 @@ struct VerticalUpNextListView: View {
         }
     }
 #endif
+}
+
+extension VerticalUpNextListView {
+    private func search() {
+        if query.isEmpty && !queryResult.isEmpty {
+            withAnimation {
+                queryResult.removeAll()
+            }
+        } else {
+            queryResult.removeAll()
+            queryResult = viewModel.episodes.filter{ $0.showTitle.lowercased().contains(query.lowercased())}
+        }
+    }
 }
 
 private struct DrawingConstants {

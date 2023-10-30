@@ -48,6 +48,7 @@ struct HorizontalUpNextListView: View {
                                         .padding(.top, 8)
                                         .padding(.bottom)
                                         .buttonStyle(.card)
+                                        .environmentObject(viewModel)
 #else
                                     if !settings.isCompactUI {
                                         upNextCard(item)
@@ -303,11 +304,13 @@ private struct UpNextCard: View {
     @FocusState var isFocused
     @Binding var selectedEpisode: UpNextEpisode?
     @StateObject private var settings = SettingsStore.shared
+    @EnvironmentObject var viewModel: UpNextViewModel
+    @State private var showConfirmation = false
     var body: some View {
         VStack {
             Button {
-                selectedEpisode = item
-            } label: {
+                showConfirmation.toggle()
+                            } label: {
                 WebImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage)
                     .resizable()
                     .placeholder {
@@ -355,6 +358,25 @@ private struct UpNextCard: View {
             Spacer()
         }
         .padding(.top)
+        .alert("Confirm Watched Episode",
+               isPresented: $showConfirmation) {
+            Button("Confirm") {
+                Task {
+                    await viewModel.markAsWatched(item)
+                }
+            }
+            Button("Cancel", role: .cancel) {
+                showConfirmation = false
+            }
+        } message: {
+            let localizedString = String.localizedStringWithFormat(NSLocalizedString("MARK_EPISODE_WATCHED", comment: ""), item.episode.itemEpisodeNumber, item.episode.itemSeasonNumber, item.showTitle)
+            Text(localizedString)
+        }
+        .contextMenu {
+            Button("Details") {
+                selectedEpisode = item
+            }
+        }
     }
 }
 #endif
