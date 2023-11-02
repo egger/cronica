@@ -14,12 +14,13 @@ struct WatchedButton: View {
     @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
-        Button(action: updateWatched) {
-            Label(isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-        }
+        Button(isWatched ? "Remove from Watched" : "Mark as Watched",
+               systemImage: isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark",
+               action: updateWatched)
     }
-    
+}
+
+extension WatchedButton {
     private func updateWatched() {
         guard let item = persistence.fetch(for: id) else { return }
         persistence.updateWatched(for: item)

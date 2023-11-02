@@ -723,3 +723,6 @@
 "To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "潜在的なスポイラーを防ぐため、未視聴のエピソードからサムネイルを非表示にできます。";
 "Add" = "追加";
 "upNextSkipThisEpisode" = "このエピソードをスキップ";
+
+"MARK_EPISODE_WATCHED" = "シーズン%2$dのエピソード%1$dを視聴済みにしますか？";
+"Confirm Watched Episode" = "視聴済みのエピソードを確認";

@@ -13,8 +13,6 @@
 "settingsSyncTitle" = "Synchronization";
 "settingsReviewCronica" = "Review Cronica on App Store";
 "settingsPrivacyPolicy" = "Privacy Policy";
-"settingsDisableTelemetryTitle" = "Disable Crash Reports";
-"settingsDisableTelemetrySubtitle" = "Cronica collects minimal data to minimize app crashes, this data is anonymously. See more details in Privacy Policy.";
 "settingsFeedbackTitle" = "Send Feedback";
 "settingsPrivacySupportTitle" = "Privacy & Support";
 "settingsDeveloperOptions" = "Developer Settings";

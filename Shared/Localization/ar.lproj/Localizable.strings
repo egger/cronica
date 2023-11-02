@@ -721,3 +721,6 @@
 "To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "To avoid potential spoilers, you can hide thumbnails from unwatched episodes.";
 "Add" = "Add";
 "upNextSkipThisEpisode" = "Skip this episode";
+
+"MARK_EPISODE_WATCHED" = "هل ترغب في تأكيد مشاهدة الحلقة %1$d من الموسم %2$d من %3$@؟";
+"Confirm Watched Episode" = "تأكيد مشاهدة الحلقة";

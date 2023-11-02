@@ -1,11 +1,11 @@
 # Cronica
 
 <p align="center">
-    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Shared/Assets.xcassets/MacAppIcon.appiconset/icon_512x512.png?raw=true" alt="Cronica Icon" width="100" height="100" />
+    <img src="https://github.com/MadeiraAlexandre/Cronica/blob/main/Shared/Assets.xcassets/MacAppIcon.appiconset/icon_512x512.png?raw=true" alt="Cronica Icon" width="150" height="150" />
 </p>
 
 <p align="center">
-    Cronica is an app to remind you about your new movies, and tv shows.
+    Cronica is a minimalist watchlist app that reminds you about upcoming releases.
 </p>
 
 <p align="center">
@@ -35,16 +35,16 @@ If you want to contribute with code, here are some important details about the p
 - The code-base for the Mac, iPhone, iPad, and Apple TV versions is shared and resides within the "Shared" folder.
 - While the Apple Watch also utilizes the same networking as the other platforms, it has a different user interface (UI) design. The Apple Watch-specific UI components are located in the "Apple Watch" folder. However, certain UI components are shared among all platforms and can be found in the "Shared" folder.
 - The views are organized based on their relationship with models or functionality. For instance, the "ItemContent" struct represents data fetched from the TMDb service, which can refer to a movie or a TV show. The UI elements associated with this struct are grouped under the "ItemContent" group in the "Views" folder. An example of such a UI element is the details page that users see when they open a movie.
+- The logic for most of the views is separated using extensions, primarily to help maintain the project in the long run.
 - If you have any questions, feel free to reach out to me via email, Twitter, or iMessage. I'll be happy to assist you.
 
 ##  Build information
 
-#### This project targets iOS 16.4, iPadOS 16.4, watchOS 9.4, macOS 13.4, tvOS 16.4 and requires Xcode 15.
+#### This project targets iOS 17, iPadOS 17, watchOS 10,  macOS 14, tvOS 17 and requires Xcode 15.
 
 To get started you'll need to:
 
-1. Get an API key to use TMDb API, you can get yours at their [website](https://www.themoviedb.org/documentation/api),  after that, go to Shared/Configuration/Key and replace the value of *tmdbApi* with your own key.
-2. You can remove TelemetryDeck service if you want to, I use it for the Feedback feature and sending signal when a catch occurs.
+- Get an API key to use TMDb API, you can get yours at their [website](https://www.themoviedb.org/documentation/api),  after that, go to Shared/Configuration/Key and replace the value of *tmdbApi* with your own key.
 
 ## App Store
 

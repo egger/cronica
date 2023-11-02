@@ -1997,3 +1997,6 @@
 "To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "To avoid potential spoilers, you can hide thumbnails from unwatched episodes.";
 "Add" = "Add";
 "upNextSkipThisEpisode" = "Skip this episode";
+
+"MARK_EPISODE_WATCHED" = "Vendosni Episode %1$d nga Sezoni %2$d i %3$@ si të shikuar?";
+"Confirm Watched Episode" = "Konfirmo Episode të Shikuar";

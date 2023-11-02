@@ -63,12 +63,7 @@ struct VerticalUpNextListView: View {
                                     }
                                 }
                             } else if queryResult.isEmpty && !query.isEmpty {
-                                CenterHorizontalView {
-                                    Text("noResultsFound")
-                                        .font(.headline)
-                                        .foregroundStyle(.secondary)
-                                        .multilineTextAlignment(.center)
-                                }
+                                EmptyView()
                             } else {
                                 ForEach(viewModel.episodes) { item in
                                     VStack(alignment: .leading) {
@@ -137,10 +132,7 @@ struct VerticalUpNextListView: View {
                                         }
                                 }
                             } else if queryResult.isEmpty && !query.isEmpty {
-                                Text("noResultsFound")
-                                    .font(.headline)
-                                    .foregroundStyle(.secondary)
-                                    .multilineTextAlignment(.center)
+                                EmptyView()
                             } else {
                                 ForEach(viewModel.episodes) { item in
                                     upNextRowItem(item)
@@ -163,6 +155,11 @@ struct VerticalUpNextListView: View {
 #if os(macOS)
 				.formStyle(.grouped)
 #endif
+            }
+        }
+        .overlay {
+            if queryResult.isEmpty, !query.isEmpty {
+                ContentUnavailableView.search(text: query)
             }
         }
 #if os(iOS)

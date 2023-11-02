@@ -748,4 +748,5 @@
 "Add" = "Adicionar";
 "upNextSkipThisEpisode" = "Pular este episódio";
 
-
+"MARK_EPISODE_WATCHED" = "Marcar Episódio %1$d da Temporada %2$d de %3$@ como assistido?";
+"Confirm Watched Episode" = "Confirmar Episódio Assistido";

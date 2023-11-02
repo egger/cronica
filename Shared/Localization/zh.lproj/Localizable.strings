@@ -1997,3 +1997,6 @@
 "To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "To avoid potential spoilers, you can hide thumbnails from unwatched episodes.";
 "Add" = "Add";
 "upNextSkipThisEpisode" = "Skip this episode";
+
+"MARK_EPISODE_WATCHED" = "标记%3$@第%2$d季第%1$d集的剧集为已观看?";
+"Confirm Watched Episode" = "确认已观看的剧集";

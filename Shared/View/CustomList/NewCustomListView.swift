@@ -27,7 +27,7 @@ struct NewCustomListView: View {
                 TextField("listName", text: $title)
                 TextField("listDescription", text: $note)
                 
-#if os(watchOS)
+#if os(watchOS) || os(tvOS)
                 createList
 #endif
             }

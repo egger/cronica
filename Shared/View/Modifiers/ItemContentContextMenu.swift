@@ -36,7 +36,7 @@ struct ItemContentContextMenu: ViewModifier {
 					pinButton
 					archiveButton
 #if !os(tvOS)
-					CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
+                    CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
 					Button {
 						showNote.toggle()
 					} label: {

@@ -1997,3 +1997,6 @@
 "To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "To avoid potential spoilers, you can hide thumbnails from unwatched episodes.";
 "Add" = "Add";
 "upNextSkipThisEpisode" = "Skip this episode";
+
+"MARK_EPISODE_WATCHED" = "시즌 %2$d의 %3$@ 에피소드 %1$d를 시청했습니까?";
+"Confirm Watched Episode" = "시청한 에피소드 확인";

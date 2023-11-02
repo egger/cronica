@@ -19,9 +19,11 @@ struct WatchlistCardSection: View {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: DrawingConstants.columns ))],
                           spacing: DrawingConstants.spacing) {
 #if os(tvOS)
-                    ForEach(items, id: \.itemContentID) { item in
-                        WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
-                    }
+                    Section {
+                        ForEach(items, id: \.itemContentID) { item in
+                            WatchlistItemCardView(content: item, showPopup: $showPopup, popupType: $popupType)
+                        }
+                    } 
 #else
                     Section {
                         ForEach(items, id: \.itemContentID) { item in

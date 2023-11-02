@@ -101,6 +101,7 @@ struct DefaultWatchlist: View {
                         }
                         .buttonStyle(.plain)
                         Spacer()
+                        sortButton
                         Menu {
                             Picker("Smart Filters", selection: $smartFilter) {
                                 ForEach(SmartFiltersTypes.allCases) { sort in

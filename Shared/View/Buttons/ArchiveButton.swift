@@ -14,10 +14,9 @@ struct ArchiveButton: View {
     @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
-        Button(action: updateArchive) {
-            Label(isArchive ? "Remove from Archive" : "Archive Item",
-                  systemImage: isArchive ? "archivebox.fill" : "archivebox")
-        }
+        Button(isArchive ? "Remove from Archive" : "Archive Item",
+               systemImage: isArchive ? "archivebox.fill" : "archivebox",
+               action: updateArchive)
     }
     
     private func updateArchive() {

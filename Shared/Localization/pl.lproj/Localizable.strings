@@ -1997,3 +1997,6 @@
 "To avoid potential spoilers, you can hide thumbnails from unwatched episodes." = "To avoid potential spoilers, you can hide thumbnails from unwatched episodes.";
 "Add" = "Add";
 "upNextSkipThisEpisode" = "Skip this episode";
+
+"MARK_EPISODE_WATCHED" = "Oznacz odcinek %1$d z sezonu %2$d z %3$@ jako obejrzany?";
+"Confirm Watched Episode" = "Potwierdź obejrzany odcinek";
