@@ -12,7 +12,7 @@ struct HorizontalUpNextListView: View {
     @Binding var shouldReload: Bool
     @State private var selectedEpisode: UpNextEpisode?
     @StateObject private var settings = SettingsStore.shared
-    @StateObject private var viewModel = UpNextViewModel()
+    @StateObject private var viewModel = UpNextViewModel.shared
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],

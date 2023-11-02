@@ -24,15 +24,7 @@ struct WatchlistView: View {
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
-        .onDisappear {
-            navigationDisplayTitle = navigationTitle
-        }
-        .task {
-            if !navigationDisplayTitle.isEmpty {
-                navigationDisplayTitle = String()
-            }
-        }
-        .navigationTitle(navigationDisplayTitle)
+        .navigationTitle(navigationTitle)
         .onChange(of: selectedList) { _, newValue in
             if let newValue {
                 navigationTitle = newValue.itemTitle

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct SearchView: View {
-#if !os(macOS)
     static let tag: Screens? = .search
-#endif
 #if os(tvOS)
     private let columns: [GridItem] = [GridItem(.adaptive(minimum: 260))]
+#else
+    private let columns: [GridItem] = [GridItem(.adaptive(minimum: 160))]
 #endif
     @StateObject private var viewModel = SearchViewModel()
     @State private var showPopup = false
@@ -23,7 +23,7 @@ struct SearchView: View {
         VStack {
 #if os(iOS)
             listView
-#elseif os(tvOS)
+#elseif os(tvOS) || os(macOS)
             posterView
 #endif
         }
@@ -74,8 +74,10 @@ struct SearchView: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
-#else
+#elseif os(tvOS)
         .searchable(text: $viewModel.query, prompt: "Movies, Shows, People")
+#elseif os(macOS)
+        .searchable(text: $viewModel.query, placement: .toolbar, prompt: "Movies, Shows, People")
 #endif
         .disableAutocorrection(true)
         .task(id: viewModel.query) {
@@ -144,7 +146,7 @@ struct SearchView: View {
     }
 #endif
     
-#if os(tvOS)
+#if os(tvOS) || os(macOS)
     @ViewBuilder
     private var posterView: some View {
         switch viewModel.stage {
@@ -158,12 +160,16 @@ struct SearchView: View {
                     ForEach(viewModel.items) { item in
                         if item.media == .person {
                             PersonSearchImage(item: item)
+#if os(tvOS)
                                 .padding()
+#endif
                         } else {
                             SearchContentPosterView(item: item,
                                                     showPopup: $showPopup,
                                                     popupType: $popupType)
+#if os(tvOS)
                             .padding()
+#endif
                         }
                     }
                     .buttonStyle(.plain)
@@ -181,14 +187,19 @@ struct SearchView: View {
                         }
                     }
                 }
+#if !os(tvOS)
+                .padding()
+#endif
             }
+#if os(tvOS)
             .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
     }
 #endif
     
     private var emptyView: some View {
-        ContentUnavailableView("No Results", systemImage: "magnifyingglass").padding()
+        ContentUnavailableView.search(text: viewModel.query)
     }
     
     private var searchingView: some View {
@@ -213,14 +224,14 @@ struct SearchView: View {
     }
 }
 
-#Preview {
-    SearchView()
-}
-
 extension SearchView {
     private func loadMoreOnAppear() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             viewModel.loadMoreItems()
         }
     }
+}
+
+#Preview {
+    SearchView()
 }

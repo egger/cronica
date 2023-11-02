@@ -164,8 +164,8 @@ struct VerticalUpNextListView: View {
         }
 #if os(iOS)
         .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
-        .autocorrectionDisabled()
-        .onChange(of: query) { search() }
+#elseif os(macOS)
+        .searchable(text: $query, placement: .toolbar)
 #endif
         .toolbar {
 #if os(iOS)
@@ -226,6 +226,8 @@ struct VerticalUpNextListView: View {
             }
         }
         .task { await viewModel.checkForNewEpisodes(items) }
+        .autocorrectionDisabled()
+        .task(id: query) { search() }
         .navigationTitle("upNext")
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)

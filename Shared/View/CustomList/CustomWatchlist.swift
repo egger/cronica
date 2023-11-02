@@ -191,7 +191,7 @@ struct CustomWatchlist: View {
 #elseif os(macOS)
 			HStack {
 				sortButton
-				filterPicker
+				//filterPicker
 				styleButton
 			}
 #else
@@ -236,18 +236,20 @@ struct CustomWatchlist: View {
     }
     
     private var sortButton: some View {
-        Menu {
-            Picker(selection: $sortOrder) {
-                ForEach(WatchlistSortOrder.allCases) { item in
-                    Text(item.localizableName).tag(item)
-                }
-            } label: {
-                Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
+        Picker("Sort Order",
+               systemImage: "arrow.up.arrow.down.circle",
+               selection: $sortOrder) {
+            ForEach(WatchlistSortOrder.allCases) { item in
+                Text(item.localizableName).tag(item)
             }
-        } label: {
-            Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
-                .labelStyle(.iconOnly)
         }
+        #if os(iOS)
+               .labelStyle(.iconOnly)
+               .pickerStyle(.menu)
+        #else
+               .labelStyle(.titleOnly)
+               .pickerStyle(.inline)
+        #endif
     }
     
     private var filterPicker: some View {

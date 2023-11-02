@@ -13,44 +13,26 @@ struct DetailedPeopleList: View {
     @State private var query = ""
     @State private var filteredItems = [Person]()
     var body: some View {
-        VStack {
-            if query.isEmpty {
-#if os(iOS) || os(tvOS)
-                List {
-                    ForEach(items, id: \.personListID) { item in
-                        personItemRow(person: item)
-                    }
-                }
-#elseif os(macOS)
-                Table(items) {
-                    TableColumn("Person") { item in
-                        personItemRow(person: item)
-                            .buttonStyle(.plain)
-                            .accessibilityHint(Text(item.name))
-                    }
-                }
-#endif
-            } else {
-                if !query.isEmpty && filteredItems.isEmpty {
-                    Text("No Results")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                } else {
-#if os(iOS) || os(tvOS)
+        Form {
+            if query.isEmpty, filteredItems.isEmpty {
+                Section {
                     List {
-                        ForEach(filteredItems, id: \.personListID) { item in
+                        ForEach(items, id: \.personListID) { item in
                             personItemRow(person: item)
                         }
                     }
-#else
-                    Table(filteredItems) {
-                        TableColumn("Person") { item in
-                            personItemRow(person: item)
-                                .buttonStyle(.plain)
-                                .accessibilityHint(Text(item.name))
+                }
+            } else {
+                if !query.isEmpty, filteredItems.isEmpty {
+                    ContentUnavailableView.search(text: query)
+                } else {
+                    Section {
+                        List {
+                            ForEach(filteredItems, id: \.personListID) { item in
+                                personItemRow(person: item)
+                            }
                         }
                     }
-#endif
                 }
             }
         }
@@ -58,27 +40,14 @@ struct DetailedPeopleList: View {
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
 #endif
-        .task(id: query) {
-            if query.isEmpty {
-                return
-            } else if query.isEmpty && !filteredItems.isEmpty {
-                filteredItems = []
-            } else {
-                if !filteredItems.isEmpty {
-                    withAnimation {
-                        filteredItems = []
-                    }
-                }
-                let results = items.filter { $0.name.lowercased().contains(query.lowercased())}
-                withAnimation {
-                    filteredItems = results
-                }
-            }
-        }
+        .task(id: query) { await search() }
 #if os(iOS)
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
-        .autocorrectionDisabled()
+#elseif os(macOS)
+        .searchable(text: $query, placement: .toolbar)
+        .formStyle(.grouped)
 #endif
+        .autocorrectionDisabled()
     }
     
     private func personItemRow(person: Person) -> some View {
@@ -118,6 +87,19 @@ struct DetailedPeopleList: View {
             }
         }
         .buttonStyle(.plain)
+        .accessibilityHint(Text(person.name))
+    }
+}
+
+extension DetailedPeopleList {
+    private func search() async {
+        try? await Task.sleep(nanoseconds: 200_000_000)
+        if !filteredItems.isEmpty { filteredItems.removeAll() }
+        filteredItems.append(contentsOf: items.filter {
+            ($0.name.localizedStandardContains(query)) as Bool
+            || ($0.name.localizedStandardContains(query)) as Bool
+            || ($0.personRole?.localizedStandardContains(query) ?? false) as Bool
+        })
     }
 }
 

@@ -69,6 +69,12 @@ struct KeywordSectionView: View {
                 .unredacted()
                 .disabled(!isLoaded)
             }
+            #elseif os(macOS)
+            ToolbarItem {
+                sortButton
+                    .unredacted()
+                    .disabled(!isLoaded)
+            }
 #endif
         }
         .redacted(reason: isLoaded ? [] : .placeholder)
@@ -78,31 +84,27 @@ struct KeywordSectionView: View {
     }
     
     private var sortButton: some View {
-        Menu {
-            Picker("Sort By", selection: $sortBy) {
-                ForEach(TMDBSortBy.allCases) { item in
-                    Text(item.localizedString).tag(item)
-                }
+        Picker("Sort By",
+               systemImage: "arrow.up.arrow.down.circle",
+               selection: $sortBy) {
+            ForEach(TMDBSortBy.allCases) { item in
+                Text(item.localizedString).tag(item)
             }
-        } label: {
-            Label("Sort By", systemImage: "arrow.up.arrow.down.circle")
-#if os(tvOS)
-                .labelStyle(.iconOnly)
-#endif
         }
+               .labelStyle(.iconOnly)
+               .pickerStyle(.menu)
     }
     
     private var styleOptions: some View {
-        Menu {
-            Picker("sectionStyleTypePicker", selection: $settings.sectionStyleType) {
-                ForEach(SectionDetailsPreferredStyle.allCases) { item in
-                    Text(item.title).tag(item)
-                }
+        Picker("sectionStyleTypePicker",
+               systemImage: "circle.grid.2x2",
+               selection: $settings.sectionStyleType) {
+            ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                Text(item.title).tag(item)
             }
-        } label: {
-            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
-                .labelStyle(.iconOnly)
         }
+        .labelStyle(.iconOnly)
+        .pickerStyle(.menu)
     }
     
     private var listStyle: some View {

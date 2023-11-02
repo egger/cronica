@@ -32,31 +32,9 @@ struct ItemContentDetails: View {
                 .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
                 .toolbar {
                     if handleToolbar {
-                        ToolbarItem(placement: .status) {
-							HStack {
-								if viewModel.isInWatchlist {
-									favoriteButton
-									archiveButton
-									pinButton
-									userNotesButton
-								}
-								shareButton
-							}
-							.disabled(viewModel.isLoading ? true : false)
-                        }
+                        ToolbarItem(placement: .status) { toolbarRow }
                     } else {
-                        ToolbarItem {
-							HStack {
-								if viewModel.isInWatchlist {
-									favoriteButton
-									archiveButton
-									pinButton
-									userNotesButton
-								}
-								shareButton
-							}
-							.disabled(viewModel.isLoading ? true : false)
-                        }
+                        ToolbarItem { toolbarRow }
                     }
                 }
 #elseif os(iOS)
@@ -165,6 +143,24 @@ struct ItemContentDetails: View {
         }
     }
     
+    private var toolbarRow: some View {
+        HStack {
+            shareButton
+            if viewModel.isInWatchlist {
+                if type == .movie {
+                    favoriteButton
+                } else {
+                    watchButton
+                }
+                archiveButton
+                pinButton
+                userNotesButton
+            }
+            openInMenu
+        }
+        .disabled(viewModel.isLoading ? true : false)
+    }
+    
     private var addToCustomListButton: some View {
         Button {
             showCustomList.toggle()
@@ -174,75 +170,77 @@ struct ItemContentDetails: View {
     }
     
     private var watchButton: some View {
-        Button {
+        Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+               systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
             viewModel.update(.watched)
             animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
-        } label: {
-            Label(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
         }
+               .symbolEffect(.bounce.down, value: viewModel.isWatched)
 #if os(iOS) || os(macOS)
         .keyboardShortcut("w", modifiers: [.option])
 #endif
     }
     
     private var favoriteButton: some View {
-        Button {
+        Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+               systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
             viewModel.update(.favorite)
             animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
-        } label: {
-            Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                  systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
         }
+               .symbolEffect(.bounce.down, value: viewModel.isFavorite)
 #if os(iOS) || os(macOS)
-        .keyboardShortcut("f", modifiers: [.option])
+               .keyboardShortcut("f", modifiers: [.option])
 #endif
     }
     
     private var archiveButton: some View {
-        Button {
+        Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
+               systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
             viewModel.update(.archive)
             animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
-        } label: {
-            Label(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
-                  systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox")
-        }
+        }.symbolEffect(.bounce.down, value: viewModel.isArchive)
     }
     
     private var pinButton: some View {
-        Button {
+        Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
+               systemImage: viewModel.isPin ? "pin.fill" : "pin") {
             viewModel.update(.pin)
             animate(for: viewModel.isPin ? .markedPin : .removedPin)
-        } label: {
-            Label(viewModel.isPin ? "Unpin Item" : "Pin Item",
-                  systemImage: viewModel.isPin ? "pin.slash.fill" : "pin.fill")
-        }
+        }.symbolEffect(.bounce.down, value: viewModel.isPin)
     }
     
-#if os(iOS)
+#if os(iOS) || os(macOS)
     private var openInMenu: some View {
-        Menu {
+        Menu("Open in",
+             systemImage: "ellipsis.circle") {
+            
             if let homepage = viewModel.content?.homepage {
                 Button("Official Website") {
                     guard let url = URL(string: homepage) else { return }
+#if os(iOS)
                     UIApplication.shared.open(url)
+                    #else
+                    NSWorkspace.shared.open(url)
+#endif
                 }
             }
             if viewModel.content?.hasIMDbUrl ?? false {
                 Button("IMDb") {
                     guard let url = viewModel.content?.imdbUrl else { return }
+#if os(iOS)
                     UIApplication.shared.open(url)
+                    #else
+                    NSWorkspace.shared.open(url)
+#endif
                 }
             }
             Button("TMDb") {
                 guard let url = viewModel.content?.itemURL else { return }
+#if os(iOS)
                 UIApplication.shared.open(url)
-            }
-        } label: {
-            if UIDevice.isIPad {
-                Label("Open in", systemImage: "ellipsis.circle")
-            } else {
-                Text("Open in")
+                #else
+                NSWorkspace.shared.open(url)
+#endif
             }
         }
     }
@@ -275,11 +273,7 @@ struct ItemContentDetails: View {
 #endif
     
     private var userNotesButton: some View {
-        Button {
-            showUserNotes.toggle()
-        } label: {
-            Label("reviewTitle", systemImage: "note.text")
-        }
+        Button("reviewTitle", systemImage: "note.text") { showUserNotes.toggle() }
     }
     
     @ViewBuilder

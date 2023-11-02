@@ -63,41 +63,45 @@ struct ItemContentPadView: View {
         }
     }
     
+    private var poster: some View {
+        WebImage(url: viewModel.content?.posterImageLarge)
+            .resizable()
+            .placeholder {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    Image(systemName: "popcorn.fill")
+                        .font(.title)
+                        .foregroundColor(.white.opacity(0.8))
+                    .padding()
+                }
+            }
+            .overlay {
+                ZStack {
+                    Rectangle().fill(.thinMaterial)
+                    Image(systemName: animationImage)
+                        .symbolRenderingMode(.multicolor)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .scaleEffect(animateGesture ? 1.1 : 1)
+                }
+                .opacity(animateGesture ? 1 : 0)
+            }
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 300, height: 460)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .onTapGesture(count: 2) {
+                animate(for: store.gesture)
+                viewModel.update(store.gesture)
+            }
+            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+            .padding()
+            .accessibility(hidden: true)
+    }
+    
     private var header: some View {
         HStack {
-            WebImage(url: viewModel.content?.posterImageLarge)
-                .resizable()
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                        Image(systemName: "popcorn.fill")
-                            .font(.title)
-                            .foregroundColor(.white.opacity(0.8))
-                        .padding()
-                    }
-                }
-                .overlay {
-                    ZStack {
-                        Rectangle().fill(.thinMaterial)
-                        Image(systemName: animationImage)
-                            .symbolRenderingMode(.multicolor)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
-                            .scaleEffect(animateGesture ? 1.1 : 1)
-                    }
-                    .opacity(animateGesture ? 1 : 0)
-                }
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 300, height: 460)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                .onTapGesture(count: 2) {
-                    animate(for: store.gesture)
-                    viewModel.update(store.gesture)
-                }
-                .shadow(radius: 5)
-                .padding()
-                .accessibility(hidden: true)
+            poster
             
             
             VStack(alignment: .leading) {

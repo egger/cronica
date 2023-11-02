@@ -11,11 +11,6 @@ import SDWebImageSwiftUI
 struct TrendingKeywordsListView: View {
     @State private var trendingKeywords = [CombinedKeywords]()
     @State private var isLoading = true
-#if os(tvOS)
-    private let columns = [GridItem(.adaptive(minimum: 400))]
-#else
-    private let columns = [GridItem(.adaptive(minimum: 160))]
-#endif
     private let keywords: [CombinedKeywords] = [
         .init(id: 210024, name: NSLocalizedString("Anime", comment: ""), image: nil),
         .init(id: 41645, name: NSLocalizedString("Based on Video-Game", comment: ""), image: nil),
@@ -34,18 +29,20 @@ struct TrendingKeywordsListView: View {
 #if os(tvOS)
         cardGrid
 #else
-        VStack {
-            if !trendingKeywords.isEmpty {
-                TitleView(title: "Trending Keywords").unredacted()
+        ScrollView {
+            VStack {
+                if !trendingKeywords.isEmpty {
+                    TitleView(title: "Trending Keywords").unredacted()
+                }
+                cardGrid
             }
-            cardGrid
         }
 #endif
     }
     
     private var cardGrid: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
+            LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                 ForEach(trendingKeywords) { keyword in
                     if keyword.image != nil {
                         trendingCard(keyword)
@@ -66,7 +63,7 @@ struct TrendingKeywordsListView: View {
     
     private func trendingCard(_ keyword: CombinedKeywords) -> some View {
         NavigationLink(value: keyword) {
-            WebImage(url: keyword.image, options: [.continueInBackground, .highPriority])
+            WebImage(url: keyword.image)
                 .resizable()
                 .placeholder {
                     ZStack {
@@ -92,17 +89,9 @@ struct TrendingKeywordsListView: View {
                             .padding(.bottom, 8)
                         }
                     }
-#if os(tvOS)
-                    .frame(width: 400, height: 240, alignment: .center)
-#else
-                    .frame(width: 160, height: 100, alignment: .center)
-#endif
+                    .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
                 }
-#if os(tvOS)
-                .frame(width: 400, height: 240, alignment: .center)
-#else
-                .frame(width: 160, height: 100, alignment: .center)
-#endif
+                .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .shadow(radius: 2)
                 .buttonStyle(.plain)
@@ -110,10 +99,10 @@ struct TrendingKeywordsListView: View {
         .disabled(isLoading)
 #if os(tvOS)
         .buttonStyle(.card)
-        .frame(width: 400, height: 240, alignment: .center)
-#else
-        .frame(width: 160, height: 100, alignment: .center)
+#elseif os(macOS)
+        .buttonStyle(.plain)
 #endif
+        .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
     }
 }
 
@@ -147,4 +136,20 @@ struct CombinedKeywords: Identifiable, Hashable {
     let id: Int
     let name: String
     let image: URL?
+}
+
+private struct DrawingConstants {
+#if os(iOS)
+    static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
+    static let width: CGFloat = 160
+    static let height: CGFloat = 100
+#elseif os(tvOS)
+    static let columns = [GridItem(.adaptive(minimum: 400))]
+    static let width: CGFloat = 400
+    static let height: CGFloat = 240
+#else
+    static let columns = [GridItem(.adaptive(minimum: 320))]
+    static let width: CGFloat = 320
+    static let height: CGFloat = 140
+#endif
 }

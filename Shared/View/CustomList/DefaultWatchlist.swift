@@ -203,11 +203,7 @@ struct DefaultWatchlist: View {
                 }
             }
 #elseif os(macOS)
-            HStack {
-                filterButton
-                sortButton
-                styleButton
-            }
+            filterButton
 #endif
         }
 #if os(iOS)
@@ -219,11 +215,13 @@ struct DefaultWatchlist: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
+#elseif os(macOS)
+        .searchable(text: $query, placement: .toolbar)
+#endif
         .disableAutocorrection(true)
         .task(id: query) {
             await search()
         }
-#endif
     }
     
     private func search() async {
@@ -258,37 +256,35 @@ struct DefaultWatchlist: View {
                 }
             }
             .disabled(showAllItems)
+            #if os(macOS)
+            .pickerStyle(.inline)
+            #endif
+#if os(macOS)
+            sortButton
+                .pickerStyle(.menu)
+#endif
         } label: {
-            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
-                .labelStyle(.iconOnly)
+            Image(systemName: "line.3.horizontal.decrease.circle")
+                .accessibilityLabel("Sort List")
         }
         .buttonStyle(.bordered)
     }
     
     private var sortButton: some View {
-#if os(macOS)
-        Picker(selection: $sortOrder) {
+        Picker("Sort Order",
+               systemImage: "arrow.up.arrow.down.circle",
+               selection: $sortOrder) {
             ForEach(WatchlistSortOrder.allCases) { item in
                 Text(item.localizableName).tag(item)
             }
-        } label: {
-            Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
-                .labelStyle(.iconOnly)
         }
-#else
-        Menu {
-            Picker(selection: $sortOrder) {
-                ForEach(WatchlistSortOrder.allCases) { item in
-                    Text(item.localizableName).tag(item)
-                }
-            } label: {
-                Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
-            }
-        } label: {
-            Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
-                .labelStyle(.iconOnly)
-        }
-#endif
+        #if os(iOS)
+               .pickerStyle(.menu)
+               .labelStyle(.iconOnly)
+        #else
+               .pickerStyle(.inline)
+               .labelStyle(.titleOnly)
+        #endif
     }
     
     private var styleButton: some View {
@@ -323,8 +319,7 @@ struct DefaultWatchlist: View {
     }
     
     private var noResults: some View {
-        ContentUnavailableView("No results", systemImage: "magnifyingglass")
-            .padding()
+        ContentUnavailableView.search(text: query)
     }
 }
 

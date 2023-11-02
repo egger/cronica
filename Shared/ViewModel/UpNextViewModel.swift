@@ -9,12 +9,15 @@ import SwiftUI
 
 @MainActor
 class UpNextViewModel: ObservableObject {
+    static let shared = UpNextViewModel()
     @Published var isLoaded = false
     @Published var episodes = [UpNextEpisode]()
     @Published var isWatched = false
     @Published var scrollToInitial = false
     private let network = NetworkService.shared
     private let persistence = PersistenceController.shared
+    
+    private init() { }
     
     func load(_ items: FetchedResults<WatchlistItem>) async {
         if !isLoaded {

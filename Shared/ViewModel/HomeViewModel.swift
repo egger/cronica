@@ -90,10 +90,10 @@ class HomeViewModel: ObservableObject {
             return .init(results: filtered, endpoint: endpoint)
         } catch {
             if Task.isCancelled { return nil }
-            let message = """
-Can't load the endpoint \(endpoint.title), with error message: \(error.localizedDescription).
-"""
-            CronicaTelemetry.shared.handleMessage(message, for: "HomeViewModel.load()")
+            CronicaTelemetry.shared.handleMessage(
+                "Can't load the endpoint \(endpoint.title), with error message: \(error.localizedDescription)",
+                for: "HomeViewModel.load()"
+            )
             return nil
         }
     }
