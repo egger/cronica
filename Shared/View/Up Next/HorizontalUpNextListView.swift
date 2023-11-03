@@ -298,6 +298,9 @@ struct HorizontalUpNextListView: View {
     
 }
 
+extension HorizontalUpNextListView {
+}
+
 #if os(tvOS)
 private struct UpNextCard: View {
     let item: UpNextEpisode
@@ -391,7 +394,7 @@ private struct DrawingConstants {
 #endif
     static let compactImageWidth: CGFloat = 160
     static let compactImageHeight: CGFloat = 100
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 8
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5
 }

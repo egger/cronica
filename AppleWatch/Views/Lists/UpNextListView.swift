@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct UpNextListView: View {
     static let tag: Screens? = .upNext
-    @StateObject private var viewModel = UpNextViewModel()
+    @StateObject private var viewModel = UpNextViewModel.shared
     @FetchRequest(
         entity: WatchlistItem.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],

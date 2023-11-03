@@ -109,9 +109,6 @@ struct SettingsView: View {
             
             TipJarSetting()
                 .tabItem { Label("tipJar", systemImage: "heart") }
-            
-            AboutSettings()
-                .tabItem { Label("aboutTitle", systemImage: "info.circle") }
         }
         .frame(minWidth: 420, idealWidth: 500, minHeight: 320, idealHeight: 320)
         .tabViewStyle(.automatic)

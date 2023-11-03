@@ -156,7 +156,9 @@ struct ItemContentDetails: View {
                 pinButton
                 userNotesButton
             }
+#if !os(tvOS)
             openInMenu
+#endif
         }
         .disabled(viewModel.isLoading ? true : false)
     }
@@ -177,7 +179,7 @@ struct ItemContentDetails: View {
         }
                .symbolEffect(.bounce.down, value: viewModel.isWatched)
 #if os(iOS) || os(macOS)
-        .keyboardShortcut("w", modifiers: [.option])
+               .keyboardShortcut("w", modifiers: [.option])
 #endif
     }
     
@@ -219,7 +221,7 @@ struct ItemContentDetails: View {
                     guard let url = URL(string: homepage) else { return }
 #if os(iOS)
                     UIApplication.shared.open(url)
-                    #else
+#else
                     NSWorkspace.shared.open(url)
 #endif
                 }
@@ -229,7 +231,7 @@ struct ItemContentDetails: View {
                     guard let url = viewModel.content?.imdbUrl else { return }
 #if os(iOS)
                     UIApplication.shared.open(url)
-                    #else
+#else
                     NSWorkspace.shared.open(url)
 #endif
                 }
@@ -238,7 +240,7 @@ struct ItemContentDetails: View {
                 guard let url = viewModel.content?.itemURL else { return }
 #if os(iOS)
                 UIApplication.shared.open(url)
-                #else
+#else
                 NSWorkspace.shared.open(url)
 #endif
             }
@@ -252,11 +254,11 @@ struct ItemContentDetails: View {
 #if os(iOS)
             if UIDevice.isIPhone {
                 if viewModel.isInWatchlist {
-					if type == .movie {
-						favoriteButton
-					} else {
-						watchButton
-					}
+                    if type == .movie {
+                        favoriteButton
+                    } else {
+                        watchButton
+                    }
                     archiveButton
                     pinButton
                     userNotesButton
@@ -282,8 +284,8 @@ struct ItemContentDetails: View {
         switch store.shareLinkPreference {
         case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url) }
         case .cronica: if let cronicaUrl {
-			ShareLink(item: cronicaUrl, message: Text(title))
-		}
+            ShareLink(item: cronicaUrl, message: Text(title))
+        }
         }
 #endif
     }

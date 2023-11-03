@@ -18,6 +18,8 @@ struct CronicaApp: App {
     @State private var widgetItem: ItemContent?
     @State private var notificationItem: ItemContent?
     @State private var selectedItem: ItemContent?
+    @State private var showFeedbackForm = false
+    @State private var showAbout = false
     @ObservedObject private var settings = SettingsStore.shared
 #if os(iOS)
     @ObservedObject private var notificationDelegate = NotificationDelegate()
@@ -31,10 +33,18 @@ struct CronicaApp: App {
 #endif
     }
     var body: some Scene {
+        MenuBarExtra("Up Next (Cronica)", systemImage: "popcorn") {
+            VStack {
+                UpNextMenuBar()
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+            }
+            .frame(minWidth: 300, minHeight: 300)
+        }.menuBarExtraStyle(.window)
+        
         WindowGroup {
             ContentView()
 #if os(macOS)
-				.frame(minWidth: 1000, minHeight: 600)
+                .frame(minWidth: 1000, minHeight: 600)
 #endif
                 .environment(\.managedObjectContext, persistence.container.viewContext)
 #if os(iOS)
@@ -107,12 +117,66 @@ struct CronicaApp: App {
                     .appTint()
 #endif
                 }
+#if os(macOS)
+                .sheet(isPresented: $showFeedbackForm) {
+                    FeedbackComposerView(showFeedbackForm: $showFeedbackForm)
+                        .frame(width: 400, height: 400, alignment: .center)
+                }
+                .sheet(isPresented: $showAbout) {
+                    NavigationStack {
+                        AboutSettings()
+                            .navigationDestination(for: SettingsScreens.self) { _ in
+                                DeveloperView()
+                            }
+                    }
+                    .frame(width: 400, height: 400, alignment: .center)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Done") {
+                                showAbout = false
+                            }
+                        }
+                    }
+                }
+#endif
         }
         .onChange(of: scene) { _, phase in
             if phase == .background {
                 scheduleAppRefresh()
             }
         }
+        .commands {
+            CommandGroup(after: .sidebar) {
+                Picker("appearanceRowStyleTitle", selection: $settings.watchlistStyle) {
+                    ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                }
+                Picker("appearanceSectionDetailsTitle", selection: $settings.sectionStyleType) {
+                    ForEach(SectionDetailsPreferredStyle.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                }
+                Picker("appearanceHorizontalListsTitle", selection: $settings.listsDisplayType) {
+                    ForEach(ItemContentListPreferredDisplayType.allCases) { item in
+                        Text(item.title).tag(item)
+                    }
+                }
+            }
+            
+            CommandGroup(replacing: .help) {
+                Button("Send Feedback") {
+                    showFeedbackForm = true
+                }
+            }
+            
+            CommandGroup(replacing: .appInfo) {
+                Button("aboutTitle") {
+                    showAbout.toggle()
+                }
+            }
+        }
+        
         
 #if os(macOS)
         Settings {
@@ -120,16 +184,6 @@ struct CronicaApp: App {
         }
 #endif
     }
-	
-#if os(macOS)
-	private func terminateApp() {
-		if settings.quitApp {
-			if NSApplication.shared.windows.count <= 1 {
-				NSApplication.shared.terminate(self)
-			}
-		}
-	}
-#endif
     
     private func fetchContent(for id: String) async {
         if selectedItem != nil { selectedItem = nil }

@@ -167,6 +167,6 @@ private struct DrawingConstants {
     static let profileHeight: CGFloat = 200
 #endif
     static let shadowRadius: CGFloat = 2.5
-    static let profileRadius: CGFloat = 12
+    static let profileRadius: CGFloat = 8
     static let lineLimit: Int = 1
 }

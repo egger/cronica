@@ -13,16 +13,23 @@ import SDWebImageSwiftUI
 struct PersonSearchImage: View {
     let item: SearchItemContent
     @FocusState var isStackFocused: Bool
+#if os(macOS)
+    @State private var isOnHover = false
+#endif
     var body: some View {
         VStack(alignment: .leading) {
             image
-#if os(tvOS)
+#if os(tvOS) || os(macOS)
             HStack {
                 Text(item.itemTitle)
                     .padding(.top, 4)
                     .font(.caption)
                     .lineLimit(2)
+#if os(tvOS)
                     .foregroundStyle(isStackFocused ? .primary : .secondary)
+#elseif os(macOS)
+                    .foregroundStyle(isOnHover ? .primary : .secondary)
+#endif
                     .frame(maxWidth: DrawingConstants.posterWidth)
                 Spacer()
             }
@@ -32,6 +39,10 @@ struct PersonSearchImage: View {
 #if os(tvOS)
         .focused($isStackFocused)
         .buttonStyle(.card)
+#elseif os(macOS)
+        .onHover { onHover in
+            isOnHover = onHover
+        }
 #endif
     }
     
@@ -80,21 +91,6 @@ private struct DrawingConstants {
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
 #endif
-    static let posterRadius: CGFloat = 12
+    static let posterRadius: CGFloat = 8
     static let shadowRadius: CGFloat = 2.5
-}
-
-struct PosterSearchItem: View {
-    let item: SearchItemContent
-    @Binding var showPopup: Bool
-    @Binding var popupType: ActionPopupItems?
-    var body: some View {
-        if item.media == .person {
-            PersonSearchImage(item: item)
-                .buttonStyle(.plain)
-        } else {
-            SearchContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
-                .buttonStyle(.plain)
-        }
-    }
 }

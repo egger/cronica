@@ -247,7 +247,7 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 420
     static let imageHeight: CGFloat = 240
 #endif
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 8
     static let titleLineLimit: Int = 2
     static let imageShadow: CGFloat = 2.5
     static let placeholderForegroundColor: Color = .white.opacity(0.8)

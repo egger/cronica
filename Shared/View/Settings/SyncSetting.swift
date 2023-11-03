@@ -112,7 +112,7 @@ struct SyncSetting: View {
     private func updateItems() {
         Task {
             let background = BackgroundManager.shared
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation {
                     self.updatingItems.toggle()
                 }
@@ -120,7 +120,7 @@ struct SyncSetting: View {
             await background.handleWatchingContentRefresh()
             await background.handleUpcomingContentRefresh()
             await background.handleAppRefreshMaintenance()
-            DispatchQueue.main.async {
+            await MainActor.run {
                 withAnimation {
                     self.updatingItems.toggle()
                 }

@@ -9,10 +9,10 @@ import Foundation
 
 enum MediaTypeFilters: String, Identifiable, CaseIterable {
     var id: String { rawValue }
-    case noFilter, movies, tvShows
+    case showAll, movies, tvShows
     var localizableTitle: String {
         switch self {
-        case .noFilter:
+        case .showAll:
             return NSLocalizedString("mediaTypeFiltersNoFilter", comment: "")
         case .movies:
             return NSLocalizedString("mediaTypeFiltersMovies", comment: "")

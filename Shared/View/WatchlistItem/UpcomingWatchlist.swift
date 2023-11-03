@@ -300,7 +300,7 @@ private struct DrawingConstants {
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160
 #endif
-    static let cardRadius: CGFloat = 12
+    static let cardRadius: CGFloat = 8
     static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1
     static let compactCardWidth: CGFloat = 160

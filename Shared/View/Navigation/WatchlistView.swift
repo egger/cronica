@@ -15,6 +15,12 @@ struct WatchlistView: View {
     @State private var selectedList: CustomList?
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
+    
+    @Environment(\.managedObjectContext) var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+        animation: .default)
+    private var lists: FetchedResults<CustomList>
     var body: some View {
         VStack {
             if selectedList != nil {
@@ -91,6 +97,7 @@ struct WatchlistView: View {
 #elseif os(macOS)
             ToolbarItem(placement: .navigation) {
                 WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
+                    .buttonStyle(.bordered)
             }
 #endif
         }

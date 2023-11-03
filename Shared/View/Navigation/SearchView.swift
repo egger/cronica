@@ -177,13 +177,7 @@ struct SearchView: View {
                         CenterHorizontalView {
                             ProgressView()
                                 .padding()
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        withAnimation {
-                                            viewModel.loadMoreItems()
-                                        }
-                                    }
-                                }
+                                .onAppear(perform: loadMoreOnAppear)
                         }
                     }
                 }
@@ -226,7 +220,7 @@ struct SearchView: View {
 
 extension SearchView {
     private func loadMoreOnAppear() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             viewModel.loadMoreItems()
         }
     }

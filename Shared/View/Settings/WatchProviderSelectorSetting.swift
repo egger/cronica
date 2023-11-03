@@ -18,11 +18,8 @@ struct WatchProviderSelectorSetting: View {
     var body: some View {
         Form {
             Toggle(isOn: $settings.isSelectedWatchProviderEnabled) {
-                VStack(alignment: .leading) {
-                    Text("selectedWatchProviderTitle")
-                    Text("selectedWatchProviderSubtitle")
-                        .foregroundColor(.secondary)
-                }
+                Text("selectedWatchProviderTitle")
+                Text("selectedWatchProviderSubtitle")
             }
             if settings.isSelectedWatchProviderEnabled {
                 Section {
@@ -30,57 +27,20 @@ struct WatchProviderSelectorSetting: View {
                         WatchProviderItemSelector(item: item)
                     }
                     if providers.isEmpty {
-                        Text("Try Again Later")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.secondary)
+                        ContentUnavailableView("Try Again Later", systemImage: "tv")
                     }
-                }
-                .redacted(reason: isLoading ? .placeholder : [])
+                }.redacted(reason: isLoading ? .placeholder : [])
             }
         }
         .navigationTitle("selectedWatchProvider")
-        .onChange(of: settings.isSelectedWatchProviderEnabled) {
-            if settings.isSelectedWatchProviderEnabled {
-                Task { await load() }
-            } else {
-                settings.selectedWatchProviders = ""
-            }
-        }
-        .onAppear {
-            if settings.isWatchProviderEnabled {
-                Task { await load() }
-            }
-        }
+        .onChange(of: settings.isSelectedWatchProviderEnabled, checkStatus)
+        .onAppear(perform: load)
 #if os(macOS)
         .formStyle(.grouped)
         .toolbar {
             Button("Done") { showView.toggle() }
         }
 #endif
-    }
-    
-    private func load() async {
-        if !isLoading { return }
-        if providers.isEmpty {
-            do {
-                let network = NetworkService.shared
-                let providers = try await network.fetchWatchProviderServices(for: .movie, region: SettingsStore.shared.watchRegion.rawValue)
-                var result = Set<WatchProviderContent>()
-                for item in providers.results {
-                    if !result.contains(where: { $0.itemId == item.itemId }) {
-                        result.insert(item)
-                    }
-                }
-                self.providers.append(contentsOf: result.sorted { $0.providerTitle < $1.providerTitle})
-                withAnimation { isLoading = false }
-            } catch {
-                if Task.isCancelled { return }
-                CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                      for: "WatchProviderSelectorSetting.load.failed")
-            }
-        }
     }
 }
 
@@ -90,6 +50,41 @@ struct WatchProviderSelectorSetting: View {
 #else
     WatchProviderSelectorSetting(showView: .constant(true))
 #endif
+}
+
+extension WatchProviderSelectorSetting {
+    private func load() {
+        if !settings.isWatchProviderEnabled { return }
+        Task {
+            if !isLoading { return }
+            if providers.isEmpty {
+                do {
+                    let network = NetworkService.shared
+                    let providers = try await network.fetchWatchProviderServices(for: .movie, region: SettingsStore.shared.watchRegion.rawValue)
+                    var result = Set<WatchProviderContent>()
+                    for item in providers.results {
+                        if !result.contains(where: { $0.itemId == item.itemId }) {
+                            result.insert(item)
+                        }
+                    }
+                    self.providers.append(contentsOf: result.sorted { $0.providerTitle < $1.providerTitle})
+                    withAnimation { isLoading = false }
+                } catch {
+                    if Task.isCancelled { return }
+                    CronicaTelemetry.shared.handleMessage(error.localizedDescription,
+                                                          for: "WatchProviderSelectorSetting.load.failed")
+                }
+            }
+        }
+    }
+    
+    private func checkStatus() {
+        if settings.isSelectedWatchProviderEnabled {
+            load()
+        } else {
+            settings.selectedWatchProviders = ""
+        }
+    }
 }
 
 private struct WatchProviderItemSelector: View {

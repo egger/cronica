@@ -19,7 +19,7 @@ struct DefaultWatchlist: View {
     @State private var isSearching = false
     @StateObject private var settings = SettingsStore.shared
     @AppStorage("watchlistShowAllItems") private var showAllItems = false
-    @AppStorage("watchlistMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .noFilter
+    @AppStorage("watchlistMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .showAll
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     @AppStorage("defaultWatchlistSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
@@ -71,7 +71,7 @@ struct DefaultWatchlist: View {
     }
     private var mediaTypeItems: [WatchlistItem] {
         switch mediaTypeFilter {
-        case .noFilter:
+        case .showAll:
             return sortedItems
         case .movies:
             return sortedItems.filter { $0.isMovie }
@@ -247,7 +247,11 @@ struct DefaultWatchlist: View {
                     Text(sort.localizableTitle).tag(sort)
                 }
             }
+#if os(macOS)
+            .pickerStyle(.inline)
+#else
             .pickerStyle(.menu)
+#endif
             .disabled(!showAllItems)
             Divider()
             Picker("Smart Filters", selection: $smartFilter) {
@@ -256,9 +260,9 @@ struct DefaultWatchlist: View {
                 }
             }
             .disabled(showAllItems)
-            #if os(macOS)
+#if os(macOS)
             .pickerStyle(.inline)
-            #endif
+#endif
 #if os(macOS)
             sortButton
                 .pickerStyle(.menu)
@@ -278,13 +282,13 @@ struct DefaultWatchlist: View {
                 Text(item.localizableName).tag(item)
             }
         }
-        #if os(iOS)
+#if os(iOS)
                .pickerStyle(.menu)
                .labelStyle(.iconOnly)
-        #else
+#else
                .pickerStyle(.inline)
                .labelStyle(.titleOnly)
-        #endif
+#endif
     }
     
     private var styleButton: some View {

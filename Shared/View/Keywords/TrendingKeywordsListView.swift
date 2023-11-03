@@ -92,7 +92,7 @@ struct TrendingKeywordsListView: View {
                     .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
                 }
                 .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                 .shadow(radius: 2)
                 .buttonStyle(.plain)
         }
@@ -148,8 +148,8 @@ private struct DrawingConstants {
     static let width: CGFloat = 400
     static let height: CGFloat = 240
 #else
-    static let columns = [GridItem(.adaptive(minimum: 320))]
-    static let width: CGFloat = 320
-    static let height: CGFloat = 140
+    static let columns = [GridItem(.adaptive(minimum: 300))]
+    static let width: CGFloat = 300
+    static let height: CGFloat = 180
 #endif
 }

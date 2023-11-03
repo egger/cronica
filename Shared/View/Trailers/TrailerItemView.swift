@@ -185,7 +185,7 @@ struct TrailerItemView: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 8
     static let imageShadow: CGFloat = 2.5
     static let imageWidth: CGFloat = 220
     static let imageHeight: CGFloat = 120

@@ -70,12 +70,10 @@ class SettingsStore: ObservableObject {
     @AppStorage("upNextStyle") var upNextStyle: UpNextDetailsPreferredStyle = .card
     @AppStorage("showDateOnWatchlistRow") var showDateOnWatchlist = true
     @AppStorage("disableSearchFilter") var disableSearchFilter = false
-#if os(macOS)
-    @AppStorage("quitAppWhenClosingWindow") var quitApp = false
-#endif
     @AppStorage("removeFromWatchingOnRenew") var removeFromWatchOnRenew = false
     @AppStorage("hideEpisodeTitles") var hideEpisodesTitles = false
     @AppStorage("hideEpisodeThumbnails") var hideEpisodesThumbnails = false
     @AppStorage("preferCoverOnUpNext") var preferCoverOnUpNext = false
     @AppStorage("markUpNextWatchedOnTap") var markWatchedOnTapUpNext = false
+    @AppStorage("confirmationForMarkOnTapUpNext") var askForConfirmationUpNext = true
 }

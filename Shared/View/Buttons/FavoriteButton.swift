@@ -1,6 +1,6 @@
 //
 //  FavoriteButton.swift
-//  Cronica (iOS)
+//  Cronica
 //
 //  Created by Alexandre Madeira on 04/05/23.
 //
@@ -12,15 +12,16 @@ struct FavoriteButton: View {
     @Binding var isFavorite: Bool
     @Binding var popupType: ActionPopupItems?
     @Binding var showPopup: Bool
-    private let persistence = PersistenceController.shared
     var body: some View {
-        Button(action: updateFavorite) {
-            Label(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                  systemImage: isFavorite ? "heart.slash.fill" : "heart")
-        }
+        Button(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+               systemImage: isFavorite ? "heart.slash.fill" : "heart",
+               action: updateFavorite)
     }
-    
+}
+
+extension FavoriteButton {
     private func updateFavorite() {
+        let persistence = PersistenceController.shared
         guard let item = persistence.fetch(for: id) else { return }
         persistence.updateFavorite(for: item)
         withAnimation {

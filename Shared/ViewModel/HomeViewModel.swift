@@ -27,33 +27,32 @@ class HomeViewModel: ObservableObject {
         yearMovies.append(contentsOf: year)
     }
     
+    /// Loads data for the home screen asynchronously, including trending items, sections, and recommendations.
     func load() async {
-        Task {
-            if trending.isEmpty {
-                do {
-                    let result = try await service.fetchItems(from: "trending/all/day")
-                    let filtered = result.filter { $0.itemContentMedia != .person }
-                    trending = filtered
-                } catch {
-                    if Task.isCancelled { return }
-                    let message = "Can't load trending/all/day, error: \(error.localizedDescription)"
-                    CronicaTelemetry.shared.handleMessage(message, for: "HomeViewModel.load()")
-                }
+        if trending.isEmpty {
+            do {
+                let result = try await service.fetchItems(from: "trending/all/day")
+                let filtered = result.filter { $0.itemContentMedia != .person }
+                trending = filtered
+            } catch {
+                if Task.isCancelled { return }
+                let message = "Can't load trending/all/day, error: \(error.localizedDescription)"
+                CronicaTelemetry.shared.handleMessage(message, for: "HomeViewModel.load()")
             }
-            if sections.isEmpty {
-                let result = await self.fetchSections()
-                sections.append(contentsOf: result)
-            }
-            await MainActor.run {
-                withAnimation { self.isLoaded = true }
-            }
-            if recommendations.isEmpty {
-                await fetchRecommendations()
-            }
-            
-            if yearMovies.isEmpty {
-                await fetchYearMovies()
-            }
+        }
+        if sections.isEmpty {
+            let result = await self.fetchSections()
+            sections.append(contentsOf: result)
+        }
+        await MainActor.run {
+            withAnimation { self.isLoaded = true }
+        }
+        if recommendations.isEmpty {
+            await fetchRecommendations()
+        }
+        
+        if yearMovies.isEmpty {
+            await fetchYearMovies()
         }
     }
     
@@ -159,11 +158,9 @@ class HomeViewModel: ObservableObject {
     }
     
     private func getRecommendations(for item: [Int:MediaType]) async -> [ItemContent]? {
-        if let (id, type) = item.first {
-            let result = try? await service.fetchItems(from: "\(type.rawValue)/\(id)/recommendations")
-            return result
-        }
-        return nil
+        guard let (id, type) = item.first else { return nil }
+        let result = try? await service.fetchItems(from: "\(type.rawValue)/\(id)/recommendations")
+        return result
     }
     
     /// Filters out recommendations from items without images and that matches NSFW keywords.
@@ -175,20 +172,6 @@ class HomeViewModel: ObservableObject {
         for item in items {
             if item.posterPath != nil && item.backdropPath != nil {
                 result.insert(item)
-//                let contentKeywords = try? await service.fetchKeywords(type: item.itemContentMedia,
-//                                                                       id: item.id)
-//                if let contentKeywords {
-//                    var keywordsArray = [Int]()
-//                    let _: [()] = contentKeywords.map { item in
-//                        keywordsArray.append(item.id)
-//                    }
-//                    let containsNSFW = !Set(keywordsArray).isDisjoint(with: nsfwKeywords)
-//                    if !containsNSFW {
-//                        result.insert(item)
-//                    }
-//                } else {
-//                    result.insert(item)
-//                }
             }
         }
         let filteredWatched = result.filter { !watchedItems.contains($0.itemContentID) }

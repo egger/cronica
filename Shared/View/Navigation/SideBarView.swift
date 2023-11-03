@@ -18,25 +18,21 @@ struct SideBarView: View {
             List(selection: $selectedView) {
                 NavigationLink(value: Screens.home) {
                     Label("Home", systemImage: "house")
-                }
-                .tag(HomeView.tag)
+                }.tag(HomeView.tag)
                 
                 NavigationLink(value: Screens.explore) {
                     Label("Explore", systemImage: "popcorn")
-                }
-                .tag(ExploreView.tag)
+                }.tag(ExploreView.tag)
                 
                 NavigationLink(value: Screens.watchlist) {
                     Label("Watchlist", systemImage: "square.stack")
-                }
-                .tag(WatchlistView.tag)
+                }.tag(WatchlistView.tag)
                 
                 NavigationLink(value: Screens.search) {
                     Label("Search", systemImage: "magnifyingglass")
-                }
+                }.tag(SearchView.tag)
             }
             .listStyle(.sidebar)
-            .navigationTitle("Cronica")
         } detail: {
             switch selectedView {
             case .home:
@@ -52,9 +48,7 @@ struct SideBarView: View {
                         .environment(\.managedObjectContext, persistence.container.viewContext)
                 }
             case .search:
-                NavigationStack {
-                    SearchView()
-                }
+                NavigationStack { SearchView() }
             }
         }
         .navigationSplitViewStyle(.balanced)

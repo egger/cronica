@@ -14,7 +14,6 @@ struct RegionContentSettings: View {
 #endif
     var body: some View {
         Form {
-            
             Section {
                 Picker(selection: $store.watchRegion) {
                     ForEach(AppContentRegion.allCases.sorted { $0.localizableTitle < $1.localizableTitle}) { region in
@@ -22,11 +21,8 @@ struct RegionContentSettings: View {
                             .tag(region)
                     }
                 } label: {
-					VStack(alignment: .leading) {
-						Text("appRegionTitle")
-						Text("appRegionSubtitle")
-							.foregroundColor(.secondary)
-					}
+                    Text("appRegionTitle")
+                    Text("appRegionSubtitle")
                 }
                 .onChange(of: store.watchRegion) { 
                     if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
@@ -53,7 +49,6 @@ struct RegionContentSettings: View {
                     NavigationStack {
                         WatchProviderSelectorSetting(showView: $showWatchProvidersSelector)
                     }
-                    .presentationDetents([.large])
                     .frame(width: 400, height: 500, alignment: .center)
                 }
 #endif

@@ -22,19 +22,26 @@ struct SearchContentPosterView: View {
     @Binding var popupType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
     @FocusState var isStackFocused: Bool
+#if os(macOS)
+    @State private var isOnHover = false
+#endif
     var body: some View {
         VStack(alignment: .leading) {
             if settings.isCompactUI {
                 compact
             } else {
                 image
-#if os(tvOS)
+#if os(tvOS) || os(macOS)
                 HStack {
                     Text(item.itemTitle)
                         .padding(.top, 4)
                         .font(.caption)
                         .lineLimit(2)
+#if os(tvOS)
                         .foregroundStyle(isStackFocused ? .primary : .secondary)
+#else
+                        .foregroundStyle(isOnHover ? .primary : .secondary)
+#endif
                         .frame(maxWidth: DrawingConstants.posterWidth)
                     Spacer()
                 }
@@ -50,11 +57,16 @@ struct SearchContentPosterView: View {
 #endif
         .accessibilityAddTraits(.isButton)
         .accessibility(label: Text(item.itemTitle))
+#if os(macOS)
+        .onHover { onHover in
+            isOnHover = onHover
+        }
+#endif
     }
     
     private var image: some View {
         NavigationLink(value: item) {
-            WebImage(url: item.posterImageMedium, options: .highPriority)
+            WebImage(url: item.posterImageMedium)
                 .resizable()
                 .placeholder {
                     PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
@@ -64,8 +76,12 @@ struct SearchContentPosterView: View {
                 .transition(.opacity)
                 .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
                        height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
-                .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
-                                            style: .continuous))
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
+                        style: .continuous
+                    )
+                )
                 .shadow(radius: DrawingConstants.shadowRadius)
                 .padding(.zero)
                 .applyHoverEffect()
@@ -205,7 +221,7 @@ private struct DrawingConstants {
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
 #endif
-    static let posterRadius: CGFloat = 12
+    static let posterRadius: CGFloat = 8
     static let compactPosterWidth: CGFloat = 80
     static let compactPosterRadius: CGFloat = 4
     static let compactPosterHeight: CGFloat = 140

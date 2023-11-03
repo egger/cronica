@@ -43,19 +43,17 @@ struct AboutSettings: View {
                 Text("settingsReviewCronica")
             }
 #endif
-#if !os(tvOS)
+#if os(iOS)
             if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
                 ShareLink(item: appUrl).labelStyle(.titleOnly)
-#if os(macOS)
-                    .buttonStyle(.link)
-#endif
             }
 #endif
 #if os(macOS)
             privacy
 #endif
-            
+            #if !os(macOS)
             FeedbackSettingsView()
+            #endif
             
             Section("Design") {
                 aboutButton(
@@ -153,7 +151,7 @@ struct AboutSettings: View {
             }
             .buttonStyle(.link)
         } header: {
-            Label("Privacy", systemImage: "hand.raised")
+            Text("Privacy")
         }
     }
 #endif

@@ -50,12 +50,13 @@ struct EditCustomList: View {
                 }
                 
                 Section {
-                    Button(role: .destructive) {
+                    Button("Delete", role: .destructive) {
                         askConfirmationForDeletion = true
-                    } label: {
-                        Label("Delete", systemImage: "trash")
                     }
                     .foregroundColor(.red)
+#if os(macOS)
+                    .buttonStyle(.link)
+#endif
                 }
                 .alert("removeDialogTitle", isPresented: $askConfirmationForDeletion) {
                     Button("Confirm", role: .destructive) {
@@ -101,7 +102,7 @@ struct EditCustomList: View {
         .onChange(of: pinOnHome) { _, newValue in
             if newValue != list.isPin { disableSaveButton = false }
         }
-        .onChange(of: itemsToRemove) { 
+        .onChange(of: itemsToRemove) {
             if !itemsToRemove.isEmpty {
                 if disableSaveButton != false { disableSaveButton = false }
             }

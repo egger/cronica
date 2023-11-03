@@ -19,7 +19,7 @@ struct CustomWatchlist: View {
     @StateObject private var settings = SettingsStore.shared
     @State private var showFilter = false
     @AppStorage("customListShowAllItems") private var showAllItems = true
-    @AppStorage("customListMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .noFilter
+    @AppStorage("customListMediaTypeFilter") private var mediaTypeFilter: MediaTypeFilters = .showAll
     @AppStorage("customListSmartFilter") private var selectedOrder: SmartFiltersTypes = .released
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
@@ -73,7 +73,7 @@ struct CustomWatchlist: View {
     }
     private var mediaTypeItems: [WatchlistItem] {
         switch mediaTypeFilter {
-        case .noFilter:
+        case .showAll:
             return sortedItems
         case .movies:
             return sortedItems.filter { $0.isMovie }
@@ -171,12 +171,6 @@ struct CustomWatchlist: View {
                 }
             }
         }
-        .sheet(isPresented: $showFilter) {
-            NavigationStack {
-                WatchListFilter(selectedOrder: $selectedOrder, showAllItems: $showAllItems, mediaTypeFilter: $mediaTypeFilter, showView: $showFilter)
-            }
-            .presentationDetents([.large])
-        }
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarLeading) {
@@ -189,13 +183,13 @@ struct CustomWatchlist: View {
                 }
             }
 #elseif os(macOS)
-			HStack {
-				sortButton
-				//filterPicker
-				styleButton
-			}
+            HStack {
+                sortButton
+                //filterPicker
+                styleButton
+            }
 #else
-			filterPicker
+            filterPicker
 #endif
         }
 #if os(iOS)
@@ -243,13 +237,13 @@ struct CustomWatchlist: View {
                 Text(item.localizableName).tag(item)
             }
         }
-        #if os(iOS)
+#if os(iOS)
                .labelStyle(.iconOnly)
                .pickerStyle(.menu)
-        #else
+#else
                .labelStyle(.titleOnly)
                .pickerStyle(.inline)
-        #endif
+#endif
     }
     
     private var filterPicker: some View {
@@ -261,8 +255,7 @@ struct CustomWatchlist: View {
     }
     
     private var noResults: some View {
-        ContentUnavailableView("No results", systemImage: "popcorn")
-            .padding()
+        ContentUnavailableView.search(text: query)
     }
     
     private var empty: some View {
