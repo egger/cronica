@@ -199,7 +199,6 @@ struct DefaultWatchlist: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     filterButton
-                    sortButton
                 }
             }
 #elseif os(macOS)
@@ -263,10 +262,7 @@ struct DefaultWatchlist: View {
 #if os(macOS)
             .pickerStyle(.inline)
 #endif
-#if os(macOS)
             sortButton
-                .pickerStyle(.menu)
-#endif
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
                 .accessibilityLabel("Sort List")
@@ -276,7 +272,6 @@ struct DefaultWatchlist: View {
     
     private var sortButton: some View {
         Picker("Sort Order",
-               systemImage: "arrow.up.arrow.down.circle",
                selection: $sortOrder) {
             ForEach(WatchlistSortOrder.allCases) { item in
                 Text(item.localizableName).tag(item)
@@ -284,10 +279,8 @@ struct DefaultWatchlist: View {
         }
 #if os(iOS)
                .pickerStyle(.menu)
-               .labelStyle(.iconOnly)
 #else
                .pickerStyle(.inline)
-               .labelStyle(.titleOnly)
 #endif
     }
     

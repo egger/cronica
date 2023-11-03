@@ -300,7 +300,6 @@
 		B8C0215B29E0D56C006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C0215929E0D527006E9D82 /* ItemContentListPreferredDisplayType.swift */; };
 		B8C0215D29E121C1006E9D82 /* SettingsScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C0215C29E121C1006E9D82 /* SettingsScreens.swift */; };
 		B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8C0C67E28A92FF0009F4593 /* TelemetryClient */; };
-		B8C0D2FB2A13F57D00468141 /* WatchListFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C0D2FA2A13F57D00468141 /* WatchListFilter.swift */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
 		B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */; };
 		B8C781F0287F4A7500B4C2C2 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */; };
@@ -615,7 +614,6 @@
 		B8C0215429E0D027006E9D82 /* ExplorePreferredDisplayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePreferredDisplayType.swift; sourceTree = "<group>"; };
 		B8C0215929E0D527006E9D82 /* ItemContentListPreferredDisplayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentListPreferredDisplayType.swift; sourceTree = "<group>"; };
 		B8C0215C29E121C1006E9D82 /* SettingsScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreens.swift; sourceTree = "<group>"; };
-		B8C0D2FA2A13F57D00468141 /* WatchListFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListFilter.swift; sourceTree = "<group>"; };
 		B8C335462815ED140055389D /* WatchListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListSection.swift; sourceTree = "<group>"; };
 		B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
 		B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmographyListView.swift; sourceTree = "<group>"; };
@@ -1038,7 +1036,6 @@
 				B812C7B3299480620096E806 /* NewCustomListView.swift */,
 				B8370A962A02DF2B00643261 /* NewListItemSelectorRow.swift */,
 				B812C7B52996C2DB0096E806 /* SelectListView.swift */,
-				B8C0D2FA2A13F57D00468141 /* WatchListFilter.swift */,
 				B82BE4F1299EB3F5005F9990 /* WatchlistTitle.swift */,
 				B883A1DD2AEEA49E00793EE2 /* EditCustomListItemSelector.swift */,
 			);
@@ -1863,7 +1860,6 @@
 				B876DE64281B36A7005558DD /* Season.swift in Sources */,
 				B8FF4DBB27F91A4900C7DE9F /* SeasonListView.swift in Sources */,
 				B88AA92329DF781000F80EE4 /* MediaTypeFilters.swift in Sources */,
-				B8C0D2FB2A13F57D00468141 /* WatchListFilter.swift in Sources */,
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B89446BF294FDACA008974BA /* AppThemeColors.swift in Sources */,
 				B8B2F6B42A85DBFD00FF0246 /* ItemContentSearchRowView.swift in Sources */,

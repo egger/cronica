@@ -33,6 +33,7 @@ struct CronicaApp: App {
 #endif
     }
     var body: some Scene {
+#if os(macOS)
         MenuBarExtra("Up Next (Cronica)", systemImage: "popcorn") {
             VStack {
                 UpNextMenuBar()
@@ -40,6 +41,7 @@ struct CronicaApp: App {
             }
             .frame(minWidth: 300, minHeight: 300)
         }.menuBarExtraStyle(.window)
+#endif
         
         WindowGroup {
             ContentView()
@@ -145,6 +147,7 @@ struct CronicaApp: App {
                 scheduleAppRefresh()
             }
         }
+#if os(macOS)
         .commands {
             CommandGroup(after: .sidebar) {
                 Picker("appearanceRowStyleTitle", selection: $settings.watchlistStyle) {
@@ -176,7 +179,7 @@ struct CronicaApp: App {
                 }
             }
         }
-        
+#endif
         
 #if os(macOS)
         Settings {
