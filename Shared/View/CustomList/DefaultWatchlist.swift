@@ -83,54 +83,45 @@ struct DefaultWatchlist: View {
         VStack {
 #if os(tvOS)
             ScrollView {
-                if !items.isEmpty {
-                    HStack {
-                        Button {
-                            
-                        } label: {
-                            HStack {
-                                Text("Watchlist")
-                                    .fontWeight(.semibold)
-                                    .font(.title3)
-                                Text(smartFilter.title)
-                                    .fontWeight(.semibold)
-                                    .font(.callout)
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding()
-                        }
-                        .buttonStyle(.plain)
-                        Spacer()
-                        sortButton
-                        Menu {
-                            Picker("Smart Filters", selection: $smartFilter) {
-                                ForEach(SmartFiltersTypes.allCases) { sort in
-                                    Text(sort.title).tag(sort)
+                LazyVStack {
+                    if !items.isEmpty {
+                        HStack {
+                            Button {
+                                
+                            } label: {
+                                HStack {
+                                    Text("Watchlist")
+                                        .fontWeight(.semibold)
+                                        .font(.title3)
+                                    Text(smartFilter.title)
+                                        .fontWeight(.semibold)
+                                        .font(.callout)
+                                        .foregroundColor(.secondary)
                                 }
+                                .padding()
                             }
-                            .pickerStyle(.inline)
-                        } label: {
-                            Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                                .labelStyle(.iconOnly)
+                            .buttonStyle(.plain)
+                            Spacer()
+                            filterButton
                         }
+                        .padding(.horizontal, 64)
                     }
-                    .padding(.horizontal, 64)
-                }
-                if smartFiltersItems.isEmpty {
-                    empty
-                } else {
-                    switch settings.watchlistStyle {
-                    case .list:
-                        WatchlistCardSection(items: smartFiltersItems,
-                                             title: String(), showPopup: $showPopup, popupType: $popupType)
-                    case .card:
-                        WatchlistCardSection(items: smartFiltersItems,
-                                             title: String(), showPopup: $showPopup, popupType: $popupType)
-                    case .poster:
-                        WatchlistPosterSection(items: smartFiltersItems,
-                                               title: String(), showPopup: $showPopup, popupType: $popupType)
+                    if smartFiltersItems.isEmpty {
+                        empty
+                    } else {
+                        switch settings.watchlistStyle {
+                        case .list:
+                            WatchlistCardSection(items: smartFiltersItems,
+                                                 title: String(), showPopup: $showPopup, popupType: $popupType)
+                        case .card:
+                            WatchlistCardSection(items: smartFiltersItems,
+                                                 title: String(), showPopup: $showPopup, popupType: $popupType)
+                        case .poster:
+                            WatchlistPosterSection(items: smartFiltersItems,
+                                                   title: String(), showPopup: $showPopup, popupType: $popupType)
+                        }
+                        
                     }
-                    
                 }
             }
 #else
@@ -240,6 +231,7 @@ struct DefaultWatchlist: View {
     
     private var filterButton: some View {
         Menu {
+#if !os(tvOS)
             Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
             Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
                 ForEach(MediaTypeFilters.allCases) { sort in
@@ -253,6 +245,7 @@ struct DefaultWatchlist: View {
 #endif
             .disabled(!showAllItems)
             Divider()
+#endif
             Picker("Smart Filters", selection: $smartFilter) {
                 ForEach(SmartFiltersTypes.allCases) { sort in
                     Text(sort.title).tag(sort)
@@ -262,26 +255,22 @@ struct DefaultWatchlist: View {
 #if os(macOS)
             .pickerStyle(.inline)
 #endif
-            sortButton
+            Picker("Sort Order",
+                   selection: $sortOrder) {
+                ForEach(WatchlistSortOrder.allCases) { item in
+                    Text(item.localizableName).tag(item)
+                }
+            }
+#if os(iOS) || os(tvOS)
+                   .pickerStyle(.menu)
+#else
+                   .pickerStyle(.inline)
+#endif
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
                 .accessibilityLabel("Sort List")
         }
         .buttonStyle(.bordered)
-    }
-    
-    private var sortButton: some View {
-        Picker("Sort Order",
-               selection: $sortOrder) {
-            ForEach(WatchlistSortOrder.allCases) { item in
-                Text(item.localizableName).tag(item)
-            }
-        }
-#if os(iOS)
-               .pickerStyle(.menu)
-#else
-               .pickerStyle(.inline)
-#endif
     }
     
     private var styleButton: some View {

@@ -23,13 +23,16 @@ struct WatchProviderSelectorSetting: View {
             }
             if settings.isSelectedWatchProviderEnabled {
                 Section {
-                    List(providers, id: \.itemID) { item in
-                        WatchProviderItemSelector(item: item)
-                    }
-                    if providers.isEmpty {
+                    if providers.isEmpty, !isLoading {
                         ContentUnavailableView("Try Again Later", systemImage: "tv")
+                    } else if providers.isEmpty, isLoading {
+                        ProgressView()
+                    } else {
+                        List(providers, id: \.itemID) { item in
+                            WatchProviderItemSelector(item: item)
+                        }
                     }
-                }.redacted(reason: isLoading ? .placeholder : [])
+                }
             }
         }
         .navigationTitle("selectedWatchProvider")
@@ -99,9 +102,13 @@ private struct WatchProviderItemSelector: View {
                 .padding(.trailing)
             WebImage(url: item.providerImage)
                 .resizable()
+                .placeholder {
+                    Rectangle().fill(.gray.gradient)
+                }
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40, height: 40, alignment: .center)
                 .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .accessibilityHidden(true)
             Text(item.providerTitle)
         }
         .onTapGesture {

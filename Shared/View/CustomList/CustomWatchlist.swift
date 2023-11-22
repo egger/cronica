@@ -177,19 +177,12 @@ struct CustomWatchlist: View {
                 styleButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    filterPicker
-                    sortButton
-                }
+                filterButton
             }
 #elseif os(macOS)
-            HStack {
-                sortButton
-                //filterPicker
-                styleButton
-            }
+            filterButton
 #else
-            filterPicker
+            filterButton
 #endif
         }
 #if os(iOS)
@@ -201,6 +194,9 @@ struct CustomWatchlist: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
+        #elseif os(macOS)
+        .searchable(text: $query, placement: .toolbar, prompt: "Search \(selectedList?.itemTitle ?? "List")")
+#endif
         .disableAutocorrection(true)
         .task(id: query) {
             isSearching = true
@@ -211,7 +207,6 @@ struct CustomWatchlist: View {
             }
             isSearching = false
         }
-#endif
     }
     
     private var styleButton: some View {
@@ -229,29 +224,48 @@ struct CustomWatchlist: View {
         }
     }
     
-    private var sortButton: some View {
-        Picker("Sort Order",
-               systemImage: "arrow.up.arrow.down.circle",
-               selection: $sortOrder) {
-            ForEach(WatchlistSortOrder.allCases) { item in
-                Text(item.localizableName).tag(item)
+    private var filterButton: some View {
+        Menu {
+#if !os(tvOS)
+            Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
+            Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
+                ForEach(MediaTypeFilters.allCases) { sort in
+                    Text(sort.localizableTitle).tag(sort)
+                }
             }
-        }
-#if os(iOS)
-               .labelStyle(.iconOnly)
-               .pickerStyle(.menu)
+#if os(macOS)
+            .pickerStyle(.inline)
 #else
-               .labelStyle(.titleOnly)
-               .pickerStyle(.inline)
+            .pickerStyle(.menu)
 #endif
-    }
-    
-    private var filterPicker: some View {
-        Button {
-            showFilter.toggle()
+            .disabled(!showAllItems)
+            Divider()
+#endif
+            Picker("Smart Filters", selection: $selectedOrder) {
+                ForEach(SmartFiltersTypes.allCases) { sort in
+                    Text(sort.title).tag(sort)
+                }
+            }
+            .disabled(showAllItems)
+#if os(macOS)
+            .pickerStyle(.inline)
+#endif
+            Picker("Sort Order",
+                   selection: $sortOrder) {
+                ForEach(WatchlistSortOrder.allCases) { item in
+                    Text(item.localizableName).tag(item)
+                }
+            }
+#if os(iOS) || os(tvOS)
+                   .pickerStyle(.menu)
+#else
+                   .pickerStyle(.inline)
+#endif
         } label: {
-            Label("Sort List", systemImage: "line.3.horizontal.decrease.circle")
+            Image(systemName: "line.3.horizontal.decrease.circle")
+                .accessibilityLabel("Sort List")
         }
+        .buttonStyle(.bordered)
     }
     
     private var noResults: some View {

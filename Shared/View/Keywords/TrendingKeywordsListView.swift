@@ -55,8 +55,9 @@ struct TrendingKeywordsListView: View {
             .padding([.horizontal, .bottom])
         }
         .task { await load() }
+#if os(iOS)
         .redacted(reason: isLoading ? .placeholder : [])
-#if os(tvOS)
+#elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
     }
@@ -96,8 +97,9 @@ struct TrendingKeywordsListView: View {
                 .shadow(radius: 2)
                 .buttonStyle(.plain)
         }
+#if os(iOS)
         .disabled(isLoading)
-#if os(tvOS)
+#elseif os(tvOS)
         .buttonStyle(.card)
 #elseif os(macOS)
         .buttonStyle(.plain)
@@ -148,8 +150,8 @@ private struct DrawingConstants {
     static let width: CGFloat = 400
     static let height: CGFloat = 240
 #else
-    static let columns = [GridItem(.adaptive(minimum: 300))]
-    static let width: CGFloat = 300
-    static let height: CGFloat = 180
+    static let columns = [GridItem(.adaptive(minimum: 240))]
+    static let width: CGFloat = 240
+    static let height: CGFloat = 140
 #endif
 }

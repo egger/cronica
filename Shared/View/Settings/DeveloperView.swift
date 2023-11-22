@@ -28,16 +28,14 @@ struct DeveloperView: View {
 	var body: some View {
 		Form {
 			Section("Network") {
-				TextField("Item ID", text: $itemIdField)
+				TextField("ID", text: $itemIdField)
 #if os(iOS)
 					.keyboardType(.numberPad)
 #endif
-				Picker(selection: $itemMediaType) {
+				Picker("Media Type", selection: $itemMediaType) {
 					ForEach(MediaType.allCases) { media in
 						Text(media.title).tag(media)
 					}
-				} label: {
-					Text("Select the Media Type")
 				}
 				Button {
 					Task {
@@ -69,6 +67,9 @@ struct DeveloperView: View {
 						Text("Fetch")
 					}
 				}
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
 			}
 			
 			Section("Presentation") {
@@ -84,6 +85,9 @@ struct DeveloperView: View {
 					.frame(width: 500, height: 700, alignment: .center)
 #endif
 				}
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
 			}
 			
 			Section {
@@ -96,6 +100,9 @@ struct DeveloperView: View {
 				Text("Asked for review: \(askedForReview.description)")
 				Text("Is User Signed In With TMDB: \(isUserSignedInWithTMDB.description)")
 				Button("Reset asked for review") { askedForReview = false }
+                Button("Force SignOut") {
+                    Task { await AccountManager.shared.logOut() }
+                }
 			}
 			.onAppear {
 				let data = KeychainHelper.standard.read(service: "access-token", account: "cronicaTMDB-Sync")

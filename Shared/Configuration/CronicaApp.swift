@@ -20,7 +20,9 @@ struct CronicaApp: App {
     @State private var selectedItem: ItemContent?
     @State private var showFeedbackForm = false
     @State private var showAbout = false
+    @State private var showNewListView = false
     @ObservedObject private var settings = SettingsStore.shared
+    @AppStorage("showMenuBarApp") var showMenuBar = true
 #if os(iOS)
     @ObservedObject private var notificationDelegate = NotificationDelegate()
     @State private var lastNotificationID = String()
@@ -33,16 +35,6 @@ struct CronicaApp: App {
 #endif
     }
     var body: some Scene {
-#if os(macOS)
-        MenuBarExtra("Up Next (Cronica)", systemImage: "popcorn") {
-            VStack {
-                UpNextMenuBar()
-                    .environment(\.managedObjectContext, persistence.container.viewContext)
-            }
-            .frame(minWidth: 300, minHeight: 300)
-        }.menuBarExtraStyle(.window)
-#endif
-        
         WindowGroup {
             ContentView()
 #if os(macOS)
@@ -185,6 +177,15 @@ struct CronicaApp: App {
         Settings {
             SettingsView()
         }
+        
+        MenuBarExtra("Up Next (Cronica)", systemImage: "popcorn", isInserted: $showMenuBar) {
+            VStack {
+                UpNextMenuBar()
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+            }
+            .frame(minWidth: 360, minHeight: 300, maxHeight: 600)
+        }
+        .menuBarExtraStyle(.window)
 #endif
     }
     
@@ -206,6 +207,10 @@ struct CronicaApp: App {
 #if os(iOS)
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundIdentifier, using: nil) { task in
             self.handleAppRefresh(task: task as? BGAppRefreshTask ?? nil)
+        }
+#elseif os(macOS)
+        _ = Timer.scheduledTimer(withTimeInterval: 10 * 3600, repeats: true) { _ in
+            self.handleAppRefresh()
         }
 #endif
     }
@@ -240,6 +245,17 @@ struct CronicaApp: App {
                 }
             }
             task.setTaskCompleted(success: true)
+        }
+    }
+#elseif os(macOS)
+    private func handleAppRefresh() {
+        Task {
+            await BackgroundManager.shared.handleWatchingContentRefresh()
+            BackgroundManager.shared.lastWatchingRefresh = Date()
+            await BackgroundManager.shared.handleUpcomingContentRefresh()
+            BackgroundManager.shared.lastUpcomingRefresh = Date()
+            await BackgroundManager.shared.handleAppRefreshMaintenance()
+            BackgroundManager.shared.lastMaintenance = Date()
         }
     }
 #endif

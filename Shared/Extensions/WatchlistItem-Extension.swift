@@ -271,7 +271,7 @@ extension WatchlistItem {
 		return mediumPosterImage
 	}
 	var itemPosterImageMedium: URL? {
-		return NetworkService.urlBuilder(size: .medium, path: posterPath)
+        return NetworkService.urlBuilder(size: .medium, path: posterPath)
 	}
 	var itemPosterImageLarge: URL? {
 		return NetworkService.urlBuilder(size: .w780, path: posterPath)
@@ -283,7 +283,7 @@ extension WatchlistItem {
 #if os(tvOS) || os(macOS)
 		return NetworkService.urlBuilder(size: .w780, path: backdropPath)
 #else
-		return NetworkService.urlBuilder(size: .medium, path: backdropPath)
+		return NetworkService.urlBuilder(size: .w500, path: backdropPath)
 #endif
 	}
 	var itemCardImageLarge: URL? {

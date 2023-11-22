@@ -57,6 +57,9 @@ extension Episode {
 	}
     
 	// MARK: URL
+    var itemImageSmall: URL? {
+        return NetworkService.urlBuilder(size: .small, path: stillPath)
+    }
 	var itemImageMedium: URL? {
 #if os(tvOS)
 		return NetworkService.urlBuilder(size: .w780, path: stillPath)

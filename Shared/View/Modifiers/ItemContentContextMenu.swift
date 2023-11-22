@@ -25,6 +25,10 @@ struct ItemContentContextMenu: ViewModifier {
 		return content
 			.contextMenu {
 #if os(iOS) || os(macOS)
+                Text(item.itemTitle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Divider()
 				switch settings.shareLinkPreference {
 				case .cronica: if let cronicaUrl { ShareLink(item: cronicaUrl) }
 				case .tmdb: ShareLink(item: item.itemURL)

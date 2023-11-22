@@ -152,6 +152,9 @@ struct SelectListView: View {
             } footer: {
                 HStack {
                     Text("Swipe to Edit your list")
+#if os(macOS)
+                        .foregroundStyle(.secondary)
+#endif
                     Spacer()
                 }
             }

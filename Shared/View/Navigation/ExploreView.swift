@@ -202,6 +202,9 @@ struct ExploreView: View {
         } label: {
             Text("mediaTypeDiscoverFilterTitle")
         }
+#if os(macOS)
+        .pickerStyle(.inline)
+#endif
     }
     
     private var selectGenrePicker: some View {
@@ -215,8 +218,8 @@ struct ExploreView: View {
                     Text(genre.name!).tag(genre)
                 }
             }
-        } 
-#if os(iOS)
+        }
+#if os(iOS) || os(macOS)
         .pickerStyle(.inline)
 #endif
     }

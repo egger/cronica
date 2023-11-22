@@ -84,15 +84,18 @@ struct KeywordSectionView: View {
     }
     
     private var sortButton: some View {
-        Picker("Sort By",
-               systemImage: "arrow.up.arrow.down.circle",
-               selection: $sortBy) {
-            ForEach(TMDBSortBy.allCases) { item in
-                Text(item.localizedString).tag(item)
+        Menu {
+            Picker("Sort Order", selection: $sortBy) {
+                ForEach(TMDBSortBy.allCases) { item in
+                    Text(item.localizedString).tag(item)
+                }
             }
+            .pickerStyle(.inline)
+        } label: {
+            Label("Sort By",
+                  systemImage: "arrow.up.arrow.down.circle")
         }
-               .labelStyle(.iconOnly)
-               .pickerStyle(.menu)
+        .labelStyle(.iconOnly)
     }
     
     private var styleOptions: some View {

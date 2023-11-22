@@ -35,9 +35,15 @@ struct SearchView: View {
 #endif
         .navigationDestination(for: Person.self) { person in
             PersonDetailsView(name: person.name, id: person.id)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
         .navigationDestination(for: ProductionCompany.self) { item in
             CompanyDetails(company: item)
@@ -48,8 +54,14 @@ struct SearchView: View {
         .navigationDestination(for: SearchItemContent.self) { item in
             if item.media == .person {
                 PersonDetailsView(name: item.itemTitle, id: item.id)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
             } else {
                 ItemContentDetails(title: item.itemTitle, id: item.id, type: item.media)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
             }
         }
         .navigationDestination(for: [String:[ItemContent]].self) { item in
@@ -64,6 +76,9 @@ struct SearchView: View {
         }
         .navigationDestination(for: CombinedKeywords.self) { keyword in
             KeywordSectionView(keyword: keyword)
+#if os(tvOS)
+                .ignoresSafeArea(.all, edges: .horizontal)
+#endif
         }
 #if os(iOS)
         .searchable(text: $viewModel.query,

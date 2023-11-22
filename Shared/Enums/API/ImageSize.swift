@@ -11,11 +11,8 @@ import Foundation
 enum ImageSize: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case small = "t/p/w154"
-#if !os(tvOS)
-    case medium = "t/p/w500"
-#else
     case medium = "t/p/w300"
-#endif
+    case w500 = "t/p/w500"
     case w780 = "t/p/w780"
     case large = "t/p/w1066_and_h600_bestv2"
     case original = "t/p/original"

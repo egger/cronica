@@ -43,6 +43,10 @@ struct WatchlistItemContextMenu: ViewModifier {
 				secondaryRightSwipeActions
 			}
 			.contextMenu {
+                Text(item.itemTitle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Divider()
 				share
 				watchedButton
 				favoriteButton

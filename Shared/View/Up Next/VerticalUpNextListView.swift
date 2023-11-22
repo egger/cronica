@@ -344,15 +344,24 @@ struct UpNextMenuBar: View {
                         ProgressView("Loading")
                     }
                 }
-                .refreshable {
-                    Task { await viewModel.reload(items) }
-                }
                 .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             } header: {
-                Text("upNext")
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
+                HStack {
+                    Text("upNext")
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Button("Refresh", systemImage: "arrow.clockwise") {
+                        Task { await viewModel.reload(items) }
+                    }
+                    .labelStyle(.iconOnly)
+                }
+                
             }
+        }
+        .task {
+            await viewModel.load(items)
+            await viewModel.checkForNewEpisodes(items)
         }
 #if os(macOS)
         .formStyle(.grouped)
@@ -361,7 +370,7 @@ struct UpNextMenuBar: View {
     
     private func upNextRowItem(_ item: UpNextEpisode) -> some View {
         HStack {
-            WebImage(url: item.episode.itemImageLarge ?? item.backupImage)
+            WebImage(url: item.episode.itemImageSmall ?? item.backupImage)
                 .placeholder {
                     ZStack {
                         Rectangle().fill(.gray.gradient)

@@ -111,7 +111,7 @@ class HomeViewModel: ObservableObject {
         let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
         request.predicate = NSCompoundPredicate(type: .or, subpredicates: [watchingPredicate, watchedPredicate])
         guard let list = try? context.fetch(request) else { return [] }
-        let items = list.shuffled().prefix(5)
+        let items = list.shuffled().prefix(3)
         return items.shuffled()
     }
     
@@ -145,9 +145,13 @@ class HomeViewModel: ObservableObject {
             itemsToFetchFrom.append([item.itemId:item.itemMedia])
         }
         for item in itemsToFetchFrom {
-            let result = await getRecommendations(for: item)
-            if let result {
-                recommendations.append(contentsOf: result)
+            let results = await getRecommendations(for: item)
+            if let results {
+                for result in results {
+                    if !recommendations.contains(result) {
+                        recommendations.append(result)
+                    }
+                }
             }
         }
         let content = await filterRecommendationsItems(recommendations)
@@ -170,7 +174,7 @@ class HomeViewModel: ObservableObject {
         let watchedItems = fetchWatchedIDs()
         var result = Set<ItemContent>()
         for item in items {
-            if item.posterPath != nil && item.backdropPath != nil {
+            if item.posterPath != nil, item.backdropPath != nil {
                 result.insert(item)
             }
         }

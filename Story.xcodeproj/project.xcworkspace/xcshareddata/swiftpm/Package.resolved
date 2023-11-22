@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "aptabase-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/aptabase/aptabase-swift",
+      "state" : {
+        "revision" : "f5f96f82595afc4aaef656f7ce42884a5155682a",
+        "version" : "0.3.4"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",

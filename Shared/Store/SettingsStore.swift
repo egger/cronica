@@ -76,4 +76,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("preferCoverOnUpNext") var preferCoverOnUpNext = false
     @AppStorage("markUpNextWatchedOnTap") var markWatchedOnTapUpNext = false
     @AppStorage("confirmationForMarkOnTapUpNext") var askForConfirmationUpNext = true
+    #if os(macOS)
+    @AppStorage("showMenuBarApp") var showMenuBarApp = true
+    #endif
 }

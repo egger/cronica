@@ -43,6 +43,14 @@ struct AboutSettings: View {
                 Text("settingsReviewCronica")
             }
 #endif
+            
+#if !os(tvOS)
+            Section {
+                aboutButton(title: "X/Twitter", url: "https://x.com/CronicaApp")
+            }
+#endif
+            
+            
 #if os(iOS)
             if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
                 ShareLink(item: appUrl).labelStyle(.titleOnly)
@@ -103,7 +111,7 @@ struct AboutSettings: View {
                     Text("Version \(appVersion ?? "") • \(buildNumber)")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
-                        .onTapGesture(count: 3) {
+                        .onTapGesture(count: 4) {
                             withAnimation { settings.displayDeveloperSettings.toggle() }
                         }
                 }

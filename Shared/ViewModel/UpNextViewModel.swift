@@ -38,10 +38,10 @@ class UpNextViewModel: ObservableObject {
                                                      season: item.itemNextUpNextSeason,
                                                      episodeNumber: item.itemNextUpNextEpisode)
         guard let result else {
-            CronicaTelemetry.shared.handleMessage(
-                "Failed to fetch episode: \(item.itemNextUpNextEpisode) from season: \(item.itemNextUpNextSeason) for show: \(item.id)",
-                for: "UpNextViewModel.fetchUpNextEpisode"
-            )
+//            CronicaTelemetry.shared.handleMessage(
+//                "Failed to fetch episode: \(item.itemNextUpNextEpisode) from season: \(item.itemNextUpNextSeason) for show: \(item.id)",
+//                for: "UpNextViewModel.fetchUpNextEpisode"
+//            )
             return
         }
         let seasonNumber = result.seasonNumber ?? 0
@@ -60,10 +60,11 @@ class UpNextViewModel: ObservableObject {
                                         backupImage: item.backCompatibleCardImage,
                                         episode: result,
                                         sortedDate: item.itemLastUpdateDate)
-            
-            await MainActor.run {
-                withAnimation(.easeInOut) {
-                    self.episodes.append(content)
+            if !self.episodes.contains(content) {
+                await MainActor.run {
+                    withAnimation(.easeInOut) {
+                        self.episodes.append(content)
+                    }
                 }
             }
         } else if isWatched {
@@ -86,9 +87,11 @@ class UpNextViewModel: ObservableObject {
                                             backupImage: item.backCompatibleCardImage,
                                             episode: nextEpisode,
                                             sortedDate: item.itemLastUpdateDate)
-                await MainActor.run {
-                    withAnimation(.easeInOut) {
-                        self.episodes.append(content)
+                if !self.episodes.contains(content) {
+                    await MainActor.run {
+                        withAnimation(.easeInOut) {
+                            self.episodes.append(content)
+                        }
                     }
                 }
             }

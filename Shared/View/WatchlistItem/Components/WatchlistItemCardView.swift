@@ -1,6 +1,6 @@
 //
 //  WatchlistItemCardView.swift
-//  Cronica (iOS)
+//  Cronica
 //
 //  Created by Alexandre Madeira on 20/12/22.
 //
@@ -20,8 +20,9 @@ struct WatchlistItemCardView: View {
     @Binding var popupType: ActionPopupItems?
 #if os(tvOS)
     @FocusState var isStackFocused: Bool
+#elseif os(macOS)
+    
 #endif
-	var displayInfoPreferrence: DisplayInformationPreference = .none
     var body: some View {
         VStack {
             NavigationLink(value: content) {
@@ -44,17 +45,6 @@ struct WatchlistItemCardView: View {
                     .foregroundColor(isStackFocused ? .primary : .secondary)
                     .padding(.vertical, 4)
 #endif
-				switch displayInfoPreferrence {
-				case .upcoming:
-					if let glanceInfo = content.itemGlanceInfo {
-						Text(glanceInfo)
-							.font(.caption)
-							.lineLimit(DrawingConstants.titleLineLimit)
-							.foregroundColor(.secondary)
-					}
-				default:
-					EmptyView()
-				}
                 Spacer()
             }
             Spacer()

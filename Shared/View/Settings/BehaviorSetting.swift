@@ -29,8 +29,7 @@ struct BehaviorSetting: View {
                 
             }
 #if !os(tvOS)
-            Section("Seasons & Up Next") {
-                
+            Section {
                 Toggle(isOn: $store.markEpisodeWatchedOnTap) {
                     Text("behaviorEpisodeTitle")
                 }
@@ -59,6 +58,12 @@ struct BehaviorSetting: View {
             
 #if !os(tvOS)
             shareOptions
+            
+#if os(macOS)
+            Section {
+                Toggle("Show Menu Bar App", isOn: $store.showMenuBarApp)
+            }
+#endif
             
             Section {
                 Toggle(isOn: $store.disableSearchFilter) {

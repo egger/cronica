@@ -206,7 +206,7 @@ extension ItemContent {
         return NetworkService.urlBuilder(size: .medium, path: posterPath)
     }
     var posterImageLarge: URL? {
-        return NetworkService.urlBuilder(size: .w780, path: posterPath)
+        return NetworkService.urlBuilder(size: .w500, path: posterPath)
     }
     var cardImageSmall: URL? {
         return NetworkService.urlBuilder(size: .small, path: backdropPath)
@@ -215,7 +215,7 @@ extension ItemContent {
 #if os(tvOS)
         return NetworkService.urlBuilder(size: .w780, path: backdropPath)
 #else
-        return NetworkService.urlBuilder(size: .medium, path: backdropPath)
+        return NetworkService.urlBuilder(size: .w500, path: backdropPath)
 #endif
     }
     var cardImageLarge: URL? {
@@ -243,9 +243,6 @@ extension ItemContent {
         default: return cardImageSmall
         }
 #endif
-    }
-    var itemSearchURL: URL {
-        return URL(string: "https://www.themoviedb.org/\(media.rawValue)/\(id)")!
     }
     var itemURL: URL {
         return URL(string: "https://www.themoviedb.org/\(itemContentMedia.rawValue)/\(id)")!

@@ -86,6 +86,7 @@ struct WatchlistItemPosterView: View {
                         Spacer()
                         HStack {
                             Spacer()
+#if !os(tvOS)
                             if !settings.isCompactUI {
                                 if isArchive {
                                     Image(systemName: "archivebox.fill")
@@ -116,10 +117,14 @@ struct WatchlistItemPosterView: View {
                                     .padding([.vertical])
                                     .padding(.trailing, 4)
                             }
+#endif
                             Image(systemName: "square.stack.fill")
                                 .imageScale(.small)
                                 .foregroundColor(.white.opacity(0.9))
                                 .padding([.vertical, .trailing])
+#if os(tvOS)
+                                .font(.caption)
+#endif
                         }
                         .background {
                             if content.mediumPosterImage != nil {

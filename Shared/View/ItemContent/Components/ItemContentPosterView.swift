@@ -31,6 +31,16 @@ struct ItemContentPosterView: View {
         }
 #if os(tvOS)
         .buttonStyle(.card)
+        .itemContentContextMenu(item: item,
+                                isWatched: $isWatched,
+                                showPopup: $showPopup,
+                                isInWatchlist: $isInWatchlist,
+                                showNote: $showNote,
+                                showCustomList: $showCustomListView,
+                                popupType: $popupType,
+                                isFavorite: $isFavorite,
+                                isPin: $isPin,
+                                isArchive: $isArchive)
 #else
         .buttonStyle(.plain)
 #endif
@@ -50,20 +60,31 @@ struct ItemContentPosterView: View {
                         Spacer()
                         HStack {
                             Spacer()
+#if !os(tvOS)
                             if !settings.isCompactUI {
                                 if isArchive {
                                     Image(systemName: "archivebox.fill")
                                         .imageScale(.small)
                                         .foregroundColor(.white.opacity(0.9))
                                         .padding([.vertical])
+#if !os(tvOS)
                                         .padding(.trailing, 4)
+#else
+                                        .padding(.trailing, 2)
+                                        .font(.caption)
+#endif
                                 }
                                 if isPin {
                                     Image(systemName: "pin.fill")
                                         .imageScale(.small)
                                         .foregroundColor(.white.opacity(0.9))
                                         .padding([.vertical])
+#if !os(tvOS)
                                         .padding(.trailing, 4)
+#else
+                                        .padding(.trailing, 2)
+                                        .font(.caption)
+#endif
                                 }
                             }
                             if isFavorite {
@@ -71,19 +92,36 @@ struct ItemContentPosterView: View {
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
+#if !os(tvOS)
                                     .padding(.trailing, 4)
+#else
+                                    .padding(.trailing, 2)
+                                    .font(.caption)
+#endif
                             }
+#endif
                             if isWatched {
                                 Image(systemName: "rectangle.badge.checkmark.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
+#if !os(tvOS)
                                     .padding(.trailing, 4)
+#else
+                                    .padding(.trailing, 2)
+                                    .font(.caption)
+#endif
                             }
                             Image(systemName: "square.stack.fill")
                                 .imageScale(.small)
                                 .foregroundColor(.white.opacity(0.9))
-                                .padding([.vertical, .trailing])
+                                .padding(.vertical)
+#if !os(tvOS)
+                                .padding(.trailing)
+#else
+                                .padding(.horizontal)
+                                .font(.caption)
+#endif
                         }
                         .background {
                             if item.posterImageMedium != nil {
@@ -101,6 +139,7 @@ struct ItemContentPosterView: View {
                             }
                         }
                     }
+                    .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth)
                 }
             }
             .transition(.opacity)
@@ -111,6 +150,7 @@ struct ItemContentPosterView: View {
             .shadow(radius: DrawingConstants.shadowRadius)
             .padding(.zero)
             .applyHoverEffect()
+#if !os(tvOS)
             .itemContentContextMenu(item: item,
                                     isWatched: $isWatched,
                                     showPopup: $showPopup,
@@ -121,6 +161,7 @@ struct ItemContentPosterView: View {
                                     isFavorite: $isFavorite,
                                     isPin: $isPin,
                                     isArchive: $isArchive)
+#endif
             .task {
                 withAnimation {
                     isInWatchlist = context.isItemSaved(id: item.itemContentID)

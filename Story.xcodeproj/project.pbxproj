@@ -274,8 +274,6 @@
 		B8B2F6B42A85DBFD00FF0246 /* ItemContentSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6B32A85DBFD00FF0246 /* ItemContentSearchRowView.swift */; };
 		B8B2F6B52A85DC1600FF0246 /* ItemContentSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6B32A85DBFD00FF0246 /* ItemContentSearchRowView.swift */; };
 		B8B2F6B72A85E5E700FF0246 /* SearchContentPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6B62A85E5E700FF0246 /* SearchContentPosterView.swift */; };
-		B8B2F6B92A86733900FF0246 /* DisplayInformationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6B82A86733900FF0246 /* DisplayInformationPreference.swift */; };
-		B8B2F6BA2A86733900FF0246 /* DisplayInformationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B2F6B82A86733900FF0246 /* DisplayInformationPreference.swift */; };
 		B8B8A4252A6E288300E5533F /* TMDBAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9A829F324730088B5CC /* TMDBAccountView.swift */; };
 		B8B8A4262A6E289200E5533F /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9AD29F3324F0088B5CC /* AccountManager.swift */; };
 		B8B8A4272A6E29B600E5533F /* SyncSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80BBE5D2949677300958876 /* SyncSetting.swift */; };
@@ -345,6 +343,7 @@
 		B8EC6ABC28AC67CD0054DC76 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
 		B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 		B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */; };
+		B8F367642AF5CAAA0027CAF9 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, tvos, ); productRef = B8F367632AF5CAAA0027CAF9 /* Aptabase */; };
 		B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
 		B8F6DE6329379F70005D1A50 /* ItemContentSectionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */; };
@@ -600,7 +599,6 @@
 		B8B2F6AB2A85D57400FF0246 /* SearchItemContent-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchItemContent-Extension.swift"; sourceTree = "<group>"; };
 		B8B2F6B32A85DBFD00FF0246 /* ItemContentSearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentSearchRowView.swift; sourceTree = "<group>"; };
 		B8B2F6B62A85E5E700FF0246 /* SearchContentPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentPosterView.swift; sourceTree = "<group>"; };
-		B8B2F6B82A86733900FF0246 /* DisplayInformationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayInformationPreference.swift; sourceTree = "<group>"; };
 		B8B8A4292A6EAC6800E5533F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B8B8A42A2A6EAC6800E5533F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B8B94CEB28EB74E900EDEC85 /* SearchItemSwipeGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemSwipeGesture.swift; sourceTree = "<group>"; };
@@ -722,6 +720,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F367642AF5CAAA0027CAF9 /* Aptabase in Frameworks */,
 				B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */,
 				B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */,
 				B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */,
@@ -1081,7 +1080,6 @@
 			isa = PBXGroup;
 			children = (
 				B812529728A407120062B0C9 /* DefaultListTypes.swift */,
-				B8B2F6B82A86733900FF0246 /* DisplayInformationPreference.swift */,
 				B876DE5B281B2B04005558DD /* Screens.swift */,
 				B8C0215C29E121C1006E9D82 /* SettingsScreens.swift */,
 			);
@@ -1508,6 +1506,7 @@
 				B87F745D280605CE00E94126 /* TelemetryClient */,
 				B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */,
 				B854FA1E2A75B24000509C34 /* YouTubePlayerKit */,
+				B8F367632AF5CAAA0027CAF9 /* Aptabase */,
 			);
 			productName = "Story (iOS)";
 			productReference = B8110EDF279245D100844FEB /* Cronica.app */;
@@ -1603,6 +1602,7 @@
 				B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */,
 				B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				B854FA1D2A75B24000509C34 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
+				B8F367622AF5CA900027CAF9 /* XCRemoteSwiftPackageReference "aptabase-swift" */,
 			);
 			productRefGroup = B8110EE0279245D100844FEB /* Products */;
 			projectDirPath = "";
@@ -1671,7 +1671,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8B2F6BA2A86733900FF0246 /* DisplayInformationPreference.swift in Sources */,
 				B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */,
 				B8C0215729E0D2A7006E9D82 /* WatchlistItemContextMenu.swift in Sources */,
 				B8FB2A7C29522DC3006DAC8E /* WatchlistItemRowView.swift in Sources */,
@@ -1853,7 +1852,6 @@
 				B89ECD062985F11100F0B197 /* WatchlistSectionDetails.swift in Sources */,
 				B8A75FC22A17212200D6C321 /* ItemContentTVView.swift in Sources */,
 				B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */,
-				B8B2F6B92A86733900FF0246 /* DisplayInformationPreference.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
 				B82C268F279644E000259D98 /* Bundle-Decodable.swift in Sources */,
@@ -2620,6 +2618,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		B8F367622AF5CA900027CAF9 /* XCRemoteSwiftPackageReference "aptabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aptabase/aptabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2652,6 +2658,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
 			productName = TelemetryClient;
+		};
+		B8F367632AF5CAAA0027CAF9 /* Aptabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8F367622AF5CA900027CAF9 /* XCRemoteSwiftPackageReference "aptabase-swift" */;
+			productName = Aptabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 

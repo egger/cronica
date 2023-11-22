@@ -160,21 +160,21 @@ struct HomeView: View {
         .toolbar {
 #if os(macOS)
             ToolbarItem(placement: .navigation) {
-                HStack {
-                    Button {
-                        showNotifications.toggle()
-                    } label: {
-                        Label("Notifications", systemImage: hasNotifications ? "bell.badge.fill" : "bell")
-                            .labelStyle(.iconOnly)
-                    }
-                    Button {
-                        reloadHome = true
-                        viewModel.reload()
-                    } label: {
-                        Label("Reload", systemImage: "arrow.clockwise")
-                            .labelStyle(.iconOnly)
-                    }
-                    .keyboardShortcut("r", modifiers: .command)
+                Button {
+                    reloadHome = true
+                    viewModel.reload()
+                } label: {
+                    Label("Reload", systemImage: "arrow.clockwise")
+                        .labelStyle(.iconOnly)
+                }
+                .keyboardShortcut("r", modifiers: .command)
+            }
+            ToolbarItem {
+                Button {
+                    showNotifications.toggle()
+                } label: {
+                    Label("Notifications", systemImage: hasNotifications ? "bell.badge.fill" : "bell")
+                        .labelStyle(.iconOnly)
                 }
             }
 #elseif os(iOS)
