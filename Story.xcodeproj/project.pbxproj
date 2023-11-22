@@ -332,6 +332,7 @@
 		B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
 		B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
+		B8DA5CC62B0E432200678592 /* UpNextMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DA5CC52B0E432200678592 /* UpNextMenuBar.swift */; };
 		B8DD56A1290DE2FD002CAAFD /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
 		B8DD56A2290DE2FE002CAAFD /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
 		B8E3ABF62955361C00CA0945 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E3ABF52955361C00CA0945 /* CloudKit.framework */; };
@@ -643,6 +644,7 @@
 		B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DataPlaceholder.json; sourceTree = "<group>"; };
 		B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionView.swift; sourceTree = "<group>"; };
 		B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		B8DA5CC52B0E432200678592 /* UpNextMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextMenuBar.swift; sourceTree = "<group>"; };
 		B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterHorizontalView.swift; sourceTree = "<group>"; };
 		B8E3ABEF29552B6900CA0945 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		B8E3ABF52955361C00CA0945 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS9.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -853,6 +855,7 @@
 		B8110F0F2792678400844FEB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8DA5CC42B0E430B00678592 /* MenuBar */,
 				B81941B92A0861B00057DA04 /* Buttons */,
 				B81941AD2A08394D0057DA04 /* Changelog */,
 				B824E4482A05A87600E385CE /* Company */,
@@ -1382,6 +1385,14 @@
 				B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */,
 			);
 			path = Placeholder;
+			sourceTree = "<group>";
+		};
+		B8DA5CC42B0E430B00678592 /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				B8DA5CC52B0E432200678592 /* UpNextMenuBar.swift */,
+			);
+			path = MenuBar;
 			sourceTree = "<group>";
 		};
 		B8E7651927B738D200D9B731 /* Configuration */ = {
@@ -1916,6 +1927,7 @@
 				B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */,
 				B88B88C729DE55B500497058 /* AppAlternateIcons.swift in Sources */,
 				B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */,
+				B8DA5CC62B0E432200678592 /* UpNextMenuBar.swift in Sources */,
 				B86F7ABD2A087FF900AA4855 /* HorizontalUpNextListView.swift in Sources */,
 				B8F6DE6329379F70005D1A50 /* ItemContentSectionDetails.swift in Sources */,
 				B804E397284FCBCB00F59855 /* ItemContentCardView.swift in Sources */,
