@@ -1,6 +1,6 @@
 //
 //  Key.swift
-//  Story
+//  Cronica
 //
 //  Created by Alexandre Madeira on 28/01/22.
 //  swiftlint:disable line_length
@@ -11,8 +11,8 @@ import Foundation
 ///
 /// The values for each key is defined in an environment variable.
 struct Key {
-    #warning("You can place your API Key here.")
-    static let tmdbApi: String = ""
+    static let tmdbApi = ""
     static let telemetryClientKey: String? = ""
-    static let authorizationHeader: String?  = ""
+    static let authorizationHeader: String? = ""
+    static let aptabaseClientKey: String? = ""
 }
