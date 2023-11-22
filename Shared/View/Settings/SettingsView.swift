@@ -104,6 +104,9 @@ struct SettingsView: View {
             SyncSetting()
                 .tabItem { Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath") }
             
+            NotificationsSettingsView()
+                .tabItem { Label("settingsNotificationTitle", systemImage: "bell") }
+            
             RegionContentSettings()
                 .tabItem { Label("settingsRegionContentTitle", systemImage: "globe")  }
             

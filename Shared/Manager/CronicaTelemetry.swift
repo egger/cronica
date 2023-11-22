@@ -7,9 +7,10 @@
 
 import Foundation
 import os
-import TelemetryClient
-#if os(macOS) || os(tvOS)
+#if !os(iOS)
 import Aptabase
+#else
+import TelemetryClient
 #endif
 
 struct CronicaTelemetry {
@@ -23,23 +24,26 @@ struct CronicaTelemetry {
     
     func setup() {
 #if !targetEnvironment(simulator) || !DEBUG
-        guard let key = Key.telemetryClientKey else { return }
-        let configuration = TelemetryManagerConfiguration(appID: key)
-        TelemetryManager.initialize(with: configuration)
+#if !os(iOS)
         guard let aptabaseKey = Key.aptabaseClientKey else { return }
         Aptabase.shared.initialize(appKey: aptabaseKey)
         Aptabase.shared.trackEvent("app_started")
+#else
+        guard let key = Key.telemetryClientKey else { return }
+        let configuration = TelemetryManagerConfiguration(appID: key)
+        TelemetryManager.initialize(with: configuration)
+#endif
 #endif
     }
     
-    /// Send a signal using TelemetryDeck service.
+    /// Send a signal using TelemetryDeck service (on iOS/iPadOS) or in Aptabase (macOS, watchOS, tvOS).
     ///
     /// If it is running in Simulator or Debug, it will send a warning on logger.
     func handleMessage(_ message: String, for id: String) {
 #if targetEnvironment(simulator) || DEBUG
         logger.warning("\(message), for: \(id)")
 #else
-#if os(tvOS) || os(macOS)
+#if !os(iOS)
         Aptabase.shared.trackEvent(id, with: ["Message": message])
 #else
         if TelemetryManager.isInitialized {
@@ -49,7 +53,9 @@ struct CronicaTelemetry {
 #endif
     }
     
+#if os(iOS)
     var isTelemetryDeckInitialized: String {
         return TelemetryManager.isInitialized.description
     }
+#endif
 }

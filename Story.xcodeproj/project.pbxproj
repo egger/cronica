@@ -204,7 +204,7 @@
 		B87D1B252A65D78900EB6D14 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */; };
 		B87D1B272A65E63700EB6D14 /* UpNextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B262A65E63700EB6D14 /* UpNextListView.swift */; };
 		B87D1B292A66128000EB6D14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B282A66128000EB6D14 /* SettingsView.swift */; };
-		B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B87F745D280605CE00E94126 /* TelemetryClient */; };
+		B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = B87F745D280605CE00E94126 /* TelemetryClient */; };
 		B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
 		B883A1DE2AEEA49E00793EE2 /* EditCustomListItemSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B883A1DD2AEEA49E00793EE2 /* EditCustomListItemSelector.swift */; };
@@ -313,7 +313,7 @@
 		B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD4431284AD42300778275 /* SwiftUI.framework */; };
 		B8D7AEAC28B95F5E0053CE5A /* CronicaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEAB28B95F5E0053CE5A /* CronicaWidget.swift */; };
 		B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEAD28B95F5F0053CE5A /* Assets.xcassets */; };
-		B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B8D7AEB228B95F5F0053CE5A /* CronicaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */; platformFilters = (ios, macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B8D7AEBA28B95FB20053CE5A /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
 		B8D7AEBB28B95FC60053CE5A /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEB828B95F840053CE5A /* ItemContent.swift */; };
 		B8D7AEBC28B960420053CE5A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CC954D27D1310B00B6757C /* Localizable.strings */; };
@@ -327,12 +327,14 @@
 		B8D7AEC928B961AD0053CE5A /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
 		B8D7AECA28B961AE0053CE5A /* ReleaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AEC728B961A20053CE5A /* ReleaseDate.swift */; };
 		B8D7AECF28B962660053CE5A /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7AECD28B962490053CE5A /* Person.swift */; };
-		B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8D7AEDB28B967180053CE5A /* TelemetryClient */; };
+		B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = B8D7AEDB28B967180053CE5A /* TelemetryClient */; };
 		B8D7AEE328BA64DF0053CE5A /* DataPlaceholder.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D7AEE228BA64DF0053CE5A /* DataPlaceholder.json */; };
 		B8D7AEE428BA64F40053CE5A /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C268E279644E000259D98 /* Bundle-Decodable.swift */; };
 		B8D8AF8F27D4D0550042AEB6 /* AttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF8E27D4D0550042AEB6 /* AttributionView.swift */; };
 		B8D8AF9227D4DB720042AEB6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
 		B8DA5CC62B0E432200678592 /* UpNextMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DA5CC52B0E432200678592 /* UpNextMenuBar.swift */; };
+		B8DA5CC82B0E496600678592 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; productRef = B8DA5CC72B0E496600678592 /* Aptabase */; };
+		B8DA5CCA2B0E5DC800678592 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = B8DA5CC92B0E5DC800678592 /* Aptabase */; };
 		B8DD56A1290DE2FD002CAAFD /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
 		B8DD56A2290DE2FE002CAAFD /* CenterHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DD569F290DE2D7002CAAFD /* CenterHorizontalView.swift */; };
 		B8E3ABF62955361C00CA0945 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E3ABF52955361C00CA0945 /* CloudKit.framework */; };
@@ -713,6 +715,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8E3ABF62955361C00CA0945 /* CloudKit.framework in Frameworks */,
+				B8DA5CC82B0E496600678592 /* Aptabase in Frameworks */,
 				B84043DD289B360B00D5CEBF /* SDWebImageSwiftUI in Frameworks */,
 				B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */,
 			);
@@ -735,6 +738,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8D7AEDC28B967180053CE5A /* TelemetryClient in Frameworks */,
+				B8DA5CCA2B0E5DC800678592 /* Aptabase in Frameworks */,
 				B8D7AEA928B95F5E0053CE5A /* SwiftUI.framework in Frameworks */,
 				B8D7AEA828B95F5E0053CE5A /* WidgetKit.framework in Frameworks */,
 			);
@@ -1491,6 +1495,7 @@
 			packageProductDependencies = (
 				B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */,
 				B8C0C67E28A92FF0009F4593 /* TelemetryClient */,
+				B8DA5CC72B0E496600678592 /* Aptabase */,
 			);
 			productName = "CronicaWatch Watch App";
 			productReference = B806C4DE2899BE2800A5330E /* Cronica.app */;
@@ -1538,6 +1543,7 @@
 			name = CronicaWidgetExtension;
 			packageProductDependencies = (
 				B8D7AEDB28B967180053CE5A /* TelemetryClient */,
+				B8DA5CC92B0E5DC800678592 /* Aptabase */,
 			);
 			productName = CronicaWidgetExtension;
 			productReference = B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */;
@@ -2049,7 +2055,10 @@
 		};
 		B8D7AEB128B95F5F0053CE5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilter = ios;
+			platformFilters = (
+				ios,
+				macos,
+			);
 			target = B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */;
 			targetProxy = B8D7AEB028B95F5F0053CE5A /* PBXContainerItemProxy */;
 		};
@@ -2447,7 +2456,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 260;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
@@ -2482,7 +2491,7 @@
 				CODE_SIGN_ENTITLEMENTS = CronicaWidget/Configuration/CronicaWidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 260;
 				DEVELOPMENT_TEAM = 2NF329R2JB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CronicaWidget/Configuration/Info.plist;
@@ -2670,6 +2679,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
 			productName = TelemetryClient;
+		};
+		B8DA5CC72B0E496600678592 /* Aptabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8F367622AF5CA900027CAF9 /* XCRemoteSwiftPackageReference "aptabase-swift" */;
+			productName = Aptabase;
+		};
+		B8DA5CC92B0E5DC800678592 /* Aptabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8F367622AF5CA900027CAF9 /* XCRemoteSwiftPackageReference "aptabase-swift" */;
+			productName = Aptabase;
 		};
 		B8F367632AF5CAAA0027CAF9 /* Aptabase */ = {
 			isa = XCSwiftPackageProductDependency;

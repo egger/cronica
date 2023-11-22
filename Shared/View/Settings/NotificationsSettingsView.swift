@@ -15,13 +15,13 @@ struct NotificationsSettingsView: View {
             Section {
                 Toggle("allowNotification", isOn: $settings.allowNotifications)
                 Toggle(isOn: $settings.notifyMovieRelease) {
-					Text("movieNotificationTitle")
-					Text("movieNotificationSubtitle")
+                    Text("movieNotificationTitle")
+                    Text("movieNotificationSubtitle")
                 }
                 .disabled(!settings.allowNotifications)
                 Toggle(isOn: $settings.notifyNewEpisodes) {
-					Text("episodeNotificationTitle")
-					Text("episodeNotificationSubtitle")
+                    Text("episodeNotificationTitle")
+                    Text("episodeNotificationSubtitle")
                 }
                 .disabled(!settings.allowNotifications)
                 
@@ -32,18 +32,17 @@ struct NotificationsSettingsView: View {
                     settings.notifyNewEpisodes = false
                 }
             }
-            
+#if os(iOS)
             Button("openNotificationInSettings") {
                 Task {
-#if os(iOS)
                     // Create the URL that deep links to your app's notification settings.
                     if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
                         // Ask the system to open that URL.
                         await UIApplication.shared.open(url)
                     }
-#endif
                 }
             }
+#endif
         }
         .navigationTitle(NSLocalizedString(navigationTitle, comment: ""))
 #if os(macOS)

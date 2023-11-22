@@ -107,7 +107,7 @@ You can also download the latest beta from <a href="https://testflight.apple.com
 
 ## Contact
 
-If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.<br>
-I'm also availabe at iMessage, you can send a message at the same email address above.<br>
-Follow me on Twitter: [_alexMadeira](https://twitter.com/_alexMadeira).
+- If you any question, you can send me an email at <a href = "mailto: contact@alexandremadeira.dev"> contact@alexandremadeira.dev</a>, I'll try to answer as quick as I can.<br>
+- I'm also availabe at iMessage, you can send a message at the **same email address above**.<br>
+- Follow Cronica on Twitter: [CronicaApp](https://twitter.com/CronicaApp).
 

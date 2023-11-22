@@ -31,9 +31,15 @@ class SettingsStore: ObservableObject {
     @AppStorage("primaryRightSwipe") var primaryRightSwipe: SwipeGestureOptions = .delete
     @AppStorage("secondaryRightSwipe") var secondaryRightSwipe: SwipeGestureOptions = .markArchive
     @AppStorage("allowFullSwipe") var allowFullSwipe = false
+#if os(macOS)
+    @AppStorage("allowNotifications") var allowNotifications = false
+    @AppStorage("notifyMovies") var notifyMovieRelease = false
+    @AppStorage("notifyTVShows") var notifyNewEpisodes = false
+#else
     @AppStorage("allowNotifications") var allowNotifications = true
     @AppStorage("notifyMovies") var notifyMovieRelease = true
     @AppStorage("notifyTVShows") var notifyNewEpisodes = true
+#endif
     @AppStorage("userHasPurchasedTipJar") var hasPurchasedTipJar = false
 #if os(tvOS)
     @AppStorage("itemContentListDisplayType") var listsDisplayType: ItemContentListPreferredDisplayType = .card
@@ -76,7 +82,7 @@ class SettingsStore: ObservableObject {
     @AppStorage("preferCoverOnUpNext") var preferCoverOnUpNext = false
     @AppStorage("markUpNextWatchedOnTap") var markWatchedOnTapUpNext = false
     @AppStorage("confirmationForMarkOnTapUpNext") var askForConfirmationUpNext = true
-    #if os(macOS)
+#if os(macOS)
     @AppStorage("showMenuBarApp") var showMenuBarApp = true
-    #endif
+#endif
 }
