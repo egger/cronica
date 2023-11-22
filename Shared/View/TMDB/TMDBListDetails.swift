@@ -30,8 +30,12 @@ struct TMDBListDetails: View {
             if !isDeleted {
                 Section {
                     if items.isEmpty {
-                        ContentUnavailableView("Empty List",
-                                               systemImage: "rectangle.on.rectangle")
+                        if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *), #available(macOS 14, *) {
+                            ContentUnavailableView("Empty List",
+                                                   systemImage: "rectangle.on.rectangle")
+                        } else {
+                            Text("Empty List")
+                        }
                     } else {
                         ForEach(items) { item in
                             ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
@@ -62,7 +66,11 @@ struct TMDBListDetails: View {
         .overlay {
             if isDeleted {
                 VStack {
-                    ContentUnavailableView("listDeleted", systemImage: "trash")
+                    if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *), #available(macOS 14, *) {
+                        ContentUnavailableView("listDeleted", systemImage: "trash")
+                    } else {
+                        Text("listDeleted")
+                    }
                 }
             }
         }

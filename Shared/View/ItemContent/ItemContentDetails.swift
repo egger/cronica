@@ -171,44 +171,80 @@ struct ItemContentDetails: View {
         }
     }
     
+    @ViewBuilder
     private var watchButton: some View {
-        Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-               systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
-            viewModel.update(.watched)
-            animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
+                viewModel.update(.watched)
+                animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
+            }
+                   .symbolEffect(.bounce.down, value: viewModel.isWatched)
+    #if os(iOS) || os(macOS)
+                   .keyboardShortcut("w", modifiers: [.option])
+    #endif
+        } else {
+            Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
+                viewModel.update(.watched)
+                animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
+            }
         }
-               .symbolEffect(.bounce.down, value: viewModel.isWatched)
-#if os(iOS) || os(macOS)
-               .keyboardShortcut("w", modifiers: [.option])
-#endif
     }
     
+    @ViewBuilder
     private var favoriteButton: some View {
-        Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-               systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
-            viewModel.update(.favorite)
-            animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
+                viewModel.update(.favorite)
+                animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+            }
+                   .symbolEffect(.bounce.down, value: viewModel.isFavorite)
+    #if os(iOS) || os(macOS)
+                   .keyboardShortcut("f", modifiers: [.option])
+    #endif
+        } else {
+            Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
+                viewModel.update(.favorite)
+                animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+            }
         }
-               .symbolEffect(.bounce.down, value: viewModel.isFavorite)
-#if os(iOS) || os(macOS)
-               .keyboardShortcut("f", modifiers: [.option])
-#endif
     }
     
+    @ViewBuilder
     private var archiveButton: some View {
-        Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
-               systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
-            viewModel.update(.archive)
-            animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
-        }.symbolEffect(.bounce.down, value: viewModel.isArchive)
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
+                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
+                viewModel.update(.archive)
+                animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
+            }.symbolEffect(.bounce.down, value: viewModel.isArchive)
+        } else {
+            Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
+                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
+                viewModel.update(.archive)
+                animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
+            }
+        }
     }
     
+    @ViewBuilder
     private var pinButton: some View {
-        Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
-               systemImage: viewModel.isPin ? "pin.fill" : "pin") {
-            viewModel.update(.pin)
-            animate(for: viewModel.isPin ? .markedPin : .removedPin)
-        }.symbolEffect(.bounce.down, value: viewModel.isPin)
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
+                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
+                viewModel.update(.pin)
+                animate(for: viewModel.isPin ? .markedPin : .removedPin)
+            }.symbolEffect(.bounce.down, value: viewModel.isPin)
+        } else {
+            Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
+                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
+                viewModel.update(.pin)
+                animate(for: viewModel.isPin ? .markedPin : .removedPin)
+            }
+        }
     }
     
 #if os(iOS) || os(macOS)

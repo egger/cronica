@@ -101,7 +101,7 @@ struct VerticalUpNextListView: View {
                                 }
                             }
                         }
-                        .onChange(of: viewModel.isWatched) { 
+                        .onChange(of: viewModel.isWatched) { _ in 
                             guard let first = viewModel.episodes.first else { return }
                             if viewModel.isWatched {
                                 withAnimation {
@@ -159,7 +159,11 @@ struct VerticalUpNextListView: View {
         }
         .overlay {
             if queryResult.isEmpty, !query.isEmpty {
-                ContentUnavailableView.search(text: query)
+                if #available(iOS 17, *), #available(macOS 14, *) {
+                    ContentUnavailableView.search(text: query)
+                } else {
+                    Text("No results")
+                }
             }
         }
 #if os(iOS)

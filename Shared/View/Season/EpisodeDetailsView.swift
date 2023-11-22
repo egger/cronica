@@ -27,7 +27,7 @@ struct EpisodeDetailsView: View {
     var body: some View {
         details
             .actionPopup(isShowing: $showPopup, for: popupType)
-            .onChange(of: isWatched) { _, hasWatched in
+            .onChange(of: isWatched) { hasWatched in
                 if isUpNext { return }
                 if hasWatched {
                     popupType = .markedEpisodeWatched
