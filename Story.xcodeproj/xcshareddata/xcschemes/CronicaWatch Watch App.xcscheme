@@ -78,7 +78,8 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
-      showNonLocalizedStrings = "YES">
+      showNonLocalizedStrings = "YES"
+      notificationPayloadFile = "PushNotificationPayload.apns">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference

@@ -128,7 +128,7 @@ struct HorizontalUpNextListView: View {
 #endif
                                 }
                             }
-                            .onChange(of: viewModel.isWatched) {
+                            .onChange(of: viewModel.isWatched) { _ in
                                 guard let first = viewModel.episodes.first else { return }
                                 if viewModel.isWatched {
                                     withAnimation {
@@ -137,7 +137,7 @@ struct HorizontalUpNextListView: View {
                                 }
                             }
                         }
-                        .onChange(of: shouldReload) { _, reload in
+                        .onChange(of: shouldReload) { reload in
                             if reload {
                                 if let firstItem = viewModel.episodes.first {
                                     withAnimation {

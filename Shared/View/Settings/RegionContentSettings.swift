@@ -24,7 +24,7 @@ struct RegionContentSettings: View {
                     Text("appRegionTitle")
                     Text("appRegionSubtitle")
                 }
-                .onChange(of: store.watchRegion) { 
+                .onChange(of: store.watchRegion) { _ in 
                     if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
                 }
 #if os(macOS)

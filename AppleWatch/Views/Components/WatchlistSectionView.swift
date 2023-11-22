@@ -22,8 +22,12 @@ struct WatchlistSectionView: View {
                 Text(NSLocalizedString(title, comment: ""))
             }
         } else {
-            ContentUnavailableView("No results", systemImage: "rectangle.on.rectangle")
-                .padding()
+            if #available(watchOS 10, *) {
+                ContentUnavailableView("No results", systemImage: "rectangle.on.rectangle")
+                    .padding()
+            } else {
+                Text("No results")
+            }
         }
     }
 }

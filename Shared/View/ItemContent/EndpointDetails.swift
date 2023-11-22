@@ -34,8 +34,12 @@ struct EndpointDetails: View {
         .overlay {
             if isLoading { ProgressView() }
             else if !isLoading && items.isEmpty {
-                ContentUnavailableView("Nothing here, try again later.",
-                                       systemImage: "popcorn")
+                if #available(iOS 17, *) {
+                    ContentUnavailableView("Nothing here, try again later.",
+                                           systemImage: "popcorn")
+                } else {
+                    Text("Nothing here, try again later.")
+                }
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)

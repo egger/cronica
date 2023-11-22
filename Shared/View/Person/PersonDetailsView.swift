@@ -92,7 +92,9 @@ struct PersonDetailsView: View {
 #endif
         }
         .background {
-            TranslucentBackground(image: person?.personImage)
+            if #available(iOS 17, *), #available(watchOS 10, *) {
+                TranslucentBackground(image: person?.personImage)
+            }
         }
 #if os(iOS)
         .searchable(text: $query,

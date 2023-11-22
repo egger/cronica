@@ -67,9 +67,16 @@ struct SeasonListView: View {
         .ignoresSafeArea(.all, edges: .horizontal)
 #elseif os(watchOS)
         .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                seasonPicker
-                    .pickerStyle(.navigationLink)
+            if #available(watchOS 10, *) {
+                ToolbarItem(placement: .bottomBar) {
+                    seasonPicker
+                        .pickerStyle(.navigationLink)
+                }
+            } else {
+                ToolbarItem(placement: .automatic) {
+                    seasonPicker
+                        .pickerStyle(.navigationLink)
+                }
             }
         }
 #endif
@@ -95,7 +102,7 @@ struct SeasonListView: View {
 #elseif os(iOS)
         .pickerStyle(.menu)
 #endif
-        .onChange(of: selectedSeason) {
+        .onChange(of: selectedSeason) { _ in
             Task {
                 await load()
                 checkIfWatched = false
@@ -200,7 +207,7 @@ struct SeasonListView: View {
                                     proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
                                 }
                             }
-                            .onChange(of: selectedSeason) {
+                            .onChange(of: selectedSeason) { _ in
                                 if !hasFirstLoaded { return }
                                 let first = season.first ?? nil
                                 guard let first else { return }

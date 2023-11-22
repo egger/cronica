@@ -95,9 +95,13 @@ struct ItemContentPhoneView: View {
             withAnimation { showPopup = true }
         } label: {
             VStack {
-                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
-                                  value: viewModel.isWatched)
+                if #available(iOS 17, *) {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                      value: viewModel.isWatched)
+                } else {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                }
                 Text("Watched")
                     .padding(.top, 2)
                     .font(.caption)

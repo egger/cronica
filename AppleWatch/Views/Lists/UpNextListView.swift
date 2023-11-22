@@ -23,8 +23,12 @@ struct UpNextListView: View {
         NavigationStack {
             VStack {
                 if items.isEmpty {
-                    ContentUnavailableView("Your episodes will appear here.",
-                                           systemImage: "tv")
+                    if #available(watchOS 10, *) {
+                        ContentUnavailableView("Your episodes will appear here.",
+                                               systemImage: "tv")
+                    } else {
+                        Text("Your episodes will appear here.")
+                    }
                 } else {
                     List {
                         ForEach(viewModel.episodes) { episode in
@@ -55,7 +59,7 @@ struct UpNextListView: View {
                         await viewModel.load(items)
                         await viewModel.checkForNewEpisodes(items)
                     }
-                    .navigationDestination(item: $selectedEpisode) { item in
+                    .sheet(item: $selectedEpisode) { item in
                         NavigationStack {
                             EpisodeDetailsView(episode: item.episode,
                                                season: item.episode.itemSeasonNumber,

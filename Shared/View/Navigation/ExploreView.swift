@@ -99,7 +99,7 @@ struct ExploreView: View {
                         case .card: cardStyle
                         }
                     }
-                    .onChange(of: onChanging) {
+                    .onChange(of: onChanging) { _ in
                         guard let first = items.first else { return }
                         withAnimation {
                             proxy.scrollTo(first.id, anchor: .topLeading)
@@ -173,7 +173,7 @@ struct ExploreView: View {
 #endif
 #endif
         }
-        .onChange(of: selectedMedia) { _, value in
+        .onChange(of: selectedMedia) { value in
             onChanging = true
             var genre: Genre?
             if value == .tvShow {
@@ -186,7 +186,7 @@ struct ExploreView: View {
             }
             Task { await load() }
         }
-        .onChange(of: selectedGenre) {
+        .onChange(of: selectedGenre) { _ in
             onChanging = true
             Task { await load() }
         }
@@ -226,7 +226,7 @@ struct ExploreView: View {
     
     private var hideItemsToggle: some View {
         Toggle("hideAddedItemsDiscoverFilter", isOn: $hideAddedItems)
-            .onChange(of: hideAddedItems) { _, value in
+            .onChange(of: hideAddedItems) { value in
                 if value {
                     hideItems()
                 } else {

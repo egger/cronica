@@ -107,7 +107,9 @@ struct ItemContentView: View {
             }
         }
         .background {
-            TranslucentBackground(image: image)
+            if #available(watchOS 10, *) {
+                TranslucentBackground(image: image)
+            }
         }
     }
     
@@ -116,9 +118,13 @@ struct ItemContentView: View {
             viewModel.update(.watched)
         } label: {
             VStack {
-                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
-                                  value: viewModel.isWatched)
+                if #available(watchOS 10, *) {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                      value: viewModel.isWatched)
+                } else {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                }
                 Text("Watched")
                     .padding(.top, 2)
                     .font(.caption)
@@ -142,9 +148,13 @@ struct ItemContentView: View {
             viewModel.update(.favorite)
         } label: {
             VStack {
-                Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                    .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
-                                  value: viewModel.isFavorite)
+                if #available(watchOS 10, *) {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                        .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                      value: viewModel.isFavorite)
+                } else {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                }
                 Text("Favorite")
                     .padding(.top, 2)
                     .font(.caption)
@@ -160,9 +170,13 @@ struct ItemContentView: View {
             viewModel.update(.archive)
         } label: {
             VStack {
-                Image(systemName: viewModel.isArchive ? "archivebox.fill" : "archivebox")
-                    .symbolEffect(viewModel.isArchive ? .bounce.down : .bounce.up,
-                                  value: viewModel.isArchive)
+                if #available(watchOS 10, *) {
+                    Image(systemName: viewModel.isArchive ? "archivebox.fill" : "archivebox")
+                        .symbolEffect(viewModel.isArchive ? .bounce.down : .bounce.up,
+                                      value: viewModel.isArchive)
+                } else {
+                    Image(systemName: viewModel.isArchive ? "archivebox.fill" : "archivebox")
+                }
                 Text("Archive")
                     .padding(.top, 2)
                     .font(.caption)
@@ -178,9 +192,13 @@ struct ItemContentView: View {
             viewModel.update(.pin)
         } label: {
             VStack {
-                Image(systemName: viewModel.isPin ? "pin.fill" : "pin")
-                    .symbolEffect(viewModel.isPin ? .bounce.down : .bounce.up,
-                                  value: viewModel.isPin)
+                if #available(watchOS 10, *) {
+                    Image(systemName: viewModel.isPin ? "pin.fill" : "pin")
+                        .symbolEffect(viewModel.isPin ? .bounce.down : .bounce.up,
+                                      value: viewModel.isPin)
+                } else {
+                    Image(systemName: viewModel.isPin ? "pin.fill" : "pin")
+                }
                 Text("Pin")
                     .padding(.top, 2)
                     .font(.caption)
@@ -196,7 +214,7 @@ struct ItemContentView: View {
 		switch store.shareLinkPreference {
 		case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url).labelStyle(.iconOnly) }
 		case .cronica: if let cronicaUrl {
-			ShareLink(item: cronicaUrl, message: Text(title))
+			ShareLink(item: cronicaUrl)
 				.labelStyle(.iconOnly)
 		}
 		}

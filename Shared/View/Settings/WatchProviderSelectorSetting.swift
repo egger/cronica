@@ -24,7 +24,11 @@ struct WatchProviderSelectorSetting: View {
             if settings.isSelectedWatchProviderEnabled {
                 Section {
                     if providers.isEmpty, !isLoading {
-                        ContentUnavailableView("Try Again Later", systemImage: "tv")
+                        if #available(iOS 17, *) {
+                            ContentUnavailableView("Try Again Later", systemImage: "tv")
+                        } else {
+                            Text("Try Again Later")
+                        }
                     } else if providers.isEmpty, isLoading {
                         ProgressView()
                     } else {
@@ -36,7 +40,9 @@ struct WatchProviderSelectorSetting: View {
             }
         }
         .navigationTitle("selectedWatchProvider")
-        .onChange(of: settings.isSelectedWatchProviderEnabled, checkStatus)
+        .onChange(of: settings.isSelectedWatchProviderEnabled) { _ in
+            checkStatus()
+        }
         .onAppear(perform: load)
 #if os(macOS)
         .formStyle(.grouped)

@@ -110,7 +110,11 @@ struct CompanyDetails: View {
                         }
                     } else {
                         if isLoaded {
-                            ContentUnavailableView("Try again later", systemImage: "popcorn")
+                            if #available(iOS 17, *) {
+                                ContentUnavailableView("Try again later", systemImage: "popcorn")
+                            } else {
+                                Text("Try again later")
+                            }
                         }
                     }
                 }
@@ -143,7 +147,11 @@ struct CompanyDetails: View {
                 }
             } else {
                 if isLoaded {
-                    ContentUnavailableView("Try again later", systemImage: "popcorn")
+                    if #available(iOS 17, *) {
+                        ContentUnavailableView("Try again later", systemImage: "popcorn")
+                    } else {
+                        Text("Try again later")
+                    }
                 }
             }
         }
@@ -174,7 +182,11 @@ struct CompanyDetails: View {
                 }
             } else {
                 if isLoaded {
-                    ContentUnavailableView("Try again later", systemImage: "popcorn")
+                    if #available(iOS 17, *) {
+                        ContentUnavailableView("Try again later", systemImage: "popcorn")
+                    } else {
+                        Text("Try again later")
+                    }
                 }
             }
         }.padding(.all, settings.isCompactUI ? 10 : nil)
