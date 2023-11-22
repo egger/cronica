@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-    <a href="https://twitter.com/_alexMadeira">
-        <img src="https://img.shields.io/badge/Twitter-@_alexMadeira-lightgrey.svg?style=flat" alt="Twitter: @_alexMadeira" />
+    <a href="https://twitter.com/CronicaApp">
+        <img src="https://img.shields.io/badge/Twitter-@CronicaApp-blue.svg?style=flat" alt="Twitter: @CronicaApp" />
     </a>
 <img src="https://img.shields.io/github/license/MadeiraAlexandre/Cronica" alt="GitHub license MIT badge" />
 
