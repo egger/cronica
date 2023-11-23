@@ -274,6 +274,9 @@ struct CustomWatchlist: View {
             ContentUnavailableView.search(text: query)
         } else {
             Text("No results")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
     
@@ -284,6 +287,9 @@ struct CustomWatchlist: View {
                 .padding()
         } else {
             Text("emptyList")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
 }

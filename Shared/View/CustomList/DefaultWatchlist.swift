@@ -306,6 +306,9 @@ struct DefaultWatchlist: View {
                 .padding()
         } else {
             Text("Your list is empty")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
     
@@ -315,6 +318,9 @@ struct DefaultWatchlist: View {
             ContentUnavailableView.search(text: query)
         } else {
             Text("No results")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
 }

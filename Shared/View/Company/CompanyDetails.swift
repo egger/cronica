@@ -114,6 +114,9 @@ struct CompanyDetails: View {
                                 ContentUnavailableView("Try again later", systemImage: "popcorn")
                             } else {
                                 Text("Try again later")
+                                    .multilineTextAlignment(.center)
+                                    .font(.callout)
+                                    .foregroundColor(.secondary)
                             }
                         }
                     }
@@ -151,6 +154,9 @@ struct CompanyDetails: View {
                         ContentUnavailableView("Try again later", systemImage: "popcorn")
                     } else {
                         Text("Try again later")
+                            .multilineTextAlignment(.center)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
                     }
                 }
             }
@@ -186,6 +192,9 @@ struct CompanyDetails: View {
                         ContentUnavailableView("Try again later", systemImage: "popcorn")
                     } else {
                         Text("Try again later")
+                            .multilineTextAlignment(.center)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
                     }
                 }
             }

@@ -35,6 +35,9 @@ struct TMDBListDetails: View {
                                                    systemImage: "rectangle.on.rectangle")
                         } else {
                             Text("Empty List")
+                                .multilineTextAlignment(.center)
+                                .font(.callout)
+                                .foregroundColor(.secondary)
                         }
                     } else {
                         ForEach(items) { item in
@@ -70,6 +73,9 @@ struct TMDBListDetails: View {
                         ContentUnavailableView("listDeleted", systemImage: "trash")
                     } else {
                         Text("listDeleted")
+                            .multilineTextAlignment(.center)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
                     }
                 }
             }

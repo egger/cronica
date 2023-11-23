@@ -14,6 +14,9 @@ struct EmptyListView: View {
                 .padding()
         } else {
             Text("Your list is empty.")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
 }

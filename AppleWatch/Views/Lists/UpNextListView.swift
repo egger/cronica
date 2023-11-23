@@ -28,6 +28,9 @@ struct UpNextListView: View {
                                                systemImage: "tv")
                     } else {
                         Text("Your episodes will appear here.")
+                            .multilineTextAlignment(.center)
+                            .font(.callout)
+                            .foregroundColor(.secondary)
                     }
                 } else {
                     List {

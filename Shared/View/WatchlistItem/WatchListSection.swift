@@ -58,6 +58,9 @@ struct WatchListSection: View {
                 .padding()
         } else {
             Text("emptyList")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
     

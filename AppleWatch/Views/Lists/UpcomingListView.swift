@@ -48,6 +48,9 @@ struct UpcomingListView: View {
                                            systemImage: "popcorn")
                 } else {
                     Text("Your upcoming items will appear here.")
+                        .multilineTextAlignment(.center)
+                        .font(.callout)
+                        .foregroundColor(.secondary)
                 }
             }
         }

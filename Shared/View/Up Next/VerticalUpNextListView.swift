@@ -163,6 +163,9 @@ struct VerticalUpNextListView: View {
                     ContentUnavailableView.search(text: query)
                 } else {
                     Text("No results")
+                        .multilineTextAlignment(.center)
+                        .font(.callout)
+                        .foregroundColor(.secondary)
                 }
             }
         }

@@ -213,6 +213,9 @@ struct SearchView: View {
             ContentUnavailableView.search(text: viewModel.query)
         } else {
             Text("No results")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
     
@@ -228,6 +231,9 @@ struct SearchView: View {
             ContentUnavailableView("Search failed, try again later.", systemImage: "magnifyingglass").padding()
         } else {
             Text("Search failed, try again later")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
     

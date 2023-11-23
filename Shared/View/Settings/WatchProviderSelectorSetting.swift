@@ -28,6 +28,9 @@ struct WatchProviderSelectorSetting: View {
                             ContentUnavailableView("Try Again Later", systemImage: "tv")
                         } else {
                             Text("Try Again Later")
+                                .multilineTextAlignment(.center)
+                                .font(.callout)
+                                .foregroundColor(.secondary)
                         }
                     } else if providers.isEmpty, isLoading {
                         ProgressView()

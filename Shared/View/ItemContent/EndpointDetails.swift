@@ -39,6 +39,9 @@ struct EndpointDetails: View {
                                            systemImage: "popcorn")
                 } else {
                     Text("Nothing here, try again later.")
+                        .multilineTextAlignment(.center)
+                        .font(.callout)
+                        .foregroundColor(.secondary)
                 }
             }
         }

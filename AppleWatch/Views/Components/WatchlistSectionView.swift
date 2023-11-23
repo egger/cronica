@@ -27,6 +27,9 @@ struct WatchlistSectionView: View {
                     .padding()
             } else {
                 Text("No results")
+                    .multilineTextAlignment(.center)
+                    .font(.callout)
+                    .foregroundColor(.secondary)
             }
         }
     }
