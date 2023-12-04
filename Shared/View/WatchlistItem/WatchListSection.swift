@@ -43,8 +43,7 @@ struct WatchListSection: View {
                 HStack {
                     Text(NSLocalizedString(title, comment: ""))
                     Spacer()
-                    let formatString = NSLocalizedString("items count", comment: "")
-                    let result = String(format: formatString, items.count)
+                    let result = NSLocalizedString("\(items.count) item", comment: "")
                     Text(result)
                 }
             } 
@@ -53,15 +52,7 @@ struct WatchListSection: View {
     
     @ViewBuilder
     private var empty: some View {
-        if #available(iOS 17, *) {
-            ContentUnavailableView("emptyList", systemImage: "rectangle.on.rectangle")
-                .padding()
-        } else {
-            Text("emptyList")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
+        EmptyListView()
     }
     
     private func fetchDroppedItems(_ items: [ItemContent]) {

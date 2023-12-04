@@ -225,7 +225,7 @@ struct ExploreView: View {
     }
     
     private var hideItemsToggle: some View {
-        Toggle("hideAddedItemsDiscoverFilter", isOn: $hideAddedItems)
+        Toggle("Hide Added Items", isOn: $hideAddedItems)
             .onChange(of: hideAddedItems) { value in
                 if value {
                     hideItems()

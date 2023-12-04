@@ -14,11 +14,11 @@ struct SettingsView: View {
         NavigationStack {
             Form {
 				Section {
-					NavigationLink("settingsBehaviorTitle", destination: BehaviorSettings())
+					NavigationLink("Behavior", destination: BehaviorSetting())
 				}
                 
 				Section {
-					NavigationLink("settingsSyncTitle", destination: SyncSetting())
+					NavigationLink("Sync", destination: SyncSetting())
 				}
             }
             .navigationTitle("Settings")
@@ -29,32 +29,4 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
-}
-
-private struct BehaviorSettings: View {
-	@StateObject private var store = SettingsStore.shared
-	var body: some View {
-		Form {
-			Section("Watchlist") {
-				Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
-				Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
-			}
-			Section {
-				Picker(selection: $store.shareLinkPreference) {
-					ForEach(ShareLinkPreference.allCases) { item in
-						Text(item.title).tag(item)
-					}
-				} label: {
-					Text("shareLinkPreference")
-				}
-			} header: {
-				Text("Beta")
-			} footer: {
-				HStack {
-					Text("shareLinkPreferenceSubtitle")
-					Spacer()
-				}
-			}
-		}
-	}
 }

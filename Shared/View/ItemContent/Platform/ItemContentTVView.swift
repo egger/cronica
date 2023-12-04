@@ -40,7 +40,7 @@ struct ItemContentTVView: View {
                     )
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
-                                              title: "Recommendations",
+                                              title: NSLocalizedString("Recommendations", comment: ""),
                                               showPopup: $showPopup,
                                               popupType: $popupType,
                                               displayAsCard: true)
@@ -151,7 +151,7 @@ struct ItemContentTVView: View {
                     viewModel.isWatched ? animate(for: .markedWatched) : animate(for: .removedWatched)
                 } label: {
                     Label(
-                        viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+                        viewModel.isWatched ? "Unwatched" : "Watched",
                         systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark"
                     )
                     .labelStyle(.iconOnly)
@@ -171,7 +171,7 @@ struct ItemContentTVView: View {
                     viewModel.update(.favorite)
                     viewModel.isFavorite ? animate(for: .markedFavorite) : animate(for: .removedFavorite)
                 } label: {
-                    Label(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+                    Label(viewModel.isFavorite ? "Unfavorite" : "Favorite",
                           systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
                     .labelStyle(.iconOnly)
                     .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,

@@ -40,13 +40,14 @@ struct AboutSettings: View {
             Button {
                 requestReview()
             } label: {
-                Text("settingsReviewCronica")
+                Text("Review on the App Store")
             }
 #endif
             
 #if !os(tvOS)
             Section {
-                aboutButton(title: "X/Twitter", url: "https://x.com/CronicaApp")
+                aboutButton(title: NSLocalizedString("X/Twitter", comment: ""),
+                            url: "https://x.com/CronicaApp")
             }
 #endif
             
@@ -59,46 +60,47 @@ struct AboutSettings: View {
 #if os(macOS)
             privacy
 #endif
-            #if !os(macOS)
-            FeedbackSettingsView()
-            #endif
             
             Section("Design") {
                 aboutButton(
-                    title: "acknowledgmentsAppIconTitle",
-                    subtitle: "acknowledgmentsAppIconSubtitle",
+                    title: NSLocalizedString("Icon Designer", comment: ""),
+                    subtitle: "Akhmad",
                     url: "https://www.fiverr.com/akhmad437"
                 )
             }
             
             Section("Translation") {
-                aboutButton(title: "German", subtitle: "Simon Boer", url: "https://twitter.com/SimonBoer29")
-                aboutButton(title: "Spanish", subtitle: "Luis Felipe Lerma Alvarez",
+                aboutButton(title: NSLocalizedString("German", comment: ""),
+                            subtitle: "Simon Boer",
+                            url: "https://twitter.com/SimonBoer29")
+                aboutButton(title: NSLocalizedString("Spanish", comment: ""),
+                            subtitle: "Luis Felipe Lerma Alvarez",
 							url: "https://www.instagram.com/lerma_alvarez")
             }
             
             Section("Libraries") {
                 aboutButton(
-                    title: "acknowledgmentsSDWebImage",
+                    title: NSLocalizedString("SDWebImage", comment: ""),
                     url: "https://github.com/SDWebImage/SDWebImageSwiftUI"
                 )
                 aboutButton(
-                    title: "TelemetryDeck",
+                    title: NSLocalizedString("TelemetryDeck", comment: ""),
                     url: "https://telemetrydeck.com/"
                 )
-                aboutButton(title: "YouTubePlayerKit", url: "https://github.com/SvenTiigi/YouTubePlayerKit")
+                aboutButton(title: NSLocalizedString("YouTubePlayerKit", comment: ""),
+                            url: "https://github.com/SvenTiigi/YouTubePlayerKit")
             }
             
-            Section("acknowledgmentsContentProviderTitle") {
+            Section("Content Provider") {
                 aboutButton(
-                    title: "acknowledgmentsContentProviderSubtitle",
+                    title: NSLocalizedString("The Movie Database", comment: ""),
                     url: "https://www.themoviedb.org"
                 )
             }
             
             Section("Source Code") {
                 aboutButton(
-                    title: "cronicaGitHub",
+                    title: NSLocalizedString("GitHub", comment: ""),
                     url: "https://github.com/MadeiraAlexandre/Cronica"
                 )
             }
@@ -117,7 +119,7 @@ struct AboutSettings: View {
                 }
             }
         }
-        .navigationTitle("aboutTitle")
+        .navigationTitle("About")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
@@ -153,7 +155,7 @@ struct AboutSettings: View {
 #if os(macOS)
     private var privacy: some View {
         Section {
-            Button("settingsPrivacyPolicy") {
+            Button("Privacy Policy") {
                 guard let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") else { return }
                 NSWorkspace.shared.open(url)
             }

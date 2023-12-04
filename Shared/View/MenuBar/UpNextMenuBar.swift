@@ -38,7 +38,7 @@ struct UpNextMenuBar: View {
                 .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             } header: {
                 HStack {
-                    Text("upNext")
+                    Text("Up Next")
                         .font(.callout)
                         .fontWeight(.semibold)
                     Spacer()

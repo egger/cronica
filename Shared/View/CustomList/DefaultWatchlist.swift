@@ -23,6 +23,7 @@ struct DefaultWatchlist: View {
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     @AppStorage("defaultWatchlistSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
+    @State private var showFilters = false
     private var sortedItems: [WatchlistItem] {
         switch sortOrder {
         case .titleAsc:
@@ -189,7 +190,10 @@ struct DefaultWatchlist: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    filterButton
+                    Button("Filters",
+                           systemImage: "line.3.horizontal.decrease.circle") {
+                        showFilters = true
+                    }
                 }
             }
 #elseif os(macOS)
@@ -212,6 +216,13 @@ struct DefaultWatchlist: View {
         .task(id: query) {
             await search()
         }
+        .sheet(isPresented: $showFilters, content: {
+            ListFilterView(showView: $showFilters,
+                           sortOrder: $sortOrder,
+                           filter: $smartFilter,
+                           mediaFilter: $mediaTypeFilter,
+                           showAllItems: $showAllItems)
+        })
     }
     
     private func search() async {
@@ -229,11 +240,12 @@ struct DefaultWatchlist: View {
         }
     }
     
+#if !os(iOS)
     private var filterButton: some View {
         Menu {
 #if !os(tvOS)
-            Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
-            Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
+            Toggle("Show All Items", isOn: $showAllItems)
+            Picker("Media Filter", selection: $mediaTypeFilter) {
                 ForEach(MediaTypeFilters.allCases) { sort in
                     Text(sort.localizableTitle).tag(sort)
                 }
@@ -272,6 +284,7 @@ struct DefaultWatchlist: View {
         }
         .buttonStyle(.bordered)
     }
+#endif
     
     private var styleButton: some View {
 #if os(macOS)
@@ -280,7 +293,7 @@ struct DefaultWatchlist: View {
                 Text(item.title).tag(item)
             }
         } label: {
-            Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
+            Label("Display Style", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
 #else
@@ -290,10 +303,10 @@ struct DefaultWatchlist: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
+                Label("Display Style", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
+            Label("Display Style", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
 #endif
@@ -301,30 +314,80 @@ struct DefaultWatchlist: View {
     
     @ViewBuilder
     private var empty: some View {
-        if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            ContentUnavailableView("Your list is empty.", systemImage: "rectangle.on.rectangle")
-                .padding()
-        } else {
-            Text("Your list is empty")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
+        EmptyListView()
     }
     
     @ViewBuilder
     private var noResults: some View {
-        if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            ContentUnavailableView.search(text: query)
-        } else {
-            Text("No results")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
+        SearchContentUnavailableView(query: query)
     }
 }
 
 #Preview {
     DefaultWatchlist(showPopup: .constant(false), popupType: .constant(nil))
+}
+
+struct ListFilterView: View {
+    @Binding var showView: Bool
+    @Binding var sortOrder: WatchlistSortOrder
+    @Binding var filter: SmartFiltersTypes
+    @Binding var mediaFilter: MediaTypeFilters
+    @Binding var showAllItems: Bool
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    Toggle("Show All", isOn: $showAllItems)
+                    
+                    Picker("Media Type", selection: $mediaFilter) {
+                        ForEach(MediaTypeFilters.allCases) { sort in
+                            Text(sort.localizableTitle).tag(sort)
+                        }
+                    }
+                    .disabled(!showAllItems)
+                } header: {
+                    Text("Basic Filter")
+                }
+                
+                Picker("Sort Order",
+                       selection: $sortOrder) {
+                    ForEach(WatchlistSortOrder.allCases) { item in
+                        Text(item.localizableName).tag(item)
+                    }
+                }
+                
+                Section {
+                    Picker(selection: $filter) {
+                        ForEach(SmartFiltersTypes.allCases) { sort in
+                            Text(sort.title).tag(sort)
+                        }
+                    } label: {
+                        EmptyView()
+                    }
+                    .disabled(showAllItems)
+                    .pickerStyle(.inline)
+                } header: {
+                    Text("Smart Filters")
+                } footer: {
+                    if showAllItems {
+                        Text("Smart Filters only works when 'Show All Items' is disabled.")
+                    }
+                }
+            }
+            .navigationTitle("Filters")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button("Done") { showView = false }
+            }
+            .onChange(of: filter) { _ in
+                showView = false
+            }
+            .onChange(of: sortOrder) { _ in
+                showView = false
+            }
+            .onChange(of: showAllItems) { _ in
+                showView = false
+            }
+        }
+    }
 }

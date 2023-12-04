@@ -80,7 +80,7 @@ struct UpNextListView: View {
                     
                 }
             }
-            .navigationTitle("upNext")
+            .navigationTitle("Up Next")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

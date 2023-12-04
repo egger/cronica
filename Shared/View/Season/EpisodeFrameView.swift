@@ -54,7 +54,7 @@ struct EpisodeFrameView: View {
                                        show: show,
                                        isWatched: $isWatched)
                     if SettingsStore.shared.markEpisodeWatchedOnTap {
-                        Button("showDetails") {
+                        Button("Show Details") {
                             showDetails.toggle()
                         }
                     }
@@ -65,7 +65,7 @@ struct EpisodeFrameView: View {
                     }
                     Divider()
                     if !isWatched {
-                        Button("markThisAndPreviously", action: markThisAndAllPreviously)
+                        Button("Mark This and Prior Episodes Watched", action: markThisAndAllPreviously)
                     }
 #endif
                 }

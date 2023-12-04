@@ -115,11 +115,7 @@ struct CustomWatchlist: View {
                 }
 #endif
                 if items.isEmpty {
-                    if scope != .noScope {
-                        empty
-                    } else {
-                        empty
-                    }
+                    EmptyListView()
                 } else {
                     if !filteredItems.isEmpty {
                         switch settings.watchlistStyle {
@@ -216,10 +212,10 @@ struct CustomWatchlist: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
+                Label("Display Style", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("watchlistDisplayTypePicker", systemImage: "circle.grid.2x2")
+            Label("Display Style", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }
@@ -227,8 +223,8 @@ struct CustomWatchlist: View {
     private var filterButton: some View {
         Menu {
 #if !os(tvOS)
-            Toggle("defaultWatchlistShowAllItems", isOn: $showAllItems)
-            Picker("mediaTypeFilter", selection: $mediaTypeFilter) {
+            Toggle("Show All", isOn: $showAllItems)
+            Picker("Media Type", selection: $mediaTypeFilter) {
                 ForEach(MediaTypeFilters.allCases) { sort in
                     Text(sort.localizableTitle).tag(sort)
                 }
@@ -270,26 +266,37 @@ struct CustomWatchlist: View {
     
     @ViewBuilder
     private var noResults: some View {
+       SearchContentUnavailableView(query: query)
+    }
+}
+
+struct EmptyListView: View {
+    var body: some View {
         if #available(iOS 17, *) {
-            ContentUnavailableView.search(text: query)
+            ContentUnavailableView("Empty List", systemImage: "rectangle.on.rectangle")
+                .padding()
         } else {
-            Text("No results")
+            Text("Empty List")
                 .multilineTextAlignment(.center)
                 .font(.callout)
                 .foregroundColor(.secondary)
         }
     }
-    
-    @ViewBuilder
-    private var empty: some View {
+}
+
+struct SearchContentUnavailableView: View {
+    let query: String
+    var body: some View {
         if #available(iOS 17, *) {
-            ContentUnavailableView("emptyList", systemImage: "rectangle.on.rectangle")
-                .padding()
+            ContentUnavailableView.search(text: query)
         } else {
-            Text("emptyList")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
+            VStack {
+                Text("No result found for '\(query)'.")
+                    .multilineTextAlignment(.center)
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+            }
         }
     }
 }

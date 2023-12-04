@@ -24,17 +24,17 @@ struct NewCustomListView: View {
     var body: some View {
         Form {
             Section {
-                TextField("listName", text: $title)
-                TextField("listDescription", text: $note)
+                TextField("Title", text: $title)
+                TextField("Description", text: $note)
                 
 #if os(watchOS) || os(tvOS)
                 createList
 #endif
             }
             
-            Section { Toggle("pinOnHome", isOn: $pinOnHome) }
+            Section { Toggle("Pin", isOn: $pinOnHome) }
             
-            NavigationLink("listItemsToAdd",
+            NavigationLink("Select Items",
                            destination: NewCustomListItemSelector(itemsToAdd: $itemsToAdd,
                                                                   preSelectedItem: preSelectedItem))
         }
@@ -44,7 +44,7 @@ struct NewCustomListView: View {
 #elseif os(iOS)
         .navigationBarTitleDisplayMode(.inline)
 #endif
-        .navigationTitle("newCustomListTitle")
+        .navigationTitle("New List")
         .toolbar {
 #if os(macOS)
             ToolbarItem(placement: .automatic) { createList }
@@ -125,7 +125,7 @@ struct NewCustomListItemSelector: View {
         .task(id: query) {
             await search()
         }
-        .navigationTitle("listItemsToAdd")
+        .navigationTitle("Select Items")
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))

@@ -1,9 +1,0 @@
-/* Bundle display name */
-"CFBundleDisplayName" = "CronicaWidget";
-
-/* Bundle name */
-"CFBundleName" = "EstensioneWidgetCronaca";
-
-/* Copyright (human-readable) */
-"NSHumanReadableCopyright" = "";
-

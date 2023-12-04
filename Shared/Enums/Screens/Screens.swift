@@ -36,7 +36,7 @@ enum Screens: String, Identifiable, CaseIterable {
         case .trending: return NSLocalizedString("Trending", comment: "")
         case .watchlist: return NSLocalizedString("Watchlist", comment: "")
         case .upcoming: return NSLocalizedString("Upcoming", comment: "")
-        case .upNext: return NSLocalizedString("upNext", comment: "")
+        case .upNext: return NSLocalizedString("Up Next", comment: "")
         case .search: return NSLocalizedString("Search", comment: "")
         case .settings: return NSLocalizedString("Settings", comment: "")
         }

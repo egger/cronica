@@ -77,7 +77,36 @@ enum ActionPopupItems: String, Identifiable, CaseIterable {
          markedArchive, removedArchive, markedPin, removedPin, markedEpisodeWatched, removedEpisodeWatched,
          feedbackSent
     
-    var localizedString: String { return NSLocalizedString(rawValue, comment: "") }
+    var localizedString: String {
+        switch self {
+        case .addedWatchlist:
+            return NSLocalizedString("Added", comment: "")
+        case .removedWatchlist:
+            return NSLocalizedString("Removed", comment: "")
+        case .markedWatched:
+            return NSLocalizedString("Watched", comment: "")
+        case .removedWatched:
+            return NSLocalizedString("Unwatched", comment: "")
+        case .markedFavorite:
+            return NSLocalizedString("Favorited", comment: "")
+        case .removedFavorite:
+            return NSLocalizedString("Unfavorited", comment: "")
+        case .markedArchive:
+            return NSLocalizedString("Archived", comment: "")
+        case .removedArchive:
+            return NSLocalizedString("Unarchived", comment: "")
+        case .markedPin:
+            return NSLocalizedString("Pinned", comment: "")
+        case .removedPin:
+            return NSLocalizedString("Unpinned", comment: "")
+        case .markedEpisodeWatched:
+            return NSLocalizedString("Watched", comment: "")
+        case .removedEpisodeWatched:
+            return NSLocalizedString("Unwatched", comment: "")
+        case .feedbackSent:
+            return NSLocalizedString("Feedback sent. Thank you.", comment: "")
+        }
+    }
     
     var toSfSymbol: String {
         switch self {

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct KeywordSectionView: View {
     let keyword: CombinedKeywords
-    
     // States
     @StateObject private var settings = SettingsStore.shared
     @State private var showPopup = false
@@ -20,7 +19,6 @@ struct KeywordSectionView: View {
     @State private var isLoaded = false
     @State private var startPagination = false
     @State private var endPagination = false
-    
     // Network service
     private let network = NetworkService.shared
     var body: some View {
@@ -69,7 +67,7 @@ struct KeywordSectionView: View {
                 .unredacted()
                 .disabled(!isLoaded)
             }
-            #elseif os(macOS)
+#elseif os(macOS)
             ToolbarItem {
                 sortButton
                     .unredacted()
@@ -99,15 +97,15 @@ struct KeywordSectionView: View {
     }
     
     private var styleOptions: some View {
-        Picker("sectionStyleTypePicker",
+        Picker("Display Style",
                systemImage: "circle.grid.2x2",
                selection: $settings.sectionStyleType) {
             ForEach(SectionDetailsPreferredStyle.allCases) { item in
                 Text(item.title).tag(item)
             }
         }
-        .labelStyle(.iconOnly)
-        .pickerStyle(.menu)
+               .labelStyle(.iconOnly)
+               .pickerStyle(.menu)
     }
     
     private var listStyle: some View {

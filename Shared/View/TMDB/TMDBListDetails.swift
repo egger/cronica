@@ -30,15 +30,7 @@ struct TMDBListDetails: View {
             if !isDeleted {
                 Section {
                     if items.isEmpty {
-                        if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *), #available(macOS 14, *) {
-                            ContentUnavailableView("Empty List",
-                                                   systemImage: "rectangle.on.rectangle")
-                        } else {
-                            Text("Empty List")
-                                .multilineTextAlignment(.center)
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                        }
+                        EmptyListView()
                     } else {
                         ForEach(items) { item in
                             ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
@@ -70,9 +62,9 @@ struct TMDBListDetails: View {
             if isDeleted {
                 VStack {
                     if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *), #available(macOS 14, *) {
-                        ContentUnavailableView("listDeleted", systemImage: "trash")
+                        ContentUnavailableView("Deleted", systemImage: "trash")
                     } else {
-                        Text("listDeleted")
+                        Text("Deleted")
                             .multilineTextAlignment(.center)
                             .font(.callout)
                             .foregroundColor(.secondary)
@@ -80,12 +72,12 @@ struct TMDBListDetails: View {
                 }
             }
         }
-        .alert("areYouSure", isPresented: $deleteConfirmation) {
+        .alert("Are you sure?", isPresented: $deleteConfirmation) {
             Button("Confirm", role: .destructive) {
                 delete()
             }
         } message: {
-            Text("deleteConfirmationMessage")
+            Text("This action can't be undone.\nThis will not delete the local list, just the one on TMDb.")
         }
         .toolbar {
 #if !os(tvOS)
@@ -110,7 +102,7 @@ struct TMDBListDetails: View {
         Button(role: .destructive) {
             deleteConfirmation.toggle()
         } label: {
-            Text("deleteList")
+            Text("Delete")
                 .foregroundColor(.red)
         }
     }

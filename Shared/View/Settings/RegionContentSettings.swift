@@ -21,8 +21,11 @@ struct RegionContentSettings: View {
                             .tag(region)
                     }
                 } label: {
-                    Text("appRegionTitle")
-                    Text("appRegionSubtitle")
+                    VStack(alignment: .leading) {
+                        Text("Region")
+                        Text("The app will adapt watch providers based on your region")
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .onChange(of: store.watchRegion) { _ in 
                     if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
@@ -36,13 +39,13 @@ struct RegionContentSettings: View {
 #if !os(tvOS)
             Section {
                 Toggle(isOn: $store.isWatchProviderEnabled) {
-					Text("behaviorWatchProvidersTitle")
-					Text("behaviorWatchProvidersSubtitle")
+					Text("Watch Providers")
+					Text("See in what platforms the content is available on.")
                 }
 #if os(iOS)
-                NavigationLink("selectedWatchProvider", destination: WatchProviderSelectorSetting())
+                NavigationLink("Streaming Services", destination: WatchProviderSelectorSetting())
 #elseif os(macOS)
-                Button("selectedWatchProvider") {
+                Button("Streaming Services") {
                     showWatchProvidersSelector.toggle()
                 }
                 .sheet(isPresented: $showWatchProvidersSelector) {
@@ -59,7 +62,7 @@ struct RegionContentSettings: View {
             languageButton
 #endif
         }
-        .navigationTitle("settingsRegionContentTitle")
+        .navigationTitle("Region")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
@@ -67,7 +70,7 @@ struct RegionContentSettings: View {
     
 #if os(iOS)
     private var languageButton: some View {
-        Button("changeLanguage") {
+        Button("Change app language") {
             Task {
                 // Create the URL that deep links to your app's custom settings.
                 if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -80,7 +83,6 @@ struct RegionContentSettings: View {
 #endif
 }
 
-//@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
-//#Preview {
-//    RegionContentSettings()
-//}
+#Preview {
+    RegionContentSettings()
+}

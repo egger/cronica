@@ -33,7 +33,7 @@ struct VerticalUpNextListView: View {
                                         upNextCard(item: item)
                                             .contextMenu {
                                                 if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                    Button("showDetails") {
+                                                    Button("Show Details") {
                                                         selectedEpisode = item
                                                     }
                                                 }
@@ -70,7 +70,7 @@ struct VerticalUpNextListView: View {
                                         upNextCard(item: item)
                                             .contextMenu {
                                                 if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                    Button("showDetails") {
+                                                    Button("Show Details") {
                                                         selectedEpisode = item
                                                     }
                                                 }
@@ -159,14 +159,7 @@ struct VerticalUpNextListView: View {
         }
         .overlay {
             if queryResult.isEmpty, !query.isEmpty {
-                if #available(iOS 17, *), #available(macOS 14, *) {
-                    ContentUnavailableView.search(text: query)
-                } else {
-                    Text("No results")
-                        .multilineTextAlignment(.center)
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                }
+                SearchContentUnavailableView(query: query)
             }
         }
 #if os(iOS)
@@ -235,7 +228,7 @@ struct VerticalUpNextListView: View {
         .task { await viewModel.checkForNewEpisodes(items) }
         .autocorrectionDisabled()
         .task(id: query) { search() }
-        .navigationTitle("upNext")
+        .navigationTitle("Up Next")
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
 #endif
@@ -301,10 +294,10 @@ struct VerticalUpNextListView: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                Label("Display Style", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            Label("Display Style", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }

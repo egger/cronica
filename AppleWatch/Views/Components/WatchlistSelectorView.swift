@@ -57,7 +57,7 @@ struct WatchlistSelectorView: View {
                                 }
                             }
                         } header: {
-                            Text("yourLists")
+                            Text("Your Lists")
                         }
                     }
                     

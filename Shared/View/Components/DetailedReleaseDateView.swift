@@ -36,7 +36,7 @@ struct DetailedReleaseDateView: View {
                 Button("Done") { dismiss.toggle() }
             }
             .onAppear(perform: load)
-            .navigationTitle("releaseDates")
+            .navigationTitle("Release Dates")
 #if os(macOS)
             .formStyle(.grouped)
 #elseif os(iOS)

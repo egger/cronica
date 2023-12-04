@@ -81,10 +81,10 @@ struct WatchlistSectionDetails: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                Label("Display Style", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            Label("Display Style", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }

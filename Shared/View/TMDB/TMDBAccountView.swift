@@ -17,7 +17,7 @@ struct TMDBAccountView: View {
     var body: some View {
         Section {
             accountButton
-                .alert("removeTMDBAccount", isPresented: $showSignOutConfirmation) {
+                .alert("Disconnect TMDB Account?", isPresented: $showSignOutConfirmation) {
                     Button("Confirm", role: .destructive) {
                         Task {
                             withAnimation { self.userIsLoggedIn = false }
@@ -26,9 +26,9 @@ struct TMDBAccountView: View {
                     }
                 }
         } header: {
-            Text("connectedAccounts")
+            Text("Connected Accounts")
         } footer: {
-            Text("tmdbSyncFeatures")
+            Text("You'll be able to see your lists and manage their content.")
         }
         .task {
             withAnimation { userIsLoggedIn = viewModel.checkAccessStatus() }
@@ -41,8 +41,8 @@ struct TMDBAccountView: View {
                 userIsLoggedIn ? SignOut() : await SignIn()
             }
         } label: {
-			accountLabel(title: "connectedAccountTMDB",
-                               subtitle: userIsLoggedIn ? "AccountSettingsViewSignOut" : "AccountSettingsViewSignIn",
+			accountLabel(title: "The Movie Database",
+                               subtitle: userIsLoggedIn ? "Disconnect" : "Connect",
                                image: userIsLoggedIn ? "person.crop.circle.fill.badge.minus" : "person.crop.circle.badge.plus")
                 .tint(userIsLoggedIn ? .red : nil)
 #if os(macOS)

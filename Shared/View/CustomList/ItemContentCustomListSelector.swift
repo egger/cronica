@@ -19,12 +19,6 @@ struct ItemContentCustomListSelector: View {
     @State private var selectedList: CustomList?
     @State private var isLoading = false
     @State private var settings = SettingsStore.shared
-#if os(iOS)
-    // TMDb list support
-    @State private var listManager = ExternalWatchlistManager.shared
-    @State private var tmdbLists = [TMDBListResult]()
-    @State private var isLoadingTMDBList = true
-#endif
     var body: some View {
         Form {
             if isLoading {
@@ -61,17 +55,14 @@ struct ItemContentCustomListSelector: View {
                                 .padding(.vertical, 4)
                         }
                     }
-                } header: { Text("yourLists") }
-#if os(iOS)
-                tmdbSection
-#endif
+                } header: { Text("Your Lists") }
             }
         }
         .onAppear(perform: load)
 #if os(macOS)
         .formStyle(.grouped)
 #endif
-        .navigationTitle("addToCustomList")
+        .navigationTitle("Add to...")
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -104,46 +95,10 @@ struct ItemContentCustomListSelector: View {
         }
     }
     
-#if os(iOS)
-    @ViewBuilder
-    private var tmdbSection: some View {
-        if SettingsStore.shared.isUserConnectedWithTMDb {
-            Section {
-                List {
-                    ForEach(tmdbLists) { list in
-                        TMDBAddToListRow(list: list, item: item, showView: $showView)
-                            .environmentObject(listManager)
-                            .padding(.vertical, 4)
-                    }
-                }
-            } header: {
-                HStack {
-                    Text("TMDB")
-                    Spacer()
-                }
-            }
-            .redacted(reason: isLoadingTMDBList ? .placeholder : [])
-        }
-    }
-#endif
-    
     private func load() {
         guard let content = PersistenceController.shared.fetch(for: contentID) else { return }
         self.item = content
-#if os(iOS)
-        if settings.isUserConnectedWithTMDb { Task { await loadTMDBLists() } }
-#endif
     }
-    
-#if os(iOS)
-    private func loadTMDBLists() async {
-        let fetchedLists = await listManager.fetchLists()
-        if let result = fetchedLists?.results {
-            tmdbLists = result.sorted(by: { $0.itemTitle < $1.itemTitle })
-            withAnimation { self.isLoadingTMDBList = false }
-        }
-    }
-#endif
     
     private var newList: some View {
         NavigationLink {
@@ -156,7 +111,7 @@ struct ItemContentCustomListSelector: View {
                               newSelectedList: $selectedList)
 #endif
         } label: {
-            Label("newList", systemImage: "plus.rectangle.on.rectangle")
+            Label("New List", systemImage: "plus.rectangle.on.rectangle")
         }
     }
 }

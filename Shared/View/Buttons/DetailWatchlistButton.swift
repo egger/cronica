@@ -46,12 +46,12 @@ struct DetailWatchlistButton: View {
             .padding(.vertical, 2)
 #endif
 #elseif os(macOS)
-            Label(viewModel.isInWatchlist ? "Remove": "Add to watchlist",
+            Label(viewModel.isInWatchlist ? "Remove": "Add",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
             .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
                           value: viewModel.isInWatchlist)
 #else
-            Label(viewModel.isInWatchlist ? "Remove from watchlist": "Add to watchlist",
+            Label(viewModel.isInWatchlist ? "Remove": "Add",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
             .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
                           value: viewModel.isInWatchlist)
@@ -74,9 +74,9 @@ struct DetailWatchlistButton: View {
 #if os(iOS)
         .buttonBorderShape(.roundedRectangle(radius: 12))
 #endif
-        .alert("removeDialogTitle", isPresented: $showConfirmationPopup) {
-            Button("confirmDialogAction") { update() }
-            Button("cancelConfirmDialogAction") {  showConfirmationPopup = false }
+        .alert("Are You Sure?", isPresented: $showConfirmationPopup) {
+            Button("Confirm") { update() }
+            Button("Cancel") {  showConfirmationPopup = false }
         }
     }
     

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import StoreKit
 
 struct HomeView: View {
     static let tag: Screens? = .home
@@ -32,7 +31,7 @@ struct HomeView: View {
         VStack(alignment: .leading) {
             ScrollView {
 #if os(iOS)
-                if showReviewBanner { ReviewAppBanner(showView: $showReviewBanner).unredacted() }
+                if showReviewBanner { CallToReviewAppView(showView: $showReviewBanner).unredacted() }
 #endif
                 HorizontalUpNextListView(shouldReload: $reloadHome)
                 UpcomingWatchlist(shouldReload: $reloadHome)
@@ -275,45 +274,4 @@ struct HomeView: View {
     HomeView()
 }
 
-#if os(iOS)
-private struct ReviewAppBanner: View {
-    @Environment(\.requestReview) var requestReview
-    @Binding var showView: Bool
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("callToReviewTitle")
-                    .font(.title3)
-                    .fontDesign(.rounded)
-                    .padding(.leading)
-                    .fontWeight(.semibold)
-                Text("callToReviewSubtitle")
-                    .font(.callout)
-                    .foregroundColor(.secondary)
-                    .fontDesign(.rounded)
-                    .padding(.leading)
-                    .padding(.bottom, 4)
-                    .fontWeight(.regular)
-                Button("reviewInTheAppStore") {
-                    requestReview()
-                }
-                .padding(.leading)
-                .padding(.bottom, 4)
-            }
-            Spacer()
-            VStack {
-                Button {
-                    withAnimation { showView = false }
-                } label: {
-                    Label("dismissReviewCall", systemImage: "xmark")
-                        .labelStyle(.iconOnly)
-                }
-                .clipShape(Circle())
-                .buttonStyle(.bordered)
-                Spacer()
-            }
-            .padding(.trailing)
-        }.padding(.vertical)
-    }
-}
-#endif
+

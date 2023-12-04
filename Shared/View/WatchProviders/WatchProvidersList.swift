@@ -22,8 +22,8 @@ struct WatchProvidersList: View {
     var body: some View {
         VStack {
             if isProvidersAvailable && settings.isWatchProviderEnabled {
-                TitleView(title: "watchProviderTitleList",
-                          subtitle: "justWatchSubtitle",
+                TitleView(title: "Where to Watch",
+                          subtitle: "Provided by JustWatch",
                           showChevron: false)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
@@ -50,13 +50,13 @@ struct WatchProvidersList: View {
             }
         }
         .task { await load(id: id, media: type) }
-        .alert("openWatchProviderTitle", isPresented: $showConfirmation) {
-            Button("confirmOpenWatchProvider") { openLink() }
-            Button("confirmOpenDontAskAgainProvider") {
+        .alert("This will open TMDb website with the links to each service.", isPresented: $showConfirmation) {
+            Button("Confirm") { openLink() }
+            Button("Confirm and don't ask again") {
                 isConfirmationEnabled = false
                 openLink()
             }
-            Button("cancelOpenWatchProvider") { showConfirmation = false }
+            Button("Cancel") { showConfirmation = false }
         }
     }
     

@@ -26,27 +26,37 @@ struct SettingsView: View {
             Form {
                 Section {
                     NavigationLink(value: SettingsScreens.behavior) {
-                        settingsLabel(title: "settingsBehaviorTitle", icon: "hand.tap", color: .gray)
+                        settingsLabel(title: NSLocalizedString("Behavior", comment: ""),
+                                      icon: "hand.tap", color: .gray)
                     }
                     NavigationLink(value: SettingsScreens.appearance) {
-                        settingsLabel(title: "settingsAppearanceTitle", icon: "paintbrush", color: .blue)
+                        settingsLabel(title: NSLocalizedString("Appearance", comment: ""),
+                                      icon: "paintbrush", color: .blue)
                     }
                     NavigationLink(value: SettingsScreens.sync) {
-                        settingsLabel(title: "settingsSyncTitle", icon: "arrow.triangle.2.circlepath", color: .green)
+                        settingsLabel(title: NSLocalizedString("Sync", comment: ""),
+                                      icon: "arrow.triangle.2.circlepath", color: .green)
                     }
                     NavigationLink(value: SettingsScreens.notifications) {
-                        settingsLabel(title: "settingsNotificationTitle", icon: "bell", color: .red)
+                        settingsLabel(title: NSLocalizedString("Notification", comment: ""),
+                                      icon: "bell", color: .red)
                     }
-                    NavigationLink(destination: RegionContentSettings()) {
-                        settingsLabel(title: "settingsRegionContentTitle", icon: "globe", color: .purple)
+                    NavigationLink(value: SettingsScreens.region) {
+                        settingsLabel(title: NSLocalizedString("Region", comment: ""),
+                                      icon: "globe", color: .purple)
                     }
                 }
                 
                 Section {
+                    NavigationLink(value: SettingsScreens.feedback) {
+                        settingsLabel(title: NSLocalizedString("Feedback", comment: ""),
+                                      icon: "envelope.fill", color: AppThemeColors.steel.color)
+                    }
                     Button {
                         showPolicy.toggle()
                     } label: {
-                        settingsLabel(title: "Privacy Policy", icon: "hand.raised", color: .indigo)
+                        settingsLabel(title: NSLocalizedString("Privacy Policy", comment: ""),
+                                      icon: "hand.raised", color: .indigo)
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showPolicy) {
@@ -62,7 +72,8 @@ struct SettingsView: View {
                     Button {
                         showWhatsNew.toggle()
                     } label: {
-                        settingsLabel(title: "What's New", icon: "sparkles", color: .yellow)
+                        settingsLabel(title: NSLocalizedString("What's New", comment: ""),
+                                      icon: "sparkles", color: .yellow)
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showWhatsNew) {
@@ -70,12 +81,14 @@ struct SettingsView: View {
                             .appTint()
                             .appTheme()
                     }
-                    NavigationLink(destination: TipJarSetting()) {
-                        settingsLabel(title: "tipJarTitle", icon: "heart", color: .red)
+                    NavigationLink(value: SettingsScreens.tipJar) {
+                        settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
+                                      icon: "heart", color: .red)
                     }
                     
                     NavigationLink(value: SettingsScreens.about) {
-                        settingsLabel(title: "aboutTitle", icon: "info.circle", color: .black)
+                        settingsLabel(title: NSLocalizedString("About", comment: ""),
+                                      icon: "info.circle", color: .black)
                     }
                 }
             }
@@ -89,6 +102,8 @@ struct SettingsView: View {
                 case .notifications: NotificationsSettingsView()
                 case .sync: SyncSetting()
                 case .tipJar: TipJarSetting()
+                case .feedback: FeedbackComposerView()
+                case .region: RegionContentSettings()
                 default: BehaviorSetting()
                 }
             }
@@ -96,22 +111,22 @@ struct SettingsView: View {
 #elseif os(macOS)
         TabView {
             BehaviorSetting()
-                .tabItem { Label("settingsBehaviorTitle", systemImage: "cursorarrow.click") }
+                .tabItem { Label("Behavior", systemImage: "cursorarrow.click") }
             
             AppearanceSetting()
-                .tabItem { Label("settingsAppearanceTitle", systemImage: "moon.stars") }
+                .tabItem { Label("Appearance", systemImage: "moon.stars") }
             
             SyncSetting()
-                .tabItem { Label("settingsSyncTitle", systemImage: "arrow.triangle.2.circlepath") }
+                .tabItem { Label("Sync", systemImage: "arrow.triangle.2.circlepath") }
             
             NotificationsSettingsView()
-                .tabItem { Label("settingsNotificationTitle", systemImage: "bell") }
+                .tabItem { Label("Notification", systemImage: "bell") }
             
             RegionContentSettings()
-                .tabItem { Label("settingsRegionContentTitle", systemImage: "globe")  }
+                .tabItem { Label("Region", systemImage: "globe")  }
             
             TipJarSetting()
-                .tabItem { Label("tipJar", systemImage: "heart") }
+                .tabItem { Label("Tip Jar", systemImage: "heart") }
         }
         .frame(minWidth: 420, idealWidth: 500, minHeight: 320, idealHeight: 320)
         .tabViewStyle(.automatic)
@@ -119,19 +134,16 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    NavigationLink("settingsBehaviorTitle", destination: BehaviorSetting())
-                    NavigationLink("settingsAppearanceTitle", destination: AppearanceSetting())
+                    NavigationLink("Behavior", destination: BehaviorSetting())
+                    NavigationLink("Appearance", destination: AppearanceSetting())
                 }
                 
                 Section {
-                    NavigationLink("settingsSyncTitle", destination: SyncSetting())
-#if DEBUG
-                    NavigationLink("settingsRegionContentTitle", destination:  RegionContentSettings())
-#endif
+                    NavigationLink("Sync", destination: SyncSetting())
                 }
                 
                 Section {
-                    NavigationLink("tipJar", destination: TipJarSetting())
+                    NavigationLink("Tip Jar", destination: TipJarSetting())
                 }
             }
             .navigationTitle("Settings")

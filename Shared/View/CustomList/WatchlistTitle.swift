@@ -15,10 +15,10 @@ struct WatchlistTitle: View {
         Button {
             showListSelection = true
         } label: {
-            #if os(macOS)
+#if os(macOS)
             Label("Lists", systemImage: "rectangle.on.rectangle")
                 .labelStyle(.iconOnly)
-            #else
+#else
             HStack {
                 Text(navigationTitle)
                     .fontWeight(Font.Weight.semibold)
@@ -40,11 +40,11 @@ struct WatchlistTitle: View {
                     }
                     .foregroundColor(showListSelection ? .secondary : nil)
             }
-            #endif
+#endif
         }
-        #if os(iOS)
+#if os(iOS)
         .buttonStyle(.plain)
         .accessibilityLabel("\(navigationTitle), tap to open list options.")
-        #endif
+#endif
     }
 }

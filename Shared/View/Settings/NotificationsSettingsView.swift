@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct NotificationsSettingsView: View {
-    var navigationTitle = "settingsNotificationTitle"
+    var navigationTitle = "Notifications"
     @StateObject private var settings = SettingsStore.shared
     var body: some View {
         Form {
             Section {
-                Toggle("allowNotification", isOn: $settings.allowNotifications)
+                Toggle("Allow Notification", isOn: $settings.allowNotifications)
                 Toggle(isOn: $settings.notifyMovieRelease) {
-                    Text("movieNotificationTitle")
-                    Text("movieNotificationSubtitle")
+                    Text("Notify Movies Releases")
+                    Text("Notify when a movie on your watchlist is released.")
                 }
                 .disabled(!settings.allowNotifications)
                 Toggle(isOn: $settings.notifyNewEpisodes) {
-                    Text("episodeNotificationTitle")
-                    Text("episodeNotificationSubtitle")
+                    Text("Notify New Episodes")
+                    Text("Notify when a new episode from a TV Show on your watchlist is released.")
                 }
                 .disabled(!settings.allowNotifications)
                 
@@ -33,7 +33,7 @@ struct NotificationsSettingsView: View {
                 }
             }
 #if os(iOS)
-            Button("openNotificationInSettings") {
+            Button("Edit Notifications in Settings app") {
                 Task {
                     // Create the URL that deep links to your app's notification settings.
                     if let url = URL(string: UIApplication.openNotificationSettingsURLString) {

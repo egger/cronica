@@ -78,10 +78,10 @@ struct CompanyDetails: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                Label("Display Style", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            Label("Display Style", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }
@@ -150,14 +150,7 @@ struct CompanyDetails: View {
                 }
             } else {
                 if isLoaded {
-                    if #available(iOS 17, *) {
-                        ContentUnavailableView("Try again later", systemImage: "popcorn")
-                    } else {
-                        Text("Try again later")
-                            .multilineTextAlignment(.center)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    }
+                    SimpleUnavailableView()
                 }
             }
         }
@@ -188,14 +181,7 @@ struct CompanyDetails: View {
                 }
             } else {
                 if isLoaded {
-                    if #available(iOS 17, *) {
-                        ContentUnavailableView("Try again later", systemImage: "popcorn")
-                    } else {
-                        Text("Try again later")
-                            .multilineTextAlignment(.center)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    }
+                    SimpleUnavailableView()
                 }
             }
         }.padding(.all, settings.isCompactUI ? 10 : nil)
@@ -252,6 +238,19 @@ private extension CompanyDetails {
             if Task.isCancelled { return }
             let message = "Company ID: \(id), error: \(error.localizedDescription)"
             CronicaTelemetry.shared.handleMessage(message, for: "CompanyDetails.load()")
+        }
+    }
+}
+
+struct SimpleUnavailableView: View {
+    var body: some View {
+        if #available(iOS 17, *) {
+            ContentUnavailableView("Try again later", systemImage: "rectangle.on.rectangle")
+        } else {
+            Text("Try again later")
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundColor(.secondary)
         }
     }
 }

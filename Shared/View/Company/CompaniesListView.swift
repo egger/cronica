@@ -23,7 +23,7 @@ struct CompaniesListView: View {
                 }
             }
         }
-        .navigationTitle("companiesTitle")
+        .navigationTitle("Companies")
 #if os(macOS)
         .formStyle(.grouped)
 #elseif os(iOS)

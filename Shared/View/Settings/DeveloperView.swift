@@ -73,7 +73,7 @@ struct DeveloperView: View {
             }
             
             Section("Presentation") {
-                Button("Show Onboarding") {
+                Button("Show Onboard") {
                     showOnboarding.toggle()
                 }
                 .sheet(isPresented: $showOnboarding) {
@@ -100,19 +100,7 @@ struct DeveloperView: View {
                 Text("Last watching refresh: \(BackgroundManager.shared.lastWatchingRefresh?.convertDateToString() ?? "Nil")")
                 Text("Last upcoming refresh: \(BackgroundManager.shared.lastUpcomingRefresh?.convertDateToString() ?? "Nil")")
                 Text("Asked for review: \(askedForReview.description)")
-                Text("Is User Signed In With TMDB: \(isUserSignedInWithTMDB.description)")
                 Button("Reset asked for review") { askedForReview = false }
-                Button("Force SignOut") {
-                    Task { await AccountManager.shared.logOut() }
-                }
-            }
-            .onAppear {
-                let data = KeychainHelper.standard.read(service: "access-token", account: "cronicaTMDB-Sync")
-                let IdData = KeychainHelper.standard.read(service: "access-id", account: "cronicaTMDB-Sync")
-                let sessionID = KeychainHelper.standard.read(service: "session-id", account: "cronicaTMDB-Sync")
-                if data != nil && IdData != nil && sessionID != nil {
-                    isUserSignedInWithTMDB = true
-                }
             }
             
         }

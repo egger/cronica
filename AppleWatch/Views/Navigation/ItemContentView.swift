@@ -136,10 +136,8 @@ struct ItemContentView: View {
     }
     
     private var customListButton: some View {
-        Button {
+        Button("Add To List", systemImage: "rectangle.on.rectangle.angled") {
             showCustomListSheet.toggle()
-        } label: {
-            Text("addToCustomList")
         }
     }
     

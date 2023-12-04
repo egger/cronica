@@ -17,87 +17,88 @@ enum AppContentRegion: String, CaseIterable, Identifiable {
     var localizableTitle: String {
         switch self {
         case .br:
-            return NSLocalizedString("watchProviderBr", comment: "")
+            return NSLocalizedString("Brazil", comment: "")
         case .us:
-            return NSLocalizedString("watchProviderUs", comment: "")
+            return NSLocalizedString("United States", comment: "")
         case .ae:
-            return NSLocalizedString("watchProviderAe", comment: "")
+            return NSLocalizedString("United Arab Emirates", comment: "")
         case .ar:
-            return NSLocalizedString("watchProviderAr", comment: "")
+            return NSLocalizedString("Argentina", comment: "")
         case .at:
-            return NSLocalizedString("watchProviderAt", comment: "")
+            return NSLocalizedString("Austria", comment: "")
         case .au:
-            return NSLocalizedString("watchProviderAu", comment: "")
+            return NSLocalizedString("Australia", comment: "")
         case .be:
-            return NSLocalizedString("watchProviderBe", comment: "")
+            return NSLocalizedString("Belgium", comment: "")
         case .bg:
-            return NSLocalizedString("watchProviderBg", comment: "")
+            return NSLocalizedString("Bulgaria", comment: "")
         case .ca:
-            return NSLocalizedString("watchProviderCa", comment: "")
+            return NSLocalizedString("Canada", comment: "")
         case .ch:
-            return NSLocalizedString("watchProviderCh", comment: "")
+            return NSLocalizedString("Switzerland", comment: "")
         case .cz:
-            return NSLocalizedString("watchProviderCz", comment: "")
+            return NSLocalizedString("Czech Republic", comment: "")
         case .de:
-            return NSLocalizedString("watchProviderDe", comment: "")
+            return NSLocalizedString("Germany", comment: "")
         case .dk:
-            return NSLocalizedString("watchProviderDk", comment: "")
+            return NSLocalizedString("Denmark", comment: "")
         case .ee:
-            return NSLocalizedString("watchProviderEe", comment: "")
+            return NSLocalizedString("Estonia", comment: "")
         case .es:
-            return NSLocalizedString("watchProviderEs", comment: "")
+            return NSLocalizedString("Spain", comment: "")
         case .fi:
-            return NSLocalizedString("watchProviderFi", comment: "")
+            return NSLocalizedString("Finland", comment: "")
         case .fr:
-            return NSLocalizedString("watchProviderFr", comment: "")
+            return NSLocalizedString("France", comment: "")
         case .gb:
-            return NSLocalizedString("watchProviderGb", comment: "")
+            return NSLocalizedString("United Kingdom", comment: "")
         case .hk:
-            return NSLocalizedString("watchProviderHk", comment: "")
+            return NSLocalizedString("Hong Kong", comment: "")
         case .hr:
-            return NSLocalizedString("watchProviderHr", comment: "")
+            return NSLocalizedString("Croatia", comment: "")
         case .hu:
-            return NSLocalizedString("watchProviderHu", comment: "")
+            return NSLocalizedString("Hungary", comment: "")
         case .id:
-            return NSLocalizedString("watchProviderId", comment: "")
+            return NSLocalizedString("Indonesia", comment: "")
         case .ie:
-            return NSLocalizedString("watchProviderIe", comment: "")
+            return NSLocalizedString("Ireland", comment: "")
         case .india:
-            return NSLocalizedString("watchProviderIndia", comment: "")
+            return NSLocalizedString("India", comment: "")
         case .it:
-            return NSLocalizedString("watchProviderIt", comment: "")
+            return NSLocalizedString("Italy", comment: "")
         case .jp:
-            return NSLocalizedString("watchProviderJp", comment: "")
+            return NSLocalizedString("Japan", comment: "")
         case .kr:
-            return NSLocalizedString("watchProviderKr", comment: "")
+            return NSLocalizedString("South Korea", comment: "")
         case .lt:
-            return NSLocalizedString("watchProviderLt", comment: "")
+            return NSLocalizedString("Lithuania", comment: "")
         case .mx:
-            return NSLocalizedString("watchProviderMx", comment: "")
+            return NSLocalizedString("Mexico", comment: "")
         case .nl:
-            return NSLocalizedString("watchProviderNl", comment: "")
+            return NSLocalizedString("Netherlands", comment: "")
         case .no:
-            return NSLocalizedString("watchProviderNo", comment: "")
+            return NSLocalizedString("Norway", comment: "")
         case .nz:
-            return NSLocalizedString("watchProviderNz", comment: "")
+            return NSLocalizedString("New Zealand", comment: "")
         case .ph:
-            return NSLocalizedString("watchProviderPh", comment: "")
+            return NSLocalizedString("Philippines", comment: "")
         case .pl:
-            return NSLocalizedString("watchProviderPl", comment: "")
+            return NSLocalizedString("Poland", comment: "")
         case .pt:
-            return NSLocalizedString("watchProviderPt", comment: "")
+            return NSLocalizedString("Portugal", comment: "")
         case .rs:
-            return NSLocalizedString("watchProviderRs", comment: "")
+            return NSLocalizedString("Serbia", comment: "")
         case .se:
-            return NSLocalizedString("watchProviderSe", comment: "")
+            return NSLocalizedString("Sweden", comment: "")
         case .sk:
-            return NSLocalizedString("watchProviderSk", comment: "")
+            return NSLocalizedString("Slovakia", comment: "")
         case .tr:
-            return NSLocalizedString("watchProviderTr", comment: "")
+            return NSLocalizedString("Turkey", comment: "")
         case .za:
-            return NSLocalizedString("watchProviderZa", comment: "")
+            return NSLocalizedString("South Africa", comment: "")
         }
     }
+
     var bcp47Identifier: String {
         switch self {
         case .ae:

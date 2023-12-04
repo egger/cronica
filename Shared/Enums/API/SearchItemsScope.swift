@@ -14,7 +14,7 @@ enum SearchItemsScope: String, Identifiable, Hashable, CaseIterable {
         switch self {
         case .noScope: return "All"
         case .movies: return "Movies"
-        case .shows: return "Shows"
+        case .shows: return "Series"
         case .people: return "People"
         }
     }

@@ -7,33 +7,8 @@
 
 import SwiftUI
 
-struct FeedbackSettingsView: View {
-    @State private var showFeedbackForm = false
-    var body: some View {
-        Section {
-            Button("Send Feedback") {
-                showFeedbackForm.toggle()
-            }
-#if os(macOS)
-            .buttonStyle(.link)
-#endif
-            .sheet(isPresented: $showFeedbackForm) {
-                FeedbackComposerView(showFeedbackForm: $showFeedbackForm)
-                    .presentationDetents([.medium, .large])
-                    .appTheme()
-                    .appTint()
-#if os(macOS)
-                    .frame(width: 400, height: 400, alignment: .center)
-#endif
-            }
-        }
-    }
-    
-    
-}
-
 #Preview {
-    FeedbackSettingsView()
+    FeedbackComposerView()
 }
 
 struct FeedbackComposerView: View {
@@ -41,52 +16,46 @@ struct FeedbackComposerView: View {
     @Environment(\.openURL) var openURL
     @StateObject private var settings = SettingsStore.shared
     @State private var supportEmail = SupportEmail()
-    @Binding var showFeedbackForm: Bool
     @State private var feedbackSent = false
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
     var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    TextField("Feedback", text: $feedback)
-                        .lineLimit(4)
-                    Button("Send", action: send)
+        Form {
+            Section {
+                TextField("Feedback", text: $feedback)
+                    .lineLimit(4)
+                Button("Send", action: send)
 #if os(macOS)
-                        .buttonStyle(.link)
+                    .buttonStyle(.link)
 #endif
-                }
+            }
 #if !os(tvOS)
-                Section {
-                    Button("sendEmail") { supportEmail.send(openURL: openURL) }
-                } footer: {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("sendEmailFooter")
-                            Text("sendEmailFooterBackup")
-                                .textSelection(.enabled)
-                        }
-                        Spacer()
+            Section {
+                Button("Send Email") { supportEmail.send(openURL: openURL) }
+            } footer: {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("If you prefer, you can send an email for a faster follow-up.")
+                        Text("You can also send an email to contact@alexandremadeira.dev using your email client.")
+                            .textSelection(.enabled)
                     }
+                    Spacer()
                 }
+            }
 #if os(macOS)
-                .buttonStyle(.link)
+            .buttonStyle(.link)
 #endif
-#endif
-            }
-            .navigationTitle("Send Feedback")
-            .toolbar {
-                Button("Cancel", role: .cancel) { showFeedbackForm.toggle() }
-            }
-            .actionPopup(isShowing: $showPopup, for: popupType)
-#if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-#elseif os(macOS)
-            .formStyle(.grouped)
 #endif
         }
+        .navigationTitle("Feedback")
+        .actionPopup(isShowing: $showPopup, for: popupType)
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
-    
+}
+
+extension FeedbackComposerView {
     private func send() {
         if feedback.isEmpty { return }
         CronicaTelemetry.shared.handleMessage("Feedback: \(feedback)", for: "Feedback")

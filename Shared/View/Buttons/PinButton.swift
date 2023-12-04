@@ -14,7 +14,7 @@ struct PinButton: View {
     @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
-        Button(isPin ? "Unpin Item" : "Pin Item",
+        Button(isPin ? "Unpin" : "Pin",
                systemImage: isPin ? "pin.fill" : "pin",
                action: updatePin)
     }

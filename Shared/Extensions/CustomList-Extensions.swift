@@ -24,17 +24,19 @@ extension CustomList {
             }
         }
         if let items {
-            let formatString = NSLocalizedString("items count", comment: "")
-            let result = String(format: formatString, items.count)
-            return result
+            return NSLocalizedString("\(items.count) item", comment: "")
+//            let formatString = NSLocalizedString("items count", comment: "")
+//            let result = String(format: formatString, items.count)
+//            return result
         }
-        return NSLocalizedString("Last update on \(itemLastUpdateFormatted)", comment: "")
+        return String()
     }
     var itemCount: String {
         if let items {
-            let formatString = NSLocalizedString("items count", comment: "")
-            let result = String(format: formatString, items.count)
-            return result
+            return NSLocalizedString("\(items.count) item", comment: "")
+//            let formatString = NSLocalizedString("items count", comment: "")
+//            let result = String(format: formatString, items.count)
+//            return result
         }
         return NSLocalizedString("Empty", comment: "")
     }

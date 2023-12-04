@@ -34,19 +34,20 @@ struct EditCustomList: View {
                     .foregroundColor(.secondary)
             } else {
                 Section {
-                    TextField("listName", text: $title)
-                    TextField("listDescription", text: $note)
+                    TextField("Title", text: $title)
+                    TextField("Description", text: $note)
                 }
                 
                 Section {
-                    Toggle("pinOnHome", isOn: $pinOnHome)
+                    Toggle("Pin", isOn: $pinOnHome)
                 }
                 
-                NavigationLink("listItemsToAdd",
+                NavigationLink("Select Items",
                                destination: NewCustomListItemSelector(itemsToAdd: $itemsToAdd, list: list))
                 
                 if !list.itemsSet.isEmpty {
-                    NavigationLink("editListRemoveItems", destination: EditCustomListItemSelector(list: list, itemsToRemove: $itemsToRemove))
+                    NavigationLink("Remove Items",
+                                   destination: EditCustomListItemSelector(list: list, itemsToRemove: $itemsToRemove))
                 }
                 
                 Section {
@@ -58,12 +59,12 @@ struct EditCustomList: View {
                     .buttonStyle(.link)
 #endif
                 }
-                .alert("removeDialogTitle", isPresented: $askConfirmationForDeletion) {
+                .alert("Are You Sure?", isPresented: $askConfirmationForDeletion) {
                     Button("Confirm", role: .destructive) {
                         isDeleted = true
                         PersistenceController.shared.delete(list)
                     }
-                    Button("confirmAndDeleteItems", role: .destructive) {
+                    Button("Confirm and Delete Items", role: .destructive) {
                         isDeleted = true
                         let itemsToDelete = list.itemsArray
                         PersistenceController.shared.delete(list)

@@ -51,13 +51,7 @@ struct WatchlistCardSection: View {
                 }.padding()
             }
         } else {
-            CenterHorizontalView {
-                Text("emptyList")
-                    .multilineTextAlignment(.center)
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                    .padding()
-            }
+            EmptyListView()
         }
     }
     

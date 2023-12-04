@@ -18,20 +18,13 @@ struct WatchProviderSelectorSetting: View {
     var body: some View {
         Form {
             Toggle(isOn: $settings.isSelectedWatchProviderEnabled) {
-                Text("selectedWatchProviderTitle")
-                Text("selectedWatchProviderSubtitle")
+                Text("Preferred Streaming Services")
+                Text("Only show 'Watch Provider' if the title is available on one of your preferred services")
             }
             if settings.isSelectedWatchProviderEnabled {
                 Section {
                     if providers.isEmpty, !isLoading {
-                        if #available(iOS 17, *) {
-                            ContentUnavailableView("Try Again Later", systemImage: "tv")
-                        } else {
-                            Text("Try Again Later")
-                                .multilineTextAlignment(.center)
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                        }
+                        SimpleUnavailableView()
                     } else if providers.isEmpty, isLoading {
                         ProgressView()
                     } else {
@@ -42,7 +35,7 @@ struct WatchProviderSelectorSetting: View {
                 }
             }
         }
-        .navigationTitle("selectedWatchProvider")
+        .navigationTitle("Streaming Services")
         .onChange(of: settings.isSelectedWatchProviderEnabled) { _ in
             checkStatus()
         }

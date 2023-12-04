@@ -34,11 +34,8 @@ struct SearchItemContentContextMenu: ViewModifier {
                     Button {
                         showNote.toggle()
                     } label: {
-                        Label("reviewTitle", systemImage: "note.text")
+                        Label("Review", systemImage: "note.text")
                     }
-#endif
-#if DEBUG
-                    printButton
 #endif
                 }
                 Divider()
@@ -56,7 +53,7 @@ struct SearchItemContentContextMenu: ViewModifier {
     
     private var addAndMarkWatchedButton: some View {
         Button(action: addAndMarkAsWatched) {
-            Label("addAndMarkWatchedButton", systemImage: "rectangle.badge.checkmark.fill")
+            Label("Add & Mark Watched", systemImage: "rectangle.badge.checkmark.fill")
         }
     }
     
@@ -100,17 +97,6 @@ struct SearchItemContentContextMenu: ViewModifier {
                         showPopup: $showPopup,
                         showListSelector: $showCustomListView,
                         popupType: $popupType)
-    }
-    
-    @ViewBuilder
-    private var printButton: some View {
-#if DEBUG
-        Button {
-            print(item)
-        } label: {
-            Label("Print", systemImage: "hammer.fill")
-        }
-#endif
     }
     
     @ViewBuilder

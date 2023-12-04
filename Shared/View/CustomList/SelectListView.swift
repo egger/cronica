@@ -105,8 +105,7 @@ struct SelectListView: View {
                                 ProgressView()
                             } else {
                                 CenterHorizontalView {
-                                    Text("noListFoundMessage")
-                                        .padding(.horizontal)
+                                    SearchContentUnavailableView(query: query)
                                 }
                             }
                         } else {
@@ -146,7 +145,7 @@ struct SelectListView: View {
                 }
             } header: {
                 HStack {
-                    Text("yourLists")
+                    Text("Your Lists")
                     Spacer()
                 }
             } footer: {
@@ -158,16 +157,6 @@ struct SelectListView: View {
                     Spacer()
                 }
             }
-#if os(iOS)
-            tmdbSection
-#endif
-        }
-        .onAppear {
-#if os(iOS)
-            if SettingsStore.shared.isUserConnectedWithTMDb {
-                Task { await load() }
-            }
-#endif
         }
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle,
@@ -210,37 +199,6 @@ struct SelectListView: View {
         isSearchingLists = false
     }
     
-#if os(iOS)
-    @ViewBuilder
-    private var tmdbSection: some View {
-        if SettingsStore.shared.isUserConnectedWithTMDb && query.isEmpty && queryResult.isEmpty {
-            Section {
-                List {
-                    ForEach(tmdbLists) { list in
-                        NavigationLink(value: list) {
-                            Text(list.itemTitle)
-                        }
-                        .padding(.vertical, 4)
-                    }
-                }
-            } header: {
-                HStack {
-                    Text("TMDB")
-                    Spacer()
-                }
-            }
-            .redacted(reason: isLoading ? .placeholder : [])
-        }
-    }
-    
-    private func load() async {
-        let fetchedLists = await listManager.fetchLists()
-        if let result = fetchedLists?.results {
-            tmdbLists = result.sorted(by: { $0.itemTitle < $1.itemTitle })
-            withAnimation { self.isLoading = false }
-        }
-    }
-#endif
     private var doneButton: some View {
         Button("Done") { showListSelection.toggle() }
     }
@@ -253,7 +211,7 @@ struct SelectListView: View {
             NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection, newSelectedList: $selectedList)
 #endif
         } label: {
-            Label("newList", systemImage: "plus.rectangle.on.rectangle")
+            Label("New List", systemImage: "plus.rectangle.on.rectangle")
         }
     }
     

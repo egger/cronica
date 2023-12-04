@@ -167,24 +167,24 @@ struct ItemContentDetails: View {
         Button {
             showCustomList.toggle()
         } label: {
-            Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")
+            Label("Add To List", systemImage: "rectangle.on.rectangle.angled")
         }
     }
     
     @ViewBuilder
     private var watchButton: some View {
         if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+            Button(viewModel.isWatched ? "Unwatched" : "Watched",
                    systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
                 viewModel.update(.watched)
                 animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
             }
                    .symbolEffect(.bounce.down, value: viewModel.isWatched)
-    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
                    .keyboardShortcut("w", modifiers: [.option])
-    #endif
+#endif
         } else {
-            Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
+            Button(viewModel.isWatched ? "Unwatched" : "Watched",
                    systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
                 viewModel.update(.watched)
                 animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
@@ -195,17 +195,17 @@ struct ItemContentDetails: View {
     @ViewBuilder
     private var favoriteButton: some View {
         if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+            Button(viewModel.isFavorite ? "Unfavorite" : "Favorite",
                    systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
                 viewModel.update(.favorite)
                 animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
             }
                    .symbolEffect(.bounce.down, value: viewModel.isFavorite)
-    #if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS)
                    .keyboardShortcut("f", modifiers: [.option])
-    #endif
+#endif
         } else {
-            Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+            Button(viewModel.isFavorite ? "Unfavorite" : "Favorite",
                    systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
                 viewModel.update(.favorite)
                 animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
@@ -216,13 +216,13 @@ struct ItemContentDetails: View {
     @ViewBuilder
     private var archiveButton: some View {
         if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
+            Button(viewModel.isArchive ? "Unarchive" : "Archive",
                    systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
                 viewModel.update(.archive)
                 animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
             }.symbolEffect(.bounce.down, value: viewModel.isArchive)
         } else {
-            Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
+            Button(viewModel.isArchive ? "Unarchive" : "Archive",
                    systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
                 viewModel.update(.archive)
                 animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
@@ -233,13 +233,13 @@ struct ItemContentDetails: View {
     @ViewBuilder
     private var pinButton: some View {
         if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
+            Button(viewModel.isPin ? "Unpin" : "Pin",
                    systemImage: viewModel.isPin ? "pin.fill" : "pin") {
                 viewModel.update(.pin)
                 animate(for: viewModel.isPin ? .markedPin : .removedPin)
             }.symbolEffect(.bounce.down, value: viewModel.isPin)
         } else {
-            Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
+            Button(viewModel.isPin ? "Unpin" : "Pin",
                    systemImage: viewModel.isPin ? "pin.fill" : "pin") {
                 viewModel.update(.pin)
                 animate(for: viewModel.isPin ? .markedPin : .removedPin)
@@ -252,13 +252,12 @@ struct ItemContentDetails: View {
         Menu("Open in",
              systemImage: "ellipsis.circle") {
             
-            if let homepage = viewModel.content?.homepage {
+            if let homepage = viewModel.content?.homepage, let homepageUrl = URL(string: homepage) {
                 Button("Official Website") {
-                    guard let url = URL(string: homepage) else { return }
 #if os(iOS)
-                    UIApplication.shared.open(url)
+                    UIApplication.shared.open(homepageUrl)
 #else
-                    NSWorkspace.shared.open(url)
+                    NSWorkspace.shared.open(homepageUrl)
 #endif
                 }
             }
@@ -272,7 +271,7 @@ struct ItemContentDetails: View {
 #endif
                 }
             }
-            Button("TMDb") {
+            Button("The Movie Database") {
                 guard let url = viewModel.content?.itemURL else { return }
 #if os(iOS)
                 UIApplication.shared.open(url)
@@ -311,7 +310,7 @@ struct ItemContentDetails: View {
 #endif
     
     private var userNotesButton: some View {
-        Button("reviewTitle", systemImage: "note.text") { showUserNotes.toggle() }
+        Button("Review", systemImage: "note.text") { showUserNotes.toggle() }
     }
     
     @ViewBuilder

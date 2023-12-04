@@ -20,7 +20,7 @@ struct WatchlistButton: View {
             if !isInWatchlist { HapticManager.shared.successHaptic() }
             updateWatchlist()
         } label: {
-            Label(isInWatchlist ? "Remove": "Add to watchlist",
+            Label(isInWatchlist ? "Remove": "Add",
                   systemImage: isInWatchlist ? "minus.circle" : "plus.circle")
 #if os(macOS)
             .foregroundColor(isInWatchlist ? .red : nil)

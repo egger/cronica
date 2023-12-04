@@ -14,7 +14,7 @@ struct WatchedButton: View {
     @Binding var showPopup: Bool
     private let persistence = PersistenceController.shared
     var body: some View {
-        Button(isWatched ? "Remove from Watched" : "Mark as Watched",
+        Button(isWatched ? "Unwatched" : "Watched",
                systemImage: isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark",
                action: updateWatched)
     }

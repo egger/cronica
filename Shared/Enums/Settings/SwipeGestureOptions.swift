@@ -13,17 +13,17 @@ enum SwipeGestureOptions: String, CaseIterable, Identifiable {
     var localizableName: String {
         switch self {
         case .markWatch:
-            return NSLocalizedString("swipeGestureWatch", comment: "")
+            return NSLocalizedString("Watch", comment: "")
         case .markFavorite:
-            return NSLocalizedString("swipeGestureFavorite", comment: "")
+            return NSLocalizedString("Favorite", comment: "")
         case .markPin:
-            return NSLocalizedString("swipeGesturePin", comment: "")
+            return NSLocalizedString("Pin", comment: "")
         case .markArchive:
-            return NSLocalizedString("swipeGestureArchive", comment: "")
+            return NSLocalizedString("Archive", comment: "")
         case .delete:
             return NSLocalizedString("Remove", comment: "")
         case .share:
-            return NSLocalizedString("swipeGestureShare", comment: "")
+            return NSLocalizedString("Share", comment: "")
         }
     }
 }

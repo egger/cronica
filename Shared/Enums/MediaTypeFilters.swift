@@ -13,11 +13,11 @@ enum MediaTypeFilters: String, Identifiable, CaseIterable {
     var localizableTitle: String {
         switch self {
         case .showAll:
-            return NSLocalizedString("mediaTypeFiltersNoFilter", comment: "")
+            return NSLocalizedString("All", comment: "")
         case .movies:
-            return NSLocalizedString("mediaTypeFiltersMovies", comment: "")
+            return NSLocalizedString("Movies", comment: "")
         case .tvShows:
-            return NSLocalizedString("mediaTypeFiltersTvShows", comment: "")
+            return NSLocalizedString("TV Shows", comment: "")
         }
     }
 }
@@ -27,6 +27,20 @@ enum WatchlistSortOrder: String, Identifiable, CaseIterable {
     case titleAsc, titleDesc, dateAsc, dateDesc, ratingAsc, ratingDesc
     
     var localizableName: String {
-        return NSLocalizedString(rawValue, comment: "")
+        switch self {
+        case .titleAsc:
+            return NSLocalizedString("Title (Asc)", comment: "")
+        case .titleDesc:
+            return NSLocalizedString("Title (Desc)", comment: "")
+        case .dateAsc:
+            return NSLocalizedString("Date (Asc)", comment: "")
+        case .dateDesc:
+            return NSLocalizedString("Date (Desc)", comment: "")
+        case .ratingAsc:
+            return NSLocalizedString("Rating (Asc)", comment: "")
+        case .ratingDesc:
+            return NSLocalizedString("Rating (Desc)", comment: "")
+        }
     }
+
 }

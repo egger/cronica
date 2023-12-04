@@ -116,7 +116,7 @@ struct EditCustomListItemSelector: View {
         .task(id: query) {
             await search()
         }
-        .navigationTitle("editListRemoveItems")
+        .navigationTitle("Remove Items")
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))

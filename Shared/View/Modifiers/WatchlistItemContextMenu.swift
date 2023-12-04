@@ -43,10 +43,6 @@ struct WatchlistItemContextMenu: ViewModifier {
 				secondaryRightSwipeActions
 			}
 			.contextMenu {
-                Text(item.itemTitle)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                Divider()
 				share
 				watchedButton
 				favoriteButton
@@ -56,9 +52,6 @@ struct WatchlistItemContextMenu: ViewModifier {
 				reviewButton
 				Divider()
 				deleteButton
-#if DEBUG
-				printButton
-#endif
 			} preview: {
 				ContextMenuPreviewImage(title: item.itemTitle,
 										image: item.backCompatibleCardImage,
@@ -95,17 +88,6 @@ struct WatchlistItemContextMenu: ViewModifier {
 					  showPopup: $showPopup)
 	}
 	
-	@ViewBuilder
-	private var printButton: some View {
-#if DEBUG
-		Button {
-			print(item)
-		} label: {
-			Label("Print", systemImage: "hammer.fill")
-		}
-#endif
-	}
-	
 #if os(iOS) || os(macOS)
 	private var customListButton: some View {
 		CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
@@ -113,11 +95,9 @@ struct WatchlistItemContextMenu: ViewModifier {
 #endif
 	
 	private var reviewButton: some View {
-		Button {
-			showNote.toggle()
-		} label: {
-			Label("reviewTitle", systemImage: "note.text")
-		}
+        Button("Review", systemImage: "note.text") {
+            showNote.toggle()
+        }
 	}
 	
 	@ViewBuilder

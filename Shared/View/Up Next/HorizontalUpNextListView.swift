@@ -26,13 +26,17 @@ struct HorizontalUpNextListView: View {
                 if !viewModel.episodes.isEmpty {
 #if !os(tvOS)
                     NavigationLink(value: viewModel.episodes) {
-                        TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: true)
+                        TitleView(title: NSLocalizedString("Up Next", comment: ""),
+                                  subtitle: NSLocalizedString("Your Next Episodes", comment: ""),
+                                  showChevron: true)
                             .unredacted()
                     }
                     .disabled(!viewModel.isLoaded)
                     .buttonStyle(.plain)
 #else
-                    TitleView(title: "upNext", subtitle: "upNextSubtitle", showChevron: false)
+                    TitleView(title: NSLocalizedString("Up Next", comment: ""),
+                              subtitle: NSLocalizedString("Your Next Episodes", comment: ""),
+                              showChevron: false)
                         .padding(.leading, 64)
 #endif
                     
@@ -54,10 +58,10 @@ struct HorizontalUpNextListView: View {
                                         upNextCard(item)
                                             .applyHoverEffect()
                                             .contextMenu {
-                                                Button("showDetails") {
+                                                Button("Show Details") {
                                                     selectedEpisode = item
                                                 }
-                                                Button("upNextSkipThisEpisode") {
+                                                Button("Skip this episode") {
                                                     viewModel.skipEpisode(for: item)
                                                 }
                                             }
@@ -99,10 +103,10 @@ struct HorizontalUpNextListView: View {
                                         }
                                         .frame(width: DrawingConstants.compactImageWidth)
                                         .contextMenu {
-                                            Button("showDetails") {
+                                            Button("Show Details") {
                                                 selectedEpisode = item
                                             }
-                                            Button("upNextSkipThisEpisode") {
+                                            Button("Skip this episode") {
                                                 viewModel.skipEpisode(for: item)
                                             }
                                         }

@@ -61,12 +61,12 @@ struct ChangelogView: View {
                 }
                 .padding()
             }
-            .navigationTitle("changelogViewTitle")
+            .navigationTitle("Changelog")
             .foregroundColor(showTipJar ? .secondary : nil)
             .sheet(isPresented: $showTipJar) {
                 NavigationStack {
                     TipJarSetting()
-                        .navigationTitle("tipJar")
+                        .navigationTitle("Tip Jar")
 #if os(iOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -129,7 +129,7 @@ struct ChangelogView: View {
                         showTipJar.toggle()
                     }
                 } label: {
-                    Text("tipJar")
+                    Text("Tip Jar")
                         .frame(minWidth: 100)
                 }
 #if os(iOS) || os(macOS)
@@ -140,7 +140,7 @@ struct ChangelogView: View {
                 .padding(.trailing)
             }
             
-            Text("tipJarDescription")
+            Text("If you love the app, consider supporting through Tip Jar.")
                 .frame(minWidth: 100)
                 .font(.callout)
                 .foregroundColor(.secondary)

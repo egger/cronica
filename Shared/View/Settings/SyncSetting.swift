@@ -29,8 +29,8 @@ struct SyncSetting: View {
                             }
                         } else {
 							VStack(alignment: .leading) {
-								Text("syncSettingsUpdateWatchlistTitle")
-								Text("syncSettingsUpdateWatchlistSubtitle")
+								Text("Update Items")
+								Text("Update items with new information, if available on TMDb")
 									.foregroundColor(.secondary)
 							}
                         }
@@ -39,7 +39,7 @@ struct SyncSetting: View {
                     .buttonStyle(.plain)
 #endif
                 } header: {
-                    Text("syncSettingsWatchlistTitle")
+                    Text("Watchlist")
                 }
                 
                 Section {
@@ -49,7 +49,7 @@ struct SyncSetting: View {
 #endif
                 } footer: {
 #if os(iOS)
-                    Text("importExportWarning")
+                    Text("Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all users.")
 #endif
                 }
                 .sheet(isPresented: $showExportShareSheet) {
@@ -71,11 +71,11 @@ struct SyncSetting: View {
 #endif
                 
 #if os(iOS)
-                TMDBAccountView()
+                //TMDBAccountView()
 #endif
                 
             }
-            .navigationTitle("syncSettingsTitle")
+            .navigationTitle("Sync")
 #if os(macOS)
             .formStyle(.grouped)
 #endif
@@ -87,7 +87,7 @@ struct SyncSetting: View {
         Button {
             showFilePicker.toggle()
         } label: {
-            Text("importTitle")
+            Text("Import")
         }
         .disabled(hasImported)
     }
@@ -98,16 +98,18 @@ struct SyncSetting: View {
         } label: {
             if isGeneratingExport {
                 CenterHorizontalView {
-                    ProgressView("generatingExportFile")
+                    ProgressView("Generating File")
                 }
             } else {
-                Text("exportTitle")
+                Text("Export")
             }
         }
         .disabled(isGeneratingExport)
     }
 #endif
-    
+}
+
+extension SyncSetting {
     @MainActor
     private func updateItems() {
         Task {

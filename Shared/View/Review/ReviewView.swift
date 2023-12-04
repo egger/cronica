@@ -25,7 +25,7 @@ struct ReviewView: View {
                 }
             } else {
                 if let item {
-                    Section("About") { Text("reviewOf \(item.itemTitle)") }
+                    Section("About") { Text("Review of \(item.itemTitle)") }
                     Section("Rating") {
                         CenterHorizontalView {
                             RatingView(rating: $rating)
@@ -42,7 +42,7 @@ struct ReviewView: View {
                 }
             }
         }
-        .navigationTitle("reviewTitle")
+        .navigationTitle("Review")
         .onAppear { load() }
         .onChange(of: rating) { newValue in
             guard let item else { return }

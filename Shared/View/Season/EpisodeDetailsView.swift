@@ -177,7 +177,7 @@ struct EpisodeDetailsView: View {
                         NavigationLink(value: showItem) {
                             VStack {
                                 Image(systemName: "info.circle.fill")
-                                Text("moreInfoShow")
+                                Text("More Info")
                                     .lineLimit(1)
                                     .padding(.top, 2)
                                     .font(.caption)
