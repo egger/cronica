@@ -23,12 +23,6 @@ struct SelectListView: View {
     @State private var isCreateNewListPresented = false
 #endif
     @State private var isEditing = false
-#if os(iOS)
-    // Lists
-    @State private var listManager = ExternalWatchlistManager.shared
-    @State private var tmdbLists = [TMDBListResult]()
-    @State private var isLoading = true
-#endif
     @State private var query = String()
     @State private var queryResult = [CustomList]()
     @State private var isSearchingLists = false
@@ -181,9 +175,6 @@ struct SelectListView: View {
         }
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
-        }
-        .navigationDestination(for: TMDBListResult.self) { item in
-            TMDBListDetails(list: item)
         }
     }
     

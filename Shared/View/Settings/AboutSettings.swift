@@ -35,6 +35,7 @@ struct AboutSettings: View {
                     }
                 }
             }
+            .listRowBackground(Color.clear)
             
 #if os(iOS)
             Button {

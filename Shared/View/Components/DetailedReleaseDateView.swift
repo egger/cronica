@@ -30,7 +30,7 @@ struct DetailedReleaseDateView: View {
                         }
                     }
                 }
-                .scrollBounceBehavior(.basedOnSize)
+                //.scrollBounceBehavior(.basedOnSize)
             }
             .toolbar {
                 Button("Done") { dismiss.toggle() }

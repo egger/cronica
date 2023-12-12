@@ -84,6 +84,7 @@
       }
     },
     "%lld Items" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -326,6 +327,7 @@
       }
     },
     "Are you sure?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -736,6 +738,7 @@
       }
     },
     "Connected Accounts" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -901,6 +904,7 @@
       }
     },
     "Deleted" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1001,6 +1005,7 @@
       }
     },
     "Disconnect TMDB Account?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2496,6 +2501,9 @@
         }
       }
     },
+    "Preview" : {
+
+    },
     "Primary Left Gesture" : {
       "localizations" : {
         "en" : {
@@ -3699,6 +3707,7 @@
       }
     },
     "This action can't be undone.\nThis will not delete the local list, just the one on TMDb." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3717,6 +3726,9 @@
           }
         }
       }
+    },
+    "This is a preview" : {
+
     },
     "This list has been deleted." : {
       "localizations" : {
@@ -4269,6 +4281,7 @@
       }
     },
     "You'll be able to see your lists and manage their content." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
