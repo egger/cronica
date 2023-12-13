@@ -245,9 +245,6 @@
 		B8A3F48627A610AF005F2941 /* CastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3F48527A610AF005F2941 /* CastListView.swift */; };
 		B8A4511729F855CB0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
 		B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */; };
-		B8A75FBF2A16B15C00D6C321 /* ItemContentPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */; };
-		B8A75FC22A17212200D6C321 /* ItemContentTVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */; };
-		B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */; };
 		B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
 		B8AA36712A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */; };
@@ -565,9 +562,6 @@
 		B8A36AB42B1D4999004A5687 /* ReviewAppBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAppBanner.swift; sourceTree = "<group>"; };
 		B8A3C2182AC64B7400BD4962 /* ReviewPortraitShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPortraitShareView.swift; sourceTree = "<group>"; };
 		B8A3F48527A610AF005F2941 /* CastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastListView.swift; sourceTree = "<group>"; };
-		B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPadView.swift; sourceTree = "<group>"; };
-		B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentTVView.swift; sourceTree = "<group>"; };
-		B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentPhoneView.swift; sourceTree = "<group>"; };
 		B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extensions.swift"; sourceTree = "<group>"; };
 		B8AA36702A4B1B8D00E32F71 /* ReleaseDateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseDateType.swift; sourceTree = "<group>"; };
 		B8AAA6E829645561004FDF21 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -895,7 +889,6 @@
 			isa = PBXGroup;
 			children = (
 				B8B8A4222A6E1E1A00E5533F /* Components */,
-				B8A75FC02A17209500D6C321 /* Platform */,
 				B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */,
 				B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */,
 				B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */,
@@ -1163,16 +1156,6 @@
 				B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		B8A75FC02A17209500D6C321 /* Platform */ = {
-			isa = PBXGroup;
-			children = (
-				B8A75FBE2A16B15C00D6C321 /* ItemContentPadView.swift */,
-				B8A75FC32A17236600D6C321 /* ItemContentPhoneView.swift */,
-				B8A75FC12A17212200D6C321 /* ItemContentTVView.swift */,
-			);
-			path = Platform;
 			sourceTree = "<group>";
 		};
 		B8ADAF6D282C42A9001D72EF /* Store */ = {
@@ -1779,7 +1762,6 @@
 				B81941A52A0833450057DA04 /* AddToListRow.swift in Sources */,
 				B84C53FD27B1F1DD00425524 /* WatchlistItemRowView.swift in Sources */,
 				B89ECD062985F11100F0B197 /* WatchlistSectionDetails.swift in Sources */,
-				B8A75FC22A17212200D6C321 /* ItemContentTVView.swift in Sources */,
 				B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */,
 				B8423E2C2793B4C10012259B /* WatchlistView.swift in Sources */,
 				B81DD92C29BD149D009F73F3 /* WatchlistItem+CoreDataProperties.swift in Sources */,
@@ -1838,7 +1820,6 @@
 				B8C0215D29E121C1006E9D82 /* SettingsScreens.swift in Sources */,
 				B8FB2A8229524C37006DAC8E /* WatchlistItemPosterView.swift in Sources */,
 				B8105259298DC2EF00723E94 /* ReleaseDatesResult-Extensions.swift in Sources */,
-				B8A75FBF2A16B15C00D6C321 /* ItemContentPadView.swift in Sources */,
 				B8FB2A8929524FAD006DAC8E /* WatchlistPosterSection.swift in Sources */,
 				B892EB0C29675582002E028E /* TipJarSetting.swift in Sources */,
 				B890C58527FE4442006BE5E1 /* Episode-Extension.swift in Sources */,
@@ -1857,7 +1838,6 @@
 				B883A1DE2AEEA49E00793EE2 /* EditCustomListItemSelector.swift in Sources */,
 				B81941A12A0832FE0057DA04 /* ListRowItem.swift in Sources */,
 				B84457C7297341AF009CB21F /* WatchProviders.swift in Sources */,
-				B8A75FC42A17236600D6C321 /* ItemContentPhoneView.swift in Sources */,
 				B8AA36712A4B1B8D00E32F71 /* ReleaseDateType.swift in Sources */,
 				B80318A829256AE700714B3E /* FeedbackSettingsView.swift in Sources */,
 				B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */,
@@ -2205,7 +2185,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 2.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
@@ -2217,7 +2197,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,6";
-				TVOS_DEPLOYMENT_TARGET = 17.0;
+				TVOS_DEPLOYMENT_TARGET = 17.2;
 			};
 			name = Debug;
 		};
@@ -2250,7 +2230,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 2.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
@@ -2262,7 +2242,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,6";
-				TVOS_DEPLOYMENT_TARGET = 17.0;
+				TVOS_DEPLOYMENT_TARGET = 17.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

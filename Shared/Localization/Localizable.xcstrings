@@ -735,6 +735,9 @@
         }
       }
     },
+    "Confirm Watched Episode" : {
+
+    },
     "Content Provider" : {
       "localizations" : {
         "en" : {
@@ -919,6 +922,9 @@
           }
         }
       }
+    },
+    "Details" : {
+
     },
     "Details Page" : {
       "localizations" : {

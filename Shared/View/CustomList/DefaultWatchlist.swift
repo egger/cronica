@@ -375,7 +375,9 @@ struct ListFilterView: View {
                 }
             }
             .navigationTitle("Filters")
+#if !os(tvOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .toolbar {
                 Button("Done") { showView = false }
             }

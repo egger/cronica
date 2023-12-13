@@ -18,7 +18,7 @@ struct WelcomeView: View {
                     Image("Cronica")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 100, height: 100, alignment: .center)
+                        .frame(width: 90, height: 90, alignment: .center)
                         .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
                         .shadow(radius: 5)
                         .padding(.leading)
@@ -38,7 +38,7 @@ struct WelcomeView: View {
             }
             .padding([.top, .bottom])
             ScrollView {
-                InformationContainerView()
+                informationContainerView
             }
             .padding(.horizontal)
             Spacer()
@@ -87,10 +87,8 @@ struct WelcomeView: View {
         }
 #endif
     }
-}
-
-private struct InformationContainerView: View {
-    var body: some View {
+    
+    private var informationContainerView: some View {
         VStack(alignment: .leading) {
             informationItem(
                 title: NSLocalizedString("Your Watchlist", comment: ""),

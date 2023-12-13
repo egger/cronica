@@ -18,11 +18,11 @@ struct DetailWatchlistButton: View {
                 if SettingsStore.shared.showRemoveConfirmation {
                     showConfirmationPopup = true
                 } else {
-                    update()
+                    updateWatchlist()
                 }
             } else {
                 HapticManager.shared.successHaptic()
-                update()
+                updateWatchlist()
             }
         } label: {
 #if os(iOS) || os(watchOS)
@@ -75,12 +75,12 @@ struct DetailWatchlistButton: View {
         .buttonBorderShape(.roundedRectangle(radius: 12))
 #endif
         .alert("Are You Sure?", isPresented: $showConfirmationPopup) {
-            Button("Confirm") { update() }
+            Button("Confirm") { updateWatchlist() }
             Button("Cancel") {  showConfirmationPopup = false }
         }
     }
     
-    private func update() {
+    private func updateWatchlist() {
         guard let item = viewModel.content else { return }
         viewModel.updateWatchlist(with: item)
         if settings.openListSelectorOnAdding && viewModel.isInWatchlist {

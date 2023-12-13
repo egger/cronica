@@ -23,11 +23,23 @@ struct ItemContentDetails: View {
     @State private var showReleaseDateInfo = false
     @State private var animateGesture = false
     @State private var animationImage = ""
+    @State private var showConfirmationPopup = false
+    
     // MARK: View properties for sizeBasedPadMacView
     @State private var isSideInfoPanelShowed = false
     @State private var showInfoBox = false
     @State private var showOverview = false
     var handleToolbar = false
+    
+    // MARK: View properties for sizeBasedTVView
+    @State private var hasFocused = false
+    @FocusState var isWatchlistInFocus: Bool
+    @FocusState var isWatchInFocus: Bool
+    @FocusState var isFavoriteInFocus: Bool
+    @FocusState var isMoreInFocus: Bool
+    @Namespace var tvOSActionNamespace
+    @FocusState var isWatchlistButtonFocused: Bool
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -40,8 +52,7 @@ struct ItemContentDetails: View {
                     sizedBasedPhoneView
                 }
 #elseif os(tvOS)
-                ItemContentTVView(title: title, type: type, id: id)
-                    .environmentObject(viewModel)
+                sizeBasedTVView
 #endif
             }
         }
@@ -52,7 +63,11 @@ struct ItemContentDetails: View {
                 ToolbarItem {
                     HStack {
                         if viewModel.isInWatchlist {
-                            favoriteButtonToolbar
+                            if type == .movie {
+                                favoriteButtonToolbar
+                            } else {
+                                watchButtonToolbar
+                            }
                             archiveButtonToolbar
                             pinButtonToolbar
                             reviewButtonToolbar
@@ -142,12 +157,6 @@ struct ItemContentDetails: View {
 #endif
     }
     
-    //    private var addToCustomListButton: some View {
-    //        Button("Add To List", systemImage: "rectangle.on.rectangle.angled") {
-    //            showCustomList.toggle()
-    //        }
-    //    }
-    
 #if os(iOS)
     private var sizedBasedPhoneView: some View {
         VStack {
@@ -186,9 +195,8 @@ struct ItemContentDetails: View {
                 } else {
                     favoriteButton
                 }
-                DetailWatchlistButton(showCustomList: $showCustomList)
+                watchlistButton
                     .keyboardShortcut("l", modifiers: [.option])
-                    .environmentObject(viewModel)
                     .padding(.horizontal)
                 listButton
                     .padding(.trailing)
@@ -267,8 +275,8 @@ struct ItemContentDetails: View {
                     
                     // Actions
                     HStack {
-                        DetailWatchlistButton(showCustomList: $showCustomList)
-                            .environmentObject(viewModel)
+                        watchlistButton
+                            .padding(.trailing)
                         
                         if viewModel.isInWatchlist {
                             if type == .movie {
@@ -278,13 +286,14 @@ struct ItemContentDetails: View {
                             }
                             
                             listButton
+                                .padding(.horizontal)
                         }
                     }
                 }
                 .frame(width: 360)
                 
                 ViewThatFits {
-                    QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
+                    quickInformationBoxView
                         .frame(width: 280)
                         .padding(.horizontal)
                         .onAppear {
@@ -322,7 +331,7 @@ struct ItemContentDetails: View {
                                           displayAsCard: true)
             if showInfoBox {
                 GroupBox("Information") {
-                    QuickInformationView(item: viewModel.content, showReleaseDateInfo: $showReleaseDateInfo)
+                    quickInformationBoxView
                 }
                 .padding()
                 
@@ -336,6 +345,119 @@ struct ItemContentDetails: View {
         .task {
             if !isSideInfoPanelShowed && !showInfoBox { showInfoBox = true }
         }
+    }
+#endif
+    
+#if os(tvOS)
+    private var sizeBasedTVView: some View {
+        VStack {
+            HStack {
+                Spacer()
+                poster
+                
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .fontWeight(.semibold)
+                        .font(.title2)
+                        .padding(.bottom)
+                    Button {
+                        showOverview.toggle()
+                    } label: {
+                        HStack {
+                            Text(viewModel.content?.itemOverview ?? String())
+                                .font(.callout)
+                                .fontDesign(.rounded)
+                                .lineLimit(10)
+                                .onTapGesture {
+                                    showOverview.toggle()
+                                }
+                            Spacer()
+                        }
+                        .frame(maxWidth: 700)
+                        .padding(.bottom)
+                    }
+                    .buttonStyle(.plain)
+                    .sheet(isPresented: $showOverview) {
+                        NavigationStack {
+                            ScrollView {
+                                Text(viewModel.content?.itemOverview ?? "")
+                                    .padding()
+                            }
+                            .navigationTitle(title)
+                        }
+                    }
+                    
+                    // Actions row
+                    HStack {
+                        VStack {
+                            watchlistButton
+                                .buttonStyle(.borderedProminent)
+                                .prefersDefaultFocus(in: tvOSActionNamespace)
+                                .focused($isWatchlistButtonFocused)
+                            Text(viewModel.isInWatchlist ? "Remove" : "Add")
+                                .padding(.top, 2)
+                                .font(.caption)
+                                .lineLimit(1)
+                                .opacity(isWatchlistInFocus ? 1 : 0)
+                        }
+                        .focused($isWatchlistInFocus)
+                        
+                        // Watch button
+                        VStack {
+                            watchButton
+                            Text("Watch")
+                                .padding(.top, 2)
+                                .font(.caption)
+                                .lineLimit(1)
+#if os(tvOS)
+                                .opacity(isWatchInFocus ? 1 : 0)
+#endif
+                            
+                        }
+                        
+                        // Favorite button
+                        VStack {
+                            favoriteButton
+                            Text("Favorite")
+                                .padding(.top, 2)
+                                .font(.caption)
+                                .lineLimit(1)
+#if os(tvOS)
+                                .opacity(isFavoriteInFocus ? 1 : 0)
+#endif
+                        }
+                    }
+                }
+                .frame(width: 700)
+                
+                quickInformationBoxView
+                    .frame(width: 400)
+                    .padding(.trailing)
+                
+                Spacer()
+            }
+            
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonListView(
+                    showID: id,
+                    showTitle: title,
+                    numberOfSeasons: seasons,
+                    isInWatchlist: $viewModel.isInWatchlist,
+                    showCover: viewModel.content?.cardImageLarge
+                )
+            }
+            
+            HorizontalItemContentListView(items: viewModel.recommendations,
+                                          title: NSLocalizedString("Recommendations", comment: ""),
+                                          showPopup: $showPopup,
+                                          popupType: $popupType,
+                                          displayAsCard: true)
+            
+            CastListView(credits: viewModel.credits)
+                .padding(.bottom)
+        }
+        .onAppear(perform: setupInitialFocus)
+        .ignoresSafeArea(.all, edges: .horizontal)
     }
 #endif
     
@@ -411,6 +533,7 @@ struct ItemContentDetails: View {
     }
 #endif
     
+#if !os(tvOS)
     @ViewBuilder
     private func infoBox(item: ItemContent?, type: MediaType) -> some View {
         GroupBox("Information") {
@@ -500,6 +623,7 @@ struct ItemContentDetails: View {
         }
         .groupBoxStyle(TransparentGroupBox())
     }
+#endif
     
     @ViewBuilder
     private func infoView(title: String, content: String?) -> some View {
@@ -536,6 +660,70 @@ extension ItemContentDetails {
 #endif
     
     // MARK: Action Buttons
+    private var watchlistButton: some View {
+        Button {
+            if viewModel.isInWatchlist {
+                if SettingsStore.shared.showRemoveConfirmation {
+                    showConfirmationPopup = true
+                } else {
+                    updateWatchlist()
+                }
+            } else {
+                HapticManager.shared.successHaptic()
+                updateWatchlist()
+            }
+        } label: {
+#if !os(macOS)
+            VStack {
+                if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *) {
+                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                        .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                                      value: viewModel.isInWatchlist)
+                } else {
+                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                }
+                
+#if !os(tvOS)
+                Text(viewModel.isInWatchlist ? "Remove" : "Add")
+                    .lineLimit(1)
+                    .padding(.top, 2)
+                    .font(.caption)
+#endif
+            }
+#if os(iOS) || os(tvOS)
+            .padding(.vertical, 4)
+            .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
+#else
+            .padding(.vertical, 2)
+#endif
+#else
+            Label(viewModel.isInWatchlist ? "Remove": "Add",
+                  systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+            .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                          value: viewModel.isInWatchlist)
+#endif
+        }
+        .buttonStyle(.borderedProminent)
+#if os(macOS)
+        .controlSize(.large)
+#elseif os(iOS)
+        .controlSize(.small)
+        .applyHoverEffect()
+#endif
+        .disabled(viewModel.isLoading)
+#if os(iOS) || os(macOS) || os(watchOS)
+        .tint(viewModel.isInWatchlist ? .red.opacity(0.95) : store.appTheme.color)
+#endif
+#if os(iOS)
+        .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+#endif
+        .alert("Are You Sure?", isPresented: $showConfirmationPopup) {
+            Button("Confirm") { updateWatchlist() }
+            Button("Cancel") {  showConfirmationPopup = false }
+        }
+    }
+    
+    
     private var watchButton: some View {
         Button {
             viewModel.update(.watched)
@@ -556,22 +744,29 @@ extension ItemContentDetails {
                 } else {
                     Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
                 }
+                
+#if !os(tvOS)
                 Text("Watched")
                     .padding(.top, 2)
                     .font(.caption)
                     .lineLimit(1)
+#endif
             }
             .padding(.vertical, 4)
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
 #endif
         }
+#if !os(tvOS)
         .keyboardShortcut("w", modifiers: [.option])
         .controlSize(.small)
+#endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
         .tint(.primary)
 #if os(iOS)
         .applyHoverEffect()
+#elseif os(tvOS)
+        .focused($isWatchInFocus)
 #endif
     }
     
@@ -590,21 +785,27 @@ extension ItemContentDetails {
                 } else {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                 }
+#if !os(tvOS)
                 Text("Favorite")
                     .padding(.top, 2)
                     .font(.caption)
                     .lineLimit(1)
+#endif
             }
             .padding(.vertical, 4)
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
         }
+#if !os(tvOS)
         .keyboardShortcut("f", modifiers: [.option])
         .controlSize(.small)
+#endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
         .tint(.primary)
 #if os(iOS)
         .applyHoverEffect()
+#elseif os(tvOS)
+        .focused($isFavoriteInFocus)
 #endif
     }
     
@@ -622,7 +823,9 @@ extension ItemContentDetails {
             .padding(.vertical, 4)
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
         }
+#if !os(tvOS)
         .controlSize(.small)
+#endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
         .tint(.primary)
@@ -776,7 +979,135 @@ extension ItemContentDetails {
     }
 #endif
     
+    // MARK: Information box
+    private var quickInformationBoxView: some View {
+        VStack(alignment: .leading) {
+            infoLabel(title: NSLocalizedString("Original Title",
+                                              comment: ""),
+                      content: viewModel.content?.originalItemTitle)
+            infoLabel(title: NSLocalizedString("Run Time", comment: ""),
+                      content: viewModel.content?.itemRuntime)
+            if let numberOfSeasons = viewModel.content?.numberOfSeasons, let numberOfEpisodes = viewModel.content?.numberOfEpisodes {
+                infoLabel(title: NSLocalizedString("Overview",
+                                                  comment: ""),
+                         content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+            }
+            if viewModel.content?.itemContentMedia == .movie {
+                if let theatricalStringDate = viewModel.content?.itemTheatricalString {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("Release Date")
+                                    .font(.caption)
+#if !os(tvOS)
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+#endif
+                            }
+                            Text(theatricalStringDate)
+                                .lineLimit(1)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                        .accessibilityElement(children: .combine)
+                    }
+                    .padding([.horizontal, .top], 2)
+                    .onTapGesture {
+                        showReleaseDateInfo.toggle()
+                    }
+                }
+                
+            } else {
+                infoLabel(title: NSLocalizedString("First Air Date",
+                                                  comment: ""),
+                          content: viewModel.content?.itemFirstAirDate)
+            }
+            infoLabel(title: NSLocalizedString("Region of Origin",
+                                              comment: ""),
+                      content: viewModel.content?.itemCountry)
+            infoLabel(title: NSLocalizedString("Genres", comment: ""),
+                      content: viewModel.content?.itemGenres)
+            if let companies = viewModel.content?.itemCompanies,
+               let company = viewModel.content?.itemCompany, !companies.isEmpty {
+                NavigationLink(value: companies) {
+                    companiesLabel(company: company)
+                }
+                .buttonStyle(.plain)
+            } else {
+                infoLabel(title: NSLocalizedString("Production Company",
+                                                  comment: ""),
+                          content: viewModel.content?.itemCompany)
+            }
+            infoLabel(title: NSLocalizedString("Status",
+                                              comment: ""),
+                      content: viewModel.content?.itemStatus.localizedTitle)
+        }
+        .sheet(isPresented: $showReleaseDateInfo) {
+            let productionRegion = viewModel.content?.productionCountries?.first?.iso31661 ?? "US"
+            DetailedReleaseDateView(item: viewModel.content?.releaseDates?.results, productionRegion: productionRegion,
+                                    dismiss: $showReleaseDateInfo)
+#if os(macOS)
+            .frame(width: 400, height: 300, alignment: .center)
+#else
+            .appTint()
+            .appTheme()
+#endif
+        }
+    }
+    
+    private func companiesLabel(company: String) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Production Companies")
+                        .font(.caption)
+#if !os(tvOS)
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+#endif
+                }
+                Text(company)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            .accessibilityElement(children: .combine)
+            Spacer()
+        }
+        .padding([.horizontal, .top], 2)
+    }
+    
+    @ViewBuilder
+    private func infoLabel(title: String, content: String?) -> some View {
+        if let content {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.caption)
+                    Text(content)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                Spacer()
+            }
+            .padding([.horizontal, .top], 2)
+        } else {
+            EmptyView()
+        }
+    }
+    
     // MARK: Functions
+    private func updateWatchlist() {
+        guard let item = viewModel.content else { return }
+        viewModel.updateWatchlist(with: item)
+        let settings = SettingsStore.shared
+        if settings.openListSelectorOnAdding && viewModel.isInWatchlist {
+            showCustomList.toggle()
+        }
+    }
+    
     private func resetPopupAnimation() {
         if showPopup { showPopup = false }
         if popupType != nil { popupType = nil }
@@ -789,6 +1120,17 @@ extension ItemContentDetails {
             showPopup = true
         }
     }
+    
+#if os(tvOS)
+    private func setupInitialFocus() {
+        if !hasFocused {
+            DispatchQueue.main.async {
+                isWatchlistButtonFocused = true
+                hasFocused = true
+            }
+        }
+    }
+#endif
     
     private func animate(for type: UpdateItemProperties) {
         switch type {
