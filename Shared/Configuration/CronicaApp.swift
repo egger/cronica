@@ -166,7 +166,7 @@ struct CronicaApp: App {
             }
             
             CommandGroup(replacing: .appInfo) {
-                Button("aboutTitle") {
+                Button("About") {
                     showAbout.toggle()
                 }
             }

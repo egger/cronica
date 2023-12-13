@@ -119,7 +119,6 @@ struct ItemContentPadView: View {
                 }
                 .frame(maxWidth: 460)
                 .padding(.bottom)
-#if os(iOS) || os(macOS)
                 .popover(isPresented: $showOverview) {
                     if let overview = viewModel.content?.itemOverview {
                         VStack {
@@ -131,7 +130,6 @@ struct ItemContentPadView: View {
                         .frame(minWidth: 200, maxWidth: 400, minHeight: 200, maxHeight: 300, alignment: .center)
                     }
                 }
-#endif
                 
                 // Actions
                 HStack {

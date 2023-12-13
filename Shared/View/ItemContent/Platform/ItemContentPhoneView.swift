@@ -45,32 +45,16 @@ struct ItemContentPhoneView: View {
             CastListView(credits: viewModel.credits)
             
             HorizontalItemContentListView(items: viewModel.recommendations,
-                                          title: "Recommendations",
+                                          title: NSLocalizedString("Recommendations", comment: ""),
                                           showPopup: $showPopup,
                                           popupType: $popupType,
                                           displayAsCard: true)
             
             infoBox(item: viewModel.content, type: type).padding()
-                .sheet(isPresented: $showReleaseDateInfo) {
-					let productionRegion = viewModel.content?.productionCountries?.first?.iso31661 ?? "US"
-					DetailedReleaseDateView(item: viewModel.content?.releaseDates?.results,
-											productionRegion: productionRegion,
-											dismiss: $showReleaseDateInfo)
-                }
+                
             
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack { }
-            }
-        }
-        .navigationTitle(title)
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            if !navigationTitle.isEmpty {
-                navigationTitle = String()
-            }
-        }
+        
     }
     
     private var actions: some View {
@@ -91,6 +75,8 @@ struct ItemContentPhoneView: View {
     private var watchButton: some View {
         Button {
             viewModel.update(.watched)
+            if showPopup { showPopup = false }
+            if popupType != nil { popupType = nil }
             popupType = viewModel.isWatched ? .markedWatched : .removedWatched
             withAnimation { showPopup = true }
         } label: {
@@ -106,7 +92,7 @@ struct ItemContentPhoneView: View {
                     .padding(.top, 2)
                     .font(.caption)
                     .lineLimit(1)
-            }
+            } 
             .padding(.vertical, 4)
             .frame(width: 75)
         }
@@ -121,6 +107,7 @@ struct ItemContentPhoneView: View {
     private var favoriteButton: some View {
         Button {
             viewModel.update(.favorite)
+            if showPopup { showPopup = false }
             popupType = viewModel.isFavorite ? .markedFavorite : .removedFavorite
             withAnimation { showPopup = true }
         } label: {
@@ -212,21 +199,17 @@ struct ItemContentPhoneView: View {
                     navigationTitle = title
                 }
 				.unredacted()
-            if let genres = viewModel.content?.itemGenres {
-                if !genres.isEmpty {
-                    Text(genres)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .fontDesign(.rounded)
-                }
+            if let genres = viewModel.content?.itemGenres, !genres.isEmpty {
+                Text(genres)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fontDesign(.rounded)
             }
-            if let info = viewModel.content?.itemQuickInfo {
-                if !info.isEmpty {
-                    Text(info)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .fontDesign(.rounded)
-                }
+            if let info = viewModel.content?.itemQuickInfo, !info.isEmpty {
+                Text(info)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fontDesign(.rounded)
             }
         }
     }

@@ -83,17 +83,6 @@
         }
       }
     },
-    "%lld Items" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld Items"
-          }
-        }
-      }
-    },
     "🛠️" : {
       "localizations" : {
         "en" : {
@@ -160,6 +149,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add & Mark Watched"
+          }
+        }
+      }
+    },
+    "Add everything you want, the Watchlist automatically organizes it for you." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add everything you want, the Watchlist automatically organizes it for you."
           }
         }
       }
@@ -250,6 +249,16 @@
         }
       }
     },
+    "Always Synced" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Always Synced"
+          }
+        }
+      }
+    },
     "Animation" : {
       "localizations" : {
         "en" : {
@@ -322,17 +331,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archived"
-          }
-        }
-      }
-    },
-    "Are you sure?" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Are you sure?"
           }
         }
       }
@@ -737,17 +735,6 @@
         }
       }
     },
-    "Connected Accounts" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connected Accounts"
-          }
-        }
-      }
-    },
     "Content Provider" : {
       "localizations" : {
         "en" : {
@@ -903,17 +890,6 @@
         }
       }
     },
-    "Deleted" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deleted"
-          }
-        }
-      }
-    },
     "Denmark" : {
       "localizations" : {
         "en" : {
@@ -1000,23 +976,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disable Translucent Background"
-          }
-        }
-      }
-    },
-    "Disconnect TMDB Account?" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disconnect TMDB Account?"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desconectar a Conta TMDB?"
           }
         }
       }
@@ -1434,6 +1393,16 @@
         }
       }
     },
+    "Get notifications about the newest releases." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get notifications about the newest releases."
+          }
+        }
+      }
+    },
     "GitHub" : {
       "localizations" : {
         "en" : {
@@ -1774,6 +1743,16 @@
         }
       }
     },
+    "Keep track of every episode you've watched." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep track of every episode you've watched."
+          }
+        }
+      }
+    },
     "Kids" : {
       "localizations" : {
         "en" : {
@@ -2062,6 +2041,9 @@
           }
         }
       }
+    },
+    "Never miss out" : {
+
     },
     "New List" : {
       "localizations" : {
@@ -2560,6 +2542,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Production Company"
+          }
+        }
+      }
+    },
+    "Provided by JustWatch" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Provided by JustWatch"
           }
         }
       }
@@ -3706,17 +3698,6 @@
         }
       }
     },
-    "This action can't be undone.\nThis will not delete the local list, just the one on TMDb." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action can't be undone.\nThis will not delete the local list, just the one on TMDb."
-          }
-        }
-      }
-    },
     "This content has been removed from TMDB, you can delete it." : {
       "localizations" : {
         "en" : {
@@ -3836,6 +3817,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes."
+          }
+        }
+      }
+    },
+    "Track your episodes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Track your episodes"
           }
         }
       }
@@ -4230,6 +4221,16 @@
         }
       }
     },
+    "Where to Watch" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Where to Watch"
+          }
+        }
+      }
+    },
     "X/Twitter" : {
       "localizations" : {
         "en" : {
@@ -4276,17 +4277,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You can choose to share using a Cronica link that will allow you to open the application.\nPlease note that not all content can be shared with a Cronica link, the application will always use TMDB links if necessary."
-          }
-        }
-      }
-    },
-    "You'll be able to see your lists and manage their content." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You'll be able to see your lists and manage their content."
           }
         }
       }
@@ -4343,6 +4333,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your upcoming items will appear here."
+          }
+        }
+      }
+    },
+    "Your Watchlist" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Watchlist"
+          }
+        }
+      }
+    },
+    "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV."
           }
         }
       }

@@ -22,8 +22,8 @@ struct WatchProvidersList: View {
     var body: some View {
         VStack {
             if isProvidersAvailable && settings.isWatchProviderEnabled {
-                TitleView(title: "Where to Watch",
-                          subtitle: "Provided by JustWatch",
+                TitleView(title: NSLocalizedString("Where to Watch", comment: ""),
+                          subtitle: NSLocalizedString("Provided by JustWatch", comment: ""),
                           showChevron: false)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
@@ -57,16 +57,6 @@ struct WatchProvidersList: View {
                 openLink()
             }
             Button("Cancel") { showConfirmation = false }
-        }
-    }
-    
-    private func openLink() {
-        if let link = link {
-#if os(macOS)
-            NSWorkspace.shared.open(link)
-#else
-            UIApplication.shared.open(link)
-#endif
         }
     }
     
@@ -122,6 +112,17 @@ extension WatchProvidersList {
         firstCheck = true
     }
     
+    private func openLink() {
+        if let link = link {
+#if os(macOS)
+            NSWorkspace.shared.open(link)
+#else
+            UIApplication.shared.open(link)
+#endif
+            CronicaTelemetry.shared.handleMessage("link_opened", for: "watch_provider_link")
+        }
+    }
+    
     @MainActor
     func load(id: ItemContent.ID, media: MediaType) async {
         do {
@@ -173,7 +174,7 @@ Can't load the provider for \(id) with media type of \(media.rawValue).
 Actual region: \(Locale.userRegion), selected region: \(settings.watchRegion.rawValue).
 Error: \(error.localizedDescription)
 """
-            CronicaTelemetry.shared.handleMessage(message, for: "WatchProvidersListViewModel.load()")
+            CronicaTelemetry.shared.handleMessage(message, for: "watch_provider_failed")
         }
     }
     

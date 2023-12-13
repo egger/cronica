@@ -22,7 +22,7 @@ struct AboutSettings: View {
                         Image("Cronica")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
+                            .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                             .shadow(radius: 5)
                         Text("Developed by Alexandre Madeira")
@@ -36,7 +36,6 @@ struct AboutSettings: View {
                 }
             }
             .listRowBackground(Color.clear)
-            
 #if os(iOS)
             Button {
                 requestReview()
