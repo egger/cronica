@@ -1905,6 +1905,9 @@
     "markThisSeasonAsWatched" : {
 
     },
+    "Media Filter" : {
+
+    },
     "Media Type" : {
       "localizations" : {
         "en" : {
@@ -2228,6 +2231,9 @@
           }
         }
       }
+    },
+    "Nuke" : {
+
     },
     "Official Website" : {
       "localizations" : {
@@ -2989,6 +2995,7 @@
       }
     },
     "SDWebImage" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3253,6 +3260,9 @@
           }
         }
       }
+    },
+    "Show All Items" : {
+
     },
     "Show Date in Watchlist" : {
       "localizations" : {

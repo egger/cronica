@@ -184,7 +184,7 @@ struct DefaultWatchlist: View {
 #endif
         }
         .toolbar {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
             ToolbarItem(placement: .navigationBarLeading) {
                 styleButton
             }

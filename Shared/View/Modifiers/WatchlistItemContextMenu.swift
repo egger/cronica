@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct WatchlistItemContextMenu: ViewModifier {
 	let item: WatchlistItem
@@ -48,7 +47,9 @@ struct WatchlistItemContextMenu: ViewModifier {
 				favoriteButton
 				pinButton
 				archiveButton
+                #if !os(visionOS)
 				customListButton
+                #endif
 				reviewButton
 				Divider()
 				deleteButton

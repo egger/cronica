@@ -9,7 +9,7 @@ import SwiftUI
 
 /// Renders the Settings UI for each OS, support iOS, macOS, and tvOS.
 struct SettingsView: View {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
     static let tag: Screens? = .settings
     @State private var showPolicy = false
     @State private var showWhatsNew = false
@@ -21,7 +21,7 @@ struct SettingsView: View {
     }
     
     private var settings: some View {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         NavigationStack {
             Form {
                 Section {

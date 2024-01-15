@@ -194,7 +194,7 @@ struct CompanyDetails: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(tvOS)
+#if os(macOS) || os(tvOS) || os(visionOS)
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: 240))]
 #else
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]

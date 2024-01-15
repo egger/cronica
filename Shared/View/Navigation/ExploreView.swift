@@ -350,7 +350,7 @@ struct ExploreView: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let columns = [GridItem(.adaptive(minimum: 240))]
 #elseif os(tvOS)

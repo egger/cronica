@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct ItemContentDetails: View {
     var title: String
@@ -43,7 +43,7 @@ struct ItemContentDetails: View {
     var body: some View {
         VStack {
             ScrollView {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
                 sizeBasedPadMacView
 #elseif os(iOS)
                 if UIDevice.isIPad {
@@ -96,9 +96,11 @@ struct ItemContentDetails: View {
         }
 #endif
         .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
+#if !os(visionOS)
         .background {
             TranslucentBackground(image: viewModel.showPoster ? viewModel.content?.posterImageLarge : viewModel.content?.cardImageLarge)
         }
+#endif
         .task {
             await viewModel.load(id: id, type: type)
             viewModel.registerNotification()
@@ -201,7 +203,7 @@ struct ItemContentDetails: View {
                 listButton
                     .padding(.trailing)
             }
-            .padding(.top)
+            .padding([.top, .horizontal])
             
             OverviewBoxView(overview: viewModel.content?.itemOverview,
                             title: title).padding()
@@ -318,7 +320,9 @@ struct ItemContentDetails: View {
                                numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium).padding(0)
             }
             
+#if !os(visionOS)
             TrailerListView(trailers: viewModel.trailers)
+#endif
             
             WatchProvidersList(id: id, type: type)
             
@@ -462,9 +466,12 @@ struct ItemContentDetails: View {
 #endif
     
     private var poster: some View {
-        WebImage(url: viewModel.content?.posterImageMedium)
-            .resizable()
-            .placeholder {
+        LazyImage(url: viewModel.content?.posterImageMedium) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
                 ZStack {
                     Rectangle().fill(.gray.gradient)
                     VStack {
@@ -479,28 +486,29 @@ struct ItemContentDetails: View {
                     .padding()
                 }
             }
-            .overlay {
-                ZStack {
-                    Rectangle().fill(.thinMaterial)
-                    Image(systemName: animationImage)
-                        .symbolRenderingMode(.multicolor)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 120, height: 120, alignment: .center)
-                        .scaleEffect(animateGesture ? 1.1 : 1)
-                }
-                .opacity(animateGesture ? 1 : 0)
+        }
+        .overlay {
+            ZStack {
+                Rectangle().fill(.thinMaterial)
+                Image(systemName: animationImage)
+                    .symbolRenderingMode(.multicolor)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .scaleEffect(animateGesture ? 1.1 : 1)
             }
-            .aspectRatio(contentMode: .fill)
-            .frame(width: DrawingConstants.posterWidth, height: DrawingConstants.posterHeight)
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .onTapGesture(count: 2) {
-                animate(for: store.gesture)
-                viewModel.update(store.gesture)
-            }
-            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
-            .padding()
-            .accessibility(hidden: true)
+            .opacity(animateGesture ? 1 : 0)
+        }
+        
+        .frame(width: DrawingConstants.posterWidth, height: DrawingConstants.posterHeight)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .onTapGesture(count: 2) {
+            animate(for: store.gesture)
+            viewModel.update(store.gesture)
+        }
+        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+        .padding()
+        .accessibility(hidden: true)
     }
     
 #if os(iOS)
@@ -762,7 +770,9 @@ extension ItemContentDetails {
 #endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+        #if !os(visionOS)
         .tint(.primary)
+        #endif
 #if os(iOS)
         .applyHoverEffect()
 #elseif os(tvOS)
@@ -801,7 +811,9 @@ extension ItemContentDetails {
 #endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+        #if !os(visionOS)
         .tint(.primary)
+        #endif
 #if os(iOS)
         .applyHoverEffect()
 #elseif os(tvOS)
@@ -828,7 +840,9 @@ extension ItemContentDetails {
 #endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+        #if !os(visionOS)
         .tint(.primary)
+        #endif
 #if os(iOS)
         .applyHoverEffect()
 #endif
@@ -960,6 +974,19 @@ extension ItemContentDetails {
     
     private var moreMenu: some View {
         Menu("More Options", systemImage: "ellipsis.circle") {
+#if os(visionOS)
+            if viewModel.isInWatchlist {
+                if type == .movie {
+                    favoriteButtonToolbar
+                } else {
+                    watchButtonToolbar
+                }
+                archiveButtonToolbar
+                pinButtonToolbar
+                reviewButtonToolbar
+            }
+            openInMenu
+#else
             if UIDevice.isIPhone {
                 if viewModel.isInWatchlist {
                     if type == .movie {
@@ -973,6 +1000,8 @@ extension ItemContentDetails {
                 }
             }
             openInMenu
+#endif
+            
         }
         .labelStyle(.iconOnly)
         .disabled(viewModel.isLoading ? true : false)
@@ -983,14 +1012,14 @@ extension ItemContentDetails {
     private var quickInformationBoxView: some View {
         VStack(alignment: .leading) {
             infoLabel(title: NSLocalizedString("Original Title",
-                                              comment: ""),
+                                               comment: ""),
                       content: viewModel.content?.originalItemTitle)
             infoLabel(title: NSLocalizedString("Run Time", comment: ""),
                       content: viewModel.content?.itemRuntime)
             if let numberOfSeasons = viewModel.content?.numberOfSeasons, let numberOfEpisodes = viewModel.content?.numberOfEpisodes {
                 infoLabel(title: NSLocalizedString("Overview",
-                                                  comment: ""),
-                         content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+                                                   comment: ""),
+                          content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
             }
             if viewModel.content?.itemContentMedia == .movie {
                 if let theatricalStringDate = viewModel.content?.itemTheatricalString {
@@ -1020,11 +1049,11 @@ extension ItemContentDetails {
                 
             } else {
                 infoLabel(title: NSLocalizedString("First Air Date",
-                                                  comment: ""),
+                                                   comment: ""),
                           content: viewModel.content?.itemFirstAirDate)
             }
             infoLabel(title: NSLocalizedString("Region of Origin",
-                                              comment: ""),
+                                               comment: ""),
                       content: viewModel.content?.itemCountry)
             infoLabel(title: NSLocalizedString("Genres", comment: ""),
                       content: viewModel.content?.itemGenres)
@@ -1036,11 +1065,11 @@ extension ItemContentDetails {
                 .buttonStyle(.plain)
             } else {
                 infoLabel(title: NSLocalizedString("Production Company",
-                                                  comment: ""),
+                                                   comment: ""),
                           content: viewModel.content?.itemCompany)
             }
             infoLabel(title: NSLocalizedString("Status",
-                                              comment: ""),
+                                               comment: ""),
                       content: viewModel.content?.itemStatus.localizedTitle)
         }
         .sheet(isPresented: $showReleaseDateInfo) {
@@ -1148,7 +1177,7 @@ extension ItemContentDetails {
     
 #if !os(tvOS)
     private func openUrl(for url: URL) {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         UIApplication.shared.open(url)
 #else
         NSWorkspace.shared.open(url)
@@ -1167,7 +1196,7 @@ private struct DrawingConstants {
 #elseif os(tvOS)
     static let posterWidth: CGFloat = 450
     static let posterHeight: CGFloat = 700
-#elseif os(macOS)
+#elseif os(macOS) || os(visionOS)
     static let posterWidth: CGFloat = 280
     static let posterHeight: CGFloat = 440
 #endif

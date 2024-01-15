@@ -23,7 +23,7 @@ struct SearchView: View {
         VStack {
 #if os(iOS)
             listView
-#elseif os(tvOS) || os(macOS)
+#elseif os(tvOS) || os(macOS) || os(visionOS)
             posterView
 #endif
         }
@@ -80,7 +80,7 @@ struct SearchView: View {
                 .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         }
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         .searchable(text: $viewModel.query,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: Text("Movies, Shows, People"))
@@ -107,7 +107,7 @@ struct SearchView: View {
 #endif
     }
     
-#if !os(tvOS)
+#if os(iOS) || os(macOS) || os(visionOS)
     @ViewBuilder
     private var listView: some View {
         switch viewModel.stage {
@@ -161,7 +161,7 @@ struct SearchView: View {
     }
 #endif
     
-#if os(tvOS) || os(macOS)
+#if os(tvOS) || os(macOS) || os(visionOS)
     @ViewBuilder
     private var posterView: some View {
         switch viewModel.stage {

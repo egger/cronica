@@ -84,7 +84,7 @@ struct NewCustomListView: View {
 }
 
 #Preview {
-#if os(iOS) || os(watchOS) || os(tvOS)
+#if os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
         NewCustomListView(presentView: .constant(true), newSelectedList: .constant(nil))
 #elseif os(macOS)
         NewCustomListView(isPresentingNewList: .constant(false),

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct WatchlistItemPosterView: View {
     let content: WatchlistItem
@@ -73,13 +73,7 @@ struct WatchlistItemPosterView: View {
     }
     
     private var image: some View {
-        WebImage(url: content.backCompatiblePosterImage)
-            .resizable()
-            .placeholder {
-                PosterPlaceholder(title: content.itemTitle, type: content.itemMedia)
-            }
-            .aspectRatio(contentMode: .fill)
-            .transition(.opacity)
+        WatchlistPosterImageView(item: content)
             .overlay {
                 if isInWatchlist {
                     VStack {
@@ -190,6 +184,22 @@ struct WatchlistItemPosterView: View {
 
 #Preview {
     WatchlistItemPosterView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
+}
+
+private struct WatchlistPosterImageView: View {
+    let item: WatchlistItem
+    var body: some View {
+        LazyImage(url: item.backCompatiblePosterImage) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
+            } else {
+                PosterPlaceholder(title: item.itemTitle, type: item.itemMedia)
+            }
+        }
+    }
 }
 
 private struct DrawingConstants {

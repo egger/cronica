@@ -4,7 +4,7 @@
 //
 //  Created by Alexandre Madeira on 29/08/22.
 //
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 import SwiftUI
 import CoreData
 

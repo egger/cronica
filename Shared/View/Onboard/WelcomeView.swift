@@ -44,12 +44,10 @@ struct WelcomeView: View {
             Spacer()
             HStack {
                 Spacer()
-                Button {
+                Button("Continue") {
                     withAnimation {
                         displayOnboard.toggle()
                     }
-                } label: {
-                    Text("Continue")
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color.blue.gradient)

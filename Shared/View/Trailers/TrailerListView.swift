@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 #if os(iOS) || os(macOS)
 struct TrailerListView: View {

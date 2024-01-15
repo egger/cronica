@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct PersonDetailsView: View {
     let name: String
@@ -104,10 +104,14 @@ struct PersonDetailsView: View {
                 ZStack {
                     Rectangle().fill(.black).ignoresSafeArea(.all)
                     VStack {
-                        WebImage(url: person?.originalPersonImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .padding()
+                        LazyImage(url: person?.originalPersonImage) { state in
+                            if let image = state.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .padding()
+                            }
+                        }
                     }
                 }
                 .toolbar {
@@ -176,25 +180,7 @@ struct PersonDetailsView: View {
 #endif
     
     private var imageProfile: some View {
-        WebImage(url: person?.personImage)
-            .resizable()
-            .placeholder {
-                ZStack {
-                    Circle().fill(.gray.gradient)
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .foregroundColor(.white.opacity(0.8))
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .unredacted()
-                }
-                .clipShape(Circle())
-            }
-            .aspectRatio(contentMode: .fill)
-            .transition(.opacity)
-            .clipShape(Circle())
-            .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-            .shadow(radius: DrawingConstants.imageShadow)
-            .accessibilityHidden(true)
+        PersonImageProfileView(person: person)
             .onTapGesture {
 #if os(iOS)
                 showImageFullscreen.toggle()
@@ -215,7 +201,7 @@ private struct DrawingConstants {
 #elseif os(iOS)
     static let imageWidth: CGFloat = UIDevice.isIPad ? 250 : 150
     static let imageHeight: CGFloat = UIDevice.isIPad ? 250 : 150
-    #else
+#else
     static let imageWidth: CGFloat = 100
     static let imageHeight: CGFloat = 100
 #endif
@@ -247,5 +233,33 @@ private extension PersonDetailsView {
                 CronicaTelemetry.shared.handleMessage(message, for: "PersonDetailsViewModel.load()")
             }
         }
+    }
+}
+
+private struct PersonImageProfileView: View {
+    let person: Person?
+    var body: some View {
+        LazyImage(url: person?.personImage) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                ZStack {
+                    Circle().fill(.gray.gradient)
+                    Image(systemName: "person.fill")
+                        .resizable()
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(width: 50, height: 50, alignment: .center)
+                        .unredacted()
+                }
+                .clipShape(Circle())
+            }
+        }
+        .transition(.opacity)
+        .clipShape(Circle())
+        .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
+        .shadow(radius: DrawingConstants.imageShadow)
+        .accessibilityHidden(true)
     }
 }

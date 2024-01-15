@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct VerticalUpNextListView: View {
     @FetchRequest(
@@ -20,17 +20,17 @@ struct VerticalUpNextListView: View {
     @State private var selectedEpisode: UpNextEpisode?
     @State private var query = String()
     @State private var queryResult = [UpNextEpisode]()
-	@StateObject private var settings = SettingsStore.shared
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
-			if settings.upNextStyle == .card {
+            if settings.upNextStyle == .card {
                 ScrollViewReader { proxy in
                     ScrollView {
                         LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                             if !queryResult.isEmpty {
                                 ForEach(queryResult) { item in
                                     VStack(alignment: .leading) {
-                                        upNextCard(item: item)
+                                        UpNextCardView(item: item)
                                             .contextMenu {
                                                 if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                     Button("Show Details") {
@@ -67,7 +67,7 @@ struct VerticalUpNextListView: View {
                             } else {
                                 ForEach(viewModel.episodes) { item in
                                     VStack(alignment: .leading) {
-                                        upNextCard(item: item)
+                                        UpNextCardView(item: item)
                                             .contextMenu {
                                                 if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                     Button("Show Details") {
@@ -101,7 +101,7 @@ struct VerticalUpNextListView: View {
                                 }
                             }
                         }
-                        .onChange(of: viewModel.isWatched) { _ in 
+                        .onChange(of: viewModel.isWatched) { _ in
                             guard let first = viewModel.episodes.first else { return }
                             if viewModel.isWatched {
                                 withAnimation {
@@ -122,7 +122,7 @@ struct VerticalUpNextListView: View {
                         List {
                             if !queryResult.isEmpty {
                                 ForEach(queryResult) { item in
-                                    upNextRowItem(item)
+                                    UpNextCardItemView(item: item)
                                         .onTapGesture {
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                 Task { await viewModel.markAsWatched(item) }
@@ -135,7 +135,7 @@ struct VerticalUpNextListView: View {
                                 EmptyView()
                             } else {
                                 ForEach(viewModel.episodes) { item in
-                                    upNextRowItem(item)
+                                    UpNextCardItemView(item: item)
                                         .onTapGesture {
                                             if SettingsStore.shared.markEpisodeWatchedOnTap {
                                                 Task { await viewModel.markAsWatched(item) }
@@ -153,7 +153,7 @@ struct VerticalUpNextListView: View {
                     }
                 }
 #if os(macOS)
-				.formStyle(.grouped)
+                .formStyle(.grouped)
 #endif
             }
         }
@@ -234,31 +234,35 @@ struct VerticalUpNextListView: View {
 #endif
     }
     
-    private func upNextCard(item: UpNextEpisode) -> some View {
-        WebImage(url: item.episode.itemImageMedium ?? item.backupImage)
-            .resizable()
-            .placeholder {
-                ZStack {
-                    Rectangle().fill(.gray.gradient)
-                    Image(systemName: "sparkles.tv")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.white.opacity(0.8))
-                        .frame(width: 40, height: 40, alignment: .center)
+#if os(iOS) || os(macOS)
+    private var styleOptions: some View {
+        Menu {
+            Picker(selection: $settings.upNextStyle) {
+                ForEach(UpNextDetailsPreferredStyle.allCases) { item in
+                    Text(item.title).tag(item)
                 }
+            } label: {
+                Label("Display Style", systemImage: "circle.grid.2x2")
             }
-            .aspectRatio(contentMode: .fill)
-            .frame(width: DrawingConstants.imageWidth,
-                   height: DrawingConstants.imageHeight)
-            .transition(.opacity)
-            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-            .shadow(radius: 2)
+        } label: {
+            Label("Display Style", systemImage: "circle.grid.2x2")
+                .labelStyle(.iconOnly)
+        }
     }
-    
-    private func upNextRowItem(_ item: UpNextEpisode) -> some View {
+#endif
+}
+
+private struct UpNextCardItemView: View {
+    let item: UpNextEpisode
+    @StateObject private var settings: SettingsStore = .shared
+    var body: some View {
         HStack {
-            WebImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage)
-                .placeholder {
+            LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
                         Image(systemName: "sparkles.tv")
@@ -266,11 +270,10 @@ struct VerticalUpNextListView: View {
                     }
                     .frame(width: 80, height: 50)
                 }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .transition(.opacity)
-                .frame(width: 80, height: 50)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            }
+            .transition(.opacity)
+            .frame(width: 80, height: 50)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             VStack(alignment: .leading) {
                 Text(item.showTitle)
                     .font(.callout)
@@ -285,23 +288,32 @@ struct VerticalUpNextListView: View {
             Spacer()
         }
     }
-    
-#if os(iOS) || os(macOS)
-    private var styleOptions: some View {
-        Menu {
-			Picker(selection: $settings.upNextStyle) {
-                ForEach(UpNextDetailsPreferredStyle.allCases) { item in
-                    Text(item.title).tag(item)
+}
+
+private struct UpNextCardView: View {
+    let item: UpNextEpisode
+    @StateObject private var settings: SettingsStore = .shared
+    var body: some View {
+        LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    Image(systemName: "sparkles.tv")
+                        .foregroundColor(.white.opacity(0.8))
                 }
-            } label: {
-                Label("Display Style", systemImage: "circle.grid.2x2")
+                .frame(width: 80, height: 50)
             }
-        } label: {
-            Label("Display Style", systemImage: "circle.grid.2x2")
-                .labelStyle(.iconOnly)
         }
+        .frame(width: DrawingConstants.imageWidth,
+               height: DrawingConstants.imageHeight)
+        .transition(.opacity)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+        .shadow(radius: 2)
     }
-#endif
 }
 
 extension VerticalUpNextListView {

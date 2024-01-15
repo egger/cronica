@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct NewListItemSelectorRow: View {
     let item: WatchlistItem
@@ -29,26 +29,29 @@ struct NewListItemSelectorRow: View {
                     .foregroundColor(isSelected ? SettingsStore.shared.appTheme.color : nil)
                     .imageScale(.medium)
                     .padding(.trailing, 4)
-                WebImage(url: item.backCompatibleCardImage)
-                    .resizable()
-                    .placeholder {
+                LazyImage(url: item.backCompatibleCardImage) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
                             Image(systemName: "popcorn.fill")
                         }
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 70, height: 50)
-                    .cornerRadius(8)
-                    .overlay {
-                        if isSelected {
-                            ZStack {
-                                Rectangle().fill(.black.opacity(0.4))
-                            }
-                            .cornerRadius(8)
+                }
+                .frame(width: 70, height: 50)
+                .cornerRadius(8)
+                .overlay {
+                    if isSelected {
+                        ZStack {
+                            Rectangle().fill(.black.opacity(0.4))
                         }
+                        .cornerRadius(8)
                     }
-                    .padding(.trailing, 4)
+                }
+                .padding(.trailing, 4)
                 VStack(alignment: .leading) {
                     Text(item.itemTitle)
                         .lineLimit(1)

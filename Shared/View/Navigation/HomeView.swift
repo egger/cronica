@@ -215,6 +215,25 @@ struct HomeView: View {
                 .accessibilityLabel("Notifications")
                 .applyHoverEffect()
             }
+            #elseif os(visionOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showNotifications.toggle()
+                } label: {
+                    Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                        .fontDesign(.rounded)
+                        .fontWeight(.semibold)
+                        .imageScale(.medium)
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                .buttonStyle(.borderedProminent)
+                .contentShape(Circle())
+                .clipShape(Circle())
+                .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                .shadow(radius: 2.5)
+                .accessibilityLabel("Notifications")
+                .applyHoverEffect()
+            }
 #endif
         }
         .sheet(isPresented: $displayOnboard) {

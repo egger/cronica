@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct DetailedPeopleList: View {
     let items: [Person]
@@ -18,7 +18,7 @@ struct DetailedPeopleList: View {
                 Section {
                     List {
                         ForEach(items, id: \.personListID) { item in
-                            personItemRow(person: item)
+                            PersonItemRow(person: item)
                         }
                     }
                 }
@@ -36,7 +36,7 @@ struct DetailedPeopleList: View {
                     Section {
                         List {
                             ForEach(filteredItems, id: \.personListID) { item in
-                                personItemRow(person: item)
+                                PersonItemRow(person: item)
                             }
                         }
                     }
@@ -57,12 +57,35 @@ struct DetailedPeopleList: View {
         .autocorrectionDisabled()
     }
     
-    private func personItemRow(person: Person) -> some View {
+}
+
+extension DetailedPeopleList {
+    private func search() async {
+        try? await Task.sleep(nanoseconds: 200_000_000)
+        if !filteredItems.isEmpty { filteredItems.removeAll() }
+        filteredItems.append(contentsOf: items.filter {
+            ($0.name.localizedStandardContains(query)) as Bool
+            || ($0.name.localizedStandardContains(query)) as Bool
+            || ($0.personRole?.localizedStandardContains(query) ?? false) as Bool
+        })
+    }
+}
+
+#Preview {
+    DetailedPeopleList(items: ItemContent.example.credits?.cast ?? [])
+}
+
+private struct PersonItemRow: View {
+    let person: Person
+    var body: some View {
         NavigationLink(value: person) {
             HStack {
-                WebImage(url: person.personImage)
-                    .resizable()
-                    .placeholder {
+                LazyImage(url: person.personImage) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
                             Image(systemName: "person")
@@ -70,11 +93,11 @@ struct DetailedPeopleList: View {
                         }
                         .frame(width: 60, height: 60, alignment: .center)
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 60)
-                    .clipShape(Circle())
-                    .shadow(radius: 2)
-                    .padding(.trailing)
+                }
+                .frame(width: 60)
+                .clipShape(Circle())
+                .shadow(radius: 2)
+                .padding(.trailing)
                 VStack(alignment: .leading) {
                     Text(person.name)
                         .lineLimit(1)
@@ -96,20 +119,4 @@ struct DetailedPeopleList: View {
         .buttonStyle(.plain)
         .accessibilityHint(Text(person.name))
     }
-}
-
-extension DetailedPeopleList {
-    private func search() async {
-        try? await Task.sleep(nanoseconds: 200_000_000)
-        if !filteredItems.isEmpty { filteredItems.removeAll() }
-        filteredItems.append(contentsOf: items.filter {
-            ($0.name.localizedStandardContains(query)) as Bool
-            || ($0.name.localizedStandardContains(query)) as Bool
-            || ($0.personRole?.localizedStandardContains(query) ?? false) as Bool
-        })
-    }
-}
-
-#Preview {
-    DetailedPeopleList(items: ItemContent.example.credits?.cast ?? [])
 }

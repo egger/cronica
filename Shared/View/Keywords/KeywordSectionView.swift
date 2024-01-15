@@ -171,7 +171,7 @@ struct KeywordSectionView: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: 240))]
 #elseif os(tvOS)
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: 420))]

@@ -80,8 +80,8 @@ struct AboutSettings: View {
             
             Section("Libraries") {
                 aboutButton(
-                    title: NSLocalizedString("SDWebImage", comment: ""),
-                    url: "https://github.com/SDWebImage/SDWebImageSwiftUI"
+                    title: NSLocalizedString("Nuke", comment: ""),
+                    url: "https://github.com/kean/Nuke"
                 )
                 aboutButton(
                     title: NSLocalizedString("TelemetryDeck", comment: ""),

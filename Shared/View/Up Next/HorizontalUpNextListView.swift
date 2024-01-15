@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct HorizontalUpNextListView: View {
     @Binding var shouldReload: Bool
@@ -29,7 +29,7 @@ struct HorizontalUpNextListView: View {
                         TitleView(title: NSLocalizedString("Up Next", comment: ""),
                                   subtitle: NSLocalizedString("Your Next Episodes", comment: ""),
                                   showChevron: true)
-                            .unredacted()
+                        .unredacted()
                     }
                     .disabled(!viewModel.isLoaded)
                     .buttonStyle(.plain)
@@ -37,7 +37,7 @@ struct HorizontalUpNextListView: View {
                     TitleView(title: NSLocalizedString("Up Next", comment: ""),
                               subtitle: NSLocalizedString("Your Next Episodes", comment: ""),
                               showChevron: false)
-                        .padding(.leading, 64)
+                    .padding(.leading, 64)
 #endif
                     
                     ScrollViewReader { proxy in
@@ -54,81 +54,132 @@ struct HorizontalUpNextListView: View {
                                         .buttonStyle(.card)
                                         .environmentObject(viewModel)
 #else
-                                    if !settings.isCompactUI {
-                                        upNextCard(item)
-                                            .applyHoverEffect()
-                                            .contextMenu {
-                                                Button("Show Details") {
-                                                    selectedEpisode = item
-                                                }
-                                                Button("Skip this episode") {
-                                                    viewModel.skipEpisode(for: item)
-                                                }
-                                            }
-                                            .padding([.leading, .trailing], 4)
-                                            .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
-                                            .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : 0)
-                                            .padding(.top, 8)
-                                            .padding(.bottom)
-                                            .onTapGesture {
-                                                if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                    Task {
-														await viewModel.markAsWatched(item)
-														guard let first = viewModel.episodes.first else { return }
-														withAnimation {
-															proxy.scrollTo(first.id, anchor: .topLeading)
-														}
-													}
-                                                } else {
-                                                    selectedEpisode = item
-                                                }
-                                            }
-                                    } else {
-                                        VStack {
-                                            upNextCard(item)
-                                            HStack {
-                                                VStack(alignment: .leading) {
-                                                    Text(item.showTitle)
-                                                        .font(.caption)
-                                                        .lineLimit(1)
-                                                    Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                                                        .font(.caption)
-                                                        .textCase(.uppercase)
-                                                        .foregroundColor(.secondary)
-                                                        .lineLimit(1)
-                                                    Spacer()
-                                                }
-                                                Spacer()
-                                            }
-                                        }
-                                        .frame(width: DrawingConstants.compactImageWidth)
-                                        .contextMenu {
-                                            Button("Show Details") {
-                                                selectedEpisode = item
-                                            }
-                                            Button("Skip this episode") {
-                                                viewModel.skipEpisode(for: item)
-                                            }
-                                        }
-                                        .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
-                                        .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : 0)
-                                        .padding(.top, 8)
-                                        .padding(.bottom)
-                                        .onTapGesture {
-                                            if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                                Task {
-													await viewModel.markAsWatched(item)
-													guard let first = viewModel.episodes.first else { return }
-													withAnimation {
-														proxy.scrollTo(first.id, anchor: .topLeading)
-													}
-												}
+                                    
+                                    ZStack {
+                                        LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageMedium ?? item.backupImage) { state in
+                                            if let image = state.image {
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
                                             } else {
-                                                selectedEpisode = item
+                                                ZStack {
+                                                    Rectangle().fill(.gray.gradient)
+                                                    Image(systemName: "popcorn.fill")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fit)
+                                                        .foregroundColor(.white.opacity(0.8))
+                                                        .frame(width: 40, height: 40, alignment: .center)
+                                                        .unredacted()
+                                                }
+                                            }
+                                        }
+                                        
+                                        .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
+                                               height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
+                                        .transition(.opacity)
+                                        if !settings.isCompactUI {
+                                            VStack(alignment: .leading) {
+                                                Spacer()
+                                                ZStack(alignment: .bottom) {
+                                                    Color.black.opacity(0.4)
+                                                        .frame(height: 50)
+                                                        .mask {
+                                                            LinearGradient(colors: [Color.black,
+                                                                                    Color.black.opacity(0.924),
+                                                                                    Color.black.opacity(0.707),
+                                                                                    Color.black.opacity(0.383),
+                                                                                    Color.black.opacity(0)],
+                                                                           startPoint: .bottom,
+                                                                           endPoint: .top)
+                                                        }
+                                                    Rectangle()
+                                                        .fill(.ultraThinMaterial)
+                                                        .frame(height: 70)
+                                                        .mask {
+                                                            VStack(spacing: 0) {
+                                                                LinearGradient(colors: [Color.black.opacity(0),
+                                                                                        Color.black.opacity(0.383),
+                                                                                        Color.black.opacity(0.707),
+                                                                                        Color.black.opacity(0.924),
+                                                                                        Color.black],
+                                                                               startPoint: .top,
+                                                                               endPoint: .bottom)
+                                                                .frame(height: 50)
+                                                                Rectangle()
+                                                            }
+                                                        }
+                                                    
+                                                    HStack {
+                                                        VStack(alignment: .leading) {
+                                                            Text(item.showTitle)
+                                                                .font(.callout)
+                                                                .foregroundColor(.white)
+                                                                .fontWeight(.semibold)
+                                                                .lineLimit(1)
+                                                            Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                                                                .font(.caption)
+                                                                .textCase(.uppercase)
+                                                                .foregroundColor(.white.opacity(0.8))
+                                                                .lineLimit(1)
+                                                        }
+                                                        Spacer()
+                                                    }
+                                                    .padding(.bottom, 8)
+                                                    .padding(.leading)
+                                                }
                                             }
                                         }
                                     }
+                                    .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
+                                           height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
+                                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                                    .shadow(radius: 2.5)
+                                    .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
+                                    .accessibilityAddTraits(.isButton)
+                                    .applyHoverEffect()
+                                    .contextMenu {
+                                        Button("Show Details") {
+                                            selectedEpisode = item
+                                        }
+                                        Button("Skip this episode") {
+                                            viewModel.skipEpisode(for: item)
+                                        }
+                                    }
+                                    .padding([.leading, .trailing], 4)
+                                    .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
+                                    .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : 0)
+                                    .padding(.top, 8)
+                                    .padding(.bottom)
+                                    .onTapGesture {
+                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
+                                            Task {
+                                                await viewModel.markAsWatched(item)
+                                                guard let first = viewModel.episodes.first else { return }
+                                                withAnimation {
+                                                    proxy.scrollTo(first.id, anchor: .topLeading)
+                                                }
+                                            }
+                                        } else {
+                                            selectedEpisode = item
+                                        }
+                                    }
+                                    if settings.isCompactUI {
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text(item.showTitle)
+                                                    .font(.caption)
+                                                    .lineLimit(1)
+                                                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                                                    .font(.caption)
+                                                    .textCase(.uppercase)
+                                                    .foregroundColor(.secondary)
+                                                    .lineLimit(1)
+                                                Spacer()
+                                            }
+                                            Spacer()
+                                        }
+                                    }
+                                    
 #endif
                                 }
                             }
@@ -183,7 +234,7 @@ struct HorizontalUpNextListView: View {
                                        showTitle: item.showTitle,
                                        isWatched: $viewModel.isWatched,
                                        isUpNext: true)
-#if os(macOS) || os(iOS)
+#if os(macOS) || os(iOS) || os(visionOS)
                     .toolbar { Button("Done") { self.selectedEpisode = nil } }
 #endif
                     .navigationDestination(for: ItemContent.self) { item in
@@ -220,89 +271,8 @@ struct HorizontalUpNextListView: View {
         }
     }
     
-    private func upNextCard(_ item: UpNextEpisode) -> some View {
-        ZStack {
-            WebImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageMedium ?? item.backupImage)
-                .resizable()
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                        Image(systemName: "popcorn.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.white.opacity(0.8))
-                            .frame(width: 40, height: 40, alignment: .center)
-							.unredacted()
-                    }
-                }
-                .aspectRatio(contentMode: .fill)
-                .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
-                       height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
-                .transition(.opacity)
-            if !settings.isCompactUI {
-                VStack(alignment: .leading) {
-                    Spacer()
-                    ZStack(alignment: .bottom) {
-                        Color.black.opacity(0.4)
-                            .frame(height: 50)
-                            .mask {
-                                LinearGradient(colors: [Color.black,
-                                                        Color.black.opacity(0.924),
-                                                        Color.black.opacity(0.707),
-                                                        Color.black.opacity(0.383),
-                                                        Color.black.opacity(0)],
-                                               startPoint: .bottom,
-                                               endPoint: .top)
-                            }
-                        Rectangle()
-                            .fill(.ultraThinMaterial)
-                            .frame(height: 70)
-                            .mask {
-                                VStack(spacing: 0) {
-                                    LinearGradient(colors: [Color.black.opacity(0),
-                                                            Color.black.opacity(0.383),
-                                                            Color.black.opacity(0.707),
-                                                            Color.black.opacity(0.924),
-                                                            Color.black],
-                                                   startPoint: .top,
-                                                   endPoint: .bottom)
-                                    .frame(height: 50)
-                                    Rectangle()
-                                }
-                            }
-                        
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.showTitle)
-                                    .font(.callout)
-                                    .foregroundColor(.white)
-                                    .fontWeight(.semibold)
-                                    .lineLimit(1)
-                                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                                    .font(.caption)
-                                    .textCase(.uppercase)
-                                    .foregroundColor(.white.opacity(0.8))
-                                    .lineLimit(1)
-                            }
-                            Spacer()
-                        }
-                        .padding(.bottom, 8)
-                        .padding(.leading)
-                    }
-                }
-            }
-        }
-        .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
-               height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-        .shadow(radius: 2.5)
-        .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
-        .accessibilityAddTraits(.isButton)
-    }
-    
 }
 
-#if os(tvOS)
 private struct UpNextCard: View {
     let item: UpNextEpisode
     @FocusState var isFocused
@@ -314,10 +284,13 @@ private struct UpNextCard: View {
         VStack {
             Button {
                 showConfirmation.toggle()
-                            } label: {
-                WebImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage)
-                    .resizable()
-                    .placeholder {
+            } label: {
+                LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
                             Image(systemName: "sparkles.tv")
@@ -331,17 +304,19 @@ private struct UpNextCard: View {
                                height: DrawingConstants.imageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                                style: .continuous))
-                    .shadow(radius: DrawingConstants.imageShadow)
-                    .applyHoverEffect()
+                }
+                .transition(.opacity)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                            style: .continuous))
+                .shadow(radius: DrawingConstants.imageShadow)
+                .applyHoverEffect()
             }
+#if os(tvOS)
             .buttonStyle(.card)
             .focused($isFocused)
+#endif
             HStack {
                 Text(item.showTitle)
                     .font(.caption)
@@ -383,7 +358,6 @@ private struct UpNextCard: View {
         }
     }
 }
-#endif
 
 private struct DrawingConstants {
 #if !os(tvOS)

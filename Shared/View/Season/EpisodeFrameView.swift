@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 /// A view that displays a frame with an image, episode number, title, and two line overview,
 /// on tap it display a sheet view with more information.
@@ -131,28 +131,7 @@ struct EpisodeFrameView: View {
     }
     
     private var image: some View {
-        WebImage(url: isWatched ? episode.itemImageMedium : settings.hideEpisodesThumbnails ? showCover : episode.itemImageMedium)
-            .placeholder {
-                ZStack {
-                    Rectangle().fill(.gray.gradient)
-                    VStack {
-                        Spacer()
-                        Text(episode.itemTitle)
-                            .foregroundColor(.white.opacity(0.8))
-                            .font(.body)
-                            .fontDesign(.rounded)
-                            .lineLimit(1)
-                            .padding()
-                        Spacer()
-                    }
-                    .padding()
-                }
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .accessibilityHidden(true)
-            }
-            .resizable()
-            .aspectRatio(contentMode: .fill)
+        EpisodeFrameImageView(episode: episode, isWatched: $isWatched, showCover: showCover)
             .transition(.opacity)
             .frame(width: DrawingConstants.imageWidth,
                    height: DrawingConstants.imageHeight)
@@ -258,6 +237,40 @@ struct EpisodeFrameView: View {
             guard let listItem = persistence.fetch(for: contentId) else { return }
             persistence.updateEpisodeList(to: listItem, show: show, episodes: allEpisodes)
             checkedIfWatched = true
+        }
+    }
+}
+
+private struct EpisodeFrameImageView: View {
+    let episode: Episode
+    @Binding var isWatched: Bool
+    let showCover: URL?
+    @StateObject private var settings: SettingsStore = .shared
+    var body: some View {
+        LazyImage(url: isWatched ? episode.itemImageMedium : settings.hideEpisodesThumbnails ? showCover : episode.itemImageMedium) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    VStack {
+                        Spacer()
+                        Text(episode.itemTitle)
+                            .foregroundColor(.white.opacity(0.8))
+                            .font(.body)
+                            .fontDesign(.rounded)
+                            .lineLimit(1)
+                            .padding()
+                        Spacer()
+                    }
+                    .padding()
+                }
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .accessibilityHidden(true)
+            }
         }
     }
 }

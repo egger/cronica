@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct WatchProviderSelectorSetting: View {
     @StateObject private var settings = SettingsStore.shared
@@ -102,12 +102,15 @@ private struct WatchProviderItemSelector: View {
                 .foregroundColor(isSelected ? SettingsStore.shared.appTheme.color : nil)
                 .fontWeight(.semibold)
                 .padding(.trailing)
-            WebImage(url: item.providerImage)
-                .resizable()
-                .placeholder {
+            LazyImage(url: item.providerImage) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } else {
                     Rectangle().fill(.gray.gradient)
                 }
-                .aspectRatio(contentMode: .fit)
+            }
                 .frame(width: 40, height: 40, alignment: .center)
                 .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                 .accessibilityHidden(true)

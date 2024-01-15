@@ -175,7 +175,6 @@ class NetworkService {
         }
     }
     
-    
 	func urlBuilder(type: MediaType, company: Int? = nil, page: Int, keywords: Int? = nil, sortBy: String) -> URL? {
         var component = URLComponents()
         component.scheme = "https"

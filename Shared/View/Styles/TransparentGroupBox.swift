@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 struct TransparentGroupBox: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack {

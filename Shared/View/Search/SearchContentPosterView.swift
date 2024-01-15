@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct SearchContentPosterView: View {
     let item: SearchItemContent
@@ -66,12 +66,7 @@ struct SearchContentPosterView: View {
     
     private var image: some View {
         NavigationLink(value: item) {
-            WebImage(url: item.posterImageMedium)
-                .resizable()
-                .placeholder {
-                    PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
-                }
-                .aspectRatio(contentMode: .fill)
+            SearchPosterImageView(imageUrl: item.posterImageMedium, title: item.itemTitle, type: item.itemContentMedia)
                 .overlay{ overlay }
                 .transition(.opacity)
                 .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
@@ -210,6 +205,23 @@ struct SearchContentPosterView: View {
             Spacer()
         }
         .frame(maxWidth: DrawingConstants.compactPosterWidth)
+    }
+}
+
+private struct SearchPosterImageView: View {
+    let imageUrl: URL?
+    let title: String
+    let type: MediaType
+    var body: some View {
+        LazyImage(url: imageUrl) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                PosterPlaceholder(title: title, type: type)
+            }
+        }
     }
 }
 

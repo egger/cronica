@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 /// This view is responsible for displaying a given person
 /// in a card view, with its name, role, and image.
@@ -20,9 +20,12 @@ struct PersonCardView: View {
 #if !os(tvOS)
         NavigationLink(value: person) {
             VStack {
-                WebImage(url: person.personImage)
-                    .resizable()
-                    .placeholder {
+                LazyImage(url: person.personImage) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
                             Image(systemName: "person")
@@ -37,18 +40,32 @@ struct PersonCardView: View {
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
                                                     style: .continuous))
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: DrawingConstants.profileWidth,
-                           height: DrawingConstants.profileHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
-                                                style: .continuous))
-                    .shadow(radius: DrawingConstants.shadowRadius)
-                    .overlay {
-                        ZStack(alignment: .bottom) {
-                            if person.personImage != nil {
-                                Color.black.opacity(0.2)
-                                    .frame(height: 40)
-                                    .mask {
+                }
+                
+                .frame(width: DrawingConstants.profileWidth,
+                       height: DrawingConstants.profileHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
+                                            style: .continuous))
+                .shadow(radius: DrawingConstants.shadowRadius)
+                .overlay {
+                    ZStack(alignment: .bottom) {
+                        if person.personImage != nil {
+                            Color.black.opacity(0.2)
+                                .frame(height: 40)
+                                .mask {
+                                    LinearGradient(colors: [Color.black.opacity(0),
+                                                            Color.black.opacity(0.383),
+                                                            Color.black.opacity(0.707),
+                                                            Color.black.opacity(0.924),
+                                                            Color.black],
+                                                   startPoint: .top,
+                                                   endPoint: .bottom)
+                                }
+                            Rectangle()
+                                .fill(.ultraThinMaterial)
+                                .frame(height: 80)
+                                .mask {
+                                    VStack(spacing: 0) {
                                         LinearGradient(colors: [Color.black.opacity(0),
                                                                 Color.black.opacity(0.383),
                                                                 Color.black.opacity(0.707),
@@ -56,33 +73,20 @@ struct PersonCardView: View {
                                                                 Color.black],
                                                        startPoint: .top,
                                                        endPoint: .bottom)
+                                        .frame(height: 60)
+                                        Rectangle()
                                     }
-                                Rectangle()
-                                    .fill(.ultraThinMaterial)
-                                    .frame(height: 80)
-                                    .mask {
-                                        VStack(spacing: 0) {
-                                            LinearGradient(colors: [Color.black.opacity(0),
-                                                                    Color.black.opacity(0.383),
-                                                                    Color.black.opacity(0.707),
-                                                                    Color.black.opacity(0.924),
-                                                                    Color.black],
-                                                           startPoint: .top,
-                                                           endPoint: .bottom)
-                                            .frame(height: 60)
-                                            Rectangle()
-                                        }
-                                    }
-                                name
-                            }
-                            
+                                }
+                            name
                         }
-                        .frame(width: DrawingConstants.profileWidth,
-                               height: DrawingConstants.profileHeight)
-                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
-                                                    style: .continuous))
+                        
                     }
-                    .transition(.opacity)
+                    .frame(width: DrawingConstants.profileWidth,
+                           height: DrawingConstants.profileHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
+                                                style: .continuous))
+                }
+                .transition(.opacity)
             }
 #if os(iOS) || os(macOS)
             .contextMenu {
@@ -93,9 +97,12 @@ struct PersonCardView: View {
 #elseif os(tvOS)
         VStack(alignment: .leading) {
             NavigationLink(value: person) {
-                WebImage(url: person.personImage)
-                    .resizable()
-                    .placeholder {
+                LazyImage(url: person.personImage) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
                             Image(systemName: "person")
@@ -105,10 +112,10 @@ struct PersonCardView: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 200, alignment: .center)
-                    .clipShape(Circle())
-                    .shadow(radius: 2.5)
+                }
+                .frame(width: 200, height: 200, alignment: .center)
+                .clipShape(Circle())
+                .shadow(radius: 2.5)
             }
             .clipShape(Circle())
             .buttonStyle(.plain)

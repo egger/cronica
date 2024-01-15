@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct WatchProvidersList: View {
     let id: ItemContent.ID
@@ -62,21 +62,24 @@ struct WatchProvidersList: View {
     
     private func providerItemView(_ item: WatchProviderContent) -> some View {
         VStack(alignment: .leading) {
-            WebImage(url: item.providerImage)
-                .resizable()
-                .placeholder {
+            LazyImage(url: item.providerImage) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
                     VStack {
                         ProgressView()
                             .frame(width: DrawingConstants.imageWidth,
                                    height: DrawingConstants.imageHeight)
                     }
                 }
-                .aspectRatio(contentMode: .fill)
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                .shadow(radius: 2)
-                .applyHoverEffect()
+            }
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+            .shadow(radius: 2)
+            .applyHoverEffect()
             Text(item.providerTitle)
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -221,7 +224,7 @@ Error: \(error.localizedDescription)
             .tr: results.tr,
             .za: results.za
         ]
-
+        
         return regionMapping[settings.watchRegion] ?? nil
     }
 }

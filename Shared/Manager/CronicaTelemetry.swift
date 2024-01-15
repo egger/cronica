@@ -7,10 +7,10 @@
 
 import Foundation
 import os
-#if !os(iOS)
-import Aptabase
-#else
+#if os(iOS) || os(visionOS)
 import TelemetryClient
+#else
+import Aptabase
 #endif
 
 struct CronicaTelemetry {
@@ -24,14 +24,14 @@ struct CronicaTelemetry {
     
     func setup() {
 #if !targetEnvironment(simulator) || !DEBUG
-#if !os(iOS)
-        guard let aptabaseKey = Key.aptabaseClientKey else { return }
-        Aptabase.shared.initialize(appKey: aptabaseKey)
-        Aptabase.shared.trackEvent("app_started")
-#else
+#if os(iOS) || os(visionOS)
         guard let key = Key.telemetryClientKey else { return }
         let configuration = TelemetryManagerConfiguration(appID: key)
         TelemetryManager.initialize(with: configuration)
+#else
+        guard let aptabaseKey = Key.aptabaseClientKey else { return }
+        Aptabase.shared.initialize(appKey: aptabaseKey)
+        Aptabase.shared.trackEvent("app_started")
 #endif
 #endif
     }
@@ -43,7 +43,7 @@ struct CronicaTelemetry {
 #if targetEnvironment(simulator) || DEBUG
         logger.warning("\(message), for: \(id)")
 #else
-#if !os(iOS)
+#if !os(iOS) || os(visionOS)
         Aptabase.shared.trackEvent(id, with: ["Message": message])
 #else
         if TelemetryManager.isInitialized {

@@ -22,13 +22,14 @@ struct ConfirmationPopupModifier: ViewModifier {
                             .font(.body)
                             .fontDesign(.rounded)
                             .padding()
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                    withAnimation(.snappy) {
-                                        isShowing = false 
-                                    }
-                                }
+                            
+                    }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            withAnimation(.snappy) {
+                                isShowing = false
                             }
+                        }
                     }
 #if !os(watchOS)
                     .background { Rectangle().fill(.thickMaterial) }

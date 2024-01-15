@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct TrendingKeywordsListView: View {
     @State private var trendingKeywords = [CombinedKeywords]()
@@ -45,7 +45,7 @@ struct TrendingKeywordsListView: View {
             LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                 ForEach(trendingKeywords) { keyword in
                     if keyword.image != nil {
-                        trendingCard(keyword)
+                        TrendingCardView(keyword: keyword, isLoading: $isLoading)
 #if os(tvOS)
                             .padding(.vertical)
 #endif
@@ -62,50 +62,6 @@ struct TrendingKeywordsListView: View {
 #endif
     }
     
-    private func trendingCard(_ keyword: CombinedKeywords) -> some View {
-        NavigationLink(value: keyword) {
-            WebImage(url: keyword.image)
-                .resizable()
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                    }
-                }
-                .aspectRatio(contentMode: .fill)
-                .overlay {
-                    ZStack {
-                        Rectangle().fill(.black.opacity(0.5))
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Text(keyword.name)
-                                    .foregroundColor(.white)
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(2)
-                                Spacer()
-                            }
-                            .padding(.horizontal)
-                            .padding(.bottom, 8)
-                        }
-                    }
-                    .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
-                }
-                .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .shadow(radius: 2)
-                .buttonStyle(.plain)
-        }
-#if os(iOS)
-        .disabled(isLoading)
-#elseif os(tvOS)
-        .buttonStyle(.card)
-#elseif os(macOS)
-        .buttonStyle(.plain)
-#endif
-        .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
-    }
 }
 
 #Preview {
@@ -139,6 +95,60 @@ struct CombinedKeywords: Identifiable, Hashable {
     let name: String
     let image: URL?
 }
+
+private struct TrendingCardView: View {
+    let keyword: CombinedKeywords
+    @Binding var isLoading: Bool
+    var body: some View {
+        NavigationLink(value: keyword) {
+            LazyImage(url: keyword.image) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    ZStack {
+                        Rectangle().fill(.gray.gradient)
+                    }
+                }
+            }
+            .overlay {
+                ZStack {
+                    Rectangle().fill(.black.opacity(0.5))
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Text(keyword.name)
+                                .foregroundColor(.white)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(2)
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                    }
+                }
+                .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
+            }
+            .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .shadow(radius: 2)
+            .buttonStyle(.plain)
+        }
+#if os(iOS)
+        .disabled(isLoading)
+#elseif os(tvOS)
+        .buttonStyle(.card)
+#elseif os(macOS)
+        .buttonStyle(.plain)
+#endif
+        .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
+    }
+}
+
+
 
 private struct DrawingConstants {
 #if os(iOS)

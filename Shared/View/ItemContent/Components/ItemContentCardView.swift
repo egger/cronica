@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct ItemContentCardView: View {
     let item: ItemContent
@@ -26,9 +26,11 @@ struct ItemContentCardView: View {
     var body: some View {
         VStack {
             NavigationLink(value: item) {
-                WebImage(url: item.cardImageMedium)
-                    .resizable()
-                    .placeholder {
+                LazyImage(url: item.cardImageMedium) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                    } else {
                         ZStack {
                             Rectangle().fill(.gray.gradient)
                             Image(systemName: "popcorn.fill")
@@ -39,81 +41,82 @@ struct ItemContentCardView: View {
                                height: DrawingConstants.imageHeight)
                         .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                     }
-                    .overlay {
-                        if isInWatchlist {
-                            VStack {
+                }
+                .overlay {
+                    if isInWatchlist {
+                        VStack {
+                            Spacer()
+                            HStack {
                                 Spacer()
-                                HStack {
-                                    Spacer()
-                                    if isArchive {
-                                        Image(systemName: "archivebox.fill")
-                                            .imageScale(.small)
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .padding([.vertical])
-                                            .padding(.trailing, 4)
-                                    }
-                                    if isPin {
-                                        Image(systemName: "pin.fill")
-                                            .imageScale(.small)
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .padding([.vertical])
-                                            .padding(.trailing, 4)
-                                    }
-                                    if isFavorite {
-                                        Image(systemName: "suit.heart.fill")
-                                            .imageScale(.small)
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .padding([.vertical])
-                                            .padding(.trailing, 4)
-                                    }
-                                    if isWatched {
-                                        Image(systemName: "rectangle.badge.checkmark.fill")
-                                            .imageScale(.small)
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .padding([.vertical])
-                                            .padding(.trailing, 4)
-                                    }
-                                    Image(systemName: "square.stack.fill")
+                                if isArchive {
+                                    Image(systemName: "archivebox.fill")
                                         .imageScale(.small)
                                         .foregroundColor(.white.opacity(0.9))
-                                        .padding([.vertical, .trailing])
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
                                 }
-                                .background {
-                                    if item.cardImageMedium != nil {
-                                        Color.black.opacity(0.6)
-                                            .mask {
-                                                LinearGradient(colors:
-                                                                [Color.black,
-                                                                 Color.black.opacity(0.924),
-                                                                 Color.black.opacity(0.707),
-                                                                 Color.black.opacity(0.383),
-                                                                 Color.black.opacity(0)],
-                                                               startPoint: .bottom,
-                                                               endPoint: .top)
-                                            }
-                                    }
+                                if isPin {
+                                    Image(systemName: "pin.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
+                                }
+                                if isFavorite {
+                                    Image(systemName: "suit.heart.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
+                                }
+                                if isWatched {
+                                    Image(systemName: "rectangle.badge.checkmark.fill")
+                                        .imageScale(.small)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .padding([.vertical])
+                                        .padding(.trailing, 4)
+                                }
+                                Image(systemName: "square.stack.fill")
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical, .trailing])
+                            }
+                            .background {
+                                if item.cardImageMedium != nil {
+                                    Color.black.opacity(0.6)
+                                        .mask {
+                                            LinearGradient(colors:
+                                                            [Color.black,
+                                                             Color.black.opacity(0.924),
+                                                             Color.black.opacity(0.707),
+                                                             Color.black.opacity(0.383),
+                                                             Color.black.opacity(0)],
+                                                           startPoint: .bottom,
+                                                           endPoint: .top)
+                                        }
                                 }
                             }
                         }
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                                style: .continuous))
-                    .shadow(radius: DrawingConstants.imageShadow)
-                    .applyHoverEffect()
-                    .itemContentContextMenu(item: item,
-                                            isWatched: $isWatched,
-                                            showPopup: $showPopup,
-                                            isInWatchlist: $isInWatchlist,
-                                            showNote: $showNote,
-                                            showCustomList: $showCustomListView,
-                                            popupType: $popupType,
-                                            isFavorite: $isFavorite,
-                                            isPin: $isPin,
-                                            isArchive: $isArchive)
+                }
+                .aspectRatio(contentMode: .fill)
+                .transition(.opacity)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                            style: .continuous))
+                .shadow(radius: DrawingConstants.imageShadow)
+                .applyHoverEffect()
+                .itemContentContextMenu(item: item,
+                                        isWatched: $isWatched,
+                                        showPopup: $showPopup,
+                                        isInWatchlist: $isInWatchlist,
+                                        showNote: $showNote,
+                                        showCustomList: $showCustomListView,
+                                        popupType: $popupType,
+                                        isFavorite: $isFavorite,
+                                        isPin: $isPin,
+                                        isArchive: $isArchive)
             }
 #if os(tvOS)
             .buttonStyle(.card)
@@ -193,7 +196,7 @@ struct ItemContentCardView: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
 #elseif os(tvOS)

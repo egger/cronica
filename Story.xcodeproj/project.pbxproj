@@ -142,7 +142,6 @@
 		B84043CD289B296200D5CEBF /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043CB289B294600D5CEBF /* SearchItem.swift */; };
 		B84043D5289B2ABD00D5CEBF /* ItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */; };
 		B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC952C27D02D3900B6757C /* ItemContentViewModel.swift */; };
-		B84043DD289B360B00D5CEBF /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */; };
 		B84043E2289B3DEE00D5CEBF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8AF9127D4DB720042AEB6 /* SearchViewModel.swift */; };
 		B84043E7289B417500D5CEBF /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */; };
 		B8409D1B2A81C6240048840F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8409D1A2A81C6240048840F /* SearchView.swift */; };
@@ -169,6 +168,11 @@
 		B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = B854FA1E2A75B24000509C34 /* YouTubePlayerKit */; };
 		B85C65AC27A6307C0080121E /* PersonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85C65AB27A6307C0080121E /* PersonDetailsView.swift */; };
 		B85FD9B129F33A880088B5CC /* TMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FD9B029F33A880088B5CC /* TMDB.swift */; };
+		B86A3A8B2B509C8200BDE432 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B86A3A8A2B509C8200BDE432 /* Nuke */; };
+		B86A3A8D2B509C8200BDE432 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = B86A3A8C2B509C8200BDE432 /* NukeUI */; };
+		B86A3A902B509C9B00BDE432 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = B86A3A8F2B509C9B00BDE432 /* Pow */; };
+		B86A3A922B509CB000BDE432 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = B86A3A912B509CB000BDE432 /* NukeUI */; };
+		B86A3A942B509CB400BDE432 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B86A3A932B509CB400BDE432 /* Nuke */; };
 		B86AA7FC2A3A4C8C009847FE /* RegionContentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86AA7FB2A3A4C8C009847FE /* RegionContentSettings.swift */; };
 		B86AAD0A28BD1CDD00D135B1 /* DeveloperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */; };
 		B86AAD0D28BD2E2600D135B1 /* PlaceholderMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86AAD0B28BD2D6B00D135B1 /* PlaceholderMedia.xcassets */; };
@@ -199,7 +203,7 @@
 		B87D1B252A65D78900EB6D14 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */; };
 		B87D1B272A65E63700EB6D14 /* UpNextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B262A65E63700EB6D14 /* UpNextListView.swift */; };
 		B87D1B292A66128000EB6D14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B282A66128000EB6D14 /* SettingsView.swift */; };
-		B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = B87F745D280605CE00E94126 /* TelemetryClient */; };
+		B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, xros, ); productRef = B87F745D280605CE00E94126 /* TelemetryClient */; };
 		B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
 		B883A1DE2AEEA49E00793EE2 /* EditCustomListItemSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B883A1DD2AEEA49E00793EE2 /* EditCustomListItemSelector.swift */; };
@@ -292,7 +296,6 @@
 		B8C0215D29E121C1006E9D82 /* SettingsScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C0215C29E121C1006E9D82 /* SettingsScreens.swift */; };
 		B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = B8C0C67E28A92FF0009F4593 /* TelemetryClient */; };
 		B8C335472815ED140055389D /* WatchListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C335462815ED140055389D /* WatchListSection.swift */; };
-		B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */; };
 		B8C781F0287F4A7500B4C2C2 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C781EF287F4A7500B4C2C2 /* PersonCardView.swift */; };
 		B8C781F2287F576100B4C2C2 /* FilmographyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */; };
 		B8CBBF1C2A4B7C3E0052A59B /* DetailedReleaseDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CBBF1B2A4B7C3E0052A59B /* DetailedReleaseDateView.swift */; };
@@ -645,9 +648,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B86A3A922B509CB000BDE432 /* NukeUI in Frameworks */,
 				B8E3ABF62955361C00CA0945 /* CloudKit.framework in Frameworks */,
 				B8DA5CC82B0E496600678592 /* Aptabase in Frameworks */,
-				B84043DD289B360B00D5CEBF /* SDWebImageSwiftUI in Frameworks */,
+				B86A3A942B509CB400BDE432 /* Nuke in Frameworks */,
 				B8C0C67F28A92FF0009F4593 /* TelemetryClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -657,8 +661,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8F367642AF5CAAA0027CAF9 /* Aptabase in Frameworks */,
-				B8C781EE287F001100B4C2C2 /* SDWebImageSwiftUI in Frameworks */,
+				B86A3A902B509C9B00BDE432 /* Pow in Frameworks */,
+				B86A3A8D2B509C8200BDE432 /* NukeUI in Frameworks */,
 				B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */,
+				B86A3A8B2B509C8200BDE432 /* Nuke in Frameworks */,
 				B854FA1F2A75B24000509C34 /* YouTubePlayerKit in Frameworks */,
 				B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */,
 			);
@@ -1406,9 +1412,10 @@
 			);
 			name = "CronicaWatch Watch App";
 			packageProductDependencies = (
-				B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */,
 				B8C0C67E28A92FF0009F4593 /* TelemetryClient */,
 				B8DA5CC72B0E496600678592 /* Aptabase */,
+				B86A3A912B509CB000BDE432 /* NukeUI */,
+				B86A3A932B509CB400BDE432 /* Nuke */,
 			);
 			productName = "CronicaWatch Watch App";
 			productReference = B806C4DE2899BE2800A5330E /* Cronica.app */;
@@ -1433,9 +1440,11 @@
 			name = "Story (iOS)";
 			packageProductDependencies = (
 				B87F745D280605CE00E94126 /* TelemetryClient */,
-				B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */,
 				B854FA1E2A75B24000509C34 /* YouTubePlayerKit */,
 				B8F367632AF5CAAA0027CAF9 /* Aptabase */,
+				B86A3A8A2B509C8200BDE432 /* Nuke */,
+				B86A3A8C2B509C8200BDE432 /* NukeUI */,
+				B86A3A8F2B509C9B00BDE432 /* Pow */,
 			);
 			productName = "Story (iOS)";
 			productReference = B8110EDF279245D100844FEB /* Cronica.app */;
@@ -1519,9 +1528,10 @@
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
 				B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */,
-				B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				B854FA1D2A75B24000509C34 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 				B8F367622AF5CA900027CAF9 /* XCRemoteSwiftPackageReference "aptabase-swift" */,
+				B86A3A892B509C8200BDE432 /* XCRemoteSwiftPackageReference "Nuke" */,
+				B86A3A8E2B509C9B00BDE432 /* XCRemoteSwiftPackageReference "Pow" */,
 			);
 			productRefGroup = B8110EE0279245D100844FEB /* Products */;
 			projectDirPath = "";
@@ -2190,13 +2200,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3,6";
+				TARGETED_DEVICE_FAMILY = "1,2,3,6,7";
 				TVOS_DEPLOYMENT_TARGET = 17.2;
 			};
 			name = Debug;
@@ -2235,13 +2245,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3,6";
+				TARGETED_DEVICE_FAMILY = "1,2,3,6,7";
 				TVOS_DEPLOYMENT_TARGET = 17.2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2425,20 +2435,28 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		B86A3A892B509C8200BDE432 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.3.0;
+			};
+		};
+		B86A3A8E2B509C9B00BDE432 /* XCRemoteSwiftPackageReference "Pow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EmergeTools/Pow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
 		B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TelemetryDeck/SwiftClient";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
-			};
-		};
-		B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
 			};
 		};
 		B8F367622AF5CA900027CAF9 /* XCRemoteSwiftPackageReference "aptabase-swift" */ = {
@@ -2452,15 +2470,35 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B84043DC289B360B00D5CEBF /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
-		};
 		B854FA1E2A75B24000509C34 /* YouTubePlayerKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B854FA1D2A75B24000509C34 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
 			productName = YouTubePlayerKit;
+		};
+		B86A3A8A2B509C8200BDE432 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B86A3A892B509C8200BDE432 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		B86A3A8C2B509C8200BDE432 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B86A3A892B509C8200BDE432 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
+		B86A3A8F2B509C9B00BDE432 /* Pow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B86A3A8E2B509C9B00BDE432 /* XCRemoteSwiftPackageReference "Pow" */;
+			productName = Pow;
+		};
+		B86A3A912B509CB000BDE432 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B86A3A892B509C8200BDE432 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
+		B86A3A932B509CB400BDE432 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B86A3A892B509C8200BDE432 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
 		};
 		B87F745D280605CE00E94126 /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2471,11 +2509,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B87F745C280605CE00E94126 /* XCRemoteSwiftPackageReference "SwiftClient" */;
 			productName = TelemetryClient;
-		};
-		B8C781ED287F001100B4C2C2 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B8C781EC287F001100B4C2C2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
 		};
 		B8D7AEDB28B967180053CE5A /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;
