@@ -16,14 +16,10 @@ enum TMDBSortBy: String, Identifiable, CaseIterable {
 	
 	var localizedString: LocalizedStringKey {
 		switch self {
-		case .popularity:
-			return LocalizedStringKey("Popularity")
-		case .rating:
-			return LocalizedStringKey("Rating")
-		case .releaseDateDesc:
-			return LocalizedStringKey("Release Date (Descending)")
-		case .releaseDateAsc:
-			return LocalizedStringKey("Release Date (Ascending)")
+		case .popularity: LocalizedStringKey("Popularity")
+		case .rating: LocalizedStringKey("Rating")
+		case .releaseDateDesc: LocalizedStringKey("Release Date (Descending)")
+		case .releaseDateAsc: LocalizedStringKey("Release Date (Ascending)")
 		}
 	}
 }

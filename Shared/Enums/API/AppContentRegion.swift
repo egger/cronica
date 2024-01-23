@@ -16,86 +16,46 @@ enum AppContentRegion: String, CaseIterable, Identifiable {
          pt, rs, se, sk, tr, us, za
     var localizableTitle: String {
         switch self {
-        case .br:
-            return NSLocalizedString("Brazil", comment: "")
-        case .us:
-            return NSLocalizedString("United States", comment: "")
-        case .ae:
-            return NSLocalizedString("United Arab Emirates", comment: "")
-        case .ar:
-            return NSLocalizedString("Argentina", comment: "")
-        case .at:
-            return NSLocalizedString("Austria", comment: "")
-        case .au:
-            return NSLocalizedString("Australia", comment: "")
-        case .be:
-            return NSLocalizedString("Belgium", comment: "")
-        case .bg:
-            return NSLocalizedString("Bulgaria", comment: "")
-        case .ca:
-            return NSLocalizedString("Canada", comment: "")
-        case .ch:
-            return NSLocalizedString("Switzerland", comment: "")
-        case .cz:
-            return NSLocalizedString("Czech Republic", comment: "")
-        case .de:
-            return NSLocalizedString("Germany", comment: "")
-        case .dk:
-            return NSLocalizedString("Denmark", comment: "")
-        case .ee:
-            return NSLocalizedString("Estonia", comment: "")
-        case .es:
-            return NSLocalizedString("Spain", comment: "")
-        case .fi:
-            return NSLocalizedString("Finland", comment: "")
-        case .fr:
-            return NSLocalizedString("France", comment: "")
-        case .gb:
-            return NSLocalizedString("United Kingdom", comment: "")
-        case .hk:
-            return NSLocalizedString("Hong Kong", comment: "")
-        case .hr:
-            return NSLocalizedString("Croatia", comment: "")
-        case .hu:
-            return NSLocalizedString("Hungary", comment: "")
-        case .id:
-            return NSLocalizedString("Indonesia", comment: "")
-        case .ie:
-            return NSLocalizedString("Ireland", comment: "")
-        case .india:
-            return NSLocalizedString("India", comment: "")
-        case .it:
-            return NSLocalizedString("Italy", comment: "")
-        case .jp:
-            return NSLocalizedString("Japan", comment: "")
-        case .kr:
-            return NSLocalizedString("South Korea", comment: "")
-        case .lt:
-            return NSLocalizedString("Lithuania", comment: "")
-        case .mx:
-            return NSLocalizedString("Mexico", comment: "")
-        case .nl:
-            return NSLocalizedString("Netherlands", comment: "")
-        case .no:
-            return NSLocalizedString("Norway", comment: "")
-        case .nz:
-            return NSLocalizedString("New Zealand", comment: "")
-        case .ph:
-            return NSLocalizedString("Philippines", comment: "")
-        case .pl:
-            return NSLocalizedString("Poland", comment: "")
-        case .pt:
-            return NSLocalizedString("Portugal", comment: "")
-        case .rs:
-            return NSLocalizedString("Serbia", comment: "")
-        case .se:
-            return NSLocalizedString("Sweden", comment: "")
-        case .sk:
-            return NSLocalizedString("Slovakia", comment: "")
-        case .tr:
-            return NSLocalizedString("Turkey", comment: "")
-        case .za:
-            return NSLocalizedString("South Africa", comment: "")
+        case .br: NSLocalizedString("Brazil", comment: "Country")
+        case .us: NSLocalizedString("United States", comment: "Country")
+        case .ae: NSLocalizedString("United Arab Emirates", comment: "Country")
+        case .ar: NSLocalizedString("Argentina", comment: "Country")
+        case .at: NSLocalizedString("Austria", comment: "Country")
+        case .au: NSLocalizedString("Australia", comment: "Country")
+        case .be: NSLocalizedString("Belgium", comment: "Country")
+        case .bg: NSLocalizedString("Bulgaria", comment: "Country")
+        case .ca: NSLocalizedString("Canada", comment: "Country")
+        case .ch: NSLocalizedString("Switzerland", comment: "Country")
+        case .cz: NSLocalizedString("Czech Republic", comment: "Country")
+        case .de: NSLocalizedString("Germany", comment: "Country")
+        case .dk: NSLocalizedString("Denmark", comment: "Country")
+        case .ee: NSLocalizedString("Estonia", comment: "Country")
+        case .es: NSLocalizedString("Spain", comment: "Country")
+        case .fi: NSLocalizedString("Finland", comment: "Country")
+        case .fr: NSLocalizedString("France", comment: "Country")
+        case .gb: NSLocalizedString("United Kingdom", comment: "Country")
+        case .hk: NSLocalizedString("Hong Kong", comment: "Country")
+        case .hr: NSLocalizedString("Croatia", comment: "Country")
+        case .hu: NSLocalizedString("Hungary", comment: "Country")
+        case .id: NSLocalizedString("Indonesia", comment: "Country")
+        case .ie: NSLocalizedString("Ireland", comment: "Country")
+        case .india: NSLocalizedString("India", comment: "Country")
+        case .it: NSLocalizedString("Italy", comment: "Country")
+        case .jp: NSLocalizedString("Japan", comment: "Country")
+        case .kr: NSLocalizedString("South Korea", comment: "Country")
+        case .lt: NSLocalizedString("Lithuania", comment: "Country")
+        case .mx: NSLocalizedString("Mexico", comment: "Country")
+        case .nl: NSLocalizedString("Netherlands", comment: "Country")
+        case .no: NSLocalizedString("Norway", comment: "Country")
+        case .nz: NSLocalizedString("New Zealand", comment: "Country")
+        case .ph: NSLocalizedString("Philippines", comment: "Country")
+        case .pl: NSLocalizedString("Poland", comment: "Country")
+        case .pt: NSLocalizedString("Portugal", comment: "Country")
+        case .rs: NSLocalizedString("Serbia", comment: "Country")
+        case .se: NSLocalizedString("Sweden", comment: "Country")
+        case .sk: NSLocalizedString("Slovakia", comment: "Country")
+        case .tr: NSLocalizedString("Turkey", comment: "Country")
+        case .za: NSLocalizedString("South Africa", comment: "Country")
         }
     }
 

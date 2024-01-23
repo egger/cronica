@@ -684,7 +684,12 @@ extension ItemContentDetails {
                 updateWatchlist()
             }
         } label: {
-#if !os(macOS)
+            #if os(macOS)
+            Label(viewModel.isInWatchlist ? "Remove": "Add",
+                  systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+            .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                          value: viewModel.isInWatchlist)
+            #else
             VStack {
                 if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *) {
                     Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
@@ -701,23 +706,18 @@ extension ItemContentDetails {
                     .font(.caption)
 #endif
             }
-#if os(iOS) || os(tvOS)
+#if !os(watchOS)
             .padding(.vertical, 4)
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
 #else
             .padding(.vertical, 2)
 #endif
-#else
-            Label(viewModel.isInWatchlist ? "Remove": "Add",
-                  systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-            .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
-                          value: viewModel.isInWatchlist)
 #endif
         }
         .buttonStyle(.borderedProminent)
 #if os(macOS)
         .controlSize(.large)
-#elseif os(iOS)
+#elseif os(iOS)  || os(visionOS)
         .controlSize(.small)
         .applyHoverEffect()
 #endif
@@ -725,7 +725,7 @@ extension ItemContentDetails {
 #if os(iOS) || os(macOS) || os(watchOS)
         .tint(viewModel.isInWatchlist ? .red.opacity(0.95) : store.appTheme.color)
 #endif
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
 #endif
         .alert("Are You Sure?", isPresented: $showConfirmationPopup) {

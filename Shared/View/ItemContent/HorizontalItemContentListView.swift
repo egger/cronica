@@ -22,9 +22,11 @@ struct HorizontalItemContentListView: View {
         if let items {
             if !items.isEmpty {
                 VStack {
-#if os(tvOS)
+#if os(tvOS) || os(visionOS)
                     TitleView(title: title, subtitle: subtitle)
+#if os(tvOS)
                         .padding(.leading, 64)
+#endif
 #else
                     if let endpoint {
                         NavigationLink(value: endpoint) {
@@ -91,8 +93,8 @@ struct HorizontalItemContentListView: View {
             LazyHStack {
                 ForEach(items) { item in
                     ItemContentPosterView(item: item,
-                           showPopup: $showPopup,
-                           popupType: $popupType)
+                                          showPopup: $showPopup,
+                                          popupType: $popupType)
 #if !os(tvOS)
                     .padding([.leading, .trailing], settings.isCompactUI ? 1 : 4)
                     .padding(.leading, item.id == items.first?.id ? 16 : 0)

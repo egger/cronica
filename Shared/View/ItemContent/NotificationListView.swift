@@ -16,42 +16,31 @@ struct NotificationListView: View {
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?
     var body: some View {
-        NavigationStack {
-            Form {
-                if hasLoaded {
-                    List {
-                        deliveredItemsView
-                        upcomingItemsView
-                    }
-                } else {
-                    CenterHorizontalView { ProgressView("Loading") }
+        Form {
+            if hasLoaded {
+                List {
+                    deliveredItemsView
+                    upcomingItemsView
                 }
+            } else {
+                CenterHorizontalView { ProgressView("Loading") }
             }
-            .actionPopup(isShowing: $showPopup, for: popupType)
-            .navigationTitle("Notifications")
-#if os(macOS)
-            .formStyle(.grouped)
-#elseif os(iOS)
-            .navigationBarTitleDisplayMode(.large)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) { Button("Done", action: dismiss) }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    configButton
-                }
-#else
-                Button("Done", action: dismiss)
-#endif
-            }
-            .navigationDestination(for: ItemContent.self) { item in
-                ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia, handleToolbar: true)
-            }
-            .navigationDestination(for: Person.self) { item in
-                PersonDetailsView(name: item.name, id: item.id)
-            }
-            .task { await load() }
         }
+        .actionPopup(isShowing: $showPopup, for: popupType)
+        .navigationTitle("Notifications")
+#if os(macOS)
+        .formStyle(.grouped)
+#elseif os(iOS)
+        .navigationBarTitleDisplayMode(.large)
+#endif
+        .toolbar {
+#if os(iOS)
+            ToolbarItem(placement: .navigationBarLeading) {
+                configButton
+            }
+#endif
+        }
+        .task { await load() }
     }
     
     private var configButton: some View {

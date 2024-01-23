@@ -143,7 +143,7 @@ struct ExploreView: View {
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
         }
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
         .navigationTitle("Explore")
 #elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
@@ -200,7 +200,7 @@ struct ExploreView: View {
                 }
             }
         } label: {
-            Text("mediaTypeDiscoverFilterTitle")
+            Text("Media Type Filter")
         }
 #if os(macOS)
         .pickerStyle(.inline)
@@ -208,7 +208,7 @@ struct ExploreView: View {
     }
     
     private var selectGenrePicker: some View {
-        Picker("genreDiscoverFilterTitle", selection: $selectedGenre) {
+        Picker("Genres", selection: $selectedGenre) {
             if selectedMedia == .movie {
                 ForEach(movies) { genre in
                     Text(genre.name!).tag(genre)

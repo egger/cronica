@@ -32,7 +32,9 @@ struct RegionContentSettings: View {
                 }
 #if os(macOS)
                 .pickerStyle(.automatic)
-#else
+#elseif os(visionOS)
+                .pickerStyle(.menu)
+                #else
                 .pickerStyle(.navigationLink)
 #endif
             }
@@ -42,7 +44,7 @@ struct RegionContentSettings: View {
 					Text("Watch Providers")
 					Text("See in what platforms the content is available on.")
                 }
-#if os(iOS)
+#if os(iOS) || os(visionOS)
                 NavigationLink("Streaming Services", destination: WatchProviderSelectorSetting())
 #elseif os(macOS)
                 Button("Streaming Services") {

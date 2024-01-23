@@ -38,8 +38,8 @@ struct HomeView: View {
                 PinItemsList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadHome)
                 HorizontalPinnedList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadHome)
                 HorizontalItemContentListView(items: viewModel.trending,
-                                              title: "Trending",
-                                              subtitle: "Today",
+                                              title: NSLocalizedString("Trending", comment: ""),
+                                              subtitle: NSLocalizedString("Today", comment: ""),
                                               showPopup: $showPopup,
                                               popupType: $popupType)
                 ForEach(viewModel.sections) { section in
@@ -51,8 +51,8 @@ struct HomeView: View {
                                                   endpoint: section.endpoint)
                 }
                 HorizontalItemContentListView(items: viewModel.recommendations,
-                                              title: "recommendationsTitle",
-                                              subtitle: "recommendationsSubtitle",
+                                              title: NSLocalizedString("Recommendations", comment: ""),
+                                              subtitle: NSLocalizedString("You May Like", comment: ""),
                                               showPopup: $showPopup,
                                               popupType: $popupType)
                 .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
@@ -82,8 +82,8 @@ struct HomeView: View {
             }
 #endif
         }
-        .sheet(isPresented: $showWhatsNew) {
 #if os(iOS) || os(macOS)
+        .sheet(isPresented: $showWhatsNew) {
             ChangelogView(showChangelog: $showWhatsNew)
                 .onDisappear {
                     showWhatsNew = false
@@ -93,8 +93,8 @@ struct HomeView: View {
 #elseif os(iOS)
                 .appTheme()
 #endif
-#endif
         }
+#endif
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle,
                                id: item.id,
@@ -162,13 +162,8 @@ struct HomeView: View {
             }
         }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
         .navigationTitle("Home")
-#endif
-#if os(iOS)
-        .sheet(isPresented: $showSettings) {
-            SettingsView()
-        }
 #endif
         .toolbar {
 #if os(macOS)
@@ -190,12 +185,10 @@ struct HomeView: View {
                         .labelStyle(.iconOnly)
                 }
             }
-#elseif os(iOS)
+#elseif os(iOS) || os(visionOS)
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    Button {
-                        showNotifications.toggle()
-                    } label: {
+                    NavigationLink(value: Screens.notifications) {
                         Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
@@ -226,42 +219,6 @@ struct HomeView: View {
                     .applyHoverEffect()
                 }
             }
-#elseif os(visionOS)
-            ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    Button {
-                        showNotifications.toggle()
-                    } label: {
-                        Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
-                            .fontDesign(.rounded)
-                            .fontWeight(.semibold)
-                            .imageScale(.medium)
-                            .foregroundColor(.white.opacity(0.9))
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .contentShape(Circle())
-                    .clipShape(Circle())
-                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                    .shadow(radius: 2.5)
-                    .accessibilityLabel("Notifications")
-                    .applyHoverEffect()
-                    
-                    NavigationLink(value: Screens.settings) {
-                        Image(systemName: "gearshape")
-                            .fontDesign(.rounded)
-                            .fontWeight(.semibold)
-                            .imageScale(.medium)
-                            .foregroundColor(.white.opacity(0.9))
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .contentShape(Circle())
-                    .clipShape(Circle())
-                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                    .shadow(radius: 2.5)
-                    .accessibilityLabel("Settings")
-                    .applyHoverEffect()
-                }
-            }
 #endif
         }
         .sheet(isPresented: $displayOnboard) {
@@ -270,20 +227,14 @@ struct HomeView: View {
                 .frame(width: 500, height: 700, alignment: .center)
 #endif
         }
-        .sheet(isPresented: $showNotifications) {
-#if os(iOS) || os(macOS)
-            NotificationListView(showNotification: $showNotifications)
-                .appTheme()
-                .onDisappear {
-                    Task {
-                        let notifications = await NotificationManager.shared.hasDeliveredItems()
-                        hasNotifications = notifications
-                    }
-                }
-#if os(macOS)
-                .frame(width: 800, height: 500)
-#endif
-#endif
+        .navigationDestination(for: Screens.self) { screen in
+            if screen == .notifications {
+                NotificationListView(showNotification: $showNotifications)
+            }
+        }
+        .task {
+            let notifications = await NotificationManager.shared.hasDeliveredItems()
+            hasNotifications = notifications
         }
         .task {
             await viewModel.load()
