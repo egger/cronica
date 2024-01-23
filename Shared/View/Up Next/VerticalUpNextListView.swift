@@ -119,11 +119,13 @@ struct VerticalUpNextListView: View {
                                         selectedEpisode = item
                                     }
                                 }
+                            #if !os(tvOS)
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     Button("Watched", systemImage: "rectangle.badge.checkmark") {
                                         Task { await viewModel.markAsWatched(item) }
                                     }
                                 }
+                            #endif
                         }
                     } else if queryResult.isEmpty && !query.isEmpty {
                         EmptyView()
@@ -137,11 +139,13 @@ struct VerticalUpNextListView: View {
                                         selectedEpisode = item
                                     }
                                 }
+                            #if !os(tvOS)
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     Button("Watched", systemImage: "rectangle.badge.checkmark") {
                                         Task { await viewModel.markAsWatched(item) }
                                     }
                                 }
+                            #endif
                         }
                     }
                 }

@@ -7,7 +7,9 @@
 
 import SwiftUI
 import NukeUI
+#if !os(tvOS)
 import Pow
+#endif
 
 struct ItemContentDetails: View {
     var title: String
@@ -799,18 +801,22 @@ extension ItemContentDetails {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                         .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
                                       value: viewModel.isFavorite)
+                    #if !os(tvOS)
                         .changeEffect(
                             .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
                                 Image(systemName: "heart.fill")
                                     .foregroundStyle(.red)
                             }, value: animateFavorite)
+                    #endif
                 } else {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                    #if !os(tvOS)
                         .changeEffect(
                             .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
                                 Image(systemName: "heart.fill")
                                     .foregroundStyle(.red)
                             }, value: animateFavorite)
+                    #endif
                 }
 #if !os(tvOS)
                 Text("Favorite")

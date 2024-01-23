@@ -152,7 +152,12 @@ struct HomeView: View {
             case .about: AboutSettings()
             case .appearance: AppearanceSetting()
             case .behavior: BehaviorSetting()
-            case .developer: DeveloperView()
+            case .developer: 
+                #if os(tvOS)
+                EmptyView()
+                #else
+                DeveloperView()
+                #endif
             case .notifications: NotificationsSettingsView()
             case .sync: SyncSetting()
             case .tipJar: TipJarSetting()
@@ -227,11 +232,13 @@ struct HomeView: View {
                 .frame(width: 500, height: 700, alignment: .center)
 #endif
         }
+        #if !os(tvOS)
         .navigationDestination(for: Screens.self) { screen in
             if screen == .notifications {
                 NotificationListView(showNotification: $showNotifications)
             }
         }
+        #endif
         .task {
             let notifications = await NotificationManager.shared.hasDeliveredItems()
             hasNotifications = notifications
