@@ -15,7 +15,7 @@ struct WatchlistTitle: View {
         Button {
             showListSelection = true
         } label: {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
             Label("Lists", systemImage: "rectangle.on.rectangle")
                 .labelStyle(.iconOnly)
 #else

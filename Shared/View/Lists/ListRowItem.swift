@@ -28,10 +28,17 @@ struct ListRowItem: View {
             VStack(alignment: .leading) {
                 Text(list.itemTitle)
                     .font(.callout)
-                Text(list.itemGlanceInfo)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
+                if let totalItems = list.items?.count {
+                    Text("\(totalItems) items")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                } else if let notes = list.notes, !notes.isEmpty {
+                    Text(notes)
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                } else {
+                    Text("Last Updated at \(list.itemLastUpdateFormatted)")
+                }
             }
             .padding(.leading, 4)
             Spacer()

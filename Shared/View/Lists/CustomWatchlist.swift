@@ -24,6 +24,7 @@ struct CustomWatchlist: View {
     @Binding var showPopup: Bool
     @Binding var popupType: ActionPopupItems?
     @AppStorage("customListSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
+    @State private var showFilters = false
     private var sortedItems: [WatchlistItem] {
         guard let items = selectedList?.itemsArray else { return [] }
         switch sortOrder {
@@ -168,7 +169,7 @@ struct CustomWatchlist: View {
             }
         }
         .toolbar {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
             ToolbarItem(placement: .navigationBarLeading) {
                 styleButton
             }
@@ -190,7 +191,7 @@ struct CustomWatchlist: View {
                 Text(scope.localizableTitle).tag(scope)
             }
         }
-        #elseif os(macOS)
+#elseif os(macOS)
         .searchable(text: $query, placement: .toolbar, prompt: "Search \(selectedList?.itemTitle ?? "List")")
 #endif
         .disableAutocorrection(true)
@@ -202,6 +203,13 @@ struct CustomWatchlist: View {
                 filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
             }
             isSearching = false
+        }
+        .sheet(isPresented: $showFilters) {
+            ListFilterView(showView: $showFilters,
+                           sortOrder: $sortOrder,
+                           filter: $selectedOrder,
+                           mediaFilter: $mediaTypeFilter,
+                           showAllItems: $showAllItems)
         }
     }
     
@@ -221,6 +229,7 @@ struct CustomWatchlist: View {
     }
     
     private var filterButton: some View {
+#if os(tvOS) || os(macOS)
         Menu {
 #if !os(tvOS)
             Toggle("Show All", isOn: $showAllItems)
@@ -262,11 +271,17 @@ struct CustomWatchlist: View {
                 .accessibilityLabel("Sort List")
         }
         .buttonStyle(.bordered)
+#else
+        Button("Filters",
+               systemImage: "line.3.horizontal.decrease.circle") {
+            showFilters = true
+        }
+#endif
     }
     
     @ViewBuilder
     private var noResults: some View {
-       SearchContentUnavailableView(query: query)
+        SearchContentUnavailableView(query: query)
     }
 }
 

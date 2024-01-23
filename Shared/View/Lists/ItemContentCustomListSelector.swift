@@ -14,8 +14,8 @@ struct ItemContentCustomListSelector: View {
     @Binding var showView: Bool
     let title: String
     let image: URL?
-    @FetchRequest( sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
-                   animation: .default) private var lists: FetchedResults<CustomList>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+                  animation: .default) private var lists: FetchedResults<CustomList>
     @State private var selectedList: CustomList?
     @State private var isLoading = false
     @State private var settings = SettingsStore.shared
@@ -38,7 +38,6 @@ struct ItemContentCustomListSelector: View {
                             }
                         }
                     }
-                    
                     .frame(width: 70, height: 50, alignment: .center)
                     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                     .shadow(radius: 2)
@@ -78,7 +77,7 @@ struct ItemContentCustomListSelector: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if !lists.isEmpty { newList }
             }
-#elseif os(macOS)
+#elseif os(macOS) || os(visionOS)
             ToolbarItem(placement: .cancellationAction) {
                 Button("Done") { showView.toggle() }
             }
@@ -106,7 +105,7 @@ struct ItemContentCustomListSelector: View {
     
     private var newList: some View {
         NavigationLink {
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
             NewCustomListView(presentView: $showView, preSelectedItem: item, newSelectedList: $selectedList)
 #elseif os(macOS)
             NewCustomListView(isPresentingNewList: $showView,

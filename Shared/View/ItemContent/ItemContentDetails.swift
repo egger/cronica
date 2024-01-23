@@ -132,7 +132,7 @@ struct ItemContentDetails: View {
             .presentationDragIndicator(.visible)
 #if os(macOS)
             .frame(width: 500, height: 600, alignment: .center)
-#else
+#elseif os(iOS)
             .appTheme()
             .appTint()
 #endif
@@ -145,7 +145,7 @@ struct ItemContentDetails: View {
                 .presentationDetents([.large])
 #if os(macOS)
                 .frame(width: 500, height: 500, alignment: .center)
-#else
+#elseif os(iOS)
                 .appTheme()
                 .appTint()
 #endif
@@ -734,7 +734,6 @@ extension ItemContentDetails {
         }
     }
     
-    
     private var watchButton: some View {
         Button {
             viewModel.update(.watched)
@@ -970,6 +969,10 @@ extension ItemContentDetails {
                 openUrl(for: url)
             }
         }
+#if os(visionOS)
+             .menuStyle(.button)
+             .buttonStyle(.bordered)
+#endif
     }
     
     private var toolbarRow: some View {

@@ -31,7 +31,7 @@ struct ReviewView: View {
                             RatingView(rating: $rating)
                         }
                     }
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
                     Section("Notes") {
                         TextEditor(text: $note)
                             .frame(minHeight: 150)
@@ -62,7 +62,7 @@ struct ReviewView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 saveButton
             }
-#elseif os(macOS)
+#else
             ToolbarItem(placement: .confirmationAction) { saveButton }
             ToolbarItem(placement: .cancellationAction) { doneButton }
 #endif

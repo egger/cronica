@@ -49,7 +49,7 @@ struct NewCustomListView: View {
 #if os(macOS)
             ToolbarItem(placement: .automatic) { createList }
             ToolbarItem(placement: .cancellationAction) { cancelButton }
-#elseif os(iOS)
+#elseif os(iOS) || os(visionOS)
             createList
 #endif
         }

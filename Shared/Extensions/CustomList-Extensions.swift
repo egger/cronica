@@ -15,24 +15,7 @@ extension CustomList {
         if let updatedDate {
             return updatedDate.convertDateToString()
         }
-        return ""
-    }
-    var itemGlanceInfo: String {
-        if let notes {
-            if !notes.isEmpty {
-                return notes
-            }
-        }
-        if let count = items?.count {
-            return NSLocalizedString("\(count) items", comment: "")
-        }
         return String()
-    }
-    var itemCount: String {
-        if let count = items?.count {
-            return NSLocalizedString("\(count) items", comment: "")
-        }
-        return NSLocalizedString("Empty", comment: "")
     }
     var itemFooter: String {
         if let notes {

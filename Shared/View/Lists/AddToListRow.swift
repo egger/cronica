@@ -19,9 +19,17 @@ struct AddToListRow: View {
                 .padding(.leading, 4)
             VStack(alignment: .leading) {
                 Text(list.itemTitle)
-                Text(list.itemGlanceInfo)
-                    .foregroundColor(.secondary)
-                    .font(.caption)
+                if let totalItems = list.items?.count {
+                    Text("\(totalItems) items")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                } else if let notes = list.notes, !notes.isEmpty {
+                    Text(notes)
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                } else {
+                    Text("Last Updated at \(list.itemLastUpdateFormatted)")
+                }
             }
             .padding(.leading, 4)
         }

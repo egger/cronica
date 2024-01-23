@@ -4,9 +4,6 @@
     "" : {
 
     },
-    "(count) items" : {
-
-    },
     "(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" : {
 
     },
@@ -1548,6 +1545,16 @@
         }
       }
     },
+    "Last Updated at %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last Updated at %@"
+          }
+        }
+      }
+    },
     "Last watching refresh: %@" : {
       "localizations" : {
         "en" : {
@@ -1931,6 +1938,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not Found"
+          }
+        }
+      }
+    },
+    "Notes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
           }
         }
       }

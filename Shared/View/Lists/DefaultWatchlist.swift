@@ -216,13 +216,13 @@ struct DefaultWatchlist: View {
         .task(id: query) {
             await search()
         }
-        .sheet(isPresented: $showFilters, content: {
+        .sheet(isPresented: $showFilters) {
             ListFilterView(showView: $showFilters,
                            sortOrder: $sortOrder,
                            filter: $smartFilter,
                            mediaFilter: $mediaTypeFilter,
                            showAllItems: $showAllItems)
-        })
+        }
     }
     
     private func search() async {
@@ -311,7 +311,7 @@ struct DefaultWatchlist: View {
         }
 #endif
     }
-    
+     
     @ViewBuilder
     private var empty: some View {
         EmptyListView()

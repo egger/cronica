@@ -96,7 +96,7 @@ struct WatchlistView: View {
             ToolbarItem(placement: .principal) {
                 WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
             }
-#elseif os(macOS)
+#elseif os(macOS) || os(visionOS)
             ToolbarItem(placement: .navigation) {
                 WatchlistTitle(navigationTitle: $navigationTitle, showListSelection: $showListSelection)
                     .buttonStyle(.bordered)
