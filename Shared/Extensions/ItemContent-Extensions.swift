@@ -332,13 +332,6 @@ extension ItemContent {
         return nil
     }
     
-    var itemInfoTVShow: String? {
-        if let numberOfSeasons, let numberOfEpisodes {
-            return NSLocalizedString("\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes", comment: "")
-        }
-        return nil
-    }
-    
     // MARK: Int
     var itemSeasons: [Int]? {
         guard let numberOfSeasons else { return nil }

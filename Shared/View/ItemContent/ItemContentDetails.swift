@@ -993,6 +993,7 @@ extension ItemContentDetails {
         .disabled(viewModel.isLoading ? true : false)
     }
     
+    #if !os(macOS)
     private var moreMenu: some View {
         Menu("More Options", systemImage: "ellipsis.circle") {
 #if os(visionOS)
@@ -1027,6 +1028,8 @@ extension ItemContentDetails {
         .labelStyle(.iconOnly)
         .disabled(viewModel.isLoading ? true : false)
     }
+    #endif
+    
 #endif
     
     // MARK: Information box

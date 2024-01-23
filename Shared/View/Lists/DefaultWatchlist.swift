@@ -375,7 +375,7 @@ struct ListFilterView: View {
                 }
             }
             .navigationTitle("Filters")
-#if !os(tvOS)
+#if !os(tvOS) && !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .toolbar {

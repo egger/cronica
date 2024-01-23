@@ -159,7 +159,9 @@ struct HorizontalUpNextListView: View {
                                        showTitle: item.showTitle,
                                        isWatched: $viewModel.isWatched,
                                        isUpNext: true)
-#if os(macOS) || os(iOS) || os(visionOS)
+#if os(macOS)
+                    .toolbar { ToolbarItem { Button("Done") { self.selectedEpisode = nil } } }
+#elseif os(iOS) || os(visionOS)
                     .toolbar { ToolbarItem(placement: .topBarLeading) { Button("Done") { self.selectedEpisode = nil } } }
 #endif
                     .navigationDestination(for: ItemContent.self) { item in
