@@ -22,92 +22,76 @@ struct SettingsView: View {
     
     private var settings: some View {
 #if os(iOS) || os(visionOS)
-        NavigationStack {
-            Form {
-                Section {
-                    NavigationLink(value: SettingsScreens.behavior) {
-                        settingsLabel(title: NSLocalizedString("Behavior", comment: ""),
-                                      icon: "hand.tap", color: .gray)
-                    }
-                    NavigationLink(value: SettingsScreens.appearance) {
-                        settingsLabel(title: NSLocalizedString("Appearance", comment: ""),
-                                      icon: "paintbrush", color: .blue)
-                    }
-                    NavigationLink(value: SettingsScreens.sync) {
-                        settingsLabel(title: NSLocalizedString("Sync", comment: ""),
-                                      icon: "arrow.triangle.2.circlepath", color: .green)
-                    }
-                    NavigationLink(value: SettingsScreens.notifications) {
-                        settingsLabel(title: NSLocalizedString("Notification", comment: ""),
-                                      icon: "bell", color: .red)
-                    }
-                    NavigationLink(value: SettingsScreens.region) {
-                        settingsLabel(title: NSLocalizedString("Region", comment: ""),
-                                      icon: "globe", color: .purple)
-                    }
+        Form {
+            Section {
+                NavigationLink(value: SettingsScreens.behavior) {
+                    settingsLabel(title: NSLocalizedString("Behavior", comment: ""),
+                                  icon: "hand.tap", color: .gray)
                 }
-                
-                Section {
-                    NavigationLink(value: SettingsScreens.feedback) {
-                        settingsLabel(title: NSLocalizedString("Feedback", comment: ""),
-                                      icon: "envelope.fill", color: AppThemeColors.steel.color)
-                    }
-                    Button {
-                        showPolicy.toggle()
-                    } label: {
-                        settingsLabel(title: NSLocalizedString("Privacy Policy", comment: ""),
-                                      icon: "hand.raised", color: .indigo)
-                    }
-                    .buttonStyle(.plain)
-                    .sheet(isPresented: $showPolicy) {
-                        if let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") {
-                            SFSafariViewWrapper(url: url)
-                                .appTint()
-                                .appTheme()
-                        }
-                    }
+                NavigationLink(value: SettingsScreens.appearance) {
+                    settingsLabel(title: NSLocalizedString("Appearance", comment: ""),
+                                  icon: "paintbrush", color: .blue)
                 }
-                
-                Section {
-                    Button {
-                        showWhatsNew.toggle()
-                    } label: {
-                        settingsLabel(title: NSLocalizedString("What's New", comment: ""),
-                                      icon: "sparkles", color: .yellow)
-                    }
-                    .buttonStyle(.plain)
-                    .sheet(isPresented: $showWhatsNew) {
-                        ChangelogView(showChangelog: $showWhatsNew)
+                NavigationLink(value: SettingsScreens.sync) {
+                    settingsLabel(title: NSLocalizedString("Sync", comment: ""),
+                                  icon: "arrow.triangle.2.circlepath", color: .green)
+                }
+                NavigationLink(value: SettingsScreens.notifications) {
+                    settingsLabel(title: NSLocalizedString("Notification", comment: ""),
+                                  icon: "bell", color: .red)
+                }
+                NavigationLink(value: SettingsScreens.region) {
+                    settingsLabel(title: NSLocalizedString("Region", comment: ""),
+                                  icon: "globe", color: .purple)
+                }
+            }
+            
+            Section {
+                NavigationLink(value: SettingsScreens.feedback) {
+                    settingsLabel(title: NSLocalizedString("Feedback", comment: ""),
+                                  icon: "envelope.fill", color: AppThemeColors.steel.color)
+                }
+                Button {
+                    showPolicy.toggle()
+                } label: {
+                    settingsLabel(title: NSLocalizedString("Privacy Policy", comment: ""),
+                                  icon: "hand.raised", color: .indigo)
+                }
+                .buttonStyle(.plain)
+                .sheet(isPresented: $showPolicy) {
+                    if let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") {
+                        SFSafariViewWrapper(url: url)
                             .appTint()
                             .appTheme()
                     }
-                    NavigationLink(value: SettingsScreens.tipJar) {
-                        settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
-                                      icon: "heart", color: .red)
-                    }
-                    
-                    NavigationLink(value: SettingsScreens.about) {
-                        settingsLabel(title: NSLocalizedString("About", comment: ""),
-                                      icon: "info.circle", color: .black)
-                    }
                 }
             }
-            .navigationTitle("Settings")
-            .navigationDestination(for: SettingsScreens.self) { settings in
-                switch settings {
-                case .about: AboutSettings()
-                case .appearance: AppearanceSetting()
-                case .behavior: BehaviorSetting()
-                case .developer: DeveloperView()
-                case .notifications: NotificationsSettingsView()
-                case .sync: SyncSetting()
-                case .tipJar: TipJarSetting()
-                case .feedback: FeedbackComposerView()
-                case .region: RegionContentSettings()
-                default: BehaviorSetting()
+            
+            Section {
+                Button {
+                    showWhatsNew.toggle()
+                } label: {
+                    settingsLabel(title: NSLocalizedString("What's New", comment: ""),
+                                  icon: "sparkles", color: .yellow)
+                }
+                .buttonStyle(.plain)
+                .sheet(isPresented: $showWhatsNew) {
+                    ChangelogView(showChangelog: $showWhatsNew)
+                        .appTint()
+                        .appTheme()
+                }
+                NavigationLink(value: SettingsScreens.tipJar) {
+                    settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
+                                  icon: "heart", color: .red)
+                }
+                
+                NavigationLink(value: SettingsScreens.about) {
+                    settingsLabel(title: NSLocalizedString("About", comment: ""),
+                                  icon: "info.circle", color: .black)
                 }
             }
         }
+        .navigationTitle("Settings")
 #elseif os(macOS)
         TabView {
             BehaviorSetting()

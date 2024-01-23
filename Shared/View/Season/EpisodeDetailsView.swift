@@ -104,27 +104,6 @@ struct EpisodeDetailsView: View {
 #endif
                     .keyboardShortcut("e", modifiers: [.control])
                     .shadow(radius: isUpNext ? 0 : 2.5)
-#if os(iOS)
-                    if let showItem {
-                        NavigationLink(value: showItem) {
-                            VStack {
-                                Image(systemName: "info.circle.fill")
-                                Text("More Info")
-                                    .lineLimit(1)
-                                    .padding(.top, 2)
-                                    .font(.caption)
-                            }
-                            .frame(height: 40)
-                            .padding(.vertical, 4)
-                            .frame(minWidth: 80)
-                        }
-                        .buttonStyle(.bordered)
-                        .buttonBorderShape(.roundedRectangle(radius: 12))
-                        .tint(.primary)
-                        .applyHoverEffect()
-                        .padding(.horizontal)
-                    }
-#endif
                 }
                 .padding(.top, 4)
                 .padding(.bottom)
@@ -136,18 +115,30 @@ struct EpisodeDetailsView: View {
             }
             .task { load() }
         }
-        #if !os(visionOS)
+#if !os(visionOS)
         .background {
             TranslucentBackground(image: episode.itemImageLarge)
         }
-        #endif
+#endif
         .onAppear {
-            if isUpNext && showItem == nil {
+            if isUpNext, showItem == nil {
                 Task {
                     showItem = try await NetworkService.shared.fetchItem(id: show, type: .tvShow)
                 }
             }
         }
+#if os(iOS)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing){
+                if let showItem {
+                    NavigationLink(value: showItem) {
+                        Label("More Info", systemImage: "info.circle.fill")
+                            .labelStyle(.iconOnly)
+                    }
+                }
+            }
+        }
+#endif
     }
 #endif
 }

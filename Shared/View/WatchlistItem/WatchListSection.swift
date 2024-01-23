@@ -43,8 +43,7 @@ struct WatchListSection: View {
                 HStack {
                     Text(NSLocalizedString(title, comment: ""))
                     Spacer()
-                    let result = NSLocalizedString("\(items.count) item", comment: "")
-                    Text(result)
+                    Text("\(items.count) items")
                 }
             } 
         }

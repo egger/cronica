@@ -32,7 +32,7 @@ struct UpNextMenuBar: View {
                 }
                 .overlay {
                     if !viewModel.isLoaded {
-                        ProgressView("Loading")
+                        CronicaLoadingPopupView()
                     }
                 }
                 .redacted(reason: viewModel.isLoaded ? [] : .placeholder)

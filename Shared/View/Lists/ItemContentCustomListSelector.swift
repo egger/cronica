@@ -22,7 +22,7 @@ struct ItemContentCustomListSelector: View {
     var body: some View {
         Form {
             if isLoading {
-                CenterHorizontalView { ProgressView("Loading").padding() }
+                ProgressView()
             } else {
                 HStack {
                     LazyImage(url: image) { state in

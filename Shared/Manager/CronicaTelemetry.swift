@@ -43,7 +43,7 @@ struct CronicaTelemetry {
 #if targetEnvironment(simulator) || DEBUG
         logger.warning("\(message), for: \(id)")
 #else
-#if !os(iOS) || os(visionOS)
+#if !os(iOS) && !os(visionOS)
         Aptabase.shared.trackEvent(id, with: ["Message": message])
 #else
         if TelemetryManager.isInitialized {

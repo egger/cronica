@@ -11,7 +11,7 @@
         }
       }
     },
-    "(items.count) item" : {
+    "(count) items" : {
 
     },
     "(numberOfSeasons) Seasons • (numberOfEpisodes) Episodes" : {
@@ -76,6 +76,34 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld items"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld items" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld item"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld items"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "No Items"
                 }
               }
             }
@@ -613,6 +641,9 @@
         }
       }
     },
+    "Cherry" : {
+
+    },
     "Choose what function to perform when double tap the cover/poster image." : {
       "localizations" : {
         "en" : {
@@ -736,7 +767,14 @@
       }
     },
     "Confirm Watched Episode" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm Watched Episode"
+          }
+        }
+      }
     },
     "Content Provider" : {
       "localizations" : {
@@ -763,6 +801,9 @@
           }
         }
       }
+    },
+    "Coral" : {
+
     },
     "Create" : {
       "localizations" : {
@@ -880,9 +921,6 @@
         }
       }
     },
-    "defaultWatchlistSmartFilters" : {
-
-    },
     "Delete" : {
       "localizations" : {
         "en" : {
@@ -924,7 +962,14 @@
       }
     },
     "Details" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details"
+          }
+        }
+      }
     },
     "Details Page" : {
       "localizations" : {
@@ -1045,6 +1090,9 @@
           }
         }
       }
+    },
+    "E(episode.itemEpisodeNumberDisplay)" : {
+      "comment" : "This represents a short for episode (E) and its episode number"
     },
     "E%lld" : {
       "localizations" : {
@@ -1419,6 +1467,9 @@
         }
       }
     },
+    "Goldenrod" : {
+
+    },
     "Gray" : {
       "localizations" : {
         "en" : {
@@ -1729,16 +1780,6 @@
         }
       }
     },
-    "items count" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "items count"
-          }
-        }
-      }
-    },
     "Japan" : {
       "localizations" : {
         "en" : {
@@ -1889,6 +1930,16 @@
         }
       }
     },
+    "Mark Episode %lld from season %lld of %@ as Watched?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mark Episode %1$lld from season %2$lld of %3$@ as Watched?"
+          }
+        }
+      }
+    },
     "Mark This and Prior Episodes Watched" : {
       "localizations" : {
         "en" : {
@@ -1899,14 +1950,18 @@
         }
       }
     },
-    "MARK_EPISODE_WATCHED" : {
-
-    },
     "markThisSeasonAsWatched" : {
 
     },
     "Media Filter" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media Filter"
+          }
+        }
+      }
     },
     "Media Type" : {
       "localizations" : {
@@ -2134,7 +2189,14 @@
 
     },
     "No title available" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No title available"
+          }
+        }
+      }
     },
     "Norway" : {
       "localizations" : {
@@ -2233,7 +2295,14 @@
       }
     },
     "Nuke" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuke"
+          }
+        }
+      }
     },
     "Official Website" : {
       "localizations" : {
@@ -2994,17 +3063,6 @@
         }
       }
     },
-    "SDWebImage" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SDWebImage"
-          }
-        }
-      }
-    },
     "Search" : {
       "localizations" : {
         "en" : {
@@ -3069,7 +3127,7 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Season (nextSeasonNumber)"
           }
         }
@@ -3334,6 +3392,9 @@
         }
       }
     },
+    "Sky Blue" : {
+
+    },
     "Slovakia" : {
       "localizations" : {
         "en" : {
@@ -3363,6 +3424,9 @@
           }
         }
       }
+    },
+    "Smart List Filters" : {
+
     },
     "Sort By" : {
       "localizations" : {
@@ -3907,6 +3971,9 @@
         }
       }
     },
+    "Turquoise Blue" : {
+
+    },
     "TV" : {
       "localizations" : {
         "en" : {
@@ -4151,7 +4218,7 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Version %1$@ • %2$@"
           }
         }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NukeUI
+import Pow
 
 struct ItemContentDetails: View {
     var title: String
@@ -40,6 +41,8 @@ struct ItemContentDetails: View {
     @Namespace var tvOSActionNamespace
     @FocusState var isWatchlistButtonFocused: Bool
     
+    // MARK: Animation properties
+    @State private var animateFavorite = false
     var body: some View {
         VStack {
             ScrollView {
@@ -191,9 +194,9 @@ struct ItemContentDetails: View {
             }
             
             HStack {
+                Spacer()
                 if type == .movie {
                     watchButton
-                        .padding(.leading)
                 } else {
                     favoriteButton
                 }
@@ -201,7 +204,7 @@ struct ItemContentDetails: View {
                     .keyboardShortcut("l", modifiers: [.option])
                     .padding(.horizontal)
                 listButton
-                    .padding(.trailing)
+                Spacer()
             }
             .padding([.top, .horizontal])
             
@@ -784,16 +787,31 @@ extension ItemContentDetails {
         Button {
             viewModel.update(.favorite)
             resetPopupAnimation()
-            animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
-            withAnimation { showPopup = true }
+            if type == .movie {
+                animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+                withAnimation { showPopup = true }
+            }
+            if viewModel.isFavorite, type == .tvShow {
+                animateFavorite.toggle()
+            }
         } label: {
             VStack {
                 if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                         .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
                                       value: viewModel.isFavorite)
+                        .changeEffect(
+                            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(.red)
+                            }, value: animateFavorite)
                 } else {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                        .changeEffect(
+                            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(.red)
+                            }, value: animateFavorite)
                 }
 #if !os(tvOS)
                 Text("Favorite")

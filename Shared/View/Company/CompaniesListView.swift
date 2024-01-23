@@ -12,7 +12,7 @@ struct CompaniesListView: View {
     var body: some View {
         Form {
             if companies.isEmpty {
-                CenterHorizontalView { ProgressView().padding() }
+                CronicaLoadingPopupView()
             } else {
                 Section {
                     List(companies, id: \.self) { item in

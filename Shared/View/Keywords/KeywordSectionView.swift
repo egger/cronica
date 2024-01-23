@@ -67,7 +67,7 @@ struct KeywordSectionView: View {
                 .unredacted()
                 .disabled(!isLoaded)
             }
-#elseif os(macOS)
+#elseif os(macOS) || os(visionOS)
             ToolbarItem {
                 sortButton
                     .unredacted()

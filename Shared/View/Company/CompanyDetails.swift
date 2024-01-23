@@ -39,7 +39,7 @@ struct CompanyDetails: View {
 #endif
         }
         .overlay {
-            if !isLoaded { ProgressView().unredacted() }
+            if !isLoaded { CronicaLoadingPopupView() }
         }
         .toolbar {
 #if os(iOS)

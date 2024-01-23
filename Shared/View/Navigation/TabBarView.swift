@@ -70,23 +70,11 @@ struct TabBarView: View {
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .tag(WatchlistView.tag)
-            .tabItem { Label("Watchlist", systemImage: "square.stack") }
+            .tabItem { Label("Watchlist", systemImage: "rectangle.on.rectangle") }
             
             NavigationStack { SearchView() }
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
-            
-            #if os(visionOS)
-            SettingsView()
-                .tag(SettingsView.tag)
-                .tabItem { Label("Settings", systemImage: "gearshape") }
-            #else
-            if UIDevice.isIPhone {
-                SettingsView()
-                    .tag(SettingsView.tag)
-                    .tabItem { Label("Settings", systemImage: "gearshape") }
-            }
-            #endif
         }
         .appTheme()
     }

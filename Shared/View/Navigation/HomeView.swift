@@ -68,7 +68,7 @@ struct HomeView: View {
             }
 #endif
         }
-        .overlay { if !viewModel.isLoaded { ProgressView("Loading").unredacted() } }
+        .overlay { if !viewModel.isLoaded { CronicaLoadingPopupView() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
 #if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
@@ -121,7 +121,7 @@ struct HomeView: View {
             EndpointDetails(title: endpoint.title,
                             endpoint: endpoint)
         }
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
         .navigationDestination(for: [WatchlistItem].self) { item in
             WatchlistSectionDetails(items: item)
         }
@@ -147,15 +147,29 @@ struct HomeView: View {
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
         }
+        .navigationDestination(for: SettingsScreens.self) { settings in
+            switch settings {
+            case .about: AboutSettings()
+            case .appearance: AppearanceSetting()
+            case .behavior: BehaviorSetting()
+            case .developer: DeveloperView()
+            case .notifications: NotificationsSettingsView()
+            case .sync: SyncSetting()
+            case .tipJar: TipJarSetting()
+            case .feedback: FeedbackComposerView()
+            case .region: RegionContentSettings()
+            case .settings: SettingsView()
+            }
+        }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
 #if os(iOS) || os(macOS)
         .navigationTitle("Home")
 #endif
-        #if os(iOS)
+#if os(iOS)
         .sheet(isPresented: $showSettings) {
             SettingsView()
         }
-        #endif
+#endif
         .toolbar {
 #if os(macOS)
             ToolbarItem(placement: .navigation) {
@@ -177,11 +191,26 @@ struct HomeView: View {
                 }
             }
 #elseif os(iOS)
-            if UIDevice.isIPad {
-                ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
                     Button {
-                        showSettings.toggle()
+                        showNotifications.toggle()
                     } label: {
+                        Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
+                            .imageScale(.medium)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .contentShape(Circle())
+                    .clipShape(Circle())
+                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                    .shadow(radius: 2.5)
+                    .accessibilityLabel("Notifications")
+                    .applyHoverEffect()
+                    
+                    NavigationLink(value: SettingsScreens.settings) {
                         Image(systemName: "gearshape")
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
@@ -197,42 +226,41 @@ struct HomeView: View {
                     .applyHoverEffect()
                 }
             }
+#elseif os(visionOS)
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showNotifications.toggle()
-                } label: {
-                    Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
-                        .fontDesign(.rounded)
-                        .fontWeight(.semibold)
-                        .imageScale(.medium)
-                        .foregroundColor(.white.opacity(0.9))
+                HStack {
+                    Button {
+                        showNotifications.toggle()
+                    } label: {
+                        Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
+                            .imageScale(.medium)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .contentShape(Circle())
+                    .clipShape(Circle())
+                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                    .shadow(radius: 2.5)
+                    .accessibilityLabel("Notifications")
+                    .applyHoverEffect()
+                    
+                    NavigationLink(value: Screens.settings) {
+                        Image(systemName: "gearshape")
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
+                            .imageScale(.medium)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .contentShape(Circle())
+                    .clipShape(Circle())
+                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                    .shadow(radius: 2.5)
+                    .accessibilityLabel("Settings")
+                    .applyHoverEffect()
                 }
-                .buttonStyle(.borderedProminent)
-                .contentShape(Circle())
-                .clipShape(Circle())
-                .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                .shadow(radius: 2.5)
-                .accessibilityLabel("Notifications")
-                .applyHoverEffect()
-            }
-            #elseif os(visionOS)
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showNotifications.toggle()
-                } label: {
-                    Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
-                        .fontDesign(.rounded)
-                        .fontWeight(.semibold)
-                        .imageScale(.medium)
-                        .foregroundColor(.white.opacity(0.9))
-                }
-                .buttonStyle(.borderedProminent)
-                .contentShape(Circle())
-                .clipShape(Circle())
-                .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                .shadow(radius: 2.5)
-                .accessibilityLabel("Notifications")
-                .applyHoverEffect()
             }
 #endif
         }

@@ -80,45 +80,36 @@ struct WatchlistItemPosterView: View {
                         Spacer()
                         HStack {
                             Spacer()
-#if !os(tvOS)
-                            if !settings.isCompactUI {
-                                if isArchive {
-                                    Image(systemName: "archivebox.fill")
-                                        .imageScale(.small)
-                                        .foregroundColor(.white.opacity(0.9))
-                                        .padding([.vertical])
-                                        .padding(.trailing, 4)
-                                }
-                                if isPin {
-                                    Image(systemName: "pin.fill")
-                                        .imageScale(.small)
-                                        .foregroundColor(.white.opacity(0.9))
-                                        .padding([.vertical])
-                                        .padding(.trailing, 4)
-                                }
-                            }
                             if isFavorite {
                                 Image(systemName: "suit.heart.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
-                                    .padding(.trailing, 4)
+                                    .padding(.horizontal)
+#if os(tvOS)
+                                    .font(.caption)
+#endif
                             }
-                            if isWatched {
+                            if !isFavorite, isWatched {
                                 Image(systemName: "rectangle.badge.checkmark.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
-                                    .padding(.trailing, 4)
-                            }
-#endif
-                            Image(systemName: "square.stack.fill")
-                                .imageScale(.small)
-                                .foregroundColor(.white.opacity(0.9))
-                                .padding([.vertical, .trailing])
+                                    .padding(.horizontal)
 #if os(tvOS)
-                                .font(.caption)
+                                    .font(.caption)
 #endif
+                            }
+                            if !isFavorite, !isWatched {
+                                Image(systemName: "square.stack.fill")
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical, .trailing])
+#if os(tvOS)
+                                    .font(.caption)
+#endif
+                            }
+                            
                         }
                         .background {
                             if content.mediumPosterImage != nil {

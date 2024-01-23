@@ -108,7 +108,7 @@ struct ExploreView: View {
                 }
             }
         }
-        .overlay { if !isLoaded {  ProgressView().unredacted() } }
+        .overlay { if !isLoaded { CronicaLoadingPopupView() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
         .task { await load() }
         .navigationDestination(for: ItemContent.self) { item in

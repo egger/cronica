@@ -23,20 +23,14 @@ extension CustomList {
                 return notes
             }
         }
-        if let items {
-            return NSLocalizedString("\(items.count) item", comment: "")
-//            let formatString = NSLocalizedString("items count", comment: "")
-//            let result = String(format: formatString, items.count)
-//            return result
+        if let count = items?.count {
+            return NSLocalizedString("\(count) items", comment: "")
         }
         return String()
     }
     var itemCount: String {
-        if let items {
-            return NSLocalizedString("\(items.count) item", comment: "")
-//            let formatString = NSLocalizedString("items count", comment: "")
-//            let result = String(format: formatString, items.count)
-//            return result
+        if let count = items?.count {
+            return NSLocalizedString("\(count) items", comment: "")
         }
         return NSLocalizedString("Empty", comment: "")
     }

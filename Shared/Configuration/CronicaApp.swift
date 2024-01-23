@@ -39,6 +39,8 @@ struct CronicaApp: App {
             ContentView()
 #if os(macOS)
                 .frame(minWidth: 1000, minHeight: 600)
+#elseif os(visionOS)
+                .frame(minWidth: 800)
 #endif
                 .environment(\.managedObjectContext, persistence.container.viewContext)
 #if os(iOS)
@@ -134,6 +136,9 @@ struct CronicaApp: App {
                 }
 #endif
         }
+#if os(visionOS)
+        .windowResizability(.contentMinSize)
+#endif
         .onChange(of: scene) { phase in
             if phase == .background {
                 scheduleAppRefresh()

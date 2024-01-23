@@ -41,31 +41,36 @@ struct WatchlistItemCardView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            if isPin {
-                                Image(systemName: "pin.fill")
-                                    .imageScale(.small)
-                                    .foregroundColor(.white.opacity(0.9))
-                                    .padding([.vertical])
-                                    .padding(.trailing, 4)
-                            }
                             if isFavorite {
                                 Image(systemName: "suit.heart.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
-                                    .padding(.trailing, 4)
+                                    .padding(.horizontal)
+#if os(tvOS)
+                                    .font(.caption)
+#endif
                             }
-                            if isWatched {
+                            if !isFavorite, isWatched {
                                 Image(systemName: "rectangle.badge.checkmark.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
-                                    .padding(.trailing, 4)
+                                    .padding(.horizontal)
+#if os(tvOS)
+                                    .font(.caption)
+#endif
                             }
-                            Image(systemName: "square.stack.fill")
-                                .imageScale(.small)
-                                .foregroundColor(.white.opacity(0.9))
-                                .padding([.vertical, .trailing])
+                            if !isFavorite, !isWatched {
+                                Image(systemName: "square.stack.fill")
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical, .trailing])
+#if os(tvOS)
+                                    .font(.caption)
+#endif
+                            }
+                            
                         }
                         .background {
                             if content.backCompatibleCardImage != nil {

@@ -25,7 +25,7 @@ struct DetailWatchlistButton: View {
                 updateWatchlist()
             }
         } label: {
-#if os(iOS) || os(watchOS)
+#if os(iOS) || os(watchOS) || os(visionOS)
             VStack {
                 if #available(iOS 17, *), #available(watchOS 10, *) {
                     Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
@@ -39,7 +39,7 @@ struct DetailWatchlistButton: View {
                     .padding(.top, 2)
                     .font(.caption)
             }
-#if os(iOS)
+#if os(iOS) || os(visionOS)
             .padding(.vertical, 4)
             .frame(width: 75)
 #else
@@ -63,15 +63,15 @@ struct DetailWatchlistButton: View {
         .buttonStyle(.borderedProminent)
 #if os(macOS)
         .controlSize(.large)
-#elseif os(iOS)
+#elseif os(iOS) || os(visionOS)
         .controlSize(.small)
         .applyHoverEffect()
 #endif
         .disabled(viewModel.isLoading)
-#if os(iOS) || os(macOS) || os(watchOS)
+#if !os(tvOS) || !os(visionOS)
         .tint(viewModel.isInWatchlist ? .red.opacity(0.95) : settings.appTheme.color)
 #endif
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         .buttonBorderShape(.roundedRectangle(radius: 12))
 #endif
         .alert("Are You Sure?", isPresented: $showConfirmationPopup) {

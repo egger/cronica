@@ -20,6 +20,7 @@ struct HorizontalUpNextListView: View {
                                                                     NSPredicate(format: "isArchive == %d", false),
                                                                     NSPredicate(format: "watched == %d", false)])
     ) private var items: FetchedResults<WatchlistItem>
+    @Environment(\.scenePhase) private var scene
     var body: some View {
         if !items.isEmpty {
             VStack(alignment: .leading) {
@@ -226,6 +227,13 @@ struct HorizontalUpNextListView: View {
                 await viewModel.load(items)
                 await viewModel.checkForNewEpisodes(items)
             }
+            .onChange(of: scene) { value in
+                if scene == .active {
+                    Task {
+                        await viewModel.checkForNewEpisodes(items)
+                    }
+                }
+            }
             .sheet(item: $selectedEpisode) { item in
                 NavigationStack {
                     EpisodeDetailsView(episode: item.episode,
@@ -235,7 +243,7 @@ struct HorizontalUpNextListView: View {
                                        isWatched: $viewModel.isWatched,
                                        isUpNext: true)
 #if os(macOS) || os(iOS) || os(visionOS)
-                    .toolbar { Button("Done") { self.selectedEpisode = nil } }
+                    .toolbar { ToolbarItem(placement: .topBarLeading) { Button("Done") { self.selectedEpisode = nil } } }
 #endif
                     .navigationDestination(for: ItemContent.self) { item in
                         ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
@@ -348,8 +356,7 @@ private struct UpNextCard: View {
                 showConfirmation = false
             }
         } message: {
-            let localizedString = String.localizedStringWithFormat(NSLocalizedString("MARK_EPISODE_WATCHED", comment: ""), item.episode.itemEpisodeNumber, item.episode.itemSeasonNumber, item.showTitle)
-            Text(localizedString)
+            Text("Mark Episode \(item.episode.itemEpisodeNumber) from season \(item.episode.itemSeasonNumber) of \(item.showTitle) as Watched?")
         }
         .contextMenu {
             Button("Details") {

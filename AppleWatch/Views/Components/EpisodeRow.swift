@@ -57,7 +57,7 @@ struct EpisodeRow: View {
                 Text(episode.itemTitle)
                     .lineLimit(DrawingConstants.lineLimit)
                     .font(.callout)
-                Text("E\(episode.itemEpisodeNumberDisplay)")
+                Text(NSLocalizedString("E\(episode.itemEpisodeNumberDisplay)", comment: "This represents a short for episode (E) and its episode number"))
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
