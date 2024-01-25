@@ -25,7 +25,7 @@ struct FilmographyListView: View {
             if !filmography.isEmpty {
 #if os(watchOS)
                 VStack {
-                    TitleView(title: "Filmography")
+                    TitleView(title: NSLocalizedString("Filmography", comment: ""))
                     LazyVStack {
                         ForEach(filmography) { item in
                             NavigationLink(value: item) {

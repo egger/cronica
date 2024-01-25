@@ -48,8 +48,8 @@ struct UpcomingWatchlist: View {
             VStack {
 #if !os(tvOS)
                 NavigationLink(value: items) {
-                    TitleView(title: "Upcoming",
-                              subtitle: "From Watchlist",
+                    TitleView(title: NSLocalizedString("Upcoming", comment: ""),
+                              subtitle: NSLocalizedString("From Watchlist", comment: ""),
                               showChevron: true)
                 }
                 .buttonStyle(.plain)

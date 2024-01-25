@@ -25,9 +25,12 @@ struct FeedbackComposerView: View {
                 TextField("Feedback", text: $feedback)
                     .lineLimit(4)
                 Button("Send", action: send)
+                    .disabled(feedback.isEmpty)
 #if os(macOS)
                     .buttonStyle(.link)
 #endif
+            } footer: {
+                Text("Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone.")
             }
 #if !os(tvOS)
             Section {
@@ -45,6 +48,17 @@ struct FeedbackComposerView: View {
 #if os(macOS)
             .buttonStyle(.link)
 #endif
+            
+            Section {
+                Button("X/Twitter") {
+                    guard let url = URL(string: "https://x.com/CronicaApp") else { return }
+                    UIApplication.shared.open(url)
+                }
+            } header: {
+                Text("On Social Media")
+            } footer: {
+                Text("Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM.")
+            }
 #endif
         }
         .navigationTitle("Feedback")

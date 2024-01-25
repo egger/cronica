@@ -11,12 +11,24 @@
             "state" : "translated",
             "value" : "%@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
         }
       }
     },
     "%@\n" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@\n"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@\n"
@@ -31,6 +43,12 @@
             "state" : "new",
             "value" : "%1$@ • %2$@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ • %2$@"
+          }
         }
       }
     },
@@ -40,6 +58,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@, tap to open list options."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, ťuknutím otvoríš možnosti zoznamu."
           }
         }
       }
@@ -73,6 +97,12 @@
             "state" : "translated",
             "value" : "🛠️"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
@@ -82,6 +112,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "About"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplikácii"
           }
         }
       }
@@ -99,6 +135,12 @@
             "state" : "translated",
             "value" : "Cor de Destaque"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Farba zvýraznenia"
+          }
         }
       }
     },
@@ -108,6 +150,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Action"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akcia"
           }
         }
       }
@@ -119,6 +167,12 @@
             "state" : "translated",
             "value" : "Action & Adventure"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akčné dobrodružstvo"
+          }
         }
       }
     },
@@ -128,6 +182,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridať"
           }
         }
       }
@@ -139,6 +199,12 @@
             "state" : "translated",
             "value" : "Add & Mark Watched"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridať a označiť ako pozreté"
+          }
         }
       }
     },
@@ -148,6 +214,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add everything you want, the Watchlist automatically organizes it for you."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridaj všetko, čo chceš, a v Sledovaných sa to automaticky usporiada za Teba."
           }
         }
       }
@@ -159,6 +231,12 @@
             "state" : "translated",
             "value" : "Add To List"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridať do zoznamu"
+          }
         }
       }
     },
@@ -168,6 +246,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add to..."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridať do..."
           }
         }
       }
@@ -179,6 +263,12 @@
             "state" : "translated",
             "value" : "Added"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridané"
+          }
         }
       }
     },
@@ -188,6 +278,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Adventure"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dobrodružný"
           }
         }
       }
@@ -199,6 +295,12 @@
             "state" : "translated",
             "value" : "Alien"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mimozemšťan"
+          }
         }
       }
     },
@@ -208,6 +310,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "All"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Všetko"
           }
         }
       }
@@ -219,6 +327,12 @@
             "state" : "translated",
             "value" : "Allow Full Swipe"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povoliť úplné potiahnutie"
+          }
         }
       }
     },
@@ -228,6 +342,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Allow Notification"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povoliť hlásenie"
           }
         }
       }
@@ -239,6 +359,12 @@
             "state" : "translated",
             "value" : "Always Synced"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vždy synchronizované"
+          }
         }
       }
     },
@@ -248,6 +374,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Animation"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animovaný"
           }
         }
       }
@@ -265,6 +397,12 @@
             "state" : "translated",
             "value" : "Anime"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anime"
+          }
         }
       }
     },
@@ -274,6 +412,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "App Icon"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikona apky"
           }
         }
       }
@@ -285,6 +429,12 @@
             "state" : "translated",
             "value" : "App Theme"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motív apky"
+          }
         }
       }
     },
@@ -295,6 +445,12 @@
             "state" : "translated",
             "value" : "Appearance"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vzhľad"
+          }
         }
       }
     },
@@ -304,6 +460,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archive"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archív"
           }
         }
       }
@@ -321,6 +483,12 @@
             "state" : "translated",
             "value" : "Arquivado"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archivované"
+          }
         }
       }
     },
@@ -330,6 +498,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Are You Sure?"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si si istý?"
           }
         }
       }
@@ -342,6 +516,12 @@
             "state" : "translated",
             "value" : "Argentina"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argentína"
+          }
         }
       }
     },
@@ -351,6 +531,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Asked for review: %@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Požiadané o kontrolu: %@"
           }
         }
       }
@@ -363,6 +549,12 @@
             "state" : "translated",
             "value" : "Australia"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Austrália"
+          }
         }
       }
     },
@@ -374,6 +566,12 @@
             "state" : "translated",
             "value" : "Austria"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rakúsko"
+          }
         }
       }
     },
@@ -383,6 +581,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Back"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Späť"
+          }
+        }
+      }
+    },
+    "Backup & Restore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup & Restore"
           }
         }
       }
@@ -399,6 +613,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Baseado em romance ou livro"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na základe románu alebo knihy"
           }
         }
       }
@@ -420,6 +640,12 @@
             "state" : "translated",
             "value" : "Based on Video-Game"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na základe videohry"
+          }
         }
       }
     },
@@ -429,6 +655,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Basic Filter"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Základný filter"
           }
         }
       }
@@ -446,6 +678,12 @@
             "state" : "translated",
             "value" : "Lembre-se dos próximos filmes e programas de TV."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripomenúť nadchádzajúce filmy a seriály."
+          }
         }
       }
     },
@@ -455,6 +693,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Behavior"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Správanie"
           }
         }
       }
@@ -467,12 +711,24 @@
             "state" : "translated",
             "value" : "Belgium"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belgicko"
+          }
         }
       }
     },
     "Beta" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beta"
@@ -487,6 +743,12 @@
             "state" : "translated",
             "value" : "Biography"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biografia"
+          }
         }
       }
     },
@@ -497,6 +759,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blue"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modrá"
           }
         }
       }
@@ -509,6 +777,12 @@
             "state" : "translated",
             "value" : "Brazil"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brazília"
+          }
         }
       }
     },
@@ -519,6 +793,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Brown"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hnedá"
+          }
+        }
+      }
+    },
+    "Browse by Themes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Browse by Themes"
           }
         }
       }
@@ -531,6 +821,12 @@
             "state" : "translated",
             "value" : "Bulgaria"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bulharsko"
+          }
         }
       }
     },
@@ -542,6 +838,12 @@
             "state" : "translated",
             "value" : "Canada"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kanada"
+          }
         }
       }
     },
@@ -551,6 +853,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrušiť"
           }
         }
       }
@@ -563,6 +871,12 @@
             "state" : "translated",
             "value" : "Cancelled"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrušené"
+          }
         }
       }
     },
@@ -572,6 +886,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Card"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karta"
           }
         }
       }
@@ -583,6 +903,12 @@
             "state" : "translated",
             "value" : "Cast & Crew"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obsadenie a tvorcovia"
+          }
         }
       }
     },
@@ -593,6 +919,12 @@
             "state" : "translated",
             "value" : "Change app language"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmeniť jazyk aplikácie"
+          }
         }
       }
     },
@@ -602,6 +934,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Changelog"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoznam zmien"
           }
         }
       }
@@ -614,6 +952,12 @@
             "state" : "translated",
             "value" : "Cherry"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Višňová"
+          }
         }
       }
     },
@@ -623,6 +967,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choose what function to perform when double tap the cover/poster image."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyber, aká funkcia sa má vykonať po dvojitom ťuknutí na obrázok coveru/plagátu."
           }
         }
       }
@@ -634,6 +984,12 @@
             "state" : "translated",
             "value" : "Classical"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klasický"
+          }
         }
       }
     },
@@ -644,6 +1000,12 @@
             "state" : "translated",
             "value" : "Collapse"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zbaliť"
+          }
         }
       }
     },
@@ -653,6 +1015,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comedy"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Komédia"
           }
         }
       }
@@ -665,6 +1033,12 @@
             "state" : "translated",
             "value" : "Coming Soon"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Už čoskoro"
+          }
         }
       }
     },
@@ -674,6 +1048,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coming Soon To Theaters"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Už čoskoro v kinách"
           }
         }
       }
@@ -685,6 +1065,12 @@
             "state" : "translated",
             "value" : "Compact UI"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kompaktné rozhranie"
+          }
         }
       }
     },
@@ -694,6 +1080,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Companies"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spoločnosti"
           }
         }
       }
@@ -705,6 +1097,12 @@
             "state" : "translated",
             "value" : "Confirm"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potvrdiť"
+          }
         }
       }
     },
@@ -714,6 +1112,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm and Delete Items"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potvrdiť a odstrániť položky"
           }
         }
       }
@@ -725,6 +1129,12 @@
             "state" : "translated",
             "value" : "Confirm and don't ask again"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potvrdiť a už sa nepýtať"
+          }
         }
       }
     },
@@ -734,6 +1144,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm Watched Episode"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potvrdiť pozretú epizódu"
           }
         }
       }
@@ -751,6 +1167,12 @@
             "state" : "translated",
             "value" : "Provedor de Conteúdo"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poskytovateľ obsahu"
+          }
         }
       }
     },
@@ -760,6 +1182,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovať"
           }
         }
       }
@@ -771,6 +1199,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coral"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koralová"
           }
         }
       }
@@ -788,6 +1222,12 @@
             "state" : "translated",
             "value" : "Criar"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvoriť"
+          }
         }
       }
     },
@@ -798,6 +1238,12 @@
             "state" : "translated",
             "value" : "Crime"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krimi"
+          }
         }
       }
     },
@@ -807,6 +1253,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Crime Investigation"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyšetrovanie zločinu"
           }
         }
       }
@@ -819,6 +1271,12 @@
             "state" : "translated",
             "value" : "Croatia"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chorvátsko"
+          }
         }
       }
     },
@@ -828,6 +1286,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cronica"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica"
+          }
+        }
+      }
+    },
+    "Cronica is open-source, you can contribute to the project." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica is open-source, you can contribute to the project."
           }
         }
       }
@@ -840,6 +1314,12 @@
             "state" : "translated",
             "value" : "Cyan"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Azúrová"
+          }
         }
       }
     },
@@ -851,6 +1331,12 @@
             "state" : "translated",
             "value" : "Czech Republic"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Česká republika"
+          }
         }
       }
     },
@@ -860,6 +1346,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dark"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tmavý"
           }
         }
       }
@@ -871,6 +1363,12 @@
             "state" : "translated",
             "value" : "Date (Asc)"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dátum (vzostupne)"
+          }
         }
       }
     },
@@ -880,6 +1378,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Date (Desc)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dátum (zostupne)"
           }
         }
       }
@@ -891,6 +1395,12 @@
             "state" : "translated",
             "value" : "Default List"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predvolený zoznam"
+          }
         }
       }
     },
@@ -900,6 +1410,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť"
           }
         }
       }
@@ -912,6 +1428,12 @@
             "state" : "translated",
             "value" : "Denmark"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dánsko"
+          }
         }
       }
     },
@@ -921,6 +1443,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Description"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Popis"
           }
         }
       }
@@ -932,6 +1460,12 @@
             "state" : "translated",
             "value" : "Design"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dizajn"
+          }
         }
       }
     },
@@ -941,6 +1475,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detaily"
           }
         }
       }
@@ -952,6 +1492,12 @@
             "state" : "translated",
             "value" : "Details Page"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stránka s detailmi"
+          }
         }
       }
     },
@@ -961,6 +1507,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Developed by Alexandre Madeira"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvoril Alexandre Madeira"
           }
         }
       }
@@ -972,6 +1524,12 @@
             "state" : "translated",
             "value" : "Developer Options"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vývojárske možnosti"
+          }
         }
       }
     },
@@ -981,6 +1539,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Digital"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digitálne"
           }
         }
       }
@@ -992,6 +1556,12 @@
             "state" : "translated",
             "value" : "Disable Search Filter"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakázať filter vyhľadávania"
+          }
         }
       }
     },
@@ -1001,6 +1571,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disable Translucent Background"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakázať priesvitné pozadie"
           }
         }
       }
@@ -1012,6 +1588,12 @@
             "state" : "translated",
             "value" : "Dismiss"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatvoriť"
+          }
         }
       }
     },
@@ -1021,6 +1603,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Display Style"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štýl zobrazenia"
           }
         }
       }
@@ -1032,6 +1620,12 @@
             "state" : "translated",
             "value" : "Documentary"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokumentárny"
+          }
         }
       }
     },
@@ -1041,6 +1635,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotovo"
           }
         }
       }
@@ -1052,6 +1652,12 @@
             "state" : "translated",
             "value" : "Double Tap On Cover/Poster"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dvojité ťuknutie na cover/plagát"
+          }
         }
       }
     },
@@ -1061,6 +1667,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Drama"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dráma"
           }
         }
       }
@@ -1072,6 +1684,12 @@
             "state" : "translated",
             "value" : "Edit"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upraviť"
+          }
         }
       }
     },
@@ -1081,6 +1699,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit Notifications in Settings app"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úpraviť hlásenia v Systéme"
           }
         }
       }
@@ -1092,6 +1716,12 @@
             "state" : "translated",
             "value" : "Empty"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prázdne"
+          }
         }
       }
     },
@@ -1101,6 +1731,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Empty List"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prázdny zoznam"
           }
         }
       }
@@ -1118,6 +1754,12 @@
             "state" : "translated",
             "value" : "Ativar Tela de Lançamento Preferencial"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povoliť preferovanú úvodnú obrazovku"
+          }
         }
       }
     },
@@ -1129,6 +1771,12 @@
             "state" : "translated",
             "value" : "Ended Series"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukončená séria"
+          }
         }
       }
     },
@@ -1138,6 +1786,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enjoying Cronica?"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Páči sa Ti Cronica?"
           }
         }
       }
@@ -1149,6 +1803,12 @@
             "state" : "translated",
             "value" : "Episode"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Epizóda"
+          }
         }
       }
     },
@@ -1158,6 +1818,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Episode %lld"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Epizóda %lld"
           }
         }
       }
@@ -1169,6 +1835,12 @@
             "state" : "new",
             "value" : "Episode: %1$lld, of the show: %2$@."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Epizóda: %1$lld, seriálu: %2$@."
+          }
         }
       }
     },
@@ -1179,6 +1851,12 @@
             "state" : "translated",
             "value" : "Error"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba"
+          }
         }
       }
     },
@@ -1188,6 +1866,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error reading this title"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba pri čítaní tohto názvu"
           }
         }
       }
@@ -1200,6 +1884,12 @@
             "state" : "translated",
             "value" : "Estonia"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estónsko"
+          }
         }
       }
     },
@@ -1210,12 +1900,24 @@
             "state" : "translated",
             "value" : "Explore"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objaviť"
+          }
         }
       }
     },
     "Export" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Export"
@@ -1230,6 +1932,12 @@
             "state" : "translated",
             "value" : "Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all users."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export / Import je v beta verzii. Používaj ho iba na export údajov alebo na import, ak prepínaš svoj iCloud účet. V súčasnosti neexistuje žiadna logika, aby sa zabránilo duplicite. Budúca aktualizácia poskytne všetkým používateľom lepšie riešenie."
+          }
         }
       }
     },
@@ -1240,12 +1948,24 @@
             "state" : "translated",
             "value" : "Family"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rodina"
+          }
         }
       }
     },
     "Fantasy" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fantasy"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fantasy"
@@ -1260,6 +1980,12 @@
             "state" : "translated",
             "value" : "Favorite"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obľúbené"
+          }
         }
       }
     },
@@ -1269,6 +1995,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Favorited"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do Obľúbených"
           }
         }
       }
@@ -1280,8 +2012,32 @@
             "state" : "translated",
             "value" : "Favorites"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obľúbené"
+          }
         }
       }
+    },
+    "featureOneDescription" : {
+
+    },
+    "featureOneTitle" : {
+
+    },
+    "featureThreeDescription" : {
+
+    },
+    "featureThreeTitle" : {
+
+    },
+    "featureTwoDescription" : {
+
+    },
+    "featureTwoTitle" : {
+
     },
     "Feedback" : {
       "localizations" : {
@@ -1289,6 +2045,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Feedback"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spätná väzba"
           }
         }
       }
@@ -1300,6 +2062,22 @@
             "state" : "translated",
             "value" : "Feedback sent. Thank you."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spätná väzba odoslaná. Ďakujeme."
+          }
+        }
+      }
+    },
+    "Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone."
+          }
         }
       }
     },
@@ -1309,6 +2087,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fetch"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Získať"
+          }
+        }
+      }
+    },
+    "Filmography" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmography"
           }
         }
       }
@@ -1326,6 +2120,12 @@
             "state" : "translated",
             "value" : "Filtros"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtre"
+          }
         }
       }
     },
@@ -1337,6 +2137,12 @@
             "state" : "translated",
             "value" : "Finland"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fínsko"
+          }
         }
       }
     },
@@ -1346,6 +2152,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "First Air Date"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dátum prvého vysielania"
+          }
+        }
+      }
+    },
+    "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM."
           }
         }
       }
@@ -1358,6 +2180,22 @@
             "state" : "translated",
             "value" : "France"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Francúzsko"
+          }
+        }
+      }
+    },
+    "From Watchlist" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From Watchlist"
+          }
         }
       }
     },
@@ -1367,6 +2205,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Full Swipe will activate the primary action"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úplné potiahnutie aktivuje primárnu akciu"
+          }
+        }
+      }
+    },
+    "General" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
           }
         }
       }
@@ -1378,6 +2232,12 @@
             "state" : "translated",
             "value" : "Generating File"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generovanie súboru"
+          }
         }
       }
     },
@@ -1388,6 +2248,12 @@
             "state" : "translated",
             "value" : "Genres"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žánre"
+          }
         }
       }
     },
@@ -1397,6 +2263,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "German"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nemčina"
           }
         }
       }
@@ -1415,6 +2287,12 @@
             "state" : "translated",
             "value" : "Alemanha"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nemecko"
+          }
         }
       }
     },
@@ -1424,6 +2302,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gestures"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestá"
           }
         }
       }
@@ -1435,12 +2319,24 @@
             "state" : "translated",
             "value" : "Get notifications about the newest releases."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dostávať hlásenia o najnovších premiérach."
+          }
         }
       }
     },
     "GitHub" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "GitHub"
@@ -1456,6 +2352,12 @@
             "state" : "translated",
             "value" : "Goldenrod"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zlatistá"
+          }
         }
       }
     },
@@ -1466,6 +2368,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gray"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Šedá"
           }
         }
       }
@@ -1478,6 +2386,12 @@
             "state" : "translated",
             "value" : "Green"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zelená"
+          }
         }
       }
     },
@@ -1487,6 +2401,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Haptic Feedback"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haptická odozva"
           }
         }
       }
@@ -1498,6 +2418,12 @@
             "state" : "translated",
             "value" : "Hide Added Items"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skryť pridané položky"
+          }
         }
       }
     },
@@ -1507,6 +2433,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hide Thumbnails from Unwatched Episodes"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skryť miniatúry u nepozretých epizód"
           }
         }
       }
@@ -1518,6 +2450,12 @@
             "state" : "translated",
             "value" : "Hide Titles from Unwatched Episodes"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skryť názvy z nepozretých epizód"
+          }
         }
       }
     },
@@ -1527,6 +2465,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "History"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "História"
           }
         }
       }
@@ -1538,6 +2482,12 @@
             "state" : "translated",
             "value" : "Home"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domov"
+          }
         }
       }
     },
@@ -1545,6 +2495,12 @@
       "comment" : "Country",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hong Kong"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hong Kong"
@@ -1559,6 +2515,12 @@
             "state" : "translated",
             "value" : "Horizontal List Style"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horizontálny štýl zoznamu"
+          }
         }
       }
     },
@@ -1568,6 +2530,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Horror"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horor"
           }
         }
       }
@@ -1580,6 +2548,12 @@
             "state" : "translated",
             "value" : "Hungary"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maďarsko"
+          }
         }
       }
     },
@@ -1590,12 +2564,24 @@
             "state" : "translated",
             "value" : "Icon Designer"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dizajnér ikony"
+          }
         }
       }
     },
     "ID" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ID"
@@ -1610,6 +2596,12 @@
             "state" : "translated",
             "value" : "If you love the app, consider supporting through Tip Jar."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak sa Ti apka ľúbi, zváž prosím podporu vývojára prostredníctvom Pokladničky."
+          }
         }
       }
     },
@@ -1619,6 +2611,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you prefer, you can send an email for a faster follow-up."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak chceš, môžeš poslať email na rýchlejšie vybavenie."
           }
         }
       }
@@ -1630,12 +2628,24 @@
             "state" : "translated",
             "value" : "IMDb"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IMDB"
+          }
         }
       }
     },
     "Import" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import"
@@ -1647,6 +2657,12 @@
       "comment" : "Country",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "India"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "India"
@@ -1668,6 +2684,12 @@
             "state" : "translated",
             "value" : "Índigo"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indigo modrá"
+          }
         }
       }
     },
@@ -1679,6 +2701,12 @@
             "state" : "translated",
             "value" : "Indonesia"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indonézia"
+          }
         }
       }
     },
@@ -1688,6 +2716,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Information"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informácie"
           }
         }
       }
@@ -1699,6 +2733,12 @@
             "state" : "translated",
             "value" : "Internal error: Something went wrong, contact TMDB."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interná chyba: Niečo sa pokazilo, kontaktuj TMDB."
+          }
         }
       }
     },
@@ -1709,12 +2749,24 @@
             "state" : "translated",
             "value" : "Invalid API key: You must be granted a valid key."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatný API kľúč: Musíš mať pridelený platný kľúč."
+          }
         }
       }
     },
     "Invalid Endpoint" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Endpoint"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invalid Endpoint"
@@ -1729,6 +2781,12 @@
             "state" : "translated",
             "value" : "Invalid Request"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatná žiadosť"
+          }
         }
       }
     },
@@ -1738,6 +2796,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invalid Response"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatná odpoveď"
           }
         }
       }
@@ -1749,6 +2813,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ireland"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Írsko"
           }
         }
       }
@@ -1766,6 +2836,12 @@
             "state" : "translated",
             "value" : "Is TelemetryDeck Initialized: %@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je TelemetryDeck inicializovaný: %@"
+          }
         }
       }
     },
@@ -1776,6 +2852,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Italy"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taliansko"
           }
         }
       }
@@ -1788,6 +2870,12 @@
             "state" : "translated",
             "value" : "Japan"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japonsko"
+          }
         }
       }
     },
@@ -1797,6 +2885,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep track of every episode you've watched."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mať prehľad o každej pozretej epizóde"
           }
         }
       }
@@ -1808,6 +2902,12 @@
             "state" : "translated",
             "value" : "Kids"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deti"
+          }
         }
       }
     },
@@ -1817,6 +2917,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last maintenance: %@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posledná údržba: %@"
           }
         }
       }
@@ -1828,6 +2934,12 @@
             "state" : "translated",
             "value" : "Last upcoming refresh: %@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť posledné nadch.: %@"
+          }
         }
       }
     },
@@ -1837,6 +2949,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last Updated at %@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posledná aktualizácia %@"
           }
         }
       }
@@ -1848,6 +2966,12 @@
             "state" : "translated",
             "value" : "Last watching refresh: %@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť naposledy pozerané: %@"
+          }
         }
       }
     },
@@ -1857,6 +2981,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Latest Movies"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Najnovšie filmy"
           }
         }
       }
@@ -1869,6 +2999,12 @@
             "state" : "translated",
             "value" : "Lavender"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Levanduľová"
+          }
         }
       }
     },
@@ -1878,6 +3014,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Leave a Review on the App Store!"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zanechaj recenziu v App Store!"
           }
         }
       }
@@ -1889,6 +3031,12 @@
             "state" : "translated",
             "value" : "Libraries"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Knižnice"
+          }
         }
       }
     },
@@ -1898,6 +3046,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Light"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Svetlý"
           }
         }
       }
@@ -1909,6 +3063,12 @@
             "state" : "translated",
             "value" : "List"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoznam"
+          }
         }
       }
     },
@@ -1918,6 +3078,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lists"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoznamy"
           }
         }
       }
@@ -1930,6 +3096,12 @@
             "state" : "translated",
             "value" : "Lithuania"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Litva"
+          }
         }
       }
     },
@@ -1939,6 +3111,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Loading"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Načítavanie"
           }
         }
       }
@@ -1950,6 +3128,12 @@
             "state" : "new",
             "value" : "Mark Episode %1$lld from season %2$lld of %3$@ as Watched?"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Označiť epizódu %1$lld od série %2$lld z %3$@ ako pozretú?"
+          }
         }
       }
     },
@@ -1959,6 +3143,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mark This and Prior Episodes Watched"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Označiť túto a predchádzajúce epizódy ako pozreté"
           }
         }
       }
@@ -1970,6 +3160,12 @@
             "state" : "translated",
             "value" : "Mark This Season as Watched"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Označiť túto sezónu ako pozretú"
+          }
         }
       }
     },
@@ -1979,6 +3175,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Media Filter"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter médií"
           }
         }
       }
@@ -1990,6 +3192,12 @@
             "state" : "translated",
             "value" : "Media Type"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typ média"
+          }
         }
       }
     },
@@ -1999,6 +3207,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Media Type Filter"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter typu médií"
           }
         }
       }
@@ -2011,6 +3225,12 @@
             "state" : "translated",
             "value" : "Mexico"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mexiko"
+          }
         }
       }
     },
@@ -2022,6 +3242,12 @@
             "state" : "translated",
             "value" : "Mint"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mätová"
+          }
         }
       }
     },
@@ -2031,6 +3257,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Modern"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderný"
           }
         }
       }
@@ -2042,6 +3274,12 @@
             "state" : "translated",
             "value" : "More"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viac"
+          }
         }
       }
     },
@@ -2051,6 +3289,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More Info"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viac info"
           }
         }
       }
@@ -2062,6 +3306,12 @@
             "state" : "translated",
             "value" : "More Options"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďalšie možnosti"
+          }
         }
       }
     },
@@ -2071,6 +3321,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Movie"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Film"
           }
         }
       }
@@ -2082,6 +3338,12 @@
             "state" : "translated",
             "value" : "Movies"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmy"
+          }
         }
       }
     },
@@ -2091,6 +3353,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Movies, Shows, People"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmy, Seriály, Ľudia"
           }
         }
       }
@@ -2102,6 +3370,12 @@
             "state" : "translated",
             "value" : "Music"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hudba"
+          }
         }
       }
     },
@@ -2111,6 +3385,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mystery"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mysteriózny"
           }
         }
       }
@@ -2123,6 +3403,12 @@
             "state" : "translated",
             "value" : "Netherlands"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Holandsko"
+          }
         }
       }
     },
@@ -2132,6 +3418,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Network"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sieť"
           }
         }
       }
@@ -2143,6 +3435,12 @@
             "state" : "translated",
             "value" : "Never miss out"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nikdy nezmeškaj"
+          }
         }
       }
     },
@@ -2152,6 +3450,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New List"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nový zoznam"
           }
         }
       }
@@ -2164,6 +3468,12 @@
             "state" : "translated",
             "value" : "New Zealand"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nový Zéland"
+          }
         }
       }
     },
@@ -2173,6 +3483,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next episode arrives today."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďalšia epizóda vychádza dnes."
           }
         }
       }
@@ -2184,6 +3500,12 @@
             "state" : "translated",
             "value" : "No biography available."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biografia nie je k dispozícii."
+          }
         }
       }
     },
@@ -2193,6 +3515,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Episode Available"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadna epizóda nie je k dispozícii"
           }
         }
       }
@@ -2204,6 +3532,12 @@
             "state" : "translated",
             "value" : "No information available."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie sú k dispozícii žiadne informácie."
+          }
         }
       }
     },
@@ -2213,6 +3547,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No notifications"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne hlásenia"
           }
         }
       }
@@ -2224,6 +3564,12 @@
             "state" : "translated",
             "value" : "No result found for '%@'."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenašli sa žiadne výsledky pre '%@'."
+          }
         }
       }
     },
@@ -2234,6 +3580,12 @@
             "state" : "translated",
             "value" : "No results"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne výsledky"
+          }
         }
       }
     },
@@ -2243,6 +3595,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No title available"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Názov nie je k dispozícii"
           }
         }
       }
@@ -2255,6 +3613,12 @@
             "state" : "translated",
             "value" : "Norway"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nórsko"
+          }
         }
       }
     },
@@ -2264,6 +3628,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not Available"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie je k dispozícii"
           }
         }
       }
@@ -2275,6 +3645,12 @@
             "state" : "translated",
             "value" : "Not Found"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenájdené"
+          }
         }
       }
     },
@@ -2284,6 +3660,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poznámky"
           }
         }
       }
@@ -2295,6 +3677,12 @@
             "state" : "translated",
             "value" : "Nothing here, try again later."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nič tu nie je, skús to neskôr."
+          }
         }
       }
     },
@@ -2304,6 +3692,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notification"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hlásenie"
           }
         }
       }
@@ -2315,6 +3709,12 @@
             "state" : "translated",
             "value" : "Notifications"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hlásenia"
+          }
         }
       }
     },
@@ -2324,6 +3724,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notify Movies Releases"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upozorniť na vydanie filmov"
           }
         }
       }
@@ -2335,6 +3741,12 @@
             "state" : "translated",
             "value" : "Notify New Episodes"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upozorniť na nové epizódy"
+          }
         }
       }
     },
@@ -2344,6 +3756,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notify when a movie on your watchlist is released."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upozorniť na vydanie filmu zo zoznamu sledovaných."
           }
         }
       }
@@ -2355,12 +3773,24 @@
             "state" : "translated",
             "value" : "Notify when a new episode from a TV Show on your watchlist is released."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upozorniť na vydanie novej epizódy seriálu z tvojho zoznamu sledovaných."
+          }
         }
       }
     },
     "Nuke" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuke"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nuke"
@@ -2375,6 +3805,22 @@
             "state" : "translated",
             "value" : "Official Website"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oficiálne stránky"
+          }
+        }
+      }
+    },
+    "On Social Media" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On Social Media"
+          }
         }
       }
     },
@@ -2384,6 +3830,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Only show 'Watch Provider' if the title is available on one of your preferred services"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť 'Poskytovateľa' iba vtedy, ak je titul k dispozícii v niektorej z preferovaných služieb"
           }
         }
       }
@@ -2395,6 +3847,12 @@
             "state" : "translated",
             "value" : "Open in"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otvoriť v"
+          }
         }
       }
     },
@@ -2404,6 +3862,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open in YouTube"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otvoriť na YouTube"
           }
         }
       }
@@ -2415,6 +3879,12 @@
             "state" : "translated",
             "value" : "Open List Selector when adding an item"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otvoriť Výber zoznamu pri pridávaní položky"
+          }
         }
       }
     },
@@ -2424,6 +3894,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open Trailers in YouTube"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otvoriť trailery v YouTube"
           }
         }
       }
@@ -2435,6 +3911,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Orange"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oranžová"
           }
         }
       }
@@ -2452,6 +3934,12 @@
             "state" : "translated",
             "value" : "Título Original"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pôvodný názov"
+          }
         }
       }
     },
@@ -2462,6 +3950,12 @@
             "state" : "translated",
             "value" : "Overview"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prehľad"
+          }
         }
       }
     },
@@ -2471,6 +3965,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "People"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ľudia"
           }
         }
       }
@@ -2483,6 +3983,12 @@
             "state" : "translated",
             "value" : "Philippines"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filipíny"
+          }
         }
       }
     },
@@ -2493,6 +3999,12 @@
             "state" : "translated",
             "value" : "Physical"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fyzicky"
+          }
         }
       }
     },
@@ -2502,6 +4014,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pin"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripnúť"
           }
         }
       }
@@ -2514,6 +4032,12 @@
             "state" : "translated",
             "value" : "Pink"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ružová"
+          }
         }
       }
     },
@@ -2523,6 +4047,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pinned"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripnuté"
           }
         }
       }
@@ -2534,6 +4064,12 @@
             "state" : "translated",
             "value" : "Pins"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripnutia"
+          }
         }
       }
     },
@@ -2544,6 +4080,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Poland"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poľsko"
           }
         }
       }
@@ -2561,6 +4103,12 @@
             "state" : "translated",
             "value" : "Popularidade"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Popularita"
+          }
         }
       }
     },
@@ -2572,6 +4120,12 @@
             "state" : "translated",
             "value" : "Portugal"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portugalsko"
+          }
         }
       }
     },
@@ -2582,6 +4136,12 @@
             "state" : "translated",
             "value" : "Poster"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plagát"
+          }
         }
       }
     },
@@ -2591,6 +4151,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Prefer Poster in Details Page"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferovať plagát v detailoch"
           }
         }
       }
@@ -2608,6 +4174,12 @@
             "state" : "translated",
             "value" : "Prefiro a capa da série em vez da miniatura do episódio no Seguintes"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferovať covery série namiesto miniatúry epizódy pre Nasledujúce"
+          }
         }
       }
     },
@@ -2617,6 +4189,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preferred Launch Screen"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferovaná úvodná obrazovka"
           }
         }
       }
@@ -2634,6 +4212,12 @@
             "state" : "translated",
             "value" : "Serviços de Streaming Preferidos"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferované streamovacie služby"
+          }
         }
       }
     },
@@ -2643,6 +4227,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premiere"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premiéra"
           }
         }
       }
@@ -2654,6 +4244,12 @@
             "state" : "translated",
             "value" : "Presentation"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezentácia"
+          }
         }
       }
     },
@@ -2663,6 +4259,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preview"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukážka"
           }
         }
       }
@@ -2674,6 +4276,12 @@
             "state" : "translated",
             "value" : "Primary Left Gesture"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primárne gesto doľava"
+          }
         }
       }
     },
@@ -2683,6 +4291,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Primary Right Gesture"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primárne gesto doprava"
           }
         }
       }
@@ -2694,6 +4308,12 @@
             "state" : "translated",
             "value" : "Privacy"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Súkromie"
+          }
         }
       }
     },
@@ -2703,6 +4323,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Privacy Policy"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ochrana osobných údajov"
           }
         }
       }
@@ -2715,6 +4341,12 @@
             "state" : "translated",
             "value" : "Production"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produkcia"
+          }
         }
       }
     },
@@ -2725,6 +4357,12 @@
             "state" : "translated",
             "value" : "Production Companies"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produkčné spoločnosti"
+          }
         }
       }
     },
@@ -2734,6 +4372,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Production Company"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produkčná spoločnosť"
           }
         }
       }
@@ -2751,6 +4395,12 @@
             "state" : "translated",
             "value" : "Fornecido pelo JustWatch"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poskytuje: JustWatch"
+          }
         }
       }
     },
@@ -2761,6 +4411,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Purple"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fialová"
           }
         }
       }
@@ -2778,6 +4434,12 @@
             "state" : "translated",
             "value" : "Avaliação"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnotenie"
+          }
         }
       }
     },
@@ -2787,6 +4449,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rating (Asc)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnotenie (vzostupne)"
           }
         }
       }
@@ -2798,6 +4466,12 @@
             "state" : "translated",
             "value" : "Rating (Desc)"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnotenie (zostupne)"
+          }
         }
       }
     },
@@ -2808,6 +4482,12 @@
             "state" : "translated",
             "value" : "Rating star %lld of 5."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnotiť hviezdičkami %lld z 5."
+          }
         }
       }
     },
@@ -2817,6 +4497,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ratings Score"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skóre hodnotení"
           }
         }
       }
@@ -2834,6 +4520,12 @@
             "state" : "translated",
             "value" : "Notificações Recentes"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedávne hlásenia"
+          }
         }
       }
     },
@@ -2843,6 +4535,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recently Released"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedávno uvedené"
           }
         }
       }
@@ -2859,6 +4557,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recomendações"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odporúčania"
           }
         }
       }
@@ -2877,6 +4581,12 @@
             "state" : "translated",
             "value" : "Vermelho"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Červená"
+          }
         }
       }
     },
@@ -2893,6 +4603,12 @@
             "state" : "translated",
             "value" : "Reduza o tamanho de alguns elementos da interface do usuário para acomodar mais itens na tela"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmenšenie veľkosti niektorých prvkov rozhrania, aby sa na obrazovku zmestilo viac položiek"
+          }
         }
       }
     },
@@ -2902,6 +4618,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Refresh"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť"
           }
         }
       }
@@ -2919,6 +4641,12 @@
             "state" : "translated",
             "value" : "Região"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Región"
+          }
         }
       }
     },
@@ -2928,6 +4656,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Region of Origin"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krajina pôvodu"
+          }
+        }
+      }
+    },
+    "Release" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Release"
           }
         }
       }
@@ -2939,6 +4683,12 @@
             "state" : "translated",
             "value" : "Release Date"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dátum uvedenia"
+          }
         }
       }
     },
@@ -2948,6 +4698,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release Date (Ascending)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dátum premiéry (vzostupne)"
           }
         }
       }
@@ -2959,6 +4715,12 @@
             "state" : "translated",
             "value" : "Release Date (Descending)"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dátum premiéry (zostupne)"
+          }
         }
       }
     },
@@ -2968,6 +4730,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release Dates"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dátumy premiéry"
           }
         }
       }
@@ -2980,6 +4748,12 @@
             "state" : "translated",
             "value" : "Released"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vydané"
+          }
         }
       }
     },
@@ -2989,6 +4763,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reload"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Znova načítať"
           }
         }
       }
@@ -3000,6 +4780,12 @@
             "state" : "translated",
             "value" : "Remove"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť"
+          }
         }
       }
     },
@@ -3009,6 +4795,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove From Pin when item is  marked as watched"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť z pripnutých po označení ako pozreté"
           }
         }
       }
@@ -3020,6 +4812,12 @@
             "state" : "translated",
             "value" : "Remove Items"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť položky"
+          }
         }
       }
     },
@@ -3030,6 +4828,12 @@
             "state" : "translated",
             "value" : "Remove Notification"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť hlásenie"
+          }
         }
       }
     },
@@ -3039,6 +4843,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Removed"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstránené"
           }
         }
       }
@@ -3051,6 +4861,12 @@
             "state" : "translated",
             "value" : "Renewed Series"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnovené série"
+          }
         }
       }
     },
@@ -3060,6 +4876,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset asked for review"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resetovať žiadosť o kontrolu"
           }
         }
       }
@@ -3071,6 +4893,12 @@
             "state" : "translated",
             "value" : "Reset to Default"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť predvolené nastavenia"
+          }
         }
       }
     },
@@ -3080,6 +4908,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restore Purchase"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť nákup"
           }
         }
       }
@@ -3091,12 +4925,24 @@
             "state" : "translated",
             "value" : "Retry"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opakovať"
+          }
         }
       }
     },
     "Review" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Review"
@@ -3111,12 +4957,24 @@
             "state" : "translated",
             "value" : "Review App"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohodnotiť apku"
+          }
         }
       }
     },
     "Review of %@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review of %@"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Review of %@"
@@ -3131,6 +4989,12 @@
             "state" : "translated",
             "value" : "Review on the App Store"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohodnotiť na App Store"
+          }
         }
       }
     },
@@ -3141,6 +5005,12 @@
             "state" : "translated",
             "value" : "Romance"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romantika"
+          }
         }
       }
     },
@@ -3150,6 +5020,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Romantic Comedy"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romantická komédia"
           }
         }
       }
@@ -3162,6 +5038,12 @@
             "state" : "translated",
             "value" : "Rose Gold"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ružovo-zlatá"
+          }
         }
       }
     },
@@ -3172,6 +5054,12 @@
             "state" : "translated",
             "value" : "Run Time"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dĺžka"
+          }
         }
       }
     },
@@ -3180,6 +5068,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "S%1$d, E%2$d"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "S%1$d, E%2$d"
           }
         }
@@ -3192,6 +5086,12 @@
             "state" : "translated",
             "value" : "Save"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložiť"
+          }
         }
       }
     },
@@ -3201,6 +5101,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sci-Fi & Fantasy"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sci-Fi a Fantasy"
           }
         }
       }
@@ -3212,6 +5118,12 @@
             "state" : "translated",
             "value" : "Science Fiction"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sci-Fi"
+          }
         }
       }
     },
@@ -3221,6 +5133,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hľadať"
           }
         }
       }
@@ -3232,6 +5150,12 @@
             "state" : "translated",
             "value" : "Search %@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hľadať %@"
+          }
         }
       }
     },
@@ -3241,6 +5165,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search filter improve the search results, but has the downside of taking longer to load."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyhľadávací filter zlepšuje výsledky vyhľadávania, ale má nevýhodu v tom, že jeho načítanie trvá dlhšie."
+          }
+        }
+      }
+    },
+    "Search results" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search results"
           }
         }
       }
@@ -3252,6 +5192,12 @@
             "state" : "translated",
             "value" : "Search watchlist"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hľadať v Sledovaných"
+          }
         }
       }
     },
@@ -3261,6 +5207,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Searching"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hľadanie"
           }
         }
       }
@@ -3272,6 +5224,12 @@
             "state" : "translated",
             "value" : "Season"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Séria"
+          }
         }
       }
     },
@@ -3281,6 +5239,32 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Season (nextSeasonNumber)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Séria (nextSeasonNumber)"
+          }
+        }
+      }
+    },
+    "Season & Up Next" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Season & Up Next"
+          }
+        }
+      }
+    },
+    "Season & Up Next Settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Season & Up Next Settings"
           }
         }
       }
@@ -3292,6 +5276,12 @@
             "state" : "translated",
             "value" : "Season %lld"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Séria %lld"
+          }
         }
       }
     },
@@ -3301,6 +5291,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secondary Left Gesture"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sekundárne gesto doľava"
           }
         }
       }
@@ -3312,6 +5308,12 @@
             "state" : "translated",
             "value" : "Secondary Right Gesture"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sekundárne gesto doprava"
+          }
         }
       }
     },
@@ -3321,6 +5323,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Section Details Style"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štýl sekcie detaily"
           }
         }
       }
@@ -3332,6 +5340,12 @@
             "state" : "translated",
             "value" : "Section Style"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štýl sekcie"
+          }
         }
       }
     },
@@ -3341,6 +5355,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Section's Details Style"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štýl sekcie s údajmi"
           }
         }
       }
@@ -3352,6 +5372,12 @@
             "state" : "translated",
             "value" : "See in what platforms the content is available on."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zistiť, na ktorých platformách je obsah k dispozícii."
+          }
         }
       }
     },
@@ -3361,6 +5387,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select Items"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vybrať položky"
           }
         }
       }
@@ -3372,6 +5404,12 @@
             "state" : "translated",
             "value" : "Select the rating in star numbers."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnotiť počtom hviezdičiek."
+          }
         }
       }
     },
@@ -3381,6 +5419,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslať"
           }
         }
       }
@@ -3392,6 +5436,12 @@
             "state" : "translated",
             "value" : "Send Email"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslať email"
+          }
         }
       }
     },
@@ -3402,6 +5452,12 @@
             "state" : "translated",
             "value" : "Send Feedback"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslať spätnú väzbu"
+          }
         }
       }
     },
@@ -3411,6 +5467,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send Object to Developer"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odoslať objekt vývojárovi"
           }
         }
       }
@@ -3429,6 +5491,12 @@
             "state" : "translated",
             "value" : "Serbia"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Srbsko"
+          }
         }
       }
     },
@@ -3438,6 +5506,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Series"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seriál"
           }
         }
       }
@@ -3449,6 +5523,12 @@
             "state" : "translated",
             "value" : "Settings"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenia"
+          }
         }
       }
     },
@@ -3458,6 +5538,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sharable Link"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zdieľateľný odkaz"
           }
         }
       }
@@ -3469,6 +5555,12 @@
             "state" : "translated",
             "value" : "Share"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zdieľať"
+          }
         }
       }
     },
@@ -3478,6 +5570,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share Image"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zdieľať obrázok"
           }
         }
       }
@@ -3489,6 +5587,12 @@
             "state" : "translated",
             "value" : "Show All"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť všetko"
+          }
         }
       }
     },
@@ -3498,6 +5602,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show All Items"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť všetky položky"
           }
         }
       }
@@ -3509,6 +5619,12 @@
             "state" : "translated",
             "value" : "Show Date in Watchlist"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť dátum v Sledovaných"
+          }
         }
       }
     },
@@ -3518,6 +5634,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Details"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť detaily"
           }
         }
       }
@@ -3529,6 +5651,12 @@
             "state" : "translated",
             "value" : "Show Menu Bar App"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť aplikáciu v lište"
+          }
         }
       }
     },
@@ -3538,6 +5666,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show More"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť viac"
           }
         }
       }
@@ -3549,6 +5683,12 @@
             "state" : "translated",
             "value" : "Show Onboard"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť sprievodcu"
+          }
         }
       }
     },
@@ -3559,6 +5699,12 @@
             "state" : "translated",
             "value" : "Show Remove Confirmation"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť potvrdenie odstránenia"
+          }
         }
       }
     },
@@ -3568,6 +5714,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skip this episode"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preskočiť túto epizódu"
           }
         }
       }
@@ -3580,6 +5732,22 @@
             "state" : "translated",
             "value" : "Sky Blue"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nebeská modrá"
+          }
+        }
+      }
+    },
+    "Slovak" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slovak"
+          }
         }
       }
     },
@@ -3591,6 +5759,12 @@
             "state" : "translated",
             "value" : "Slovakia"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slovensko"
+          }
         }
       }
     },
@@ -3600,6 +5774,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Smart Filters"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inteligentné filtre"
           }
         }
       }
@@ -3611,6 +5791,12 @@
             "state" : "translated",
             "value" : "Smart Filters only works when 'Show All Items' is disabled."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inteligentné filtre fungujú iba vtedy, keď je vypnutá možnosť Zobraziť všetky položky."
+          }
         }
       }
     },
@@ -3620,6 +5806,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sort By"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoradiť podľa"
           }
         }
       }
@@ -3631,6 +5823,12 @@
             "state" : "translated",
             "value" : "Sort List"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoradiť zoznam"
+          }
         }
       }
     },
@@ -3640,6 +5838,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sort Order"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoradenie"
           }
         }
       }
@@ -3651,6 +5855,12 @@
             "state" : "translated",
             "value" : "Source Code"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zdrojový kód"
+          }
         }
       }
     },
@@ -3661,6 +5871,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "South Africa"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Južná Afrika"
           }
         }
       }
@@ -3679,6 +5895,12 @@
             "state" : "translated",
             "value" : "Coreia do Sul"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Južná Kórea"
+          }
         }
       }
     },
@@ -3688,6 +5910,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Space"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vesmír"
           }
         }
       }
@@ -3700,6 +5928,12 @@
             "state" : "translated",
             "value" : "Spain"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Španielsko"
+          }
         }
       }
     },
@@ -3709,6 +5943,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spanish"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Španielčina"
           }
         }
       }
@@ -3720,6 +5960,12 @@
             "state" : "translated",
             "value" : "Standard"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štandardný"
+          }
         }
       }
     },
@@ -3729,6 +5975,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Status"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stav"
           }
         }
       }
@@ -3747,6 +5999,12 @@
             "state" : "translated",
             "value" : "Aço"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oceľová"
+          }
         }
       }
     },
@@ -3756,6 +6014,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Streaming Services"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streamovacie služby"
           }
         }
       }
@@ -3767,6 +6031,12 @@
             "state" : "translated",
             "value" : "Style Picker"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Výber štýlu"
+          }
         }
       }
     },
@@ -3776,6 +6046,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Style Preferences"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predvoľby štýlu"
           }
         }
       }
@@ -3787,6 +6063,12 @@
             "state" : "translated",
             "value" : "Superhero"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Superhrdina"
+          }
         }
       }
     },
@@ -3797,12 +6079,27 @@
             "state" : "translated",
             "value" : "Supernatural Horror"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nadprirodzený horor"
+          }
         }
       }
+    },
+    "Support & About" : {
+
     },
     "Survival" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Survival"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Survival"
@@ -3818,6 +6115,12 @@
             "state" : "translated",
             "value" : "Sweden"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Švédsko"
+          }
         }
       }
     },
@@ -3827,6 +6130,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Swipe Gestures"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestá potiahnutím"
           }
         }
       }
@@ -3843,6 +6152,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deslize para editar sua lista"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potiahnutím upravíš svoj zoznam"
           }
         }
       }
@@ -3861,6 +6176,12 @@
             "state" : "translated",
             "value" : "Suíça"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Švajčiarsko"
+          }
         }
       }
     },
@@ -3876,6 +6197,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sincronização"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronizovať"
           }
         }
       }
@@ -3893,6 +6220,12 @@
             "state" : "translated",
             "value" : "Sistema"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systém"
+          }
         }
       }
     },
@@ -3909,6 +6242,12 @@
             "state" : "translated",
             "value" : "Toque para marcar o episódio como assistido"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ťuknutím označíš epizódu ako pozretú"
+          }
         }
       }
     },
@@ -3919,6 +6258,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Teal"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Šedozelená"
           }
         }
       }
@@ -3932,6 +6277,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TelemetryDeck"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "TelemetryDeck"
@@ -3952,6 +6303,12 @@
             "state" : "translated",
             "value" : "Obrigado pela sua compra! Seu apoio é muito apreciado. 😁"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďakujeme za nákup! Tvoju podporu si veľmi vážime. 😁"
+          }
         }
       }
     },
@@ -3968,6 +6325,12 @@
             "state" : "translated",
             "value" : "A API está passando por manutenção. Tente novamente mais tarde."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API prechádza údržbou. Skús to neskôr."
+          }
         }
       }
     },
@@ -3977,6 +6340,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The app will adapt watch providers based on your region"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apka prispôsobí poskytovateľov na základe tvojho regiónu"
           }
         }
       }
@@ -3994,6 +6363,12 @@
             "state" : "translated",
             "value" : "The Movie Database"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Movie Database"
+          }
         }
       }
     },
@@ -4003,6 +6378,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The movie will be released today."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Film vyjde dnes."
           }
         }
       }
@@ -4014,6 +6395,12 @@
             "state" : "translated",
             "value" : "Theatrical"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Divadelne"
+          }
         }
       }
     },
@@ -4023,6 +6410,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Theatrical Limited"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Divadelne (obmedzené)"
           }
         }
       }
@@ -4040,6 +6433,12 @@
             "state" : "translated",
             "value" : "Tema"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motív"
+          }
         }
       }
     },
@@ -4050,6 +6449,12 @@
             "state" : "translated",
             "value" : "This content has been removed from TMDB, you can delete it."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento obsah bol odstránený z TMDB, môžeš ho odstrániť"
+          }
         }
       }
     },
@@ -4059,6 +6464,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This is a preview"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toto je ukážka"
           }
         }
       }
@@ -4076,6 +6487,12 @@
             "state" : "translated",
             "value" : "Esta lista foi excluída."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento zoznam bol odstránený."
+          }
         }
       }
     },
@@ -4085,6 +6502,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This product uses the TMDb API but is not endorsed or certified by TMDb."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento produkt využíva API TMDB, ale nie je schválený ani certifikovaný spoločnosťou TMDB."
           }
         }
       }
@@ -4096,12 +6519,24 @@
             "state" : "translated",
             "value" : "This will open TMDb website with the links to each service."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otvorí sa webová stránka TMDB s odkazmi na každú službu."
+          }
         }
       }
     },
     "Thriller" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thriller"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thriller"
@@ -4116,6 +6551,12 @@
             "state" : "translated",
             "value" : "Tip Jar"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokladnička"
+          }
         }
       }
     },
@@ -4125,6 +6566,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Názov"
           }
         }
       }
@@ -4136,6 +6583,12 @@
             "state" : "translated",
             "value" : "Title (Asc)"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Názov (A-Z)"
+          }
         }
       }
     },
@@ -4145,6 +6598,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title (Desc)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Názov (Z-A)"
           }
         }
       }
@@ -4156,6 +6615,12 @@
             "state" : "translated",
             "value" : "To avoid potential spoilers, you can hide thumbnails from unwatched episodes."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pre vyhnutie sa potenciálnym spoilerom, môžeš skryť miniatúry z nepozretých epizód."
+          }
         }
       }
     },
@@ -4165,6 +6630,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pre vyhnutie sa možným spoilerom, môžeš skryť názvy a prehľady z nepozretých epizód."
           }
         }
       }
@@ -4176,6 +6647,12 @@
             "state" : "translated",
             "value" : "Today"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnes"
+          }
         }
       }
     },
@@ -4185,6 +6662,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Track your episodes"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sledovať svoje epizódy"
+          }
+        }
+      }
+    },
+    "Trailers" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trailers"
           }
         }
       }
@@ -4196,6 +6689,12 @@
             "state" : "translated",
             "value" : "Translation"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preklad"
+          }
         }
       }
     },
@@ -4206,6 +6705,12 @@
             "state" : "translated",
             "value" : "Trending"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Populárne"
+          }
         }
       }
     },
@@ -4215,6 +6720,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Try again later"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skús to neskôr"
           }
         }
       }
@@ -4227,6 +6738,12 @@
             "state" : "translated",
             "value" : "Turkey"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turecko"
+          }
         }
       }
     },
@@ -4237,6 +6754,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turquoise"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tyrkysová"
           }
         }
       }
@@ -4249,12 +6772,24 @@
             "state" : "translated",
             "value" : "Turquoise Blue"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tyrkysová modrá"
+          }
         }
       }
     },
     "TV" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TV"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "TV"
@@ -4269,6 +6804,12 @@
             "state" : "translated",
             "value" : "TV Show"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seriál"
+          }
         }
       }
     },
@@ -4278,6 +6819,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TV Shows"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seriály"
           }
         }
       }
@@ -4289,6 +6836,12 @@
             "state" : "translated",
             "value" : "Unarchive"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearchivovať"
+          }
         }
       }
     },
@@ -4298,6 +6851,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unarchived"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearchivovaný"
           }
         }
       }
@@ -4309,6 +6868,12 @@
             "state" : "translated",
             "value" : "Unfavorite"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preč z Obľúbených"
+          }
         }
       }
     },
@@ -4318,6 +6883,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unfavorited"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preč z Obľúbených"
           }
         }
       }
@@ -4330,6 +6901,12 @@
             "state" : "translated",
             "value" : "United Arab Emirates"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spojené arabské emiráty"
+          }
         }
       }
     },
@@ -4340,6 +6917,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "United Kingdom"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veľká Británia"
           }
         }
       }
@@ -4352,6 +6935,12 @@
             "state" : "translated",
             "value" : "United States"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spojené štáty"
+          }
         }
       }
     },
@@ -4363,6 +6952,12 @@
             "state" : "translated",
             "value" : "Unknown"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neznáme"
+          }
         }
       }
     },
@@ -4372,6 +6967,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unpin"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odopnúť"
           }
         }
       }
@@ -4383,6 +6984,12 @@
             "state" : "translated",
             "value" : "Unpinned"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odopnuté"
+          }
         }
       }
     },
@@ -4392,6 +6999,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Untitled List"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoznam bez názvu"
           }
         }
       }
@@ -4403,6 +7016,12 @@
             "state" : "translated",
             "value" : "Unwatched"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nepozreté"
+          }
         }
       }
     },
@@ -4412,6 +7031,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Up Coming"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripravuje sa"
           }
         }
       }
@@ -4423,6 +7048,12 @@
             "state" : "translated",
             "value" : "Up Next"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nasledujúce"
+          }
         }
       }
     },
@@ -4432,6 +7063,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Up Next (Cronica)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nasledujúca (Cronica)"
           }
         }
       }
@@ -4443,6 +7080,12 @@
             "state" : "translated",
             "value" : "Up Next Details Style"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štýl detailu pre Nasledujúce"
+          }
         }
       }
     },
@@ -4452,6 +7095,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Upcoming"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nadchádzajúci"
           }
         }
       }
@@ -4463,6 +7112,12 @@
             "state" : "translated",
             "value" : "Upcoming Notifications"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nadchádzajúce hlásenia"
+          }
         }
       }
     },
@@ -4472,6 +7127,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update Items"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizovať položky"
           }
         }
       }
@@ -4483,6 +7144,12 @@
             "state" : "translated",
             "value" : "Update items with new information, if available on TMDb"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizovať položky novými informáciami, ak sú k dispozícii na TMDB"
+          }
         }
       }
     },
@@ -4492,6 +7159,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "User Lang: %@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jazyk použ: %@"
           }
         }
       }
@@ -4503,6 +7176,12 @@
             "state" : "translated",
             "value" : "User Region: %@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Región použ: %@"
+          }
         }
       }
     },
@@ -4512,6 +7191,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Version %1$@ • %2$@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verzia %1$@ • %2$@"
           }
         }
       }
@@ -4523,6 +7208,12 @@
             "state" : "translated",
             "value" : "War"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vojnový"
+          }
         }
       }
     },
@@ -4533,6 +7224,32 @@
             "state" : "translated",
             "value" : "Watch"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sledovať"
+          }
+        }
+      }
+    },
+    "Watch Provider" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch Provider"
+          }
+        }
+      }
+    },
+    "Watch Provider Settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch Provider Settings"
+          }
         }
       }
     },
@@ -4542,6 +7259,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Watch Providers"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poskytovatelia"
           }
         }
       }
@@ -4559,6 +7282,12 @@
             "state" : "translated",
             "value" : "Assistido"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pozreté"
+          }
         }
       }
     },
@@ -4574,6 +7303,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Assistindo"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sledujem"
           }
         }
       }
@@ -4591,6 +7326,22 @@
             "state" : "translated",
             "value" : "Lista"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sledované"
+          }
+        }
+      }
+    },
+    "Watchlist Settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watchlist Settings"
+          }
         }
       }
     },
@@ -4606,6 +7357,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Estilo da Lista"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štýl Sledovaných"
           }
         }
       }
@@ -4623,6 +7380,12 @@
             "state" : "translated",
             "value" : "Estilo do Item da Lista"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Štýl položky Sledovaných"
+          }
         }
       }
     },
@@ -4638,6 +7401,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "O que há de novo"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čo je nové"
           }
         }
       }
@@ -4655,6 +7424,12 @@
             "state" : "translated",
             "value" : "Onde Assistir"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kde sledovať"
+          }
         }
       }
     },
@@ -4667,6 +7442,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "X/Twitter"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "X/Twitter"
@@ -4688,6 +7469,12 @@
             "state" : "translated",
             "value" : "Amarelo"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žltá"
+          }
         }
       }
     },
@@ -4703,6 +7490,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Você também pode enviar um e-mail para contact@alexandremadeira.dev usando seu cliente de e-mail."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email na contact@alexandremadeira.dev môžeš poslať aj pomocou emailového klienta."
           }
         }
       }
@@ -4720,6 +7513,12 @@
             "state" : "translated",
             "value" : "Você pode optar por contribuir com uma quantidade pequena, média ou grande, e todos os rendimentos irão para melhorar e manter o aplicativo. O Cronica sempre permanecerá gratuito e livre de anúncios, portanto, esta é uma maneira puramente opcional para os usuários apoiarem o desenvolvimento do aplicativo."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Môžeš si vybrať, či chceš prispieť malou, strednou alebo veľkou sumou, a celý výťažok pôjde na zlepšenie a údržbu aplikácie. Cronica zostane navždy bezplatná a bez reklám, takže ide o čisto dobrovoľný spôsob, ako môžu používatelia podporiť vývoj aplikácie."
+          }
         }
       }
     },
@@ -4729,6 +7528,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You can choose to share using a Cronica link that will allow you to open the application.\nPlease note that not all content can be shared with a Cronica link, the application will always use TMDB links if necessary."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Môžeš si vybrať zdieľanie pomocou Cronica odkazu, ktorý Ti umožní otvoriť aplikáciu.\nUpozorňujeme, že nie všetok obsah je možné zdieľať pomocou Cronica odkazu. Aplikácia v prípade potreby vždy použije TMDB odkazy."
           }
         }
       }
@@ -4746,6 +7551,12 @@
             "state" : "translated",
             "value" : "Você pode gostar"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mohlo by sa Ti páčiť"
+          }
         }
       }
     },
@@ -4761,6 +7572,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suas Listas"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvoje zoznamy"
           }
         }
       }
@@ -4778,6 +7595,12 @@
             "state" : "translated",
             "value" : "Seus Próximos Episódios"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvoje ďalšie epizódy"
+          }
         }
       }
     },
@@ -4793,6 +7616,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sua Lista"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvoje Sledované"
           }
         }
       }
@@ -4810,6 +7639,12 @@
             "state" : "translated",
             "value" : "Sua lista está sempre sincronizada com seu Apple Watch, iPad, Mac e Apple TV."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvoj zoznam sledovaných je vždy synchronizovaný s Apple Watch, iPadom, Macom a Apple TV."
+          }
         }
       }
     },
@@ -4822,6 +7657,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YouTubePlayerKit"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "YouTubePlayerKit"

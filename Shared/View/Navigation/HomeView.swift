@@ -159,11 +159,12 @@ struct HomeView: View {
                 DeveloperView()
                 #endif
             case .notifications: NotificationsSettingsView()
-            case .sync: SyncSetting()
             case .tipJar: TipJarSetting()
             case .feedback: FeedbackComposerView()
-            case .region: RegionContentSettings()
+            case .region: WatchProviderSettings()
             case .settings: SettingsView()
+            case .watchlist: WatchlistSettingsView()
+            case .season: SeasonUpNextSettingsView()
             }
         }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )

@@ -35,7 +35,7 @@ struct NotificationListView: View {
 #endif
         .toolbar {
 #if os(iOS)
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarTrailing) {
                 configButton
             }
 #endif
@@ -44,7 +44,7 @@ struct NotificationListView: View {
     }
     
     private var configButton: some View {
-        NavigationLink(destination: NotificationsSettingsView(navigationTitle: String())) {
+        NavigationLink(destination: NotificationsSettingsView()) {
             Label("Settings", systemImage: "gearshape")
         }
     }

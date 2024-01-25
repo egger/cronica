@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 20/12/22.
 //
 
-import SwiftUI
+import SwiftUI 
 
 struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
@@ -28,42 +28,9 @@ struct BehaviorSetting: View {
                 }
             }
 #endif
-#if os(iOS) || os(macOS)
-            Section {
-                Toggle(isOn: $store.markEpisodeWatchedOnTap) {
-                    Text("Tap To Mark Episode as Watched")
-                }
-                Toggle(isOn: $store.preferCoverOnUpNext) {
-                    Text("Prefer Series Cover instead of Episode Thumbnail on Up Next")
-                }
-                Toggle(isOn: $store.hideEpisodesTitles) {
-                    Text("Hide Titles from Unwatched Episodes")
-                    Text("To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes.")
-                }
-                Toggle(isOn: $store.hideEpisodesThumbnails) {
-                    Text("Hide Thumbnails from Unwatched Episodes")
-                    Text("To avoid potential spoilers, you can hide thumbnails from unwatched episodes.")
-                }
-                
-            }
-#endif
-            
-            Section("Watchlist") {
-#if os(iOS) || os(macOS)
-                Toggle("Open List Selector when adding an item", isOn: $store.openListSelectorOnAdding)
-#endif
-                Toggle("Remove From Pin when item is  marked as watched", isOn: $store.removeFromPinOnWatched)
-                Toggle("Show Remove Confirmation", isOn: $store.showRemoveConfirmation)
-            }
             
 #if !os(tvOS)
             shareOptions
-            
-#if os(macOS)
-            Section {
-                Toggle("Show Menu Bar App", isOn: $store.showMenuBarApp)
-            }
-#endif
             
             Section {
                 Toggle(isOn: $store.disableSearchFilter) {

@@ -1,5 +1,5 @@
 //
-//  RegionContentSettings.swift
+//  WatchProviderSettings.swift
 //  Cronica (iOS)
 //
 //  Created by Alexandre Madeira on 14/06/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RegionContentSettings: View {
+struct WatchProviderSettings: View {
     @StateObject private var store = SettingsStore.shared
 #if os(macOS)
     @State private var showWatchProvidersSelector = false
@@ -64,8 +64,11 @@ struct RegionContentSettings: View {
             languageButton
 #endif
         }
-        .navigationTitle("Region")
-#if os(macOS)
+        .navigationTitle("Watch Provider Settings")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        .scrollBounceBehavior(.basedOnSize, axes: .vertical)
+#elseif os(macOS)
         .formStyle(.grouped)
 #endif
     }
@@ -86,5 +89,5 @@ struct RegionContentSettings: View {
 }
 
 #Preview {
-    RegionContentSettings()
+    WatchProviderSettings()
 }

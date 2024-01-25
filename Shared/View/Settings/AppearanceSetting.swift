@@ -22,20 +22,7 @@ struct AppearanceSetting: View {
             }
 #endif
             Section {
-                Picker(selection: $store.watchlistStyle) {
-                    ForEach(SectionDetailsPreferredStyle.allCases) { item in
-#if os(tvOS)
-                        if item != SectionDetailsPreferredStyle.list {
-                            Text(item.title).tag(item)
-                        }
-#else
-                        Text(item.title).tag(item)
-#endif
-                    }
-                } label: {
-                    Text("Watchlist's Item Style")
-                }
-                .tint(.secondary)
+
 #if !os(tvOS)
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
@@ -53,14 +40,7 @@ struct AppearanceSetting: View {
                     Text("Horizontal List Style")
                 }
                 .tint(.secondary)
-                Picker(selection: $store.upNextStyle) {
-                    ForEach(UpNextDetailsPreferredStyle.allCases) { item in
-                        Text(item.title).tag(item)
-                    }
-                } label: {
-                    Text("Up Next Details Style")
-                }
-                .tint(.secondary)
+               
 #endif
             } header: {
                 Text("Style Preferences")
@@ -74,12 +54,6 @@ struct AppearanceSetting: View {
                         Text("Reduce some UI elements size to accommodate more items on the screen")
                     }
                 }
-            }
-#endif
-            
-#if !os(tvOS)
-            Section {
-                Toggle("Show Date in Watchlist", isOn: $store.showDateOnWatchlist)
             }
 #endif
             
@@ -97,7 +71,10 @@ struct AppearanceSetting: View {
                 .tint(.secondary)
             }
             
-            Section("Accent Color") { accentColor }
+            Section("Accent Color") {
+                accentColor
+            }
+            .listRowInsets(EdgeInsets())
             
             if UIDevice.isIPhone {
                 Section("App Icon") {
@@ -123,7 +100,12 @@ struct AppearanceSetting: View {
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(AppThemeColors.allCases, content: colorButton)
+                        ForEach(AppThemeColors.allCases) { item in
+                            colorButton(for: item)
+                                .padding(.leading, item == AppThemeColors.allCases.first ? 16 : 0)
+                                .padding(.trailing, item == AppThemeColors.allCases.last ? 16 : 0)
+                                .padding(.horizontal, 4)
+                        }
                     }
                     .padding(.vertical, 6)
                     .onAppear {

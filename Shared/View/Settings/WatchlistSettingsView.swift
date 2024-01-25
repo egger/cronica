@@ -1,14 +1,15 @@
 //
-//  SyncSetting.swift
-//  Cronica (iOS)
+//  WatchlistSettingsView.swift
+//  Story (iOS)
 //
-//  Created by Alexandre Madeira on 13/12/22.
+//  Created by Alexandre Madeira on 25/01/24.
 //
 
 import SwiftUI
 import CoreData
 
-struct SyncSetting: View {
+struct WatchlistSettingsView: View {
+    @StateObject private var store = SettingsStore.shared
     @State private var updatingItems = false
     @State private var isGeneratingExport = false
     @State private var showExportShareSheet = false
@@ -17,69 +18,92 @@ struct SyncSetting: View {
     @Environment(\.managedObjectContext) private var context
     @State private var hasImported = false
     var body: some View {
-        ZStack {
-            Form {
-                Section {
-                    Button {
-                        updateItems()
-                    } label: {
-                        if updatingItems {
-                            CenterHorizontalView {
-                                ProgressView()
-                            }
-                        } else {
-							VStack(alignment: .leading) {
-								Text("Update Items")
-								Text("Update items with new information, if available on TMDb")
-									.foregroundColor(.secondary)
-							}
-                        }
-                    }
-#if os(macOS)
-                    .buttonStyle(.plain)
+        Form {
+            Section("Behavior") {
+#if os(iOS) || os(macOS)
+                Toggle("Open List Selector when adding an item", isOn: $store.openListSelectorOnAdding)
 #endif
-                } header: {
-                    Text("Watchlist")
-                }
-                
-                Section {
-#if os(iOS)
-                    importButton
-                    exportButton
-#endif
-                } footer: {
-#if os(iOS)
-                    Text("Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all users.")
-#endif
-                }
-                .sheet(isPresented: $showExportShareSheet) {
-#if os(iOS)
-                    CustomShareSheet(url: $exportUrl)
-#endif
-                }
-#if os(iOS)
-                .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.json]) { result in
-                    switch result {
-                    case .success(let success):
-                        if success.startAccessingSecurityScopedResource() {
-                            importJSON(success)
-                        }
-                    case .failure(let failure):
-                        CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
-                    }
-                }
-#endif
-                
-#if os(iOS)
-                //TMDBAccountView()
-#endif
-                
+                Toggle("Remove From Pin when item is  marked as watched", isOn: $store.removeFromPinOnWatched)
+                Toggle("Show Remove Confirmation", isOn: $store.showRemoveConfirmation)
             }
-            .navigationTitle("Sync")
+            
+            Section("Appearance") {
+                Picker(selection: $store.watchlistStyle) {
+                    ForEach(SectionDetailsPreferredStyle.allCases) { item in
+#if os(tvOS)
+                        if item != SectionDetailsPreferredStyle.list {
+                            Text(item.title).tag(item)
+                        }
+#else
+                        Text(item.title).tag(item)
+#endif
+                    }
+                } label: {
+                    Text("Watchlist's Item Style")
+                }
+                .tint(.secondary)
+                
+#if !os(tvOS)
+                Toggle("Show Date in Watchlist", isOn: $store.showDateOnWatchlist)
+#endif
+            }
+            
+            Section("Sync") {
+                Button {
+                    updateItems()
+                } label: {
+                    if updatingItems {
+                        CenterHorizontalView {
+                            ProgressView()
+                        }
+                    } else {
+                        VStack(alignment: .leading) {
+                            Text("Update Items")
+                            Text("Update items with new information, if available on TMDb")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
 #if os(macOS)
-            .formStyle(.grouped)
+                .buttonStyle(.plain)
+#endif
+            }
+            
+            Section {
+#if os(iOS)
+                importButton
+                exportButton
+#endif
+            } header: {
+                Text("Backup & Restore")
+            } footer: {
+#if os(iOS)
+                Text("Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all users.")
+#endif
+            }
+            .sheet(isPresented: $showExportShareSheet) {
+#if os(iOS)
+                CustomShareSheet(url: $exportUrl)
+#endif
+            }
+#if os(iOS)
+            .fileImporter(isPresented: $showFilePicker, allowedContentTypes: [.json]) { result in
+                switch result {
+                case .success(let success):
+                    if success.startAccessingSecurityScopedResource() {
+                        importJSON(success)
+                    }
+                case .failure(let failure):
+                    CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
+                }
+            }
 #endif
         }
+        .navigationTitle("Watchlist Settings")
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        .scrollBounceBehavior(.basedOnSize, axes: .vertical)
+#endif
     }
     
 #if os(iOS)
@@ -109,7 +133,11 @@ struct SyncSetting: View {
 #endif
 }
 
-extension SyncSetting {
+#Preview {
+    WatchlistSettingsView()
+}
+
+extension WatchlistSettingsView {
     @MainActor
     private func updateItems() {
         Task {
@@ -174,10 +202,6 @@ extension SyncSetting {
         }
     }
 #endif
-}
-
-#Preview {
-    SyncSetting()
 }
 
 #if os(iOS)

@@ -33,7 +33,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B88B88FA29DF194A00497058"
+               BlueprintIdentifier = "B8FCAE8E2AED9CE300F688FE"
                BuildableName = "CronicaTests.xctest"
                BlueprintName = "CronicaTests"
                ReferencedContainer = "container:Story.xcodeproj">
@@ -45,6 +45,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = "en"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

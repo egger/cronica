@@ -16,10 +16,6 @@ struct SettingsView: View {
 				Section {
 					NavigationLink("Behavior", destination: BehaviorSetting())
 				}
-                
-				Section {
-					NavigationLink("Sync", destination: SyncSetting())
-				}
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.large)

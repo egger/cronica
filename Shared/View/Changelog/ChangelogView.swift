@@ -17,22 +17,22 @@ struct ChangelogView: View {
                 VStack {
                     ScrollView {
                         changelogItem(
-                            title: "featureOneTitle",
-                            description: "featureOneDescription",
+                            title: NSLocalizedString("featureOneTitle", comment: ""),
+                            description: NSLocalizedString("featureOneDescription", comment: ""),
                             image: "sparkles.tv",
                             color: .orange
                         ).padding(.vertical)
                         
                         changelogItem(
-                            title: "featureTwoTitle",
-                            description: "featureTwoDescription",
+                            title: NSLocalizedString("featureTwoTitle", comment: ""),
+                            description: NSLocalizedString("featureTwoDescription", comment: ""),
                             image: "film.stack",
                             color: .red
                         ).padding(.vertical)
                         
                         changelogItem(
-                            title: "featureThreeTitle",
-                            description: "featureThreeDescription",
+                            title: NSLocalizedString("featureThreeTitle", comment: ""),
+                            description: NSLocalizedString("featureThreeDescription", comment: ""),
                             image: "gearshape",
                             color: .blue
                         ).padding(.vertical)

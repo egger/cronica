@@ -23,7 +23,8 @@ struct SettingsView: View {
     private var settings: some View {
 #if os(iOS) || os(visionOS)
         Form {
-            Section {
+            Section("General") {
+                
                 NavigationLink(value: SettingsScreens.behavior) {
                     settingsLabel(title: NSLocalizedString("Behavior", comment: ""),
                                   icon: "hand.tap", color: .gray)
@@ -32,21 +33,28 @@ struct SettingsView: View {
                     settingsLabel(title: NSLocalizedString("Appearance", comment: ""),
                                   icon: "paintbrush", color: .blue)
                 }
-                NavigationLink(value: SettingsScreens.sync) {
-                    settingsLabel(title: NSLocalizedString("Sync", comment: ""),
-                                  icon: "arrow.triangle.2.circlepath", color: .green)
-                }
                 NavigationLink(value: SettingsScreens.notifications) {
                     settingsLabel(title: NSLocalizedString("Notification", comment: ""),
                                   icon: "bell", color: .red)
                 }
+            }
+            
+            Section {
+                NavigationLink(value: SettingsScreens.watchlist) {
+                    settingsLabel(title: NSLocalizedString("Watchlist", comment: ""),
+                                  icon: "rectangle.on.rectangle", color: AppThemeColors.goldenrod.color)
+                }
+                NavigationLink(value: SettingsScreens.season) {
+                    settingsLabel(title: NSLocalizedString("Season & Up Next", comment: ""),
+                                  icon: "tv", color: AppThemeColors.turquoiseBlue.color)
+                }
                 NavigationLink(value: SettingsScreens.region) {
-                    settingsLabel(title: NSLocalizedString("Region", comment: ""),
+                    settingsLabel(title: NSLocalizedString("Watch Provider", comment: ""),
                                   icon: "globe", color: .purple)
                 }
             }
             
-            Section {
+            Section("Support & About") {
                 NavigationLink(value: SettingsScreens.feedback) {
                     settingsLabel(title: NSLocalizedString("Feedback", comment: ""),
                                   icon: "envelope.fill", color: AppThemeColors.steel.color)
@@ -65,21 +73,19 @@ struct SettingsView: View {
                             .appTheme()
                     }
                 }
-            }
-            
-            Section {
-                Button {
-                    showWhatsNew.toggle()
-                } label: {
-                    settingsLabel(title: NSLocalizedString("What's New", comment: ""),
-                                  icon: "sparkles", color: .yellow)
-                }
-                .buttonStyle(.plain)
-                .sheet(isPresented: $showWhatsNew) {
-                    ChangelogView(showChangelog: $showWhatsNew)
-                        .appTint()
-                        .appTheme()
-                }
+                
+                //                Button {
+                //                    showWhatsNew.toggle()
+                //                } label: {
+                //                    settingsLabel(title: NSLocalizedString("What's New", comment: ""),
+                //                                  icon: "sparkles", color: .yellow)
+                //                }
+                //                .buttonStyle(.plain)
+                //                .sheet(isPresented: $showWhatsNew) {
+                //                    ChangelogView(showChangelog: $showWhatsNew)
+                //                        .appTint()
+                //                        .appTheme()
+                //                }
                 NavigationLink(value: SettingsScreens.tipJar) {
                     settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
                                   icon: "heart", color: .red)
@@ -106,7 +112,7 @@ struct SettingsView: View {
             NotificationsSettingsView()
                 .tabItem { Label("Notification", systemImage: "bell") }
             
-            RegionContentSettings()
+            WatchProviderSettings()
                 .tabItem { Label("Region", systemImage: "globe")  }
             
             TipJarSetting()
@@ -147,7 +153,7 @@ struct SettingsView: View {
             .frame(width: 30, height: 30, alignment: .center)
             .padding(.trailing, 8)
             .accessibilityHidden(true)
-            Text(LocalizedStringKey(title))
+            Text(title)
         }
         .padding(.vertical, 2)
     }

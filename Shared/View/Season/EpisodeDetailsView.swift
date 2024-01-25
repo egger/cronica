@@ -234,10 +234,12 @@ private struct EpisodeDetailsTVView: View {
                     Spacer()
                     VStack(alignment: .leading) {
                         HStack {
-                            InfoSegmentView(title: "Episode", info: "\(episode.itemEpisodeNumber)")
-                            InfoSegmentView(title: "Season", info: "\(episode.itemSeasonNumber)")
+                            InfoSegmentView(title: NSLocalizedString("Episode", comment: ""),
+                                            info: "\(episode.itemEpisodeNumber)")
+                            InfoSegmentView(title: NSLocalizedString("Season", comment: ""),
+                                            info: "\(episode.itemSeasonNumber)")
                         }
-                        InfoSegmentView(title: "Release", info: episode.itemDate)
+                        InfoSegmentView(title: NSLocalizedString("Release", comment: ""), info: episode.itemDate)
                     }
                     .padding()
                 }

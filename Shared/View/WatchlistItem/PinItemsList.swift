@@ -19,7 +19,7 @@ struct PinItemsList: View {
     var body: some View {
         if !items.isEmpty {
             HorizontalWatchlistList(items: items.sorted { $0.itemTitle < $1.itemTitle },
-                                    title: "Pins",
+                                    title: NSLocalizedString("Pins", comment: ""),
                                     subtitle: String(),
                                     showPopup: $showPopup,
                                     popupType: $popupType,

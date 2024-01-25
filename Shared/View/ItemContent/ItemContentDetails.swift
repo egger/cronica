@@ -334,7 +334,7 @@ struct ItemContentDetails: View {
             CastListView(credits: viewModel.credits)
             
             HorizontalItemContentListView(items: viewModel.recommendations,
-                                          title: "Recommendations",
+                                          title: NSLocalizedString("Recommendations", comment: ""),
                                           showPopup: $showPopup,
                                           popupType: $popupType,
                                           displayAsCard: true)

@@ -61,6 +61,13 @@ struct AboutSettings: View {
             privacy
 #endif
             
+            Section("Content Provider") {
+                aboutButton(
+                    title: NSLocalizedString("The Movie Database", comment: ""),
+                    url: "https://www.themoviedb.org"
+                )
+            }
+            
             Section("Design") {
                 aboutButton(
                     title: NSLocalizedString("Icon Designer", comment: ""),
@@ -76,6 +83,8 @@ struct AboutSettings: View {
                 aboutButton(title: NSLocalizedString("Spanish", comment: ""),
                             subtitle: "Luis Felipe Lerma Alvarez",
 							url: "https://www.instagram.com/lerma_alvarez")
+                aboutButton(title: NSLocalizedString("Slovak", comment: ""),
+                            subtitle: "Svec Tomas", url: "svec.tomas@gmail.com")
             }
             
             Section("Libraries") {
@@ -91,18 +100,15 @@ struct AboutSettings: View {
                             url: "https://github.com/SvenTiigi/YouTubePlayerKit")
             }
             
-            Section("Content Provider") {
-                aboutButton(
-                    title: NSLocalizedString("The Movie Database", comment: ""),
-                    url: "https://www.themoviedb.org"
-                )
-            }
-            
-            Section("Source Code") {
+            Section {
                 aboutButton(
                     title: NSLocalizedString("GitHub", comment: ""),
                     url: "https://github.com/MadeiraAlexandre/Cronica"
                 )
+            } header: {
+                Text("Source Code")
+            } footer: {
+                Text("Cronica is open-source, you can contribute to the project.")
             }
             
             Section {

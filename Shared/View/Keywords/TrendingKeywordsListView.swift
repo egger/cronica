@@ -32,7 +32,7 @@ struct TrendingKeywordsListView: View {
         ScrollView {
             VStack {
                 if !trendingKeywords.isEmpty {
-                    TitleView(title: "Trending Keywords").unredacted()
+                    TitleView(title: NSLocalizedString("Browse by Themes", comment: "")).unredacted()
                 }
                 cardGrid
             }
