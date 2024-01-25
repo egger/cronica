@@ -52,7 +52,10 @@ struct FeedbackComposerView: View {
             Section {
                 Button("X/Twitter") {
                     guard let url = URL(string: "https://x.com/CronicaApp") else { return }
+                    #if os(iOS)
                     UIApplication.shared.open(url)
+                    #else
+                    #endif
                 }
             } header: {
                 Text("On Social Media")

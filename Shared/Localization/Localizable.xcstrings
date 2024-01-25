@@ -591,12 +591,32 @@
         }
       }
     },
+    "Backup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup"
+          }
+        }
+      }
+    },
     "Backup & Restore" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Backup & Restore"
+          }
+        }
+      }
+    },
+    "Backup/Restore is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup/Restore is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication."
           }
         }
       }
@@ -1909,38 +1929,6 @@
         }
       }
     },
-    "Export" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Export"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Export"
-          }
-        }
-      }
-    },
-    "Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all users." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all users."
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Export / Import je v beta verzii. Používaj ho iba na export údajov alebo na import, ak prepínaš svoj iCloud účet. V súčasnosti neexistuje žiadna logika, aby sa zabránilo duplicite. Budúca aktualizácia poskytne všetkým používateľom lepšie riešenie."
-          }
-        }
-      }
-    },
     "Family" : {
       "localizations" : {
         "en" : {
@@ -2168,6 +2156,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM."
+          }
+        }
+      }
+    },
+    "For You" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For You"
           }
         }
       }
@@ -2633,22 +2631,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "IMDB"
-          }
-        }
-      }
-    },
-    "Import" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Import"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Import"
           }
         }
       }
@@ -4902,6 +4884,16 @@
         }
       }
     },
+    "Restore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        }
+      }
+    },
     "Restore Purchase" : {
       "localizations" : {
         "en" : {
@@ -6089,7 +6081,14 @@
       }
     },
     "Support & About" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support & About"
+          }
+        }
+      }
     },
     "Survival" : {
       "localizations" : {
@@ -7534,28 +7533,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Môžeš si vybrať zdieľanie pomocou Cronica odkazu, ktorý Ti umožní otvoriť aplikáciu.\nUpozorňujeme, že nie všetok obsah je možné zdieľať pomocou Cronica odkazu. Aplikácia v prípade potreby vždy použije TMDB odkazy."
-          }
-        }
-      }
-    },
-    "You May Like" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You May Like"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Você pode gostar"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mohlo by sa Ti páčiť"
           }
         }
       }

@@ -50,12 +50,6 @@ struct HomeView: View {
                                                   popupType: $popupType,
                                                   endpoint: section.endpoint)
                 }
-                HorizontalItemContentListView(items: viewModel.recommendations,
-                                              title: NSLocalizedString("Recommendations", comment: ""),
-                                              subtitle: NSLocalizedString("You May Like", comment: ""),
-                                              showPopup: $showPopup,
-                                              popupType: $popupType)
-                .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                 AttributionView()
             }
 #if os(iOS)

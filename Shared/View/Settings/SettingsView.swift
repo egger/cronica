@@ -106,8 +106,8 @@ struct SettingsView: View {
             AppearanceSetting()
                 .tabItem { Label("Appearance", systemImage: "moon.stars") }
             
-            SyncSetting()
-                .tabItem { Label("Sync", systemImage: "arrow.triangle.2.circlepath") }
+//            SyncSetting()
+//                .tabItem { Label("Sync", systemImage: "arrow.triangle.2.circlepath") }
             
             NotificationsSettingsView()
                 .tabItem { Label("Notification", systemImage: "bell") }

@@ -78,7 +78,7 @@ struct WatchlistSettingsView: View {
                 Text("Backup & Restore")
             } footer: {
 #if os(iOS)
-                Text("Export/Import is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication. A future update will provide a better experience for all users.")
+                Text("Backup/Restore is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication.")
 #endif
             }
             .sheet(isPresented: $showExportShareSheet) {
@@ -111,7 +111,7 @@ struct WatchlistSettingsView: View {
         Button {
             showFilePicker.toggle()
         } label: {
-            Text("Import")
+            Text("Restore")
         }
         .disabled(hasImported)
     }
@@ -125,7 +125,7 @@ struct WatchlistSettingsView: View {
                     ProgressView("Generating File")
                 }
             } else {
-                Text("Export")
+                Text("Backup")
             }
         }
         .disabled(isGeneratingExport)
