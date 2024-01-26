@@ -502,7 +502,7 @@ extension ExploreView {
                 items.append(contentsOf: result.filter { !ids.contains($0.itemContentID)})
             } else {
                 for item in result {
-                    if !items.contains(item) {
+                    if !items.contains(where: { $0.itemContentID == item.itemContentID} ) {
                         items.append(item)
                     }
                 }

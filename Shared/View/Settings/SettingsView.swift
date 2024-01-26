@@ -39,7 +39,7 @@ struct SettingsView: View {
                 }
             }
             
-            Section {
+            Section("App Features") {
                 NavigationLink(value: SettingsScreens.watchlist) {
                     settingsLabel(title: NSLocalizedString("Watchlist", comment: ""),
                                   icon: "rectangle.on.rectangle", color: AppThemeColors.goldenrod.color)
@@ -86,10 +86,12 @@ struct SettingsView: View {
                 //                        .appTint()
                 //                        .appTheme()
                 //                }
+#if !os(visionOS)
                 NavigationLink(value: SettingsScreens.tipJar) {
                     settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
                                   icon: "heart", color: .red)
                 }
+#endif
                 
                 NavigationLink(value: SettingsScreens.about) {
                     settingsLabel(title: NSLocalizedString("About", comment: ""),
@@ -106,8 +108,8 @@ struct SettingsView: View {
             AppearanceSetting()
                 .tabItem { Label("Appearance", systemImage: "moon.stars") }
             
-//            SyncSetting()
-//                .tabItem { Label("Sync", systemImage: "arrow.triangle.2.circlepath") }
+            //            SyncSetting()
+            //                .tabItem { Label("Sync", systemImage: "arrow.triangle.2.circlepath") }
             
             NotificationsSettingsView()
                 .tabItem { Label("Notification", systemImage: "bell") }
@@ -129,7 +131,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    NavigationLink("Sync", destination: SyncSetting())
+                    //NavigationLink("Sync", destination: SyncSetting())
                 }
                 
                 Section {

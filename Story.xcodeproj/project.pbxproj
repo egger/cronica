@@ -220,7 +220,6 @@
 		B886D237284E549C00FFE96A /* ItemContentContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */; };
 		B88789D029F8844C00680FD3 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88789CF29F8844C00680FD3 /* ReviewView.swift */; };
 		B88789D229F8A44C00680FD3 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88789D129F8A44C00680FD3 /* RatingView.swift */; };
-		B887B0AC29EC149600E98DED /* WatchProviderSelectorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */; };
 		B88AA92329DF781000F80EE4 /* MediaTypeFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */; };
 		B88B88C729DE55B500497058 /* AppAlternateIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88B88C629DE55B500497058 /* AppAlternateIcons.swift */; };
 		B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890C57827FC999F006BE5E1 /* HeroImage.swift */; };
@@ -543,7 +542,6 @@
 		B886D236284E549C00FFE96A /* ItemContentContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentContextMenu.swift; sourceTree = "<group>"; };
 		B88789CF29F8844C00680FD3 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		B88789D129F8A44C00680FD3 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
-		B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchProviderSelectorSetting.swift; sourceTree = "<group>"; };
 		B88AA92229DF781000F80EE4 /* MediaTypeFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeFilters.swift; sourceTree = "<group>"; };
 		B88B88C629DE55B500497058 /* AppAlternateIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlternateIcons.swift; sourceTree = "<group>"; };
 		B88B88FD29DF194A00497058 /* CronicaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaTests.swift; sourceTree = "<group>"; };
@@ -1168,7 +1166,6 @@
 				B86AA7FB2A3A4C8C009847FE /* WatchProviderSettings.swift */,
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
-				B887B0AB29EC149600E98DED /* WatchProviderSelectorSetting.swift */,
 				B8A2C1582B62D0D40033CD33 /* WatchlistSettingsView.swift */,
 				B8A2C15A2B62D1F80033CD33 /* SeasonUpNextSettingsView.swift */,
 			);
@@ -1534,6 +1531,8 @@
 				Base,
 				"pt-BR",
 				sk,
+				de,
+				"es-MX",
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (
@@ -1823,7 +1822,6 @@
 				B8105244298D2E7700723E94 /* SwipeGestureOptions.swift in Sources */,
 				B8B2F6AC2A85D57400FF0246 /* SearchItemContent-Extension.swift in Sources */,
 				B8A4511729F855CB0027E3E2 /* CenterVerticalView.swift in Sources */,
-				B887B0AC29EC149600E98DED /* WatchProviderSelectorSetting.swift in Sources */,
 				B8C0215A29E0D527006E9D82 /* ItemContentListPreferredDisplayType.swift in Sources */,
 				B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */,
 				B883A1E32AEF1DB800793EE2 /* SearchItemContentContextMenu.swift in Sources */,

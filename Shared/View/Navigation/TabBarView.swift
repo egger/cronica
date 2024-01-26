@@ -63,7 +63,7 @@ struct TabBarView: View {
             
             NavigationStack { ExploreView() }
                 .tag(ExploreView.tag)
-                .tabItem { Label("Explore", systemImage: "popcorn") }
+                .tabItem { Label("Discover", systemImage: "popcorn") }
             
             NavigationStack {
                 WatchlistView()

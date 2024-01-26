@@ -87,6 +87,36 @@
               }
             }
           }
+        },
+        "sk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld položky"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld položiek"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld položka"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld položiek"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -406,6 +436,16 @@
         }
       }
     },
+    "App Features" : {
+      "localizations" : {
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funkcie Aplikácie"
+          }
+        }
+      }
+    },
     "App Icon" : {
       "localizations" : {
         "en" : {
@@ -598,6 +638,12 @@
             "state" : "translated",
             "value" : "Backup"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť"
+          }
         }
       }
     },
@@ -608,6 +654,12 @@
             "state" : "translated",
             "value" : "Backup & Restore"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zálohovať a obnoviť"
+          }
         }
       }
     },
@@ -617,6 +669,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Backup/Restore is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zálohovanie/Obnovanie je v beta verzii. Používaj ho iba na export údajov alebo na import, ak prepínaš svoj iCloud účet. V súčasnosti neexistuje žiadna logika, aby sa zabránilo duplicite."
           }
         }
       }
@@ -649,6 +707,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Based on true story"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na základe skutočného príbehu"
           }
         }
       }
@@ -829,6 +893,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Browse by Themes"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prehľadávať podľa motívov"
           }
         }
       }
@@ -1323,6 +1393,12 @@
             "state" : "translated",
             "value" : "Cronica is open-source, you can contribute to the project."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica je open-source, môžeš prispieť do projektu."
+          }
         }
       }
     },
@@ -1597,6 +1673,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zakázať priesvitné pozadie"
+          }
+        }
+      }
+    },
+    "Discover" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discover"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preskúmať"
           }
         }
       }
@@ -2066,6 +2158,12 @@
             "state" : "translated",
             "value" : "Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neváhaj navrhnúť funkcie, vylepšenia alebo nahlásiť chyby.\nTvoja spätná väzba je veľmi dôležitá pre vylepšenie Cronicy."
+          }
         }
       }
     },
@@ -2091,6 +2189,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Filmography"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmografia"
           }
         }
       }
@@ -2157,6 +2261,12 @@
             "state" : "translated",
             "value" : "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleduj Cronicu na X/Twitteri pre informácie o nových funkciách, ktoré budú už čoskoro implementované, alebo pre poslanie svojej spätnej väzby/hlásenia cez správu."
+          }
         }
       }
     },
@@ -2166,6 +2276,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "For You"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pre Teba"
           }
         }
       }
@@ -2194,6 +2310,12 @@
             "state" : "translated",
             "value" : "From Watchlist"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zo Sledovaných"
+          }
         }
       }
     },
@@ -2219,6 +2341,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "General"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Všeobecné"
           }
         }
       }
@@ -3803,6 +3931,12 @@
             "state" : "translated",
             "value" : "On Social Media"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na sociálnych sieťach"
+          }
         }
       }
     },
@@ -4655,6 +4789,12 @@
             "state" : "translated",
             "value" : "Release"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vydanie"
+          }
         }
       }
     },
@@ -4890,6 +5030,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restore"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť"
           }
         }
       }
@@ -5174,6 +5320,12 @@
             "state" : "translated",
             "value" : "Search results"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Výsledky hľadania"
+          }
         }
       }
     },
@@ -5248,6 +5400,12 @@
             "state" : "translated",
             "value" : "Season & Up Next"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Séria a nasledujúce"
+          }
         }
       }
     },
@@ -5257,6 +5415,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Season & Up Next Settings"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenie Série a nasledujúcich"
           }
         }
       }
@@ -5740,6 +5904,12 @@
             "state" : "translated",
             "value" : "Slovak"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slovenčina"
+          }
         }
       }
     },
@@ -6001,6 +6171,7 @@
       }
     },
     "Streaming Services" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6086,6 +6257,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Support & About"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podpora a informácie"
           }
         }
       }
@@ -6678,6 +6855,12 @@
             "state" : "translated",
             "value" : "Trailers"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trailery"
+          }
         }
       }
     },
@@ -7239,6 +7422,12 @@
             "state" : "translated",
             "value" : "Watch Provider"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poskytovateľ"
+          }
         }
       }
     },
@@ -7248,6 +7437,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Watch Provider Settings"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenia Poskytovateľov"
           }
         }
       }
@@ -7340,6 +7535,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Watchlist Settings"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenia Sledovaných"
           }
         }
       }

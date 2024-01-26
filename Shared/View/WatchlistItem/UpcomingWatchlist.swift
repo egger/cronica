@@ -46,7 +46,7 @@ struct UpcomingWatchlist: View {
     private func list(items: [WatchlistItem]) -> some View {
         if !items.isEmpty {
             VStack {
-#if !os(tvOS)
+#if !os(tvOS) && !os(visionOS)
                 NavigationLink(value: items) {
                     TitleView(title: NSLocalizedString("Upcoming", comment: ""),
                               subtitle: NSLocalizedString("From Watchlist", comment: ""),
@@ -54,10 +54,12 @@ struct UpcomingWatchlist: View {
                 }
                 .buttonStyle(.plain)
 #else
-                TitleView(title: "Upcoming",
-                          subtitle: "From Watchlist",
+                TitleView(title: NSLocalizedString("Upcoming", comment: ""),
+                          subtitle: NSLocalizedString("From Watchlist", comment: ""),
                           showChevron: false)
+                #if os(tvOS)
                 .padding(.leading, 64)
+                #endif
 #endif
                 ScrollViewReader { proxy in
                     ScrollView(.horizontal, showsIndicators: false) {

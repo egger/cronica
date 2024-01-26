@@ -17,10 +17,12 @@ struct HorizontalWatchlistList: View {
     @Binding var shouldReload: Bool
     var body: some View {
         VStack {
-#if os(tvOS)
+#if os(tvOS) || os(visionOS)
             TitleView(title: title,
                       subtitle: subtitle)
+            #if os(tvOS)
             .padding(.leading, 64)
+            #endif
 #else
             NavigationLink(value: [title:items]) {
                 TitleView(title: title,

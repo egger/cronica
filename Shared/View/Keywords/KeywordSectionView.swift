@@ -60,12 +60,9 @@ struct KeywordSectionView: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    sortButton
-                    styleOptions
-                }
-                .unredacted()
-                .disabled(!isLoaded)
+                sortButton
+                    .unredacted()
+                    .disabled(!isLoaded)
             }
 #elseif os(macOS) || os(visionOS)
             ToolbarItem {
@@ -94,18 +91,6 @@ struct KeywordSectionView: View {
                   systemImage: "arrow.up.arrow.down.circle")
         }
         .labelStyle(.iconOnly)
-    }
-    
-    private var styleOptions: some View {
-        Picker("Display Style",
-               systemImage: "circle.grid.2x2",
-               selection: $settings.sectionStyleType) {
-            ForEach(SectionDetailsPreferredStyle.allCases) { item in
-                Text(item.title).tag(item)
-            }
-        }
-               .labelStyle(.iconOnly)
-               .pickerStyle(.menu)
     }
     
     private var listStyle: some View {
@@ -165,8 +150,7 @@ struct KeywordSectionView: View {
                         .onAppear(perform: loadMoreOnAppear)
                 }
             }
-        }
-                  .padding(.all, settings.isCompactUI ? 10 : nil)
+        }.padding(.all, settings.isCompactUI ? 10 : nil)
     }
 }
 

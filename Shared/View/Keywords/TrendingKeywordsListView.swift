@@ -26,42 +26,36 @@ struct TrendingKeywordsListView: View {
     ]
     private var service: NetworkService = NetworkService.shared
     var body: some View {
+        Section {
+            ScrollView {
+                LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+                    ForEach(trendingKeywords) { keyword in
+                        if keyword.image != nil {
+                            TrendingCardView(keyword: keyword, isLoading: $isLoading)
 #if os(tvOS)
-        cardGrid
-#else
-        ScrollView {
-            VStack {
-                if !trendingKeywords.isEmpty {
-                    TitleView(title: NSLocalizedString("Browse by Themes", comment: "")).unredacted()
-                }
-                cardGrid
-            }
-        }
+                                .padding(.vertical)
 #endif
-    }
-    
-    private var cardGrid: some View {
-        ScrollView {
-            LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                ForEach(trendingKeywords) { keyword in
-                    if keyword.image != nil {
-                        TrendingCardView(keyword: keyword, isLoading: $isLoading)
-#if os(tvOS)
-                            .padding(.vertical)
-#endif
+                        }
                     }
                 }
+                .padding([.horizontal, .bottom])
             }
-            .padding([.horizontal, .bottom])
-        }
-        .task { await load() }
+            .task { await load() }
 #if os(iOS)
-        .redacted(reason: isLoading ? .placeholder : [])
+            .redacted(reason: isLoading ? .placeholder : [])
 #elseif os(tvOS)
-        .ignoresSafeArea(.all, edges: .horizontal)
+            .ignoresSafeArea(.all, edges: .horizontal)
 #endif
+        } header: {
+            HStack {
+                Text("Browse by Themes")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+                Spacer()
+            }
+        }
     }
-    
 }
 
 #Preview {
@@ -147,8 +141,6 @@ private struct TrendingCardView: View {
         .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
     }
 }
-
-
 
 private struct DrawingConstants {
 #if os(iOS)
