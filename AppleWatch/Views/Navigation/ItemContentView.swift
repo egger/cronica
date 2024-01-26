@@ -18,6 +18,8 @@ struct ItemContentView: View {
     @State private var showMoreOptions = false
     @State private var isWatched = false
 	@StateObject private var store = SettingsStore.shared
+    @State private var showConfirmationPopup = false
+    @StateObject private var settings = SettingsStore.shared
     var body: some View {
         VStack {
             ScrollView {
@@ -36,21 +38,45 @@ struct ItemContentView: View {
 						.foregroundColor(.secondary)
 				}
                 
-                DetailWatchlistButton(showCustomList: $showCustomListSheet)
-                    .environmentObject(viewModel)
-                    .padding()
+                Button {
+                    if viewModel.isInWatchlist {
+                        if SettingsStore.shared.showRemoveConfirmation {
+                            showConfirmationPopup = true
+                        } else {
+                            updateWatchlist()
+                        }
+                    } else {
+                        HapticManager.shared.successHaptic()
+                        updateWatchlist()
+                    }
+                } label: {
+                    VStack {
+                        Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                            .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                                          value: viewModel.isInWatchlist)
+                        Text(viewModel.isInWatchlist ? "Remove" : "Add")
+                            .lineLimit(1)
+                            .padding(.top, 2)
+                            .font(.caption)
+                    }
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .disabled(viewModel.isLoading)
+                .alert("Are You Sure?", isPresented: $showConfirmationPopup) {
+                    Button("Confirm") { updateWatchlist() }
+                    Button("Cancel") {  showConfirmationPopup = false }
+                }
+                .padding()
                 
                 if let seasons = viewModel.content?.seasons {
                     NavigationLink("Seasons", value: seasons)
                         .padding([.horizontal, .bottom])
                 }
                 
-                if viewModel.isInWatchlist {
-                    customListButton.padding([.horizontal, .bottom])
-                }
-                
                 HStack {
                     if viewModel.isInWatchlist {
+                        customListButton
                         Button {
                             showMoreOptions.toggle()
                         } label: {
@@ -70,8 +96,6 @@ struct ItemContentView: View {
                             }
                         }
                     }
-                    
-					shareButton
                 }
                 .padding([.bottom, .horizontal])
                 
@@ -106,9 +130,10 @@ struct ItemContentView: View {
                 EpisodeDetailsView(episode: value, season: keys, show: id, showTitle: title, isWatched: $isWatched)
             }
         }
-        .background {
-            if #available(watchOS 10, *) {
-                TranslucentBackground(image: image)
+        .background { TranslucentBackground(image: image) }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                shareButton
             }
         }
     }
@@ -139,6 +164,7 @@ struct ItemContentView: View {
         Button("Add To List", systemImage: "rectangle.on.rectangle.angled") {
             showCustomListSheet.toggle()
         }
+        .labelStyle(.iconOnly)
     }
     
     private var favoriteButton: some View {
@@ -210,11 +236,8 @@ struct ItemContentView: View {
 	@ViewBuilder
 	private var shareButton: some View {
 		switch store.shareLinkPreference {
-		case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url).labelStyle(.iconOnly) }
-		case .cronica: if let cronicaUrl {
-			ShareLink(item: cronicaUrl)
-				.labelStyle(.iconOnly)
-		}
+		case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url) }
+		case .cronica: if let cronicaUrl { ShareLink(item: cronicaUrl) }
 		}
 	}
 	
@@ -227,6 +250,14 @@ struct ItemContentView: View {
 		}
 		return nil
 	}
+    
+    private func updateWatchlist() {
+        guard let item = viewModel.content else { return }
+        viewModel.updateWatchlist(with: item)
+        if settings.openListSelectorOnAdding && viewModel.isInWatchlist {
+            showCustomListSheet.toggle()
+        }
+    }
 }
 
 private struct DrawingConstants {

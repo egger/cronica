@@ -7,77 +7,33 @@
 
 import SwiftUI
 
-struct SearchView: View {
-    static let tag: Screens? = .search
+struct TrendingView: View {
+    static let tag: Screens? = .trending
     private let service: NetworkService = NetworkService.shared
     @State private var trending = [ItemContent]()
     @State private var isLoaded = false
-    
-    // search
-    @StateObject private var viewModel = SearchViewModel()
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \WatchlistItem.title, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<WatchlistItem>
-    @State private var query = String()
-    @State private var filteredItems = [WatchlistItem]()
-    @State private var isInWatchlist = false
-    @State private var hasLoadedTMDbResults = false
-    @State private var showPopup = false
-    @State private var popupType: ActionPopupItems?
     var body: some View {
         NavigationStack {
             Form {
-                if query.isEmpty {
-                    Section("Trending") {
-                        List {
-                            ForEach(trending) { item in
-                                NavigationLink(value: item) {
-                                    ItemContentRow(item: item)
-                                }
+                Section {
+                    List {
+                        ForEach(trending) { item in
+                            NavigationLink(value: item) {
+                                ItemContentRow(item: item)
                             }
                         }
-                        .redacted(reason: isLoaded ? [] : .placeholder)
                     }
-                } else {
-                    searchResults
+                    .redacted(reason: isLoaded ? [] : .placeholder)
                 }
-                
             }
 			.overlay { if !isLoaded { ProgressView().unredacted() } }
-            .navigationTitle("Search")
-            .navigationBarTitleDisplayMode(.large)
-            .searchable(text: $query)
-            .task(id: query) {
-                if query.isEmpty { return }
-                if Task.isCancelled { return }
-                withAnimation { hasLoadedTMDbResults = false }
-                if !filteredItems.isEmpty { filteredItems.removeAll() }
-                filteredItems.append(contentsOf: items.filter { ($0.title?.localizedStandardContains(query))! as Bool })
-                await viewModel.search(query)
-                withAnimation { hasLoadedTMDbResults = true }
-            }
-            .navigationDestination(for: WatchlistItem.self) { item in
-                ItemContentView(id: item.itemId,
-                                title: item.itemTitle,
-                                type: item.itemMedia,
-                                image: item.backCompatibleCardImage)
-            }
+            .navigationTitle("Trending")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: ItemContent.self) { item in
                 ItemContentView(id: item.id,
                                 title: item.itemTitle,
                                 type: item.itemContentMedia,
                                 image: item.cardImageMedium)
-            }
-            .navigationDestination(for: SearchItemContent.self) { item in
-                if item.media == .person {
-                    PersonDetailsView(name: item.itemTitle, id: item.id)
-                } else {
-                    ItemContentView(id: item.id,
-                                    title: item.itemTitle,
-                                    type: item.itemContentMedia,
-                                    image: item.cardImageMedium)
-                }
             }
             .onAppear(perform: load)
         }
@@ -101,38 +57,8 @@ struct SearchView: View {
             }
         }
     }
-    
-    private var searchResults: some View {
-        List {
-            if !filteredItems.isEmpty {
-                Section("Results from Watchlist") {
-                    ForEach(filteredItems) { item in
-                        NavigationLink(value: item) {
-                            WatchlistItemRowView(content: item, showPopup: $showPopup, popupType: $popupType)
-                        }
-                    }
-                }
-            }
-            
-            Section("Results from TMDb") {
-                if hasLoadedTMDbResults {
-                    if !viewModel.items.isEmpty {
-                        ForEach(viewModel.items) { item in
-                            NavigationLink(value: item) {
-                                SearchItem(item: item)
-                            }
-                        }
-                    } else {
-                        Text("No results from TMDb")
-                    }
-                } else {
-                    ProgressView("Loading")
-                }
-            }
-        }
-    }
 }
 
 #Preview {
-    SearchView()
+    TrendingView()
 }

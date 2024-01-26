@@ -64,7 +64,6 @@
 		B81941B32A0839B00057DA04 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892EB1329675B5E002E028E /* StoreKitManager.swift */; };
 		B81941C22A0861C80057DA04 /* WatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BA2A0861C70057DA04 /* WatchlistButton.swift */; };
 		B81941C32A0861C80057DA04 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BB2A0861C70057DA04 /* FavoriteButton.swift */; };
-		B81941C42A0861C80057DA04 /* DetailWatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BC2A0861C70057DA04 /* DetailWatchlistButton.swift */; };
 		B81941C52A0861C80057DA04 /* CustomListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BD2A0861C70057DA04 /* CustomListButton.swift */; };
 		B81941C62A0861C80057DA04 /* PinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BE2A0861C70057DA04 /* PinButton.swift */; };
 		B81941C72A0861C80057DA04 /* WatchedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BF2A0861C80057DA04 /* WatchedButton.swift */; };
@@ -74,7 +73,6 @@
 		B81941CB2A0861D70057DA04 /* PinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BE2A0861C70057DA04 /* PinButton.swift */; };
 		B81941CC2A0861D70057DA04 /* WatchEpisodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941C12A0861C80057DA04 /* WatchEpisodeButton.swift */; };
 		B81941CD2A0861D70057DA04 /* WatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BA2A0861C70057DA04 /* WatchlistButton.swift */; };
-		B81941CE2A0861D70057DA04 /* DetailWatchlistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BC2A0861C70057DA04 /* DetailWatchlistButton.swift */; };
 		B81941CF2A0861D70057DA04 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BB2A0861C70057DA04 /* FavoriteButton.swift */; };
 		B81941D02A0861D70057DA04 /* CustomListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941BD2A0861C70057DA04 /* CustomListButton.swift */; };
 		B81941D12A0861D70057DA04 /* ArchiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81941C02A0861C80057DA04 /* ArchiveButton.swift */; };
@@ -181,6 +179,8 @@
 		B86E587927A48E5A005DBF38 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E587827A48E5A005DBF38 /* Key.swift */; };
 		B86E589127A4BE75005DBF38 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E589027A4BE75005DBF38 /* Endpoints.swift */; };
 		B86E7A24290AB6C500459E41 /* WatchlistItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E7A22290AB68000459E41 /* WatchlistItemContextMenu.swift */; };
+		B86F02642B63FB8800F8EA82 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B86670B82B600CAE00CBA595 /* Localizable.xcstrings */; };
+		B86F02652B63FB8900F8EA82 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B86670B82B600CAE00CBA595 /* Localizable.xcstrings */; };
 		B86F7ABD2A087FF900AA4855 /* HorizontalUpNextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F7ABC2A087FF900AA4855 /* HorizontalUpNextListView.swift */; };
 		B86F7ABF2A08806100AA4855 /* VerticalUpNextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F7ABE2A08806100AA4855 /* VerticalUpNextListView.swift */; };
 		B86F7AC12A0941D800AA4855 /* EpisodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F7AC02A0941D800AA4855 /* EpisodeHelper.swift */; };
@@ -203,7 +203,6 @@
 		B87D1B242A65CF6000EB6D14 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */; };
 		B87D1B252A65D78900EB6D14 /* UpNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */; };
 		B87D1B272A65E63700EB6D14 /* UpNextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B262A65E63700EB6D14 /* UpNextListView.swift */; };
-		B87D1B292A66128000EB6D14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D1B282A66128000EB6D14 /* SettingsView.swift */; };
 		B87F745E280605CE00E94126 /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, xros, ); productRef = B87F745D280605CE00E94126 /* TelemetryClient */; };
 		B87F746328064D3800E94126 /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87F746228064D3800E94126 /* BackgroundManager.swift */; };
 		B87F74642806592E00E94126 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B271A327A59EF400F6463F /* CloudKit.framework */; };
@@ -453,7 +452,6 @@
 		B81941AA2A0835D40057DA04 /* PosterPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPlaceholder.swift; sourceTree = "<group>"; };
 		B81941BA2A0861C70057DA04 /* WatchlistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchlistButton.swift; sourceTree = "<group>"; };
 		B81941BB2A0861C70057DA04 /* FavoriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
-		B81941BC2A0861C70057DA04 /* DetailWatchlistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailWatchlistButton.swift; sourceTree = "<group>"; };
 		B81941BD2A0861C70057DA04 /* CustomListButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListButton.swift; sourceTree = "<group>"; };
 		B81941BE2A0861C70057DA04 /* PinButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinButton.swift; sourceTree = "<group>"; };
 		B81941BF2A0861C80057DA04 /* WatchedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchedButton.swift; sourceTree = "<group>"; };
@@ -531,7 +529,6 @@
 		B87B5CD32799AF3600632648 /* Attribution.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Attribution.xcassets; sourceTree = "<group>"; };
 		B87D1B232A65CF6000EB6D14 /* UpNextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextViewModel.swift; sourceTree = "<group>"; };
 		B87D1B262A65E63700EB6D14 /* UpNextListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextListView.swift; sourceTree = "<group>"; };
-		B87D1B282A66128000EB6D14 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B87F746228064D3800E94126 /* BackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundManager.swift; sourceTree = "<group>"; };
 		B883A1DD2AEEA49E00793EE2 /* EditCustomListItemSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCustomListItemSelector.swift; sourceTree = "<group>"; };
 		B883A1DF2AEED78900793EE2 /* SearchStage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStage.swift; sourceTree = "<group>"; };
@@ -852,7 +849,6 @@
 			children = (
 				B81941C02A0861C80057DA04 /* ArchiveButton.swift */,
 				B81941BD2A0861C70057DA04 /* CustomListButton.swift */,
-				B81941BC2A0861C70057DA04 /* DetailWatchlistButton.swift */,
 				B81941BB2A0861C70057DA04 /* FavoriteButton.swift */,
 				B81941BE2A0861C70057DA04 /* PinButton.swift */,
 				B81941BF2A0861C80057DA04 /* WatchedButton.swift */,
@@ -1078,7 +1074,6 @@
 				B801070C29F255F3008A4551 /* DefaultListView.swift */,
 				B88529AE28E368CB0026D33A /* EpisodeDetailsView.swift */,
 				B84043D4289B2ABD00D5CEBF /* ItemContentView.swift */,
-				B87D1B282A66128000EB6D14 /* SettingsView.swift */,
 				B82B75A328A84DBA00C3212A /* WatchlistView.swift */,
 				B8409D1A2A81C6240048840F /* SearchView.swift */,
 			);
@@ -1561,6 +1556,7 @@
 			files = (
 				B813917F289F4F8D003BEB2E /* Attribution.xcassets in Resources */,
 				B806C4E82899BE2900A5330E /* Preview Assets.xcassets in Resources */,
+				B86F02652B63FB8900F8EA82 /* Localizable.xcstrings in Resources */,
 				B806C4E52899BE2900A5330E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1584,6 +1580,7 @@
 			files = (
 				B86AAD0D28BD2E2600D135B1 /* PlaceholderMedia.xcassets in Resources */,
 				B8D7AEE328BA64DF0053CE5A /* DataPlaceholder.json in Resources */,
+				B86F02642B63FB8800F8EA82 /* Localizable.xcstrings in Resources */,
 				B8D7AEAE28B95F5F0053CE5A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1661,7 +1658,6 @@
 				B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */,
 				B8FCAE882AED8AB000F688FE /* PersonDetailsView.swift in Sources */,
 				B8BF6329291402720051915C /* HoverEffectModifier.swift in Sources */,
-				B81941CE2A0861D70057DA04 /* DetailWatchlistButton.swift in Sources */,
 				B801071129F2562C008A4551 /* WatchlistSectionView.swift in Sources */,
 				B84043B8289B18AA00D5CEBF /* WatchlistItem-Extension.swift in Sources */,
 				B84043BB289B18BF00D5CEBF /* NotificationManager.swift in Sources */,
@@ -1681,7 +1677,6 @@
 				B87D1B272A65E63700EB6D14 /* UpNextListView.swift in Sources */,
 				B8A36AB82B1D51EA004A5687 /* BehaviorSetting.swift in Sources */,
 				B81941D12A0861D70057DA04 /* ArchiveButton.swift in Sources */,
-				B87D1B292A66128000EB6D14 /* SettingsView.swift in Sources */,
 				B83423EB28BA7CCF00D5E2C4 /* ItemContentContextMenu.swift in Sources */,
 				B810525E298DD05600723E94 /* AppContentRegion.swift in Sources */,
 				B84043B2289B187900D5CEBF /* PersistenceController.swift in Sources */,
@@ -1790,7 +1785,6 @@
 				B8E6D64227B6B106002E7A63 /* Watchlist.xcdatamodeld in Sources */,
 				B89446BF294FDACA008974BA /* AppThemeColors.swift in Sources */,
 				B8B2F6B42A85DBFD00FF0246 /* ItemContentSearchRowView.swift in Sources */,
-				B81941C42A0861C80057DA04 /* DetailWatchlistButton.swift in Sources */,
 				B86E587927A48E5A005DBF38 /* Key.swift in Sources */,
 				B81941C92A0861C80057DA04 /* WatchEpisodeButton.swift in Sources */,
 				B890C57927FC999F006BE5E1 /* HeroImage.swift in Sources */,
@@ -1992,7 +1986,7 @@
 				INFOPLIST_FILE = "AppleWatch/Configuration/CronicaWatch-Info.plist";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.alexandremadeira.Story;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2025,7 +2019,7 @@
 				INFOPLIST_FILE = "AppleWatch/Configuration/CronicaWatch-Info.plist";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.alexandremadeira.Story;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

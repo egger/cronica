@@ -3,6 +3,12 @@
   "strings" : {
     "" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14,11 +20,23 @@
             "state" : "translated",
             "value" : ""
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
     "%@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -41,6 +59,12 @@
     },
     "%@\n" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -63,6 +87,12 @@
     },
     "%@ • %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ • %2$@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -85,6 +115,12 @@
     },
     "%@, tap to open list options." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, tippe, um die Listenoptionen zu öffnen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -107,6 +143,30 @@
     },
     "%lld items" : {
       "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Element"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Elemente"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Leer"
+                }
+              }
+            }
+          }
+        },
         "en" : {
           "variations" : {
             "plural" : {
@@ -177,6 +237,12 @@
     },
     "🛠️" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🛠️"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -243,6 +309,12 @@
     },
     "Action" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Action"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -287,6 +359,12 @@
     },
     "Add" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -309,6 +387,12 @@
     },
     "Add & Mark Watched" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen & Als Gesehen Markieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -331,6 +415,12 @@
     },
     "Add everything you want, the Watchlist automatically organizes it for you." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Füge einfach alles hinzu, was du möchtest. Die Watchlist organisiert es automatisch für dich."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -353,6 +443,12 @@
     },
     "Add To List" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zur Liste hinzufügen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -375,6 +471,12 @@
     },
     "Add to..." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen zu..."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -419,6 +521,12 @@
     },
     "Adventure" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abenteuer"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -441,6 +549,12 @@
     },
     "Alien" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alien"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -463,6 +577,12 @@
     },
     "All" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -551,6 +671,12 @@
     },
     "Animation" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animation"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -595,6 +721,12 @@
     },
     "App Features" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App-Funktionen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -617,6 +749,12 @@
     },
     "App Icon" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Icon"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -639,6 +777,12 @@
     },
     "App Theme" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App-Thema"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -705,6 +849,12 @@
     },
     "Archived" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archiviert"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -727,6 +877,12 @@
     },
     "Are You Sure?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bist du sicher?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -772,6 +928,12 @@
     },
     "Asked for review: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asked for review: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -795,6 +957,12 @@
     "Australia" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Australien"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -840,6 +1008,12 @@
     },
     "Back" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurück"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -906,6 +1080,12 @@
     },
     "Backup/Restore is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup/Wiederherstellung befindet sich in der Beta-Phase. Verwende es nur zum Exportieren deiner Daten oder zum Importieren, wenn du deinen iCloud-Account wechselst. Derzeit gibt es keine Logik, um Duplikationen zu vermeiden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -928,6 +1108,12 @@
     },
     "Based on novel or book" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basierend auf einem Roman oder Buch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -950,6 +1136,12 @@
     },
     "Based on true story" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basierend auf einer wahren Geschichte"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -994,6 +1186,12 @@
     },
     "Basic Filter" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grundfilter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1016,6 +1214,12 @@
     },
     "Be reminded of upcoming Movies & TV Shows." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An bevorstehende Filme und TV-Sendungen erinnern."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1128,6 +1332,12 @@
     "Blue" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1151,6 +1361,12 @@
     "Brazil" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brasilien"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1174,6 +1390,12 @@
     "Brown" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brown"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1196,6 +1418,12 @@
     },
     "Browse by Themes" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach Themen durchsuchen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1219,6 +1447,12 @@
     "Bulgaria" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bulgarien"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1264,6 +1498,12 @@
     },
     "Cancel" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1331,6 +1571,12 @@
     },
     "Cast & Crew" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Besetzung & Team"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1353,6 +1599,12 @@
     },
     "Change app language" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App-Sprache ändern"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1398,6 +1650,12 @@
     "Cherry" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cherry"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1442,6 +1700,12 @@
     },
     "Classical" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classical"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1509,6 +1773,12 @@
     "Coming Soon" : {
       "comment" : "Schedule Type",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demnächst"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1597,6 +1867,12 @@
     },
     "Confirm" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1641,6 +1917,12 @@
     },
     "Confirm and don't ask again" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigen und nicht erneut fragen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1663,6 +1945,12 @@
     },
     "Confirm Watched Episode" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesehene Episode bestätigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1707,6 +1995,12 @@
     },
     "Continue" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortfahren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1730,6 +2024,12 @@
     "Coral" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coral"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1774,6 +2074,12 @@
     },
     "Crime" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kriminalität"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1886,6 +2192,12 @@
     "Cyan" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cyan"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1909,6 +2221,12 @@
     "Czech Republic" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tschechische Republik"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1997,6 +2315,12 @@
     },
     "Default List" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standardliste"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2019,6 +2343,12 @@
     },
     "Delete" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2130,6 +2460,12 @@
     },
     "Details Page" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detailseite"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2152,6 +2488,12 @@
     },
     "Developed by Alexandre Madeira" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entwickelt von Alexandre Madeira"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2196,6 +2538,12 @@
     },
     "Digital" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digital"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2218,6 +2566,12 @@
     },
     "Disable Search Filter" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suchfilter deaktivieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2262,6 +2616,12 @@
     },
     "Discover" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entdecken"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2284,6 +2644,12 @@
     },
     "Dismiss" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwerfen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2306,6 +2672,12 @@
     },
     "Display Style" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzeigestil"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2328,6 +2700,12 @@
     },
     "Documentary" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokumentation"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2350,6 +2728,12 @@
     },
     "Done" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erledigt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2406,6 +2790,12 @@
     },
     "Drama" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drama"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2422,6 +2812,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dráma"
+          }
+        }
+      }
+    },
+    "E%lld" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E%lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E%lld"
           }
         }
       }
@@ -2450,6 +2856,12 @@
     },
     "Edit Notifications in Settings app" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigungen in den Einstellungen bearbeiten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2472,6 +2884,12 @@
     },
     "Empty" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leer"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2516,6 +2934,12 @@
     },
     "Enable Preferred Launch Screen" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bevorzugten Startbildschirm aktivieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2561,6 +2985,12 @@
     },
     "Enjoying Cronica?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genießt du Cronica?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2671,6 +3101,12 @@
     },
     "Error reading this title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler beim Lesen dieses Titels"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2694,6 +3130,12 @@
     "Estonia" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estland"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2716,6 +3158,12 @@
     },
     "Explore" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erkunden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2782,6 +3230,12 @@
     },
     "Favorite" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorit"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2848,7 +3302,25 @@
     },
     "featureOneDescription" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureOneDescription"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureOneDescription"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureOneDescription"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "featureOneDescription"
@@ -2858,7 +3330,25 @@
     },
     "featureOneTitle" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureOneTitle"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureOneTitle"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "featureOneTitle"
@@ -2868,7 +3358,25 @@
     },
     "featureThreeDescription" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeDescription"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeDescription"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeDescription"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "featureThreeDescription"
@@ -2878,7 +3386,25 @@
     },
     "featureThreeTitle" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeTitle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeTitle"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeTitle"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "featureThreeTitle"
@@ -2888,7 +3414,19 @@
     },
     "featureTwoDescription" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureTwoDescription"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureTwoDescription"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "featureTwoDescription"
@@ -2898,7 +3436,25 @@
     },
     "featureTwoTitle" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureTwoTitle"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureTwoTitle"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "featureTwoTitle"
@@ -2996,6 +3552,12 @@
     },
     "Filmography" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmografie"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3041,6 +3603,12 @@
     "Finland" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finnland"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3085,6 +3653,12 @@
     },
     "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folge Cronica auf X/Twitter, um über neue Funktionen auf dem Laufenden zu bleiben oder um dein Feedback/Bericht per Direktnachricht zu senden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3107,6 +3681,12 @@
     },
     "For You" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für dich"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3174,6 +3754,12 @@
     },
     "Full Swipe will activate the primary action" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein voller Wisch aktiviert die Hauptaktion"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3196,6 +3782,12 @@
     },
     "General" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allgemein"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3218,6 +3810,12 @@
     },
     "Generating File" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generating File"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3262,6 +3860,12 @@
     },
     "German" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deutsch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3307,6 +3911,12 @@
     },
     "Gestures" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3329,6 +3939,12 @@
     },
     "Get notifications about the newest releases." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigungen über die neuesten Veröffentlichungen erhalten."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3351,6 +3967,12 @@
     },
     "GitHub" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3374,6 +3996,12 @@
     "Goldenrod" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldenrod"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3397,6 +4025,12 @@
     "Gray" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gray"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3420,6 +4054,12 @@
     "Green" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3464,6 +4104,12 @@
     },
     "Hide Added Items" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzugefügte Elemente ausblenden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3530,6 +4176,12 @@
     },
     "History" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verlauf"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3642,6 +4294,12 @@
     "Hungary" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungarn"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3686,6 +4344,12 @@
     },
     "ID" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3730,6 +4394,12 @@
     },
     "If you prefer, you can send an email for a faster follow-up." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie es bevorzugen, können Sie eine E-Mail senden, um schneller eine Antwort zu erhalten."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3752,6 +4422,12 @@
     },
     "IMDb" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IMDb"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3775,6 +4451,12 @@
     "India" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indien"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3798,6 +4480,12 @@
     "Indigo" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indigo"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3821,6 +4509,12 @@
     "Indonesia" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indonesien"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3887,6 +4581,12 @@
     },
     "Invalid API key: You must be granted a valid key." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid API key: You must be granted a valid key."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3909,6 +4609,12 @@
     },
     "Invalid Endpoint" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Endpoint"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3931,6 +4637,12 @@
     },
     "Invalid Request" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Request"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3953,6 +4665,12 @@
     },
     "Invalid Response" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Response"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3976,6 +4694,12 @@
     "Ireland" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Irland"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3998,6 +4722,12 @@
     },
     "Is TelemetryDeck Initialized: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Is TelemetryDeck Initialized: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4066,6 +4796,12 @@
     },
     "Keep track of every episode you've watched." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behalte jede Episode im Blick, die du gesehen hast."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4088,6 +4824,12 @@
     },
     "Kids" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kinder"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4110,6 +4852,12 @@
     },
     "Last maintenance: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last maintenance: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4132,6 +4880,12 @@
     },
     "Last upcoming refresh: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last upcoming refresh: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4176,6 +4930,12 @@
     },
     "Last watching refresh: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last watching refresh: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4221,6 +4981,12 @@
     "Lavender" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lavender"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4243,6 +5009,12 @@
     },
     "Leave a Review on the App Store!" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinterlasse eine Bewertung im App Store!"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4265,6 +5037,12 @@
     },
     "Libraries" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bibliotheken"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4287,6 +5065,12 @@
     },
     "Light" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leicht"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4354,6 +5138,12 @@
     "Lithuania" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Litauen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4398,6 +5188,12 @@
     },
     "Mark Episode %lld from season %lld of %@ as Watched?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episode %1$lld aus Staffel %2$lld von %3$@ als gesehen markieren?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -4420,6 +5216,12 @@
     },
     "Mark This and Prior Episodes Watched" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese und vorherige Episoden als gesehen markieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4442,6 +5244,12 @@
     },
     "Mark This Season as Watched" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Staffel als gesehen markieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4464,6 +5272,12 @@
     },
     "Media Filter" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medienfilter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4486,6 +5300,12 @@
     },
     "Media Type" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medientyp"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4508,6 +5328,12 @@
     },
     "Media Type Filter" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medientyp-Filter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4554,6 +5380,12 @@
     "Mint" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mint"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4576,6 +5408,12 @@
     },
     "Modern" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modern"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4598,6 +5436,12 @@
     },
     "More" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4642,6 +5486,12 @@
     },
     "More Options" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Optionen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4686,6 +5536,12 @@
     },
     "Movies" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filme"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4708,6 +5564,12 @@
     },
     "Movies, Shows, People" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filme, Serien, Personen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4819,6 +5681,12 @@
     },
     "Never miss out" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie verpassen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4841,6 +5709,12 @@
     },
     "New List" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Liste"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4974,6 +5848,12 @@
     },
     "No notifications" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Benachrichtigungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4996,6 +5876,12 @@
     },
     "No result found for '%@'." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Ergebnisse gefunden für '%@'."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5018,6 +5904,12 @@
     },
     "No results" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Ergebnisse"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5040,6 +5932,12 @@
     },
     "No title available" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Titel verfügbar"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5063,6 +5961,12 @@
     "Norway" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Norwegen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5107,6 +6011,12 @@
     },
     "Not Found" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht gefunden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5129,6 +6039,12 @@
     },
     "Notes" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notizen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5173,6 +6089,12 @@
     },
     "Notification" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigung"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5261,6 +6183,12 @@
     },
     "Notify when a movie on your watchlist is released." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigen, wenn ein Film auf deiner Watchlist veröffentlicht wird."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5283,6 +6211,12 @@
     },
     "Notify when a new episode from a TV Show on your watchlist is released." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigen, wenn eine neue Episode einer TV-Sendung auf deiner Watchlist veröffentlicht wird."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5305,6 +6239,12 @@
     },
     "Nuke" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuke"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5327,6 +6267,12 @@
     },
     "Official Website" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offizielle Website"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5349,6 +6295,12 @@
     },
     "On Social Media" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf sozialen Medien"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5371,6 +6323,12 @@
     },
     "Only show 'Watch Provider' if the title is available on one of your preferred services" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeige \"Streaming-Anbieter\" nur an, wenn der Titel auf einem deiner bevorzugten Dienste verfügbar ist."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5437,6 +6395,12 @@
     },
     "Open List Selector when adding an item" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listenauswahl öffnen beim Hinzufügen eines Elements"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5482,6 +6446,12 @@
     "Orange" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5526,6 +6496,12 @@
     },
     "Overview" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überblick"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5593,6 +6569,12 @@
     },
     "Physical" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Körperlich"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5638,6 +6620,12 @@
     "Pink" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5660,6 +6648,12 @@
     },
     "Pinned" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Angepinnt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5705,6 +6699,12 @@
     "Poland" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5772,6 +6772,12 @@
     },
     "Poster" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poster"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5882,6 +6888,12 @@
     },
     "Premiere" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premiere"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5904,6 +6916,12 @@
     },
     "Presentation" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presentation"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5926,6 +6944,12 @@
     },
     "Preview" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preview"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5948,6 +6972,12 @@
     },
     "Primary Left Gesture" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primäre Wischgeste nach links"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5970,6 +7000,12 @@
     },
     "Primary Right Gesture" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primäre Wischgeste nach rechts"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5992,6 +7028,12 @@
     },
     "Privacy" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datenschutz"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6014,6 +7056,12 @@
     },
     "Privacy Policy" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datenschutzbestimmungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6037,6 +7085,12 @@
     "Production" : {
       "comment" : "Schedule Type",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produktion"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6059,6 +7113,12 @@
     },
     "Production Companies" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produktionsfirmen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6081,6 +7141,12 @@
     },
     "Production Company" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produktionsfirma"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6103,6 +7169,12 @@
     },
     "Provided by JustWatch" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bereitgestellt von JustWatch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6126,6 +7198,12 @@
     "Purple" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purple"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6325,6 +7403,12 @@
     "Red" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6457,6 +7541,12 @@
     },
     "Release Date" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veröffentlichungsdatum"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6501,6 +7591,12 @@
     },
     "Release Date (Descending)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veröffentlichungsdatum (absteigend)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6634,6 +7730,12 @@
     },
     "Remove Items" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elemente entfernen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6656,6 +7758,12 @@
     },
     "Remove Notification" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigung entfernen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6678,6 +7786,12 @@
     },
     "Removed" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entfernt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6745,6 +7859,12 @@
     },
     "Reset to Default" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf Standard zurücksetzen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6833,6 +7953,12 @@
     },
     "Review" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6855,6 +7981,12 @@
     },
     "Review App" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bewertungs-App"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6877,6 +8009,12 @@
     },
     "Review of %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bewertung von %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6943,6 +8081,12 @@
     },
     "Romantic Comedy" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romantische Komödie"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6966,6 +8110,12 @@
     "Rose Gold" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rose Gold"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7010,6 +8160,12 @@
     },
     "S%d, E%d" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S%1$d, E%2$d"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -7032,6 +8188,12 @@
     },
     "Save" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7054,6 +8216,12 @@
     },
     "Sci-Fi & Fantasy" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sci-Fi & Fantasy"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7120,6 +8288,12 @@
     },
     "Search %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7186,6 +8360,12 @@
     },
     "Search watchlist" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watchlist durchsuchen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7230,6 +8410,12 @@
     },
     "Season" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Staffel"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7252,6 +8438,12 @@
     },
     "Season & Up Next" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Staffel & Als nächstes"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7296,6 +8488,12 @@
     },
     "Season %lld" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Staffel %lld"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7312,6 +8510,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Séria %lld"
+          }
+        }
+      }
+    },
+    "Seasons" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seasons"
           }
         }
       }
@@ -7472,6 +8680,12 @@
     },
     "Select the rating in star numbers." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle die Bewertung in Sternenzahlen aus."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7494,6 +8708,12 @@
     },
     "Send" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7516,6 +8736,12 @@
     },
     "Send Email" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail senden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7560,6 +8786,12 @@
     },
     "Send Object to Developer" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send Object to Developer"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7605,6 +8837,12 @@
     },
     "Series" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serie"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7693,6 +8931,12 @@
     },
     "Share Image" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Image"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7737,6 +8981,12 @@
     },
     "Show All Items" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Elemente anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7803,6 +9053,12 @@
     },
     "Show Menu Bar App" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menüleiste-App anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7889,6 +9145,22 @@
         }
       }
     },
+    "Shows movies and TV Shows trending from TMDb." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeigt Filme und TV-Sendungen, die auf TMDb im Trend liegen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows movies and TV Shows trending from TMDb."
+          }
+        }
+      }
+    },
     "Skip this episode" : {
       "localizations" : {
         "en" : {
@@ -7914,6 +9186,12 @@
     "Sky Blue" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sky Blue"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7959,6 +9237,12 @@
     "Slovakia" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slowakei"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8023,6 +9307,16 @@
         }
       }
     },
+    "Smart List Filters" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart List Filters"
+          }
+        }
+      }
+    },
     "Sort By" : {
       "localizations" : {
         "en" : {
@@ -8069,6 +9363,12 @@
     },
     "Sort Order" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sortierreihenfolge"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8091,6 +9391,12 @@
     },
     "Source Code" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source Code"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8114,6 +9420,12 @@
     "South Africa" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Südafrika"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8137,6 +9449,12 @@
     "South Korea" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Südkorea"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8204,6 +9522,12 @@
     },
     "Spanish" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Español"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8226,6 +9550,12 @@
     },
     "Standard" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8271,6 +9601,12 @@
     "Steel" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steel"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8293,6 +9629,12 @@
     },
     "Style Picker" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stil-Auswahl"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8315,6 +9657,12 @@
     },
     "Style Preferences" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stilpräferenzen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8337,6 +9685,12 @@
     },
     "Superhero" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Superheld"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8403,6 +9757,12 @@
     },
     "Survival" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überleben"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8448,6 +9808,12 @@
     },
     "Swipe Gestures" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wischgesten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8470,6 +9836,12 @@
     },
     "Swipe to Edit your list" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wische, um deine Liste zu bearbeiten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8582,6 +9954,12 @@
     "Teal" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teal"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8604,6 +9982,12 @@
     },
     "TelemetryDeck" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TelemetryDeck"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8648,6 +10032,12 @@
     },
     "The API is undergoing maintenance. Try again later." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die API wird gerade gewartet. Versuche es später erneut."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8681,11 +10071,23 @@
             "state" : "translated",
             "value" : "O aplicativo não conseguiu carregar o conteúdo no momento."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The app couldn't load the content right now."
+          }
         }
       }
     },
     "The app will adapt watch providers based on your region" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die App passt die Streaming-Anbieter je nach deiner Region an."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8708,6 +10110,12 @@
     },
     "The Movie Database" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Movie Database"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8774,6 +10182,12 @@
     },
     "Theatrical Limited" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theatralisch (Begrenzt)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8818,6 +10232,12 @@
     },
     "This content has been removed from TMDB, you can delete it." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieser Inhalt wurde von TMDB entfernt. Du kannst ihn löschen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8840,6 +10260,12 @@
     },
     "This is a preview" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is a preview"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9016,6 +10442,12 @@
     },
     "Title (Desc)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titel (Absteigend)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9104,6 +10536,12 @@
     },
     "Track your episodes" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verfolge deine Episoden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9170,6 +10608,12 @@
     },
     "Trending" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trendig"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9190,8 +10634,30 @@
         }
       }
     },
+    "Trending service ins't available right now." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Trending-Dienst steht derzeit nicht zur Verfügung."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trending service ins't available right now."
+          }
+        }
+      }
+    },
     "Try again later" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versuche es später erneut"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9225,12 +10691,24 @@
             "state" : "translated",
             "value" : "Tente novamente mais tarde"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Again Later"
+          }
         }
       }
     },
     "Turkey" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Türkei"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9254,6 +10732,12 @@
     "Turquoise" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turquoise"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9277,6 +10761,12 @@
     "Turquoise Blue" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turquoise Blue"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9299,6 +10789,12 @@
     },
     "TV" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TV"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9343,6 +10839,12 @@
     },
     "TV Shows" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernsehsendungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9365,6 +10867,12 @@
     },
     "Unarchive" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entarchivieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9387,6 +10895,12 @@
     },
     "Unarchived" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht archiviert"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9454,6 +10968,12 @@
     "United Arab Emirates" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vereinigte Arabische Emirate"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9477,6 +10997,12 @@
     "United Kingdom" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vereinigtes Königreich"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9589,6 +11115,12 @@
     },
     "Untitled List" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbenannte Liste"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9611,6 +11143,12 @@
     },
     "Unwatched" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht gesehen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9633,6 +11171,12 @@
     },
     "Up Coming" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kommend"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9655,6 +11199,12 @@
     },
     "Up Next" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up Next"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9677,6 +11227,12 @@
     },
     "Up Next (Cronica)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up Next (Cronica)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9699,6 +11255,12 @@
     },
     "Up Next Details Style" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stil der \"Up Next\" Details"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9721,6 +11283,12 @@
     },
     "Upcoming" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bevorstehend"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9743,6 +11311,12 @@
     },
     "Upcoming Notifications" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kommende Benachrichtigungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9787,6 +11361,12 @@
     },
     "Update items with new information, if available on TMDb" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elemente mit neuen Informationen aktualisieren, falls verfügbar auf TMDb (The Movie Database)."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9809,6 +11389,12 @@
     },
     "User Lang: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Lang: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9831,6 +11417,12 @@
     },
     "User Region: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Region: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9853,6 +11445,12 @@
     },
     "Version %@ • %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %1$@ • %2$@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -9875,6 +11473,12 @@
     },
     "War" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krieg"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9919,6 +11523,12 @@
     },
     "Watch Provider" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streaming-Anbieter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9941,6 +11551,12 @@
     },
     "Watch Provider Settings" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen für Streaming-Anbieter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9963,6 +11579,12 @@
     },
     "Watch Providers" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streaming-Anbieter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10029,6 +11651,12 @@
     },
     "Watchlist" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watchlist"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10161,6 +11789,12 @@
     },
     "X/Twitter" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "X/Twitter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10184,6 +11818,12 @@
     "Yellow" : {
       "comment" : "App Theme Color",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10206,6 +11846,12 @@
     },
     "You can also send an email to contact@alexandremadeira.dev using your email client." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können auch eine E-Mail an contact@alexandremadeira.dev mit Ihrem E-Mail-Client senden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10228,6 +11874,12 @@
     },
     "You can choose to contribute a small, medium, or large amount, and all proceeds will go towards improving and maintaining the app. Cronica will always remain free and ad-free, so this is purely an optional way for users to support the development of the app." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kannst dich entscheiden, einen kleinen, mittleren oder großen Betrag beizutragen, und alle Einnahmen werden zur Verbesserung und Pflege der App verwendet. Cronica wird immer kostenlos und werbefrei bleiben, daher ist dies rein optional und eine Möglichkeit für Benutzer, die Entwicklung der App zu unterstützen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10250,6 +11902,12 @@
     },
     "You can choose to share using a Cronica link that will allow you to open the application.\nPlease note that not all content can be shared with a Cronica link, the application will always use TMDB links if necessary." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kannst wählen, über einen Cronica-Link zu teilen, der es dir ermöglicht, die Anwendung zu öffnen. Beachte jedoch, dass nicht alle Inhalte mit einem Cronica-Link geteilt werden können. Die Anwendung wird bei Bedarf immer TMDB-Links verwenden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10266,6 +11924,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Môžeš si vybrať zdieľanie pomocou Cronica odkazu, ktorý Ti umožní otvoriť aplikáciu.\nUpozorňujeme, že nie všetok obsah je možné zdieľať pomocou Cronica odkazu. Aplikácia v prípade potreby vždy použije TMDB odkazy."
+          }
+        }
+      }
+    },
+    "Your episodes will appear here." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your episodes will appear here."
+          }
+        }
+      }
+    },
+    "Your list is empty." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your list is empty."
           }
         }
       }
@@ -10314,6 +11992,16 @@
         }
       }
     },
+    "Your upcoming items will appear here." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your upcoming items will appear here."
+          }
+        }
+      }
+    },
     "Your Watchlist" : {
       "localizations" : {
         "en" : {
@@ -10338,6 +12026,12 @@
     },
     "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Watchlist ist immer synchron mit deiner Apple Watch, iPad, Mac und Apple TV."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10360,6 +12054,12 @@
     },
     "YouTubePlayerKit" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YouTubePlayerKit"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
