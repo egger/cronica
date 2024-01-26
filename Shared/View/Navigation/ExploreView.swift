@@ -64,24 +64,44 @@ struct ExploreView: View {
         Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
-    
-    @State private var selectedForYouTab: ForYouTabType = .recommendations
+    @Environment(\.dismiss) var dismiss
+    @AppStorage("selectedTabExplore") private var selectedForYouTab: ForYouTabType = .recommendations
     var body: some View {
         VStack {
             switch selectedForYouTab {
             case .recommendations:
-                switch settings.sectionStyleType {
-                case .list:
-                    recommendationListStyle
-                case .card:
-                    ScrollView {
-                        recommendationsCardStyle
+                if isLoadingRecommendations {
+                    CronicaLoadingPopupView()
+                } else if !isLoadingRecommendations, recommendations.isEmpty {
+                    if #available(iOS 17, *) {
+                        ContentUnavailableView("Try Again Later",
+                                               systemImage: "popcorn",
+                                               description: Text("The app couldn't load the content right now."))
+                    } else {
+                        VStack {
+                            Text("Try Again Later")
+                                .font(.callout)
+                                .fontWeight(.semibold)
+                            Text("The app couldn't load the content right now.")
+                                .font(.body)
+                                .foregroundStyle(.secondary)
+                        }
                     }
-                case .poster:
-                    ScrollView {
-                        recommendationsPosterStyle
+                } else {
+                    switch settings.sectionStyleType {
+                    case .list:
+                        recommendationListStyle
+                    case .card:
+                        ScrollView {
+                            recommendationsCardStyle
+                        }
+                    case .poster:
+                        ScrollView {
+                            recommendationsPosterStyle
+                        }
                     }
                 }
+                
             case .explore:
                 if settings.sectionStyleType == .list {
                     listStyle
@@ -128,6 +148,55 @@ struct ExploreView: View {
                 }
             }
         }
+        .sheet(isPresented: $showFilters) {
+            NavigationStack {
+                Form {
+                    Section {
+                        Picker(selection: $selectedMedia) {
+                            ForEach(MediaType.allCases) { type in
+                                if type != .person {
+                                    Text(type.title).tag(type)
+                                }
+                            }
+                        } label: {
+                            Text("Media Type Filter")
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                    
+                    Picker("Genres", selection: $selectedGenre) {
+                        if selectedMedia == .movie {
+                            ForEach(movies) { genre in
+                                Text(genre.name!).tag(genre)
+                            }
+                        } else {
+                            ForEach(shows) { genre in
+                                Text(genre.name!).tag(genre)
+                            }
+                        }
+                    }
+                    .pickerStyle(.inline)
+                    
+                    Section {
+                        Toggle("Hide Added Items", isOn: $hideAddedItems)
+                    }
+                    
+                }
+                .navigationTitle("Filters")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    Button("Done") {
+                        showFilters = false
+                    }
+                }
+                .appTint()
+                .appTheme()
+                .unredacted()
+            }
+            .presentationDetents([.large, .medium])
+        }
         .overlay { if !isLoaded { CronicaLoadingPopupView() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
         .task { await load() }
@@ -164,10 +233,21 @@ struct ExploreView: View {
             CompaniesListView(companies: item)
         }
 #if !os(tvOS)
-        .navigationTitle(selectedForYouTab == .explore ? "Explore" : "Recommendations")
+        .navigationTitle(selectedForYouTab == .explore ? "Explore" : "For You")
+        .navigationBarTitleDisplayMode(.inline)
 #elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
+        .onChange(of: hideAddedItems) { value in
+            if value {
+                hideItems()
+            } else {
+                onChanging = true
+                Task {
+                    await load()
+                }
+            }
+        }
         .redacted(reason: !isLoaded ? .placeholder : [] )
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -182,26 +262,12 @@ struct ExploreView: View {
 #if !os(tvOS)
             if selectedForYouTab != .recommendations {
                 ToolbarItem {
-                    HStack {
-                        Menu {
-                            hideItemsToggle
-                            Divider()
-                            selectMediaPicker
-                            Divider()
-                            selectGenrePicker
-                        } label: {
-                            Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                                .labelStyle(.iconOnly)
-                                .foregroundColor(showFilters ? .secondary : nil)
-                        }
+                    Button("Filters",
+                           systemImage: "line.3.horizontal.decrease.circle") {
+                        showFilters.toggle()
                     }
                 }
             }
-#if os(iOS)
-            ToolbarItem(placement: .navigationBarLeading) {
-                styleOptions
-            }
-#endif
 #endif
         }
         .onChange(of: selectedMedia) { value in
@@ -223,51 +289,6 @@ struct ExploreView: View {
         }
     }
     
-    private var selectMediaPicker: some View {
-        Picker(selection: $selectedMedia) {
-            ForEach(MediaType.allCases) { type in
-                if type != .person {
-                    Text(type.title).tag(type)
-                }
-            }
-        } label: {
-            Text("Media Type Filter")
-        }
-#if os(macOS)
-        .pickerStyle(.inline)
-#endif
-    }
-    
-    private var selectGenrePicker: some View {
-        Picker("Genres", selection: $selectedGenre) {
-            if selectedMedia == .movie {
-                ForEach(movies) { genre in
-                    Text(genre.name!).tag(genre)
-                }
-            } else {
-                ForEach(shows) { genre in
-                    Text(genre.name!).tag(genre)
-                }
-            }
-        }
-#if os(iOS) || os(macOS)
-        .pickerStyle(.inline)
-#endif
-    }
-    
-    private var hideItemsToggle: some View {
-        Toggle("Hide Added Items", isOn: $hideAddedItems)
-            .onChange(of: hideAddedItems) { value in
-                if value {
-                    hideItems()
-                } else {
-                    onChanging = true
-                    Task {
-                        await load()
-                    }
-                }
-            }
-    }
     
     private var listStyle: some View {
         Form {
@@ -641,3 +662,4 @@ enum ForYouTabType: String, Identifiable, Codable, Hashable, CaseIterable {
         }
     }
 }
+

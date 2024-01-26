@@ -74,6 +74,7 @@ struct WatchlistItemRowView: View {
                         } else {
                             if settings.showDateOnWatchlist {
                                 Text("\(content.itemMedia.title) • \(content.itemReleaseDateQuickInfo)")
+                                    .lineLimit(1)
                                     .fontDesign(.rounded)
                                     .font(.caption)
                                     .foregroundColor(.secondary)

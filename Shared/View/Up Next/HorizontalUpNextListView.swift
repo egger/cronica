@@ -214,7 +214,7 @@ private struct UpNextCard: View {
                 if settings.markEpisodeWatchedOnTap {
                     showConfirmation.toggle()
                 } else {
-                    
+                    selectedEpisode = item
                 }
 #else
                 showConfirmation.toggle()

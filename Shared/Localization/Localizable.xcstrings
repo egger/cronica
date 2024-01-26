@@ -2,11 +2,30 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@"
@@ -28,6 +47,12 @@
             "value" : "%@\n"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -41,6 +66,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$@ • %2$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%1$@ • %2$@"
           }
         },
@@ -58,6 +89,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@, tap to open list options."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, toque para abrir as opções da lista."
           }
         },
         "sk" : {
@@ -83,6 +120,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld items"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld item"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld itens"
                 }
               }
             }
@@ -128,6 +183,12 @@
             "value" : "🛠️"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🛠️"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -142,6 +203,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "About"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre"
           }
         },
         "sk" : {
@@ -182,6 +249,12 @@
             "value" : "Action"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ação"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -196,6 +269,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Action & Adventure"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ação e Aventura"
           }
         },
         "sk" : {
@@ -214,6 +293,12 @@
             "value" : "Add"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -228,6 +313,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add & Mark Watched"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar e Marcar como Assistido"
           }
         },
         "sk" : {
@@ -246,6 +337,12 @@
             "value" : "Add everything you want, the Watchlist automatically organizes it for you."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione tudo o que quiser, a Lista organiza automaticamente para você."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -260,6 +357,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add To List"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar à Lista"
           }
         },
         "sk" : {
@@ -278,6 +381,12 @@
             "value" : "Add to..."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar a..."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -292,6 +401,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Added"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionado"
           }
         },
         "sk" : {
@@ -310,6 +425,12 @@
             "value" : "Adventure"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aventura"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -324,6 +445,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alien"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alienígena"
           }
         },
         "sk" : {
@@ -342,6 +469,12 @@
             "value" : "All"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tudo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -356,6 +489,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Allow Full Swipe"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir Deslize Completo"
           }
         },
         "sk" : {
@@ -374,6 +513,12 @@
             "value" : "Allow Notification"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir Notificação"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -390,6 +535,12 @@
             "value" : "Always Synced"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sempre sincronizado"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -404,6 +555,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Animation"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animação"
           }
         },
         "sk" : {
@@ -438,6 +595,18 @@
     },
     "App Features" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Features"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recursos do Aplicativo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -452,6 +621,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "App Icon"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ícone do aplicativo"
           }
         },
         "sk" : {
@@ -470,6 +645,12 @@
             "value" : "App Theme"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema do Aplicativo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -486,6 +667,12 @@
             "value" : "Appearance"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aparência"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -500,6 +687,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archive"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arquivar"
           }
         },
         "sk" : {
@@ -540,6 +733,12 @@
             "value" : "Are You Sure?"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você Tem Certeza?"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -557,6 +756,12 @@
             "value" : "Argentina"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argentina"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -568,6 +773,12 @@
     "Asked for review: %@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asked for review: %@"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Asked for review: %@"
@@ -590,6 +801,12 @@
             "value" : "Australia"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Austrália"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -605,6 +822,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Austria"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Áustria"
           }
         },
         "sk" : {
@@ -623,6 +846,12 @@
             "value" : "Back"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voltar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -634,6 +863,12 @@
     "Backup" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Backup"
@@ -655,6 +890,12 @@
             "value" : "Backup & Restore"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup & Restore"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -669,6 +910,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Backup/Restore is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Backup/Restaurar está em versão beta, use-o apenas para exportar seus dados ou para importar se você estiver mudando sua conta do iCloud, não há lógica no momento para evitar a duplicação."
           }
         },
         "sk" : {
@@ -709,6 +956,12 @@
             "value" : "Based on true story"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baseado em história real"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -725,6 +978,12 @@
             "value" : "Based on Video-Game"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baseado em Videogame"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -739,6 +998,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Basic Filter"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtro Básico"
           }
         },
         "sk" : {
@@ -779,6 +1044,12 @@
             "value" : "Behavior"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comportamento"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -796,6 +1067,12 @@
             "value" : "Belgium"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bélgica"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -807,6 +1084,12 @@
     "Beta" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beta"
@@ -828,6 +1111,12 @@
             "value" : "Biography"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biografia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -840,6 +1129,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blue"
@@ -862,6 +1157,12 @@
             "value" : "Brazil"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brasil"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -874,6 +1175,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brown"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Brown"
@@ -895,6 +1202,12 @@
             "value" : "Browse by Themes"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navegue por Temas"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -910,6 +1223,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bulgaria"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bulgária"
           }
         },
         "sk" : {
@@ -929,6 +1248,12 @@
             "value" : "Canada"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canadá"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -943,6 +1268,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         },
         "sk" : {
@@ -962,6 +1293,12 @@
             "value" : "Cancelled"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelado"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -973,6 +1310,12 @@
     "Card" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Card"
@@ -994,6 +1337,12 @@
             "value" : "Cast & Crew"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elenco e Equipe"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1010,6 +1359,12 @@
             "value" : "Change app language"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterar o idioma do aplicativo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1021,6 +1376,12 @@
     "Changelog" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changelog"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Changelog"
@@ -1043,6 +1404,12 @@
             "value" : "Cherry"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cherry"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1057,6 +1424,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choose what function to perform when double tap the cover/poster image."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha qual função executar ao tocar duas vezes na imagem da capa/poster."
           }
         },
         "sk" : {
@@ -1075,6 +1448,12 @@
             "value" : "Classical"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clássico"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1091,6 +1470,12 @@
             "value" : "Collapse"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recolher"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1105,6 +1490,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comedy"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comédia"
           }
         },
         "sk" : {
@@ -1124,6 +1515,12 @@
             "value" : "Coming Soon"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em breve"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1138,6 +1535,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coming Soon To Theaters"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em Breve Nos Cinemas"
           }
         },
         "sk" : {
@@ -1156,6 +1559,12 @@
             "value" : "Compact UI"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interface de usuário compacta"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1170,6 +1579,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Companies"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empresas"
           }
         },
         "sk" : {
@@ -1188,6 +1603,12 @@
             "value" : "Confirm"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1202,6 +1623,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm and Delete Items"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar e Excluir Itens"
           }
         },
         "sk" : {
@@ -1220,6 +1647,12 @@
             "value" : "Confirm and don't ask again"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirme e não pergunte novamente"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1234,6 +1667,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm Watched Episode"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirme o Episódio Assistido"
           }
         },
         "sk" : {
@@ -1274,6 +1713,12 @@
             "value" : "Continue"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1286,6 +1731,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coral"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coral"
@@ -1329,6 +1780,12 @@
             "value" : "Crime"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crime"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1343,6 +1800,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Crime Investigation"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Investigação Criminal"
           }
         },
         "sk" : {
@@ -1362,6 +1825,12 @@
             "value" : "Croatia"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Croácia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1373,6 +1842,12 @@
     "Cronica" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cronica"
@@ -1394,6 +1869,12 @@
             "value" : "Cronica is open-source, you can contribute to the project."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica é de código aberto, você pode contribuir com o projeto."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1406,6 +1887,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cyan"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cyan"
@@ -1428,6 +1915,12 @@
             "value" : "Czech Republic"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "República Tcheca"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1442,6 +1935,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dark"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escuro"
           }
         },
         "sk" : {
@@ -1460,6 +1959,12 @@
             "value" : "Date (Asc)"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data (Asc)"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1474,6 +1979,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Date (Desc)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data (Desc)"
           }
         },
         "sk" : {
@@ -1492,6 +2003,12 @@
             "value" : "Default List"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista Padrão"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1506,6 +2023,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apagar"
           }
         },
         "sk" : {
@@ -1525,6 +2048,12 @@
             "value" : "Denmark"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dinamarca"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1541,6 +2070,12 @@
             "value" : "Description"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1552,6 +2087,12 @@
     "Design" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Design"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Design"
@@ -1573,6 +2114,12 @@
             "value" : "Details"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalhes"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1587,6 +2134,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details Page"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Página de Detalhes"
           }
         },
         "sk" : {
@@ -1605,6 +2158,12 @@
             "value" : "Developed by Alexandre Madeira"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desenvolvido por Alexandre Madeira"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1616,6 +2175,12 @@
     "Developer Options" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Developer Options"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Developer Options"
@@ -1637,6 +2202,12 @@
             "value" : "Digital"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digital"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1651,6 +2222,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disable Search Filter"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desativar Filtro de Pesquisa"
           }
         },
         "sk" : {
@@ -1669,6 +2246,12 @@
             "value" : "Disable Translucent Background"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desativar Fundo Translúcido"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1683,6 +2266,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Discover"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descubra"
           }
         },
         "sk" : {
@@ -1701,6 +2290,12 @@
             "value" : "Dismiss"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descartar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1715,6 +2310,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Display Style"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo de Exibição"
           }
         },
         "sk" : {
@@ -1733,6 +2334,12 @@
             "value" : "Documentary"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documentário"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1747,6 +2354,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluído"
           }
         },
         "sk" : {
@@ -1765,6 +2378,24 @@
             "value" : "Double Tap On Cover/Poster"
           }
         },
+        "pt-BR" : {
+          "variations" : {
+            "device" : {
+              "mac" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Clique Duplo na Capa/Pôster"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Toque Duplo na Capa/Pôster"
+                }
+              }
+            }
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1776,6 +2407,12 @@
     "Drama" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drama"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Drama"
@@ -1797,6 +2434,12 @@
             "value" : "Edit"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1811,6 +2454,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit Notifications in Settings app"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar Notificações no aplicativo Ajustes"
           }
         },
         "sk" : {
@@ -1829,6 +2478,12 @@
             "value" : "Empty"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazio"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1843,6 +2498,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Empty List"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista vazia"
           }
         },
         "sk" : {
@@ -1884,6 +2545,12 @@
             "value" : "Ended Series"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Série Encerrada"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1898,6 +2565,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enjoying Cronica?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Está gostando da Cronica?"
           }
         },
         "sk" : {
@@ -1916,6 +2589,12 @@
             "value" : "Episode"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episódio"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1930,6 +2609,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Episode %lld"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episódio %lld"
           }
         },
         "sk" : {
@@ -1948,6 +2633,12 @@
             "value" : "Episode: %1$lld, of the show: %2$@."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episódio: %1$lld, da série: %2$@."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1964,6 +2655,12 @@
             "value" : "Error"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1978,6 +2675,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error reading this title"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro ao ler este título"
           }
         },
         "sk" : {
@@ -1997,6 +2700,12 @@
             "value" : "Estonia"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estônia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2011,6 +2720,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Explore"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descubra"
           }
         },
         "sk" : {
@@ -2029,6 +2744,12 @@
             "value" : "Family"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Família"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2043,6 +2764,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fantasy"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fantasia"
           }
         },
         "sk" : {
@@ -2061,6 +2788,12 @@
             "value" : "Favorite"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoritar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2075,6 +2808,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Favorited"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoritado"
           }
         },
         "sk" : {
@@ -2093,6 +2832,12 @@
             "value" : "Favorites"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoritos"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2102,26 +2847,74 @@
       }
     },
     "featureOneDescription" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureOneDescription"
+          }
+        }
+      }
     },
     "featureOneTitle" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureOneTitle"
+          }
+        }
+      }
     },
     "featureThreeDescription" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeDescription"
+          }
+        }
+      }
     },
     "featureThreeTitle" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureThreeTitle"
+          }
+        }
+      }
     },
     "featureTwoDescription" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureTwoDescription"
+          }
+        }
+      }
     },
     "featureTwoTitle" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "featureTwoTitle"
+          }
+        }
+      }
     },
     "Feedback" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Feedback"
@@ -2143,6 +2936,12 @@
             "value" : "Feedback sent. Thank you."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback enviado. Obrigado."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2159,6 +2958,12 @@
             "value" : "Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sinta-se à vontade para sugerir recursos, melhorias ou relatar bugs. \nSeu feedback é crucial para tornar a Cronica melhor para todos."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2170,6 +2975,12 @@
     "Fetch" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fetch"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fetch"
@@ -2189,6 +3000,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Filmography"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmografia"
           }
         },
         "sk" : {
@@ -2230,6 +3047,12 @@
             "value" : "Finland"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finlândia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2244,6 +3067,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "First Air Date"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data de Estreia"
           }
         },
         "sk" : {
@@ -2262,6 +3091,12 @@
             "value" : "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siga a Cronica no X/Twitter para se manter atualizado sobre novos recursos chegando em breve ou para enviar seu feedback/relatório via DM."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2276,6 +3111,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "For You"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para Você"
           }
         },
         "sk" : {
@@ -2295,6 +3136,12 @@
             "value" : "France"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "França"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2309,6 +3156,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "From Watchlist"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da Lista"
           }
         },
         "sk" : {
@@ -2327,6 +3180,12 @@
             "value" : "Full Swipe will activate the primary action"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deslizar completamente ativará a ação principal"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2341,6 +3200,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "General"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geral"
           }
         },
         "sk" : {
@@ -2359,6 +3224,12 @@
             "value" : "Generating File"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerando Arquivo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2375,6 +3246,12 @@
             "value" : "Genres"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gêneros"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2389,6 +3266,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "German"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alemão"
           }
         },
         "sk" : {
@@ -2430,6 +3313,12 @@
             "value" : "Gestures"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestos"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2446,6 +3335,12 @@
             "value" : "Get notifications about the newest releases."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receba notificações sobre os lançamentos mais recentes."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2457,6 +3352,12 @@
     "GitHub" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "GitHub"
@@ -2479,6 +3380,12 @@
             "value" : "Goldenrod"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldenrod"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2491,6 +3398,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gray"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gray"
@@ -2513,6 +3426,12 @@
             "value" : "Green"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2527,6 +3446,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Haptic Feedback"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback Tátil"
           }
         },
         "sk" : {
@@ -2545,6 +3470,12 @@
             "value" : "Hide Added Items"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar Itens Adicionados"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2559,6 +3490,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hide Thumbnails from Unwatched Episodes"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar miniaturas de episódios não assistidos"
           }
         },
         "sk" : {
@@ -2577,6 +3514,12 @@
             "value" : "Hide Titles from Unwatched Episodes"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar Títulos de Episódios Não Assistidos"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2591,6 +3534,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "History"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "História"
           }
         },
         "sk" : {
@@ -2609,6 +3558,12 @@
             "value" : "Home"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Início"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2621,6 +3576,12 @@
       "comment" : "Country",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hong Kong"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hong Kong"
@@ -2642,6 +3603,12 @@
             "value" : "Horizontal List Style"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo de Lista Horizontal"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2656,6 +3623,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Horror"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terror"
           }
         },
         "sk" : {
@@ -2675,6 +3648,12 @@
             "value" : "Hungary"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hungria"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2691,6 +3670,12 @@
             "value" : "Icon Designer"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Designer de Ícones"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2702,6 +3687,12 @@
     "ID" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ID"
@@ -2723,6 +3714,12 @@
             "value" : "If you love the app, consider supporting through Tip Jar."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você ama o aplicativo, considere apoiar através da Caixinha de Gorjetas."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2739,6 +3736,12 @@
             "value" : "If you prefer, you can send an email for a faster follow-up."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se preferir, você pode enviar um e-mail para um acompanhamento mais rápido."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2750,6 +3753,12 @@
     "IMDb" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IMDb"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "IMDb"
@@ -2770,6 +3779,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "India"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Índia"
           }
         },
         "sk" : {
@@ -2812,6 +3827,12 @@
             "value" : "Indonesia"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indonésia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2828,6 +3849,12 @@
             "value" : "Information"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informação"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2839,6 +3866,12 @@
     "Internal error: Something went wrong, contact TMDB." : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internal error: Something went wrong, contact TMDB."
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Internal error: Something went wrong, contact TMDB."
@@ -2860,6 +3893,12 @@
             "value" : "Invalid API key: You must be granted a valid key."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid API key: You must be granted a valid key."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2871,6 +3910,12 @@
     "Invalid Endpoint" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Endpoint"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invalid Endpoint"
@@ -2892,6 +3937,12 @@
             "value" : "Invalid Request"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Request"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2903,6 +3954,12 @@
     "Invalid Response" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Response"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invalid Response"
@@ -2923,6 +3980,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ireland"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Irlanda"
           }
         },
         "sk" : {
@@ -2964,6 +4027,12 @@
             "value" : "Italy"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Itália"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2979,6 +4048,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Japan"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japão"
           }
         },
         "sk" : {
@@ -2997,6 +4072,12 @@
             "value" : "Keep track of every episode you've watched."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acompanhe cada episódio que você assistiu."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3013,6 +4094,12 @@
             "value" : "Kids"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Infantil"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3024,6 +4111,12 @@
     "Last maintenance: %@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last maintenance: %@"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last maintenance: %@"
@@ -3045,6 +4138,12 @@
             "value" : "Last upcoming refresh: %@"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last upcoming refresh: %@"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3056,6 +4155,12 @@
     "Last Updated at %@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last Updated at %@"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last Updated at %@"
@@ -3077,6 +4182,12 @@
             "value" : "Last watching refresh: %@"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last watching refresh: %@"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3093,6 +4204,12 @@
             "value" : "Latest Movies"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Últimos Filmes"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3105,6 +4222,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lavender"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lavender"
@@ -3126,6 +4249,12 @@
             "value" : "Leave a Review on the App Store!"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deixe uma Avaliação na App Store!"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3140,6 +4269,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Libraries"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bibliotecas"
           }
         },
         "sk" : {
@@ -3158,6 +4293,12 @@
             "value" : "Light"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claro"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3174,6 +4315,12 @@
             "value" : "List"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3188,6 +4335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lists"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listas"
           }
         },
         "sk" : {
@@ -3207,6 +4360,12 @@
             "value" : "Lithuania"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lituânia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3221,6 +4380,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Loading"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carregando"
           }
         },
         "sk" : {
@@ -3239,6 +4404,12 @@
             "value" : "Mark Episode %1$lld from season %2$lld of %3$@ as Watched?"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar o episódio %1$lld da temporada %2$lld de %3$@ como Assistido?"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3253,6 +4424,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mark This and Prior Episodes Watched"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marque este e os episódios anteriores assistidos"
           }
         },
         "sk" : {
@@ -3271,6 +4448,12 @@
             "value" : "Mark This Season as Watched"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marque esta temporada como assistida"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3285,6 +4468,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Media Filter"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipo"
           }
         },
         "sk" : {
@@ -3303,6 +4492,12 @@
             "value" : "Media Type"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3317,6 +4512,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Media Type Filter"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipo"
           }
         },
         "sk" : {
@@ -3336,6 +4537,12 @@
             "value" : "Mexico"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "México"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3348,6 +4555,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mint"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mint"
@@ -3369,6 +4582,12 @@
             "value" : "Modern"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderno"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3383,6 +4602,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais"
           }
         },
         "sk" : {
@@ -3401,6 +4626,12 @@
             "value" : "More Info"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais informações"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3415,6 +4646,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More Options"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais opções"
           }
         },
         "sk" : {
@@ -3433,6 +4670,12 @@
             "value" : "Movie"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filme"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3447,6 +4690,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Movies"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmes"
           }
         },
         "sk" : {
@@ -3465,6 +4714,12 @@
             "value" : "Movies, Shows, People"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filmes, Séries, Pessoas"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3481,6 +4736,12 @@
             "value" : "Music"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Música"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3495,6 +4756,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mystery"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mistério"
           }
         },
         "sk" : {
@@ -3514,6 +4781,12 @@
             "value" : "Netherlands"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Países Baixos"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3525,6 +4798,12 @@
     "Network" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Network"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Network"
@@ -3546,6 +4825,12 @@
             "value" : "Never miss out"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não perca"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3560,6 +4845,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New List"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova Lista"
           }
         },
         "sk" : {
@@ -3579,6 +4870,12 @@
             "value" : "New Zealand"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova Zelândia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3593,6 +4890,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next episode arrives today."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O próximo episódio chega hoje."
           }
         },
         "sk" : {
@@ -3611,6 +4914,12 @@
             "value" : "No biography available."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma biografia disponível."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3625,6 +4934,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Episode Available"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum Episódio Disponível"
           }
         },
         "sk" : {
@@ -3643,6 +4958,12 @@
             "value" : "No information available."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma informação disponível."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3657,6 +4978,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No notifications"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem notificações"
           }
         },
         "sk" : {
@@ -3675,6 +5002,12 @@
             "value" : "No result found for '%@'."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum resultado encontrado para '%@'."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3691,6 +5024,12 @@
             "value" : "No results"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem resultados"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3705,6 +5044,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No title available"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum título disponível"
           }
         },
         "sk" : {
@@ -3724,6 +5069,12 @@
             "value" : "Norway"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noruega"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3738,6 +5089,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not Available"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não Disponível"
           }
         },
         "sk" : {
@@ -3756,6 +5113,12 @@
             "value" : "Not Found"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não encontrado"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3770,6 +5133,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notas"
           }
         },
         "sk" : {
@@ -3788,6 +5157,12 @@
             "value" : "Nothing here, try again later."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada aqui, tente novamente mais tarde."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3802,6 +5177,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notification"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificação"
           }
         },
         "sk" : {
@@ -3820,6 +5201,12 @@
             "value" : "Notifications"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificações"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3834,6 +5221,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notify Movies Releases"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificar Lançamentos de Filmes"
           }
         },
         "sk" : {
@@ -3852,6 +5245,12 @@
             "value" : "Notify New Episodes"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificar Novos Episódios"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3866,6 +5265,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notify when a movie on your watchlist is released."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifique quando um filme na sua lista for lançado."
           }
         },
         "sk" : {
@@ -3884,6 +5289,12 @@
             "value" : "Notify when a new episode from a TV Show on your watchlist is released."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifique quando um novo episódio de uma Série em sua lista for lançado."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3895,6 +5306,12 @@
     "Nuke" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuke"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nuke"
@@ -3916,6 +5333,12 @@
             "value" : "Official Website"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Site Oficial"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3930,6 +5353,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "On Social Media"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nas Mídias Sociais"
           }
         },
         "sk" : {
@@ -3948,6 +5377,12 @@
             "value" : "Only show 'Watch Provider' if the title is available on one of your preferred services"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar apenas 'Provedor de Streaming' se o título estiver disponível em um dos seus serviços preferidos."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3962,6 +5397,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open in"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir em"
           }
         },
         "sk" : {
@@ -3980,6 +5421,12 @@
             "value" : "Open in YouTube"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir no YouTube"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3994,6 +5441,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open List Selector when adding an item"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abra o Seletor de Lista ao adicionar um item"
           }
         },
         "sk" : {
@@ -4012,6 +5465,12 @@
             "value" : "Open Trailers in YouTube"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Trailers no YouTube"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4024,6 +5483,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Orange"
@@ -4067,6 +5532,12 @@
             "value" : "Overview"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4081,6 +5552,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "People"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pessoas"
           }
         },
         "sk" : {
@@ -4100,6 +5577,12 @@
             "value" : "Philippines"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filipinas"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4114,6 +5597,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Physical"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Físico"
           }
         },
         "sk" : {
@@ -4132,6 +5621,12 @@
             "value" : "Pin"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4144,6 +5639,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pink"
@@ -4165,6 +5666,12 @@
             "value" : "Pinned"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixado"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4179,6 +5686,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pins"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixados"
           }
         },
         "sk" : {
@@ -4196,6 +5709,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Poland"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polônia"
           }
         },
         "sk" : {
@@ -4237,6 +5756,12 @@
             "value" : "Portugal"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portugal"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4253,6 +5778,12 @@
             "value" : "Poster"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pôster"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4267,6 +5798,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Prefer Poster in Details Page"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferir Pôster na Página de Detalhes"
           }
         },
         "sk" : {
@@ -4307,6 +5844,12 @@
             "value" : "Preferred Launch Screen"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tela de Lançamento Preferida"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4345,6 +5888,12 @@
             "value" : "Premiere"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estreia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4356,6 +5905,12 @@
     "Presentation" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presentation"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Presentation"
@@ -4377,6 +5932,12 @@
             "value" : "Preview"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preview"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4391,6 +5952,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Primary Left Gesture"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesto Principal para a Esquerda"
           }
         },
         "sk" : {
@@ -4409,6 +5976,12 @@
             "value" : "Primary Right Gesture"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesto Principal para a Direita"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4425,6 +5998,12 @@
             "value" : "Privacy"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacidade"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4439,6 +6018,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Privacy Policy"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privacidade"
           }
         },
         "sk" : {
@@ -4458,6 +6043,12 @@
             "value" : "Production"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produção"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4474,6 +6065,12 @@
             "value" : "Production Companies"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empresas de Produção"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4488,6 +6085,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Production Company"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empresa de produção"
           }
         },
         "sk" : {
@@ -4524,6 +6127,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purple"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Purple"
@@ -4567,6 +6176,12 @@
             "value" : "Rating (Asc)"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avaliação (Asc)"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4581,6 +6196,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rating (Desc)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avaliação (Desc)"
           }
         },
         "sk" : {
@@ -4599,6 +6220,12 @@
             "value" : "Rating star %lld of 5."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estrela de avaliação %lld de 5."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4613,6 +6240,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ratings Score"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pontuação de Avaliações"
           }
         },
         "sk" : {
@@ -4651,6 +6284,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recently Released"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lançado Recentemente"
           }
         },
         "sk" : {
@@ -4736,6 +6375,12 @@
             "value" : "Refresh"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4774,6 +6419,12 @@
             "value" : "Region of Origin"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Região de Origem"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4788,6 +6439,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lançamento"
           }
         },
         "sk" : {
@@ -4806,6 +6463,12 @@
             "value" : "Release Date"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data de Lançamento"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4820,6 +6483,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release Date (Ascending)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data de Lançamento (Ascendente)"
           }
         },
         "sk" : {
@@ -4838,6 +6507,12 @@
             "value" : "Release Date (Descending)"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data de Lançamento (Descendente)"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4852,6 +6527,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release Dates"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datas de Lançamento"
           }
         },
         "sk" : {
@@ -4871,6 +6552,12 @@
             "value" : "Released"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lançado"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4885,6 +6572,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reload"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recarregar"
           }
         },
         "sk" : {
@@ -4903,6 +6596,12 @@
             "value" : "Remove"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4917,6 +6616,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove From Pin when item is  marked as watched"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover do Fixado quando o item estiver marcado como assistido"
           }
         },
         "sk" : {
@@ -4935,6 +6640,12 @@
             "value" : "Remove Items"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover Itens"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4951,6 +6662,12 @@
             "value" : "Remove Notification"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover Notificação"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4965,6 +6682,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Removed"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Removido"
           }
         },
         "sk" : {
@@ -4984,6 +6707,12 @@
             "value" : "Renewed Series"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Série Renovada"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4995,6 +6724,12 @@
     "Reset asked for review" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset asked for review"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset asked for review"
@@ -5016,6 +6751,12 @@
             "value" : "Reset to Default"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redefinir para o Padrão"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5030,6 +6771,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restore"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar"
           }
         },
         "sk" : {
@@ -5048,6 +6795,12 @@
             "value" : "Restore Purchase"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar Compra"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5064,6 +6817,12 @@
             "value" : "Retry"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar novamente"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5075,6 +6834,12 @@
     "Review" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Review"
@@ -5096,6 +6861,12 @@
             "value" : "Review App"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review App"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5110,6 +6881,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Review of %@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avaliação de %@"
           }
         },
         "sk" : {
@@ -5128,6 +6905,12 @@
             "value" : "Review on the App Store"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avaliação na App Store"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5139,6 +6922,12 @@
     "Romance" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romance"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Romance"
@@ -5160,6 +6949,12 @@
             "value" : "Romantic Comedy"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comédia romântica"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5172,6 +6967,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rose Gold"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rose Gold"
@@ -5193,6 +6994,12 @@
             "value" : "Run Time"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duração"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5207,6 +7014,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "S%1$d, E%2$d"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "T%1$d, E%2$d"
           }
         },
         "sk" : {
@@ -5225,6 +7038,12 @@
             "value" : "Save"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5239,6 +7058,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sci-Fi & Fantasy"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ficção Científica e Fantasia"
           }
         },
         "sk" : {
@@ -5257,6 +7082,12 @@
             "value" : "Science Fiction"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ficção científica"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5271,6 +7102,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busca"
           }
         },
         "sk" : {
@@ -5289,6 +7126,12 @@
             "value" : "Search %@"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar %@"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5303,6 +7146,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search filter improve the search results, but has the downside of taking longer to load."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O filtro de pesquisa melhora os resultados da pesquisa, mas tem a desvantagem de levar mais tempo para carregar."
           }
         },
         "sk" : {
@@ -5321,6 +7170,12 @@
             "value" : "Search results"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resultados da pesquisa"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5335,6 +7190,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search watchlist"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar Lista"
           }
         },
         "sk" : {
@@ -5353,6 +7214,12 @@
             "value" : "Searching"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscando"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5369,26 +7236,16 @@
             "value" : "Season"
           }
         },
-        "sk" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Séria"
-          }
-        }
-      }
-    },
-    "Season (nextSeasonNumber)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Season (nextSeasonNumber)"
+            "value" : "Temporada"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Séria (nextSeasonNumber)"
+            "value" : "Séria"
           }
         }
       }
@@ -5399,6 +7256,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Season & Up Next"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporada e Seguintes"
           }
         },
         "sk" : {
@@ -5417,6 +7280,12 @@
             "value" : "Season & Up Next Settings"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações de Temporada e Seguintes"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5431,6 +7300,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Season %lld"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporada %lld"
           }
         },
         "sk" : {
@@ -5449,6 +7324,12 @@
             "value" : "Secondary Left Gesture"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesto Secundário para a Esquerda"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5463,6 +7344,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secondary Right Gesture"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesto Secundário para a Direita"
           }
         },
         "sk" : {
@@ -5481,6 +7368,12 @@
             "value" : "Section Details Style"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo de Detalhes da Seção"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5495,6 +7388,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Section Style"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo da Seção"
           }
         },
         "sk" : {
@@ -5513,6 +7412,12 @@
             "value" : "Section's Details Style"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo de Detalhes da Seção"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5527,6 +7432,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "See in what platforms the content is available on."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veja em quais plataformas o conteúdo está disponível."
           }
         },
         "sk" : {
@@ -5545,6 +7456,12 @@
             "value" : "Select Items"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione Itens"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5559,6 +7476,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select the rating in star numbers."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione a classificação em números de estrelas."
           }
         },
         "sk" : {
@@ -5577,6 +7500,12 @@
             "value" : "Send"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5591,6 +7520,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send Email"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar e-mail"
           }
         },
         "sk" : {
@@ -5609,6 +7544,12 @@
             "value" : "Send Feedback"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar Feedback"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5620,6 +7561,12 @@
     "Send Object to Developer" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send Object to Developer"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send Object to Developer"
@@ -5664,6 +7611,12 @@
             "value" : "Series"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Séries"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5678,6 +7631,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações"
           }
         },
         "sk" : {
@@ -5696,6 +7655,12 @@
             "value" : "Sharable Link"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link Compartilhável"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5712,6 +7677,12 @@
             "value" : "Share"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartilhar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5723,6 +7694,12 @@
     "Share Image" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Image"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share Image"
@@ -5744,6 +7721,12 @@
             "value" : "Show All"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar tudo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5758,6 +7741,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show All Items"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar Todos os Itens"
           }
         },
         "sk" : {
@@ -5776,6 +7765,12 @@
             "value" : "Show Date in Watchlist"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar Data na Lista"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5790,6 +7785,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Details"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar Detalhes"
           }
         },
         "sk" : {
@@ -5808,6 +7809,12 @@
             "value" : "Show Menu Bar App"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar Aplicativo da Barra de Menus"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5824,6 +7831,12 @@
             "value" : "Show More"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar mais"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5835,6 +7848,12 @@
     "Show Onboard" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Onboard"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Onboard"
@@ -5856,6 +7875,12 @@
             "value" : "Show Remove Confirmation"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar Confirmação de Remoção"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5872,6 +7897,12 @@
             "value" : "Skip this episode"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pule este episódio"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5884,6 +7915,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sky Blue"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sky Blue"
@@ -5905,6 +7942,12 @@
             "value" : "Slovak"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eslovaco"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5920,6 +7963,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Slovakia"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eslováquia"
           }
         },
         "sk" : {
@@ -5938,6 +7987,12 @@
             "value" : "Smart Filters"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtros Inteligentes"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5952,6 +8007,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Smart Filters only works when 'Show All Items' is disabled."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os Filtros Inteligentes só funcionam quando 'Mostrar Todos os Itens' está desativado."
           }
         },
         "sk" : {
@@ -5970,6 +8031,12 @@
             "value" : "Sort By"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordenar Por"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5984,6 +8051,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sort List"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrupar"
           }
         },
         "sk" : {
@@ -6002,6 +8075,12 @@
             "value" : "Sort Order"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordem"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6016,6 +8095,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Source Code"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código Fonte"
           }
         },
         "sk" : {
@@ -6033,6 +8118,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "South Africa"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "África do Sul"
           }
         },
         "sk" : {
@@ -6074,6 +8165,12 @@
             "value" : "Space"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Espaço"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6089,6 +8186,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spain"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Espanha"
           }
         },
         "sk" : {
@@ -6107,6 +8210,12 @@
             "value" : "Spanish"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Espanhol"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6123,6 +8232,12 @@
             "value" : "Standard"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Padrão"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6134,6 +8249,12 @@
     "Status" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Status"
@@ -6170,29 +8291,18 @@
         }
       }
     },
-    "Streaming Services" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Streaming Services"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Streamovacie služby"
-          }
-        }
-      }
-    },
     "Style Picker" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Style Picker"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seletor de Estilo"
           }
         },
         "sk" : {
@@ -6211,6 +8321,12 @@
             "value" : "Style Preferences"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferências de Estilo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6227,6 +8343,12 @@
             "value" : "Superhero"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Super-herói"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6238,6 +8360,12 @@
     "Supernatural Horror" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supernatural Horror"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supernatural Horror"
@@ -6259,6 +8387,12 @@
             "value" : "Support & About"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suporte e Sobre"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6273,6 +8407,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Survival"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobrevivência"
           }
         },
         "sk" : {
@@ -6292,6 +8432,12 @@
             "value" : "Sweden"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suécia"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6306,6 +8452,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Swipe Gestures"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestos de Deslizar"
           }
         },
         "sk" : {
@@ -6436,6 +8588,12 @@
             "value" : "Teal"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teal"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6510,12 +8668,34 @@
         }
       }
     },
+    "The app couldn't load the content right now." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The app couldn't load the content right now."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicativo não conseguiu carregar o conteúdo no momento."
+          }
+        }
+      }
+    },
     "The app will adapt watch providers based on your region" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "The app will adapt watch providers based on your region"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicativo adaptará os provedores de conteúdo com base na sua região"
           }
         },
         "sk" : {
@@ -6556,6 +8736,12 @@
             "value" : "The movie will be released today."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O filme será lançado hoje."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6572,6 +8758,12 @@
             "value" : "Theatrical"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cinema"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6586,6 +8778,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Theatrical Limited"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lançamento Limitado nos Cinemas"
           }
         },
         "sk" : {
@@ -6626,6 +8824,12 @@
             "value" : "This content has been removed from TMDB, you can delete it."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este conteúdo foi removido do TMDB, você pode excluí-lo."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6637,6 +8841,12 @@
     "This is a preview" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is a preview"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This is a preview"
@@ -6680,6 +8890,12 @@
             "value" : "This product uses the TMDb API but is not endorsed or certified by TMDb."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este produto usa a API TMDb, mas não é endossado ou certificado pelo TMDb."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6694,6 +8910,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This will open TMDb website with the links to each service."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isso abrirá o site do TMDb com os links para cada serviço."
           }
         },
         "sk" : {
@@ -6712,6 +8934,12 @@
             "value" : "Thriller"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suspense"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6726,6 +8954,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tip Jar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caixinha de Gorjetas"
           }
         },
         "sk" : {
@@ -6744,6 +8978,12 @@
             "value" : "Title"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Título"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6758,6 +8998,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title (Asc)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Título (Asc)"
           }
         },
         "sk" : {
@@ -6776,6 +9022,12 @@
             "value" : "Title (Desc)"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Título (Desc)"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6790,6 +9042,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To avoid potential spoilers, you can hide thumbnails from unwatched episodes."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para evitar possíveis spoilers, você pode ocultar miniaturas de episódios não assistidos."
           }
         },
         "sk" : {
@@ -6808,6 +9066,12 @@
             "value" : "To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para evitar possíveis spoilers, você pode ocultar títulos e sinopse de episódios não assistidos."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6822,6 +9086,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Today"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoje"
           }
         },
         "sk" : {
@@ -6840,6 +9110,12 @@
             "value" : "Track your episodes"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acompanhe seus episódios"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6851,6 +9127,12 @@
     "Trailers" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trailers"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trailers"
@@ -6872,6 +9154,12 @@
             "value" : "Translation"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tradução"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6886,6 +9174,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trending"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em Alta"
           }
         },
         "sk" : {
@@ -6904,10 +9198,32 @@
             "value" : "Try again later"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tente novamente mais tarde"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skús to neskôr"
+          }
+        }
+      }
+    },
+    "Try Again Later" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Again Later"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tente novamente mais tarde"
           }
         }
       }
@@ -6919,6 +9235,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turkey"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turquia"
           }
         },
         "sk" : {
@@ -6933,6 +9255,12 @@
       "comment" : "App Theme Color",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turquoise"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turquoise"
@@ -6955,6 +9283,12 @@
             "value" : "Turquoise Blue"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turquoise Blue"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6966,6 +9300,12 @@
     "TV" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TV"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "TV"
@@ -6987,6 +9327,12 @@
             "value" : "TV Show"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Série"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7001,6 +9347,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TV Shows"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Séries"
           }
         },
         "sk" : {
@@ -7019,6 +9371,12 @@
             "value" : "Unarchive"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desarquivar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7033,6 +9391,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unarchived"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não Arquivado"
           }
         },
         "sk" : {
@@ -7051,6 +9415,12 @@
             "value" : "Unfavorite"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desfavoritar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7065,6 +9435,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unfavorited"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não Favoritado"
           }
         },
         "sk" : {
@@ -7084,6 +9460,12 @@
             "value" : "United Arab Emirates"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emirados Árabes Unidos"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7099,6 +9481,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "United Kingdom"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reino Unido"
           }
         },
         "sk" : {
@@ -7118,6 +9506,12 @@
             "value" : "United States"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os Estados Unidos (da América)"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7133,6 +9527,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unknown"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desconhecido"
           }
         },
         "sk" : {
@@ -7151,6 +9551,12 @@
             "value" : "Unpin"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desafixar"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7165,6 +9571,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unpinned"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desfixado"
           }
         },
         "sk" : {
@@ -7183,6 +9595,12 @@
             "value" : "Untitled List"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista Sem Título"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7197,6 +9615,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unwatched"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não Assistidos"
           }
         },
         "sk" : {
@@ -7215,6 +9639,12 @@
             "value" : "Up Coming"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próximos"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7229,6 +9659,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Up Next"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seguintes"
           }
         },
         "sk" : {
@@ -7247,6 +9683,12 @@
             "value" : "Up Next (Cronica)"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seguintes (Cronica)"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7261,6 +9703,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Up Next Details Style"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo de Detalhes para Seguintes"
           }
         },
         "sk" : {
@@ -7279,6 +9727,12 @@
             "value" : "Upcoming"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em Breve"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7293,6 +9747,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Upcoming Notifications"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificações Futuras"
           }
         },
         "sk" : {
@@ -7311,6 +9771,12 @@
             "value" : "Update Items"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar Itens"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7327,6 +9793,12 @@
             "value" : "Update items with new information, if available on TMDb"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize os itens com novas informações, se disponíveis no TMDb."
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7338,6 +9810,12 @@
     "User Lang: %@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Lang: %@"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "User Lang: %@"
@@ -7359,6 +9837,12 @@
             "value" : "User Region: %@"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Region: %@"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7373,6 +9857,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Version %1$@ • %2$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versão %1$@ • %2$@"
           }
         },
         "sk" : {
@@ -7391,6 +9881,12 @@
             "value" : "War"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guerra"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7405,6 +9901,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Watch"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assistir"
           }
         },
         "sk" : {
@@ -7423,6 +9925,12 @@
             "value" : "Watch Provider"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Provedor de Conteúdo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7439,6 +9947,12 @@
             "value" : "Watch Provider Settings"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações de Provedor de Conteúdo"
+          }
+        },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7453,6 +9967,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Watch Providers"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Provedores de Conteúdo"
           }
         },
         "sk" : {
@@ -7535,6 +10055,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Watchlist Settings"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações da Lista"
           }
         },
         "sk" : {
@@ -7728,6 +10254,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You can choose to share using a Cronica link that will allow you to open the application.\nPlease note that not all content can be shared with a Cronica link, the application will always use TMDB links if necessary."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você pode optar por compartilhar usando um link Cronica que permitirá que você abra o aplicativo. Observe que nem todo o conteúdo pode ser compartilhado com um link Cronica, o aplicativo sempre usará links TMDB, se necessário."
           }
         },
         "sk" : {

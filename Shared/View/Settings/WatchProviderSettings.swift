@@ -31,13 +31,7 @@ struct WatchProviderSettings: View {
                 .onChange(of: store.watchRegion) { _ in 
                     if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
                 }
-#if os(macOS)
-                .pickerStyle(.automatic)
-#elseif os(visionOS)
                 .pickerStyle(.menu)
-                #else
-                .pickerStyle(.navigationLink)
-#endif
             }
 #if !os(tvOS)
             Section {

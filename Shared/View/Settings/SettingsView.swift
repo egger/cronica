@@ -100,6 +100,8 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.inline)
+        .scrollBounceBehavior(.basedOnSize, axes: .vertical)
 #elseif os(macOS)
         TabView {
             BehaviorSetting()

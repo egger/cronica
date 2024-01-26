@@ -72,7 +72,7 @@ extension WatchlistItem {
 		case .tvShow:
 			if upcomingSeason {
 				if itemDateForNextSeason.isEmpty {
-					return NSLocalizedString("Season \(nextSeasonNumber)", comment: "")
+					return "Season \(nextSeasonNumber)"
 				}
 #if os(watchOS)
 				return itemDateForNextSeason
