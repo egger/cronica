@@ -2169,6 +2169,12 @@
     },
     "Cronica is open-source, you can contribute to the project." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica ist Open Source, du kannst zum Projekt beitragen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3508,6 +3514,12 @@
     },
     "Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fühle dich frei, Funktionen vorzuschlagen, Verbesserungen anzumerken oder Fehler zu melden. Dein Feedback ist entscheidend, um Cronica für alle zu verbessern."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4559,6 +4571,12 @@
     },
     "Internal error: Something went wrong, contact TMDB." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internal error: Something went wrong, contact TMDB."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5464,6 +5482,12 @@
     },
     "More Info" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Informationen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7708,6 +7732,12 @@
     },
     "Remove From Pin when item is  marked as watched" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus den Pinnwand entfernen, wenn das Element als gesehen markiert wird"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8316,6 +8346,12 @@
     },
     "Search filter improve the search results, but has the downside of taking longer to load." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Suchfilter verbessert die Suchergebnisse, hat jedoch den Nachteil, dass das Laden länger dauern kann."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8636,6 +8672,12 @@
     },
     "See in what platforms the content is available on." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sehe, auf welchen Plattformen der Inhalt verfügbar ist."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9163,6 +9205,12 @@
     },
     "Skip this episode" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Episode überspringen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9713,6 +9761,12 @@
     },
     "Supernatural Horror" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Übernatürlicher Horror"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10010,6 +10064,12 @@
     },
     "Thank you for your purchase! Your support is much appreciated. 😁" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vielen Dank für deinen Kauf! Deine Unterstützung wird sehr geschätzt. 😁"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10492,6 +10552,12 @@
     },
     "To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um mögliche Spoiler zu vermeiden, kannst du Titel und Zusammenfassung von nicht gesehenen Episoden ausblenden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
