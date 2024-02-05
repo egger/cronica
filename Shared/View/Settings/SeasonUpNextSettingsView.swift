@@ -36,7 +36,6 @@ struct SeasonUpNextSettingsView: View {
                 } label: {
                     Text("Up Next Details Style")
                 }
-                .tint(.secondary)
             }
             
 #if os(macOS)

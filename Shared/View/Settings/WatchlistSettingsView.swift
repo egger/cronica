@@ -41,8 +41,6 @@ struct WatchlistSettingsView: View {
                 } label: {
                     Text("Watchlist's Item Style")
                 }
-                .tint(.secondary)
-                
 #if !os(tvOS)
                 Toggle("Show Date in Watchlist", isOn: $store.showDateOnWatchlist)
 #endif

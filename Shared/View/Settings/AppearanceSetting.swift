@@ -21,9 +21,10 @@ struct AppearanceSetting: View {
                 }
             }
 #endif
-            Section {
-
+            
 #if !os(tvOS)
+            Section("Style Preferences") {
+
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)
@@ -31,7 +32,6 @@ struct AppearanceSetting: View {
                 } label: {
                     Text("Section's Details Style")
                 }
-                .tint(.secondary)
                 Picker(selection: $store.listsDisplayType) {
                     ForEach(ItemContentListPreferredDisplayType.allCases) { item in
                         Text(item.title).tag(item)
@@ -39,13 +39,9 @@ struct AppearanceSetting: View {
                 } label: {
                     Text("Horizontal List Style")
                 }
-                .tint(.secondary)
-               
-#endif
-            } header: {
-                Text("Style Preferences")
+
             }
-            
+#endif
 #if os(iOS)
             if UIDevice.isIPhone {
                 Section {

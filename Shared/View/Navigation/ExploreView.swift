@@ -152,6 +152,10 @@ struct ExploreView: View {
             NavigationStack {
                 Form {
                     Section {
+                        Toggle("Hide Added Items", isOn: $hideAddedItems)
+                    }
+                    
+                    Section {
                         Picker(selection: $selectedMedia) {
                             ForEach(MediaType.allCases) { type in
                                 if type != .person {
@@ -177,12 +181,7 @@ struct ExploreView: View {
                             }
                         }
                     }
-                    .pickerStyle(.inline)
-                    
-                    Section {
-                        Toggle("Hide Added Items", isOn: $hideAddedItems)
-                    }
-                    
+                    .pickerStyle(.menu)
                 }
                 .navigationTitle("Filters")
 #if os(iOS)
@@ -193,11 +192,13 @@ struct ExploreView: View {
                         showFilters = false
                     }
                 }
-                .appTint()
-                .appTheme()
-                .unredacted()
             }
             .presentationDetents([.large, .medium])
+            .unredacted()
+#if os(iOS)
+            .appTint()
+            .appTheme()
+#endif
         }
         .overlay { if !isLoaded { CronicaLoadingPopupView() } }
         .actionPopup(isShowing: $showPopup, for: popupType)

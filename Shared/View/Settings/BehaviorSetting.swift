@@ -48,7 +48,7 @@ struct BehaviorSetting: View {
     }
     
     private var gesture: some View {
-        Section {
+        Section("Gestures") {
             Picker(selection: $store.gesture) {
                 ForEach(UpdateItemProperties.allCases) { item in
                     Text(item.title).tag(item)
@@ -57,9 +57,6 @@ struct BehaviorSetting: View {
                 Text("Double Tap On Cover/Poster")
                 Text("Choose what function to perform when double tap the cover/poster image.")
             }
-            .tint(.secondary)
-        } header: {
-            Text("Gestures")
         }
     }
     
@@ -72,7 +69,6 @@ struct BehaviorSetting: View {
             } label: {
                 Text("Sharable Link")
             }
-            .tint(.secondary)
         } header: {
             Text("Beta")
         } footer: {
@@ -108,25 +104,21 @@ struct BehaviorSetting: View {
                     Text($0.localizableName).tag($0)
                 }
             }
-            .tint(.secondary)
             Picker("Secondary Left Gesture", selection: $store.secondaryLeftSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
-            .tint(.secondary)
             Picker("Primary Right Gesture", selection: $store.primaryRightSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
-            .tint(.secondary)
             Picker("Secondary Right Gesture", selection: $store.secondaryRightSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
-            .tint(.secondary)
             Toggle(isOn: $store.allowFullSwipe) {
                 Text("Allow Full Swipe")
                 Text("Full Swipe will activate the primary action")
