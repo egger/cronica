@@ -43,6 +43,8 @@
 		B812C7B4299480620096E806 /* NewCustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B3299480620096E806 /* NewCustomListView.swift */; };
 		B812C7B62996C2DB0096E806 /* SelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B52996C2DB0096E806 /* SelectListView.swift */; };
 		B813917F289F4F8D003BEB2E /* Attribution.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B87B5CD32799AF3600632648 /* Attribution.xcassets */; };
+		B8152EBF2B71564F0032836A /* VerticalUpNextCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8152EBE2B71564F0032836A /* VerticalUpNextCardView.swift */; };
+		B8152EC12B71571F0032836A /* VerticalUpNextListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8152EC02B71571F0032836A /* VerticalUpNextListRowView.swift */; };
 		B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B815A15B27BEB7F20062F727 /* ItemContent.swift */; };
 		B818483729C286C300650763 /* UserDefaults-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818483629C286C300650763 /* UserDefaults-Extensions.swift */; };
 		B818483829C286C300650763 /* UserDefaults-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818483629C286C300650763 /* UserDefaults-Extensions.swift */; };
@@ -438,6 +440,8 @@
 		B812529728A407120062B0C9 /* DefaultListTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListTypes.swift; sourceTree = "<group>"; };
 		B812C7B3299480620096E806 /* NewCustomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomListView.swift; sourceTree = "<group>"; };
 		B812C7B52996C2DB0096E806 /* SelectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListView.swift; sourceTree = "<group>"; };
+		B8152EBE2B71564F0032836A /* VerticalUpNextCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalUpNextCardView.swift; sourceTree = "<group>"; };
+		B8152EC02B71571F0032836A /* VerticalUpNextListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalUpNextListRowView.swift; sourceTree = "<group>"; };
 		B815A15B27BEB7F20062F727 /* ItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContent.swift; sourceTree = "<group>"; };
 		B818483629C286C300650763 /* UserDefaults-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults-Extensions.swift"; sourceTree = "<group>"; };
 		B818483B29C2897A00650763 /* ChangelogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogView.swift; sourceTree = "<group>"; };
@@ -816,6 +820,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B8152EBD2B7156310032836A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B8152EBE2B71564F0032836A /* VerticalUpNextCardView.swift */,
+				B8152EC02B71571F0032836A /* VerticalUpNextListRowView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		B81941982A082FC60057DA04 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -857,8 +870,9 @@
 		B81941D22A0867E50057DA04 /* Up Next */ = {
 			isa = PBXGroup;
 			children = (
-				B86F7ABE2A08806100AA4855 /* VerticalUpNextListView.swift */,
 				B86F7ABC2A087FF900AA4855 /* HorizontalUpNextListView.swift */,
+				B86F7ABE2A08806100AA4855 /* VerticalUpNextListView.swift */,
+				B8152EBD2B7156310032836A /* Components */,
 			);
 			path = "Up Next";
 			sourceTree = "<group>";
@@ -1805,6 +1819,7 @@
 				B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */,
 				B84457CE29734F90009CB21F /* WatchProvidersList.swift in Sources */,
 				B82BE4E8299BFEF4005F9990 /* PersistenceController-CustomList.swift in Sources */,
+				B8152EC12B71571F0032836A /* VerticalUpNextListRowView.swift in Sources */,
 				B890C57B27FCB54D006BE5E1 /* TrailerListView.swift in Sources */,
 				B8B94CEC28EB74E900EDEC85 /* SearchItemSwipeGesture.swift in Sources */,
 				B8105244298D2E7700723E94 /* SwipeGestureOptions.swift in Sources */,
@@ -1879,6 +1894,7 @@
 				B8A8103D2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
 				B80B4DAA284537EF008BA43C /* SearchItemView.swift in Sources */,
 				B8A3C2192AC64B7400BD4962 /* ReviewPortraitShareView.swift in Sources */,
+				B8152EBF2B71564F0032836A /* VerticalUpNextCardView.swift in Sources */,
 				B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */,
 				B824E4442A05A4C500E385CE /* InfoSegmentView.swift in Sources */,
 				B85FD9B129F33A880088B5CC /* TMDB.swift in Sources */,

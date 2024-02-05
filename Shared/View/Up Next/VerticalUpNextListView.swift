@@ -54,7 +54,9 @@ struct VerticalUpNextListView: View {
                                    isWatched: $viewModel.isWatched,
                                    isUpNext: true)
                 .toolbar {
-                    Button("Done") { self.selectedEpisode = nil }
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Done") { self.selectedEpisode = nil }
+                    }
                 }
                 .navigationDestination(for: ItemContent.self) { item in
                     ItemContentDetails(title: item.itemTitle, id: item.id, type: item.itemContentMedia)
@@ -82,6 +84,7 @@ struct VerticalUpNextListView: View {
 #elseif os(iOS)
             .appTheme()
             .appTint()
+            .presentationDragIndicator(.visible)
 #endif
         }
         .task(id: viewModel.isWatched) {
@@ -111,41 +114,15 @@ struct VerticalUpNextListView: View {
                 List {
                     if !queryResult.isEmpty {
                         ForEach(queryResult) { item in
-                            UpNextCardItemView(item: item)
-                                .onTapGesture {
-                                    if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                        Task { await viewModel.markAsWatched(item) }
-                                    } else {
-                                        selectedEpisode = item
-                                    }
-                                }
-                            #if !os(tvOS)
-                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                    Button("Watched", systemImage: "rectangle.badge.checkmark") {
-                                        Task { await viewModel.markAsWatched(item) }
-                                    }
-                                }
-                            #endif
+                            VerticalUpNextListRowView(item: item, selectedEpisode: $selectedEpisode)
+                                .environmentObject(viewModel)
                         }
                     } else if queryResult.isEmpty && !query.isEmpty {
                         EmptyView()
                     } else {
                         ForEach(viewModel.episodes) { item in
-                            UpNextCardItemView(item: item)
-                                .onTapGesture {
-                                    if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                        Task { await viewModel.markAsWatched(item) }
-                                    } else {
-                                        selectedEpisode = item
-                                    }
-                                }
-                            #if !os(tvOS)
-                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                    Button("Watched", systemImage: "rectangle.badge.checkmark") {
-                                        Task { await viewModel.markAsWatched(item) }
-                                    }
-                                }
-                            #endif
+                            VerticalUpNextListRowView(item: item, selectedEpisode: $selectedEpisode)
+                                .environmentObject(viewModel)
                         }
                     }
                 }
@@ -167,21 +144,8 @@ struct VerticalUpNextListView: View {
                     if !queryResult.isEmpty {
                         ForEach(queryResult) { item in
                             VStack(alignment: .leading) {
-                                UpNextCardView(item: item)
-                                    .contextMenu {
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Button("Show Details") {
-                                                selectedEpisode = item
-                                            }
-                                        }
-                                    }
-                                    .onTapGesture {
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Task { await viewModel.markAsWatched(item) }
-                                        } else {
-                                            selectedEpisode = item
-                                        }
-                                    }
+                                VerticalUpNextCardView(item: item, selectedEpisode: $selectedEpisode)
+                                    .environmentObject(viewModel)
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text(item.showTitle)
@@ -204,21 +168,8 @@ struct VerticalUpNextListView: View {
                     } else {
                         ForEach(viewModel.episodes) { item in
                             VStack(alignment: .leading) {
-                                UpNextCardView(item: item)
-                                    .contextMenu {
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Button("Show Details") {
-                                                selectedEpisode = item
-                                            }
-                                        }
-                                    }
-                                    .onTapGesture {
-                                        if SettingsStore.shared.markEpisodeWatchedOnTap {
-                                            Task { await viewModel.markAsWatched(item) }
-                                        } else {
-                                            selectedEpisode = item
-                                        }
-                                    }
+                                VerticalUpNextCardView(item: item, selectedEpisode: $selectedEpisode)
+                                    .environmentObject(viewModel)
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text(item.showTitle)
@@ -271,70 +222,6 @@ struct VerticalUpNextListView: View {
         }
     }
 #endif
-}
-
-private struct UpNextCardItemView: View {
-    let item: UpNextEpisode
-    @StateObject private var settings: SettingsStore = .shared
-    var body: some View {
-        HStack {
-            LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
-                if let image = state.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } else {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                        Image(systemName: "sparkles.tv")
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    .frame(width: 80, height: 50)
-                }
-            }
-            .transition(.opacity)
-            .frame(width: 80, height: 50)
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-            VStack(alignment: .leading) {
-                Text(item.showTitle)
-                    .font(.callout)
-                    .lineLimit(1)
-                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                    .font(.caption)
-                    .textCase(.uppercase)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-            }
-            .padding(.leading, 2)
-            Spacer()
-        }
-    }
-}
-
-private struct UpNextCardView: View {
-    let item: UpNextEpisode
-    @StateObject private var settings: SettingsStore = .shared
-    var body: some View {
-        LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
-            if let image = state.image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else {
-                ZStack {
-                    Rectangle().fill(.gray.gradient)
-                    Image(systemName: "sparkles.tv")
-                        .foregroundColor(.white.opacity(0.8))
-                }
-                .frame(width: 80, height: 50)
-            }
-        }
-        .frame(width: DrawingConstants.imageWidth,
-               height: DrawingConstants.imageHeight)
-        .transition(.opacity)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-        .shadow(radius: 2)
-    }
 }
 
 extension VerticalUpNextListView {

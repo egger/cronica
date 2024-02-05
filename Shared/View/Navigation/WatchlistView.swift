@@ -83,11 +83,10 @@ struct WatchlistView: View {
             SelectListView(selectedList: $selectedList,
                            navigationTitle: $navigationTitle,
                            showListSelection: $showListSelection)
-            .presentationDetents([.large])
-#if os(iOS)
-            .appTheme()
-#elseif os(macOS)
+#if os(macOS)
             .frame(width: 480, height: 400, alignment: .center)
+#elseif os(iOS)
+            .presentationBackground(.regularMaterial)
 #endif
         }
         .toolbar {

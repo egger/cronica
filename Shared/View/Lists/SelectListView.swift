@@ -49,19 +49,25 @@ struct SelectListView: View {
             form
                 .formStyle(.grouped)
                 .toolbar {
-                    #if !os(visionOS)
+#if !os(visionOS)
                     if !isCreateNewListPresented {
                         ToolbarItem(placement: .automatic) {
                             if !lists.isEmpty { newList }
                         }
                     }
-                    #endif
+#endif
                     ToolbarItem(placement: .cancellationAction) {
                         doneButton
                     }
                 }
 #endif
         }
+#if os(iOS)
+        .appTint()
+        .appTheme()
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
+#endif
     }
     
     private var form: some View {
