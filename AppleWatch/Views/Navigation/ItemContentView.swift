@@ -63,7 +63,9 @@ struct ItemContentView: View {
                 .buttonStyle(.bordered)
                 .controlSize(.small)
                 .disabled(viewModel.isLoading)
-                .alert("Are You Sure?", isPresented: $showConfirmationPopup) {
+                .confirmationDialog("Are You Sure?",
+                                    isPresented: $showConfirmationPopup,
+                                    titleVisibility: .visible) {
                     Button("Confirm") { updateWatchlist() }
                     Button("Cancel") {  showConfirmationPopup = false }
                 }

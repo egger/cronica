@@ -50,13 +50,13 @@ struct WatchProvidersList: View {
             }
         }
         .task { await load(id: id, media: type) }
-        .alert("This will open TMDb website with the links to each service.", isPresented: $showConfirmation) {
+        .confirmationDialog("This will open TMDb website with the links to each service.",
+                            isPresented: $showConfirmation, titleVisibility: .visible) {
             Button("Confirm") { openLink() }
             Button("Confirm and don't ask again") {
                 isConfirmationEnabled = false
                 openLink()
             }
-            Button("Cancel") { showConfirmation = false }
         }
     }
     

@@ -332,8 +332,8 @@ private struct UpNextCard: View {
 #endif
         }
         .padding(.top)
-        .alert("Confirm Watched Episode",
-               isPresented: $showConfirmation) {
+        .confirmationDialog("Confirm Watched Episode",
+                            isPresented: $showConfirmation, titleVisibility: .visible) {
             Button("Confirm") {
                 Task {
                     await viewModel.markAsWatched(item)

@@ -20,7 +20,7 @@ struct WatchlistTitle: View {
                 .labelStyle(.iconOnly)
 #else
             HStack {
-                Text(navigationTitle)
+                Text(navigationTitle) 
                     .fontWeight(Font.Weight.semibold)
                     .lineLimit(1)
                     .foregroundColor(showListSelection ? .secondary : nil)

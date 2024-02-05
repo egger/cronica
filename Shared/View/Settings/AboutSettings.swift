@@ -25,6 +25,9 @@ struct AboutSettings: View {
                             .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                             .shadow(radius: 5)
+                            .onTapGesture(count: 4) {
+                                withAnimation { settings.displayDeveloperSettings.toggle() }
+                            }
                         Text("Developed by Alexandre Madeira")
                             .fontWeight(.semibold)
                             .fontDesign(.monospaced)
@@ -35,6 +38,7 @@ struct AboutSettings: View {
                     }
                 }
             }
+            .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
 #if os(iOS)
             Button {
@@ -84,7 +88,7 @@ struct AboutSettings: View {
                             subtitle: "Luis Felipe Lerma Alvarez",
 							url: "https://www.instagram.com/lerma_alvarez")
                 aboutButton(title: NSLocalizedString("Slovak", comment: ""),
-                            subtitle: "Svec Tomas", url: "svec.tomas@gmail.com")
+                            subtitle: "Tomáš Švec", url: "mailto:svec.tomas@gmail.com")
             }
             
             Section("Libraries") {
@@ -93,8 +97,8 @@ struct AboutSettings: View {
                     url: "https://github.com/kean/Nuke"
                 )
                 aboutButton(
-                    title: NSLocalizedString("TelemetryDeck", comment: ""),
-                    url: "https://telemetrydeck.com/"
+                    title: NSLocalizedString("Aptabase", comment: ""),
+                    url: "https://aptabase.com"
                 )
                 aboutButton(title: NSLocalizedString("YouTubePlayerKit", comment: ""),
                             url: "https://github.com/SvenTiigi/YouTubePlayerKit")
@@ -119,11 +123,9 @@ struct AboutSettings: View {
                     Text("Version \(appVersion ?? "") • \(buildNumber)")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
-                        .onTapGesture(count: 4) {
-                            withAnimation { settings.displayDeveloperSettings.toggle() }
-                        }
                 }
             }
+            .listRowBackground(Color.clear)
         }
         .navigationTitle("About")
 #if os(macOS)

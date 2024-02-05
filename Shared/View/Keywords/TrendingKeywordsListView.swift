@@ -117,7 +117,7 @@ private struct TrendingCardView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.leading)
-                                .lineLimit(2)
+                                .lineLimit(3)
                             Spacer()
                         }
                         .padding(.horizontal)

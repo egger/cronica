@@ -58,7 +58,9 @@ struct EditCustomList: View {
                     .buttonStyle(.link)
 #endif
                 }
-                .alert("Are You Sure?", isPresented: $askConfirmationForDeletion) {
+                .confirmationDialog("Are You Sure?",
+                                    isPresented: $askConfirmationForDeletion,
+                                    titleVisibility: .visible) {
                     Button("Confirm", role: .destructive) {
                         isDeleted = true
                         PersistenceController.shared.delete(list)
@@ -72,7 +74,6 @@ struct EditCustomList: View {
                         }
                     }
                 }
-                
             }
         }
 #if os(macOS)

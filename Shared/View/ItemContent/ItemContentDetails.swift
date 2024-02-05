@@ -554,8 +554,19 @@ struct ItemContentDetails: View {
                 infoView(title: NSLocalizedString("Original Title", comment: ""),
                          content: item?.originalItemTitle)
                 if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
-                    infoView(title: NSLocalizedString("Overview", comment: ""),
-                             content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Overview")
+                                .font(.caption)
+                            Text("\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+                                .multilineTextAlignment(.leading)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                        .accessibilityElement(children: .combine)
+                        Spacer()
+                    }
+                    .padding([.horizontal, .top], 2)
                 }
                 infoView(title: NSLocalizedString("Run Time", comment: ""),
                          content: item?.itemRuntime)
@@ -686,12 +697,12 @@ extension ItemContentDetails {
                 updateWatchlist()
             }
         } label: {
-            #if os(macOS)
+#if os(macOS)
             Label(viewModel.isInWatchlist ? "Remove": "Add",
                   systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
             .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
                           value: viewModel.isInWatchlist)
-            #else
+#else
             VStack {
                 if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *) {
                     Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
@@ -774,9 +785,9 @@ extension ItemContentDetails {
 #endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
-        #if !os(visionOS)
+#if !os(visionOS)
         .tint(.primary)
-        #endif
+#endif
 #if os(iOS)
         .applyHoverEffect()
 #elseif os(tvOS)
@@ -801,22 +812,22 @@ extension ItemContentDetails {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                         .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
                                       value: viewModel.isFavorite)
-                    #if !os(tvOS)
+#if !os(tvOS)
                         .changeEffect(
                             .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
                                 Image(systemName: "heart.fill")
                                     .foregroundStyle(.red)
                             }, value: animateFavorite)
-                    #endif
+#endif
                 } else {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                    #if !os(tvOS)
+#if !os(tvOS)
                         .changeEffect(
                             .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
                                 Image(systemName: "heart.fill")
                                     .foregroundStyle(.red)
                             }, value: animateFavorite)
-                    #endif
+#endif
                 }
 #if !os(tvOS)
                 Text("Favorite")
@@ -834,9 +845,9 @@ extension ItemContentDetails {
 #endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
-        #if !os(visionOS)
+#if !os(visionOS)
         .tint(.primary)
-        #endif
+#endif
 #if os(iOS)
         .applyHoverEffect()
 #elseif os(tvOS)
@@ -863,9 +874,9 @@ extension ItemContentDetails {
 #endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
-        #if !os(visionOS)
+#if !os(visionOS)
         .tint(.primary)
-        #endif
+#endif
 #if os(iOS)
         .applyHoverEffect()
 #endif
@@ -999,7 +1010,7 @@ extension ItemContentDetails {
         .disabled(viewModel.isLoading ? true : false)
     }
     
-    #if !os(macOS)
+#if !os(macOS)
     private var moreMenu: some View {
         Menu("More Options", systemImage: "ellipsis.circle") {
 #if os(visionOS)
@@ -1034,7 +1045,7 @@ extension ItemContentDetails {
         .labelStyle(.iconOnly)
         .disabled(viewModel.isLoading ? true : false)
     }
-    #endif
+#endif
     
 #endif
     
