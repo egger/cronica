@@ -221,13 +221,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld ítem"
+                  "value" : "%lld elemento"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld ítems"
+                  "value" : "%lld elementos"
                 }
               }
             }
@@ -1729,7 +1729,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recuerda las próximas películas y programas de televisión."
+            "value" : "Recuerda las próximas películas y Series de TV."
           }
         },
         "pt-BR" : {
@@ -2178,7 +2178,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Carta"
+            "value" : "Tarjeta"
           }
         },
         "pt-BR" : {
@@ -2520,7 +2520,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Próximamente En Los Teatros"
+            "value" : "Muy Pronto en Cines"
           }
         },
         "pt-BR" : {
@@ -3238,7 +3238,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista por defecto"
+            "value" : "Lista Predeterminada"
           }
         },
         "pt-BR" : {
@@ -3783,7 +3783,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hecho"
+            "value" : "Listo"
           }
         },
         "pt-BR" : {
@@ -4238,7 +4238,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Capítulo: %1$lld, del programa: %2$@."
+            "value" : "Capítulo: %1$lld, del Serie: %2$@."
           }
         },
         "pt-BR" : {
@@ -7521,7 +7521,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Películas, programas, personas"
+            "value" : "Películas, Serie de TV, personas"
           }
         },
         "pt-BR" : {
@@ -8408,7 +8408,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notifique cuando se publique un nuevo episodio de un programa de televisión en su lista de seguimiento."
+            "value" : "Notifique cuando se publique un nuevo episodio de un Serie de TV en su lista de seguimiento."
           }
         },
         "pt-BR" : {
@@ -9229,7 +9229,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prefiero la portada de la serie en lugar de la miniatura del episodio en Up Next"
+            "value" : "Prefiero la portada de la serie en lugar de la miniatura del episodio en A Continuación"
           }
         },
         "pt-BR" : {
@@ -11445,7 +11445,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Temporada y Próximo"
+            "value" : "Temporada y Continuación"
           }
         },
         "pt-BR" : {
@@ -11479,7 +11479,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Temporada y próxima"
+            "value" : "Temporada y Continuación"
           }
         },
         "pt-BR" : {
@@ -12160,7 +12160,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mostrar todos los artículos"
+            "value" : "Mostrar todos los elementos"
           }
         },
         "pt-BR" : {
@@ -12398,7 +12398,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Muestra películas y programas de televisión en tendencia desde TMDb."
+            "value" : "Muestra películas y Serie de TV en tendencia desde TMDb."
           }
         },
         "pt-BR" : {
@@ -14005,7 +14005,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Novela de suspenso"
+            "value" : "Suspenso"
           }
         },
         "pt-BR" : {
@@ -14654,7 +14654,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Programa de televisión"
+            "value" : "Serie de TV"
           }
         },
         "pt-BR" : {
@@ -14688,7 +14688,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Programas de TV"
+            "value" : "Series de TV"
           }
         },
         "pt-BR" : {
@@ -15168,7 +15168,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Próximo"
+            "value" : "A Continuación"
           }
         },
         "pt-BR" : {
@@ -15202,7 +15202,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up Next (Cronica)"
+            "value" : "A Continuación(Cronica)"
           }
         },
         "pt-BR" : {
@@ -15236,7 +15236,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Estilo de los siguientes detalles"
+            "value" : "Estilo de la Continuación detalles"
           }
         },
         "pt-BR" : {
