@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailedReleaseDateView: View {
     let item: [ReleaseDatesResult]?
-	var productionRegion = "US"
+    var productionRegion = "US"
     @State private var dates = [ReleaseDateDisplay]()
     @State private var isLoading = true
     @Binding var dismiss: Bool
@@ -33,9 +33,11 @@ struct DetailedReleaseDateView: View {
             }
             .scrollBounceBehavior(.basedOnSize)
             .toolbar {
+#if !os(macOS)
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done") { dismiss.toggle() }
                 }
+#endif
             }
             .onAppear(perform: load)
             .navigationTitle("Release Dates")

@@ -45,7 +45,9 @@ struct SelectListView: View {
                     await search()
                 }
 #endif
+#if !os(tvOS)
                 .scrollContentBackground(.hidden)
+#endif
                 .scrollBounceBehavior(.basedOnSize)
 #else
             form

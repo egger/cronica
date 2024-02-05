@@ -26,7 +26,7 @@ struct KeywordSectionView: View {
 #if os(tvOS)
             ScrollView {
                 HStack {
-                    Text(NSLocalizedString(keyword.name, comment: ""))
+                    Text(keyword.name)
                         .font(.title3)
                         .foregroundStyle(.secondary)
                     Spacer()

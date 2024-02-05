@@ -69,7 +69,9 @@ struct ReviewView: View {
 #if os(macOS)
             .formStyle(.grouped)
 #endif
+#if !os(tvOS)
             .scrollContentBackground(.hidden)
+#endif
             .scrollBounceBehavior(.basedOnSize)
         }
         .presentationDetents([.large, .medium])

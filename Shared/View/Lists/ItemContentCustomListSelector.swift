@@ -82,7 +82,7 @@ struct ItemContentCustomListSelector: View {
             }
             .onAppear(perform: load)
             .scrollBounceBehavior(.basedOnSize, axes: .vertical)
-#if !os(visionOS)
+#if !os(visionOS) && !os(tvOS)
             .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
             .background {
                 TranslucentBackground(image: image)

@@ -59,11 +59,15 @@ struct ListFilterView: View {
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .toolbar {
+#if !os(macOS)
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done") { showView = false }
                 }
+#endif
             }
+#if !os(tvOS)
             .scrollContentBackground(.hidden)
+#endif
             .scrollBounceBehavior(.basedOnSize)
             .onChange(of: filter) { _ in
                 showView = false

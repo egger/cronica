@@ -30,16 +30,22 @@ enum Screens: String, Identifiable, CaseIterable {
 #else
 enum Screens: String, Identifiable, CaseIterable {
     var id: String { rawValue }
-    case trending, watchlist, upNext, upcoming, search, settings
+    case trending, watchlist, upNext, upcoming
     
     var title: String {
         switch self {
-        case .trending: return NSLocalizedString("Trending", comment: "")
-        case .watchlist: return NSLocalizedString("Watchlist", comment: "")
-        case .upcoming: return NSLocalizedString("Upcoming", comment: "")
-        case .upNext: return NSLocalizedString("Up Next", comment: "")
-        case .search: return NSLocalizedString("Search", comment: "")
-        case .settings: return NSLocalizedString("Settings", comment: "")
+        case .trending: NSLocalizedString("Trending", comment: "")
+        case .watchlist: NSLocalizedString("Watchlist", comment: "")
+        case .upcoming: NSLocalizedString("Upcoming", comment: "")
+        case .upNext: NSLocalizedString("Up Next", comment: "")
+        }
+    }
+    var toSFSymbols: String {
+        switch self {
+        case .trending: "popcorn"
+        case .watchlist: "rectangle.on.rectangle"
+        case .upcoming: "calendar"
+        case .upNext: "tv"
         }
     }
 }

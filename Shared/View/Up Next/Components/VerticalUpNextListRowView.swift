@@ -49,11 +49,13 @@ struct VerticalUpNextListRowView: View {
         .onTapGesture {
             askConfirmation.toggle()
         }
+#if !os(tvOS)
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
             Button("Watched", systemImage: "rectangle.badge.checkmark") {
                 Task { await viewModel.markAsWatched(item) }
             }
         }
+#endif
         .contextMenu {
             Button("Show Details") {
                 selectedEpisode = item

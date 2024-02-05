@@ -800,7 +800,6 @@
 				B824E4482A05A87600E385CE /* Company */,
 				B8EC463E27D84C62009389FC /* Components */,
 				B8F6DE682937F92A005D1A50 /* Containers */,
-				B86670B52B5FF63400CBA595 /* CronicaLoadingPopupView.swift */,
 				B824E4382A04A77800E385CE /* ItemContent */,
 				B8B2F6A42A85D36400FF0246 /* Keywords */,
 				B82BE4F4299EB7B0005F9990 /* Lists */,
@@ -1373,15 +1372,16 @@
 		B8EC463E27D84C62009389FC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B86670B52B5FF63400CBA595 /* CronicaLoadingPopupView.swift */,
 				B8CBBF1B2A4B7C3E0052A59B /* DetailedReleaseDateView.swift */,
 				B890C57827FC999F006BE5E1 /* HeroImage.swift */,
 				B8409D1C2A8286130048840F /* IconGridView.swift */,
 				B824E4432A05A4C500E385CE /* InfoSegmentView.swift */,
 				B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */,
 				B81941AA2A0835D40057DA04 /* PosterPlaceholder.swift */,
+				B8A36AB42B1D4999004A5687 /* ReviewAppBanner.swift */,
 				B8FF4DBE27FA511A00C7DE9F /* TitleView.swift */,
 				B8733A7729293ABB00CBEF2B /* TranslucentBackground.swift */,
-				B8A36AB42B1D4999004A5687 /* ReviewAppBanner.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

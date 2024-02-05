@@ -190,13 +190,17 @@ struct ExploreView: View {
                 .navigationBarTitleDisplayMode(.inline)
 #endif
                 .toolbar {
+#if !os(macOS)
                     ToolbarItem(placement: .topBarLeading) {
                         Button("Done") {
                             showFilters = false
                         }
                     }
+#endif
                 }
+#if !os(tvOS)
                 .scrollContentBackground(.hidden)
+#endif
                 .scrollBounceBehavior(.basedOnSize)
             }
             .presentationDetents([.medium])

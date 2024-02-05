@@ -31,15 +31,27 @@ struct WatchlistView: View {
                 }
             }
             .navigationTitle("Watchlist")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
             .disableAutocorrection(true)
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItem(placement: .bottomBar) {
                     HStack {
-                        filterButton
-                        sortButton
+                        Spacer()
+                        Button("Sort List", systemImage: "line.3.horizontal.decrease") {
+                            withAnimation { showPicker = true }
+                        }
+                        .controlSize(.small)
+                        .imageScale(.small)
+                        .labelStyle(.iconOnly)
+                        .buttonBorderShape(.circle)
+                        .contentShape(.circle)
+                        .buttonStyle(.borderedProminent)
+                        .foregroundStyle(.white.gradient)
+                        .tint(.blue)
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                        .padding(.horizontal)
                     }
-                    .padding(.vertical, 4)
                 }
             }
             .navigationDestination(for: WatchlistItem.self) { item in
@@ -67,7 +79,8 @@ struct WatchlistView: View {
             .sheet(isPresented: $showPicker) {
                 WatchlistSelectorView(showView: $showPicker,
                                       selectedList: $selectedList,
-                                      selectedCustomList: $selectedCustomList)
+                                      selectedCustomList: $selectedCustomList,
+                                      sortOrder: $sortOrder)
             }
             .onAppear {
                 if selectedList == nil && selectedCustomList == nil {
@@ -80,32 +93,6 @@ struct WatchlistView: View {
                 }
             }
         }
-    }
-	
-	private var sortButton: some View {
-		Picker(selection: $sortOrder) {
-			ForEach(WatchlistSortOrder.allCases) { item in
-				Text(item.localizableName).tag(item)
-			}
-		} label: {
-			Label("Sort Order", systemImage: "arrow.up.arrow.down.circle")
-				.labelStyle(.iconOnly)
-		}
-		.pickerStyle(.navigationLink)
-		.buttonBorderShape(.roundedRectangle(radius: 16))
-		.buttonStyle(.bordered)
-	}
-    
-    private var filterButton: some View {
-        Button {
-            withAnimation { showPicker = true }
-        } label: {
-            Label("Sort List", systemImage: "line.3.horizontal.decrease")
-                .foregroundColor(.white)
-				.labelStyle(.iconOnly)
-        }
-        .buttonBorderShape(.roundedRectangle(radius: 16))
-        .buttonStyle(.bordered)
     }
     
     @ViewBuilder

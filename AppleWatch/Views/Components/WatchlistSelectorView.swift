@@ -17,6 +17,7 @@ struct WatchlistSelectorView: View {
         animation: .default)
     private var lists: FetchedResults<CustomList>
     @State private var item: WatchlistItem?
+    @Binding var sortOrder: WatchlistSortOrder
     var body: some View {
         NavigationStack {
             Form {
@@ -61,6 +62,16 @@ struct WatchlistSelectorView: View {
                         }
                     }
                     
+                    Section("Sort Order") {
+                        Picker(selection: $sortOrder) {
+                            ForEach(WatchlistSortOrder.allCases) { item in
+                                Text(item.localizableName).tag(item)
+                            }
+                        } label: {
+                            EmptyView()
+                        }
+                        .pickerStyle(.inline)
+                    }
                 }
             }
         }
