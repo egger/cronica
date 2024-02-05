@@ -59,8 +59,12 @@ struct ListFilterView: View {
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .toolbar {
-                Button("Done") { showView = false }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Done") { showView = false }
+                }
             }
+            .scrollContentBackground(.hidden)
+            .scrollBounceBehavior(.basedOnSize)
             .onChange(of: filter) { _ in
                 showView = false
             }
@@ -72,6 +76,8 @@ struct ListFilterView: View {
             }
         }
 #if !os(tvOS)
+        .presentationBackground(.ultraThickMaterial)
+        .presentationDragIndicator(.visible)
         .appTheme()
         .appTheme()
 #endif

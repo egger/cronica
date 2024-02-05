@@ -95,10 +95,12 @@ struct ExploreView: View {
                         ScrollView {
                             recommendationsCardStyle
                         }
+                        .scrollBounceBehavior(.basedOnSize)
                     case .poster:
                         ScrollView {
                             recommendationsPosterStyle
                         }
+                        .scrollBounceBehavior(.basedOnSize)
                     }
                 }
                 
@@ -188,16 +190,22 @@ struct ExploreView: View {
                 .navigationBarTitleDisplayMode(.inline)
 #endif
                 .toolbar {
-                    Button("Done") {
-                        showFilters = false
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Done") {
+                            showFilters = false
+                        }
                     }
                 }
+                .scrollContentBackground(.hidden)
+                .scrollBounceBehavior(.basedOnSize)
             }
-            .presentationDetents([.large, .medium])
+            .presentationDetents([.medium])
+            .presentationDragIndicator(.visible)
             .unredacted()
 #if os(iOS)
             .appTint()
             .appTheme()
+            .presentationBackground(.ultraThickMaterial)
 #endif
         }
         .overlay { if !isLoaded { CronicaLoadingPopupView() } }

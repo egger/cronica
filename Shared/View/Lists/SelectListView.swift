@@ -39,12 +39,14 @@ struct SelectListView: View {
                     }
                 }
 #if os(iOS)
-                .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
+                .searchable(text: $query, placement: .navigationBarDrawer(displayMode: lists.count > 6 ? .always : .automatic))
                 .autocorrectionDisabled()
                 .task(id: query) {
                     await search()
                 }
 #endif
+                .scrollContentBackground(.hidden)
+                .scrollBounceBehavior(.basedOnSize)
 #else
             form
                 .formStyle(.grouped)
@@ -67,6 +69,7 @@ struct SelectListView: View {
         .appTheme()
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.visible)
+        .presentationBackground(.ultraThickMaterial)
 #endif
     }
     
@@ -148,14 +151,6 @@ struct SelectListView: View {
             } header: {
                 HStack {
                     Text("Your Lists")
-                    Spacer()
-                }
-            } footer: {
-                HStack {
-                    Text("Swipe to Edit your list")
-#if os(macOS)
-                        .foregroundStyle(.secondary)
-#endif
                     Spacer()
                 }
             }

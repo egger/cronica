@@ -18,57 +18,68 @@ struct ReviewView: View {
     @State private var showReviewImageSheet = false
     let persistence = PersistenceController.shared
     var body: some View {
-        Form {
-            if isLoading {
-                Section {
-                    CenterHorizontalView { ProgressView().padding() }
-                }
-            } else {
-                if let item {
-                    Section("About") { Text("Review of \(item.itemTitle)") }
-                    Section("Rating") {
-                        CenterHorizontalView {
-                            RatingView(rating: $rating)
-                        }
+        NavigationStack {
+            Form {
+                if isLoading {
+                    Section {
+                        CenterHorizontalView { ProgressView().padding() }
                     }
-#if !os(tvOS)
-                    Section("Notes") {
-                        TextEditor(text: $note)
-                            .frame(minHeight: 150)
-                    }
-#endif
                 } else {
-                    ProgressView()
+                    if let item {
+                        Section("About") { Text("Review of \(item.itemTitle)") }
+                        Section("Rating") {
+                            CenterHorizontalView {
+                                RatingView(rating: $rating)
+                            }
+                        }
+#if os(iOS) || os(macOS)
+                        Section("Notes") {
+                            TextEditor(text: $note)
+                                .frame(minHeight: 150)
+                        }
+#endif
+                    } else {
+                        ProgressView()
+                    }
                 }
             }
-        }
-        .navigationTitle("Review")
-        .onAppear { load() }
-        .onChange(of: rating) { newValue in
-            guard let item else { return }
-            if newValue != Int(item.userRating) {
-                if !canSave { canSave = true }
+            .navigationTitle("Review")
+            .onAppear(perform: load)
+            .onChange(of: rating) { newValue in
+                guard let item else { return }
+                if newValue != Int(item.userRating) {
+                    if !canSave { canSave = true }
+                }
             }
-        }
-        .onChange(of: note) { newValue in
-            guard let item else { return }
-            if newValue != item.userNotes {
-                if !canSave { canSave = true }
+            .onChange(of: note) { newValue in
+                guard let item else { return }
+                if newValue != item.userNotes {
+                    if !canSave { canSave = true }
+                }
             }
-        }
-        .toolbar {
+            .toolbar {
 #if os(iOS)
-            ToolbarItem(placement: .navigationBarLeading) { doneButton }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                saveButton
-            }
+                ToolbarItem(placement: .topBarLeading) { doneButton }
+                ToolbarItem(placement: .topBarTrailing) { saveButton }
 #else
-            ToolbarItem(placement: .confirmationAction) { saveButton }
-            ToolbarItem(placement: .cancellationAction) { doneButton }
+                ToolbarItem(placement: .confirmationAction) { saveButton }
+                ToolbarItem(placement: .cancellationAction) { doneButton }
 #endif
-        }
+            }
 #if os(macOS)
-        .formStyle(.grouped)
+            .formStyle(.grouped)
+#endif
+            .scrollContentBackground(.hidden)
+            .scrollBounceBehavior(.basedOnSize)
+        }
+        .presentationDetents([.large, .medium])
+        .presentationDragIndicator(.visible)
+        .presentationBackground(.ultraThickMaterial)
+#if os(macOS)
+        .frame(width: 400, height: 400, alignment: .center)
+#elseif os(iOS)
+        .appTheme()
+        .appTint()
 #endif
     }
     
@@ -82,7 +93,7 @@ struct ReviewView: View {
         self.item = item
         isLoading = false
     }
-     
+    
     private var doneButton: some View {
         Button("Cancel", action: dismiss)
     }

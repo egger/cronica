@@ -42,18 +42,7 @@ struct SearchItemView: View {
                         }
                     }
                     .sheet(isPresented: $showNote) {
-#if os(iOS) || os(macOS)
-                        NavigationStack {
-                            ReviewView(id: item.itemContentID, showView: $showNote)
-                        }
-                        .presentationDetents([.large])
-#if os(macOS)
-                        .frame(width: 400, height: 400, alignment: .center)
-#elseif os(iOS)
-                        .appTheme()
-                        .appTint()
-#endif
-#endif
+                        ReviewView(id: item.itemContentID, showView: $showNote)
                     }
                     .sheet(isPresented: $showCustomListView) {
                         NavigationStack {
@@ -89,18 +78,7 @@ struct SearchItemView: View {
                             }
                         }
                         .sheet(isPresented: $showNote) {
-#if os(iOS) || os(macOS)
-                            NavigationStack {
-                                ReviewView(id: item.itemContentID, showView: $showNote)
-                            }
-                            .presentationDetents([.large])
-#if os(macOS)
-                            .frame(width: 400, height: 400, alignment: .center)
-#elseif os(iOS)
-                            .appTheme()
-                            .appTint()
-#endif
-#endif
+                            ReviewView(id: item.itemContentID, showView: $showNote)
                         }
                         .sheet(isPresented: $showCustomListView) {
                             NavigationStack {

@@ -141,16 +141,7 @@ struct ItemContentDetails: View {
         }
         .sheet(isPresented: $showUserNotes) {
             if let contentID = viewModel.content?.itemContentID {
-                NavigationStack {
-                    ReviewView(id: contentID, showView: $showUserNotes)
-                }
-                .presentationDetents([.large])
-#if os(macOS)
-                .frame(width: 500, height: 500, alignment: .center)
-#elseif os(iOS)
-                .appTheme()
-                .appTint()
-#endif
+                ReviewView(id: contentID, showView: $showUserNotes)
             }
         }
         .sheet(isPresented: $showReleaseDateInfo) {
@@ -986,6 +977,7 @@ extension ItemContentDetails {
                 openUrl(for: url)
             }
         }
+             .labelStyle(.titleOnly)
 #if os(visionOS)
              .menuStyle(.button)
              .buttonStyle(.bordered)

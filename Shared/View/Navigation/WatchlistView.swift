@@ -85,8 +85,6 @@ struct WatchlistView: View {
                            showListSelection: $showListSelection)
 #if os(macOS)
             .frame(width: 480, height: 400, alignment: .center)
-#elseif os(iOS)
-            .presentationBackground(.regularMaterial)
 #endif
         }
         .toolbar {

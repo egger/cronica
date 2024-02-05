@@ -34,17 +34,10 @@ struct VerticalUpNextListView: View {
             }
         }
 #if os(iOS)
-        .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)
+        .searchable(text: $query, placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: viewModel.episodes.count > 8 ? .always : .automatic) : .toolbar)
 #elseif os(macOS)
         .searchable(text: $query, placement: .toolbar)
 #endif
-        .toolbar {
-#if os(iOS)
-            ToolbarItem(placement: .navigationBarTrailing) {
-                styleOptions
-            }
-#endif
-        }
         .sheet(item: $selectedEpisode) { item in
             NavigationStack {
                 EpisodeDetailsView(episode: item.episode,
@@ -203,25 +196,9 @@ struct VerticalUpNextListView: View {
                 Task { await viewModel.reload(items) }
             }
             .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+            .scrollBounceBehavior(.basedOnSize)
         }
     }
-    
-#if os(iOS) || os(macOS)
-    private var styleOptions: some View {
-        Menu {
-            Picker(selection: $settings.upNextStyle) {
-                ForEach(UpNextDetailsPreferredStyle.allCases) { item in
-                    Text(item.title).tag(item)
-                }
-            } label: {
-                Label("Display Style", systemImage: "circle.grid.2x2")
-            }
-        } label: {
-            Label("Display Style", systemImage: "circle.grid.2x2")
-                .labelStyle(.iconOnly)
-        }
-    }
-#endif
 }
 
 extension VerticalUpNextListView {

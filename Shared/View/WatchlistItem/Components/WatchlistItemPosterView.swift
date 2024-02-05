@@ -44,16 +44,7 @@ struct WatchlistItemPosterView: View {
 #endif
         .accessibilityLabel(Text(content.itemTitle))
         .sheet(isPresented: $showNote) {
-            NavigationStack {
-                ReviewView(id: content.itemContentID, showView: $showNote)
-            }
-            .presentationDetents([.large])
-#if os(macOS)
-            .frame(width: 400, height: 400, alignment: .center)
-#elseif os(iOS)
-            .appTheme()
-            .appTint()
-#endif
+            ReviewView(id: content.itemContentID, showView: $showNote)
         }
         .sheet(isPresented: $showCustomListView) {
             NavigationStack {

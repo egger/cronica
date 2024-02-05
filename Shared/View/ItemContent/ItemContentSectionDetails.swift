@@ -25,36 +25,13 @@ struct ItemContentSectionDetails: View {
 			}
 #endif
 		}
-		.navigationTitle(LocalizedStringKey(title))
-		.toolbar {
-#if os(iOS)
-			ToolbarItem(placement: .navigationBarTrailing) {
-				styleOptions
-			}
-#endif
-		}
+		.navigationTitle(title)
+        .scrollBounceBehavior(.basedOnSize)
 		.actionPopup(isShowing: $showPopup, for: popupType)
 #if os(iOS)
 		.navigationBarTitleDisplayMode(.large)
 #endif
 	}
-	
-#if os(iOS) || os(macOS)
-	private var styleOptions: some View {
-		Menu {
-			Picker(selection: $settings.sectionStyleType) {
-				ForEach(SectionDetailsPreferredStyle.allCases) { item in
-					Text(item.title).tag(item)
-				}
-			} label: {
-				Label("Section Style", systemImage: "circle.grid.2x2")
-			}
-		} label: {
-			Label("Section Style", systemImage: "circle.grid.2x2")
-				.labelStyle(.iconOnly)
-		}
-	}
-#endif
 	
 	private var listStyle: some View {
 		Form {

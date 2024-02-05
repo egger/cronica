@@ -104,16 +104,7 @@ struct WatchlistItemRowView: View {
             }
 #if os(iOS) || os(macOS)
             .sheet(isPresented: $showNote) {
-                NavigationStack {
-                    ReviewView(id: content.itemContentID, showView: $showNote)
-                }
-                .presentationDetents([.large])
-#if os(macOS)
-                .frame(width: 400, height: 400, alignment: .center)
-#elseif os(iOS)
-                .appTheme()
-                .appTint()
-#endif
+                ReviewView(id: content.itemContentID, showView: $showNote)
             }
 #endif
             .accessibilityElement(children: .combine)

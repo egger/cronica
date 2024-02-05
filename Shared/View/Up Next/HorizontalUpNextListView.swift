@@ -58,46 +58,41 @@ struct HorizontalUpNextListView: View {
 #else
                                     
                                     
-                                    UpNextCard(item: item, selectedEpisode: $selectedEpisode)
-                                        .buttonStyle(.plain)
-                                        .environmentObject(viewModel)
-                                        .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
-                                               height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
-                                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                                        .shadow(radius: 2.5)
-                                        .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
-                                        .accessibilityAddTraits(.isButton)
-                                        .applyHoverEffect()
-                                        .contextMenu {
-                                            Button("Show Details") {
-                                                selectedEpisode = item
-                                            }
-                                            Button("Skip this episode") {
-                                                viewModel.skipEpisode(for: item)
-                                            }
-                                        }
-                                        .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
-                                        .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : 0)
-                                        .padding(.top, 8)
-                                        .padding(.bottom)
-                                    if settings.isCompactUI {
-                                        HStack {
-                                            VStack(alignment: .leading) {
-                                                Text(item.showTitle)
-                                                    .font(.caption)
-                                                    .lineLimit(1)
-                                                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                                                    .font(.caption)
-                                                    .textCase(.uppercase)
-                                                    .foregroundColor(.secondary)
-                                                    .lineLimit(1)
+                                    VStack(alignment: .leading) {
+                                        UpNextCard(item: item, selectedEpisode: $selectedEpisode)
+                                            .buttonStyle(.plain)
+                                            .environmentObject(viewModel)
+                                            .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
+                                                   height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
+                                            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                                            .shadow(radius: 2.5)
+                                            .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
+                                            .accessibilityAddTraits(.isButton)
+                                            .applyHoverEffect()
+                                            .padding([.leading, .trailing], 4)
+                                            .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : 0)
+                                            .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : 0)
+                                            .padding(.top, 8)
+                                            .padding(.bottom, settings.isCompactUI ? .zero : nil)
+                                        if settings.isCompactUI {
+                                            HStack {
+                                                VStack(alignment: .leading) {
+                                                    Text(item.showTitle)
+                                                        .font(.caption)
+                                                        .lineLimit(1)
+                                                    Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                                                        .font(.caption)
+                                                        .textCase(.uppercase)
+                                                        .foregroundColor(.secondary)
+                                                        .lineLimit(1)
+                                                    Spacer()
+                                                }
                                                 Spacer()
                                             }
-                                            Spacer()
+                                            .padding(.leading)
+                                            .frame(width: 140)
                                         }
                                     }
-                                    
 #endif
                                 }
                             }
@@ -236,14 +231,14 @@ private struct UpNextCard: View {
                                     .frame(width: 40, height: 40, alignment: .center)
                                     .padding()
                             }
-                            .frame(width: DrawingConstants.imageWidth,
-                                   height: DrawingConstants.imageHeight)
+                            .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
+                                   height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
                             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
                         }
                     }
                     .transition(.opacity)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
+                    .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
+                           height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                                 style: .continuous))
                     .shadow(radius: DrawingConstants.imageShadow)
@@ -303,6 +298,14 @@ private struct UpNextCard: View {
                         }
                     }
 #endif
+                }
+            }
+            .contextMenu {
+                Button("Show Details") {
+                    selectedEpisode = item
+                }
+                Button("Skip this episode") {
+                    viewModel.skipEpisode(for: item)
                 }
             }
 #if os(tvOS)
