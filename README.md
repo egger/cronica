@@ -39,7 +39,7 @@ If you want to contribute with code, here are some important details about the p
 - If you have any questions, feel free to reach out to me via email, Twitter, or iMessage. I'll be happy to assist you.
 
 ## Help Translate Cronica
-Contribute to the localization efforts of our open-source project by assisting in the translation of the application into your native language. Utilize the provided [xcstrings file](), which contains all the strings requiring translation. Simply send your completed translations via email, and I will ensure their incorporation in the upcoming update. Your contributions play a crucial role in making Cronica accessible to everyone. Thank you for your support!
+Contribute to the localization efforts of our open-source project by assisting in the translation of the application into your native language. Utilize the provided [xcstrings file](https://github.com/MadeiraAlexandre/Cronica/blob/main/Shared/Localization/Localizable.xcstrings), which contains all the strings requiring translation. Simply send your completed translations via email, and I will ensure their incorporation in the upcoming update. Your contributions play a crucial role in making Cronica accessible to everyone. Thank you for your support!
 
 ##  Build information
 

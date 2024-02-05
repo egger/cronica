@@ -185,7 +185,9 @@ struct ExploreView: View {
                     
                 }
                 .navigationTitle("Filters")
+#if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
+#endif
                 .toolbar {
                     Button("Done") {
                         showFilters = false
@@ -234,9 +236,11 @@ struct ExploreView: View {
         }
 #if !os(tvOS)
         .navigationTitle(selectedForYouTab == .explore ? "Explore" : "For You")
-        .navigationBarTitleDisplayMode(.inline)
 #elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
+#endif
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
 #endif
         .onChange(of: hideAddedItems) { value in
             if value {
@@ -289,6 +293,53 @@ struct ExploreView: View {
         }
     }
     
+#if !os(iOS)
+    private var selectMediaPicker: some View {
+        Picker(selection: $selectedMedia) {
+            ForEach(MediaType.allCases) { type in
+                if type != .person {
+                    Text(type.title).tag(type)
+                }
+            }
+        } label: {
+            Text("Media Type")
+        }
+#if os(macOS)
+        .pickerStyle(.inline)
+#endif
+    }
+    
+    private var selectGenrePicker: some View {
+        Picker("Genres", selection: $selectedGenre) {
+            if selectedMedia == .movie {
+                ForEach(movies) { genre in
+                    Text(genre.name!).tag(genre)
+                }
+            } else {
+                ForEach(shows) { genre in
+                    Text(genre.name!).tag(genre)
+                }
+            }
+        }
+#if os(iOS) || os(macOS)
+        .pickerStyle(.inline)
+#endif
+    }
+    
+    private var hideItemsToggle: some View {
+        Toggle("Hide Added Items", isOn: $hideAddedItems)
+            .onChange(of: hideAddedItems) { _, value in
+                if value {
+                    hideItems()
+                } else {
+                    onChanging = true
+                    Task {
+                        await load()
+                    }
+                }
+            }
+    }
+#endif
     
     private var listStyle: some View {
         Form {
