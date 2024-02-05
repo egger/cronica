@@ -44,7 +44,7 @@ struct KeywordSectionView: View {
 #endif
         }
 #if !os(tvOS)
-        .navigationTitle(NSLocalizedString(keyword.name, comment: ""))
+        .navigationTitle(keyword.name)
 #endif
         .overlay { if !isLoaded { ProgressView().unredacted() } }
         .onAppear {
@@ -59,7 +59,7 @@ struct KeywordSectionView: View {
         }
         .toolbar {
 #if os(iOS)
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 sortButton
                     .unredacted()
                     .disabled(!isLoaded)

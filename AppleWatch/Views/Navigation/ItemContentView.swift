@@ -112,12 +112,10 @@ struct ItemContentView: View {
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .sheet(isPresented: $showCustomListSheet) {
             if let contentID = viewModel.content?.itemContentID {
-                NavigationStack {
-                    ItemContentCustomListSelector(contentID: contentID,
-                                                  showView: $showCustomListSheet,
-                                                  title: title,
-                                                  image: viewModel.content?.cardImageSmall)
-                }
+                ItemContentCustomListSelector(contentID: contentID,
+                                              showView: $showCustomListSheet,
+                                              title: title,
+                                              image: viewModel.content?.posterImageMedium)
             }
         }
         .navigationDestination(for: [Season].self) { seasons in

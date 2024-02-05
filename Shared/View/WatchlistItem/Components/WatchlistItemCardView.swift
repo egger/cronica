@@ -141,18 +141,10 @@ struct WatchlistItemCardView: View {
             ReviewView(id: content.itemContentID, showView: $showNote)
         }
         .sheet(isPresented: $showCustomListView) {
-            NavigationStack {
-                ItemContentCustomListSelector(contentID: content.itemContentID,
-                                              showView: $showCustomListView,
-                                              title: content.itemTitle, image: content.backCompatibleCardImage)
-            }
-            .presentationDetents([.large])
-#if os(macOS)
-            .frame(width: 500, height: 600, alignment: .center)
-#else
-            .appTheme()
-            .appTint()
-#endif
+            ItemContentCustomListSelector(contentID: content.itemContentID,
+                                          showView: $showCustomListView,
+                                          title: content.itemTitle,
+                                          image: content.mediumPosterImage)
         }
     }
     private var tvOSOverlay: some View {

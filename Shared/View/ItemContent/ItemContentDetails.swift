@@ -120,24 +120,14 @@ struct ItemContentDetails: View {
             Text(viewModel.errorMessage)
         }
         .sheet(isPresented: $showCustomList) {
-            NavigationStack {
-                if let contentID = viewModel.content?.itemContentID {
-                    ItemContentCustomListSelector(contentID: contentID,
-                                                  showView: $showCustomList,
-                                                  title: title, image: viewModel.content?.cardImageSmall)
+            if let contentID = viewModel.content?.itemContentID {
+                ItemContentCustomListSelector(contentID: contentID,
+                                              showView: $showCustomList,
+                                              title: title, image: viewModel.content?.posterImageMedium)
+                .onDisappear {
+                    viewModel.checkListStatus()
                 }
             }
-            .onDisappear {
-                viewModel.checkListStatus()
-            }
-            .presentationDetents([.large])
-            .presentationDragIndicator(.visible)
-#if os(macOS)
-            .frame(width: 500, height: 600, alignment: .center)
-#elseif os(iOS)
-            .appTheme()
-            .appTint()
-#endif
         }
         .sheet(isPresented: $showUserNotes) {
             if let contentID = viewModel.content?.itemContentID {
@@ -871,6 +861,7 @@ extension ItemContentDetails {
 #if os(iOS)
         .applyHoverEffect()
 #endif
+        .disabled(!viewModel.isInWatchlist)
     }
     
 #if !os(tvOS)

@@ -119,19 +119,10 @@ struct WatchlistItemRowView: View {
                                   popupType: $popupType,
                                   showPopup: $showPopup)
             .sheet(isPresented: $showCustomListView) {
-                NavigationStack {
-                    ItemContentCustomListSelector(contentID: content.itemContentID,
-                                                  showView: $showCustomListView,
-                                                  title: content.itemTitle,
-                                                  image: content.backCompatibleCardImage)
-                }
-                .presentationDetents([.large])
-#if os(macOS)
-                .frame(width: 500, height: 600, alignment: .center)
-#else
-                .appTheme()
-                .appTint()
-#endif
+                ItemContentCustomListSelector(contentID: content.itemContentID,
+                                              showView: $showCustomListView,
+                                              title: content.itemTitle,
+                                              image: content.backCompatiblePosterImage)
             }
 #endif
         }

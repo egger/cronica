@@ -45,20 +45,10 @@ struct SearchItemView: View {
                         ReviewView(id: item.itemContentID, showView: $showNote)
                     }
                     .sheet(isPresented: $showCustomListView) {
-                        NavigationStack {
-                            ItemContentCustomListSelector(contentID: item.itemContentID,
-                                                          showView: $showCustomListView,
-                                                          title: item.itemTitle,
-                                                          image: item.cardImageSmall)
-                        }
-                        .presentationDetents([.large])
-                        .presentationDragIndicator(.visible)
-#if os(macOS)
-                        .frame(width: 500, height: 600, alignment: .center)
-#else
-                        .appTheme()
-                        .appTint()
-#endif
+                        ItemContentCustomListSelector(contentID: item.itemContentID,
+                                                      showView: $showCustomListView,
+                                                      title: item.itemTitle,
+                                                      image: item.posterImageMedium)
                     }
             } else {
                 NavigationLink(value: item) {
@@ -81,20 +71,10 @@ struct SearchItemView: View {
                             ReviewView(id: item.itemContentID, showView: $showNote)
                         }
                         .sheet(isPresented: $showCustomListView) {
-                            NavigationStack {
-                                ItemContentCustomListSelector(contentID: item.itemContentID,
-                                                              showView: $showCustomListView,
-                                                              title: item.itemTitle,
-                                                              image: item.cardImageSmall)
-                            }
-                            .presentationDetents([.large])
-                            .presentationDragIndicator(.visible)
-#if os(macOS)
-                            .frame(width: 500, height: 600, alignment: .center)
-#else
-                            .appTheme()
-                            .appTint()
-#endif
+                            ItemContentCustomListSelector(contentID: item.itemContentID,
+                                                          showView: $showCustomListView,
+                                                          title: item.itemTitle,
+                                                          image: item.posterImageMedium)
                         }
                 }
             }

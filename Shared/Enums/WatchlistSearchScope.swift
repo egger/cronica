@@ -12,9 +12,9 @@ enum WatchlistSearchScope: String, Identifiable, CaseIterable {
     case noScope, movies, shows
     var localizableTitle: String {
         switch self {
-        case .noScope: return NSLocalizedString("All", comment: "")
-        case .movies: return NSLocalizedString("Movies", comment: "")
-        case .shows: return NSLocalizedString("Series", comment: "")
+        case .noScope: NSLocalizedString("All", comment: "")
+        case .movies: NSLocalizedString("Movies", comment: "")
+        case .shows: NSLocalizedString("Series", comment: "")
         }
     }
 }

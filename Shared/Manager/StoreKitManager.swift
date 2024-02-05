@@ -58,7 +58,7 @@ class StoreKitManager: ObservableObject {
                 SettingsStore.shared.hasPurchasedTipJar = true
                 withAnimation { self.hasUserPurchased = true }
             }
-            CronicaTelemetry.shared.handleMessage(\(product.displayName), for: "purchase_tip_jar")
+            CronicaTelemetry.shared.handleMessage("\(product.displayName)", for: "purchase_tip_jar")
             return transaction
         case .userCancelled, .pending:
             return nil

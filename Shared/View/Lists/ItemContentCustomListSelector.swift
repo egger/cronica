@@ -20,82 +20,117 @@ struct ItemContentCustomListSelector: View {
     @State private var isLoading = false
     @State private var settings = SettingsStore.shared
     var body: some View {
-        Form {
-            if isLoading {
-                ProgressView()
-            } else {
-                HStack {
-                    LazyImage(url: image) { state in
-                        if let image = state.image {
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } else {
-                            ZStack {
-                                Rectangle().fill(.gray.gradient)
-                                Image(systemName: "popcorn.fill")
-                                    .foregroundColor(.white.opacity(0.9))
+        NavigationStack {
+            Form {
+                if isLoading {
+                    ProgressView()
+                } else {
+                    Section {
+                        HStack {
+                            LazyImage(url: image) { state in
+                                if let image = state.image {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                } else {
+                                    ZStack {
+                                        Rectangle().fill(.gray.gradient)
+                                        Image(systemName: "popcorn.fill")
+                                            .foregroundColor(.white.opacity(0.9))
+                                    }
+                                }
+                            }
+                            .frame(width: 60, height: 90, alignment: .center)
+                            .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                            .shadow(radius: 2)
+                            VStack(alignment: .leading) {
+                                Text(title)
+                                    .lineLimit(2)
+                                    .fontWeight(.semibold)
+                                    .fontDesign(.rounded)
+                                    .padding(.leading, 4)
+                                    .padding(.top, 8)
+                                Spacer()
+                                if let item {
+                                    Text(item.itemMedia.title)
+                                        .lineLimit(1)
+                                        .font(.caption)
+                                        .fontWeight(.semibold)
+                                        .fontDesign(.rounded)
+                                        .foregroundStyle(.secondary)
+                                        .padding(.leading, 4)
+                                        .padding(.bottom, 8)
+                                }
                             }
                         }
                     }
-                    .frame(width: 70, height: 50, alignment: .center)
-                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                    .shadow(radius: 2)
-                    Text(title)
-                        .lineLimit(2)
-                        .fontDesign(.rounded)
-                        .padding(.leading, 4)
-                }
-                Section {
-                    List {
+                    .listRowBackground(Color.clear)
+                    Section {
+                        List {
 #if os(watchOS)
-                        newList
+                            newList
 #else
-                        if lists.isEmpty { List { newList } }
+                            if lists.isEmpty { List { newList } }
 #endif
-                        ForEach(lists) { list in
-                            AddToListRow(list: list, item: $item, showView: $showView)
-                                .padding(.vertical, 4)
+                            ForEach(lists) { list in
+                                AddToListRow(list: list, item: $item, showView: $showView)
+                                    .padding(.vertical, 4)
+                            }
                         }
-                    }
-                } header: { Text("Your Lists") }
-            }
-        }
-        .onAppear(perform: load)
-#if os(macOS)
-        .formStyle(.grouped)
-#endif
-        .navigationTitle("Add to...")
-#if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-#endif
-        .toolbar {
-#if os(iOS)
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Done") { showView.toggle() }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if !lists.isEmpty { newList }
-            }
-#elseif os(macOS) || os(visionOS)
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Done") { showView.toggle() }
-            }
-            ToolbarItem(placement: .automatic) {
-                if !lists.isEmpty { newList }
-            }
-#elseif os(watchOS)
-            ToolbarItem(placement: .cancellationAction) {
-                Button {
-                    showView.toggle()
-                } label: {
-                    Label("Dismiss", systemImage: "xmark")
-                        .labelStyle(.iconOnly)
+                    } header: { Text("Your Lists") }
                 }
-                
+            }
+            .onAppear(perform: load)
+            .scrollBounceBehavior(.basedOnSize, axes: .vertical)
+#if !os(visionOS)
+            .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
+            .background {
+                TranslucentBackground(image: image)
             }
 #endif
+#if os(macOS)
+            .formStyle(.grouped)
+#endif
+            .navigationTitle("Add to...")
+#if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+#endif
+            .toolbar {
+#if os(iOS)
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Done") { showView.toggle() }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    if !lists.isEmpty { newList }
+                }
+#elseif os(macOS) || os(visionOS)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done") { showView.toggle() }
+                }
+                ToolbarItem(placement: .automatic) {
+                    if !lists.isEmpty { newList }
+                }
+#elseif os(watchOS)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        showView.toggle()
+                    } label: {
+                        Label("Dismiss", systemImage: "xmark")
+                            .labelStyle(.iconOnly)
+                    }
+                    
+                }
+#endif
+            }
         }
+#if os(iOS)
+        .appTint()
+        .appTheme()
+        #elseif os(macOS)
+        .frame(width: 500, height: 600, alignment: .center)
+#endif
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
     }
     
     private func load() {

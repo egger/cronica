@@ -163,18 +163,9 @@ struct ItemContentCardView: View {
             ReviewView(id: item.itemContentID, showView: $showNote)
         }
         .sheet(isPresented: $showCustomListView) {
-            NavigationStack {
-                ItemContentCustomListSelector(contentID: item.itemContentID,
-                                              showView: $showCustomListView,
-                                              title: item.itemTitle, image: item.cardImageSmall)
-            }
-            .presentationDetents([.large])
-#if os(macOS)
-            .frame(width: 500, height: 600, alignment: .center)
-#else
-            .appTheme()
-            .appTint()
-#endif
+            ItemContentCustomListSelector(contentID: item.itemContentID,
+                                          showView: $showCustomListView,
+                                          title: item.itemTitle, image: item.posterImageMedium)
         }
         .accessibilityLabel(Text(item.itemTitle))
     }

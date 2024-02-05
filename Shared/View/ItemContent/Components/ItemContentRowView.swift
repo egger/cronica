@@ -50,11 +50,6 @@ struct ItemContentRowView: View {
 						Image(systemName: "rectangle.fill.badge.checkmark")
 							.foregroundColor(.white)
 					}
-					//                    else if isInWatchlist {
-					//                        Color.black.opacity(0.5)
-					//                        Image(systemName: "checkmark.circle.fill")
-					//                            .foregroundColor(.white)
-					//                    }
 				}
 				.frame(width: DrawingConstants.imageWidth,
 					   height: DrawingConstants.imageHeight)
@@ -100,19 +95,10 @@ struct ItemContentRowView: View {
                 ReviewView(id: item.itemContentID, showView: $showNote)
 			}
 			.sheet(isPresented: $showCustomListView) {
-				NavigationStack {
-					ItemContentCustomListSelector(contentID: item.itemContentID,
-												  showView: $showCustomListView,
-												  title: item.itemTitle,
-												  image: item.cardImageSmall)
-				}
-				.presentationDetents([.large])
-#if os(macOS)
-				.frame(width: 500, height: 600, alignment: .center)
-#else
-				.appTheme()
-				.appTint()
-#endif
+                ItemContentCustomListSelector(contentID: item.itemContentID,
+                                              showView: $showCustomListView,
+                                              title: item.itemTitle,
+                                              image: item.posterImageMedium)
 			}
 		}
 	}
