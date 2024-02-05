@@ -17,7 +17,7 @@ enum SmartFiltersTypes: String, Identifiable, Hashable, CaseIterable {
         case .released:
             return NSLocalizedString("Released", comment: "")
         case .production:
-            return NSLocalizedString("In Production", comment: "")
+            return NSLocalizedString("Upcoming", comment: "")
         case .watched:
             return NSLocalizedString("Watched", comment: "")
         case .favorites:
@@ -29,7 +29,7 @@ enum SmartFiltersTypes: String, Identifiable, Hashable, CaseIterable {
         case .watching:
             return NSLocalizedString("Watching", comment: "")
         case .notWatched:
-            return NSLocalizedString("Not Watched", comment: "")
+            return NSLocalizedString("Unwatched", comment: "")
         }
     }
 }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 /// A rectangular shape for displaying Person images in Search, it is currently used
 /// for displaying people in Search for macOS. This is a simpler view from the Cast List.
@@ -18,7 +18,7 @@ struct PersonSearchImage: View {
 #endif
     var body: some View {
         VStack(alignment: .leading) {
-            image
+            PersonSearchImageView(item: item)
 #if os(tvOS) || os(macOS)
             HStack {
                 Text(item.itemTitle)
@@ -46,23 +46,45 @@ struct PersonSearchImage: View {
 #endif
     }
     
-    private var image: some View {
+    
+}
+
+private struct DrawingConstants {
+#if os(tvOS)
+    static let posterWidth: CGFloat = 260
+    static let posterHeight: CGFloat = 380
+#else
+    static let posterWidth: CGFloat = 160
+    static let posterHeight: CGFloat = 240
+#endif
+    static let posterRadius: CGFloat = 8
+    static let shadowRadius: CGFloat = 2.5
+}
+
+private struct PersonSearchImageView: View {
+    let item: SearchItemContent
+    var body: some View {
         NavigationLink(value: item) {
-            WebImage(url: item.itemImage, options: .highPriority)
-                .resizable()
-                .placeholder { placeholder }
-                .aspectRatio(contentMode: .fill)
-                .transition(.opacity)
-                .frame(width: DrawingConstants.posterWidth,
-                       height: DrawingConstants.posterHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
-                                            style: .continuous))
-                .shadow(radius: DrawingConstants.shadowRadius)
-                .padding(.zero)
+            LazyImage(url: item.itemImage) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    placeholder
+                }
+            }
+            .transition(.opacity)
+            .frame(width: DrawingConstants.posterWidth,
+                   height: DrawingConstants.posterHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.posterRadius,
+                                        style: .continuous))
+            .shadow(radius: DrawingConstants.shadowRadius)
+            .padding(.zero)
 #if os(macOS) || os(iOS)
-                .contextMenu { ShareLink(item: item.itemSearchURL) }
+            .contextMenu { ShareLink(item: item.itemSearchURL) }
 #elseif os(tvOS)
-                .buttonStyle(.card)
+            .buttonStyle(.card)
 #endif
         }
     }
@@ -81,16 +103,4 @@ struct PersonSearchImage: View {
         .shadow(radius: DrawingConstants.shadowRadius)
         .padding(.zero)
     }
-}
-
-private struct DrawingConstants {
-#if os(tvOS)
-    static let posterWidth: CGFloat = 260
-    static let posterHeight: CGFloat = 380
-#else
-    static let posterWidth: CGFloat = 160
-    static let posterHeight: CGFloat = 240
-#endif
-    static let posterRadius: CGFloat = 8
-    static let shadowRadius: CGFloat = 2.5
 }

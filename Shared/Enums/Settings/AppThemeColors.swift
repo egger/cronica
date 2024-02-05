@@ -26,46 +26,61 @@ enum AppThemeColors: Int, Identifiable, CaseIterable {
     case roseGold = 14
     case turquoise = 15
     case lavender = 16
+    case cherry = 17
+    case skyBlue = 18
+    case goldenrod = 19
+    case coral = 20
+    case turquoiseBlue = 21
     var localizableName: String {
         switch self {
-        case .blue: return NSLocalizedString("appThemeColorsBlue", comment: "")
-        case .red: return NSLocalizedString("appThemeColorsRed", comment: "")
-        case .green: return NSLocalizedString("appThemeColorsGreen", comment: "")
-        case .brown: return NSLocalizedString("appThemeColorsBrown", comment: "")
-        case .cyan: return NSLocalizedString("appThemeColorsCyan", comment: "")
-        case .gray: return NSLocalizedString("appThemeColorsGray", comment: "")
-        case .indigo: return NSLocalizedString("appThemeColorsIndigo", comment: "")
-        case .mint: return NSLocalizedString("appThemeColorsMint", comment: "")
-        case .orange: return NSLocalizedString("appThemeColorsOrange", comment: "")
-        case .pink: return NSLocalizedString("appThemeColorsPink", comment: "")
-        case .purple: return NSLocalizedString("appThemeColorsPurple", comment: "")
-        case .teal: return NSLocalizedString("appThemeColorsTeal", comment: "")
-        case .yellow: return NSLocalizedString("appThemeColorsYellow", comment: "")
-        case .steel: return NSLocalizedString("appThemeColorSteel", comment: "")
-        case .roseGold: return NSLocalizedString("appThemeColorRoseGold", comment: "")
-        case .turquoise: return NSLocalizedString("appThemeColorTurquoise", comment: "")
-        case .lavender: return NSLocalizedString("appThemeColorLavender", comment: "")
+        case .blue:  NSLocalizedString("Blue", comment: "App Theme Color")
+        case .red:  NSLocalizedString("Red", comment: "App Theme Color")
+        case .green:  NSLocalizedString("Green", comment: "App Theme Color")
+        case .brown:  NSLocalizedString("Brown", comment: "App Theme Color")
+        case .cyan:  NSLocalizedString("Cyan", comment: "App Theme Color")
+        case .gray:  NSLocalizedString("Gray", comment: "App Theme Color")
+        case .indigo:  NSLocalizedString("Indigo", comment: "App Theme Color")
+        case .mint:  NSLocalizedString("Mint", comment: "App Theme Color")
+        case .orange:  NSLocalizedString("Orange", comment: "App Theme Color")
+        case .pink:  NSLocalizedString("Pink", comment: "App Theme Color")
+        case .purple:  NSLocalizedString("Purple", comment: "App Theme Color")
+        case .teal:  NSLocalizedString("Teal", comment: "App Theme Color")
+        case .yellow:  NSLocalizedString("Yellow", comment: "App Theme Color")
+        case .steel:  NSLocalizedString("Steel", comment: "App Theme Color")
+        case .roseGold:  NSLocalizedString("Rose Gold", comment: "App Theme Color")
+        case .turquoise:  NSLocalizedString("Turquoise", comment: "App Theme Color")
+        case .lavender:  NSLocalizedString("Lavender", comment: "App Theme Color")
+        case .cherry:  NSLocalizedString("Cherry", comment: "App Theme Color")
+        case .skyBlue: NSLocalizedString("Sky Blue", comment: "App Theme Color")
+        case .goldenrod: NSLocalizedString("Goldenrod", comment: "App Theme Color")
+        case .coral: NSLocalizedString("Coral", comment: "App Theme Color")
+        case .turquoiseBlue: NSLocalizedString("Turquoise Blue", comment: "App Theme Color")
         }
     }
     var color: Color {
         switch self {
-        case .blue: return .blue
-        case .red: return .red
-        case .green: return .green
-        case .brown: return .brown
-        case .cyan: return .cyan
-        case .gray: return .gray
-        case .indigo: return .indigo
-        case .mint: return .mint
-        case .orange: return .orange
-        case .pink: return .pink
-        case .purple: return .purple
-        case .teal: return .teal
-        case .yellow: return .yellow
-        case .steel: return Color(red: 0.57, green: 0.64, blue: 0.69)
-        case .roseGold: return Color(red: 0.91, green: 0.71, blue: 0.71)
-        case .turquoise: return Color(red: 0.0, green: 0.78, blue: 0.67)
-        case .lavender: return Color(red: 0.69, green: 0.49, blue: 0.86)
+        case .blue: .blue
+        case .red: .red
+        case .green: .green
+        case .brown: .brown
+        case .cyan: .cyan
+        case .gray: .gray
+        case .indigo: .indigo
+        case .mint: .mint
+        case .orange: .orange
+        case .pink: .pink
+        case .purple: .purple
+        case .teal: .teal
+        case .yellow: .yellow
+        case .steel: Color(red: 0.57, green: 0.64, blue: 0.69)
+        case .roseGold: Color(red: 0.91, green: 0.71, blue: 0.71)
+        case .turquoise: Color(red: 0.0, green: 0.78, blue: 0.67)
+        case .lavender: Color(red: 0.69, green: 0.49, blue: 0.86)
+        case .cherry: Color(red: 0.8, green: 0.12, blue: 0.24)
+        case .skyBlue: Color(red: 0.53, green: 0.81, blue: 0.98)
+        case .goldenrod: Color(red: 0.85, green: 0.65, blue: 0.13)
+        case .coral: Color(red: 1.0, green: 0.5, blue: 0.31)
+        case .turquoiseBlue: Color(red: 0.0, green: 0.73, blue: 0.83)
         }
     }
 }

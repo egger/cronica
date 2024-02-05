@@ -23,11 +23,11 @@ enum AppTheme: String, CaseIterable, Identifiable {
     var localizableName: String {
         switch self {
         case .system:
-            return NSLocalizedString("appThemeSystem", comment: "")
+            return NSLocalizedString("System", comment: "")
         case .light:
-            return NSLocalizedString("appThemeLight", comment: "")
+            return NSLocalizedString("Light", comment: "")
         case .dark:
-            return NSLocalizedString("appThemeDark", comment: "")
+            return NSLocalizedString("Dark", comment: "")
         }
     }
 }

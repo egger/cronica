@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 #if os(iOS) || os(macOS)
 struct TrailerListView: View {
@@ -15,7 +14,7 @@ struct TrailerListView: View {
     var body: some View {
         if !trailers.isEmpty {
             VStack {
-                TitleView(title: "Trailers")
+                TitleView(title: NSLocalizedString("Trailers", comment: ""))
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(trailers) { trailer in

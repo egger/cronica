@@ -39,6 +39,8 @@ struct CronicaApp: App {
             ContentView()
 #if os(macOS)
                 .frame(minWidth: 1000, minHeight: 600)
+#elseif os(visionOS)
+                .frame(minWidth: 800)
 #endif
                 .environment(\.managedObjectContext, persistence.container.viewContext)
 #if os(iOS)
@@ -113,7 +115,7 @@ struct CronicaApp: App {
                 }
 #if os(macOS)
                 .sheet(isPresented: $showFeedbackForm) {
-                    FeedbackComposerView(showFeedbackForm: $showFeedbackForm)
+                    FeedbackComposerView()
                         .frame(width: 400, height: 400, alignment: .center)
                 }
                 .sheet(isPresented: $showAbout) {
@@ -134,6 +136,9 @@ struct CronicaApp: App {
                 }
 #endif
         }
+#if os(visionOS)
+        .windowResizability(.contentMinSize)
+#endif
         .onChange(of: scene) { phase in
             if phase == .background {
                 scheduleAppRefresh()
@@ -142,17 +147,17 @@ struct CronicaApp: App {
 #if os(macOS)
         .commands {
             CommandGroup(after: .sidebar) {
-                Picker("appearanceRowStyleTitle", selection: $settings.watchlistStyle) {
+                Picker("Watchlist Style", selection: $settings.watchlistStyle) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 }
-                Picker("appearanceSectionDetailsTitle", selection: $settings.sectionStyleType) {
+                Picker("Section Details Style", selection: $settings.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 }
-                Picker("appearanceHorizontalListsTitle", selection: $settings.listsDisplayType) {
+                Picker("Horizontal List Style", selection: $settings.listsDisplayType) {
                     ForEach(ItemContentListPreferredDisplayType.allCases) { item in
                         Text(item.title).tag(item)
                     }
@@ -166,7 +171,7 @@ struct CronicaApp: App {
             }
             
             CommandGroup(replacing: .appInfo) {
-                Button("aboutTitle") {
+                Button("About") {
                     showAbout.toggle()
                 }
             }

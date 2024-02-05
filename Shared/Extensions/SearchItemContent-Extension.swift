@@ -49,16 +49,6 @@ extension SearchItemContent {
 		}
 		return ""
 	}
-	var itemRating: String? {
-		if let voteAverage {
-			if voteAverage <= 0.9 {
-				return nil
-			} else {
-				return NSLocalizedString("\(voteAverage.rounded())/10", comment: "")
-			}
-		}
-		return nil
-	}
 	
 	// MARK: Double
 	var itemPopularity: Double {
@@ -208,13 +198,6 @@ extension SearchItemContent {
 	var originalItemTitle: String? {
 		if let originalTitle { return originalTitle }
 		if let originalName { return originalName }
-		return nil
-	}
-	
-	var itemInfoTVShow: String? {
-		if let numberOfSeasons, let numberOfEpisodes {
-			return NSLocalizedString("\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes", comment: "")
-		}
 		return nil
 	}
 	

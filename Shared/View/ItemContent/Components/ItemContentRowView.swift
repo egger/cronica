@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct ItemContentRowView: View {
 	let item: ItemContent
@@ -26,22 +26,25 @@ struct ItemContentRowView: View {
 		NavigationLink(value: item) {
 			HStack {
 				ZStack {
-					WebImage(url: item.cardImageSmall)
-						.placeholder {
-							ZStack {
-								Rectangle().fill(.gray.gradient)
-								Image(systemName: "popcorn.fill")
-									.foregroundColor(.white.opacity(0.8))
-							}
-							.frame(width: DrawingConstants.imageWidth,
-								   height: DrawingConstants.imageHeight)
-						}
-						.resizable()
-						.aspectRatio(contentMode: .fill)
-						.transition(.opacity)
-						.frame(width: DrawingConstants.imageWidth,
-							   height: DrawingConstants.imageHeight)
-						.shadow(radius: 2.5)
+                    LazyImage(url: item.cardImageSmall) { state in
+                        if let image = state.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } else {
+                            ZStack {
+                                Rectangle().fill(.gray.gradient)
+                                Image(systemName: "popcorn.fill")
+                                    .foregroundColor(.white.opacity(0.8))
+                            }
+                            .frame(width: DrawingConstants.imageWidth,
+                                   height: DrawingConstants.imageHeight)
+                        }
+                    }
+                    .transition(.opacity)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                    .shadow(radius: 2.5)
 					if isWatched {
 						Color.black.opacity(0.5)
 						Image(systemName: "rectangle.fill.badge.checkmark")

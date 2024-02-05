@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct ItemContentPosterView: View {
     let item: ItemContent
@@ -48,47 +48,25 @@ struct ItemContentPosterView: View {
     }
     
     private var image: some View {
-        WebImage(url: item.posterImageMedium, options: .highPriority)
-            .resizable()
-            .placeholder {
+        LazyImage(url: item.posterImageMedium) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
                 PosterPlaceholder(title: item.itemTitle, type: item.itemContentMedia)
             }
-            .aspectRatio(contentMode: .fill)
-            .overlay {
-                if isInWatchlist {
-                    VStack {
+        }
+        .overlay {
+            if isInWatchlist {
+                VStack {
+                    Spacer()
+                    HStack {
                         Spacer()
-                        HStack {
-                            Spacer()
 #if !os(tvOS)
-                            if !settings.isCompactUI {
-                                if isArchive {
-                                    Image(systemName: "archivebox.fill")
-                                        .imageScale(.small)
-                                        .foregroundColor(.white.opacity(0.9))
-                                        .padding([.vertical])
-#if !os(tvOS)
-                                        .padding(.trailing, 4)
-#else
-                                        .padding(.trailing, 2)
-                                        .font(.caption)
-#endif
-                                }
-                                if isPin {
-                                    Image(systemName: "pin.fill")
-                                        .imageScale(.small)
-                                        .foregroundColor(.white.opacity(0.9))
-                                        .padding([.vertical])
-#if !os(tvOS)
-                                        .padding(.trailing, 4)
-#else
-                                        .padding(.trailing, 2)
-                                        .font(.caption)
-#endif
-                                }
-                            }
-                            if isFavorite {
-                                Image(systemName: "suit.heart.fill")
+                        if !settings.isCompactUI {
+                            if isArchive {
+                                Image(systemName: "archivebox.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
@@ -99,9 +77,8 @@ struct ItemContentPosterView: View {
                                     .font(.caption)
 #endif
                             }
-#endif
-                            if isWatched {
-                                Image(systemName: "rectangle.badge.checkmark.fill")
+                            if isPin {
+                                Image(systemName: "pin.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
@@ -112,96 +89,122 @@ struct ItemContentPosterView: View {
                                     .font(.caption)
 #endif
                             }
-                            Image(systemName: "square.stack.fill")
+                        }
+                        if isFavorite {
+                            Image(systemName: "suit.heart.fill")
                                 .imageScale(.small)
                                 .foregroundColor(.white.opacity(0.9))
-                                .padding(.vertical)
+                                .padding([.vertical])
 #if !os(tvOS)
-                                .padding(.trailing)
+                                .padding(.trailing, 4)
 #else
-                                .padding(.horizontal)
+                                .padding(.trailing, 2)
                                 .font(.caption)
 #endif
                         }
-                        .background {
-                            if item.posterImageMedium != nil {
-                                Color.black.opacity(0.6)
-                                    .mask {
-                                        LinearGradient(colors:
-                                                        [Color.black,
-                                                         Color.black.opacity(0.924),
-                                                         Color.black.opacity(0.707),
-                                                         Color.black.opacity(0.383),
-                                                         Color.black.opacity(0)],
-                                                       startPoint: .bottom,
-                                                       endPoint: .top)
-                                    }
-                            }
+#endif
+                        if isWatched {
+                            Image(systemName: "rectangle.badge.checkmark.fill")
+                                .imageScale(.small)
+                                .foregroundColor(.white.opacity(0.9))
+                                .padding([.vertical])
+#if !os(tvOS)
+                                .padding(.trailing, 4)
+#else
+                                .padding(.trailing, 2)
+                                .font(.caption)
+#endif
+                        }
+                        Image(systemName: "square.stack.fill")
+                            .imageScale(.small)
+                            .foregroundColor(.white.opacity(0.9))
+                            .padding(.vertical)
+#if !os(tvOS)
+                            .padding(.trailing)
+#else
+                            .padding(.horizontal)
+                            .font(.caption)
+#endif
+                    }
+                    .background {
+                        if item.posterImageMedium != nil {
+                            Color.black.opacity(0.6)
+                                .mask {
+                                    LinearGradient(colors:
+                                                    [Color.black,
+                                                     Color.black.opacity(0.924),
+                                                     Color.black.opacity(0.707),
+                                                     Color.black.opacity(0.383),
+                                                     Color.black.opacity(0)],
+                                                   startPoint: .bottom,
+                                                   endPoint: .top)
+                                }
                         }
                     }
-                    .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth)
                 }
+                .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth)
             }
-            .transition(.opacity)
-            .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
-                   height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
-            .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
-                                        style: .continuous))
-            .shadow(radius: DrawingConstants.shadowRadius)
-            .padding(.zero)
-            .applyHoverEffect()
+        }
+        .transition(.opacity)
+        .frame(width: settings.isCompactUI ? DrawingConstants.compactPosterWidth : DrawingConstants.posterWidth,
+               height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
+        .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
+                                    style: .continuous))
+        .shadow(radius: DrawingConstants.shadowRadius)
+        .padding(.zero)
+        .applyHoverEffect()
 #if !os(tvOS)
-            .itemContentContextMenu(item: item,
-                                    isWatched: $isWatched,
-                                    showPopup: $showPopup,
-                                    isInWatchlist: $isInWatchlist,
-                                    showNote: $showNote,
-                                    showCustomList: $showCustomListView,
-                                    popupType: $popupType,
-                                    isFavorite: $isFavorite,
-                                    isPin: $isPin,
-                                    isArchive: $isArchive)
+        .itemContentContextMenu(item: item,
+                                isWatched: $isWatched,
+                                showPopup: $showPopup,
+                                isInWatchlist: $isInWatchlist,
+                                showNote: $showNote,
+                                showCustomList: $showCustomListView,
+                                popupType: $popupType,
+                                isFavorite: $isFavorite,
+                                isPin: $isPin,
+                                isArchive: $isArchive)
 #endif
-            .task {
-                withAnimation {
-                    isInWatchlist = context.isItemSaved(id: item.itemContentID)
-                    if isInWatchlist {
-                        isWatched = context.isMarkedAsWatched(id: item.itemContentID)
-                        isPin = context.isItemPinned(id: item.itemContentID)
-                        isFavorite = context.isMarkedAsFavorite(id: item.itemContentID)
-                        isArchive = context.isItemArchived(id: item.itemContentID)
-                    }
+        .task {
+            withAnimation {
+                isInWatchlist = context.isItemSaved(id: item.itemContentID)
+                if isInWatchlist {
+                    isWatched = context.isMarkedAsWatched(id: item.itemContentID)
+                    isPin = context.isItemPinned(id: item.itemContentID)
+                    isFavorite = context.isMarkedAsFavorite(id: item.itemContentID)
+                    isArchive = context.isItemArchived(id: item.itemContentID)
                 }
             }
-            .sheet(isPresented: $showNote) {
+        }
+        .sheet(isPresented: $showNote) {
 #if os(iOS) || os(macOS)
-                NavigationStack {
-                    ReviewView(id: item.itemContentID, showView: $showNote)
-                }
-                .presentationDetents([.large])
+            NavigationStack {
+                ReviewView(id: item.itemContentID, showView: $showNote)
+            }
+            .presentationDetents([.large])
 #if os(macOS)
-                .frame(width: 400, height: 400, alignment: .center)
+            .frame(width: 400, height: 400, alignment: .center)
 #elseif os(iOS)
-                .appTheme()
-                .appTint()
+            .appTheme()
+            .appTint()
 #endif
 #endif
+        }
+        .sheet(isPresented: $showCustomListView) {
+            NavigationStack {
+                ItemContentCustomListSelector(contentID: item.itemContentID,
+                                              showView: $showCustomListView,
+                                              title: item.itemTitle, image: item.cardImageSmall)
             }
-            .sheet(isPresented: $showCustomListView) {
-                NavigationStack {
-                    ItemContentCustomListSelector(contentID: item.itemContentID,
-                                                  showView: $showCustomListView,
-                                                  title: item.itemTitle, image: item.cardImageSmall)
-                }
-                .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
 #if os(macOS)
-                .frame(width: 500, height: 600, alignment: .center)
+            .frame(width: 500, height: 600, alignment: .center)
 #else
-                .appTheme()
-                .appTint()
+            .appTheme()
+            .appTint()
 #endif
-            }
+        }
     }
     
     private var compact: some View {

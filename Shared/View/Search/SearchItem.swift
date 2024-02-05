@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct SearchItem: View {
     let item: SearchItemContent
@@ -69,18 +69,7 @@ struct SearchItem: View {
     }
     
     private var image: some View {
-        WebImage(url: item.itemImage)
-            .resizable()
-            .placeholder {
-                ZStack {
-                    Rectangle().fill(.gray.gradient)
-                    Image(systemName: "popcorn.fill")
-                        .foregroundColor(.white.opacity(0.8))
-                }
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-            }
+        SearchItemContentImageView(imageUrl: item.itemImage)
             .overlay {
                 if isInWatchlist {
                     ZStack {
@@ -97,7 +86,6 @@ struct SearchItem: View {
                     }
                 }
             }
-            .aspectRatio(contentMode: .fill)
             .frame(width: DrawingConstants.imageWidth,
                    height: DrawingConstants.imageHeight)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
@@ -105,132 +93,91 @@ struct SearchItem: View {
     }
     
     private var profile: some View {
-        WebImage(url: item.itemImage)
-            .resizable()
-            .placeholder {
-                ZStack {
-                    Color.secondary
-                    Image(systemName: "person")
-                }
-                .frame(width: DrawingConstants.personImageWidth,
-                       height: DrawingConstants.personImageHeight)
-                .clipShape(Circle())
-            }
-            .aspectRatio(contentMode: .fill)
-            .transition(.opacity)
-            .frame(width: DrawingConstants.personImageWidth,
-                   height: DrawingConstants.personImageHeight)
-            .clipShape(Circle())
+        ProfileImageView(imageUrl: item.itemImage)
     }
 }
 
+
 struct ItemContentRow: View {
-	let item: ItemContent
-	private let persistence = PersistenceController.shared
-	@State private var isInWatchlist = false
-	@State private var isWatched = false
-	var body: some View {
-		HStack {
-			if item.media == .person {
+    let item: ItemContent
+    private let persistence = PersistenceController.shared
+    @State private var isInWatchlist = false
+    @State private var isWatched = false
+    var body: some View {
+        HStack {
+            if item.media == .person {
 #if os(watchOS) || os(macOS)
-				profile
+                profile
 #else
-				profile
-					.hoverEffect()
+                profile
+                    .hoverEffect()
 #endif
-			} else {
+            } else {
 #if os(watchOS) || os(macOS)
-				image
+                image
 #else
-				image
-					.hoverEffect()
+                image
+                    .hoverEffect()
 #endif
-			}
-			VStack(alignment: .leading) {
-				HStack {
-					Text(item.itemTitle)
-						.lineLimit(DrawingConstants.textLimit)
-				}
+            }
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(item.itemTitle)
+                        .lineLimit(DrawingConstants.textLimit)
+                }
 #if os(watchOS)
-				HStack {
-					Text(item.media.title)
-						.font(.caption)
-						.foregroundColor(.secondary)
-					Spacer()
-				}
+                HStack {
+                    Text(item.media.title)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
 #else
-				HStack {
-					Text(item.itemSearchDescription)
-						.font(.caption)
-						.foregroundColor(.secondary)
-					Spacer()
-				}
+                HStack {
+                    Text(item.itemSearchDescription)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
 #endif
-			}
-		}
-		.task {
-			isInWatchlist = persistence.isItemSaved(id: item.itemContentID)
-			if isInWatchlist {
-				isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
-			}
-		}
-		.accessibilityElement(children: .combine)
-	}
-	
-	private var image: some View {
-		WebImage(url: item.itemImage)
-			.resizable()
-			.placeholder {
-				ZStack {
-					Rectangle().fill(.gray.gradient)
-					Image(systemName: "popcorn.fill")
-						.foregroundColor(.white.opacity(0.8))
-				}
-				.frame(width: DrawingConstants.imageWidth,
-					   height: DrawingConstants.imageHeight)
-				.clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-			}
-			.overlay {
-				if isInWatchlist {
-					ZStack {
-						Color.black.opacity(0.5)
-						if isWatched {
-							Image(systemName: "rectangle.badge.checkmark.fill")
-								.foregroundColor(.white.opacity(0.8))
-								.padding()
-						} else {
-							Image(systemName: "square.stack.fill")
-								.foregroundColor(.white.opacity(0.8))
-								.padding()
-						}
-					}
-				}
-			}
-			.aspectRatio(contentMode: .fill)
-			.frame(width: DrawingConstants.imageWidth,
-				   height: DrawingConstants.imageHeight)
-			.clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
-			.transition(.opacity)
-	}
-	
-	private var profile: some View {
-		WebImage(url: item.itemImage)
-			.resizable()
-			.placeholder {
-				ZStack {
-					Color.secondary
-					Image(systemName: "person")
-				}
-				.frame(width: DrawingConstants.personImageWidth,
-					   height: DrawingConstants.personImageHeight)
-				.clipShape(Circle())
-			}
-			.aspectRatio(contentMode: .fill)
-			.transition(.opacity)
-			.frame(width: DrawingConstants.personImageWidth,
-				   height: DrawingConstants.personImageHeight)
-			.clipShape(Circle())
-	}
+            }
+        }
+        .task {
+            isInWatchlist = persistence.isItemSaved(id: item.itemContentID)
+            if isInWatchlist {
+                isWatched = persistence.isMarkedAsWatched(id: item.itemContentID)
+            }
+        }
+        .accessibilityElement(children: .combine)
+    }
+    
+    private var image: some View {
+        SearchItemContentImageView(imageUrl: item.itemImage)
+            .overlay {
+                if isInWatchlist {
+                    ZStack {
+                        Color.black.opacity(0.5)
+                        if isWatched {
+                            Image(systemName: "rectangle.badge.checkmark.fill")
+                                .foregroundColor(.white.opacity(0.8))
+                                .padding()
+                        } else {
+                            Image(systemName: "square.stack.fill")
+                                .foregroundColor(.white.opacity(0.8))
+                                .padding()
+                        }
+                    }
+                }
+            }
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+            .transition(.opacity)
+    }
+    
+    private var profile: some View {
+        ProfileImageView(imageUrl: item.itemImage)
+    }
 }
 
 private struct DrawingConstants {
@@ -244,4 +191,52 @@ private struct DrawingConstants {
 #endif
     static let personImageWidth: CGFloat = 60
     static let personImageHeight: CGFloat = 60
+}
+
+private struct SearchItemContentImageView: View {
+    let imageUrl: URL?
+    var body: some View {
+        LazyImage(url: imageUrl) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    Image(systemName: "popcorn.fill")
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+            }
+        }
+        
+    }
+}
+
+private struct ProfileImageView: View {
+    let imageUrl: URL?
+    var body: some View {
+        LazyImage(url: imageUrl) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                ZStack {
+                    Color.secondary
+                    Image(systemName: "person")
+                }
+                .frame(width: DrawingConstants.personImageWidth,
+                       height: DrawingConstants.personImageHeight)
+                .clipShape(Circle())
+            }
+        }
+        .transition(.opacity)
+        .frame(width: DrawingConstants.personImageWidth,
+               height: DrawingConstants.personImageHeight)
+        .clipShape(Circle())
+    }
 }

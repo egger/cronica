@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 struct WatchlistSectionDetails: View {
     var title = "Upcoming"
     let items: [WatchlistItem]
@@ -81,10 +81,10 @@ struct WatchlistSectionDetails: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+                Label("Display Style", systemImage: "circle.grid.2x2")
             }
         } label: {
-            Label("sectionStyleTypePicker", systemImage: "circle.grid.2x2")
+            Label("Display Style", systemImage: "circle.grid.2x2")
                 .labelStyle(.iconOnly)
         }
     }
@@ -92,12 +92,12 @@ struct WatchlistSectionDetails: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let columns = [GridItem(.adaptive(minimum: 240))]
 #else
     static let columns = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160))]
 #endif
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
 #elseif os(iOS)
     static let posterColumns  = [GridItem(.adaptive(minimum: 160))]

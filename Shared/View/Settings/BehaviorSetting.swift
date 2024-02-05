@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 20/12/22.
 //
 
-import SwiftUI
+import SwiftUI 
 
 struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
@@ -19,51 +19,18 @@ struct BehaviorSetting: View {
             singleTapGesture
 #endif
             otherOptions
-            
-            Section {
+
 #if os(iOS)
-                Toggle(isOn: $store.hapticFeedback) {
-                    Text("hapticFeedbackTitle")
-                }
-#endif
-                
-            }
-#if !os(tvOS)
             Section {
-                Toggle(isOn: $store.markEpisodeWatchedOnTap) {
-                    Text("behaviorEpisodeTitle")
+
+                Toggle(isOn: $store.hapticFeedback) {
+                    Text("Haptic Feedback")
                 }
-                Toggle(isOn: $store.preferCoverOnUpNext) {
-                    Text("Prefer Series Cover instead of Episode Thumbnail on Up Next")
-                }
-                Toggle(isOn: $store.hideEpisodesTitles) {
-                    Text("Hide Titles from Unwatched Episodes")
-                    Text("To avoid potential spoilers, you can hide titles and synopsis from unwatched episodes.")
-                }
-                Toggle(isOn: $store.hideEpisodesThumbnails) {
-                    Text("Hide Thumbnails from Unwatched Episodes")
-                    Text("To avoid potential spoilers, you can hide thumbnails from unwatched episodes.")
-                }
-                
             }
 #endif
-            
-            Section("Watchlist") {
-#if !os(tvOS)
-                Toggle("openCustomListSelectorWhenAdding", isOn: $store.openListSelectorOnAdding)
-#endif
-                Toggle("removeFromPinOnWatchedTitle", isOn: $store.removeFromPinOnWatched)
-                Toggle("showConfirmationOnRemovingItem", isOn: $store.showRemoveConfirmation)
-            }
             
 #if !os(tvOS)
             shareOptions
-            
-#if os(macOS)
-            Section {
-                Toggle("Show Menu Bar App", isOn: $store.showMenuBarApp)
-            }
-#endif
             
             Section {
                 Toggle(isOn: $store.disableSearchFilter) {
@@ -74,7 +41,7 @@ struct BehaviorSetting: View {
 #endif
             
         }
-        .navigationTitle("behaviorTitle")
+        .navigationTitle("Behavior")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
@@ -87,12 +54,12 @@ struct BehaviorSetting: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Text("behaviorDoubleTapTitle")
-                Text("behaviorDoubleTapSubtitle")
+                Text("Double Tap On Cover/Poster")
+                Text("Choose what function to perform when double tap the cover/poster image.")
             }
             .tint(.secondary)
         } header: {
-            Text("behaviorGestureTitle")
+            Text("Gestures")
         }
     }
     
@@ -103,14 +70,14 @@ struct BehaviorSetting: View {
                     Text(item.title).tag(item)
                 }
             } label: {
-                Text("shareLinkPreference")
+                Text("Sharable Link")
             }
             .tint(.secondary)
         } header: {
             Text("Beta")
         } footer: {
             HStack {
-                Text("shareLinkPreferenceSubtitle")
+                Text("You can choose to share using a Cronica link that will allow you to open the application.\nPlease note that not all content can be shared with a Cronica link, the application will always use TMDB links if necessary.")
                 Spacer()
             }
         }
@@ -120,13 +87,13 @@ struct BehaviorSetting: View {
         Section {
 #if os(iOS)
             if UIDevice.isIPhone {
-                Toggle("enablePreferredLaunchScreen", isOn: $store.isPreferredLaunchScreenEnabled)
+                Toggle("Enable Preferred Launch Screen", isOn: $store.isPreferredLaunchScreenEnabled)
                 Picker(selection: $store.preferredLaunchScreen) {
                     ForEach(Screens.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    Text("preferredLaunchScreen")
+                    Text("Preferred Launch Screen")
                 }
                 .disabled(!store.isPreferredLaunchScreenEnabled)
             }
@@ -136,35 +103,35 @@ struct BehaviorSetting: View {
     
     private var swipeGesture: some View {
         Section {
-            Picker("behaviorPrimaryLeftGesture", selection: $store.primaryLeftSwipe) {
+            Picker("Primary Left Gesture", selection: $store.primaryLeftSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
             .tint(.secondary)
-            Picker("behaviorSecondaryLeftGesture", selection: $store.secondaryLeftSwipe) {
+            Picker("Secondary Left Gesture", selection: $store.secondaryLeftSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
             .tint(.secondary)
-            Picker("behaviorPrimaryRightGesture", selection: $store.primaryRightSwipe) {
+            Picker("Primary Right Gesture", selection: $store.primaryRightSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
             .tint(.secondary)
-            Picker("behaviorSecondaryRightGesture", selection: $store.secondaryRightSwipe) {
+            Picker("Secondary Right Gesture", selection: $store.secondaryRightSwipe) {
                 ForEach(SwipeGestureOptions.allCases) {
                     Text($0.localizableName).tag($0)
                 }
             }
             .tint(.secondary)
             Toggle(isOn: $store.allowFullSwipe) {
-                Text("behaviorAllowFullSwipeTitle")
-                Text("behaviorAllowFullSwipeSubtitle")
+                Text("Allow Full Swipe")
+                Text("Full Swipe will activate the primary action")
             }
-            Button("resetToDefault") {
+            Button("Reset to Default") {
                 store.primaryLeftSwipe = .markWatch
                 store.secondaryLeftSwipe = .markFavorite
                 store.primaryRightSwipe = .delete
@@ -172,14 +139,14 @@ struct BehaviorSetting: View {
                 store.allowFullSwipe = false
             }
         } header: {
-            Text("behaviorSwipeTitle")
+            Text("Swipe Gestures")
         }
     }
     
     private var singleTapGesture: some View {
         Section {
             Toggle(isOn: $store.openInYouTube) {
-                Text("behaviorYouTubeTitle")
+                Text("Open Trailers in YouTube")
             }
         }
     }

@@ -14,7 +14,7 @@ class NotificationManager: ObservableObject {
     private init() { }
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .provisional, .badge]) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .provisional]) { granted, error in
             self.fetchNotificationSettings()
             completion(granted)
         }

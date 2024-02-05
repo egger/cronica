@@ -9,7 +9,6 @@ import SwiftUI
 
 struct KeywordSectionView: View {
     let keyword: CombinedKeywords
-    
     // States
     @StateObject private var settings = SettingsStore.shared
     @State private var showPopup = false
@@ -20,7 +19,6 @@ struct KeywordSectionView: View {
     @State private var isLoaded = false
     @State private var startPagination = false
     @State private var endPagination = false
-    
     // Network service
     private let network = NetworkService.shared
     var body: some View {
@@ -62,14 +60,11 @@ struct KeywordSectionView: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    sortButton
-                    styleOptions
-                }
-                .unredacted()
-                .disabled(!isLoaded)
+                sortButton
+                    .unredacted()
+                    .disabled(!isLoaded)
             }
-            #elseif os(macOS)
+#elseif os(macOS) || os(visionOS)
             ToolbarItem {
                 sortButton
                     .unredacted()
@@ -96,18 +91,6 @@ struct KeywordSectionView: View {
                   systemImage: "arrow.up.arrow.down.circle")
         }
         .labelStyle(.iconOnly)
-    }
-    
-    private var styleOptions: some View {
-        Picker("sectionStyleTypePicker",
-               systemImage: "circle.grid.2x2",
-               selection: $settings.sectionStyleType) {
-            ForEach(SectionDetailsPreferredStyle.allCases) { item in
-                Text(item.title).tag(item)
-            }
-        }
-        .labelStyle(.iconOnly)
-        .pickerStyle(.menu)
     }
     
     private var listStyle: some View {
@@ -167,13 +150,12 @@ struct KeywordSectionView: View {
                         .onAppear(perform: loadMoreOnAppear)
                 }
             }
-        }
-                  .padding(.all, settings.isCompactUI ? 10 : nil)
+        }.padding(.all, settings.isCompactUI ? 10 : nil)
     }
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: 240))]
 #elseif os(tvOS)
     static let columns: [GridItem] = [GridItem(.adaptive(minimum: 420))]

@@ -23,7 +23,7 @@ enum Icon: String, CaseIterable, Identifiable {
     var description: String {
         switch self {
         case .primary:
-            return NSLocalizedString("Ticket", comment: "")
+            return NSLocalizedString("Modern", comment: "")
         case .ticket:
             return NSLocalizedString("Classical", comment: "")
         }

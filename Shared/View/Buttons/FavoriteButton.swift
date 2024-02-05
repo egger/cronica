@@ -13,7 +13,7 @@ struct FavoriteButton: View {
     @Binding var popupType: ActionPopupItems?
     @Binding var showPopup: Bool
     var body: some View {
-        Button(isFavorite ? "Remove from Favorites" : "Mark as Favorite",
+        Button(isFavorite ? "Unfavorite" : "Favorite",
                systemImage: isFavorite ? "heart.slash.fill" : "heart",
                action: updateFavorite)
     }

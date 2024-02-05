@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct EpisodeRow: View {
     let episode: Episode
@@ -16,8 +16,12 @@ struct EpisodeRow: View {
     @State private var isWatched: Bool = false
     var body: some View {
         HStack {
-            WebImage(url: episode.itemImageMedium)
-                .placeholder {
+            LazyImage(url: episode.itemImageMedium) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
                     ZStack {
                         Rectangle().fill(.secondary)
                         Image(systemName: "tv")
@@ -25,31 +29,30 @@ struct EpisodeRow: View {
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                 }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .transition(.opacity)
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(
-                    RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                     style: .continuous)
-                )
-                .overlay {
-                    if isWatched {
-                        ZStack {
-                            Color.black.opacity(0.6)
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.white)
-                        }
-                        .clipShape(
-                            RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                             style: .continuous)
-                        )
-                        .frame(width: DrawingConstants.imageWidth,
-                               height: DrawingConstants.imageHeight)
+            }
+            .transition(.opacity)
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .clipShape(
+                RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                 style: .continuous)
+            )
+            .overlay {
+                if isWatched {
+                    ZStack {
+                        Color.black.opacity(0.6)
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.white)
                     }
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                         style: .continuous)
+                    )
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
                 }
-                .padding(.trailing)
+            }
+            .padding(.trailing)
             VStack(alignment: .leading) {
                 Text(episode.itemTitle)
                     .lineLimit(DrawingConstants.lineLimit)

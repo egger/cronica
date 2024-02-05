@@ -38,9 +38,7 @@ struct WatchlistCardSection: View {
                                 .font(.footnote)
                                 .textCase(.uppercase)
                             Spacer()
-                            let formatString = NSLocalizedString("items count", comment: "")
-                            let result = String(format: formatString, items.count)
-                            Text(result)
+                            Text("\(items.count) items")
                                 .foregroundColor(.secondary)
                                 .font(.footnote)
                                 .textCase(.uppercase)
@@ -51,13 +49,7 @@ struct WatchlistCardSection: View {
                 }.padding()
             }
         } else {
-            CenterHorizontalView {
-                Text("emptyList")
-                    .multilineTextAlignment(.center)
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                    .padding()
-            }
+            EmptyListView()
         }
     }
     
@@ -79,8 +71,11 @@ private struct DrawingConstants {
 #elseif os(tvOS)
     static let columns: CGFloat = 420
     static let spacing: CGFloat = 40
-#else
+#elseif os(iOS)
     static let columns: CGFloat = UIDevice.isIPad ? 240 : 160
+    static let spacing: CGFloat = 20
+#elseif os(visionOS)
+    static let columns: CGFloat = 240
     static let spacing: CGFloat = 20
 #endif
 }

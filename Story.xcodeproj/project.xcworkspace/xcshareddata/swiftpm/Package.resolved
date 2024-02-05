@@ -5,35 +5,26 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aptabase/aptabase-swift",
       "state" : {
-        "revision" : "f5f96f82595afc4aaef656f7ce42884a5155682a",
-        "version" : "0.3.4"
+        "revision" : "157685dcfcb6de75484c138f53039ef8a68dfb7d",
+        "version" : "0.3.6"
       }
     },
     {
-      "identity" : "sdwebimage",
+      "identity" : "nuke",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "location" : "https://github.com/kean/Nuke",
       "state" : {
-        "revision" : "fd1950de05a5ad77cb252fd88576c1e1809ee50d",
-        "version" : "5.18.4"
+        "revision" : "15fde63470d782c897816a74bdd516a907e33147",
+        "version" : "12.3.0"
       }
     },
     {
-      "identity" : "sdwebimageswiftui",
+      "identity" : "pow",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
+      "location" : "https://github.com/EmergeTools/Pow",
       "state" : {
-        "revision" : "5f025e54a03d3d33dff24d7a19331f446f00ed9d",
-        "version" : "2.2.4"
-      }
-    },
-    {
-      "identity" : "swiftclient",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/TelemetryDeck/SwiftClient",
-      "state" : {
-        "revision" : "98500be378267abaa072ed08c2caf7da6493489e",
-        "version" : "1.5.0"
+        "revision" : "cc014eba4b65f689cadc281ad925de5607f2adc9",
+        "version" : "1.0.3"
       }
     },
     {
@@ -41,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SvenTiigi/YouTubePlayerKit.git",
       "state" : {
-        "revision" : "94b5739d32f0108f1820091e6955d544a0363fad",
-        "version" : "1.5.4"
+        "revision" : "ca8f0cd89d63d6f5e5cb556b0dd30cd65632bc3a",
+        "version" : "1.7.0"
       }
     }
   ],

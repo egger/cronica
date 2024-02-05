@@ -25,7 +25,7 @@ struct FilmographyListView: View {
             if !filmography.isEmpty {
 #if os(watchOS)
                 VStack {
-                    TitleView(title: "Filmography")
+                    TitleView(title: NSLocalizedString("Filmography", comment: ""))
                     LazyVStack {
                         ForEach(filmography) { item in
                             NavigationLink(value: item) {
@@ -90,7 +90,7 @@ struct FilmographyListView: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let posterColumns: CGFloat = 160
     static let columns: CGFloat = 240
     static let spacing: CGFloat = 20

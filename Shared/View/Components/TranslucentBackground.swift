@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 @available(watchOS 10.0, *)
 struct TranslucentBackground: View {
@@ -15,18 +15,21 @@ struct TranslucentBackground: View {
     var body: some View {
         if !disableTranslucent && image != nil {
             ZStack {
-                WebImage(url: image)
-                    .resizable()
-                    .placeholder {
+                LazyImage(url: image) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
                         Rectangle()
                             .fill(.background)
                             .ignoresSafeArea()
                             .padding(.zero)
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .ignoresSafeArea()
-                    .padding(.zero)
-                    .transition(.opacity)
+                }
+                .ignoresSafeArea()
+                .padding(.zero)
+                .transition(.opacity)
 #if os(watchOS)
                 Rectangle()
                     .fill(.thickMaterial)

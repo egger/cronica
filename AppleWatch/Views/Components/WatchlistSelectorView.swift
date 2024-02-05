@@ -37,7 +37,7 @@ struct WatchlistSelectorView: View {
                             }
                         }
                     } header: {
-                        Text("defaultWatchlistSmartFilters")
+                        Text("Smart List Filters")
                     }
                     
                     if !lists.isEmpty {
@@ -57,7 +57,7 @@ struct WatchlistSelectorView: View {
                                 }
                             }
                         } header: {
-                            Text("yourLists")
+                            Text("Your Lists")
                         }
                     }
                     

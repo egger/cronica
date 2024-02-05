@@ -23,7 +23,7 @@ struct SearchView: View {
         VStack {
 #if os(iOS)
             listView
-#elseif os(tvOS) || os(macOS)
+#elseif os(tvOS) || os(macOS) || os(visionOS)
             posterView
 #endif
         }
@@ -80,7 +80,7 @@ struct SearchView: View {
                 .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         }
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         .searchable(text: $viewModel.query,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: Text("Movies, Shows, People"))
@@ -107,7 +107,7 @@ struct SearchView: View {
 #endif
     }
     
-#if !os(tvOS)
+#if os(iOS) || os(macOS) || os(visionOS)
     @ViewBuilder
     private var listView: some View {
         switch viewModel.stage {
@@ -161,7 +161,7 @@ struct SearchView: View {
     }
 #endif
     
-#if os(tvOS) || os(macOS)
+#if os(tvOS) || os(macOS) || os(visionOS)
     @ViewBuilder
     private var posterView: some View {
         switch viewModel.stage {
@@ -228,9 +228,9 @@ struct SearchView: View {
     @ViewBuilder
     private var failureView: some View {
         if #available(iOS 17, *) {
-            ContentUnavailableView("Search failed, try again later.", systemImage: "magnifyingglass").padding()
+            ContentUnavailableView("Try again later", systemImage: "magnifyingglass").padding()
         } else {
-            Text("Search failed, try again later")
+            Text("Try again later")
                 .multilineTextAlignment(.center)
                 .font(.callout)
                 .foregroundColor(.secondary)

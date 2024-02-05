@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
+#if !os(tvOS)
+import Pow
+#endif
 
 struct ItemContentDetails: View {
     var title: String
@@ -20,127 +23,973 @@ struct ItemContentDetails: View {
     @State private var showCustomList = false
     @State private var showUserNotes = false
     @State private var popupType: ActionPopupItems?
+    @State private var showReleaseDateInfo = false
+    @State private var animateGesture = false
+    @State private var animationImage = ""
+    @State private var showConfirmationPopup = false
+    
+    // MARK: View properties for sizeBasedPadMacView
+    @State private var isSideInfoPanelShowed = false
+    @State private var showInfoBox = false
+    @State private var showOverview = false
     var handleToolbar = false
+    
+    // MARK: View properties for sizeBasedTVView
+    @State private var hasFocused = false
+    @FocusState var isWatchlistInFocus: Bool
+    @FocusState var isWatchInFocus: Bool
+    @FocusState var isFavoriteInFocus: Bool
+    @FocusState var isMoreInFocus: Bool
+    @Namespace var tvOSActionNamespace
+    @FocusState var isWatchlistButtonFocused: Bool
+    
+    // MARK: Animation properties
+    @State private var animateFavorite = false
     var body: some View {
-        ZStack {
+        VStack {
             ScrollView {
-#if os(macOS)
-                ItemContentPadView(id: id, title: title, type: type,
-                                   showCustomList: $showCustomList,
-                                   popupType: $popupType, showPopup: $showPopup)
-                .environmentObject(viewModel)
-                .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
-                .toolbar {
-                    if handleToolbar {
-                        ToolbarItem(placement: .status) { toolbarRow }
-                    } else {
-                        ToolbarItem { toolbarRow }
-                    }
-                }
+#if os(macOS) || os(visionOS)
+                sizeBasedPadMacView
 #elseif os(iOS)
                 if UIDevice.isIPad {
-                    ItemContentPadView(id: id,
-                                       title: title,
-                                       type: type,
-                                       showCustomList: $showCustomList,
-                                       popupType: $popupType,
-                                       showPopup: $showPopup)
-                    .environmentObject(viewModel)
-                    .toolbar {
-                        ToolbarItem {
-                            HStack {
-                                if viewModel.isInWatchlist {
-                                    favoriteButton
-                                    archiveButton
-                                    pinButton
-                                    userNotesButton
-                                }
-                                shareButton
-                                moreMenu
-                            }
-                            .disabled(viewModel.isLoading ? true : false)
-                        }
-                    }
+                    sizeBasedPadMacView
                 } else {
-                    ItemContentPhoneView(title: title,
-                                         type: type,
-                                         id: id,
-                                         showPopup: $showPopup,
-                                         showCustomList: $showCustomList,
-                                         popupType: $popupType,
-                                         showReviewSheet: $showUserNotes)
-                    .environmentObject(viewModel)
-                    .toolbar {
-                        ToolbarItem {
-                            HStack {
-                                shareButton
-                                moreMenu
-                                
-                            }
-                            .disabled(viewModel.isLoading ? true : false)
-                        }
-                    }
+                    sizedBasedPhoneView
                 }
 #elseif os(tvOS)
-                ItemContentTVView(title: title, type: type, id: id)
-                    .environmentObject(viewModel)
+                sizeBasedTVView
 #endif
             }
-            .background {
-                TranslucentBackground(image: viewModel.showPoster ? viewModel.content?.posterImageLarge : viewModel.content?.cardImageLarge)
-            }
-            .task {
-                await viewModel.load(id: id, type: type)
-                viewModel.registerNotification()
-                viewModel.checkIfAdded()
-            }
-            .actionPopup(isShowing: $showPopup, for: popupType)
-            .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            .alert("Error", isPresented: $viewModel.showErrorAlert) {
-                Button("Cancel") { }
-                Button("Retry") { Task { await viewModel.load(id: id, type: type) } }
-            } message: {
-                Text(viewModel.errorMessage)
-            }
-            .sheet(isPresented: $showCustomList) {
-                NavigationStack {
-                    if let contentID = viewModel.content?.itemContentID {
-                        ItemContentCustomListSelector(contentID: contentID,
-                                                      showView: $showCustomList,
-                                                      title: title, image: viewModel.content?.cardImageSmall)
+        }
+#if !os(tvOS)
+        .toolbar {
+#if os(iOS)
+            if UIDevice.isIPad {
+                ToolbarItem {
+                    HStack {
+                        if viewModel.isInWatchlist {
+                            if type == .movie {
+                                favoriteButtonToolbar
+                            } else {
+                                watchButtonToolbar
+                            }
+                            archiveButtonToolbar
+                            pinButtonToolbar
+                            reviewButtonToolbar
+                        }
+                        shareButton
+                        moreMenu
                     }
+                    .disabled(viewModel.isLoading ? true : false)
                 }
-                .onDisappear {
-                    viewModel.checkListStatus()
+            } else {
+                ToolbarItem {
+                    HStack {
+                        shareButton
+                        moreMenu
+                    }
+                    .disabled(viewModel.isLoading ? true : false)
+                }
+            }
+#else
+            if handleToolbar {
+                ToolbarItem(placement: .status) { toolbarRow }
+            } else {
+                ToolbarItem { toolbarRow }
+            }
+#endif
+        }
+#endif
+        .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
+#if !os(visionOS)
+        .background {
+            TranslucentBackground(image: viewModel.showPoster ? viewModel.content?.posterImageLarge : viewModel.content?.cardImageLarge)
+        }
+#endif
+        .task {
+            await viewModel.load(id: id, type: type)
+            viewModel.registerNotification()
+            viewModel.checkIfAdded()
+        }
+        .actionPopup(isShowing: $showPopup, for: popupType)
+        .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        .alert("Error", isPresented: $viewModel.showErrorAlert) {
+            Button("Cancel") { }
+            Button("Retry") { Task { await viewModel.load(id: id, type: type) } }
+        } message: {
+            Text(viewModel.errorMessage)
+        }
+        .sheet(isPresented: $showCustomList) {
+            NavigationStack {
+                if let contentID = viewModel.content?.itemContentID {
+                    ItemContentCustomListSelector(contentID: contentID,
+                                                  showView: $showCustomList,
+                                                  title: title, image: viewModel.content?.cardImageSmall)
+                }
+            }
+            .onDisappear {
+                viewModel.checkListStatus()
+            }
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
+#if os(macOS)
+            .frame(width: 500, height: 600, alignment: .center)
+#elseif os(iOS)
+            .appTheme()
+            .appTint()
+#endif
+        }
+        .sheet(isPresented: $showUserNotes) {
+            if let contentID = viewModel.content?.itemContentID {
+                NavigationStack {
+                    ReviewView(id: contentID, showView: $showUserNotes)
                 }
                 .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
 #if os(macOS)
-                .frame(width: 500, height: 600, alignment: .center)
-#else
+                .frame(width: 500, height: 500, alignment: .center)
+#elseif os(iOS)
                 .appTheme()
                 .appTint()
 #endif
             }
-            .sheet(isPresented: $showUserNotes) {
-                if let contentID = viewModel.content?.itemContentID {
-                    NavigationStack {
-                        ReviewView(id: contentID, showView: $showUserNotes)
-                    }
-                    .presentationDetents([.large])
-#if os(macOS)
-                    .frame(width: 500, height: 500, alignment: .center)
-#else
-                    .appTheme()
-                    .appTint()
+        }
+        .sheet(isPresented: $showReleaseDateInfo) {
+            let productionRegion = viewModel.content?.productionCountries?.first?.iso31661 ?? "US"
+            DetailedReleaseDateView(item: viewModel.content?.releaseDates?.results,
+                                    productionRegion: productionRegion,
+                                    dismiss: $showReleaseDateInfo)
+        }
+#if os(tvOS)
+        .ignoresSafeArea(.all, edges: .horizontal)
 #endif
+    }
+    
+#if os(iOS)
+    private var sizedBasedPhoneView: some View {
+        VStack {
+            if viewModel.showPoster || store.usePostersAsCover {
+                poster
+            } else {
+                cover
+            }
+            
+            Text(title)
+                .multilineTextAlignment(.center)
+                .lineLimit(3)
+                .font(.title2)
+                .fontDesign(.rounded)
+                .fontWeight(.semibold)
+                .padding(.horizontal, 8)
+                .padding(.bottom, 4)
+                .unredacted()
+            if let genres = viewModel.content?.itemGenres, !genres.isEmpty {
+                Text(genres)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fontDesign(.rounded)
+            }
+            if let info = viewModel.content?.itemQuickInfo, !info.isEmpty {
+                Text(info)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fontDesign(.rounded)
+            }
+            
+            HStack {
+                Spacer()
+                if type == .movie {
+                    watchButton
+                } else {
+                    favoriteButton
+                }
+                watchlistButton
+                    .keyboardShortcut("l", modifiers: [.option])
+                    .padding(.horizontal)
+                listButton
+                Spacer()
+            }
+            .padding([.top, .horizontal])
+            
+            OverviewBoxView(overview: viewModel.content?.itemOverview,
+                            title: title).padding()
+            
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonListView(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
+                    .padding([.top, .horizontal], .zero)
+                    .padding(.bottom)
+            }
+            
+            WatchProvidersList(id: id, type: type)
+            
+            TrailerListView(trailers: viewModel.trailers)
+            
+            CastListView(credits: viewModel.credits)
+            
+            HorizontalItemContentListView(items: viewModel.recommendations,
+                                          title: NSLocalizedString("Recommendations", comment: ""),
+                                          showPopup: $showPopup,
+                                          popupType: $popupType,
+                                          displayAsCard: true)
+            
+            infoBox(item: viewModel.content, type: type).padding()
+            
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack { }
+            }
+        }
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
+        .actionPopup(isShowing: $showPopup, for: popupType)
+    }
+#endif
+    
+#if !os(tvOS)
+    private var sizeBasedPadMacView: some View {
+        VStack {
+            
+            // Header
+            HStack {
+                poster
+                
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .fontWeight(.semibold)
+                        .font(.title)
+                        .padding(.bottom)
+                    HStack {
+                        Text(viewModel.content?.itemOverview ?? "")
+                            .lineLimit(10)
+                            .onTapGesture {
+                                showOverview.toggle()
+                            }
+                        Spacer()
+                    }
+                    .frame(maxWidth: 460)
+                    .padding(.bottom)
+                    .popover(isPresented: $showOverview) {
+                        if let overview = viewModel.content?.itemOverview {
+                            VStack {
+                                ScrollView {
+                                    Text(overview)
+                                        .padding()
+                                }
+                            }
+                            .frame(minWidth: 200, maxWidth: 400, minHeight: 200, maxHeight: 300, alignment: .center)
+                        }
+                    }
+                    
+                    // Actions
+                    HStack {
+                        watchlistButton
+                            .padding(.trailing)
+                        
+                        if viewModel.isInWatchlist {
+                            if type == .movie {
+                                watchButton
+                            } else {
+                                favoriteButton
+                            }
+                            
+                            listButton
+                                .padding(.horizontal)
+                        }
+                    }
+                }
+                .frame(width: 360)
+                
+                ViewThatFits {
+                    quickInformationBoxView
+                        .frame(width: 280)
+                        .padding(.horizontal)
+                        .onAppear {
+                            showInfoBox = false
+                            isSideInfoPanelShowed = true
+                        }
+                        .onDisappear {
+                            showInfoBox = true
+                            isSideInfoPanelShowed = false
+                        }
+                    VStack {
+                        Text("")
+                    }
+                }
+                
+                Spacer()
+            }
+            .padding(.leading)
+            
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonListView(showID: id, showTitle: title,
+                               numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium).padding(0)
+            }
+            
+#if !os(visionOS)
+            TrailerListView(trailers: viewModel.trailers)
+#endif
+            
+            WatchProvidersList(id: id, type: type)
+            
+            CastListView(credits: viewModel.credits)
+            
+            HorizontalItemContentListView(items: viewModel.recommendations,
+                                          title: NSLocalizedString("Recommendations", comment: ""),
+                                          showPopup: $showPopup,
+                                          popupType: $popupType,
+                                          displayAsCard: true)
+            if showInfoBox {
+                GroupBox("Information") {
+                    quickInformationBoxView
+                }
+                .padding()
+                
+            }
+        }
+#if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+#elseif os(macOS)
+        .navigationTitle(title)
+#endif
+        .task {
+            if !isSideInfoPanelShowed && !showInfoBox { showInfoBox = true }
+        }
+    }
+#endif
+    
+#if os(tvOS)
+    private var sizeBasedTVView: some View {
+        VStack {
+            HStack {
+                Spacer()
+                poster
+                
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .fontWeight(.semibold)
+                        .font(.title2)
+                        .padding(.bottom)
+                    Button {
+                        showOverview.toggle()
+                    } label: {
+                        HStack {
+                            Text(viewModel.content?.itemOverview ?? String())
+                                .font(.callout)
+                                .fontDesign(.rounded)
+                                .lineLimit(10)
+                                .onTapGesture {
+                                    showOverview.toggle()
+                                }
+                            Spacer()
+                        }
+                        .frame(maxWidth: 700)
+                        .padding(.bottom)
+                    }
+                    .buttonStyle(.plain)
+                    .sheet(isPresented: $showOverview) {
+                        NavigationStack {
+                            ScrollView {
+                                Text(viewModel.content?.itemOverview ?? "")
+                                    .padding()
+                            }
+                            .navigationTitle(title)
+                        }
+                    }
+                    
+                    // Actions row
+                    HStack {
+                        VStack {
+                            watchlistButton
+                                .buttonStyle(.borderedProminent)
+                                .prefersDefaultFocus(in: tvOSActionNamespace)
+                                .focused($isWatchlistButtonFocused)
+                            Text(viewModel.isInWatchlist ? "Remove" : "Add")
+                                .padding(.top, 2)
+                                .font(.caption)
+                                .lineLimit(1)
+                                .opacity(isWatchlistInFocus ? 1 : 0)
+                        }
+                        .focused($isWatchlistInFocus)
+                        
+                        // Watch button
+                        VStack {
+                            watchButton
+                            Text("Watch")
+                                .padding(.top, 2)
+                                .font(.caption)
+                                .lineLimit(1)
+#if os(tvOS)
+                                .opacity(isWatchInFocus ? 1 : 0)
+#endif
+                            
+                        }
+                        
+                        // Favorite button
+                        VStack {
+                            favoriteButton
+                            Text("Favorite")
+                                .padding(.top, 2)
+                                .font(.caption)
+                                .lineLimit(1)
+#if os(tvOS)
+                                .opacity(isFavoriteInFocus ? 1 : 0)
+#endif
+                        }
+                    }
+                }
+                .frame(width: 700)
+                
+                quickInformationBoxView
+                    .frame(width: 400)
+                    .padding(.trailing)
+                
+                Spacer()
+            }
+            
+            if let seasons = viewModel.content?.itemSeasons {
+                SeasonListView(
+                    showID: id,
+                    showTitle: title,
+                    numberOfSeasons: seasons,
+                    isInWatchlist: $viewModel.isInWatchlist,
+                    showCover: viewModel.content?.cardImageLarge
+                )
+            }
+            
+            HorizontalItemContentListView(items: viewModel.recommendations,
+                                          title: NSLocalizedString("Recommendations", comment: ""),
+                                          showPopup: $showPopup,
+                                          popupType: $popupType,
+                                          displayAsCard: true)
+            
+            CastListView(credits: viewModel.credits)
+                .padding(.bottom)
+        }
+        .onAppear(perform: setupInitialFocus)
+        .ignoresSafeArea(.all, edges: .horizontal)
+    }
+#endif
+    
+    private var poster: some View {
+        LazyImage(url: viewModel.content?.posterImageMedium) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                ZStack {
+                    Rectangle().fill(.gray.gradient)
+                    VStack {
+                        Image(systemName: "popcorn.fill")
+                            .font(.title)
+                            .fontWidth(.expanded)
+                            .foregroundColor(.white.opacity(0.8))
+                            .unredacted()
+                            .padding()
+                    }
+                    .frame(width: 220, height: 300)
+                    .padding()
                 }
             }
-            .actionPopup(isShowing: $showPopup, for: popupType)
-#if os(tvOS)
-            .ignoresSafeArea(.all, edges: .horizontal)
+        }
+        .overlay {
+            ZStack {
+                Rectangle().fill(.thinMaterial)
+                Image(systemName: animationImage)
+                    .symbolRenderingMode(.multicolor)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .scaleEffect(animateGesture ? 1.1 : 1)
+            }
+            .opacity(animateGesture ? 1 : 0)
+        }
+        
+        .frame(width: DrawingConstants.posterWidth, height: DrawingConstants.posterHeight)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .onTapGesture(count: 2) {
+            animate(for: store.gesture)
+            viewModel.update(store.gesture)
+        }
+        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+        .padding()
+        .accessibility(hidden: true)
+    }
+    
+#if os(iOS)
+    private var cover: some View {
+        HeroImage(url: viewModel.content?.cardImageLarge,
+                  title: title)
+        .overlay {
+            ZStack {
+                Rectangle().fill(.ultraThinMaterial)
+                Image(systemName: animationImage)
+                    .symbolRenderingMode(.multicolor)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .scaleEffect(animateGesture ? 1.1 : 1)
+            }
+            .opacity(animateGesture ? 1 : 0)
+        }
+        .frame(width: DrawingConstants.coverWidth, height: DrawingConstants.coverHeight)
+        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+        .padding(.top)
+        .padding(.bottom, 8)
+        .accessibilityElement(children: .combine)
+        .accessibility(hidden: true)
+        .onTapGesture(count: 2) {
+            animate(for: store.gesture)
+            viewModel.update(store.gesture)
+        }
+    }
+#endif
+    
+#if !os(tvOS)
+    @ViewBuilder
+    private func infoBox(item: ItemContent?, type: MediaType) -> some View {
+        GroupBox("Information") {
+            Section {
+                infoView(title: NSLocalizedString("Original Title", comment: ""),
+                         content: item?.originalItemTitle)
+                if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Overview")
+                                .font(.caption)
+                            Text("\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+                                .multilineTextAlignment(.leading)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                        .accessibilityElement(children: .combine)
+                        Spacer()
+                    }
+                    .padding([.horizontal, .top], 2)
+                }
+                infoView(title: NSLocalizedString("Run Time", comment: ""),
+                         content: item?.itemRuntime)
+                if type == .movie {
+                    if let theatricalStringDate = item?.itemTheatricalString {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("Release Date")
+                                        .font(.caption)
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                Text(theatricalStringDate)
+                                    .lineLimit(1)
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                            }
+                            .accessibilityElement(children: .combine)
+                            Spacer()
+                        }
+                        .padding([.horizontal, .top], 2)
+                        .onTapGesture {
+                            showReleaseDateInfo.toggle()
+                        }
+                    }
+                    
+                } else {
+                    infoView(title: NSLocalizedString("First Air Date",
+                                                      comment: ""),
+                             content: item?.itemFirstAirDate)
+                }
+                infoView(title: NSLocalizedString("Ratings Score", comment: ""),
+                         content: item?.itemRating)
+                infoView(title: NSLocalizedString("Status",
+                                                  comment: ""),
+                         content: item?.itemStatus.localizedTitle)
+                infoView(title: NSLocalizedString("Genres", comment: ""),
+                         content: item?.itemGenres)
+                infoView(title: NSLocalizedString("Region of Origin",
+                                                  comment: ""),
+                         content: item?.itemCountry)
+                if let companies = item?.itemCompanies, let company = item?.itemCompany {
+                    if !companies.isEmpty {
+                        NavigationLink(value: companies) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text("Production Companies")
+                                            .font(.caption)
+                                        Image(systemName: "chevron.right")
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Text(company)
+                                        .multilineTextAlignment(.leading)
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                }
+                                .accessibilityElement(children: .combine)
+                                Spacer()
+                            }
+                            .padding([.horizontal, .top], 2)
+                        }
+#if os(macOS)
+                        .buttonStyle(.link)
+#endif
+                    }
+                } else {
+                    infoView(title: NSLocalizedString("Production Company",
+                                                      comment: ""),
+                             content: item?.itemCompany)
+                }
+            }
+        }
+        .groupBoxStyle(TransparentGroupBox())
+    }
+#endif
+    
+    @ViewBuilder
+    private func infoView(title: String, content: String?) -> some View {
+        if let content, !content.isEmpty {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.caption)
+                    Text(content)
+                        .multilineTextAlignment(.leading)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                Spacer()
+            }
+            .padding([.horizontal, .top], 2)
+        } else {
+            EmptyView()
+        }
+    }
+}
+
+extension ItemContentDetails {
+    // MARK: Computed properties
+#if !os(tvOS)
+    private var cronicaUrl: URL? {
+        guard let item = viewModel.content else { return nil }
+        let encodedTitle = item.itemTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let posterPath = item.posterPath ?? String()
+        let encodedPoster = posterPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        return URL(string: "https://alexandremadeira.dev/cronica/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
+    }
+#endif
+    
+    // MARK: Action Buttons
+    private var watchlistButton: some View {
+        Button {
+            if viewModel.isInWatchlist {
+                if SettingsStore.shared.showRemoveConfirmation {
+                    showConfirmationPopup = true
+                } else {
+                    updateWatchlist()
+                }
+            } else {
+                HapticManager.shared.successHaptic()
+                updateWatchlist()
+            }
+        } label: {
+#if os(macOS)
+            Label(viewModel.isInWatchlist ? "Remove": "Add",
+                  systemImage: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+            .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                          value: viewModel.isInWatchlist)
+#else
+            VStack {
+                if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *) {
+                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                        .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                                      value: viewModel.isInWatchlist)
+                } else {
+                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                }
+                
+#if !os(tvOS)
+                Text(viewModel.isInWatchlist ? "Remove" : "Add")
+                    .lineLimit(1)
+                    .padding(.top, 2)
+                    .font(.caption)
+#endif
+            }
+#if !os(watchOS)
+            .padding(.vertical, 4)
+            .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
+#else
+            .padding(.vertical, 2)
+#endif
 #endif
         }
+        .buttonStyle(.borderedProminent)
+#if os(macOS)
+        .controlSize(.large)
+#elseif os(iOS)  || os(visionOS)
+        .controlSize(.small)
+        .applyHoverEffect()
+#endif
+        .disabled(viewModel.isLoading)
+#if os(iOS) || os(macOS) || os(watchOS)
+        .tint(viewModel.isInWatchlist ? .red.opacity(0.95) : store.appTheme.color)
+#endif
+#if os(iOS) || os(visionOS)
+        .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+#endif
+        .alert("Are You Sure?", isPresented: $showConfirmationPopup) {
+            Button("Confirm") { updateWatchlist() }
+            Button("Cancel") {  showConfirmationPopup = false }
+        }
+    }
+    
+    private var watchButton: some View {
+        Button {
+            viewModel.update(.watched)
+            resetPopupAnimation()
+            animatePopup(for: viewModel.isWatched ? .markedWatched : .removedWatched)
+        } label: {
+#if os(macOS)
+            Label("Watched",
+                  systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+            .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                          value: viewModel.isWatched)
+#else
+            VStack {
+                if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                      value: viewModel.isWatched)
+                } else {
+                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                }
+                
+#if !os(tvOS)
+                Text("Watched")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+#endif
+            }
+            .padding(.vertical, 4)
+            .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
+#endif
+        }
+#if !os(tvOS)
+        .keyboardShortcut("w", modifiers: [.option])
+        .controlSize(.small)
+#endif
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+#if !os(visionOS)
+        .tint(.primary)
+#endif
+#if os(iOS)
+        .applyHoverEffect()
+#elseif os(tvOS)
+        .focused($isWatchInFocus)
+#endif
+    }
+    
+    private var favoriteButton: some View {
+        Button {
+            viewModel.update(.favorite)
+            resetPopupAnimation()
+            if type == .movie {
+                animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+                withAnimation { showPopup = true }
+            }
+            if viewModel.isFavorite, type == .tvShow {
+                animateFavorite.toggle()
+            }
+        } label: {
+            VStack {
+                if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                        .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                      value: viewModel.isFavorite)
+#if !os(tvOS)
+                        .changeEffect(
+                            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(.red)
+                            }, value: animateFavorite)
+#endif
+                } else {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+#if !os(tvOS)
+                        .changeEffect(
+                            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(.red)
+                            }, value: animateFavorite)
+#endif
+                }
+#if !os(tvOS)
+                Text("Favorite")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+#endif
+            }
+            .padding(.vertical, 4)
+            .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
+        }
+#if !os(tvOS)
+        .keyboardShortcut("f", modifiers: [.option])
+        .controlSize(.small)
+#endif
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+#if !os(visionOS)
+        .tint(.primary)
+#endif
+#if os(iOS)
+        .applyHoverEffect()
+#elseif os(tvOS)
+        .focused($isFavoriteInFocus)
+#endif
+    }
+    
+    private var listButton: some View {
+        Button {
+            showCustomList.toggle()
+        } label: {
+            VStack {
+                Image(systemName: viewModel.isItemAddedToAnyList ? "rectangle.on.rectangle.angled.fill" : "rectangle.on.rectangle.angled")
+                Text("Lists")
+                    .padding(.top, 2)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 4)
+            .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
+        }
+#if !os(tvOS)
+        .controlSize(.small)
+#endif
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
+#if !os(visionOS)
+        .tint(.primary)
+#endif
+#if os(iOS)
+        .applyHoverEffect()
+#endif
+    }
+    
+#if !os(tvOS)
+    // MARK: Toolbar
+    @ViewBuilder
+    private var watchButtonToolbar: some View {
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isWatched ? "Unwatched" : "Watched",
+                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
+                viewModel.update(.watched)
+                animatePopup(for: viewModel.isWatched ? .markedWatched : .removedWatched)
+            }.symbolEffect(.bounce.down, value: viewModel.isWatched)
+        } else {
+            Button(viewModel.isWatched ? "Unwatched" : "Watched",
+                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
+                viewModel.update(.watched)
+                animatePopup(for: viewModel.isWatched ? .markedWatched : .removedWatched)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var favoriteButtonToolbar: some View {
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isFavorite ? "Unfavorite" : "Favorite",
+                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
+                viewModel.update(.favorite)
+                animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+            }.symbolEffect(.bounce.down, value: viewModel.isFavorite)
+        } else {
+            Button(viewModel.isFavorite ? "Unfavorite" : "Favorite",
+                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
+                viewModel.update(.favorite)
+                animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var pinButtonToolbar: some View {
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isPin ? "Unpin" : "Pin",
+                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
+                viewModel.update(.pin)
+                animatePopup(for: viewModel.isPin ? .markedPin : .removedPin)
+            }.symbolEffect(.bounce.down, value: viewModel.isPin)
+        } else {
+            Button(viewModel.isPin ? "Unpin" : "Pin",
+                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
+                viewModel.update(.pin)
+                animatePopup(for: viewModel.isPin ? .markedPin : .removedPin)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var archiveButtonToolbar: some View {
+        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
+            Button(viewModel.isArchive ? "Unarchive" : "Archive",
+                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
+                viewModel.update(.archive)
+                animatePopup(for: viewModel.isArchive ? .markedArchive : .removedArchive)
+            }.symbolEffect(.bounce.down, value: viewModel.isArchive)
+        } else {
+            Button(viewModel.isArchive ? "Unarchive" : "Archive",
+                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
+                viewModel.update(.archive)
+                animatePopup(for: viewModel.isArchive ? .markedArchive : .removedArchive)
+            }
+        }
+    }
+    
+    private var reviewButtonToolbar: some View {
+        Button("Review", systemImage: "note.text") { showUserNotes.toggle() }
+    }
+    
+    @ViewBuilder
+    private var shareButton: some View {
+        switch store.shareLinkPreference {
+        case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url) }
+        case .cronica: if let cronicaUrl {
+            ShareLink(item: cronicaUrl, message: Text(title))
+        }
+        }
+    }
+    
+    private var openInMenu: some View {
+        Menu("Open in",
+             systemImage: "ellipsis.circle") {
+            
+            if let homepage = viewModel.content?.homepage, let url = URL(string: homepage) {
+                Button("Official Website") {
+                    openUrl(for: url)
+                }
+            }
+            if viewModel.content?.hasIMDbUrl ?? false {
+                Button("IMDb") {
+                    guard let url = viewModel.content?.imdbUrl else { return }
+                    openUrl(for: url)
+                }
+            }
+            Button("The Movie Database") {
+                guard let url = viewModel.content?.itemURL else { return }
+                openUrl(for: url)
+            }
+        }
+#if os(visionOS)
+             .menuStyle(.button)
+             .buttonStyle(.bordered)
+#endif
     }
     
     private var toolbarRow: some View {
@@ -148,198 +997,254 @@ struct ItemContentDetails: View {
             shareButton
             if viewModel.isInWatchlist {
                 if type == .movie {
-                    favoriteButton
+                    favoriteButtonToolbar
                 } else {
-                    watchButton
+                    watchButtonToolbar
                 }
-                archiveButton
-                pinButton
-                userNotesButton
+                archiveButtonToolbar
+                pinButtonToolbar
+                reviewButtonToolbar
             }
-#if !os(tvOS)
             openInMenu
-#endif
         }
         .disabled(viewModel.isLoading ? true : false)
     }
     
-    private var addToCustomListButton: some View {
-        Button {
-            showCustomList.toggle()
-        } label: {
-            Label("addToCustomList", systemImage: "rectangle.on.rectangle.angled")
-        }
-    }
-    
-    @ViewBuilder
-    private var watchButton: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
-                viewModel.update(.watched)
-                animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
-            }
-                   .symbolEffect(.bounce.down, value: viewModel.isWatched)
-    #if os(iOS) || os(macOS)
-                   .keyboardShortcut("w", modifiers: [.option])
-    #endif
-        } else {
-            Button(viewModel.isWatched ? "Remove from Watched" : "Mark as Watched",
-                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
-                viewModel.update(.watched)
-                animate(for: viewModel.isWatched ? .markedWatched : .removedWatched)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var favoriteButton: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
-                viewModel.update(.favorite)
-                animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
-            }
-                   .symbolEffect(.bounce.down, value: viewModel.isFavorite)
-    #if os(iOS) || os(macOS)
-                   .keyboardShortcut("f", modifiers: [.option])
-    #endif
-        } else {
-            Button(viewModel.isFavorite ? "Remove from Favorites" : "Mark as Favorite",
-                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
-                viewModel.update(.favorite)
-                animate(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var archiveButton: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
-                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
-                viewModel.update(.archive)
-                animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
-            }.symbolEffect(.bounce.down, value: viewModel.isArchive)
-        } else {
-            Button(viewModel.isArchive ? "Remove from Archive" : "Archive Item",
-                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
-                viewModel.update(.archive)
-                animate(for: viewModel.isArchive ? .markedArchive : .removedArchive)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var pinButton: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
-                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
-                viewModel.update(.pin)
-                animate(for: viewModel.isPin ? .markedPin : .removedPin)
-            }.symbolEffect(.bounce.down, value: viewModel.isPin)
-        } else {
-            Button(viewModel.isPin ? "Unpin Item" : "Pin Item",
-                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
-                viewModel.update(.pin)
-                animate(for: viewModel.isPin ? .markedPin : .removedPin)
-            }
-        }
-    }
-    
-#if os(iOS) || os(macOS)
-    private var openInMenu: some View {
-        Menu("Open in",
-             systemImage: "ellipsis.circle") {
-            
-            if let homepage = viewModel.content?.homepage {
-                Button("Official Website") {
-                    guard let url = URL(string: homepage) else { return }
-#if os(iOS)
-                    UIApplication.shared.open(url)
-#else
-                    NSWorkspace.shared.open(url)
-#endif
-                }
-            }
-            if viewModel.content?.hasIMDbUrl ?? false {
-                Button("IMDb") {
-                    guard let url = viewModel.content?.imdbUrl else { return }
-#if os(iOS)
-                    UIApplication.shared.open(url)
-#else
-                    NSWorkspace.shared.open(url)
-#endif
-                }
-            }
-            Button("TMDb") {
-                guard let url = viewModel.content?.itemURL else { return }
-#if os(iOS)
-                UIApplication.shared.open(url)
-#else
-                NSWorkspace.shared.open(url)
-#endif
-            }
-        }
-    }
-#endif
-    
-#if os(iOS) || os(macOS)
+#if !os(macOS)
     private var moreMenu: some View {
-        Menu {
-#if os(iOS)
+        Menu("More Options", systemImage: "ellipsis.circle") {
+#if os(visionOS)
+            if viewModel.isInWatchlist {
+                if type == .movie {
+                    favoriteButtonToolbar
+                } else {
+                    watchButtonToolbar
+                }
+                archiveButtonToolbar
+                pinButtonToolbar
+                reviewButtonToolbar
+            }
+            openInMenu
+#else
             if UIDevice.isIPhone {
                 if viewModel.isInWatchlist {
                     if type == .movie {
-                        favoriteButton
+                        favoriteButtonToolbar
                     } else {
-                        watchButton
+                        watchButtonToolbar
                     }
-                    archiveButton
-                    pinButton
-                    userNotesButton
+                    archiveButtonToolbar
+                    pinButtonToolbar
+                    reviewButtonToolbar
                 }
             }
             openInMenu
 #endif
-        } label: {
-            Label("More Options", systemImage: "ellipsis.circle")
-                .labelStyle(.iconOnly)
+            
         }
+        .labelStyle(.iconOnly)
         .disabled(viewModel.isLoading ? true : false)
     }
 #endif
     
-    private var userNotesButton: some View {
-        Button("reviewTitle", systemImage: "note.text") { showUserNotes.toggle() }
+#endif
+    
+    // MARK: Information box
+    private var quickInformationBoxView: some View {
+        VStack(alignment: .leading) {
+            infoLabel(title: NSLocalizedString("Original Title",
+                                               comment: ""),
+                      content: viewModel.content?.originalItemTitle)
+            infoLabel(title: NSLocalizedString("Run Time", comment: ""),
+                      content: viewModel.content?.itemRuntime)
+            if let numberOfSeasons = viewModel.content?.numberOfSeasons, let numberOfEpisodes = viewModel.content?.numberOfEpisodes {
+                infoLabel(title: NSLocalizedString("Overview",
+                                                   comment: ""),
+                          content: "\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes")
+            }
+            if viewModel.content?.itemContentMedia == .movie {
+                if let theatricalStringDate = viewModel.content?.itemTheatricalString {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("Release Date")
+                                    .font(.caption)
+#if !os(tvOS)
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+#endif
+                            }
+                            Text(theatricalStringDate)
+                                .lineLimit(1)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                        .accessibilityElement(children: .combine)
+                    }
+                    .padding([.horizontal, .top], 2)
+                    .onTapGesture {
+                        showReleaseDateInfo.toggle()
+                    }
+                }
+                
+            } else {
+                infoLabel(title: NSLocalizedString("First Air Date",
+                                                   comment: ""),
+                          content: viewModel.content?.itemFirstAirDate)
+            }
+            infoLabel(title: NSLocalizedString("Region of Origin",
+                                               comment: ""),
+                      content: viewModel.content?.itemCountry)
+            infoLabel(title: NSLocalizedString("Genres", comment: ""),
+                      content: viewModel.content?.itemGenres)
+            if let companies = viewModel.content?.itemCompanies,
+               let company = viewModel.content?.itemCompany, !companies.isEmpty {
+                NavigationLink(value: companies) {
+                    companiesLabel(company: company)
+                }
+                .buttonStyle(.plain)
+            } else {
+                infoLabel(title: NSLocalizedString("Production Company",
+                                                   comment: ""),
+                          content: viewModel.content?.itemCompany)
+            }
+            infoLabel(title: NSLocalizedString("Status",
+                                               comment: ""),
+                      content: viewModel.content?.itemStatus.localizedTitle)
+        }
+        .sheet(isPresented: $showReleaseDateInfo) {
+            let productionRegion = viewModel.content?.productionCountries?.first?.iso31661 ?? "US"
+            DetailedReleaseDateView(item: viewModel.content?.releaseDates?.results, productionRegion: productionRegion,
+                                    dismiss: $showReleaseDateInfo)
+#if os(macOS)
+            .frame(width: 400, height: 300, alignment: .center)
+#else
+            .appTint()
+            .appTheme()
+#endif
+        }
+    }
+    
+    private func companiesLabel(company: String) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Production Companies")
+                        .font(.caption)
+#if !os(tvOS)
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+#endif
+                }
+                Text(company)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            .accessibilityElement(children: .combine)
+            Spacer()
+        }
+        .padding([.horizontal, .top], 2)
     }
     
     @ViewBuilder
-    private var shareButton: some View {
-#if os(iOS) || os(macOS)
-        switch store.shareLinkPreference {
-        case .tmdb: if let url = viewModel.content?.itemURL { ShareLink(item: url) }
-        case .cronica: if let cronicaUrl {
-            ShareLink(item: cronicaUrl, message: Text(title))
+    private func infoLabel(title: String, content: String?) -> some View {
+        if let content {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.caption)
+                    Text(content)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                Spacer()
+            }
+            .padding([.horizontal, .top], 2)
+        } else {
+            EmptyView()
         }
+    }
+    
+    // MARK: Functions
+    private func updateWatchlist() {
+        guard let item = viewModel.content else { return }
+        viewModel.updateWatchlist(with: item)
+        let settings = SettingsStore.shared
+        if settings.openListSelectorOnAdding && viewModel.isInWatchlist {
+            showCustomList.toggle()
         }
+    }
+    
+    private func resetPopupAnimation() {
+        if showPopup { showPopup = false }
+        if popupType != nil { popupType = nil }
+    }
+    
+    private func animatePopup(for action: ActionPopupItems) {
+        resetPopupAnimation()
+        popupType = action
+        withAnimation {
+            showPopup = true
+        }
+    }
+    
+#if os(tvOS)
+    private func setupInitialFocus() {
+        if !hasFocused {
+            DispatchQueue.main.async {
+                isWatchlistButtonFocused = true
+                hasFocused = true
+            }
+        }
+    }
+#endif
+    
+    private func animate(for type: UpdateItemProperties) {
+        switch type {
+        case .watched: animationImage = viewModel.isWatched ? "rectangle.badge.checkmark" : "rectangle.badge.checkmark.fill"
+        case .favorite: animationImage = viewModel.isFavorite ? "heart.slash.fill" : "heart.fill"
+        case .pin: animationImage = viewModel.isPin ? "pin.slash" : "pin"
+        case .archive: animationImage = viewModel.isArchive ? "archivebox.fill" : "archivebox"
+        }
+        withAnimation(.bouncy) { animateGesture.toggle() }
+        HapticManager.shared.successHaptic()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation(.bouncy) { animateGesture = false }
+        }
+    }
+    
+#if !os(tvOS)
+    private func openUrl(for url: URL) {
+#if os(iOS) || os(visionOS)
+        UIApplication.shared.open(url)
+#else
+        NSWorkspace.shared.open(url)
 #endif
     }
-    
-    private var cronicaUrl: URL? {
-        if let item = viewModel.content {
-            let encodedTitle = item.itemTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            let posterPath = item.posterPath ?? String()
-            let encodedPoster = posterPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            return URL(string: "https://alexandremadeira.dev/cronica/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
-        }
-        return nil
-    }
-    
-    private func animate(for action: ActionPopupItems) {
-        popupType = action
-        withAnimation { showPopup = true }
-    }
+#endif
+}
+
+private struct DrawingConstants {
+    static let shadowRadius: CGFloat = 12
+#if os(iOS)
+    static let posterWidth: CGFloat = UIDevice.isIPhone ? 200 : 280
+    static let posterHeight: CGFloat = UIDevice.isIPhone ? 300 : 440
+    static let coverWidth: CGFloat = 360
+    static let coverHeight: CGFloat = 210
+#elseif os(tvOS)
+    static let posterWidth: CGFloat = 450
+    static let posterHeight: CGFloat = 700
+#elseif os(macOS) || os(visionOS)
+    static let posterWidth: CGFloat = 280
+    static let posterHeight: CGFloat = 440
+#endif
+    static let imageRadius: CGFloat = 12
+    static let buttonWidth: CGFloat = 75
+    static let buttonHeight: CGFloat = 50
+    static let buttonRadius: CGFloat = 12
 }
 
 #Preview {

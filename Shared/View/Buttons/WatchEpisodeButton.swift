@@ -37,7 +37,7 @@ struct WatchEpisodeButton: View {
             .padding(.vertical, 4)
 #endif
 #else
-            Label(isWatched ? "Remove from Watched" : "Mark as Watched",
+            Label(isWatched ? "Unwatched" : "Watched",
                   systemImage: isWatched ? "rectangle.fill.badge.checkmark" : "rectangle.badge.checkmark")
             .symbolEffect(isWatched ? .bounce.down : .bounce.up,
                           value: isWatched)

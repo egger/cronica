@@ -20,14 +20,14 @@ enum Endpoints: String, CaseIterable, Identifiable {
     }
     var title: String {
         switch self {
-        case .upcoming: return "Up Coming"
-        case .nowPlaying: return "Latest Movies"
+        case .upcoming: return NSLocalizedString("Up Coming", comment: "")
+        case .nowPlaying: return NSLocalizedString("Latest Movies", comment: "")
         }
     }
     var subtitle: String {
         switch self {
-        case .upcoming: return "Coming Soon To Theaters"
-        case .nowPlaying: return "Recently Released"
+        case .upcoming: return NSLocalizedString("Coming Soon To Theaters", comment: "")
+        case .nowPlaying: return NSLocalizedString("Recently Released", comment: "")
         }
     }
     var type: MediaType {

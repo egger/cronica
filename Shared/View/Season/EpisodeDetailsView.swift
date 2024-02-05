@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 20/06/22.
 //
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct EpisodeDetailsView: View {
     let episode: Episode
@@ -41,84 +41,16 @@ struct EpisodeDetailsView: View {
     
 #if os(tvOS)
     private var details: some View {
-        ZStack {
-            WebImage(url: episode.itemImageOriginal)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 1920, height: 1080)
-            VStack {
-                Spacer()
-                ZStack {
-                    Color.black.opacity(0.4)
-                        .frame(height: 400)
-                        .mask {
-                            LinearGradient(colors: [Color.black,
-                                                    Color.black.opacity(0.924),
-                                                    Color.black.opacity(0.707),
-                                                    Color.black.opacity(0.383),
-                                                    Color.black.opacity(0)],
-                                           startPoint: .bottom,
-                                           endPoint: .top)
-                        }
-                    Rectangle()
-                        .fill(.regularMaterial)
-                        .frame(height: 600)
-                        .mask {
-                            VStack(spacing: 0) {
-                                LinearGradient(colors: [Color.black.opacity(0),
-                                                        Color.black.opacity(0.383),
-                                                        Color.black.opacity(0.707),
-                                                        Color.black.opacity(0.924),
-                                                        Color.black],
-                                               startPoint: .top,
-                                               endPoint: .bottom)
-                                .frame(height: 400)
-                                Rectangle()
-                            }
-                        }
-                }
-            }
-            .padding(.zero)
-            .ignoresSafeArea()
-            .frame(width: 1920, height: 1080)
-            VStack(alignment: .leading) {
-                Spacer()
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading) {
-                        Text(episode.itemTitle)
-                            .lineLimit(1)
-                            .font(.title3)
-                        WatchEpisodeButton(episode: episode,
-                                           season: season,
-                                           show: show,
-                                           isWatched: $isWatched)
-						.tint(.primary)
-                        .padding(.horizontal)
-                    }
-                    .padding()
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        HStack {
-                            InfoSegmentView(title: "Episode", info: "\(episode.itemEpisodeNumber)")
-                            InfoSegmentView(title: "Season", info: "\(episode.itemSeasonNumber)")
-                        }
-                        InfoSegmentView(title: "Release", info: episode.itemDate)
-                    }
-                    .padding()
-                }
-                .padding()
-            }
-            .padding()
-        }
+        EpisodeDetailsTVView(episode: episode, season: season, show: show, isWatched: $isWatched)
     }
 #endif
     
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
     private var details: some View {
         VStack {
             ScrollView {
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
-#if os(macOS)
+#if os(macOS) || os(visionOS)
                     .frame(width: DrawingConstants.padImageWidth,
                            height: DrawingConstants.padImageHeight)
 #else
@@ -172,27 +104,6 @@ struct EpisodeDetailsView: View {
 #endif
                     .keyboardShortcut("e", modifiers: [.control])
                     .shadow(radius: isUpNext ? 0 : 2.5)
-#if os(iOS)
-                    if let showItem {
-                        NavigationLink(value: showItem) {
-                            VStack {
-                                Image(systemName: "info.circle.fill")
-                                Text("moreInfoShow")
-                                    .lineLimit(1)
-                                    .padding(.top, 2)
-                                    .font(.caption)
-                            }
-                            .frame(height: 40)
-                            .padding(.vertical, 4)
-                            .frame(minWidth: 80)
-                        }
-                        .buttonStyle(.bordered)
-                        .buttonBorderShape(.roundedRectangle(radius: 12))
-                        .tint(.primary)
-                        .applyHoverEffect()
-                        .padding(.horizontal)
-                    }
-#endif
                 }
                 .padding(.top, 4)
                 .padding(.bottom)
@@ -204,16 +115,30 @@ struct EpisodeDetailsView: View {
             }
             .task { load() }
         }
+#if !os(visionOS)
         .background {
             TranslucentBackground(image: episode.itemImageLarge)
         }
+#endif
         .onAppear {
-            if isUpNext && showItem == nil {
+            if isUpNext, showItem == nil {
                 Task {
                     showItem = try await NetworkService.shared.fetchItem(id: show, type: .tvShow)
                 }
             }
         }
+#if os(iOS)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing){
+                if let showItem {
+                    NavigationLink(value: showItem) {
+                        Label("More Info", systemImage: "info.circle.fill")
+                            .labelStyle(.iconOnly)
+                    }
+                }
+            }
+        }
+#endif
     }
 #endif
 }
@@ -238,5 +163,89 @@ extension EpisodeDetailsView {
         let contentId = "\(show)@\(MediaType.tvShow.toInt)"
         let isShowSaved = persistence.isItemSaved(id: contentId)
         isInWatchlist = isShowSaved
+    }
+}
+
+private struct EpisodeDetailsTVView: View {
+    let episode: Episode
+    let season: Int
+    let show: Int
+    @Binding var isWatched: Bool
+    var body: some View {
+        ZStack {
+            LazyImage(url: episode.itemImageOriginal) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                }
+            }
+            .frame(width: 1920, height: 1080)
+            VStack {
+                Spacer()
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .frame(height: 400)
+                        .mask {
+                            LinearGradient(colors: [Color.black,
+                                                    Color.black.opacity(0.924),
+                                                    Color.black.opacity(0.707),
+                                                    Color.black.opacity(0.383),
+                                                    Color.black.opacity(0)],
+                                           startPoint: .bottom,
+                                           endPoint: .top)
+                        }
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .frame(height: 600)
+                        .mask {
+                            VStack(spacing: 0) {
+                                LinearGradient(colors: [Color.black.opacity(0),
+                                                        Color.black.opacity(0.383),
+                                                        Color.black.opacity(0.707),
+                                                        Color.black.opacity(0.924),
+                                                        Color.black],
+                                               startPoint: .top,
+                                               endPoint: .bottom)
+                                .frame(height: 400)
+                                Rectangle()
+                            }
+                        }
+                }
+            }
+            .padding(.zero)
+            .ignoresSafeArea()
+            .frame(width: 1920, height: 1080)
+            VStack(alignment: .leading) {
+                Spacer()
+                HStack(alignment: .bottom) {
+                    VStack(alignment: .leading) {
+                        Text(episode.itemTitle)
+                            .lineLimit(1)
+                            .font(.title3)
+                        WatchEpisodeButton(episode: episode,
+                                           season: season,
+                                           show: show,
+                                           isWatched: $isWatched)
+                        .tint(.primary)
+                        .padding(.horizontal)
+                    }
+                    .padding()
+                    Spacer()
+                    VStack(alignment: .leading) {
+                        HStack {
+                            InfoSegmentView(title: NSLocalizedString("Episode", comment: ""),
+                                            info: "\(episode.itemEpisodeNumber)")
+                            InfoSegmentView(title: NSLocalizedString("Season", comment: ""),
+                                            info: "\(episode.itemSeasonNumber)")
+                        }
+                        InfoSegmentView(title: NSLocalizedString("Release", comment: ""), info: episode.itemDate)
+                    }
+                    .padding()
+                }
+                .padding()
+            }
+            .padding()
+        }
     }
 }

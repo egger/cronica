@@ -27,19 +27,19 @@ enum ItemSchedule: String, CaseIterable, Identifiable {
     var localizedTitle: String {
         switch self {
         case .soon:
-            return NSLocalizedString("Coming Soon", comment: "")
+            return NSLocalizedString("Coming Soon", comment: "Schedule Type")
         case .released:
-            return NSLocalizedString("Released", comment: "")
+            return NSLocalizedString("Released", comment: "Schedule Type")
         case .production:
-            return NSLocalizedString("Production", comment: "")
+            return NSLocalizedString("Production", comment: "Schedule Type")
         case .cancelled:
-            return NSLocalizedString("Cancelled", comment: "")
+            return NSLocalizedString("Cancelled", comment: "Schedule Type")
         case .unknown:
-            return NSLocalizedString("Unknown", comment: "")
+            return NSLocalizedString("Unknown", comment: "Schedule Type")
         case .renewed:
-            return NSLocalizedString("Renewed Series", comment: "")
+            return NSLocalizedString("Renewed Series", comment: "Schedule Type")
         case .ended:
-            return NSLocalizedString("Ended Series", comment: "")
+            return NSLocalizedString("Ended Series", comment: "Schedule Type")
         }
     }
 }

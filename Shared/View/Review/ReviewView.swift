@@ -25,13 +25,13 @@ struct ReviewView: View {
                 }
             } else {
                 if let item {
-                    Section("About") { Text("reviewOf \(item.itemTitle)") }
+                    Section("About") { Text("Review of \(item.itemTitle)") }
                     Section("Rating") {
                         CenterHorizontalView {
                             RatingView(rating: $rating)
                         }
                     }
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
                     Section("Notes") {
                         TextEditor(text: $note)
                             .frame(minHeight: 150)
@@ -42,7 +42,7 @@ struct ReviewView: View {
                 }
             }
         }
-        .navigationTitle("reviewTitle")
+        .navigationTitle("Review")
         .onAppear { load() }
         .onChange(of: rating) { newValue in
             guard let item else { return }
@@ -62,7 +62,7 @@ struct ReviewView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 saveButton
             }
-#elseif os(macOS)
+#else
             ToolbarItem(placement: .confirmationAction) { saveButton }
             ToolbarItem(placement: .cancellationAction) { doneButton }
 #endif

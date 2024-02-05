@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 04/04/22.
 //
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 import SwiftUI
 import SafariServices
 

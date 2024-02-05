@@ -11,24 +11,24 @@ import SwiftUI
 enum NetworkError: Error, CustomNSError {
     case invalidResponse, invalidRequest, invalidEndpoint, decodingError
     case invalidApi, internalError, maintenanceApi, contentRemoved
-    var localizedName: LocalizedStringKey {
+    var localizedName: String {
         switch self {
         case .invalidResponse:
-            return "Invalid Response"
+            return NSLocalizedString("Invalid Response", comment: "")
         case .invalidRequest:
-            return "Invalid Request"
+            return NSLocalizedString("Invalid Request", comment: "")
         case .invalidEndpoint:
-            return "Invalid Endpoint"
+            return NSLocalizedString("Invalid Endpoint", comment: "")
         case .decodingError:
-            return "Error reading this title"
+            return NSLocalizedString("Error reading this title", comment: "")
         case .invalidApi:
-            return "Invalid API key: You must be granted a valid key."
+            return NSLocalizedString("Invalid API key: You must be granted a valid key.", comment: "")
         case .internalError:
-            return "Internal error: Something went wrong, contact TMDB."
+            return NSLocalizedString("Internal error: Something went wrong, contact TMDB.", comment: "")
         case .maintenanceApi:
-            return "The API is undergoing maintenance. Try again later."
+            return NSLocalizedString("The API is undergoing maintenance. Try again later.", comment: "")
         case .contentRemoved:
-            return "This content has been removed from TMDB, you can delete it."
+            return NSLocalizedString("This content has been removed from TMDB, you can delete it.", comment: "")
         }
     }
 }

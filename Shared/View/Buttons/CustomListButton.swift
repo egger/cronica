@@ -11,7 +11,7 @@ struct CustomListButton: View {
     let id: String
     @Binding var showCustomListView: Bool
     var body: some View {
-        Button("addToList", systemImage: "rectangle.on.rectangle.angled") {
+        Button("Add To List", systemImage: "rectangle.on.rectangle.angled") {
             showCustomListView.toggle()
         }
     }

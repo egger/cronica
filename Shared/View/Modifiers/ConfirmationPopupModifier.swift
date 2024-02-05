@@ -16,56 +16,31 @@ struct ConfirmationPopupModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay {
-                if isShowing {
-                    if let item {
-                        VStack {
-#if os(tvOS)
-                            HStack {
-                                Spacer()
-                                HStack {
-                                    Label(item.localizedString, systemImage: item.toSfSymbol)
-                                        .fontWeight(.semibold)
-                                        .padding()
-                                }
-                                .background { Rectangle().fill(.ultraThickMaterial) }
-                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
-                                .padding()
-                                .opacity(isShowing ? 1 : 0)
-                                .animation(.linear, value: isShowing)
-                            }
-#endif
-                            Spacer()
-#if !os(tvOS)
-                            HStack {
-                                if #available(iOS 17, *), #available(watchOS 10, *), #available(macOS 14, *), #available(tvOS 17, *) {
-                                    Label(item.localizedString, systemImage: item.toSfSymbol)
-                                        .symbolEffect(.bounce, value: isShowing)
-                                        .padding()
-                                } else {
-                                    Label(item.localizedString, systemImage: item.toSfSymbol)
-                                        .padding()
-                                }
-                            }
-#if !os(watchOS)
-                            .background { Rectangle().fill(.regularMaterial) }
-#endif
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .shadow(radius: 2)
+                if isShowing, let item {
+                    HStack {
+                        Label(item.localizedString, systemImage: item.toSfSymbol)
+                            .font(.body)
+                            .fontDesign(.rounded)
                             .padding()
-                            .opacity(isShowing ? 1 : 0)
-                            .animation(.linear, value: isShowing)
-                            .onTapGesture { withAnimation { isShowing = false } }
-#endif
-                        }
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                withAnimation {
-                                    isShowing = false
-                                }
+                            
+                    }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            withAnimation(.snappy) {
+                                isShowing = false
                             }
                         }
                     }
+#if !os(watchOS)
+                    .background { Rectangle().fill(.thickMaterial) }
+#endif
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .shadow(radius: 1)
+                    .padding(.bottom)
+                    .animation(.snappy, value: isShowing)
+                    .onTapGesture { withAnimation { isShowing = false } }
+                    .transition(.move(edge: .bottom))
+                    .frame (maxHeight: .infinity, alignment: .bottom)
                 }
             }
     }
@@ -77,7 +52,36 @@ enum ActionPopupItems: String, Identifiable, CaseIterable {
          markedArchive, removedArchive, markedPin, removedPin, markedEpisodeWatched, removedEpisodeWatched,
          feedbackSent
     
-    var localizedString: String { return NSLocalizedString(rawValue, comment: "") }
+    var localizedString: String {
+        switch self {
+        case .addedWatchlist:
+            return NSLocalizedString("Added", comment: "")
+        case .removedWatchlist:
+            return NSLocalizedString("Removed", comment: "")
+        case .markedWatched:
+            return NSLocalizedString("Watched", comment: "")
+        case .removedWatched:
+            return NSLocalizedString("Unwatched", comment: "")
+        case .markedFavorite:
+            return NSLocalizedString("Favorited", comment: "")
+        case .removedFavorite:
+            return NSLocalizedString("Unfavorited", comment: "")
+        case .markedArchive:
+            return NSLocalizedString("Archived", comment: "")
+        case .removedArchive:
+            return NSLocalizedString("Unarchived", comment: "")
+        case .markedPin:
+            return NSLocalizedString("Pinned", comment: "")
+        case .removedPin:
+            return NSLocalizedString("Unpinned", comment: "")
+        case .markedEpisodeWatched:
+            return NSLocalizedString("Watched", comment: "")
+        case .removedEpisodeWatched:
+            return NSLocalizedString("Unwatched", comment: "")
+        case .feedbackSent:
+            return NSLocalizedString("Feedback sent. Thank you.", comment: "")
+        }
+    }
     
     var toSfSymbol: String {
         switch self {

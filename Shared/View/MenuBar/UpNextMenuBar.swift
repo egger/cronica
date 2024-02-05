@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct UpNextMenuBar: View {
     @StateObject private var viewModel: UpNextViewModel = .shared
@@ -32,13 +32,13 @@ struct UpNextMenuBar: View {
                 }
                 .overlay {
                     if !viewModel.isLoaded {
-                        ProgressView("Loading")
+                        CronicaLoadingPopupView()
                     }
                 }
                 .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
             } header: {
                 HStack {
-                    Text("upNext")
+                    Text("Up Next")
                         .font(.callout)
                         .fontWeight(.semibold)
                     Spacer()
@@ -61,8 +61,12 @@ struct UpNextMenuBar: View {
     
     private func upNextRowItem(_ item: UpNextEpisode) -> some View {
         HStack {
-            WebImage(url: item.episode.itemImageSmall ?? item.backupImage)
-                .placeholder {
+            LazyImage(url: item.episode.itemImageSmall ?? item.backupImage) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
                         Image(systemName: "sparkles.tv")
@@ -70,11 +74,10 @@ struct UpNextMenuBar: View {
                     }
                     .frame(width: 95, height: 50)
                 }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .transition(.opacity)
-                .frame(width: 95, height: 50)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            }
+            .transition(.opacity)
+            .frame(width: 95, height: 50)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             VStack(alignment: .leading) {
                 Text(item.showTitle)
                     .font(.callout)

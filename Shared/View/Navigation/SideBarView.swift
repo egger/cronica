@@ -49,6 +49,8 @@ struct SideBarView: View {
                 }
             case .search:
                 NavigationStack { SearchView() }
+            default:
+                NavigationStack { HomeView().environment(\.managedObjectContext, persistence.container.viewContext) }
             }
         }
         .navigationSplitViewStyle(.balanced)

@@ -6,7 +6,7 @@
 //
 #if os(iOS) || os(macOS)
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 #if os(iOS)
 import YouTubePlayerKit
 #endif
@@ -47,30 +47,33 @@ struct TrailerItemView: View {
                 .opacity(0)
 #endif
             VStack {
-                WebImage(url: trailer.thumbnail)
-                    .resizable()
-                    .placeholder {
+                LazyImage(url: trailer.thumbnail) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
                         placeholder
                     }
-                    .aspectRatio(contentMode: .fill)
-                    .transition(.opacity)
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                                style: .continuous))
-                    .overlay { overlay }
-                    .contextMenu {
-                        if let url = trailer.url {
-                            ShareLink(item: url)
+                }
+                .transition(.opacity)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                            style: .continuous))
+                .overlay { overlay }
+                .contextMenu {
+                    if let url = trailer.url {
+                        ShareLink(item: url)
 #if os(iOS)
-                            Button("Open in YouTube") {
-                                UIApplication.shared.open(url)
-                            }
-#endif
+                        Button("Open in YouTube") {
+                            UIApplication.shared.open(url)
                         }
+#endif
                     }
-                    .applyHoverEffect()
-                    .shadow(radius: 2.5)
+                }
+                .applyHoverEffect()
+                .shadow(radius: 2.5)
                 HStack {
                     Text(trailer.title)
                         .lineLimit(DrawingConstants.lineLimits)

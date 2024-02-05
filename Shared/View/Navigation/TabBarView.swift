@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @AppStorage("selectedView") var selectedView: Screens?
@@ -54,7 +54,7 @@ struct TabBarView: View {
     }
 #endif
     
-#if os(iOS)
+#if os(iOS) || os(visionOS)
     private var details: some View {
         TabView(selection: $selectedView) {
             NavigationStack { HomeView() }
@@ -63,24 +63,18 @@ struct TabBarView: View {
             
             NavigationStack { ExploreView() }
                 .tag(ExploreView.tag)
-                .tabItem { Label("Explore", systemImage: "popcorn") }
+                .tabItem { Label("Discover", systemImage: "popcorn") }
             
             NavigationStack {
                 WatchlistView()
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .tag(WatchlistView.tag)
-            .tabItem { Label("Watchlist", systemImage: "square.stack") }
+            .tabItem { Label("Watchlist", systemImage: "rectangle.on.rectangle") }
             
             NavigationStack { SearchView() }
                 .tag(SearchView.tag)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
-            
-            if UIDevice.isIPhone {
-                SettingsView()
-                    .tag(SettingsView.tag)
-                    .tabItem { Label("Settings", systemImage: "gearshape") }
-            }
         }
         .appTheme()
     }

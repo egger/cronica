@@ -13,9 +13,9 @@ enum ItemContentListPreferredDisplayType: String, CaseIterable, Identifiable {
     
     var title: String {
         switch self {
-        case .card: return NSLocalizedString("itemContentListPreferredDisplayTypeCard", comment: "")
-        case .poster: return NSLocalizedString("itemContentListPreferredDisplayTypePoster", comment: "")
-        default: return NSLocalizedString("itemContentListPreferredDisplayTypeStandard", comment: "")
+        case .card: return NSLocalizedString("Card", comment: "")
+        case .poster: return NSLocalizedString("Poster", comment: "")
+        default: return NSLocalizedString("Standard", comment: "")
         }
     }
 }

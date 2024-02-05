@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct WatchlistItemPosterView: View {
     let content: WatchlistItem
@@ -73,58 +73,43 @@ struct WatchlistItemPosterView: View {
     }
     
     private var image: some View {
-        WebImage(url: content.backCompatiblePosterImage)
-            .resizable()
-            .placeholder {
-                PosterPlaceholder(title: content.itemTitle, type: content.itemMedia)
-            }
-            .aspectRatio(contentMode: .fill)
-            .transition(.opacity)
+        WatchlistPosterImageView(item: content)
             .overlay {
                 if isInWatchlist {
                     VStack {
                         Spacer()
                         HStack {
                             Spacer()
-#if !os(tvOS)
-                            if !settings.isCompactUI {
-                                if isArchive {
-                                    Image(systemName: "archivebox.fill")
-                                        .imageScale(.small)
-                                        .foregroundColor(.white.opacity(0.9))
-                                        .padding([.vertical])
-                                        .padding(.trailing, 4)
-                                }
-                                if isPin {
-                                    Image(systemName: "pin.fill")
-                                        .imageScale(.small)
-                                        .foregroundColor(.white.opacity(0.9))
-                                        .padding([.vertical])
-                                        .padding(.trailing, 4)
-                                }
-                            }
                             if isFavorite {
                                 Image(systemName: "suit.heart.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
-                                    .padding(.trailing, 4)
+                                    .padding(.horizontal)
+#if os(tvOS)
+                                    .font(.caption)
+#endif
                             }
-                            if isWatched {
+                            if !isFavorite, isWatched {
                                 Image(systemName: "rectangle.badge.checkmark.fill")
                                     .imageScale(.small)
                                     .foregroundColor(.white.opacity(0.9))
                                     .padding([.vertical])
-                                    .padding(.trailing, 4)
-                            }
-#endif
-                            Image(systemName: "square.stack.fill")
-                                .imageScale(.small)
-                                .foregroundColor(.white.opacity(0.9))
-                                .padding([.vertical, .trailing])
+                                    .padding(.horizontal)
 #if os(tvOS)
-                                .font(.caption)
+                                    .font(.caption)
 #endif
+                            }
+                            if !isFavorite, !isWatched {
+                                Image(systemName: "square.stack.fill")
+                                    .imageScale(.small)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .padding([.vertical, .trailing])
+#if os(tvOS)
+                                    .font(.caption)
+#endif
+                            }
+                            
                         }
                         .background {
                             if content.mediumPosterImage != nil {
@@ -190,6 +175,22 @@ struct WatchlistItemPosterView: View {
 
 #Preview {
     WatchlistItemPosterView(content: .example, showPopup: .constant(false), popupType: .constant(nil))
+}
+
+private struct WatchlistPosterImageView: View {
+    let item: WatchlistItem
+    var body: some View {
+        LazyImage(url: item.backCompatiblePosterImage) { state in
+            if let image = state.image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .transition(.opacity)
+            } else {
+                PosterPlaceholder(title: item.itemTitle, type: item.itemMedia)
+            }
+        }
+    }
 }
 
 private struct DrawingConstants {

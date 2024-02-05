@@ -175,7 +175,6 @@ class NetworkService {
         }
     }
     
-    
 	func urlBuilder(type: MediaType, company: Int? = nil, page: Int, keywords: Int? = nil, sortBy: String) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
@@ -205,9 +204,6 @@ class NetworkService {
 				.init(name: "with_keywords", value: "\(keywords)")
 			]
 		}
-#if DEBUG
-        print(component.url as Any)
-#endif
         return component.url
     }
     
@@ -249,9 +245,6 @@ class NetworkService {
                 .init(name: "region", value: Locale.userRegion)
             ]
         }
-#if DEBUG
-        print("URL: \(component.url as Any)")
-#endif
         return component.url
     }
     
@@ -288,7 +281,6 @@ class NetworkService {
                 .init(name: "with_genres", value: genres)
             ]
         }
-        print("URL: \(component.url as Any)")
         return component.url
     }
     

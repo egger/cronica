@@ -19,7 +19,7 @@ struct CastListView: View {
                     .padding(.leading, 64)
 #else
                 NavigationLink(value: credits) {
-                    TitleView(title: "Cast & Crew", showChevron: true)
+                    TitleView(title: NSLocalizedString("Cast & Crew", comment: ""), showChevron: true)
                 }
                 .buttonStyle(.plain)
 #endif

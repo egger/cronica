@@ -132,7 +132,7 @@ struct SeasonListView: View {
             Spacer()
 #if os(iOS) || os(tvOS)
             Menu {
-                if isInWatchlist { Button("markThisSeasonAsWatched", action: markSeasonAsWatched) }
+                if isInWatchlist { Button("Mark This Season as Watched", action: markSeasonAsWatched) }
 #if os(iOS)
                 if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(selectedSeason)") {
                     ShareLink(item: url)

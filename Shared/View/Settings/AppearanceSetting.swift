@@ -22,27 +22,14 @@ struct AppearanceSetting: View {
             }
 #endif
             Section {
-                Picker(selection: $store.watchlistStyle) {
-                    ForEach(SectionDetailsPreferredStyle.allCases) { item in
-#if os(tvOS)
-                        if item != SectionDetailsPreferredStyle.list {
-                            Text(item.title).tag(item)
-                        }
-#else
-                        Text(item.title).tag(item)
-#endif
-                    }
-                } label: {
-                    Text("appearanceRowStyleTitle")
-                }
-                .tint(.secondary)
+
 #if !os(tvOS)
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    Text("appearanceSectionDetailsTitle")
+                    Text("Section's Details Style")
                 }
                 .tint(.secondary)
                 Picker(selection: $store.listsDisplayType) {
@@ -50,57 +37,47 @@ struct AppearanceSetting: View {
                         Text(item.title).tag(item)
                     }
                 } label: {
-                    Text("appearanceHorizontalListsTitle")
+                    Text("Horizontal List Style")
                 }
                 .tint(.secondary)
-                Picker(selection: $store.upNextStyle) {
-                    ForEach(UpNextDetailsPreferredStyle.allCases) { item in
-                        Text(item.title).tag(item)
-                    }
-                } label: {
-                    Text("appearanceUpNextTitle")
-                }
-                .tint(.secondary)
+               
 #endif
             } header: {
-                Text("appearanceStyle")
+                Text("Style Preferences")
             }
             
 #if os(iOS)
             if UIDevice.isIPhone {
                 Section {
                     Toggle(isOn: $store.isCompactUI) {
-                        Text("appearanceCompactUI")
-                        Text("appearanceCompactUISubtitle")
+                        Text("Compact UI")
+                        Text("Reduce some UI elements size to accommodate more items on the screen")
                     }
                 }
             }
 #endif
             
-#if !os(tvOS)
-            Section {
-                Toggle("Show Date in Watchlist", isOn: $store.showDateOnWatchlist)
-            }
-#endif
-            
 #if os(iOS)
-            Section("appearanceAppThemeTitle") {
+            Section("App Theme") {
                 Picker(selection: $store.currentTheme) {
                     ForEach(AppTheme.allCases) { item in
                         Text(item.localizableName).tag(item)
                     }
                 } label: {
-                    Text("appearanceAppThemeTitle")
+                    Text("Theme")
                 }
                 .pickerStyle(.segmented)
                 .padding(.vertical, 6)
                 .tint(.secondary)
             }
             
-            Section("accentColor") { accentColor }
+            Section("Accent Color") {
+                accentColor
+            }
+            .listRowInsets(EdgeInsets())
             
             if UIDevice.isIPhone {
-                Section("appearanceAppIcon") {
+                Section("App Icon") {
                     iconsGrid
                 }
             }
@@ -108,11 +85,11 @@ struct AppearanceSetting: View {
             
             Section {
                 Toggle(isOn: $store.disableTranslucent) {
-                    Text("disableTranslucentTitle")
+                    Text("Disable Translucent Background")
                 }
             }
         }
-        .navigationTitle("appearanceTitle")
+        .navigationTitle("Appearance")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
@@ -123,7 +100,12 @@ struct AppearanceSetting: View {
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(AppThemeColors.allCases, content: colorButton)
+                        ForEach(AppThemeColors.allCases) { item in
+                            colorButton(for: item)
+                                .padding(.leading, item == AppThemeColors.allCases.first ? 16 : 0)
+                                .padding(.trailing, item == AppThemeColors.allCases.last ? 16 : 0)
+                                .padding(.horizontal, 4)
+                        }
                     }
                     .padding(.vertical, 6)
                     .onAppear {

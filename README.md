@@ -38,9 +38,12 @@ If you want to contribute with code, here are some important details about the p
 - The logic for most of the views is separated using extensions, primarily to help maintain the project in the long run.
 - If you have any questions, feel free to reach out to me via email, Twitter, or iMessage. I'll be happy to assist you.
 
+## Help Translate Cronica
+Contribute to the localization efforts of our open-source project by assisting in the translation of the application into your native language. Utilize the provided [xcstrings file](), which contains all the strings requiring translation. Simply send your completed translations via email, and I will ensure their incorporation in the upcoming update. Your contributions play a crucial role in making Cronica accessible to everyone. Thank you for your support!
+
 ##  Build information
 
-#### This project targets iOS 17, iPadOS 17, watchOS 10,  macOS 14, tvOS 17 and requires Xcode 15.
+#### This project targets iOS 17, iPadOS 17, watchOS 10,  macOS 14, tvOS 17, visionOS 1 and requires Xcode 15.
 
 To get started you'll need to:
 
@@ -60,7 +63,6 @@ To get started you'll need to:
 </p>
 
 ### Apple Watch
-
 <p align="center">
 	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Apple%20Watch.webp" alt="Cronica running on Apple Watch S7." minWidth="220" maxWidth="440" height="240">
 </p>
@@ -71,7 +73,6 @@ To get started you'll need to:
 </p>
 
 ### Mac
-
 <p align="center">
 	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Mac.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." maxWidth="220" maxWidth="440" >
 </p>
@@ -91,6 +92,16 @@ To get started you'll need to:
 </a>
 </p>
 
+### Apple Vision Pro 
+<p align="center">
+	<img src="https://raw.githubusercontent.com/MadeiraAlexandre/Cronica/main/Screenshots/Vision.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." maxWidth="220" maxWidth="440" >
+</p>
+<p align="center"> 
+<a href="https://apps.apple.com/app/cronica/id1614950275">
+	<img src="https://alexandremadeira.dev/resources/img/cronica/AppStoreBadge.svg" alt="Badge for download Cronica on Apple Watch App Store" width="160" height="80">
+</a>
+</p>
+
 
 ### QR Code
 <p align="center">
@@ -99,10 +110,6 @@ To get started you'll need to:
     </a>
  </p>
 
-### TestFlight
-<p>
-You can also download the latest beta from <a href="https://testflight.apple.com/join/T8kwk6Gb">TestFlight</a>
-</p>
 
 
 ## Contact

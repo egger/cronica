@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 struct SearchItemView: View {
     let item: SearchItemContent
     @Binding var showPopup: Bool

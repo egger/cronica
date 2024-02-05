@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import StoreKit
 
 struct HomeView: View {
     static let tag: Screens? = .home
@@ -32,15 +31,15 @@ struct HomeView: View {
         VStack(alignment: .leading) {
             ScrollView {
 #if os(iOS)
-                if showReviewBanner { ReviewAppBanner(showView: $showReviewBanner).unredacted() }
+                if showReviewBanner { CallToReviewAppView(showView: $showReviewBanner).unredacted() }
 #endif
                 HorizontalUpNextListView(shouldReload: $reloadHome)
                 UpcomingWatchlist(shouldReload: $reloadHome)
                 PinItemsList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadHome)
                 HorizontalPinnedList(showPopup: $showPopup, popupType: $popupType, shouldReload: $reloadHome)
                 HorizontalItemContentListView(items: viewModel.trending,
-                                              title: "Trending",
-                                              subtitle: "Today",
+                                              title: NSLocalizedString("Trending", comment: ""),
+                                              subtitle: NSLocalizedString("Today", comment: ""),
                                               showPopup: $showPopup,
                                               popupType: $popupType)
                 ForEach(viewModel.sections) { section in
@@ -51,12 +50,6 @@ struct HomeView: View {
                                                   popupType: $popupType,
                                                   endpoint: section.endpoint)
                 }
-                HorizontalItemContentListView(items: viewModel.recommendations,
-                                              title: "recommendationsTitle",
-                                              subtitle: "recommendationsSubtitle",
-                                              showPopup: $showPopup,
-                                              popupType: $popupType)
-                .redacted(reason: viewModel.isLoadingRecommendations ? .placeholder : [] )
                 AttributionView()
             }
 #if os(iOS)
@@ -69,7 +62,7 @@ struct HomeView: View {
             }
 #endif
         }
-        .overlay { if !viewModel.isLoaded { ProgressView("Loading").unredacted() } }
+        .overlay { if !viewModel.isLoaded { CronicaLoadingPopupView() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
 #if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
@@ -83,8 +76,8 @@ struct HomeView: View {
             }
 #endif
         }
-        .sheet(isPresented: $showWhatsNew) {
 #if os(iOS) || os(macOS)
+        .sheet(isPresented: $showWhatsNew) {
             ChangelogView(showChangelog: $showWhatsNew)
                 .onDisappear {
                     showWhatsNew = false
@@ -94,8 +87,8 @@ struct HomeView: View {
 #elseif os(iOS)
                 .appTheme()
 #endif
-#endif
         }
+#endif
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle,
                                id: item.id,
@@ -122,7 +115,7 @@ struct HomeView: View {
             EndpointDetails(title: endpoint.title,
                             endpoint: endpoint)
         }
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
         .navigationDestination(for: [WatchlistItem].self) { item in
             WatchlistSectionDetails(items: item)
         }
@@ -148,15 +141,30 @@ struct HomeView: View {
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
         }
+        .navigationDestination(for: SettingsScreens.self) { settings in
+            switch settings {
+            case .about: AboutSettings()
+            case .appearance: AppearanceSetting()
+            case .behavior: BehaviorSetting()
+            case .developer: 
+                #if os(tvOS)
+                EmptyView()
+                #else
+                DeveloperView()
+                #endif
+            case .notifications: NotificationsSettingsView()
+            case .tipJar: TipJarSetting()
+            case .feedback: FeedbackComposerView()
+            case .region: WatchProviderSettings()
+            case .settings: SettingsView()
+            case .watchlist: WatchlistSettingsView()
+            case .season: SeasonUpNextSettingsView()
+            }
+        }
         .redacted(reason: !viewModel.isLoaded ? .placeholder : [] )
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
         .navigationTitle("Home")
 #endif
-        #if os(iOS)
-        .sheet(isPresented: $showSettings) {
-            SettingsView()
-        }
-        #endif
         .toolbar {
 #if os(macOS)
             ToolbarItem(placement: .navigation) {
@@ -177,12 +185,25 @@ struct HomeView: View {
                         .labelStyle(.iconOnly)
                 }
             }
-#elseif os(iOS)
-            if UIDevice.isIPad {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        showSettings.toggle()
-                    } label: {
+#elseif os(iOS) || os(visionOS)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    NavigationLink(value: Screens.notifications) {
+                        Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
+                            .imageScale(.medium)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .contentShape(Circle())
+                    .clipShape(Circle())
+                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
+                    .shadow(radius: 2.5)
+                    .accessibilityLabel("Notifications")
+                    .applyHoverEffect()
+                    
+                    NavigationLink(value: SettingsScreens.settings) {
                         Image(systemName: "gearshape")
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
@@ -198,24 +219,6 @@ struct HomeView: View {
                     .applyHoverEffect()
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showNotifications.toggle()
-                } label: {
-                    Image(systemName: hasNotifications ? "bell.badge.fill" : "bell")
-                        .fontDesign(.rounded)
-                        .fontWeight(.semibold)
-                        .imageScale(.medium)
-                        .foregroundColor(.white.opacity(0.9))
-                }
-                .buttonStyle(.borderedProminent)
-                .contentShape(Circle())
-                .clipShape(Circle())
-                .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                .shadow(radius: 2.5)
-                .accessibilityLabel("Notifications")
-                .applyHoverEffect()
-            }
 #endif
         }
         .sheet(isPresented: $displayOnboard) {
@@ -224,20 +227,16 @@ struct HomeView: View {
                 .frame(width: 500, height: 700, alignment: .center)
 #endif
         }
-        .sheet(isPresented: $showNotifications) {
-#if os(iOS) || os(macOS)
-            NotificationListView(showNotification: $showNotifications)
-                .appTheme()
-                .onDisappear {
-                    Task {
-                        let notifications = await NotificationManager.shared.hasDeliveredItems()
-                        hasNotifications = notifications
-                    }
-                }
-#if os(macOS)
-                .frame(width: 800, height: 500)
-#endif
-#endif
+        #if !os(tvOS)
+        .navigationDestination(for: Screens.self) { screen in
+            if screen == .notifications {
+                NotificationListView(showNotification: $showNotifications)
+            }
+        }
+        #endif
+        .task {
+            let notifications = await NotificationManager.shared.hasDeliveredItems()
+            hasNotifications = notifications
         }
         .task {
             await viewModel.load()
@@ -275,45 +274,4 @@ struct HomeView: View {
     HomeView()
 }
 
-#if os(iOS)
-private struct ReviewAppBanner: View {
-    @Environment(\.requestReview) var requestReview
-    @Binding var showView: Bool
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("callToReviewTitle")
-                    .font(.title3)
-                    .fontDesign(.rounded)
-                    .padding(.leading)
-                    .fontWeight(.semibold)
-                Text("callToReviewSubtitle")
-                    .font(.callout)
-                    .foregroundColor(.secondary)
-                    .fontDesign(.rounded)
-                    .padding(.leading)
-                    .padding(.bottom, 4)
-                    .fontWeight(.regular)
-                Button("reviewInTheAppStore") {
-                    requestReview()
-                }
-                .padding(.leading)
-                .padding(.bottom, 4)
-            }
-            Spacer()
-            VStack {
-                Button {
-                    withAnimation { showView = false }
-                } label: {
-                    Label("dismissReviewCall", systemImage: "xmark")
-                        .labelStyle(.iconOnly)
-                }
-                .clipShape(Circle())
-                .buttonStyle(.bordered)
-                Spacer()
-            }
-            .padding(.trailing)
-        }.padding(.vertical)
-    }
-}
-#endif
+

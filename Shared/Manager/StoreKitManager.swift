@@ -47,6 +47,7 @@ class StoreKitManager: ObservableObject {
     }
     
     func purchase(_ product: Product) async throws -> StoreKit.Transaction? {
+        #if !os(visionOS)
         let result = try await product.purchase()
         switch result {
         case .success(let verification):
@@ -63,6 +64,9 @@ class StoreKitManager: ObservableObject {
         @unknown default:
             return nil
         }
+        #else
+        return nil
+        #endif
     }
     
     func isPurchased(_ product: Product) async throws -> Bool {

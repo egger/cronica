@@ -18,7 +18,7 @@ struct WelcomeView: View {
                     Image("Cronica")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 100, height: 100, alignment: .center)
+                        .frame(width: 90, height: 90, alignment: .center)
                         .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
                         .shadow(radius: 5)
                         .padding(.leading)
@@ -38,18 +38,16 @@ struct WelcomeView: View {
             }
             .padding([.top, .bottom])
             ScrollView {
-                InformationContainerView()
+                informationContainerView
             }
             .padding(.horizontal)
             Spacer()
             HStack {
                 Spacer()
-                Button {
+                Button("Continue") {
                     withAnimation {
                         displayOnboard.toggle()
                     }
-                } label: {
-                    Text("Continue")
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color.blue.gradient)
@@ -87,34 +85,32 @@ struct WelcomeView: View {
         }
 #endif
     }
-}
-
-private struct InformationContainerView: View {
-    var body: some View {
+    
+    private var informationContainerView: some View {
         VStack(alignment: .leading) {
             informationItem(
-                title: "Your Watchlist",
-                subtitle: "Add everything you want, the Watchlist automatically organizes it for you.",
+                title: NSLocalizedString("Your Watchlist", comment: ""),
+                subtitle: NSLocalizedString("Add everything you want, the Watchlist automatically organizes it for you.", comment: ""),
                 imageName: "rectangle.stack.fill",
                 imageTint: .purple
             )
             
             informationItem(
-                title: "Always Synced",
-                subtitle: "Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.",
+                title: NSLocalizedString("Always Synced", comment: ""),
+                subtitle: NSLocalizedString("Your Watchlist is always in sync with your Apple Watch, iPad, Mac, and Apple TV.", comment: ""),
                 imageName: "icloud.fill"
             )
             
             informationItem(
-                title: "Track your episodes",
-                subtitle: "Keep track of every episode you've watched.",
+                title: NSLocalizedString("Track your episodes", comment: ""),
+                subtitle: NSLocalizedString("Keep track of every episode you've watched.", comment: ""),
                 imageName: "rectangle.fill.badge.checkmark",
                 imageTint: .green
             )
             
             informationItem(
-                title: "Never miss out",
-                subtitle: "Get notifications about the newest releases.",
+                title: NSLocalizedString("Never miss out", comment: ""),
+                subtitle: NSLocalizedString("Get notifications about the newest releases.", comment: ""),
                 imageName: "bell.fill",
                 imageTint: .orange
             )

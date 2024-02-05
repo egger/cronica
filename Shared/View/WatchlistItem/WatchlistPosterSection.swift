@@ -30,39 +30,25 @@ struct WatchlistPosterSection: View {
                         .onDelete(perform: delete)
                     } header: {
 #if !os(tvOS)
-                        headerView
+                        HStack(alignment: .firstTextBaseline) {
+                            Text(NSLocalizedString(title, comment: ""))
+                                .foregroundColor(.secondary)
+                                .font(.footnote)
+                                .textCase(.uppercase)
+                            Spacer()
+                            Text("\(items.count) items")
+                                .foregroundColor(.secondary)
+                                .font(.footnote)
+                                .textCase(.uppercase)
+                        }
+                        .padding(.horizontal)
 #endif
                     }
                 }.padding(.all, settings.isCompactUI ? 10 : nil)
             }
         } else {
-            if #available(iOS 17, *) {
-                ContentUnavailableView("emptyList", systemImage: "rectangle.on.rectangle")
-                    .padding()
-            } else {
-                Text("emptyList")
-                    .multilineTextAlignment(.center)
-                    .font(.callout)
-                    .foregroundColor(.secondary)
-            }
+            EmptyListView()
         }
-    }
-    
-    private var headerView: some View {
-        HStack(alignment: .firstTextBaseline) {
-            Text(NSLocalizedString(title, comment: ""))
-                .foregroundColor(.secondary)
-                .font(.footnote)
-                .textCase(.uppercase)
-            Spacer()
-            let formatString = NSLocalizedString("items count", comment: "")
-            let result = String(format: formatString, items.count)
-            Text(result)
-                .foregroundColor(.secondary)
-                .font(.footnote)
-                .textCase(.uppercase)
-        }
-        .padding(.horizontal)
     }
     
     private func delete(offsets: IndexSet) {

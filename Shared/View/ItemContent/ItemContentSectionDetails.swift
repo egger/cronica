@@ -93,7 +93,7 @@ struct ItemContentSectionDetails: View {
                     .buttonStyle(.plain)
             }
 		}.padding(.all, settings.isCompactUI ? 10 : nil)
-#elseif os(macOS)
+#elseif os(macOS) || os(visionOS)
 		LazyVGrid(columns: DrawingConstants.posterColumns, spacing: 20) {
 			ForEach(items) { item in
 				ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
@@ -112,13 +112,13 @@ struct ItemContentSectionDetails: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(tvOS)
+#if os(macOS) || os(tvOS) || os(visionOS)
 	static let columns = [GridItem(.adaptive(minimum: 240))]
 #else
 	static let columns: [GridItem] = [GridItem(.adaptive(minimum: UIDevice.isIPad ? 240 : 160 ))]
 #endif
 	static let compactColumns: [GridItem] = [GridItem(.adaptive(minimum: 80))]
-#if os(macOS)
+#if os(macOS) || os(visionOS)
 	static let posterColumns = [GridItem(.adaptive(minimum: 160))]
 	static let cardColumns = [GridItem(.adaptive(minimum: 240))]
 #endif

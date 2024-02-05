@@ -203,7 +203,7 @@ extension ItemContent {
     
     // MARK: URL
     var posterImageMedium: URL? {
-        return NetworkService.urlBuilder(size: .medium, path: posterPath)
+        return NetworkService.urlBuilder(size: .w500, path: posterPath)
     }
     var posterImageLarge: URL? {
         return NetworkService.urlBuilder(size: .w500, path: posterPath)
@@ -329,13 +329,6 @@ extension ItemContent {
     var originalItemTitle: String? {
         if let originalTitle { return originalTitle }
         if let originalName { return originalName }
-        return nil
-    }
-    
-    var itemInfoTVShow: String? {
-        if let numberOfSeasons, let numberOfEpisodes {
-            return NSLocalizedString("\(numberOfSeasons) Seasons • \(numberOfEpisodes) Episodes", comment: "")
-        }
         return nil
     }
     

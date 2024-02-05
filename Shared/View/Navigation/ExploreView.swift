@@ -30,7 +30,9 @@ struct ExploreView: View {
     @State private var startPagination: Bool = false
     @State private var endPagination: Bool = false
     @State private var restartFetch: Bool = false
-    
+    // MARK: Recommendations
+    @State private var isLoadingRecommendations = true
+    @State private var recommendations = [ItemContent]()
     // MARK: Genres array.
     private let movies: [Genre] = [
         Genre(id: 28, name: NSLocalizedString("Action", comment: "")),
@@ -62,53 +64,140 @@ struct ExploreView: View {
         Genre(id: 9648, name: NSLocalizedString("Mystery", comment: "")),
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
+    @Environment(\.dismiss) var dismiss
+    @AppStorage("selectedTabExplore") private var selectedForYouTab: ForYouTabType = .recommendations
     var body: some View {
         VStack {
-            if settings.sectionStyleType == .list {
-                listStyle
-            } else {
-                ScrollViewReader { proxy in
-                    ScrollView {
-#if os(tvOS)
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("Explore")
-                                    .font(.title3)
-                                Text(selectedMedia.title)
-                                    .font(.callout)
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding()
-                            Spacer()
-                            Menu {
-                                hideItemsToggle
-                                selectMediaPicker
-                                selectGenrePicker
-                                    .pickerStyle(.menu)
-                            } label: {
-                                Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                                    .labelStyle(.iconOnly)
-                            }
-                        }
-                        .padding(.horizontal, 64)
-#endif
-                        
-                        switch settings.sectionStyleType {
-                        case .list: EmptyView()
-                        case .poster: posterStyle
-                        case .card: cardStyle
+            switch selectedForYouTab {
+            case .recommendations:
+                if isLoadingRecommendations {
+                    CronicaLoadingPopupView()
+                } else if !isLoadingRecommendations, recommendations.isEmpty {
+                    if #available(iOS 17, *) {
+                        ContentUnavailableView("Try Again Later",
+                                               systemImage: "popcorn",
+                                               description: Text("The app couldn't load the content right now."))
+                    } else {
+                        VStack {
+                            Text("Try Again Later")
+                                .font(.callout)
+                                .fontWeight(.semibold)
+                            Text("The app couldn't load the content right now.")
+                                .font(.body)
+                                .foregroundStyle(.secondary)
                         }
                     }
-                    .onChange(of: onChanging) { _ in
-                        guard let first = items.first else { return }
-                        withAnimation {
-                            proxy.scrollTo(first.id, anchor: .topLeading)
+                } else {
+                    switch settings.sectionStyleType {
+                    case .list:
+                        recommendationListStyle
+                    case .card:
+                        ScrollView {
+                            recommendationsCardStyle
+                        }
+                    case .poster:
+                        ScrollView {
+                            recommendationsPosterStyle
+                        }
+                    }
+                }
+                
+            case .explore:
+                if settings.sectionStyleType == .list {
+                    listStyle
+                } else {
+                    ScrollViewReader { proxy in
+                        ScrollView {
+#if os(tvOS)
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("Explore")
+                                        .font(.title3)
+                                    Text(selectedMedia.title)
+                                        .font(.callout)
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding()
+                                Spacer()
+                                Menu {
+                                    hideItemsToggle
+                                    selectMediaPicker
+                                    selectGenrePicker
+                                        .pickerStyle(.menu)
+                                } label: {
+                                    Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                                        .labelStyle(.iconOnly)
+                                }
+                            }
+                            .padding(.horizontal, 64)
+#endif
+                            
+                            switch settings.sectionStyleType {
+                            case .list: EmptyView()
+                            case .poster: posterStyle
+                            case .card: cardStyle
+                            }
+                        }
+                        .onChange(of: onChanging) { _ in
+                            guard let first = items.first else { return }
+                            withAnimation {
+                                proxy.scrollTo(first.id, anchor: .topLeading)
+                            }
                         }
                     }
                 }
             }
         }
-        .overlay { if !isLoaded {  ProgressView().unredacted() } }
+        .sheet(isPresented: $showFilters) {
+            NavigationStack {
+                Form {
+                    Section {
+                        Picker(selection: $selectedMedia) {
+                            ForEach(MediaType.allCases) { type in
+                                if type != .person {
+                                    Text(type.title).tag(type)
+                                }
+                            }
+                        } label: {
+                            Text("Media Type Filter")
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                    
+                    Picker("Genres", selection: $selectedGenre) {
+                        if selectedMedia == .movie {
+                            ForEach(movies) { genre in
+                                Text(genre.name!).tag(genre)
+                            }
+                        } else {
+                            ForEach(shows) { genre in
+                                Text(genre.name!).tag(genre)
+                            }
+                        }
+                    }
+                    .pickerStyle(.inline)
+                    
+                    Section {
+                        Toggle("Hide Added Items", isOn: $hideAddedItems)
+                    }
+                    
+                }
+                .navigationTitle("Filters")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    Button("Done") {
+                        showFilters = false
+                    }
+                }
+                .appTint()
+                .appTheme()
+                .unredacted()
+            }
+            .presentationDetents([.large, .medium])
+        }
+        .overlay { if !isLoaded { CronicaLoadingPopupView() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
         .task { await load() }
         .navigationDestination(for: ItemContent.self) { item in
@@ -143,34 +232,42 @@ struct ExploreView: View {
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
         }
-#if os(iOS) || os(macOS)
-        .navigationTitle("Explore")
+#if !os(tvOS)
+        .navigationTitle(selectedForYouTab == .explore ? "Explore" : "For You")
+        .navigationBarTitleDisplayMode(.inline)
 #elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
+        .onChange(of: hideAddedItems) { value in
+            if value {
+                hideItems()
+            } else {
+                onChanging = true
+                Task {
+                    await load()
+                }
+            }
+        }
         .redacted(reason: !isLoaded ? .placeholder : [] )
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Picker("For You", selection: $selectedForYouTab) {
+                    ForEach(ForYouTabType.allCases) { item in
+                        Text(item.localizedTitle).tag(item)
+                    }
+                }
+                .frame(width: 200)
+                .pickerStyle(.segmented)
+            }
 #if !os(tvOS)
-            ToolbarItem {
-                HStack {
-                    Menu {
-                        hideItemsToggle
-                        Divider()
-                        selectMediaPicker
-                        Divider()
-                        selectGenrePicker
-                    } label: {
-                        Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                            .labelStyle(.iconOnly)
-                            .foregroundColor(showFilters ? .secondary : nil)
+            if selectedForYouTab != .recommendations {
+                ToolbarItem {
+                    Button("Filters",
+                           systemImage: "line.3.horizontal.decrease.circle") {
+                        showFilters.toggle()
                     }
                 }
             }
-#if os(iOS)
-            ToolbarItem(placement: .navigationBarLeading) {
-                styleOptions
-            }
-#endif
 #endif
         }
         .onChange(of: selectedMedia) { value in
@@ -192,51 +289,6 @@ struct ExploreView: View {
         }
     }
     
-    private var selectMediaPicker: some View {
-        Picker(selection: $selectedMedia) {
-            ForEach(MediaType.allCases) { type in
-                if type != .person {
-                    Text(type.title).tag(type)
-                }
-            }
-        } label: {
-            Text("mediaTypeDiscoverFilterTitle")
-        }
-#if os(macOS)
-        .pickerStyle(.inline)
-#endif
-    }
-    
-    private var selectGenrePicker: some View {
-        Picker("genreDiscoverFilterTitle", selection: $selectedGenre) {
-            if selectedMedia == .movie {
-                ForEach(movies) { genre in
-                    Text(genre.name!).tag(genre)
-                }
-            } else {
-                ForEach(shows) { genre in
-                    Text(genre.name!).tag(genre)
-                }
-            }
-        }
-#if os(iOS) || os(macOS)
-        .pickerStyle(.inline)
-#endif
-    }
-    
-    private var hideItemsToggle: some View {
-        Toggle("hideAddedItemsDiscoverFilter", isOn: $hideAddedItems)
-            .onChange(of: hideAddedItems) { value in
-                if value {
-                    hideItems()
-                } else {
-                    onChanging = true
-                    Task {
-                        await load()
-                    }
-                }
-            }
-    }
     
     private var listStyle: some View {
         Form {
@@ -257,6 +309,21 @@ struct ExploreView: View {
                                     }
                                 }
                         }
+                    }
+                }
+            }
+        }
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
+    }
+    
+    private var recommendationListStyle: some View {
+        Form {
+            Section {
+                List {
+                    ForEach(recommendations) { item in
+                        ItemContentRowView(item: item, showPopup: $showPopup, popupType: $popupType)
                     }
                 }
             }
@@ -288,6 +355,32 @@ struct ExploreView: View {
             }
         }
         .padding()
+    }
+    
+    private var recommendationsCardStyle: some View {
+        LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+            ForEach(recommendations) { item in
+                ItemContentCardView(item: item, showPopup: $showPopup, popupType: $popupType)
+                    .buttonStyle(.plain)
+#if os(tvOS)
+                    .padding(.bottom)
+#endif
+            }
+        }
+        .padding()
+    }
+    
+    private var recommendationsPosterStyle: some View {
+        LazyVGrid(columns: settings.isCompactUI ? DrawingConstants.compactPosterColumns : DrawingConstants.posterColumns,
+                  spacing: settings.isCompactUI ? DrawingConstants.compactSpacing : DrawingConstants.spacing) {
+            ForEach(recommendations) { item in
+                ItemContentPosterView(item: item, showPopup: $showPopup, popupType: $popupType)
+                    .buttonStyle(.plain)
+#if os(tvOS)
+                    .padding(.bottom)
+#endif
+            }
+        }.padding(.all, settings.isCompactUI ? 10 : nil)
     }
     
     private var posterStyle: some View {
@@ -350,7 +443,7 @@ struct ExploreView: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS)
+#if os(macOS) || os(visionOS)
     static let posterColumns = [GridItem(.adaptive(minimum: 160))]
     static let columns = [GridItem(.adaptive(minimum: 240))]
 #elseif os(tvOS)
@@ -373,6 +466,9 @@ extension ExploreView {
             loadMoreItems()
         } else {
             loadMoreItems()
+        }
+        if recommendations.isEmpty {
+            await fetchRecommendations()
         }
     }
     
@@ -427,7 +523,7 @@ extension ExploreView {
                 items.append(contentsOf: result.filter { !ids.contains($0.itemContentID)})
             } else {
                 for item in result {
-                    if !items.contains(item) {
+                    if !items.contains(where: { $0.itemContentID == item.itemContentID} ) {
                         items.append(item)
                     }
                 }
@@ -468,4 +564,102 @@ extension ExploreView {
             return []
         }
     }
+    
+    // MARK: Recommendation System
+    // This is a very simple recommendation system, it the recommendation endpoint from TMDb API
+    // to fetch the recommendations from watched or favorite items, then it filters out
+    // some content without image or that contains NSFW keywords.
+    
+    /// Get the items which recommendations will be based at, these items must be watched OR favorite.
+    /// - Returns: Returns a shuffled array of WatchlistItems that matches the criteria of watched OR favorite.
+    private func fetchBasedRecommendationItems() -> [WatchlistItem] {
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+        let watchedPredicate = NSPredicate(format: "watched == %d", true)
+        let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
+        request.predicate = NSCompoundPredicate(type: .or, subpredicates: [watchingPredicate, watchedPredicate])
+        guard let list = try? context.fetch(request) else { return [] }
+        let items = list.shuffled().prefix(5)
+        return items.shuffled()
+    }
+    
+    /// Gets all the IDs from watched content saved on Core Data.
+    private func fetchWatchedIDs() -> Set<String> {
+        do {
+            var watchedIds: Set<String> = []
+            let context = PersistenceController.shared.container.newBackgroundContext()
+            let request: NSFetchRequest<WatchlistItem> = WatchlistItem.fetchRequest()
+            let watchedPredicate = NSPredicate(format: "watched == %d", true)
+            let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
+            request.predicate = NSCompoundPredicate(type: .or,
+                                                    subpredicates: [watchedPredicate, watchingPredicate])
+            let list = try context.fetch(request)
+            if !list.isEmpty {
+                for item in list {
+                    watchedIds.insert(item.itemContentID)
+                }
+            }
+            return watchedIds
+        } catch {
+            return []
+        }
+    }
+    
+    private func fetchRecommendations() async {
+        var recommendations = [ItemContent]()
+        let itemsWatched = fetchBasedRecommendationItems()
+        var itemsToFetchFrom = [[Int:MediaType]]()
+        for item in itemsWatched {
+            itemsToFetchFrom.append([item.itemId:item.itemMedia])
+        }
+        for item in itemsToFetchFrom {
+            let results = await getRecommendations(for: item)
+            if let results {
+                for result in results {
+                    if !recommendations.contains(where: { $0.itemContentID == result.itemContentID }) {
+                        recommendations.append(result)
+                    }
+                }
+            }
+        }
+        let content = await filterRecommendationsItems(recommendations)
+        self.recommendations = content.sorted { $0.itemPopularity > $1.itemPopularity }
+        await MainActor.run {
+            withAnimation { self.isLoadingRecommendations = false }
+        }
+    }
+    
+    private func getRecommendations(for item: [Int:MediaType]) async -> [ItemContent]? {
+        guard let (id, type) = item.first else { return nil }
+        let result = try? await service.fetchItems(from: "\(type.rawValue)/\(id)/recommendations")
+        return result
+    }
+    
+    /// Filters out recommendations from items without images and that matches NSFW keywords.
+    /// - Parameter items: The items to be filtered.
+    /// - Returns: The items filtered out.
+    private func filterRecommendationsItems(_ items: [ItemContent]) async -> Set<ItemContent> {
+        let watchedItems = fetchWatchedIDs()
+        var result = Set<ItemContent>()
+        for item in items {
+            if item.posterPath != nil, item.backdropPath != nil {
+                result.insert(item)
+            }
+        }
+        let filteredWatched = result.filter { !watchedItems.contains($0.itemContentID) }
+        return filteredWatched
+    }
 }
+
+enum ForYouTabType: String, Identifiable, Codable, Hashable, CaseIterable {
+    var id: String { rawValue }
+    case recommendations, explore
+    
+    var localizedTitle: String {
+        switch self {
+        case .recommendations: NSLocalizedString("For You", comment: "")
+        case .explore: NSLocalizedString("Explore", comment: "")
+        }
+    }
+}
+

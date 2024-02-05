@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct UpcomingListView: View {
     static let tag: Screens? = .upcoming
@@ -28,7 +28,7 @@ struct UpcomingListView: View {
     var items: FetchedResults<WatchlistItem>
     var body: some View {
         NavigationStack {
-			list(items: items.filter { $0.backCompatibleCardImage != nil && $0.itemUpcomingReleaseDate > Date() && !$0.isArchive }.sorted(by: { $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate}))
+            list(items: items.filter { $0.backCompatibleCardImage != nil && $0.itemUpcomingReleaseDate > Date() && !$0.isArchive }.sorted(by: { $0.itemUpcomingReleaseDate < $1.itemUpcomingReleaseDate}))
         }
     }
     
@@ -66,8 +66,12 @@ struct UpcomingListView: View {
     
     private func itemRow(_ item: WatchlistItem) -> some View {
         HStack {
-            WebImage(url: item.backCompatibleCardImage)
-                .placeholder {
+            LazyImage(url: item.backCompatibleCardImage) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
                     ZStack {
                         Rectangle().fill(.gray.gradient)
                         Image(systemName: "popcorn.fill")
@@ -75,16 +79,15 @@ struct UpcomingListView: View {
                             .foregroundColor(.white.opacity(0.8))
                             .padding([.horizontal, .bottom])
                     }
-					.unredacted()
+                    .unredacted()
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                 }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .transition(.opacity)
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+            }
+            .transition(.opacity)
+            .frame(width: DrawingConstants.imageWidth,
+                   height: DrawingConstants.imageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
             VStack(alignment: .leading) {
                 Text(item.itemTitle)
                     .font(.caption)

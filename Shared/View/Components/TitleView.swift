@@ -15,7 +15,7 @@ struct TitleView: View {
         HStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Text(NSLocalizedString(title, comment: ""))
+                    Text(title)
                         .padding([.top, .leading])
                         .fontWeight(.semibold)
                         .fontDesign(.rounded)
@@ -36,7 +36,7 @@ struct TitleView: View {
                 }
                 if let subtitle {
                     HStack {
-                        Text(NSLocalizedString(subtitle, comment: ""))
+                        Text(subtitle)
                             .fontDesign(.rounded)
                             .foregroundColor(.secondary)
                             .padding(.leading)

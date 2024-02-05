@@ -30,13 +30,13 @@ struct DetailedReleaseDateView: View {
                         }
                     }
                 }
-                .scrollBounceBehavior(.basedOnSize)
+                //.scrollBounceBehavior(.basedOnSize)
             }
             .toolbar {
                 Button("Done") { dismiss.toggle() }
             }
             .onAppear(perform: load)
-            .navigationTitle("releaseDates")
+            .navigationTitle("Release Dates")
 #if os(macOS)
             .formStyle(.grouped)
 #elseif os(iOS)

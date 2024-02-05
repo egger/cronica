@@ -15,28 +15,7 @@ extension CustomList {
         if let updatedDate {
             return updatedDate.convertDateToString()
         }
-        return ""
-    }
-    var itemGlanceInfo: String {
-        if let notes {
-            if !notes.isEmpty {
-                return notes
-            }
-        }
-        if let items {
-            let formatString = NSLocalizedString("items count", comment: "")
-            let result = String(format: formatString, items.count)
-            return result
-        }
-        return NSLocalizedString("Last update on \(itemLastUpdateFormatted)", comment: "")
-    }
-    var itemCount: String {
-        if let items {
-            let formatString = NSLocalizedString("items count", comment: "")
-            let result = String(format: formatString, items.count)
-            return result
-        }
-        return NSLocalizedString("Empty", comment: "")
+        return String()
     }
     var itemFooter: String {
         if let notes {

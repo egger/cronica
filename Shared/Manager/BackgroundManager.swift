@@ -90,14 +90,13 @@ class BackgroundManager {
 		let soonPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.soon.toInt)
 		let renewedPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.renewed.toInt)
 		let productionPredicate = NSPredicate(format: "schedule == %d", ItemSchedule.production.toInt)
-		let archivePredicate = NSPredicate(format: "isArchive == %d", false)
 		let orPredicate = NSCompoundPredicate(
 			type: .or,
 			subpredicates: [productionPredicate,
 							soonPredicate,
 							renewedPredicate]
 		)
-		let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [orPredicate, archivePredicate])
+		let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [orPredicate])
 		request.predicate = andPredicate
 		guard let list = try? context.fetch(request) else { return [] }
 		return list

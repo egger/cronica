@@ -22,9 +22,12 @@ struct AboutSettings: View {
                         Image("Cronica")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120, alignment: .center)
+                            .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                             .shadow(radius: 5)
+                            .onTapGesture(count: 4) {
+                                withAnimation { settings.displayDeveloperSettings.toggle() }
+                            }
                         Text("Developed by Alexandre Madeira")
                             .fontWeight(.semibold)
                             .fontDesign(.monospaced)
@@ -35,18 +38,20 @@ struct AboutSettings: View {
                     }
                 }
             }
-            
+            .listRowInsets(EdgeInsets())
+            .listRowBackground(Color.clear)
 #if os(iOS)
             Button {
                 requestReview()
             } label: {
-                Text("settingsReviewCronica")
+                Text("Review on the App Store")
             }
 #endif
             
 #if !os(tvOS)
             Section {
-                aboutButton(title: "X/Twitter", url: "https://x.com/CronicaApp")
+                aboutButton(title: NSLocalizedString("X/Twitter", comment: ""),
+                            url: "https://x.com/CronicaApp")
             }
 #endif
             
@@ -59,48 +64,55 @@ struct AboutSettings: View {
 #if os(macOS)
             privacy
 #endif
-            #if !os(macOS)
-            FeedbackSettingsView()
-            #endif
+            
+            Section("Content Provider") {
+                aboutButton(
+                    title: NSLocalizedString("The Movie Database", comment: ""),
+                    url: "https://www.themoviedb.org"
+                )
+            }
             
             Section("Design") {
                 aboutButton(
-                    title: "acknowledgmentsAppIconTitle",
-                    subtitle: "acknowledgmentsAppIconSubtitle",
+                    title: NSLocalizedString("Icon Designer", comment: ""),
+                    subtitle: "Akhmad",
                     url: "https://www.fiverr.com/akhmad437"
                 )
             }
             
             Section("Translation") {
-                aboutButton(title: "German", subtitle: "Simon Boer", url: "https://twitter.com/SimonBoer29")
-                aboutButton(title: "Spanish", subtitle: "Luis Felipe Lerma Alvarez",
+                aboutButton(title: NSLocalizedString("German", comment: ""),
+                            subtitle: "Simon Boer",
+                            url: "https://twitter.com/SimonBoer29")
+                aboutButton(title: NSLocalizedString("Spanish", comment: ""),
+                            subtitle: "Luis Felipe Lerma Alvarez",
 							url: "https://www.instagram.com/lerma_alvarez")
+                aboutButton(title: NSLocalizedString("Slovak", comment: ""),
+                            subtitle: "Tomáš Švec", url: "mailto:svec.tomas@gmail.com")
             }
             
             Section("Libraries") {
                 aboutButton(
-                    title: "acknowledgmentsSDWebImage",
-                    url: "https://github.com/SDWebImage/SDWebImageSwiftUI"
+                    title: NSLocalizedString("Nuke", comment: ""),
+                    url: "https://github.com/kean/Nuke"
                 )
                 aboutButton(
-                    title: "TelemetryDeck",
-                    url: "https://telemetrydeck.com/"
+                    title: NSLocalizedString("Aptabase", comment: ""),
+                    url: "https://aptabase.com"
                 )
-                aboutButton(title: "YouTubePlayerKit", url: "https://github.com/SvenTiigi/YouTubePlayerKit")
+                aboutButton(title: NSLocalizedString("YouTubePlayerKit", comment: ""),
+                            url: "https://github.com/SvenTiigi/YouTubePlayerKit")
             }
             
-            Section("acknowledgmentsContentProviderTitle") {
+            Section {
                 aboutButton(
-                    title: "acknowledgmentsContentProviderSubtitle",
-                    url: "https://www.themoviedb.org"
-                )
-            }
-            
-            Section("Source Code") {
-                aboutButton(
-                    title: "cronicaGitHub",
+                    title: NSLocalizedString("GitHub", comment: ""),
                     url: "https://github.com/MadeiraAlexandre/Cronica"
                 )
+            } header: {
+                Text("Source Code")
+            } footer: {
+                Text("Cronica is open-source, you can contribute to the project.")
             }
             
             Section {
@@ -111,13 +123,11 @@ struct AboutSettings: View {
                     Text("Version \(appVersion ?? "") • \(buildNumber)")
                         .foregroundColor(.secondary)
                         .textCase(.uppercase)
-                        .onTapGesture(count: 4) {
-                            withAnimation { settings.displayDeveloperSettings.toggle() }
-                        }
                 }
             }
+            .listRowBackground(Color.clear)
         }
-        .navigationTitle("aboutTitle")
+        .navigationTitle("About")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
@@ -153,7 +163,7 @@ struct AboutSettings: View {
 #if os(macOS)
     private var privacy: some View {
         Section {
-            Button("settingsPrivacyPolicy") {
+            Button("Privacy Policy") {
                 guard let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") else { return }
                 NSWorkspace.shared.open(url)
             }

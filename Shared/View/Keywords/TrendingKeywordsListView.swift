@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import NukeUI
 
 struct TrendingKeywordsListView: View {
     @State private var trendingKeywords = [CombinedKeywords]()
@@ -26,85 +26,35 @@ struct TrendingKeywordsListView: View {
     ]
     private var service: NetworkService = NetworkService.shared
     var body: some View {
+        Section {
+            ScrollView {
+                LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
+                    ForEach(trendingKeywords) { keyword in
+                        if keyword.image != nil {
+                            TrendingCardView(keyword: keyword, isLoading: $isLoading)
 #if os(tvOS)
-        cardGrid
-#else
-        ScrollView {
-            VStack {
-                if !trendingKeywords.isEmpty {
-                    TitleView(title: "Trending Keywords").unredacted()
-                }
-                cardGrid
-            }
-        }
+                                .padding(.vertical)
 #endif
-    }
-    
-    private var cardGrid: some View {
-        ScrollView {
-            LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
-                ForEach(trendingKeywords) { keyword in
-                    if keyword.image != nil {
-                        trendingCard(keyword)
-#if os(tvOS)
-                            .padding(.vertical)
-#endif
-                    }
-                }
-            }
-            .padding([.horizontal, .bottom])
-        }
-        .task { await load() }
-#if os(iOS)
-        .redacted(reason: isLoading ? .placeholder : [])
-#elseif os(tvOS)
-        .ignoresSafeArea(.all, edges: .horizontal)
-#endif
-    }
-    
-    private func trendingCard(_ keyword: CombinedKeywords) -> some View {
-        NavigationLink(value: keyword) {
-            WebImage(url: keyword.image)
-                .resizable()
-                .placeholder {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                    }
-                }
-                .aspectRatio(contentMode: .fill)
-                .overlay {
-                    ZStack {
-                        Rectangle().fill(.black.opacity(0.5))
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Text(keyword.name)
-                                    .foregroundColor(.white)
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(2)
-                                Spacer()
-                            }
-                            .padding(.horizontal)
-                            .padding(.bottom, 8)
                         }
                     }
-                    .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
                 }
-                .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .shadow(radius: 2)
-                .buttonStyle(.plain)
-        }
+                .padding([.horizontal, .bottom])
+            }
+            .task { await load() }
 #if os(iOS)
-        .disabled(isLoading)
+            .redacted(reason: isLoading ? .placeholder : [])
 #elseif os(tvOS)
-        .buttonStyle(.card)
-#elseif os(macOS)
-        .buttonStyle(.plain)
+            .ignoresSafeArea(.all, edges: .horizontal)
 #endif
-        .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
+        } header: {
+            HStack {
+                Text("Browse by Themes")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+                Spacer()
+            }
+        }
     }
 }
 
@@ -138,6 +88,58 @@ struct CombinedKeywords: Identifiable, Hashable {
     let id: Int
     let name: String
     let image: URL?
+}
+
+private struct TrendingCardView: View {
+    let keyword: CombinedKeywords
+    @Binding var isLoading: Bool
+    var body: some View {
+        NavigationLink(value: keyword) {
+            LazyImage(url: keyword.image) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    ZStack {
+                        Rectangle().fill(.gray.gradient)
+                    }
+                }
+            }
+            .overlay {
+                ZStack {
+                    Rectangle().fill(.black.opacity(0.5))
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Text(keyword.name)
+                                .foregroundColor(.white)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(3)
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                    }
+                }
+                .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
+            }
+            .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .shadow(radius: 2)
+            .buttonStyle(.plain)
+        }
+#if os(iOS)
+        .disabled(isLoading)
+#elseif os(tvOS)
+        .buttonStyle(.card)
+#elseif os(macOS)
+        .buttonStyle(.plain)
+#endif
+        .frame(width: DrawingConstants.width, height: DrawingConstants.height, alignment: .center)
+    }
 }
 
 private struct DrawingConstants {

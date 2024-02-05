@@ -16,9 +16,9 @@ struct TipJarSetting: View {
             Section {
                 if viewModel.hasUserPurchased || SettingsStore.shared.hasPurchasedTipJar {
 #if os(tvOS)
-                    Button("thankYouTipJarMessage") { }
+                    Button("Thank you for your purchase! Your support is much appreciated. 😁") { }
 #else
-                    Text("thankYouTipJarMessage")
+                    Text("Thank you for your purchase! Your support is much appreciated. 😁")
 #endif
                 } else {
                     if !productsLoaded { ProgressView() }
@@ -34,7 +34,7 @@ struct TipJarSetting: View {
                         .buttonStyle(.plain)
 #endif
                     }
-                    Button("restorePurchases") {
+                    Button("Restore Purchase") {
                         Task {
                             try? await AppStore.sync()
                         }
@@ -43,15 +43,15 @@ struct TipJarSetting: View {
                 }
             } header: {
 #if os(macOS)
-                Label("tipJarTitle", systemImage: "heart")
+                Label("Tip Jar", systemImage: "heart")
 #endif
             } footer: {
                 if !SettingsStore.shared.hasPurchasedTipJar {
-                    Text("tipJarFooter")
+                    Text("You can choose to contribute a small, medium, or large amount, and all proceeds will go towards improving and maintaining the app. Cronica will always remain free and ad-free, so this is purely an optional way for users to support the development of the app.")
                 }
             }
         }
-        .navigationTitle("tipJarTitle")
+        .navigationTitle("Tip Jar")
         .onChange(of: viewModel.hasLoadedProducts) { hasLoaded in
             if hasLoaded {
                 withAnimation { productsLoaded = true }
