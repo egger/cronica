@@ -3443,7 +3443,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Página de detalles"
+            "value" : "Página de Detalles"
           }
         },
         "pt-BR" : {
@@ -6015,7 +6015,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si te encanta la aplicación, considera la posibilidad de apoyarla a través de Tip Jar."
+            "value" : "Si te encanta la aplicación, considera la posibilidad de apoyarla a través de Bote de Propinas."
           }
         },
         "pt-BR" : {
@@ -6735,7 +6735,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Últimas películas"
+            "value" : "Nuevas Películas"
           }
         },
         "pt-BR" : {
@@ -10662,7 +10662,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Restablecer el valor predeterminado"
+            "value" : "Restablecer Valores Predeterminados"
           }
         },
         "pt-BR" : {
@@ -10798,7 +10798,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Review"
+            "value" : "Reseña"
           }
         },
         "pt-BR" : {
@@ -10832,7 +10832,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Review App"
+            "value" : "Reseña App"
           }
         },
         "pt-BR" : {
@@ -10900,7 +10900,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Review en la App Store"
+            "value" : "Escribe una reseña sobre Cronica en el App Store"
           }
         },
         "pt-BR" : {
@@ -12024,7 +12024,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ajustes"
+            "value" : "Configuración"
           }
         },
         "pt-BR" : {
@@ -13733,7 +13733,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Teatral"
+            "value" : "Cine"
           }
         },
         "pt-BR" : {
@@ -14039,7 +14039,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tarro de propinas"
+            "value" : "Bote de Propinas"
           }
         },
         "pt-BR" : {
@@ -15542,7 +15542,7 @@
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ver"
+            "value" : "Visto"
           }
         },
         "pt-BR" : {
