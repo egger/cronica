@@ -35,8 +35,6 @@ class HomeViewModel: ObservableObject {
                 trending = filtered
             } catch {
                 if Task.isCancelled { return }
-                let message = "Can't load trending/all/day, error: \(error.localizedDescription)"
-                CronicaTelemetry.shared.handleMessage(message, for: "HomeViewModel.load()")
             }
         }
         if sections.isEmpty {
@@ -85,10 +83,6 @@ class HomeViewModel: ObservableObject {
             return .init(results: filtered, endpoint: endpoint)
         } catch {
             if Task.isCancelled { return nil }
-            CronicaTelemetry.shared.handleMessage(
-                "Can't load the endpoint \(endpoint.title), with error message: \(error.localizedDescription)",
-                for: "HomeViewModel.load()"
-            )
             return nil
         }
     }

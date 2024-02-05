@@ -41,13 +41,7 @@ struct CompanyDetails: View {
         .overlay {
             if !isLoaded { CronicaLoadingPopupView() }
         }
-        .toolbar {
-#if os(iOS)
-            ToolbarItem(placement: .navigationBarTrailing) {
-                styleOptions 
-            }
-#endif
-        }
+        .scrollBounceBehavior(.basedOnSize)
         .redacted(reason: isLoaded ? [] : .placeholder)
 #if !os(tvOS)
         .navigationTitle(company.name)
@@ -69,23 +63,6 @@ struct CompanyDetails: View {
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
     }
-    
-#if os(iOS) || os(macOS)
-    private var styleOptions: some View {
-        Menu {
-            Picker(selection: $settings.sectionStyleType) {
-                ForEach(SectionDetailsPreferredStyle.allCases) { item in
-                    Text(item.title).tag(item)
-                }
-            } label: {
-                Label("Display Style", systemImage: "circle.grid.2x2")
-            }
-        } label: {
-            Label("Display Style", systemImage: "circle.grid.2x2")
-                .labelStyle(.iconOnly)
-        }
-    }
-#endif
     
     private var listStyle: some View {
         Form {

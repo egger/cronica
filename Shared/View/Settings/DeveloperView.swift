@@ -162,6 +162,7 @@ struct DeveloperView: View {
 #if os(macOS)
         .formStyle(.grouped)
 #endif
+        .scrollBounceBehavior(.basedOnSize)
     }
 }
 

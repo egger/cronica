@@ -37,13 +37,7 @@ class UpNextViewModel: ObservableObject {
         let result = try? await network.fetchEpisode(tvID: item.id,
                                                      season: item.itemNextUpNextSeason,
                                                      episodeNumber: item.itemNextUpNextEpisode)
-        guard let result else {
-//            CronicaTelemetry.shared.handleMessage(
-//                "Failed to fetch episode: \(item.itemNextUpNextEpisode) from season: \(item.itemNextUpNextSeason) for show: \(item.id)",
-//                for: "UpNextViewModel.fetchUpNextEpisode"
-//            )
-            return
-        }
+        guard let result else { return }
         let seasonNumber = result.seasonNumber ?? 0
         let isWatched = persistence.isEpisodeSaved(show: item.itemId,
                                                    season: seasonNumber,

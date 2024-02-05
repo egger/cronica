@@ -32,7 +32,7 @@ struct EndpointDetails: View {
 #endif
         }
         .overlay {
-            if isLoading { ProgressView() }
+            if isLoading { CronicaLoadingPopupView() }
             else if !isLoading && items.isEmpty {
                 if #available(iOS 17, *) {
                     ContentUnavailableView("Nothing here, try again later.",
@@ -49,33 +49,11 @@ struct EndpointDetails: View {
         .task {
             await loadMoreItems(for: endpoint)
         }
-        .navigationTitle(LocalizedStringKey(title))
-        .toolbar {
-#if os(iOS)
-            ToolbarItem(placement: .navigationBarTrailing) {
-                styleOptions
-            }
-#endif
-        }
+        .navigationTitle(title)
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
 #endif
-    }
-    
-    private var styleOptions: some View {
-        Menu {
-            Picker(selection: $settings.sectionStyleType) {
-                ForEach(SectionDetailsPreferredStyle.allCases) { item in
-                    Text(item.title).tag(item)
-                }
-            } label: {
-                Label("Display Style", systemImage: "circle.grid.2x2")
-            }
-            .pickerStyle(.menu)
-        } label: {
-            Label("Display Style", systemImage: "circle.grid.2x2")
-                .labelStyle(.iconOnly)
-        }
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var listStyle: some View {

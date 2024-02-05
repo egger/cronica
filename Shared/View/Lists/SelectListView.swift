@@ -69,7 +69,6 @@ struct SelectListView: View {
         .appTheme()
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.visible)
-        .presentationBackground(.ultraThickMaterial)
 #endif
     }
     

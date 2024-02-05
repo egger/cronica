@@ -23,7 +23,12 @@ struct NotificationListView: View {
                     upcomingItemsView
                 }
             } else {
-                CenterHorizontalView { ProgressView("Loading") }
+                EmptyView()
+            }
+        }
+        .overlay {
+            if !hasLoaded {
+                CronicaLoadingPopupView()
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
@@ -41,6 +46,7 @@ struct NotificationListView: View {
 #endif
         }
         .task { await load() }
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var configButton: some View {
@@ -69,7 +75,7 @@ struct NotificationListView: View {
     
     @ViewBuilder
     private var upcomingItemsView: some View {
-        if items.isEmpty {
+        if items.isEmpty, deliveredItems.isEmpty {
             CenterHorizontalView {
                 Text("No notifications")
                     .padding()

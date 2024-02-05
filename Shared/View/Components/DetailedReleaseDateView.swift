@@ -30,10 +30,12 @@ struct DetailedReleaseDateView: View {
                         }
                     }
                 }
-                //.scrollBounceBehavior(.basedOnSize)
             }
+            .scrollBounceBehavior(.basedOnSize)
             .toolbar {
-                Button("Done") { dismiss.toggle() }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Done") { dismiss.toggle() }
+                }
             }
             .onAppear(perform: load)
             .navigationTitle("Release Dates")
@@ -44,6 +46,7 @@ struct DetailedReleaseDateView: View {
 #endif
         }
         .presentationDetents([.medium])
+        .presentationDragIndicator(.visible)
         .appTheme()
         .appTint()
     }

@@ -76,9 +76,8 @@ struct ListFilterView: View {
             }
         }
 #if !os(tvOS)
-        .presentationBackground(.ultraThickMaterial)
         .presentationDragIndicator(.visible)
-        .appTheme()
+        .appTint()
         .appTheme()
 #endif
     }

@@ -29,5 +29,6 @@ struct CompaniesListView: View {
 #elseif os(iOS)
         .navigationBarTitleDisplayMode(.large)
 #endif
+        .scrollBounceBehavior(.basedOnSize)
     }
 }

@@ -50,8 +50,6 @@ struct TrendingView: View {
                         isLoaded = true
                     } catch {
                         if Task.isCancelled { return }
-                        let message = "Can't load trending/all/day, error: \(error.localizedDescription)"
-                        CronicaTelemetry.shared.handleMessage(message, for: "SearchView.load()")
                     }
                 }
             }

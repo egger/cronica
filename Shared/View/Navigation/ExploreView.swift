@@ -205,7 +205,6 @@ struct ExploreView: View {
 #if os(iOS)
             .appTint()
             .appTheme()
-            .presentationBackground(.ultraThickMaterial)
 #endif
         }
         .overlay { if !isLoaded { CronicaLoadingPopupView() } }
@@ -619,8 +618,6 @@ extension ExploreView {
             return ids
         } catch {
             if Task.isCancelled { return [] }
-            CronicaTelemetry.shared.handleMessage(error.localizedDescription,
-                                                  for: "ExploreView.fetchAllItemsIDs()")
             return []
         }
     }
@@ -639,7 +636,7 @@ extension ExploreView {
         let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
         request.predicate = NSCompoundPredicate(type: .or, subpredicates: [watchingPredicate, watchedPredicate])
         guard let list = try? context.fetch(request) else { return [] }
-        let items = list.shuffled().prefix(5)
+        let items = list.shuffled().prefix(6)
         return items.shuffled()
     }
     

@@ -47,7 +47,7 @@ class StoreKitManager: ObservableObject {
     }
     
     func purchase(_ product: Product) async throws -> StoreKit.Transaction? {
-        #if !os(visionOS)
+#if !os(visionOS)
         let result = try await product.purchase()
         switch result {
         case .success(let verification):
@@ -58,15 +58,16 @@ class StoreKitManager: ObservableObject {
                 SettingsStore.shared.hasPurchasedTipJar = true
                 withAnimation { self.hasUserPurchased = true }
             }
+            CronicaTelemetry.shared.handleMessage(\(product.displayName), for: "purchase_tip_jar")
             return transaction
         case .userCancelled, .pending:
             return nil
         @unknown default:
             return nil
         }
-        #else
+#else
         return nil
-        #endif
+#endif
     }
     
     func isPurchased(_ product: Product) async throws -> Bool {
