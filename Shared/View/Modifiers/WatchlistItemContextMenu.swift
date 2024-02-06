@@ -20,6 +20,8 @@ struct WatchlistItemContextMenu: ViewModifier {
     private let context = PersistenceController.shared
     private let notification = NotificationManager.shared
     @State private var settings = SettingsStore.shared
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+                  animation: .default) private var lists: FetchedResults<CustomList>
     func body(content: Content) -> some View {
 #if os(watchOS)
 #elseif os(tvOS)
@@ -110,7 +112,22 @@ struct WatchlistItemContextMenu: ViewModifier {
     
 #if os(iOS) || os(macOS) || os(visionOS)
     private var customListButton: some View {
-        CustomListButton(id: item.itemContentID, showCustomListView: $showCustomListView)
+        Menu {
+            ForEach(lists) { list in
+                Button {
+                    PersistenceController.shared.updateList(for: item.itemContentID, to: list)
+                } label: {
+                    HStack {
+                        if list.itemsSet.contains(item) {
+                            Image(systemName: "checkmark.circle.fill")
+                        }
+                        Text(list.itemTitle)
+                    }
+                }
+            }
+        } label: {
+            Label("Add To List", systemImage: "rectangle.on.rectangle.angled")
+        }
     }
 #endif
     

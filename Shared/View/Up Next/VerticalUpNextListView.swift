@@ -208,7 +208,6 @@ struct VerticalUpNextListView: View {
                 Task { await viewModel.reload(items) }
             }
             .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
-            .scrollBounceBehavior(.basedOnSize)
         }
     }
 }

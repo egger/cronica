@@ -50,7 +50,7 @@ struct WatchlistItemPosterView: View {
             ItemContentCustomListSelector(contentID: content.itemContentID,
                                           showView: $showCustomListView,
                                           title: content.itemTitle,
-                                          image: content.backCompatiblePosterImage)
+                                          image: content.itemPosterImageMedium)
         }
     }
     

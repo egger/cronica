@@ -116,6 +116,7 @@ struct ItemContentView: View {
                                               showView: $showCustomListSheet,
                                               title: title,
                                               image: viewModel.content?.posterImageMedium)
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
             }
         }
         .navigationDestination(for: [Season].self) { seasons in
