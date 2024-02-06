@@ -43,13 +43,14 @@ struct DetailedPeopleList: View {
                 }
             }
         }
+        .scrollBounceBehavior(.basedOnSize)
         .navigationTitle("Cast & Crew")
 #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
 #endif
         .task(id: query) { await search() }
 #if os(iOS)
-        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: items.count > 4 ? .always : .automatic))
 #elseif os(macOS)
         .searchable(text: $query, placement: .toolbar)
         .formStyle(.grouped)
@@ -110,11 +111,11 @@ private struct PersonItemRow: View {
                 }
             }
             .frame(height: 70)
-            .contextMenu {
 #if os(macOS) || os(iOS)
+            .contextMenu {
                 ShareLink(item: person.itemURL)
-#endif
             }
+#endif
         }
         .buttonStyle(.plain)
         .accessibilityHint(Text(person.name))

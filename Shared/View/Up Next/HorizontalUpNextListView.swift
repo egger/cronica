@@ -36,7 +36,7 @@ struct HorizontalUpNextListView: View {
                     NavigationLink(value: viewModel.episodes) {
                         TitleView(title: NSLocalizedString("Up Next", comment: ""),
                                   subtitle: NSLocalizedString("Your Next Episodes", comment: ""),
-                                  showChevron: true)
+                                  showChevron: viewModel.episodes.count > 4 ? true : false)
                         .unredacted()
                     }
                     .disabled(!viewModel.isLoaded)

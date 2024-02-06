@@ -21,6 +21,7 @@ struct VerticalUpNextListView: View {
     @State private var query = String()
     @State private var queryResult = [UpNextEpisode]()
     @StateObject private var settings = SettingsStore.shared
+    @Environment(\.scenePhase) private var scene
     var body: some View {
         VStack {
             switch settings.upNextStyle {
@@ -28,9 +29,18 @@ struct VerticalUpNextListView: View {
             case .card: cardStyle
             }
         }
+        .onChange(of: scene) { value in
+            if scene == .active {
+                Task {
+                    await viewModel.checkForNewEpisodes(items)
+                }
+            }
+        }
         .overlay {
             if queryResult.isEmpty, !query.isEmpty {
                 SearchContentUnavailableView(query: query)
+            } else if !viewModel.isLoaded {
+                CronicaLoadingPopupView()
             }
         }
 #if os(iOS)

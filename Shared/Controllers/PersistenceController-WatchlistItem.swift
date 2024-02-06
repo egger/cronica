@@ -194,6 +194,14 @@ extension PersistenceController {
             item.displayOnUpNext.toggle()
         }
         save()
+        if !item.isArchive {
+            Task {
+                let newValues = try? await NetworkService.shared.fetchItem(id: item.itemId,
+                                                                     type: item.itemMedia)
+                guard let newValues else { return }
+                self.update(item: newValues)
+            }
+        }
     }
     
     func updateReview(for item: WatchlistItem, rating: Int, notes: String) {

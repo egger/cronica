@@ -20,14 +20,14 @@ struct HorizontalWatchlistList: View {
 #if os(tvOS) || os(visionOS)
             TitleView(title: title,
                       subtitle: subtitle)
-            #if os(tvOS)
+#if os(tvOS)
             .padding(.leading, 64)
-            #endif
+#endif
 #else
             NavigationLink(value: [title:items]) {
                 TitleView(title: title,
                           subtitle: subtitle,
-                          showChevron: true)
+                          showChevron: items.count > 4 ? true : false)
             }
             .buttonStyle(.plain)
 #endif

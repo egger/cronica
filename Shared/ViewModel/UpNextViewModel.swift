@@ -54,7 +54,7 @@ class UpNextViewModel: ObservableObject {
                                         backupImage: item.backCompatibleCardImage,
                                         episode: result,
                                         sortedDate: item.itemLastUpdateDate)
-            if !self.episodes.contains(content) {
+            if !self.episodes.contains(where: { $0.id == content.id }) {
                 await MainActor.run {
                     withAnimation(.easeInOut) {
                         self.episodes.append(content)
@@ -81,7 +81,7 @@ class UpNextViewModel: ObservableObject {
                                             backupImage: item.backCompatibleCardImage,
                                             episode: nextEpisode,
                                             sortedDate: item.itemLastUpdateDate)
-                if !self.episodes.contains(content) {
+                if !self.episodes.contains(where: { $0.id == content.id })  {
                     await MainActor.run {
                         withAnimation(.easeInOut) {
                             self.episodes.append(content)

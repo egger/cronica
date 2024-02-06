@@ -50,7 +50,7 @@ struct UpcomingWatchlist: View {
                 NavigationLink(value: items) {
                     TitleView(title: NSLocalizedString("Upcoming", comment: ""),
                               subtitle: NSLocalizedString("From Watchlist", comment: ""),
-                              showChevron: true)
+                              showChevron: items.count > 4 ? true : false)
                 }
                 .buttonStyle(.plain)
 #else

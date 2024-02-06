@@ -30,12 +30,12 @@ struct HorizontalItemContentListView: View {
 #else
                     if let endpoint {
                         NavigationLink(value: endpoint) {
-                            TitleView(title: title, subtitle: subtitle, showChevron: true)
+                            TitleView(title: title, subtitle: subtitle, showChevron: items.count > 4 ? true : false)
                         }
                         .buttonStyle(.plain)
                     } else {
                         NavigationLink(value: [title: items]) {
-                            TitleView(title: title, subtitle: subtitle, showChevron: true)
+                            TitleView(title: title, subtitle: subtitle, showChevron: items.count > 4 ? true : false)
                         }
                         .buttonStyle(.plain)
                     }

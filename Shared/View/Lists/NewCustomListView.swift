@@ -56,6 +56,7 @@ struct NewCustomListView: View {
 #if os(macOS)
         .formStyle(.grouped)
 #endif
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var createList: some View {
@@ -133,6 +134,7 @@ struct NewCustomListItemSelector: View {
         .searchable(text: $query)
 #endif
         .formStyle(.grouped)
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private func search() async {
