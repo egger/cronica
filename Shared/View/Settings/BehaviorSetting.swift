@@ -84,12 +84,12 @@ struct BehaviorSetting: View {
 #if os(iOS)
             if UIDevice.isIPhone {
                 Toggle("Enable Preferred Launch Screen", isOn: $store.isPreferredLaunchScreenEnabled)
-                Picker(selection: $store.preferredLaunchScreen) {
+                Picker("Preferred Launch Screen", selection: $store.preferredLaunchScreen) {
                     ForEach(Screens.allCases) { item in
-                        Text(item.title).tag(item)
+                        if item != .notifications, item != .settings {
+                            Text(item.title).tag(item)
+                        }
                     }
-                } label: {
-                    Text("Preferred Launch Screen")
                 }
                 .disabled(!store.isPreferredLaunchScreenEnabled)
             }
