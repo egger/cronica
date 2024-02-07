@@ -48,7 +48,7 @@ struct UpNextListView: View {
                             }
                         }
                     }
-                    .overlay { if !viewModel.isLoaded { ProgressView() } }
+                    .overlay { if !viewModel.isLoaded { CronicaLoadingPopupView() } }
                     .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
                     .task {
                         await viewModel.load(items)

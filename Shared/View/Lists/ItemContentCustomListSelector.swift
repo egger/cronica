@@ -85,7 +85,7 @@ struct ItemContentCustomListSelector: View {
 #if !os(visionOS) && !os(tvOS)
             .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
             .background {
-                TranslucentBackground(image: image)
+                TranslucentBackground(image: image, useLighterMaterial: true)
             }
 #endif
 #if os(macOS)
@@ -126,10 +126,10 @@ struct ItemContentCustomListSelector: View {
 #if os(iOS)
         .appTint()
         .appTheme()
-        #elseif os(macOS)
+#elseif os(macOS)
         .frame(width: 500, height: 600, alignment: .center)
 #endif
-        .presentationDetents([.medium, .large])
+        .presentationDetents([lists.count > 4 ? .large : .medium])
         .presentationDragIndicator(.visible)
     }
     

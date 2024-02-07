@@ -65,9 +65,6 @@ struct ListFilterView: View {
                 }
 #endif
             }
-#if !os(tvOS)
-            .scrollContentBackground(.hidden)
-#endif
             .scrollBounceBehavior(.basedOnSize)
             .onChange(of: filter) { _ in
                 showView = false

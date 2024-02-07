@@ -38,7 +38,6 @@ class EpisodeHelper {
             }
         } catch {
             if Task.isCancelled { return nil }
-            let message = "Episode:\(episode.seasonNumber as Any)\nSeason:\(episode.seasonNumber as Any)\nShow: \(show).\nError: \(error.localizedDescription)"
             guard let showContent = try? await network.fetchItem(id: show, type: .tvShow) else {
                 return nil
             }

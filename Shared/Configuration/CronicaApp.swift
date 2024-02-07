@@ -53,6 +53,15 @@ struct CronicaApp: App {
                         lastNotificationID = id
                     }
                 }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    Task {
+                        guard let id = notificationDelegate.notificationID else { return }
+                        if lastNotificationID != id {
+                            await fetchContent(for: id)
+                        }
+                        lastNotificationID = id
+                    }
+                }
 #endif
                 .onOpenURL { url in
                     let urlString = url.absoluteString
@@ -74,7 +83,7 @@ struct CronicaApp: App {
                                            type: item.itemContentMedia, handleToolbar: true)
                         .toolbar {
 #if os(iOS)
-                            ToolbarItem(placement: .navigationBarLeading) {
+                            ToolbarItem(placement: .topBarLeading) {
                                 Button("Done") { selectedItem = nil }
                             }
 #else
@@ -107,6 +116,7 @@ struct CronicaApp: App {
                     .onDisappear { selectedItem = nil }
 #if os(macOS)
                     .presentationDetents([.large])
+                    .presentationDragIndicator(.visible)
                     .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
 #elseif os(iOS)
                     .appTheme()

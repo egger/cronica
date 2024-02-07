@@ -45,9 +45,6 @@ struct SelectListView: View {
                     await search()
                 }
 #endif
-#if !os(tvOS)
-                .scrollContentBackground(.hidden)
-#endif
                 .scrollBounceBehavior(.basedOnSize)
 #else
             form
@@ -69,7 +66,7 @@ struct SelectListView: View {
 #if os(iOS)
         .appTint()
         .appTheme()
-        .presentationDetents([.medium, .large])
+        .presentationDetents([lists.count > 4 ? .large : .medium])
         .presentationDragIndicator(.visible)
 #endif
     }

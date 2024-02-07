@@ -10440,6 +10440,22 @@
         }
       }
     },
+    "Remove %@ from your Watchlist?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove %@ from your Watchlist?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover %@ da sua Lista?"
+          }
+        }
+      }
+    },
     "Remove From Pin when item is  marked as watched" : {
       "localizations" : {
         "de" : {

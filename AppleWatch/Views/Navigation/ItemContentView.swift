@@ -50,10 +50,11 @@ struct ItemContentView: View {
                         updateWatchlist()
                     }
                 } label: {
-                    VStack {
+                    HStack {
                         Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
                             .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
                                           value: viewModel.isInWatchlist)
+                            .imageScale(.medium)
                         Text(viewModel.isInWatchlist ? "Remove" : "Add")
                             .lineLimit(1)
                             .padding(.top, 2)
@@ -89,9 +90,9 @@ struct ItemContentView: View {
                         .sheet(isPresented: $showMoreOptions) {
                             VStack {
                                 ScrollView {
-                                    watchButton.padding(.bottom)
-                                    favoriteButton.padding(.bottom)
                                     pinButton.padding(.bottom)
+                                    favoriteButton.padding(.bottom)
+                                    watchButton.padding(.bottom)
                                     archiveButton.padding(.bottom)
                                 }
                                 .padding(.horizontal)
@@ -103,12 +104,14 @@ struct ItemContentView: View {
                 
                 AboutSectionView(about: viewModel.content?.itemOverview)
                 
+                shareButton
+                
                 AttributionView()
             }
         }
         .task { await viewModel.load(id: id, type: type) }
         .navigationTitle(title)
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .sheet(isPresented: $showCustomListSheet) {
             if let contentID = viewModel.content?.itemContentID {
@@ -132,25 +135,17 @@ struct ItemContentView: View {
             }
         }
         .background { TranslucentBackground(image: image) }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                shareButton
-            }
-        }
     }
     
     private var watchButton: some View {
         Button {
             viewModel.update(.watched)
         } label: {
-            VStack {
-                if #available(watchOS 10, *) {
-                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
-                                      value: viewModel.isWatched)
-                } else {
-                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                }
+            HStack {
+                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                  value: viewModel.isWatched)
+                    .imageScale(.medium)
                 Text("Watched")
                     .padding(.top, 2)
                     .font(.caption)
@@ -158,7 +153,7 @@ struct ItemContentView: View {
             }
             .padding(.vertical, 2)
         }
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.bordered)
     }
     
     private var customListButton: some View {
@@ -172,14 +167,11 @@ struct ItemContentView: View {
         Button {
             viewModel.update(.favorite)
         } label: {
-            VStack {
-                if #available(watchOS 10, *) {
-                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                        .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
-                                      value: viewModel.isFavorite)
-                } else {
-                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                }
+            HStack {
+                Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                    .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                  value: viewModel.isFavorite)
+                    .imageScale(.medium)
                 Text("Favorite")
                     .padding(.top, 2)
                     .font(.caption)
@@ -187,21 +179,18 @@ struct ItemContentView: View {
             }
             .padding(.vertical, 2)
         }
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.bordered)
     }
     
     private var archiveButton: some View {
         Button {
             viewModel.update(.archive)
         } label: {
-            VStack {
-                if #available(watchOS 10, *) {
-                    Image(systemName: viewModel.isArchive ? "archivebox.fill" : "archivebox")
-                        .symbolEffect(viewModel.isArchive ? .bounce.down : .bounce.up,
-                                      value: viewModel.isArchive)
-                } else {
-                    Image(systemName: viewModel.isArchive ? "archivebox.fill" : "archivebox")
-                }
+            HStack {
+                Image(systemName: viewModel.isArchive ? "archivebox.fill" : "archivebox")
+                    .symbolEffect(viewModel.isArchive ? .bounce.down : .bounce.up,
+                                  value: viewModel.isArchive)
+                    .imageScale(.medium)
                 Text("Archive")
                     .padding(.top, 2)
                     .font(.caption)
@@ -209,21 +198,18 @@ struct ItemContentView: View {
             }
             .padding(.vertical, 2)
         }
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.bordered)
     }
     
     private var pinButton: some View {
         Button {
             viewModel.update(.pin)
         } label: {
-            VStack {
-                if #available(watchOS 10, *) {
-                    Image(systemName: viewModel.isPin ? "pin.fill" : "pin")
-                        .symbolEffect(viewModel.isPin ? .bounce.down : .bounce.up,
-                                      value: viewModel.isPin)
-                } else {
-                    Image(systemName: viewModel.isPin ? "pin.fill" : "pin")
-                }
+            HStack {
+                Image(systemName: viewModel.isPin ? "pin.fill" : "pin")
+                    .symbolEffect(viewModel.isPin ? .bounce.down : .bounce.up,
+                                  value: viewModel.isPin)
+                    .imageScale(.medium)
                 Text("Pin")
                     .padding(.top, 2)
                     .font(.caption)
@@ -231,7 +217,7 @@ struct ItemContentView: View {
             }
             .padding(.vertical, 2)
         }
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.bordered)
     }
 	
 	@ViewBuilder

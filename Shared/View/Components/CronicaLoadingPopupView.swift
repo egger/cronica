@@ -25,7 +25,11 @@ struct CronicaLoadingPopupView: View {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .stroke(Color.black.opacity(0.2), lineWidth: 0.3)
             )
+#if os(watchOS)
+            .frame(width: 100, height: 80, alignment: .center)
+#else
             .frame(width: 180, height: 150, alignment: .center)
+#endif
             .unredacted()
             Spacer()
         }

@@ -12,6 +12,7 @@ import NukeUI
 struct TranslucentBackground: View {
     var image: URL?
     @AppStorage("disableTranslucentBackground") private var disableTranslucent = false
+    var useLighterMaterial = false
     var body: some View {
         if !disableTranslucent && image != nil {
             ZStack {
@@ -37,7 +38,7 @@ struct TranslucentBackground: View {
                     .padding(.zero)
 #elseif os(macOS) || os(iOS)
                 Rectangle()
-                    .fill(.ultraThickMaterial)
+                    .fill(useLighterMaterial ? .regularMaterial : .ultraThickMaterial)
                     .ignoresSafeArea()
                     .padding(.zero)
 #else

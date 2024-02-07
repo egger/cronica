@@ -640,7 +640,7 @@ extension ExploreView {
         let watchingPredicate = NSPredicate(format: "isWatching == %d", true)
         request.predicate = NSCompoundPredicate(type: .or, subpredicates: [watchingPredicate, watchedPredicate])
         guard let list = try? context.fetch(request) else { return [] }
-        let items = list.shuffled().prefix(6)
+        let items = list.shuffled().prefix(8)
         return items.shuffled()
     }
     

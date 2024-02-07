@@ -722,9 +722,8 @@ extension ItemContentDetails {
 #if os(iOS) || os(visionOS)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
 #endif
-        .alert("Are You Sure?", isPresented: $showConfirmationPopup) {
+        .confirmationDialog("Are You Sure?", isPresented: $showConfirmationPopup, titleVisibility: .visible) {
             Button("Confirm") { updateWatchlist() }
-            Button("Cancel") {  showConfirmationPopup = false }
         }
     }
     

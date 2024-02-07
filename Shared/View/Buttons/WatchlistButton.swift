@@ -15,10 +15,15 @@ struct WatchlistButton: View {
     @Binding var popupType: ActionPopupItems?
     private let persistence = PersistenceController.shared
     private let notification = NotificationManager.shared
+    @Binding var showRemoveConfirmation: Bool
     var body: some View {
         Button(role: isInWatchlist ? .destructive : nil) {
             if !isInWatchlist { HapticManager.shared.successHaptic() }
-            updateWatchlist()
+            if isInWatchlist, SettingsStore.shared.showRemoveConfirmation {
+                showRemoveConfirmation = true
+            } else {
+                updateWatchlist()
+            }
         } label: {
             Label(isInWatchlist ? "Remove": "Add",
                   systemImage: isInWatchlist ? "minus.circle" : "plus.circle")
@@ -100,5 +105,5 @@ struct WatchlistButton: View {
                     isInWatchlist: .constant(true),
                     showPopup: .constant(false),
                     showListSelector: .constant(false),
-                    popupType: .constant(.addedWatchlist))
+                    popupType: .constant(.addedWatchlist), showRemoveConfirmation: .constant(false))
 }

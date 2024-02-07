@@ -17,6 +17,7 @@ struct SearchItemContentContextMenu: ViewModifier {
     @Binding var showCustomListView: Bool
     @Binding var popupType: ActionPopupItems?
     @StateObject private var settings = SettingsStore.shared
+    @State private var showRemoveConfirmation = false
     func body(content: Content) -> some View {
 #if !os(watchOS)
         return content
@@ -96,7 +97,8 @@ struct SearchItemContentContextMenu: ViewModifier {
                         isInWatchlist: $isInWatchlist,
                         showPopup: $showPopup,
                         showListSelector: $showCustomListView,
-                        popupType: $popupType)
+                        popupType: $popupType,
+                        showRemoveConfirmation: $showRemoveConfirmation)
     }
     
     @ViewBuilder

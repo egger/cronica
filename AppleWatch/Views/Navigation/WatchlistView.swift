@@ -48,9 +48,10 @@ struct WatchlistView: View {
                         .buttonStyle(.borderedProminent)
                         .foregroundStyle(.white.gradient)
                         .tint(.blue)
-                        .frame(width: 40, height: 40)
+                        .frame(width: 50, height: 50)
                         .clipShape(Circle())
                         .padding(.horizontal)
+                        .shadow(radius: 2.5)
                     }
                 }
             }

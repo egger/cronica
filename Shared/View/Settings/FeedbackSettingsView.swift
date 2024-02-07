@@ -66,6 +66,7 @@ struct FeedbackComposerView: View {
         }
         .navigationTitle("Feedback")
         .actionPopup(isShowing: $showPopup, for: popupType)
+        .scrollBounceBehavior(.basedOnSize)
 #if os(macOS)
         .formStyle(.grouped)
 #endif

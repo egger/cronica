@@ -60,6 +60,7 @@ import SwiftUI
             withAnimation {  stage = .success }
             startPagination = true
         } catch {
+            if query.isEmpty, !items.isEmpty { items.removeAll() }
             if Task.isCancelled { return }
             withAnimation { stage = .failure }
             CronicaTelemetry.shared.handleMessage(error.localizedDescription,

@@ -20,6 +20,7 @@ struct ItemContentContextMenu: ViewModifier {
 	@Binding var showCustomListView: Bool
 	@Binding var popupType: ActionPopupItems?
 	@StateObject private var settings = SettingsStore.shared
+    @State private var showRemoveConfirmation = false
 	func body(content: Content) -> some View {
 #if !os(watchOS)
 		return content
@@ -55,6 +56,11 @@ struct ItemContentContextMenu: ViewModifier {
 										image: item.cardImageLarge,
 										overview: item.itemOverview)
 			}
+            .confirmationDialog("Are You Sure?", isPresented: $showRemoveConfirmation, titleVisibility: .visible) {
+                Button("Confirm", action: remove)
+            } message: {
+                Text("Remove \(item.itemTitle) from your Watchlist?")
+            }
 #if !os(tvOS)
 			.swipeActions(edge: .leading, allowsFullSwipe: settings.allowFullSwipe) {
 				if !isInWatchlist {
@@ -62,7 +68,7 @@ struct ItemContentContextMenu: ViewModifier {
 									isInWatchlist: $isInWatchlist,
 									showPopup: $showPopup,
 									showListSelector: $showCustomListView,
-									popupType: $popupType)
+                                    popupType: $popupType, showRemoveConfirmation: $showRemoveConfirmation)
 					.tint(isInWatchlist ? .red : .green)
 				} else {
 					primaryLeftSwipeActions
@@ -112,6 +118,23 @@ struct ItemContentContextMenu: ViewModifier {
 			}
 		}
 	}
+    
+    private func remove() {
+        let persistence = PersistenceController.shared
+        let notification = NotificationManager.shared
+        let watchlistItem = persistence.fetch(for: item.itemContentID)
+        if let watchlistItem {
+            if watchlistItem.notify {
+                notification.removeNotification(identifier: item.itemContentID)
+            }
+            persistence.delete(watchlistItem)
+            withAnimation {
+                showPopup.toggle()
+                isInWatchlist.toggle()
+                popupType = isInWatchlist ? .addedWatchlist : .removedWatchlist
+            }
+        }
+    }
 	
 	private var cronicaUrl: URL? {
 		let encodedTitle = item.itemTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -153,7 +176,8 @@ struct ItemContentContextMenu: ViewModifier {
 						isInWatchlist: $isInWatchlist,
 						showPopup: $showPopup,
 						showListSelector: $showCustomListView,
-						popupType: $popupType)
+                        popupType: $popupType,
+                        showRemoveConfirmation: $showRemoveConfirmation)
 	}
 	
 	@ViewBuilder

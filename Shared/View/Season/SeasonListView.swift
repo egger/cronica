@@ -26,7 +26,84 @@ struct SeasonListView: View {
         VStack {
 #if !os(watchOS)
             header
-            list
+            if isLoading {
+                HStack {
+                    Spacer()
+                    ProgressView().padding()
+                    Spacer()
+                }
+            } else {
+                
+                if let season = season?.episodes {
+                    if season.isEmpty {
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Image(systemName: "tv.fill")
+                                    .font(.title)
+                                    .padding(.bottom, 6)
+                                Text("No Episode Available")
+                            }
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal)
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                    } else {
+                        ScrollViewReader { proxy in
+                            ScrollView(.horizontal) {
+                                LazyHStack {
+                                    ForEach(season) { item in
+                                        EpisodeFrameView(episode: item,
+                                                         season: selectedSeason,
+                                                         show: showID,
+                                                         showTitle: showTitle,
+                                                         checkedIfWatched: $checkIfWatched, isInWatchlist: $isInWatchlist,
+                                                         showCover: showCover)
+                                        .tag(item.id)
+#if os(tvOS)
+                                        .frame(width: 360)
+                                        .padding([.leading, .trailing], 2)
+                                        .padding(.leading, item.id == season.first?.id ? 64 : 0)
+                                        .padding(.trailing, item.id == season.last?.id ? 64 : 0)
+#else
+                                        .frame(width: 200)
+                                        .padding([.leading, .trailing], 4)
+                                        .padding(.leading, item.id == season.first?.id ? 16 : 0)
+                                        .padding(.trailing, item.id == season.last?.id ? 16 : 0)
+#endif
+                                        
+                                    }
+                                }
+                                .padding(.top, 8)
+                                .onAppear {
+                                    if !hasFirstLoaded { return }
+                                    let lastWatchedEpisode = persistence.fetchLastWatchedEpisode(for: showID)
+                                    guard let lastWatchedEpisode else { return }
+                                    withAnimation {
+                                        proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
+                                    }
+                                }
+                                .onChange(of: hasFirstLoaded) { _ in
+                                    if hasFirstLoaded {
+                                        let lastWatchedEpisode = persistence.fetchLastWatchedEpisode(for: showID)
+                                        guard let lastWatchedEpisode else { return }
+                                        withAnimation {
+                                            proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
+                                        }
+                                    }
+                                }
+                                .onChange(of: selectedSeason) { _ in
+                                    if !hasFirstLoaded { return }
+                                    guard let first = season.first else { return }
+                                    withAnimation { proxy.scrollTo(first.id, anchor: .topLeading) }
+                                }
+                            }
+                            .scrollIndicators(.hidden)
+                        }
+                    }
+                }
+            }
 #else
             ScrollViewReader { proxy in
                 VStack {
@@ -67,13 +144,8 @@ struct SeasonListView: View {
         .ignoresSafeArea(.all, edges: .horizontal)
 #elseif os(watchOS)
         .toolbar {
-            if #available(watchOS 10, *) {
+            if numberOfSeasons.count > 1 {
                 ToolbarItem(placement: .bottomBar) {
-                    seasonPicker
-                        .pickerStyle(.navigationLink)
-                }
-            } else {
-                ToolbarItem(placement: .automatic) {
                     seasonPicker
                         .pickerStyle(.navigationLink)
                 }
@@ -150,79 +222,6 @@ struct SeasonListView: View {
 #endif
         }
     }
-    
-#if !os(watchOS)
-    private var list: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            if isLoading {
-                CenterHorizontalView { ProgressView().padding() }
-            } else {
-                if let season = season?.episodes {
-                    if season.isEmpty {
-                        HStack {
-                            Spacer()
-                            VStack {
-                                Image(systemName: "tv.fill")
-                                    .font(.title)
-                                    .padding(.bottom, 6)
-                                Text("No Episode Available")
-                            }
-                            .foregroundColor(.secondary)
-                            .padding(.horizontal)
-                            Spacer()
-                        }
-                        .padding(.horizontal)
-                    } else {
-                        ScrollViewReader { proxy in
-                            VStack {
-                                LazyHStack {
-                                    ForEach(season) { item in
-                                        EpisodeFrameView(episode: item,
-                                                         season: selectedSeason,
-                                                         show: showID,
-                                                         showTitle: showTitle,
-                                                         checkedIfWatched: $checkIfWatched, isInWatchlist: $isInWatchlist,
-                                                         showCover: showCover)
-#if os(tvOS)
-                                        .frame(width: 360)
-                                        .padding([.leading, .trailing], 2)
-                                        .padding(.leading, item.id == season.first?.id ? 64 : 0)
-                                        .padding(.trailing, item.id == season.last?.id ? 64 : 0)
-#else
-                                        .frame(width: 200)
-                                        .padding([.leading, .trailing], 4)
-                                        .padding(.leading, item.id == season.first?.id ? 16 : 0)
-                                        .padding(.trailing, item.id == season.last?.id ? 16 : 0)
-#endif
-                                        
-                                    }
-                                }
-                                .padding(.top, 8)
-                            }
-                            .onAppear {
-                                if !hasFirstLoaded { return }
-                                let lastWatchedEpisode = persistence.fetchLastWatchedEpisode(for: showID)
-                                guard let lastWatchedEpisode else { return }
-                                withAnimation {
-                                    proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
-                                }
-                            }
-                            .onChange(of: selectedSeason) { _ in
-                                if !hasFirstLoaded { return }
-                                let first = season.first ?? nil
-                                guard let first else { return }
-                                withAnimation { proxy.scrollTo(first.id, anchor: .topLeading) }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-#if os(tvOS)
-        .ignoresSafeArea(.all, edges: .horizontal)
-#endif
-    }
-#endif
 }
 
 extension SeasonListView {
