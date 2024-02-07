@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct ReviewView: View {
     let id: String
@@ -17,6 +18,7 @@ struct ReviewView: View {
     @State private var canSave = false
     @State private var showReviewImageSheet = false
     let persistence = PersistenceController.shared
+    @StateObject private var settings: SettingsStore = .shared
     var body: some View {
         NavigationStack {
             Form {
@@ -26,7 +28,44 @@ struct ReviewView: View {
                     }
                 } else {
                     if let item {
-                        Section("About") { Text("Review of \(item.itemTitle)") }
+                        Section { 
+                            HStack {
+                                LazyImage(url: item.itemPosterImageMedium) { state in
+                                    if let image = state.image {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    } else {
+                                        ZStack {
+                                            Rectangle().fill(.gray.gradient)
+                                            Image(systemName: "popcorn.fill")
+                                                .foregroundColor(.white.opacity(0.9))
+                                        }
+                                    }
+                                }
+                                .frame(width: 60, height: 90, alignment: .center)
+                                .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                                .shadow(radius: 2)
+                                VStack(alignment: .leading) {
+                                    Text(item.itemTitle)
+                                        .lineLimit(2)
+                                        .fontWeight(.semibold)
+                                        .fontDesign(.rounded)
+                                        .padding(.leading, 4)
+                                        .padding(.top, 8)
+                                    Spacer()
+                                    Text(item.itemMedia.title)
+                                        .lineLimit(1)
+                                        .font(.caption)
+                                        .fontWeight(.semibold)
+                                        .fontDesign(.rounded)
+                                        .foregroundStyle(.secondary)
+                                        .padding(.leading, 4)
+                                        .padding(.bottom, 8)
+                                }
+                            }
+                        }.listRowBackground(Color.clear)
+                        
                         Section("Rating") {
                             CenterHorizontalView {
                                 RatingView(rating: $rating)
@@ -43,12 +82,22 @@ struct ReviewView: View {
                     }
                 }
             }
+#if os(iOS)
+            .background {
+                if let item {
+                    TranslucentBackground(image: item.itemPosterImageMedium, useLighterMaterial: true)
+                }
+            }
+            .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
+            .navigationBarTitleDisplayMode(.inline)
+#endif
             .navigationTitle("Review")
             .onAppear(perform: load)
             .onChange(of: rating) { newValue in
                 guard let item else { return }
                 if newValue != Int(item.userRating) {
                     if !canSave { canSave = true }
+                    save(dismiss: false)
                 }
             }
             .onChange(of: note) { newValue in
@@ -74,7 +123,7 @@ struct ReviewView: View {
 #endif
             .scrollBounceBehavior(.basedOnSize)
         }
-        .presentationDetents([.large, .medium])
+        .presentationDetents([.large])
         .presentationDragIndicator(.visible)
 #if os(macOS)
         .frame(width: 400, height: 400, alignment: .center)
@@ -100,13 +149,15 @@ struct ReviewView: View {
     }
     
     private var saveButton: some View {
-        Button("Save", action: save).disabled(!canSave)
+        Button("Save") { save() }.disabled(!canSave)
     }
     
-    private func save() {
+    private func save(dismiss: Bool = true) {
         guard let item else { return }
         persistence.updateReview(for: item, rating: rating, notes: note)
-        dismiss()
+        if dismiss {
+            self.dismiss()
+        }
     }
     
     private func dismiss() { showView.toggle() }

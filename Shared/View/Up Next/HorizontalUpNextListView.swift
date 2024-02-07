@@ -89,7 +89,8 @@ struct HorizontalUpNextListView: View {
                                                 }
                                                 Spacer()
                                             }
-                                            .padding(.leading)
+                                            .padding(.leading, item.id == viewModel.episodes.first?.id ? 16 : .zero)
+                                            .padding(.trailing, item.id == viewModel.episodes.last?.id ? 16 : .zero)
                                             .frame(width: 140)
                                         }
                                     }
