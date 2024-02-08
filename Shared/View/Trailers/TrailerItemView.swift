@@ -41,7 +41,7 @@ struct TrailerItemView: View {
 #endif
     }
     var body: some View {
-        #if os(tvOS)
+#if os(tvOS)
         VStack {
             Button {
                 openVideo()
@@ -75,7 +75,7 @@ struct TrailerItemView: View {
             }
         }
         .frame(width: DrawingConstants.imageWidth)
-        #else
+#else
         ZStack {
 #if os(iOS)
             YouTubePlayerView(player)
@@ -135,7 +135,7 @@ struct TrailerItemView: View {
             }
         }
 #endif
-        #endif
+#endif
     }
     
     private func openVideo() {
@@ -238,13 +238,13 @@ struct TrailerItemView: View {
 private struct DrawingConstants {
     static let imageRadius: CGFloat = 8
     static let imageShadow: CGFloat = 2.5
-    #if !os(tvOS)
+#if !os(tvOS)
     static let imageWidth: CGFloat = 220
     static let imageHeight: CGFloat = 120
-    #else
+#else
     static let imageWidth: CGFloat = 440
     static let imageHeight: CGFloat = 240
-    #endif
+#endif
     static let overlayOpacity: Double = 0.2
     static let overlayWidth: CGFloat = 50
     static let overlayHeight: CGFloat = 50

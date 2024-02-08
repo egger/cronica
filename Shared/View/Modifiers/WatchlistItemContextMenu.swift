@@ -112,6 +112,7 @@ struct WatchlistItemContextMenu: ViewModifier {
                       showPopup: $showPopup)
     }
     
+#if !os(watchOS)
     private var customListButton: some View {
         Menu {
             ForEach(lists) { list in
@@ -130,6 +131,7 @@ struct WatchlistItemContextMenu: ViewModifier {
             Label("Add To List", systemImage: "rectangle.on.rectangle.angled")
         }
     }
+#endif
     
     private var reviewButton: some View {
         Button("Review", systemImage: "note.text") {
