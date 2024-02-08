@@ -146,12 +146,12 @@ struct HomeView: View {
             case .about: AboutSettings()
             case .appearance: AppearanceSetting()
             case .behavior: BehaviorSetting()
-            case .developer: 
-                #if os(tvOS)
+            case .developer:
+#if os(tvOS)
                 EmptyView()
-                #else
+#else
                 DeveloperView()
-                #endif
+#endif
             case .notifications: NotificationsSettingsView()
             case .tipJar: TipJarSetting()
             case .feedback: FeedbackComposerView()
@@ -178,9 +178,7 @@ struct HomeView: View {
                 .keyboardShortcut("r", modifiers: .command)
             }
             ToolbarItem {
-                Button {
-                    showNotifications.toggle()
-                } label: {
+                NavigationLink(value: Screens.notifications) {
                     Label("Notifications", systemImage: hasNotifications ? "bell.badge.fill" : "bell")
                         .labelStyle(.iconOnly)
                 }
@@ -227,13 +225,13 @@ struct HomeView: View {
                 .frame(width: 500, height: 700, alignment: .center)
 #endif
         }
-        #if !os(tvOS)
+#if !os(tvOS)
         .navigationDestination(for: Screens.self) { screen in
             if screen == .notifications {
                 NotificationListView(showNotification: $showNotifications)
             }
         }
-        #endif
+#endif
         .task {
             let notifications = await NotificationManager.shared.hasDeliveredItems()
             hasNotifications = notifications

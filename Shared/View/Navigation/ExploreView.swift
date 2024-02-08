@@ -160,12 +160,18 @@ struct ExploreView: View {
                             showFilters = false
                         }
                     }
+#else
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Done") {
+                            showFilters = false
+                        }
+                    }
 #endif
                 }
-#if !os(tvOS)
-                .scrollContentBackground(.hidden)
-#endif
                 .scrollBounceBehavior(.basedOnSize)
+#if os(macOS)
+                .formStyle(.grouped)
+#endif
             }
             .presentationDetents([.medium])
             .presentationDragIndicator(.visible)
@@ -173,6 +179,8 @@ struct ExploreView: View {
 #if os(iOS)
             .appTint()
             .appTheme()
+#elseif os(macOS)
+            .frame(width: 400, height: 400, alignment: .center)
 #endif
         }
         .overlay { if !isLoaded { CronicaLoadingPopupView() } }
@@ -210,7 +218,7 @@ struct ExploreView: View {
         .navigationDestination(for: [ProductionCompany].self) { item in
             CompaniesListView(companies: item)
         }
-#if !os(tvOS)
+#if !os(tvOS) && !os(macOS)
         .navigationTitle(selectedForYouTab == .explore ? "Explore" : "For You")
 #elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
@@ -235,7 +243,9 @@ struct ExploreView: View {
                 Picker("For You", selection: $selectedForYouTab) {
                     ForEach(ForYouTabType.allCases) { item in
 #if os(visionOS)
-                        Label(item.localizedTitle, systemImage: item.toSFSymbols).tag(item)
+                        Label(item.localizedTitle, systemImage: item.toSFSymbols)
+                            .labelStyle(.iconOnly)
+                            .tag(item)
 #else
                         Text(item.localizedTitle).tag(item)
 #endif
@@ -245,12 +255,21 @@ struct ExploreView: View {
                 .pickerStyle(.segmented)
             }
             if selectedForYouTab != .recommendations {
+#if !os(macOS)
                 ToolbarItem {
                     Button("Filters",
                            systemImage: "line.3.horizontal.decrease.circle") {
                         showFilters.toggle()
                     }
                 }
+#else
+                ToolbarItem(placement: .navigation) {
+                    Button("Filters",
+                           systemImage: "line.3.horizontal.decrease.circle") {
+                        showFilters.toggle()
+                    }
+                }
+#endif
             }
 #endif
         }

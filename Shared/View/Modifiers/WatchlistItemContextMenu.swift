@@ -121,7 +121,11 @@ struct WatchlistItemContextMenu: ViewModifier {
                 } label: {
                     HStack {
                         if list.itemsSet.contains(item) {
+#if os(macOS)
+                            Image(systemName: "checkmark")
+#else
                             Image(systemName: "checkmark.circle.fill")
+#endif
                         }
                         Text(list.itemTitle)
                     }

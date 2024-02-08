@@ -37,6 +37,10 @@ struct DetailedReleaseDateView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done") { dismiss.toggle() }
                 }
+#else
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done") { dismiss.toggle() }
+                }
 #endif
             }
             .onAppear(perform: load)

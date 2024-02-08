@@ -66,7 +66,7 @@ struct WatchlistSettingsView: View {
                 .buttonStyle(.plain)
 #endif
             }
-#if !os(tvOS)
+#if !os(tvOS) && os(macOS)
             Section {
 #if os(iOS)
                 importButton
@@ -102,6 +102,9 @@ struct WatchlistSettingsView: View {
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize, axes: .vertical)
+#endif
+#if os(macOS)
+        .formStyle(.grouped)
 #endif
     }
     

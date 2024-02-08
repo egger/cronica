@@ -49,6 +49,9 @@ struct SeasonUpNextSettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize, axes: .vertical)
 #endif
+#if os(macOS)
+        .formStyle(.grouped)
+#endif
     }
 }
 

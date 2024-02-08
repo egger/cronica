@@ -125,8 +125,17 @@ struct CronicaApp: App {
                 }
 #if os(macOS)
                 .sheet(isPresented: $showFeedbackForm) {
-                    FeedbackComposerView()
-                        .frame(width: 400, height: 400, alignment: .center)
+                    NavigationStack {
+                        FeedbackComposerView()
+                    }
+                    .frame(width: 400, height: 400, alignment: .center)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Done") {
+                                showFeedbackForm = false
+                            }
+                        }
+                    }
                 }
                 .sheet(isPresented: $showAbout) {
                     NavigationStack {

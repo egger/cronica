@@ -30,7 +30,10 @@ struct FeedbackComposerView: View {
                     .buttonStyle(.link)
 #endif
             } footer: {
-                Text("Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone.")
+                HStack {
+                    Text("Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone.")
+                    Spacer()
+                }
             }
 #if !os(tvOS)
             Section {
@@ -52,11 +55,15 @@ struct FeedbackComposerView: View {
             Section {
                 Button("X/Twitter") {
                     guard let url = URL(string: "https://x.com/CronicaApp") else { return }
-                    #if os(iOS)
+#if os(iOS)
                     UIApplication.shared.open(url)
-                    #else
-                    #endif
+#elseif os(macOS)
+                    NSWorkspace.shared.open(url)
+#endif
                 }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
             } header: {
                 Text("On Social Media")
             } footer: {

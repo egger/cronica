@@ -1176,11 +1176,11 @@
 				B86AAD0928BD1CDD00D135B1 /* DeveloperView.swift */,
 				B80318A729256AE700714B3E /* FeedbackSettingsView.swift */,
 				B81DD94029BE226E009F73F3 /* NotificationsSettingsView.swift */,
-				B86AA7FB2A3A4C8C009847FE /* WatchProviderSettings.swift */,
+				B8A2C15A2B62D1F80033CD33 /* SeasonUpNextSettingsView.swift */,
 				B845132927EA514C00F0D4A4 /* SettingsView.swift */,
 				B892EB0B29675582002E028E /* TipJarSetting.swift */,
 				B8A2C1582B62D0D40033CD33 /* WatchlistSettingsView.swift */,
-				B8A2C15A2B62D1F80033CD33 /* SeasonUpNextSettingsView.swift */,
+				B86AA7FB2A3A4C8C009847FE /* WatchProviderSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

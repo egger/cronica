@@ -70,7 +70,9 @@ struct BehaviorSetting: View {
                 Text("Sharable Link")
             }
         } header: {
+            #if !os(macOS)
             Text("Beta")
+            #endif
         } footer: {
             HStack {
                 Text("You can choose to share using a Cronica link that will allow you to open the application.\nPlease note that not all content can be shared with a Cronica link, the application will always use TMDB links if necessary.")

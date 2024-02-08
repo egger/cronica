@@ -110,8 +110,11 @@ struct SettingsView: View {
             AppearanceSetting()
                 .tabItem { Label("Appearance", systemImage: "moon.stars") }
             
-            //            SyncSetting()
-            //                .tabItem { Label("Sync", systemImage: "arrow.triangle.2.circlepath") }
+            WatchlistSettingsView()
+                .tabItem { Label("Watchlist", systemImage: "rectangle.on.rectangle") }
+            
+            SeasonUpNextSettingsView()
+                .tabItem { Label("Season & Up Next", systemImage: "tv") }
             
             NotificationsSettingsView()
                 .tabItem { Label("Notification", systemImage: "bell") }

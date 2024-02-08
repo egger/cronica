@@ -766,6 +766,10 @@ extension ItemContentDetails {
         }
 #if !os(tvOS)
         .keyboardShortcut("w", modifiers: [.option])
+#endif
+#if os(macOS)
+        .controlSize(.large)
+#else
         .controlSize(.small)
 #endif
         .buttonStyle(.bordered)
@@ -792,6 +796,16 @@ extension ItemContentDetails {
                 animateFavorite.toggle()
             }
         } label: {
+#if os(macOS)
+            Label("Favorite", systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
+                .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                              value: viewModel.isFavorite)
+                .changeEffect(
+                    .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                        Image(systemName: "heart.fill")
+                            .foregroundStyle(.red)
+                    }, value: animateFavorite)
+#else
             VStack {
                 if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
                     Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
@@ -823,9 +837,14 @@ extension ItemContentDetails {
             }
             .padding(.vertical, 4)
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
+#endif
         }
 #if !os(tvOS)
         .keyboardShortcut("f", modifiers: [.option])
+#endif
+#if os(macOS)
+        .controlSize(.large)
+#else
         .controlSize(.small)
 #endif
         .buttonStyle(.bordered)
@@ -844,6 +863,9 @@ extension ItemContentDetails {
         Button {
             showCustomList.toggle()
         } label: {
+#if os(macOS)
+            Label("Lists", systemImage: viewModel.isItemAddedToAnyList ? "rectangle.on.rectangle.angled.fill" : "rectangle.on.rectangle.angled")
+#else
             VStack {
                 Image(systemName: viewModel.isItemAddedToAnyList ? "rectangle.on.rectangle.angled.fill" : "rectangle.on.rectangle.angled")
                 Text("Lists")
@@ -853,9 +875,12 @@ extension ItemContentDetails {
             }
             .padding(.vertical, 4)
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
+#endif
         }
-#if !os(tvOS)
+#if !os(tvOS) && !os(macOS)
         .controlSize(.small)
+#else
+        .controlSize(.large)
 #endif
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: DrawingConstants.buttonRadius))
