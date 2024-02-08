@@ -76,7 +76,7 @@ struct HomeView: View {
             }
 #endif
         }
-#if os(iOS) || os(macOS)
+#if os(iOS)
         .sheet(isPresented: $showWhatsNew) {
             ChangelogView(showChangelog: $showWhatsNew)
                 .onDisappear {

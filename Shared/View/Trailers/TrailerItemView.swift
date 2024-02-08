@@ -158,6 +158,10 @@ struct TrailerItemView: View {
                 showWebPlayer = true
             }
         }
+#elseif os(visionOS)
+        if let url = trailer.url {
+            UIApplication.shared.open(url)
+        }
 #elseif os(macOS)
         if let url = trailer.url {
             NSWorkspace.shared.open(url)

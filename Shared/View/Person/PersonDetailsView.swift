@@ -81,8 +81,8 @@ struct PersonDetailsView: View {
         .navigationTitle(name)
 #endif
         .toolbar {
-#if os(iOS)
-            ToolbarItem {
+#if os(iOS) || os(visionOS)
+            ToolbarItem(placement: .topBarTrailing) {
                 shareButton
             }
 #elseif os(macOS)
@@ -91,11 +91,13 @@ struct PersonDetailsView: View {
             }
 #endif
         }
+#if !os(visionOS)
         .background {
             if #available(iOS 17, *), #available(watchOS 10, *) {
                 TranslucentBackground(image: person?.personImage)
             }
         }
+#endif
 #if os(iOS)
         .searchable(text: $query,
                     placement: UIDevice.isIPhone ? .navigationBarDrawer(displayMode: .always) : .toolbar)

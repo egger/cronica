@@ -235,7 +235,7 @@ struct ExploreView: View {
                 Picker("For You", selection: $selectedForYouTab) {
                     ForEach(ForYouTabType.allCases) { item in
 #if os(visionOS)
-                        Label(item.localizedTitle, systemImage: item.toSFSymbols)
+                        Label(item.localizedTitle, systemImage: item.toSFSymbols).tag(item)
 #else
                         Text(item.localizedTitle).tag(item)
 #endif
