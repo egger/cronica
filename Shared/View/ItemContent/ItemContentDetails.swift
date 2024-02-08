@@ -306,9 +306,7 @@ struct ItemContentDetails: View {
                                numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium).padding(0)
             }
             
-#if !os(visionOS)
             TrailerListView(trailers: viewModel.trailers)
-#endif
             
             WatchProvidersList(id: id, type: type)
             
@@ -436,6 +434,8 @@ struct ItemContentDetails: View {
                     showCover: viewModel.content?.cardImageLarge
                 )
             }
+            
+            TrailerListView(trailers: viewModel.trailers)
             
             WatchProvidersList(id: id, type: type)
 #if os(tvOS)
