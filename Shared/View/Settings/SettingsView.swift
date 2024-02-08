@@ -128,12 +128,8 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    NavigationLink("Behavior", destination: BehaviorSetting())
+                    NavigationLink("Watchlist", destination: WatchlistSettingsView())
                     NavigationLink("Appearance", destination: AppearanceSetting())
-                }
-                
-                Section {
-                    //NavigationLink("Sync", destination: SyncSetting())
                 }
                 
                 Section {

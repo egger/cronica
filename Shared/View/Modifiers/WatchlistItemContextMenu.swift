@@ -30,7 +30,9 @@ struct WatchlistItemContextMenu: ViewModifier {
                 watchedButton
                 favoriteButton
                 pinButton
+                customListButton
                 archiveButton
+                Divider()
                 deleteButton
             }
 #elseif os(visionOS)
@@ -110,7 +112,6 @@ struct WatchlistItemContextMenu: ViewModifier {
                       showPopup: $showPopup)
     }
     
-#if os(iOS) || os(macOS) || os(visionOS)
     private var customListButton: some View {
         Menu {
             ForEach(lists) { list in
@@ -129,7 +130,6 @@ struct WatchlistItemContextMenu: ViewModifier {
             Label("Add To List", systemImage: "rectangle.on.rectangle.angled")
         }
     }
-#endif
     
     private var reviewButton: some View {
         Button("Review", systemImage: "note.text") {

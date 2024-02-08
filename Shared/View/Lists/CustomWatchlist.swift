@@ -25,6 +25,10 @@ struct CustomWatchlist: View {
     @Binding var popupType: ActionPopupItems?
     @AppStorage("customListSortOrder") private var sortOrder: WatchlistSortOrder = .titleAsc
     @State private var showFilters = false
+#if os(tvOS)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+                  animation: .default) private var lists: FetchedResults<CustomList>
+#endif
     private var sortedItems: [WatchlistItem] {
         guard let items = selectedList?.itemsArray else { return [] }
         switch sortOrder {
@@ -85,91 +89,159 @@ struct CustomWatchlist: View {
     var body: some View {
         VStack {
             if let items = selectedList?.itemsArray {
-#if os(tvOS)
                 ScrollView {
-                    if !items.isEmpty {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("Watchlist")
-                                    .font(.title3)
+                    #if os(tvOS)
+                    LazyVStack {
+                        if !items.isEmpty {
+                            HStack {
+                                Menu {
+                                    if lists.isEmpty {
+                                        Button("Please, use the iPhone app to create new lists.") { }
+                                    }
+                                    if selectedList == nil {
+                                        Button {
+                                            
+                                        } label: {
+                                            Label("Watchlist", systemImage: "checkmark")
+                                        }
+                                    } else {
+                                        Button {
+                                            selectedList = nil
+                                        } label: {
+                                            Text("Watchlist")
+                                        }
+                                    }
+                                    ForEach(lists) { list in
+                                        Button {
+                                            selectedList = list
+                                        } label: {
+                                            if selectedList == list {
+                                                Label(list.itemTitle, systemImage: "checkmark")
+                                            } else {
+                                                Text(list.itemTitle)
+                                            }
+                                        }
+                                    }
+                                } label: {
+                                    Label("Watchlist", systemImage: "rectangle.on.rectangle.angled")
+                                }
+                                .labelStyle(.iconOnly)
+                                Spacer()
+                                filterButton
+                            }
+                            .padding(.horizontal, 64)
+                        }
+                        if items.isEmpty {
+                            EmptyListView()
+                        } else {
+                            if !filteredItems.isEmpty {
+                                switch settings.watchlistStyle {
+                                case .list:
+                                    WatchListSection(items: scopeFiltersItems,
+                                                     title: NSLocalizedString("Search results", comment: ""),
+                                                     showPopup: $showPopup, popupType: $popupType)
+                                case .card:
+                                    WatchlistCardSection(items: scopeFiltersItems,
+                                                         title: NSLocalizedString("Search results", comment: ""), showPopup: $showPopup, popupType: $popupType)
+                                case .poster:
+                                    WatchlistPosterSection(items: scopeFiltersItems,
+                                                           title: NSLocalizedString("Search results", comment: ""), showPopup: $showPopup, popupType: $popupType)
+                                }
+                                
+                            } else {
                                 if showAllItems {
-                                    Text(mediaTypeFilter.localizableTitle)
-                                        .font(.callout)
-                                        .foregroundColor(.secondary)
+                                    switch settings.watchlistStyle {
+                                    case .list:
+                                        WatchListSection(items: mediaTypeItems,
+                                                         title: mediaTypeFilter.localizableTitle,
+                                                         showPopup: $showPopup, popupType: $popupType)
+                                    case .card:
+                                        WatchlistCardSection(items: mediaTypeItems,
+                                                             title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                                    case .poster:
+                                        WatchlistPosterSection(items: mediaTypeItems,
+                                                               title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                                    }
                                 } else {
-                                    Text(selectedOrder.title)
-                                        .font(.callout)
-                                        .foregroundColor(.secondary)
+                                    switch settings.watchlistStyle {
+                                    case .list:
+                                        WatchListSection(items: smartFiltersItems,
+                                                         title: selectedOrder.title,
+                                                         showPopup: $showPopup, popupType: $popupType)
+                                    case .card:
+                                        WatchlistCardSection(items: smartFiltersItems,
+                                                             title: selectedOrder.title,
+                                                             showPopup: $showPopup,
+                                                             popupType: $popupType)
+                                    case .poster:
+                                        WatchlistPosterSection(items: smartFiltersItems,
+                                                               title: selectedOrder.title,
+                                                               showPopup: $showPopup, popupType: $popupType)
+                                    }
                                 }
                             }
-                            .padding()
-                            Spacer()
-                            Button {
-                                showFilter.toggle()
-                            } label: {
-                                Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                                    .labelStyle(.iconOnly)
-                            }
                         }
-                        .padding(.horizontal, 64)
                     }
-                }
-#endif
-                if items.isEmpty {
-                    EmptyListView()
-                } else {
-                    if !filteredItems.isEmpty {
-                        switch settings.watchlistStyle {
-                        case .list:
-                            WatchListSection(items: scopeFiltersItems,
-                                             title: NSLocalizedString("Search results", comment: ""),
-                                             showPopup: $showPopup, popupType: $popupType)
-                        case .card:
-                            WatchlistCardSection(items: scopeFiltersItems,
-                                                 title: NSLocalizedString("Search results", comment: ""), showPopup: $showPopup, popupType: $popupType)
-                        case .poster:
-                            WatchlistPosterSection(items: scopeFiltersItems,
-                                                   title: NSLocalizedString("Search results", comment: ""), showPopup: $showPopup, popupType: $popupType)
-                        }
-                        
-                    } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
-                        noResults
+                    #else
+                    if items.isEmpty {
+                        EmptyListView()
                     } else {
-                        if showAllItems {
+                        if !filteredItems.isEmpty {
                             switch settings.watchlistStyle {
                             case .list:
-                                WatchListSection(items: mediaTypeItems,
-                                                 title: mediaTypeFilter.localizableTitle,
+                                WatchListSection(items: scopeFiltersItems,
+                                                 title: NSLocalizedString("Search results", comment: ""),
                                                  showPopup: $showPopup, popupType: $popupType)
                             case .card:
-                                WatchlistCardSection(items: mediaTypeItems,
-                                                     title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                                WatchlistCardSection(items: scopeFiltersItems,
+                                                     title: NSLocalizedString("Search results", comment: ""), showPopup: $showPopup, popupType: $popupType)
                             case .poster:
-                                WatchlistPosterSection(items: mediaTypeItems,
-                                                       title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                                WatchlistPosterSection(items: scopeFiltersItems,
+                                                       title: NSLocalizedString("Search results", comment: ""), showPopup: $showPopup, popupType: $popupType)
                             }
+                            
+                        } else if !query.isEmpty && filteredItems.isEmpty && !isSearching  {
+                            noResults
                         } else {
-                            switch settings.watchlistStyle {
-                            case .list:
-                                WatchListSection(items: smartFiltersItems,
-                                                 title: selectedOrder.title,
-                                                 showPopup: $showPopup, popupType: $popupType)
-                            case .card:
-                                WatchlistCardSection(items: smartFiltersItems,
+                            if showAllItems {
+                                switch settings.watchlistStyle {
+                                case .list:
+                                    WatchListSection(items: mediaTypeItems,
+                                                     title: mediaTypeFilter.localizableTitle,
+                                                     showPopup: $showPopup, popupType: $popupType)
+                                case .card:
+                                    WatchlistCardSection(items: mediaTypeItems,
+                                                         title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                                case .poster:
+                                    WatchlistPosterSection(items: mediaTypeItems,
+                                                           title: mediaTypeFilter.localizableTitle, showPopup: $showPopup, popupType: $popupType)
+                                }
+                            } else {
+                                switch settings.watchlistStyle {
+                                case .list:
+                                    WatchListSection(items: smartFiltersItems,
                                                      title: selectedOrder.title,
-                                                     showPopup: $showPopup,
-                                                     popupType: $popupType)
-                            case .poster:
-                                WatchlistPosterSection(items: smartFiltersItems,
-                                                       title: selectedOrder.title,
-                                                       showPopup: $showPopup, popupType: $popupType)
+                                                     showPopup: $showPopup, popupType: $popupType)
+                                case .card:
+                                    WatchlistCardSection(items: smartFiltersItems,
+                                                         title: selectedOrder.title,
+                                                         showPopup: $showPopup,
+                                                         popupType: $popupType)
+                                case .poster:
+                                    WatchlistPosterSection(items: smartFiltersItems,
+                                                           title: selectedOrder.title,
+                                                           showPopup: $showPopup, popupType: $popupType)
+                                }
                             }
                         }
                     }
+                    #endif
                 }
+                
             }
         }
         .toolbar {
+#if !os(tvOS)
 #if os(iOS) || os(visionOS)
             ToolbarItem(placement: .navigationBarLeading) {
                 styleButton
@@ -181,6 +253,7 @@ struct CustomWatchlist: View {
             filterButton
 #else
             filterButton
+#endif
 #endif
         }
 #if os(iOS)
@@ -232,21 +305,14 @@ struct CustomWatchlist: View {
     private var filterButton: some View {
 #if os(tvOS) || os(macOS)
         Menu {
-#if !os(tvOS)
             Toggle("Show All", isOn: $showAllItems)
             Picker("Media Type", selection: $mediaTypeFilter) {
                 ForEach(MediaTypeFilters.allCases) { sort in
                     Text(sort.localizableTitle).tag(sort)
                 }
             }
-#if os(macOS)
-            .pickerStyle(.inline)
-#else
             .pickerStyle(.menu)
-#endif
             .disabled(!showAllItems)
-            Divider()
-#endif
             Picker("Smart Filters", selection: $selectedOrder) {
                 ForEach(SmartFiltersTypes.allCases) { sort in
                     Text(sort.title).tag(sort)
@@ -255,6 +321,8 @@ struct CustomWatchlist: View {
             .disabled(showAllItems)
 #if os(macOS)
             .pickerStyle(.inline)
+#elseif os(tvOS)
+            .pickerStyle(.menu)
 #endif
             Picker("Sort Order",
                    selection: $sortOrder) {

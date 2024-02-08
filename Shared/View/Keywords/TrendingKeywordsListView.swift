@@ -28,6 +28,16 @@ struct TrendingKeywordsListView: View {
     var body: some View {
         Section {
             ScrollView {
+#if os(tvOS)
+                HStack {
+                    Text("Browse by Themes")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+                    Spacer()
+                }
+                .padding(.horizontal, 64)
+#endif
                 LazyVGrid(columns: DrawingConstants.columns, spacing: 20) {
                     ForEach(trendingKeywords) { keyword in
                         if keyword.image != nil {
@@ -47,6 +57,7 @@ struct TrendingKeywordsListView: View {
             .ignoresSafeArea(.all, edges: .horizontal)
 #endif
         } header: {
+#if !os(tvOS)
             HStack {
                 Text("Browse by Themes")
                     .font(.title3)
@@ -54,6 +65,7 @@ struct TrendingKeywordsListView: View {
                     .padding(.horizontal)
                 Spacer()
             }
+#endif
         }
     }
 }

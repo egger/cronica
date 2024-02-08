@@ -3015,6 +3015,16 @@
         }
       }
     },
+    "Cronica can only show where the content is streaming, it cannot link you to the content page on the service's app right now." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica can only show where the content is streaming, it cannot link you to the content page on the service's app right now."
+          }
+        }
+      }
+    },
     "Cronica is open-source, you can contribute to the project." : {
       "localizations" : {
         "de" : {
@@ -8493,6 +8503,16 @@
         }
       }
     },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
     "On Social Media" : {
       "localizations" : {
         "de" : {
@@ -9036,6 +9056,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pripnutia"
+          }
+        }
+      }
+    },
+    "Please, open the app of the service on your Apple TV to watch this content." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please, open the app of the service on your Apple TV to watch this content."
+          }
+        }
+      }
+    },
+    "Please, use the iPhone app to create new lists." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please, use the iPhone app to create new lists."
           }
         }
       }

@@ -80,6 +80,11 @@ struct DefaultWatchlist: View {
             return sortedItems.filter { $0.isTvShow }
         }
     }
+#if os(tvOS)
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \CustomList.title, ascending: true)],
+                  animation: .default) private var lists: FetchedResults<CustomList>
+    @Binding var selectedList: CustomList?
+#endif
     var body: some View {
         VStack {
 #if os(tvOS)
@@ -87,21 +92,38 @@ struct DefaultWatchlist: View {
                 LazyVStack {
                     if !items.isEmpty {
                         HStack {
-                            Button {
-                                
-                            } label: {
-                                HStack {
-                                    Text("Watchlist")
-                                        .fontWeight(.semibold)
-                                        .font(.title3)
-                                    Text(smartFilter.title)
-                                        .fontWeight(.semibold)
-                                        .font(.callout)
-                                        .foregroundColor(.secondary)
+                            Menu {
+                                if lists.isEmpty {
+                                    Button("Please, use the iPhone app to create new lists.") { }
                                 }
-                                .padding()
+                                if selectedList == nil {
+                                    Button {
+                                        
+                                    } label: {
+                                        Label("Watchlist", systemImage: "checkmark")
+                                    }
+                                } else {
+                                    Button {
+                                        selectedList = nil
+                                    } label: {
+                                        Text("Watchlist")
+                                    }
+                                }
+                                ForEach(lists) { list in
+                                    Button {
+                                        selectedList = list
+                                    } label: {
+                                        if selectedList == list {
+                                            Label(list.itemTitle, systemImage: "checkmark")
+                                        } else {
+                                            Text(list.itemTitle)
+                                        }
+                                    }
+                                }
+                            } label: {
+                                Label("Watchlist", systemImage: "rectangle.on.rectangle.angled")
                             }
-                            .buttonStyle(.plain)
+                            .labelStyle(.iconOnly)
                             Spacer()
                             filterButton
                         }
@@ -266,6 +288,8 @@ struct DefaultWatchlist: View {
             .disabled(showAllItems)
 #if os(macOS)
             .pickerStyle(.inline)
+#elseif os(tvOS)
+            .pickerStyle(.menu)
 #endif
             Picker("Sort Order",
                    selection: $sortOrder) {
@@ -311,7 +335,7 @@ struct DefaultWatchlist: View {
         }
 #endif
     }
-     
+    
     @ViewBuilder
     private var empty: some View {
         EmptyListView()
@@ -324,5 +348,9 @@ struct DefaultWatchlist: View {
 }
 
 #Preview {
+#if os(tvOS)
+    DefaultWatchlist(showPopup: .constant(false), popupType: .constant(nil), selectedList: .constant(nil))
+#else
     DefaultWatchlist(showPopup: .constant(false), popupType: .constant(nil))
+#endif
 }

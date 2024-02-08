@@ -26,7 +26,11 @@ struct WatchlistView: View {
             if selectedList != nil {
                 CustomWatchlist(selectedList: $selectedList, showPopup: $showPopup, popupType: $popupType)
             } else {
+#if os(tvOS)
+                DefaultWatchlist(showPopup: $showPopup, popupType: $popupType, selectedList: $selectedList)
+#else
                 DefaultWatchlist(showPopup: $showPopup, popupType: $popupType)
+#endif
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)

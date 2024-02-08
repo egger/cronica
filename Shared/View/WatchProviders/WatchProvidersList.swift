@@ -28,6 +28,7 @@ struct WatchProvidersList: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(items, id: \.self) { item in
+#if !os(tvOS)
                             Button {
                                 if isConfirmationEnabled {
                                     showConfirmation.toggle()
@@ -43,6 +44,34 @@ struct WatchProvidersList: View {
                             .padding(.horizontal, 6)
                             .padding(.top, 8)
                             .applyHoverEffect()
+#else
+                            VStack {
+                                Button {
+                                    if isConfirmationEnabled {
+                                        showConfirmation.toggle()
+                                    } else {
+                                        openLink()
+                                    }
+                                } label: {
+                                    providerItemView(item)
+                                }
+                                .buttonStyle(.borderless)
+                                .padding(.leading, item.self == items.first.self ? 16 : 0)
+                                .padding(.trailing, item.self == items.last.self ? 16 : 0)
+                                .padding(.horizontal, 6)
+                                .padding(.top, 8)
+                                .buttonBorderShape(.roundedRectangle(radius: 16))
+                                .hoverEffectDisabled(true)
+                                Text(item.providerTitle)
+                                    .font(.caption2)
+                                    .fontWeight(.light)
+                                    .foregroundColor(.secondary)
+                                    .lineLimit(1)
+                                    .padding(.leading, 2)
+                                    .frame(width: DrawingConstants.imageWidth)
+                            }
+                            .padding(.vertical)
+#endif
                         }
                         .padding(.bottom)
                     }
@@ -50,6 +79,7 @@ struct WatchProvidersList: View {
             }
         }
         .task { await load(id: id, media: type) }
+#if !os(tvOS)
         .confirmationDialog("This will open TMDb website with the links to each service.",
                             isPresented: $showConfirmation, titleVisibility: .visible) {
             Button("Confirm") { openLink() }
@@ -58,6 +88,14 @@ struct WatchProvidersList: View {
                 openLink()
             }
         }
+#else
+        .confirmationDialog("Please, open the app of the service on your Apple TV to watch this content.",
+                            isPresented: $showConfirmation, titleVisibility: .visible) {
+            Button("OK") { }
+        } message: {
+            Text("Cronica can only show where the content is streaming, it cannot link you to the content page on the service's app right now.")
+        }
+#endif
     }
     
     private func providerItemView(_ item: WatchProviderContent) -> some View {
@@ -77,14 +115,23 @@ struct WatchProvidersList: View {
             }
             .frame(width: DrawingConstants.imageWidth,
                    height: DrawingConstants.imageHeight)
+#if !os(tvOS)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+#else
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+#endif
             .shadow(radius: 2)
+            #if !os(tvOS)
             .applyHoverEffect()
+            #endif
+#if !os(tvOS)
             Text(item.providerTitle)
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .lineLimit(DrawingConstants.lineLimits)
                 .padding(.leading, 2)
+#endif
         }
         .frame(width: DrawingConstants.imageWidth)
         .padding(.vertical, 6)
@@ -93,8 +140,13 @@ struct WatchProvidersList: View {
 
 private struct DrawingConstants {
     static let imageRadius: CGFloat = 8
+#if !os(tvOS)
     static let imageWidth: CGFloat = 60
     static let imageHeight: CGFloat = 60
+#else
+    static let imageWidth: CGFloat = 120
+    static let imageHeight: CGFloat = 120
+#endif
     static let lineLimits: Int = 1
 }
 

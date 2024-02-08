@@ -65,9 +65,16 @@ struct ExploreView: View {
         Genre(id: 10765, name: NSLocalizedString("Sci-Fi & Fantasy", comment: ""))
     ]
     @Environment(\.dismiss) var dismiss
+#if os(tvOS)
+    @AppStorage("selectedTabExplore") private var selectedForYouTab: ForYouTabType = .explore
+#else
     @AppStorage("selectedTabExplore") private var selectedForYouTab: ForYouTabType = .recommendations
+#endif
     var body: some View {
         VStack {
+#if os(tvOS)
+            exploreView
+#else
             switch selectedForYouTab {
             case .recommendations:
                 if isLoadingRecommendations {
@@ -103,52 +110,9 @@ struct ExploreView: View {
                         .scrollBounceBehavior(.basedOnSize)
                     }
                 }
-                
-            case .explore:
-                if settings.sectionStyleType == .list {
-                    listStyle
-                } else {
-                    ScrollViewReader { proxy in
-                        ScrollView {
-#if os(tvOS)
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("Explore")
-                                        .font(.title3)
-                                    Text(selectedMedia.title)
-                                        .font(.callout)
-                                        .foregroundColor(.secondary)
-                                }
-                                .padding()
-                                Spacer()
-                                Menu {
-                                    hideItemsToggle
-                                    selectMediaPicker
-                                    selectGenrePicker
-                                        .pickerStyle(.menu)
-                                } label: {
-                                    Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
-                                        .labelStyle(.iconOnly)
-                                }
-                            }
-                            .padding(.horizontal, 64)
-#endif
-                            
-                            switch settings.sectionStyleType {
-                            case .list: EmptyView()
-                            case .poster: posterStyle
-                            case .card: cardStyle
-                            }
-                        }
-                        .onChange(of: onChanging) { _ in
-                            guard let first = items.first else { return }
-                            withAnimation {
-                                proxy.scrollTo(first.id, anchor: .topLeading)
-                            }
-                        }
-                    }
-                }
+            case .explore: exploreView
             }
+#endif
         }
         .sheet(isPresented: $showFilters) {
             NavigationStack {
@@ -266,16 +230,20 @@ struct ExploreView: View {
         }
         .redacted(reason: !isLoaded ? .placeholder : [] )
         .toolbar {
+#if !os(tvOS)
             ToolbarItem(placement: .principal) {
                 Picker("For You", selection: $selectedForYouTab) {
                     ForEach(ForYouTabType.allCases) { item in
+#if os(visionOS)
+                        Label(item.localizedTitle, systemImage: item.toSFSymbols)
+#else
                         Text(item.localizedTitle).tag(item)
+#endif
                     }
                 }
                 .frame(width: 200)
                 .pickerStyle(.segmented)
             }
-#if !os(tvOS)
             if selectedForYouTab != .recommendations {
                 ToolbarItem {
                     Button("Filters",
@@ -302,6 +270,54 @@ struct ExploreView: View {
         .onChange(of: selectedGenre) { _ in
             onChanging = true
             Task { await load() }
+        }
+    }
+    
+    @ViewBuilder
+    private var exploreView: some View {
+        if settings.sectionStyleType == .list {
+            listStyle
+        } else {
+            ScrollViewReader { proxy in
+                ScrollView {
+#if os(tvOS)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Explore")
+                                .font(.title3)
+                            Text(selectedMedia.title)
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding()
+                        Spacer()
+                        Menu {
+                            hideItemsToggle
+                            selectMediaPicker
+                            selectGenrePicker
+                                .pickerStyle(.inline)
+                        } label: {
+                            Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                                .labelStyle(.iconOnly)
+                        }
+                    }
+                    .padding(.horizontal, 64)
+                    .unredacted()
+#endif
+                    
+                    switch settings.sectionStyleType {
+                    case .list: EmptyView()
+                    case .poster: posterStyle
+                    case .card: cardStyle
+                    }
+                }
+                .onChange(of: onChanging) { _ in
+                    guard let first = items.first else { return }
+                    withAnimation {
+                        proxy.scrollTo(first.id, anchor: .topLeading)
+                    }
+                }
+            }
         }
     }
     
@@ -720,6 +736,13 @@ enum ForYouTabType: String, Identifiable, Codable, Hashable, CaseIterable {
         switch self {
         case .recommendations: NSLocalizedString("For You", comment: "")
         case .explore: NSLocalizedString("Explore", comment: "")
+        }
+    }
+    
+    var toSFSymbols: String {
+        switch self {
+        case .recommendations: "wand.and.stars"
+        case .explore: "popcorn"
         }
     }
 }

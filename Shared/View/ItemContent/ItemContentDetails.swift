@@ -437,6 +437,11 @@ struct ItemContentDetails: View {
                 )
             }
             
+            WatchProvidersList(id: id, type: type)
+#if os(tvOS)
+                .padding(.leading, 64)
+#endif
+            
             HorizontalItemContentListView(items: viewModel.recommendations,
                                           title: NSLocalizedString("Recommendations", comment: ""),
                                           showPopup: $showPopup,

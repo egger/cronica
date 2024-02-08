@@ -66,7 +66,7 @@ struct WatchlistSettingsView: View {
                 .buttonStyle(.plain)
 #endif
             }
-            
+#if !os(tvOS)
             Section {
 #if os(iOS)
                 importButton
@@ -95,6 +95,7 @@ struct WatchlistSettingsView: View {
                     CronicaTelemetry.shared.handleMessage(failure.localizedDescription, for: "SyncSettings.fileImporter")
                 }
             }
+#endif
 #endif
         }
         .navigationTitle("Watchlist Settings")

@@ -203,7 +203,11 @@ extension ItemContent {
     
     // MARK: URL
     var posterImageMedium: URL? {
+#if os(tvOS)
+        return NetworkService.urlBuilder(size: .w780, path: posterPath)
+#else
         return NetworkService.urlBuilder(size: .w500, path: posterPath)
+#endif
     }
     var posterImageLarge: URL? {
         return NetworkService.urlBuilder(size: .w500, path: posterPath)
