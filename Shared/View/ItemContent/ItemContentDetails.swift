@@ -769,7 +769,7 @@ extension ItemContentDetails {
 #endif
 #if os(macOS)
         .controlSize(.large)
-#else
+#elseif !os(tvOS)
         .controlSize(.small)
 #endif
         .buttonStyle(.bordered)
@@ -844,7 +844,7 @@ extension ItemContentDetails {
 #endif
 #if os(macOS)
         .controlSize(.large)
-#else
+#elseif !os(tvOS)
         .controlSize(.small)
 #endif
         .buttonStyle(.bordered)
@@ -879,7 +879,7 @@ extension ItemContentDetails {
         }
 #if !os(tvOS) && !os(macOS)
         .controlSize(.small)
-#else
+#elseif !os(tvOS)
         .controlSize(.large)
 #endif
         .buttonStyle(.bordered)
