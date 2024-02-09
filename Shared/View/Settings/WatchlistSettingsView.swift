@@ -66,14 +66,16 @@ struct WatchlistSettingsView: View {
                 .buttonStyle(.plain)
 #endif
             }
-#if !os(tvOS) && os(macOS)
+#if !os(tvOS)
             Section {
 #if os(iOS)
                 importButton
                 exportButton
 #endif
             } header: {
+#if !os(macOS)
                 Text("Backup & Restore")
+#endif
             } footer: {
 #if os(iOS)
                 Text("Backup/Restore is in beta, only use it to export your data or to import if you're switching your iCloud account, there's no logic at the moment to avoid duplication.")

@@ -223,6 +223,9 @@ struct ExploreView: View {
 #elseif os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
 #endif
+#if os(macOS)
+        .navigationTitle(" ")
+#endif
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
 #endif
