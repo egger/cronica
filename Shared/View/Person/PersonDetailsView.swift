@@ -93,9 +93,7 @@ struct PersonDetailsView: View {
         }
 #if !os(visionOS)
         .background {
-            if #available(iOS 17, *), #available(watchOS 10, *) {
-                TranslucentBackground(image: person?.personImage)
-            }
+            TranslucentBackground(image: person?.personImage)
         }
 #endif
 #if os(iOS)
@@ -182,12 +180,14 @@ struct PersonDetailsView: View {
 #endif
     
     private var imageProfile: some View {
-        PersonImageProfileView(person: person)
-            .onTapGesture {
+        Button {
 #if os(iOS)
-                showImageFullscreen.toggle()
+            showImageFullscreen.toggle()
 #endif
-            }
+        } label: {
+            PersonImageProfileView(person: person)
+        }
+        .buttonStyle(.plain)
     }
 }
 

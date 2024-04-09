@@ -54,50 +54,37 @@ enum ActionPopupItems: String, Identifiable, CaseIterable {
     
     var localizedString: String {
         switch self {
-        case .addedWatchlist:
-            return NSLocalizedString("Added", comment: "")
-        case .removedWatchlist:
-            return NSLocalizedString("Removed", comment: "")
-        case .markedWatched:
-            return NSLocalizedString("Watched", comment: "")
-        case .removedWatched:
-            return NSLocalizedString("Unwatched", comment: "")
-        case .markedFavorite:
-            return NSLocalizedString("Favorited", comment: "")
-        case .removedFavorite:
-            return NSLocalizedString("Unfavorited", comment: "")
-        case .markedArchive:
-            return NSLocalizedString("Archived", comment: "")
-        case .removedArchive:
-            return NSLocalizedString("Unarchived", comment: "")
-        case .markedPin:
-            return NSLocalizedString("Pinned", comment: "")
-        case .removedPin:
-            return NSLocalizedString("Unpinned", comment: "")
-        case .markedEpisodeWatched:
-            return NSLocalizedString("Watched", comment: "")
-        case .removedEpisodeWatched:
-            return NSLocalizedString("Unwatched", comment: "")
-        case .feedbackSent:
-            return NSLocalizedString("Feedback sent. Thank you.", comment: "")
+        case .addedWatchlist: String(localized: "Added")
+        case .removedWatchlist: String(localized: "Removed")
+        case .markedWatched: String(localized: "Watched")
+        case .removedWatched: String(localized: "Unwatched")
+        case .markedFavorite: String(localized: "Favorited")
+        case .removedFavorite: String(localized: "Unfavorited")
+        case .markedArchive: String(localized: "Archived")
+        case .removedArchive: String(localized: "Unarchived")
+        case .markedPin: String(localized: "Pinned")
+        case .removedPin: String(localized: "Unpinned")
+        case .markedEpisodeWatched: String(localized: "Watched")
+        case .removedEpisodeWatched: String(localized: "Unwatched")
+        case .feedbackSent: String(localized: "Feedback sent. Thank you.")
         }
     }
     
     var toSfSymbol: String {
         switch self {
-        case .addedWatchlist: return "plus.circle.fill"
-        case .removedWatchlist: return "minus.circle.fill"
-        case .markedWatched: return "rectangle.badge.checkmark.fill"
-        case .removedWatched: return "rectangle.badge.checkmark"
-        case .markedFavorite: return "heart.fill"
-        case .removedFavorite: return "heart.slash.fill"
-        case .markedArchive: return "archivebox.fill"
-        case .removedArchive: return "archivebox"
-        case .markedPin: return "pin.fill"
-        case .removedPin: return "pin.slash.fill"
-        case .markedEpisodeWatched: return "rectangle.badge.checkmark.fill"
-        case .removedEpisodeWatched: return "rectangle.badge.checkmark"
-        case .feedbackSent: return "envelope.fill"
+        case .addedWatchlist: "plus.circle.fill"
+        case .removedWatchlist: "minus.circle.fill"
+        case .markedWatched: "rectangle.badge.checkmark.fill"
+        case .removedWatched: "rectangle.badge.checkmark"
+        case .markedFavorite: "heart.fill"
+        case .removedFavorite: "heart.slash.fill"
+        case .markedArchive: "archivebox.fill"
+        case .removedArchive: "archivebox"
+        case .markedPin: "pin.fill"
+        case .removedPin: "pin.slash.fill"
+        case .markedEpisodeWatched: "rectangle.badge.checkmark.fill"
+        case .removedEpisodeWatched: "rectangle.badge.checkmark"
+        case .feedbackSent: "envelope.fill"
         }
     }
 }

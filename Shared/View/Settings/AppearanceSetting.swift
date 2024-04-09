@@ -113,29 +113,31 @@ struct AppearanceSetting: View {
     }
     
     private func colorButton(for item: AppThemeColors) -> some View {
-        ZStack {
-            Circle()
-                .fill(item.color)
-            if store.appTheme == item {
-                Image(systemName: "checkmark.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .imageScale(.large)
-                    .foregroundColor(.white.opacity(0.6))
-                    .fontWeight(.black)
-                
+        Button {
+            withAnimation {
+                store.appTheme = item
             }
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(item.color)
+                if store.appTheme == item {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .imageScale(.large)
+                        .foregroundColor(.white.opacity(0.6))
+                        .fontWeight(.black)
+                    
+                }
+            }
+            .frame(width: 30)
         }
-        .frame(width: 30)
+        .buttonStyle(.plain)
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(item == store.appTheme ? [.isButton, .isSelected] : .isButton )
         .accessibilityLabel(item.localizableName)
         .padding(.horizontal, 4)
-        .onTapGesture {
-            withAnimation {
-                store.appTheme = item
-            }
-        }
     }
     
 #if os(iOS)

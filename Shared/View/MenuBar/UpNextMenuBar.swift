@@ -22,12 +22,14 @@ struct UpNextMenuBar: View {
             Section {
                 List {
                     ForEach(viewModel.episodes) { item in
-                        upNextRowItem(item)
-                            .onTapGesture {
-                                Task { await viewModel.markAsWatched(item) }
-                            }
-                            .padding(.top, item == viewModel.episodes.first ? 8 : 0)
-                            .padding(.top, item == viewModel.episodes.last ? 8 : 0)
+                        Button {
+                            Task { await viewModel.markAsWatched(item) }
+                        } label: {
+                            upNextRowItem(item)
+                        }
+                        .buttonStyle(.plain)
+                        .padding(.top, item == viewModel.episodes.first ? 8 : 0)
+                        .padding(.top, item == viewModel.episodes.last ? 8 : 0)
                     }
                 }
                 .overlay {

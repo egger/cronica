@@ -13,29 +13,23 @@ enum MediaType: String, CaseIterable, Identifiable {
     case tvShow = "tv"
     var title: String {
         switch self {
-        case .movie:
-            return NSLocalizedString("Movie", comment: "")
-        case .tvShow:
-            return NSLocalizedString("TV Show", comment: "")
-        case .person:
-            return NSLocalizedString("People", comment: "")
+        case .movie: String(localized: "Movie")
+        case .tvShow: String(localized: "TV Show")
+        case .person: String(localized: "People")
         }
     }
     var toInt: Int64 {
         switch self {
-        case .movie: return 0
-        case .tvShow: return 1
-        case .person: return 2
+        case .movie: 0
+        case .tvShow: 1
+        case .person: 2
         }
     }
     var append: String {
         switch self {
-        case .movie:
-            return "credits,recommendations,release_dates,videos"
-        case .person:
-            return "combined_credits,images"
-        case .tvShow:
-            return "credits,recommendations,videos"
+        case .movie: "credits,recommendations,release_dates,videos"
+        case .person: "combined_credits,images"
+        case .tvShow: "credits,recommendations,videos"
         }
     }
 }

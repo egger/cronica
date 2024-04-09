@@ -17,23 +17,23 @@ enum ReleaseDateType: String, Identifiable, Codable {
     
     var localizedTitle: String {
         switch self {
-        case .premiere: return NSLocalizedString("Premiere", comment: "")
-        case .theatricalLimited: return NSLocalizedString("Theatrical Limited", comment: "")
-        case .theatrical: return NSLocalizedString("Theatrical", comment: "")
-        case .digital: return NSLocalizedString("Digital", comment: "")
-        case .physical: return NSLocalizedString("Physical", comment: "")
-        case .tv: return NSLocalizedString("TV", comment: "")
+        case .premiere: String(localized: "Premiere")
+        case .theatricalLimited: String(localized: "Theatrical Limited")
+        case .theatrical: String(localized: "Theatrical")
+        case .digital: String(localized: "Digital")
+        case .physical: String(localized: "Physical")
+        case .tv: String(localized: "TV")
         }
     }
     
     var toInt: Int {
         switch self {
-        case .premiere: return 1
-        case .theatricalLimited: return 2
-        case .theatrical: return 3
-        case .digital: return 4
-        case .physical: return 5
-        case .tv: return 6
+        case .premiere: 1
+        case .theatricalLimited: 2
+        case .theatrical: 3
+        case .digital: 4
+        case .physical: 5
+        case .tv: 6
         }
     }
 }

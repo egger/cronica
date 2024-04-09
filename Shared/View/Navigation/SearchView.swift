@@ -209,14 +209,7 @@ struct SearchView: View {
     
     @ViewBuilder
     private var emptyView: some View {
-        if #available(iOS 17, *) {
-            ContentUnavailableView.search(text: viewModel.query)
-        } else {
-            Text("No results")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
+        ContentUnavailableView.search(text: viewModel.query)
     }
     
     private var searchingView: some View {
@@ -227,14 +220,7 @@ struct SearchView: View {
     
     @ViewBuilder
     private var failureView: some View {
-        if #available(iOS 17, *) {
-            ContentUnavailableView("Try again later", systemImage: "magnifyingglass").padding()
-        } else {
-            Text("Try again later")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
+        ContentUnavailableView("Try again later", systemImage: "magnifyingglass").padding()
     }
     
     @ViewBuilder

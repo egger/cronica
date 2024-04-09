@@ -23,7 +23,7 @@ struct VerticalUpNextListView: View {
     @StateObject private var settings = SettingsStore.shared
     @Environment(\.scenePhase) private var scene
     var body: some View {
-        VStack {
+        ZStack {
             switch settings.upNextStyle {
             case .list: listStyle
             case .card: cardStyle
@@ -59,7 +59,9 @@ struct VerticalUpNextListView: View {
                 .toolbar {
 #if !os(macOS)
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Done") { self.selectedEpisode = nil }
+                        RoundedCloseButton {
+                            self.selectedEpisode = nil
+                        }
                     }
 #endif
                 }
@@ -90,6 +92,7 @@ struct VerticalUpNextListView: View {
             .appTheme()
             .appTint()
             .presentationDragIndicator(.visible)
+            .presentationCornerRadius(32)
 #endif
         }
         .task(id: viewModel.isWatched) {
@@ -169,7 +172,7 @@ struct VerticalUpNextListView: View {
                             }
                         }
                     } else if queryResult.isEmpty && !query.isEmpty {
-                        EmptyView()
+                        ContentUnavailableView.search(text: query)
                     } else {
                         ForEach(viewModel.episodes) { item in
                             VStack(alignment: .leading) {
@@ -208,11 +211,10 @@ struct VerticalUpNextListView: View {
                 Task { await viewModel.reload(items) }
             }
             .redacted(reason: viewModel.isLoaded ? [] : .placeholder)
+            .scrollBounceBehavior(.basedOnSize)
         }
     }
-}
-
-extension VerticalUpNextListView {
+    
     private func search() {
         if query.isEmpty && !queryResult.isEmpty {
             withAnimation {

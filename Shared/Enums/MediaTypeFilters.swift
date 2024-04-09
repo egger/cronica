@@ -12,9 +12,9 @@ enum MediaTypeFilters: String, Identifiable, CaseIterable {
     case showAll, movies, tvShows
     var localizableTitle: String {
         switch self {
-        case .showAll: NSLocalizedString("All", comment: "")
-        case .movies: NSLocalizedString("Movies", comment: "")
-        case .tvShows: NSLocalizedString("TV Shows", comment: "")
+        case .showAll: String(localized: "All")
+        case .movies: String(localized: "Movies")
+        case .tvShows: String(localized: "TV Shows")
         }
     }
 }

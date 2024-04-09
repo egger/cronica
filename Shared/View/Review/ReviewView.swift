@@ -147,14 +147,9 @@ struct ReviewView: View {
     
     @ViewBuilder
     private var doneButton: some View {
-        if #available(iOS 17, *) {
-            Button("Cancel", systemImage: "xmark", action: dismiss)
-                .labelStyle(.iconOnly)
-                .buttonBorderShape(.circle)
-                .buttonStyle(.borderedProminent)
-        } else {
-            Button("Cancel", systemImage: "xmark", action: dismiss)
-        }
+        EmptyView()
+        #warning("make RoundedCloseButton available to watchOS")
+        //RoundedCloseButton(action: dismiss)
     }
     
     private var saveButton: some View {

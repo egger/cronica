@@ -690,13 +690,9 @@ extension ItemContentDetails {
                           value: viewModel.isInWatchlist)
 #else
             VStack {
-                if #available(iOS 17, *), #available(watchOS 10, *), #available(tvOS 17, *) {
-                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-                        .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
-                                      value: viewModel.isInWatchlist)
-                } else {
-                    Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
-                }
+                Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
+                    .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
+                                  value: viewModel.isInWatchlist)
                 
 #if !os(tvOS)
                 Text(viewModel.isInWatchlist ? "Remove" : "Add")
@@ -745,13 +741,9 @@ extension ItemContentDetails {
                           value: viewModel.isWatched)
 #else
             VStack {
-                if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                        .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
-                                      value: viewModel.isWatched)
-                } else {
-                    Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
-                }
+                Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
+                    .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
+                                  value: viewModel.isWatched)
                 
 #if !os(tvOS)
                 Text("Watched")
@@ -807,27 +799,16 @@ extension ItemContentDetails {
                     }, value: animateFavorite)
 #else
             VStack {
-                if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                        .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
-                                      value: viewModel.isFavorite)
+                Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                    .symbolEffect(viewModel.isFavorite ? .bounce.down : .bounce.up,
+                                  value: viewModel.isFavorite)
 #if !os(tvOS)
-                        .changeEffect(
-                            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
-                                Image(systemName: "heart.fill")
-                                    .foregroundStyle(.red)
-                            }, value: animateFavorite)
+                    .changeEffect(
+                        .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                            Image(systemName: "heart.fill")
+                                .foregroundStyle(.red)
+                        }, value: animateFavorite)
 #endif
-                } else {
-                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-#if !os(tvOS)
-                        .changeEffect(
-                            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
-                                Image(systemName: "heart.fill")
-                                    .foregroundStyle(.red)
-                            }, value: animateFavorite)
-#endif
-                }
 #if !os(tvOS)
                 Text("Favorite")
                     .padding(.top, 2)
@@ -897,70 +878,38 @@ extension ItemContentDetails {
     // MARK: Toolbar
     @ViewBuilder
     private var watchButtonToolbar: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isWatched ? "Unwatched" : "Watched",
-                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
-                viewModel.update(.watched)
-                animatePopup(for: viewModel.isWatched ? .markedWatched : .removedWatched)
-            }.symbolEffect(.bounce.down, value: viewModel.isWatched)
-        } else {
-            Button(viewModel.isWatched ? "Unwatched" : "Watched",
-                   systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
-                viewModel.update(.watched)
-                animatePopup(for: viewModel.isWatched ? .markedWatched : .removedWatched)
-            }
-        }
+        Button(viewModel.isWatched ? "Unwatched" : "Watched",
+               systemImage: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark") {
+            viewModel.update(.watched)
+            animatePopup(for: viewModel.isWatched ? .markedWatched : .removedWatched)
+        }.symbolEffect(.bounce.down, value: viewModel.isWatched)
     }
     
     @ViewBuilder
     private var favoriteButtonToolbar: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isFavorite ? "Unfavorite" : "Favorite",
-                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
-                viewModel.update(.favorite)
-                animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
-            }.symbolEffect(.bounce.down, value: viewModel.isFavorite)
-        } else {
-            Button(viewModel.isFavorite ? "Unfavorite" : "Favorite",
-                   systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
-                viewModel.update(.favorite)
-                animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
-            }
-        }
+        Button(viewModel.isFavorite ? "Unfavorite" : "Favorite",
+               systemImage: viewModel.isFavorite ? "heart.fill" : "heart") {
+            viewModel.update(.favorite)
+            animatePopup(for: viewModel.isFavorite ? .markedFavorite : .removedFavorite)
+        }.symbolEffect(.bounce.down, value: viewModel.isFavorite)
     }
     
     @ViewBuilder
     private var pinButtonToolbar: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isPin ? "Unpin" : "Pin",
-                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
-                viewModel.update(.pin)
-                animatePopup(for: viewModel.isPin ? .markedPin : .removedPin)
-            }.symbolEffect(.bounce.down, value: viewModel.isPin)
-        } else {
-            Button(viewModel.isPin ? "Unpin" : "Pin",
-                   systemImage: viewModel.isPin ? "pin.fill" : "pin") {
-                viewModel.update(.pin)
-                animatePopup(for: viewModel.isPin ? .markedPin : .removedPin)
-            }
-        }
+        Button(viewModel.isPin ? "Unpin" : "Pin",
+               systemImage: viewModel.isPin ? "pin.fill" : "pin") {
+            viewModel.update(.pin)
+            animatePopup(for: viewModel.isPin ? .markedPin : .removedPin)
+        }.symbolEffect(.bounce.down, value: viewModel.isPin)
     }
     
     @ViewBuilder
     private var archiveButtonToolbar: some View {
-        if #available(iOS 17, *), #available(tvOS 17, *), #available(macOS 14, *) {
-            Button(viewModel.isArchive ? "Unarchive" : "Archive",
-                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
-                viewModel.update(.archive)
-                animatePopup(for: viewModel.isArchive ? .markedArchive : .removedArchive)
-            }.symbolEffect(.bounce.down, value: viewModel.isArchive)
-        } else {
-            Button(viewModel.isArchive ? "Unarchive" : "Archive",
-                   systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
-                viewModel.update(.archive)
-                animatePopup(for: viewModel.isArchive ? .markedArchive : .removedArchive)
-            }
-        }
+        Button(viewModel.isArchive ? "Unarchive" : "Archive",
+               systemImage: viewModel.isArchive ? "archivebox.fill" : "archivebox") {
+            viewModel.update(.archive)
+            animatePopup(for: viewModel.isArchive ? .markedArchive : .removedArchive)
+        }.symbolEffect(.bounce.down, value: viewModel.isArchive)
     }
     
     private var reviewButtonToolbar: some View {

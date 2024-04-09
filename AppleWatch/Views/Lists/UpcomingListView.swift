@@ -43,15 +43,8 @@ struct UpcomingListView: View {
                     }
                 }
             } else {
-                if #available(watchOS 10, *) {
-                    ContentUnavailableView("Your upcoming items will appear here.",
-                                           systemImage: "popcorn")
-                } else {
-                    Text("Your upcoming items will appear here.")
-                        .multilineTextAlignment(.center)
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                }
+                ContentUnavailableView("Your upcoming items will appear here.",
+                                       systemImage: "popcorn")
             }
         }
         .navigationTitle("Upcoming")

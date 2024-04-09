@@ -11,11 +11,10 @@ struct CenterHorizontalView<Content: View>: View {
     var content: () -> Content
     @ViewBuilder
     var body: some View {
-        HStack {
-            Spacer()
+        HStack(alignment: .center) {
             content()
-            Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
 }
 

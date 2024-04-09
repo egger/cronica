@@ -68,14 +68,13 @@ extension WatchEpisodeButton {
         isItemSaved = isShowSaved
     }
     
-    @MainActor
     private func handleList() async {
         let contentId = "\(show)@\(MediaType.tvShow.toInt)"
         let item = persistence.fetch(for: contentId)
         guard let item else { return }
         persistence.updateWatchedEpisodes(for: item, with: episode)
         await MainActor.run {
-            withAnimation { isWatched.toggle() }
+            withAnimation { self.isWatched.toggle() }
         }
         HapticManager.shared.successHaptic()
         let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: self.episode, show: show)

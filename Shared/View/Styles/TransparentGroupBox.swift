@@ -15,6 +15,7 @@ struct TransparentGroupBox: GroupBoxStyle {
                     .fontDesign(.rounded)
                     .font(.headline)
                     .foregroundColor(.primary)
+                    .fontWeight(.medium)
                 Spacer()
             }
             
@@ -26,7 +27,7 @@ struct TransparentGroupBox: GroupBoxStyle {
             ZStack {
                 Rectangle().fill(.background)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .shadow(radius: 1)
         }
     }

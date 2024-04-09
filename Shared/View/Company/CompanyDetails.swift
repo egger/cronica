@@ -85,17 +85,8 @@ struct CompanyDetails: View {
                                     }
                             }
                         }
-                    } else {
-                        if isLoaded {
-                            if #available(iOS 17, *) {
-                                ContentUnavailableView("Try again later", systemImage: "popcorn")
-                            } else {
-                                Text("Try again later")
-                                    .multilineTextAlignment(.center)
-                                    .font(.callout)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
+                    } else if items.isEmpty, isLoaded {
+                        ContentUnavailableView("Try again later", systemImage: "popcorn")
                     }
                 }
             }
@@ -221,13 +212,6 @@ private extension CompanyDetails {
 
 struct SimpleUnavailableView: View {
     var body: some View {
-        if #available(iOS 17, *) {
-            ContentUnavailableView("Try again later", systemImage: "rectangle.on.rectangle")
-        } else {
-            Text("Try again later")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
+        ContentUnavailableView("Try again later", systemImage: "rectangle.on.rectangle")
     }
 }

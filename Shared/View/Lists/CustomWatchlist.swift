@@ -356,31 +356,14 @@ struct CustomWatchlist: View {
 
 struct EmptyListView: View {
     var body: some View {
-        if #available(iOS 17, *) {
-            ContentUnavailableView("Empty List", systemImage: "rectangle.on.rectangle")
-                .padding()
-        } else {
-            Text("Empty List")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
+        ContentUnavailableView("Empty List", systemImage: "rectangle.on.rectangle")
+            .padding()
     }
 }
 
 struct SearchContentUnavailableView: View {
     let query: String
     var body: some View {
-        if #available(iOS 17, *) {
-            ContentUnavailableView.search(text: query)
-        } else {
-            VStack {
-                Text("No result found for '\(query)'.")
-                    .multilineTextAlignment(.center)
-                    .font(.callout)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.secondary)
-            }
-        }
+        ContentUnavailableView.search(text: query)
     }
 }

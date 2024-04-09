@@ -126,24 +126,26 @@ struct SelectListView: View {
                                     ListRowItem(list: item, selectedList: $selectedList)
                                 }
 #else
-                                ListRowItem(list: item, selectedList: $selectedList)
-                                    .onTapGesture {
-                                        HapticManager.shared.selectionHaptic()
-                                        selectedList = item
-                                        showListSelection = false
-                                    }
+                                Button {
+                                    HapticManager.shared.selectionHaptic()
+                                    selectedList = item
+                                    showListSelection = false
+                                } label: {
+                                    ListRowItem(list: item, selectedList: $selectedList)
+                                }
+                                .buttonStyle(.plain)
 #if os(iOS) || os(macOS)
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
-                                        NavigationLink {
+                                .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
+                                    NavigationLink {
 #if os(iOS)
-                                            EditCustomList(list: item, showListSelection: $showListSelection)
+                                        EditCustomList(list: item, showListSelection: $showListSelection)
 #elseif os(macOS)
-                                            EditCustomList(isPresentingNewList: $isCreateNewListPresented, list: item, showListSelection: $showListSelection)
+                                        EditCustomList(isPresentingNewList: $isCreateNewListPresented, list: item, showListSelection: $showListSelection)
 #endif
-                                        } label: {
-                                            Text("Edit")
-                                        }
+                                    } label: {
+                                        Text("Edit")
                                     }
+                                }
 #endif
 #endif
                             }

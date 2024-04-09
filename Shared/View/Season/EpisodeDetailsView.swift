@@ -47,8 +47,8 @@ struct EpisodeDetailsView: View {
     
 #if os(iOS) || os(macOS) || os(visionOS)
     private var details: some View {
-        VStack {
-            ScrollView {
+        ScrollView {
+            VStack {
                 HeroImage(url: episode.itemImageLarge, title: episode.itemTitle)
 #if os(macOS) || os(visionOS)
                     .frame(width: DrawingConstants.padImageWidth,
@@ -58,7 +58,7 @@ struct EpisodeDetailsView: View {
                            height: (horizontalSizeClass == .compact) ? DrawingConstants.imageHeight : DrawingConstants.padImageHeight)
 #endif
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                    .shadow(radius: DrawingConstants.shadowRadius)
+                    .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
 #if os(macOS)
                     .padding(.top)
 #endif
@@ -75,12 +75,14 @@ struct EpisodeDetailsView: View {
                     Text(showTitle)
                         .multilineTextAlignment(.center)
                         .font(.caption)
+                        .fontWeight(.semibold)
                         .foregroundColor(.secondary)
                         .padding(.horizontal)
                     if !info.isEmpty {
                         CenterHorizontalView {
                             Text(info)
                                 .font(.caption)
+                                .fontWeight(.medium)
                                 .foregroundColor(.secondary)
                         }
                         .padding(.horizontal)
@@ -113,8 +115,9 @@ struct EpisodeDetailsView: View {
                                 type: .tvShow)
                 .padding([.horizontal, .bottom])
             }
-            .task { load() }
         }
+        .scrollBounceBehavior(.basedOnSize)
+        .task { load() }
 #if !os(visionOS)
         .background {
             TranslucentBackground(image: episode.itemImageLarge)
@@ -132,12 +135,25 @@ struct EpisodeDetailsView: View {
             ToolbarItem(placement: .topBarTrailing){
                 if let showItem {
                     NavigationLink(value: showItem) {
-                        Label("More Info", systemImage: "info.circle.fill")
-                            .labelStyle(.iconOnly)
+                        Image(systemName: "info")
+                            .imageScale(.medium)
+                            .accessibilityLabel("More Info")
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
                     }
+                    .buttonStyle(.borderedProminent)
+                    .contentShape(Circle())
+                    .clipShape(Circle())
+                    .buttonBorderShape(.circle)
+                    .shadow(radius: 2.5)
                 }
             }
         }
+        .navigationBarTitleDisplayMode(.large)
+        .navigationTitle(Text(String()))
 #endif
     }
 #endif
@@ -148,7 +164,7 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 12
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
     static let padImageRadius: CGFloat = 8

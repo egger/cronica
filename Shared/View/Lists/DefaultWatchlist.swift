@@ -27,57 +27,51 @@ struct DefaultWatchlist: View {
     private var sortedItems: [WatchlistItem] {
         switch sortOrder {
         case .titleAsc:
-            return items.sorted { $0.itemTitle < $1.itemTitle }
+            items.sorted { $0.itemTitle < $1.itemTitle }
         case .titleDesc:
-            return items.sorted { $0.itemTitle > $1.itemTitle }
+            items.sorted { $0.itemTitle > $1.itemTitle }
         case .ratingAsc:
-            return items.sorted { $0.userRating < $1.userRating }
+            items.sorted { $0.userRating < $1.userRating }
         case .ratingDesc:
-            return items.sorted { $0.userRating > $1.userRating }
+            items.sorted { $0.userRating > $1.userRating }
         case .dateAsc:
-            return items.sorted { $0.itemSortDate < $1.itemSortDate }
+            items.sorted { $0.itemSortDate < $1.itemSortDate }
         case .dateDesc:
-            return items.sorted { $0.itemSortDate > $1.itemSortDate }
+            items.sorted { $0.itemSortDate > $1.itemSortDate }
         }
     }
     private var smartFiltersItems: [WatchlistItem] {
         switch smartFilter {
         case .released:
-            return sortedItems.filter { $0.isReleased }
+            sortedItems.filter { $0.isReleased }
         case .production:
-            return sortedItems.filter { $0.isInProduction || $0.isUpcoming }
+            sortedItems.filter { $0.isInProduction || $0.isUpcoming }
         case .watching:
-            return sortedItems.filter { $0.isCurrentlyWatching }
+            sortedItems.filter { $0.isCurrentlyWatching }
         case .watched:
-            return sortedItems.filter { $0.isWatched }
+            sortedItems.filter { $0.isWatched }
         case .favorites:
-            return sortedItems.filter { $0.isFavorite }
+            sortedItems.filter { $0.isFavorite }
         case .pin:
-            return sortedItems.filter { $0.isPin }
+            sortedItems.filter { $0.isPin }
         case .archive:
-            return sortedItems.filter { $0.isArchive }
+            sortedItems.filter { $0.isArchive }
         case .notWatched:
-            return sortedItems.filter { !$0.isCurrentlyWatching && !$0.isWatched && $0.isReleased }
+            sortedItems.filter { !$0.isCurrentlyWatching && !$0.isWatched && $0.isReleased }
         }
     }
     private var scopeFiltersItems: [WatchlistItem] {
         switch scope {
-        case .noScope:
-            return filteredItems
-        case .movies:
-            return filteredItems.filter { $0.isMovie }
-        case .shows:
-            return filteredItems.filter { $0.isTvShow }
+        case .noScope: filteredItems
+        case .movies: filteredItems.filter { $0.isMovie }
+        case .shows: filteredItems.filter { $0.isTvShow }
         }
     }
     private var mediaTypeItems: [WatchlistItem] {
         switch mediaTypeFilter {
-        case .showAll:
-            return sortedItems
-        case .movies:
-            return sortedItems.filter { $0.isMovie }
-        case .tvShows:
-            return sortedItems.filter { $0.isTvShow }
+        case .showAll: sortedItems
+        case .movies: sortedItems.filter { $0.isMovie }
+        case .tvShows: sortedItems.filter { $0.isTvShow }
         }
     }
 #if os(tvOS)

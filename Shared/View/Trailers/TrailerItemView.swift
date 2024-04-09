@@ -76,58 +76,50 @@ struct TrailerItemView: View {
         }
         .frame(width: DrawingConstants.imageWidth)
 #else
-        ZStack {
-#if os(iOS)
-            YouTubePlayerView(player)
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .opacity(0)
-#endif
-            VStack {
-                LazyImage(url: trailer.thumbnail) { state in
-                    if let image = state.image {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } else {
-                        placeholder
-                    }
-                }
-                .transition(.opacity)
-                .frame(width: DrawingConstants.imageWidth,
-                       height: DrawingConstants.imageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                            style: .continuous))
-                .overlay { overlay }
-#if !os(tvOS)
-                .contextMenu {
-                    if let url = trailer.url {
-                        ShareLink(item: url)
-#if os(iOS)
-                        Button("Open in YouTube") {
-                            UIApplication.shared.open(url)
+        Button {
+            openVideo()
+        } label: {
+            ZStack {
+    #if os(iOS)
+                YouTubePlayerView(player)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                    .opacity(0)
+    #endif
+                VStack {
+                    LazyImage(url: trailer.thumbnail) { state in
+                        if let image = state.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } else {
+                            placeholder
                         }
-#endif
+                    }
+                    .transition(.opacity)
+                    .frame(width: DrawingConstants.imageWidth,
+                           height: DrawingConstants.imageHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                                style: .continuous))
+                    .overlay { overlay }
+                    .applyHoverEffect()
+                    .shadow(radius: 2.5)
+                    HStack {
+                        Text(trailer.title)
+                            .lineLimit(DrawingConstants.lineLimits)
+                            .padding([.trailing, .bottom])
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
                     }
                 }
-#endif
-                .applyHoverEffect()
-                .shadow(radius: 2.5)
-                HStack {
-                    Text(trailer.title)
-                        .lineLimit(DrawingConstants.lineLimits)
-                        .padding([.trailing, .bottom])
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
+                .frame(width: DrawingConstants.imageWidth)
             }
             .frame(width: DrawingConstants.imageWidth)
+            .accessibilityElement(children: .combine)
         }
-        .frame(width: DrawingConstants.imageWidth)
-        .accessibilityElement(children: .combine)
         .accessibilityLabel(trailer.title)
-        .onTapGesture(perform: openVideo)
+        .buttonStyle(.plain)
 #if os(iOS)
         .fullScreenCover(isPresented: $showWebPlayer) {
             if let url = trailer.url {

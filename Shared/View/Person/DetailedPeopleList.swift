@@ -24,14 +24,7 @@ struct DetailedPeopleList: View {
                 }
             } else {
                 if !query.isEmpty, filteredItems.isEmpty {
-                    if #available(iOS 17, *) {
-                        ContentUnavailableView.search(text: query)
-                    } else {
-                        Text("No results")
-                            .multilineTextAlignment(.center)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    }
+                    ContentUnavailableView.search(text: query)
                 } else {
                     Section {
                         List {

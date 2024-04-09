@@ -131,60 +131,66 @@ struct EpisodeFrameView: View {
     }
     
     private var image: some View {
-        EpisodeFrameImageView(episode: episode, isWatched: $isWatched, showCover: showCover)
-            .transition(.opacity)
-            .frame(width: DrawingConstants.imageWidth,
-                   height: DrawingConstants.imageHeight)
-            .clipShape(
-                RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
-                                 style: .continuous)
-            )
-            .overlay {
-                if isWatched {
-                    ZStack {
-                        Color.black.opacity(0.4)
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.white)
+        Button {
+            if SettingsStore.shared.markEpisodeWatchedOnTap {
+                markAsWatched()
+            } else {
+                showDetails.toggle()
+            }
+        } label: {
+            EpisodeFrameImageView(episode: episode, isWatched: $isWatched, showCover: showCover)
+                .transition(.opacity)
+                .frame(width: DrawingConstants.imageWidth,
+                       height: DrawingConstants.imageHeight)
+                .clipShape(
+                    RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
+                                     style: .continuous)
+                )
+                .overlay {
+                    if isWatched {
+                        ZStack {
+                            Color.black.opacity(0.4)
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+                        .frame(width: DrawingConstants.imageWidth,
+                               height: DrawingConstants.imageHeight)
+                        .accessibilityHidden(true)
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                    .frame(width: DrawingConstants.imageWidth,
-                           height: DrawingConstants.imageHeight)
-                    .accessibilityHidden(true)
                 }
-            }
-            .applyHoverEffect()
-            .onTapGesture {
-                if SettingsStore.shared.markEpisodeWatchedOnTap {
-                    markAsWatched()
-                } else {
-                    showDetails.toggle()
-                }
-            }
-            .sheet(isPresented: $showDetails) {
+        }
+        .buttonStyle(.plain)
+        .applyHoverEffect()
+        .sheet(isPresented: $showDetails) {
 #if os(tvOS)
-                EpisodeDetailsView(episode: episode,
-                                   season: season,
-                                   show: show,
-                                   showTitle: showTitle,
-                                   isWatched: $isWatched)
+            EpisodeDetailsView(episode: episode,
+                               season: season,
+                               show: show,
+                               showTitle: showTitle,
+                               isWatched: $isWatched)
 #else
-                NavigationStack {
-                    EpisodeDetailsView(episode: episode, season: season, show: show, showTitle: showTitle, isWatched: $isWatched)
-                        .toolbar {
-                            ToolbarItem {
-                                Button("Done") { showDetails = false }
+            NavigationStack {
+                EpisodeDetailsView(episode: episode, season: season, show: show, showTitle: showTitle, isWatched: $isWatched)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            RoundedCloseButton {
+                                showDetails = false
                             }
                         }
-                }
-                .appTheme()
-                .presentationDetents([.large])
-#if os(macOS)
-                .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
-#endif
-#endif
+                    }
             }
-            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+            .appTheme()
+            .presentationDetents([.large])
+            .presentationCornerRadius(32)
+            .presentationDragIndicator(.visible)
+#if os(macOS)
+            .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#endif
+#endif
+        }
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
     }
     
     private func markAsWatched() {
@@ -285,4 +291,27 @@ private struct DrawingConstants {
 #endif
     static let imageRadius: CGFloat = 8
     static let titleLineLimit: Int = 1
+}
+
+
+struct RoundedCloseButton: View {
+    var action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "xmark")
+                .imageScale(.medium)
+                .accessibilityLabel("Close")
+                .fontDesign(.rounded)
+                .fontWeight(.semibold)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 2)
+        }
+        .buttonStyle(.borderedProminent)
+        .contentShape(Circle())
+        .clipShape(Circle())
+        .buttonBorderShape(.circle)
+        .shadow(radius: 2.5)
+    }
 }

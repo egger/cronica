@@ -2391,6 +2391,9 @@
         }
       }
     },
+    "Close" : {
+
+    },
     "Collapse" : {
       "localizations" : {
         "de" : {
@@ -7938,6 +7941,7 @@
       }
     },
     "No result found for '%@'." : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -8595,6 +8599,7 @@
       }
     },
     "Open in YouTube" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {

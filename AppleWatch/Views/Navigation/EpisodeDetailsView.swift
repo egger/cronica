@@ -68,9 +68,7 @@ struct EpisodeDetailsView: View {
             }
         }
         .background {
-            if #available(watchOS 10, *) {
-                TranslucentBackground(image: episode.itemImageMedium)
-            }
+            TranslucentBackground(image: episode.itemImageMedium)
         }
     }
     

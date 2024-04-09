@@ -21,14 +21,16 @@ struct RatingView: View {
                 Text(label)
             }
             ForEach(1..<maximumRating + 1, id: \.self) { number in
-                image(for: number)
-                    .accessibilityLabel("Rating star \(number) of 5.")
-                    .accessibilityHint("Select the rating in star numbers.")
-                    .foregroundColor(number > rating ? offColor : onColor)
-                    .onTapGesture {
-                        HapticManager.shared.selectionHaptic()
-                        withAnimation { rating = number }
-                    }
+                Button {
+                    HapticManager.shared.selectionHaptic()
+                    withAnimation { rating = number }
+                } label: {
+                    image(for: number)
+                        .foregroundColor(number > rating ? offColor : onColor)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Rating star \(number) of 5.")
+                .accessibilityHint("Select the rating in star numbers.")
             }
         }
     }

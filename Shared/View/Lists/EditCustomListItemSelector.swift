@@ -19,48 +19,50 @@ struct EditCustomListItemSelector: View {
                 Section {
                     List {
                         ForEach(searchItems) { item in
-                            HStack {
-                                Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
-                                    .foregroundColor(itemsToRemove.contains(item) ? .red : nil)
-                                LazyImage(url: item.backCompatibleCardImage) { state in
-                                    if let image = state.image {
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                    } else {
-                                        ZStack {
-                                            Rectangle().fill(.gray.gradient)
-                                            Image(systemName: "popcorn.fill")
-                                                .foregroundColor(.white.opacity(0.8))
-                                        }
-                                    }
-                                }
-                                .frame(width: 70, height: 50)
-                                .cornerRadius(8)
-                                .overlay {
-                                    if itemsToRemove.contains(item) {
-                                        ZStack {
-                                            Rectangle().fill(.black.opacity(0.4))
-                                        }
-                                        .cornerRadius(8)
-                                    }
-                                }
-                                VStack(alignment: .leading) {
-                                    Text(item.itemTitle)
-                                        .lineLimit(1)
-                                        .foregroundColor(itemsToRemove.contains(item) ? .secondary : nil)
-                                    Text(item.itemMedia.title)
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                            .onTapGesture {
+                            Button {
                                 if itemsToRemove.contains(item) {
                                     itemsToRemove.remove(item)
                                 } else {
                                     itemsToRemove.insert(item)
                                 }
+                            } label: {
+                                HStack {
+                                    Image(systemName: itemsToRemove.contains(item) ? "minus.circle.fill" : "circle")
+                                        .foregroundColor(itemsToRemove.contains(item) ? .red : nil)
+                                    LazyImage(url: item.backCompatibleCardImage) { state in
+                                        if let image = state.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                        } else {
+                                            ZStack {
+                                                Rectangle().fill(.gray.gradient)
+                                                Image(systemName: "popcorn.fill")
+                                                    .foregroundColor(.white.opacity(0.8))
+                                            }
+                                        }
+                                    }
+                                    .frame(width: 70, height: 50)
+                                    .cornerRadius(8)
+                                    .overlay {
+                                        if itemsToRemove.contains(item) {
+                                            ZStack {
+                                                Rectangle().fill(.black.opacity(0.4))
+                                            }
+                                            .cornerRadius(8)
+                                        }
+                                    }
+                                    VStack(alignment: .leading) {
+                                        Text(item.itemTitle)
+                                            .lineLimit(1)
+                                            .foregroundColor(itemsToRemove.contains(item) ? .secondary : nil)
+                                        Text(item.itemMedia.title)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                }
                             }
+                            .buttonStyle(.plain)
                         }
                     }
                 }

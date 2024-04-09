@@ -23,15 +23,8 @@ struct UpNextListView: View {
         NavigationStack {
             VStack {
                 if items.isEmpty {
-                    if #available(watchOS 10, *) {
-                        ContentUnavailableView("Your episodes will appear here.",
-                                               systemImage: "tv")
-                    } else {
-                        Text("Your episodes will appear here.")
-                            .multilineTextAlignment(.center)
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    }
+                    ContentUnavailableView("Your episodes will appear here.",
+                                           systemImage: "tv")
                 } else {
                     List {
                         ForEach(viewModel.episodes) { episode in
