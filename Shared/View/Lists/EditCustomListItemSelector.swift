@@ -129,9 +129,7 @@ struct EditCustomListItemSelector: View {
 #endif
         .formStyle(.grouped)
     }
-}
-
-extension EditCustomListItemSelector {
+    
     private func search() async {
         try? await Task.sleep(nanoseconds: 300_000_000)
         if query.isEmpty && !searchItems.isEmpty { searchItems = [] }

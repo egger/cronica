@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EpisodeHelper {
+class EpisodeHelper: @unchecked Sendable {
     private let network = NetworkService.shared
     
     func fetchNextEpisode(for episode: Episode, show: Int) async -> Episode? {

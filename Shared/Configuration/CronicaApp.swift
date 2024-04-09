@@ -158,7 +158,7 @@ struct CronicaApp: App {
 #if os(visionOS)
         .windowResizability(.contentMinSize)
 #endif
-        .onChange(of: scene) { phase in
+        .onChange(of: scene) { _, phase in
             if phase == .background {
                 scheduleAppRefresh()
             }

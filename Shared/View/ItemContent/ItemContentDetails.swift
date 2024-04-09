@@ -46,8 +46,8 @@ struct ItemContentDetails: View {
     // MARK: Animation properties
     @State private var animateFavorite = false
     var body: some View {
-        VStack {
-            ScrollView {
+        ScrollView {
+            VStack {
 #if os(macOS) || os(visionOS)
                 sizeBasedPadMacView
 #elseif os(iOS)

@@ -15,40 +15,42 @@ struct VerticalUpNextListRowView: View {
     @EnvironmentObject var viewModel: UpNextViewModel
     @Binding var selectedEpisode: UpNextEpisode?
     var body: some View {
-        HStack {
-            LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
-                if let image = state.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } else {
-                    ZStack {
-                        Rectangle().fill(.gray.gradient)
-                        Image(systemName: "sparkles.tv")
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    .frame(width: 80, height: 50)
-                }
-            }
-            .transition(.opacity)
-            .frame(width: 80, height: 50)
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-            VStack(alignment: .leading) {
-                Text(item.showTitle)
-                    .font(.callout)
-                    .lineLimit(1)
-                Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
-                    .font(.caption)
-                    .textCase(.uppercase)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-            }
-            .padding(.leading, 2)
-            Spacer()
-        }
-        .onTapGesture {
+        Button {
             askConfirmation.toggle()
+        } label: {
+            HStack {
+                LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
+                    if let image = state.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else {
+                        ZStack {
+                            Rectangle().fill(.gray.gradient)
+                            Image(systemName: "sparkles.tv")
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        .frame(width: 80, height: 50)
+                    }
+                }
+                .transition(.opacity)
+                .frame(width: 80, height: 50)
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                VStack(alignment: .leading) {
+                    Text(item.showTitle)
+                        .font(.callout)
+                        .lineLimit(1)
+                    Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
+                        .font(.caption)
+                        .textCase(.uppercase)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
+                .padding(.leading, 2)
+                Spacer()
+            }
         }
+        .buttonStyle(.plain)
 #if !os(tvOS)
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
             Button("Watched", systemImage: "rectangle.badge.checkmark") {

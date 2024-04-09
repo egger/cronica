@@ -142,19 +142,21 @@ struct AppearanceSetting: View {
     private var iconsGrid: some View {
         HStack {
             ForEach(Icon.allCases) { icon in
-                Image(uiImage: icon.preview)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(store.appTheme.color, lineWidth: icons.selectedAppIcon == icon ? 6 : 0)
-                    )
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .padding(.trailing)
-                    .onTapGesture {
-                        withAnimation { icons.updateAppIcon(to: icon) }
-                    }
+                Button {
+                    withAnimation { icons.updateAppIcon(to: icon) }
+                } label: {
+                    Image(uiImage: icon.preview)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(store.appTheme.color, lineWidth: icons.selectedAppIcon == icon ? 6 : 0)
+                        )
+                        .frame(width: 60, height: 60)
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .padding(.trailing)
+                }
+                .buttonStyle(.plain)
             }
         }
         .padding(.vertical, 4)

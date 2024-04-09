@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if !os(macOS)
 /// Onboard experience.
 struct WelcomeView: View {
     @AppStorage("showOnboarding") var displayOnboard = true
@@ -155,3 +155,4 @@ struct WelcomeView: View {
 #Preview {
     WelcomeView()
 }
+#endif

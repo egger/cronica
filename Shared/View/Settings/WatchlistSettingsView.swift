@@ -17,6 +17,7 @@ struct WatchlistSettingsView: View {
     @State private var exportUrl: URL?
     @Environment(\.managedObjectContext) private var context
     @State private var hasImported = false
+    let background = BackgroundManager.shared
     var body: some View {
         Form {
             Section("Behavior") {
@@ -145,7 +146,6 @@ extension WatchlistSettingsView {
     @MainActor
     private func updateItems() {
         Task {
-            let background = BackgroundManager.shared
             await MainActor.run {
                 withAnimation {
                     self.updatingItems.toggle()

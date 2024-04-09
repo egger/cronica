@@ -26,7 +26,7 @@ struct NotificationsSettingsView: View {
                 .disabled(!settings.allowNotifications)
                 
             }
-            .onChange(of: settings.allowNotifications) { _ in 
+            .onChange(of: settings.allowNotifications) {
                 if !settings.allowNotifications {
                     settings.notifyMovieRelease = false
                     settings.notifyNewEpisodes = false

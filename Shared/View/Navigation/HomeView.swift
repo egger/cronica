@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     static let tag: Screens? = .home
-#if os(tvOS)
+#if os(tvOS) || os(macOS)
     @AppStorage("showOnboarding") private var displayOnboard = false
 #else
     @AppStorage("showOnboarding") private var displayOnboard = true
@@ -28,8 +28,8 @@ struct HomeView: View {
     @State private var showSettings = false
 #endif
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView {
+        ScrollView {
+            VStack(alignment: .leading) {
 #if os(iOS)
                 if showReviewBanner { CallToReviewAppView(showView: $showReviewBanner).unredacted() }
 #endif
@@ -52,16 +52,16 @@ struct HomeView: View {
                 }
                 AttributionView()
             }
-#if os(iOS)
-            .refreshable {
-                reloadHome = true
-                viewModel.reload()
-            }
-            .onAppear {
-                checkAskForReview()
-            }
-#endif
         }
+#if os(iOS)
+        .refreshable {
+            reloadHome = true
+            viewModel.reload()
+        }
+        .onAppear {
+            checkAskForReview()
+        }
+#endif
         .overlay { if !viewModel.isLoaded { CronicaLoadingPopupView() } }
         .actionPopup(isShowing: $showPopup, for: popupType)
 #if os(tvOS)
@@ -219,12 +219,11 @@ struct HomeView: View {
             }
 #endif
         }
+#if !os(macOS)
         .sheet(isPresented: $displayOnboard) {
             WelcomeView()
-#if os(macOS)
-                .frame(width: 500, height: 700, alignment: .center)
-#endif
         }
+#endif
 #if !os(tvOS)
         .navigationDestination(for: Screens.self) { screen in
             if screen == .notifications {

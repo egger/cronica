@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor class SearchViewModel: ObservableObject { 
+@MainActor final class SearchViewModel: ObservableObject, Sendable { 
     @Published var query: String = ""
     private var service: NetworkService = NetworkService.shared
     var trimmedQuery: String {

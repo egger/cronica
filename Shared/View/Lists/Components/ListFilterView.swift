@@ -66,13 +66,13 @@ struct ListFilterView: View {
 #endif
             }
             .scrollBounceBehavior(.basedOnSize)
-            .onChange(of: filter) { _ in
+            .onChange(of: filter) {
                 showView = false
             }
-            .onChange(of: sortOrder) { _ in
+            .onChange(of: sortOrder) {
                 showView = false
             }
-            .onChange(of: showAllItems) { _ in
+            .onChange(of: showAllItems) {
                 showView = false
             }
         }

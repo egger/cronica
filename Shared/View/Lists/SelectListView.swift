@@ -77,12 +77,14 @@ struct SelectListView: View {
                 List {
                     // default list selector
                     if queryResult.isEmpty && query.isEmpty {
-                        DefaultListRow(selectedList: $selectedList)
-                            .onTapGesture {
-                                HapticManager.shared.selectionHaptic()
-                                selectedList = nil
-                                showListSelection.toggle()
-                            }
+                        Button {
+                            HapticManager.shared.selectionHaptic()
+                            selectedList = nil
+                            showListSelection.toggle()
+                        } label: {
+                            DefaultListRow(selectedList: $selectedList)
+                        }
+                        .buttonStyle(.plain)
                     }
                     // if empty, offers a more visual way to create new list
                     if lists.isEmpty { newList }
@@ -90,17 +92,19 @@ struct SelectListView: View {
                         if !queryResult.isEmpty {
 #if os(iOS)
                             ForEach(queryResult) { item in
-                                ListRowItem(list: item, selectedList: $selectedList)
-                                    .onTapGesture {
-                                        HapticManager.shared.selectionHaptic()
-                                        selectedList = item
-                                        showListSelection = false
+                                Button {
+                                    HapticManager.shared.selectionHaptic()
+                                    selectedList = item
+                                    showListSelection = false
+                                } label: {
+                                    ListRowItem(list: item, selectedList: $selectedList)
+                                }
+                                .buttonStyle(.plain)
+                                .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
+                                    NavigationLink("Edit") {
+                                        EditCustomList(list: item, showListSelection: $showListSelection)
                                     }
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
-                                        NavigationLink("Edit") {
-                                            EditCustomList(list: item, showListSelection: $showListSelection)
-                                        }
-                                    }
+                                }
                             }
 #endif
                         } else if !query.isEmpty && queryResult.isEmpty {

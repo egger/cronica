@@ -12,17 +12,17 @@ struct TrendingKeywordsListView: View {
     @State private var trendingKeywords = [CombinedKeywords]()
     @State private var isLoading = true
     private let keywords: [CombinedKeywords] = [
-        .init(id: 210024, name: NSLocalizedString("Anime", comment: ""), image: nil),
-        .init(id: 41645, name: NSLocalizedString("Based on Video-Game", comment: ""), image: nil),
-        .init(id: 9715, name: NSLocalizedString("Superhero", comment: ""), image: nil),
-        .init(id: 9799, name: NSLocalizedString("Romantic Comedy", comment: ""), image: nil),
-        .init(id: 9672, name: NSLocalizedString("Based on true story", comment: ""), image: nil),
-        .init(id: 256183, name: NSLocalizedString("Supernatural Horror", comment: ""), image: nil),
-        .init(id: 10349, name: NSLocalizedString("Survival", comment: ""), image: nil),
-        .init(id: 9882, name: NSLocalizedString("Space", comment: ""), image: nil),
-        .init(id: 818, name: NSLocalizedString("Based on novel or book", comment: ""), image: nil),
-        .init(id: 9951, name: NSLocalizedString("Alien", comment: ""), image: nil),
-        .init(id: 189402, name: NSLocalizedString("Crime Investigation", comment: ""), image: nil)
+        .init(id: 210024, name: String(localized: "Anime"), image: nil),
+        .init(id: 41645, name: String(localized: "Based on Video-Game"), image: nil),
+        .init(id: 9715, name: String(localized: "Superhero"), image: nil),
+        .init(id: 9799, name: String(localized: "Romantic Comedy"), image: nil),
+        .init(id: 9672, name: String(localized: "Based on true story"), image: nil),
+        .init(id: 256183, name: String(localized: "Supernatural Horror"), image: nil),
+        .init(id: 10349, name: String(localized: "Survival"), image: nil),
+        .init(id: 9882, name: String(localized: "Space"), image: nil),
+        .init(id: 818, name: String(localized: "Based on novel or book"), image: nil),
+        .init(id: 9951, name: String(localized: "Alien"), image: nil),
+        .init(id: 189402, name: String(localized: "Crime Investigation"), image: nil)
     ]
     private var service: NetworkService = NetworkService.shared
     var body: some View {
@@ -50,7 +50,8 @@ struct TrendingKeywordsListView: View {
                 }
                 .padding([.horizontal, .bottom])
             }
-            .task { await load() }
+            .onAppear(perform: load)
+            .scrollBounceBehavior(.basedOnSize)
 #if os(iOS)
             .redacted(reason: isLoading ? .placeholder : [])
 #elseif os(tvOS)
@@ -75,22 +76,26 @@ struct TrendingKeywordsListView: View {
 }
 
 extension TrendingKeywordsListView {
-    private func load() async {
-        if trendingKeywords.isEmpty {
-            for item in keywords.sorted(by: { $0.name < $1.name}) {
-                let itemFromKeyword = try? await service.fetchKeyword(type: .movie,
-                                                                      page: 1,
-                                                                      keywords: item.id,
-                                                                      sortBy: TMDBSortBy.popularity.rawValue)
-                var url: URL?
-                if let firstItem = itemFromKeyword?.first {
-                    url = firstItem.cardImageMedium
+    private func load() {
+        Task {
+            if trendingKeywords.isEmpty {
+                for item in keywords.sorted(by: { $0.name < $1.name}) {
+                    let itemFromKeyword = try? await service.fetchKeyword(type: .movie,
+                                                                          page: 1,
+                                                                          keywords: item.id,
+                                                                          sortBy: TMDBSortBy.popularity.rawValue)
+                    var url: URL?
+                    if let firstItem = itemFromKeyword?.first {
+                        url = firstItem.cardImageMedium
+                    }
+                    let content: CombinedKeywords = .init(id: item.id, name: item.name, image: url)
+                    trendingKeywords.append(content)
                 }
-                let content: CombinedKeywords = .init(id: item.id, name: item.name, image: url)
-                trendingKeywords.append(content)
-            }
-            withAnimation {
-                isLoading = false
+                await MainActor.run {
+                    withAnimation {
+                        self.isLoading = false
+                    }
+                }
             }
         }
     }

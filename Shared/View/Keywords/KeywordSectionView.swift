@@ -52,7 +52,7 @@ struct KeywordSectionView: View {
                 await load(keyword.id, sortBy: sortBy, reload: false)
             }
         }
-        .onChange(of: sortBy) { newSortBy in
+        .onChange(of: sortBy) { _, newSortBy in
             Task {
                 await load(keyword.id, sortBy: sortBy, reload: true)
             }

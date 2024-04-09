@@ -84,7 +84,7 @@ struct SeasonListView: View {
                                         proxy.scrollTo(lastWatchedEpisode, anchor: .topLeading)
                                     }
                                 }
-                                .onChange(of: hasFirstLoaded) { _ in
+                                .onChange(of: hasFirstLoaded) {
                                     if hasFirstLoaded {
                                         let lastWatchedEpisode = persistence.fetchLastWatchedEpisode(for: showID)
                                         guard let lastWatchedEpisode else { return }
@@ -93,7 +93,7 @@ struct SeasonListView: View {
                                         }
                                     }
                                 }
-                                .onChange(of: selectedSeason) { _ in
+                                .onChange(of: selectedSeason) {
                                     if !hasFirstLoaded { return }
                                     guard let first = season.first else { return }
                                     withAnimation { proxy.scrollTo(first.id, anchor: .topLeading) }
@@ -174,7 +174,7 @@ struct SeasonListView: View {
 #elseif os(iOS)
         .pickerStyle(.menu)
 #endif
-        .onChange(of: selectedSeason) { _ in
+        .onChange(of: selectedSeason) {
             Task {
                 await load()
                 checkIfWatched = false

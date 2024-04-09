@@ -28,7 +28,7 @@ struct WatchProviderSettings: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                .onChange(of: store.watchRegion) { _ in 
+                .onChange(of: store.watchRegion) { 
                     if !store.selectedWatchProviders.isEmpty { store.selectedWatchProviders = "" }
                 }
                 .pickerStyle(.menu)
@@ -70,9 +70,7 @@ struct WatchProviderSettings: View {
 #elseif os(macOS)
         .formStyle(.grouped)
 #endif
-        .onChange(of: settings.isSelectedWatchProviderEnabled) { _ in
-            checkStatus()
-        }
+        .onChange(of: settings.isSelectedWatchProviderEnabled) { checkStatus() }
         .onAppear(perform: load)
     }
     

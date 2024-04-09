@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-class NetworkService {
+final class NetworkService: Sendable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: NetworkService.self)

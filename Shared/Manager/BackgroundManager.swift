@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class BackgroundManager {
+final class BackgroundManager {
 	private let context = PersistenceController.shared.container.newBackgroundContext()
 	private let network = NetworkService.shared
 	private let notifications = NotificationManager.shared

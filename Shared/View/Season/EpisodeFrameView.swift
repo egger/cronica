@@ -78,7 +78,7 @@ struct EpisodeFrameView: View {
                 isWatched = persistence.isEpisodeSaved(show: show, season: season, episode: episode.id)
             }
         }
-        .onChange(of: checkedIfWatched) { check in
+        .onChange(of: checkedIfWatched) { _, check in
             if check {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     withAnimation {

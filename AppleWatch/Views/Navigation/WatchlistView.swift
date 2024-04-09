@@ -88,10 +88,9 @@ struct WatchlistView: View {
                     selectedList = selectedOrder
                 }
             }
-            .onChange(of: selectedList) { newValue in
-                if let newValue {
-                    selectedOrder = newValue
-                }
+            .onChange(of: selectedList) { _, newValue in
+                guard let newValue else { return }
+                selectedOrder = newValue
             }
         }
     }

@@ -16,7 +16,7 @@ class UpNextViewModel: ObservableObject {
     @Published var scrollToInitial = false
     private let network = NetworkService.shared
     private let persistence = PersistenceController.shared
-    
+    private let helper = EpisodeHelper()
     private init() { }
     
     func load(_ items: FetchedResults<WatchlistItem>) async {
@@ -94,7 +94,7 @@ class UpNextViewModel: ObservableObject {
     
     func skipEpisode(for item: UpNextEpisode) {
         Task {
-            let nextEpisode = await EpisodeHelper().fetchNextEpisode(for: item.episode, show: item.showID)
+            let nextEpisode = await helper.fetchNextEpisode(for: item.episode, show: item.showID)
             let persistence = PersistenceController()
             guard let nextEpisode, let show = persistence.fetch(for: "\(item.showID)@\(MediaType.tvShow.toInt)") else {
                 return
@@ -121,7 +121,7 @@ class UpNextViewModel: ObservableObject {
                 self.episodes.removeAll(where: { $0.episode.id == content.episode.id })
             }
         }
-        let helper = EpisodeHelper()
+        
         let nextEpisode = await helper.fetchNextEpisode(for: content.episode, show: content.showID)
         guard let nextEpisode else {
             return

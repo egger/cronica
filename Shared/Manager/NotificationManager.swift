@@ -8,9 +8,9 @@
 import Foundation
 import UserNotifications
 
-class NotificationManager: ObservableObject {
+final class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
-    @Published var settings: UNNotificationSettings?
+    private var settings: UNNotificationSettings?
     private init() { }
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {

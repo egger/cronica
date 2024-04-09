@@ -72,6 +72,7 @@ struct DeveloperView: View {
 #endif
             }
             
+#if !os(macOS)
             Section("Presentation") {
                 Button("Show Onboard") {
                     showOnboarding.toggle()
@@ -89,6 +90,7 @@ struct DeveloperView: View {
                 .buttonStyle(.link)
 #endif
             }
+#endif
             
             Section {
                 Text("User Region: \(Locale.userRegion)")

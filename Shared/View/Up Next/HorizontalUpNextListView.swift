@@ -97,7 +97,7 @@ struct HorizontalUpNextListView: View {
 #endif
                                 }
                             }
-                            .onChange(of: viewModel.isWatched) { _ in
+                            .onChange(of: viewModel.isWatched) {
                                 guard let first = viewModel.episodes.first else { return }
                                 if viewModel.isWatched {
                                     withAnimation {
@@ -106,7 +106,7 @@ struct HorizontalUpNextListView: View {
                                 }
                             }
                         }
-                        .onChange(of: shouldReload) { reload in
+                        .onChange(of: shouldReload) { _, reload in
                             if reload {
                                 if let firstItem = viewModel.episodes.first {
                                     withAnimation {
@@ -140,7 +140,7 @@ struct HorizontalUpNextListView: View {
                 await viewModel.load(items)
                 await viewModel.checkForNewEpisodes(items)
             }
-            .onChange(of: scene) { value in
+            .onChange(of: scene) { _, value in
                 if scene == .active {
                     Task {
                         await viewModel.checkForNewEpisodes(items)

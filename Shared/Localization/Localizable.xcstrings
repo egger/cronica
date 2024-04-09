@@ -114,12 +114,6 @@
             "value" : "%1$@ • %2$@"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ • %2$@"
-          }
-        },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
@@ -292,12 +286,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$lld Staffeln • %2$lld Episoden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld Seasons • %2$lld Episodes"
           }
         },
         "es-MX" : {
@@ -4242,12 +4230,6 @@
             "value" : "Episode: %1$lld, der Serie: %2$@."
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Episode: %1$lld, of the show: %2$@."
-          }
-        },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7045,12 +7027,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Episode %1$lld aus Staffel %2$lld von %3$@ als gesehen markieren?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Mark Episode %1$lld from season %2$lld of %3$@ as Watched?"
           }
         },
         "es-MX" : {
@@ -11084,12 +11060,6 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "S%1$d, E%2$d"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "S%1$d, E%2$d"
           }
         },
@@ -15487,12 +15457,6 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Version %1$@ • %2$@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "Version %1$@ • %2$@"
           }
         },

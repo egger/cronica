@@ -80,20 +80,9 @@ struct ExploreView: View {
                 if isLoadingRecommendations {
                     CronicaLoadingPopupView()
                 } else if !isLoadingRecommendations, recommendations.isEmpty {
-                    if #available(iOS 17, *) {
-                        ContentUnavailableView("Try Again Later",
-                                               systemImage: "popcorn",
-                                               description: Text("The app couldn't load the content right now."))
-                    } else {
-                        VStack {
-                            Text("Try Again Later")
-                                .font(.callout)
-                                .fontWeight(.semibold)
-                            Text("The app couldn't load the content right now.")
-                                .font(.body)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
+                    ContentUnavailableView("Try Again Later",
+                                           systemImage: "popcorn",
+                                           description: Text("The app couldn't load the content right now."))
                 } else {
                     switch settings.sectionStyleType {
                     case .list:
@@ -229,7 +218,7 @@ struct ExploreView: View {
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
 #endif
-        .onChange(of: hideAddedItems) { value in
+        .onChange(of: hideAddedItems) { _, value in
             if value {
                 hideItems()
             } else {
@@ -276,7 +265,7 @@ struct ExploreView: View {
             }
 #endif
         }
-        .onChange(of: selectedMedia) { value in
+        .onChange(of: selectedMedia) { _, value in
             onChanging = true
             var genre: Genre?
             if value == .tvShow {
@@ -289,7 +278,7 @@ struct ExploreView: View {
             }
             Task { await load() }
         }
-        .onChange(of: selectedGenre) { _ in
+        .onChange(of: selectedGenre) {
             onChanging = true
             Task { await load() }
         }
@@ -333,7 +322,7 @@ struct ExploreView: View {
                     case .card: cardStyle
                     }
                 }
-                .onChange(of: onChanging) { _ in
+                .onChange(of: onChanging) {
                     guard let first = items.first else { return }
                     withAnimation {
                         proxy.scrollTo(first.id, anchor: .topLeading)

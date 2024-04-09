@@ -43,9 +43,7 @@ struct ListRowItem: View {
             .padding(.leading, 4)
             Spacer()
         }
-        .onChange(of: selectedList) { _ in
-            checkSelection()
-        }
+        .onChange(of: selectedList) { checkSelection() }
         .onAppear(perform: checkSelection)
         .padding(.vertical, 4)
     }

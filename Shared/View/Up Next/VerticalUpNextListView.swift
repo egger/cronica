@@ -29,7 +29,7 @@ struct VerticalUpNextListView: View {
             case .card: cardStyle
             }
         }
-        .onChange(of: scene) { value in
+        .onChange(of: scene) { _, value in
             if scene == .active {
                 Task {
                     await viewModel.checkForNewEpisodes(items)
@@ -194,7 +194,7 @@ struct VerticalUpNextListView: View {
                         }
                     }
                 }
-                .onChange(of: viewModel.isWatched) { _ in
+                .onChange(of: viewModel.isWatched) {
                     guard let first = viewModel.episodes.first else { return }
                     if viewModel.isWatched {
                         withAnimation {

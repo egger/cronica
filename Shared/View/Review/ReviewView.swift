@@ -45,7 +45,7 @@ struct ReviewView: View {
                                 }
                                 .frame(width: 60, height: 90, alignment: .center)
                                 .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-                                .shadow(radius: 2)
+                                .shadow(radius: 2.5, x: 1, y: 1.5)
                                 VStack(alignment: .leading) {
                                     Text(item.itemTitle)
                                         .lineLimit(2)
@@ -74,7 +74,8 @@ struct ReviewView: View {
 #if os(iOS) || os(macOS)
                         Section("Notes") {
                             TextEditor(text: $note)
-                                .frame(minHeight: 150)
+                                .frame(minHeight: 150, maxHeight: 800)
+
                         }
 #endif
                     } else {
@@ -93,14 +94,14 @@ struct ReviewView: View {
 #endif
             .navigationTitle("Review")
             .onAppear(perform: load)
-            .onChange(of: rating) { newValue in
+            .onChange(of: rating) { _, newValue in
                 guard let item else { return }
                 if newValue != Int(item.userRating) {
                     if !canSave { canSave = true }
                     save(dismiss: false)
                 }
             }
-            .onChange(of: note) { newValue in
+            .onChange(of: note) { _, newValue in
                 guard let item else { return }
                 if newValue != item.userNotes {
                     if !canSave { canSave = true }
@@ -144,12 +145,23 @@ struct ReviewView: View {
         isLoading = false
     }
     
+    @ViewBuilder
     private var doneButton: some View {
-        Button("Cancel", action: dismiss)
+        if #available(iOS 17, *) {
+            Button("Cancel", systemImage: "xmark", action: dismiss)
+                .labelStyle(.iconOnly)
+                .buttonBorderShape(.circle)
+                .buttonStyle(.borderedProminent)
+        } else {
+            Button("Cancel", systemImage: "xmark", action: dismiss)
+        }
     }
     
     private var saveButton: some View {
-        Button("Save") { save() }.disabled(!canSave)
+        Button("Save") { save() }
+            .disabled(!canSave)
+            .buttonBorderShape(.capsule)
+            .buttonStyle(.borderedProminent)
     }
     
     private func save(dismiss: Bool = true) {

@@ -66,7 +66,7 @@ struct PersonDetailsView: View {
             }
         }
         .actionPopup(isShowing: $showPopup, for: popupType)
-        .task { await load() }
+        .task { load() }
         .redacted(reason: isLoaded ? [] : .placeholder)
 #if os(iOS)
         .overlay(search)
@@ -211,28 +211,32 @@ private struct DrawingConstants {
 }
 
 private extension PersonDetailsView {
-    func load() async {
-        if Task.isCancelled { return }
-        if person == nil {
-            do {
-                person = try await self.service.fetchPerson(id: self.id)
-                if let person {
-                    let cast = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false } ?? []
-                    let crew = person.combinedCredits?.crew?.filter { $0.itemIsAdult == false } ?? []
-                    let combinedCredits = cast + crew
-                    if !combinedCredits.isEmpty {
-                        let combined = Array(Set(combinedCredits))
-                        credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+    func load() {
+        Task {
+            if Task.isCancelled { return }
+            if person == nil {
+                do {
+                    person = try await self.service.fetchPerson(id: self.id)
+                    if let person {
+                        let cast = person.combinedCredits?.cast?.filter { $0.itemIsAdult == false } ?? []
+                        let crew = person.combinedCredits?.crew?.filter { $0.itemIsAdult == false } ?? []
+                        let combinedCredits = cast + crew
+                        if !combinedCredits.isEmpty {
+                            let combined = Array(Set(combinedCredits))
+                            credits = combined.sorted(by: { $0.itemPopularity > $1.itemPopularity })
+                        }
                     }
+                    await MainActor.run {
+                        withAnimation {
+                            self.isLoaded = true
+                        }
+                    }
+                } catch {
+                    if Task.isCancelled { return }
+                    person = nil
+                    let message = "Can't load the id \(id), with error message: \(error.localizedDescription)"
+                    CronicaTelemetry.shared.handleMessage(message, for: "PersonDetailsViewModel.load()")
                 }
-                withAnimation {
-                    isLoaded = true
-                }
-            } catch {
-                if Task.isCancelled { return }
-                person = nil
-                let message = "Can't load the id \(id), with error message: \(error.localizedDescription)"
-                CronicaTelemetry.shared.handleMessage(message, for: "PersonDetailsViewModel.load()")
             }
         }
     }
