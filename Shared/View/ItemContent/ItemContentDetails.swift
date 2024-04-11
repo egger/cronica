@@ -194,10 +194,16 @@ struct ItemContentDetails: View {
             OverviewBoxView(overview: viewModel.content?.itemOverview,
                             title: title).padding()
             
-            if let seasons = viewModel.content?.itemSeasons {
-                SeasonListView(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
-                    .padding([.top, .horizontal], .zero)
-                    .padding(.bottom)
+            if let season = viewModel.content?.seasons {
+                SeasonListView(
+                    showID: id,
+                    showTitle: title,
+                    seasons: season,
+                    isInWatchlist: $viewModel.isInWatchlist,
+                    showCover: viewModel.content?.cardImageMedium
+                )
+                .padding([.top, .horizontal], .zero)
+                .padding(.bottom)
             }
             
             WatchProvidersList(id: id, type: type)
@@ -301,9 +307,14 @@ struct ItemContentDetails: View {
             }
             .padding(.leading)
             
-            if let seasons = viewModel.content?.itemSeasons {
-                SeasonListView(showID: id, showTitle: title,
-                               numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium).padding(0)
+            if let season = viewModel.content?.seasons {
+                SeasonListView(
+                    showID: id,
+                    showTitle: title,
+                    seasons: season,
+                    isInWatchlist: $viewModel.isInWatchlist,
+                    showCover: viewModel.content?.cardImageMedium
+                ).padding(0)
             }
             
             TrailerListView(trailers: viewModel.trailers)

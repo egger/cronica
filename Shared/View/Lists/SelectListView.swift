@@ -68,6 +68,7 @@ struct SelectListView: View {
         .appTheme()
         .presentationDetents([lists.count > 4 ? .large : .medium])
         .presentationDragIndicator(.visible)
+        .presentationCornerRadius(32)
 #endif
     }
     
@@ -198,7 +199,7 @@ struct SelectListView: View {
     }
     
     private var doneButton: some View {
-        Button("Done") { showListSelection.toggle() }
+        RoundedCloseButton { showListSelection.toggle() }
     }
     
     private var newList: some View {

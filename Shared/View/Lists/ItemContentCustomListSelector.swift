@@ -131,6 +131,7 @@ struct ItemContentCustomListSelector: View {
 #endif
         .presentationDetents([lists.count > 4 ? .large : .medium])
         .presentationDragIndicator(.visible)
+        .presentationCornerRadius(32)
     }
     
     private func load() {

@@ -126,6 +126,7 @@ struct ReviewView: View {
         }
         .presentationDetents([.large])
         .presentationDragIndicator(.visible)
+        .presentationCornerRadius(32)
 #if os(macOS)
         .frame(width: 400, height: 400, alignment: .center)
 #elseif os(iOS)

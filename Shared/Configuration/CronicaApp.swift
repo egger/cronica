@@ -115,10 +115,11 @@ struct CronicaApp: App {
                     }
                     .onDisappear { selectedItem = nil }
 #if os(macOS)
+                    .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
+#else
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)
-                    .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
-#elseif os(iOS)
+                    .presentationCornerRadius(32)
                     .appTheme()
                     .appTint()
 #endif

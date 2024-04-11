@@ -10,7 +10,7 @@ import SwiftUI
 struct SeasonListView: View {
     let showID: Int
     let showTitle: String
-    let numberOfSeasons: [Int]
+    var seasons: [Season]
     @State private var lastSelectedSeason = 0
     @State private var selectedSeason = 1
     @State private var hasFirstLoaded = false
@@ -144,7 +144,7 @@ struct SeasonListView: View {
         .ignoresSafeArea(.all, edges: .horizontal)
 #elseif os(watchOS)
         .toolbar {
-            if numberOfSeasons.count > 1 {
+            if seasons.count > 1 {
                 ToolbarItem(placement: .bottomBar) {
                     seasonPicker
                         .pickerStyle(.navigationLink)
@@ -156,11 +156,19 @@ struct SeasonListView: View {
     
     private var seasonPicker: some View {
         Picker(selection: $selectedSeason) {
-            ForEach(numberOfSeasons, id: \.self) { season in
-                Text("Season \(season)").tag(season)
+            ForEach(self.seasons, id: \.self) { item in
 #if os(watchOS)
+                Text("Season \(item.seasonNumber)")
                     .fontWeight(.semibold)
                     .padding()
+#else
+                HStack {
+                    if let name = item.name {
+                        Text(name)
+                    }
+                    Text("Season \(item.seasonNumber)")
+                }
+                .tag(item.seasonNumber)
 #endif
             }
         } label: {

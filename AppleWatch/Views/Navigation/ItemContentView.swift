@@ -123,8 +123,14 @@ struct ItemContentView: View {
             }
         }
         .navigationDestination(for: [Season].self) { seasons in
-            if let seasons = viewModel.content?.itemSeasons {
-                SeasonListView(showID: id, showTitle: title, numberOfSeasons: seasons, isInWatchlist: $viewModel.isInWatchlist, showCover: viewModel.content?.cardImageMedium)
+            if let season = viewModel.content?.seasons {
+                SeasonListView(
+                    showID: id,
+                    showTitle: title,
+                    seasons: season,
+                    isInWatchlist: $viewModel.isInWatchlist,
+                    showCover: viewModel.content?.cardImageMedium
+                )
             }
         }
         .navigationDestination(for: [Int:Episode].self) { item in

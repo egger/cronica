@@ -79,6 +79,8 @@ struct ChangelogView: View {
                         }
                 }
                 .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(32)
                 .interactiveDismissDisabled()
 #if os(macOS)
                 .frame(minWidth: 400, idealWidth: 600, maxWidth: nil, minHeight: 500, idealHeight: 500, maxHeight: nil, alignment: .center)

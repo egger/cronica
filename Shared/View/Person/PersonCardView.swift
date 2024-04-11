@@ -46,7 +46,7 @@ struct PersonCardView: View {
                        height: DrawingConstants.profileHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,
                                             style: .continuous))
-                .shadow(radius: DrawingConstants.shadowRadius)
+                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                 .overlay {
                     ZStack(alignment: .bottom) {
                         if person.personImage != nil {
@@ -174,6 +174,6 @@ private struct DrawingConstants {
     static let profileHeight: CGFloat = 200
 #endif
     static let shadowRadius: CGFloat = 2.5
-    static let profileRadius: CGFloat = 8
+    static let profileRadius: CGFloat = 16
     static let lineLimit: Int = 1
 }

@@ -164,6 +164,7 @@ struct ExploreView: View {
             }
             .presentationDetents([.medium])
             .presentationDragIndicator(.visible)
+            .presentationCornerRadius(32)
             .unredacted()
 #if os(iOS)
             .appTint()

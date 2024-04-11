@@ -11,6 +11,7 @@ import SwiftUI
 /// A model that represents a TV Show's season.
 struct Season: Codable, Identifiable, Hashable {
     let id, seasonNumber: Int
+    let name, overview: String?
     let episodes: [Episode]?
     let airDate: String?
 }
