@@ -289,29 +289,6 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 200
     static let imageHeight: CGFloat = 120
 #endif
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let titleLineLimit: Int = 1
-}
-
-
-struct RoundedCloseButton: View {
-    var action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            Image(systemName: "xmark")
-                .imageScale(.medium)
-                .accessibilityLabel("Close")
-                .fontDesign(.rounded)
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
-                .padding(.horizontal, 4)
-                .padding(.vertical, 2)
-        }
-        .buttonStyle(.borderedProminent)
-        .contentShape(Circle())
-        .clipShape(Circle())
-        .buttonBorderShape(.circle)
-        .shadow(radius: 2.5)
-    }
 }

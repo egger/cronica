@@ -41,7 +41,6 @@ struct PersonCardView: View {
                                                     style: .continuous))
                     }
                 }
-                
                 .frame(width: DrawingConstants.profileWidth,
                        height: DrawingConstants.profileHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.profileRadius,

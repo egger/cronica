@@ -338,6 +338,12 @@
 		B8EC462F27D7AA99009389FC /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC462E27D7AA99009389FC /* NotificationManager.swift */; };
 		B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED4C3C27B4B9680045C68F /* HomeView.swift */; };
 		B8EFB257281720E900F7CBD0 /* OverviewBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */; };
+		B8F253B52BC86497003F27E8 /* RoundedCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F253B42BC86497003F27E8 /* RoundedCloseButton.swift */; };
+		B8F253B62BC864A6003F27E8 /* RoundedCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F253B42BC86497003F27E8 /* RoundedCloseButton.swift */; };
+		B8F253B82BC865AE003F27E8 /* String-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B810524D298DBADF00723E94 /* String-Extensions.swift */; };
+		B8F253B92BC86619003F27E8 /* Date-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A8103C2915C43500B5E8B1 /* Date-Extensions.swift */; };
+		B8F253BB2BC8688A003F27E8 /* SeasonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F253BA2BC8688A003F27E8 /* SeasonDetailView.swift */; };
+		B8F253BC2BC868D2003F27E8 /* SeasonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F253BA2BC8688A003F27E8 /* SeasonDetailView.swift */; };
 		B8F367642AF5CAAA0027CAF9 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; productRef = B8F367632AF5CAAA0027CAF9 /* Aptabase */; };
 		B8F6D6CA29DB27F000B9190B /* PersonSearchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80982BC292AA6B00020716F /* PersonSearchImage.swift */; };
 		B8F6DE5829329AE8005D1A50 /* EndpointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */; };
@@ -626,6 +632,8 @@
 		B8EC462E27D7AA99009389FC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		B8ED4C3C27B4B9680045C68F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B8EFB256281720E900F7CBD0 /* OverviewBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewBoxView.swift; sourceTree = "<group>"; };
+		B8F253B42BC86497003F27E8 /* RoundedCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCloseButton.swift; sourceTree = "<group>"; };
+		B8F253BA2BC8688A003F27E8 /* SeasonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonDetailView.swift; sourceTree = "<group>"; };
 		B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointDetails.swift; sourceTree = "<group>"; };
 		B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentSectionDetails.swift; sourceTree = "<group>"; };
 		B8F6DE692937F944005D1A50 /* CenterVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVerticalView.swift; sourceTree = "<group>"; };
@@ -816,6 +824,7 @@
 				B81941D22A0867E50057DA04 /* Up Next */,
 				B8FB2A7A29522D22006DAC8E /* WatchlistItem */,
 				B824E4472A05A85B00E385CE /* WatchProviders */,
+				B8F253B42BC86497003F27E8 /* RoundedCloseButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -900,6 +909,7 @@
 				B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */,
 				B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */,
 				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
+				B8F253BA2BC8688A003F27E8 /* SeasonDetailView.swift */,
 			);
 			path = Season;
 			sourceTree = "<group>";
@@ -1671,6 +1681,7 @@
 				B84043BE289B18C700D5CEBF /* Season.swift in Sources */,
 				B8A8103E2915C43500B5E8B1 /* Date-Extensions.swift in Sources */,
 				B8370A982A02DF7200643261 /* NewListItemSelectorRow.swift in Sources */,
+				B8F253BC2BC868D2003F27E8 /* SeasonDetailView.swift in Sources */,
 				B84043D6289B2B0400D5CEBF /* ItemContentViewModel.swift in Sources */,
 				B8FCAE882AED8AB000F688FE /* PersonDetailsView.swift in Sources */,
 				B8BF6329291402720051915C /* HoverEffectModifier.swift in Sources */,
@@ -1720,6 +1731,7 @@
 				B8A4511829F855CD0027E3E2 /* CenterVerticalView.swift in Sources */,
 				B810524F298DBADF00723E94 /* String-Extensions.swift in Sources */,
 				B8370A9A2A02E65200643261 /* TMDB.swift in Sources */,
+				B8F253B62BC864A6003F27E8 /* RoundedCloseButton.swift in Sources */,
 				B84043B3289B188200D5CEBF /* Bundle-Decodable.swift in Sources */,
 				B84043C4289B18E300D5CEBF /* ImageSize.swift in Sources */,
 				B8E6EF5B2A043A61000A3617 /* HomeViewModel.swift in Sources */,
@@ -1827,6 +1839,7 @@
 				B81941C52A0861C80057DA04 /* CustomListButton.swift in Sources */,
 				B815A15C27BEB7F20062F727 /* ItemContent.swift in Sources */,
 				B8BF633C29146AF10051915C /* UpcomingWatchlist.swift in Sources */,
+				B8F253BB2BC8688A003F27E8 /* SeasonDetailView.swift in Sources */,
 				B8CC953327D05D1000B6757C /* HomeViewModel.swift in Sources */,
 				B8FB2A80295235E2006DAC8E /* WatchlistCardSection.swift in Sources */,
 				B8ED4C3D27B4B9680045C68F /* HomeView.swift in Sources */,
@@ -1914,6 +1927,7 @@
 				B886D232284D512F00FFE96A /* ConfirmationPopupModifier.swift in Sources */,
 				B8105253298DBAF500723E94 /* Locale-Extensions.swift in Sources */,
 				B8389ED028AB46C5003025BC /* SearchItemsScope.swift in Sources */,
+				B8F253B52BC86497003F27E8 /* RoundedCloseButton.swift in Sources */,
 				B81DD94129BE226E009F73F3 /* NotificationsSettingsView.swift in Sources */,
 				B8ADAF6A282AFC1B001D72EF /* EpisodeFrameView.swift in Sources */,
 				B840D2BF279A0C4200A07C71 /* NetworkService.swift in Sources */,
@@ -1950,6 +1964,8 @@
 				B81DD93D29BD14EE009F73F3 /* CustomList+CoreDataProperties.swift in Sources */,
 				B8B2F6AF2A85D6C800FF0246 /* SearchItemContent-Extension.swift in Sources */,
 				B810525F298DD05600723E94 /* AppContentRegion.swift in Sources */,
+				B8F253B82BC865AE003F27E8 /* String-Extensions.swift in Sources */,
+				B8F253B92BC86619003F27E8 /* Date-Extensions.swift in Sources */,
 				B8D7AEC528B961860053CE5A /* NetworkError.swift in Sources */,
 				B8D7AECF28B962660053CE5A /* Person.swift in Sources */,
 				B8D7AEBB28B95FC60053CE5A /* ItemContent.swift in Sources */,

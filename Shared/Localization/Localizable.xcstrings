@@ -114,6 +114,12 @@
             "value" : "%1$@ • %2$@"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ • %@"
+          }
+        },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
@@ -167,6 +173,9 @@
           }
         }
       }
+    },
+    "%lld episodes" : {
+
     },
     "%lld items" : {
       "localizations" : {
@@ -286,6 +295,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$lld Staffeln • %2$lld Episoden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Seasons • %lld Episodes"
           }
         },
         "es-MX" : {
@@ -2392,7 +2407,14 @@
       }
     },
     "Close" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
     },
     "Collapse" : {
       "localizations" : {
@@ -4231,6 +4253,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Episode: %1$lld, der Serie: %2$@."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episode: %lld, of the show: %@."
           }
         },
         "es-MX" : {
@@ -7032,6 +7060,12 @@
             "value" : "Episode %1$lld aus Staffel %2$lld von %3$@ als gesehen markieren?"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark Episode %lld from season %lld of %@ as Watched?"
+          }
+        },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7940,41 +7974,6 @@
         }
       }
     },
-    "No result found for '%@'." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keine Ergebnisse gefunden für '%@'."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No result found for '%@'."
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No se encontró ningún resultado para ' %@'."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nenhum resultado encontrado para '%@'."
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nenašli sa žiadne výsledky pre '%@'."
-          }
-        }
-      }
-    },
     "No results" : {
       "localizations" : {
         "de" : {
@@ -8594,41 +8593,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Otvoriť v"
-          }
-        }
-      }
-    },
-    "Open in YouTube" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "In YouTube öffnen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Open in YouTube"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abrir en YouTube"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abrir no YouTube"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Otvoriť na YouTube"
           }
         }
       }
@@ -9368,6 +9332,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premiéra"
+          }
+        }
+      }
+    },
+    "Premiered on %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premiered on %@"
           }
         }
       }
@@ -11068,6 +11042,12 @@
             "value" : "S%1$d, E%2$d"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S%d, E%d"
+          }
+        },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12377,6 +12357,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zobraziť potvrdenie odstránenia"
+          }
+        }
+      }
+    },
+    "Show Season Details" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Season Details"
           }
         }
       }
@@ -15463,6 +15453,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version %1$@ • %2$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ • %@"
           }
         },
         "es-MX" : {

@@ -13,7 +13,7 @@ struct TrailerListView: View {
     var body: some View {
         if !trailers.isEmpty {
             VStack {
-                TitleView(title: NSLocalizedString("Trailers", comment: ""))
+                TitleView(title: String(localized: "Trailers"))
 #if os(tvOS)
                     .padding(.horizontal, 64)
 #endif

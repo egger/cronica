@@ -548,7 +548,7 @@ struct ItemContentDetails: View {
     private func infoBox(item: ItemContent?, type: MediaType) -> some View {
         GroupBox("Information") {
             Section {
-                infoView(title: NSLocalizedString("Original Title", comment: ""),
+                infoView(title: String(localized: "Original Title"),
                          content: item?.originalItemTitle)
                 if let numberOfSeasons = item?.numberOfSeasons, let numberOfEpisodes = item?.numberOfEpisodes {
                     HStack {

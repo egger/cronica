@@ -22,18 +22,18 @@ struct SeasonListView: View {
     private let persistence = PersistenceController.shared
     private let network = NetworkService.shared
     let showCover: URL?
+    @State private var selectedSeasonDetails: Season?
+    
     var body: some View {
         VStack {
 #if !os(watchOS)
             header
             if isLoading {
-                HStack {
-                    Spacer()
+                HStack(alignment: .center) {
                     ProgressView().padding()
-                    Spacer()
                 }
+                .frame(maxWidth: .infinity)
             } else {
-                
                 if let season = season?.episodes {
                     if season.isEmpty {
                         HStack {
@@ -135,10 +135,11 @@ struct SeasonListView: View {
             }
 #endif
         }
+        .sheet(item: $selectedSeasonDetails) { item in
+            SeasonDetailView(item: item, selectedSeasonDetails: $selectedSeasonDetails)
+        }
         .task {
-            if !hasFirstLoaded {
-                await load()
-            }
+            if !hasFirstLoaded { await load() }
         }
 #if os(tvOS)
         .ignoresSafeArea(.all, edges: .horizontal)
@@ -218,6 +219,9 @@ struct SeasonListView: View {
                     ShareLink(item: url)
                 }
 #endif
+                Button("Show Season Details") {
+                    selectedSeasonDetails = season
+                }
             } label: {
                 Label("More", systemImage: "ellipsis.circle")
                     .labelStyle(.iconOnly)
