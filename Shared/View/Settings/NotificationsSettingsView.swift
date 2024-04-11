@@ -10,6 +10,25 @@ import SwiftUI
 struct NotificationsSettingsView: View {
     var navigationTitle = "Notifications"
     @StateObject private var settings = SettingsStore.shared
+    @State private var currentDate = Date()
+    // Computed property to convert stored hour and minute into a Date object
+    var notificationTimeBinding: Binding<Date> {
+        Binding<Date>(
+            get: { self.notificationTime },
+            set: { newDate in
+                let newComponents = Calendar.current.dateComponents([.hour, .minute], from: newDate)
+                settings.notificationHour = newComponents.hour ?? 0
+                settings.notificationMinute = newComponents.minute ?? 0
+            }
+        )
+    }
+
+    private var notificationTime: Date {
+        var components = DateComponents()
+        components.hour = settings.notificationHour
+        components.minute = settings.notificationMinute
+        return Calendar.current.date(from: components) ?? Date()
+    }
     var body: some View {
         Form {
             Section {
@@ -32,6 +51,21 @@ struct NotificationsSettingsView: View {
                     settings.notifyNewEpisodes = false
                 }
             }
+            
+            if settings.allowNotifications {
+                Section("Notification Time") {
+                    DatePicker("Select the hour and minute for notification delivery",
+                               selection: notificationTimeBinding,
+                               displayedComponents: .hourAndMinute)
+                }
+                .onAppear {
+                    // Set default notification time to 07:00 if not previously set
+                    if settings.notificationHour == 0 && settings.notificationMinute == 0 {
+                        setDefaultNotificationTime()
+                    }
+                }
+            }
+            
 #if os(iOS)
             Button("Edit Notifications in Settings app") {
                 Task {
@@ -48,6 +82,11 @@ struct NotificationsSettingsView: View {
 #if os(macOS)
         .formStyle(.grouped)
 #endif
+    }
+    
+    private func setDefaultNotificationTime() {
+        settings.notificationHour = 7
+        settings.notificationMinute = 0
     }
 }
 

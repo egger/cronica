@@ -9,8 +9,7 @@ import SwiftUI
 
 struct CronicaLoadingPopupView: View {
     var body: some View {
-        HStack {
-            Spacer()
+        HStack(alignment: .center) {
             VStack {
                 ProgressView("Loading")
                     .fontDesign(.rounded)
@@ -31,7 +30,7 @@ struct CronicaLoadingPopupView: View {
             .frame(width: 180, height: 150, alignment: .center)
 #endif
             .unredacted()
-            Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
 }

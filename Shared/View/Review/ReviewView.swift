@@ -148,9 +148,7 @@ struct ReviewView: View {
     
     @ViewBuilder
     private var doneButton: some View {
-        EmptyView()
-        #warning("make RoundedCloseButton available to watchOS")
-        //RoundedCloseButton(action: dismiss)
+        RoundedCloseButton(action: dismiss)
     }
     
     private var saveButton: some View {

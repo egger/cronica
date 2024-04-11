@@ -52,12 +52,15 @@ struct WatchlistItemRowView: View {
                 .frame(width: DrawingConstants.imageWidth,
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                .shadow(color: .black.opacity(0.2), radius: 2.5, x: 0, y: 2.5)
                 .applyHoverEffect()
                 VStack(alignment: .leading) {
                     HStack {
                         Text(content.itemTitle)
                             .lineLimit(DrawingConstants.textLimit)
+                            .font(.callout)
                             .fontDesign(.rounded)
+                            .fontWeight(.medium)
                     }
                     HStack {
 #if os(watchOS)
@@ -135,12 +138,12 @@ struct WatchlistItemRowView: View {
 
 private struct DrawingConstants {
 #if os(watchOS)
-    static let imageWidth: CGFloat = 70
+    static let imageWidth: CGFloat = 80.5
     static let textLimit: Int = 2
 #else
-    static let imageWidth: CGFloat = 80
+    static let imageWidth: CGFloat = 88
     static let textLimit: Int = 1
 #endif
-    static let imageHeight: CGFloat = 50
-    static let imageRadius: CGFloat = 8
+    static let imageHeight: CGFloat = 55
+    static let imageRadius: CGFloat = 12
 }

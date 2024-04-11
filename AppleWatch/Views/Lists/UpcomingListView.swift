@@ -104,6 +104,6 @@ struct UpcomingListView: View {
 private struct DrawingConstants {
     static let imageWidth: CGFloat = 70
     static let imageHeight: CGFloat = 50
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 12
     static let textLimit: Int = 1
 }

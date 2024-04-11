@@ -35,7 +35,7 @@ struct DetailedReleaseDateView: View {
             .toolbar {
 #if !os(macOS)
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Done") { dismiss.toggle() }
+                    RoundedCloseButton { dismiss.toggle() }
                 }
 #else
                 ToolbarItem(placement: .cancellationAction) {

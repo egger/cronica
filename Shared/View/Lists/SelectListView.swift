@@ -35,7 +35,7 @@ struct SelectListView: View {
                         doneButton
                     }
                     ToolbarItem {
-                        if !lists.isEmpty { newList }
+                        newList
                     }
                 }
 #if os(iOS)
@@ -88,8 +88,7 @@ struct SelectListView: View {
                         .buttonStyle(.plain)
                     }
                     // if empty, offers a more visual way to create new list
-                    if lists.isEmpty { newList }
-                    else  {
+                    if !lists.isEmpty {
                         if !queryResult.isEmpty {
 #if os(iOS)
                             ForEach(queryResult) { item in
@@ -210,8 +209,20 @@ struct SelectListView: View {
             NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection, newSelectedList: $selectedList)
 #endif
         } label: {
-            Label("New List", systemImage: "plus.rectangle.on.rectangle")
+            Image(systemName: "plus.rectangle.on.rectangle")
+                .imageScale(.medium)
+                .accessibilityLabel("New List")
+                .fontDesign(.rounded)
+                .fontWeight(.semibold)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 2)
         }
+        .buttonStyle(.borderedProminent)
+        .contentShape(Circle())
+        .clipShape(Circle())
+        .buttonBorderShape(.circle)
+        .shadow(radius: 2.5)
     }
     
     private func delete(offsets: IndexSet) {

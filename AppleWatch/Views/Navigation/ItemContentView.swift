@@ -254,7 +254,7 @@ struct ItemContentView: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let lineLimit: Int = 1
 }
 

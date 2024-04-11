@@ -22,8 +22,8 @@ struct WatchProvidersList: View {
     var body: some View {
         VStack {
             if isProvidersAvailable && settings.isWatchProviderEnabled {
-                TitleView(title: NSLocalizedString("Where to Watch", comment: ""),
-                          subtitle: NSLocalizedString("Provided by JustWatch", comment: ""),
+                TitleView(title: String(localized: "Where to Watch"),
+                          subtitle: String(localized: "Provided by JustWatch"),
                           showChevron: false)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
@@ -139,7 +139,7 @@ struct WatchProvidersList: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
 #if !os(tvOS)
     static let imageWidth: CGFloat = 60
     static let imageHeight: CGFloat = 60

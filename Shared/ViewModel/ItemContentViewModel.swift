@@ -230,10 +230,10 @@ enum UpdateItemProperties: String, Identifiable, CaseIterable {
     
     var title: String {
         switch self {
-        case .watched: return NSLocalizedString("Watched", comment: "")
-        case .favorite: return NSLocalizedString("Favorite", comment: "")
-        case .pin: return NSLocalizedString("Pin", comment: "")
-        case .archive: return NSLocalizedString("Archive", comment: "")
+        case .watched: String(localized: "Watched")
+        case .favorite: String(localized: "Favorite")
+        case .pin: String(localized: "Pin")
+        case .archive: String(localized: "Archive")
         }
     }
 }

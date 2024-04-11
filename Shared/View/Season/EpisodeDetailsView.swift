@@ -167,7 +167,7 @@ private struct DrawingConstants {
     static let imageRadius: CGFloat = 16
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
-    static let padImageRadius: CGFloat = 8
+    static let padImageRadius: CGFloat = 16
 }
 
 extension EpisodeDetailsView {

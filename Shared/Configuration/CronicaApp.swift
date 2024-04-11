@@ -84,7 +84,9 @@ struct CronicaApp: App {
                         .toolbar {
 #if os(iOS)
                             ToolbarItem(placement: .topBarLeading) {
-                                Button("Done") { selectedItem = nil }
+                                RoundedCloseButton {
+                                    selectedItem = nil
+                                }
                             }
 #else
                             Button("Done") { selectedItem = nil }

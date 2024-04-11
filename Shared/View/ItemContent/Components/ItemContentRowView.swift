@@ -55,16 +55,12 @@ struct ItemContentRowView: View {
 					   height: DrawingConstants.imageHeight)
 				.clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
 				VStack(alignment: .leading) {
-					HStack {
-						Text(item.itemTitle)
-							.lineLimit(DrawingConstants.textLimit)
-					}
-					HStack {
-						Text(showNotificationDate ? item.itemNotificationDescription : item.itemSearchDescription)
-							.font(.caption)
-							.foregroundColor(.secondary)
-						Spacer()
-					}
+                    Text(item.itemTitle)
+                        .lineLimit(DrawingConstants.textLimit)
+                        .fontWeight(.medium)
+                    Text(showNotificationDate ? item.itemNotificationDescription : item.itemSearchDescription)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
 				}
 #if os(iOS) || os(macOS)
 				Spacer()
@@ -105,14 +101,14 @@ struct ItemContentRowView: View {
 }
 
 private struct DrawingConstants {
-#if os(watchOS)
-	static let imageWidth: CGFloat = 70
-#else
-	static let imageWidth: CGFloat = 80
-#endif
-	static let imageHeight: CGFloat = 50
-	static let imageRadius: CGFloat = 8
 	static let textLimit: Int = 1
+#if os(watchOS)
+    static let imageWidth: CGFloat = 80.5
+#else
+    static let imageWidth: CGFloat = 92
+#endif
+    static let imageHeight: CGFloat = 57
+    static let imageRadius: CGFloat = 12
 }
 
 #Preview {

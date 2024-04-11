@@ -28,13 +28,6 @@ struct AboutSettings: View {
                             .onTapGesture(count: 4) {
                                 withAnimation { settings.displayDeveloperSettings.toggle() }
                             }
-                        Text("Developed by Alexandre Madeira")
-                            .fontWeight(.semibold)
-                            .fontDesign(.monospaced)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .textCase(.uppercase)
-                            .padding(.top)
                     }
                 }
             }
@@ -81,13 +74,13 @@ struct AboutSettings: View {
             }
             
             Section("Translation") {
-                aboutButton(title: NSLocalizedString("German", comment: ""),
+                aboutButton(title: String(localized: "German"),
                             subtitle: "Simon Boer",
                             url: "https://twitter.com/SimonBoer29")
-                aboutButton(title: NSLocalizedString("Spanish", comment: ""),
+                aboutButton(title: String(localized: "Spanish"),
                             subtitle: "Luis Felipe Lerma Alvarez",
 							url: "https://www.instagram.com/lerma_alvarez")
-                aboutButton(title: NSLocalizedString("Slovak", comment: ""),
+                aboutButton(title: String(localized: "Slovak"),
                             subtitle: "Tomáš Švec", url: "mailto:svec.tomas@gmail.com")
             }
             
@@ -97,7 +90,7 @@ struct AboutSettings: View {
                     url: "https://github.com/kean/Nuke"
                 )
                 aboutButton(
-                    title: NSLocalizedString("Aptabase", comment: ""),
+                    title: "Aptabase",
                     url: "https://aptabase.com"
                 )
                 aboutButton(title: NSLocalizedString("YouTubePlayerKit", comment: ""),
@@ -113,6 +106,10 @@ struct AboutSettings: View {
                 Text("Source Code")
             } footer: {
                 Text("Cronica is open-source, you can contribute to the project.")
+            }
+            
+            Section("Developers") {
+                aboutButton(title: "Alexandre Madeira", url: "https://alexandremadeira.dev")
             }
             
             Section {

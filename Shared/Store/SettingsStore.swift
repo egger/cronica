@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class SettingsStore: ObservableObject {
+final class SettingsStore: ObservableObject {
     private init() { }
     static var shared = SettingsStore()
     @AppStorage("showOnboarding") var displayOnboard = true
@@ -85,4 +85,7 @@ class SettingsStore: ObservableObject {
 #if os(macOS)
     @AppStorage("showMenuBarApp") var showMenuBarApp = true
 #endif
+    @AppStorage("notificationHour") var notificationHour = 7
+    @AppStorage("notificationMinute") var notificationMinute = 0
 }
+

@@ -53,7 +53,7 @@ final class NotificationManager: ObservableObject {
         let identifier = content.itemContentID
         let title = content.itemTitle
         var body: String
-		body = content.itemContentMedia == .movie ? NSLocalizedString("The movie will be released today.", comment: "") : NSLocalizedString("Next episode arrives today.", comment: "")
+		body = content.itemContentMedia == .movie ? String(localized: "The movie will be released today.") : String(localized: "Next episode arrives today.")
         var date: Date?
         if content.itemContentMedia == .movie {
             date = content.itemTheatricalDate
@@ -82,8 +82,8 @@ final class NotificationManager: ObservableObject {
         notificationContent.sound = UNNotificationSound.default
         var dateComponent: DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
                                                                             from: date)
-        dateComponent.hour = 7
-        dateComponent.minute = 0
+        dateComponent.hour = SettingsStore.shared.notificationHour
+        dateComponent.minute = SettingsStore.shared.notificationMinute
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
         let request = UNNotificationRequest(identifier: identifier,
                                             content: notificationContent,

@@ -61,86 +61,46 @@ enum AppContentRegion: String, CaseIterable, Identifiable {
 
     var bcp47Identifier: String {
         switch self {
-        case .ae:
-            return "ar-AE"
-        case .ar:
-            return "es-AR"
-        case .at:
-            return "de-AT"
-        case .au:
-            return "en-AU"
-        case .be:
-            return "nl-BE"
-        case .bg:
-            return "bg-BG"
-        case .br:
-            return "pt-BR"
-        case .ca:
-            return "en-CA"
-        case .ch:
-            return "de-CH"
-        case .cz:
-            return "cs-CZ"
-        case .de:
-            return "de-DE"
-        case .dk:
-            return "da-DK"
-        case .ee:
-            return "et-EE"
-        case .es:
-            return "es-ES"
-        case .fi:
-            return "fi-FI"
-        case .fr:
-            return "fr-FR"
-        case .gb:
-            return "en-GB"
-        case .hk:
-            return "zh-HK"
-        case .hr:
-            return "hr-HR"
-        case .hu:
-            return "hu-HU"
-        case .id:
-            return "id-ID"
-        case .ie:
-            return "en-IE"
-        case .india:
-            return "hi-IN"
-        case .it:
-            return "it-IT"
-        case .jp:
-            return "ja-JP"
-        case .kr:
-            return "ko-KR"
-        case .lt:
-            return "lt-LT"
-        case .mx:
-            return "es-MX"
-        case .nl:
-            return "nl-NL"
-        case .no:
-            return "nb-NO"
-        case .nz:
-            return "en-NZ"
-        case .ph:
-            return "en-PH"
-        case .pl:
-            return "pl-PL"
-        case .pt:
-            return "pt-PT"
-        case .rs:
-            return "sr-RS"
-        case .se:
-            return "sv-SE"
-        case .sk:
-            return "sk-SK"
-        case .tr:
-            return "tr-TR"
-        case .us:
-            return "en-US"
-        case .za:
-            return "en-ZA"
+        case .ae: "ar-AE"
+        case .ar: "es-AR"
+        case .at: "de-AT"
+        case .au: "en-AU"
+        case .be: "nl-BE"
+        case .bg: "bg-BG"
+        case .br: "pt-BR"
+        case .ca: "en-CA"
+        case .ch: "de-CH"
+        case .cz: "cs-CZ"
+        case .de: "de-DE"
+        case .dk: "da-DK"
+        case .ee: "et-EE"
+        case .es: "es-ES"
+        case .fi: "fi-FI"
+        case .fr: "fr-FR"
+        case .gb: "en-GB"
+        case .hk: "zh-HK"
+        case .hr: "hr-HR"
+        case .hu: "hu-HU"
+        case .id: "id-ID"
+        case .ie: "en-IE"
+        case .india: "hi-IN"
+        case .it: "it-IT"
+        case .jp: "ja-JP"
+        case .kr: "ko-KR"
+        case .lt: "lt-LT"
+        case .mx: "es-MX"
+        case .nl: "nl-NL"
+        case .no: "nb-NO"
+        case .nz: "en-NZ"
+        case .ph: "en-PH"
+        case .pl: "pl-PL"
+        case .pt: "pt-PT"
+        case .rs: "sr-RS"
+        case .se: "sv-SE"
+        case .sk: "sk-SK"
+        case .tr: "tr-TR"
+        case .us: "en-US"
+        case .za: "en-ZA"
         }
     }
 }

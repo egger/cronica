@@ -98,7 +98,7 @@ struct ItemContentCustomListSelector: View {
             .toolbar {
 #if os(iOS)
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Done") { showView.toggle() }
+                    RoundedCloseButton { showView.toggle() }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     if !lists.isEmpty { newList }
@@ -150,8 +150,20 @@ struct ItemContentCustomListSelector: View {
                               newSelectedList: $selectedList)
 #endif
         } label: {
-            Label("New List", systemImage: "plus.rectangle.on.rectangle")
+            Image(systemName: "plus.rectangle.on.rectangle")
+                .imageScale(.medium)
+                .accessibilityLabel("New List")
+                .fontDesign(.rounded)
+                .fontWeight(.semibold)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 2)
         }
+        .buttonStyle(.borderedProminent)
+        .contentShape(Circle())
+        .clipShape(Circle())
+        .buttonBorderShape(.circle)
+        .shadow(radius: 2.5)
     }
 }
 

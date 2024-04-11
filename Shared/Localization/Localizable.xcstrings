@@ -175,7 +175,14 @@
       }
     },
     "%lld episodes" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld episodes"
+          }
+        }
+      }
     },
     "%lld items" : {
       "localizations" : {
@@ -3486,40 +3493,6 @@
         }
       }
     },
-    "Developed by Alexandre Madeira" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Entwickelt von Alexandre Madeira"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Developed by Alexandre Madeira"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desarrollado por Alexandre Madeira"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desenvolvido por Alexandre Madeira"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vytvoril Alexandre Madeira"
-          }
-        }
-      }
-    },
     "Developer Options" : {
       "localizations" : {
         "de" : {
@@ -3550,6 +3523,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vývojárske možnosti"
+          }
+        }
+      }
+    },
+    "Developers" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Developers"
           }
         }
       }
@@ -8247,6 +8230,16 @@
         }
       }
     },
+    "Notification Time" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification Time"
+          }
+        }
+      }
+    },
     "Notifications" : {
       "localizations" : {
         "de" : {
@@ -11744,6 +11737,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vybrať položky"
+          }
+        }
+      }
+    },
+    "Select the hour and minute for notification delivery" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the hour and minute for notification delivery"
           }
         }
       }

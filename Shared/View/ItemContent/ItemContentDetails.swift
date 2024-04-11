@@ -103,7 +103,7 @@ struct ItemContentDetails: View {
         .overlay { if viewModel.isLoading { ProgressView().padding().unredacted() } }
 #if !os(visionOS)
         .background {
-            TranslucentBackground(image: viewModel.showPoster ? viewModel.content?.posterImageLarge : viewModel.content?.cardImageLarge)
+            TranslucentBackground(image: viewModel.showPoster ? viewModel.content?.posterImageMedium : viewModel.content?.cardImageLarge)
         }
 #endif
         .task {
@@ -530,7 +530,7 @@ struct ItemContentDetails: View {
             .opacity(animateGesture ? 1 : 0)
         }
         .frame(width: DrawingConstants.coverWidth, height: DrawingConstants.coverHeight)
-        .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
         .padding(.top)
         .padding(.bottom, 8)
@@ -1213,10 +1213,10 @@ private struct DrawingConstants {
     static let posterWidth: CGFloat = 280
     static let posterHeight: CGFloat = 440
 #endif
-    static let imageRadius: CGFloat = 12
+    static let imageRadius: CGFloat = 16
     static let buttonWidth: CGFloat = 75
     static let buttonHeight: CGFloat = 50
-    static let buttonRadius: CGFloat = 12
+    static let buttonRadius: CGFloat = 16
 }
 
 #Preview {

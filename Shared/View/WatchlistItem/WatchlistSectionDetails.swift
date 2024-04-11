@@ -8,7 +8,7 @@
 import SwiftUI
 #if !os(tvOS)
 struct WatchlistSectionDetails: View {
-    var title = NSLocalizedString("Upcoming", comment: "")
+    var title = String(localized: "Upcoming")
     let items: [WatchlistItem]
     @State private var showPopup = false
     @State private var popupType: ActionPopupItems?

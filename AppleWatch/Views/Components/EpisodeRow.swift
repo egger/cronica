@@ -73,7 +73,7 @@ struct EpisodeRow: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 12
     static let imageWidth: CGFloat = 70
     static let imageHeight: CGFloat = 45
     static let lineLimit: Int = 1

@@ -239,7 +239,7 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
 #endif
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5
 }
