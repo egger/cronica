@@ -37,7 +37,7 @@ struct VerticalUpNextCardView: View {
                    height: DrawingConstants.imageHeight)
             .transition(.opacity)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-            .shadow(radius: 2)
+            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
         }
         .buttonStyle(.plain)
         .contextMenu {
@@ -71,7 +71,6 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
 #endif
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let titleLineLimit: Int = 1
-    static let imageShadow: CGFloat = 2.5
 }

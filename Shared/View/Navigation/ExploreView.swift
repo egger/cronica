@@ -145,7 +145,7 @@ struct ExploreView: View {
                 .toolbar {
 #if !os(macOS)
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Done") {
+                        RoundedCloseButton {
                             showFilters = false
                         }
                     }

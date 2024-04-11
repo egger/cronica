@@ -14,21 +14,21 @@ struct TrailerListView: View {
         if !trailers.isEmpty {
             VStack {
                 TitleView(title: NSLocalizedString("Trailers", comment: ""))
-                #if os(tvOS)
+#if os(tvOS)
                     .padding(.horizontal, 64)
-                #endif
+#endif
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(trailers) { trailer in
                             TrailerItemView(trailer: trailer)
                                 .padding(.horizontal, 4)
-                            #if !os(tvOS)
+#if !os(tvOS)
                                 .padding(.leading, trailer.id == self.trailers.first?.id ? 16 : 0)
                                 .padding(.trailing, trailer.id == self.trailers.last?.id ? 16 : 0)
-                            #else
+#else
                                 .padding(.leading, trailer.id == self.trailers.first?.id ? 64 : 0)
                                 .padding(.trailing, trailer.id == self.trailers.last?.id ? 64 : 0)
-                            #endif
+#endif
                                 .padding(.top, 8)
                         }
                     }

@@ -150,7 +150,7 @@ struct ItemContentPosterView: View {
                height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
         .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
                                     style: .continuous))
-        .shadow(radius: DrawingConstants.shadowRadius)
+        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
         .padding(.zero)
         .applyHoverEffect()
 #if !os(tvOS)
@@ -215,9 +215,8 @@ private struct DrawingConstants {
     static let posterWidth: CGFloat = 160
     static let posterHeight: CGFloat = 240
 #endif
-    static let posterRadius: CGFloat = 8
+    static let posterRadius: CGFloat = 16
     static let compactPosterWidth: CGFloat = 80
     static let compactPosterRadius: CGFloat = 4
     static let compactPosterHeight: CGFloat = 140
-    static let shadowRadius: CGFloat = 2
 }

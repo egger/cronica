@@ -22,9 +22,14 @@ class UpNextViewModel: ObservableObject {
     func load(_ items: FetchedResults<WatchlistItem>) async {
         if !isLoaded {
             let sortedItems = items.sorted(by: { $0.itemLastUpdateDate > $1.itemLastUpdateDate}).filter { $0.firstAirDate != nil }
+            var content = [UpNextEpisode]()
 			for item in sortedItems {
-                await fetchUpNextEpisode(for: item)
+                let item = await fetchUpNextEpisode(for: item)
+                if let item, !content.contains(item) {
+                    content.append(item)
+                }
             }
+            self.episodes = content.sorted { $0.sortedDate > $1.sortedDate }
             await MainActor.run {
                 withAnimation(.easeInOut)  {
                     self.isLoaded = true
@@ -33,11 +38,11 @@ class UpNextViewModel: ObservableObject {
         }
     }
     
-    private func fetchUpNextEpisode(for item: WatchlistItem) async {
+    private func fetchUpNextEpisode(for item: WatchlistItem) async -> UpNextEpisode? {
         let result = try? await network.fetchEpisode(tvID: item.id,
                                                      season: item.itemNextUpNextSeason,
                                                      episodeNumber: item.itemNextUpNextEpisode)
-        guard let result else { return }
+        guard let result else { return nil }
         let seasonNumber = result.seasonNumber ?? 0
         let isWatched = persistence.isEpisodeSaved(show: item.itemId,
                                                    season: seasonNumber,
@@ -54,12 +59,8 @@ class UpNextViewModel: ObservableObject {
                                         backupImage: item.backCompatibleCardImage,
                                         episode: result,
                                         sortedDate: item.itemLastUpdateDate)
-            if !self.episodes.contains(where: { $0.id == content.id }) {
-                await MainActor.run {
-                    withAnimation(.easeInOut) {
-                        self.episodes.append(content)
-                    }
-                }
+            if !self.episodes.contains(where: { $0.episode.id == content.episode.id }) {
+                return content
             }
         } else if isWatched {
             let nextSeasonNumber = item.seasonNumberUpNext + 1
@@ -67,7 +68,7 @@ class UpNextViewModel: ObservableObject {
                                                               season: nextSeasonNumber,
                                                               episodeNumber: 1)
             guard let nextEpisode else {
-                return
+                return nil
             }
             let isNextEpisodeWatched = persistence.isEpisodeSaved(show: item.itemId,
                                                                   season: Int(nextSeasonNumber),
@@ -81,27 +82,22 @@ class UpNextViewModel: ObservableObject {
                                             backupImage: item.backCompatibleCardImage,
                                             episode: nextEpisode,
                                             sortedDate: item.itemLastUpdateDate)
-                if !self.episodes.contains(where: { $0.id == content.id })  {
-                    await MainActor.run {
-                        withAnimation(.easeInOut) {
-                            self.episodes.append(content)
-                        }
-                    }
+                if !self.episodes.contains(where: { $0.episode.id == content.episode.id })  {
+                    return content
                 }
             }
         }
+        return nil
     }
     
-    func skipEpisode(for item: UpNextEpisode) {
-        Task {
-            let nextEpisode = await helper.fetchNextEpisode(for: item.episode, show: item.showID)
-            let persistence = PersistenceController()
-            guard let nextEpisode, let show = persistence.fetch(for: "\(item.showID)@\(MediaType.tvShow.toInt)") else {
-                return
-            }
-            persistence.updateUpNext(show, episode: nextEpisode)
-            await handleWatched(item)
+    func skipEpisode(for item: UpNextEpisode) async {
+        let nextEpisode = await helper.fetchNextEpisode(for: item.episode, show: item.showID)
+        let persistence = PersistenceController()
+        guard let nextEpisode, let show = persistence.fetch(for: "\(item.showID)@\(MediaType.tvShow.toInt)") else {
+            return
         }
+        persistence.updateUpNext(show, episode: nextEpisode)
+        await handleWatched(item)
     }
     
     func reload(_ items: FetchedResults<WatchlistItem>) async {

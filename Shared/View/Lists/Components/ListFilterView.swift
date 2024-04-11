@@ -61,7 +61,7 @@ struct ListFilterView: View {
             .toolbar {
 #if !os(macOS)
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Done") { showView = false }
+                    RoundedCloseButton { showView = false  }
                 }
 #endif
             }
@@ -77,6 +77,8 @@ struct ListFilterView: View {
             }
         }
 #if !os(tvOS)
+        .presentationDragIndicator(.visible)
+        .presentationCornerRadius(32)
         .presentationDragIndicator(.visible)
         .appTint()
         .appTheme()

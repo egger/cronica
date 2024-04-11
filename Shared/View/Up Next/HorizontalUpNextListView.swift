@@ -26,21 +26,30 @@ struct HorizontalUpNextListView: View {
             VStack(alignment: .leading) {
                 if !viewModel.episodes.isEmpty {
 #if os(tvOS) || os(visionOS)
-                    TitleView(title: NSLocalizedString("Up Next", comment: ""),
-                              subtitle: NSLocalizedString("Your Next Episodes", comment: ""),
+                    TitleView(title: String(localized: "Up Next"),
+                              subtitle: String(localized: "Your Next Episodes"),
                               showChevron: false)
 #if os(tvOS)
                     .padding(.leading, 64)
 #endif
 #else
-                    NavigationLink(value: viewModel.episodes) {
-                        TitleView(title: NSLocalizedString("Up Next", comment: ""),
-                                  subtitle: NSLocalizedString("Your Next Episodes", comment: ""),
-                                  showChevron: viewModel.episodes.count > 4 ? true : false)
+                    
+                    if viewModel.episodes.count > 4 {
+                        NavigationLink(value: viewModel.episodes) {
+                            TitleView(title: String(localized: "Up Next"),
+                                      subtitle: String(localized: "Your Next Episodes"),
+                                      showChevron: true)
+                            .unredacted()
+                        }
+                        .disabled(!viewModel.isLoaded)
+                        .buttonStyle(.plain)
+                    } else {
+                        TitleView(title: String(localized: "Up Next"),
+                                  subtitle: String(localized: "Your Next Episodes"),
+                                  showChevron: false)
                         .unredacted()
                     }
-                    .disabled(!viewModel.isLoaded)
-                    .buttonStyle(.plain)
+                    
 #endif
                     ScrollViewReader { proxy in
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -65,7 +74,7 @@ struct HorizontalUpNextListView: View {
                                             .frame(width: settings.isCompactUI ? DrawingConstants.compactImageWidth : DrawingConstants.imageWidth,
                                                    height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
                                             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius, style: .continuous))
-                                            .shadow(radius: 2.5)
+                                            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 5)
                                             .accessibilityLabel("Episode: \(item.episode.itemEpisodeNumber), of the show: \(item.showTitle).")
                                             .accessibilityAddTraits(.isButton)
                                             .applyHoverEffect()
@@ -195,7 +204,6 @@ struct HorizontalUpNextListView: View {
             }
         }
     }
-    
 }
 
 private struct UpNextCard: View {
@@ -208,15 +216,7 @@ private struct UpNextCard: View {
     var body: some View {
         VStack {
             Button {
-#if os(iOS) || os(macOS)
-                if settings.markEpisodeWatchedOnTap {
-                    showConfirmation.toggle()
-                } else {
-                    selectedEpisode = item
-                }
-#else
                 showConfirmation.toggle()
-#endif
             } label: {
                 ZStack {
                     LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
@@ -244,7 +244,7 @@ private struct UpNextCard: View {
                            height: settings.isCompactUI ? DrawingConstants.compactImageHeight : DrawingConstants.imageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                                 style: .continuous))
-                    .shadow(radius: DrawingConstants.imageShadow)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                     .applyHoverEffect()
 #if !os(tvOS)
                     if !settings.isCompactUI {
@@ -289,6 +289,7 @@ private struct UpNextCard: View {
                                         Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
                                             .font(.caption)
                                             .textCase(.uppercase)
+                                            .fontWeight(.medium)
                                             .foregroundColor(.white.opacity(0.8))
                                             .lineLimit(1)
                                     }
@@ -308,7 +309,7 @@ private struct UpNextCard: View {
                     selectedEpisode = item
                 }
                 Button("Skip this episode") {
-                    viewModel.skipEpisode(for: item)
+                    Task { await viewModel.skipEpisode(for: item) }
                 }
             }
 #if os(tvOS)
@@ -369,7 +370,7 @@ private struct DrawingConstants {
 #endif
     static let compactImageWidth: CGFloat = 160
     static let compactImageHeight: CGFloat = 100
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5
 }

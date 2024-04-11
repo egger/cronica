@@ -158,10 +158,12 @@ struct VerticalUpNextListView: View {
                                     VStack(alignment: .leading) {
                                         Text(item.showTitle)
                                             .font(.caption)
+                                            .fontWeight(.medium)
                                             .lineLimit(2)
                                         Text(String(format: NSLocalizedString("S%d, E%d", comment: ""), item.episode.itemSeasonNumber, item.episode.itemEpisodeNumber))
                                             .font(.caption)
                                             .textCase(.uppercase)
+                                            .fontWeight(.medium)
                                             .foregroundColor(.secondary)
                                             .lineLimit(1)
                                     }

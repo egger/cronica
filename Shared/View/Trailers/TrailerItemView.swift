@@ -80,12 +80,12 @@ struct TrailerItemView: View {
             openVideo()
         } label: {
             ZStack {
-    #if os(iOS)
+#if os(iOS)
                 YouTubePlayerView(player)
                     .frame(width: DrawingConstants.imageWidth,
                            height: DrawingConstants.imageHeight)
                     .opacity(0)
-    #endif
+#endif
                 VStack {
                     LazyImage(url: trailer.thumbnail) { state in
                         if let image = state.image {
@@ -232,7 +232,7 @@ struct TrailerItemView: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 8
+    static let imageRadius: CGFloat = 16
     static let imageShadow: CGFloat = 2.5
 #if !os(tvOS)
     static let imageWidth: CGFloat = 220
