@@ -265,7 +265,7 @@ private struct PersonImageProfileView: View {
         .transition(.opacity)
         .clipShape(Circle())
         .frame(width: DrawingConstants.imageWidth, height: DrawingConstants.imageHeight)
-        .shadow(radius: DrawingConstants.imageShadow)
+        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
         .accessibilityHidden(true)
     }
 }

@@ -216,7 +216,7 @@ struct WatchlistItemCardView: View {
 }
 
 private struct DrawingConstants {
-#if os(macOS) || os(visionOS)
+#if os(macOS) || os(visionOS) 
     static let imageWidth: CGFloat = 240
     static let imageHeight: CGFloat = 140
 #elseif os(iOS)
