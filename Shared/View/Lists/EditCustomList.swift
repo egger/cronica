@@ -122,7 +122,9 @@ struct EditCustomList: View {
             Button("Save", action: save).disabled(disableSaveButton)
         }
         .navigationTitle(list.itemTitle)
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+#endif
     }
 }
 
