@@ -824,7 +824,6 @@
 				B81941D22A0867E50057DA04 /* Up Next */,
 				B8FB2A7A29522D22006DAC8E /* WatchlistItem */,
 				B824E4472A05A85B00E385CE /* WatchProviders */,
-				B8F253B42BC86497003F27E8 /* RoundedCloseButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1371,6 +1370,7 @@
 		B8EC463E27D84C62009389FC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B8F253B42BC86497003F27E8 /* RoundedCloseButton.swift */,
 				B86670B52B5FF63400CBA595 /* CronicaLoadingPopupView.swift */,
 				B8CBBF1B2A4B7C3E0052A59B /* DetailedReleaseDateView.swift */,
 				B890C57827FC999F006BE5E1 /* HeroImage.swift */,

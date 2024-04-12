@@ -28,7 +28,7 @@ struct ReviewView: View {
                     }
                 } else {
                     if let item {
-                        Section { 
+                        Section {
                             VStack {
                                 HStack(alignment: .center) {
                                     LazyImage(url: item.itemPosterImageMedium) { state in
@@ -75,7 +75,7 @@ struct ReviewView: View {
                         Section("Notes") {
                             TextEditor(text: $note)
                                 .frame(minHeight: 150, maxHeight: 800)
-
+                            
                         }
 #endif
                     } else {
@@ -83,13 +83,15 @@ struct ReviewView: View {
                     }
                 }
             }
-#if os(iOS)
+#if !os(tvOS)
+            .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
             .background {
                 if let item {
                     TranslucentBackground(image: item.itemPosterImageMedium, useLighterMaterial: true)
                 }
             }
             .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
+#elseif !os(tvOS) && !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .navigationTitle("Review")
@@ -148,14 +150,20 @@ struct ReviewView: View {
     
     @ViewBuilder
     private var doneButton: some View {
+#if os(macOS)
+        Button("Done", action: dismiss)
+#else
         RoundedCloseButton(action: dismiss)
+#endif
     }
     
     private var saveButton: some View {
         Button("Save") { save() }
             .disabled(!canSave)
+        #if !os(macOS)
             .buttonBorderShape(.capsule)
             .buttonStyle(.borderedProminent)
+        #endif
     }
     
     private func save(dismiss: Bool = true) {

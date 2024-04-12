@@ -212,7 +212,7 @@ struct SeasonListView: View {
 #endif
 #endif
             Spacer()
-#if os(iOS) || os(tvOS)
+#if !os(watchOS)
             Menu {
                 Button("Show Season Details") {
                     selectedSeasonDetails = season
@@ -228,6 +228,10 @@ struct SeasonListView: View {
                 Label("More", systemImage: "ellipsis.circle")
                     .labelStyle(.iconOnly)
             }
+#if os(macOS)
+            .menuStyle(.borderlessButton)
+            .frame(width: 40)
+#endif
 #if os(tvOS)
             .padding(.horizontal, 60)
 #else

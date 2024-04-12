@@ -73,6 +73,9 @@ struct SeasonDetailView: View {
                             Text(overview)
                                 .font(.callout)
                                 .padding(.vertical)
+#if os(macOS)
+                                .padding(.horizontal)
+#endif
                         }
                     }
                 }
@@ -82,6 +85,8 @@ struct SeasonDetailView: View {
             }
 #if !os(tvOS) && !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
+#if !os(tvOS)
             .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
             .background {
                 TranslucentBackground(image: item.seasonPosterUrl, useLighterMaterial: true)
@@ -128,5 +133,8 @@ struct SeasonDetailView: View {
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.visible)
         .presentationCornerRadius(32)
+#if os(macOS)
+        .frame(width: 600, height: 400)
+#endif
     }
 }
