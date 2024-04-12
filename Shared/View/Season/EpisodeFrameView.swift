@@ -174,11 +174,19 @@ struct EpisodeFrameView: View {
             NavigationStack {
                 EpisodeDetailsView(episode: episode, season: season, show: show, showTitle: showTitle, isWatched: $isWatched)
                     .toolbar {
+                        #if os(macOS)
+                        ToolbarItem {
+                            Button("Close") {
+                                showDetails = false
+                            }
+                        }
+                        #else
                         ToolbarItem(placement: .topBarLeading) {
                             RoundedCloseButton {
                                 showDetails = false
                             }
                         }
+                        #endif
                     }
             }
             .appTheme()

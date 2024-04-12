@@ -77,19 +77,29 @@ struct SeasonDetailView: View {
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
             }
+#if !os(tvOS) && !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
             .background {
                 TranslucentBackground(image: item.seasonPosterUrl, useLighterMaterial: true)
             }
+#endif
             .scrollBounceBehavior(.basedOnSize)
             .toolbar {
+#if os(macOS)
+                ToolbarItem {
+                    Button("Close") {
+                        selectedSeasonDetails = nil
+                    }
+                }
+#else
                 ToolbarItem(placement: .topBarLeading) {
                     RoundedCloseButton {
                         selectedSeasonDetails = nil
                     }
                 }
-                
+#endif
+#if !os(tvOS) && !os(macOS)
                 ToolbarItem(placement: .topBarTrailing) {
                     if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(item.seasonNumber)") {
                         ShareLink(item: url) {
@@ -109,6 +119,7 @@ struct SeasonDetailView: View {
                         .shadow(radius: 2.5)
                     }
                 }
+#endif
             }
         }
         .presentationDetents([.medium])

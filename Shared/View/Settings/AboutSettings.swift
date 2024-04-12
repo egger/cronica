@@ -85,7 +85,7 @@ struct AboutSettings: View {
                 aboutButton(title: String(localized: "French"),
                             subtitle: "Pierre Quéré", url: "")
                 aboutButton(title: String(localized: "Italian"),
-                            subtitle: "", url: "")
+                            subtitle: "Kevin Manca", url: "http://github.com/kevinm6")
             }
             
             Section("Libraries") {

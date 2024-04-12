@@ -22,7 +22,7 @@ struct NotificationsSettingsView: View {
             }
         )
     }
-
+    
     private var notificationTime: Date {
         var components = DateComponents()
         components.hour = settings.notificationHour
@@ -52,6 +52,7 @@ struct NotificationsSettingsView: View {
                 }
             }
             
+#if !os(tvOS)
             if settings.allowNotifications {
                 Section("Notification Time") {
                     DatePicker("Select the hour and minute for notification delivery",
@@ -65,6 +66,7 @@ struct NotificationsSettingsView: View {
                     }
                 }
             }
+#endif
             
 #if os(iOS)
             Button("Edit Notifications in Settings app") {

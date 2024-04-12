@@ -76,19 +76,6 @@ struct HomeView: View {
             }
 #endif
         }
-#if os(iOS)
-        .sheet(isPresented: $showWhatsNew) {
-            ChangelogView(showChangelog: $showWhatsNew)
-                .onDisappear {
-                    showWhatsNew = false
-                }
-#if os(macOS)
-                .frame(minWidth: 400, idealWidth: 600, maxWidth: nil, minHeight: 500, idealHeight: 500, maxHeight: nil, alignment: .center)
-#elseif os(iOS)
-                .appTheme()
-#endif
-        }
-#endif
         .navigationDestination(for: ItemContent.self) { item in
             ItemContentDetails(title: item.itemTitle,
                                id: item.id,

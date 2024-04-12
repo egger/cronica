@@ -436,11 +436,11 @@ struct ItemContentDetails: View {
                 Spacer()
             }
             
-            if let seasons = viewModel.content?.itemSeasons {
+            if let seasons = viewModel.content?.seasons {
                 SeasonListView(
                     showID: id,
                     showTitle: title,
-                    numberOfSeasons: seasons,
+                    seasons: seasons,
                     isInWatchlist: $viewModel.isInWatchlist,
                     showCover: viewModel.content?.cardImageLarge
                 )
