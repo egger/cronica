@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct AboutSettings: View {
-#if os(iOS)
-    @Environment(\.requestReview) var requestReview
-#endif
     @StateObject private var settings = SettingsStore.shared
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-	let buildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+    let buildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
     var body: some View {
         Form {
             Section {
@@ -24,34 +21,30 @@ struct AboutSettings: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .shadow(radius: 5)
-                            .onTapGesture(count: 4) {
+                            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 6)
+                            .onTapGesture(count: 3) {
                                 withAnimation { settings.displayDeveloperSettings.toggle() }
                             }
                     }
+                    .padding()
                 }
             }
             .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
-#if os(iOS)
-            Button {
-                requestReview()
-            } label: {
-                Text("Review on the App Store")
-            }
-#endif
             
 #if !os(tvOS)
             Section {
+                Button("Review on the App Store") {
+                    guard let writeReviewURL = URL(string: "https://apps.apple.com/app/1614950275?action=write-review") else { return }
+                    UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+                }
+                
                 aboutButton(title: NSLocalizedString("X/Twitter", comment: ""),
                             url: "https://x.com/CronicaApp")
-            }
-#endif
-            
-            
-#if os(iOS)
-            if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
-                ShareLink(item: appUrl).labelStyle(.titleOnly)
+                
+                if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
+                    ShareLink(item: appUrl).labelStyle(.titleOnly)
+                }
             }
 #endif
 #if os(macOS)
@@ -60,7 +53,7 @@ struct AboutSettings: View {
             
             Section("Content Provider") {
                 aboutButton(
-                    title: NSLocalizedString("The Movie Database", comment: ""),
+                    title: "The Movie Database",
                     url: "https://www.themoviedb.org"
                 )
             }
@@ -79,7 +72,7 @@ struct AboutSettings: View {
                             url: "https://twitter.com/SimonBoer29")
                 aboutButton(title: String(localized: "Spanish"),
                             subtitle: "Luis Felipe Lerma Alvarez",
-							url: "https://www.instagram.com/lerma_alvarez")
+                            url: "https://www.instagram.com/lerma_alvarez")
                 aboutButton(title: String(localized: "Slovak"),
                             subtitle: "Tomáš Švec", url: "mailto:svec.tomas@gmail.com")
                 aboutButton(title: String(localized: "French"),
@@ -88,32 +81,32 @@ struct AboutSettings: View {
                             subtitle: "Kevin Manca", url: "http://github.com/kevinm6")
             }
             
+            Section("Developers") {
+                aboutButton(title: "Alexandre Madeira", url: "https://alexandremadeira.dev")
+            }
+            
             Section("Libraries") {
                 aboutButton(
-                    title: NSLocalizedString("Nuke", comment: ""),
+                    title: "Nuke",
                     url: "https://github.com/kean/Nuke"
                 )
                 aboutButton(
                     title: "Aptabase",
                     url: "https://aptabase.com"
                 )
-                aboutButton(title: NSLocalizedString("YouTubePlayerKit", comment: ""),
+                aboutButton(title: "YouTubePlayerKit",
                             url: "https://github.com/SvenTiigi/YouTubePlayerKit")
             }
             
             Section {
                 aboutButton(
-                    title: NSLocalizedString("GitHub", comment: ""),
+                    title: "GitHub",
                     url: "https://github.com/MadeiraAlexandre/Cronica"
                 )
             } header: {
                 Text("Source Code")
             } footer: {
                 Text("Cronica is open-source, you can contribute to the project.")
-            }
-            
-            Section("Developers") {
-                aboutButton(title: "Alexandre Madeira", url: "https://alexandremadeira.dev")
             }
             
             Section {
@@ -143,23 +136,23 @@ struct AboutSettings: View {
             UIApplication.shared.open(url)
 #endif
         } label: {
-			buttonLabels(title: title, subtitle: subtitle)
+            buttonLabels(title: title, subtitle: subtitle)
         }
 #if os(macOS)
         .buttonStyle(.link)
 #endif
     }
-	
-	private func buttonLabels(title: String, subtitle: String?) -> some View {
-		VStack(alignment: .leading) {
-			Text(NSLocalizedString(title, comment: ""))
-			if let subtitle {
-				Text(NSLocalizedString(subtitle, comment: ""))
-					.font(.caption)
-					.foregroundColor(.secondary)
-			}
-		}
-	}
+    
+    private func buttonLabels(title: String, subtitle: String?) -> some View {
+        VStack(alignment: .leading) {
+            Text(title)
+            if let subtitle {
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
     
 #if os(macOS)
     private var privacy: some View {

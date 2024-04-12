@@ -87,5 +87,6 @@ final class SettingsStore: ObservableObject {
 #endif
     @AppStorage("notificationHour") var notificationHour = 7
     @AppStorage("notificationMinute") var notificationMinute = 0
+    @AppStorage("askConfirmationWhenMarkingEpisodeWatched") var askConfirmationToMarkEpisodeWatched = true
 }
 

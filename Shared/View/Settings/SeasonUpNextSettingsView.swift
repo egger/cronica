@@ -15,6 +15,8 @@ struct SeasonUpNextSettingsView: View {
                 Toggle(isOn: $store.markEpisodeWatchedOnTap) {
                     Text("Tap To Mark Episode as Watched")
                 }
+                Toggle("Ask Confirmation To Mark as Watched", isOn: $store.askConfirmationToMarkEpisodeWatched)
+                    .disabled(!store.markEpisodeWatchedOnTap)
                 Toggle(isOn: $store.preferCoverOnUpNext) {
                     Text("Prefer Series Cover instead of Episode Thumbnail on Up Next")
                 }

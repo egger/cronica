@@ -23,6 +23,7 @@ struct EpisodeFrameView: View {
     @Binding var isInWatchlist: Bool
     @StateObject private var settings: SettingsStore = .shared
     let showCover: URL?
+    @State private var showConfirmation = false
 #if os(tvOS)
     @FocusState var isFocused
 #endif
@@ -132,7 +133,9 @@ struct EpisodeFrameView: View {
     
     private var image: some View {
         Button {
-            if SettingsStore.shared.markEpisodeWatchedOnTap {
+            if settings.markEpisodeWatchedOnTap, settings.askConfirmationToMarkEpisodeWatched {
+                showConfirmation.toggle()
+            } else if settings.markEpisodeWatchedOnTap, !settings.askConfirmationToMarkEpisodeWatched {
                 markAsWatched()
             } else {
                 showDetails.toggle()
@@ -174,19 +177,19 @@ struct EpisodeFrameView: View {
             NavigationStack {
                 EpisodeDetailsView(episode: episode, season: season, show: show, showTitle: showTitle, isWatched: $isWatched)
                     .toolbar {
-                        #if os(macOS)
+#if os(macOS)
                         ToolbarItem {
                             Button("Close") {
                                 showDetails = false
                             }
                         }
-                        #else
+#else
                         ToolbarItem(placement: .topBarLeading) {
                             RoundedCloseButton {
                                 showDetails = false
                             }
                         }
-                        #endif
+#endif
                     }
             }
             .appTheme()
@@ -199,6 +202,17 @@ struct EpisodeFrameView: View {
 #endif
         }
         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+        .confirmationDialog("Confirm Watched Episode",
+                            isPresented: $showConfirmation, titleVisibility: .visible) {
+            Button("Confirm") {
+                markAsWatched()
+            }
+            Button("Cancel", role: .cancel) {
+                showConfirmation = false
+            }
+        } message: {
+            Text("Mark Episode \(episode.itemEpisodeNumber) from season \(episode.itemSeasonNumber) of \(showTitle) as Watched?")
+        }
     }
     
     private func markAsWatched() {

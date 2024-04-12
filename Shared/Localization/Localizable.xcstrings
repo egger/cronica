@@ -1806,6 +1806,22 @@
         }
       }
     },
+    "Ask Confirmation To Mark as Watched" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask Confirmation To Mark as Watched"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peça Confirmação Para Marcar como Assistido"
+          }
+        }
+      }
+    },
     "Asked for review: %@" : {
       "localizations" : {
         "de" : {

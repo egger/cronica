@@ -16,7 +16,15 @@ struct VerticalUpNextCardView: View {
     @Binding var selectedEpisode: UpNextEpisode?
     var body: some View {
         Button {
-            askConfirmation.toggle()
+            if settings.markEpisodeWatchedOnTap, settings.askConfirmationToMarkEpisodeWatched {
+                askConfirmation.toggle()
+            } else if settings.markEpisodeWatchedOnTap, !settings.askConfirmationToMarkEpisodeWatched {
+                Task {
+                    await viewModel.markAsWatched(item)
+                }
+            } else {
+                selectedEpisode = item
+            }
         } label: {
             LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
                 if let image = state.image {

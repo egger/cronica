@@ -216,7 +216,15 @@ private struct UpNextCard: View {
     var body: some View {
         VStack {
             Button {
-                showConfirmation.toggle()
+                if settings.markEpisodeWatchedOnTap, settings.askConfirmationToMarkEpisodeWatched {
+                    showConfirmation.toggle()
+                } else if settings.markEpisodeWatchedOnTap, !settings.askConfirmationToMarkEpisodeWatched {
+                    Task {
+                        await viewModel.markAsWatched(item)
+                    }
+                } else {
+                    selectedEpisode = item
+                }
             } label: {
                 ZStack {
                     LazyImage(url: settings.preferCoverOnUpNext ? item.backupImage : item.episode.itemImageLarge ?? item.backupImage) { state in
