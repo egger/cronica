@@ -26,7 +26,7 @@ struct CronicaTelemetry {
 #endif
     }
     
-    /// Send a signal using TelemetryDeck service (on iOS/iPadOS) or in Aptabase (macOS, watchOS, tvOS).
+    /// Send a signal using Aptabase service (on iOS/iPadOS) or in Aptabase (macOS, watchOS, tvOS).
     ///
     /// If it is running in Simulator or Debug, it will send a warning on logger.
     func handleMessage(_ message: String, for id: String) {

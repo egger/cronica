@@ -31,32 +31,12 @@ enum AppThemeColors: Int, Identifiable, CaseIterable {
     case goldenrod = 19
     case coral = 20
     case turquoiseBlue = 21
-    var localizableName: String {
-        switch self {
-        case .blue:  NSLocalizedString("Blue", comment: "App Theme Color")
-        case .red:  NSLocalizedString("Red", comment: "App Theme Color")
-        case .green:  NSLocalizedString("Green", comment: "App Theme Color")
-        case .brown:  NSLocalizedString("Brown", comment: "App Theme Color")
-        case .cyan:  NSLocalizedString("Cyan", comment: "App Theme Color")
-        case .gray:  NSLocalizedString("Gray", comment: "App Theme Color")
-        case .indigo:  NSLocalizedString("Indigo", comment: "App Theme Color")
-        case .mint:  NSLocalizedString("Mint", comment: "App Theme Color")
-        case .orange:  NSLocalizedString("Orange", comment: "App Theme Color")
-        case .pink:  NSLocalizedString("Pink", comment: "App Theme Color")
-        case .purple:  NSLocalizedString("Purple", comment: "App Theme Color")
-        case .teal:  NSLocalizedString("Teal", comment: "App Theme Color")
-        case .yellow:  NSLocalizedString("Yellow", comment: "App Theme Color")
-        case .steel:  NSLocalizedString("Steel", comment: "App Theme Color")
-        case .roseGold:  NSLocalizedString("Rose Gold", comment: "App Theme Color")
-        case .turquoise:  NSLocalizedString("Turquoise", comment: "App Theme Color")
-        case .lavender:  NSLocalizedString("Lavender", comment: "App Theme Color")
-        case .cherry:  NSLocalizedString("Cherry", comment: "App Theme Color")
-        case .skyBlue: NSLocalizedString("Sky Blue", comment: "App Theme Color")
-        case .goldenrod: NSLocalizedString("Goldenrod", comment: "App Theme Color")
-        case .coral: NSLocalizedString("Coral", comment: "App Theme Color")
-        case .turquoiseBlue: NSLocalizedString("Turquoise Blue", comment: "App Theme Color")
-        }
-    }
+    case rubyRed = 22
+    case mahoganyBrown = 23
+    case burntOrange = 24
+    case fireballRed = 25
+    case mysticTeal = 26
+    case electricBlue = 27
     var color: Color {
         switch self {
         case .blue: .blue
@@ -81,6 +61,12 @@ enum AppThemeColors: Int, Identifiable, CaseIterable {
         case .goldenrod: Color(red: 0.85, green: 0.65, blue: 0.13)
         case .coral: Color(red: 1.0, green: 0.5, blue: 0.31)
         case .turquoiseBlue: Color(red: 0.0, green: 0.73, blue: 0.83)
+        case .rubyRed: Color(red: 0.69, green: 0.09, blue: 0.19)
+        case .mahoganyBrown: Color(red: 0.54, green: 0.27, blue: 0.07)
+        case .burntOrange: Color(red: 0.8, green: 0.33, blue: 0.0)
+        case .fireballRed: Color(red: 0.93, green: 0.16, blue: 0.16)
+        case .mysticTeal: Color(red: 0.0, green: 0.6, blue: 0.6)
+        case .electricBlue: Color(red: 0.0, green: 0.69, blue: 0.96)
         }
     }
 }

@@ -11,6 +11,7 @@ import NukeUI
 struct SeasonDetailView: View {
     @StateObject private var settings: SettingsStore = .shared
     var item: Season
+    var showID: Int
     @Binding var selectedSeasonDetails: Season?
     var body: some View {
         NavigationStack {
@@ -44,6 +45,7 @@ struct SeasonDetailView: View {
                         if let name = item.name {
                             Text(name)
                                 .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
                                 .font(.title3)
                             Text("Season \(item.seasonNumber)")
                                 .font(.caption)
@@ -85,6 +87,26 @@ struct SeasonDetailView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     RoundedCloseButton {
                         selectedSeasonDetails = nil
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(item.seasonNumber)") {
+                        ShareLink(item: url) {
+                            Image(systemName: "square.and.arrow.up")
+                                .imageScale(.medium)
+                                .accessibilityLabel("Share")
+                                .fontDesign(.rounded)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 2)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .contentShape(Circle())
+                        .clipShape(Circle())
+                        .buttonBorderShape(.circle)
+                        .shadow(radius: 2.5)
                     }
                 }
             }

@@ -50,7 +50,9 @@ struct TrendingKeywordsListView: View {
                 }
                 .padding([.horizontal, .bottom])
             }
-            .onAppear(perform: load)
+            .task {
+                await load()
+            }
             .scrollBounceBehavior(.basedOnSize)
 #if os(iOS)
             .redacted(reason: isLoading ? .placeholder : [])
@@ -62,43 +64,39 @@ struct TrendingKeywordsListView: View {
             HStack {
                 Text("Browse by Themes")
                     .font(.title3)
-                    .fontWeight(.semibold)
+                    .fontWeight(.medium)
                     .padding(.horizontal)
                 Spacer()
             }
 #endif
         }
     }
-}
-
-#Preview {
-    TrendingKeywordsListView()
-}
-
-extension TrendingKeywordsListView {
-    private func load() {
-        Task {
-            if trendingKeywords.isEmpty {
-                for item in keywords.sorted(by: { $0.name < $1.name}) {
-                    let itemFromKeyword = try? await service.fetchKeyword(type: .movie,
-                                                                          page: 1,
-                                                                          keywords: item.id,
-                                                                          sortBy: TMDBSortBy.popularity.rawValue)
-                    var url: URL?
-                    if let firstItem = itemFromKeyword?.first {
-                        url = firstItem.cardImageMedium
-                    }
-                    let content: CombinedKeywords = .init(id: item.id, name: item.name, image: url)
-                    trendingKeywords.append(content)
+    
+    private func load() async {
+        if trendingKeywords.isEmpty {
+            for item in keywords.sorted(by: { $0.name < $1.name}) {
+                let itemFromKeyword = try? await service.fetchKeyword(type: .movie,
+                                                                      page: 1,
+                                                                      keywords: item.id,
+                                                                      sortBy: TMDBSortBy.popularity.rawValue)
+                var url: URL?
+                if let firstItem = itemFromKeyword?.first {
+                    url = firstItem.cardImageMedium
                 }
-                await MainActor.run {
-                    withAnimation {
-                        self.isLoading = false
-                    }
+                let content: CombinedKeywords = .init(id: item.id, name: item.name, image: url)
+                trendingKeywords.append(content)
+            }
+            await MainActor.run {
+                withAnimation {
+                    self.isLoading = false
                 }
             }
         }
     }
+}
+
+#Preview {
+    TrendingKeywordsListView()
 }
 
 struct CombinedKeywords: Identifiable, Hashable {

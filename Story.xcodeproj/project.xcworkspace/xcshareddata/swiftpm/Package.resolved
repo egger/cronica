@@ -1,12 +1,13 @@
 {
+  "originHash" : "85737aff1a891915be96df68d9b9c87284f3b28024ff43113f5f80e727822aab",
   "pins" : [
     {
       "identity" : "aptabase-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aptabase/aptabase-swift",
       "state" : {
-        "revision" : "42c21750321d4204003cc65055e5bae0bb62f4cd",
-        "version" : "0.3.7"
+        "revision" : "62e47dad9b6900042a801eafdabb2023d259938e",
+        "version" : "0.3.8"
       }
     },
     {
@@ -14,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke",
       "state" : {
-        "revision" : "15fde63470d782c897816a74bdd516a907e33147",
-        "version" : "12.3.0"
+        "revision" : "4625c73ea00a9fb4b4f3e28d95d0021a44af7e59",
+        "version" : "12.5.0"
       }
     },
     {
@@ -32,10 +33,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SvenTiigi/YouTubePlayerKit.git",
       "state" : {
-        "revision" : "ca8f0cd89d63d6f5e5cb556b0dd30cd65632bc3a",
-        "version" : "1.7.0"
+        "revision" : "5ade0dfbabaf7456069b4e8f604de261bf6d7c67",
+        "version" : "1.8.0"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

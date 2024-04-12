@@ -25,59 +25,80 @@ struct ItemContentCustomListSelector: View {
                 if isLoading {
                     ProgressView()
                 } else {
+                    
+                    // header section for the season details
                     Section {
-                        HStack {
-                            LazyImage(url: image) { state in
-                                if let image = state.image {
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                } else {
-                                    ZStack {
-                                        Rectangle().fill(.gray.gradient)
-                                        Image(systemName: "popcorn.fill")
-                                            .foregroundColor(.white.opacity(0.9))
+                        VStack(alignment: .center) {
+                            HStack(alignment: .center) {
+                                LazyImage(url: image) { state in
+                                    if let image = state.image {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    } else {
+                                        ZStack {
+                                            Rectangle().fill(.gray.gradient)
+                                            Image(systemName: "tv")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 50, height: 50, alignment: .center)
+                                                .foregroundColor(.white)
+                                        }
                                     }
                                 }
+                                .frame(width: 150, height: 220)
+                                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                             }
-                            .frame(width: 60, height: 90, alignment: .center)
-                            .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-                            .shadow(radius: 2)
-                            VStack(alignment: .leading) {
-                                Text(title)
-                                    .lineLimit(2)
-                                    .fontWeight(.semibold)
-                                    .fontDesign(.rounded)
-                                    .padding(.leading, 4)
-                                    .padding(.top, 8)
-                                Spacer()
-                                if let item {
-                                    Text(item.itemMedia.title)
-                                        .lineLimit(1)
-                                        .font(.caption)
-                                        .fontWeight(.semibold)
-                                        .fontDesign(.rounded)
-                                        .foregroundStyle(.secondary)
-                                        .padding(.leading, 4)
-                                        .padding(.bottom, 8)
-                                }
+                            .frame(maxWidth: .infinity)
+                            
+                            
+                            
+                            Text(title)
+                                .fontWeight(.semibold)
+                                .font(.title3)
+                                .multilineTextAlignment(.center)
+                            
+                            if let item  {
+                                Text(item.itemMedia.title)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
                             }
                         }
                     }
+                    .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
-                    Section {
-                        List {
-#if os(watchOS)
-                            newList
-#else
-                            if lists.isEmpty { List { newList } }
-#endif
-                            ForEach(lists) { list in
-                                AddToListRow(list: list, item: $item, showView: $showView)
-                                    .padding(.vertical, 4)
+                    
+                    if !lists.isEmpty {
+                        Section {
+                            List {
+                                ForEach(lists) { list in
+                                    AddToListRow(list: list, item: $item, showView: $showView)
+                                        .padding(.vertical, 4)
+                                }
                             }
+                        } header: { Text("Your Lists") }
+                    } else {
+                        Section {
+                            NavigationLink {
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+                                NewCustomListView(presentView: $showView, preSelectedItem: item, newSelectedList: $selectedList)
+#elseif os(macOS)
+                                NewCustomListView(isPresentingNewList: $showView,
+                                                  presentView: $showView,
+                                                  preSelectedItem: item,
+                                                  newSelectedList: $selectedList)
+#endif
+                            } label: {
+                                ContentUnavailableView("Create a List",
+                                                       systemImage: "plus.rectangle.on.rectangle.fill",
+                                                       description: Text("To add an item on a list, create a new one."))
+                            }
+                            .buttonStyle(.plain)
                         }
-                    } header: { Text("Your Lists") }
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
+                    }
                 }
             }
             .onAppear(perform: load)
@@ -96,14 +117,14 @@ struct ItemContentCustomListSelector: View {
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .toolbar {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
                 ToolbarItem(placement: .topBarLeading) {
                     RoundedCloseButton { showView.toggle() }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     if !lists.isEmpty { newList }
                 }
-#elseif os(macOS) || os(visionOS)
+#elseif os(macOS)
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Done") { showView.toggle() }
                 }
@@ -129,7 +150,7 @@ struct ItemContentCustomListSelector: View {
 #elseif os(macOS)
         .frame(width: 500, height: 600, alignment: .center)
 #endif
-        .presentationDetents([lists.count > 4 ? .large : .medium])
+        .presentationDetents([.large])
         .presentationDragIndicator(.visible)
         .presentationCornerRadius(32)
     }

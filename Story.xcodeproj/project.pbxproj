@@ -908,8 +908,8 @@
 			children = (
 				B8320BC1286115AC00BCDCC2 /* EpisodeDetailsView.swift */,
 				B8ADAF69282AFC1B001D72EF /* EpisodeFrameView.swift */,
-				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 				B8F253BA2BC8688A003F27E8 /* SeasonDetailView.swift */,
+				B8FF4DBA27F91A4900C7DE9F /* SeasonListView.swift */,
 			);
 			path = Season;
 			sourceTree = "<group>";
@@ -920,9 +920,9 @@
 				B8B8A4222A6E1E1A00E5533F /* Components */,
 				B8F6DE5629329AE5005D1A50 /* EndpointDetails.swift */,
 				B8C781F1287F576100B4C2C2 /* FilmographyListView.swift */,
-				B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */,
-				B8CC952927D02C5700B6757C /* ItemContentDetails.swift */,
 				B804E394284EDC2B00F59855 /* HorizontalItemContentListView.swift */,
+				B8CC952927D02C5700B6757C /* ItemContentDetails.swift */,
+				B8F6DE6129379F58005D1A50 /* ItemContentSectionDetails.swift */,
 				B845149228E0C96A00963399 /* NotificationListView.swift */,
 			);
 			path = ItemContent;
@@ -1555,6 +1555,7 @@
 				"es-MX",
 				Base,
 				fr,
+				it,
 			);
 			mainGroup = B8110ED2279245D000844FEB;
 			packageReferences = (

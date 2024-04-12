@@ -136,7 +136,7 @@ struct SeasonListView: View {
 #endif
         }
         .sheet(item: $selectedSeasonDetails) { item in
-            SeasonDetailView(item: item, selectedSeasonDetails: $selectedSeasonDetails)
+            SeasonDetailView(item: item, showID: showID, selectedSeasonDetails: $selectedSeasonDetails)
         }
         .task {
             if !hasFirstLoaded { await load() }
@@ -163,13 +163,13 @@ struct SeasonListView: View {
                     .fontWeight(.semibold)
                     .padding()
 #else
-                HStack {
-                    if let name = item.name {
-                        Text(name)
-                    }
-                    Text("Season \(item.seasonNumber)")
+                if let name = item.name {
+                    Text(name)
+                        .lineLimit(1)
+                        .tag(item.seasonNumber)
+                } else {
+                    Text("Season \(item.seasonNumber)").tag(item.seasonNumber)
                 }
-                .tag(item.seasonNumber)
 #endif
             }
         } label: {
@@ -213,15 +213,16 @@ struct SeasonListView: View {
             Spacer()
 #if os(iOS) || os(tvOS)
             Menu {
-                if isInWatchlist { Button("Mark This Season as Watched", action: markSeasonAsWatched) }
+                Button("Show Season Details") {
+                    selectedSeasonDetails = season
+                }
 #if os(iOS)
                 if let url = URL(string: "https://www.themoviedb.org/tv/\(showID)/season/\(selectedSeason)") {
                     ShareLink(item: url)
                 }
 #endif
-                Button("Show Season Details") {
-                    selectedSeasonDetails = season
-                }
+                Divider()
+                if isInWatchlist { Button("Mark This Season as Watched", action: markSeasonAsWatched) }
             } label: {
                 Label("More", systemImage: "ellipsis.circle")
                     .labelStyle(.iconOnly)

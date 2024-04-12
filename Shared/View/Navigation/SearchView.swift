@@ -27,6 +27,11 @@ struct SearchView: View {
             posterView
 #endif
         }
+        .task {
+            if !viewModel.items.isEmpty, viewModel.query.isEmpty {
+                viewModel.items.removeAll()
+            }
+        }
 #if !os(tvOS)
         .navigationTitle("Search")
 #endif

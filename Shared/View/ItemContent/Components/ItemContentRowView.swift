@@ -54,6 +54,7 @@ struct ItemContentRowView: View {
 				.frame(width: DrawingConstants.imageWidth,
 					   height: DrawingConstants.imageHeight)
 				.clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius))
+                .shadow(color: .black.opacity(0.2), radius: 2.5, x: 0, y: 2.5)
 				VStack(alignment: .leading) {
                     Text(item.itemTitle)
                         .lineLimit(DrawingConstants.textLimit)
@@ -101,13 +102,14 @@ struct ItemContentRowView: View {
 }
 
 private struct DrawingConstants {
-	static let textLimit: Int = 1
 #if os(watchOS)
     static let imageWidth: CGFloat = 80.5
+    static let textLimit: Int = 2
 #else
-    static let imageWidth: CGFloat = 92
+    static let imageWidth: CGFloat = 88
+    static let textLimit: Int = 1
 #endif
-    static let imageHeight: CGFloat = 57
+    static let imageHeight: CGFloat = 55
     static let imageRadius: CGFloat = 12
 }
 

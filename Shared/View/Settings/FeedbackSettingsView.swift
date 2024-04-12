@@ -12,29 +12,11 @@ import SwiftUI
 }
 
 struct FeedbackComposerView: View {
-    @State private var feedback = ""
     @Environment(\.openURL) var openURL
     @StateObject private var settings = SettingsStore.shared
     @State private var supportEmail = SupportEmail()
-    @State private var feedbackSent = false
-    @State private var showPopup = false
-    @State private var popupType: ActionPopupItems?
     var body: some View {
         Form {
-            Section {
-                TextField("Feedback", text: $feedback)
-                    .lineLimit(4)
-                Button("Send", action: send)
-                    .disabled(feedback.isEmpty)
-#if os(macOS)
-                    .buttonStyle(.link)
-#endif
-            } footer: {
-                HStack {
-                    Text("Feel free to suggest features, improvements, or report bugs.\nYour feedback is crucial to make Cronica better for everyone.")
-                    Spacer()
-                }
-            }
 #if !os(tvOS)
             Section {
                 Button("Send Email") { supportEmail.send(openURL: openURL) }
@@ -42,7 +24,7 @@ struct FeedbackComposerView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("If you prefer, you can send an email for a faster follow-up.")
-                        Text("You can also send an email to contact@alexandremadeira.dev using your email client.")
+                        Text("You can also send an email to cronica@alexandremadeira.dev using your email client.")
                             .textSelection(.enabled)
                     }
                     Spacer()
@@ -72,20 +54,9 @@ struct FeedbackComposerView: View {
 #endif
         }
         .navigationTitle("Feedback")
-        .actionPopup(isShowing: $showPopup, for: popupType)
         .scrollBounceBehavior(.basedOnSize)
 #if os(macOS)
         .formStyle(.grouped)
 #endif
-    }
-}
-
-extension FeedbackComposerView {
-    private func send() {
-        if feedback.isEmpty { return }
-        CronicaTelemetry.shared.handleMessage("Feedback: \(feedback)", for: "Feedback")
-        popupType = .feedbackSent
-        withAnimation { showPopup = true }
-        feedback = ""
     }
 }

@@ -82,6 +82,10 @@ struct AboutSettings: View {
 							url: "https://www.instagram.com/lerma_alvarez")
                 aboutButton(title: String(localized: "Slovak"),
                             subtitle: "Tomáš Švec", url: "mailto:svec.tomas@gmail.com")
+                aboutButton(title: String(localized: "French"),
+                            subtitle: "Pierre Quéré", url: "")
+                aboutButton(title: String(localized: "Italian"),
+                            subtitle: "", url: "")
             }
             
             Section("Libraries") {

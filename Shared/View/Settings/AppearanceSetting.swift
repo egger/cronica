@@ -136,7 +136,6 @@ struct AppearanceSetting: View {
         .buttonStyle(.plain)
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(item == store.appTheme ? [.isButton, .isSelected] : .isButton )
-        .accessibilityLabel(item.localizableName)
         .padding(.horizontal, 4)
     }
     

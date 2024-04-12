@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SupportEmail {
-    let toAddress: String = "contact@alexandremadeira.dev"
+    let toAddress: String = "cronica@alexandremadeira.dev"
     let subject: String = "Support Email (Cronica App)"
     let messageHeader: String = "Feedback:"
     var body: String {"""
