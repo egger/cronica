@@ -29,42 +29,42 @@ struct ReviewView: View {
                 } else {
                     if let item {
                         Section { 
-                            HStack {
-                                LazyImage(url: item.itemPosterImageMedium) { state in
-                                    if let image = state.image {
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                    } else {
-                                        ZStack {
-                                            Rectangle().fill(.gray.gradient)
-                                            Image(systemName: "popcorn.fill")
-                                                .foregroundColor(.white.opacity(0.9))
+                            VStack {
+                                HStack(alignment: .center) {
+                                    LazyImage(url: item.itemPosterImageMedium) { state in
+                                        if let image = state.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                        } else {
+                                            ZStack {
+                                                Rectangle().fill(.gray.gradient)
+                                                Image(systemName: "popcorn.fill")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 50, height: 50, alignment: .center)
+                                                    .foregroundColor(.white)
+                                            }
                                         }
                                     }
+                                    .frame(width: 150, height: 220)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                    .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                                 }
-                                .frame(width: 60, height: 90, alignment: .center)
-                                .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-                                .shadow(radius: 2.5, x: 1, y: 1.5)
-                                VStack(alignment: .leading) {
-                                    Text(item.itemTitle)
-                                        .lineLimit(2)
-                                        .fontWeight(.semibold)
-                                        .fontDesign(.rounded)
-                                        .padding(.leading, 4)
-                                        .padding(.top, 8)
-                                    Spacer()
-                                    Text(item.itemMedia.title)
-                                        .lineLimit(1)
-                                        .font(.caption)
-                                        .fontWeight(.semibold)
-                                        .fontDesign(.rounded)
-                                        .foregroundStyle(.secondary)
-                                        .padding(.leading, 4)
-                                        .padding(.bottom, 8)
-                                }
+                                .frame(maxWidth: .infinity)
+                                Text(item.itemTitle)
+                                    .fontWeight(.semibold)
+                                    .multilineTextAlignment(.center)
+                                    .font(.title3)
+                                
+                                Text(item.itemMedia.title)
+                                    .fontWeight(.medium)
+                                    .multilineTextAlignment(.center)
+                                    .font(.caption)
                             }
-                        }.listRowBackground(Color.clear)
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
                         
                         Section("Rating") {
                             CenterHorizontalView {

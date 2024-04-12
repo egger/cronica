@@ -134,6 +134,20 @@ struct SelectListView: View {
                                     ListRowItem(list: item, selectedList: $selectedList)
                                 }
                                 .buttonStyle(.plain)
+                                .contextMenu {
+                                    Button("Delete", role: .destructive) {
+                                        PersistenceController.shared.delete(item)
+                                    }
+                                    NavigationLink {
+#if os(iOS)
+                                        EditCustomList(list: item, showListSelection: $showListSelection)
+#elseif os(macOS)
+                                        EditCustomList(isPresentingNewList: $isCreateNewListPresented, list: item, showListSelection: $showListSelection)
+#endif
+                                    } label: {
+                                        Text("Edit")
+                                    }
+                                }
 #if os(iOS) || os(macOS)
                                 .swipeActions(edge: .trailing, allowsFullSwipe: SettingsStore.shared.allowFullSwipe) {
                                     NavigationLink {

@@ -34,10 +34,12 @@ struct AboutSettings: View {
             
 #if !os(tvOS)
             Section {
+#if !os(macOS)
                 Button("Review on the App Store") {
                     guard let writeReviewURL = URL(string: "https://apps.apple.com/app/1614950275?action=write-review") else { return }
                     UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
                 }
+#endif
                 
                 aboutButton(title: NSLocalizedString("X/Twitter", comment: ""),
                             url: "https://x.com/CronicaApp")

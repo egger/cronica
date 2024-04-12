@@ -160,6 +160,7 @@ struct SeasonListView: View {
             ForEach(self.seasons, id: \.self) { item in
 #if os(watchOS)
                 Text("Season \(item.seasonNumber)")
+                    .tag(item.seasonNumber)
                     .fontWeight(.semibold)
                     .padding()
 #else

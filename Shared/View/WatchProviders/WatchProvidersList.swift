@@ -89,12 +89,12 @@ struct WatchProvidersList: View {
             }
         }
 #else
-        .confirmationDialog("Please, open the app of the service on your Apple TV to watch this content.",
-                            isPresented: $showConfirmation, titleVisibility: .visible) {
-            Button("OK") { }
-        } message: {
-            Text("Cronica can only show where the content is streaming, it cannot link you to the content page on the service's app right now.")
-        }
+                            .confirmationDialog("Please, open the app of the service on your Apple TV to watch this content.",
+                                                isPresented: $showConfirmation, titleVisibility: .visible) {
+                                Button("OK") { }
+                            } message: {
+                                Text("Cronica can only show where the content is streaming, it cannot link you to the content page on the service's app right now.")
+                            }
 #endif
     }
     
@@ -122,9 +122,9 @@ struct WatchProvidersList: View {
             .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 #endif
             .shadow(radius: 2)
-            #if !os(tvOS)
+#if !os(tvOS)
             .applyHoverEffect()
-            #endif
+#endif
 #if !os(tvOS)
             Text(item.providerTitle)
                 .font(.caption)
@@ -139,7 +139,7 @@ struct WatchProvidersList: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 16
+    static let imageRadius: CGFloat = 12
 #if !os(tvOS)
     static let imageWidth: CGFloat = 60
     static let imageHeight: CGFloat = 60

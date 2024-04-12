@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-#Preview {
-    FeedbackComposerView()
-}
-
 struct FeedbackComposerView: View {
     @Environment(\.openURL) var openURL
     @StateObject private var settings = SettingsStore.shared
@@ -59,4 +55,8 @@ struct FeedbackComposerView: View {
         .formStyle(.grouped)
 #endif
     }
+}
+
+#Preview {
+    FeedbackComposerView()
 }

@@ -24,7 +24,6 @@ struct AppearanceSetting: View {
             
 #if !os(tvOS)
             Section("Style Preferences") {
-
                 Picker(selection: $store.sectionStyleType) {
                     ForEach(SectionDetailsPreferredStyle.allCases) { item in
                         Text(item.title).tag(item)

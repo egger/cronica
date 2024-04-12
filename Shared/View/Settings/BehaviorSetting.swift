@@ -5,7 +5,7 @@
 //  Created by Alexandre Madeira on 20/12/22.
 //
 
-import SwiftUI 
+import SwiftUI
 
 struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
@@ -19,10 +19,9 @@ struct BehaviorSetting: View {
             singleTapGesture
 #endif
             otherOptions
-
+            
 #if os(iOS)
             Section {
-
                 Toggle(isOn: $store.hapticFeedback) {
                     Text("Haptic Feedback")
                 }
@@ -70,9 +69,9 @@ struct BehaviorSetting: View {
                 Text("Sharable Link")
             }
         } header: {
-            #if !os(macOS)
+#if !os(macOS)
             Text("Beta")
-            #endif
+#endif
         } footer: {
             HStack {
                 Text("You can choose to share using a Cronica link that will allow you to open the application.\nPlease note that not all content can be shared with a Cronica link, the application will always use TMDB links if necessary.")

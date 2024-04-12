@@ -116,7 +116,7 @@ struct WatchlistItemPosterView: View {
                    height: settings.isCompactUI ? DrawingConstants.compactPosterHeight : DrawingConstants.posterHeight)
             .clipShape(RoundedRectangle(cornerRadius: settings.isCompactUI ? DrawingConstants.compactPosterRadius : DrawingConstants.posterRadius,
                                         style: .continuous))
-            .shadow(radius: DrawingConstants.shadowRadius)
+            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
             .padding(.zero)
             .applyHoverEffect()
 #if !os(tvOS)

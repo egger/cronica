@@ -79,7 +79,7 @@ struct ItemContentView: View {
                 
                 HStack {
                     if viewModel.isInWatchlist {
-                        customListButton
+                        //customListButton
                         Button {
                             showMoreOptions.toggle()
                         } label: {

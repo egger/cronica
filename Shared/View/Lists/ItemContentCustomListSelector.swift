@@ -26,7 +26,6 @@ struct ItemContentCustomListSelector: View {
                     ProgressView()
                 } else {
                     
-                    // header section for the season details
                     Section {
                         VStack(alignment: .center) {
                             HStack(alignment: .center) {

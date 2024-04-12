@@ -47,12 +47,11 @@ struct SeasonDetailView: View {
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.center)
                                 .font(.title3)
-                            Text("Season \(item.seasonNumber)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .fontWeight(.medium)
                         } else {
                             Text("Season \(item.seasonNumber)")
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                                .font(.title3)
                         }
                         
                         if let release = item.itemDate {
@@ -62,6 +61,9 @@ struct SeasonDetailView: View {
                         }
                         
                         if let episodesCount = item.episodes?.count {
+                            Text("Season \(item.seasonNumber)")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
                             Text("\(episodesCount) episodes")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
@@ -76,6 +78,7 @@ struct SeasonDetailView: View {
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
+                .padding(.top, .zero)
             }
 #if !os(tvOS) && !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -122,7 +125,7 @@ struct SeasonDetailView: View {
 #endif
             }
         }
-        .presentationDetents([.medium])
+        .presentationDetents([.medium, .large])
         .presentationDragIndicator(.visible)
         .presentationCornerRadius(32)
     }

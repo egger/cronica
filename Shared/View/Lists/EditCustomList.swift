@@ -122,6 +122,7 @@ struct EditCustomList: View {
             Button("Save", action: save).disabled(disableSaveButton)
         }
         .navigationTitle(list.itemTitle)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

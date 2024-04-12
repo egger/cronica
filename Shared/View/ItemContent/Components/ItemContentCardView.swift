@@ -105,7 +105,7 @@ struct ItemContentCardView: View {
                        height: DrawingConstants.imageHeight)
                 .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.imageRadius,
                                             style: .continuous))
-                .shadow(radius: DrawingConstants.imageShadow)
+                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                 .applyHoverEffect()
                 .itemContentContextMenu(item: item,
                                         isWatched: $isWatched,
