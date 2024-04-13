@@ -20240,24 +20240,24 @@
         }
       }
     },
-    "You can also send an email to cronica@alexandremadeira.dev using your email client." : {
+    "You can also send an email to support@eggerco.com using your email client." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You can also send an email to cronica@alexandremadeira.dev using your email client."
+            "value" : "You can also send an email to support@eggerco.com using your email client."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Puoi anche inviare una mail a cronica@alexandremadeira.dev con il tuo client mail."
+            "value" : "Puoi anche inviare una mail a support@eggerco.com con il tuo client mail."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Você também pode enviar um e-mail para cronica@alexandremadeira.dev usando seu cliente de e-mail."
+            "value" : "Você também pode enviar um e-mail para support@eggerco.com usando seu cliente de e-mail."
           }
         }
       }

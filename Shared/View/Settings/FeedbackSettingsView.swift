@@ -20,7 +20,7 @@ struct FeedbackComposerView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("If you prefer, you can send an email for a faster follow-up.")
-                        Text("You can also send an email to cronica@alexandremadeira.dev using your email client.")
+                        Text("You can also send an email to support@eggerco.com using your email client.")
                             .textSelection(.enabled)
                     }
                     Spacer()
