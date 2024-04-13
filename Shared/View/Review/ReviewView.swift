@@ -83,7 +83,7 @@ struct ReviewView: View {
                     }
                 }
             }
-#if !os(tvOS)
+#if !os(tvOS) && !os(visionOS)
             .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
             .background {
                 if let item {

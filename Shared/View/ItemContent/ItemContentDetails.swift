@@ -967,16 +967,19 @@ extension ItemContentDetails {
     private var toolbarRow: some View {
         HStack {
             shareButton
-            if viewModel.isInWatchlist {
-                if type == .movie {
-                    favoriteButtonToolbar
-                } else {
-                    watchButtonToolbar
-                }
-                archiveButtonToolbar
-                pinButtonToolbar
-                reviewButtonToolbar
+            if type == .movie {
+                favoriteButtonToolbar
+                    .disabled(!viewModel.isInWatchlist)
+            } else {
+                watchButtonToolbar
+                    .disabled(!viewModel.isInWatchlist)
             }
+            archiveButtonToolbar
+                .disabled(!viewModel.isInWatchlist)
+            pinButtonToolbar
+                .disabled(!viewModel.isInWatchlist)
+            reviewButtonToolbar
+                .disabled(!viewModel.isInWatchlist)
             openInMenu
         }
         .disabled(viewModel.isLoading ? true : false)

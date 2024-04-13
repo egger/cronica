@@ -86,7 +86,7 @@ struct SeasonDetailView: View {
 #if !os(tvOS) && !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
-#if !os(tvOS)
+#if !os(tvOS) && !os(visionOS)
             .scrollContentBackground(settings.disableTranslucent ? .visible : .hidden)
             .background {
                 TranslucentBackground(image: item.seasonPosterUrl, useLighterMaterial: true)

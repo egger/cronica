@@ -231,6 +231,8 @@ struct SeasonListView: View {
 #if os(macOS)
             .menuStyle(.borderlessButton)
             .frame(width: 40)
+#elseif os(visionOS)
+            .menuStyle(.borderlessButton)
 #endif
 #if os(tvOS)
             .padding(.horizontal, 60)
