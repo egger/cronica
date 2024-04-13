@@ -67,7 +67,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.plain)
                 .sheet(isPresented: $showPolicy) {
-                    if let url = URL(string: "https://alexandremadeira.dev/cronica/privacy") {
+                    if let url = URL(string: "https://app.oncronica.com/privacy") {
                         SFSafariViewWrapper(url: url)
                             .appTint()
                             .appTheme()
