@@ -14,23 +14,32 @@ struct AboutSettings: View {
     var body: some View {
         Form {
             Section {
-                CenterHorizontalView {
+                HStack(alignment: .center) {
                     VStack {
                         Image("Cronica")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 6)
+                            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                             .onTapGesture(count: 3) {
-                                withAnimation { settings.displayDeveloperSettings.toggle() }
+                                settings.displayDeveloperSettings.toggle()
                             }
+                        Text("A Egger & Co Product")
+                            .fontWeight(.semibold)
+                            .fontDesign(.monospaced)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .textCase(.uppercase)
+                            .padding(.top)
                     }
-                    .padding()
+                    .padding(.zero)
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.zero)
             }
-            .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets())
             
 #if !os(tvOS)
             Section {
@@ -103,7 +112,7 @@ struct AboutSettings: View {
             Section {
                 aboutButton(
                     title: "GitHub",
-                    url: "https://github.com/MadeiraAlexandre/Cronica"
+                    url: "https://github.com/egger/cronica"
                 )
             } header: {
                 Text("Source Code")
