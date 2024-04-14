@@ -27,7 +27,7 @@ struct NewCustomListView: View {
                 TextField("Title", text: $title)
                 TextField("Description", text: $note)
                 
-#if os(watchOS) || os(tvOS)
+#if os(watchOS) || os(tvOS) || os(macOS)
                 createList
 #endif
             }
@@ -47,7 +47,7 @@ struct NewCustomListView: View {
         .navigationTitle("New List")
         .toolbar {
 #if os(macOS)
-            ToolbarItem(placement: .automatic) { createList }
+            ToolbarItem(placement: .principal) { createList }
             ToolbarItem(placement: .cancellationAction) { cancelButton }
 #elseif os(iOS) || os(visionOS)
             createList

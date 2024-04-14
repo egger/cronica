@@ -50,11 +50,17 @@ struct SelectListView: View {
             form
                 .formStyle(.grouped)
                 .toolbar {
-#if !os(visionOS)
+#if !os(visionOS) && !os(macOS)
                     if !isCreateNewListPresented {
                         ToolbarItem(placement: .automatic) {
                             if !lists.isEmpty { newList }
                         }
+                    }
+#endif
+#if os(macOS)
+                    ToolbarItem(placement: .automatic) {
+                        newList
+                            .disabled(isCreateNewListPresented)
                     }
 #endif
                     ToolbarItem(placement: .cancellationAction) {
@@ -223,6 +229,9 @@ struct SelectListView: View {
             NewCustomListView(isPresentingNewList: $isCreateNewListPresented, presentView: $showListSelection, newSelectedList: $selectedList)
 #endif
         } label: {
+#if os(macOS)
+            Label("New List", systemImage: "plus.rectangle.on.rectangle")
+#else
             Image(systemName: "plus.rectangle.on.rectangle")
                 .imageScale(.medium)
                 .accessibilityLabel("New List")
@@ -231,12 +240,15 @@ struct SelectListView: View {
                 .foregroundStyle(.white)
                 .padding(.horizontal, 4)
                 .padding(.vertical, 2)
+#endif
         }
         .buttonStyle(.borderedProminent)
+#if !os(macOS)
         .contentShape(Circle())
         .clipShape(Circle())
         .buttonBorderShape(.circle)
         .shadow(radius: 2.5)
+#endif
     }
     
     private func delete(offsets: IndexSet) {

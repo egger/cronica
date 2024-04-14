@@ -2211,6 +2211,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6G7B8LJU8S;
@@ -2233,7 +2234,8 @@
 				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
-				SDKROOT = xros;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -2257,6 +2259,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "Shared/Configuration/Story (iOS).entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6G7B8LJU8S;
@@ -2279,7 +2282,8 @@
 				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story;
 				PRODUCT_NAME = Cronica;
-				SDKROOT = xros;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

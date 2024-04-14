@@ -43,18 +43,29 @@ struct AboutSettings: View {
             
 #if !os(tvOS)
             Section {
-#if !os(macOS)
+                
                 Button("Review on the App Store") {
                     guard let writeReviewURL = URL(string: "https://apps.apple.com/app/1614950275?action=write-review") else { return }
+#if os(macOS)
+                    NSWorkspace.shared.open(writeReviewURL)
+#else
                     UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
-                }
 #endif
+                }
+#if os(macOS)
+                .buttonStyle(.link)
+#endif
+                
                 
                 aboutButton(title: NSLocalizedString("X/Twitter", comment: ""),
                             url: "https://x.com/CronicaApp")
                 
                 if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
-                    ShareLink(item: appUrl).labelStyle(.titleOnly)
+                    ShareLink(item: appUrl)
+                        .labelStyle(.titleOnly)
+#if os(macOS)
+                        .buttonStyle(.link)
+#endif
                 }
             }
 #endif
