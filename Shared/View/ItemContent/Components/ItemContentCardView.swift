@@ -187,7 +187,11 @@ private struct DrawingConstants {
     static let imageHeight: CGFloat = UIDevice.isIPad ? 140 : 100
 #endif
     static let titleLineLimit: Int = 2
+#if os(tvOS)
+    static let imageRadius: CGFloat = 12
+#else
     static let imageRadius: CGFloat = 16
+#endif
     static let imageShadow: CGFloat = 2.5
     static let placeholderForegroundColor: Color = .white.opacity(0.8)
 }

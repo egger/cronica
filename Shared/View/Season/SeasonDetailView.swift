@@ -36,7 +36,11 @@ struct SeasonDetailView: View {
                                     }
                                 }
                             }
+#if !os(tvOS)
                             .frame(width: 150, height: 220)
+#else
+                            .frame(width: 338, height: 525)
+#endif
                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                             .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                         }

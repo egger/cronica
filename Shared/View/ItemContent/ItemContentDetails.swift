@@ -1216,7 +1216,11 @@ private struct DrawingConstants {
     static let posterWidth: CGFloat = 280
     static let posterHeight: CGFloat = 440
 #endif
+#if os(tvOS)
+    static let imageRadius: CGFloat = 12
+#else
     static let imageRadius: CGFloat = 16
+#endif
     static let buttonWidth: CGFloat = 75
     static let buttonHeight: CGFloat = 50
     static let buttonRadius: CGFloat = 16

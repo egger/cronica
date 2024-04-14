@@ -57,9 +57,9 @@ struct UpcomingWatchlist: View {
                 TitleView(title: NSLocalizedString("Upcoming", comment: ""),
                           subtitle: NSLocalizedString("From Watchlist", comment: ""),
                           showChevron: false)
-                #if os(tvOS)
+#if os(tvOS)
                 .padding(.leading, 64)
-                #endif
+#endif
 #endif
                 ScrollViewReader { proxy in
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -312,7 +312,11 @@ private struct DrawingConstants {
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160
 #endif
+#if os(tvOS)
+    static let cardRadius: CGFloat = 12
+#else
     static let cardRadius: CGFloat = 16
+#endif
     static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1
     static let compactCardWidth: CGFloat = 160

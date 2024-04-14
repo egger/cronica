@@ -254,7 +254,11 @@ struct ItemContentView: View {
 }
 
 private struct DrawingConstants {
+#if os(tvOS)
+    static let imageRadius: CGFloat = 12
+#else
     static let imageRadius: CGFloat = 16
+#endif
     static let lineLimit: Int = 1
 }
 
