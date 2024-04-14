@@ -2021,7 +2021,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.5;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
@@ -2054,7 +2054,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.5;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.alexandremadeira.Story.watchkitapp;
 				PRODUCT_NAME = Cronica;
 				SDKROOT = watchos;
