@@ -13,6 +13,7 @@ struct SettingsView: View {
     static let tag: Screens? = .settings
     @State private var showPolicy = false
     @State private var showWhatsNew = false
+    @Environment(\.openURL) private var openURL
 #elseif os(tvOS)
     @StateObject private var store = SettingsStore.shared
 #endif
@@ -60,7 +61,13 @@ struct SettingsView: View {
                                   icon: "envelope.fill", color: AppThemeColors.steel.color)
                 }
                 Button {
+#if os(visionOS)
+                    if let url = URL(string: "https://app.oncronica.com/privacy") {
+                        openURL(url)
+                    }
+#else
                     showPolicy.toggle()
+#endif
                 } label: {
                     settingsLabel(title: NSLocalizedString("Privacy Policy", comment: ""),
                                   icon: "hand.raised", color: .indigo)
@@ -74,18 +81,6 @@ struct SettingsView: View {
                     }
                 }
                 
-                //                Button {
-                //                    showWhatsNew.toggle()
-                //                } label: {
-                //                    settingsLabel(title: NSLocalizedString("What's New", comment: ""),
-                //                                  icon: "sparkles", color: .yellow)
-                //                }
-                //                .buttonStyle(.plain)
-                //                .sheet(isPresented: $showWhatsNew) {
-                //                    ChangelogView(showChangelog: $showWhatsNew)
-                //                        .appTint()
-                //                        .appTheme()
-                //                }
 #if !os(visionOS)
                 NavigationLink(value: SettingsScreens.tipJar) {
                     settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
