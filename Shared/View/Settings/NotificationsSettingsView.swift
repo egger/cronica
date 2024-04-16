@@ -19,6 +19,10 @@ struct NotificationsSettingsView: View {
                 let newComponents = Calendar.current.dateComponents([.hour, .minute], from: newDate)
                 settings.notificationHour = newComponents.hour ?? 0
                 settings.notificationMinute = newComponents.minute ?? 0
+                // Trigger updateNotifications when notification time changes
+                Task {
+                    await NotificationManager.shared.updateNotifications()
+                }
             }
         )
     }

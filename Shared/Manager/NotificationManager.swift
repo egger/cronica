@@ -53,7 +53,7 @@ final class NotificationManager: ObservableObject {
         let identifier = content.itemContentID
         let title = content.itemTitle
         var body: String
-		body = content.itemContentMedia == .movie ? String(localized: "The movie will be released today.") : String(localized: "Next episode arrives today.")
+        body = content.itemContentMedia == .movie ? String(localized: "The movie will be released today.") : String(localized: "Next episode arrives today.")
         var date: Date?
         if content.itemContentMedia == .movie {
             date = content.itemTheatricalDate
@@ -62,14 +62,14 @@ final class NotificationManager: ObservableObject {
         } else {
             date = content.itemFallbackDate
         }
-		guard let date else { return }
-		if date.isLessThanTwoWeeksAway() {
-			removeNotification(identifier: content.itemContentID)
-			self.scheduleNotification(identifier: identifier,
-									  title: title,
-									  message: body,
-									  date: date)
-		}
+        guard let date else { return }
+        if date.isLessThanTwoWeeksAway() {
+            removeNotification(identifier: content.itemContentID)
+            self.scheduleNotification(identifier: identifier,
+                                      title: title,
+                                      message: body,
+                                      date: date)
+        }
     }
     
     private func scheduleNotification(identifier: String, title: String, message: String, date: Date) {
@@ -205,10 +205,22 @@ final class NotificationManager: ObservableObject {
         }
         return items
     }
-	
-	func hasPendingNotification(for id: String) async -> Bool {
-		let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
-		if notifications.contains(where: { $0.identifier == id }) { return true }
-		return false
-	}
+    
+    func hasPendingNotification(for id: String) async -> Bool {
+        let notifications = await UNUserNotificationCenter.current().pendingNotificationRequests()
+        if notifications.contains(where: { $0.identifier == id }) { return true }
+        return false
+    }
+    
+    func updateNotifications() async { 
+        do {
+            let upcomingNotifications = try await fetchUpcomingNotifications()
+            for notification in upcomingNotifications {
+                removeNotification(identifier: notification.itemContentID)
+                schedule(notification)
+            }
+        } catch {
+            print("Error updating notifications: (error)")
+        } 
+    }
 }
