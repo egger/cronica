@@ -48,7 +48,7 @@ final class NotificationManager: ObservableObject {
         self.requestAuthorization { granted in
             if !granted {
                 return
-            } 
+            }
         }
         let identifier = content.itemContentID
         let title = content.itemTitle
@@ -212,15 +212,12 @@ final class NotificationManager: ObservableObject {
         return false
     }
     
-    func updateNotifications() async { 
-        do {
-            let upcomingNotifications = try await fetchUpcomingNotifications()
-            for notification in upcomingNotifications {
-                removeNotification(identifier: notification.itemContentID)
-                schedule(notification)
-            }
-        } catch {
-            print("Error updating notifications: (error)")
-        } 
+    func updateNotifications() async {
+        let upcomingNotifications:[ItemContent]? = await self.fetchUpcomingNotifications()
+        guard let upcomingNotifications else { return }
+        for notification in upcomingNotifications {
+            removeNotification(identifier: notification.itemContentID)
+            schedule(notification)
+        }
     }
 }
