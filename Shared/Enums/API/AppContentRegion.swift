@@ -11,7 +11,7 @@ enum AppContentRegion: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     case ae, ar, at, au, be, bg, br,
          ca, ch, cz, de, dk, ee, es, fi,
-         fr, gb, hk, hr, hu, id, ie, india, it,
+         fr, gb, hk, hr, hu, id, ie, il, india, it,
          jp, kr, lt, mx, nl, no, nz, ph, pl,
          pt, rs, se, sk, tr, us, za
     var localizableTitle: String {
@@ -56,6 +56,7 @@ enum AppContentRegion: String, CaseIterable, Identifiable {
         case .sk: NSLocalizedString("Slovakia", comment: "Country")
         case .tr: NSLocalizedString("Turkey", comment: "Country")
         case .za: NSLocalizedString("South Africa", comment: "Country")
+        case .il: NSLocalizedString("Israel", comment: "Country")
         }
     }
 
@@ -101,6 +102,7 @@ enum AppContentRegion: String, CaseIterable, Identifiable {
         case .tr: "tr-TR"
         case .us: "en-US"
         case .za: "en-ZA"
+        case .il: "he-IL"
         }
     }
 }

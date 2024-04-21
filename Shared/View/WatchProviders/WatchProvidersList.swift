@@ -258,6 +258,7 @@ Error: \(error.localizedDescription)
             .hu: results.hu,
             .id: results.id,
             .ie: results.ie,
+            .il: results.il,
             .india: results.resultsIN,
             .it: results.it,
             .jp: results.jp,

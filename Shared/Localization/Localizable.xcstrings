@@ -7979,6 +7979,9 @@
         }
       }
     },
+    "Israel" : {
+      "comment" : "Country"
+    },
     "Italian" : {
       "localizations" : {
         "en" : {

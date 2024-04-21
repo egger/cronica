@@ -28,7 +28,7 @@ struct Results: Codable, Hashable {
     var fi, fr, gb: ProviderItem?
     var gf: ProviderItem?
     var gr, gt, hk, hn: ProviderItem?
-    var hr, hu, id, ie: ProviderItem?
+    var hr, hu, id, ie, il: ProviderItem?
     var resultsIN: ProviderItem?
     var iq: ProviderItem?
     var resultsIS, it, jm, jo: ProviderItem?
@@ -93,6 +93,7 @@ struct Results: Codable, Hashable {
         case hu = "HU"
         case id = "ID"
         case ie = "IE"
+        case il = "IL"
         case resultsIN = "IN"
         case iq = "IQ"
         case resultsIS = "IS"
