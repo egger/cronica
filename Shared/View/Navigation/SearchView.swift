@@ -19,6 +19,7 @@ struct SearchView: View {
     @State private var popupType: ActionPopupItems?
     @State private var scope: SearchItemsScope = .noScope
     @State private var currentlyQuery = String()
+    @Binding var shouldFocusOnSearchField: Bool
     var body: some View {
         VStack {
 #if os(iOS)
@@ -87,6 +88,7 @@ struct SearchView: View {
         }
 #if os(iOS) || os(visionOS)
         .searchable(text: $viewModel.query,
+                    isPresented: $shouldFocusOnSearchField,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: Text("Movies, Shows, People"))
         .searchScopes($scope) {
@@ -249,5 +251,5 @@ extension SearchView {
 }
 
 #Preview {
-    SearchView()
+    SearchView(shouldFocusOnSearchField: .constant(false))
 }

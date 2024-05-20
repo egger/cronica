@@ -48,7 +48,7 @@ struct SideBarView: View {
                         .environment(\.managedObjectContext, persistence.container.viewContext)
                 }
             case .search:
-                NavigationStack { SearchView() }
+                NavigationStack { SearchView(shouldFocusOnSearchField: .constant(false)) }
             default:
                 NavigationStack { HomeView().environment(\.managedObjectContext, persistence.container.viewContext) }
             }

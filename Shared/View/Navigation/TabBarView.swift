@@ -9,15 +9,50 @@ import SwiftUI
 #if os(iOS) || os(tvOS) || os(visionOS)
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
-    @AppStorage("selectedView") var selectedView: Screens?
+    @AppStorage("lastTabSelected") private var tabSelection: Screens?
     var persistence = PersistenceController.shared
+    private var selectedTab: Binding<Screens> {
+        return .init {
+            return tabSelection ?? .home
+        } set: { newValue in
+            if newValue == tabSelection {
+                switch newValue {
+                case .home:
+                    if !homePath.isEmpty {
+                        homePath = .init()
+                    }
+                case .explore:
+                    if !explorePath.isEmpty { 
+                        explorePath = .init()
+                    }
+                case .watchlist:
+                    if !watchlistPath.isEmpty { 
+                        watchlistPath = .init()
+                    }
+                case .search:
+                    if !searchPath.isEmpty {
+                        searchPath = .init()
+                    } else {
+                        shouldOpenOnSearchField = true
+                    }
+                default: return
+                }
+            }
+            tabSelection = newValue
+        }
+    }
+    @State private var homePath: NavigationPath = .init()
+    @State private var explorePath: NavigationPath = .init()
+    @State private var watchlistPath: NavigationPath = .init()
+    @State private var searchPath: NavigationPath = .init()
+    @State private var shouldOpenOnSearchField = false
     var body: some View {
         details
 #if os(iOS)
             .onAppear {
                 let settings = SettingsStore.shared
                 if settings.isPreferredLaunchScreenEnabled {
-                    selectedView = settings.preferredLaunchScreen
+                    tabSelection = settings.preferredLaunchScreen
                 }
             }
             .appTint()
@@ -56,25 +91,31 @@ struct TabBarView: View {
     
 #if os(iOS) || os(visionOS)
     private var details: some View {
-        TabView(selection: $selectedView) {
-            NavigationStack { HomeView() }
-                .tag(HomeView.tag)
-                .tabItem { Label("Home", systemImage: "house") }
+        TabView(selection: selectedTab) {
+            NavigationStack(path: $homePath) {
+                HomeView()
+            }
+            .tag(Screens.home)
+            .tabItem { Label("Home", systemImage: "house") }
             
-            NavigationStack { ExploreView() }
-                .tag(ExploreView.tag)
-                .tabItem { Label("Discover", systemImage: "popcorn") }
+            NavigationStack(path: $explorePath) {
+                ExploreView()
+            }
+            .tag(Screens.explore)
+            .tabItem { Label("Discover", systemImage: "popcorn") }
             
-            NavigationStack {
+            NavigationStack(path: $watchlistPath) {
                 WatchlistView()
                     .environment(\.managedObjectContext, persistence.container.viewContext)
             }
-            .tag(WatchlistView.tag)
             .tabItem { Label("Watchlist", systemImage: "rectangle.on.rectangle") }
+            .tag(Screens.watchlist)
             
-            NavigationStack { SearchView() }
-                .tag(SearchView.tag)
-                .tabItem { Label("Search", systemImage: "magnifyingglass") }
+            NavigationStack(path: $searchPath) {
+                SearchView(shouldFocusOnSearchField: $shouldOpenOnSearchField)
+            }
+            .tag(Screens.search)
+            .tabItem { Label("Search", systemImage: "magnifyingglass") }
         }
         .appTheme()
     }
