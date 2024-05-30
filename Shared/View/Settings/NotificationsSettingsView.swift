@@ -36,7 +36,7 @@ struct NotificationsSettingsView: View {
     var body: some View {
         Form {
             Section {
-                Toggle("Allow Notification", isOn: $settings.allowNotifications)
+                Toggle("Allow Notifications", isOn: $settings.allowNotifications)
                 Toggle(isOn: $settings.notifyMovieRelease) {
                     Text("Notify Movies Releases")
                     Text("Notify when a movie on your watchlist is released.")
