@@ -53,7 +53,7 @@ struct DetailedReleaseDateView: View {
         }
         .presentationDetents([.medium])
         .presentationDragIndicator(.visible)
-        .presentationCornerRadius(32)
+        .presentationCornerRadius(12)
         .appTheme()
         .appTint()
     }

@@ -109,6 +109,7 @@ struct TrailerItemView: View {
                             .lineLimit(DrawingConstants.lineLimits)
                             .padding([.trailing, .bottom])
                             .font(.caption)
+                            .fontWeight(.medium)
                             .foregroundColor(.secondary)
                         Spacer()
                     }
@@ -232,7 +233,7 @@ struct TrailerItemView: View {
 }
 
 private struct DrawingConstants {
-    static let imageRadius: CGFloat = 16
+    static let imageRadius: CGFloat = 12
     static let imageShadow: CGFloat = 2.5
 #if !os(tvOS)
     static let imageWidth: CGFloat = 220

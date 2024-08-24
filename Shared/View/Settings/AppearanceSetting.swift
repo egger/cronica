@@ -61,9 +61,7 @@ struct AppearanceSetting: View {
                 } label: {
                     Text("Theme")
                 }
-                .pickerStyle(.segmented)
-                .padding(.vertical, 6)
-                .tint(.secondary)
+                .pickerStyle(.menu)
             }
             
             Section("Accent Color") {

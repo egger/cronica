@@ -220,20 +220,9 @@ private struct UpComingCardImageView: View {
             .overlay {
                 if !settings.isCompactUI {
                     ZStack(alignment: .bottom) {
-                        Color.black.opacity(0.4)
-                            .frame(height: 50)
-                            .mask {
-                                LinearGradient(colors: [Color.black,
-                                                        Color.black.opacity(0.924),
-                                                        Color.black.opacity(0.707),
-                                                        Color.black.opacity(0.383),
-                                                        Color.black.opacity(0)],
-                                               startPoint: .bottom,
-                                               endPoint: .top)
-                            }
                         Rectangle()
                             .fill(.ultraThinMaterial)
-                            .frame(height: 70)
+                            .frame(height: 80)
                             .mask {
                                 VStack(spacing: 0) {
                                     LinearGradient(colors: [Color.black.opacity(0),
@@ -243,10 +232,11 @@ private struct UpComingCardImageView: View {
                                                             Color.black],
                                                    startPoint: .top,
                                                    endPoint: .bottom)
-                                    .frame(height: 50)
+                                    .frame(height: 60)
                                     Rectangle()
                                 }
                             }
+                            .environment(\.colorScheme, .dark)
                         if let info = item.itemGlanceInfo {
                             VStack(alignment: .leading) {
                                 Spacer()
@@ -264,6 +254,7 @@ private struct UpComingCardImageView: View {
                                         .font(.caption)
                                         .foregroundColor(.white)
                                         .lineLimit(DrawingConstants.lineLimits)
+                                        .fontWeight(.medium)
                                         .padding(.leading)
                                         .padding(.bottom, 8)
                                     Spacer()
@@ -312,11 +303,7 @@ private struct DrawingConstants {
     static let cardWidth: CGFloat = 280
     static let cardHeight: CGFloat = 160
 #endif
-#if os(tvOS)
     static let cardRadius: CGFloat = 12
-#else
-    static let cardRadius: CGFloat = 16
-#endif
     static let shadowRadius: CGFloat = 2.5
     static let lineLimits: Int = 1
     static let compactCardWidth: CGFloat = 160

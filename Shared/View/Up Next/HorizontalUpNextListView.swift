@@ -194,7 +194,7 @@ struct HorizontalUpNextListView: View {
                 .appTint()
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
-                .presentationCornerRadius(32)
+                .presentationCornerRadius(12)
 #if os(tvOS)
                 .ignoresSafeArea()
 #endif
@@ -378,11 +378,7 @@ private struct DrawingConstants {
 #endif
     static let compactImageWidth: CGFloat = 160
     static let compactImageHeight: CGFloat = 100
-#if os(tvOS)
     static let imageRadius: CGFloat = 12
-#else
-    static let imageRadius: CGFloat = 16
-#endif
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5
 }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-#if os(iOS) || os(tvOS) || os(visionOS)
+#if !os(macOS)
 /// A TabBar for switching views, only used on iPhone.
 struct TabBarView: View {
     @AppStorage("lastTabSelected") private var tabSelection: Screens?
@@ -22,11 +22,11 @@ struct TabBarView: View {
                         homePath = .init()
                     }
                 case .explore:
-                    if !explorePath.isEmpty { 
+                    if !explorePath.isEmpty {
                         explorePath = .init()
                     }
                 case .watchlist:
-                    if !watchlistPath.isEmpty { 
+                    if !watchlistPath.isEmpty {
                         watchlistPath = .init()
                     }
                 case .search:
@@ -47,16 +47,42 @@ struct TabBarView: View {
     @State private var searchPath: NavigationPath = .init()
     @State private var shouldOpenOnSearchField = false
     var body: some View {
-        details
 #if os(iOS)
-            .onAppear {
-                let settings = SettingsStore.shared
-                if settings.isPreferredLaunchScreenEnabled {
-                    tabSelection = settings.preferredLaunchScreen
-                }
+        if UIDevice.isIPad {
+            if #available(iOS 18, *) {
+                newTabView
+                    .onAppear {
+                        let settings = SettingsStore.shared
+                        if settings.isPreferredLaunchScreenEnabled {
+                            tabSelection = settings.preferredLaunchScreen
+                        }
+                    }
+                    .appTint()
+                    .appTheme()
+            } else {
+                details
+                    .onAppear {
+                        let settings = SettingsStore.shared
+                        if settings.isPreferredLaunchScreenEnabled {
+                            tabSelection = settings.preferredLaunchScreen
+                        }
+                    }
+                    .appTint()
+                    .appTheme()
             }
-            .appTint()
-            .appTheme()
+        } else {
+            details
+                .onAppear {
+                    let settings = SettingsStore.shared
+                    if settings.isPreferredLaunchScreenEnabled {
+                        tabSelection = settings.preferredLaunchScreen
+                    }
+                }
+                .appTint()
+                .appTheme()
+        }
+#else
+        details
 #endif
     }
     
@@ -88,6 +114,38 @@ struct TabBarView: View {
         .ignoresSafeArea(.all, edges: .horizontal)
     }
 #endif
+    
+    @available(iOS 18, *)
+    private var newTabView: some View {
+        TabView(selection: selectedTab) {
+            Tab("Home", systemImage: "house", value: .home) {
+                NavigationStack(path: $homePath) {
+                    HomeView()
+                }
+            }
+            
+            Tab("Discover", systemImage: "popcorn", value: .explore) {
+                NavigationStack(path: $explorePath) {
+                    ExploreView()
+                }
+            }
+            
+            Tab("Watchlist", systemImage: "rectangle.on.rectangle", value: .watchlist) {
+                NavigationStack(path: $watchlistPath) {
+                    WatchlistView()
+                        .environment(\.managedObjectContext, persistence.container.viewContext)
+                }
+            }
+            
+            Tab("Search", systemImage: "magnifyingglass", value: .search, role: .search) {
+                NavigationStack(path: $searchPath) {
+                    SearchView(shouldFocusOnSearchField: $shouldOpenOnSearchField)
+                }
+            }
+        }
+        .tabViewStyle(.sidebarAdaptable)
+        .appTheme()
+    }
     
 #if os(iOS) || os(visionOS)
     private var details: some View {

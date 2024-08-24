@@ -1,5 +1,5 @@
 {
-  "originHash" : "85737aff1a891915be96df68d9b9c87284f3b28024ff43113f5f80e727822aab",
+  "originHash" : "10227c8d0a04035986b0d85032e6dc32e07b443a112f640008888465d5bdb5d1",
   "pins" : [
     {
       "identity" : "aptabase-swift",
@@ -31,10 +31,10 @@
     {
       "identity" : "youtubeplayerkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SvenTiigi/YouTubePlayerKit.git",
+      "location" : "https://github.com/SvenTiigi/YouTubePlayerKit",
       "state" : {
-        "revision" : "5ade0dfbabaf7456069b4e8f604de261bf6d7c67",
-        "version" : "1.8.0"
+        "revision" : "fe1c1ec340f6d79866131432ecaa190fd6bbc4cb",
+        "version" : "1.9.0"
       }
     }
   ],

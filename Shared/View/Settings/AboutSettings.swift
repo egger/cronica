@@ -103,10 +103,6 @@ struct AboutSettings: View {
                             subtitle: "Kevin Manca", url: "http://github.com/kevinm6")
             }
             
-            Section("Developers") {
-                aboutButton(title: "Alexandre Madeira", url: "https://alexandremadeira.dev")
-            }
-            
             Section("Libraries") {
                 aboutButton(
                     title: "Nuke",

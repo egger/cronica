@@ -151,7 +151,7 @@ struct ItemContentCustomListSelector: View {
 #endif
         .presentationDetents([.large])
         .presentationDragIndicator(.visible)
-        .presentationCornerRadius(32)
+        .presentationCornerRadius(12)
     }
     
     private func load() {

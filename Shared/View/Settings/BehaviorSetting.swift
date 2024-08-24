@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Nuke
 
 struct BehaviorSetting: View {
     @StateObject private var store = SettingsStore.shared
+    @State private var cacheSizeMB: Double = 0.0
     var body: some View {
         Form {
 #if !os(tvOS)
@@ -39,11 +41,28 @@ struct BehaviorSetting: View {
             }
 #endif
             
+            Section {
+                Button {
+                    clearCache()
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text("Clear Cache")
+                            .foregroundStyle(.red)
+                        Text("Cache Size: \(String(format: "%.2f", cacheSizeMB)) MB")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+            
         }
         .navigationTitle("Behavior")
 #if os(macOS)
         .formStyle(.grouped)
 #endif
+        .onAppear {
+            updateCacheSize()
+        }
     }
     
     private var gesture: some View {
@@ -142,6 +161,22 @@ struct BehaviorSetting: View {
                 Text("Open Trailers in YouTube")
             }
         }
+    }
+    
+    private func clearCache() {
+        DataLoader.sharedUrlCache.removeAllCachedResponses()
+        ImageCache.shared.removeAll()
+        updateCacheSize()
+    }
+    
+    private func updateCacheSize() {
+        let cache = ImageCache.shared
+        let totalSizeInBytes = cache.totalCost // Total cost is in bytes
+        print("total item in Nuke cache: \(totalSizeInBytes)")
+        
+        // Convert bytes to megabytes
+        let sizeInMB = Double(totalSizeInBytes) / (1024 * 1024)
+        cacheSizeMB = sizeInMB
     }
 }
 

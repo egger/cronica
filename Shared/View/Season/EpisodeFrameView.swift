@@ -194,7 +194,7 @@ struct EpisodeFrameView: View {
             }
             .appTheme()
             .presentationDetents([.large])
-            .presentationCornerRadius(32)
+            .presentationCornerRadius(12)
             .presentationDragIndicator(.visible)
 #if os(macOS)
             .frame(minWidth: 800, idealWidth: 800, minHeight: 600, idealHeight: 600, alignment: .center)
@@ -311,10 +311,6 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 200
     static let imageHeight: CGFloat = 120
 #endif
-#if os(tvOS)
     static let imageRadius: CGFloat = 12
-#else
-    static let imageRadius: CGFloat = 16
-#endif
     static let titleLineLimit: Int = 1
 }
