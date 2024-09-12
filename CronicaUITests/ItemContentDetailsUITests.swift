@@ -10,15 +10,18 @@ import XCTest
 
 final class ItemContentDetailsUITests: XCTestCase {
     var app: XCUIApplication!
-    
+    var appNavigator: AppNavigator!
+
     override func setUp() {
         super.setUp()
         app = XCUIApplication()
         app.launchArguments.append("--mock-data")
         app.launch()
+        appNavigator = AppNavigator(app: app)
     }
     
     override func tearDown() {
+        appNavigator = nil
         app = nil
         super.tearDown()
     }
@@ -28,7 +31,7 @@ final class ItemContentDetailsUITests: XCTestCase {
     }
     
     func testItemContentDetailsFullScreen() {
-        CronicaUITests().NavigateToHomeTab() // TODO: refactor these 2 lines
+        appNavigator.navigateToTab(.home)
         navigateToItemContentDetails()
 
         //MARK: Head Section

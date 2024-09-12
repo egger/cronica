@@ -9,22 +9,25 @@ import XCTest
 @testable import Cronica
 
 final class WatchListUITests: XCTestCase {
-    var app: XCUIApplication! = XCUIApplication()
-    
+    var app: XCUIApplication!
+    var appNavigator: AppNavigator!
+
     override func setUp() {
         super.setUp()
         app = XCUIApplication()
         app.launchArguments.append("--delete-cache")
         app.launch()
+        appNavigator = AppNavigator(app: app)
     }
     
     override func tearDown() {
+        appNavigator = nil
         app = nil
         super.tearDown()
     }
 
     func testWatchListFullScreen() {
-        CronicaUITests().navigateToTab(.home)
+        appNavigator.navigateToTab(.home)
         app.scrollViews["Trending Horizontal List"].buttons["Zack Snyder's Justice League"].tap()
 
         let addRemoveButton = app.buttons["Add Remove Button"]
@@ -34,7 +37,7 @@ final class WatchListUITests: XCTestCase {
             addRemoveButtonIcon.tap()
         }
 
-        CronicaUITests().navigateToTab(.watchlist)
+        appNavigator.navigateToTab(.watchlist)
         let app = XCUIApplication()
         let watchlistNavigationBar = app.navigationBars["Watchlist"]
         let listDropDown = watchlistNavigationBar.images["Go Down"]

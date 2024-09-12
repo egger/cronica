@@ -10,20 +10,23 @@ import XCTest
 
 final class SettingsUITests: XCTestCase {
     var app: XCUIApplication! = XCUIApplication()
-    
+    var appNavigator: AppNavigator!
+
     override func setUp() {
         super.setUp()
         app = XCUIApplication()
         app.launch()
+        appNavigator = AppNavigator(app: app)
     }
     
     override func tearDown() {
+        appNavigator = nil
         app = nil
         super.tearDown()
     }
     
     func testSettingsFullScreen() {
-        CronicaUITests().navigateToTab(.settings)
+        appNavigator.navigateToTab(.settings)
         // MARK: General Section
         XCTAssertTrue(app.staticTexts["GENERAL"].exists)
         XCTAssertTrue(app.staticTexts["Behavior Tab"].exists)

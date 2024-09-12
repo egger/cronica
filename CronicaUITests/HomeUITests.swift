@@ -10,22 +10,24 @@ import XCTest
 
 final class HomeUITests: XCTestCase {
     var app: XCUIApplication!
-    
+    var appNavigator: AppNavigator!
+
     override func setUp() {
         super.setUp()
         app = XCUIApplication()
         app.launchArguments.append("--mock-data")
         app.launch()
+        appNavigator = AppNavigator(app: app)
     }
     
     override func tearDown() {
         app = nil
+        appNavigator = nil
         super.tearDown()
     }
 
     func testFullHomeScreen() {
-        CronicaUITests().dismissWelcomeScreenIfAppearingOnLaunch() // TODO: refactor these 2 lines
-        CronicaUITests().navigateToTab(.home)
+        appNavigator.navigateToTab(.home)
         
         let navigationHomeTitle = app.navigationBars["Home"].staticTexts["Home"]
         XCTAssertTrue(navigationHomeTitle.exists)

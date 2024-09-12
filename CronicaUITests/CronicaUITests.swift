@@ -9,58 +9,23 @@
 import XCTest
 
 final class CronicaUITests: XCTestCase {
-    var app: XCUIApplication! = XCUIApplication()
-    
+    var app: XCUIApplication!
+    var appNavigator: AppNavigator!
     override func setUp() {
         super.setUp()
         app = XCUIApplication()
         app.launch()
+        appNavigator = AppNavigator(app: app)
     }
     
     override func tearDown() {
         app = nil
+        appNavigator = nil
         super.tearDown()
-    }
-
-    func NavigateToHomeTab() {
-        let tabBar = app.tabBars["Tab Bar"]
-        let homeButton = tabBar.buttons["Home"]
-        homeButton.tap()
-    }
-    
-    func navigateToTab(_ tab: Screens) {
-        let tabBar = app.tabBars["Tab Bar"]
-        
-        switch tab {
-        case .home:
-            tabBar.buttons["Home"].tap()
-        case .explore:
-            tabBar.buttons["Discover"].tap()
-        case .watchlist:
-            tabBar.buttons["Watchlist"].tap()
-        case .search:
-            tabBar.buttons["Search"].tap()
-        case .notifications:
-            NavigateToHomeTab()
-            app.buttons["Notifications"].tap()
-        case .settings:
-            NavigateToHomeTab()
-            app.buttons["Settings"].tap()
-        }
-    }
-
-    func dismissWelcomeScreenIfAppearingOnLaunch() {
-        let welcomeViewPredicate = NSPredicate(format: "identifier == 'Welcome View'")
-        let welcomeView = app.otherElements.containing(welcomeViewPredicate).firstMatch
-        let continueButton = welcomeView.buttons["Continue"]
-        if continueButton.exists {
-            continueButton.tap()
-        }
     }
     
     func testHomeScreen() {
-        dismissWelcomeScreenIfAppearingOnLaunch()
-        navigateToTab(.home)
+        appNavigator.navigateToTab(.home)
         
         let homeViewPredicate = NSPredicate(format: "identifier == 'Home View'")
         let homeView = app.otherElements.containing(homeViewPredicate).firstMatch
@@ -70,8 +35,7 @@ final class CronicaUITests: XCTestCase {
     }
     
     func testDiscoverScreen() {
-        dismissWelcomeScreenIfAppearingOnLaunch()
-        navigateToTab(.explore)
+        appNavigator.navigateToTab(.explore)
         
         let homeViewPredicate = NSPredicate(format: "identifier == 'Discover View'")
         let homeView = app.otherElements.containing(homeViewPredicate).firstMatch
@@ -81,8 +45,7 @@ final class CronicaUITests: XCTestCase {
     }
 
     func testWatchListScreen() {
-        dismissWelcomeScreenIfAppearingOnLaunch()
-        navigateToTab(.watchlist)
+        appNavigator.navigateToTab(.watchlist)
         
         let watchlistViewPredicate = NSPredicate(format: "identifier == 'Watchlist View'")
         let watchlistView = app.otherElements.containing(watchlistViewPredicate).firstMatch
@@ -92,8 +55,7 @@ final class CronicaUITests: XCTestCase {
     }
 
     func testSearchScreen() {
-        dismissWelcomeScreenIfAppearingOnLaunch()
-        navigateToTab(.search)
+        appNavigator.navigateToTab(.search)
         
         let searchViewPredicate = NSPredicate(format: "identifier == 'Search View'")
         let searchView = app.otherElements.containing(searchViewPredicate).firstMatch
@@ -103,8 +65,7 @@ final class CronicaUITests: XCTestCase {
     }
 
     func testSettingsScreen() {
-        dismissWelcomeScreenIfAppearingOnLaunch()
-        navigateToTab(.settings)
+        appNavigator.navigateToTab(.settings)
         
         let settingsViewPredicate = NSPredicate(format: "identifier == 'Settings View'")
         let settingsView = app.otherElements.containing(settingsViewPredicate).firstMatch
@@ -114,8 +75,7 @@ final class CronicaUITests: XCTestCase {
     }
 
     func testNotificationListScreen() {
-        dismissWelcomeScreenIfAppearingOnLaunch()
-        navigateToTab(.notifications)
+        appNavigator.navigateToTab(.notifications)
         
         let notificationListViewPredicate = NSPredicate(format: "identifier == 'Notification List View'")
         let notificationListView = app.otherElements.containing(notificationListViewPredicate).firstMatch
