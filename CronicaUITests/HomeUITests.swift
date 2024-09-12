@@ -36,10 +36,8 @@ final class HomeUITests: XCTestCase {
         XCTAssertTrue(todaySubtitle.exists)
         
         
-        let trendingListPredicate = NSPredicate(format: "identifier == 'Trending Horizontal List'")
-        let trendingList = app.otherElements.containing(trendingListPredicate).firstMatch
-        let trendingListExists = trendingList.waitForExistence(timeout: 1)
-        XCTAssertTrue(trendingListExists, "Trending List should appear.")
+        let trendingList = app.scrollViews["Trending Horizontal List"]
+        XCTAssertTrue(trendingList.exists, "Trending List should appear.")
         
         // MARK: Upcoming section
         let upcomingTitle = app.staticTexts["Up Coming"]
@@ -47,13 +45,11 @@ final class HomeUITests: XCTestCase {
         let upcomingSubtitle = app.staticTexts["Coming Soon To Theaters"]
         XCTAssertTrue(upcomingSubtitle.exists)
 
-        let upcomingListPredicate = NSPredicate(format: "identifier == 'Up Coming Horizontal List'")
-        let upcomingList = app.otherElements.containing(upcomingListPredicate).firstMatch
-        let upcomingListExists = upcomingList.waitForExistence(timeout: 1)
-        if !upcomingListExists { //TODO: extract scroll to helper function
+        let upcomingList = app.scrollViews["Up Coming Horizontal List"]
+        if !upcomingList.exists {
             scrollUp()
         }
-        XCTAssertTrue(upcomingListExists, "Up Coming List should appear.")
+        XCTAssertTrue(upcomingList.exists, "Up Coming List should appear.")
         
         // MARK: Latest Movies section
         let latestMoviesTitle = app.staticTexts["Latest Movies"]
@@ -61,13 +57,11 @@ final class HomeUITests: XCTestCase {
         let latestMoviesSubtitle = app.staticTexts["Recently Released"]
         XCTAssertTrue(latestMoviesSubtitle.exists)
         
-        let latestMoviesListPredicate = NSPredicate(format: "identifier == 'Latest Movies Horizontal List'")
-        let latestMoviesList = app.otherElements.containing(latestMoviesListPredicate).firstMatch
-        let latestMoviesListExists = latestMoviesList.waitForExistence(timeout: 1)
-        if !upcomingListExists { //TODO: extract scroll to helper function
+        let latestMoviesList = app.scrollViews["Latest Movies Horizontal List"]
+        if !latestMoviesList.exists {
             scrollUp()
         }
-        XCTAssertTrue(latestMoviesListExists, "Up Coming View should appear.")
+        XCTAssertTrue(latestMoviesList.exists, "Latest Movies List should appear.")
 
         // MARK: bottom section
         scrollUp()
@@ -85,7 +79,9 @@ final class HomeUITests: XCTestCase {
     func scrollUp() {
         let homeViewPredicate = NSPredicate(format: "identifier == 'Home View'")
         let homeView = app.otherElements.containing(homeViewPredicate).firstMatch
-        let exists = homeView.waitForExistence(timeout: 1)
         homeView.swipeUp()
+//        let startPoint = homeView.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.9))
+//        let endPoint = homeView.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.75))
+//        startPoint.press(forDuration: 0.01, thenDragTo: endPoint)
     }
 }
