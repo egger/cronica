@@ -53,6 +53,7 @@ struct EditCustomList: View {
                     Button("Delete", role: .destructive) {
                         askConfirmationForDeletion = true
                     }
+                    .accessibilityIdentifier("DeleteListButton")
                     .foregroundColor(.red)
 #if os(macOS)
                     .buttonStyle(.link)
@@ -73,6 +74,7 @@ struct EditCustomList: View {
                             PersistenceController.shared.delete(item)
                         }
                     }
+                    .accessibilityIdentifier("ConfirmDeleteButton")
                 }
             }
         }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		076233102C92D50200408995 /* HomeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762330F2C92D50200408995 /* HomeUITests.swift */; };
 		076E929F2C9324BB00F03CDB /* ItemContentDetailsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076E929E2C9324BB00F03CDB /* ItemContentDetailsUITests.swift */; };
+		076E92A12C93A40F00F03CDB /* WatchListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076E92A02C93A40F00F03CDB /* WatchListUITests.swift */; };
+		076E92A32C93A4A200F03CDB /* SettingsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076E92A22C93A4A200F03CDB /* SettingsUITests.swift */; };
 		07ABD4A02C8E3B8A005E0ECE /* CronicaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABD49F2C8E3B8A005E0ECE /* CronicaUITests.swift */; };
 		07ABD4A22C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABD4A12C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift */; };
 		B801070829F24499008A4551 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
@@ -433,6 +435,8 @@
 /* Begin PBXFileReference section */
 		0762330F2C92D50200408995 /* HomeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUITests.swift; sourceTree = "<group>"; };
 		076E929E2C9324BB00F03CDB /* ItemContentDetailsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentDetailsUITests.swift; sourceTree = "<group>"; };
+		076E92A02C93A40F00F03CDB /* WatchListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListUITests.swift; sourceTree = "<group>"; };
+		076E92A22C93A4A200F03CDB /* SettingsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUITests.swift; sourceTree = "<group>"; };
 		07ABD49D2C8E3B8A005E0ECE /* CronicaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronicaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07ABD49F2C8E3B8A005E0ECE /* CronicaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaUITests.swift; sourceTree = "<group>"; };
 		07ABD4A12C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -726,6 +730,8 @@
 				07ABD4A12C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift */,
 				0762330F2C92D50200408995 /* HomeUITests.swift */,
 				076E929E2C9324BB00F03CDB /* ItemContentDetailsUITests.swift */,
+				076E92A02C93A40F00F03CDB /* WatchListUITests.swift */,
+				076E92A22C93A4A200F03CDB /* SettingsUITests.swift */,
 			);
 			path = CronicaUITests;
 			sourceTree = "<group>";
@@ -1686,9 +1692,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				076E92A12C93A40F00F03CDB /* WatchListUITests.swift in Sources */,
 				076233102C92D50200408995 /* HomeUITests.swift in Sources */,
 				07ABD4A22C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift in Sources */,
 				07ABD4A02C8E3B8A005E0ECE /* CronicaUITests.swift in Sources */,
+				076E92A32C93A4A200F03CDB /* SettingsUITests.swift in Sources */,
 				076E929F2C9324BB00F03CDB /* ItemContentDetailsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

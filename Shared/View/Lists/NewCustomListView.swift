@@ -25,8 +25,9 @@ struct NewCustomListView: View {
         Form {
             Section {
                 TextField("Title", text: $title)
+                    .accessibilityIdentifier("ListTitleTextField")
                 TextField("Description", text: $note)
-                
+                    .accessibilityIdentifier("ListDescriptionTextField")
 #if os(watchOS) || os(tvOS) || os(macOS)
                 createList
 #endif
@@ -61,6 +62,7 @@ struct NewCustomListView: View {
     
     private var createList: some View {
         Button("Create", action: save).disabled(title.isEmpty)
+            .accessibilityIdentifier("CreateNewListButton")
     }
     
     private var cancelButton: some View {

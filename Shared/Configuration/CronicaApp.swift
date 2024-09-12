@@ -30,6 +30,9 @@ struct CronicaApp: App {
     init() {
         CronicaTelemetry.shared.setup()
         registerRefreshBGTask()
+        if CommandLine.arguments.contains("--delete-cache") {
+            PersistenceController.shared.deleteAll()
+        }
 #if os(iOS)
         UNUserNotificationCenter.current().delegate = notificationDelegate
 #endif
