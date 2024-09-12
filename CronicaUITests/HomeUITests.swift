@@ -14,6 +14,7 @@ final class HomeUITests: XCTestCase {
     override func setUp() {
         super.setUp()
         app = XCUIApplication()
+        app.launchArguments.append("--mock-data")
         app.launch()
     }
     
