@@ -118,32 +118,36 @@ struct TabBarView: View {
     @available(iOS 18, *)
     private var newTabView: some View {
         TabView(selection: selectedTab) {
-            Tab("Home", systemImage: "house", value: .home) {
-                NavigationStack(path: $homePath) {
-                    HomeView()
-                }
+            NavigationStack(path: $homePath) {
+                HomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
             }
             
-            Tab("Discover", systemImage: "popcorn", value: .explore) {
-                NavigationStack(path: $explorePath) {
-                    ExploreView()
-                }
+            NavigationStack(path: $explorePath) {
+                ExploreView()
+                    .tabItem {
+                        Label("Discover", systemImage: "popcorn")
+                    }
             }
             
-            Tab("Watchlist", systemImage: "rectangle.on.rectangle", value: .watchlist) {
-                NavigationStack(path: $watchlistPath) {
-                    WatchlistView()
-                        .environment(\.managedObjectContext, persistence.container.viewContext)
-                }
+            NavigationStack(path: $watchlistPath) {
+                WatchlistView()
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+                    .tabItem {
+                        Label("Watchlist", systemImage: "rectangle.on.rectangle")
+                    }
             }
             
-            Tab("Search", systemImage: "magnifyingglass", value: .search, role: .search) {
-                NavigationStack(path: $searchPath) {
-                    SearchView(shouldFocusOnSearchField: $shouldOpenOnSearchField)
-                }
+            NavigationStack(path: $searchPath) {
+                SearchView(shouldFocusOnSearchField: $shouldOpenOnSearchField)
+                    .tabItem {
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
             }
         }
-        .tabViewStyle(.sidebarAdaptable)
+//        .tabViewStyle(.sidebarAdaptable)
         .appTheme()
     }
     

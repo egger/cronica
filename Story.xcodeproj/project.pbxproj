@@ -371,6 +371,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		07ABD4A32C8E3B8A005E0ECE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8110ED3279245D000844FEB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8110EDE279245D100844FEB;
+			remoteInfo = "Story (iOS)";
+		};
 		B806C4E92899BE2900A5330E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B8110ED3279245D000844FEB /* Project object */;
@@ -652,6 +659,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		07ABD49A2C8E3B8A005E0ECE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B806C4DB2899BE2800A5330E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1518,8 +1532,13 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					07ABD49C2C8E3B8A005E0ECE = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = B8110EDE279245D100844FEB;
+					};
 					B806C4DD2899BE2800A5330E = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -1569,6 +1588,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		07ABD49B2C8E3B8A005E0ECE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B806C4DC2899BE2800A5330E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1977,6 +2003,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		07ABD4A42C8E3B8A005E0ECE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8110EDE279245D100844FEB /* Story (iOS) */;
+			targetProxy = 07ABD4A32C8E3B8A005E0ECE /* PBXContainerItemProxy */;
+		};
 		B806C4EA2899BE2900A5330E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -2000,6 +2031,48 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		07ABD4A52C8E3B8A005E0ECE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = moataz.CronicaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Story (iOS)";
+			};
+			name = Debug;
+		};
+		07ABD4A62C8E3B8A005E0ECE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = moataz.CronicaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Story (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		B806C4ED2899BE2900A5330E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {

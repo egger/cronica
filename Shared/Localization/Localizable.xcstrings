@@ -11824,6 +11824,9 @@
         }
       }
     },
+    "Preview" : {
+
+    },
     "Primary Left Gesture" : {
       "localizations" : {
         "de" : {
@@ -17451,6 +17454,9 @@
           }
         }
       }
+    },
+    "This is a preview" : {
+
     },
     "This list has been deleted." : {
       "localizations" : {

@@ -1,13 +1,12 @@
 {
-  "originHash" : "10227c8d0a04035986b0d85032e6dc32e07b443a112f640008888465d5bdb5d1",
   "pins" : [
     {
       "identity" : "aptabase-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aptabase/aptabase-swift",
       "state" : {
-        "revision" : "62e47dad9b6900042a801eafdabb2023d259938e",
-        "version" : "0.3.8"
+        "revision" : "73579250784f7040aad28ec376a0ddfcdaa171cf",
+        "version" : "0.3.10"
       }
     },
     {
@@ -15,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke",
       "state" : {
-        "revision" : "7395c7a9dcd390bbcfad17a731d8d529602702c6",
-        "version" : "12.7.0"
+        "revision" : "0ead44350d2737db384908569c012fe67c421e4d",
+        "version" : "12.8.0"
       }
     },
     {
@@ -38,5 +37,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
