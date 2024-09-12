@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07ABD4A02C8E3B8A005E0ECE /* CronicaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABD49F2C8E3B8A005E0ECE /* CronicaUITests.swift */; };
+		07ABD4A22C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABD4A12C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift */; };
 		B801070829F24499008A4551 /* ItemContentCustomListSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A2C88029CA6ED100FDBB33 /* ItemContentCustomListSelector.swift */; };
 		B801070929F244DE008A4551 /* NewCustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812C7B3299480620096E806 /* NewCustomListView.swift */; };
 		B801070D29F255F3008A4551 /* DefaultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B801070C29F255F3008A4551 /* DefaultListView.swift */; };
@@ -427,6 +429,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07ABD49D2C8E3B8A005E0ECE /* CronicaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronicaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07ABD49F2C8E3B8A005E0ECE /* CronicaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaUITests.swift; sourceTree = "<group>"; };
+		07ABD4A12C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronicaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B801070C29F255F3008A4551 /* DefaultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListView.swift; sourceTree = "<group>"; };
 		B801070E29F25615008A4551 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		B801071029F2562C008A4551 /* WatchlistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSectionView.swift; sourceTree = "<group>"; };
@@ -710,6 +715,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07ABD49E2C8E3B8A005E0ECE /* CronicaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				07ABD49F2C8E3B8A005E0ECE /* CronicaUITests.swift */,
+				07ABD4A12C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift */,
+			);
+			path = CronicaUITests;
+			sourceTree = "<group>";
+		};
 		B806C4DF2899BE2800A5330E /* AppleWatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +764,7 @@
 				B8D7AEAA28B95F5E0053CE5A /* CronicaWidget */,
 				B88B88FC29DF194A00497058 /* CronicaTests */,
 				B8FCAE902AED9CE300F688FE /* CronicaTests */,
+				07ABD49E2C8E3B8A005E0ECE /* CronicaUITests */,
 				B8B271A227A59EF400F6463F /* Frameworks */,
 				B8110EE0279245D100844FEB /* Products */,
 				B8110ED7279245D000844FEB /* Shared */,
@@ -788,6 +803,7 @@
 				B806C4DE2899BE2800A5330E /* Cronica.app */,
 				B8D7AEA728B95F5D0053CE5A /* CronicaWidgetExtension.appex */,
 				B8FCAE8F2AED9CE300F688FE /* CronicaTests.xctest */,
+				07ABD49D2C8E3B8A005E0ECE /* CronicaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1436,6 +1452,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		07ABD49C2C8E3B8A005E0ECE /* CronicaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07ABD4A72C8E3B8A005E0ECE /* Build configuration list for PBXNativeTarget "CronicaUITests" */;
+			buildPhases = (
+				07ABD4992C8E3B8A005E0ECE /* Sources */,
+				07ABD49A2C8E3B8A005E0ECE /* Frameworks */,
+				07ABD49B2C8E3B8A005E0ECE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				07ABD4A42C8E3B8A005E0ECE /* PBXTargetDependency */,
+			);
+			name = CronicaUITests;
+			productName = CronicaUITests;
+			productReference = 07ABD49D2C8E3B8A005E0ECE /* CronicaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B806C4EF2899BE2900A5330E /* Build configuration list for PBXNativeTarget "CronicaWatch Watch App" */;
@@ -1531,7 +1565,6 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
@@ -1583,6 +1616,7 @@
 				B806C4DD2899BE2800A5330E /* CronicaWatch Watch App */,
 				B8D7AEA628B95F5D0053CE5A /* CronicaWidgetExtension */,
 				B8FCAE8E2AED9CE300F688FE /* CronicaTests */,
+				07ABD49C2C8E3B8A005E0ECE /* CronicaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1642,6 +1676,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		07ABD4992C8E3B8A005E0ECE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07ABD4A22C8E3B8A005E0ECE /* CronicaUITestsLaunchTests.swift in Sources */,
+				07ABD4A02C8E3B8A005E0ECE /* CronicaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B806C4DA2899BE2800A5330E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2491,6 +2534,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		07ABD4A72C8E3B8A005E0ECE /* Build configuration list for PBXNativeTarget "CronicaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07ABD4A52C8E3B8A005E0ECE /* Debug */,
+				07ABD4A62C8E3B8A005E0ECE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B806C4EF2899BE2900A5330E /* Build configuration list for PBXNativeTarget "CronicaWatch Watch App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
