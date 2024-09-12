@@ -29,6 +29,7 @@ struct OverviewBoxView: View {
                             .padding([.top], 2)
                             .lineLimit(showFullText ? nil : 4)
                             .multilineTextAlignment(.leading)
+                            .accessibilityIdentifier("Overview Text")
 #if os(iOS)
                             .background(
                                 // Render the limited text and measure its size
@@ -72,6 +73,7 @@ struct OverviewBoxView: View {
                 } label: {
                     Text(type == .person ? "Biography" : "About")
                         .unredacted()
+                        .accessibilityIdentifier("About Text")
                 }
                 .onTapGesture {
 #if os(iOS)
@@ -90,6 +92,7 @@ struct OverviewBoxView: View {
 #endif
                 }
                 .accessibilityElement(children: .combine)
+                .accessibilityIdentifier("About Section")
                 .contextMenu {  ShareLink(item: overview) }
                 .popover(isPresented: $showSheet) {
                     ScrollView {

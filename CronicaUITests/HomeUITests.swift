@@ -36,7 +36,6 @@ final class HomeUITests: XCTestCase {
         let todaySubtitle = app.staticTexts["Today"]
         XCTAssertTrue(todaySubtitle.exists)
         
-        
         let trendingList = app.scrollViews["Trending Horizontal List"]
         XCTAssertTrue(trendingList.exists, "Trending List should appear.")
         
@@ -48,7 +47,7 @@ final class HomeUITests: XCTestCase {
 
         let upcomingList = app.scrollViews["Up Coming Horizontal List"]
         if !upcomingList.exists {
-            scrollUp()
+            app.swipeUp()
         }
         XCTAssertTrue(upcomingList.exists, "Up Coming List should appear.")
         
@@ -60,29 +59,16 @@ final class HomeUITests: XCTestCase {
         
         let latestMoviesList = app.scrollViews["Latest Movies Horizontal List"]
         if !latestMoviesList.exists {
-            scrollUp()
+            app.swipeUp()
         }
         XCTAssertTrue(latestMoviesList.exists, "Latest Movies List should appear.")
 
         // MARK: bottom section
-        scrollUp()
+        app.swipeUp()
         let tmdbImage = app.images["PrimaryCompact"].firstMatch
         XCTAssertTrue(tmdbImage.exists)
         let bottomText = app.staticTexts["This product uses the TMDb API but is not endorsed or certified by TMDb."]
         XCTAssertTrue(bottomText.exists)
-
-        return
-
-        
     }
     
-    
-    func scrollUp() {
-        let homeViewPredicate = NSPredicate(format: "identifier == 'Home View'")
-        let homeView = app.otherElements.containing(homeViewPredicate).firstMatch
-        homeView.swipeUp()
-//        let startPoint = homeView.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.9))
-//        let endPoint = homeView.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.75))
-//        startPoint.press(forDuration: 0.01, thenDragTo: endPoint)
-    }
 }

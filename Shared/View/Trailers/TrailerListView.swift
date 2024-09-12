@@ -30,10 +30,12 @@ struct TrailerListView: View {
                                 .padding(.trailing, trailer.id == self.trailers.last?.id ? 64 : 0)
 #endif
                                 .padding(.top, 8)
+                                .accessibilityIdentifier("\(trailer.title)")
                         }
                     }
                 }
             }
+            .accessibilityIdentifier("Trailers List")
         }
     }
 }

@@ -145,6 +145,7 @@ struct ItemContentCardView: View {
             .frame(width: DrawingConstants.imageWidth)
             Spacer()
         }
+        .accessibilityIdentifier("\(item.title ?? "") Card")
         .task {
             withAnimation {
                 isInWatchlist = context.isItemSaved(id: item.itemContentID)

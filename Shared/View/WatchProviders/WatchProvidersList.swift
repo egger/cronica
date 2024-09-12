@@ -44,6 +44,7 @@ struct WatchProvidersList: View {
                             .padding(.horizontal, 6)
                             .padding(.top, 8)
                             .applyHoverEffect()
+                            .accessibilityIdentifier("\(item.providerName ?? "") provider")
 #else
                             VStack {
                                 Button {
@@ -75,6 +76,7 @@ struct WatchProvidersList: View {
                         }
                         .padding(.bottom)
                     }
+                    .accessibilityIdentifier("Watch Providers List")
                 }
             }
         }
