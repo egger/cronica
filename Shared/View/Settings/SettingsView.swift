@@ -94,6 +94,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .accessibilityIdentifier("Settings View")
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize, axes: .vertical)

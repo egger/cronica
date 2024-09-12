@@ -116,6 +116,7 @@ struct WelcomeView: View {
             )
             
         }
+        .accessibilityIdentifier("Welcome View")
     }
     
     private func informationItem(

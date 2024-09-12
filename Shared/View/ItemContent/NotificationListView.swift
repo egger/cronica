@@ -26,6 +26,7 @@ struct NotificationListView: View {
                 EmptyView()
             }
         }
+        .accessibilityIdentifier("Notification List View")
         .overlay {
             if !hasLoaded {
                 CronicaLoadingPopupView()
