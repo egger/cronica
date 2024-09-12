@@ -9,7 +9,7 @@
 import XCTest
 
 final class CronicaUITests: XCTestCase {
-    var app: XCUIApplication!
+    var app: XCUIApplication! = XCUIApplication()
     
     override func setUp() {
         super.setUp()

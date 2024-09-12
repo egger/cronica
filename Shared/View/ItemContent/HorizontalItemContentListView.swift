@@ -59,6 +59,7 @@ struct HorizontalItemContentListView: View {
 #endif
                     }
                 }
+                .accessibilityIdentifier("\(title) Horizontal List")
             }
         }
     }
