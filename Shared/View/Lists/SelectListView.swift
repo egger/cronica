@@ -74,7 +74,7 @@ struct SelectListView: View {
         .appTheme()
         .presentationDetents([lists.count > 4 ? .large : .medium])
         .presentationDragIndicator(.visible)
-        .presentationCornerRadius(32)
+        .presentationCornerRadius(12)
 #endif
     }
     

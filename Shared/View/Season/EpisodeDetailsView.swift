@@ -132,23 +132,25 @@ struct EpisodeDetailsView: View {
         }
 #if os(iOS)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing){
-                if let showItem {
-                    NavigationLink(value: showItem) {
-                        Image(systemName: "info")
-                            .imageScale(.medium)
-                            .accessibilityLabel("More Info")
-                            .fontDesign(.rounded)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 2)
+            if UIDevice.isIPhone {
+                ToolbarItem(placement: .topBarTrailing){
+                    if let showItem {
+                        NavigationLink(value: showItem) {
+                            Image(systemName: "info")
+                                .imageScale(.medium)
+                                .accessibilityLabel("More Info")
+                                .fontDesign(.rounded)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 2)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .contentShape(Circle())
+                        .clipShape(Circle())
+                        .buttonBorderShape(.circle)
+                        .shadow(radius: 2.5)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .contentShape(Circle())
-                    .clipShape(Circle())
-                    .buttonBorderShape(.circle)
-                    .shadow(radius: 2.5)
                 }
             }
         }
@@ -164,10 +166,10 @@ private struct DrawingConstants {
     static let shadowRadius: CGFloat = 12
     static let imageWidth: CGFloat = 360
     static let imageHeight: CGFloat = 210
-    static let imageRadius: CGFloat = 16
+    static let imageRadius: CGFloat = 12
     static let padImageWidth: CGFloat = 500
     static let padImageHeight: CGFloat = 300
-    static let padImageRadius: CGFloat = 16
+    static let padImageRadius: CGFloat = 12
 }
 
 extension EpisodeDetailsView {

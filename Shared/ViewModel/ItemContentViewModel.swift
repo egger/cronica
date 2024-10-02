@@ -39,6 +39,10 @@ class ItemContentViewModel: ObservableObject {
                 guard let content else { return }
                 isInWatchlist = persistence.isItemSaved(id: content.itemContentID)
                 if content.backdropPath == nil && content.posterPath != nil { showPoster = true }
+                let settings = SettingsStore.shared
+                if settings.usePostersAsCover {
+                    showPoster = true
+                }
                 withAnimation {
                     if isInWatchlist {
                         isWatched = persistence.isMarkedAsWatched(id: content.itemContentID)

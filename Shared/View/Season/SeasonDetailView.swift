@@ -136,7 +136,7 @@ struct SeasonDetailView: View {
         }
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.visible)
-        .presentationCornerRadius(32)
+        .presentationCornerRadius(12)
 #if os(macOS)
         .frame(width: 600, height: 400)
 #endif

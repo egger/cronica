@@ -93,7 +93,7 @@ struct VerticalUpNextListView: View {
             .appTheme()
             .appTint()
             .presentationDragIndicator(.visible)
-            .presentationCornerRadius(32)
+            .presentationCornerRadius(12)
 #endif
         }
         .task(id: viewModel.isWatched) {
@@ -237,7 +237,7 @@ private struct DrawingConstants {
     static let imageWidth: CGFloat = 280
     static let imageHeight: CGFloat = 160
 #endif
-    static let imageRadius: CGFloat = 16
+    static let imageRadius: CGFloat = 12
     static let titleLineLimit: Int = 1
     static let imageShadow: CGFloat = 2.5
 }

@@ -11,36 +11,36 @@ import StoreKit
 struct TipJarSetting: View {
     @StateObject private var viewModel = StoreKitManager()
     @State private var productsLoaded = false
+    @StateObject private var settings: SettingsStore = .shared
     var body: some View {
         Form {
             Section {
-                if viewModel.hasUserPurchased || SettingsStore.shared.hasPurchasedTipJar {
+                if !productsLoaded { ProgressView() }
+                if viewModel.hasUserPurchased || settings.hasPurchasedTipJar {
 #if os(tvOS)
                     Button("Thank you for your purchase! Your support is much appreciated. 😁") { }
 #else
                     Text("Thank you for your purchase! Your support is much appreciated. 😁")
 #endif
-                } else {
-                    if !productsLoaded { ProgressView() }
-                    ForEach(viewModel.storeProducts) { item in
-                        Button {
-                            Task {
-                                try await viewModel.purchase(item)
-                            }
-                        } label: {
-                            TipJarItem(storeKit: viewModel, product: item)
-                        }
-#if os(macOS)
-                        .buttonStyle(.plain)
-#endif
-                    }
-                    Button("Restore Purchase") {
-                        Task {
-                            try? await AppStore.sync()
-                        }
-                    }
-                    .disabled(!productsLoaded)
                 }
+                ForEach(viewModel.storeProducts.sorted { $0.price < $1.price}) { item in
+                    Button {
+                        Task {
+                            try await viewModel.purchase(item)
+                        }
+                    } label: {
+                        TipJarItem(storeKit: viewModel, product: item)
+                    }
+#if os(macOS)
+                    .buttonStyle(.plain)
+#endif
+                }
+                Button("Restore Purchase") {
+                    Task {
+                        try? await AppStore.sync()
+                    }
+                }
+                .disabled(!productsLoaded)
             } header: {
 #if os(macOS)
                 Label("Tip Jar", systemImage: "heart")
@@ -70,13 +70,13 @@ private struct TipJarItem: View {
     var product: Product
     var body: some View {
         HStack {
-			VStack {
-				VStack(alignment: .leading) {
-					Text(product.displayName)
-					Text(product.description)
-						.foregroundColor(.secondary)
-				}
-			}
+            VStack {
+                VStack(alignment: .leading) {
+                    Text(product.displayName)
+                    Text(product.description)
+                        .foregroundColor(.secondary)
+                }
+            }
             Spacer()
             if isPurchased {
                 Image(systemName: "checkmark.circle.fill")

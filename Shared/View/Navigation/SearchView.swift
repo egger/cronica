@@ -89,7 +89,7 @@ struct SearchView: View {
 #if os(iOS) || os(visionOS)
         .searchable(text: $viewModel.query,
                     isPresented: $shouldFocusOnSearchField,
-                    placement: .navigationBarDrawer(displayMode: .always),
+                    placement: UIDevice.isIPad ? .toolbar : .navigationBarDrawer(displayMode: .always),
                     prompt: Text("Movies, Shows, People"))
         .searchScopes($scope) {
             ForEach(SearchItemsScope.allCases) { scope in

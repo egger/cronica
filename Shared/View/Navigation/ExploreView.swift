@@ -80,9 +80,18 @@ struct ExploreView: View {
                 if isLoadingRecommendations {
                     CronicaLoadingPopupView()
                 } else if !isLoadingRecommendations, recommendations.isEmpty {
-                    ContentUnavailableView("Try Again Later",
-                                           systemImage: "popcorn",
-                                           description: Text("The app couldn't load the content right now."))
+                    ContentUnavailableView {
+                        Label("Start watching to get recommendations...",
+                              systemImage: "popcorn")
+                    } description: {
+                        Text("Watch more titles to receive recommendations.")
+                    } actions: {
+                        Button("Explore Movies & TV Shows") {
+                            selectedForYouTab = .explore
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .unredacted()
                 } else {
                     switch settings.sectionStyleType {
                     case .list:
@@ -164,7 +173,7 @@ struct ExploreView: View {
             }
             .presentationDetents([.medium])
             .presentationDragIndicator(.visible)
-            .presentationCornerRadius(32)
+            .presentationCornerRadius(12)
             .unredacted()
 #if os(iOS)
             .appTint()

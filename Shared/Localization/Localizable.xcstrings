@@ -2747,6 +2747,22 @@
         }
       }
     },
+    "Cache Size: %@ MB" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cache Size: %@ MB"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamanho do Cache: %@MB"
+          }
+        }
+      }
+    },
     "Canada" : {
       "comment" : "Country",
       "localizations" : {
@@ -3113,6 +3129,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Klasický"
+          }
+        }
+      }
+    },
+    "Clear Cache" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear Cache"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar cache"
           }
         }
       }
@@ -4567,34 +4599,6 @@
         }
       }
     },
-    "Developers" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Developers"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Développeurs"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sviluppatore"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desenvolvedores"
-          }
-        }
-      }
-    },
     "Digital" : {
       "localizations" : {
         "de" : {
@@ -5749,6 +5753,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Objaviť"
+          }
+        }
+      }
+    },
+    "Explore Movies & TV Shows" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore Movies & TV Shows"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore filmes e séries"
           }
         }
       }
@@ -11804,52 +11824,6 @@
         }
       }
     },
-    "Preview" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preview"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preview"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preview"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Prévisualisaiton"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anteprima"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preview"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ukážka"
-          }
-        }
-      }
-    },
     "Primary Left Gesture" : {
       "localizations" : {
         "de" : {
@@ -16454,6 +16428,22 @@
         }
       }
     },
+    "Start watching to get recommendations..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start watching to get recommendations..."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comece a assistir para obter recomendações..."
+          }
+        }
+      }
+    },
     "Status" : {
       "localizations" : {
         "de" : {
@@ -17146,52 +17136,6 @@
         }
       }
     },
-    "The app couldn't load the content right now." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die App konnte die Inhalte gerade nicht laden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The app couldn't load the content right now."
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La aplicación no pudo cargar el contenido en este momento."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "L'application ne peut pas charger le contenu pour le moment."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "L'app non può caricare il contenuto ora."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O aplicativo não conseguiu carregar o conteúdo no momento."
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aplikácii sa momentálne nepodarilo načítať obsah."
-          }
-        }
-      }
-    },
     "The app will adapt watch providers based on your region" : {
       "localizations" : {
         "de" : {
@@ -17504,52 +17448,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tento obsah bol odstránený z TMDB, môžeš ho odstrániť"
-          }
-        }
-      }
-    },
-    "This is a preview" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This is a preview"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This is a preview"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This is a preview"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ceci est un aperçu"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Questa è un anteprima"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This is a preview"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toto je ukážka"
           }
         }
       }
@@ -18336,52 +18234,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Riprova più tardi"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tente novamente mais tarde"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skús to neskôr"
-          }
-        }
-      }
-    },
-    "Try Again Later" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Versuche es später erneut"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Try Again Later"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inténtalo De Nuevo Más Tarde"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Essayer plus tard"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Riprova Dopo"
           }
         },
         "pt-BR" : {
@@ -19733,6 +19585,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sledovať"
+          }
+        }
+      }
+    },
+    "Watch more titles to receive recommendations." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch more titles to receive recommendations."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assista a mais títulos para receber recomendações."
           }
         }
       }

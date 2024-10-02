@@ -63,6 +63,7 @@ struct ContextMenuPreviewImage: View {
                                         Rectangle()
                                     }
                                 }
+                                .environment(\.colorScheme, .dark)
                             VStack(alignment: .leading) {
                                 HStack {
                                     Text(title)
