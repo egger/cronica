@@ -48,6 +48,7 @@ struct CastListView: View {
                     .padding(.trailing)
                 }
             }
+            .accessibilityIdentifier("Cast List")
 #if os(tvOS)
             .padding()
 #endif

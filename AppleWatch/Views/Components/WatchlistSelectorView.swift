@@ -56,6 +56,7 @@ struct WatchlistSelectorView: View {
                                         Text(list.itemTitle)
                                     }
                                 }
+                                .accessibilityIdentifier("\(list.itemTitle)")
                             }
                         } header: {
                             Text("Your Lists")

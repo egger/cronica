@@ -112,6 +112,7 @@ struct ExploreView: View {
             }
 #endif
         }
+        .accessibilityIdentifier("Discover View")
         .sheet(isPresented: $showFilters) {
             NavigationStack {
                 Form {

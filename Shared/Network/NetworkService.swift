@@ -51,11 +51,16 @@ final class NetworkService: Sendable {
     }
     
     func fetchItems(from path: String, page: String = "1") async throws -> [ItemContent] {
-        guard let url = urlBuilder(path: path, page: page) else {
-            throw NetworkError.invalidEndpoint
+        if CommandLine.arguments.contains("--mock-data") {
+            let data: ItemContentResponse? = try? Bundle.main.decode(from: "content")
+            return ItemContent.examples
+        } else {
+            guard let url = urlBuilder(path: path, page: page) else {
+                throw NetworkError.invalidEndpoint
+            }
+            let response: ItemContentResponse = try await self.fetch(url: url)
+            return response.results
         }
-        let response: ItemContentResponse = try await self.fetch(url: url)
-        return response.results
     }
     
     func fetchYearContent(year: String, type: MediaType, page: Int = 1) async throws -> [ItemContent] {

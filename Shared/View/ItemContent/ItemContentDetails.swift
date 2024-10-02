@@ -162,17 +162,20 @@ struct ItemContentDetails: View {
                 .padding(.horizontal, 8)
                 .padding(.bottom, 4)
                 .unredacted()
+                .accessibilityIdentifier("Item Title")
             if let genres = viewModel.content?.itemGenres, !genres.isEmpty {
                 Text(genres)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fontDesign(.rounded)
+                    .accessibilityIdentifier("Item Genres")
             }
             if let info = viewModel.content?.itemQuickInfo, !info.isEmpty {
                 Text(info)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fontDesign(.rounded)
+                    .accessibilityIdentifier("Item Info")
             }
             
             HStack {
@@ -641,6 +644,7 @@ struct ItemContentDetails: View {
                 }
             }
         }
+        .accessibilityIdentifier("Information Section")
         .groupBoxStyle(TransparentGroupBox())
     }
 #endif
@@ -703,6 +707,7 @@ extension ItemContentDetails {
                 Image(systemName: viewModel.isInWatchlist ? "minus.circle.fill" : "plus.circle.fill")
                     .symbolEffect(viewModel.isInWatchlist ? .bounce.down : .bounce.up,
                                   value: viewModel.isInWatchlist)
+                    .accessibilityIdentifier("Add Remove Button Icon")
                 
 #if !os(tvOS)
                 Text(viewModel.isInWatchlist ? "Remove" : "Add")
@@ -719,6 +724,7 @@ extension ItemContentDetails {
 #endif
 #endif
         }
+        .accessibilityIdentifier("Add Remove Button")
         .buttonStyle(.borderedProminent)
 #if os(macOS)
         .controlSize(.large)
@@ -754,6 +760,7 @@ extension ItemContentDetails {
                 Image(systemName: viewModel.isWatched ? "rectangle.badge.checkmark.fill" : "rectangle.badge.checkmark")
                     .symbolEffect(viewModel.isWatched ? .bounce.down : .bounce.up,
                                   value: viewModel.isWatched)
+                    .accessibilityIdentifier("Watch Button Icon")
                 
 #if !os(tvOS)
                 Text("Watched")
@@ -766,6 +773,7 @@ extension ItemContentDetails {
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
 #endif
         }
+        .accessibilityIdentifier("Watch Button")
 #if !os(tvOS)
         .keyboardShortcut("w", modifiers: [.option])
 #endif
@@ -859,6 +867,7 @@ extension ItemContentDetails {
 #else
             VStack {
                 Image(systemName: viewModel.isItemAddedToAnyList ? "rectangle.on.rectangle.angled.fill" : "rectangle.on.rectangle.angled")
+                    .accessibilityIdentifier("List Button Icon")
                 Text("Lists")
                     .padding(.top, 2)
                     .font(.caption)
@@ -868,6 +877,7 @@ extension ItemContentDetails {
             .frame(width: DrawingConstants.buttonWidth, height: DrawingConstants.buttonHeight)
 #endif
         }
+        .accessibilityIdentifier("List Button")
 #if !os(tvOS) && !os(macOS)
         .controlSize(.small)
 #elseif !os(tvOS)

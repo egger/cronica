@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension PersistenceController {
     func createList(title: String, description: String, items: Set<WatchlistItem>, isPin: Bool) -> CustomList? {
@@ -28,6 +29,20 @@ extension PersistenceController {
         guard let item else { return }
         viewContext.delete(item)
         save()
+    }
+    
+    func deleteAll() {
+        let viewContext = container.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomList.fetchRequest()
+
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try viewContext.execute(deleteRequest)
+            save()  // Ensure changes are saved after deletion
+        } catch let error as NSError {
+            print("Could not delete all items. \(error), \(error.userInfo)")
+        }
     }
     
     func isItemOnList(id: String, list: CustomList) -> Bool {

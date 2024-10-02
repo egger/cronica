@@ -94,6 +94,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .accessibilityIdentifier("Settings View")
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize, axes: .vertical)
@@ -147,11 +148,13 @@ struct SettingsView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                 Image(systemName: icon)
                     .foregroundColor(.white)
+                    .accessibilityIdentifier("\(icon) Icon")
             }
             .frame(width: 30, height: 30, alignment: .center)
             .padding(.trailing, 8)
             .accessibilityHidden(true)
             Text(title)
+                .accessibilityIdentifier("\(title) Tab")
         }
         .padding(.vertical, 2)
     }

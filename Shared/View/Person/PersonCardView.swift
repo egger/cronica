@@ -94,6 +94,7 @@ struct PersonCardView: View {
             }
 #endif
         }
+        .accessibilityIdentifier("\(person.name) Card")
 #elseif os(tvOS)
         VStack(alignment: .leading) {
             NavigationLink(value: person) {
