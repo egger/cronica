@@ -112,7 +112,7 @@ struct SettingsView: View {
                 .tabItem { Label("Season & Up Next", systemImage: "tv") }
             
             NotificationsSettingsView()
-                .tabItem { Label("Notification", systemImage: "bell") }
+                .tabItem { Label("Notifications", systemImage: "bell") }
             
             WatchProviderSettings()
                 .tabItem { Label("Region", systemImage: "globe")  }

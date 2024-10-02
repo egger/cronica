@@ -25,7 +25,7 @@ struct AboutSettings: View {
                             .onTapGesture(count: 3) {
                                 settings.displayDeveloperSettings.toggle()
                             }
-                        Text("A Egger & Co Product")
+                        Text("An Egger & Co Product")
                             .fontWeight(.semibold)
                             .fontDesign(.monospaced)
                             .font(.caption2)
