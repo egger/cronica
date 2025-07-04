@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8110EDE279245D100844FEB"
                BuildableName = "Cronica.app"
-               BlueprintName = "Story (iOS)"
-               ReferencedContainer = "container:Story.xcodeproj">
+               BlueprintName = "Cronica"
+               ReferencedContainer = "container:Cronica.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FCAE8E2AED9CE300F688FE"
-               BuildableName = "CronicaTests.xctest"
-               BlueprintName = "CronicaTests"
-               ReferencedContainer = "container:Story.xcodeproj">
+               BuildableName = "Cronica Tests.xctest"
+               BlueprintName = "Cronica Tests"
+               ReferencedContainer = "container:Cronica.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -60,8 +60,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8110EDE279245D100844FEB"
             BuildableName = "Cronica.app"
-            BlueprintName = "Story (iOS)"
-            ReferencedContainer = "container:Story.xcodeproj">
+            BlueprintName = "Cronica"
+            ReferencedContainer = "container:Cronica.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -96,8 +96,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8110EDE279245D100844FEB"
             BuildableName = "Cronica.app"
-            BlueprintName = "Story (iOS)"
-            ReferencedContainer = "container:Story.xcodeproj">
+            BlueprintName = "Cronica"
+            ReferencedContainer = "container:Cronica.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

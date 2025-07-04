@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1500"
-   version = "1.7">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,10 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B806C4DD2899BE2800A5330E"
+               BuildableName = "Cronica.app"
+               BlueprintName = "Cronica Watch App"
+               ReferencedContainer = "container:Cronica.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8110EDE279245D100844FEB"
                BuildableName = "Cronica.app"
-               BlueprintName = "Story (iOS)"
-               ReferencedContainer = "container:Story.xcodeproj">
+               BlueprintName = "Cronica"
+               ReferencedContainer = "container:Cronica.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +48,20 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FCAE8E2AED9CE300F688FE"
-               BuildableName = "CronicaTests.xctest"
-               BlueprintName = "CronicaTests"
-               ReferencedContainer = "container:Story.xcodeproj">
+               BuildableName = "Cronica Tests.xctest"
+               BlueprintName = "Cronica Tests"
+               ReferencedContainer = "container:Cronica.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B88B88EB29DF18BE00497058"
+               BuildableName = "CronicaUITests.xctest"
+               BlueprintName = "CronicaUITests"
+               ReferencedContainer = "container:Cronica.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +70,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = "sk"
+      language = "en"
+      region = "US"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -57,31 +83,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B8110EDE279245D100844FEB"
+            BlueprintIdentifier = "B806C4DD2899BE2800A5330E"
             BuildableName = "Cronica.app"
-            BlueprintName = "Story (iOS)"
-            ReferencedContainer = "container:Story.xcodeproj">
+            BlueprintName = "Cronica Watch App"
+            ReferencedContainer = "container:Cronica.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "tmdb_api"
-            value = "82d4552bc117872c3342429fc8e4fba1"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "telemetry_client_key"
-            value = "9877F7EC-FCA6-42FE-B21F-7E03E6B0A490"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
-      <LocationScenarioReference
-         identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
-         referenceType = "1">
-      </LocationScenarioReference>
-      <StoreKitConfigurationFileReference
-         identifier = "../../Shared/Cronica.storekit">
-      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -93,10 +100,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B8110EDE279245D100844FEB"
+            BlueprintIdentifier = "B806C4DD2899BE2800A5330E"
             BuildableName = "Cronica.app"
-            BlueprintName = "Story (iOS)"
-            ReferencedContainer = "container:Story.xcodeproj">
+            BlueprintName = "Cronica Watch App"
+            ReferencedContainer = "container:Cronica.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -105,7 +112,6 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "Cronica"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

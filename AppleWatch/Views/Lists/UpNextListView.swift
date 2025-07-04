@@ -1,6 +1,6 @@
 //
 //  UpNextListView.swift
-//  CronicaWatch Watch App
+//  Cronica Watch App
 //
 //  Created by Alexandre Madeira on 17/07/23.
 //

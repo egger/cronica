@@ -1322,7 +1322,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "An Egger & Co Product"
+            "value" : "Un produit Egger & Co"
           }
         },
         "it" : {
@@ -2372,52 +2372,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Základný filter"
-          }
-        }
-      }
-    },
-    "Be reminded of upcoming Movies & TV Shows." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An bevorstehende Filme und Serien erinnern."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Be reminded of upcoming Movies & TV Shows."
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recuerda las próximas películas y Series de TV."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Soyez informé des films et séries à venir"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fatti avvisare per nuovi Film & Serie TV"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lembre-se dos próximos filmes e programas de TV."
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pripomenúť nadchádzajúce filmy a seriály."
           }
         }
       }
@@ -6326,48 +6280,48 @@
         }
       }
     },
-    "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM." : {
+    "Follow Cronica on X (Twitter) to stay updated about new features." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Folge Cronica auf X/Twitter, um über neue Funktionen auf dem Laufenden zu bleiben oder um dein Feedback/Bericht per Direktnachricht zu senden."
+            "value" : "Folgen Sie Cronica auf X (Twitter), um über neue Funktionen auf dem Laufenden zu bleiben."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM."
+            "value" : "Follow Cronica on X (Twitter) to stay updated about new features."
           }
         },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sigue a Cronica en X/Twitter para mantenerte actualizado sobre las nuevas funciones que llegarán pronto o para enviar tus comentarios/informe a través de DM."
+            "value" : "Sigue a Cronica en X (Twitter) para mantenerte actualizado sobre las nuevas funciones."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suivez Cronica sur X/Twitter pour rester informé des fonctionnalités à venir ou pour envoyer vos commentaires/rapports par DM."
+            "value" : "Suivez Cronica sur X (Twitter) pour rester informé des nouvelles fonctionnalités."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Segui Cronica su X/Twitter per restare aggiornato/a sulle nuove funzioni che stanno arrivando o per inviare il tuo feedback/riscontro via DM."
+            "value" : "Segui Cronica su X (Twitter) per rimanere aggiornato sulle nuove funzionalità."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Siga a Cronica no X/Twitter para se manter atualizado sobre novos recursos chegando em breve ou para enviar seu feedback/relatório via DM."
+            "value" : "Siga o Cronica no X (Twitter) para se manter atualizado sobre novos recursos."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sleduj Cronicu na X/Twitteri pre informácie o nových funkciách, ktoré budú už čoskoro implementované, alebo pre poslanie svojej spätnej väzby/hlásenia cez správu."
+            "value" : "Sledujte Cronica na X (Twitter), aby ste boli informovaní o nových funkciách."
           }
         }
       }
@@ -8000,7 +7954,15 @@
       }
     },
     "Israel" : {
-      "comment" : "Country"
+      "comment" : "Country",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israel"
+          }
+        }
+      }
     },
     "Italian" : {
       "localizations" : {
@@ -10687,52 +10649,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
-          }
-        }
-      }
-    },
-    "On Social Media" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Auf sozialen Medien"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "On Social Media"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En las redes sociales"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sur les réseaux"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sui Social Media"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nas Mídias Sociais"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Na sociálnych sieťach"
           }
         }
       }
@@ -15554,6 +15470,12 @@
             "value" : "Show Onboard"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher à bord"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15967,6 +15889,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Filtre inteligentných zoznamov"
+          }
+        }
+      }
+    },
+    "Social Media" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soziale Medien"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Social Media"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redes Sociales"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réseaux Sociaux"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media Sociali"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mídias Sociais"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sociálne Médiá"
           }
         }
       }
@@ -16408,6 +16376,12 @@
             "value" : "Criterio"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16434,6 +16408,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start watching to get recommendations..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencez à regarder pour obtenir des recommandations..."
           }
         },
         "pt-BR" : {
@@ -17340,6 +17320,12 @@
             "value" : "Estreno limitado en cines"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Théâtre limité"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17610,6 +17596,12 @@
             "value" : "Suspenso"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thriller"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17820,6 +17812,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To add an item on a list, create a new one."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour ajouter un élément à une liste, créez-en une nouvelle."
           }
         },
         "it" : {
@@ -19597,6 +19595,12 @@
             "value" : "Watch more titles to receive recommendations."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regardez plus de titres pour recevoir des recommandations."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20065,70 +20069,48 @@
         }
       }
     },
-    "X/Twitter" : {
+    "X (Twitter)" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "X/Twitter"
+            "value" : "X (Twitter)"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "X/Twitter"
+            "value" : "X (Twitter)"
           }
         },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "X/Twitter"
+            "value" : "X (Twitter)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "X/Twitter"
+            "value" : "X (Twitter)"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "X/Twitter"
+            "value" : "X (Twitter)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "X/Twitter"
+            "value" : "X (Twitter)"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "X/Twitter"
-          }
-        }
-      }
-    },
-    "You can also send an email to support@eggerco.com using your email client." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You can also send an email to support@eggerco.com using your email client."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Puoi anche inviare una mail a support@eggerco.com con il tuo client mail."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Você também pode enviar um e-mail para support@eggerco.com usando seu cliente de e-mail."
+            "value" : "X (Twitter)"
           }
         }
       }

@@ -1,6 +1,6 @@
 //
 //  ItemContentView.swift
-//  CronicaWatch Watch App
+//  Cronica Watch App
 //
 //  Created by Alexandre Madeira on 03/08/22.
 //
@@ -239,7 +239,7 @@ struct ItemContentView: View {
 			let encodedTitle = item.itemTitle.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 			let posterPath = item.posterPath ?? String()
 			let encodedPoster = posterPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-			return URL(string: "https://app.oncronica.com/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
+			return URL(string: "https://www.oncronica.com/details?id=\(item.itemContentID)&img=\(encodedPoster ?? String())&title=\(encodedTitle ?? String())")
 		}
 		return nil
 	}

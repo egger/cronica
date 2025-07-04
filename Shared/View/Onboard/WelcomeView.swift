@@ -27,7 +27,7 @@ struct WelcomeView: View {
                             .font(.title)
                             .fontWeight(.bold)
                             .fontDesign(.rounded)
-                        Text("Be reminded of upcoming Movies & TV Shows.")
+                        Text("An Egger & Co Product")
                             .font(.callout)
                             .foregroundColor(.secondary)
                             .fontDesign(.rounded)
@@ -57,7 +57,7 @@ struct WelcomeView: View {
                 .padding([.leading, .vertical])
                 Button {
 #if os(macOS)
-                    NSWorkspace.shared.open(URL(string: "https://app.oncronica.com/privacy")!)
+                    NSWorkspace.shared.open(URL(string: "https://www.oncronica.com/privacy")!)
 #else
                     showPolicy.toggle()
 #endif
@@ -81,7 +81,7 @@ struct WelcomeView: View {
         .interactiveDismissDisabled(true)
 #if os(iOS)
         .fullScreenCover(isPresented: $showPolicy) {
-            SFSafariViewWrapper(url: URL(string: "https://app.oncronica.com/privacy")!)
+            SFSafariViewWrapper(url: URL(string: "https://www.oncronica.com/privacy")!)
         }
 #endif
     }

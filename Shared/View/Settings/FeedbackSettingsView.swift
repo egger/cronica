@@ -20,8 +20,6 @@ struct FeedbackComposerView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("If you prefer, you can send an email for a faster follow-up.")
-                        Text("You can also send an email to support@eggerco.com using your email client.")
-                            .textSelection(.enabled)
                     }
                     Spacer()
                 }
@@ -31,7 +29,7 @@ struct FeedbackComposerView: View {
 #endif
             
             Section {
-                Button("X/Twitter") {
+                Button("X (Twitter)") {
                     guard let url = URL(string: "https://x.com/CronicaApp") else { return }
 #if os(iOS)
                     UIApplication.shared.open(url)
@@ -43,9 +41,9 @@ struct FeedbackComposerView: View {
                 .buttonStyle(.link)
 #endif
             } header: {
-                Text("On Social Media")
+                Text("Social Media")
             } footer: {
-                Text("Follow Cronica on X/Twitter to stay updated about new features coming soon or to send your feedback/report via DM.")
+                Text("Follow Cronica on X (Twitter) to stay updated about new features.")
             }
 #endif
         }

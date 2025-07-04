@@ -57,7 +57,7 @@ struct AboutSettings: View {
 #endif
                 
                 
-                aboutButton(title: NSLocalizedString("X/Twitter", comment: ""),
+                aboutButton(title: NSLocalizedString("X (Twitter)", comment: ""),
                             url: "https://x.com/CronicaApp")
                 
                 if let appUrl = URL(string: "https://apple.co/3TV9SLP") {
@@ -176,7 +176,7 @@ struct AboutSettings: View {
     private var privacy: some View {
         Section {
             Button("Privacy Policy") {
-                guard let url = URL(string: "https://app.oncronica.com/privacy") else { return }
+                guard let url = URL(string: "https://www.oncronica.com/privacy") else { return }
                 NSWorkspace.shared.open(url)
             }
             .buttonStyle(.link)
