@@ -1,14 +1,10 @@
 <p align="center">
-    <img src="https://www.github.com/egger/cronica/blob/main/Shared/Assets.xcassets/MacAppIcon.appiconset/icon_512x512.png?raw=true" alt="Cronica Icon" width="150" height="150" />
+    <img src="https://www.oncronica.com/resources/img/cronica/icon.webp" alt="Cronica Icon" width="150" height="150" />
 </p>
 
 <h1 align="center">
 Cronica
 </h1>
-
-<p align="center">
-    <img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/iPhone.webp" alt="Cronica Home view Screenshot" minWidth="220" maxWidth="440" height="380">
-</p>
 
 <p align="center">
     Cronica is a minimalist watchlist app that reminds you about upcoming releases.
@@ -18,8 +14,7 @@ Cronica
     <a href="https://www.x.com/CronicaApp">
         <img src="https://img.shields.io/badge/X-@CronicaApp-blue.svg?style=flat" alt="X: @CronicaApp" />
     </a>
-<img src="https://img.shields.io/github/license/egger/cronica" alt="GitHub license MIT badge" />
-
+    <img src="https://img.shields.io/github/license/egger/cronica" alt="GitHub License MIT Badge" />
 </p>
 
 ## About
@@ -31,6 +26,7 @@ To provide release notifications, the app takes advantage of local notifications
 Thanks to CloudKit and SwiftUI, Cronica also can run on every Apple device, and the information will automatically sync.
 
 ## Project Organization
+
 If you want to contribute with code, here are some important details about the project's organization:
 
 - The code-base for the Mac, iPhone, iPad, and Apple TV versions is shared and resides within the "Shared" folder.
@@ -39,6 +35,7 @@ If you want to contribute with code, here are some important details about the p
 - The logic for most of the views is separated using extensions, primarily to help maintain the project in the long run.
 
 ## Help Translate Cronica
+
 Contribute to the localization efforts of our open-source project by assisting in the translation of the application into your native language. Utilize the provided [xcstrings file](https://github.com/egger/cronica/blob/main/Shared/Localization/Localizable.xcstrings), which contains all the strings requiring translation. Simply send your completed translations via email, and I will ensure their incorporation in the upcoming update. Your contributions play a crucial role in making Cronica accessible to everyone. Thank you for your support!
 
 ##  Build information
@@ -63,6 +60,7 @@ To get started you'll need to:
 </p>
 
 ### Apple Watch
+
 <p align="center">
 	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/Apple%20Watch.webp" alt="Cronica running on Apple Watch S7." minWidth="220" maxWidth="440" height="240">
 </p>
@@ -73,8 +71,9 @@ To get started you'll need to:
 </p>
 
 ### Mac
+
 <p align="center">
-	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/Mac.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." maxWidth="220" maxWidth="440" >
+	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/Mac.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." width="440">
 </p>
 <p align="center">
 <a href="https://apple.co/38SXpVJ">
@@ -83,27 +82,29 @@ To get started you'll need to:
 </p>
 
 ### Apple TV
+
 <p align="center">
-	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/TV.webp" alt="Cronica running on Apple TV displaying details for Top Gun: Maverick." maxWidth="220" maxWidth="560" minWidth="40" minHeight="60">
+	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/TV.webp" alt="Cronica running on Apple TV displaying details for Top Gun: Maverick." width="560">
 </p>
 <p align="center">
-<a href="https://apple.co/38SXpVJ">
-	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/Badges/AppleTV.svg" alt="Badge for download Cronica on Apple TV App Store" maxWidth="160" maxHeight="80"> 
+<a href="https://apps.apple.com/app/cronica/id1614950275">
+	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/Badges/AppleTV.svg" alt="Badge for download Cronica on Apple TV App Store" width="160" height="80"> 
 </a>
 </p>
 
-### Apple Vision Pro 
+### Apple Vision Pro
+
 <p align="center">
-	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/Vision.webp" alt="Cronica running on MacBook Air displaying details for Top Gun: Maverick." maxWidth="220" maxWidth="440" >
+	<img src="https://raw.githubusercontent.com/egger/cronica/main/Screenshots/Vision.webp" alt="Cronica running on Apple Vision Pro displaying details for Top Gun: Maverick." width="440">
 </p>
 <p align="center"> 
 <a href="https://apps.apple.com/app/cronica/id1614950275">
-	<img src="https://www.oncronica.com/resources/img/cronica/AppStoreBadge.svg" alt="Badge for download Cronica on Apple Watch App Store" width="160" height="80">
+	<img src="https://www.oncronica.com/resources/img/cronica/AppStoreBadge.svg" alt="Badge for download Cronica on Apple Vision Pro App Store" width="160" height="80">
 </a>
 </p>
 
 
 ## Contact
 
-- If you any questions, you can send us an email at <a href = "mailto:support@eggerco.com">support@eggerco.com</a><br>
+- If you have any questions, you can send us an email at <a href = "mailto:support@eggerco.com">support@eggerco.com</a><br>
 - Follow Cronica on X: [@CronicaApp](https://www.x.com/CronicaApp)
