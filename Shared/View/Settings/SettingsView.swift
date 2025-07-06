@@ -40,7 +40,7 @@ struct SettingsView: View {
                 }
             }
             
-            Section("App Features") {
+            Section("Features") {
                 NavigationLink(value: SettingsScreens.watchlist) {
                     settingsLabel(title: NSLocalizedString("Watchlist", comment: ""),
                                   icon: "rectangle.on.rectangle", color: AppThemeColors.goldenrod.color)
@@ -55,10 +55,20 @@ struct SettingsView: View {
                 }
             }
             
-            Section("Support & About") {
+            Section("About") {
                 NavigationLink(value: SettingsScreens.feedback) {
                     settingsLabel(title: NSLocalizedString("Feedback", comment: ""),
                                   icon: "envelope.fill", color: AppThemeColors.steel.color)
+                }
+#if !os(visionOS)
+                NavigationLink(value: SettingsScreens.tipJar) {
+                    settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
+                                  icon: "heart", color: .red)
+                }
+#endif
+                NavigationLink(value: SettingsScreens.about) {
+                    settingsLabel(title: NSLocalizedString("About", comment: ""),
+                                  icon: "info.circle", color: .black)
                 }
                 Button {
 #if os(visionOS)
@@ -79,18 +89,6 @@ struct SettingsView: View {
                             .appTint()
                             .appTheme()
                     }
-                }
-                
-#if !os(visionOS)
-                NavigationLink(value: SettingsScreens.tipJar) {
-                    settingsLabel(title: NSLocalizedString("Tip Jar", comment: ""),
-                                  icon: "heart", color: .red)
-                }
-#endif
-                
-                NavigationLink(value: SettingsScreens.about) {
-                    settingsLabel(title: NSLocalizedString("About", comment: ""),
-                                  icon: "info.circle", color: .black)
                 }
             }
         }

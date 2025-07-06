@@ -77,7 +77,7 @@ struct NotificationListView: View {
     private var upcomingItemsView: some View {
         if items.isEmpty, deliveredItems.isEmpty {
             CenterHorizontalView {
-                Text("No notifications")
+                Text("No Notifications")
                     .padding()
                     .font(.callout)
                     .foregroundColor(.secondary)

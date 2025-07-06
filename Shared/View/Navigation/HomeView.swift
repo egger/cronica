@@ -178,30 +178,17 @@ struct HomeView: View {
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
                             .imageScale(.medium)
-                            .foregroundColor(.white.opacity(0.9))
+                            .accessibilityLabel("Notifications")
+                            .applyHoverEffect()
                     }
-                    .buttonStyle(.borderedProminent)
-                    .contentShape(Circle())
-                    .clipShape(Circle())
-                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                    .shadow(radius: 2.5)
-                    .accessibilityLabel("Notifications")
-                    .applyHoverEffect()
-                    
                     NavigationLink(value: SettingsScreens.settings) {
                         Image(systemName: "gearshape")
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
                             .imageScale(.medium)
-                            .foregroundColor(.white.opacity(0.9))
+                            .accessibilityLabel("Settings")
+                            .applyHoverEffect()
                     }
-                    .buttonStyle(.borderedProminent)
-                    .contentShape(Circle())
-                    .clipShape(Circle())
-                    .tint(SettingsStore.shared.appTheme.color.opacity(0.7))
-                    .shadow(radius: 2.5)
-                    .accessibilityLabel("Settings")
-                    .applyHoverEffect()
                 }
             }
 #endif

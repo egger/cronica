@@ -219,7 +219,7 @@ struct DefaultWatchlist: View {
 #if os(iOS)
         .searchable(text: $query,
                     placement: UIDevice.isIPad ? .automatic : .navigationBarDrawer(displayMode: .always),
-                    prompt: "Search watchlist")
+                    prompt: "Search Watchlist")
         .searchScopes($scope) {
             ForEach(WatchlistSearchScope.allCases) { scope in
                 Text(scope.localizableTitle).tag(scope)

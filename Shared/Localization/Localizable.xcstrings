@@ -49,6 +49,18 @@
     },
     " " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -65,6 +77,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : ""
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
           }
         }
       }
@@ -255,10 +273,22 @@
     },
     "%lld episodes" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Folgen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld episodes"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld episodios"
           }
         },
         "fr" : {
@@ -277,6 +307,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld episódios"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld epizód"
           }
         }
       }
@@ -338,6 +374,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld elementos"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld article"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld articles"
                 }
               }
             }
@@ -538,6 +592,12 @@
           }
         },
         "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🛠️"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "🛠️"
@@ -1437,52 +1497,6 @@
         }
       }
     },
-    "App Features" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "App-Funktionen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "App Features"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Características de la aplicación"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fonctionnalités de l'app"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Funzioni dell'App"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recursos do Aplicativo"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Funkcie Aplikácie"
-          }
-        }
-      }
-    },
     "App Icon" : {
       "localizations" : {
         "de" : {
@@ -1854,16 +1868,46 @@
     },
     "Ask Confirmation To Mark as Watched" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um Bestätigung bitten, um als gesehen zu markieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ask Confirmation To Mark as Watched"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solicitar confirmación para marcar como visto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demander une confirmation pour marquer comme regardé"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiedi conferma per contrassegnare come visto"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Peça Confirmação Para Marcar como Assistido"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Požiadať o potvrdenie označenia ako sledované"
           }
         }
       }
@@ -2703,16 +2747,46 @@
     },
     "Cache Size: %@ MB" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cache-Größe: %@ MB"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cache Size: %@ MB"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamaño de caché: %@ MB"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taille du cache: %@ Mo"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dimensione cache: %@ MB"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tamanho do Cache: %@MB"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veľkosť vyrovnávacej pamäte: %@ MB"
           }
         }
       }
@@ -3089,10 +3163,34 @@
     },
     "Clear Cache" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cache leeren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clear Cache"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borrar caché"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vider le cache"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancella cache"
           }
         },
         "pt-BR" : {
@@ -3100,21 +3198,57 @@
             "state" : "translated",
             "value" : "Limpar cache"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazať vyrovnávaciu pamäť"
+          }
         }
       }
     },
     "Close" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vicino"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fechar"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatvoriť"
           }
         }
       }
@@ -3627,50 +3761,7 @@
       }
     },
     "Continue" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fortfahren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continuar"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continuer"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continua"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continuar"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pokračovať"
-          }
-        }
-      }
+
     },
     "Create" : {
       "localizations" : {
@@ -3720,10 +3811,22 @@
     },
     "Create a List" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen Sie eine Liste"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create a List"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear una lista"
           }
         },
         "fr" : {
@@ -3732,10 +3835,22 @@
             "value" : "Créer"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea un elenco"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Criar uma Lista"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvoriť zoznam"
           }
         }
       }
@@ -3927,10 +4042,22 @@
     },
     "Cronica can only show where the content is streaming, it cannot link you to the content page on the service's app right now." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica kann nur anzeigen, wo der Inhalt gestreamt wird, es kann Sie derzeit nicht mit der Inhaltsseite in der App des Dienstes verknüpfen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cronica can only show where the content is streaming, it cannot link you to the content page on the service's app right now."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica solo puede mostrar dónde se transmite el contenido, no puede vincularlo a la página de contenido en la aplicación del servicio en este momento."
           }
         },
         "fr" : {
@@ -3949,6 +4076,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "A Cronica só pode mostrar onde o conteúdo está sendo transmitido, não pode vinculá-lo à página de conteúdo no aplicativo do serviço no momento."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronica dokáže zobraziť iba miesto, kde sa obsah streamuje, momentálne vás nedokáže prepojiť so stránkou obsahu v aplikácii služby."
           }
         }
       }
@@ -5045,6 +5178,12 @@
             "value" : "E%lld"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E%lld"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5713,16 +5852,46 @@
     },
     "Explore Movies & TV Shows" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entdecken Sie Filme und Fernsehsendungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Explore Movies & TV Shows"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar películas y programas de televisión"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorez les films et les émissions de télévision"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esplora film e programmi TV"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Explore filmes e séries"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preskúmajte filmy a televízne programy"
           }
         }
       }
@@ -5953,6 +6122,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obľúbené"
+          }
+        }
+      }
+    },
+    "Features" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App-Funktionen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Características de la aplicación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonctionnalités de l'app"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funzioni dell'App"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recursos do Aplicativo"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funkcie Aplikácie"
           }
         }
       }
@@ -6421,16 +6636,46 @@
     },
     "French" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Französisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "French"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Francés"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Français"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Francese"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Francês"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Francúzština"
           }
         }
       }
@@ -6850,6 +7095,53 @@
         }
       }
     },
+    "Get Started" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erste Schritte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per iniziare"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Começar"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Začať"
+          }
+        }
+      }
+    },
     "GitHub" : {
       "localizations" : {
         "de" : {
@@ -7144,6 +7436,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inicio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maison"
           }
         },
         "it" : {
@@ -7956,20 +8254,74 @@
     "Israel" : {
       "comment" : "Country",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israel"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israël"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israele"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Israel"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izrael"
           }
         }
       }
     },
     "Italian" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italian"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Italian"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italiano"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italien"
           }
         },
         "it" : {
@@ -7982,6 +8334,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Italiano"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taliančina"
           }
         }
       }
@@ -8512,6 +8870,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Claridad"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lumière"
           }
         },
         "it" : {
@@ -9872,7 +10236,7 @@
         }
       }
     },
-    "No notifications" : {
+    "No Notifications" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -9883,13 +10247,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No notifications"
+            "value" : "No Notifications"
           }
         },
         "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sin notificaciones"
+            "value" : "Sin Notificaciones"
           }
         },
         "fr" : {
@@ -9901,19 +10265,19 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nessuna notifica"
+            "value" : "Nessuna Notifica"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sem notificações"
+            "value" : "Sem Notificações"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Žiadne hlásenia"
+            "value" : "Žiadne Hlásenia"
           }
         }
       }
@@ -10289,16 +10653,46 @@
     },
     "Notification Time" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigungszeit"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notification Time"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hora de notificación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heure de notification"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tempo di notifica"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hora da Notificação"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čas oznámenia"
           }
         }
       }
@@ -10627,7 +11021,19 @@
     },
     "OK" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "es-MX" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -10646,6 +11052,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -11208,10 +11620,22 @@
     },
     "Please, open the app of the service on your Apple TV to watch this content." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte öffnen Sie die App des Dienstes auf Ihrem Apple TV, um diesen Inhalt anzusehen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please, open the app of the service on your Apple TV to watch this content."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, abre la aplicación del servicio en tu Apple TV para ver este contenido."
           }
         },
         "fr" : {
@@ -11231,15 +11655,33 @@
             "state" : "translated",
             "value" : "Por favor, abra o aplicativo do serviço na sua Apple TV para assistir a este conteúdo."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak chcete sledovať tento obsah, otvorte si aplikáciu služby na Apple TV."
+          }
         }
       }
     },
     "Please, use the iPhone app to create new lists." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte verwenden Sie die iPhone-App, um neue Listen zu erstellen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please, use the iPhone app to create new lists."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, utilice la aplicación de iPhone para crear nuevas listas."
           }
         },
         "fr" : {
@@ -11258,6 +11700,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Por favor, use o aplicativo para iPhone para criar novas listas."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na vytvorenie nových zoznamov použite aplikáciu pre iPhone."
           }
         }
       }
@@ -11680,16 +12128,46 @@
     },
     "Premiered on %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premiere am %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premiered on %@"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estreno el %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Première diffusion le %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presentato in anteprima su %@"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Estreou em %@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premiéra dňa %@"
           }
         }
       }
@@ -13032,10 +13510,22 @@
     },
     "Remove %@ from your Watchlist?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aus Ihrer Beobachtungsliste entfernen?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove %@ from your Watchlist?"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar %@ de tu lista de seguimiento?"
           }
         },
         "fr" : {
@@ -13054,6 +13544,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remover %@ da sua Lista?"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť %@ zo zoznamu sledovaných položiek?"
           }
         }
       }
@@ -13307,6 +13803,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset asked for review"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialisation demandée pour examen"
           }
         },
         "it" : {
@@ -13809,6 +14311,12 @@
             "value" : "T%1$d, E%2$d"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S%d, E%d"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13893,6 +14401,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ciencia ficción y fantasía"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Science-fiction et fantastique"
           }
         },
         "it" : {
@@ -14145,7 +14659,7 @@
         }
       }
     },
-    "Search watchlist" : {
+    "Search Watchlist" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -14156,7 +14670,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search watchlist"
+            "value" : "Search Watchlist"
           }
         },
         "es-MX" : {
@@ -14745,16 +15259,46 @@
     },
     "Select the hour and minute for notification delivery" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie Stunde und Minute für die Benachrichtigungsübermittlung aus"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select the hour and minute for notification delivery"
           }
         },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccione la hora y el minuto para la entrega de notificaciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionnez l'heure et la minute pour la livraison des notifications"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleziona l'ora e il minuto per l'invio della notifica"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Selecione a hora e o minuto para a entrega da notificação"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyberte hodinu a minútu doručenia oznámenia"
           }
         }
       }
@@ -15544,10 +16088,22 @@
     },
     "Show Season Details" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisondetails anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Season Details"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar detalles de la temporada"
           }
         },
         "fr" : {
@@ -15566,6 +16122,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mostrar Detalhes da Temporada"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť podrobnosti o sezóne"
           }
         }
       }
@@ -16404,10 +16966,22 @@
     },
     "Start watching to get recommendations..." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beginnen Sie mit dem Ansehen, um Empfehlungen zu erhalten …"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start watching to get recommendations..."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empieza a mirar para obtener recomendaciones..."
           }
         },
         "fr" : {
@@ -16416,10 +16990,22 @@
             "value" : "Commencez à regarder pour obtenir des recommandations..."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inizia a guardare per ricevere consigli..."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comece a assistir para obter recomendações..."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Začnite sledovať a získajte odporúčania..."
           }
         }
       }
@@ -16650,52 +17236,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nadprirodzený horor"
-          }
-        }
-      }
-    },
-    "Support & About" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Support & Über uns"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Support & About"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Soporte y Acerca de"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Support & À propos"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supporto & Informazioni"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suporte e Sobre"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Podpora a informácie"
           }
         }
       }
@@ -17808,10 +18348,22 @@
     },
     "To add an item on a list, create a new one." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um ein Element zu einer Liste hinzuzufügen, erstellen Sie ein neues."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "To add an item on a list, create a new one."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para agregar un elemento a una lista, cree uno nuevo."
           }
         },
         "fr" : {
@@ -17830,6 +18382,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Para adicionar um item a uma lista, crie uma nova lista."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak chcete pridať položku do zoznamu, vytvorte nový."
           }
         }
       }
@@ -19589,10 +20147,22 @@
     },
     "Watch more titles to receive recommendations." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sehen Sie sich weitere Titel an, um Empfehlungen zu erhalten."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Watch more titles to receive recommendations."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mira más títulos para recibir recomendaciones."
           }
         },
         "fr" : {
@@ -19601,10 +20171,22 @@
             "value" : "Regardez plus de titres pour recevoir des recommandations."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guarda altri titoli per ricevere consigli."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Assista a mais títulos para receber recomendações."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pozrite si ďalšie tituly a získajte odporúčania."
           }
         }
       }
